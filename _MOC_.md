@@ -18,13 +18,13 @@
 
 * [1] = "Unformatted notes or rough ideas"
   * [BRAINSTORMING](docs\01-brainstorming.md)
-  * [FUTURE-IDEAS](docs/01-notes/01-shelved/01-future_ideas.md)
+  * [FUTURE-IDEAS](docs/01-shelved/01-future_ideas.md)
 * [2] = "Research Plans"
   * [RESEARCH_PLANS](docs\02-research_plan.md)
 * [3] = "Formatted Reports created from [2]"
-  * [REPORTS](docs/01-notes/01-shelved/03-reports/03-deep_research_report.md)
-  * [REPORTS](docs/01-notes/01-shelved/03-reports/03-deep_research_report.pdf)
+  * [REPORTS](docs/01-shelved/03-reports/03-deep_research_report.md)
+  * [REPORTS](docs/01-shelved/03-reports/03-deep_research_report.pdf)
 * [4] = "Sources and Citations"
-  * [SOURCES](docs/01-notes/01-shelved/03-reports/04-sources.md)
+  * [SOURCES](docs/01-shelved/03-reports/04-sources.md)
 
 ---
