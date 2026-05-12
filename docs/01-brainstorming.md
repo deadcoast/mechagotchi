@@ -1,0 +1,759 @@
+# Mechagotchi: Core Concept
+
+`Mechagotchi` should not be “a Tamagotchi clone with generated sprites.”
+
+It should be:
+
+> **A living grid-based companion engine where visual form, behavior, memory, survival, mutation, and user-made profiles all influence future generations.**
+
+The strongest idea in your concept is that the **grid is not just art**. The grid is the creature’s body, genome, memory surface, animation system, and evolutionary substrate.
+
+That gives the project a unique identity.
+
+---
+
+## The Two-Build Model
+
+---
+
+## 1. `mecha_engine`
+
+This is the **life simulation, evolution, prediction, and companion logic layer**.
+
+Its responsibilities:
+
+* Generate a companion from a grid genome.
+* Simulate needs, moods, energy, risk, adaptation, decay, growth, memory, and survival.
+* Run the `mecha_darwin` evolutionary algorithm.
+* Interpret `SLIP` profiles as behavioral/visual/intelligence constraints.
+* Feed output states to the visual layer.
+* Receive user interaction and workshop-created profile data.
+* Maintain lineage, ancestry, mutations, fitness history, and “species memory.”
+
+The key research alignment here is **procedural content generation**, where game content is created algorithmically instead of fully by hand. Modern PCG research groups methods into search-based, learning-based, rule-based, noise-based, grammar-based, and hybrid approaches; your project should intentionally combine several instead of relying on one broad model. ([arXiv][1])
+
+## 2. `mecha_workshop`
+
+This is the **creative authoring layer**.
+
+Its responsibilities:
+
+* Pixel art grid editor.
+* `SLIP` profile creator.
+* Trait editor.
+* Behavior profile editor.
+* Animation/state previewer.
+* Genome inspector.
+* Lineage browser.
+* Export/import tool.
+* Community asset/profile system.
+
+This should not replace the core engine. It should be the way users **guide, constrain, remix, and author** compatible companion profiles.
+
+---
+
+## Critical Design Reframe
+
+Your disclaimer is correct and important:
+
+> The core of the project is not user-made art.
+> The core is predictive grid-based generation plus evolutionary survival.
+
+So the system should be designed like this:
+
+```txt
+mecha_engine
+  ├─ genome
+  ├─ grid generator
+  ├─ Markov predictor
+  ├─ micro-learning threads
+  ├─ survival simulation
+  ├─ mecha_darwin
+  ├─ SLIP interpreter
+  └─ renderer bridge
+
+mecha_workshop
+  ├─ grid editor
+  ├─ SLIP editor
+  ├─ preview simulator
+  ├─ profile validator
+  └─ export/import tools
+```
+
+The workshop creates compatible profiles, but the engine remains autonomous.
+
+---
+
+## The Core Loop
+
+The engine should run on a repeating life cycle:
+
+```txt
+1. Generate initial genome
+2. Render body from grid genome
+3. Simulate companion needs and environment
+4. Observe user interactions
+5. Update behavior weights
+6. Evaluate survival / comfort / novelty / coherence
+7. Store lineage memory
+8. Mutate or evolve next variant
+9. Render evolved form
+10. Repeat
+```
+
+This allows the companion to become more complex over time without needing a massive ML model.
+
+---
+
+## The Grid as Genome
+
+Every Mechagotchi should be represented by a structured grid.
+
+Example:
+
+```json
+{
+  "grid_size": [16, 16],
+  "cells": [
+    {
+      "x": 0,
+      "y": 0,
+      "material": "empty",
+      "role": "background",
+      "energy": 0,
+      "mutation_lock": false
+    }
+  ],
+  "symmetry": "bilateral",
+  "palette": "lcd_green",
+  "organs": {
+    "eye_left": [[5, 5], [5, 6]],
+    "eye_right": [[10, 5], [10, 6]],
+    "mouth": [[7, 10], [8, 10]]
+  }
+}
+```
+
+The grid should contain more than pixels. Each cell can have semantic meaning:
+
+```txt
+visual value
+material value
+organ role
+animation role
+mutation probability
+survival relevance
+behavioral association
+```
+
+This is what makes the grid mathematical, scalable, and evolvable.
+
+---
+
+## Markov Grid Generation
+
+A Markov chain is a good first-generation predictive system because it can learn local patterns and produce new sequences based on prior probabilities.
+
+For Mechagotchi, Markov logic can operate at multiple levels:
+
+```txt
+cell-to-cell transition
+row-to-row transition
+organ placement transition
+palette transition
+animation frame transition
+mood-to-pose transition
+ancestor-to-child mutation transition
+```
+
+Research on Markov-chain-based PCG shows that Markov models have been used to generate game maps by learning local content transitions, and that PCG techniques often fall into search-based, learning-based, and tiling-style approaches. ([cdn.aaai.org][2])
+
+For your engine, the Markov model should not generate “random sprites.” It should generate **probable body structures**.
+
+Example:
+
+```txt
+If a cell is eye-left,
+neighboring cells are more likely to be:
+- eye-fill
+- face-shell
+- empty highlight
+- expression anchor
+```
+
+This creates coherent grid creatures.
+
+---
+
+## `mecha_darwin`: Evolution Layer
+
+`mecha_darwin` should be the evolutionary judge.
+
+It should ask:
+
+```txt
+Did this companion survive?
+Did the user interact with it?
+Did its form remain readable?
+Did its behavior become stable?
+Did its needs system stay balanced?
+Did it become visually distinct?
+Did it preserve useful traits from ancestors?
+Did it avoid malformed grids?
+```
+
+A useful model here is **quality-diversity search**, especially MAP-Elites-style thinking. MAP-Elites divides a behavior space into niches/cells and stores the best individual in each niche, which fits your grid-based philosophy extremely well. ([members.loria.fr][3])
+
+That means instead of evolving toward one “best” Mechagotchi, the engine can preserve many successful types:
+
+```txt
+best sleepy companion
+best chaotic companion
+best social companion
+best low-maintenance companion
+best visually symmetrical companion
+best strange-but-survivable companion
+best tiny-grid companion
+best high-animation companion
+```
+
+This is better than a single fitness score.
+
+Your evolution system should optimize for:
+
+```txt
+survival
+readability
+novelty
+user attachment
+behavioral coherence
+visual coherence
+profile compatibility
+ancestral continuity
+```
+
+---
+
+## Recommended Evolution Model
+
+Use a hybrid system:
+
+```txt
+Markov chain
+  → generates probable grid structures
+
+Mutation system
+  → alters cells, organs, palettes, animation anchors
+
+Fitness evaluator
+  → scores survival, coherence, interaction, novelty
+
+Quality-diversity archive
+  → preserves multiple successful species types
+
+SLIP weighting
+  → nudges evolution toward profile-specific goals
+```
+
+In simple form:
+
+```txt
+child = mutate(markov_generate(parent_lineage))
+score = evaluate(child, environment, user_history, SLIP)
+archive.insert(child, niche, score)
+```
+
+---
+
+## `SLIP`: Synthetic Learning Intelligence Profile
+
+`SLIP` should be the bridge between authored intent and autonomous evolution.
+
+A `SLIP` profile should not be just “pet settings.”
+
+It should define:
+
+```txt
+visual constraints
+behavioral tendencies
+learning preferences
+mutation permissions
+survival priorities
+interaction rewards
+emotional ranges
+grid grammar rules
+animation vocabulary
+```
+
+Example:
+
+```json
+{
+  "slip_version": "0.1.0",
+  "name": "Rusty Desktop Goblin",
+  "species_class": "mecha_goblin",
+  "grid": {
+    "min_size": [12, 12],
+    "max_size": [32, 32],
+    "symmetry_bias": 0.65,
+    "allowed_materials": ["shell", "eye", "joint", "antenna", "void"]
+  },
+  "behavior": {
+    "curiosity": 0.8,
+    "neediness": 0.4,
+    "sleepiness": 0.6,
+    "mischief": 0.7
+  },
+  "survival_weights": {
+    "fed": 0.25,
+    "rested": 0.2,
+    "social": 0.2,
+    "clean": 0.1,
+    "novelty": 0.15,
+    "stability": 0.1
+  },
+  "mutation": {
+    "palette_shift": 0.1,
+    "organ_shift": 0.05,
+    "limb_growth": 0.08,
+    "symmetry_break": 0.02
+  }
+}
+```
+
+The `SLIP` profile should be validated before use.
+
+Invalid example:
+
+```txt
+No eyes
+No body mass
+Mutation rate too high
+Behavior weights exceed limits
+Animation anchors missing
+Grid impossible to render
+```
+
+---
+
+## Micro Machine Learning Threads
+
+Your idea of many small “intelligence threads” is very strong.
+
+Do not build one general-purpose ML brain.
+
+Build many tiny learners.
+
+Each one should have a narrow job:
+
+```txt
+hunger predictor
+sleep predictor
+boredom predictor
+interaction timing predictor
+mood transition predictor
+animation preference learner
+grid mutation evaluator
+user attachment estimator
+visual coherence scorer
+lineage stability scorer
+SLIP compatibility scorer
+```
+
+Each thread can be simple:
+
+```txt
+Markov chain
+exponential moving average
+multi-armed bandit
+tiny decision tree
+Bayesian counter
+Q-table
+rule-weight learner
+```
+
+The point is not “big AI.” The point is **many small adaptive systems feeding a switchboard**.
+
+---
+
+## The Switchboard
+
+Create a central decision system:
+
+```txt
+mecha_switchboard
+```
+
+It receives signals from all micro-learners.
+
+Example:
+
+```json
+{
+  "hunger_predictor": 0.72,
+  "sleep_predictor": 0.21,
+  "boredom_predictor": 0.64,
+  "user_attention_likelihood": 0.33,
+  "mutation_stability": 0.81,
+  "visual_readability": 0.9,
+  "slip_alignment": 0.76
+}
+```
+
+The switchboard chooses the next action:
+
+```txt
+idle
+ask for food
+sleep
+animate
+mutate slightly
+reject mutation
+evolve next generation
+change expression
+trigger event
+```
+
+This gives you “intelligence” without requiring an expensive neural network.
+
+---
+
+## Companion State Model
+
+Each Mechagotchi needs visible and hidden states.
+
+Visible:
+
+```txt
+hunger
+happiness
+energy
+cleanliness
+mood
+age
+health
+bond
+```
+
+Hidden:
+
+```txt
+mutation pressure
+lineage fitness
+stress
+novelty decay
+attachment score
+user response confidence
+profile alignment
+grid stability
+```
+
+This creates a richer simulation while keeping the UI simple.
+
+---
+
+## Suggested Engine Architecture
+
+```txt
+mechagotchi/
+  packages/
+    mecha_engine/
+      core/
+        companion.py
+        lifecycle.py
+        state.py
+        clock.py
+      genome/
+        grid_genome.py
+        mutation.py
+        lineage.py
+        archive.py
+      learning/
+        markov_grid.py
+        micro_threads.py
+        switchboard.py
+        evaluators.py
+      slip/
+        schema.py
+        validator.py
+        interpreter.py
+      render_bridge/
+        frame_packet.py
+        animation_state.py
+      storage/
+        save_file.py
+        event_log.py
+
+    mecha_workshop/
+      editor/
+      slip_creator/
+      previewer/
+      exporters/
+
+    mecha_shared/
+      schemas/
+      constants/
+      test_fixtures/
+```
+
+---
+
+## Visual Engine Contract
+
+The back end should not directly care whether the front end is web, Godot, terminal, Pygame, or desktop.
+
+It should output render packets:
+
+```json
+{
+  "companion_id": "mx-001",
+  "frame": 1042,
+  "grid_size": [16, 16],
+  "cells": [
+    {"x": 4, "y": 5, "color": "#2f3b24", "role": "eye"}
+  ],
+  "animation": "idle_blink",
+  "mood": "curious",
+  "effects": ["scanline", "lcd_ghosting"]
+}
+```
+
+That makes the project modular and futureproof.
+
+---
+
+## Recommended Tech Stack
+
+For an open-source modular prototype:
+
+```txt
+Core engine: Python
+Workshop frontend: TypeScript + React
+Rendering: Canvas/WebGL initially
+Schema: JSON Schema / Pydantic
+Storage: SQLite or local JSON saves
+Testing: Pytest
+Package structure: monorepo
+```
+
+Why Python first?
+
+* Easy for procedural generation.
+* Good for ML experiments.
+* Easy testability.
+* Friendly open-source contribution path.
+* Later you can port the runtime core to Rust, TypeScript, or Godot if needed.
+
+For visual/editor work, TypeScript + Canvas is likely the fastest path.
+
+---
+
+## MVP Definition
+
+Do not start with the full dream.
+
+Start with this:
+
+## MVP 0.1
+
+```txt
+Generate one companion from a grid genome.
+Display it in a pixel grid.
+Simulate hunger, energy, mood, age.
+Allow feed/play/sleep interactions.
+Log survival data.
+Mutate next generation.
+Save lineage.
+Load one SLIP profile.
+```
+
+That is enough to prove the engine.
+
+## MVP 0.2
+
+```txt
+Add Markov grid generation.
+Add micro-learning threads.
+Add profile-weighted mutation.
+Add visual editor.
+Add preview simulation.
+```
+
+## MVP 0.3
+
+```txt
+Add mecha_darwin archive.
+Add species niches.
+Add import/export SLIP files.
+Add lineage browser.
+Add community profile packs.
+```
+
+---
+
+## Core Algorithms to Build First
+
+## 1. Grid Markov Generator
+
+Learns from parent grids and preset examples.
+
+```txt
+input: ancestor grids + SLIP constraints
+output: probable child grid
+```
+
+## 2. Mutation Engine
+
+Applies controlled changes.
+
+```txt
+cell mutation
+palette mutation
+organ shift
+symmetry break
+limb growth
+animation anchor shift
+```
+
+## 3. Fitness Evaluator
+
+Scores the result.
+
+```txt
+survival score
+visual score
+behavior score
+novelty score
+SLIP score
+user bond score
+```
+
+## 4. Lineage Archive
+
+Stores ancestry.
+
+```txt
+parent_id
+child_id
+mutation_events
+fitness_scores
+death_cause
+survival_age
+user_interactions
+```
+
+## 5. Switchboard
+
+Turns all signals into action.
+
+```txt
+current_state + predictions + profile + environment → next action
+```
+
+---
+
+## Visual Style Direction
+
+The identity should be very specific:
+
+```txt
+90s LCD device
+retro computing
+grid creatures
+scanlines
+limited palettes
+boot screens
+terminal diagnostics
+fake BIOS logs
+low-resolution UI
+toy-like companion behavior
+machine-animal hybrids
+```
+
+Possible modes:
+
+```txt
+LCD green
+Game Boy gray
+Amber terminal
+CRT blue
+Pocket organizer monochrome
+Early Windows 95 toy UI
+```
+
+---
+
+## Research Notes
+
+The current open-source landscape has many small Tamagotchi-style projects, including Python, Godot, JavaScript, ESP32, and GitHub-activity pets, but most appear to focus on standard virtual-pet mechanics rather than a reusable evolutionary grid-companion engine. GitHub topic listings show many small Tamagotchi-inspired projects, while projects like TamaFi explore modern virtual-pet behavior on ESP32 hardware. ([GitHub][4])
+
+This gives `Mechagotchi` a good niche:
+
+> **Not just a virtual pet. Not just a pixel editor. A procedural companion life engine.**
+
+The strongest differentiator is the combination of:
+
+```txt
+grid genome
+Markov prediction
+micro-learning threads
+quality-diversity evolution
+SLIP profile authoring
+retro visual companion layer
+```
+
+---
+
+## Naming the Internal Systems
+
+You already have strong names. I would formalize them like this:
+
+```txt
+mecha_engine        Core simulation/evolution engine
+mecha_workshop      Editor and authoring environment
+SLIP                Synthetic Learning Intelligence Profile
+mecha_darwin        Evolution and selection system
+mecha_switchboard   Signal-routing decision layer
+mecha_genome        Grid/body representation
+mecha_lineage       Ancestry and survival history
+mecha_render        Visual output bridge
+mecha_archive       Quality-diversity species archive
+```
+
+---
+
+## Recommended First Implementation Target
+
+Build this first:
+
+```txt
+A 16x16 monochrome grid creature that:
+1. Is generated from a genome.
+2. Has hunger, energy, mood, and age.
+3. Changes expression based on state.
+4. Logs user interactions.
+5. Mutates after death or lifecycle completion.
+6. Produces a child using parent traits.
+7. Saves a lineage file.
+```
+
+This proves the entire thesis.
+
+Everything else can grow from there.
+
+---
+
+## Working Thesis
+
+The project can be summarized as:
+
+> `Mechagotchi` is an open-source digital companion engine where grid-based creatures are born from procedural genomes, guided by `SLIP` profiles, shaped by user interaction, and evolved through a lightweight Darwinian intelligence system composed of Markov prediction, micro-learning threads, and quality-diversity survival archives.
+
+That is the core.
+
+And it is strong.
+
+[1]: https://arxiv.org/html/2410.15644v1?utm_source=chatgpt.com "Procedural Content Generation in Games: A Survey ..."
+[2]: https://cdn.aaai.org/ojs/12708/12708-52-16225-1-2-20201228.pdf?utm_source=chatgpt.com "Generating Maps Using Markov Chains"
+[3]: https://members.loria.fr/jbmouret/qd.html?utm_source=chatgpt.com "Quality Diversity Algorithms"
+[4]: https://github.com/topics/tamagotchi-game?o=asc&s=forks&utm_source=chatgpt.com "tamagotchi-game"
