@@ -1,13 +1,56 @@
-# Mechagotchi: Core Concept
+# 1. Brainstorming
+
+<!-- vscode-markdown-toc -->
+* 1. [1.1. DEVELOPMENT: BRAINSTORMING + RESEARCH, PLANNING](#DEVELOPMENT:BRAINSTORMINGRESEARCHPLANNING)
+* 2. [1.2. CURRENT STEP: "BRAINSTORMING + RESEARCH"](#CURRENTSTEP:BRAINSTORMINGRESEARCH)
+* 3. [1.3. [1] `mecha_engine` Back end Companion Logic](#mecha_engineBackendCompanionLogic)
+* 4. [1.4. [2] `mecha_workshop`: Pixel Art Grid Editor, `SLIP` Profile Creator](#mecha_workshop:PixelArtGridEditorSLIPProfileCreator)
+* 5. [1.5. The Two-Build Model](#TheTwo-BuildModel)
+* 6. [1.6. `mecha_engine`](#mecha_engine)
+* 7. [1.7. `mecha_workshop`](#mecha_workshop)
+* 8. [1.8. Critical Design Reframe](#CriticalDesignReframe)
+* 9. [1.9. The Core Loop](#TheCoreLoop)
+* 10. [1.10. The Grid as Genome](#TheGridasGenome)
+* 11. [1.11. Markov Grid Generation](#MarkovGridGeneration)
+* 12. [1.12. `mecha_darwin`: Evolution Layer](#mecha_darwin:EvolutionLayer)
+* 13. [1.13. Recommended Evolution Model](#RecommendedEvolutionModel)
+* 14. [1.14. `SLIP`: Synthetic Learning Intelligence Profile](#SLIP:SyntheticLearningIntelligenceProfile)
+* 15. [1.15. Micro Machine Learning Threads](#MicroMachineLearningThreads)
+* 16. [1.16. The Switchboard](#TheSwitchboard)
+* 17. [1.17. Companion State Model](#CompanionStateModel)
+* 18. [1.18. Suggested Engine Architecture](#SuggestedEngineArchitecture)
+* 19. [1.19. Visual Engine Contract](#VisualEngineContract)
+* 20. [1.20. Recommended Tech Stack](#RecommendedTechStack)
+* 21. [1.21. MVP Definition](#MVPDefinition)
+* 22. [1.22. MVP 0.1](#MVP0.1)
+* 23. [1.23. MVP 0.2](#MVP0.2)
+* 24. [1.24. MVP 0.3](#MVP0.3)
+* 25. [1.25. Core Algorithms to Build First](#CoreAlgorithmstoBuildFirst)
+* 26. [1.26. Grid Markov Generator](#GridMarkovGenerator)
+* 27. [1.27. Mutation Engine](#MutationEngine)
+* 28. [1.28. Fitness Evaluator](#FitnessEvaluator)
+* 29. [1.29. Lineage Archive](#LineageArchive)
+* 30. [1.30. Switchboard](#Switchboard)
+* 31. [1.31. Visual Style Direction](#VisualStyleDirection)
+* 32. [1.32. Research Notes](#ResearchNotes)
+* 33. [1.33. Naming the Internal Systems](#NamingtheInternalSystems)
+* 34. [1.34. Recommended First Implementation Target](#RecommendedFirstImplementationTarget)
+* 35. [1.35. Working Thesis](#WorkingThesis)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
 <!--
-## DEVELOPMENT: BRAINSTORMING + RESEARCH, PLANNING
-## CURRENT STEP: "BRAINSTORMING + RESEARCH"
+##  1. <a name='DEVELOPMENT:BRAINSTORMINGRESEARCHPLANNING'></a>1.1. DEVELOPMENT: BRAINSTORMING + RESEARCH, PLANNING
+##  2. <a name='CURRENTSTEP:BRAINSTORMINGRESEARCH'></a>1.2. CURRENT STEP: "BRAINSTORMING + RESEARCH"
 `Mechagotchi`: The open source digital-visual companion engine.
 - *Inspired by retro-computing and life in the 90's.*
 I want to create a tamagotchi style personal companion. I want to use a grid to create the graphic assets of the companions. Grids are consistent, simple, scalable and mathematic. Combined with the back end logic of a tamagotchi style companion, we can create a consistent, scalable and highly modular engine.
 The project will operate on two comprehensive builds.[1],[2].
 
-## [1] `mecha_engine` Back end Companion Logic
+##  3. <a name='mecha_engineBackendCompanionLogic'></a>1.3. [1] `mecha_engine` Back end Companion Logic
 **DISCLAIMER**: THE SYSTEM IN ITSELF, NEEDS TO RUN OFF OF A PREDICTIVE ALGORITHM LIKE MARKOV CHAINS FOR ITS GRID. AT ITS CORE, IT WILL GENERATE ITS MECHAGOTCHI AND OVER TIME, GENERATE MORE COMPLEX ONES BASED ON THE SURVIVAL OF ITS ANCESTORS. **THIS IS THE MAIN AND CORE FUNCTION OF THE PROJECT AND MECHA ENGINE. THE FEATURES BELOW ARE WHAT MAKES IT A COMPLETE EXPERIENCE BUT NOT THE CORE EXPERIENCE.
 This logic must link to the visual engine and vice versa.
 - mecha: `engine` <-> `SLIP` <-> `workshop`
@@ -16,7 +59,7 @@ This logic must link to the visual engine and vice versa.
 - the logic should incoperate real machine learning in an accelerated manner. We should be creative, and approach the machine learning as intelligence threads; we cannot utilize one broad machine learning logic because this format is too short in lifespan, the loop wont benefit from traditional ML.
   - Instead, we creat many micro machine learning threads that all link into something more concrete like a main logic switchboard. We can provide guidance to the ML where required, and have hundreds of smaller, isolated ML enviornments that, upon linking into the switchboard, would act in itself as 'automation'. Its providing a datastream back to the main engine, that hence can then translate that data and provide visual output to the user facing experience through[2].
 
-## [2] `mecha_workshop`: Pixel Art Grid Editor, `SLIP` Profile Creator
+##  4. <a name='mecha_workshop:PixelArtGridEditorSLIPProfileCreator'></a>1.4. [2] `mecha_workshop`: Pixel Art Grid Editor, `SLIP` Profile Creator
  Id like to include a simple pixel art based proprietary editor the users can add their own `SLIP`(Synthetic Learning Intelligence Profile) for.
 - Pixel Art Grid Editor
 - Pre set Profiles, the profile logic should robustly and thorougly designed modular. These `modular` style development and design system should be deeply rooted into the engines source code operation for futureproofing and easy modifications, additions, enhanvements.
@@ -35,11 +78,11 @@ That gives the project a unique identity.
 
 ---
 
-## The Two-Build Model
+##  5. <a name='TheTwo-BuildModel'></a>1.5. The Two-Build Model
 
 ---
 
-## 1. `mecha_engine`
+##  6. <a name='mecha_engine'></a>1.6. `mecha_engine`
 
 This is the **life simulation, evolution, prediction, and companion logic layer**.
 
@@ -55,7 +98,7 @@ Its responsibilities:
 
 The key research alignment here is **procedural content generation**, where game content is created algorithmically instead of fully by hand. Modern PCG research groups methods into search-based, learning-based, rule-based, noise-based, grammar-based, and hybrid approaches; your project should intentionally combine several instead of relying on one broad model. ([arXiv][1])
 
-## 2. `mecha_workshop`
+##  7. <a name='mecha_workshop'></a>1.7. `mecha_workshop`
 
 This is the **creative authoring layer**.
 
@@ -75,7 +118,7 @@ This should not replace the core engine. It should be the way users **guide, con
 
 ---
 
-## Critical Design Reframe
+##  8. <a name='CriticalDesignReframe'></a>1.8. Critical Design Reframe
 
 Your disclaimer is correct and important:
 
@@ -107,7 +150,7 @@ The workshop creates compatible profiles, but the engine remains autonomous.
 
 ---
 
-## The Core Loop
+##  9. <a name='TheCoreLoop'></a>1.9. The Core Loop
 
 The engine should run on a repeating life cycle:
 
@@ -128,7 +171,7 @@ This allows the companion to become more complex over time without needing a mas
 
 ---
 
-## The Grid as Genome
+##  10. <a name='TheGridasGenome'></a>1.10. The Grid as Genome
 
 Every Mechagotchi should be represented by a structured grid.
 
@@ -173,7 +216,7 @@ This is what makes the grid mathematical, scalable, and evolvable.
 
 ---
 
-## Markov Grid Generation
+##  11. <a name='MarkovGridGeneration'></a>1.11. Markov Grid Generation
 
 A Markov chain is a good first-generation predictive system because it can learn local patterns and produce new sequences based on prior probabilities.
 
@@ -208,7 +251,7 @@ This creates coherent grid creatures.
 
 ---
 
-## `mecha_darwin`: Evolution Layer
+##  12. <a name='mecha_darwin:EvolutionLayer'></a>1.12. `mecha_darwin`: Evolution Layer
 
 `mecha_darwin` should be the evolutionary judge.
 
@@ -257,7 +300,7 @@ ancestral continuity
 
 ---
 
-## Recommended Evolution Model
+##  13. <a name='RecommendedEvolutionModel'></a>1.13. Recommended Evolution Model
 
 Use a hybrid system:
 
@@ -288,7 +331,7 @@ archive.insert(child, niche, score)
 
 ---
 
-## `SLIP`: Synthetic Learning Intelligence Profile
+##  14. <a name='SLIP:SyntheticLearningIntelligenceProfile'></a>1.14. `SLIP`: Synthetic Learning Intelligence Profile
 
 `SLIP` should be the bridge between authored intent and autonomous evolution.
 
@@ -359,7 +402,7 @@ Grid impossible to render
 
 ---
 
-## Micro Machine Learning Threads
+##  15. <a name='MicroMachineLearningThreads'></a>1.15. Micro Machine Learning Threads
 
 Your idea of many small “intelligence threads” is very strong.
 
@@ -399,7 +442,7 @@ The point is not “big AI.” The point is **many small adaptive systems feedin
 
 ---
 
-## The Switchboard
+##  16. <a name='TheSwitchboard'></a>1.16. The Switchboard
 
 Create a central decision system:
 
@@ -441,7 +484,7 @@ This gives you “intelligence” without requiring an expensive neural network.
 
 ---
 
-## Companion State Model
+##  17. <a name='CompanionStateModel'></a>1.17. Companion State Model
 
 Each Mechagotchi needs visible and hidden states.
 
@@ -475,7 +518,7 @@ This creates a richer simulation while keeping the UI simple.
 
 ---
 
-## Suggested Engine Architecture
+##  18. <a name='SuggestedEngineArchitecture'></a>1.18. Suggested Engine Architecture
 
 ```txt
 mechagotchi/
@@ -521,7 +564,7 @@ mechagotchi/
 
 ---
 
-## Visual Engine Contract
+##  19. <a name='VisualEngineContract'></a>1.19. Visual Engine Contract
 
 The back end should not directly care whether the front end is web, Godot, terminal, Pygame, or desktop.
 
@@ -545,7 +588,7 @@ That makes the project modular and futureproof.
 
 ---
 
-## Recommended Tech Stack
+##  20. <a name='RecommendedTechStack'></a>1.20. Recommended Tech Stack
 
 For an open-source modular prototype:
 
@@ -571,13 +614,13 @@ For visual/editor work, TypeScript + Canvas is likely the fastest path.
 
 ---
 
-## MVP Definition
+##  21. <a name='MVPDefinition'></a>1.21. MVP Definition
 
 Do not start with the full dream.
 
 Start with this:
 
-## MVP 0.1
+##  22. <a name='MVP0.1'></a>1.22. MVP 0.1
 
 ```txt
 Generate one companion from a grid genome.
@@ -592,7 +635,7 @@ Load one SLIP profile.
 
 That is enough to prove the engine.
 
-## MVP 0.2
+##  23. <a name='MVP0.2'></a>1.23. MVP 0.2
 
 ```txt
 Add Markov grid generation.
@@ -602,7 +645,7 @@ Add visual editor.
 Add preview simulation.
 ```
 
-## MVP 0.3
+##  24. <a name='MVP0.3'></a>1.24. MVP 0.3
 
 ```txt
 Add mecha_darwin archive.
@@ -614,9 +657,9 @@ Add community profile packs.
 
 ---
 
-## Core Algorithms to Build First
+##  25. <a name='CoreAlgorithmstoBuildFirst'></a>1.25. Core Algorithms to Build First
 
-## 1. Grid Markov Generator
+##  26. <a name='GridMarkovGenerator'></a>1.26. Grid Markov Generator
 
 Learns from parent grids and preset examples.
 
@@ -625,7 +668,7 @@ input: ancestor grids + SLIP constraints
 output: probable child grid
 ```
 
-## 2. Mutation Engine
+##  27. <a name='MutationEngine'></a>1.27. Mutation Engine
 
 Applies controlled changes.
 
@@ -638,7 +681,7 @@ limb growth
 animation anchor shift
 ```
 
-## 3. Fitness Evaluator
+##  28. <a name='FitnessEvaluator'></a>1.28. Fitness Evaluator
 
 Scores the result.
 
@@ -651,7 +694,7 @@ SLIP score
 user bond score
 ```
 
-## 4. Lineage Archive
+##  29. <a name='LineageArchive'></a>1.29. Lineage Archive
 
 Stores ancestry.
 
@@ -665,7 +708,7 @@ survival_age
 user_interactions
 ```
 
-## 5. Switchboard
+##  30. <a name='Switchboard'></a>1.30. Switchboard
 
 Turns all signals into action.
 
@@ -675,7 +718,7 @@ current_state + predictions + profile + environment → next action
 
 ---
 
-## Visual Style Direction
+##  31. <a name='VisualStyleDirection'></a>1.31. Visual Style Direction
 
 The identity should be very specific:
 
@@ -706,7 +749,7 @@ Early Windows 95 toy UI
 
 ---
 
-## Research Notes
+##  32. <a name='ResearchNotes'></a>1.32. Research Notes
 
 The current open-source landscape has many small Tamagotchi-style projects, including Python, Godot, JavaScript, ESP32, and GitHub-activity pets, but most appear to focus on standard virtual-pet mechanics rather than a reusable evolutionary grid-companion engine. GitHub topic listings show many small Tamagotchi-inspired projects, while projects like TamaFi explore modern virtual-pet behavior on ESP32 hardware. ([GitHub][4])
 
@@ -727,7 +770,7 @@ retro visual companion layer
 
 ---
 
-## Naming the Internal Systems
+##  33. <a name='NamingtheInternalSystems'></a>1.33. Naming the Internal Systems
 
 You already have strong names. I would formalize them like this:
 
@@ -745,7 +788,7 @@ mecha_archive       Quality-diversity species archive
 
 ---
 
-## Recommended First Implementation Target
+##  34. <a name='RecommendedFirstImplementationTarget'></a>1.34. Recommended First Implementation Target
 
 Build this first:
 
@@ -766,7 +809,7 @@ Everything else can grow from there.
 
 ---
 
-## Working Thesis
+##  35. <a name='WorkingThesis'></a>1.35. Working Thesis
 
 The project can be summarized as:
 
