@@ -1,0 +1,28 @@
+{
+  "slip_version": "0.1.0",
+  "profile_id": "slip_amber_social",
+  "name": "Amber Social Companion",
+  "grid": {
+    "allowed_palettes": ["amber_terminal"],
+    "body_mass_min": 6,
+    "body_mass_max": 24,
+    "required_organ_roles": ["sensor", "expression"]
+  },
+  "mutation": {
+    "cell_mutation_rate_max": 0.15,
+    "organ_shift_rate_max": 0.05,
+    "palette_shift_rate_max": 0.05,
+    "symmetry_break_rate_max": 0.05
+  },
+  "behavior": {
+    "curiosity": 0.7,
+    "neediness": 0.6,
+    "sleepiness": 0.35
+  },
+  "survival_weights": {
+    "stability": 0.4,
+    "novelty": 0.25,
+    "bond": 0.35
+  }
+}
+

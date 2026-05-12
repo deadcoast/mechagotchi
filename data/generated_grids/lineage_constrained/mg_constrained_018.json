@@ -1,0 +1,231 @@
+{
+  "grid_id": "mg_constrained_018",
+  "schema_version": "0.1.0",
+  "parent_grid_id": "mg_seed_046",
+  "grid_size": [
+    8,
+    8
+  ],
+  "cells": [
+    {
+      "x": 3,
+      "y": 1,
+      "visual": "#d6f3ff",
+      "role": "eye",
+      "material": "glass",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "sensors",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "visual": "#3e8fbf",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "visual": "#3e8fbf",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": true,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "visual": "#3e8fbf",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "visual": "#3e8fbf",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "visual": "#3e8fbf",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "visual": "#3e8fbf",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 5,
+      "y": 3,
+      "visual": "#3e8fbf",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "visual": "#3e8fbf",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 4,
+      "y": 4,
+      "visual": "#d6f3ff",
+      "role": "mouth",
+      "material": "soft",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "expression",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    }
+  ],
+  "organs": {
+    "core": {
+      "role": "body_core",
+      "cells": [
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "required": true
+    },
+    "sensors": {
+      "role": "sensor",
+      "cells": [
+        [
+          3,
+          1
+        ]
+      ],
+      "required": true
+    },
+    "expression": {
+      "role": "expression",
+      "cells": [
+        [
+          4,
+          4
+        ]
+      ],
+      "required": false
+    }
+  },
+  "palette": {
+    "palette_id": "crt_blue",
+    "colors": [
+      "#06131f",
+      "#3e8fbf",
+      "#d6f3ff"
+    ],
+    "background_index": 0
+  },
+  "mutation": {
+    "cell_mutation_rate": 0.05,
+    "organ_shift_rate": 0.02,
+    "palette_shift_rate": 0.01,
+    "symmetry_break_rate": 0.01
+  },
+  "lineage": {
+    "generation": 1,
+    "ancestor_ids": [
+      "mg_seed_046"
+    ],
+    "mutation_events": [
+      "seed_parent_selected",
+      "validator_gated_resample",
+      "anchor_repositioned"
+    ]
+  },
+  "metadata": {
+    "source": "constrained_wfc_style_lab",
+    "rng_seed": 818
+  }
+}

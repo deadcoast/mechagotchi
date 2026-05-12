@@ -1,0 +1,5675 @@
+{
+  "summary": {
+    "node_count": 250,
+    "edge_count": 200,
+    "orphan_count": 0,
+    "max_generation": 1,
+    "generation_counts": {
+      "0": 50,
+      "1": 200
+    },
+    "founder_count": 50,
+    "candidate_count": 200,
+    "distinct_parent_count": 50,
+    "dominant_parent_id": "mg_seed_002",
+    "dominant_lineage_children": 9,
+    "dominant_lineage_share": 0.045,
+    "elite_count": 24,
+    "elite_parent_count": 17
+  },
+  "nodes": {
+    "mg_constrained_000": {
+      "grid_id": "mg_constrained_000",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_023",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_023"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_001": {
+      "grid_id": "mg_constrained_001",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_010",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_010"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_002": {
+      "grid_id": "mg_constrained_002",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_023",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_023"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_003": {
+      "grid_id": "mg_constrained_003",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_027",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_027"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_004": {
+      "grid_id": "mg_constrained_004",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_022",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_022"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_005": {
+      "grid_id": "mg_constrained_005",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_012",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_012"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_006": {
+      "grid_id": "mg_constrained_006",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_004",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_004"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_007": {
+      "grid_id": "mg_constrained_007",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_006",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_006"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_008": {
+      "grid_id": "mg_constrained_008",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_013",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_013"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_009": {
+      "grid_id": "mg_constrained_009",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_034",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_034"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_010": {
+      "grid_id": "mg_constrained_010",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_034",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_034"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_011": {
+      "grid_id": "mg_constrained_011",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_038",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_038"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_012": {
+      "grid_id": "mg_constrained_012",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_009",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_009"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_013": {
+      "grid_id": "mg_constrained_013",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_048",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_048"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_014": {
+      "grid_id": "mg_constrained_014",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_028",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_028"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_015": {
+      "grid_id": "mg_constrained_015",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_001",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_001"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_016": {
+      "grid_id": "mg_constrained_016",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_003",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_003"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_017": {
+      "grid_id": "mg_constrained_017",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_045",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_045"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_018": {
+      "grid_id": "mg_constrained_018",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_046",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_046"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_019": {
+      "grid_id": "mg_constrained_019",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_014",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_014"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_020": {
+      "grid_id": "mg_constrained_020",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_002",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_002"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_021": {
+      "grid_id": "mg_constrained_021",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_002",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_002"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_022": {
+      "grid_id": "mg_constrained_022",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_005",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_005"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_023": {
+      "grid_id": "mg_constrained_023",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_041",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_041"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_024": {
+      "grid_id": "mg_constrained_024",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_023",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_023"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_025": {
+      "grid_id": "mg_constrained_025",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_032",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_032"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_026": {
+      "grid_id": "mg_constrained_026",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_038",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_038"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_027": {
+      "grid_id": "mg_constrained_027",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_026",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_026"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_028": {
+      "grid_id": "mg_constrained_028",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_009",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_009"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_029": {
+      "grid_id": "mg_constrained_029",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_044",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_044"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_030": {
+      "grid_id": "mg_constrained_030",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_016",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_016"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_031": {
+      "grid_id": "mg_constrained_031",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_012",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_012"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_032": {
+      "grid_id": "mg_constrained_032",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_038",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_038"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_033": {
+      "grid_id": "mg_constrained_033",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_003",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_003"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_034": {
+      "grid_id": "mg_constrained_034",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_016",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_016"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_035": {
+      "grid_id": "mg_constrained_035",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_041",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_041"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_036": {
+      "grid_id": "mg_constrained_036",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_002",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_002"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_037": {
+      "grid_id": "mg_constrained_037",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_047",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_047"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_038": {
+      "grid_id": "mg_constrained_038",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_020",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_020"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_039": {
+      "grid_id": "mg_constrained_039",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_005",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_005"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_040": {
+      "grid_id": "mg_constrained_040",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_029",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_029"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_041": {
+      "grid_id": "mg_constrained_041",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_039",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_039"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_042": {
+      "grid_id": "mg_constrained_042",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_047",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_047"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_043": {
+      "grid_id": "mg_constrained_043",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_042",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_042"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_044": {
+      "grid_id": "mg_constrained_044",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_016",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_016"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_045": {
+      "grid_id": "mg_constrained_045",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_045",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_045"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_046": {
+      "grid_id": "mg_constrained_046",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_026",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_026"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_047": {
+      "grid_id": "mg_constrained_047",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_025",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_025"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_048": {
+      "grid_id": "mg_constrained_048",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_019",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_019"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_049": {
+      "grid_id": "mg_constrained_049",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_025",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_025"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_050": {
+      "grid_id": "mg_constrained_050",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_005",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_005"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_051": {
+      "grid_id": "mg_constrained_051",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_042",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_042"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_052": {
+      "grid_id": "mg_constrained_052",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_043",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_043"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_053": {
+      "grid_id": "mg_constrained_053",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_014",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_014"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_054": {
+      "grid_id": "mg_constrained_054",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_015",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_015"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_055": {
+      "grid_id": "mg_constrained_055",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_038",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_038"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_056": {
+      "grid_id": "mg_constrained_056",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_040",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_040"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_057": {
+      "grid_id": "mg_constrained_057",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_026",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_026"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_058": {
+      "grid_id": "mg_constrained_058",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_010",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_010"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_059": {
+      "grid_id": "mg_constrained_059",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_011",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_011"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_060": {
+      "grid_id": "mg_constrained_060",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_014",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_014"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_061": {
+      "grid_id": "mg_constrained_061",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_049",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_049"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_062": {
+      "grid_id": "mg_constrained_062",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_031",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_031"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_063": {
+      "grid_id": "mg_constrained_063",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_030",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_030"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_064": {
+      "grid_id": "mg_constrained_064",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_029",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_029"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_065": {
+      "grid_id": "mg_constrained_065",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_014",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_014"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_066": {
+      "grid_id": "mg_constrained_066",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_023",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_023"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_067": {
+      "grid_id": "mg_constrained_067",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_010",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_010"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_068": {
+      "grid_id": "mg_constrained_068",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_006",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_006"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_069": {
+      "grid_id": "mg_constrained_069",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_029",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_029"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_070": {
+      "grid_id": "mg_constrained_070",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_004",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_004"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_071": {
+      "grid_id": "mg_constrained_071",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_011",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_011"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_072": {
+      "grid_id": "mg_constrained_072",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_025",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_025"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_073": {
+      "grid_id": "mg_constrained_073",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_029",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_029"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_074": {
+      "grid_id": "mg_constrained_074",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_042",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_042"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_075": {
+      "grid_id": "mg_constrained_075",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_006",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_006"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_076": {
+      "grid_id": "mg_constrained_076",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_003",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_003"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_077": {
+      "grid_id": "mg_constrained_077",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_005",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_005"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_078": {
+      "grid_id": "mg_constrained_078",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_034",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_034"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_079": {
+      "grid_id": "mg_constrained_079",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_011",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_011"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_080": {
+      "grid_id": "mg_constrained_080",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_024",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_024"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_081": {
+      "grid_id": "mg_constrained_081",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_008",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_008"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_082": {
+      "grid_id": "mg_constrained_082",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_050",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_050"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_083": {
+      "grid_id": "mg_constrained_083",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_012",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_012"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_084": {
+      "grid_id": "mg_constrained_084",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_040",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_040"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_085": {
+      "grid_id": "mg_constrained_085",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_011",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_011"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_086": {
+      "grid_id": "mg_constrained_086",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_018",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_018"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_087": {
+      "grid_id": "mg_constrained_087",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_015",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_015"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_088": {
+      "grid_id": "mg_constrained_088",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_029",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_029"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_089": {
+      "grid_id": "mg_constrained_089",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_002",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_002"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_090": {
+      "grid_id": "mg_constrained_090",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_035",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_035"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_091": {
+      "grid_id": "mg_constrained_091",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_047",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_047"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_092": {
+      "grid_id": "mg_constrained_092",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_033",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_033"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_093": {
+      "grid_id": "mg_constrained_093",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_021",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_021"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_094": {
+      "grid_id": "mg_constrained_094",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_023",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_023"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_095": {
+      "grid_id": "mg_constrained_095",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_020",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_020"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_096": {
+      "grid_id": "mg_constrained_096",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_008",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_008"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_097": {
+      "grid_id": "mg_constrained_097",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_013",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_013"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_098": {
+      "grid_id": "mg_constrained_098",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_036",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_036"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_099": {
+      "grid_id": "mg_constrained_099",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_050",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_050"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_100": {
+      "grid_id": "mg_constrained_100",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_028",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_028"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_101": {
+      "grid_id": "mg_constrained_101",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_015",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_015"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_102": {
+      "grid_id": "mg_constrained_102",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_046",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_046"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_103": {
+      "grid_id": "mg_constrained_103",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_001",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_001"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_104": {
+      "grid_id": "mg_constrained_104",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_030",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_030"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_105": {
+      "grid_id": "mg_constrained_105",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_022",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_022"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_106": {
+      "grid_id": "mg_constrained_106",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_001",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_001"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_107": {
+      "grid_id": "mg_constrained_107",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_049",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_049"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_108": {
+      "grid_id": "mg_constrained_108",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_013",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_013"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_109": {
+      "grid_id": "mg_constrained_109",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_013",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_013"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_110": {
+      "grid_id": "mg_constrained_110",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_017",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_017"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_111": {
+      "grid_id": "mg_constrained_111",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_043",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_043"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_112": {
+      "grid_id": "mg_constrained_112",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_042",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_042"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_113": {
+      "grid_id": "mg_constrained_113",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_014",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_014"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_114": {
+      "grid_id": "mg_constrained_114",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_009",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_009"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_115": {
+      "grid_id": "mg_constrained_115",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_026",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_026"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_116": {
+      "grid_id": "mg_constrained_116",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_024",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_024"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_117": {
+      "grid_id": "mg_constrained_117",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_010",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_010"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_118": {
+      "grid_id": "mg_constrained_118",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_024",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_024"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_119": {
+      "grid_id": "mg_constrained_119",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_040",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_040"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_120": {
+      "grid_id": "mg_constrained_120",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_008",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_008"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_121": {
+      "grid_id": "mg_constrained_121",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_004",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_004"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_122": {
+      "grid_id": "mg_constrained_122",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_024",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_024"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_123": {
+      "grid_id": "mg_constrained_123",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_026",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_026"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_124": {
+      "grid_id": "mg_constrained_124",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_032",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_032"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_125": {
+      "grid_id": "mg_constrained_125",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_022",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_022"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_126": {
+      "grid_id": "mg_constrained_126",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_048",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_048"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_127": {
+      "grid_id": "mg_constrained_127",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_010",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_010"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_128": {
+      "grid_id": "mg_constrained_128",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_007",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_007"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_129": {
+      "grid_id": "mg_constrained_129",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_011",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_011"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_130": {
+      "grid_id": "mg_constrained_130",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_022",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_022"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_131": {
+      "grid_id": "mg_constrained_131",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_004",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_004"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_132": {
+      "grid_id": "mg_constrained_132",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_020",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_020"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_133": {
+      "grid_id": "mg_constrained_133",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_029",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_029"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_134": {
+      "grid_id": "mg_constrained_134",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_005",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_005"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_135": {
+      "grid_id": "mg_constrained_135",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_048",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_048"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_136": {
+      "grid_id": "mg_constrained_136",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_037",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_037"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_137": {
+      "grid_id": "mg_constrained_137",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_039",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_039"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_138": {
+      "grid_id": "mg_constrained_138",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_004",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_004"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_139": {
+      "grid_id": "mg_constrained_139",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_034",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_034"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_140": {
+      "grid_id": "mg_constrained_140",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_047",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_047"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_141": {
+      "grid_id": "mg_constrained_141",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_022",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_022"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_142": {
+      "grid_id": "mg_constrained_142",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_019",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_019"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_143": {
+      "grid_id": "mg_constrained_143",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_004",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_004"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_144": {
+      "grid_id": "mg_constrained_144",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_042",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_042"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_145": {
+      "grid_id": "mg_constrained_145",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_036",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_036"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_146": {
+      "grid_id": "mg_constrained_146",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_016",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_016"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_147": {
+      "grid_id": "mg_constrained_147",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_026",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_026"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_148": {
+      "grid_id": "mg_constrained_148",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_044",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_044"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_149": {
+      "grid_id": "mg_constrained_149",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_017",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_017"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_150": {
+      "grid_id": "mg_constrained_150",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_041",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_041"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_151": {
+      "grid_id": "mg_constrained_151",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_014",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_014"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_152": {
+      "grid_id": "mg_constrained_152",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_002",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_002"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_153": {
+      "grid_id": "mg_constrained_153",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_035",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_035"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_154": {
+      "grid_id": "mg_constrained_154",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_014",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_014"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_155": {
+      "grid_id": "mg_constrained_155",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_036",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_036"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_156": {
+      "grid_id": "mg_constrained_156",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_007",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_007"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_157": {
+      "grid_id": "mg_constrained_157",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_001",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_001"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_158": {
+      "grid_id": "mg_constrained_158",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_009",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_009"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_159": {
+      "grid_id": "mg_constrained_159",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_012",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_012"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_160": {
+      "grid_id": "mg_constrained_160",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_043",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_043"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_161": {
+      "grid_id": "mg_constrained_161",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_040",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_040"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_162": {
+      "grid_id": "mg_constrained_162",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_047",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_047"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_163": {
+      "grid_id": "mg_constrained_163",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_016",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_016"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_164": {
+      "grid_id": "mg_constrained_164",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_040",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_040"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_165": {
+      "grid_id": "mg_constrained_165",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_002",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_002"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_166": {
+      "grid_id": "mg_constrained_166",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_013",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_013"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_167": {
+      "grid_id": "mg_constrained_167",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_002",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_002"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_168": {
+      "grid_id": "mg_constrained_168",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_037",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_037"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_169": {
+      "grid_id": "mg_constrained_169",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_005",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_005"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_170": {
+      "grid_id": "mg_constrained_170",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_040",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_040"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_171": {
+      "grid_id": "mg_constrained_171",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_044",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_044"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_172": {
+      "grid_id": "mg_constrained_172",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_029",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_029"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_173": {
+      "grid_id": "mg_constrained_173",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_036",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_036"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_174": {
+      "grid_id": "mg_constrained_174",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_028",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_028"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_175": {
+      "grid_id": "mg_constrained_175",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_020",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_020"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_176": {
+      "grid_id": "mg_constrained_176",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_034",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_034"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_177": {
+      "grid_id": "mg_constrained_177",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_023",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_023"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_178": {
+      "grid_id": "mg_constrained_178",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_013",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_013"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_179": {
+      "grid_id": "mg_constrained_179",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_015",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_015"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_180": {
+      "grid_id": "mg_constrained_180",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_003",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_003"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_181": {
+      "grid_id": "mg_constrained_181",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_049",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_049"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_182": {
+      "grid_id": "mg_constrained_182",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_048",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_048"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_183": {
+      "grid_id": "mg_constrained_183",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_029",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_029"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_184": {
+      "grid_id": "mg_constrained_184",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_004",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_004"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_185": {
+      "grid_id": "mg_constrained_185",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_030",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_030"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_186": {
+      "grid_id": "mg_constrained_186",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_034",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_034"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_187": {
+      "grid_id": "mg_constrained_187",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_002",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_002"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_188": {
+      "grid_id": "mg_constrained_188",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_035",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_035"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    "mg_constrained_189": {
+      "grid_id": "mg_constrained_189",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_027",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_027"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_190": {
+      "grid_id": "mg_constrained_190",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_039",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_039"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_191": {
+      "grid_id": "mg_constrained_191",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_043",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_043"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_192": {
+      "grid_id": "mg_constrained_192",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_032",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_032"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_193": {
+      "grid_id": "mg_constrained_193",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_044",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_044"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_194": {
+      "grid_id": "mg_constrained_194",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_045",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_045"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_195": {
+      "grid_id": "mg_constrained_195",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_011",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_011"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_196": {
+      "grid_id": "mg_constrained_196",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_010",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_010"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_197": {
+      "grid_id": "mg_constrained_197",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_001",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_001"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_198": {
+      "grid_id": "mg_constrained_198",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_011",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_011"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_constrained_199": {
+      "grid_id": "mg_constrained_199",
+      "type": "candidate",
+      "parent_grid_id": "mg_seed_002",
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_002"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    "mg_seed_001": {
+      "grid_id": "mg_seed_001",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_002": {
+      "grid_id": "mg_seed_002",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_003": {
+      "grid_id": "mg_seed_003",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_004": {
+      "grid_id": "mg_seed_004",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_005": {
+      "grid_id": "mg_seed_005",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_006": {
+      "grid_id": "mg_seed_006",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_007": {
+      "grid_id": "mg_seed_007",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_008": {
+      "grid_id": "mg_seed_008",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_009": {
+      "grid_id": "mg_seed_009",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_010": {
+      "grid_id": "mg_seed_010",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_011": {
+      "grid_id": "mg_seed_011",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_012": {
+      "grid_id": "mg_seed_012",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_013": {
+      "grid_id": "mg_seed_013",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_014": {
+      "grid_id": "mg_seed_014",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_015": {
+      "grid_id": "mg_seed_015",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_016": {
+      "grid_id": "mg_seed_016",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_017": {
+      "grid_id": "mg_seed_017",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_018": {
+      "grid_id": "mg_seed_018",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_019": {
+      "grid_id": "mg_seed_019",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_020": {
+      "grid_id": "mg_seed_020",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_021": {
+      "grid_id": "mg_seed_021",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_022": {
+      "grid_id": "mg_seed_022",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_023": {
+      "grid_id": "mg_seed_023",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_024": {
+      "grid_id": "mg_seed_024",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_025": {
+      "grid_id": "mg_seed_025",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_026": {
+      "grid_id": "mg_seed_026",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_027": {
+      "grid_id": "mg_seed_027",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_028": {
+      "grid_id": "mg_seed_028",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_029": {
+      "grid_id": "mg_seed_029",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_030": {
+      "grid_id": "mg_seed_030",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_031": {
+      "grid_id": "mg_seed_031",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_032": {
+      "grid_id": "mg_seed_032",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_033": {
+      "grid_id": "mg_seed_033",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_034": {
+      "grid_id": "mg_seed_034",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_035": {
+      "grid_id": "mg_seed_035",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_036": {
+      "grid_id": "mg_seed_036",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_037": {
+      "grid_id": "mg_seed_037",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_038": {
+      "grid_id": "mg_seed_038",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_039": {
+      "grid_id": "mg_seed_039",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_040": {
+      "grid_id": "mg_seed_040",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_041": {
+      "grid_id": "mg_seed_041",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_042": {
+      "grid_id": "mg_seed_042",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_043": {
+      "grid_id": "mg_seed_043",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_044": {
+      "grid_id": "mg_seed_044",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_045": {
+      "grid_id": "mg_seed_045",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_046": {
+      "grid_id": "mg_seed_046",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_047": {
+      "grid_id": "mg_seed_047",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_048": {
+      "grid_id": "mg_seed_048",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_049": {
+      "grid_id": "mg_seed_049",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    },
+    "mg_seed_050": {
+      "grid_id": "mg_seed_050",
+      "type": "seed",
+      "parent_grid_id": null,
+      "generation": 0,
+      "ancestor_ids": [],
+      "mutation_events": [],
+      "elite": false
+    }
+  },
+  "edges": [
+    {
+      "parent_id": "mg_seed_023",
+      "child_id": "mg_constrained_000",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_010",
+      "child_id": "mg_constrained_001",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_023",
+      "child_id": "mg_constrained_002",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_027",
+      "child_id": "mg_constrained_003",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_022",
+      "child_id": "mg_constrained_004",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_012",
+      "child_id": "mg_constrained_005",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_004",
+      "child_id": "mg_constrained_006",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_006",
+      "child_id": "mg_constrained_007",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_013",
+      "child_id": "mg_constrained_008",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_034",
+      "child_id": "mg_constrained_009",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_034",
+      "child_id": "mg_constrained_010",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_038",
+      "child_id": "mg_constrained_011",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_009",
+      "child_id": "mg_constrained_012",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_048",
+      "child_id": "mg_constrained_013",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_028",
+      "child_id": "mg_constrained_014",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_001",
+      "child_id": "mg_constrained_015",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_003",
+      "child_id": "mg_constrained_016",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_045",
+      "child_id": "mg_constrained_017",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_046",
+      "child_id": "mg_constrained_018",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_014",
+      "child_id": "mg_constrained_019",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_002",
+      "child_id": "mg_constrained_020",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_002",
+      "child_id": "mg_constrained_021",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_005",
+      "child_id": "mg_constrained_022",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_041",
+      "child_id": "mg_constrained_023",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_023",
+      "child_id": "mg_constrained_024",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_032",
+      "child_id": "mg_constrained_025",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_038",
+      "child_id": "mg_constrained_026",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_026",
+      "child_id": "mg_constrained_027",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_009",
+      "child_id": "mg_constrained_028",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_044",
+      "child_id": "mg_constrained_029",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_016",
+      "child_id": "mg_constrained_030",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_012",
+      "child_id": "mg_constrained_031",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_038",
+      "child_id": "mg_constrained_032",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_003",
+      "child_id": "mg_constrained_033",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_016",
+      "child_id": "mg_constrained_034",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_041",
+      "child_id": "mg_constrained_035",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_002",
+      "child_id": "mg_constrained_036",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_047",
+      "child_id": "mg_constrained_037",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_020",
+      "child_id": "mg_constrained_038",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_005",
+      "child_id": "mg_constrained_039",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_029",
+      "child_id": "mg_constrained_040",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_039",
+      "child_id": "mg_constrained_041",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_047",
+      "child_id": "mg_constrained_042",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_042",
+      "child_id": "mg_constrained_043",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_016",
+      "child_id": "mg_constrained_044",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_045",
+      "child_id": "mg_constrained_045",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_026",
+      "child_id": "mg_constrained_046",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_025",
+      "child_id": "mg_constrained_047",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_019",
+      "child_id": "mg_constrained_048",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_025",
+      "child_id": "mg_constrained_049",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_005",
+      "child_id": "mg_constrained_050",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_042",
+      "child_id": "mg_constrained_051",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_043",
+      "child_id": "mg_constrained_052",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_014",
+      "child_id": "mg_constrained_053",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_015",
+      "child_id": "mg_constrained_054",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_038",
+      "child_id": "mg_constrained_055",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_040",
+      "child_id": "mg_constrained_056",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_026",
+      "child_id": "mg_constrained_057",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_010",
+      "child_id": "mg_constrained_058",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_011",
+      "child_id": "mg_constrained_059",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_014",
+      "child_id": "mg_constrained_060",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_049",
+      "child_id": "mg_constrained_061",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_031",
+      "child_id": "mg_constrained_062",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_030",
+      "child_id": "mg_constrained_063",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_029",
+      "child_id": "mg_constrained_064",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_014",
+      "child_id": "mg_constrained_065",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_023",
+      "child_id": "mg_constrained_066",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_010",
+      "child_id": "mg_constrained_067",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_006",
+      "child_id": "mg_constrained_068",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_029",
+      "child_id": "mg_constrained_069",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_004",
+      "child_id": "mg_constrained_070",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_011",
+      "child_id": "mg_constrained_071",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_025",
+      "child_id": "mg_constrained_072",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_029",
+      "child_id": "mg_constrained_073",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_042",
+      "child_id": "mg_constrained_074",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_006",
+      "child_id": "mg_constrained_075",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_003",
+      "child_id": "mg_constrained_076",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_005",
+      "child_id": "mg_constrained_077",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_034",
+      "child_id": "mg_constrained_078",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_011",
+      "child_id": "mg_constrained_079",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_024",
+      "child_id": "mg_constrained_080",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_008",
+      "child_id": "mg_constrained_081",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_050",
+      "child_id": "mg_constrained_082",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_012",
+      "child_id": "mg_constrained_083",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_040",
+      "child_id": "mg_constrained_084",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_011",
+      "child_id": "mg_constrained_085",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_018",
+      "child_id": "mg_constrained_086",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_015",
+      "child_id": "mg_constrained_087",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_029",
+      "child_id": "mg_constrained_088",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_002",
+      "child_id": "mg_constrained_089",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_035",
+      "child_id": "mg_constrained_090",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_047",
+      "child_id": "mg_constrained_091",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_033",
+      "child_id": "mg_constrained_092",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_021",
+      "child_id": "mg_constrained_093",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_023",
+      "child_id": "mg_constrained_094",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_020",
+      "child_id": "mg_constrained_095",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_008",
+      "child_id": "mg_constrained_096",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_013",
+      "child_id": "mg_constrained_097",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_036",
+      "child_id": "mg_constrained_098",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_050",
+      "child_id": "mg_constrained_099",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_028",
+      "child_id": "mg_constrained_100",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_015",
+      "child_id": "mg_constrained_101",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_046",
+      "child_id": "mg_constrained_102",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_001",
+      "child_id": "mg_constrained_103",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_030",
+      "child_id": "mg_constrained_104",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_022",
+      "child_id": "mg_constrained_105",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_001",
+      "child_id": "mg_constrained_106",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_049",
+      "child_id": "mg_constrained_107",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_013",
+      "child_id": "mg_constrained_108",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_013",
+      "child_id": "mg_constrained_109",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_017",
+      "child_id": "mg_constrained_110",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_043",
+      "child_id": "mg_constrained_111",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_042",
+      "child_id": "mg_constrained_112",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_014",
+      "child_id": "mg_constrained_113",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_009",
+      "child_id": "mg_constrained_114",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_026",
+      "child_id": "mg_constrained_115",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_024",
+      "child_id": "mg_constrained_116",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_010",
+      "child_id": "mg_constrained_117",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_024",
+      "child_id": "mg_constrained_118",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_040",
+      "child_id": "mg_constrained_119",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_008",
+      "child_id": "mg_constrained_120",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_004",
+      "child_id": "mg_constrained_121",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_024",
+      "child_id": "mg_constrained_122",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_026",
+      "child_id": "mg_constrained_123",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_032",
+      "child_id": "mg_constrained_124",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_022",
+      "child_id": "mg_constrained_125",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_048",
+      "child_id": "mg_constrained_126",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_010",
+      "child_id": "mg_constrained_127",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_007",
+      "child_id": "mg_constrained_128",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_011",
+      "child_id": "mg_constrained_129",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_022",
+      "child_id": "mg_constrained_130",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_004",
+      "child_id": "mg_constrained_131",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_020",
+      "child_id": "mg_constrained_132",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_029",
+      "child_id": "mg_constrained_133",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_005",
+      "child_id": "mg_constrained_134",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_048",
+      "child_id": "mg_constrained_135",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_037",
+      "child_id": "mg_constrained_136",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_039",
+      "child_id": "mg_constrained_137",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_004",
+      "child_id": "mg_constrained_138",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_034",
+      "child_id": "mg_constrained_139",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_047",
+      "child_id": "mg_constrained_140",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_022",
+      "child_id": "mg_constrained_141",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_019",
+      "child_id": "mg_constrained_142",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_004",
+      "child_id": "mg_constrained_143",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_042",
+      "child_id": "mg_constrained_144",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_036",
+      "child_id": "mg_constrained_145",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_016",
+      "child_id": "mg_constrained_146",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_026",
+      "child_id": "mg_constrained_147",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_044",
+      "child_id": "mg_constrained_148",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_017",
+      "child_id": "mg_constrained_149",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_041",
+      "child_id": "mg_constrained_150",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_014",
+      "child_id": "mg_constrained_151",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_002",
+      "child_id": "mg_constrained_152",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_035",
+      "child_id": "mg_constrained_153",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_014",
+      "child_id": "mg_constrained_154",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_036",
+      "child_id": "mg_constrained_155",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_007",
+      "child_id": "mg_constrained_156",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_001",
+      "child_id": "mg_constrained_157",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_009",
+      "child_id": "mg_constrained_158",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_012",
+      "child_id": "mg_constrained_159",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_043",
+      "child_id": "mg_constrained_160",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_040",
+      "child_id": "mg_constrained_161",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_047",
+      "child_id": "mg_constrained_162",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_016",
+      "child_id": "mg_constrained_163",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_040",
+      "child_id": "mg_constrained_164",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_002",
+      "child_id": "mg_constrained_165",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_013",
+      "child_id": "mg_constrained_166",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_002",
+      "child_id": "mg_constrained_167",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_037",
+      "child_id": "mg_constrained_168",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_005",
+      "child_id": "mg_constrained_169",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_040",
+      "child_id": "mg_constrained_170",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_044",
+      "child_id": "mg_constrained_171",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_029",
+      "child_id": "mg_constrained_172",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_036",
+      "child_id": "mg_constrained_173",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_028",
+      "child_id": "mg_constrained_174",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_020",
+      "child_id": "mg_constrained_175",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_034",
+      "child_id": "mg_constrained_176",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_023",
+      "child_id": "mg_constrained_177",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_013",
+      "child_id": "mg_constrained_178",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_015",
+      "child_id": "mg_constrained_179",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_003",
+      "child_id": "mg_constrained_180",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_049",
+      "child_id": "mg_constrained_181",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_048",
+      "child_id": "mg_constrained_182",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_029",
+      "child_id": "mg_constrained_183",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_004",
+      "child_id": "mg_constrained_184",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_030",
+      "child_id": "mg_constrained_185",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_034",
+      "child_id": "mg_constrained_186",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_002",
+      "child_id": "mg_constrained_187",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_035",
+      "child_id": "mg_constrained_188",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": true
+    },
+    {
+      "parent_id": "mg_seed_027",
+      "child_id": "mg_constrained_189",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_039",
+      "child_id": "mg_constrained_190",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_043",
+      "child_id": "mg_constrained_191",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_032",
+      "child_id": "mg_constrained_192",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_044",
+      "child_id": "mg_constrained_193",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_045",
+      "child_id": "mg_constrained_194",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_011",
+      "child_id": "mg_constrained_195",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_010",
+      "child_id": "mg_constrained_196",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_001",
+      "child_id": "mg_constrained_197",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_011",
+      "child_id": "mg_constrained_198",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    },
+    {
+      "parent_id": "mg_seed_002",
+      "child_id": "mg_constrained_199",
+      "generation": 1,
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ],
+      "elite": false
+    }
+  ],
+  "orphans": []
+}

@@ -72,3 +72,12 @@ SOURCING INSPIRATION AND ASSETS:
       - I have previously tried to utilize the CUBFF experiment with the self adjusting tapes utilizing `brainfuck` syntax. It was a largely successful google experiment, and released open source research where replication proved to be the train that created stability. While this proved to be good in theory, and it worked in code; i could not get the CUBFF output to make any sense visually for a human. This is my second attempt at this project, and CUBFF is a GOOD RESEARCH option, but under the terms that the visual/digigtal output can be solved with the GRID ENGINE format we are theorizing
 
 ---
+
+## [3]
+
+> You are the [HEAD-OF-RESEARCH] for the project now.
+[1] Review the research and brainstorming done so far in docs\01-brainstorming.md .
+[2] I have created plans for you to strictly follow in the research; docs\02-research_plan.md .
+[3] Begin the research utilizing the planning in the docs. Use serena, MCP, and websearch and any tools that will help you achieve your task.
+
+---

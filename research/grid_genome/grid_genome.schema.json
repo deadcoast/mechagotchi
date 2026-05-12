@@ -1,0 +1,296 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mechagotchi.local/schema/grid_genome.schema.json",
+  "title": "Mechagotchi Grid Genome",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "grid_id",
+    "schema_version",
+    "grid_size",
+    "cells",
+    "organs",
+    "palette",
+    "mutation"
+  ],
+  "properties": {
+    "grid_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]{2,63}$"
+    },
+    "schema_version": {
+      "type": "string",
+      "const": "0.1.0"
+    },
+    "parent_grid_id": {
+      "type": ["string", "null"],
+      "pattern": "^[a-z0-9][a-z0-9_-]{2,63}$"
+    },
+    "grid_size": {
+      "$ref": "#/$defs/grid_size"
+    },
+    "cells": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/cell"
+      }
+    },
+    "organs": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "#/$defs/organ"
+      }
+    },
+    "palette": {
+      "$ref": "#/$defs/palette"
+    },
+    "mutation": {
+      "$ref": "#/$defs/mutation_profile"
+    },
+    "lineage": {
+      "$ref": "#/$defs/lineage"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": ["string", "number", "integer", "boolean", "null"]
+      }
+    }
+  },
+  "$defs": {
+    "grid_size": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "integer",
+          "minimum": 8,
+          "maximum": 64
+        },
+        {
+          "type": "integer",
+          "minimum": 8,
+          "maximum": 64
+        }
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "coordinate": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "integer",
+          "minimum": 0
+        }
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "cell": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "x",
+        "y",
+        "visual",
+        "role",
+        "material",
+        "mutation_weight",
+        "animation_anchor",
+        "locked"
+      ],
+      "properties": {
+        "x": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "y": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "visual": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "empty",
+            "body",
+            "shell",
+            "sensor",
+            "eye",
+            "mouth",
+            "joint",
+            "limb",
+            "antenna",
+            "decoration",
+            "effect",
+            "anchor"
+          ]
+        },
+        "material": {
+          "type": "string",
+          "enum": [
+            "void",
+            "soft",
+            "hard",
+            "glass",
+            "joint",
+            "light",
+            "signal"
+          ]
+        },
+        "mutation_weight": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "animation_anchor": {
+          "type": "boolean"
+        },
+        "organ": {
+          "type": ["string", "null"],
+          "pattern": "^[a-z0-9][a-z0-9_-]{1,63}$"
+        },
+        "stress": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0
+        },
+        "damage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0
+        },
+        "locked": {
+          "type": "boolean"
+        }
+      }
+    },
+    "organ": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "cells", "required"],
+      "properties": {
+        "role": {
+          "type": "string",
+          "enum": [
+            "body_core",
+            "sensor",
+            "expression",
+            "locomotion",
+            "ornament",
+            "effect"
+          ]
+        },
+        "cells": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/coordinate"
+          }
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "mutation_locked": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "palette": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["palette_id", "colors"],
+      "properties": {
+        "palette_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]{2,63}$"
+        },
+        "colors": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 16,
+          "items": {
+            "type": "string",
+            "pattern": "^#[0-9A-Fa-f]{6}$"
+          }
+        },
+        "background_index": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        }
+      }
+    },
+    "mutation_profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cell_mutation_rate",
+        "organ_shift_rate",
+        "palette_shift_rate",
+        "symmetry_break_rate"
+      ],
+      "properties": {
+        "cell_mutation_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "organ_shift_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "palette_shift_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "symmetry_break_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["generation", "ancestor_ids"],
+      "properties": {
+        "generation": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ancestor_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mutation_events": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
+

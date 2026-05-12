@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mechagotchi Workshop Lab</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="workshop-shell">
+      <header class="topbar">
+        <div>
+          <h1>Mechagotchi Workshop</h1>
+          <p id="profile-line">SLIP profile loading</p>
+        </div>
+        <div class="status-strip" id="status-strip">Waiting</div>
+      </header>
+
+      <section class="workspace">
+        <nav class="tool-rail" aria-label="Semantic brushes">
+          <button class="tool is-active" data-tool="body" title="Body cell">B</button>
+          <button class="tool" data-tool="anchor" title="Animation anchor">A</button>
+          <button class="tool" data-tool="sensor" title="Sensor cell">E</button>
+          <button class="tool" data-tool="expression" title="Expression cell">M</button>
+          <button class="tool" data-tool="erase" title="Erase cell">.</button>
+        </nav>
+
+        <section class="grid-panel">
+          <div class="semantic-grid" data-testid="semantic-grid" id="semantic-grid"></div>
+        </section>
+
+        <aside class="inspector">
+          <section>
+            <h2>Cell</h2>
+            <dl id="cell-details">
+              <dt>X</dt><dd>0</dd>
+              <dt>Y</dt><dd>0</dd>
+              <dt>Role</dt><dd>empty</dd>
+              <dt>Organ</dt><dd>none</dd>
+            </dl>
+          </section>
+
+          <section>
+            <h2>Validation</h2>
+            <ul id="validation-list"></ul>
+          </section>
+        </aside>
+      </section>
+
+      <section class="export-band">
+        <div>
+          <h2>Export</h2>
+          <p id="export-summary">No export yet</p>
+        </div>
+        <textarea data-testid="export-json" id="export-json" spellcheck="false"></textarea>
+      </section>
+    </main>
+
+    <script src="../../data/workshop_editor/workshop_app_data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

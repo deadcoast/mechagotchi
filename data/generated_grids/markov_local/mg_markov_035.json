@@ -1,0 +1,170 @@
+{
+  "grid_id": "mg_markov_035",
+  "schema_version": "0.1.0",
+  "parent_grid_id": null,
+  "grid_size": [
+    8,
+    8
+  ],
+  "cells": [
+    {
+      "x": 1,
+      "y": 2,
+      "visual": "#7e8f76",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 7,
+      "y": 2,
+      "visual": "#7e8f76",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "visual": "#7e8f76",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "visual": "#7e8f76",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "visual": "#7e8f76",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 5,
+      "y": 4,
+      "visual": "#d7dfc7",
+      "role": "eye",
+      "material": "glass",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "sensors",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 7,
+      "y": 7,
+      "visual": "#7e8f76",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    }
+  ],
+  "organs": {
+    "core": {
+      "role": "body_core",
+      "cells": [
+        [
+          1,
+          2
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          7,
+          7
+        ]
+      ],
+      "required": true
+    },
+    "sensors": {
+      "role": "sensor",
+      "cells": [
+        [
+          5,
+          4
+        ]
+      ],
+      "required": true
+    }
+  },
+  "palette": {
+    "palette_id": "gameboy_gray",
+    "colors": [
+      "#111814",
+      "#7e8f76",
+      "#d7dfc7"
+    ],
+    "background_index": 0
+  },
+  "mutation": {
+    "cell_mutation_rate": 0.05,
+    "organ_shift_rate": 0.02,
+    "palette_shift_rate": 0.01,
+    "symmetry_break_rate": 0.01
+  },
+  "lineage": {
+    "generation": 0,
+    "ancestor_ids": [],
+    "mutation_events": [
+      "markov_local_generation"
+    ]
+  },
+  "metadata": {
+    "source": "markov_grid_lab",
+    "rng_seed": 4242
+  }
+}

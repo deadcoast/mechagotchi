@@ -1,0 +1,235 @@
+{
+  "lab_id": "cubff_semantic_transducer_stage0",
+  "snapshot_count": 12,
+  "source_mode": "synthetic_cubff_style_snapshots",
+  "source_note": "This lab uses synthetic CUBFF-style snapshots shaped after the public CuBFF state fields. It is not a CUDA CuBFF simulation result.",
+  "direct_visual_baseline": {
+    "candidate_count": 12,
+    "valid_count": 0,
+    "invalid_count": 12,
+    "validity_rate": 0.0,
+    "slip_aligned_count": 0,
+    "slip_alignment_rate": 0.0,
+    "mean_readability": 0.0,
+    "error_counts": {
+      "body mass below minimum: required body core has fewer than 4 cells": 12,
+      "missing animation anchor": 12,
+      "missing required sensor or expression organ": 12
+    },
+    "pipeline": "A: raw tape to pixels"
+  },
+  "statistical_transducer": {
+    "pipeline": "B: tape statistics to trait vector",
+    "mean_replication_rate": 0.270833,
+    "mean_semantic_pressure": 0.227403,
+    "trait_vectors": [
+      {
+        "mutation_pressure": 0.386552,
+        "structural_pressure": 0.249798,
+        "animation_instability": 0.454771,
+        "temperament": {
+          "curiosity": 0.541744,
+          "neediness": 0.2625,
+          "sleepiness": 0.58125
+        }
+      },
+      {
+        "mutation_pressure": 0.372237,
+        "structural_pressure": 0.264314,
+        "animation_instability": 0.437521,
+        "temperament": {
+          "curiosity": 0.537378,
+          "neediness": 0.2625,
+          "sleepiness": 0.58125
+        }
+      },
+      {
+        "mutation_pressure": 0.4676,
+        "structural_pressure": 0.257056,
+        "animation_instability": 0.565769,
+        "temperament": {
+          "curiosity": 0.543141,
+          "neediness": 0.45,
+          "sleepiness": 0.58125
+        }
+      },
+      {
+        "mutation_pressure": 0.384921,
+        "structural_pressure": 0.050806,
+        "animation_instability": 0.534815,
+        "temperament": {
+          "curiosity": 0.536995,
+          "neediness": 0.45,
+          "sleepiness": 0.75
+        }
+      },
+      {
+        "mutation_pressure": 0.409039,
+        "structural_pressure": 0.249798,
+        "animation_instability": 0.48738,
+        "temperament": {
+          "curiosity": 0.540708,
+          "neediness": 0.325,
+          "sleepiness": 0.58125
+        }
+      },
+      {
+        "mutation_pressure": 0.328414,
+        "structural_pressure": 0.043548,
+        "animation_instability": 0.471407,
+        "temperament": {
+          "curiosity": 0.540252,
+          "neediness": 0.2625,
+          "sleepiness": 0.75
+        }
+      },
+      {
+        "mutation_pressure": 0.392858,
+        "structural_pressure": 0.340322,
+        "animation_instability": 0.452432,
+        "temperament": {
+          "curiosity": 0.527973,
+          "neediness": 0.2625,
+          "sleepiness": 0.525
+        }
+      },
+      {
+        "mutation_pressure": 0.358465,
+        "structural_pressure": 0.181048,
+        "animation_instability": 0.440966,
+        "temperament": {
+          "curiosity": 0.541589,
+          "neediness": 0.2625,
+          "sleepiness": 0.6375
+        }
+      },
+      {
+        "mutation_pressure": 0.405691,
+        "structural_pressure": 0.181048,
+        "animation_instability": 0.504245,
+        "temperament": {
+          "curiosity": 0.542485,
+          "neediness": 0.3875,
+          "sleepiness": 0.6375
+        }
+      },
+      {
+        "mutation_pressure": 0.326619,
+        "structural_pressure": 0.043548,
+        "animation_instability": 0.477836,
+        "temperament": {
+          "curiosity": 0.524101,
+          "neediness": 0.325,
+          "sleepiness": 0.75
+        }
+      },
+      {
+        "mutation_pressure": 0.417975,
+        "structural_pressure": 0.257056,
+        "animation_instability": 0.497158,
+        "temperament": {
+          "curiosity": 0.546186,
+          "neediness": 0.325,
+          "sleepiness": 0.58125
+        }
+      },
+      {
+        "mutation_pressure": 0.429538,
+        "structural_pressure": 0.249798,
+        "animation_instability": 0.522516,
+        "temperament": {
+          "curiosity": 0.53611,
+          "neediness": 0.3875,
+          "sleepiness": 0.58125
+        }
+      }
+    ]
+  },
+  "behavioral_transducer": {
+    "pipeline": "C: dynamics to temperament and mutation pressure",
+    "mean_mutation_pressure": 0.389992,
+    "mean_animation_instability": 0.487235,
+    "temperament_vectors": [
+      {
+        "curiosity": 0.541744,
+        "neediness": 0.2625,
+        "sleepiness": 0.58125
+      },
+      {
+        "curiosity": 0.537378,
+        "neediness": 0.2625,
+        "sleepiness": 0.58125
+      },
+      {
+        "curiosity": 0.543141,
+        "neediness": 0.45,
+        "sleepiness": 0.58125
+      },
+      {
+        "curiosity": 0.536995,
+        "neediness": 0.45,
+        "sleepiness": 0.75
+      },
+      {
+        "curiosity": 0.540708,
+        "neediness": 0.325,
+        "sleepiness": 0.58125
+      },
+      {
+        "curiosity": 0.540252,
+        "neediness": 0.2625,
+        "sleepiness": 0.75
+      },
+      {
+        "curiosity": 0.527973,
+        "neediness": 0.2625,
+        "sleepiness": 0.525
+      },
+      {
+        "curiosity": 0.541589,
+        "neediness": 0.2625,
+        "sleepiness": 0.6375
+      },
+      {
+        "curiosity": 0.542485,
+        "neediness": 0.3875,
+        "sleepiness": 0.6375
+      },
+      {
+        "curiosity": 0.524101,
+        "neediness": 0.325,
+        "sleepiness": 0.75
+      },
+      {
+        "curiosity": 0.546186,
+        "neediness": 0.325,
+        "sleepiness": 0.58125
+      },
+      {
+        "curiosity": 0.53611,
+        "neediness": 0.3875,
+        "sleepiness": 0.58125
+      }
+    ]
+  },
+  "hybrid_semantic_compiler": {
+    "candidate_count": 12,
+    "valid_count": 12,
+    "invalid_count": 0,
+    "validity_rate": 1.0,
+    "slip_aligned_count": 12,
+    "slip_alignment_rate": 1.0,
+    "mean_readability": 1.0,
+    "error_counts": {},
+    "pipeline": "D: CUBFF traits plus constrained grid plus SLIP validator"
+  },
+  "decision": {
+    "status": "watch_synthetic_only",
+    "adoption": "do_not_adopt_core_dependency_from_synthetic_lab",
+    "reason": "Semantic compilation beats direct tape projection here, but the input snapshots are synthetic. Real CuBFF snapshot ingestion is required before any adoption decision."
+  },
+  "source_anchors": [
+    "https://arxiv.org/abs/2406.19108",
+    "https://github.com/paradigms-of-intelligence/cubff"
+  ]
+}

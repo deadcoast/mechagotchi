@@ -1,0 +1,101 @@
+{
+  "grid_id": "mg_markov_006",
+  "schema_version": "0.1.0",
+  "parent_grid_id": null,
+  "grid_size": [
+    8,
+    8
+  ],
+  "cells": [
+    {
+      "x": 6,
+      "y": 1,
+      "visual": "#d8ffd6",
+      "role": "eye",
+      "material": "glass",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "sensors",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 3,
+      "y": 5,
+      "visual": "#d8ffd6",
+      "role": "eye",
+      "material": "glass",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "sensors",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "visual": "#d8ffd6",
+      "role": "eye",
+      "material": "glass",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "sensors",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    }
+  ],
+  "organs": {
+    "core": {
+      "role": "body_core",
+      "cells": [],
+      "required": true
+    },
+    "sensors": {
+      "role": "sensor",
+      "cells": [
+        [
+          6,
+          1
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          1,
+          7
+        ]
+      ],
+      "required": true
+    }
+  },
+  "palette": {
+    "palette_id": "lcd_green",
+    "colors": [
+      "#07140d",
+      "#5dbb63",
+      "#d8ffd6"
+    ],
+    "background_index": 0
+  },
+  "mutation": {
+    "cell_mutation_rate": 0.05,
+    "organ_shift_rate": 0.02,
+    "palette_shift_rate": 0.01,
+    "symmetry_break_rate": 0.01
+  },
+  "lineage": {
+    "generation": 0,
+    "ancestor_ids": [],
+    "mutation_events": [
+      "markov_local_generation"
+    ]
+  },
+  "metadata": {
+    "source": "markov_grid_lab",
+    "rng_seed": 4242
+  }
+}

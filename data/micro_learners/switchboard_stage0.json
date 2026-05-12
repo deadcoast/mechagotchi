@@ -1,0 +1,318 @@
+{
+  "scenario_count": 3,
+  "action_counts": {
+    "feed": 1,
+    "sleep": 1,
+    "play": 1
+  },
+  "decisions": {
+    "hungry_recent_attention": {
+      "action": "feed",
+      "confidence": 0.829113,
+      "utilities": {
+        "feed": 0.4625,
+        "idle": 0.065768,
+        "mutate": 0.0471,
+        "play": 0.133387,
+        "sleep": -0.03
+      },
+      "threads": [
+        {
+          "name": "recent_interaction_ewma",
+          "input": {
+            "recent_interactions": [
+              1,
+              1,
+              0,
+              1,
+              1
+            ]
+          },
+          "output": 0.813547,
+          "confidence": 1.0,
+          "explanation": "Recent user attention raises play utility; low attention raises idle utility.",
+          "effects": {
+            "play": 0.203387,
+            "idle": 0.027968
+          }
+        },
+        {
+          "name": "hidden_mood_estimator",
+          "input": {
+            "hunger": 0.78,
+            "energy": 0.46,
+            "stress": 0.24
+          },
+          "output": "hungry",
+          "confidence": 0.85,
+          "explanation": "Rule-based latent mood estimate is hungry.",
+          "effects": {
+            "feed": 0.5,
+            "play": -0.1
+          }
+        },
+        {
+          "name": "action_preference_bandit",
+          "input": {
+            "action_rewards": {
+              "feed": [
+                0.8,
+                0.7
+              ],
+              "play": [
+                0.6,
+                0.6
+              ],
+              "sleep": [
+                0.3
+              ],
+              "idle": [
+                0.2
+              ]
+            }
+          },
+          "output": {
+            "best_action": "feed",
+            "means": {
+              "feed": 0.75,
+              "play": 0.6,
+              "sleep": 0.3,
+              "idle": 0.2,
+              "mutate": 0.35
+            }
+          },
+          "confidence": 0.6,
+          "explanation": "Historical reward average favors feed.",
+          "effects": {
+            "feed": 0.0625,
+            "play": 0.025,
+            "sleep": -0.05,
+            "idle": -0.075,
+            "mutate": -0.0375
+          }
+        },
+        {
+          "name": "mutation_risk_scorer",
+          "input": {
+            "stress": 0.24,
+            "grid_stability": 0.86
+          },
+          "output": 0.205,
+          "confidence": 0.8,
+          "explanation": "High stress or low grid stability suppresses mutation.",
+          "effects": {
+            "mutate": 0.087,
+            "idle": 0.041
+          }
+        }
+      ],
+      "explanation": "Selected feed from additive micro-learner utilities."
+    },
+    "low_energy": {
+      "action": "sleep",
+      "confidence": 0.816769,
+      "utilities": {
+        "feed": -0.025,
+        "idle": 0.221981,
+        "mutate": -0.15795,
+        "play": -0.228469,
+        "sleep": 0.53875
+      },
+      "threads": [
+        {
+          "name": "recent_interaction_ewma",
+          "input": {
+            "recent_interactions": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          },
+          "output": 0.136125,
+          "confidence": 1.0,
+          "explanation": "Recent user attention raises play utility; low attention raises idle utility.",
+          "effects": {
+            "play": 0.034031,
+            "idle": 0.129581
+          }
+        },
+        {
+          "name": "hidden_mood_estimator",
+          "input": {
+            "hunger": 0.18,
+            "energy": 0.08,
+            "stress": 0.3
+          },
+          "output": "tired",
+          "confidence": 0.9,
+          "explanation": "Rule-based latent mood estimate is tired.",
+          "effects": {
+            "sleep": 0.55,
+            "play": -0.25,
+            "mutate": -0.2
+          }
+        },
+        {
+          "name": "action_preference_bandit",
+          "input": {
+            "action_rewards": {
+              "feed": [
+                0.3
+              ],
+              "play": [
+                0.2
+              ],
+              "sleep": [
+                0.9,
+                0.8
+              ],
+              "idle": [
+                0.5
+              ]
+            }
+          },
+          "output": {
+            "best_action": "sleep",
+            "means": {
+              "feed": 0.3,
+              "play": 0.2,
+              "sleep": 0.85,
+              "idle": 0.5,
+              "mutate": 0.35
+            }
+          },
+          "confidence": 0.5,
+          "explanation": "Historical reward average favors sleep.",
+          "effects": {
+            "feed": -0.05,
+            "play": -0.075,
+            "sleep": 0.0875,
+            "idle": 0.0,
+            "mutate": -0.0375
+          }
+        },
+        {
+          "name": "mutation_risk_scorer",
+          "input": {
+            "stress": 0.3,
+            "grid_stability": 0.8
+          },
+          "output": 0.265,
+          "confidence": 0.8,
+          "explanation": "High stress or low grid stability suppresses mutation.",
+          "effects": {
+            "mutate": 0.051,
+            "idle": 0.053
+          }
+        }
+      ],
+      "explanation": "Selected sleep from additive micro-learner utilities."
+    },
+    "stable_curious": {
+      "action": "play",
+      "confidence": 0.776111,
+      "utilities": {
+        "feed": -0.03,
+        "idle": 0.101,
+        "mutate": 0.14634,
+        "play": 0.422451,
+        "sleep": -0.045
+      },
+      "threads": [
+        {
+          "name": "recent_interaction_ewma",
+          "input": {
+            "recent_interactions": [
+              1,
+              0,
+              1,
+              1,
+              1
+            ]
+          },
+          "output": 0.874803,
+          "confidence": 1.0,
+          "explanation": "Recent user attention raises play utility; low attention raises idle utility.",
+          "effects": {
+            "play": 0.218701,
+            "idle": 0.01878
+          }
+        },
+        {
+          "name": "hidden_mood_estimator",
+          "input": {
+            "hunger": 0.3,
+            "energy": 0.7,
+            "stress": 0.12
+          },
+          "output": "curious",
+          "confidence": 0.65,
+          "explanation": "Rule-based latent mood estimate is curious.",
+          "effects": {
+            "play": 0.25,
+            "idle": 0.05
+          }
+        },
+        {
+          "name": "action_preference_bandit",
+          "input": {
+            "action_rewards": {
+              "feed": [
+                0.3
+              ],
+              "play": [
+                0.8,
+                0.75
+              ],
+              "sleep": [
+                0.2
+              ],
+              "idle": [
+                0.4
+              ],
+              "mutate": [
+                0.65
+              ]
+            }
+          },
+          "output": {
+            "best_action": "play",
+            "means": {
+              "feed": 0.3,
+              "play": 0.775,
+              "sleep": 0.2,
+              "idle": 0.4,
+              "mutate": 0.65
+            }
+          },
+          "confidence": 0.6,
+          "explanation": "Historical reward average favors play.",
+          "effects": {
+            "feed": -0.05,
+            "play": 0.06875,
+            "sleep": -0.075,
+            "idle": -0.025,
+            "mutate": 0.0375
+          }
+        },
+        {
+          "name": "mutation_risk_scorer",
+          "input": {
+            "stress": 0.12,
+            "grid_stability": 0.96
+          },
+          "output": 0.092,
+          "confidence": 0.8,
+          "explanation": "High stress or low grid stability suppresses mutation.",
+          "effects": {
+            "mutate": 0.1548,
+            "idle": 0.0184
+          }
+        }
+      ],
+      "explanation": "Selected play from additive micro-learner utilities."
+    }
+  }
+}

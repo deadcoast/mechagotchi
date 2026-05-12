@@ -1,0 +1,309 @@
+{
+  "archive": {
+    "elites": {
+      "0,1,0": {
+        "grid_id": "mg_constrained_164",
+        "fitness": 0.708333,
+        "descriptor": [
+          0,
+          1,
+          0
+        ],
+        "body_mass": 6,
+        "sensor_count": 2,
+        "symmetry": 0.0
+      },
+      "1,0,0": {
+        "grid_id": "mg_constrained_070",
+        "fitness": 0.750833,
+        "descriptor": [
+          1,
+          0,
+          0
+        ],
+        "body_mass": 9,
+        "sensor_count": 1,
+        "symmetry": 0.2
+      },
+      "1,0,1": {
+        "grid_id": "mg_constrained_054",
+        "fitness": 0.795833,
+        "descriptor": [
+          1,
+          0,
+          1
+        ],
+        "body_mass": 9,
+        "sensor_count": 1,
+        "symmetry": 0.5
+      },
+      "1,0,2": {
+        "grid_id": "mg_constrained_137",
+        "fitness": 0.802652,
+        "descriptor": [
+          1,
+          0,
+          2
+        ],
+        "body_mass": 9,
+        "sensor_count": 1,
+        "symmetry": 0.545455
+      },
+      "1,1,0": {
+        "grid_id": "mg_constrained_170",
+        "fitness": 0.785606,
+        "descriptor": [
+          1,
+          1,
+          0
+        ],
+        "body_mass": 9,
+        "sensor_count": 2,
+        "symmetry": 0.181818
+      },
+      "1,1,1": {
+        "grid_id": "mg_constrained_025",
+        "fitness": 0.833333,
+        "descriptor": [
+          1,
+          1,
+          1
+        ],
+        "body_mass": 9,
+        "sensor_count": 2,
+        "symmetry": 0.5
+      },
+      "1,1,2": {
+        "grid_id": "mg_constrained_083",
+        "fitness": 0.858333,
+        "descriptor": [
+          1,
+          1,
+          2
+        ],
+        "body_mass": 9,
+        "sensor_count": 2,
+        "symmetry": 0.666667
+      },
+      "1,2,1": {
+        "grid_id": "mg_constrained_060",
+        "fitness": 0.870833,
+        "descriptor": [
+          1,
+          2,
+          1
+        ],
+        "body_mass": 9,
+        "sensor_count": 3,
+        "symmetry": 0.5
+      },
+      "1,3,1": {
+        "grid_id": "mg_constrained_188",
+        "fitness": 0.862821,
+        "descriptor": [
+          1,
+          3,
+          1
+        ],
+        "body_mass": 8,
+        "sensor_count": 4,
+        "symmetry": 0.307692
+      },
+      "2,0,0": {
+        "grid_id": "mg_constrained_108",
+        "fitness": 0.7625,
+        "descriptor": [
+          2,
+          0,
+          0
+        ],
+        "body_mass": 10,
+        "sensor_count": 1,
+        "symmetry": 0.166667
+      },
+      "2,0,1": {
+        "grid_id": "mg_constrained_026",
+        "fitness": 0.8125,
+        "descriptor": [
+          2,
+          0,
+          1
+        ],
+        "body_mass": 10,
+        "sensor_count": 1,
+        "symmetry": 0.5
+      },
+      "2,0,2": {
+        "grid_id": "mg_constrained_135",
+        "fitness": 0.846591,
+        "descriptor": [
+          2,
+          0,
+          2
+        ],
+        "body_mass": 10,
+        "sensor_count": 1,
+        "symmetry": 0.727273
+      },
+      "2,1,0": {
+        "grid_id": "mg_constrained_042",
+        "fitness": 0.779762,
+        "descriptor": [
+          2,
+          1,
+          0
+        ],
+        "body_mass": 11,
+        "sensor_count": 2,
+        "symmetry": 0.142857
+      },
+      "2,1,1": {
+        "grid_id": "mg_constrained_151",
+        "fitness": 0.85,
+        "descriptor": [
+          2,
+          1,
+          1
+        ],
+        "body_mass": 10,
+        "sensor_count": 2,
+        "symmetry": 0.5
+      },
+      "2,1,2": {
+        "grid_id": "mg_constrained_031",
+        "fitness": 0.867308,
+        "descriptor": [
+          2,
+          1,
+          2
+        ],
+        "body_mass": 10,
+        "sensor_count": 2,
+        "symmetry": 0.615385
+      },
+      "2,1,3": {
+        "grid_id": "mg_constrained_156",
+        "fitness": 0.890385,
+        "descriptor": [
+          2,
+          1,
+          3
+        ],
+        "body_mass": 10,
+        "sensor_count": 2,
+        "symmetry": 0.769231
+      },
+      "2,2,1": {
+        "grid_id": "mg_constrained_094",
+        "fitness": 0.876786,
+        "descriptor": [
+          2,
+          2,
+          1
+        ],
+        "body_mass": 10,
+        "sensor_count": 3,
+        "symmetry": 0.428571
+      },
+      "2,2,2": {
+        "grid_id": "mg_constrained_013",
+        "fitness": 0.898214,
+        "descriptor": [
+          2,
+          2,
+          2
+        ],
+        "body_mass": 10,
+        "sensor_count": 3,
+        "symmetry": 0.571429
+      },
+      "2,3,1": {
+        "grid_id": "mg_constrained_139",
+        "fitness": 0.889583,
+        "descriptor": [
+          2,
+          3,
+          1
+        ],
+        "body_mass": 11,
+        "sensor_count": 4,
+        "symmetry": 0.375
+      },
+      "3,0,1": {
+        "grid_id": "mg_constrained_039",
+        "fitness": 0.7475,
+        "descriptor": [
+          3,
+          0,
+          1
+        ],
+        "body_mass": 13,
+        "sensor_count": 1,
+        "symmetry": 0.4
+      },
+      "3,0,2": {
+        "grid_id": "mg_constrained_183",
+        "fitness": 0.773214,
+        "descriptor": [
+          3,
+          0,
+          2
+        ],
+        "body_mass": 13,
+        "sensor_count": 1,
+        "symmetry": 0.571429
+      },
+      "3,1,1": {
+        "grid_id": "mg_constrained_009",
+        "fitness": 0.8,
+        "descriptor": [
+          3,
+          1,
+          1
+        ],
+        "body_mass": 13,
+        "sensor_count": 2,
+        "symmetry": 0.5
+      },
+      "3,1,2": {
+        "grid_id": "mg_constrained_022",
+        "fitness": 0.81875,
+        "descriptor": [
+          3,
+          1,
+          2
+        ],
+        "body_mass": 13,
+        "sensor_count": 2,
+        "symmetry": 0.625
+      },
+      "3,2,2": {
+        "grid_id": "mg_constrained_169",
+        "fitness": 0.823904,
+        "descriptor": [
+          3,
+          2,
+          2
+        ],
+        "body_mass": 15,
+        "sensor_count": 3,
+        "symmetry": 0.631579
+      }
+    },
+    "occupied_niches": 24,
+    "coverage": 0.192,
+    "best_fitness": 0.898214,
+    "mean_elite_fitness": 0.821066
+  },
+  "comparison": {
+    "candidate_count": 200,
+    "top_k": 20,
+    "map_elites_occupied_niches": 24,
+    "map_elites_coverage": 0.192,
+    "map_elites_best_fitness": 0.898214,
+    "map_elites_mean_elite_fitness": 0.821066,
+    "scalar_top_occupied_niches": 7,
+    "scalar_top_coverage": 0.056,
+    "scalar_top_best_fitness": 0.898214
+  }
+}

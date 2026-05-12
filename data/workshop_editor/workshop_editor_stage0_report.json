@@ -1,0 +1,28 @@
+{
+  "lab_id": "workshop_editor_stage0",
+  "source_grid_id": "mg_seed_001",
+  "slip_profile_id": "slip_lcd_seed",
+  "surfaces": [
+    "semantic_grid_canvas",
+    "semantic_brush_toolbar",
+    "cell_metadata_inspector",
+    "validator_panel",
+    "json_export_panel"
+  ],
+  "metrics": {
+    "profile_creation_success": 1,
+    "validator_clarity": 1,
+    "schema_error_rate": 0,
+    "custom_profile_survival_rate": 1
+  },
+  "export_validation": {
+    "valid": true,
+    "errors": [],
+    "slip_aligned": true,
+    "slip_errors": []
+  },
+  "decision": {
+    "status": "prototype",
+    "reason": "A minimal semantic editor can export a valid, SLIP-aligned grid genome without embedding third-party editor code."
+  }
+}
