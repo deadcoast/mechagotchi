@@ -1,0 +1,1706 @@
+{
+  "lab_id": "lifecycle_sim_stage0",
+  "date": "2026-05-12",
+  "source_grid_id": "mg_seed_001",
+  "slip_profile_id": "slip_lcd_seed",
+  "ticks_requested": 72,
+  "rng_seed": 20260512,
+  "research_questions": [
+    "Can the companion survive a fixed tick horizon?",
+    "Does an active policy improve need balance over neglect?",
+    "Can recovery from hunger, energy, stress, or bond risk be counted?"
+  ],
+  "policies": {
+    "switchboard": {
+      "policy": "switchboard",
+      "ticks_requested": 72,
+      "survival_ticks": 72,
+      "alive": true,
+      "death_cause": null,
+      "need_balance": 0.789129,
+      "recovery_events": 14,
+      "action_counts": {
+        "feed": 14,
+        "play": 44,
+        "sleep": 14,
+        "idle": 0,
+        "mutate": 0
+      },
+      "final_state": {
+        "hunger": 0.6004,
+        "energy": 0.484,
+        "stress": 0.0,
+        "bond": 0.993,
+        "grid_stability": 1.0
+      },
+      "history": [
+        {
+          "tick": 1,
+          "action": "play",
+          "balance": 0.938796,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.4422,
+            "energy": 0.582,
+            "stress": 0.14768,
+            "bond": 0.6855,
+            "grid_stability": 0.959
+          }
+        },
+        {
+          "tick": 2,
+          "action": "play",
+          "balance": 0.89804,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5164,
+            "energy": 0.484,
+            "stress": 0.116102,
+            "bond": 0.7555,
+            "grid_stability": 0.958
+          }
+        },
+        {
+          "tick": 3,
+          "action": "play",
+          "balance": 0.843633,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5906,
+            "energy": 0.386,
+            "stress": 0.085266,
+            "bond": 0.8255,
+            "grid_stability": 0.957
+          }
+        },
+        {
+          "tick": 4,
+          "action": "play",
+          "balance": 0.789374,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6648,
+            "energy": 0.288,
+            "stress": 0.055172,
+            "bond": 0.8955,
+            "grid_stability": 0.956
+          }
+        },
+        {
+          "tick": 5,
+          "action": "feed",
+          "balance": 0.835264,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.384,
+            "energy": 0.27,
+            "stress": 0.03682,
+            "bond": 0.9115,
+            "grid_stability": 0.955
+          }
+        },
+        {
+          "tick": 6,
+          "action": "play",
+          "balance": 0.780592,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.4582,
+            "energy": 0.172,
+            "stress": 0.00466,
+            "bond": 0.9815,
+            "grid_stability": 0.954
+          }
+        },
+        {
+          "tick": 7,
+          "action": "sleep",
+          "balance": 0.82882,
+          "recoveries": [
+            "energy"
+          ],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5224,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.9745,
+            "grid_stability": 0.963
+          }
+        },
+        {
+          "tick": 8,
+          "action": "play",
+          "balance": 0.78948,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5966,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.962
+          }
+        },
+        {
+          "tick": 9,
+          "action": "play",
+          "balance": 0.75524,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6708,
+            "energy": 0.288,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.961
+          }
+        },
+        {
+          "tick": 10,
+          "action": "feed",
+          "balance": 0.808,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.39,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.96
+          }
+        },
+        {
+          "tick": 11,
+          "action": "play",
+          "balance": 0.77376,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.4642,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.959
+          }
+        },
+        {
+          "tick": 12,
+          "action": "sleep",
+          "balance": 0.82292,
+          "recoveries": [
+            "energy"
+          ],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5284,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.968
+          }
+        },
+        {
+          "tick": 13,
+          "action": "play",
+          "balance": 0.78728,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6026,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.967
+          }
+        },
+        {
+          "tick": 14,
+          "action": "play",
+          "balance": 0.75304,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6768,
+            "energy": 0.288,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.966
+          }
+        },
+        {
+          "tick": 15,
+          "action": "feed",
+          "balance": 0.8058,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.396,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.965
+          }
+        },
+        {
+          "tick": 16,
+          "action": "play",
+          "balance": 0.77156,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.4702,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.964
+          }
+        },
+        {
+          "tick": 17,
+          "action": "sleep",
+          "balance": 0.82072,
+          "recoveries": [
+            "energy"
+          ],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5344,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.973
+          }
+        },
+        {
+          "tick": 18,
+          "action": "play",
+          "balance": 0.78508,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6086,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.972
+          }
+        },
+        {
+          "tick": 19,
+          "action": "play",
+          "balance": 0.75084,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6828,
+            "energy": 0.288,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.971
+          }
+        },
+        {
+          "tick": 20,
+          "action": "feed",
+          "balance": 0.8036,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.402,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.97
+          }
+        },
+        {
+          "tick": 21,
+          "action": "play",
+          "balance": 0.76936,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.4762,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.969
+          }
+        },
+        {
+          "tick": 22,
+          "action": "sleep",
+          "balance": 0.81852,
+          "recoveries": [
+            "energy"
+          ],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5404,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.978
+          }
+        },
+        {
+          "tick": 23,
+          "action": "play",
+          "balance": 0.78288,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6146,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.977
+          }
+        },
+        {
+          "tick": 24,
+          "action": "play",
+          "balance": 0.74864,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6888,
+            "energy": 0.288,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.976
+          }
+        },
+        {
+          "tick": 25,
+          "action": "feed",
+          "balance": 0.8014,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.408,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.975
+          }
+        },
+        {
+          "tick": 26,
+          "action": "play",
+          "balance": 0.76716,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.4822,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.974
+          }
+        },
+        {
+          "tick": 27,
+          "action": "sleep",
+          "balance": 0.81632,
+          "recoveries": [
+            "energy"
+          ],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5464,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.983
+          }
+        },
+        {
+          "tick": 28,
+          "action": "play",
+          "balance": 0.78068,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6206,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.982
+          }
+        },
+        {
+          "tick": 29,
+          "action": "play",
+          "balance": 0.74644,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6948,
+            "energy": 0.288,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.981
+          }
+        },
+        {
+          "tick": 30,
+          "action": "feed",
+          "balance": 0.7992,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.414,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.98
+          }
+        },
+        {
+          "tick": 31,
+          "action": "play",
+          "balance": 0.76496,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.4882,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.979
+          }
+        },
+        {
+          "tick": 32,
+          "action": "sleep",
+          "balance": 0.81412,
+          "recoveries": [
+            "energy"
+          ],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5524,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.988
+          }
+        },
+        {
+          "tick": 33,
+          "action": "play",
+          "balance": 0.77848,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6266,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.987
+          }
+        },
+        {
+          "tick": 34,
+          "action": "play",
+          "balance": 0.74424,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.7008,
+            "energy": 0.288,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.986
+          }
+        },
+        {
+          "tick": 35,
+          "action": "feed",
+          "balance": 0.797,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.42,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.985
+          }
+        },
+        {
+          "tick": 36,
+          "action": "play",
+          "balance": 0.76276,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.4942,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.984
+          }
+        },
+        {
+          "tick": 37,
+          "action": "sleep",
+          "balance": 0.81192,
+          "recoveries": [
+            "energy"
+          ],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5584,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.993
+          }
+        },
+        {
+          "tick": 38,
+          "action": "play",
+          "balance": 0.77628,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6326,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.992
+          }
+        },
+        {
+          "tick": 39,
+          "action": "play",
+          "balance": 0.74204,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.7068,
+            "energy": 0.288,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.991
+          }
+        },
+        {
+          "tick": 40,
+          "action": "feed",
+          "balance": 0.7948,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.426,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.99
+          }
+        },
+        {
+          "tick": 41,
+          "action": "play",
+          "balance": 0.76056,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5002,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.989
+          }
+        },
+        {
+          "tick": 42,
+          "action": "sleep",
+          "balance": 0.80972,
+          "recoveries": [
+            "energy"
+          ],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5644,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.998
+          }
+        },
+        {
+          "tick": 43,
+          "action": "play",
+          "balance": 0.77408,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6386,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.997
+          }
+        },
+        {
+          "tick": 44,
+          "action": "play",
+          "balance": 0.73984,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.7128,
+            "energy": 0.288,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.996
+          }
+        },
+        {
+          "tick": 45,
+          "action": "feed",
+          "balance": 0.7926,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.432,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.995
+          }
+        },
+        {
+          "tick": 46,
+          "action": "play",
+          "balance": 0.75836,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5062,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.994
+          }
+        },
+        {
+          "tick": 47,
+          "action": "sleep",
+          "balance": 0.80812,
+          "recoveries": [
+            "energy"
+          ],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5704,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 1.0
+          }
+        },
+        {
+          "tick": 48,
+          "action": "play",
+          "balance": 0.77248,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6446,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.999
+          }
+        },
+        {
+          "tick": 49,
+          "action": "play",
+          "balance": 0.73824,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.7188,
+            "energy": 0.288,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.998
+          }
+        },
+        {
+          "tick": 50,
+          "action": "feed",
+          "balance": 0.791,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.438,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.997
+          }
+        },
+        {
+          "tick": 51,
+          "action": "play",
+          "balance": 0.75676,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5122,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.996
+          }
+        },
+        {
+          "tick": 52,
+          "action": "sleep",
+          "balance": 0.80692,
+          "recoveries": [
+            "energy"
+          ],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5764,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 1.0
+          }
+        },
+        {
+          "tick": 53,
+          "action": "play",
+          "balance": 0.77128,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6506,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.999
+          }
+        },
+        {
+          "tick": 54,
+          "action": "feed",
+          "balance": 0.82404,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.3698,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.998
+          }
+        },
+        {
+          "tick": 55,
+          "action": "play",
+          "balance": 0.7898,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.444,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.997
+          }
+        },
+        {
+          "tick": 56,
+          "action": "play",
+          "balance": 0.75556,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5182,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.996
+          }
+        },
+        {
+          "tick": 57,
+          "action": "sleep",
+          "balance": 0.80572,
+          "recoveries": [
+            "energy"
+          ],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5824,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 1.0
+          }
+        },
+        {
+          "tick": 58,
+          "action": "play",
+          "balance": 0.77008,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6566,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.999
+          }
+        },
+        {
+          "tick": 59,
+          "action": "feed",
+          "balance": 0.82284,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.3758,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.998
+          }
+        },
+        {
+          "tick": 60,
+          "action": "play",
+          "balance": 0.7886,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.45,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.997
+          }
+        },
+        {
+          "tick": 61,
+          "action": "play",
+          "balance": 0.75436,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5242,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.996
+          }
+        },
+        {
+          "tick": 62,
+          "action": "sleep",
+          "balance": 0.80452,
+          "recoveries": [
+            "energy"
+          ],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5884,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 1.0
+          }
+        },
+        {
+          "tick": 63,
+          "action": "play",
+          "balance": 0.76888,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6626,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.999
+          }
+        },
+        {
+          "tick": 64,
+          "action": "feed",
+          "balance": 0.82164,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.3818,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.998
+          }
+        },
+        {
+          "tick": 65,
+          "action": "play",
+          "balance": 0.7874,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.456,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.997
+          }
+        },
+        {
+          "tick": 66,
+          "action": "play",
+          "balance": 0.75316,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5302,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.996
+          }
+        },
+        {
+          "tick": 67,
+          "action": "sleep",
+          "balance": 0.80332,
+          "recoveries": [
+            "energy"
+          ],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5944,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 1.0
+          }
+        },
+        {
+          "tick": 68,
+          "action": "play",
+          "balance": 0.76768,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6686,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.999
+          }
+        },
+        {
+          "tick": 69,
+          "action": "feed",
+          "balance": 0.82044,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.3878,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.998
+          }
+        },
+        {
+          "tick": 70,
+          "action": "play",
+          "balance": 0.7862,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.462,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.997
+          }
+        },
+        {
+          "tick": 71,
+          "action": "play",
+          "balance": 0.75196,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5362,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.996
+          }
+        },
+        {
+          "tick": 72,
+          "action": "sleep",
+          "balance": 0.80212,
+          "recoveries": [
+            "energy"
+          ],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6004,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 1.0
+          }
+        }
+      ]
+    },
+    "idle": {
+      "policy": "idle",
+      "ticks_requested": 72,
+      "survival_ticks": 11,
+      "alive": false,
+      "death_cause": "starvation",
+      "need_balance": 0.121004,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "final_state": {
+        "hunger": 1.0,
+        "energy": 0.24,
+        "stress": 0.55004,
+        "bond": 0.4395,
+        "grid_stability": 0.927
+      },
+      "history": [
+        {
+          "tick": 1,
+          "action": "idle",
+          "balance": 0.936924,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.4272,
+            "energy": 0.64,
+            "stress": 0.21068,
+            "bond": 0.5995,
+            "grid_stability": 0.957
+          }
+        },
+        {
+          "tick": 2,
+          "action": "idle",
+          "balance": 0.90823,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.4864,
+            "energy": 0.6,
+            "stress": 0.241952,
+            "bond": 0.5835,
+            "grid_stability": 0.954
+          }
+        },
+        {
+          "tick": 3,
+          "action": "idle",
+          "balance": 0.879417,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5456,
+            "energy": 0.56,
+            "stress": 0.273816,
+            "bond": 0.5675,
+            "grid_stability": 0.951
+          }
+        },
+        {
+          "tick": 4,
+          "action": "idle",
+          "balance": 0.850486,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6048,
+            "energy": 0.52,
+            "stress": 0.306272,
+            "bond": 0.5515,
+            "grid_stability": 0.948
+          }
+        },
+        {
+          "tick": 5,
+          "action": "idle",
+          "balance": 0.821436,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.664,
+            "energy": 0.48,
+            "stress": 0.33932,
+            "bond": 0.5355,
+            "grid_stability": 0.945
+          }
+        },
+        {
+          "tick": 6,
+          "action": "idle",
+          "balance": 0.792268,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.7232,
+            "energy": 0.44,
+            "stress": 0.37296,
+            "bond": 0.5195,
+            "grid_stability": 0.942
+          }
+        },
+        {
+          "tick": 7,
+          "action": "idle",
+          "balance": 0.762982,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.7824,
+            "energy": 0.4,
+            "stress": 0.407192,
+            "bond": 0.5035,
+            "grid_stability": 0.939
+          }
+        },
+        {
+          "tick": 8,
+          "action": "idle",
+          "balance": 0.733577,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.8416,
+            "energy": 0.36,
+            "stress": 0.442016,
+            "bond": 0.4875,
+            "grid_stability": 0.936
+          }
+        },
+        {
+          "tick": 9,
+          "action": "idle",
+          "balance": 0.704054,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.9008,
+            "energy": 0.32,
+            "stress": 0.477432,
+            "bond": 0.4715,
+            "grid_stability": 0.933
+          }
+        },
+        {
+          "tick": 10,
+          "action": "idle",
+          "balance": 0.674412,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.96,
+            "energy": 0.28,
+            "stress": 0.51344,
+            "bond": 0.4555,
+            "grid_stability": 0.93
+          }
+        },
+        {
+          "tick": 11,
+          "action": "idle",
+          "balance": 0.648492,
+          "recoveries": [],
+          "alive": false,
+          "death_cause": "starvation",
+          "state": {
+            "hunger": 1.0,
+            "energy": 0.24,
+            "stress": 0.55004,
+            "bond": 0.4395,
+            "grid_stability": 0.927
+          }
+        }
+      ]
+    },
+    "random": {
+      "policy": "random",
+      "ticks_requested": 72,
+      "survival_ticks": 21,
+      "alive": false,
+      "death_cause": "starvation",
+      "need_balance": 0.236001,
+      "recovery_events": 2,
+      "action_counts": {
+        "feed": 2,
+        "play": 4,
+        "sleep": 4,
+        "idle": 2,
+        "mutate": 9
+      },
+      "final_state": {
+        "hunger": 1.0,
+        "energy": 0.391,
+        "stress": 0.28894,
+        "bond": 0.9665,
+        "grid_stability": 0.48
+      },
+      "history": [
+        {
+          "tick": 1,
+          "action": "mutate",
+          "balance": 0.933524,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.4272,
+            "energy": 0.607,
+            "stress": 0.24268,
+            "bond": 0.6265,
+            "grid_stability": 0.904
+          }
+        },
+        {
+          "tick": 2,
+          "action": "sleep",
+          "balance": 0.89011,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.4914,
+            "energy": 0.919,
+            "stress": 0.128452,
+            "bond": 0.6195,
+            "grid_stability": 0.913
+          }
+        },
+        {
+          "tick": 3,
+          "action": "play",
+          "balance": 0.902453,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5656,
+            "energy": 0.821,
+            "stress": 0.097366,
+            "bond": 0.6895,
+            "grid_stability": 0.912
+          }
+        },
+        {
+          "tick": 4,
+          "action": "mutate",
+          "balance": 0.909144,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6248,
+            "energy": 0.748,
+            "stress": 0.162022,
+            "bond": 0.7005,
+            "grid_stability": 0.856
+          }
+        },
+        {
+          "tick": 5,
+          "action": "sleep",
+          "balance": 0.823854,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.689,
+            "energy": 1.0,
+            "stress": 0.04977,
+            "bond": 0.6935,
+            "grid_stability": 0.865
+          }
+        },
+        {
+          "tick": 6,
+          "action": "sleep",
+          "balance": 0.80146,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.7532,
+            "energy": 1.0,
+            "stress": 0.0,
+            "bond": 0.6865,
+            "grid_stability": 0.874
+          }
+        },
+        {
+          "tick": 7,
+          "action": "mutate",
+          "balance": 0.808526,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.8124,
+            "energy": 0.927,
+            "stress": 0.066532,
+            "bond": 0.6975,
+            "grid_stability": 0.818
+          }
+        },
+        {
+          "tick": 8,
+          "action": "idle",
+          "balance": 0.807911,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.8716,
+            "energy": 0.887,
+            "stress": 0.101656,
+            "bond": 0.6815,
+            "grid_stability": 0.815
+          }
+        },
+        {
+          "tick": 9,
+          "action": "feed",
+          "balance": 0.867414,
+          "recoveries": [
+            "hunger"
+          ],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5908,
+            "energy": 0.869,
+            "stress": 0.085372,
+            "bond": 0.6975,
+            "grid_stability": 0.814
+          }
+        },
+        {
+          "tick": 10,
+          "action": "feed",
+          "balance": 0.914356,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.31,
+            "energy": 0.851,
+            "stress": 0.06628,
+            "bond": 0.7135,
+            "grid_stability": 0.813
+          }
+        },
+        {
+          "tick": 11,
+          "action": "mutate",
+          "balance": 0.930736,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.3692,
+            "energy": 0.778,
+            "stress": 0.12838,
+            "bond": 0.7245,
+            "grid_stability": 0.757
+          }
+        },
+        {
+          "tick": 12,
+          "action": "mutate",
+          "balance": 0.928206,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.4284,
+            "energy": 0.705,
+            "stress": 0.191072,
+            "bond": 0.7355,
+            "grid_stability": 0.701
+          }
+        },
+        {
+          "tick": 13,
+          "action": "mutate",
+          "balance": 0.885709,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.4876,
+            "energy": 0.632,
+            "stress": 0.254356,
+            "bond": 0.7465,
+            "grid_stability": 0.645
+          }
+        },
+        {
+          "tick": 14,
+          "action": "mutate",
+          "balance": 0.833094,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.5468,
+            "energy": 0.559,
+            "stress": 0.318232,
+            "bond": 0.7575,
+            "grid_stability": 0.589
+          }
+        },
+        {
+          "tick": 15,
+          "action": "play",
+          "balance": 0.79056,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.621,
+            "energy": 0.461,
+            "stress": 0.2877,
+            "bond": 0.8275,
+            "grid_stability": 0.588
+          }
+        },
+        {
+          "tick": 16,
+          "action": "mutate",
+          "balance": 0.737678,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.6802,
+            "energy": 0.388,
+            "stress": 0.35291,
+            "bond": 0.8385,
+            "grid_stability": 0.532
+          }
+        },
+        {
+          "tick": 17,
+          "action": "idle",
+          "balance": 0.713678,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.7394,
+            "energy": 0.348,
+            "stress": 0.386712,
+            "bond": 0.8225,
+            "grid_stability": 0.529
+          }
+        },
+        {
+          "tick": 18,
+          "action": "play",
+          "balance": 0.670759,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.8136,
+            "energy": 0.25,
+            "stress": 0.358106,
+            "bond": 0.8925,
+            "grid_stability": 0.528
+          }
+        },
+        {
+          "tick": 19,
+          "action": "mutate",
+          "balance": 0.617492,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.8728,
+            "energy": 0.177,
+            "stress": 0.425242,
+            "bond": 0.9035,
+            "grid_stability": 0.472
+          }
+        },
+        {
+          "tick": 20,
+          "action": "play",
+          "balance": 0.574306,
+          "recoveries": [],
+          "alive": true,
+          "death_cause": null,
+          "state": {
+            "hunger": 0.947,
+            "energy": 0.079,
+            "stress": 0.39797,
+            "bond": 0.9735,
+            "grid_stability": 0.471
+          }
+        },
+        {
+          "tick": 21,
+          "action": "sleep",
+          "balance": 0.651112,
+          "recoveries": [
+            "energy"
+          ],
+          "alive": false,
+          "death_cause": "starvation",
+          "state": {
+            "hunger": 1.0,
+            "energy": 0.391,
+            "stress": 0.28894,
+            "bond": 0.9665,
+            "grid_stability": 0.48
+          }
+        }
+      ]
+    }
+  },
+  "summary": {
+    "best_policy": "switchboard",
+    "switchboard_beats_idle_on_need_balance": true,
+    "switchboard_survival_delta_vs_idle": 61,
+    "switchboard_recovery_delta_vs_idle": 14
+  },
+  "decision": "prototype",
+  "limitations": [
+    "Stage 0 uses deterministic synthetic care actions rather than player traces.",
+    "Need balance is still a proxy metric and needs held-out user validation.",
+    "Grid repair and cellular stress propagation are not active yet."
+  ],
+  "source_refs": [
+    {
+      "name": "Tamagotchi Connection official manual",
+      "url": "https://tamagotchi-official.com/manual/toy/connection/connection_web_manual_IS_EN.pdf",
+      "use": "Reference for care-loop categories such as feeding, sleep, and attention."
+    },
+    {
+      "name": "JaxLife",
+      "url": "https://arxiv.org/abs/2409.00853",
+      "use": "Reference for measuring survival and behavior in artificial-life substrates."
+    }
+  ]
+}

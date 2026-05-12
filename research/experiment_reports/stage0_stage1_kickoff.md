@@ -72,8 +72,21 @@ compared fairly.
 12. Build minimal workshop editor. First semantic workshop editor baseline is
     done in
     `research/experiment_reports/2026-05-12-workshop-editor-baseline.md`.
+13. Add asset provenance ledger. First executable ledger and attribution
+    manifest baseline is done in
+    `research/experiment_reports/2026-05-12-asset-provenance-ledger-baseline.md`.
+14. Publish research report v0.1. First consolidated research report is done in
+    `research/reports/mechagotchi_research_report_v0_1.md`.
 
 ## Decision
 
-Proceed to the seed grid corpus and validator baseline before any advanced lab
-track.
+The first research sequence has enough evidence to treat the semantic
+grid-genome stack as the baseline architecture. Next research should move into
+lifecycle simulation, held-out readability evaluation, archive descriptor
+refinement, workshop round trips, real CuBFF snapshot ingestion, and provenance
+CI.
+
+## Post-v0.1 Continuation
+
+1. Add lifecycle simulator. First baseline is done in
+   `research/experiment_reports/2026-05-12-lifecycle-simulator-baseline.md`.

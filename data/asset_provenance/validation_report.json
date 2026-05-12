@@ -1,0 +1,11 @@
+{
+  "ok": true,
+  "errors": [],
+  "warnings": [],
+  "summary": {
+    "asset_count": 7,
+    "included_count": 3,
+    "reference_only_count": 4,
+    "attribution_required_count": 3
+  }
+}
