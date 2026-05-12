@@ -19,4 +19,3 @@ Purpose:
 - Provide negative examples before generator bake-off work starts.
 
 The files were materialized from `labs/grid_genome/corpus_builder.py`.
-

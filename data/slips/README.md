@@ -13,4 +13,3 @@ The current scope is narrow:
 
 It does not yet cover workshop authoring, behavior preview, export UX, or
 evolution weighting.
-

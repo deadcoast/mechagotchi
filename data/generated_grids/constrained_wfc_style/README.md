@@ -31,4 +31,3 @@ This is not a complete overlapping WFC implementation. It is a constrained
 local-pattern stabilizer inspired by WFC's adjacency/propagation role. It proves
 that learned local constraints plus validator-gated edits can clear the first
 validity gate.
-

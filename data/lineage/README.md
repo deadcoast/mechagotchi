@@ -19,4 +19,3 @@ The Stage 0 lineage graph tracks:
 
 This is a one-generation graph. Deeper lineage requires reproduction from
 archive elites and lifecycle/survival data.
-

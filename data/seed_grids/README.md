@@ -12,4 +12,3 @@ Purpose:
 
 The files were materialized from authored blueprint maps in
 `labs/grid_genome/corpus_builder.py`.
-
