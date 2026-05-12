@@ -36,7 +36,7 @@ textarea {
 
 .workshop-shell {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) minmax(160px, 26vh);
+  grid-template-rows: auto minmax(0, 1fr) minmax(180px, 24vh) minmax(130px, 18vh);
   min-height: 100vh;
 }
 
@@ -195,6 +195,7 @@ h2 {
 }
 
 .inspector section,
+.io-band,
 .export-band {
   border-top: 1px solid #33414d;
   padding-top: 14px;
@@ -231,6 +232,43 @@ dd {
   color: var(--danger);
 }
 
+.io-band {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 16px 22px 12px;
+  border-top: 1px solid #293541;
+  background: var(--panel-2);
+}
+
+.io-panel {
+  display: grid;
+  grid-template-rows: auto minmax(100px, 1fr);
+  min-width: 0;
+}
+
+.io-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.action-button {
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid #40515f;
+  border-radius: 6px;
+  background: #111720;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.action-button:hover {
+  border-color: var(--amber);
+  color: var(--signal);
+}
+
 .export-band {
   display: grid;
   grid-template-columns: minmax(180px, 280px) 1fr;
@@ -254,10 +292,11 @@ textarea {
 
 @media (max-width: 760px) {
   .workshop-shell {
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto auto auto auto;
   }
 
   .topbar,
+  .io-band,
   .export-band {
     grid-template-columns: 1fr;
     flex-direction: column;

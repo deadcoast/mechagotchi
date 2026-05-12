@@ -1,0 +1,1289 @@
+{
+  "archive": {
+    "archive_id": "map_elites_extended_stage0",
+    "date": "2026-05-12",
+    "descriptor_names": [
+      "body_mass",
+      "sensor_count",
+      "symmetry",
+      "readability",
+      "lifecycle_survival",
+      "mutation_stability",
+      "behavior_neediness"
+    ],
+    "descriptor_dimensions": 7,
+    "descriptor_cardinalities": [
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5
+    ],
+    "total_possible_niches": 78125,
+    "occupied_niches": 29,
+    "coverage": 0.000371,
+    "best_fitness": 0.979592,
+    "mean_elite_fitness": 0.957708,
+    "qd_score": 27.773545,
+    "elites": {
+      "1,0,1,3,4,4,1": {
+        "grid_id": "mg_constrained_121",
+        "fitness": 0.959032,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            1,
+            0,
+            1,
+            3,
+            4,
+            4,
+            1
+          ],
+          "key": "1,0,1,3,4,4,1",
+          "metrics": {
+            "body_mass": 9,
+            "sensor_count": 1,
+            "symmetry": 0.5,
+            "readability": 0.838674,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.838674,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "1,0,1,4,4,4,1": {
+        "grid_id": "mg_constrained_065",
+        "fitness": 0.968742,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            1,
+            0,
+            1,
+            4,
+            4,
+            4,
+            1
+          ],
+          "key": "1,0,1,4,4,4,1",
+          "metrics": {
+            "body_mass": 8,
+            "sensor_count": 1,
+            "symmetry": 0.4,
+            "readability": 0.879135,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.879135,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "1,0,2,3,4,4,1": {
+        "grid_id": "mg_constrained_096",
+        "fitness": 0.937817,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            1,
+            0,
+            2,
+            3,
+            4,
+            4,
+            1
+          ],
+          "key": "1,0,2,3,4,4,1",
+          "metrics": {
+            "body_mass": 8,
+            "sensor_count": 1,
+            "symmetry": 0.6,
+            "readability": 0.750281,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.750281,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "1,0,2,4,4,4,1": {
+        "grid_id": "mg_constrained_033",
+        "fitness": 0.974479,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            1,
+            0,
+            2,
+            4,
+            4,
+            4,
+            1
+          ],
+          "key": "1,0,2,4,4,4,1",
+          "metrics": {
+            "body_mass": 9,
+            "sensor_count": 1,
+            "symmetry": 0.727273,
+            "readability": 0.903037,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.903037,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "1,1,0,3,4,4,1": {
+        "grid_id": "mg_constrained_037",
+        "fitness": 0.954329,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            1,
+            1,
+            0,
+            3,
+            4,
+            4,
+            1
+          ],
+          "key": "1,1,0,3,4,4,1",
+          "metrics": {
+            "body_mass": 7,
+            "sensor_count": 2,
+            "symmetry": 0.2,
+            "readability": 0.819079,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.819079,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "1,1,1,3,4,4,1": {
+        "grid_id": "mg_constrained_118",
+        "fitness": 0.959936,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            1,
+            1,
+            1,
+            3,
+            4,
+            4,
+            1
+          ],
+          "key": "1,1,1,3,4,4,1",
+          "metrics": {
+            "body_mass": 9,
+            "sensor_count": 2,
+            "symmetry": 0.5,
+            "readability": 0.842441,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.842441,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "1,1,1,4,4,4,1": {
+        "grid_id": "mg_constrained_072",
+        "fitness": 0.971186,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            1,
+            1,
+            1,
+            4,
+            4,
+            4,
+            1
+          ],
+          "key": "1,1,1,4,4,4,1",
+          "metrics": {
+            "body_mass": 9,
+            "sensor_count": 2,
+            "symmetry": 0.5,
+            "readability": 0.889315,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.889315,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "1,1,2,3,4,4,1": {
+        "grid_id": "mg_constrained_149",
+        "fitness": 0.959131,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            1,
+            1,
+            2,
+            3,
+            4,
+            4,
+            1
+          ],
+          "key": "1,1,2,3,4,4,1",
+          "metrics": {
+            "body_mass": 8,
+            "sensor_count": 2,
+            "symmetry": 0.545455,
+            "readability": 0.839089,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.839089,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "1,1,2,4,4,4,1": {
+        "grid_id": "mg_constrained_102",
+        "fitness": 0.974799,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            1,
+            1,
+            2,
+            4,
+            4,
+            4,
+            1
+          ],
+          "key": "1,1,2,4,4,4,1",
+          "metrics": {
+            "body_mass": 9,
+            "sensor_count": 2,
+            "symmetry": 0.666667,
+            "readability": 0.904369,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.904369,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "1,2,1,3,4,4,1": {
+        "grid_id": "mg_constrained_156",
+        "fitness": 0.957659,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            1,
+            2,
+            1,
+            3,
+            4,
+            4,
+            1
+          ],
+          "key": "1,2,1,3,4,4,1",
+          "metrics": {
+            "body_mass": 8,
+            "sensor_count": 3,
+            "symmetry": 0.5,
+            "readability": 0.832953,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.832953,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "1,3,0,2,4,4,1": {
+        "grid_id": "mg_constrained_023",
+        "fitness": 0.923842,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            1,
+            3,
+            0,
+            2,
+            4,
+            4,
+            1
+          ],
+          "key": "1,3,0,2,4,4,1",
+          "metrics": {
+            "body_mass": 7,
+            "sensor_count": 4,
+            "symmetry": 0.166667,
+            "readability": 0.692052,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.692052,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "1,3,1,3,4,4,1": {
+        "grid_id": "mg_constrained_039",
+        "fitness": 0.944994,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            1,
+            3,
+            1,
+            3,
+            4,
+            4,
+            1
+          ],
+          "key": "1,3,1,3,4,4,1",
+          "metrics": {
+            "body_mass": 9,
+            "sensor_count": 4,
+            "symmetry": 0.428571,
+            "readability": 0.780185,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.780185,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "2,0,0,2,4,4,1": {
+        "grid_id": "mg_constrained_159",
+        "fitness": 0.921135,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            2,
+            0,
+            0,
+            2,
+            4,
+            4,
+            1
+          ],
+          "key": "2,0,0,2,4,4,1",
+          "metrics": {
+            "body_mass": 10,
+            "sensor_count": 1,
+            "symmetry": 0.153846,
+            "readability": 0.680769,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.680769,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "2,0,0,4,4,4,1": {
+        "grid_id": "mg_constrained_043",
+        "fitness": 0.964533,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            2,
+            0,
+            0,
+            4,
+            4,
+            4,
+            1
+          ],
+          "key": "2,0,0,4,4,4,1",
+          "metrics": {
+            "body_mass": 10,
+            "sensor_count": 1,
+            "symmetry": 0.166667,
+            "readability": 0.861596,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.861596,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "2,0,1,3,4,4,1": {
+        "grid_id": "mg_constrained_061",
+        "fitness": 0.957364,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            2,
+            0,
+            1,
+            3,
+            4,
+            4,
+            1
+          ],
+          "key": "2,0,1,3,4,4,1",
+          "metrics": {
+            "body_mass": 11,
+            "sensor_count": 1,
+            "symmetry": 0.428571,
+            "readability": 0.831725,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.831725,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "2,0,1,4,4,4,1": {
+        "grid_id": "mg_constrained_086",
+        "fitness": 0.975592,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            2,
+            0,
+            1,
+            4,
+            4,
+            4,
+            1
+          ],
+          "key": "2,0,1,4,4,4,1",
+          "metrics": {
+            "body_mass": 10,
+            "sensor_count": 1,
+            "symmetry": 0.5,
+            "readability": 0.907674,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.907674,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "2,0,2,4,4,4,1": {
+        "grid_id": "mg_constrained_017",
+        "fitness": 0.979592,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            2,
+            0,
+            2,
+            4,
+            4,
+            4,
+            1
+          ],
+          "key": "2,0,2,4,4,4,1",
+          "metrics": {
+            "body_mass": 10,
+            "sensor_count": 1,
+            "symmetry": 0.666667,
+            "readability": 0.924341,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.924341,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "2,0,3,3,4,4,1": {
+        "grid_id": "mg_constrained_035",
+        "fitness": 0.951728,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            2,
+            0,
+            3,
+            3,
+            4,
+            4,
+            1
+          ],
+          "key": "2,0,3,3,4,4,1",
+          "metrics": {
+            "body_mass": 12,
+            "sensor_count": 0,
+            "symmetry": 0.769231,
+            "readability": 0.808241,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.808241,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "2,1,1,3,4,4,1": {
+        "grid_id": "mg_constrained_122",
+        "fitness": 0.961679,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            2,
+            1,
+            1,
+            3,
+            4,
+            4,
+            1
+          ],
+          "key": "2,1,1,3,4,4,1",
+          "metrics": {
+            "body_mass": 10,
+            "sensor_count": 2,
+            "symmetry": 0.461538,
+            "readability": 0.849706,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.849706,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "2,1,1,4,4,4,1": {
+        "grid_id": "mg_constrained_125",
+        "fitness": 0.972784,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            2,
+            1,
+            1,
+            4,
+            4,
+            4,
+            1
+          ],
+          "key": "2,1,1,4,4,4,1",
+          "metrics": {
+            "body_mass": 10,
+            "sensor_count": 2,
+            "symmetry": 0.461538,
+            "readability": 0.895976,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.895976,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "2,1,2,3,4,4,1": {
+        "grid_id": "mg_constrained_012",
+        "fitness": 0.961703,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            2,
+            1,
+            2,
+            3,
+            4,
+            4,
+            1
+          ],
+          "key": "2,1,2,3,4,4,1",
+          "metrics": {
+            "body_mass": 11,
+            "sensor_count": 2,
+            "symmetry": 0.571429,
+            "readability": 0.849803,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.849803,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "2,1,2,4,4,4,1": {
+        "grid_id": "mg_constrained_008",
+        "fitness": 0.977099,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            2,
+            1,
+            2,
+            4,
+            4,
+            4,
+            1
+          ],
+          "key": "2,1,2,4,4,4,1",
+          "metrics": {
+            "body_mass": 10,
+            "sensor_count": 2,
+            "symmetry": 0.615385,
+            "readability": 0.913956,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.913956,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "2,2,1,2,4,4,1": {
+        "grid_id": "mg_constrained_081",
+        "fitness": 0.920863,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            2,
+            2,
+            1,
+            2,
+            4,
+            4,
+            1
+          ],
+          "key": "2,2,1,2,4,4,1",
+          "metrics": {
+            "body_mass": 10,
+            "sensor_count": 3,
+            "symmetry": 0.4,
+            "readability": 0.679636,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.679636,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "2,2,1,3,4,4,1": {
+        "grid_id": "mg_constrained_069",
+        "fitness": 0.95953,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            2,
+            2,
+            1,
+            3,
+            4,
+            4,
+            1
+          ],
+          "key": "2,2,1,3,4,4,1",
+          "metrics": {
+            "body_mass": 11,
+            "sensor_count": 3,
+            "symmetry": 0.4,
+            "readability": 0.840749,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.840749,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "2,2,1,4,4,4,1": {
+        "grid_id": "mg_constrained_144",
+        "fitness": 0.964917,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            2,
+            2,
+            1,
+            4,
+            4,
+            4,
+            1
+          ],
+          "key": "2,2,1,4,4,4,1",
+          "metrics": {
+            "body_mass": 10,
+            "sensor_count": 3,
+            "symmetry": 0.285714,
+            "readability": 0.863196,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.863196,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "2,2,2,3,4,4,1": {
+        "grid_id": "mg_constrained_095",
+        "fitness": 0.95973,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            2,
+            2,
+            2,
+            3,
+            4,
+            4,
+            1
+          ],
+          "key": "2,2,2,3,4,4,1",
+          "metrics": {
+            "body_mass": 11,
+            "sensor_count": 3,
+            "symmetry": 0.533333,
+            "readability": 0.841584,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.841584,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "2,3,1,3,4,4,1": {
+        "grid_id": "mg_constrained_045",
+        "fitness": 0.959509,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            2,
+            3,
+            1,
+            3,
+            4,
+            4,
+            1
+          ],
+          "key": "2,3,1,3,4,4,1",
+          "metrics": {
+            "body_mass": 10,
+            "sensor_count": 4,
+            "symmetry": 0.4,
+            "readability": 0.840661,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.840661,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "3,2,0,3,4,4,1": {
+        "grid_id": "mg_constrained_042",
+        "fitness": 0.945288,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            3,
+            2,
+            0,
+            3,
+            4,
+            4,
+            1
+          ],
+          "key": "3,2,0,3,4,4,1",
+          "metrics": {
+            "body_mass": 13,
+            "sensor_count": 3,
+            "symmetry": 0.235294,
+            "readability": 0.781407,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.781407,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "3,3,2,3,4,4,1": {
+        "grid_id": "mg_constrained_137",
+        "fitness": 0.954553,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            3,
+            3,
+            2,
+            3,
+            4,
+            4,
+            1
+          ],
+          "key": "3,3,2,3,4,4,1",
+          "metrics": {
+            "body_mass": 13,
+            "sensor_count": 4,
+            "symmetry": 0.555556,
+            "readability": 0.820013,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.820013,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      }
+    },
+    "parameters": {
+      "candidate_count": 160,
+      "lifecycle_ticks": 24,
+      "rng_seed": 20260512
+    }
+  },
+  "comparison": {
+    "candidate_count": 160,
+    "legacy_descriptor_dimensions": 3,
+    "extended_descriptor_dimensions": 7,
+    "legacy_unique_candidate_niches": 19,
+    "extended_unique_candidate_niches": 29,
+    "legacy_occupied_niches": 19,
+    "extended_occupied_niches": 29,
+    "legacy_coverage": 0.152,
+    "extended_coverage": 0.000371,
+    "legacy_best_fitness": 0.91,
+    "extended_best_fitness": 0.979592,
+    "extended_qd_score": 27.773545,
+    "descriptor_expansion": 4
+  },
+  "source_refs": [
+    {
+      "name": "Illuminating search spaces by mapping elites",
+      "url": "https://arxiv.org/abs/1504.04909",
+      "use": "Original MAP-Elites reference for behavior-space archives."
+    },
+    {
+      "name": "QDax MAP-Elites docs",
+      "url": "https://qdax.readthedocs.io/en/develop/api_documentation/core/map_elites/",
+      "use": "Implementation reference for repertoires, descriptors, and metrics."
+    }
+  ],
+  "decision": "prototype",
+  "limitations": [
+    "Lifecycle metrics use synthetic switchboard policy simulations.",
+    "Readability is still proxy-scored until manual ratings are collected.",
+    "Descriptor cardinalities are hand-set and need calibration."
+  ]
+}

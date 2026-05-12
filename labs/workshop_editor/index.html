@@ -47,12 +47,32 @@
         </aside>
       </section>
 
+      <section class="io-band">
+        <div class="io-panel">
+          <div class="io-head">
+            <div>
+              <h2>Import</h2>
+              <p id="import-summary">No import yet</p>
+            </div>
+            <button class="action-button" id="import-button" type="button">Import</button>
+          </div>
+          <textarea data-testid="import-json" id="import-json" spellcheck="false"></textarea>
+        </div>
+
+        <div class="io-panel">
+          <div>
+            <h2>Export</h2>
+            <p id="export-summary">No export yet</p>
+          </div>
+          <textarea data-testid="export-json" id="export-json" spellcheck="false"></textarea>
+        </div>
+      </section>
       <section class="export-band">
         <div>
-          <h2>Export</h2>
-          <p id="export-summary">No export yet</p>
+          <h2>Round Trip</h2>
+          <p id="roundtrip-summary">No comparison yet</p>
         </div>
-        <textarea data-testid="export-json" id="export-json" spellcheck="false"></textarea>
+        <textarea data-testid="roundtrip-json" id="roundtrip-json" spellcheck="false" readonly></textarea>
       </section>
     </main>
 

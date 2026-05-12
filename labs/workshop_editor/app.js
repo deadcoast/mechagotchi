@@ -45,7 +45,7 @@
   }
 
   const data = window.MECHAGOTCHI_WORKSHOP_DATA || fallback;
-  const state = JSON.parse(JSON.stringify(data.state));
+  let state = JSON.parse(JSON.stringify(data.state));
   let activeTool = "body";
   let selectedCell = state.cells[0];
 
@@ -54,8 +54,13 @@
   const statusStrip = document.getElementById("status-strip");
   const details = document.getElementById("cell-details");
   const validationList = document.getElementById("validation-list");
+  const importJson = document.getElementById("import-json");
+  const importButton = document.getElementById("import-button");
+  const importSummary = document.getElementById("import-summary");
   const exportJson = document.getElementById("export-json");
   const exportSummary = document.getElementById("export-summary");
+  const roundtripJson = document.getElementById("roundtrip-json");
+  const roundtripSummary = document.getElementById("roundtrip-summary");
 
   const toolMap = {
     erase: { token: ".", role: "empty", organ: null, material: "empty" },
@@ -71,6 +76,10 @@
       document.querySelectorAll(".tool").forEach((item) => item.classList.remove("is-active"));
       button.classList.add("is-active");
     });
+  });
+
+  importButton.addEventListener("click", () => {
+    importGenome(importJson.value);
   });
 
   function renderGrid() {
@@ -93,6 +102,7 @@
     });
     updateInspector(selectedCell);
     validateExport();
+    updateRoundtrip();
   }
 
   function paintCell(x, y, tool) {
@@ -179,6 +189,56 @@
     };
   }
 
+  function importGenome(rawText) {
+    let imported;
+    try {
+      imported = JSON.parse(rawText);
+    } catch (error) {
+      importSummary.textContent = `Import error: ${error.message}`;
+      importSummary.classList.add("is-invalid");
+      return false;
+    }
+
+    state = editorStateFromGenome(imported);
+    selectedCell = state.cells[0];
+    importSummary.textContent = `${imported.grid_id} imported`;
+    importSummary.classList.remove("is-invalid");
+    renderGrid();
+    return true;
+  }
+
+  function editorStateFromGenome(grid) {
+    const width = grid.grid_size[0];
+    const height = grid.grid_size[1];
+    const sourceCells = new Map();
+    grid.cells.forEach((cell) => {
+      sourceCells.set(`${cell.x},${cell.y}`, cell);
+    });
+    const cells = [];
+    for (let y = 0; y < height; y += 1) {
+      for (let x = 0; x < width; x += 1) {
+        const source = sourceCells.get(`${x},${y}`);
+        cells.push(source ? editorCellFromGenome(source, grid.palette) : emptyCell(x, y));
+      }
+    }
+    return {
+      schema_version: "0.1.0",
+      editor_id: "workshop_editor_stage0",
+      grid_id: grid.grid_id,
+      grid_size: grid.grid_size,
+      palette: grid.palette,
+      slip: state.slip,
+      tools: state.tools,
+      cells,
+      mutation: grid.mutation,
+      metadata: {
+        source: "workshop_roundtrip_import",
+        seed_grid_id: grid.metadata?.seed_grid_id || grid.grid_id,
+        imported_grid_id: grid.grid_id
+      }
+    };
+  }
+
   function validateExport() {
     const exported = exportGenome();
     const errors = [];
@@ -207,7 +267,39 @@
     });
     exportJson.value = JSON.stringify(exported, null, 2);
     exportSummary.textContent = `${exported.cells.length} cells / ${bodyMass} core`;
+    if (!importJson.value.trim()) {
+      importJson.value = JSON.stringify(data.exported_grid || exported, null, 2);
+    }
     return ok;
+  }
+
+  function updateRoundtrip() {
+    if (!roundtripJson || !roundtripSummary) {
+      return;
+    }
+    let imported = null;
+    try {
+      imported = JSON.parse(importJson.value);
+    } catch {
+      roundtripSummary.textContent = "Import JSON pending";
+      roundtripJson.value = "";
+      return;
+    }
+    const exported = exportGenome();
+    const diff = compareSemanticCells(imported, exported);
+    const changed = diff.changed_cells.length + diff.missing_cells.length + diff.added_cells.length;
+    const fidelity = Math.max(0, 1 - changed / Math.max(1, imported.cells.length));
+    roundtripSummary.textContent = `${fidelity.toFixed(3)} fidelity / ${changed} differences`;
+    roundtripJson.value = JSON.stringify(
+      {
+        source_grid_id: imported.grid_id,
+        export_grid_id: exported.grid_id,
+        semantic_fidelity: Number(fidelity.toFixed(6)),
+        semantic_diff: diff
+      },
+      null,
+      2
+    );
   }
 
   function updateInspector(cell) {
@@ -231,6 +323,68 @@
     return state.palette.colors[1];
   }
 
+  function editorCellFromGenome(source, palette) {
+    const token = source.animation_anchor ? "A" : source.organ === "sensors" ? "E" : source.organ === "expression" ? "M" : "B";
+    return {
+      x: source.x,
+      y: source.y,
+      token,
+      role: token === "E" ? "sensor" : token === "M" ? "expression" : source.role,
+      organ: source.organ,
+      material: source.material || "hard",
+      visual: source.visual || palette.colors[1],
+      mutation_weight: source.mutation_weight || 0.1,
+      animation_anchor: source.animation_anchor === true,
+      locked: source.locked === true
+    };
+  }
+
+  function compareSemanticCells(source, exported) {
+    const sourceCells = semanticMap(source);
+    const exportedCells = semanticMap(exported);
+    const changed = [];
+    const missing = [];
+    const added = [];
+    sourceCells.forEach((sourceValue, key) => {
+      if (!exportedCells.has(key)) {
+        missing.push(key.split(",").map(Number));
+        return;
+      }
+      const exportedValue = exportedCells.get(key);
+      if (JSON.stringify(sourceValue) !== JSON.stringify(exportedValue)) {
+        changed.push({
+          coordinate: key.split(",").map(Number),
+          source: sourceValue,
+          exported: exportedValue
+        });
+      }
+    });
+    exportedCells.forEach((_, key) => {
+      if (!sourceCells.has(key)) {
+        added.push(key.split(",").map(Number));
+      }
+    });
+    return {
+      changed_cells: changed,
+      missing_cells: missing,
+      added_cells: added
+    };
+  }
+
+  function semanticMap(grid) {
+    const cells = new Map();
+    grid.cells.forEach((cell) => {
+      cells.set(`${cell.x},${cell.y}`, {
+        role: cell.role,
+        organ: cell.organ,
+        material: cell.material,
+        animation_anchor: cell.animation_anchor === true,
+        locked: cell.locked === true
+      });
+    });
+    return cells;
+  }
+
   function emptyCell(x, y) {
     return {
       x,
@@ -246,6 +400,7 @@
 
   window.MechagotchiWorkshop = {
     renderGrid,
+    importGenome,
     validateExport,
     exportGenome
   };

@@ -1,18 +1,14 @@
-# Archive Data
+# MAP-Elites Archive Artifacts
 
-This directory contains research archive outputs for `mecha_darwin`.
+Archive artifacts for the `mecha_darwin` research line.
 
-Current artifact:
+Primary artifacts:
 
-- `map_elites_stage0.json`: first CPU MAP-Elites archive over 200 constrained
-  generated candidates.
+- `map_elites_stage0.json`
+- `map_elites_extended_stage0.json`
 
-The Stage 0 archive uses three descriptors:
+`map_elites_stage0.json` is the first 3D baseline using body mass, sensor count,
+and symmetry.
 
-- body mass bin
-- sensor count bin
-- symmetry bin
-
-This descriptor set is deliberately simple. It is useful for proving archive
-mechanics, not final species semantics.
-
+`map_elites_extended_stage0.json` keeps those baseline dimensions and adds
+readability, lifecycle survival, mutation stability, and behavior neediness.

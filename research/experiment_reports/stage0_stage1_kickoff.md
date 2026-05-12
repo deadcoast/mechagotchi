@@ -90,3 +90,12 @@ CI.
 
 1. Add lifecycle simulator. First baseline is done in
    `research/experiment_reports/2026-05-12-lifecycle-simulator-baseline.md`.
+2. Add held-out readability benchmark and manual rating protocol. First
+   baseline is done in
+   `research/experiment_reports/2026-05-12-readability-benchmark-baseline.md`.
+3. Extend MAP-Elites descriptors beyond body mass, sensors, and symmetry. First
+   extended descriptor archive is done in
+   `research/experiment_reports/2026-05-12-map-elites-extended-descriptors.md`.
+4. Add workshop import/export round trips. First native semantic round-trip
+   baseline is done in
+   `research/experiment_reports/2026-05-12-workshop-roundtrip-baseline.md`.

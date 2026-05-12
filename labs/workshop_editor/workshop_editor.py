@@ -157,6 +157,94 @@ def export_grid(state: dict, *, grid_id: str) -> dict:
     }
 
 
+def import_grid(grid: dict, slip_profile: dict) -> dict:
+    validation = validate_grid(grid)
+    if not validation.ok:
+        raise ValueError(f"cannot import invalid grid: {validation.errors}")
+    alignment = is_grid_aligned(grid, slip_profile)
+    if not alignment.ok:
+        raise ValueError(f"cannot import grid outside SLIP profile: {alignment.errors}")
+    state = build_editor_state(grid, slip_profile)
+    state["metadata"] = {
+        **state.get("metadata", {}),
+        "source": "workshop_roundtrip_import",
+        "imported_grid_id": grid["grid_id"],
+        "seed_grid_id": grid.get("metadata", {}).get("seed_grid_id", grid["grid_id"]),
+    }
+    return state
+
+
+def roundtrip_grid(grid: dict, slip_profile: dict, *, export_grid_id: str) -> dict:
+    imported_state = import_grid(grid, slip_profile)
+    exported = export_grid(imported_state, grid_id=export_grid_id)
+    import_validation = validate_grid(grid)
+    export_validation = validate_grid(exported)
+    alignment = is_grid_aligned(exported, slip_profile)
+    semantic_diff = compare_semantic_grid_fidelity(grid, exported)
+    fidelity = _semantic_fidelity(semantic_diff, grid)
+    roundtrip_success = (
+        import_validation.ok
+        and export_validation.ok
+        and alignment.ok
+        and semantic_diff["changed_cells"] == []
+        and semantic_diff["missing_cells"] == []
+        and semantic_diff["added_cells"] == []
+    )
+    return {
+        "source_grid_id": grid["grid_id"],
+        "export_grid_id": exported["grid_id"],
+        "imported_state": imported_state,
+        "roundtrip_export": exported,
+        "import_validation": {
+            "valid": import_validation.ok,
+            "errors": import_validation.errors,
+        },
+        "export_validation": {
+            "valid": export_validation.ok,
+            "errors": export_validation.errors,
+            "slip_aligned": alignment.ok,
+            "slip_errors": alignment.errors,
+        },
+        "semantic_diff": semantic_diff,
+        "metrics": {
+            "roundtrip_success": 1 if roundtrip_success else 0,
+            "semantic_fidelity": fidelity,
+            "schema_error_rate": 0 if export_validation.ok else 1,
+            "changed_cell_count": len(semantic_diff["changed_cells"]),
+            "missing_cell_count": len(semantic_diff["missing_cells"]),
+            "added_cell_count": len(semantic_diff["added_cells"]),
+        },
+    }
+
+
+def compare_semantic_grid_fidelity(source: dict, exported: dict) -> dict:
+    source_cells = {
+        (cell["x"], cell["y"]): _semantic_cell_signature(cell)
+        for cell in source.get("cells", [])
+    }
+    exported_cells = {
+        (cell["x"], cell["y"]): _semantic_cell_signature(cell)
+        for cell in exported.get("cells", [])
+    }
+    changed = []
+    for coordinate in sorted(source_cells.keys() & exported_cells.keys()):
+        if source_cells[coordinate] != exported_cells[coordinate]:
+            changed.append(
+                {
+                    "coordinate": list(coordinate),
+                    "source": source_cells[coordinate],
+                    "exported": exported_cells[coordinate],
+                }
+            )
+    missing = [list(coordinate) for coordinate in sorted(source_cells.keys() - exported_cells.keys())]
+    added = [list(coordinate) for coordinate in sorted(exported_cells.keys() - source_cells.keys())]
+    return {
+        "changed_cells": changed,
+        "missing_cells": missing,
+        "added_cells": added,
+    }
+
+
 def run_workshop_export_lab(seed_grid: dict, slip_profile: dict) -> dict:
     state = build_editor_state(seed_grid, slip_profile)
     exported = export_grid(state, grid_id="workshop_export_stage0")
@@ -195,6 +283,43 @@ def run_workshop_export_lab(seed_grid: dict, slip_profile: dict) -> dict:
     }
 
 
+def run_workshop_roundtrip_lab(seed_grid: dict, slip_profile: dict) -> dict:
+    result = roundtrip_grid(
+        seed_grid,
+        slip_profile,
+        export_grid_id="workshop_roundtrip_export_stage0",
+    )
+    return {
+        "lab_id": "workshop_roundtrip_stage0",
+        "source_grid_id": seed_grid["grid_id"],
+        "slip_profile_id": slip_profile["profile_id"],
+        "surfaces": [
+            "semantic_grid_canvas",
+            "json_import_panel",
+            "json_export_panel",
+            "roundtrip_diff_panel",
+            "validator_panel",
+        ],
+        "metrics": {
+            **result["metrics"],
+            "import_export_fidelity": result["metrics"]["semantic_fidelity"],
+            "preview_accuracy": result["metrics"]["semantic_fidelity"],
+        },
+        "import_validation": result["import_validation"],
+        "export_validation": result["export_validation"],
+        "semantic_diff": result["semantic_diff"],
+        "imported_state": result["imported_state"],
+        "roundtrip_export": result["roundtrip_export"],
+        "decision": {
+            "status": "prototype",
+            "reason": (
+                "The semantic workshop can import a valid grid, export it again, "
+                "and preserve semantic fidelity under the active SLIP profile."
+            ),
+        },
+    }
+
+
 def write_workshop_artifacts(
     output_dir: Path, state: dict, exported_grid: dict, report: dict
 ) -> None:
@@ -214,6 +339,41 @@ def write_workshop_artifacts(
         encoding="utf-8",
     )
     (output_dir / "README.md").write_text(_readme_text(report), encoding="utf-8")
+
+
+def write_workshop_roundtrip_artifacts(output_dir: Path, report: dict) -> None:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    _write_json(output_dir / "workshop_roundtrip_stage0_report.json", report)
+    _write_json(output_dir / "workshop_roundtrip_imported_state.json", report["imported_state"])
+    _write_json(output_dir / "workshop_roundtrip_export.json", report["roundtrip_export"])
+
+    app_data_path = output_dir / "workshop_app_data.js"
+    if app_data_path.exists():
+        existing_text = app_data_path.read_text(encoding="utf-8")
+        if existing_text.startswith("window.MECHAGOTCHI_WORKSHOP_DATA = "):
+            existing_json = existing_text.removeprefix(
+                "window.MECHAGOTCHI_WORKSHOP_DATA = "
+            ).rstrip(";\n")
+            app_data = json.loads(existing_json)
+        else:
+            app_data = {}
+    else:
+        app_data = {}
+    app_data["roundtrip"] = {
+        "report": report,
+        "imported_state": report["imported_state"],
+        "roundtrip_export": report["roundtrip_export"],
+    }
+    (output_dir / "workshop_app_data.js").write_text(
+        "window.MECHAGOTCHI_WORKSHOP_DATA = "
+        + json.dumps(app_data, indent=2)
+        + ";\n",
+        encoding="utf-8",
+    )
+    (output_dir / "README.md").write_text(
+        _readme_text(report) + "\n" + _roundtrip_readme_text(report),
+        encoding="utf-8",
+    )
 
 
 def _editor_cell(x: int, y: int, source: dict | None, grid: dict) -> dict:
@@ -297,6 +457,28 @@ def _write_json(path: Path, payload: dict) -> None:
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
 
+def _semantic_cell_signature(cell: dict) -> dict:
+    return {
+        "x": cell["x"],
+        "y": cell["y"],
+        "role": cell.get("role"),
+        "organ": cell.get("organ"),
+        "material": cell.get("material"),
+        "animation_anchor": cell.get("animation_anchor") is True,
+        "locked": cell.get("locked") is True,
+    }
+
+
+def _semantic_fidelity(diff: dict, source: dict) -> float:
+    source_count = max(1, len(source.get("cells", [])))
+    problem_count = (
+        len(diff["changed_cells"])
+        + len(diff["missing_cells"])
+        + len(diff["added_cells"])
+    )
+    return round(max(0.0, 1.0 - problem_count / source_count), 6)
+
+
 def _readme_text(report: dict) -> str:
     return (
         "# Workshop Editor Stage 0\n\n"
@@ -306,6 +488,17 @@ def _readme_text(report: dict) -> str:
         f"- Export valid: {report['export_validation']['valid']}\n"
         f"- Export SLIP aligned: {report['export_validation']['slip_aligned']}\n"
         f"- Decision: {report['decision']['status']}\n"
+    )
+
+
+def _roundtrip_readme_text(report: dict) -> str:
+    return (
+        "\n## Round Trip\n\n"
+        f"- Round-trip success: {report['metrics']['roundtrip_success']}\n"
+        f"- Semantic fidelity: {report['metrics']['semantic_fidelity']}\n"
+        f"- Changed cells: {report['metrics']['changed_cell_count']}\n"
+        f"- Missing cells: {report['metrics']['missing_cell_count']}\n"
+        f"- Added cells: {report['metrics']['added_cell_count']}\n"
     )
 
 
@@ -326,6 +519,8 @@ def main() -> None:
     exported = export_grid(state, grid_id="workshop_export_stage0")
     report = run_workshop_export_lab(seed_grid, slip_profile)
     write_workshop_artifacts(args.output_dir, state, exported, report)
+    roundtrip_report = run_workshop_roundtrip_lab(seed_grid, slip_profile)
+    write_workshop_roundtrip_artifacts(args.output_dir, roundtrip_report)
     print(json.dumps(report, indent=2))
 
 

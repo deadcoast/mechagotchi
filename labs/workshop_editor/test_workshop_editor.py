@@ -17,8 +17,12 @@ from workshop_editor import (
     apply_brush,
     build_editor_state,
     export_grid,
+    import_grid,
+    roundtrip_grid,
     run_workshop_export_lab,
+    run_workshop_roundtrip_lab,
     write_workshop_artifacts,
+    write_workshop_roundtrip_artifacts,
 )
 
 
@@ -62,6 +66,33 @@ class WorkshopEditorTests(unittest.TestCase):
         self.assertEqual("workshop_editor_lab", exported["metadata"]["source"])
         self.assertEqual("workshop_export_test", exported["grid_id"])
 
+    def test_import_grid_rebuilds_editor_state_from_exported_genome(self):
+        state = build_editor_state(build_seed_grids()[0], lcd_profile())
+        edited = apply_brush(state, x=7, y=7, tool="sensor")
+        exported = export_grid(edited, grid_id="workshop_export_test")
+
+        imported = import_grid(exported, lcd_profile())
+
+        self.assertEqual(exported["grid_id"], imported["grid_id"])
+        self.assertEqual(64, len(imported["cells"]))
+        imported_cell = next(
+            cell for cell in imported["cells"] if cell["x"] == 7 and cell["y"] == 7
+        )
+        self.assertEqual("E", imported_cell["token"])
+        self.assertEqual("sensors", imported_cell["organ"])
+
+    def test_roundtrip_grid_reports_semantic_fidelity(self):
+        grid = build_seed_grids()[0]
+
+        result = roundtrip_grid(grid, lcd_profile(), export_grid_id="roundtrip_fixture")
+
+        self.assertTrue(result["import_validation"]["valid"])
+        self.assertTrue(result["export_validation"]["valid"])
+        self.assertTrue(result["export_validation"]["slip_aligned"])
+        self.assertEqual(1, result["metrics"]["roundtrip_success"])
+        self.assertEqual(1.0, result["metrics"]["semantic_fidelity"])
+        self.assertEqual([], result["semantic_diff"]["changed_cells"])
+
     def test_run_workshop_export_lab_reports_successful_authoring(self):
         report = run_workshop_export_lab(build_seed_grids()[0], lcd_profile())
 
@@ -69,6 +100,14 @@ class WorkshopEditorTests(unittest.TestCase):
         self.assertTrue(report["export_validation"]["valid"])
         self.assertTrue(report["export_validation"]["slip_aligned"])
         self.assertEqual(1, report["metrics"]["profile_creation_success"])
+
+    def test_run_workshop_roundtrip_lab_reports_fidelity_metrics(self):
+        report = run_workshop_roundtrip_lab(build_seed_grids()[0], lcd_profile())
+
+        self.assertEqual("workshop_roundtrip_stage0", report["lab_id"])
+        self.assertEqual(1, report["metrics"]["roundtrip_success"])
+        self.assertEqual(1.0, report["metrics"]["semantic_fidelity"])
+        self.assertEqual(0, report["metrics"]["schema_error_rate"])
 
     def test_write_workshop_artifacts_creates_static_app_payload(self):
         state = build_editor_state(build_seed_grids()[0], lcd_profile())
@@ -85,13 +124,28 @@ class WorkshopEditorTests(unittest.TestCase):
             app_data = (output_dir / "workshop_app_data.js").read_text(encoding="utf-8")
             self.assertIn("MECHAGOTCHI_WORKSHOP_DATA", app_data)
 
+    def test_write_workshop_roundtrip_artifacts_creates_report_and_payload(self):
+        report = run_workshop_roundtrip_lab(build_seed_grids()[0], lcd_profile())
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output_dir = Path(temp_dir)
+
+            write_workshop_roundtrip_artifacts(output_dir, report)
+
+            self.assertTrue((output_dir / "workshop_roundtrip_stage0_report.json").exists())
+            self.assertTrue((output_dir / "workshop_roundtrip_imported_state.json").exists())
+            self.assertTrue((output_dir / "workshop_roundtrip_export.json").exists())
+            app_data = (output_dir / "workshop_app_data.js").read_text(encoding="utf-8")
+            self.assertIn("roundtrip", app_data)
+
     def test_static_editor_shell_contains_required_surfaces(self):
         html = Path("labs/workshop_editor/index.html").read_text(encoding="utf-8")
         script = Path("labs/workshop_editor/app.js").read_text(encoding="utf-8")
 
         self.assertIn('data-testid="semantic-grid"', html)
         self.assertIn('data-testid="export-json"', html)
+        self.assertIn('data-testid="import-json"', html)
         self.assertIn("renderGrid", script)
+        self.assertIn("importGenome", script)
         self.assertIn("validateExport", script)
 
 
