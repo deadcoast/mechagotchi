@@ -25,6 +25,8 @@ The Stage 0 archive labs already prove:
 - Extended descriptor dimensions: 7.
 - Extended best fitness: `0.979592`.
 - Extended QD score: `27.773545`.
+- SLIP runtime selection policy selects 3/3 profile-weighted archive elites
+  from distinct niches with mean selection score `0.955828`.
 
 The package archive may adopt the archive mechanics and extended metric shape.
 It must not lock final descriptor thresholds until manual readability ratings
@@ -238,6 +240,7 @@ Expected implementation-stage result:
 - `research/algorithm_cards/map_elites_extended_descriptors.md`
 - `research/experiment_reports/2026-05-12-map-elites-archive-baseline.md`
 - `research/experiment_reports/2026-05-12-map-elites-extended-descriptors.md`
+- `research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`
 - `data/archives/map_elites_stage0.json`
 - `data/archives/map_elites_extended_stage0.json`
 - `data/package_promotion/mecha_engine_package_promotion_gate_stage0.json`

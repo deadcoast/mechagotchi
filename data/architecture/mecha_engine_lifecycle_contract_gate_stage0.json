@@ -13,7 +13,9 @@
     "research/experiment_reports/2026-05-12-lifecycle-simulator-baseline.md",
     "research/experiment_reports/2026-05-12-switchboard-lifecycle-feedback.md",
     "research/experiment_reports/2026-05-12-switchboard-feedback-dynamic-stress.md",
+    "research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md",
     "data/lifecycle/lifecycle_stage0.json",
+    "data/workshop_editor/slip_runtime_selection_policy_stage0.json",
     "data/package_promotion/mecha_engine_package_promotion_gate_stage0.json"
   ],
   "external_references": [
@@ -135,6 +137,19 @@
       "feedback_better_survival_count": 0,
       "feedback_worse_survival_count": 0,
       "decision": "watch_reward_shaping"
+    },
+    "slip_runtime_selection_policy": {
+      "profile_count": 3,
+      "selected_elite_count": 3,
+      "selection_success_rate": 1.0,
+      "invalid_probe_rejection_rate": 1.0,
+      "distinct_selected_grid_ids": 3,
+      "distinct_selected_archive_niches": 3,
+      "mean_selected_selection_score": 0.955828,
+      "mean_selected_need_balance": 0.793865,
+      "mean_selected_survival_ratio": 1.0,
+      "runtime_lifecycle_archive_selection_specified": true,
+      "decision": "lifecycle_metrics_feed_profile_weighted_runtime_selection"
     }
   },
   "initial_state_acceptance": [
@@ -210,5 +225,5 @@
     "package_contains_no_labs_imports": true,
     "package_promotion_gate_rerun_after_package_tests_exist": true
   },
-  "next_research_step": "Use this gate as the lifecycle acceptance checklist when the user explicitly starts package scaffold or lifecycle package work."
+  "next_research_step": "Define offspring mutation and lineage replacement gates before claiming profile-weighted evolution."
 }

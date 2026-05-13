@@ -57,6 +57,11 @@ target package. That does not mean final descriptor thresholds are solved:
 manual readability ratings and broader lifecycle tests are still required
 before descriptor bins and fitness weights can be locked.
 
+Supersession note: SLIP runtime selection now chooses profile-weighted archive
+elites from the extended archive in
+`research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`.
+This still does not define offspring mutation or lineage replacement.
+
 The required public surface is:
 
 ```python
@@ -98,6 +103,7 @@ lab evidence.
 - `research/algorithm_cards/map_elites_extended_descriptors.md`
 - `research/experiment_reports/2026-05-12-map-elites-archive-baseline.md`
 - `research/experiment_reports/2026-05-12-map-elites-extended-descriptors.md`
+- `research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`
 - `data/archives/map_elites_stage0.json`
 - `data/archives/map_elites_extended_stage0.json`
 - `data/package_promotion/mecha_engine_package_promotion_gate_stage0.json`

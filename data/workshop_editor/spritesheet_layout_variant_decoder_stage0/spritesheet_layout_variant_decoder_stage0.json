@@ -14079,5 +14079,5 @@
     "profile_weighted_evolution"
   ],
   "decision": "prototype_spritesheet_layout_variant_decoder",
-  "next_research_step": "Specify runtime lifecycle/archive selection integration before profile-weighted evolution claims."
+  "next_research_step": "Define offspring mutation and lineage replacement gates before profile-weighted evolution claims."
 }

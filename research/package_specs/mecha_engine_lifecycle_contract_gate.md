@@ -25,6 +25,9 @@ The Stage 0 lifecycle labs already prove:
   beat the frozen baseline under the current feedback tests.
 - Dynamic feedback stress produces a mean need-balance delta of `-0.002226`,
   so online reward shaping must remain lab-only.
+- SLIP runtime selection policy now consumes switchboard lifecycle metrics for
+  3/3 current profile-specific archive elite choices with mean selected need
+  balance `0.793865` and mean selected survival ratio `1.0`.
 
 The package lifecycle module may adopt the bounded simulator contract. It must
 not promote online reward shaping as production behavior.
@@ -203,6 +206,7 @@ Expected implementation-stage result:
 - `research/experiment_reports/2026-05-12-lifecycle-simulator-baseline.md`
 - `research/experiment_reports/2026-05-12-switchboard-lifecycle-feedback.md`
 - `research/experiment_reports/2026-05-12-switchboard-feedback-dynamic-stress.md`
+- `research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`
 - `data/lifecycle/lifecycle_stage0.json`
 - `data/package_promotion/mecha_engine_package_promotion_gate_stage0.json`
 - Tamagotchi Connection manual index:

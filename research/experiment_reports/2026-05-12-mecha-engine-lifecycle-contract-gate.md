@@ -50,6 +50,11 @@ mechanically active, but the dynamic stress suite produced mean need-balance
 delta `-0.002226` and no survival improvement. That keeps online reward
 shaping outside the lifecycle package gate.
 
+Supersession note: SLIP runtime selection now consumes switchboard lifecycle
+metrics for profile-specific archive elite selection in
+`research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`.
+This still does not promote package runtime evolution.
+
 The required public surface is:
 
 ```python
@@ -90,6 +95,7 @@ lab evidence.
 - `research/experiment_reports/2026-05-12-lifecycle-simulator-baseline.md`
 - `research/experiment_reports/2026-05-12-switchboard-lifecycle-feedback.md`
 - `research/experiment_reports/2026-05-12-switchboard-feedback-dynamic-stress.md`
+- `research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`
 - `data/lifecycle/lifecycle_stage0.json`
 - `data/package_promotion/mecha_engine_package_promotion_gate_stage0.json`
 - Tamagotchi Connection manual index:
