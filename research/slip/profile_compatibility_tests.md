@@ -12,8 +12,8 @@ round trips, and future package gates.
 
 This file satisfies the research plan's required
 `profile_compatibility_tests.md` output at research stage. It does not create a
-package module, package tests, a final SLIP JSON Schema, or a workshop authoring
-UI.
+package module, package tests, runtime JSON Schema integration, or a
+package-level Pydantic dependency.
 
 ## Source Position
 
@@ -42,22 +42,31 @@ not yet proven.
 
 ## External Anchors
 
-The future profile contract should remain JSON-compatible:
+The profile contract should remain JSON-compatible:
 
 - JSON Schema Draft 2020-12 is the interchange target for machine-readable
   profile schemas.
-- Pydantic v2 is a candidate Python authoring/validation model because it can
-  validate typed models and emit JSON Schema through `model_json_schema()`.
+- Pydantic v2 is the current lab Python authoring/validation model because it
+  validates typed models and emits JSON Schema through `model_json_schema()`.
 
-Neither source changes the current Stage 0 facts. The current repository
-validator remains `labs/grid_genome/slip.py`.
+Neither source changes the current Stage 0 facts. The current generation and
+alignment validator remains `labs/grid_genome/slip.py`; the schema failure
+corpus is checked by `labs/slip_validator/slip_validator.py` and the lab
+Pydantic contract is checked by `labs/slip_validator/pydantic_contract.py`.
 
 ## Current Fixture Corpus
 
 | Group | Path | Count | Current result |
 | --- | --- | ---: | --- |
 | Valid profiles | `data/slips/valid/*.json` | 3 | accepted by lab validator |
+| Research examples | `research/slip/slip_examples/*.json` | 3 | accepted by Stage 0 schema validator |
 | Invalid profiles | `data/slips/invalid/*.json` | 2 | rejected by lab validator |
+| Schema failure cases | `data/slips/failure_cases/*.json` | 12 | rejected by Stage 0 schema validator |
+| Schema validation report | `data/slips/slip_schema_validation_stage0.json` | 1 | 3 valid accepted, 3 examples accepted, 12 failures rejected |
+| Pydantic contract report | `data/slips/slip_pydantic_contract_stage0.json` | 1 | 3 valid accepted, 3 examples accepted, 12 failures rejected |
+| Migration/dependency report | `data/slips/slip_schema_migration_dependency_gate_stage0.json` | 1 | schema surface parity proven; only `0.1.0` accepted with no migration |
+| SLIP authoring panel | `data/workshop_editor/slip_authoring_panel_stage0.json` | 1 | 3 current drafts accepted, 3 invalid probes rejected |
+| SLIP behavior/mutation preview | `data/workshop_editor/slip_behavior_mutation_preview_stage0.json` | 1 | 3 behavior previews, 3 mutation previews, 2 invalid preview probes rejected |
 | SLIP-constrained grids | `data/generated_grids/slip_lcd_seed_constrained/*.json` | 50 | valid and aligned with `slip_lcd_seed` |
 | Multi-profile constrained grids | `data/slips/multi_profile_generation_stage0/*/*.json` | 150 | valid and aligned across all 3 valid profiles |
 | Workshop round trip | `data/workshop_editor/workshop_roundtrip_stage0_report.json` | 1 | native JSON round trip with `slip_lcd_seed` |
@@ -78,8 +87,10 @@ validator remains `labs/grid_genome/slip.py`.
 | `slip_invalid_bad_weight` | `behavior.curiosity = 1.2` | value outside `0..1` |
 | `slip_invalid_palette` | `grid.allowed_palettes = ["unknown_palette"]` | unknown palette |
 
-These invalid fixtures are profile-shape and value tests. They are not enough
-to prove grid/profile cross-product compatibility.
+These invalid fixtures are profile-shape and value tests. The expanded schema
+failure corpus adds required-field, type, enum, range, minimum-item,
+additional-property, semantic body-mass, and boolean numeric failures. Neither
+corpus proves grid/profile cross-product compatibility by itself.
 
 ## Validator Contract Observed
 
@@ -99,7 +110,11 @@ The current lab validator enforces:
 - grid alignment checks palette ID, core-cell body mass, required organ roles,
   and mutation-rate caps.
 
-Important Stage 0 limitation:
+The Stage 0 schema validator additionally requires the complete current
+behavior vocabulary (`curiosity`, `neediness`, `sleepiness`) and survival
+vocabulary (`stability`, `novelty`, `bond`) for file-level profile payloads.
+
+Important generation-validator limitation:
 
 ```txt
 The validator bounds provided behavior and survival keys, but it does not yet
@@ -110,12 +125,14 @@ require a complete behavior vocabulary or survival-weight vocabulary.
 
 | Surface | Current proof | Current status | Required next proof |
 | --- | --- | --- | --- |
-| Profile validation | 3 valid profiles accepted, 2 invalid profiles rejected | proven narrow | versioned schema/failure corpus |
+| Profile validation | 3 valid profiles accepted, 3 examples accepted, 12 schema failure cases rejected by both dependency-free and Pydantic lab validators; schema surface parity proven; only `0.1.0` accepted with no migration; legacy 2 invalid fixtures also rejected by lab validator | proven Stage 0 schema/failure corpus, lab Pydantic contract, and migration policy | runtime JSON Schema dependency and declared package dependency manifest |
 | Generation alignment | 150/150 current valid-profile constrained candidates valid and aligned | proven for current 3-profile corpus | expanded community and unsatisfiable-profile corpus |
 | Grid validator | generated candidates pass grid validation | proven for current profile-aware candidate corpora | profile-aware negative cases and held-out profiles |
 | Lifecycle | lifecycle fixture records `slip_lcd_seed`; profile can be passed into lab simulator | partial | behavior-weight effect tests and invalid-profile rejection |
 | Archive | extended descriptors include `slip_alignment` | partial | multi-profile descriptor calibration and blocked-state reporting |
-| Workshop round trip | native JSON round trip preserves semantics under `slip_lcd_seed` | proven single profile/single seed | multi-profile and held-out grid round trips |
+| Workshop round trip | native JSON round trip preserves semantics across 150 generated candidates under 3 valid profiles | proven for generated multi-profile corpus | external metadata sidecar strategy |
+| SLIP authoring panel | 3/3 current profile drafts accepted and 3/3 invalid probes rejected by migration, dependency-free, and Pydantic gates | proven minimal panel for current Stage 0 schema | external metadata sidecar strategy and usability pilot |
+| SLIP preview gates | 3/3 current profiles produce deterministic behavior previews and bounded mutation previews; 2/2 invalid preview probes rejected before activation | proven deterministic Stage 0 preview gate | measured lifecycle/archive effects before profile-weighted evolution claims |
 | CA/NCA growth/repair | growth/repair measured against LCD profile; mixed palettes lower alignment to `0.25` | diagnostic only | profile-matched CA/NCA alignment by palette family |
 | CuBFF hybrid transducer | hybrid path reports 12/12 valid and aligned under active profile | limited | real snapshot and multi-profile transducer compatibility |
 | Future package tests | generation/lifecycle/property strategies mention SLIP rejection and alignment | specified only | package import-surface tests after package work starts |
@@ -124,7 +141,7 @@ require a complete behavior vocabulary or survival-weight vocabulary.
 
 ### 1. Profile Schema Tests
 
-Future tests must validate:
+Current Stage 0 schema tests validate:
 
 - exact version handling;
 - required metadata;
@@ -136,6 +153,12 @@ Future tests must validate:
 - survival values in `[0, 1]`;
 - no boolean values accepted as numeric profile weights;
 - clear error families for every failed field group.
+
+Current Pydantic contract tests add model validation, model-generated JSON
+Schema, extra-forbid handling, and corpus parity. Future schema tests must add
+runtime JSON Schema engine parity, declared dependency policy, non-`0.1.0`
+migration fixture corpora when a new version exists, and unsatisfiable-profile
+diagnostics.
 
 ### 2. Profile-Grid Alignment Tests
 
@@ -200,26 +223,33 @@ Future archive tests must check:
 
 Future workshop tests must check:
 
-- profile import/export preserves all SLIP fields;
+- profile import/export preserves all SLIP fields; minimal current-schema
+  authoring panel proof is done in
+  `data/workshop_editor/slip_authoring_panel_stage0.json`;
 - edited grids remain aligned or report actionable alignment errors;
-- native JSON round trips pass for all valid profiles;
-- held-out generated grids pass import/export fidelity checks;
+- native JSON round trips pass for all valid profiles; first generated-corpus
+  proof is done in
+  `data/workshop_editor/multi_profile_roundtrip_stage0/workshop_multi_profile_roundtrip_stage0.json`;
+- held-out generated grids pass import/export fidelity checks; first generated
+  multi-profile corpus proof is done;
 - invalid profiles cannot be loaded as active workshop constraints;
 - standard image/spritesheet imports remain blocked until sidecar metadata can
   preserve organs, mutation weights, and profile constraints.
 
-Current proof is one native JSON round trip under `slip_lcd_seed`.
+Current proof is 150 native JSON round trips across the generated three-profile
+SLIP corpus. External image and project-file round trips remain blocked.
 
 ## Blocked States
 
 The following claims remain blocked:
 
-- full SLIP JSON Schema, because it has not been authored yet;
-- Pydantic-backed SLIP contract, because no dependency decision or model exists;
-- behavior preview, because behavior weights are bounded but not yet proven to
-  drive preview behavior;
-- mutation preview UI, because no workshop mutation preview exists;
+- runtime JSON Schema validation, because the dependency selection is not made;
+- declared Pydantic package dependency, because no dependency manifest exists;
 - profile-weighted evolution, because archive/lifecycle use remains partial;
+- engine lifecycle behavior integration, because the preview gate is not a
+  runtime policy or lifecycle simulator;
+- external image/project metadata sidecars, because non-native imports cannot
+  yet preserve organ, mutation, and profile metadata;
 - community profile packs, because profile versioning and compatibility
   migration are not defined.
 
@@ -229,6 +259,15 @@ Research-stage checks:
 
 ```powershell
 python -m json.tool .\data\slips\slip_profile_compatibility_matrix_stage0.json
+python -m json.tool .\research\slip\slip.schema.json
+python -m json.tool .\data\slips\slip_schema_validation_stage0.json
+python -m json.tool .\research\slip\slip_pydantic_model.schema.json
+python -m json.tool .\data\slips\slip_pydantic_contract_stage0.json
+python -m json.tool .\data\slips\slip_schema_migration_dependency_gate_stage0.json
+python -m json.tool .\data\workshop_editor\slip_authoring_panel_stage0.json
+python -m json.tool .\data\workshop_editor\slip_behavior_mutation_preview_stage0.json
+python -B -m unittest discover -s .\labs\slip_validator -p "test_*.py"
+python -B -m unittest discover -s .\labs\workshop_editor -p "test_*.py"
 Test-Path .\packages
 rg -n "slip_profile_compatibility_matrix|research_slip_profile_compatibility_matrix_no_package_code|profile_compatibility_tests" .\research .\data
 git diff --check
@@ -251,15 +290,19 @@ rg -n "from labs|import labs|labs/|labs\\|sys\.path" .\packages\mecha_engine
 ## Decision
 
 Adopt this matrix as the Stage 0 SLIP compatibility test plan. Keep the current
-SLIP validator as a narrow lab prototype. Do not claim full profile-authoring
-compatibility until multi-profile generation, lifecycle behavior effects,
-archive descriptors, and workshop round trips are proven.
+SLIP validator as a narrow lab prototype. Treat the Stage 0 schema, failure
+corpus, Pydantic lab model, and migration/dependency gate as the current
+file-level profile contract. Do not claim full profile-authoring compatibility
+until runtime JSON Schema validation, declared dependency policy, lifecycle
+behavior effects, archive descriptors, usability evidence, and external
+metadata strategies are proven.
 
 Next research step:
 
 ```txt
-Either author the versioned SLIP schema/failure-case corpus, or extend workshop
-round trips across the generated multi-profile corpora.
+Define the external metadata sidecar strategy for non-native image/project
+imports, or connect preview signals to measured lifecycle/archive effects
+before claiming profile-weighted evolution.
 ```
 
 ## References
@@ -277,7 +320,27 @@ round trips across the generated multi-profile corpora.
 - `research/algorithm_cards/slip_schema_validator.md`
 - `research/experiment_reports/2026-05-12-slip-constraint-baseline.md`
 - `research/experiment_reports/2026-05-12-slip-multi-profile-generation-benchmark.md`
+- `research/experiment_reports/2026-05-12-workshop-multi-profile-roundtrip.md`
+- `research/experiment_reports/2026-05-12-slip-schema-failure-corpus.md`
+- `research/slip/slip.schema.json`
+- `research/slip/slip_examples/`
+- `research/slip/slip_failure_cases.md`
+- `data/slips/slip_schema_validation_stage0.json`
+- `research/slip/pydantic_contract.md`
+- `research/slip/slip_pydantic_model.schema.json`
+- `data/slips/slip_pydantic_contract_stage0.json`
+- `research/slip/schema_migration_dependency_gate.md`
+- `data/slips/slip_schema_migration_dependency_gate_stage0.json`
+- `research/experiment_reports/2026-05-12-slip-authoring-panel.md`
+- `research/experiment_reports/2026-05-12-slip-behavior-mutation-preview-gate.md`
+- `labs/workshop_editor/slip_authoring_panel.py`
+- `labs/workshop_editor/slip_preview_gates.py`
+- `data/workshop_editor/slip_authoring_panel_stage0.json`
+- `data/workshop_editor/slip_behavior_mutation_preview_stage0.json`
+- `data/workshop_editor/slip_authoring_panel_stage0/`
+- `data/workshop_editor/slip_behavior_mutation_preview_stage0/`
 - `data/generated_grids/slip_lcd_seed_constrained/README.md`
 - `data/slips/multi_profile_generation_stage0/slip_multi_profile_generation_stage0.json`
+- `data/workshop_editor/multi_profile_roundtrip_stage0/workshop_multi_profile_roundtrip_stage0.json`
 - JSON Schema Draft 2020-12: https://json-schema.org/draft/2020-12
 - Pydantic JSON Schema docs: https://docs.pydantic.dev/latest/concepts/json_schema/

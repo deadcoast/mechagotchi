@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mechagotchi.local/schema/slip/0.1.0",
+  "title": "Mechagotchi SLIP Profile",
+  "description": "Stage 0 Synthetic Learning Intelligence Profile contract for authoring constraints, priors, mutation caps, and behavior weights.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "slip_version",
+    "profile_id",
+    "name",
+    "grid",
+    "mutation",
+    "behavior",
+    "survival_weights"
+  ],
+  "properties": {
+    "slip_version": {
+      "const": "0.1.0"
+    },
+    "profile_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-z0-9_]+$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "grid": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowed_palettes",
+        "body_mass_min",
+        "body_mass_max",
+        "required_organ_roles"
+      ],
+      "properties": {
+        "allowed_palettes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "lcd_green",
+              "gameboy_gray",
+              "amber_terminal",
+              "crt_blue",
+              "pocket_plum"
+            ]
+          }
+        },
+        "body_mass_min": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "body_mass_max": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "required_organ_roles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "sensor",
+              "expression",
+              "body_core"
+            ]
+          }
+        }
+      }
+    },
+    "mutation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cell_mutation_rate_max",
+        "organ_shift_rate_max",
+        "palette_shift_rate_max",
+        "symmetry_break_rate_max"
+      ],
+      "properties": {
+        "cell_mutation_rate_max": {
+          "$ref": "#/$defs/unit_interval"
+        },
+        "organ_shift_rate_max": {
+          "$ref": "#/$defs/unit_interval"
+        },
+        "palette_shift_rate_max": {
+          "$ref": "#/$defs/unit_interval"
+        },
+        "symmetry_break_rate_max": {
+          "$ref": "#/$defs/unit_interval"
+        }
+      }
+    },
+    "behavior": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "curiosity",
+        "neediness",
+        "sleepiness"
+      ],
+      "properties": {
+        "curiosity": {
+          "$ref": "#/$defs/unit_interval"
+        },
+        "neediness": {
+          "$ref": "#/$defs/unit_interval"
+        },
+        "sleepiness": {
+          "$ref": "#/$defs/unit_interval"
+        }
+      }
+    },
+    "survival_weights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stability",
+        "novelty",
+        "bond"
+      ],
+      "properties": {
+        "stability": {
+          "$ref": "#/$defs/unit_interval"
+        },
+        "novelty": {
+          "$ref": "#/$defs/unit_interval"
+        },
+        "bond": {
+          "$ref": "#/$defs/unit_interval"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "unit_interval": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    }
+  }
+}

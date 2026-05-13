@@ -1,0 +1,104 @@
+# Experiment Report: Workshop Multi-Profile Round Trip
+
+Date: 2026-05-12
+
+Status: `research_workshop_multi_profile_roundtrip_no_package_code`
+
+## Question
+
+Can the native semantic workshop import and export generated grids across all
+current valid SLIP profiles without losing semantic fidelity or breaking SLIP
+alignment?
+
+## Plan Alignment
+
+This continues Stage 7 of the research plan. The plan recommends a
+Mechagotchi-native semantic pixel editor because generic sprite editors cannot
+represent organ roles, mutation weights, survival semantics, or SLIP
+constraints without sidecar metadata.
+
+This report directly follows the SLIP multi-profile generation benchmark and
+uses its generated corpora as workshop input. No `packages/` implementation was
+created.
+
+## External Source Refresh
+
+The external editor references still support the current research posture:
+
+- Piskel remains useful as an Apache-2.0 browser editor reference:
+  https://github.com/piskelapp/piskel
+- Pixelorama remains useful for import/export and project-metadata workflow
+  research: https://www.pixelorama.org/user_manual/Import/
+- LibreSprite remains useful as an animation-workflow reference, but GPL-2.0
+  licensing keeps embedded-code reuse out of scope:
+  https://github.com/LibreSprite/LibreSprite
+
+## Method
+
+Added the following workshop benchmark functions:
+
+- `run_workshop_multi_profile_roundtrip_suite`
+- `write_workshop_multi_profile_roundtrip_artifacts`
+
+The benchmark loads all generated grids from:
+
+- `data/slips/multi_profile_generation_stage0/slip_lcd_seed/`
+- `data/slips/multi_profile_generation_stage0/slip_gray_stable/`
+- `data/slips/multi_profile_generation_stage0/slip_amber_social/`
+
+Each grid is imported with its matching SLIP profile, exported through the
+native workshop path, validated, checked for SLIP alignment, and compared
+against the source grid for semantic fidelity.
+
+## Results
+
+| Profile | Candidates | Round-trip successes | Import valid | Export valid | SLIP aligned | Mean semantic fidelity |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| `slip_lcd_seed` | 50 | 50 | 50 | 50 | 50 | 1.0 |
+| `slip_gray_stable` | 50 | 50 | 50 | 50 | 50 | 1.0 |
+| `slip_amber_social` | 50 | 50 | 50 | 50 | 50 | 1.0 |
+| **Total** | **150** | **150** | **150** | **150** | **150** | **1.0** |
+
+Artifacts:
+
+- `data/workshop_editor/multi_profile_roundtrip_stage0/workshop_multi_profile_roundtrip_stage0.json`
+- `data/workshop_editor/multi_profile_roundtrip_stage0/slip_lcd_seed_roundtrips.json`
+- `data/workshop_editor/multi_profile_roundtrip_stage0/slip_gray_stable_roundtrips.json`
+- `data/workshop_editor/multi_profile_roundtrip_stage0/slip_amber_social_roundtrips.json`
+
+## Interpretation
+
+The previous workshop proof was one native JSON round trip under
+`slip_lcd_seed`. The current proof covers 150 generated candidates across all
+three valid Stage 0 profiles.
+
+This proves native semantic JSON round-trip fidelity for the generated
+multi-profile corpus. It does not prove PNG, spritesheet, GIF, Piskel,
+Pixelorama, LibreSprite, or third-party project-file import/export. Those
+formats remain blocked until a sidecar metadata strategy preserves organ roles,
+mutation weights, and SLIP constraints.
+
+Supersession note: the minimal profile-authoring panel is now covered by
+`research/experiment_reports/2026-05-12-slip-authoring-panel.md`. This
+round-trip benchmark itself does not prove behavior preview or mutation
+preview. The separate preview gate is now covered by
+`research/experiment_reports/2026-05-12-slip-behavior-mutation-preview-gate.md`.
+
+## Verification
+
+```powershell
+python -B -m unittest discover -s labs\workshop_editor -p "test_workshop_editor.py"
+python -B labs\workshop_editor\workshop_editor.py --multi-profile-root data\slips\multi_profile_generation_stage0 --multi-profile-output-dir data\workshop_editor\multi_profile_roundtrip_stage0
+python -m json.tool data\workshop_editor\multi_profile_roundtrip_stage0\workshop_multi_profile_roundtrip_stage0.json
+```
+
+## Decision
+
+Adopt `workshop_multi_profile_roundtrip_stage0` as the Stage 0 proof that the
+native workshop can round-trip generated SLIP-constrained semantic grids across
+the current valid profile corpus.
+
+The follow-up versioned SLIP schema/failure corpus and minimal SLIP
+profile-authoring panel are now complete. The deterministic behavior/mutation
+preview gate is also complete. External image/project import remains premature
+until sidecar metadata can preserve semantic profile constraints.

@@ -1,0 +1,115 @@
+import json
+import unittest
+from pathlib import Path
+
+from pydantic_contract import (
+    CONTRACT_STATUS,
+    GENERATED_SCHEMA_PATH,
+    REPORT_PATH,
+    SLIPProfile,
+    build_pydantic_contract_report,
+    write_pydantic_contract_artifacts,
+)
+
+
+VALID_PROFILE_PATHS = sorted(Path("data/slips/valid").glob("*.json"))
+FAILURE_CASE_PATHS = sorted(Path("data/slips/failure_cases").glob("*.json"))
+EXAMPLE_PROFILE_PATHS = sorted(Path("research/slip/slip_examples").glob("*.json"))
+
+
+class SlipPydanticContractTests(unittest.TestCase):
+    def test_pydantic_model_accepts_current_valid_profiles_and_examples(self):
+        self.assertEqual(3, len(VALID_PROFILE_PATHS))
+        self.assertEqual(3, len(EXAMPLE_PROFILE_PATHS))
+
+        for path in VALID_PROFILE_PATHS + EXAMPLE_PROFILE_PATHS:
+            with self.subTest(path=str(path)):
+                payload = json.loads(path.read_text(encoding="utf-8"))
+                model = SLIPProfile.model_validate(payload)
+                self.assertEqual(payload["profile_id"], model.profile_id)
+                self.assertEqual(payload, model.model_dump(mode="json"))
+
+    def test_pydantic_model_rejects_expanded_failure_corpus(self):
+        self.assertEqual(12, len(FAILURE_CASE_PATHS))
+
+        report = build_pydantic_contract_report(
+            valid_paths=VALID_PROFILE_PATHS,
+            failure_paths=FAILURE_CASE_PATHS,
+            example_paths=EXAMPLE_PROFILE_PATHS,
+        )
+
+        self.assertEqual(CONTRACT_STATUS, report["status"])
+        self.assertEqual(3, report["accepted_valid_profiles"])
+        self.assertEqual(3, report["accepted_example_profiles"])
+        self.assertEqual(12, report["rejected_failure_cases"])
+        self.assertEqual([], report["unexpected_valid_rejections"])
+        self.assertEqual([], report["unexpected_example_rejections"])
+        self.assertEqual([], report["unexpected_failure_acceptances"])
+        self.assertTrue(report["pydantic_available"])
+        self.assertFalse(report["jsonschema_available"])
+
+    def test_pydantic_model_rejects_numeric_string_coercion(self):
+        payload = json.loads(Path("data/slips/valid/slip_lcd_seed.json").read_text(encoding="utf-8"))
+        payload["grid"]["body_mass_min"] = "4"
+        payload["behavior"]["curiosity"] = "0.6"
+
+        report = build_pydantic_contract_report(
+            valid_paths=[],
+            failure_paths=[],
+            example_paths=[],
+            ad_hoc_payloads=[("numeric_string_payload", payload)],
+        )
+
+        result = report["ad_hoc_results"][0]
+        self.assertFalse(result["ok"])
+        self.assertEqual(["schema_type"], result["error_families"])
+
+    def test_pydantic_generated_schema_preserves_core_contract_shape(self):
+        report = build_pydantic_contract_report(
+            valid_paths=VALID_PROFILE_PATHS,
+            failure_paths=FAILURE_CASE_PATHS,
+            example_paths=EXAMPLE_PROFILE_PATHS,
+        )
+
+        self.assertEqual(
+            [
+                "behavior",
+                "grid",
+                "mutation",
+                "name",
+                "profile_id",
+                "slip_version",
+                "survival_weights",
+            ],
+            report["generated_schema_summary"]["top_level_required"],
+        )
+        self.assertTrue(report["generated_schema_summary"]["top_level_forbid_extra"])
+        self.assertEqual(
+            ["amber_terminal", "crt_blue", "gameboy_gray", "lcd_green", "pocket_plum"],
+            report["generated_schema_summary"]["palette_values"],
+        )
+        self.assertEqual(
+            ["body_core", "expression", "sensor"],
+            report["generated_schema_summary"]["organ_role_values"],
+        )
+
+    def test_contract_artifacts_are_written(self):
+        report = write_pydantic_contract_artifacts(
+            valid_paths=VALID_PROFILE_PATHS,
+            failure_paths=FAILURE_CASE_PATHS,
+            example_paths=EXAMPLE_PROFILE_PATHS,
+        )
+
+        self.assertEqual(CONTRACT_STATUS, report["status"])
+        self.assertTrue(REPORT_PATH.exists())
+        self.assertTrue(GENERATED_SCHEMA_PATH.exists())
+        self.assertEqual(
+            report["artifact_id"],
+            json.loads(REPORT_PATH.read_text(encoding="utf-8"))["artifact_id"],
+        )
+        generated_schema = json.loads(GENERATED_SCHEMA_PATH.read_text(encoding="utf-8"))
+        self.assertEqual("Mechagotchi SLIP Pydantic Contract", generated_schema["title"])
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -38,10 +38,11 @@ SLIP-constrained LCD generated grids: 50
 SLIP-aligned LCD generated grids: 50
 ```
 
-The validator currently proves palette constraints, body-mass bounds, required
-organ roles, mutation caps, and bounded numeric weights. It does not yet prove
-complete behavior vocabulary, behavior preview, mutation preview UI,
-profile-weighted evolution, or community profile compatibility.
+At original matrix authoring time, the validator proved palette constraints,
+body-mass bounds, required organ roles, mutation caps, and bounded numeric
+weights. It did not by itself prove complete behavior vocabulary, behavior
+preview, mutation preview UI, profile-weighted evolution, or community profile
+compatibility.
 
 At authoring time, the most important uncovered gap was multi-profile
 compatibility: `slip_lcd_seed` had a generated 50/50 valid-and-aligned
@@ -51,12 +52,19 @@ profile-validator evidence.
 Supersession note: the follow-up benchmark in
 `research/experiment_reports/2026-05-12-slip-multi-profile-generation-benchmark.md`
 closed that specific gap for the current three valid Stage 0 profiles.
+The minimal workshop profile-authoring panel is now covered by
+`research/experiment_reports/2026-05-12-slip-authoring-panel.md`.
+The deterministic behavior and mutation preview gate is now covered by
+`research/experiment_reports/2026-05-12-slip-behavior-mutation-preview-gate.md`.
 
 ## Decision
 
 Adopt the Stage 0 SLIP compatibility matrix as the active profile compatibility
 test plan. Do not claim full SLIP authoring compatibility until the blocked
-surfaces are tested directly.
+surfaces are tested directly. The minimal current-schema profile-authoring
+panel and deterministic behavior/mutation preview gate are proven separately;
+profile-weighted evolution, lifecycle/archive integration, external sidecars,
+usability evidence, and community profile compatibility remain blocked.
 
 Status: `research_slip_profile_compatibility_matrix_no_package_code`
 
@@ -66,6 +74,8 @@ Research-stage verification:
 
 ```powershell
 python -m json.tool .\data\slips\slip_profile_compatibility_matrix_stage0.json
+python -m json.tool .\data\workshop_editor\slip_authoring_panel_stage0.json
+python -m json.tool .\data\workshop_editor\slip_behavior_mutation_preview_stage0.json
 Test-Path .\packages
 rg -n "slip_profile_compatibility_matrix|research_slip_profile_compatibility_matrix_no_package_code|profile_compatibility_tests" .\research .\data
 git diff --check
@@ -90,6 +100,8 @@ Future package checks are valid only after package work starts.
 - `research/algorithm_cards/slip_schema_validator.md`
 - `research/experiment_reports/2026-05-12-slip-constraint-baseline.md`
 - `research/experiment_reports/2026-05-12-workshop-roundtrip-baseline.md`
+- `research/experiment_reports/2026-05-12-slip-authoring-panel.md`
+- `research/experiment_reports/2026-05-12-slip-behavior-mutation-preview-gate.md`
 - `research/experiment_reports/2026-05-12-ca-nca-growth-repair.md`
 - `research/package_specs/mecha_engine_generation_contract_gate.md`
 - `research/package_specs/mecha_engine_property_negative_test_strategy.md`

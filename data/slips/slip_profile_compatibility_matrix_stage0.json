@@ -18,8 +18,30 @@
     "research/algorithm_cards/slip_schema_validator.md",
     "research/experiment_reports/2026-05-12-slip-constraint-baseline.md",
     "research/experiment_reports/2026-05-12-slip-multi-profile-generation-benchmark.md",
+    "research/experiment_reports/2026-05-12-workshop-multi-profile-roundtrip.md",
     "data/generated_grids/slip_lcd_seed_constrained/README.md",
     "data/slips/multi_profile_generation_stage0/slip_multi_profile_generation_stage0.json",
+    "data/workshop_editor/multi_profile_roundtrip_stage0/workshop_multi_profile_roundtrip_stage0.json",
+    "research/experiment_reports/2026-05-12-slip-schema-failure-corpus.md",
+    "research/slip/slip.schema.json",
+    "research/slip/slip_examples/",
+    "research/slip/slip_failure_cases.md",
+    "data/slips/slip_schema_validation_stage0.json",
+    "research/experiment_reports/2026-05-12-slip-pydantic-contract-gate.md",
+    "research/slip/pydantic_contract.md",
+    "research/slip/slip_pydantic_model.schema.json",
+    "data/slips/slip_pydantic_contract_stage0.json",
+    "research/experiment_reports/2026-05-12-slip-schema-migration-dependency-gate.md",
+    "research/slip/schema_migration_dependency_gate.md",
+    "data/slips/slip_schema_migration_dependency_gate_stage0.json",
+    "research/experiment_reports/2026-05-12-slip-authoring-panel.md",
+    "research/experiment_reports/2026-05-12-slip-behavior-mutation-preview-gate.md",
+    "labs/workshop_editor/slip_authoring_panel.py",
+    "labs/workshop_editor/slip_preview_gates.py",
+    "data/workshop_editor/slip_authoring_panel_stage0.json",
+    "data/workshop_editor/slip_authoring_panel_stage0/",
+    "data/workshop_editor/slip_behavior_mutation_preview_stage0.json",
+    "data/workshop_editor/slip_behavior_mutation_preview_stage0/",
     "research/package_specs/mecha_engine_generation_contract_gate.md",
     "research/package_specs/mecha_engine_property_negative_test_strategy.md"
   ],
@@ -27,12 +49,37 @@
     {
       "source": "JSON Schema Draft 2020-12",
       "url": "https://json-schema.org/draft/2020-12",
-      "used_for": "Future machine-readable SLIP schema dialect target."
+      "used_for": "Machine-readable SLIP schema dialect target."
     },
     {
       "source": "Pydantic JSON Schema docs",
       "url": "https://docs.pydantic.dev/latest/concepts/json_schema/",
-      "used_for": "Candidate future Python model to JSON Schema path."
+      "used_for": "Current lab Python model to JSON Schema path."
+    },
+    {
+      "source": "MDN FormData",
+      "url": "https://developer.mozilla.org/docs/Web/API/FormData",
+      "used_for": "Static browser profile draft extraction."
+    },
+    {
+      "source": "MDN input element",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input",
+      "used_for": "Browser-side required, pattern, min, max, and step controls."
+    },
+    {
+      "source": "Procedural Content Generation in Games",
+      "url": "https://www.pcgbook.com/",
+      "used_for": "Mutation preview is framed as bounded candidate generation."
+    },
+    {
+      "source": "Reinforcement Learning: An Introduction, MIT Press page",
+      "url": "https://mitpress.mit.edu/9780262039246/reinforcement-learning/",
+      "used_for": "Behavior preview is kept as a deterministic action-value proxy, not trained RL."
+    },
+    {
+      "source": "MDN output element",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/output",
+      "used_for": "Static browser preview panels render calculated results."
     }
   ],
   "current_scope": {
@@ -49,8 +96,12 @@
       "mutation.organ_shift_rate_max",
       "mutation.palette_shift_rate_max",
       "mutation.symmetry_break_rate_max",
-      "behavior.* unit interval values when present",
-      "survival_weights.* unit interval values when present"
+      "behavior.curiosity",
+      "behavior.neediness",
+      "behavior.sleepiness",
+      "survival_weights.stability",
+      "survival_weights.novelty",
+      "survival_weights.bond"
     ],
     "alignment_fields": [
       "grid palette_id against allowed_palettes",
@@ -58,7 +109,7 @@
       "organ roles against required_organ_roles",
       "grid mutation rates against mutation caps"
     ],
-    "important_limitation": "Behavior and survival keys are bounded when present, but the validator does not yet require a complete vocabulary."
+    "important_limitation": "The generation/alignment validator bounds behavior and survival keys when present; the Stage 0 schema validator requires the current behavior and survival vocabularies."
   },
   "fixture_counts": {
     "valid_profiles": 3,
@@ -70,6 +121,24 @@
     "multi_profile_constrained_candidates": 150,
     "multi_profile_constrained_valid": 150,
     "multi_profile_constrained_aligned": 150,
+    "workshop_multi_profile_roundtrip_profiles": 3,
+    "workshop_multi_profile_roundtrip_candidates": 150,
+    "workshop_multi_profile_roundtrip_success": 150,
+    "slip_schema_failure_cases": 12,
+    "slip_schema_examples": 3,
+    "slip_schema_valid_profiles_accepted": 3,
+    "slip_schema_failure_cases_rejected": 12,
+    "slip_pydantic_valid_profiles_accepted": 3,
+    "slip_pydantic_examples_accepted": 3,
+    "slip_pydantic_failure_cases_rejected": 12,
+    "slip_schema_surface_mismatches": 0,
+    "slip_schema_migration_supported_versions": 1,
+    "slip_authoring_panel_profiles": 3,
+    "slip_authoring_panel_valid_drafts": 3,
+    "slip_authoring_panel_invalid_probes_rejected": 3,
+    "slip_behavior_preview_profiles": 3,
+    "slip_mutation_preview_profiles": 3,
+    "slip_preview_invalid_probes_rejected": 2,
     "workshop_roundtrip_profiles": 1,
     "lifecycle_profile_fixtures": 1
   },
@@ -153,9 +222,9 @@
   "compatibility_matrix": [
     {
       "surface": "profile_validation",
-      "current_proof": "3 valid profiles accepted and 2 invalid profiles rejected",
-      "status": "proven_narrow",
-      "required_next_proof": "versioned schema and expanded failure corpus"
+      "current_proof": "3 valid profiles, 3 examples, and 12 schema failure cases pass both dependency-free and Pydantic lab contract gates; authored and generated schemas have 0 core-surface mismatches; only 0.1.0 is accepted without migration; 2 legacy invalid fixtures are rejected by the lab validator",
+      "status": "proven_stage0_schema_failure_corpus_pydantic_contract_and_migration_policy",
+      "required_next_proof": "runtime JSON Schema dependency and declared package dependency manifest"
     },
     {
       "surface": "generation_alignment",
@@ -183,9 +252,21 @@
     },
     {
       "surface": "workshop_roundtrip",
-      "current_proof": "native JSON round trip under slip_lcd_seed",
-      "status": "proven_single_profile_single_seed",
-      "required_next_proof": "multi-profile and held-out grid round trips"
+      "current_proof": "150 native JSON round trips across generated candidates under the 3 current valid profiles",
+      "status": "proven_for_generated_multi_profile_corpus",
+      "required_next_proof": "external metadata sidecar strategy"
+    },
+    {
+      "surface": "slip_authoring_panel",
+      "current_proof": "3/3 current valid profile drafts accepted and 3/3 invalid probes rejected by migration, dependency-free, and Pydantic gates",
+      "status": "proven_minimal_current_schema_panel",
+      "required_next_proof": "external metadata sidecar strategy and usability pilot"
+    },
+    {
+      "surface": "slip_preview_gates",
+      "current_proof": "3/3 current valid profiles produce deterministic behavior previews and bounded mutation previews; 2/2 invalid preview probes rejected before activation",
+      "status": "proven_deterministic_stage0_preview_gate",
+      "required_next_proof": "measured lifecycle/archive effects before profile-weighted evolution claims"
     },
     {
       "surface": "ca_nca_growth_repair",
@@ -207,19 +288,28 @@
     }
   ],
   "blocked_states": [
-    "full SLIP JSON Schema",
-    "Pydantic-backed SLIP contract",
-    "behavior preview",
-    "mutation preview UI",
+    "runtime JSON Schema validation",
+    "declared Pydantic package dependency",
     "profile-weighted evolution",
+    "engine lifecycle behavior integration",
+    "external image/project metadata sidecars",
     "community profile packs"
   ],
   "research_verification_commands": [
     "python -m json.tool .\\data\\slips\\slip_profile_compatibility_matrix_stage0.json",
+    "python -m json.tool .\\research\\slip\\slip.schema.json",
+    "python -m json.tool .\\data\\slips\\slip_schema_validation_stage0.json",
+    "python -m json.tool .\\research\\slip\\slip_pydantic_model.schema.json",
+    "python -m json.tool .\\data\\slips\\slip_pydantic_contract_stage0.json",
+    "python -m json.tool .\\data\\slips\\slip_schema_migration_dependency_gate_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\slip_authoring_panel_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\slip_behavior_mutation_preview_stage0.json",
+    "python -B -m unittest discover -s .\\labs\\slip_validator -p \"test_*.py\"",
+    "python -B -m unittest discover -s .\\labs\\workshop_editor -p \"test_*.py\"",
     "Test-Path .\\packages",
     "rg -n \"slip_profile_compatibility_matrix|research_slip_profile_compatibility_matrix_no_package_code|profile_compatibility_tests\" .\\research .\\data",
     "git diff --check"
   ],
   "decision": "adopt_stage0_slip_profile_compatibility_matrix",
-  "next_research_step": "Either author the versioned SLIP schema and expanded failure-case corpus, or extend workshop round trips across the generated multi-profile corpora."
+  "next_research_step": "Define the external metadata sidecar strategy for non-native image/project imports, or connect preview signals to measured lifecycle/archive effects before claiming profile-weighted evolution."
 }

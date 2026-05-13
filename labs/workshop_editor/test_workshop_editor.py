@@ -19,8 +19,10 @@ from workshop_editor import (
     export_grid,
     import_grid,
     roundtrip_grid,
+    run_workshop_multi_profile_roundtrip_suite,
     run_workshop_export_lab,
     run_workshop_roundtrip_lab,
+    write_workshop_multi_profile_roundtrip_artifacts,
     write_workshop_artifacts,
     write_workshop_roundtrip_artifacts,
 )
@@ -137,14 +139,70 @@ class WorkshopEditorTests(unittest.TestCase):
             app_data = (output_dir / "workshop_app_data.js").read_text(encoding="utf-8")
             self.assertIn("roundtrip", app_data)
 
+    def test_multi_profile_roundtrip_suite_covers_generated_profile_corpora(self):
+        profile_paths = [
+            Path("data/slips/valid/slip_lcd_seed.json"),
+            Path("data/slips/valid/slip_gray_stable.json"),
+            Path("data/slips/valid/slip_amber_social.json"),
+        ]
+
+        report = run_workshop_multi_profile_roundtrip_suite(
+            profile_paths,
+            Path("data/slips/multi_profile_generation_stage0"),
+            limit_per_profile=4,
+        )
+
+        self.assertEqual("workshop_multi_profile_roundtrip_stage0", report["lab_id"])
+        self.assertEqual(3, report["totals"]["profile_count"])
+        self.assertEqual(12, report["totals"]["candidate_count"])
+        self.assertEqual(12, report["totals"]["roundtrip_success_count"])
+        self.assertEqual(12, report["totals"]["import_valid_count"])
+        self.assertEqual(12, report["totals"]["export_valid_count"])
+        self.assertEqual(12, report["totals"]["slip_aligned_count"])
+        self.assertEqual(1.0, report["totals"]["mean_semantic_fidelity"])
+        self.assertEqual(
+            ["slip_lcd_seed", "slip_gray_stable", "slip_amber_social"],
+            [item["profile_id"] for item in report["profile_results"]],
+        )
+
+    def test_write_multi_profile_roundtrip_artifacts_creates_summary_and_profile_reports(self):
+        profile_paths = [
+            Path("data/slips/valid/slip_lcd_seed.json"),
+            Path("data/slips/valid/slip_gray_stable.json"),
+        ]
+        report = run_workshop_multi_profile_roundtrip_suite(
+            profile_paths,
+            Path("data/slips/multi_profile_generation_stage0"),
+            limit_per_profile=2,
+        )
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output_dir = Path(temp_dir)
+            write_workshop_multi_profile_roundtrip_artifacts(output_dir, report)
+
+            summary_path = output_dir / "workshop_multi_profile_roundtrip_stage0.json"
+            self.assertTrue(summary_path.exists())
+            persisted = json.loads(summary_path.read_text(encoding="utf-8"))
+            self.assertEqual(report["totals"], persisted["totals"])
+            for result in report["profile_results"]:
+                self.assertTrue((output_dir / f"{result['profile_id']}_roundtrips.json").exists())
+
     def test_static_editor_shell_contains_required_surfaces(self):
         html = Path("labs/workshop_editor/index.html").read_text(encoding="utf-8")
         script = Path("labs/workshop_editor/app.js").read_text(encoding="utf-8")
 
         self.assertIn('data-testid="semantic-grid"', html)
+        self.assertIn('data-testid="slip-authoring-panel"', html)
+        self.assertIn('data-testid="profile-id-input"', html)
+        self.assertIn('data-testid="body-mass-min-input"', html)
+        self.assertIn('data-testid="behavior-curiosity-input"', html)
         self.assertIn('data-testid="export-json"', html)
         self.assertIn('data-testid="import-json"', html)
         self.assertIn("renderGrid", script)
+        self.assertIn("renderProfileAuthoring", script)
+        self.assertIn("collectProfileDraft", script)
+        self.assertIn("validateProfileDraft", script)
+        self.assertIn("applyProfileDraft", script)
         self.assertIn("importGenome", script)
         self.assertIn("validateExport", script)
 

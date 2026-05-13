@@ -320,6 +320,57 @@ def run_workshop_roundtrip_lab(seed_grid: dict, slip_profile: dict) -> dict:
     }
 
 
+def run_workshop_multi_profile_roundtrip_suite(
+    profile_paths: list[Path],
+    generated_root: Path,
+    *,
+    limit_per_profile: int | None = None,
+) -> dict:
+    profile_results = []
+    for profile_path in profile_paths:
+        slip_profile = json.loads(profile_path.read_text(encoding="utf-8"))
+        profile_results.append(
+            _run_profile_roundtrips(
+                slip_profile,
+                profile_path=profile_path,
+                generated_root=generated_root,
+                limit_per_profile=limit_per_profile,
+            )
+        )
+
+    return {
+        "lab_id": "workshop_multi_profile_roundtrip_stage0",
+        "status": "research_workshop_multi_profile_roundtrip_no_package_code",
+        "generated_root": str(generated_root).replace("\\", "/"),
+        "profile_results": profile_results,
+        "totals": _multi_profile_totals(profile_results),
+        "blocked_states": [
+            "standard_image_roundtrip",
+            "spritesheet_roundtrip",
+            "third_party_project_import",
+            "behavior_preview",
+            "mutation_preview",
+            "external_metadata_sidecar_strategy",
+        ],
+    }
+
+
+def write_workshop_multi_profile_roundtrip_artifacts(
+    output_dir: Path, report: dict
+) -> None:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    _write_json(output_dir / "workshop_multi_profile_roundtrip_stage0.json", report)
+    for profile_result in report["profile_results"]:
+        _write_json(
+            output_dir / f"{profile_result['profile_id']}_roundtrips.json",
+            profile_result,
+        )
+    (output_dir / "README.md").write_text(
+        _multi_profile_roundtrip_readme_text(report),
+        encoding="utf-8",
+    )
+
+
 def write_workshop_artifacts(
     output_dir: Path, state: dict, exported_grid: dict, report: dict
 ) -> None:
@@ -479,6 +530,100 @@ def _semantic_fidelity(diff: dict, source: dict) -> float:
     return round(max(0.0, 1.0 - problem_count / source_count), 6)
 
 
+def _run_profile_roundtrips(
+    slip_profile: dict,
+    *,
+    profile_path: Path,
+    generated_root: Path,
+    limit_per_profile: int | None,
+) -> dict:
+    profile_id = slip_profile["profile_id"]
+    grid_paths = sorted((generated_root / profile_id).glob("*.json"))
+    if limit_per_profile is not None:
+        grid_paths = grid_paths[:limit_per_profile]
+    if not grid_paths:
+        raise ValueError(f"no generated grids found for profile: {profile_id}")
+
+    candidates = []
+    for grid_path in grid_paths:
+        grid = json.loads(grid_path.read_text(encoding="utf-8"))
+        roundtrip = roundtrip_grid(
+            grid,
+            slip_profile,
+            export_grid_id=f"{grid['grid_id']}_workshop_roundtrip",
+        )
+        candidates.append(_compact_roundtrip_result(grid_path, roundtrip))
+
+    candidate_count = len(candidates)
+    success_count = sum(item["roundtrip_success"] for item in candidates)
+    import_valid_count = sum(1 for item in candidates if item["import_valid"])
+    export_valid_count = sum(1 for item in candidates if item["export_valid"])
+    aligned_count = sum(1 for item in candidates if item["slip_aligned"])
+    mean_fidelity = round(
+        sum(item["semantic_fidelity"] for item in candidates) / candidate_count,
+        6,
+    )
+    return {
+        "profile_id": profile_id,
+        "profile_path": str(profile_path).replace("\\", "/"),
+        "candidate_count": candidate_count,
+        "roundtrip_success_count": success_count,
+        "roundtrip_failure_count": candidate_count - success_count,
+        "import_valid_count": import_valid_count,
+        "export_valid_count": export_valid_count,
+        "slip_aligned_count": aligned_count,
+        "misaligned_count": candidate_count - aligned_count,
+        "mean_semantic_fidelity": mean_fidelity,
+        "candidates": candidates,
+    }
+
+
+def _compact_roundtrip_result(grid_path: Path, roundtrip: dict) -> dict:
+    metrics = roundtrip["metrics"]
+    return {
+        "source_path": str(grid_path).replace("\\", "/"),
+        "source_grid_id": roundtrip["source_grid_id"],
+        "export_grid_id": roundtrip["export_grid_id"],
+        "roundtrip_success": metrics["roundtrip_success"],
+        "semantic_fidelity": metrics["semantic_fidelity"],
+        "changed_cell_count": metrics["changed_cell_count"],
+        "missing_cell_count": metrics["missing_cell_count"],
+        "added_cell_count": metrics["added_cell_count"],
+        "import_valid": roundtrip["import_validation"]["valid"],
+        "export_valid": roundtrip["export_validation"]["valid"],
+        "slip_aligned": roundtrip["export_validation"]["slip_aligned"],
+        "import_errors": roundtrip["import_validation"]["errors"],
+        "export_errors": roundtrip["export_validation"]["errors"],
+        "slip_errors": roundtrip["export_validation"]["slip_errors"],
+    }
+
+
+def _multi_profile_totals(profile_results: list[dict]) -> dict:
+    candidate_count = sum(item["candidate_count"] for item in profile_results)
+    success_count = sum(item["roundtrip_success_count"] for item in profile_results)
+    import_valid_count = sum(item["import_valid_count"] for item in profile_results)
+    export_valid_count = sum(item["export_valid_count"] for item in profile_results)
+    aligned_count = sum(item["slip_aligned_count"] for item in profile_results)
+    weighted_fidelity = sum(
+        item["mean_semantic_fidelity"] * item["candidate_count"]
+        for item in profile_results
+    )
+    return {
+        "profile_count": len(profile_results),
+        "candidate_count": candidate_count,
+        "roundtrip_success_count": success_count,
+        "roundtrip_failure_count": candidate_count - success_count,
+        "import_valid_count": import_valid_count,
+        "export_valid_count": export_valid_count,
+        "slip_aligned_count": aligned_count,
+        "misaligned_count": candidate_count - aligned_count,
+        "mean_semantic_fidelity": round(
+            weighted_fidelity / candidate_count if candidate_count else 0,
+            6,
+        ),
+    }
+
+
 def _readme_text(report: dict) -> str:
     return (
         "# Workshop Editor Stage 0\n\n"
@@ -502,6 +647,22 @@ def _roundtrip_readme_text(report: dict) -> str:
     )
 
 
+def _multi_profile_roundtrip_readme_text(report: dict) -> str:
+    totals = report["totals"]
+    return (
+        "# Workshop Multi-Profile Round Trip Stage 0\n\n"
+        "Native semantic JSON round-trip benchmark across generated SLIP "
+        "profile corpora.\n\n"
+        f"- Profiles: {totals['profile_count']}\n"
+        f"- Candidates: {totals['candidate_count']}\n"
+        f"- Round-trip successes: {totals['roundtrip_success_count']}\n"
+        f"- Import-valid candidates: {totals['import_valid_count']}\n"
+        f"- Export-valid candidates: {totals['export_valid_count']}\n"
+        f"- SLIP-aligned exports: {totals['slip_aligned_count']}\n"
+        f"- Mean semantic fidelity: {totals['mean_semantic_fidelity']}\n"
+    )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", type=Path, default=Path("data/workshop_editor"))
@@ -509,7 +670,33 @@ def main() -> None:
         "--slip", type=Path, default=Path("data/slips/valid/slip_lcd_seed.json")
     )
     parser.add_argument("--seed-index", type=int, default=0)
+    parser.add_argument("--multi-profile-root", type=Path)
+    parser.add_argument(
+        "--multi-profile-output-dir",
+        type=Path,
+        default=Path("data/workshop_editor/multi_profile_roundtrip_stage0"),
+    )
+    parser.add_argument("--multi-profile-limit", type=int)
+    parser.add_argument("--profile", type=Path, action="append")
     args = parser.parse_args()
+
+    if args.multi_profile_root:
+        profile_paths = args.profile or [
+            Path("data/slips/valid/slip_lcd_seed.json"),
+            Path("data/slips/valid/slip_gray_stable.json"),
+            Path("data/slips/valid/slip_amber_social.json"),
+        ]
+        report = run_workshop_multi_profile_roundtrip_suite(
+            profile_paths,
+            args.multi_profile_root,
+            limit_per_profile=args.multi_profile_limit,
+        )
+        write_workshop_multi_profile_roundtrip_artifacts(
+            args.multi_profile_output_dir,
+            report,
+        )
+        print(json.dumps(report, indent=2))
+        return
 
     slip_profile = json.loads(args.slip.read_text(encoding="utf-8"))
     seed_grid = build_seed_grids()[args.seed_index]

@@ -1,0 +1,176 @@
+{
+  "profile_id": "slip_gray_stable",
+  "profile_path": "data/slips/valid/slip_gray_stable.json",
+  "grid_path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_000.json",
+  "validation": {
+    "ok": true,
+    "profile_id": "slip_gray_stable",
+    "grid_id": "slip_gray_stable_constrained_000",
+    "profile_validation": {
+      "ok": true,
+      "migration": {
+        "ok": true,
+        "source_version": "0.1.0",
+        "target_version": "0.1.0",
+        "action": "accept_current_no_migration",
+        "errors": []
+      },
+      "dependency_free": {
+        "source_path": null,
+        "ok": true,
+        "errors": [],
+        "error_families": []
+      },
+      "pydantic": {
+        "source_path": "authoring_draft",
+        "ok": true,
+        "profile_id": "slip_gray_stable",
+        "errors": [],
+        "error_families": []
+      },
+      "errors": [],
+      "error_families": []
+    },
+    "grid_validation": {
+      "ok": true,
+      "errors": []
+    },
+    "alignment": {
+      "ok": true,
+      "errors": []
+    },
+    "preview_surfaces": [
+      "behavior_preview",
+      "mutation_preview"
+    ],
+    "errors": [],
+    "error_families": []
+  },
+  "behavior_preview": {
+    "profile_id": "slip_gray_stable",
+    "preview_model": "deterministic_profile_weight_proxy",
+    "scenario_count": 3,
+    "signals": {
+      "social_pull": 0.2775,
+      "exploration_pull": 0.2625,
+      "rest_pull": 0.6675,
+      "mutation_pressure": 0.2275,
+      "mutation_caution": 0.74
+    },
+    "scenarios": [
+      {
+        "scenario_id": "attention_gap",
+        "selected_action": "sleep",
+        "action_scores": {
+          "idle": 0.34215,
+          "mutate": 0.09555,
+          "play": 0.24555,
+          "sleep": 0.38715
+        },
+        "confidence": 0.38715,
+        "explanation": "Neediness and bond raise the user-facing play prompt."
+      },
+      {
+        "scenario_id": "low_energy_tick",
+        "selected_action": "sleep",
+        "action_scores": {
+          "idle": 0.22695,
+          "mutate": 0.04095,
+          "play": 0.04995,
+          "sleep": 0.62715
+        },
+        "confidence": 0.62715,
+        "explanation": "Sleepiness and stability raise the rest response."
+      },
+      {
+        "scenario_id": "safe_novelty_window",
+        "selected_action": "idle",
+        "action_scores": {
+          "idle": 0.1776,
+          "mutate": 0.00445,
+          "play": 0.1392,
+          "sleep": 0.14685
+        },
+        "confidence": 0.1776,
+        "explanation": "Curiosity and novelty raise mutation interest while stability tempers it."
+      }
+    ],
+    "effect_fingerprint": [
+      0.2775,
+      0.2625,
+      0.6675,
+      0.2275,
+      0.74
+    ],
+    "limitations": [
+      "Preview only: no lifecycle state is mutated.",
+      "Preview only: no reinforcement-learning policy is trained or adopted."
+    ]
+  },
+  "mutation_preview": {
+    "profile_id": "slip_gray_stable",
+    "grid_id": "slip_gray_stable_constrained_000",
+    "preview_model": "deterministic_cap_projection_no_mutation_applied",
+    "body_mass": 11,
+    "mutable_cell_count": 15,
+    "organ_cell_count": 4,
+    "budgets": {
+      "cell_mutation_budget": 2,
+      "cell_mutation_budget_cap": 2,
+      "organ_shift_budget": 1,
+      "organ_shift_budget_cap": 1,
+      "symmetry_break_budget": 1,
+      "symmetry_break_budget_cap": 1
+    },
+    "caps": {
+      "cell_mutation_rate_max": 0.1,
+      "organ_shift_rate_max": 0.05,
+      "palette_shift_rate_max": 0.05,
+      "symmetry_break_rate_max": 0.05
+    },
+    "cell_mutation_candidates": [
+      {
+        "coordinate": [
+          3,
+          2
+        ],
+        "organ": "core",
+        "role": "body",
+        "mutation_weight": 0.1
+      },
+      {
+        "coordinate": [
+          4,
+          2
+        ],
+        "organ": "core",
+        "role": "body",
+        "mutation_weight": 0.1
+      }
+    ],
+    "organ_shift_candidates": [
+      {
+        "coordinate": [
+          4,
+          4
+        ],
+        "organ": "expression",
+        "role": "mouth",
+        "mutation_weight": 0.1
+      }
+    ],
+    "palette_shift": {
+      "allowed": false,
+      "current_palette": "gameboy_gray",
+      "allowed_palettes": [
+        "gameboy_gray"
+      ],
+      "reason": "single_allowed_palette_blocks_preview_shift"
+    },
+    "caps_respected": true,
+    "limitations": [
+      "Preview only: no grid cells are changed.",
+      "Preview only: does not prove offspring validity or archive impact."
+    ]
+  }
+}

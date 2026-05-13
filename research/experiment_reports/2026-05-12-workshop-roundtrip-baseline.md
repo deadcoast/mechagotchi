@@ -44,6 +44,11 @@ Not included:
 - browser automation for the import button
 - multi-profile round-trip corpus
 
+Supersession note: the multi-profile round-trip corpus is now covered by
+`research/experiment_reports/2026-05-12-workshop-multi-profile-roundtrip.md`,
+and the minimal SLIP authoring panel is covered by
+`research/experiment_reports/2026-05-12-slip-authoring-panel.md`.
+
 ## Verification
 
 RED command:
@@ -142,5 +147,8 @@ organs, survival semantics, and SLIP constraints.
 
 Keep native workshop JSON round trips as `prototype`.
 
-Next workshop research should broaden the round-trip corpus and add a minimal
-SLIP authoring panel before external image/project import paths.
+The round-trip corpus has now been broadened in
+`research/experiment_reports/2026-05-12-workshop-multi-profile-roundtrip.md`,
+and the minimal SLIP authoring panel has been added. Next workshop research
+should define behavior/mutation preview gates or the external metadata sidecar
+strategy before external image/project import paths.

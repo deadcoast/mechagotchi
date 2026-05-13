@@ -76,5 +76,8 @@ Adopt `slip_multi_profile_generation_stage0` as the Stage 0 proof that the
 current valid profile corpus can constrain generation across palette and
 body-mass variants.
 
-Next research should either author the versioned SLIP schema/failure corpus or
-extend workshop round trips across the generated multi-profile corpora.
+Follow-up note: generated-corpus workshop round trips are now covered by
+`research/experiment_reports/2026-05-12-workshop-multi-profile-roundtrip.md`.
+The versioned SLIP schema/failure corpus and minimal SLIP profile-authoring
+panel are also now covered. Next research should move to behavior/mutation
+preview gates or the external metadata sidecar strategy.

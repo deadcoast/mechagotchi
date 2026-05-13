@@ -1,0 +1,206 @@
+{
+  "$defs": {
+    "BehaviorContract": {
+      "additionalProperties": false,
+      "properties": {
+        "curiosity": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Curiosity",
+          "type": "number"
+        },
+        "neediness": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Neediness",
+          "type": "number"
+        },
+        "sleepiness": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Sleepiness",
+          "type": "number"
+        }
+      },
+      "required": [
+        "curiosity",
+        "neediness",
+        "sleepiness"
+      ],
+      "title": "BehaviorContract",
+      "type": "object"
+    },
+    "GridContract": {
+      "additionalProperties": false,
+      "properties": {
+        "allowed_palettes": {
+          "items": {
+            "$ref": "#/$defs/PaletteId"
+          },
+          "minItems": 1,
+          "title": "Allowed Palettes",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "body_mass_min": {
+          "minimum": 1,
+          "title": "Body Mass Min",
+          "type": "integer"
+        },
+        "body_mass_max": {
+          "minimum": 1,
+          "title": "Body Mass Max",
+          "type": "integer"
+        },
+        "required_organ_roles": {
+          "items": {
+            "$ref": "#/$defs/OrganRole"
+          },
+          "minItems": 1,
+          "title": "Required Organ Roles",
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "allowed_palettes",
+        "body_mass_min",
+        "body_mass_max",
+        "required_organ_roles"
+      ],
+      "title": "GridContract",
+      "type": "object"
+    },
+    "MutationContract": {
+      "additionalProperties": false,
+      "properties": {
+        "cell_mutation_rate_max": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Cell Mutation Rate Max",
+          "type": "number"
+        },
+        "organ_shift_rate_max": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Organ Shift Rate Max",
+          "type": "number"
+        },
+        "palette_shift_rate_max": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Palette Shift Rate Max",
+          "type": "number"
+        },
+        "symmetry_break_rate_max": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Symmetry Break Rate Max",
+          "type": "number"
+        }
+      },
+      "required": [
+        "cell_mutation_rate_max",
+        "organ_shift_rate_max",
+        "palette_shift_rate_max",
+        "symmetry_break_rate_max"
+      ],
+      "title": "MutationContract",
+      "type": "object"
+    },
+    "OrganRole": {
+      "enum": [
+        "sensor",
+        "expression",
+        "body_core"
+      ],
+      "title": "OrganRole",
+      "type": "string"
+    },
+    "PaletteId": {
+      "enum": [
+        "lcd_green",
+        "gameboy_gray",
+        "amber_terminal",
+        "crt_blue",
+        "pocket_plum"
+      ],
+      "title": "PaletteId",
+      "type": "string"
+    },
+    "SurvivalWeightsContract": {
+      "additionalProperties": false,
+      "properties": {
+        "stability": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Stability",
+          "type": "number"
+        },
+        "novelty": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Novelty",
+          "type": "number"
+        },
+        "bond": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Bond",
+          "type": "number"
+        }
+      },
+      "required": [
+        "stability",
+        "novelty",
+        "bond"
+      ],
+      "title": "SurvivalWeightsContract",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "slip_version": {
+      "const": "0.1.0",
+      "title": "Slip Version",
+      "type": "string"
+    },
+    "profile_id": {
+      "minLength": 1,
+      "pattern": "^[a-z0-9_]+$",
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "name": {
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "grid": {
+      "$ref": "#/$defs/GridContract"
+    },
+    "mutation": {
+      "$ref": "#/$defs/MutationContract"
+    },
+    "behavior": {
+      "$ref": "#/$defs/BehaviorContract"
+    },
+    "survival_weights": {
+      "$ref": "#/$defs/SurvivalWeightsContract"
+    }
+  },
+  "required": [
+    "slip_version",
+    "profile_id",
+    "name",
+    "grid",
+    "mutation",
+    "behavior",
+    "survival_weights"
+  ],
+  "title": "Mechagotchi SLIP Pydantic Contract",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mechagotchi.local/schema/slip/pydantic/0.1.0"
+}

@@ -1,0 +1,142 @@
+{
+  "artifact_id": "slip_schema_migration_dependency_gate_stage0",
+  "status": "research_slip_schema_migration_dependency_gate_no_package_code",
+  "current_slip_version": "0.1.0",
+  "supported_versions": [
+    "0.1.0"
+  ],
+  "authored_schema_path": "research/slip/slip.schema.json",
+  "pydantic_schema_path": "research/slip/slip_pydantic_model.schema.json",
+  "package_root_exists": false,
+  "dependency_manifest_present": false,
+  "pydantic_available": true,
+  "pydantic_version": "2.12.5",
+  "jsonschema_available": false,
+  "jsonschema_version": null,
+  "dependency_decision": {
+    "pydantic": "use_pydantic_for_lab_contract_do_not_require_package_dependency",
+    "jsonschema": "defer_python_jsonschema_until_dependency_manifest_exists"
+  },
+  "schema_surface_comparison": {
+    "mismatches": [],
+    "top_level_required": [
+      "behavior",
+      "grid",
+      "mutation",
+      "name",
+      "profile_id",
+      "slip_version",
+      "survival_weights"
+    ],
+    "palette_values": [
+      "amber_terminal",
+      "crt_blue",
+      "gameboy_gray",
+      "lcd_green",
+      "pocket_plum"
+    ],
+    "organ_roles": [
+      "body_core",
+      "expression",
+      "sensor"
+    ],
+    "behavior_required": [
+      "curiosity",
+      "neediness",
+      "sleepiness"
+    ],
+    "survival_required": [
+      "bond",
+      "novelty",
+      "stability"
+    ],
+    "mutation_required": [
+      "cell_mutation_rate_max",
+      "organ_shift_rate_max",
+      "palette_shift_rate_max",
+      "symmetry_break_rate_max"
+    ],
+    "extra_forbid": {
+      "top_level": true,
+      "grid": true,
+      "mutation": true,
+      "behavior": true,
+      "survival_weights": true
+    }
+  },
+  "migration_policy": {
+    "current_version_action": "accept_current_no_migration",
+    "missing_version_action": "reject_before_validation",
+    "typed_version_action": "reject_before_validation",
+    "unknown_version_action": "reject_before_validation",
+    "implicit_upgrade": "forbidden",
+    "implicit_downgrade": "forbidden",
+    "lossy_migration": "forbidden",
+    "migration_requires": [
+      "new schema id",
+      "explicit source version",
+      "explicit target version",
+      "fixture corpus for source and target",
+      "round-trip or one-way loss report",
+      "validator parity report"
+    ]
+  },
+  "migration_probes": [
+    {
+      "ok": true,
+      "source_version": "0.1.0",
+      "target_version": "0.1.0",
+      "action": "accept_current_no_migration",
+      "errors": []
+    },
+    {
+      "ok": false,
+      "source_version": null,
+      "target_version": null,
+      "action": "reject_before_validation",
+      "errors": [
+        {
+          "family": "schema_version_missing",
+          "message": "slip_version is required before validation or migration"
+        }
+      ]
+    },
+    {
+      "ok": false,
+      "source_version": null,
+      "target_version": null,
+      "action": "reject_before_validation",
+      "errors": [
+        {
+          "family": "schema_version_type",
+          "message": "slip_version must be a string before migration"
+        }
+      ]
+    },
+    {
+      "ok": false,
+      "source_version": "0.2.0",
+      "target_version": null,
+      "action": "reject_before_validation",
+      "errors": [
+        {
+          "family": "schema_version_unsupported",
+          "message": "unsupported SLIP version: 0.2.0"
+        }
+      ]
+    }
+  ],
+  "closed_states": [
+    "schema_surface_parity_between_authored_and_pydantic_schema",
+    "schema_migration_policy"
+  ],
+  "blocked_states": [
+    "runtime_jsonschema_validation",
+    "declared_dependency_manifest",
+    "package_import_surface",
+    "behavior_preview",
+    "mutation_preview_ui",
+    "profile_weighted_evolution",
+    "profile_authoring_usability_pilot"
+  ]
+}

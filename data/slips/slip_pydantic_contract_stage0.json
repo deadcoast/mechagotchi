@@ -1,0 +1,314 @@
+{
+  "artifact_id": "slip_pydantic_contract_stage0",
+  "status": "research_slip_pydantic_contract_no_package_code",
+  "authored_schema_path": "research/slip/slip.schema.json",
+  "generated_schema_path": "research/slip/slip_pydantic_model.schema.json",
+  "pydantic_available": true,
+  "pydantic_version": "2.12.5",
+  "jsonschema_available": false,
+  "jsonschema_version": null,
+  "dependency_policy": "Pydantic is available in this environment, but no repository dependency manifest exists; package gates must declare it before requiring it.",
+  "contract_methods": [
+    "BaseModel.model_validate",
+    "BaseModel.model_validate_json",
+    "BaseModel.model_json_schema",
+    "ConfigDict(extra='forbid')",
+    "Field bounds and patterns"
+  ],
+  "valid_profile_count": 3,
+  "failure_case_count": 12,
+  "example_profile_count": 3,
+  "accepted_valid_profiles": 3,
+  "rejected_failure_cases": 12,
+  "accepted_example_profiles": 3,
+  "unexpected_valid_rejections": [],
+  "unexpected_example_rejections": [],
+  "unexpected_failure_acceptances": [],
+  "observed_error_families": [
+    "schema_additional_properties",
+    "schema_enum",
+    "schema_min_items",
+    "schema_range",
+    "schema_required",
+    "schema_type",
+    "semantic_body_mass_bounds",
+    "semantic_numeric_bool"
+  ],
+  "generated_schema_summary": {
+    "top_level_required": [
+      "behavior",
+      "grid",
+      "mutation",
+      "name",
+      "profile_id",
+      "slip_version",
+      "survival_weights"
+    ],
+    "top_level_forbid_extra": true,
+    "palette_values": [
+      "amber_terminal",
+      "crt_blue",
+      "gameboy_gray",
+      "lcd_green",
+      "pocket_plum"
+    ],
+    "organ_role_values": [
+      "body_core",
+      "expression",
+      "sensor"
+    ],
+    "behavior_required": [
+      "curiosity",
+      "neediness",
+      "sleepiness"
+    ],
+    "survival_required": [
+      "bond",
+      "novelty",
+      "stability"
+    ],
+    "mutation_required": [
+      "cell_mutation_rate_max",
+      "organ_shift_rate_max",
+      "palette_shift_rate_max",
+      "symmetry_break_rate_max"
+    ]
+  },
+  "valid_results": [
+    {
+      "source_path": "data/slips/valid/slip_amber_social.json",
+      "ok": true,
+      "profile_id": "slip_amber_social",
+      "errors": [],
+      "error_families": []
+    },
+    {
+      "source_path": "data/slips/valid/slip_gray_stable.json",
+      "ok": true,
+      "profile_id": "slip_gray_stable",
+      "errors": [],
+      "error_families": []
+    },
+    {
+      "source_path": "data/slips/valid/slip_lcd_seed.json",
+      "ok": true,
+      "profile_id": "slip_lcd_seed",
+      "errors": [],
+      "error_families": []
+    }
+  ],
+  "failure_results": [
+    {
+      "source_path": "data/slips/failure_cases/slip_bad_version.json",
+      "ok": false,
+      "errors": [
+        {
+          "family": "schema_enum",
+          "path": "slip_version",
+          "type": "literal_error",
+          "message": "Input should be '0.1.0'"
+        }
+      ],
+      "error_families": [
+        "schema_enum"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_behavior_weight_out_of_range.json",
+      "ok": false,
+      "errors": [
+        {
+          "family": "schema_range",
+          "path": "behavior.curiosity",
+          "type": "less_than_equal",
+          "message": "Input should be less than or equal to 1"
+        }
+      ],
+      "error_families": [
+        "schema_range"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_body_mass_bounds_reversed.json",
+      "ok": false,
+      "errors": [
+        {
+          "family": "semantic_body_mass_bounds",
+          "path": "grid",
+          "type": "value_error",
+          "message": "Value error, grid.body_mass_max must be greater than or equal to grid.body_mass_min"
+        }
+      ],
+      "error_families": [
+        "semantic_body_mass_bounds"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_boolean_behavior_weight.json",
+      "ok": false,
+      "errors": [
+        {
+          "family": "semantic_numeric_bool",
+          "path": "behavior.curiosity",
+          "type": "value_error",
+          "message": "Value error, numeric weights must be numbers, not bool"
+        }
+      ],
+      "error_families": [
+        "semantic_numeric_bool"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_empty_palette_list.json",
+      "ok": false,
+      "errors": [
+        {
+          "family": "schema_min_items",
+          "path": "grid.allowed_palettes",
+          "type": "too_short",
+          "message": "List should have at least 1 item after validation, not 0"
+        }
+      ],
+      "error_families": [
+        "schema_min_items"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_extra_top_level.json",
+      "ok": false,
+      "errors": [
+        {
+          "family": "schema_additional_properties",
+          "path": "unexpected",
+          "type": "extra_forbidden",
+          "message": "Extra inputs are not permitted"
+        }
+      ],
+      "error_families": [
+        "schema_additional_properties"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_missing_mutation_cap.json",
+      "ok": false,
+      "errors": [
+        {
+          "family": "schema_required",
+          "path": "mutation.symmetry_break_rate_max",
+          "type": "missing",
+          "message": "Field required"
+        }
+      ],
+      "error_families": [
+        "schema_required"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_missing_version.json",
+      "ok": false,
+      "errors": [
+        {
+          "family": "schema_required",
+          "path": "slip_version",
+          "type": "missing",
+          "message": "Field required"
+        }
+      ],
+      "error_families": [
+        "schema_required"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_profile_id_type.json",
+      "ok": false,
+      "errors": [
+        {
+          "family": "schema_type",
+          "path": "profile_id",
+          "type": "string_type",
+          "message": "Input should be a valid string"
+        }
+      ],
+      "error_families": [
+        "schema_type"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_survival_extra_key.json",
+      "ok": false,
+      "errors": [
+        {
+          "family": "schema_additional_properties",
+          "path": "survival_weights.dominance",
+          "type": "extra_forbidden",
+          "message": "Extra inputs are not permitted"
+        }
+      ],
+      "error_families": [
+        "schema_additional_properties"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_unknown_palette.json",
+      "ok": false,
+      "errors": [
+        {
+          "family": "schema_enum",
+          "path": "grid.allowed_palettes.0",
+          "type": "enum",
+          "message": "Input should be 'lcd_green', 'gameboy_gray', 'amber_terminal', 'crt_blue' or 'pocket_plum'"
+        }
+      ],
+      "error_families": [
+        "schema_enum"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_unknown_required_role.json",
+      "ok": false,
+      "errors": [
+        {
+          "family": "schema_enum",
+          "path": "grid.required_organ_roles.1",
+          "type": "enum",
+          "message": "Input should be 'sensor', 'expression' or 'body_core'"
+        }
+      ],
+      "error_families": [
+        "schema_enum"
+      ]
+    }
+  ],
+  "example_results": [
+    {
+      "source_path": "research/slip/slip_examples/slip_amber_social.json",
+      "ok": true,
+      "profile_id": "slip_amber_social",
+      "errors": [],
+      "error_families": []
+    },
+    {
+      "source_path": "research/slip/slip_examples/slip_gray_stable.json",
+      "ok": true,
+      "profile_id": "slip_gray_stable",
+      "errors": [],
+      "error_families": []
+    },
+    {
+      "source_path": "research/slip/slip_examples/slip_lcd_seed.json",
+      "ok": true,
+      "profile_id": "slip_lcd_seed",
+      "errors": [],
+      "error_families": []
+    }
+  ],
+  "ad_hoc_results": [],
+  "related_migration_dependency_report": "data/slips/slip_schema_migration_dependency_gate_stage0.json",
+  "blocked_states": [
+    "python_jsonschema_runtime_validation",
+    "declared_dependency_manifest",
+    "package_import_surface",
+    "behavior_preview",
+    "mutation_preview_ui"
+  ]
+}

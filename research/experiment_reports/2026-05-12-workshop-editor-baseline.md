@@ -121,10 +121,14 @@ The static app is intentionally narrow but operational. It can be opened as a
 local HTML file and uses the generated `workshop_app_data.js` payload to render
 the seed grid and live export JSON.
 
+Supersession note: the minimal SLIP authoring panel is now covered by
+`research/experiment_reports/2026-05-12-slip-authoring-panel.md`.
+
 ## Decision
 
 Keep the workshop editor direction as `prototype`.
 
 The next workshop research step should add import/export round trips and a
 minimal SLIP authoring panel before any animation timeline, layers, or external
-asset workflow.
+asset workflow. Both follow-up surfaces now have Stage 0 lab evidence; behavior
+and mutation previews remain open.

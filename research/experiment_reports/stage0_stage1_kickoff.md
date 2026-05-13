@@ -214,3 +214,34 @@ CI.
     `research/experiment_reports/2026-05-12-slip-multi-profile-generation-benchmark.md`
     and
     `data/slips/multi_profile_generation_stage0/slip_multi_profile_generation_stage0.json`.
+37. Extend native workshop round trips across the generated multi-profile SLIP
+    corpora. Done in
+    `research/experiment_reports/2026-05-12-workshop-multi-profile-roundtrip.md`
+    and
+    `data/workshop_editor/multi_profile_roundtrip_stage0/workshop_multi_profile_roundtrip_stage0.json`.
+38. Author the versioned Stage 0 SLIP schema and expanded failure-case corpus.
+    Done in
+    `research/experiment_reports/2026-05-12-slip-schema-failure-corpus.md`,
+    `research/slip/slip.schema.json`, `research/slip/slip_examples/`,
+    `research/slip/slip_failure_cases.md`, and
+    `data/slips/slip_schema_validation_stage0.json`.
+39. Add the Stage 0 Pydantic model contract gate for SLIP profiles. Done in
+    `research/experiment_reports/2026-05-12-slip-pydantic-contract-gate.md`,
+    `research/slip/pydantic_contract.md`,
+    `research/slip/slip_pydantic_model.schema.json`, and
+    `data/slips/slip_pydantic_contract_stage0.json`.
+40. Define the Stage 0 SLIP schema migration and runtime dependency gate. Done
+    in
+    `research/experiment_reports/2026-05-12-slip-schema-migration-dependency-gate.md`,
+    `research/slip/schema_migration_dependency_gate.md`, and
+    `data/slips/slip_schema_migration_dependency_gate_stage0.json`.
+41. Build the minimal Stage 0 SLIP profile-authoring panel against the current
+    schema, Pydantic contract, and migration policy. Done in
+    `research/experiment_reports/2026-05-12-slip-authoring-panel.md`,
+    `labs/workshop_editor/slip_authoring_panel.py`, and
+    `data/workshop_editor/slip_authoring_panel_stage0.json`.
+42. Add the deterministic Stage 0 SLIP behavior and mutation preview gate.
+    Done in
+    `research/experiment_reports/2026-05-12-slip-behavior-mutation-preview-gate.md`,
+    `labs/workshop_editor/slip_preview_gates.py`, and
+    `data/workshop_editor/slip_behavior_mutation_preview_stage0.json`.

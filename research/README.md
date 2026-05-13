@@ -53,6 +53,24 @@ The package-contract handoff is published as:
 - `data/slips/slip_profile_compatibility_matrix_stage0.json`
 - `research/experiment_reports/2026-05-12-slip-multi-profile-generation-benchmark.md`
 - `data/slips/multi_profile_generation_stage0/slip_multi_profile_generation_stage0.json`
+- `research/experiment_reports/2026-05-12-workshop-multi-profile-roundtrip.md`
+- `data/workshop_editor/multi_profile_roundtrip_stage0/workshop_multi_profile_roundtrip_stage0.json`
+- `research/experiment_reports/2026-05-12-slip-schema-failure-corpus.md`
+- `research/slip/slip.schema.json`
+- `research/slip/slip_examples/`
+- `research/slip/slip_failure_cases.md`
+- `data/slips/slip_schema_validation_stage0.json`
+- `research/experiment_reports/2026-05-12-slip-pydantic-contract-gate.md`
+- `research/slip/pydantic_contract.md`
+- `research/slip/slip_pydantic_model.schema.json`
+- `data/slips/slip_pydantic_contract_stage0.json`
+- `research/experiment_reports/2026-05-12-slip-schema-migration-dependency-gate.md`
+- `research/slip/schema_migration_dependency_gate.md`
+- `data/slips/slip_schema_migration_dependency_gate_stage0.json`
+- `research/experiment_reports/2026-05-12-slip-authoring-panel.md`
+- `data/workshop_editor/slip_authoring_panel_stage0.json`
+- `research/experiment_reports/2026-05-12-slip-behavior-mutation-preview-gate.md`
+- `data/workshop_editor/slip_behavior_mutation_preview_stage0.json`
 
 Post-v0.1 continuation has started:
 
@@ -147,6 +165,24 @@ Post-v0.1 continuation has started:
 - `data/slips/slip_profile_compatibility_matrix_stage0.json`
 - `research/experiment_reports/2026-05-12-slip-multi-profile-generation-benchmark.md`
 - `data/slips/multi_profile_generation_stage0/slip_multi_profile_generation_stage0.json`
+- `research/experiment_reports/2026-05-12-workshop-multi-profile-roundtrip.md`
+- `data/workshop_editor/multi_profile_roundtrip_stage0/workshop_multi_profile_roundtrip_stage0.json`
+- `research/experiment_reports/2026-05-12-slip-schema-failure-corpus.md`
+- `research/slip/slip.schema.json`
+- `research/slip/slip_examples/`
+- `research/slip/slip_failure_cases.md`
+- `data/slips/slip_schema_validation_stage0.json`
+- `research/experiment_reports/2026-05-12-slip-pydantic-contract-gate.md`
+- `research/slip/pydantic_contract.md`
+- `research/slip/slip_pydantic_model.schema.json`
+- `data/slips/slip_pydantic_contract_stage0.json`
+- `research/experiment_reports/2026-05-12-slip-schema-migration-dependency-gate.md`
+- `research/slip/schema_migration_dependency_gate.md`
+- `data/slips/slip_schema_migration_dependency_gate_stage0.json`
+- `research/experiment_reports/2026-05-12-slip-authoring-panel.md`
+- `data/workshop_editor/slip_authoring_panel_stage0.json`
+- `research/experiment_reports/2026-05-12-slip-behavior-mutation-preview-gate.md`
+- `data/workshop_editor/slip_behavior_mutation_preview_stage0.json`
 
 Stage 0 and Stage 1 established:
 

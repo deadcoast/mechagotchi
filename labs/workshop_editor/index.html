@@ -47,6 +47,118 @@
         </aside>
       </section>
 
+      <section class="profile-band" data-testid="slip-authoring-panel">
+        <div class="profile-head">
+          <div>
+            <h2>SLIP</h2>
+            <p id="profile-draft-summary">Draft pending</p>
+          </div>
+          <div class="profile-actions">
+            <button class="action-button" id="profile-reset-button" type="button">Reset</button>
+            <button class="action-button" id="profile-apply-button" type="button">Apply</button>
+          </div>
+        </div>
+        <form class="profile-form" id="profile-form">
+          <label>
+            Version
+            <input id="slip-version-input" name="slip_version" type="text" value="0.1.0" readonly>
+          </label>
+          <label>
+            Profile ID
+            <input data-testid="profile-id-input" id="profile-id-input" name="profile_id" type="text" required pattern="^[a-z0-9_]+$">
+          </label>
+          <label class="wide-field">
+            Name
+            <input id="profile-name-input" name="name" type="text" required>
+          </label>
+          <label>
+            Body Min
+            <input data-testid="body-mass-min-input" id="body-mass-min-input" name="grid.body_mass_min" type="number" min="1" step="1" required>
+          </label>
+          <label>
+            Body Max
+            <input id="body-mass-max-input" name="grid.body_mass_max" type="number" min="1" step="1" required>
+          </label>
+          <fieldset>
+            <legend>Palettes</legend>
+            <div class="choice-grid" id="palette-options"></div>
+          </fieldset>
+          <fieldset>
+            <legend>Organs</legend>
+            <div class="choice-grid" id="organ-options"></div>
+          </fieldset>
+          <label>
+            Cell Mut.
+            <input id="mutation-cell-input" name="mutation.cell_mutation_rate_max" type="number" min="0" max="1" step="0.01" required>
+          </label>
+          <label>
+            Organ Shift
+            <input id="mutation-organ-input" name="mutation.organ_shift_rate_max" type="number" min="0" max="1" step="0.01" required>
+          </label>
+          <label>
+            Palette Shift
+            <input id="mutation-palette-input" name="mutation.palette_shift_rate_max" type="number" min="0" max="1" step="0.01" required>
+          </label>
+          <label>
+            Sym. Break
+            <input id="mutation-symmetry-input" name="mutation.symmetry_break_rate_max" type="number" min="0" max="1" step="0.01" required>
+          </label>
+          <label>
+            Curiosity
+            <input data-testid="behavior-curiosity-input" id="behavior-curiosity-input" name="behavior.curiosity" type="number" min="0" max="1" step="0.01" required>
+          </label>
+          <label>
+            Neediness
+            <input id="behavior-neediness-input" name="behavior.neediness" type="number" min="0" max="1" step="0.01" required>
+          </label>
+          <label>
+            Sleepiness
+            <input id="behavior-sleepiness-input" name="behavior.sleepiness" type="number" min="0" max="1" step="0.01" required>
+          </label>
+          <label>
+            Stability
+            <input id="survival-stability-input" name="survival_weights.stability" type="number" min="0" max="1" step="0.01" required>
+          </label>
+          <label>
+            Novelty
+            <input id="survival-novelty-input" name="survival_weights.novelty" type="number" min="0" max="1" step="0.01" required>
+          </label>
+          <label>
+            Bond
+            <input id="survival-bond-input" name="survival_weights.bond" type="number" min="0" max="1" step="0.01" required>
+          </label>
+        </form>
+        <div class="profile-output">
+          <ul id="profile-validation-list"></ul>
+          <textarea data-testid="profile-json" id="profile-json" spellcheck="false" readonly></textarea>
+        </div>
+      </section>
+
+      <section class="preview-band" data-testid="slip-preview-gates">
+        <div class="preview-panel" data-testid="behavior-preview-panel">
+          <div>
+            <h2>Behavior Preview</h2>
+            <p id="behavior-preview-summary">Preview pending</p>
+          </div>
+          <output
+            data-testid="behavior-preview-output"
+            id="behavior-preview-output"
+            for="behavior-curiosity-input behavior-neediness-input behavior-sleepiness-input survival-stability-input survival-novelty-input survival-bond-input"
+          ></output>
+        </div>
+        <div class="preview-panel" data-testid="mutation-preview-panel">
+          <div>
+            <h2>Mutation Preview</h2>
+            <p id="mutation-preview-summary">Preview pending</p>
+          </div>
+          <output
+            data-testid="mutation-preview-output"
+            id="mutation-preview-output"
+            for="mutation-cell-input mutation-organ-input mutation-palette-input mutation-symmetry-input"
+          ></output>
+        </div>
+      </section>
+
       <section class="io-band">
         <div class="io-panel">
           <div class="io-head">
@@ -77,6 +189,8 @@
     </main>
 
     <script src="../../data/workshop_editor/workshop_app_data.js"></script>
+    <script src="../../data/workshop_editor/slip_authoring_panel_data.js"></script>
+    <script src="../../data/workshop_editor/slip_preview_gate_data.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
