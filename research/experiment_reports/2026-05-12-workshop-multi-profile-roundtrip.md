@@ -73,16 +73,28 @@ The previous workshop proof was one native JSON round trip under
 three valid Stage 0 profiles.
 
 This proves native semantic JSON round-trip fidelity for the generated
-multi-profile corpus. It does not prove PNG, spritesheet, GIF, Piskel,
-Pixelorama, LibreSprite, or third-party project-file import/export. Those
-formats remain blocked until a sidecar metadata strategy preserves organ roles,
-mutation weights, and SLIP constraints.
+multi-profile corpus. This report itself did not prove visual-image or
+third-party project-file import/export. The
+follow-up external metadata sidecar strategy now proves a Stage 0 semantic
+preservation contract, and static RGBA PNG sidecar import/export now has a
+Stage 0 decoder proof. Explicit 8-bit non-interlaced PNG color/filter variant
+sidecar import/export and fixed horizontal-strip spritesheet PNG sidecar
+import/export now also have Stage 0 decoder proofs. GIF, project-file
+import/export, full PNG conformance, spritesheet variant layouts, and metadata
+writer policies remain blocked until they are implemented against that
+contract.
 
 Supersession note: the minimal profile-authoring panel is now covered by
 `research/experiment_reports/2026-05-12-slip-authoring-panel.md`. This
 round-trip benchmark itself does not prove behavior preview or mutation
 preview. The separate preview gate is now covered by
 `research/experiment_reports/2026-05-12-slip-behavior-mutation-preview-gate.md`.
+The external sidecar strategy is now covered by
+`research/experiment_reports/2026-05-12-external-metadata-sidecar-strategy.md`.
+The static RGBA PNG sidecar decoder is now covered by
+`research/experiment_reports/2026-05-12-standard-image-sidecar-decoder.md`.
+The fixed horizontal-strip spritesheet sidecar decoder is now covered by
+`research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md`.
 
 ## Verification
 
@@ -100,5 +112,8 @@ the current valid profile corpus.
 
 The follow-up versioned SLIP schema/failure corpus and minimal SLIP
 profile-authoring panel are now complete. The deterministic behavior/mutation
-preview gate is also complete. External image/project import remains premature
-until sidecar metadata can preserve semantic profile constraints.
+preview gate is also complete. The external sidecar strategy and static RGBA
+PNG sidecar decoder are complete, and fixed horizontal-strip spritesheet
+sidecar decoding is complete for that exact layout. Broader spritesheet layout
+coverage and project import remain premature until real decoders can bind
+assets to that sidecar without losing semantic profile constraints.

@@ -1,6 +1,6 @@
 # SLIP Profile Compatibility Tests
 
-Date: 2026-05-12
+Date: 2026-05-13
 
 Status: `research_slip_profile_compatibility_matrix_no_package_code`
 
@@ -36,9 +36,9 @@ SLIP v0.1.0 =
   + bounded survival weights
 ```
 
-Any broader claim about animation vocabulary, forbidden traits, behavior
-preview, export UX, profile-weighted evolution, or community profile packs is
-not yet proven.
+Any broader claim about animation vocabulary, forbidden traits, export UX,
+runtime behavior integration, profile-weighted evolution, or community profile
+packs is not yet proven.
 
 ## External Anchors
 
@@ -67,6 +67,12 @@ Pydantic contract is checked by `labs/slip_validator/pydantic_contract.py`.
 | Migration/dependency report | `data/slips/slip_schema_migration_dependency_gate_stage0.json` | 1 | schema surface parity proven; only `0.1.0` accepted with no migration |
 | SLIP authoring panel | `data/workshop_editor/slip_authoring_panel_stage0.json` | 1 | 3 current drafts accepted, 3 invalid probes rejected |
 | SLIP behavior/mutation preview | `data/workshop_editor/slip_behavior_mutation_preview_stage0.json` | 1 | 3 behavior previews, 3 mutation previews, 2 invalid preview probes rejected |
+| SLIP lifecycle/archive effects | `data/workshop_editor/slip_lifecycle_archive_effects_stage0.json` | 1 | 3 lifecycle effects, 3 archive effects, 3 distinct preview/lifecycle/archive fingerprints, 2 invalid probes rejected |
+| External metadata sidecar | `data/workshop_editor/external_metadata_sidecar_stage0.json` | 1 | 3 sidecar round trips, 2 invalid binding probes rejected, 5 adapter formats require sidecar |
+| Standard image sidecar decoder | `data/workshop_editor/standard_image_sidecar_decoder_stage0.json` | 1 | 3 static RGBA PNG sidecar round trips, 2 invalid PNG/binding probes rejected |
+| PNG variant sidecar decoder | `data/workshop_editor/png_variant_sidecar_decoder_stage0.json` | 1 | 15 variant PNG sidecar round trips, color types 0/2/3/6, filters 0..4, 3 invalid variant probes rejected |
+| Spritesheet sidecar decoder | `data/workshop_editor/spritesheet_sidecar_decoder_stage0.json` | 1 | 3 fixed-grid spritesheet sidecar round trips, 2 invalid PNG/frame probes rejected |
+| Third-party project decoder boundary | `data/workshop_editor/third_party_project_decoder_stage0.json` | 1 | 3 project decoder successes, 3 sidecar restores, 3 invalid project/binding probes rejected |
 | SLIP-constrained grids | `data/generated_grids/slip_lcd_seed_constrained/*.json` | 50 | valid and aligned with `slip_lcd_seed` |
 | Multi-profile constrained grids | `data/slips/multi_profile_generation_stage0/*/*.json` | 150 | valid and aligned across all 3 valid profiles |
 | Workshop round trip | `data/workshop_editor/workshop_roundtrip_stage0_report.json` | 1 | native JSON round trip with `slip_lcd_seed` |
@@ -128,11 +134,16 @@ require a complete behavior vocabulary or survival-weight vocabulary.
 | Profile validation | 3 valid profiles accepted, 3 examples accepted, 12 schema failure cases rejected by both dependency-free and Pydantic lab validators; schema surface parity proven; only `0.1.0` accepted with no migration; legacy 2 invalid fixtures also rejected by lab validator | proven Stage 0 schema/failure corpus, lab Pydantic contract, and migration policy | runtime JSON Schema dependency and declared package dependency manifest |
 | Generation alignment | 150/150 current valid-profile constrained candidates valid and aligned | proven for current 3-profile corpus | expanded community and unsatisfiable-profile corpus |
 | Grid validator | generated candidates pass grid validation | proven for current profile-aware candidate corpora | profile-aware negative cases and held-out profiles |
-| Lifecycle | lifecycle fixture records `slip_lcd_seed`; profile can be passed into lab simulator | partial | behavior-weight effect tests and invalid-profile rejection |
-| Archive | extended descriptors include `slip_alignment` | partial | multi-profile descriptor calibration and blocked-state reporting |
-| Workshop round trip | native JSON round trip preserves semantics across 150 generated candidates under 3 valid profiles | proven for generated multi-profile corpus | external metadata sidecar strategy |
-| SLIP authoring panel | 3/3 current profile drafts accepted and 3/3 invalid probes rejected by migration, dependency-free, and Pydantic gates | proven minimal panel for current Stage 0 schema | external metadata sidecar strategy and usability pilot |
-| SLIP preview gates | 3/3 current profiles produce deterministic behavior previews and bounded mutation previews; 2/2 invalid preview probes rejected before activation | proven deterministic Stage 0 preview gate | measured lifecycle/archive effects before profile-weighted evolution claims |
+| Lifecycle | 3/3 current valid profiles produce measured 24-tick switchboard lifecycle effects from preview-validated grids; distinct lifecycle fingerprints: 3; 2 invalid or mismatched probes rejected before effects | measured Stage 0 bridge only | runtime policy integration and held-out/long-horizon behavior tests |
+| Archive | extended descriptors include `slip_alignment`; 3/3 current valid profiles build profile-specific extended archives; distinct archive fingerprints: 3 | measured Stage 0 descriptor bridge only | archive selection policy integration and multi-profile calibration |
+| Workshop round trip | native JSON round trip preserves semantics across 150 generated candidates under 3 valid profiles | proven for generated multi-profile corpus | spritesheet variant layout coverage, full project-format coverage, and native/embedded metadata writer policy |
+| External metadata sidecar | 3/3 current profile sidecars bind a non-native PNG asset stub to the semantic overlay and restore SLIP-aligned grids; 2/2 invalid binding probes rejected; 5 adapter formats marked sidecar-required | proven Stage 0 strategy only | embedded/native metadata writer policy and full project-format coverage |
+| Standard image sidecar decoder | 3/3 current profile grids export to real static RGBA PNG, decode with PNG signature/chunk/CRC/IDAT checks, restore SLIP-aligned semantic grids from sidecars, and reject 2/2 corrupt PNG or hash-mismatch probes | proven static non-interlaced 8-bit RGBA PNG only; superseded for broader color/filter variants by PNG variant sidecar decoder | Adam7/APNG/full PNG conformance remains separate |
+| PNG variant sidecar decoder | 15/15 current profile PNG variants export/import with sidecars across 8-bit non-interlaced color types 0, 2, 3, and 6; filter types 0 through 4; PLTE indexed-color decoding; 3/3 invalid interlace/PLTE/carrier-hash probes rejected | proven Stage 0 PNG variant subset only | Adam7 interlace, APNG, grayscale-alpha, 1/2/4/16-bit depths, and full PNG conformance |
+| Spritesheet sidecar decoder | 3/3 current profile grids export to fixed horizontal-strip spritesheet PNG, decode with PNG signature/chunk/CRC/IDAT checks, validate frame rectangles/durations/pixel hashes, restore SLIP-aligned semantic grids from sidecars, and reject 2/2 corrupt PNG or frame-hash mismatch probes | proven fixed-grid horizontal strip only | spritesheet variant layout coverage |
+| Third-party project decoder boundary | 3/3 current profile project payloads decode Piskel JSON, Pixelorama `.pxo` ZIP/data.json, and Aseprite/LibreSprite header boundaries, restore SLIP-aligned semantic grids from sidecars, and reject 3/3 corrupt project, mismatched sidecar, or unsupported format probes | proven Stage 0 boundary only | full project-format coverage and native project-file metadata writer policy |
+| SLIP authoring panel | 3/3 current profile drafts accepted and 3/3 invalid probes rejected by migration, dependency-free, and Pydantic gates | proven minimal panel for current Stage 0 schema | usability pilot |
+| SLIP preview gates | 3/3 current profiles produce deterministic behavior previews and bounded mutation previews; measured lifecycle/archive bridge records 3 distinct preview, lifecycle, and archive fingerprints; 2/2 invalid preview/effect probes rejected before activation | proven deterministic Stage 0 preview gate plus measured effects bridge | runtime policy and archive selection integration before profile-weighted evolution claims |
 | CA/NCA growth/repair | growth/repair measured against LCD profile; mixed palettes lower alignment to `0.25` | diagnostic only | profile-matched CA/NCA alignment by palette family |
 | CuBFF hybrid transducer | hybrid path reports 12/12 valid and aligned under active profile | limited | real snapshot and multi-profile transducer compatibility |
 | Future package tests | generation/lifecycle/property strategies mention SLIP rejection and alignment | specified only | package import-surface tests after package work starts |
@@ -204,7 +215,10 @@ For each valid profile, future tests must check:
 - survival weights contribute to score computation with a documented formula;
 - lifecycle state and rewards stay bounded.
 
-Current lifecycle evidence is not enough to claim full behavior compatibility.
+Current lifecycle evidence now proves short-horizon, profile-specific lab
+effects for the three current valid profiles. It is still not enough to claim
+runtime behavior integration, long-horizon behavior compatibility, or
+profile-weighted evolution.
 
 ### 5. Archive Compatibility Tests
 
@@ -218,6 +232,10 @@ Future archive tests must check:
   exist;
 - profile-specific archive coverage can be reported separately from global
   archive coverage.
+
+Current archive evidence now includes profile-specific extended archive probes
+for the three current valid profiles. It is still not enough to claim runtime
+archive selection or evolutionary replacement.
 
 ### 6. Workshop Compatibility Tests
 
@@ -233,11 +251,23 @@ Future workshop tests must check:
 - held-out generated grids pass import/export fidelity checks; first generated
   multi-profile corpus proof is done;
 - invalid profiles cannot be loaded as active workshop constraints;
-- standard image/spritesheet imports remain blocked until sidecar metadata can
-  preserve organs, mutation weights, and profile constraints.
+- static RGBA PNG import/export, 8-bit non-interlaced PNG color/filter variant
+  import/export, and fixed horizontal-strip spritesheet PNG import/export are
+  proven against the sidecar contract, and Piskel JSON, Pixelorama `.pxo`, and
+  Aseprite/LibreSprite header project boundaries are proven against the same
+  sidecar contract;
+- Adam7/APNG/full PNG conformance, spritesheet variant layout coverage, full
+  project-file coverage, and native/embedded metadata writers remain blocked.
 
 Current proof is 150 native JSON round trips across the generated three-profile
-SLIP corpus. External image and project-file round trips remain blocked.
+SLIP corpus. External sidecar strategy is proven for metadata preservation,
+static RGBA PNG sidecar import/export is proven, the PNG variant sidecar decoder
+is proven for the explicit 8-bit non-interlaced color/filter subset, and fixed
+horizontal-strip spritesheet PNG sidecar import/export is proven. Third-party
+project boundary decoding is proven for Piskel JSON, Pixelorama `.pxo`
+ZIP/data.json, and Aseprite/LibreSprite header payloads. Adam7/APNG/full PNG
+conformance, spritesheet variant layout coverage, full editor-native project
+coverage, and metadata writers remain blocked.
 
 ## Blocked States
 
@@ -245,11 +275,21 @@ The following claims remain blocked:
 
 - runtime JSON Schema validation, because the dependency selection is not made;
 - declared Pydantic package dependency, because no dependency manifest exists;
-- profile-weighted evolution, because archive/lifecycle use remains partial;
-- engine lifecycle behavior integration, because the preview gate is not a
-  runtime policy or lifecycle simulator;
-- external image/project metadata sidecars, because non-native imports cannot
-  yet preserve organ, mutation, and profile metadata;
+- profile-weighted evolution, because the measured bridge is not offspring
+  selection, runtime policy integration, or archive selection policy;
+- engine lifecycle behavior integration, because the lab probe is not a package
+  runtime policy or production lifecycle simulator;
+- archive selection policy integration, because the Stage 0 archive probe
+  measures descriptors but does not drive evolution;
+- Adam7/APNG/full PNG conformance, because the PNG variant proof covers only
+  8-bit non-interlaced color types 0/2/3/6 and filter types 0..4;
+- spritesheet variant layout coverage, because the current multi-frame sidecar
+  binding proof covers only fixed equal-size horizontal strips;
+- full project-format coverage, because the current project-file proof parses
+  Piskel JSON, Pixelorama `.pxo` ZIP/data.json, and Aseprite/LibreSprite header
+  boundaries only, not full editor-native layer/cel/chunk semantics;
+- embedded PNG metadata writer and native project-file metadata writer, because
+  the Stage 0 proof uses external JSON sidecars only;
 - community profile packs, because profile versioning and compatibility
   migration are not defined.
 
@@ -266,6 +306,12 @@ python -m json.tool .\data\slips\slip_pydantic_contract_stage0.json
 python -m json.tool .\data\slips\slip_schema_migration_dependency_gate_stage0.json
 python -m json.tool .\data\workshop_editor\slip_authoring_panel_stage0.json
 python -m json.tool .\data\workshop_editor\slip_behavior_mutation_preview_stage0.json
+python -m json.tool .\data\workshop_editor\slip_lifecycle_archive_effects_stage0.json
+python -m json.tool .\data\workshop_editor\external_metadata_sidecar_stage0.json
+python -m json.tool .\data\workshop_editor\standard_image_sidecar_decoder_stage0.json
+python -m json.tool .\data\workshop_editor\png_variant_sidecar_decoder_stage0.json
+python -m json.tool .\data\workshop_editor\spritesheet_sidecar_decoder_stage0.json
+python -m json.tool .\data\workshop_editor\third_party_project_decoder_stage0.json
 python -B -m unittest discover -s .\labs\slip_validator -p "test_*.py"
 python -B -m unittest discover -s .\labs\workshop_editor -p "test_*.py"
 Test-Path .\packages
@@ -292,17 +338,24 @@ rg -n "from labs|import labs|labs/|labs\\|sys\.path" .\packages\mecha_engine
 Adopt this matrix as the Stage 0 SLIP compatibility test plan. Keep the current
 SLIP validator as a narrow lab prototype. Treat the Stage 0 schema, failure
 corpus, Pydantic lab model, and migration/dependency gate as the current
-file-level profile contract. Do not claim full profile-authoring compatibility
-until runtime JSON Schema validation, declared dependency policy, lifecycle
-behavior effects, archive descriptors, usability evidence, and external
-metadata strategies are proven.
+file-level profile contract. Treat the measured lifecycle/archive bridge as a
+Stage 0 lab effect probe. Treat the external JSON sidecar strategy, static RGBA
+PNG sidecar decoder, PNG variant sidecar decoder subset, and fixed-grid
+horizontal spritesheet sidecar decoder as proven for Stage 0 metadata
+preservation. Treat the third-party project decoder boundary as proof of
+sidecar binding for Piskel JSON, Pixelorama `.pxo` ZIP/data.json, and
+Aseprite/LibreSprite header payloads, not as proof of broad image/project
+interoperability. Do not claim full profile-authoring compatibility until
+runtime JSON Schema validation, declared dependency policy, lifecycle runtime
+integration, archive selection policy, usability evidence, full project-format
+coverage, native/embedded metadata writers, broader spritesheet layout
+coverage, and full PNG conformance questions are proven or explicitly rejected.
 
 Next research step:
 
 ```txt
-Define the external metadata sidecar strategy for non-native image/project
-imports, or connect preview signals to measured lifecycle/archive effects
-before claiming profile-weighted evolution.
+Broaden spritesheet layout coverage and specify runtime lifecycle/archive
+selection integration before claiming profile-weighted evolution.
 ```
 
 ## References
@@ -333,12 +386,36 @@ before claiming profile-weighted evolution.
 - `data/slips/slip_schema_migration_dependency_gate_stage0.json`
 - `research/experiment_reports/2026-05-12-slip-authoring-panel.md`
 - `research/experiment_reports/2026-05-12-slip-behavior-mutation-preview-gate.md`
+- `research/experiment_reports/2026-05-12-slip-lifecycle-archive-effects.md`
+- `research/experiment_reports/2026-05-12-external-metadata-sidecar-strategy.md`
+- `research/experiment_reports/2026-05-12-standard-image-sidecar-decoder.md`
+- `research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`
+- `research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md`
+- `research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md`
 - `labs/workshop_editor/slip_authoring_panel.py`
 - `labs/workshop_editor/slip_preview_gates.py`
+- `labs/workshop_editor/slip_lifecycle_archive_effects.py`
+- `labs/workshop_editor/external_metadata_sidecar.py`
+- `labs/workshop_editor/standard_image_sidecar_decoder.py`
+- `labs/workshop_editor/png_variant_sidecar_decoder.py`
+- `labs/workshop_editor/spritesheet_sidecar_decoder.py`
+- `labs/workshop_editor/third_party_project_decoder.py`
 - `data/workshop_editor/slip_authoring_panel_stage0.json`
 - `data/workshop_editor/slip_behavior_mutation_preview_stage0.json`
+- `data/workshop_editor/slip_lifecycle_archive_effects_stage0.json`
+- `data/workshop_editor/external_metadata_sidecar_stage0.json`
+- `data/workshop_editor/standard_image_sidecar_decoder_stage0.json`
+- `data/workshop_editor/png_variant_sidecar_decoder_stage0.json`
+- `data/workshop_editor/spritesheet_sidecar_decoder_stage0.json`
+- `data/workshop_editor/third_party_project_decoder_stage0.json`
+- `data/workshop_editor/external_metadata_sidecar_stage0/`
+- `data/workshop_editor/standard_image_sidecar_decoder_stage0/`
+- `data/workshop_editor/png_variant_sidecar_decoder_stage0/`
+- `data/workshop_editor/spritesheet_sidecar_decoder_stage0/`
+- `data/workshop_editor/third_party_project_decoder_stage0/`
 - `data/workshop_editor/slip_authoring_panel_stage0/`
 - `data/workshop_editor/slip_behavior_mutation_preview_stage0/`
+- `data/workshop_editor/slip_lifecycle_archive_effects_stage0/`
 - `data/generated_grids/slip_lcd_seed_constrained/README.md`
 - `data/slips/multi_profile_generation_stage0/slip_multi_profile_generation_stage0.json`
 - `data/workshop_editor/multi_profile_roundtrip_stage0/workshop_multi_profile_roundtrip_stage0.json`

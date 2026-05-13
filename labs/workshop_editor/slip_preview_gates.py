@@ -322,15 +322,20 @@ def run_slip_preview_gate_lab(profile_paths: list[Path], generated_root: Path) -
             "declared_dependency_manifest",
             "profile_weighted_evolution",
             "engine_lifecycle_behavior_integration",
-            "external_image_project_metadata_sidecar_strategy",
+            "png_adam7_interlace_decoder",
+            "apng_decoder",
+            "full_png_conformance",
+            "spritesheet_variant_layout_coverage",
+            "full_project_format_coverage",
+            "embedded_native_metadata_writer",
             "profile_authoring_usability_pilot",
             "community_profile_packs",
         ],
         "decision": "prototype_behavior_mutation_preview_gate",
         "next_research_step": (
-            "Either define the external metadata sidecar strategy for non-native "
-            "imports or connect the preview gate to measured lifecycle/archive "
-            "effects before claiming profile-weighted evolution."
+            "Broaden spritesheet variants, specify full project-format "
+            "coverage, and specify runtime lifecycle/archive integration before "
+            "claiming profile-weighted evolution."
         ),
     }
 

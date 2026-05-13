@@ -30,6 +30,32 @@ Current generated compatibility evidence:
 - `../workshop_editor/slip_behavior_mutation_preview_stage0.json` records the
   deterministic workshop preview proof: 3 current behavior previews, 3 bounded
   mutation previews, and 2 invalid preview probes rejected before activation.
+- `../workshop_editor/slip_lifecycle_archive_effects_stage0.json` records the
+  measured preview-to-effects bridge: 3 current profiles linked to lifecycle
+  and extended archive measurements, 3 distinct preview/lifecycle/archive
+  fingerprints, and 2 invalid or mismatched probes rejected before effects.
+- `../workshop_editor/external_metadata_sidecar_stage0.json` records the
+  external metadata sidecar strategy proof: 3 current profile sidecar round
+  trips, 2 invalid binding probes rejected, and 5 adapter formats marked
+  sidecar-required.
+- `../workshop_editor/standard_image_sidecar_decoder_stage0.json` records the
+  static RGBA PNG sidecar decoder proof: 3 current profile PNG round trips, 2
+  invalid PNG/binding probes rejected, and mean semantic and pixel fidelity of
+  1.0.
+- `../workshop_editor/png_variant_sidecar_decoder_stage0.json` records the
+  PNG variant sidecar decoder proof: 15 current profile PNG variant round
+  trips across 8-bit non-interlaced color types 0/2/3/6 and filter types
+  0..4, 3 invalid variant probes rejected, and mean semantic and visual
+  carrier fidelity of 1.0.
+- `../workshop_editor/spritesheet_sidecar_decoder_stage0.json` records the
+  fixed horizontal spritesheet PNG sidecar decoder proof: 3 current profile
+  spritesheet round trips, 2 invalid PNG/frame probes rejected, and mean
+  semantic and frame-pixel fidelity of 1.0.
+- `../workshop_editor/third_party_project_decoder_stage0.json` records the
+  third-party project decoder boundary proof: 3 current profile project
+  payloads covering Piskel JSON, Pixelorama `.pxo`, and Aseprite/LibreSprite
+  header boundaries, 3 sidecar restores, 3 invalid project/binding probes
+  rejected, and mean semantic fidelity of 1.0.
 - `failure_cases/` contains authored negative profile fixtures covering
   required fields, type errors, enums, unit intervals, additional properties,
   body-mass order, and boolean numeric mistakes.
@@ -42,6 +68,8 @@ Current generated compatibility evidence:
 - `multi_profile_generation_stage0/slip_amber_social/` contains 50 valid,
   profile-aligned generated grids.
 
-It does not yet cover lifecycle-accurate behavior integration, external
-image/project metadata sidecars, runtime JSON Schema dependency installation,
+It does not yet cover package/runtime lifecycle behavior integration, archive
+selection policy integration, spritesheet variant layout coverage, full
+third-party project-format coverage, Adam7/APNG/full PNG conformance,
+embedded/native metadata writers, runtime JSON Schema dependency installation,
 declared package dependency policy, or profile-weighted evolution.

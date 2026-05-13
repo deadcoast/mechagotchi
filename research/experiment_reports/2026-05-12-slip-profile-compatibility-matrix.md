@@ -56,6 +56,16 @@ The minimal workshop profile-authoring panel is now covered by
 `research/experiment_reports/2026-05-12-slip-authoring-panel.md`.
 The deterministic behavior and mutation preview gate is now covered by
 `research/experiment_reports/2026-05-12-slip-behavior-mutation-preview-gate.md`.
+The external metadata sidecar strategy is now covered by
+`research/experiment_reports/2026-05-12-external-metadata-sidecar-strategy.md`.
+The static RGBA PNG sidecar decoder is now covered by
+`research/experiment_reports/2026-05-12-standard-image-sidecar-decoder.md`.
+The fixed horizontal-strip spritesheet sidecar decoder is now covered by
+`research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md`.
+The third-party project decoder boundary is now covered by
+`research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md`.
+The measured preview-to-lifecycle/archive bridge is now covered by
+`research/experiment_reports/2026-05-12-slip-lifecycle-archive-effects.md`.
 
 ## Decision
 
@@ -63,8 +73,14 @@ Adopt the Stage 0 SLIP compatibility matrix as the active profile compatibility
 test plan. Do not claim full SLIP authoring compatibility until the blocked
 surfaces are tested directly. The minimal current-schema profile-authoring
 panel and deterministic behavior/mutation preview gate are proven separately;
-profile-weighted evolution, lifecycle/archive integration, external sidecars,
-usability evidence, and community profile compatibility remain blocked.
+the measured lifecycle/archive bridge is proven as a Stage 0 lab effect probe;
+the external sidecar strategy is proven as a metadata preservation contract.
+Profile-weighted evolution, runtime lifecycle behavior integration, archive
+selection policy integration, full project-format coverage, spritesheet variant
+layout coverage, full PNG conformance, embedded/native metadata writers,
+usability evidence, and community profile compatibility remain blocked. The
+explicit PNG color/filter variant subset is now covered by
+`research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`.
 
 Status: `research_slip_profile_compatibility_matrix_no_package_code`
 
@@ -76,6 +92,12 @@ Research-stage verification:
 python -m json.tool .\data\slips\slip_profile_compatibility_matrix_stage0.json
 python -m json.tool .\data\workshop_editor\slip_authoring_panel_stage0.json
 python -m json.tool .\data\workshop_editor\slip_behavior_mutation_preview_stage0.json
+python -m json.tool .\data\workshop_editor\slip_lifecycle_archive_effects_stage0.json
+python -m json.tool .\data\workshop_editor\external_metadata_sidecar_stage0.json
+python -m json.tool .\data\workshop_editor\standard_image_sidecar_decoder_stage0.json
+python -m json.tool .\data\workshop_editor\png_variant_sidecar_decoder_stage0.json
+python -m json.tool .\data\workshop_editor\spritesheet_sidecar_decoder_stage0.json
+python -m json.tool .\data\workshop_editor\third_party_project_decoder_stage0.json
 Test-Path .\packages
 rg -n "slip_profile_compatibility_matrix|research_slip_profile_compatibility_matrix_no_package_code|profile_compatibility_tests" .\research .\data
 git diff --check
@@ -102,6 +124,12 @@ Future package checks are valid only after package work starts.
 - `research/experiment_reports/2026-05-12-workshop-roundtrip-baseline.md`
 - `research/experiment_reports/2026-05-12-slip-authoring-panel.md`
 - `research/experiment_reports/2026-05-12-slip-behavior-mutation-preview-gate.md`
+- `research/experiment_reports/2026-05-12-slip-lifecycle-archive-effects.md`
+- `research/experiment_reports/2026-05-12-external-metadata-sidecar-strategy.md`
+- `research/experiment_reports/2026-05-12-standard-image-sidecar-decoder.md`
+- `research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`
+- `research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md`
+- `research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md`
 - `research/experiment_reports/2026-05-12-ca-nca-growth-repair.md`
 - `research/package_specs/mecha_engine_generation_contract_gate.md`
 - `research/package_specs/mecha_engine_property_negative_test_strategy.md`

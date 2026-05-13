@@ -78,6 +78,13 @@ body-mass variants.
 
 Follow-up note: generated-corpus workshop round trips are now covered by
 `research/experiment_reports/2026-05-12-workshop-multi-profile-roundtrip.md`.
-The versioned SLIP schema/failure corpus and minimal SLIP profile-authoring
-panel are also now covered. Next research should move to behavior/mutation
-preview gates or the external metadata sidecar strategy.
+The versioned SLIP schema/failure corpus, minimal SLIP profile-authoring panel,
+behavior/mutation preview gate, external metadata sidecar strategy, and static
+RGBA PNG sidecar decoder are also now covered. Fixed horizontal-strip
+spritesheet sidecar decoding is now covered in
+`research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md`.
+Third-party project boundary decoding is now covered in
+`research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md`.
+Next research should move to spritesheet variant layout coverage, broader PNG
+variant coverage, full project-format coverage, or runtime lifecycle/archive
+selection integration.

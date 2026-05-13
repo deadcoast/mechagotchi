@@ -103,3 +103,9 @@ strategy.
 
 Follow-up: the behavior and mutation preview gate is now recorded in
 `research/experiment_reports/2026-05-12-slip-behavior-mutation-preview-gate.md`.
+The external metadata sidecar strategy is now recorded in
+`research/experiment_reports/2026-05-12-external-metadata-sidecar-strategy.md`.
+The static RGBA PNG sidecar decoder is now recorded in
+`research/experiment_reports/2026-05-12-standard-image-sidecar-decoder.md`.
+The fixed horizontal-strip spritesheet sidecar decoder is now recorded in
+`research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md`.

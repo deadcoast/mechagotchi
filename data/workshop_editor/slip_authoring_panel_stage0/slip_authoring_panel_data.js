@@ -22,10 +22,10 @@ window.MECHAGOTCHI_SLIP_AUTHORING_PANEL = {
     "blocked_states": [
       "runtime_jsonschema_validation",
       "declared_dependency_manifest",
-      "behavior_preview",
-      "mutation_preview_ui",
       "profile_weighted_evolution",
-      "external_image_project_metadata_sidecar_strategy",
+      "engine_lifecycle_behavior_integration",
+      "real_image_project_decoder",
+      "embedded_native_metadata_writer",
       "profile_authoring_usability_pilot"
     ],
     "decision": "prototype_minimal_slip_authoring_panel"

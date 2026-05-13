@@ -89,7 +89,14 @@ class SLIPAuthoringPanelTests(unittest.TestCase):
         self.assertEqual(3, report["invalid_probe_rejected_count"])
         self.assertIn("minimal_profile_authoring_panel", report["closed_states"])
         self.assertNotIn("profile_authoring_ui", report["blocked_states"])
-        self.assertIn("behavior_preview", report["blocked_states"])
+        self.assertNotIn("behavior_preview", report["blocked_states"])
+        self.assertNotIn("mutation_preview_ui", report["blocked_states"])
+        self.assertNotIn(
+            "external_image_project_metadata_sidecar_strategy",
+            report["blocked_states"],
+        )
+        self.assertIn("real_image_project_decoder", report["blocked_states"])
+        self.assertIn("usability pilot", report["next_research_step"])
 
     def test_write_artifacts_creates_report_states_and_app_payload(self):
         report = run_slip_authoring_panel_lab(VALID_PROFILE_PATHS)

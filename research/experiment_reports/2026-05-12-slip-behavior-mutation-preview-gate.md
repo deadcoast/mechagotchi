@@ -108,5 +108,16 @@ node --check labs\workshop_editor\app.js
 
 Adopt `slip_behavior_mutation_preview_stage0` as the current deterministic
 preview gate. Keep `profile_weighted_evolution`, lifecycle behavior
-integration, external metadata sidecars, usability pilot, runtime JSON Schema,
-and declared dependency policy open.
+integration, usability pilot, runtime JSON Schema, and declared dependency
+policy open. The external metadata sidecar strategy is now covered separately in
+`research/experiment_reports/2026-05-12-external-metadata-sidecar-strategy.md`;
+static RGBA PNG sidecar decoding is now covered in
+`research/experiment_reports/2026-05-12-standard-image-sidecar-decoder.md`.
+Fixed horizontal-strip spritesheet sidecar decoding is now covered in
+`research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md`.
+The measured lifecycle/archive bridge is now covered in
+`research/experiment_reports/2026-05-12-slip-lifecycle-archive-effects.md`.
+Spritesheet variant layout coverage, full project-format coverage, full PNG
+conformance, runtime profile-weighted evolution, and metadata writers remain
+open. The explicit PNG color/filter variant subset is now covered by
+`research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`.

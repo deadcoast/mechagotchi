@@ -39,7 +39,7 @@ Not included:
 - PNG import/export
 - spritesheet import/export
 - GIF import/export
-- third-party project file import
+- third-party project file import coverage beyond boundary decoding
 - file picker
 - browser automation for the import button
 - multi-profile round-trip corpus
@@ -47,7 +47,15 @@ Not included:
 Supersession note: the multi-profile round-trip corpus is now covered by
 `research/experiment_reports/2026-05-12-workshop-multi-profile-roundtrip.md`,
 and the minimal SLIP authoring panel is covered by
-`research/experiment_reports/2026-05-12-slip-authoring-panel.md`.
+`research/experiment_reports/2026-05-12-slip-authoring-panel.md`. The
+deterministic SLIP preview gate and external metadata sidecar strategy are
+covered by
+`research/experiment_reports/2026-05-12-slip-behavior-mutation-preview-gate.md`
+and
+`research/experiment_reports/2026-05-12-external-metadata-sidecar-strategy.md`.
+Static PNG decoding, fixed horizontal-strip spritesheet decoding, and
+third-party project boundary decoding are now covered by the later reports
+listed in the decision section.
 
 ## Verification
 
@@ -139,9 +147,16 @@ supports the research plan's position that Mechagotchi should keep its own
 semantic metadata instead of flattening authoring data into generic pixel
 formats too early.
 
-This is still a native JSON proof. Standard image/spritesheet formats need a
-sidecar or project metadata strategy before they can preserve mutation weights,
-organs, survival semantics, and SLIP constraints.
+This is still a native JSON proof. The follow-up sidecar strategy now defines
+how a non-native visual/project asset can carry a binding to Mechagotchi
+semantics, and static RGBA PNG sidecar import/export now has a Stage 0 decoder
+proof. Fixed horizontal-strip spritesheet PNG sidecar import/export now also
+has a Stage 0 decoder proof. Third-party project boundary decoding is now
+covered for Piskel JSON, Pixelorama `.pxo`, and Aseprite/LibreSprite headers.
+PNG color/filter variant coverage is now covered by
+`research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`.
+Spritesheet variant layouts, GIF, full project-format coverage, full PNG
+conformance, and native/embedded metadata writers remain unproven.
 
 ## Decision
 
@@ -149,6 +164,19 @@ Keep native workshop JSON round trips as `prototype`.
 
 The round-trip corpus has now been broadened in
 `research/experiment_reports/2026-05-12-workshop-multi-profile-roundtrip.md`,
-and the minimal SLIP authoring panel has been added. Next workshop research
-should define behavior/mutation preview gates or the external metadata sidecar
-strategy before external image/project import paths.
+the minimal SLIP authoring panel has been added, the deterministic preview gate
+has been added, and the external sidecar strategy has been defined. Next
+workshop research should implement a real decoder against the sidecar contract,
+broaden image/spritesheet variants, or specify runtime lifecycle/archive
+integration before claiming profile-weighted evolution. The static RGBA PNG
+decoder is now covered by
+`research/experiment_reports/2026-05-12-standard-image-sidecar-decoder.md`;
+fixed horizontal-strip spritesheet decoding is now covered by
+`research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md`;
+third-party project boundary decoding is now covered by
+`research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md`;
+the measured lifecycle/archive bridge is now covered by
+`research/experiment_reports/2026-05-12-slip-lifecycle-archive-effects.md`.
+Next image-path work should target spritesheet variant layout coverage, full
+project-format coverage, full PNG conformance, or native/embedded metadata
+writers.

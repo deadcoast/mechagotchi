@@ -77,11 +77,21 @@ extended_mean_elite_fitness: 0.957708
 extended_qd_score: 27.773545
 ```
 
+SLIP lifecycle/archive bridge completed on 2026-05-12.
+
+```txt
+profile_count: 3
+archive_effect_count: 3
+distinct_archive_fingerprints: 3
+mean_archive_qd_score: 7.671145
+```
+
 ## Decision
 
-Keep as active prototype. Use extended descriptors for research comparison, but
-do not replace the simpler baseline until manual readability ratings and broader
-lifecycle tests are available.
+Keep as active prototype. Use extended descriptors for research comparison and
+profile-effect probes, but do not promote archive selection policy into runtime
+evolution until manual readability ratings, broader lifecycle tests, and
+package-level contracts are available.
 
 ## Go/No-Go Gate
 

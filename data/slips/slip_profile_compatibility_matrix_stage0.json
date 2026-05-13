@@ -1,6 +1,6 @@
 {
   "artifact_id": "slip_profile_compatibility_matrix_stage0",
-  "date": "2026-05-12",
+  "date": "2026-05-13",
   "status": "research_slip_profile_compatibility_matrix_no_package_code",
   "purpose": "Define Stage 0 SLIP profile compatibility tests and known gaps across generation, lifecycle, archive, workshop, and future package gates.",
   "package_root_exists_at_authoring": false,
@@ -36,12 +36,36 @@
     "data/slips/slip_schema_migration_dependency_gate_stage0.json",
     "research/experiment_reports/2026-05-12-slip-authoring-panel.md",
     "research/experiment_reports/2026-05-12-slip-behavior-mutation-preview-gate.md",
+    "research/experiment_reports/2026-05-12-slip-lifecycle-archive-effects.md",
     "labs/workshop_editor/slip_authoring_panel.py",
     "labs/workshop_editor/slip_preview_gates.py",
+    "labs/workshop_editor/slip_lifecycle_archive_effects.py",
     "data/workshop_editor/slip_authoring_panel_stage0.json",
     "data/workshop_editor/slip_authoring_panel_stage0/",
     "data/workshop_editor/slip_behavior_mutation_preview_stage0.json",
     "data/workshop_editor/slip_behavior_mutation_preview_stage0/",
+    "data/workshop_editor/slip_lifecycle_archive_effects_stage0.json",
+    "data/workshop_editor/slip_lifecycle_archive_effects_stage0/",
+    "research/experiment_reports/2026-05-12-external-metadata-sidecar-strategy.md",
+    "labs/workshop_editor/external_metadata_sidecar.py",
+    "data/workshop_editor/external_metadata_sidecar_stage0.json",
+    "data/workshop_editor/external_metadata_sidecar_stage0/",
+    "research/experiment_reports/2026-05-12-standard-image-sidecar-decoder.md",
+    "labs/workshop_editor/standard_image_sidecar_decoder.py",
+    "data/workshop_editor/standard_image_sidecar_decoder_stage0.json",
+    "data/workshop_editor/standard_image_sidecar_decoder_stage0/",
+    "research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md",
+    "labs/workshop_editor/png_variant_sidecar_decoder.py",
+    "data/workshop_editor/png_variant_sidecar_decoder_stage0.json",
+    "data/workshop_editor/png_variant_sidecar_decoder_stage0/",
+    "research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md",
+    "labs/workshop_editor/spritesheet_sidecar_decoder.py",
+    "data/workshop_editor/spritesheet_sidecar_decoder_stage0.json",
+    "data/workshop_editor/spritesheet_sidecar_decoder_stage0/",
+    "research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md",
+    "labs/workshop_editor/third_party_project_decoder.py",
+    "data/workshop_editor/third_party_project_decoder_stage0.json",
+    "data/workshop_editor/third_party_project_decoder_stage0/",
     "research/package_specs/mecha_engine_generation_contract_gate.md",
     "research/package_specs/mecha_engine_property_negative_test_strategy.md"
   ],
@@ -80,6 +104,46 @@
       "source": "MDN output element",
       "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/output",
       "used_for": "Static browser preview panels render calculated results."
+    },
+    {
+      "source": "W3C PNG specification",
+      "url": "https://www.w3.org/TR/png-3/",
+      "used_for": "PNG remains a visual carrier; Mechagotchi semantics require the sidecar contract until an explicit metadata writer is implemented."
+    },
+    {
+      "source": "Piskel GitHub",
+      "url": "https://github.com/piskelapp/piskel",
+      "used_for": "Browser sprite-editor project reference for non-native project import policy."
+    },
+    {
+      "source": "Pixelorama import documentation",
+      "url": "https://www.pixelorama.org/user_manual/Import/",
+      "used_for": "Import/export workflow reference; Pixelorama metadata is not treated as the Mechagotchi schema."
+    },
+    {
+      "source": "LibreSprite GitHub",
+      "url": "https://github.com/LibreSprite/LibreSprite",
+      "used_for": "Animation workflow reference kept study-only for code reuse because of license constraints."
+    },
+    {
+      "source": "Piskel Serializer.js",
+      "url": "https://github.com/piskelapp/piskel/blob/master/src/js/utils/serialization/Serializer.js",
+      "used_for": "Piskel JSON envelope, layer string, chunk, and base64 PNG layout boundary."
+    },
+    {
+      "source": "Piskel Deserializer.js",
+      "url": "https://github.com/piskelapp/piskel/blob/master/src/js/utils/serialization/Deserializer.js",
+      "used_for": "Piskel modelVersion branching and layer JSON-string parsing boundary."
+    },
+    {
+      "source": "Pixelorama project documentation",
+      "url": "https://pixelorama.org/concepts/project/",
+      "used_for": "Pixelorama .pxo as a zip containing data.json and image_data frame assets."
+    },
+    {
+      "source": "Aseprite file-format specification",
+      "url": "https://github.com/aseprite/aseprite/blob/main/docs/ase-file-specs.md",
+      "used_for": "ASE little-endian header, magic number, dimensions, color depth, and frame header."
     }
   ],
   "current_scope": {
@@ -139,6 +203,53 @@
     "slip_behavior_preview_profiles": 3,
     "slip_mutation_preview_profiles": 3,
     "slip_preview_invalid_probes_rejected": 2,
+    "slip_lifecycle_archive_effect_profiles": 3,
+    "slip_lifecycle_effect_profiles": 3,
+    "slip_archive_effect_profiles": 3,
+    "slip_lifecycle_archive_invalid_probes_rejected": 2,
+    "slip_lifecycle_archive_distinct_preview_fingerprints": 3,
+    "slip_lifecycle_archive_distinct_lifecycle_fingerprints": 3,
+    "slip_lifecycle_archive_distinct_archive_fingerprints": 3,
+    "slip_lifecycle_archive_mean_need_balance": 0.793865,
+    "slip_lifecycle_archive_mean_qd_score": 7.671145,
+    "external_sidecar_profiles": 3,
+    "external_sidecar_roundtrip_success": 3,
+    "external_sidecar_invalid_probes_rejected": 2,
+    "external_sidecar_adapter_formats": 5,
+    "standard_image_sidecar_decoder_profiles": 3,
+    "standard_image_sidecar_decoder_roundtrip_success": 3,
+    "standard_image_sidecar_decoder_invalid_probes_rejected": 2,
+    "standard_image_sidecar_decoder_mean_semantic_fidelity": 1.0,
+    "standard_image_sidecar_decoder_mean_pixel_fidelity": 1.0,
+    "png_variant_sidecar_decoder_profiles": 3,
+    "png_variant_sidecar_decoder_variant_roundtrip_success": 15,
+    "png_variant_sidecar_decoder_invalid_probes_rejected": 3,
+    "png_variant_sidecar_decoder_supported_color_types": [
+      0,
+      2,
+      3,
+      6
+    ],
+    "png_variant_sidecar_decoder_supported_filter_types": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "png_variant_sidecar_decoder_mean_semantic_fidelity": 1.0,
+    "png_variant_sidecar_decoder_mean_pixel_fidelity": 1.0,
+    "spritesheet_sidecar_decoder_profiles": 3,
+    "spritesheet_sidecar_decoder_roundtrip_success": 3,
+    "spritesheet_sidecar_decoder_invalid_probes_rejected": 2,
+    "spritesheet_sidecar_decoder_mean_semantic_fidelity": 1.0,
+    "spritesheet_sidecar_decoder_mean_frame_pixel_fidelity": 1.0,
+    "third_party_project_decoder_profiles": 3,
+    "third_party_project_decoder_success": 3,
+    "third_party_project_decoder_sidecar_restore_success": 3,
+    "third_party_project_decoder_invalid_probes_rejected": 3,
+    "third_party_project_decoder_mean_semantic_fidelity": 1.0,
+    "third_party_project_decoder_native_metadata_writer_count": 0,
     "workshop_roundtrip_profiles": 1,
     "lifecycle_profile_fixtures": 1
   },
@@ -240,33 +351,69 @@
     },
     {
       "surface": "lifecycle",
-      "current_proof": "lifecycle fixture records slip_lcd_seed",
-      "status": "partial",
-      "required_next_proof": "behavior-weight effect tests and invalid-profile rejection"
+      "current_proof": "3/3 current valid profiles produce measured 24-tick switchboard lifecycle effects from preview-validated grids; distinct lifecycle fingerprints: 3; 2 invalid or mismatched probes rejected before effects",
+      "status": "measured_stage0_bridge_only",
+      "required_next_proof": "runtime policy integration and held-out/long-horizon behavior tests"
     },
     {
       "surface": "archive",
-      "current_proof": "extended descriptors include slip_alignment",
-      "status": "partial",
-      "required_next_proof": "multi-profile descriptor calibration and blocked-state reporting"
+      "current_proof": "extended descriptors include slip_alignment; 3/3 current valid profiles build profile-specific extended archives; distinct archive fingerprints: 3",
+      "status": "measured_stage0_descriptor_bridge_only",
+      "required_next_proof": "archive selection policy integration and multi-profile calibration"
     },
     {
       "surface": "workshop_roundtrip",
       "current_proof": "150 native JSON round trips across generated candidates under the 3 current valid profiles",
       "status": "proven_for_generated_multi_profile_corpus",
-      "required_next_proof": "external metadata sidecar strategy"
+      "required_next_proof": "spritesheet variant layout coverage, full project-format coverage, and native/embedded metadata writer policy"
+    },
+    {
+      "surface": "external_metadata_sidecar",
+      "current_proof": "3/3 current valid profile sidecars bind a non-native PNG asset stub to semantic overlays and restore SLIP-aligned grids; 2/2 invalid binding probes rejected; 5 adapter formats require sidecar semantics",
+      "status": "proven_stage0_strategy_only",
+      "required_next_proof": "embedded/native metadata writer policy and full project-format coverage"
+    },
+    {
+      "surface": "standard_image_sidecar_decoder",
+      "current_proof": "3/3 current valid profile grids export to real static RGBA PNG, decode with PNG signature/chunk/CRC/IDAT checks, restore SLIP-aligned semantic grids from sidecars, and reject 2/2 corrupt PNG or hash-mismatch probes",
+      "status": "proven_static_non_interlaced_8bit_rgba_png_only_superseded_for_color_filter_variants",
+      "required_next_proof": "Adam7/APNG/full PNG conformance remains separate"
+    },
+    {
+      "surface": "png_variant_sidecar_decoder",
+      "current_proof": "15/15 current profile PNG variants export/import with sidecars across 8-bit non-interlaced color types 0, 2, 3, and 6; filter types 0 through 4; PLTE indexed-color decoding; 3/3 invalid interlace/PLTE/carrier-hash probes rejected",
+      "status": "proven_stage0_png_variant_subset_only",
+      "required_next_proof": "Adam7 interlace, APNG, grayscale-alpha, 1/2/4/16-bit depths, and full PNG conformance"
+    },
+    {
+      "surface": "spritesheet_sidecar_decoder",
+      "current_proof": "3/3 current valid profile grids export to fixed horizontal-strip spritesheet PNG, decode with PNG signature/chunk/CRC/IDAT checks, validate frame rectangles, durations, and pixel hashes, restore SLIP-aligned semantic grids from sidecars, and reject 2/2 corrupt PNG or frame-hash mismatch probes",
+      "status": "proven_fixed_grid_horizontal_strip_only",
+      "required_next_proof": "spritesheet variant layout coverage"
+    },
+    {
+      "surface": "third_party_project_decoder_boundary",
+      "current_proof": "3/3 current valid profile project payloads decode Piskel JSON, Pixelorama .pxo ZIP/data.json, and Aseprite/LibreSprite header boundaries, restore SLIP-aligned semantic grids from sidecars, and reject 3/3 corrupt project, mismatched sidecar, or unsupported format probes",
+      "status": "proven_stage0_boundary_only",
+      "required_next_proof": "full project-format coverage and native project-file metadata writer policy"
     },
     {
       "surface": "slip_authoring_panel",
       "current_proof": "3/3 current valid profile drafts accepted and 3/3 invalid probes rejected by migration, dependency-free, and Pydantic gates",
       "status": "proven_minimal_current_schema_panel",
-      "required_next_proof": "external metadata sidecar strategy and usability pilot"
+      "required_next_proof": "usability pilot"
     },
     {
       "surface": "slip_preview_gates",
-      "current_proof": "3/3 current valid profiles produce deterministic behavior previews and bounded mutation previews; 2/2 invalid preview probes rejected before activation",
-      "status": "proven_deterministic_stage0_preview_gate",
-      "required_next_proof": "measured lifecycle/archive effects before profile-weighted evolution claims"
+      "current_proof": "3/3 current valid profiles produce deterministic behavior previews and bounded mutation previews; measured lifecycle/archive bridge records 3 distinct preview, lifecycle, and archive fingerprints; 2/2 invalid preview/effect probes rejected before activation",
+      "status": "proven_deterministic_stage0_preview_gate_plus_measured_effects_bridge",
+      "required_next_proof": "runtime policy and archive selection integration before profile-weighted evolution claims"
+    },
+    {
+      "surface": "slip_lifecycle_archive_effects",
+      "current_proof": "3/3 current valid profiles link preview signals to lifecycle and extended archive measurements; mean lifecycle need balance 0.793865; mean archive QD score 7.671145",
+      "status": "measured_stage0_effect_bridge_only",
+      "required_next_proof": "offspring selection, runtime policy integration, and archive selection policy before profile-weighted evolution claims"
     },
     {
       "surface": "ca_nca_growth_repair",
@@ -292,7 +439,12 @@
     "declared Pydantic package dependency",
     "profile-weighted evolution",
     "engine lifecycle behavior integration",
-    "external image/project metadata sidecars",
+    "archive selection policy integration",
+    "Adam7/APNG/full PNG conformance",
+    "spritesheet variant layout coverage",
+    "full project-format coverage",
+    "embedded PNG metadata writer",
+    "project-file native metadata writer",
     "community profile packs"
   ],
   "research_verification_commands": [
@@ -304,6 +456,12 @@
     "python -m json.tool .\\data\\slips\\slip_schema_migration_dependency_gate_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\slip_authoring_panel_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\slip_behavior_mutation_preview_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\slip_lifecycle_archive_effects_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\external_metadata_sidecar_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\standard_image_sidecar_decoder_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\png_variant_sidecar_decoder_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\spritesheet_sidecar_decoder_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\third_party_project_decoder_stage0.json",
     "python -B -m unittest discover -s .\\labs\\slip_validator -p \"test_*.py\"",
     "python -B -m unittest discover -s .\\labs\\workshop_editor -p \"test_*.py\"",
     "Test-Path .\\packages",
@@ -311,5 +469,5 @@
     "git diff --check"
   ],
   "decision": "adopt_stage0_slip_profile_compatibility_matrix",
-  "next_research_step": "Define the external metadata sidecar strategy for non-native image/project imports, or connect preview signals to measured lifecycle/archive effects before claiming profile-weighted evolution."
+  "next_research_step": "Broaden spritesheet layout coverage and specify runtime lifecycle/archive selection integration before claiming profile-weighted evolution."
 }

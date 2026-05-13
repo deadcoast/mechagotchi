@@ -345,12 +345,13 @@ def run_workshop_multi_profile_roundtrip_suite(
         "profile_results": profile_results,
         "totals": _multi_profile_totals(profile_results),
         "blocked_states": [
-            "standard_image_roundtrip",
-            "spritesheet_roundtrip",
-            "third_party_project_import",
-            "behavior_preview",
-            "mutation_preview",
-            "external_metadata_sidecar_strategy",
+            "png_adam7_interlace_decoder",
+            "apng_decoder",
+            "full_png_conformance",
+            "spritesheet_variant_layout_coverage",
+            "full_project_format_coverage",
+            "embedded_png_metadata_writer",
+            "project_file_native_metadata_writer",
         ],
     }
 

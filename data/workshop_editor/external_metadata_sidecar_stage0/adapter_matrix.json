@@ -1,0 +1,42 @@
+[
+  {
+    "format_id": "png",
+    "media_type": "image/png",
+    "semantic_policy": "sidecar_required",
+    "native_semantic_capacity": "pixels_only_no_mechagotchi_organs",
+    "code_reuse_policy": "standard_format_safe_to_decode_later",
+    "anchor": "W3C PNG specification"
+  },
+  {
+    "format_id": "spritesheet_png",
+    "media_type": "image/png",
+    "semantic_policy": "sidecar_required",
+    "native_semantic_capacity": "frames_and_pixels_only_no_semantic_cells",
+    "code_reuse_policy": "standard_format_safe_to_decode_later",
+    "anchor": "W3C PNG specification"
+  },
+  {
+    "format_id": "piskel_project",
+    "media_type": "application/json",
+    "semantic_policy": "sidecar_required",
+    "native_semantic_capacity": "sprite_project_data_not_mechagotchi_schema",
+    "code_reuse_policy": "study_reference_possible_apache_2_review_before_embedding",
+    "anchor": "Piskel GitHub"
+  },
+  {
+    "format_id": "pixelorama_pxo",
+    "media_type": "application/octet-stream",
+    "semantic_policy": "sidecar_required",
+    "native_semantic_capacity": "editor_project_metadata_not_mechagotchi_schema",
+    "code_reuse_policy": "study_and_interop_possible_mit_review_before_embedding",
+    "anchor": "Pixelorama documentation"
+  },
+  {
+    "format_id": "libresprite_project",
+    "media_type": "application/octet-stream",
+    "semantic_policy": "sidecar_required",
+    "native_semantic_capacity": "animation_project_data_not_mechagotchi_schema",
+    "code_reuse_policy": "study_only_do_not_embed",
+    "anchor": "LibreSprite GitHub"
+  }
+]

@@ -71,6 +71,18 @@ The package-contract handoff is published as:
 - `data/workshop_editor/slip_authoring_panel_stage0.json`
 - `research/experiment_reports/2026-05-12-slip-behavior-mutation-preview-gate.md`
 - `data/workshop_editor/slip_behavior_mutation_preview_stage0.json`
+- `research/experiment_reports/2026-05-12-slip-lifecycle-archive-effects.md`
+- `data/workshop_editor/slip_lifecycle_archive_effects_stage0.json`
+- `research/experiment_reports/2026-05-12-external-metadata-sidecar-strategy.md`
+- `data/workshop_editor/external_metadata_sidecar_stage0.json`
+- `research/experiment_reports/2026-05-12-standard-image-sidecar-decoder.md`
+- `data/workshop_editor/standard_image_sidecar_decoder_stage0.json`
+- `research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`
+- `data/workshop_editor/png_variant_sidecar_decoder_stage0.json`
+- `research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md`
+- `data/workshop_editor/spritesheet_sidecar_decoder_stage0.json`
+- `research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md`
+- `data/workshop_editor/third_party_project_decoder_stage0.json`
 
 Post-v0.1 continuation has started:
 
@@ -183,6 +195,18 @@ Post-v0.1 continuation has started:
 - `data/workshop_editor/slip_authoring_panel_stage0.json`
 - `research/experiment_reports/2026-05-12-slip-behavior-mutation-preview-gate.md`
 - `data/workshop_editor/slip_behavior_mutation_preview_stage0.json`
+- `research/experiment_reports/2026-05-12-slip-lifecycle-archive-effects.md`
+- `data/workshop_editor/slip_lifecycle_archive_effects_stage0.json`
+- `research/experiment_reports/2026-05-12-external-metadata-sidecar-strategy.md`
+- `data/workshop_editor/external_metadata_sidecar_stage0.json`
+- `research/experiment_reports/2026-05-12-standard-image-sidecar-decoder.md`
+- `data/workshop_editor/standard_image_sidecar_decoder_stage0.json`
+- `research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`
+- `data/workshop_editor/png_variant_sidecar_decoder_stage0.json`
+- `research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md`
+- `data/workshop_editor/spritesheet_sidecar_decoder_stage0.json`
+- `research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md`
+- `data/workshop_editor/third_party_project_decoder_stage0.json`
 
 Stage 0 and Stage 1 established:
 

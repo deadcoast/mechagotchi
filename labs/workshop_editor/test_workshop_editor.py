@@ -164,6 +164,20 @@ class WorkshopEditorTests(unittest.TestCase):
             ["slip_lcd_seed", "slip_gray_stable", "slip_amber_social"],
             [item["profile_id"] for item in report["profile_results"]],
         )
+        self.assertNotIn("standard_image_decoder", report["blocked_states"])
+        self.assertNotIn("png_variant_decoder_coverage", report["blocked_states"])
+        self.assertIn("png_adam7_interlace_decoder", report["blocked_states"])
+        self.assertIn("apng_decoder", report["blocked_states"])
+        self.assertIn("full_png_conformance", report["blocked_states"])
+        self.assertNotIn("spritesheet_decoder", report["blocked_states"])
+        self.assertIn("spritesheet_variant_layout_coverage", report["blocked_states"])
+        self.assertNotIn("third_party_project_decoder", report["blocked_states"])
+        self.assertIn("full_project_format_coverage", report["blocked_states"])
+        self.assertIn("embedded_png_metadata_writer", report["blocked_states"])
+        self.assertIn("project_file_native_metadata_writer", report["blocked_states"])
+        self.assertNotIn("behavior_preview", report["blocked_states"])
+        self.assertNotIn("mutation_preview", report["blocked_states"])
+        self.assertNotIn("external_metadata_sidecar_strategy", report["blocked_states"])
 
     def test_write_multi_profile_roundtrip_artifacts_creates_summary_and_profile_reports(self):
         profile_paths = [

@@ -112,7 +112,21 @@ class SLIPPreviewGateTests(unittest.TestCase):
         self.assertIn("mutation_preview_gate", report["closed_states"])
         self.assertNotIn("behavior_preview", report["blocked_states"])
         self.assertNotIn("mutation_preview_ui", report["blocked_states"])
+        self.assertNotIn(
+            "external_image_project_metadata_sidecar_strategy",
+            report["blocked_states"],
+        )
+        self.assertNotIn("real_image_project_decoder", report["blocked_states"])
+        self.assertNotIn("png_variant_decoder_coverage", report["blocked_states"])
+        self.assertIn("png_adam7_interlace_decoder", report["blocked_states"])
+        self.assertIn("apng_decoder", report["blocked_states"])
+        self.assertIn("full_png_conformance", report["blocked_states"])
+        self.assertIn("spritesheet_variant_layout_coverage", report["blocked_states"])
+        self.assertIn("full_project_format_coverage", report["blocked_states"])
         self.assertIn("profile_weighted_evolution", report["blocked_states"])
+        self.assertNotIn("spritesheet PNG frame metadata", report["next_research_step"])
+        self.assertIn("full project-format coverage", report["next_research_step"])
+        self.assertIn("runtime lifecycle/archive integration", report["next_research_step"])
 
     def test_write_artifacts_creates_report_profile_payloads_and_app_data(self):
         report = run_slip_preview_gate_lab(VALID_PROFILE_PATHS, GENERATED_ROOT)

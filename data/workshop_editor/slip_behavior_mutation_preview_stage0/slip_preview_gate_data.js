@@ -26,7 +26,12 @@ window.MECHAGOTCHI_SLIP_PREVIEW_GATES = {
       "declared_dependency_manifest",
       "profile_weighted_evolution",
       "engine_lifecycle_behavior_integration",
-      "external_image_project_metadata_sidecar_strategy",
+      "png_adam7_interlace_decoder",
+      "apng_decoder",
+      "full_png_conformance",
+      "spritesheet_variant_layout_coverage",
+      "full_project_format_coverage",
+      "embedded_native_metadata_writer",
       "profile_authoring_usability_pilot",
       "community_profile_packs"
     ],

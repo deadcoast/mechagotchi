@@ -108,12 +108,27 @@ Measured dynamic stress result:
 - Feedback worse need-balance count: 1
 - Mean need-balance delta: -0.002226
 
+SLIP lifecycle/archive bridge completed on 2026-05-12.
+
+Artifacts:
+
+- `labs/workshop_editor/slip_lifecycle_archive_effects.py`
+- `data/workshop_editor/slip_lifecycle_archive_effects_stage0.json`
+- `research/experiment_reports/2026-05-12-slip-lifecycle-archive-effects.md`
+
+Measured bridge result:
+
+- Current valid profiles covered: 3
+- Lifecycle effects measured: 3
+- Distinct lifecycle fingerprints: 3
+- Mean lifecycle need balance: 0.793865
+
 ## Decision
 
 Keep as active prototype. Do not introduce a broad ML model. The lifecycle
-feedback loop is now explicit and measured, but reward shaping must beat the
-frozen baseline under dynamic stress before any online learner is promoted into
-packages.
+feedback loop and profile-specific lifecycle effect bridge are explicit and
+measured, but reward shaping must beat the frozen baseline under dynamic stress
+before any online learner is promoted into packages.
 
 ## Go/No-Go Gate
 

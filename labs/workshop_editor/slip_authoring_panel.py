@@ -210,17 +210,17 @@ def run_slip_authoring_panel_lab(profile_paths: list[Path]) -> dict:
         "blocked_states": [
             "runtime_jsonschema_validation",
             "declared_dependency_manifest",
-            "behavior_preview",
-            "mutation_preview_ui",
             "profile_weighted_evolution",
-            "external_image_project_metadata_sidecar_strategy",
+            "engine_lifecycle_behavior_integration",
+            "real_image_project_decoder",
+            "embedded_native_metadata_writer",
             "profile_authoring_usability_pilot",
         ],
         "decision": "prototype_minimal_slip_authoring_panel",
         "next_research_step": (
-            "Add behavior and mutation preview gates or define the external "
-            "metadata sidecar strategy; do not claim profile-weighted "
-            "evolution until lifecycle/archive effects are measured."
+            "Run a usability pilot for the profile-authoring panel, then "
+            "specify runtime lifecycle/archive integration before claiming "
+            "profile-weighted evolution."
         ),
     }
 

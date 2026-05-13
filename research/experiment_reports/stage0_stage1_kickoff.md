@@ -245,3 +245,35 @@ CI.
     `research/experiment_reports/2026-05-12-slip-behavior-mutation-preview-gate.md`,
     `labs/workshop_editor/slip_preview_gates.py`, and
     `data/workshop_editor/slip_behavior_mutation_preview_stage0.json`.
+43. Define the Stage 0 external metadata sidecar strategy for non-native image
+    and project imports. Done in
+    `research/experiment_reports/2026-05-12-external-metadata-sidecar-strategy.md`,
+    `labs/workshop_editor/external_metadata_sidecar.py`, and
+    `data/workshop_editor/external_metadata_sidecar_stage0.json`.
+44. Build the Stage 0 standard-image sidecar decoder for static RGBA PNG
+    import/export. Done in
+    `research/experiment_reports/2026-05-12-standard-image-sidecar-decoder.md`,
+    `labs/workshop_editor/standard_image_sidecar_decoder.py`, and
+    `data/workshop_editor/standard_image_sidecar_decoder_stage0.json`.
+45. Build the Stage 0 spritesheet sidecar decoder for fixed horizontal
+    spritesheet PNG import/export. Done in
+    `research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md`,
+    `labs/workshop_editor/spritesheet_sidecar_decoder.py`, and
+    `data/workshop_editor/spritesheet_sidecar_decoder_stage0.json`.
+46. Connect deterministic SLIP preview signals to measured lifecycle and
+    extended archive effects without claiming runtime profile-weighted
+    evolution. Done in
+    `research/experiment_reports/2026-05-12-slip-lifecycle-archive-effects.md`,
+    `labs/workshop_editor/slip_lifecycle_archive_effects.py`, and
+    `data/workshop_editor/slip_lifecycle_archive_effects_stage0.json`.
+47. Build the Stage 0 third-party project decoder boundary for sidecar-bound
+    Piskel JSON, Pixelorama `.pxo`, and Aseprite/LibreSprite header imports.
+    Done in
+    `research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md`,
+    `labs/workshop_editor/third_party_project_decoder.py`, and
+    `data/workshop_editor/third_party_project_decoder_stage0.json`.
+48. Build the Stage 0 PNG variant sidecar decoder for 8-bit non-interlaced PNG
+    color/filter variants. Done in
+    `research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`,
+    `labs/workshop_editor/png_variant_sidecar_decoder.py`, and
+    `data/workshop_editor/png_variant_sidecar_decoder_stage0.json`.

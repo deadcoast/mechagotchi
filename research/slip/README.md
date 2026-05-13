@@ -29,6 +29,10 @@ Published artifacts:
   - report proving current valid profiles can drive deterministic behavior
   previews and bounded mutation previews while invalid preview probes are
   rejected before activation.
+- `../experiment_reports/2026-05-12-slip-lifecycle-archive-effects.md`
+  - report proving current preview signals can be connected to measured
+  lifecycle and extended archive effects while invalid or mismatched probes are
+  rejected before effects start.
 - `../experiment_reports/2026-05-12-slip-schema-failure-corpus.md` - report
   proving 3 valid profiles accepted and 12 authored failure cases rejected by
   the dependency-free Stage 0 schema validator.
