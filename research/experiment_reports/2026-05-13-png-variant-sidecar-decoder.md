@@ -101,7 +101,8 @@ Blocked states:
 - `png_color_type_4_grayscale_alpha_decoder`
 - `png_bit_depth_1_2_4_16_decoder`
 - `full_png_conformance`
-- `spritesheet_variant_layout_coverage`
+- `spritesheet_packed_rotation_trim_decoder`
+- `runtime_animation_playback`
 - `full_project_format_coverage`
 - `embedded_png_metadata_writer`
 - `project_file_native_metadata_writer`
@@ -116,6 +117,11 @@ This is not a claim of full PNG conformance. It is a Stage 0 interoperability
 proof for a deliberately small but broader PNG subset. The semantic contract
 remains unchanged: Mechagotchi profile, organ, mutation, and lineage semantics
 come from the sidecar, not from PNG pixels or PNG metadata.
+
+Spritesheet vertical/matrix/padded/sparse layout coverage is now covered by
+`research/experiment_reports/2026-05-13-spritesheet-layout-variant-decoder.md`.
+Packed rotation/trim atlas handling and runtime animation playback remain
+separate spritesheet gaps.
 
 ## Verification
 
@@ -155,6 +161,7 @@ python -B .\labs\workshop_editor\png_variant_sidecar_decoder.py
 Adopt `png_variant_sidecar_decoder_stage0` as the Stage 0 proof for explicit
 8-bit non-interlaced PNG variant sidecar import/export.
 
-Next research should broaden spritesheet layout variants and specify runtime
-lifecycle/archive selection integration before claiming profile-weighted
-evolution.
+Runtime lifecycle/archive selection is now covered by
+`research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`.
+Next research should define offspring mutation and lineage replacement gates
+before claiming profile-weighted evolution.

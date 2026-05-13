@@ -90,7 +90,8 @@ Closed states:
 
 Blocked states:
 
-- `spritesheet_variant_layout_coverage`
+- `spritesheet_packed_rotation_trim_decoder`
+- `runtime_animation_playback`
 - `full_project_format_coverage`
 - `embedded_png_metadata_writer`
 - `project_file_native_metadata_writer`
@@ -103,10 +104,13 @@ non-interlaced 8-bit RGBA PNG, filter type 0, three equal-size frames, and a
 horizontal strip layout. Frame metadata is validated from the sidecar, not
 guessed from pixels.
 
-This does not prove packed spritesheets, variable-sized frames, row/column
-atlases, trimmed frames, layer-aware editor projects, animated GIF/APNG, Piskel
-project animation semantics, arbitrary Pixelorama project schemas, complete
-LibreSprite/Aseprite chunk parsing, or embedded PNG metadata writing.
+This does not prove packed or rotated spritesheets, trimmed frames,
+layer-aware editor projects, runtime animation playback, animated GIF/APNG,
+Piskel project animation semantics, arbitrary Pixelorama project schemas,
+complete LibreSprite/Aseprite chunk parsing, or embedded PNG metadata writing.
+Vertical strips, row-major matrix sheets, padded/guttered grids, and sparse
+atlas rects are now covered by
+`research/experiment_reports/2026-05-13-spritesheet-layout-variant-decoder.md`.
 
 ## Verification
 
@@ -155,9 +159,11 @@ horizontal spritesheet PNG sidecar import/export.
 
 Project-file boundary decoding is now covered by
 `research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md`.
-Next research should broaden spritesheet layout variants or specify runtime
-lifecycle/archive integration before claiming profile-weighted evolution. The
-explicit PNG color/filter variant subset is now covered by
+Runtime lifecycle/archive selection is now covered by
+`research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`.
+Next research should define offspring mutation and lineage replacement gates
+before claiming profile-weighted evolution. The explicit PNG color/filter
+variant subset is now covered by
 `research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`, and
 the measured lifecycle/archive bridge is now covered in
 `research/experiment_reports/2026-05-12-slip-lifecycle-archive-effects.md`.

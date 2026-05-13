@@ -1170,7 +1170,7 @@
         "width": 8,
         "height": 8,
         "frame_count": 1,
-        "content_hash": "sha256:81a120b28669605dbd6e119aa7c6f23f78ad5774fa652990cf232f76fa4f4b99",
+        "content_hash": "sha256:9932d672c74064d61be10d22ecec972254c88fe94def79c1a8d2ef12fcb713ea",
         "semantic_policy": "sidecar_required"
       },
       "sidecar": {
@@ -1184,7 +1184,7 @@
           "width": 8,
           "height": 8,
           "frame_count": 1,
-          "content_hash": "sha256:81a120b28669605dbd6e119aa7c6f23f78ad5774fa652990cf232f76fa4f4b99",
+          "content_hash": "sha256:9932d672c74064d61be10d22ecec972254c88fe94def79c1a8d2ef12fcb713ea",
           "semantic_policy": "sidecar_required"
         },
         "grid_contract": {
@@ -2187,10 +2187,10 @@
           }
         ],
         "integrity": {
-          "asset_content_hash": "sha256:81a120b28669605dbd6e119aa7c6f23f78ad5774fa652990cf232f76fa4f4b99",
+          "asset_content_hash": "sha256:9932d672c74064d61be10d22ecec972254c88fe94def79c1a8d2ef12fcb713ea",
           "semantic_overlay_hash": "sha256:afad2be9031c3b757897d63c9f981ad0fd206e62864854bb42d424d189b59099",
           "profile_hash": "sha256:94881f9e4c63f91b3c85862d8ff8a0dc5e177d1211e67335984ca3f2b47f9b63",
-          "binding_hash": "sha256:a17fcad607d8bf5f294df817a877ea7b1f5682bd07cc32e0a1733f19522c8eb5"
+          "binding_hash": "sha256:d2b03384552ada473754b7a395d6a09f4a5c0c744e0b080dfd9ebd643e4fe449"
         },
         "limitations": [
           "Stage 0 parses third-party project container boundaries only.",
@@ -2240,7 +2240,7 @@
           "width": 8,
           "height": 8,
           "frame_count": 1,
-          "content_hash": "sha256:81a120b28669605dbd6e119aa7c6f23f78ad5774fa652990cf232f76fa4f4b99",
+          "content_hash": "sha256:9932d672c74064d61be10d22ecec972254c88fe94def79c1a8d2ef12fcb713ea",
           "semantic_policy": "sidecar_required"
         },
         "decoded_project": {
@@ -3514,12 +3514,13 @@
     "png_adam7_interlace_decoder",
     "apng_decoder",
     "full_png_conformance",
-    "spritesheet_variant_layout_coverage",
+    "spritesheet_packed_rotation_trim_decoder",
+    "runtime_animation_playback",
     "embedded_png_metadata_writer",
     "project_file_native_metadata_writer",
     "runtime_lifecycle_archive_selection",
     "profile_weighted_evolution"
   ],
   "decision": "prototype_third_party_project_decoder_boundary",
-  "next_research_step": "Broaden spritesheet layout coverage, or specify runtime lifecycle/archive selection integration before profile-weighted evolution claims."
+  "next_research_step": "Specify runtime lifecycle/archive selection integration before profile-weighted evolution claims."
 }

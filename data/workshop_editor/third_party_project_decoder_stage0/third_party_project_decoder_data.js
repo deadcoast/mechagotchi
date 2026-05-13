@@ -28,7 +28,8 @@ window.MECHAGOTCHI_THIRD_PARTY_PROJECT_DECODER = {
       "png_adam7_interlace_decoder",
       "apng_decoder",
       "full_png_conformance",
-      "spritesheet_variant_layout_coverage",
+      "spritesheet_packed_rotation_trim_decoder",
+      "runtime_animation_playback",
       "embedded_png_metadata_writer",
       "project_file_native_metadata_writer",
       "runtime_lifecycle_archive_selection",
@@ -82,7 +83,7 @@ window.MECHAGOTCHI_THIRD_PARTY_PROJECT_DECODER = {
         "width": 8,
         "height": 8,
         "frame_count": 1,
-        "content_hash": "sha256:81a120b28669605dbd6e119aa7c6f23f78ad5774fa652990cf232f76fa4f4b99",
+        "content_hash": "sha256:9932d672c74064d61be10d22ecec972254c88fe94def79c1a8d2ef12fcb713ea",
         "semantic_policy": "sidecar_required"
       },
       "decoded_project": {

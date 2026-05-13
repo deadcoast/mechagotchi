@@ -90,7 +90,8 @@ Blocked states:
 - `png_adam7_interlace_decoder`
 - `apng_decoder`
 - `full_png_conformance`
-- `spritesheet_variant_layout_coverage`
+- `spritesheet_packed_rotation_trim_decoder`
+- `runtime_animation_playback`
 - `full_project_format_coverage`
 - `embedded_png_metadata_writer`
 - `project_file_native_metadata_writer`
@@ -116,8 +117,11 @@ PNG color/filter variant decoding is now covered by
 `research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`.
 Project-file boundary decoding is now covered by
 `research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md`.
-Spritesheet variant layout coverage, full PNG conformance, full project-format
-coverage, and embedded/native metadata writers remain open.
+Spritesheet vertical/matrix/padded/sparse layout coverage is now covered by
+`research/experiment_reports/2026-05-13-spritesheet-layout-variant-decoder.md`.
+Packed rotation/trim atlas handling, runtime animation playback, full PNG
+conformance, full project-format coverage, and embedded/native metadata
+writers remain open.
 
 ## Verification
 
@@ -166,7 +170,9 @@ Adopt `external_metadata_sidecar_stage0` as the Stage 0 strategy for preserving
 Mechagotchi semantic metadata beside non-native visual assets and third-party
 project files.
 
-Next research should broaden spritesheet variants or specify runtime
-lifecycle/archive integration before claiming profile-weighted evolution. The
-measured lifecycle/archive bridge is now covered in
+Runtime lifecycle/archive selection is now covered by
+`research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`.
+Next research should define offspring mutation and lineage replacement gates
+before claiming profile-weighted evolution. The measured lifecycle/archive
+bridge is now covered in
 `research/experiment_reports/2026-05-12-slip-lifecycle-archive-effects.md`.

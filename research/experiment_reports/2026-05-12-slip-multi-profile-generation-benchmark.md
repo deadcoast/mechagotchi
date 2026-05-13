@@ -85,6 +85,11 @@ spritesheet sidecar decoding is now covered in
 `research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md`.
 Third-party project boundary decoding is now covered in
 `research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md`.
-Next research should move to spritesheet variant layout coverage, broader PNG
-variant coverage, full project-format coverage, or runtime lifecycle/archive
-selection integration.
+PNG color/filter variant decoding is now covered in
+`research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`.
+Spritesheet vertical/matrix/padded/sparse layout coverage is now covered in
+`research/experiment_reports/2026-05-13-spritesheet-layout-variant-decoder.md`.
+Runtime lifecycle/archive selection is now covered in
+`research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`.
+Next research should move to offspring mutation/lineage replacement gates,
+packed rotation/trim atlas handling, or full project-format coverage.

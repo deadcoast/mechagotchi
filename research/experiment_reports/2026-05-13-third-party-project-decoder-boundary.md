@@ -107,7 +107,8 @@ Blocked states:
 - `png_adam7_interlace_decoder`
 - `apng_decoder`
 - `full_png_conformance`
-- `spritesheet_variant_layout_coverage`
+- `spritesheet_packed_rotation_trim_decoder`
+- `runtime_animation_playback`
 - `embedded_png_metadata_writer`
 - `project_file_native_metadata_writer`
 - `runtime_lifecycle_archive_selection`
@@ -172,7 +173,11 @@ Adopt `third_party_project_decoder_stage0` as the Stage 0 proof for
 third-party project-file boundary decoding against the Mechagotchi sidecar
 contract.
 
-Next research should broaden spritesheet layout coverage or specify runtime
-lifecycle/archive selection integration before claiming profile-weighted
-evolution. The explicit PNG color/filter variant subset is now covered by
+Runtime lifecycle/archive selection is now covered by
+`research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`.
+Next research should define offspring mutation and lineage replacement gates
+before claiming profile-weighted evolution. The explicit PNG color/filter
+variant subset is now covered by
 `research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`.
+Spritesheet vertical/matrix/padded/sparse layout coverage is now covered by
+`research/experiment_reports/2026-05-13-spritesheet-layout-variant-decoder.md`.

@@ -117,7 +117,10 @@ Fixed horizontal-strip spritesheet sidecar decoding is now covered in
 `research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md`.
 The measured lifecycle/archive bridge is now covered in
 `research/experiment_reports/2026-05-12-slip-lifecycle-archive-effects.md`.
-Spritesheet variant layout coverage, full project-format coverage, full PNG
-conformance, runtime profile-weighted evolution, and metadata writers remain
-open. The explicit PNG color/filter variant subset is now covered by
+Packed rotation/trim atlas handling, runtime animation playback, full
+project-format coverage, full PNG conformance, runtime profile-weighted
+evolution, and metadata writers remain open. The explicit PNG color/filter
+variant subset is now covered by
 `research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`.
+Spritesheet vertical/matrix/padded/sparse layout coverage is now covered by
+`research/experiment_reports/2026-05-13-spritesheet-layout-variant-decoder.md`.

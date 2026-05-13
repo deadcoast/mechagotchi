@@ -608,7 +608,8 @@ def run_third_party_project_decoder_lab(
             "png_adam7_interlace_decoder",
             "apng_decoder",
             "full_png_conformance",
-            "spritesheet_variant_layout_coverage",
+            "spritesheet_packed_rotation_trim_decoder",
+            "runtime_animation_playback",
             "embedded_png_metadata_writer",
             "project_file_native_metadata_writer",
             "runtime_lifecycle_archive_selection",
@@ -616,8 +617,7 @@ def run_third_party_project_decoder_lab(
         ],
         "decision": "prototype_third_party_project_decoder_boundary",
         "next_research_step": (
-            "Broaden spritesheet layout coverage, "
-            "or specify runtime lifecycle/archive selection integration before "
+            "Define offspring mutation and lineage replacement gates before "
             "profile-weighted evolution claims."
         ),
     }

@@ -138,7 +138,9 @@ class SpritesheetSidecarDecoderTests(unittest.TestCase):
         self.assertEqual(1.0, report["metrics"]["mean_semantic_fidelity"])
         self.assertIn("spritesheet_fixed_grid_frame_metadata_decoder", report["closed_states"])
         self.assertNotIn("spritesheet_decoder", report["blocked_states"])
-        self.assertIn("spritesheet_variant_layout_coverage", report["blocked_states"])
+        self.assertNotIn("spritesheet_variant_layout_coverage", report["blocked_states"])
+        self.assertIn("spritesheet_packed_rotation_trim_decoder", report["blocked_states"])
+        self.assertIn("runtime_animation_playback", report["blocked_states"])
         self.assertNotIn("third_party_project_decoder", report["blocked_states"])
         self.assertIn("full_project_format_coverage", report["blocked_states"])
 

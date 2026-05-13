@@ -332,7 +332,8 @@ def run_external_metadata_sidecar_lab(
             "png_adam7_interlace_decoder",
             "apng_decoder",
             "full_png_conformance",
-            "spritesheet_variant_layout_coverage",
+            "spritesheet_packed_rotation_trim_decoder",
+            "runtime_animation_playback",
             "full_project_format_coverage",
             "embedded_png_metadata_writer",
             "project_file_native_metadata_writer",
@@ -340,9 +341,8 @@ def run_external_metadata_sidecar_lab(
         ],
         "decision": "prototype_external_metadata_sidecar_strategy",
         "next_research_step": (
-            "Broaden spritesheet variants and specify runtime "
-            "lifecycle/archive integration before profile-weighted evolution "
-            "claims."
+            "Define offspring mutation and lineage replacement gates before "
+            "profile-weighted evolution claims."
         ),
     }
 

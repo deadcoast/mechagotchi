@@ -412,7 +412,8 @@ def run_png_variant_sidecar_decoder_lab(
             "png_color_type_4_grayscale_alpha_decoder",
             "png_bit_depth_1_2_4_16_decoder",
             "full_png_conformance",
-            "spritesheet_variant_layout_coverage",
+            "spritesheet_packed_rotation_trim_decoder",
+            "runtime_animation_playback",
             "full_project_format_coverage",
             "embedded_png_metadata_writer",
             "project_file_native_metadata_writer",
@@ -420,9 +421,8 @@ def run_png_variant_sidecar_decoder_lab(
         ],
         "decision": "prototype_png_variant_sidecar_decoder",
         "next_research_step": (
-            "Broaden spritesheet layout variants and specify runtime "
-            "lifecycle/archive integration before profile-weighted evolution "
-            "claims."
+            "Define offspring mutation and lineage replacement gates before "
+            "profile-weighted evolution claims."
         ),
     }
 

@@ -21,3 +21,9 @@ Minimal semantic editor artifacts for testing Mechagotchi grid authoring.
 
 - `png_variant_sidecar_decoder_stage0.json` records 15/15 PNG variant sidecar
   round trips across 3 profiles, color types 0/2/3/6, and filter types 0..4.
+- `spritesheet_layout_variant_decoder_stage0.json` records 12/12
+  layout-variant spritesheet sidecar round trips across vertical strips,
+  row-major matrix sheets, padded/guttered grids, and sparse atlas rects.
+- `slip_runtime_selection_policy_stage0.json` records 3/3 profile-weighted
+  archive elite selections from switchboard lifecycle metrics, with 2/2 invalid
+  selection probes rejected before selection.

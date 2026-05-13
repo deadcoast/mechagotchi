@@ -123,12 +123,28 @@ Measured bridge result:
 - Distinct lifecycle fingerprints: 3
 - Mean lifecycle need balance: 0.793865
 
+SLIP runtime selection policy completed on 2026-05-13.
+
+Artifacts:
+
+- `labs/workshop_editor/slip_runtime_selection_policy.py`
+- `data/workshop_editor/slip_runtime_selection_policy_stage0.json`
+- `research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`
+
+Measured selector result:
+
+- Selection successes: 3
+- Selected archive elites: 3
+- Mean selected need balance: 0.793865
+- Mean selected survival ratio: 1.0
+
 ## Decision
 
 Keep as active prototype. Do not introduce a broad ML model. The lifecycle
 feedback loop and profile-specific lifecycle effect bridge are explicit and
-measured, but reward shaping must beat the frozen baseline under dynamic stress
-before any online learner is promoted into packages.
+measured, and switchboard lifecycle metrics now feed a lab-only archive elite
+selector. Reward shaping must still beat the frozen baseline under dynamic
+stress before any online learner is promoted into packages.
 
 ## Go/No-Go Gate
 

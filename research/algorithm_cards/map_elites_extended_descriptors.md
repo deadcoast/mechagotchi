@@ -86,12 +86,22 @@ distinct_archive_fingerprints: 3
 mean_archive_qd_score: 7.671145
 ```
 
+SLIP runtime selection policy completed on 2026-05-13.
+
+```txt
+selection_success_count: 3
+selected_elite_count: 3
+distinct_selected_archive_niches: 3
+mean_selected_selection_score: 0.955828
+```
+
 ## Decision
 
-Keep as active prototype. Use extended descriptors for research comparison and
-profile-effect probes, but do not promote archive selection policy into runtime
-evolution until manual readability ratings, broader lifecycle tests, and
-package-level contracts are available.
+Keep as active prototype. Use extended descriptors for research comparison,
+profile-effect probes, and Stage 0 runtime elite selection, but do not promote
+profile-weighted evolution until manual readability ratings, broader lifecycle
+tests, offspring mutation, lineage replacement, and package-level contracts are
+available.
 
 ## Go/No-Go Gate
 

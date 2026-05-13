@@ -43,9 +43,11 @@ coordinates, roles, organs, materials, animation anchors, and lock state.
   horizontal spritesheet PNGs.
 - External metadata sidecar strategy, static PNG sidecar decoding,
   PNG variant sidecar decoding, fixed-grid horizontal spritesheet sidecar
-  decoding, and the project-file boundary decoder are proven, but
-  spritesheet variant layouts, full project-format coverage, embedded/native
-  metadata writers, and full PNG conformance are not implemented.
+  decoding, layout-variant spritesheet sidecar decoding for vertical/matrix/
+  padded/sparse layouts, and the project-file boundary decoder are proven, but
+  packed rotation/trim atlas handling, runtime animation playback, full
+  project-format coverage, embedded/native metadata writers, and full PNG
+  conformance are not implemented.
 - Static UI import uses paste-and-parse rather than a file picker.
 - No browser automation assertion has been added for the import button yet.
 
@@ -102,6 +104,10 @@ spritesheet_profiles: 3
 spritesheet_roundtrip_success: 3
 spritesheet_mean_semantic_fidelity: 1.0
 spritesheet_mean_frame_pixel_fidelity: 1.0
+spritesheet_layout_variant_profiles: 3
+spritesheet_layout_variant_roundtrip_success: 12
+spritesheet_layout_variant_mean_semantic_fidelity: 1.0
+spritesheet_layout_variant_mean_frame_pixel_fidelity: 1.0
 third_party_project_profiles: 3
 third_party_project_decoder_success: 3
 third_party_project_sidecar_restore_success: 3
@@ -114,17 +120,19 @@ Keep as active prototype. Native semantic JSON remains the canonical workshop
 interchange format. The external JSON sidecar strategy, static RGBA PNG
 sidecar decoder, and explicit 8-bit non-interlaced PNG variant sidecar decoder
 are accepted for Stage 0 metadata preservation. The fixed-grid horizontal
-spritesheet sidecar decoder is also accepted for the exact Stage 0 layout it
-tests. The third-party project decoder boundary is accepted for Piskel JSON,
-Pixelorama `.pxo` ZIP/data.json, and Aseprite/LibreSprite header binding only.
-These are not substitutes for broader spritesheet layout coverage, full
-editor-native project coverage, native metadata writer policy, or full PNG
-conformance.
+spritesheet sidecar decoder is accepted for its fixed horizontal layout, and
+the layout-variant spritesheet sidecar decoder is accepted for vertical strips,
+row-major matrix sheets, padded/guttered grids, and sparse atlas rects. The
+third-party project decoder boundary is accepted for Piskel JSON, Pixelorama
+`.pxo` ZIP/data.json, and Aseprite/LibreSprite header binding only. These are
+not substitutes for packed rotation/trim atlas handling, runtime animation
+playback, full editor-native project coverage, native metadata writer policy,
+or full PNG conformance.
 
 ## Go/No-Go Gate
 
-Do not add broad external editor interoperability until spritesheet variant
-layout coverage, full project-format coverage, native metadata writer policy,
-and remaining full-PNG-conformance questions prove they can preserve SLIP
-organ, mutation, and profile metadata without depending on lossy editor-native
-fields.
+Do not add broad external editor interoperability until packed rotation/trim
+atlas handling, runtime animation playback, full project-format coverage,
+native metadata writer policy, and remaining full-PNG-conformance questions
+prove they can preserve SLIP organ, mutation, and profile metadata without
+depending on lossy editor-native fields.

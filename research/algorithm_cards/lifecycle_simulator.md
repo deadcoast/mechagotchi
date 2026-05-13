@@ -73,10 +73,19 @@ random        21              false  0.236001       2
 The switchboard policy survived the 72-tick horizon and beat idle/random on
 full-horizon need balance.
 
+SLIP runtime selection follow-up completed on 2026-05-13.
+
+```txt
+selection_success_count: 3
+mean_selected_need_balance: 0.793865
+mean_selected_survival_ratio: 1.0
+```
+
 ## Decision
 
-Keep as active prototype. Lifecycle metrics should become the gate before CA,
-NCA, CUBFF behavior signals, or archive fitness changes are treated as useful.
+Keep as active prototype. Lifecycle metrics are now connected to a Stage 0
+archive elite selector, but package runtime integration and held-out
+long-horizon validation remain open.
 
 ## Go/No-Go Gate
 

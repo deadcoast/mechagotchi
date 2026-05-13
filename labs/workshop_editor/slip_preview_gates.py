@@ -321,11 +321,14 @@ def run_slip_preview_gate_lab(profile_paths: list[Path], generated_root: Path) -
             "runtime_jsonschema_validation",
             "declared_dependency_manifest",
             "profile_weighted_evolution",
-            "engine_lifecycle_behavior_integration",
+            "package_runtime_lifecycle_integration",
+            "offspring_mutation_selection",
+            "lineage_replacement_policy",
             "png_adam7_interlace_decoder",
             "apng_decoder",
             "full_png_conformance",
-            "spritesheet_variant_layout_coverage",
+            "spritesheet_packed_rotation_trim_decoder",
+            "runtime_animation_playback",
             "full_project_format_coverage",
             "embedded_native_metadata_writer",
             "profile_authoring_usability_pilot",
@@ -333,9 +336,9 @@ def run_slip_preview_gate_lab(profile_paths: list[Path], generated_root: Path) -
         ],
         "decision": "prototype_behavior_mutation_preview_gate",
         "next_research_step": (
-            "Broaden spritesheet variants, specify full project-format "
-            "coverage, and specify runtime lifecycle/archive integration before "
-            "claiming profile-weighted evolution."
+            "Specify full project-format "
+            "coverage, then define offspring mutation and lineage replacement "
+            "before claiming profile-weighted evolution."
         ),
     }
 

@@ -121,7 +121,9 @@ class StandardImageSidecarDecoderTests(unittest.TestCase):
         self.assertIn("apng_decoder", report["blocked_states"])
         self.assertIn("full_png_conformance", report["blocked_states"])
         self.assertNotIn("spritesheet_decoder", report["blocked_states"])
-        self.assertIn("spritesheet_variant_layout_coverage", report["blocked_states"])
+        self.assertNotIn("spritesheet_variant_layout_coverage", report["blocked_states"])
+        self.assertIn("spritesheet_packed_rotation_trim_decoder", report["blocked_states"])
+        self.assertIn("runtime_animation_playback", report["blocked_states"])
         self.assertNotIn("third_party_project_decoder", report["blocked_states"])
         self.assertIn("full_project_format_coverage", report["blocked_states"])
 

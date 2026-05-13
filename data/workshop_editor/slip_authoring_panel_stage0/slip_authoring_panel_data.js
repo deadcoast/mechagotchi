@@ -23,7 +23,9 @@ window.MECHAGOTCHI_SLIP_AUTHORING_PANEL = {
       "runtime_jsonschema_validation",
       "declared_dependency_manifest",
       "profile_weighted_evolution",
-      "engine_lifecycle_behavior_integration",
+      "package_runtime_lifecycle_integration",
+      "offspring_mutation_selection",
+      "lineage_replacement_policy",
       "real_image_project_decoder",
       "embedded_native_metadata_writer",
       "profile_authoring_usability_pilot"

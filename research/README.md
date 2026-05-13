@@ -73,6 +73,9 @@ The package-contract handoff is published as:
 - `data/workshop_editor/slip_behavior_mutation_preview_stage0.json`
 - `research/experiment_reports/2026-05-12-slip-lifecycle-archive-effects.md`
 - `data/workshop_editor/slip_lifecycle_archive_effects_stage0.json`
+- `research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`
+- `research/algorithm_cards/slip_runtime_selection_policy.md`
+- `data/workshop_editor/slip_runtime_selection_policy_stage0.json`
 - `research/experiment_reports/2026-05-12-external-metadata-sidecar-strategy.md`
 - `data/workshop_editor/external_metadata_sidecar_stage0.json`
 - `research/experiment_reports/2026-05-12-standard-image-sidecar-decoder.md`
@@ -81,6 +84,8 @@ The package-contract handoff is published as:
 - `data/workshop_editor/png_variant_sidecar_decoder_stage0.json`
 - `research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md`
 - `data/workshop_editor/spritesheet_sidecar_decoder_stage0.json`
+- `research/experiment_reports/2026-05-13-spritesheet-layout-variant-decoder.md`
+- `data/workshop_editor/spritesheet_layout_variant_decoder_stage0.json`
 - `research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md`
 - `data/workshop_editor/third_party_project_decoder_stage0.json`
 
@@ -197,6 +202,9 @@ Post-v0.1 continuation has started:
 - `data/workshop_editor/slip_behavior_mutation_preview_stage0.json`
 - `research/experiment_reports/2026-05-12-slip-lifecycle-archive-effects.md`
 - `data/workshop_editor/slip_lifecycle_archive_effects_stage0.json`
+- `research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`
+- `research/algorithm_cards/slip_runtime_selection_policy.md`
+- `data/workshop_editor/slip_runtime_selection_policy_stage0.json`
 - `research/experiment_reports/2026-05-12-external-metadata-sidecar-strategy.md`
 - `data/workshop_editor/external_metadata_sidecar_stage0.json`
 - `research/experiment_reports/2026-05-12-standard-image-sidecar-decoder.md`
@@ -205,6 +213,8 @@ Post-v0.1 continuation has started:
 - `data/workshop_editor/png_variant_sidecar_decoder_stage0.json`
 - `research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md`
 - `data/workshop_editor/spritesheet_sidecar_decoder_stage0.json`
+- `research/experiment_reports/2026-05-13-spritesheet-layout-variant-decoder.md`
+- `data/workshop_editor/spritesheet_layout_variant_decoder_stage0.json`
 - `research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md`
 - `data/workshop_editor/third_party_project_decoder_stage0.json`
 

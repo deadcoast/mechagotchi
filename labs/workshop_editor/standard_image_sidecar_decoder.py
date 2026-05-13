@@ -343,7 +343,8 @@ def run_standard_image_sidecar_decoder_lab(
             "png_adam7_interlace_decoder",
             "apng_decoder",
             "full_png_conformance",
-            "spritesheet_variant_layout_coverage",
+            "spritesheet_packed_rotation_trim_decoder",
+            "runtime_animation_playback",
             "full_project_format_coverage",
             "embedded_png_metadata_writer",
             "project_file_native_metadata_writer",
@@ -351,9 +352,8 @@ def run_standard_image_sidecar_decoder_lab(
         ],
         "decision": "prototype_static_rgba_png_sidecar_decoder",
         "next_research_step": (
-            "Broaden spritesheet layout variants before "
-            "runtime lifecycle/archive integration and profile-weighted "
-            "evolution claims."
+            "Define offspring mutation and lineage replacement gates before "
+            "profile-weighted evolution claims."
         ),
     }
 

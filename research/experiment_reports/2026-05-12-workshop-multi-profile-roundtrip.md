@@ -79,10 +79,12 @@ follow-up external metadata sidecar strategy now proves a Stage 0 semantic
 preservation contract, and static RGBA PNG sidecar import/export now has a
 Stage 0 decoder proof. Explicit 8-bit non-interlaced PNG color/filter variant
 sidecar import/export and fixed horizontal-strip spritesheet PNG sidecar
-import/export now also have Stage 0 decoder proofs. GIF, project-file
-import/export, full PNG conformance, spritesheet variant layouts, and metadata
-writer policies remain blocked until they are implemented against that
-contract.
+import/export now also have Stage 0 decoder proofs. Spritesheet vertical,
+matrix, padded, and sparse layout coverage is now covered by
+`research/experiment_reports/2026-05-13-spritesheet-layout-variant-decoder.md`.
+GIF, project-file import/export, full PNG conformance, packed rotation/trim
+atlas handling, runtime animation playback, and metadata writer policies
+remain blocked until they are implemented against that contract.
 
 Supersession note: the minimal profile-authoring panel is now covered by
 `research/experiment_reports/2026-05-12-slip-authoring-panel.md`. This

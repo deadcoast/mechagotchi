@@ -21,7 +21,8 @@ window.MECHAGOTCHI_SPRITESHEET_SIDECAR_DECODER = {
       "spritesheet_sidecar_semantic_restore"
     ],
     "blocked_states": [
-      "spritesheet_variant_layout_coverage",
+      "spritesheet_packed_rotation_trim_decoder",
+      "runtime_animation_playback",
       "full_project_format_coverage",
       "embedded_png_metadata_writer",
       "project_file_native_metadata_writer",

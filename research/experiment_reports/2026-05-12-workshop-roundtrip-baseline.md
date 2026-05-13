@@ -155,8 +155,11 @@ has a Stage 0 decoder proof. Third-party project boundary decoding is now
 covered for Piskel JSON, Pixelorama `.pxo`, and Aseprite/LibreSprite headers.
 PNG color/filter variant coverage is now covered by
 `research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`.
-Spritesheet variant layouts, GIF, full project-format coverage, full PNG
-conformance, and native/embedded metadata writers remain unproven.
+Spritesheet vertical/matrix/padded/sparse layout coverage is now covered by
+`research/experiment_reports/2026-05-13-spritesheet-layout-variant-decoder.md`.
+Packed rotation/trim atlas handling, runtime animation playback, GIF, full
+project-format coverage, full PNG conformance, and native/embedded metadata
+writers remain unproven.
 
 ## Decision
 
@@ -165,11 +168,8 @@ Keep native workshop JSON round trips as `prototype`.
 The round-trip corpus has now been broadened in
 `research/experiment_reports/2026-05-12-workshop-multi-profile-roundtrip.md`,
 the minimal SLIP authoring panel has been added, the deterministic preview gate
-has been added, and the external sidecar strategy has been defined. Next
-workshop research should implement a real decoder against the sidecar contract,
-broaden image/spritesheet variants, or specify runtime lifecycle/archive
-integration before claiming profile-weighted evolution. The static RGBA PNG
-decoder is now covered by
+has been added, and the external sidecar strategy has been defined. The static
+RGBA PNG decoder is now covered by
 `research/experiment_reports/2026-05-12-standard-image-sidecar-decoder.md`;
 fixed horizontal-strip spritesheet decoding is now covered by
 `research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md`;
@@ -177,6 +177,8 @@ third-party project boundary decoding is now covered by
 `research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md`;
 the measured lifecycle/archive bridge is now covered by
 `research/experiment_reports/2026-05-12-slip-lifecycle-archive-effects.md`.
-Next image-path work should target spritesheet variant layout coverage, full
-project-format coverage, full PNG conformance, or native/embedded metadata
-writers.
+Runtime lifecycle/archive selection is now covered by
+`research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`.
+Next image-path work should target packed rotation/trim atlas handling, runtime
+animation playback, full project-format coverage, full PNG conformance, or
+native/embedded metadata writers.

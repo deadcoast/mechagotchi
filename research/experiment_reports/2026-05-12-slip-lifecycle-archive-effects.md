@@ -79,9 +79,12 @@ Stage 0 lab effects. The bridge proves that the three current valid profiles
 produce distinct preview, lifecycle, and archive fingerprints under the current
 short-horizon simulator and descriptor archive.
 
-The result still does not prove profile-weighted evolution. Evolution remains
-blocked until runtime policy integration, archive selection policy, offspring
-mutation/selection, and package-level contracts are specified and tested.
+The result still does not prove profile-weighted evolution. Runtime
+lifecycle/archive elite selection is now covered by
+`research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`.
+Evolution remains blocked until offspring mutation/selection, lineage
+replacement, held-out long-horizon tests, and package-level contracts are
+specified and tested.
 
 ## Verification
 
@@ -96,12 +99,16 @@ python -m json.tool data\workshop_editor\slip_lifecycle_archive_effects_stage0\s
 
 Adopt `slip_lifecycle_archive_effects_stage0` as the measured Stage 0 bridge
 from preview signals to lifecycle/archive effects. Keep `profile_weighted_evolution`,
-runtime lifecycle behavior integration, archive selection policy integration,
-runtime JSON Schema, declared dependency policy, usability pilot, community
-profile packs, image variant coverage, spritesheet variant layout coverage,
-full project-format coverage, and metadata writers open.
+package runtime lifecycle integration, offspring mutation selection, lineage
+replacement policy, runtime JSON Schema, declared dependency policy, usability
+pilot, community profile packs, packed rotation/trim atlas handling, runtime
+animation playback, full project-format coverage, and metadata writers open.
 
 Supersession note: third-party project boundary decoding is now covered by
 `research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md`;
 this does not close full editor-native project coverage or native metadata
 writer policy.
+PNG color/filter variants are now covered by
+`research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`, and
+spritesheet vertical/matrix/padded/sparse layout coverage is now covered by
+`research/experiment_reports/2026-05-13-spritesheet-layout-variant-decoder.md`.

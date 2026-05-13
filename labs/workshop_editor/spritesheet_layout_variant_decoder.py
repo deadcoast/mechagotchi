@@ -345,12 +345,12 @@ def run_spritesheet_layout_variant_decoder_lab(
             "project_file_native_metadata_writer",
             "profile_weighted_evolution",
         ],
-        "decision": "prototype_spritesheet_layout_variant_decoder",
-        "next_research_step": (
-            "Specify runtime lifecycle/archive selection integration before "
-            "profile-weighted evolution claims."
-        ),
-    }
+    "decision": "prototype_spritesheet_layout_variant_decoder",
+    "next_research_step": (
+        "Define offspring mutation and lineage replacement gates before "
+        "profile-weighted evolution claims."
+    ),
+}
 
 
 def write_spritesheet_layout_variant_decoder_artifacts(

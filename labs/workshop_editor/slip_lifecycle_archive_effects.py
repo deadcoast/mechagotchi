@@ -253,12 +253,16 @@ def run_slip_lifecycle_archive_effect_lab(
             "runtime_jsonschema_validation",
             "declared_dependency_manifest",
             "profile_weighted_evolution",
-            "engine_lifecycle_behavior_integration",
-            "archive_selection_policy_integration",
+            "package_runtime_lifecycle_integration",
+            "offspring_mutation_selection",
+            "lineage_replacement_policy",
+            "held_out_long_horizon_behavior_tests",
+            "manual_readability_calibration",
             "png_adam7_interlace_decoder",
             "apng_decoder",
             "full_png_conformance",
-            "spritesheet_variant_layout_coverage",
+            "spritesheet_packed_rotation_trim_decoder",
+            "runtime_animation_playback",
             "full_project_format_coverage",
             "embedded_png_metadata_writer",
             "project_file_native_metadata_writer",
@@ -267,9 +271,8 @@ def run_slip_lifecycle_archive_effect_lab(
         ],
         "decision": "prototype_slip_lifecycle_archive_effect_probe",
         "next_research_step": (
-            "Broaden spritesheet variant coverage, then promote "
-            "profile-weighted evolution only after runtime policy and archive "
-            "selection integration are specified and tested."
+            "Promote profile-weighted evolution only after offspring mutation "
+            "and lineage replacement are specified and tested."
         ),
     }
     return report

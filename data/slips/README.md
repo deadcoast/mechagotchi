@@ -34,6 +34,11 @@ Current generated compatibility evidence:
   measured preview-to-effects bridge: 3 current profiles linked to lifecycle
   and extended archive measurements, 3 distinct preview/lifecycle/archive
   fingerprints, and 2 invalid or mismatched probes rejected before effects.
+- `../workshop_editor/slip_runtime_selection_policy_stage0.json` records the
+  runtime lifecycle/archive selection proof: 3 current profiles selected
+  profile-weighted archive elites from switchboard lifecycle metrics, 3
+  distinct selected grid ids, 3 distinct selected archive niches, and 2 invalid
+  selection probes rejected before selection.
 - `../workshop_editor/external_metadata_sidecar_stage0.json` records the
   external metadata sidecar strategy proof: 3 current profile sidecar round
   trips, 2 invalid binding probes rejected, and 5 adapter formats marked
@@ -51,6 +56,11 @@ Current generated compatibility evidence:
   fixed horizontal spritesheet PNG sidecar decoder proof: 3 current profile
   spritesheet round trips, 2 invalid PNG/frame probes rejected, and mean
   semantic and frame-pixel fidelity of 1.0.
+- `../workshop_editor/spritesheet_layout_variant_decoder_stage0.json` records
+  the layout-variant spritesheet sidecar decoder proof: 12 current profile
+  layout round trips across vertical strips, row-major matrix sheets,
+  padded/guttered grids, and sparse atlas rects; 3 invalid layout probes
+  rejected; and mean semantic and frame-pixel fidelity of 1.0.
 - `../workshop_editor/third_party_project_decoder_stage0.json` records the
   third-party project decoder boundary proof: 3 current profile project
   payloads covering Piskel JSON, Pixelorama `.pxo`, and Aseprite/LibreSprite
@@ -68,8 +78,10 @@ Current generated compatibility evidence:
 - `multi_profile_generation_stage0/slip_amber_social/` contains 50 valid,
   profile-aligned generated grids.
 
-It does not yet cover package/runtime lifecycle behavior integration, archive
-selection policy integration, spritesheet variant layout coverage, full
-third-party project-format coverage, Adam7/APNG/full PNG conformance,
-embedded/native metadata writers, runtime JSON Schema dependency installation,
-declared package dependency policy, or profile-weighted evolution.
+It does not yet cover package/runtime lifecycle behavior integration, offspring
+mutation selection, lineage replacement policy, held-out long-horizon behavior
+tests, manual readability calibration, packed rotation/trim atlas handling,
+runtime animation playback, full third-party project-format coverage,
+Adam7/APNG/full PNG conformance, embedded/native metadata writers, runtime JSON
+Schema dependency installation, declared package dependency policy, or
+profile-weighted evolution.

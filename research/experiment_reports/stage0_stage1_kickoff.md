@@ -277,3 +277,15 @@ CI.
     `research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`,
     `labs/workshop_editor/png_variant_sidecar_decoder.py`, and
     `data/workshop_editor/png_variant_sidecar_decoder_stage0.json`.
+49. Build the Stage 0 spritesheet layout variant sidecar decoder for vertical,
+    matrix, padded/guttered, and sparse-atlas spritesheet import/export. Done
+    in
+    `research/experiment_reports/2026-05-13-spritesheet-layout-variant-decoder.md`,
+    `labs/workshop_editor/spritesheet_layout_variant_decoder.py`, and
+    `data/workshop_editor/spritesheet_layout_variant_decoder_stage0.json`.
+50. Specify and test the Stage 0 SLIP runtime lifecycle/archive selection
+    policy without claiming profile-weighted evolution. Done in
+    `research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`,
+    `research/algorithm_cards/slip_runtime_selection_policy.md`,
+    `labs/workshop_editor/slip_runtime_selection_policy.py`, and
+    `data/workshop_editor/slip_runtime_selection_policy_stage0.json`.

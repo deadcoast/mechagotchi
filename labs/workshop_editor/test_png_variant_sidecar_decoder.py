@@ -138,7 +138,9 @@ class PNGVariantSidecarDecoderTests(unittest.TestCase):
         self.assertIn("png_adam7_interlace_decoder", report["blocked_states"])
         self.assertIn("apng_decoder", report["blocked_states"])
         self.assertIn("full_png_conformance", report["blocked_states"])
-        self.assertIn("spritesheet_variant_layout_coverage", report["blocked_states"])
+        self.assertNotIn("spritesheet_variant_layout_coverage", report["blocked_states"])
+        self.assertIn("spritesheet_packed_rotation_trim_decoder", report["blocked_states"])
+        self.assertIn("runtime_animation_playback", report["blocked_states"])
 
     def test_write_artifacts_creates_variant_pngs_sidecars_report_and_app_payload(self):
         report = run_png_variant_sidecar_decoder_lab(

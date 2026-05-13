@@ -121,12 +121,15 @@ class SLIPPreviewGateTests(unittest.TestCase):
         self.assertIn("png_adam7_interlace_decoder", report["blocked_states"])
         self.assertIn("apng_decoder", report["blocked_states"])
         self.assertIn("full_png_conformance", report["blocked_states"])
-        self.assertIn("spritesheet_variant_layout_coverage", report["blocked_states"])
+        self.assertNotIn("spritesheet_variant_layout_coverage", report["blocked_states"])
+        self.assertIn("spritesheet_packed_rotation_trim_decoder", report["blocked_states"])
+        self.assertIn("runtime_animation_playback", report["blocked_states"])
         self.assertIn("full_project_format_coverage", report["blocked_states"])
         self.assertIn("profile_weighted_evolution", report["blocked_states"])
         self.assertNotIn("spritesheet PNG frame metadata", report["next_research_step"])
         self.assertIn("full project-format coverage", report["next_research_step"])
-        self.assertIn("runtime lifecycle/archive integration", report["next_research_step"])
+        self.assertIn("offspring mutation", report["next_research_step"])
+        self.assertIn("lineage replacement", report["next_research_step"])
 
     def test_write_artifacts_creates_report_profile_payloads_and_app_data(self):
         report = run_slip_preview_gate_lab(VALID_PROFILE_PATHS, GENERATED_ROOT)
