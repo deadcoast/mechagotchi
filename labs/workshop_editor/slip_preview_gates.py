@@ -322,8 +322,6 @@ def run_slip_preview_gate_lab(profile_paths: list[Path], generated_root: Path) -
             "declared_dependency_manifest",
             "profile_weighted_evolution",
             "package_runtime_lifecycle_integration",
-            "offspring_mutation_selection",
-            "lineage_replacement_policy",
             "png_adam7_interlace_decoder",
             "apng_decoder",
             "full_png_conformance",
@@ -336,8 +334,8 @@ def run_slip_preview_gate_lab(profile_paths: list[Path], generated_root: Path) -
         ],
         "decision": "prototype_behavior_mutation_preview_gate",
         "next_research_step": (
-            "Specify full project-format "
-            "coverage, then define offspring mutation and lineage replacement "
+            "Specify full project-format coverage, then run held-out "
+            "long-horizon behavior tests and manual readability calibration "
             "before claiming profile-weighted evolution."
         ),
     }

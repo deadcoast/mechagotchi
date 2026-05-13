@@ -27,10 +27,17 @@ The Stage 0 archive labs already prove:
 - Extended QD score: `27.773545`.
 - SLIP runtime selection policy selects 3/3 profile-weighted archive elites
   from distinct niches with mean selection score `0.955828`.
+- SLIP offspring lineage gate emits 3/3 bounded offspring selections and 3
+  lineage decisions, with 1 add-niche and 2 hold-parent outcomes.
+- SLIP long-horizon behavior gate records 18/18 held-out switchboard
+  full-survival probes and 18/18 idle-neglect deaths at the 96-tick horizon.
+- SLIP multigeneration lineage runner records three-generation candidate
+  lineages for 3/3 current profiles, but remains lab evidence.
 
 The package archive may adopt the archive mechanics and extended metric shape.
 It must not lock final descriptor thresholds until manual readability ratings
-and broader lifecycle calibration exist.
+exist, and it must not treat the Stage 0 multigeneration runner as package
+runtime state.
 
 ## Mathematical Contract
 
@@ -241,8 +248,13 @@ Expected implementation-stage result:
 - `research/experiment_reports/2026-05-12-map-elites-archive-baseline.md`
 - `research/experiment_reports/2026-05-12-map-elites-extended-descriptors.md`
 - `research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`
+- `research/experiment_reports/2026-05-13-slip-offspring-lineage-gate.md`
+- `research/experiment_reports/2026-05-13-slip-long-horizon-behavior-gate.md`
 - `data/archives/map_elites_stage0.json`
 - `data/archives/map_elites_extended_stage0.json`
+- `data/workshop_editor/slip_runtime_selection_policy_stage0.json`
+- `data/workshop_editor/slip_offspring_lineage_gate_stage0.json`
+- `data/workshop_editor/slip_long_horizon_behavior_gate_stage0.json`
 - `data/package_promotion/mecha_engine_package_promotion_gate_stage0.json`
 - MAP-Elites paper:
   https://arxiv.org/abs/1504.04909

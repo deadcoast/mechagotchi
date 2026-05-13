@@ -39,8 +39,6 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
       "declared_dependency_manifest",
       "profile_weighted_evolution",
       "package_runtime_lifecycle_integration",
-      "offspring_mutation_selection",
-      "lineage_replacement_policy",
       "held_out_long_horizon_behavior_tests",
       "manual_readability_calibration",
       "png_adam7_interlace_decoder",

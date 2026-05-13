@@ -374,8 +374,8 @@ def run_spritesheet_sidecar_decoder_lab(
         ],
         "decision": "prototype_fixed_grid_spritesheet_sidecar_decoder",
         "next_research_step": (
-            "Define offspring mutation and lineage replacement gates before "
-            "profile-weighted evolution claims."
+            "Run held-out long-horizon behavior tests and manual readability "
+            "calibration before profile-weighted evolution claims."
         ),
     }
 

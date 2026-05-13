@@ -82,9 +82,16 @@ short-horizon simulator and descriptor archive.
 The result still does not prove profile-weighted evolution. Runtime
 lifecycle/archive elite selection is now covered by
 `research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`.
-Evolution remains blocked until offspring mutation/selection, lineage
-replacement, held-out long-horizon tests, and package-level contracts are
-specified and tested.
+Evolution remains blocked until manual readability calibration and
+package-level contracts are specified and tested.
+Stage 0 offspring mutation selection and lineage decisions are now covered by
+`research/experiment_reports/2026-05-13-slip-offspring-lineage-gate.md`, and
+held-out long-horizon behavior is now covered by
+`research/experiment_reports/2026-05-13-slip-long-horizon-behavior-gate.md`.
+The lab-only multigeneration lineage runner is now covered by
+`research/experiment_reports/2026-05-13-slip-multigeneration-lineage-runner.md`,
+so package-level contracts and manual readability calibration remain the active
+promotion blockers.
 
 ## Verification
 
@@ -99,10 +106,11 @@ python -m json.tool data\workshop_editor\slip_lifecycle_archive_effects_stage0\s
 
 Adopt `slip_lifecycle_archive_effects_stage0` as the measured Stage 0 bridge
 from preview signals to lifecycle/archive effects. Keep `profile_weighted_evolution`,
-package runtime lifecycle integration, offspring mutation selection, lineage
-replacement policy, runtime JSON Schema, declared dependency policy, usability
-pilot, community profile packs, packed rotation/trim atlas handling, runtime
-animation playback, full project-format coverage, and metadata writers open.
+package runtime lifecycle integration, manual readability calibration,
+runtime JSON Schema, declared dependency policy, usability pilot, community
+profile packs, packed rotation/trim atlas handling, runtime animation playback,
+full project-format coverage, and metadata writers open. Lab-only
+multigeneration lineage is now covered by the follow-on runner.
 
 Supersession note: third-party project boundary decoding is now covered by
 `research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md`;

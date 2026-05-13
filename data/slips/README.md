@@ -39,6 +39,16 @@ Current generated compatibility evidence:
   profile-weighted archive elites from switchboard lifecycle metrics, 3
   distinct selected grid ids, 3 distinct selected archive niches, and 2 invalid
   selection probes rejected before selection.
+- `../workshop_editor/slip_offspring_lineage_gate_stage0.json` records the
+  bounded offspring and lineage-decision proof: 3 current profiles selected
+  bounded child grids from runtime-selected parents, emitted 3 lineage
+  decisions, produced 1 add-niche and 2 hold-parent outcomes, and rejected 2
+  invalid offspring probes before the gate started.
+- `../workshop_editor/slip_long_horizon_behavior_gate_stage0.json` records the
+  held-out long-horizon behavior proof: 3 selected offspring survive the
+  96-tick switchboard horizon, 18/18 held-out generated candidates survive
+  switchboard care, 18/18 idle-neglect probes die before the horizon, and 2
+  invalid long-horizon probes are rejected before the gate starts.
 - `../workshop_editor/external_metadata_sidecar_stage0.json` records the
   external metadata sidecar strategy proof: 3 current profile sidecar round
   trips, 2 invalid binding probes rejected, and 5 adapter formats marked
@@ -78,10 +88,12 @@ Current generated compatibility evidence:
 - `multi_profile_generation_stage0/slip_amber_social/` contains 50 valid,
   profile-aligned generated grids.
 
-It does not yet cover package/runtime lifecycle behavior integration, offspring
-mutation selection, lineage replacement policy, held-out long-horizon behavior
-tests, manual readability calibration, packed rotation/trim atlas handling,
-runtime animation playback, full third-party project-format coverage,
-Adam7/APNG/full PNG conformance, embedded/native metadata writers, runtime JSON
-Schema dependency installation, declared package dependency policy, or
-profile-weighted evolution.
+It does not yet cover package/runtime lifecycle behavior integration, completed
+manual readability calibration, packed rotation/trim atlas handling, runtime
+animation playback, full third-party project-format coverage, Adam7/APNG/full
+PNG conformance, embedded/native metadata writers, runtime JSON Schema
+dependency installation, declared package dependency policy, or
+profile-weighted evolution. The current SLIP long-horizon readability packet
+exists under `data/readability/`, but no reviewer rows have been collected yet.
+The multigeneration lineage runner exists as lab evidence under
+`data/workshop_editor/`, not as package runtime state.

@@ -83,7 +83,7 @@ window.MECHAGOTCHI_THIRD_PARTY_PROJECT_DECODER = {
         "width": 8,
         "height": 8,
         "frame_count": 1,
-        "content_hash": "sha256:b8ae11e2a8e01f7008bcea0d3e72c536a9ff0556fbc7ad966eeabfc55da499a4",
+        "content_hash": "sha256:5de731953b6d2970a0d4d680a273b0990767032fc80db0a21c40cfa980ef8679",
         "semantic_policy": "sidecar_required"
       },
       "decoded_project": {

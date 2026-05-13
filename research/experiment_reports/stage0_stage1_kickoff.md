@@ -289,3 +289,30 @@ CI.
     `research/algorithm_cards/slip_runtime_selection_policy.md`,
     `labs/workshop_editor/slip_runtime_selection_policy.py`, and
     `data/workshop_editor/slip_runtime_selection_policy_stage0.json`.
+51. Specify and test bounded Stage 0 offspring mutation selection and lineage
+    replacement decisions without claiming persistent profile-weighted
+    evolution. Done in
+    `research/experiment_reports/2026-05-13-slip-offspring-lineage-gate.md`,
+    `research/algorithm_cards/slip_offspring_lineage_gate.md`,
+    `labs/workshop_editor/slip_offspring_lineage_gate.py`, and
+    `data/workshop_editor/slip_offspring_lineage_gate_stage0.json`.
+52. Run held-out Stage 0 long-horizon behavior tests for selected offspring
+    and generated candidates without claiming manual readability calibration or
+    profile-weighted evolution. Done in
+    `research/experiment_reports/2026-05-13-slip-long-horizon-behavior-gate.md`,
+    `research/algorithm_cards/slip_long_horizon_behavior_gate.md`,
+    `labs/workshop_editor/slip_long_horizon_behavior_gate.py`, and
+    `data/workshop_editor/slip_long_horizon_behavior_gate_stage0.json`.
+53. Prepare the current SLIP long-horizon corpus for manual readability
+    calibration without fabricating reviewer rows or claiming
+    profile-weighted evolution. Done in
+    `research/experiment_reports/2026-05-13-slip-readability-calibration-gate.md`,
+    `research/algorithm_cards/slip_readability_calibration_gate.md`,
+    `labs/readability_benchmark/slip_readability_calibration_gate.py`, and
+    `data/readability/slip_readability_calibration_gate_stage0.json`.
+54. Run a lab-only persistent SLIP multigeneration lineage runner without
+    claiming package runtime integration or profile-weighted evolution. Done in
+    `research/experiment_reports/2026-05-13-slip-multigeneration-lineage-runner.md`,
+    `research/algorithm_cards/slip_multigeneration_lineage_runner.md`,
+    `labs/workshop_editor/slip_multigeneration_lineage_runner.py`, and
+    `data/workshop_editor/slip_multigeneration_lineage_runner_stage0.json`.

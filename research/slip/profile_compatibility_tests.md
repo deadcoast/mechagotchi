@@ -54,6 +54,12 @@ alignment validator remains `labs/grid_genome/slip.py`; the schema failure
 corpus is checked by `labs/slip_validator/slip_validator.py` and the lab
 Pydantic contract is checked by `labs/slip_validator/pydantic_contract.py`.
 
+Long-horizon behavior evidence is anchored by the Avida digital-evolution
+platform, JaxLife artificial-life simulator paper, and the Sutton/Barto
+reinforcement-learning text. These sources support explicit long-running
+behavior protocols, but they do not turn the current lab gate into package
+runtime evolution.
+
 ## Current Fixture Corpus
 
 | Group | Path | Count | Current result |
@@ -69,6 +75,9 @@ Pydantic contract is checked by `labs/slip_validator/pydantic_contract.py`.
 | SLIP behavior/mutation preview | `data/workshop_editor/slip_behavior_mutation_preview_stage0.json` | 1 | 3 behavior previews, 3 mutation previews, 2 invalid preview probes rejected |
 | SLIP lifecycle/archive effects | `data/workshop_editor/slip_lifecycle_archive_effects_stage0.json` | 1 | 3 lifecycle effects, 3 archive effects, 3 distinct preview/lifecycle/archive fingerprints, 2 invalid probes rejected |
 | SLIP runtime selection policy | `data/workshop_editor/slip_runtime_selection_policy_stage0.json` | 1 | 3 profile-weighted archive elite selections from switchboard lifecycle metrics, 3 distinct selected grid ids, 2 invalid selection probes rejected |
+| SLIP offspring lineage gate | `data/workshop_editor/slip_offspring_lineage_gate_stage0.json` | 1 | 3 bounded offspring selections, 3 lineage decisions, 1 add-niche outcome, 2 invalid offspring probes rejected |
+| SLIP long-horizon behavior gate | `data/workshop_editor/slip_long_horizon_behavior_gate_stage0.json` | 1 | 3 selected-offspring full-survival probes, 18/18 held-out switchboard full-survival probes, 18/18 idle deaths, 2 invalid long-horizon probes rejected |
+| SLIP multigeneration lineage runner | `data/workshop_editor/slip_multigeneration_lineage_runner_stage0.json` | 1 | 3 three-generation profile runs, 9 qualified selected offspring, max generation 4, 2 invalid multigeneration probes rejected |
 | External metadata sidecar | `data/workshop_editor/external_metadata_sidecar_stage0.json` | 1 | 3 sidecar round trips, 2 invalid binding probes rejected, 5 adapter formats require sidecar |
 | Standard image sidecar decoder | `data/workshop_editor/standard_image_sidecar_decoder_stage0.json` | 1 | 3 static RGBA PNG sidecar round trips, 2 invalid PNG/binding probes rejected |
 | PNG variant sidecar decoder | `data/workshop_editor/png_variant_sidecar_decoder_stage0.json` | 1 | 15 variant PNG sidecar round trips, color types 0/2/3/6, filters 0..4, 3 invalid variant probes rejected |
@@ -136,8 +145,8 @@ require a complete behavior vocabulary or survival-weight vocabulary.
 | Profile validation | 3 valid profiles accepted, 3 examples accepted, 12 schema failure cases rejected by both dependency-free and Pydantic lab validators; schema surface parity proven; only `0.1.0` accepted with no migration; legacy 2 invalid fixtures also rejected by lab validator | proven Stage 0 schema/failure corpus, lab Pydantic contract, and migration policy | runtime JSON Schema dependency and declared package dependency manifest |
 | Generation alignment | 150/150 current valid-profile constrained candidates valid and aligned | proven for current 3-profile corpus | expanded community and unsatisfiable-profile corpus |
 | Grid validator | generated candidates pass grid validation | proven for current profile-aware candidate corpora | profile-aware negative cases and held-out profiles |
-| Lifecycle | 3/3 current valid profiles produce measured 24-tick switchboard lifecycle effects from preview-validated grids; runtime selection policy consumes switchboard lifecycle episodes for 3/3 profile-specific archive elite choices | measured Stage 0 selection-policy bridge only | package runtime integration and held-out/long-horizon behavior tests |
-| Archive | extended descriptors include `slip_alignment`; 3/3 current valid profiles build profile-specific extended archives; 3/3 runtime selection probes choose profile-weighted archive elites from distinct niches | measured Stage 0 selection-policy bridge only | offspring mutation/replacement and multi-profile calibration |
+| Lifecycle | 3/3 current valid profiles produce measured 24-tick switchboard lifecycle effects from preview-validated grids; runtime selection policy consumes switchboard lifecycle episodes for 3/3 profile-specific archive elite choices; offspring lineage gate evaluates selected children with mean survival ratio `1.0`; long-horizon gate records 18/18 held-out switchboard full-survival runs and 18/18 idle deaths at 96 ticks | measured Stage 0 selection, offspring-lineage, and long-horizon behavior bridge only | package runtime integration and manual readability calibration |
+| Archive | extended descriptors include `slip_alignment`; 3/3 current valid profiles build profile-specific extended archives; 3/3 runtime selection probes choose profile-weighted archive elites from distinct niches; offspring lineage gate emits 3 lineage decisions with 1 add-niche and 2 hold-parent outcomes | measured Stage 0 selection and lineage decision bridge only | held-out multi-profile calibration and manual readability calibration |
 | Workshop round trip | native JSON round trip preserves semantics across 150 generated candidates under 3 valid profiles | proven for generated multi-profile corpus | full project-format coverage, native/embedded metadata writer policy, runtime animation playback, and remaining packed rotation/trim handling |
 | External metadata sidecar | 3/3 current profile sidecars bind a non-native PNG asset stub to the semantic overlay and restore SLIP-aligned grids; 2/2 invalid binding probes rejected; 5 adapter formats marked sidecar-required | proven Stage 0 strategy only | embedded/native metadata writer policy and full project-format coverage |
 | Standard image sidecar decoder | 3/3 current profile grids export to real static RGBA PNG, decode with PNG signature/chunk/CRC/IDAT checks, restore SLIP-aligned semantic grids from sidecars, and reject 2/2 corrupt PNG or hash-mismatch probes | proven static non-interlaced 8-bit RGBA PNG only; superseded for broader color/filter variants by PNG variant sidecar decoder | Adam7/APNG/full PNG conformance remains separate |
@@ -146,8 +155,12 @@ require a complete behavior vocabulary or survival-weight vocabulary.
 | Spritesheet layout variant decoder | 12/12 current profile spritesheet layout variants export/import with sidecars across vertical strips, row-major matrix sheets, padded/guttered grids, and sparse atlas rects; 3/3 invalid out-of-bounds/overlap/frame-hash probes rejected | proven Stage 0 layout variant subset only | packed rotation/trim, arbitrary atlas packing, tags/layers, and runtime animation playback |
 | Third-party project decoder boundary | 3/3 current profile project payloads decode Piskel JSON, Pixelorama `.pxo` ZIP/data.json, and Aseprite/LibreSprite header boundaries, restore SLIP-aligned semantic grids from sidecars, and reject 3/3 corrupt project, mismatched sidecar, or unsupported format probes | proven Stage 0 boundary only | full project-format coverage and native project-file metadata writer policy |
 | SLIP authoring panel | 3/3 current profile drafts accepted and 3/3 invalid probes rejected by migration, dependency-free, and Pydantic gates | proven minimal panel for current Stage 0 schema | usability pilot |
-| SLIP preview gates | 3/3 current profiles produce deterministic behavior previews and bounded mutation previews; measured lifecycle/archive bridge records 3 distinct preview, lifecycle, and archive fingerprints; 2/2 invalid preview/effect probes rejected before activation | proven deterministic Stage 0 preview gate plus measured effects bridge | offspring mutation and lineage replacement before profile-weighted evolution claims |
-| SLIP runtime selection policy | 3/3 current profiles select one profile-weighted extended MAP-Elites archive elite using switchboard lifecycle metrics; selected grid ids: 3 distinct; selected niches: 3 distinct; mean selection score `0.955828`; 2/2 invalid version/mismatched-corpus probes rejected before selection | proven Stage 0 runtime selection policy only | offspring mutation, lineage replacement, package runtime integration, and held-out long-horizon calibration |
+| SLIP preview gates | 3/3 current profiles produce deterministic behavior previews and bounded mutation previews; measured lifecycle/archive bridge records 3 distinct preview, lifecycle, and archive fingerprints; 2/2 invalid preview/effect probes rejected before activation | proven deterministic Stage 0 preview gate plus measured effects bridge | manual readability calibration before profile-weighted evolution claims |
+| SLIP runtime selection policy | 3/3 current profiles select one profile-weighted extended MAP-Elites archive elite using switchboard lifecycle metrics; selected grid ids: 3 distinct; selected niches: 3 distinct; mean selection score `0.955828`; 2/2 invalid version/mismatched-corpus probes rejected before selection | proven Stage 0 runtime selection policy superseded for offspring by offspring lineage gate | package runtime integration and manual readability calibration |
+| SLIP offspring lineage gate | 3/3 current profiles produce bounded selected offspring from runtime-selected parents; 3 lineage decisions emitted; mean selected offspring score `0.928194`; 1 add-niche and 2 hold-parent outcomes; 2/2 invalid version/mismatched-corpus probes rejected before the offspring gate starts | proven Stage 0 offspring mutation selection and lineage policy superseded for depth by multigeneration runner | manual readability calibration and package runtime integration |
+| SLIP long-horizon behavior gate | 3/3 current profiles pass selected-offspring long-horizon switchboard survival; 18/18 held-out generated candidates survive 96 switchboard ticks; 18/18 held-out idle probes die before the horizon; mean switchboard survival ratio `1.0`; mean idle survival ratio `0.114583`; mean need-balance delta vs idle `0.691676`; 2/2 invalid version/mismatched-corpus probes rejected before the long-horizon gate starts; manual readability calibration remains not collected | proven Stage 0 held-out long-horizon behavior gate only | manual readability calibration and package runtime integration |
+| SLIP readability calibration gate | 21/21 current long-horizon samples bound to the manual readability protocol; 3 selected offspring and 18 held-out candidates scored by the proxy metric; expected completed reviewer rows: 63; rating rows collected: 0; manual readability calibration ready: false | packet and proxy snapshot prepared; human calibration still absent | collect 63 reviewer rows, verify agreement and proxy-human rank correlation, then rerun calibration |
+| SLIP multigeneration lineage runner | 3/3 current profiles persist three-generation candidate lineages; 9/9 selected offspring continue as qualified lineage frontiers; max generation reached: 4; mean selected offspring score `0.925309`; mean selected runtime survival ratio `1.0`; 2 add-niche and 7 hold-parent archive actions; 2/2 invalid version/mismatched-corpus probes rejected before the runner starts | proven Stage 0 lab-only persistent multigeneration lineage runner | package runtime integration and manual readability calibration |
 | CA/NCA growth/repair | growth/repair measured against LCD profile; mixed palettes lower alignment to `0.25` | diagnostic only | profile-matched CA/NCA alignment by palette family |
 | CuBFF hybrid transducer | hybrid path reports 12/12 valid and aligned under active profile | limited | real snapshot and multi-profile transducer compatibility |
 | Future package tests | generation/lifecycle/property strategies mention SLIP rejection and alignment | specified only | package import-surface tests after package work starts |
@@ -221,9 +234,13 @@ For each valid profile, future tests must check:
 
 Current lifecycle evidence now proves short-horizon, profile-specific lab
 effects for the three current valid profiles and a Stage 0 selector that
-consumes lifecycle metrics for profile-specific archive elite choices. It is
-still not enough to claim package runtime behavior integration, long-horizon
-behavior compatibility, offspring selection, or profile-weighted evolution.
+consumes lifecycle metrics for profile-specific archive elite choices. The
+offspring lineage gate evaluates selected child lifecycle episodes, and the
+long-horizon behavior gate proves selected-offspring and held-out switchboard
+survival against an idle-neglect contrast. The multigeneration runner now
+persists qualified candidate lineages across three generations in the lab.
+This is still not enough to claim package runtime behavior integration, manual
+readability calibration, or profile-weighted evolution.
 
 ### 5. Archive Compatibility Tests
 
@@ -240,8 +257,10 @@ Future archive tests must check:
 
 Current archive evidence now includes profile-specific extended archive probes
 and a Stage 0 profile-weighted elite selector for the three current valid
-profiles. It is still not enough to claim offspring mutation or evolutionary
-replacement.
+profiles. The offspring lineage gate now specifies bounded child selection and
+lineage actions, and the multigeneration runner now exercises three-generation
+candidate lineages. It is still not enough to claim package runtime evolution
+or final archive replacement thresholds.
 
 ### 6. Workshop Compatibility Tests
 
@@ -285,15 +304,11 @@ The following claims remain blocked:
 
 - runtime JSON Schema validation, because the dependency selection is not made;
 - declared Pydantic package dependency, because no dependency manifest exists;
-- profile-weighted evolution, because the runtime selector chooses an existing
-  archive elite but does not mutate offspring, replace lineage state, or run a
-  package runtime loop;
+- profile-weighted evolution, because the runtime selector, offspring gate,
+  long-horizon gate, and multigeneration runner are still lab artifacts rather
+  than package runtime evolution with calibrated readability thresholds;
 - package runtime lifecycle integration, because the lab selector is not a
   production lifecycle simulator or package import surface;
-- offspring mutation selection and lineage replacement policy, because no child
-  genome is generated or installed from the selected elite;
-- held-out long-horizon behavior tests, because the selector uses the current
-  generated profile corpus and short switchboard lifecycle probes;
 - manual readability calibration, because archive readability is still proxy
   scored;
 - Adam7/APNG/full PNG conformance, because the PNG variant proof covers only
@@ -324,6 +339,9 @@ python -m json.tool .\data\workshop_editor\slip_authoring_panel_stage0.json
 python -m json.tool .\data\workshop_editor\slip_behavior_mutation_preview_stage0.json
 python -m json.tool .\data\workshop_editor\slip_lifecycle_archive_effects_stage0.json
 python -m json.tool .\data\workshop_editor\slip_runtime_selection_policy_stage0.json
+python -m json.tool .\data\workshop_editor\slip_offspring_lineage_gate_stage0.json
+python -m json.tool .\data\workshop_editor\slip_long_horizon_behavior_gate_stage0.json
+python -m json.tool .\data\workshop_editor\slip_multigeneration_lineage_runner_stage0.json
 python -m json.tool .\data\workshop_editor\external_metadata_sidecar_stage0.json
 python -m json.tool .\data\workshop_editor\standard_image_sidecar_decoder_stage0.json
 python -m json.tool .\data\workshop_editor\png_variant_sidecar_decoder_stage0.json
@@ -356,9 +374,11 @@ rg -n "from labs|import labs|labs/|labs\\|sys\.path" .\packages\mecha_engine
 Adopt this matrix as the Stage 0 SLIP compatibility test plan. Keep the current
 SLIP validator as a narrow lab prototype. Treat the Stage 0 schema, failure
 corpus, Pydantic lab model, and migration/dependency gate as the current
-file-level profile contract. Treat the measured lifecycle/archive bridge and
-runtime selection policy as Stage 0 lab-only effect and elite-selection probes,
-not as package runtime evolution. Treat the external JSON sidecar strategy, static RGBA
+file-level profile contract. Treat the measured lifecycle/archive bridge,
+runtime selection policy, and offspring lineage gate as Stage 0 lab-only
+effect, elite-selection, child-selection, lineage-decision, and long-horizon
+behavior probes, not as package runtime evolution. Treat the external JSON
+sidecar strategy, static RGBA
 PNG sidecar decoder, PNG variant sidecar decoder subset, fixed-grid horizontal
 spritesheet sidecar decoder, and spritesheet layout variant decoder subset as
 proven for Stage 0 metadata preservation. Treat the third-party project decoder
@@ -366,7 +386,7 @@ boundary as proof of sidecar binding for Piskel JSON, Pixelorama `.pxo`
 ZIP/data.json, and Aseprite/LibreSprite header payloads, not as proof of broad
 image/project interoperability. Do not claim full profile-authoring
 compatibility until runtime JSON Schema validation, declared dependency policy,
-package lifecycle runtime integration, offspring mutation, lineage replacement,
+package lifecycle runtime integration, manual readability calibration,
 usability evidence, full project-format coverage, native/embedded metadata
 writers, runtime animation playback, packed rotation/trim handling, and full
 PNG conformance questions are proven or explicitly rejected.
@@ -374,8 +394,8 @@ PNG conformance questions are proven or explicitly rejected.
 Next research step:
 
 ```txt
-Define offspring mutation and lineage replacement gates before claiming
-profile-weighted evolution.
+Integrate package/runtime lifecycle boundaries and collect 63 SLIP readability
+reviewer rows before claiming profile-weighted evolution.
 ```
 
 ## References
@@ -408,6 +428,8 @@ profile-weighted evolution.
 - `research/experiment_reports/2026-05-12-slip-behavior-mutation-preview-gate.md`
 - `research/experiment_reports/2026-05-12-slip-lifecycle-archive-effects.md`
 - `research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`
+- `research/experiment_reports/2026-05-13-slip-offspring-lineage-gate.md`
+- `research/experiment_reports/2026-05-13-slip-long-horizon-behavior-gate.md`
 - `research/experiment_reports/2026-05-12-external-metadata-sidecar-strategy.md`
 - `research/experiment_reports/2026-05-12-standard-image-sidecar-decoder.md`
 - `research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`
@@ -418,6 +440,9 @@ profile-weighted evolution.
 - `labs/workshop_editor/slip_preview_gates.py`
 - `labs/workshop_editor/slip_lifecycle_archive_effects.py`
 - `labs/workshop_editor/slip_runtime_selection_policy.py`
+- `labs/workshop_editor/slip_offspring_lineage_gate.py`
+- `labs/workshop_editor/slip_long_horizon_behavior_gate.py`
+- `labs/workshop_editor/slip_multigeneration_lineage_runner.py`
 - `labs/workshop_editor/external_metadata_sidecar.py`
 - `labs/workshop_editor/standard_image_sidecar_decoder.py`
 - `labs/workshop_editor/png_variant_sidecar_decoder.py`
@@ -428,6 +453,9 @@ profile-weighted evolution.
 - `data/workshop_editor/slip_behavior_mutation_preview_stage0.json`
 - `data/workshop_editor/slip_lifecycle_archive_effects_stage0.json`
 - `data/workshop_editor/slip_runtime_selection_policy_stage0.json`
+- `data/workshop_editor/slip_offspring_lineage_gate_stage0.json`
+- `data/workshop_editor/slip_long_horizon_behavior_gate_stage0.json`
+- `data/workshop_editor/slip_multigeneration_lineage_runner_stage0.json`
 - `data/workshop_editor/external_metadata_sidecar_stage0.json`
 - `data/workshop_editor/standard_image_sidecar_decoder_stage0.json`
 - `data/workshop_editor/png_variant_sidecar_decoder_stage0.json`
@@ -444,8 +472,14 @@ profile-weighted evolution.
 - `data/workshop_editor/slip_behavior_mutation_preview_stage0/`
 - `data/workshop_editor/slip_lifecycle_archive_effects_stage0/`
 - `data/workshop_editor/slip_runtime_selection_policy_stage0/`
+- `data/workshop_editor/slip_offspring_lineage_gate_stage0/`
+- `data/workshop_editor/slip_long_horizon_behavior_gate_stage0/`
+- `data/workshop_editor/slip_multigeneration_lineage_runner_stage0/`
 - `data/generated_grids/slip_lcd_seed_constrained/README.md`
 - `data/slips/multi_profile_generation_stage0/slip_multi_profile_generation_stage0.json`
 - `data/workshop_editor/multi_profile_roundtrip_stage0/workshop_multi_profile_roundtrip_stage0.json`
 - JSON Schema Draft 2020-12: https://json-schema.org/draft/2020-12
 - Pydantic JSON Schema docs: https://docs.pydantic.dev/latest/concepts/json_schema/
+- Avida Digital Evolution Platform: https://avida.devosoft.org/
+- JaxLife: An Open-Ended Agentic Simulator: https://arxiv.org/abs/2409.00853
+- Reinforcement Learning: An Introduction: https://mitpress.mit.edu/9780262039246/reinforcement-learning/

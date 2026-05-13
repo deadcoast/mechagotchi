@@ -95,13 +95,23 @@ distinct_selected_archive_niches: 3
 mean_selected_selection_score: 0.955828
 ```
 
+SLIP offspring lineage gate completed on 2026-05-13.
+
+```txt
+offspring_gate_success_count: 3
+lineage_decision_count: 3
+add_archive_niche_count: 1
+hold_parent_count: 2
+mean_selected_offspring_score: 0.928194
+```
+
 ## Decision
 
 Keep as active prototype. Use extended descriptors for research comparison,
-profile-effect probes, and Stage 0 runtime elite selection, but do not promote
-profile-weighted evolution until manual readability ratings, broader lifecycle
-tests, offspring mutation, lineage replacement, and package-level contracts are
-available.
+profile-effect probes, Stage 0 runtime elite selection, and the follow-on
+long-horizon behavior gate, but do not promote profile-weighted evolution until
+manual readability ratings and package-level contracts are available. The
+Stage 0 multigeneration runner now covers lab-only lineage depth.
 
 ## Go/No-Go Gate
 

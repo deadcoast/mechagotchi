@@ -128,8 +128,8 @@ class SLIPPreviewGateTests(unittest.TestCase):
         self.assertIn("profile_weighted_evolution", report["blocked_states"])
         self.assertNotIn("spritesheet PNG frame metadata", report["next_research_step"])
         self.assertIn("full project-format coverage", report["next_research_step"])
-        self.assertIn("offspring mutation", report["next_research_step"])
-        self.assertIn("lineage replacement", report["next_research_step"])
+        self.assertIn("held-out long-horizon", report["next_research_step"])
+        self.assertIn("manual readability", report["next_research_step"])
 
     def test_write_artifacts_creates_report_profile_payloads_and_app_data(self):
         report = run_slip_preview_gate_lab(VALID_PROFILE_PATHS, GENERATED_ROOT)

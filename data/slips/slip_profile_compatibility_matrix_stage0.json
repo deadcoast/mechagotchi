@@ -38,10 +38,17 @@
     "research/experiment_reports/2026-05-12-slip-behavior-mutation-preview-gate.md",
     "research/experiment_reports/2026-05-12-slip-lifecycle-archive-effects.md",
     "research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md",
+    "research/experiment_reports/2026-05-13-slip-offspring-lineage-gate.md",
+    "research/experiment_reports/2026-05-13-slip-long-horizon-behavior-gate.md",
+    "research/experiment_reports/2026-05-13-slip-readability-calibration-gate.md",
     "labs/workshop_editor/slip_authoring_panel.py",
     "labs/workshop_editor/slip_preview_gates.py",
     "labs/workshop_editor/slip_lifecycle_archive_effects.py",
     "labs/workshop_editor/slip_runtime_selection_policy.py",
+    "labs/workshop_editor/slip_offspring_lineage_gate.py",
+    "labs/workshop_editor/slip_long_horizon_behavior_gate.py",
+    "labs/workshop_editor/slip_multigeneration_lineage_runner.py",
+    "labs/readability_benchmark/slip_readability_calibration_gate.py",
     "data/workshop_editor/slip_authoring_panel_stage0.json",
     "data/workshop_editor/slip_authoring_panel_stage0/",
     "data/workshop_editor/slip_behavior_mutation_preview_stage0.json",
@@ -50,6 +57,14 @@
     "data/workshop_editor/slip_lifecycle_archive_effects_stage0/",
     "data/workshop_editor/slip_runtime_selection_policy_stage0.json",
     "data/workshop_editor/slip_runtime_selection_policy_stage0/",
+    "data/workshop_editor/slip_offspring_lineage_gate_stage0.json",
+    "data/workshop_editor/slip_offspring_lineage_gate_stage0/",
+    "data/workshop_editor/slip_long_horizon_behavior_gate_stage0.json",
+    "data/workshop_editor/slip_long_horizon_behavior_gate_stage0/",
+    "data/workshop_editor/slip_multigeneration_lineage_runner_stage0.json",
+    "data/workshop_editor/slip_multigeneration_lineage_runner_stage0/",
+    "data/readability/slip_readability_calibration_gate_stage0.json",
+    "data/readability/slip_readability_calibration_template.csv",
     "research/experiment_reports/2026-05-12-external-metadata-sidecar-strategy.md",
     "labs/workshop_editor/external_metadata_sidecar.py",
     "data/workshop_editor/external_metadata_sidecar_stage0.json",
@@ -114,6 +129,16 @@
       "used_for": "Runtime selection policy chooses among quality-diversity archive elites instead of scalar top-k only."
     },
     {
+      "source": "Essentials of Metaheuristics",
+      "url": "https://people.cs.gmu.edu/~sean/book/metaheuristics/",
+      "used_for": "Offspring mutation and replacement are treated as explicit evolutionary operators."
+    },
+    {
+      "source": "Introduction to Evolutionary Computing online accompaniment",
+      "url": "https://www.evolutionarycomputation.org/part-one/fitness-selection-and-population-management/",
+      "used_for": "Survivor selection and replacement are kept separate from parent selection."
+    },
+    {
       "source": "A Contextual-Bandit Approach to Personalized News Article Recommendation",
       "url": "https://arxiv.org/abs/1003.0146",
       "used_for": "Profile-conditioned action and selection context is treated as future online learning context, not current trained policy."
@@ -122,6 +147,11 @@
       "source": "JaxLife: An Open-Ended Agentic Simulator",
       "url": "https://arxiv.org/abs/2409.00853",
       "used_for": "Lifecycle survival remains an artificial-life measurement axis for runtime selection."
+    },
+    {
+      "source": "Avida Digital Evolution Platform",
+      "url": "https://avida.devosoft.org/",
+      "used_for": "Long-horizon behavior gates are treated as explicit digital-evolution experiment protocols."
     },
     {
       "source": "MDN output element",
@@ -253,6 +283,48 @@
     "slip_runtime_selection_policy_mean_selection_score": 0.955828,
     "slip_runtime_selection_policy_mean_need_balance": 0.793865,
     "slip_runtime_selection_policy_mean_survival_ratio": 1.0,
+    "slip_offspring_lineage_gate_profiles": 3,
+    "slip_offspring_lineage_gate_success": 3,
+    "slip_offspring_lineage_gate_lineage_decisions": 3,
+    "slip_offspring_lineage_gate_invalid_probes_rejected": 2,
+    "slip_offspring_lineage_gate_distinct_selected_offspring_ids": 3,
+    "slip_offspring_lineage_gate_mean_offspring_score": 0.928194,
+    "slip_offspring_lineage_gate_mean_need_balance": 0.793865,
+    "slip_offspring_lineage_gate_mean_survival_ratio": 1.0,
+    "slip_offspring_lineage_gate_replace_parent_count": 0,
+    "slip_offspring_lineage_gate_add_archive_niche_count": 1,
+    "slip_offspring_lineage_gate_hold_parent_count": 2,
+    "slip_long_horizon_behavior_gate_profiles": 3,
+    "slip_long_horizon_behavior_gate_success": 3,
+    "slip_long_horizon_behavior_gate_selected_offspring_full_survival": 3,
+    "slip_long_horizon_behavior_gate_held_out_candidates": 18,
+    "slip_long_horizon_behavior_gate_held_out_switchboard_full_survival": 18,
+    "slip_long_horizon_behavior_gate_held_out_idle_deaths": 18,
+    "slip_long_horizon_behavior_gate_invalid_probes_rejected": 2,
+    "slip_long_horizon_behavior_gate_mean_switchboard_survival_ratio": 1.0,
+    "slip_long_horizon_behavior_gate_mean_idle_survival_ratio": 0.114583,
+    "slip_long_horizon_behavior_gate_mean_need_balance_delta_vs_idle": 0.691676,
+    "slip_long_horizon_behavior_gate_manual_readability_ready": false,
+    "slip_readability_calibration_gate_samples": 21,
+    "slip_readability_calibration_gate_selected_offspring_samples": 3,
+    "slip_readability_calibration_gate_held_out_long_horizon_samples": 18,
+    "slip_readability_calibration_gate_expected_completed_rating_rows": 63,
+    "slip_readability_calibration_gate_rating_rows": 0,
+    "slip_readability_calibration_gate_reviewer_count": 0,
+    "slip_readability_calibration_gate_mean_proxy_readability_score": 0.835645,
+    "slip_readability_calibration_gate_manual_readability_ready": false,
+    "slip_multigeneration_lineage_runner_profiles": 3,
+    "slip_multigeneration_lineage_runner_success": 3,
+    "slip_multigeneration_lineage_runner_generation_records": 9,
+    "slip_multigeneration_lineage_runner_selected_offspring": 9,
+    "slip_multigeneration_lineage_runner_continued_child_count": 9,
+    "slip_multigeneration_lineage_runner_add_archive_niche_count": 2,
+    "slip_multigeneration_lineage_runner_hold_parent_count": 7,
+    "slip_multigeneration_lineage_runner_replace_parent_count": 0,
+    "slip_multigeneration_lineage_runner_invalid_probes_rejected": 2,
+    "slip_multigeneration_lineage_runner_max_generation_reached": 4,
+    "slip_multigeneration_lineage_runner_mean_selected_offspring_score": 0.925309,
+    "slip_multigeneration_lineage_runner_mean_selected_runtime_survival_ratio": 1.0,
     "external_sidecar_profiles": 3,
     "external_sidecar_roundtrip_success": 3,
     "external_sidecar_invalid_probes_rejected": 2,
@@ -397,15 +469,15 @@
     },
     {
       "surface": "lifecycle",
-      "current_proof": "3/3 current valid profiles produce measured 24-tick switchboard lifecycle effects from preview-validated grids; runtime selection policy consumes switchboard lifecycle episodes for 3/3 profile-specific archive elite choices",
-      "status": "measured_stage0_selection_policy_bridge_only",
-      "required_next_proof": "package runtime integration and held-out/long-horizon behavior tests"
+      "current_proof": "3/3 current valid profiles produce measured 24-tick switchboard lifecycle effects from preview-validated grids; runtime selection policy consumes switchboard lifecycle episodes for 3/3 profile-specific archive elite choices; offspring lineage gate evaluates child lifecycle episodes with mean survival ratio 1.0; long-horizon gate records 18/18 held-out switchboard full-survival runs and 18/18 idle deaths at 96 ticks",
+      "status": "measured_stage0_selection_offspring_and_long_horizon_behavior_bridge_only",
+      "required_next_proof": "package runtime integration and manual readability calibration"
     },
     {
       "surface": "archive",
-      "current_proof": "extended descriptors include slip_alignment; 3/3 current valid profiles build profile-specific extended archives; 3/3 runtime selection probes choose profile-weighted archive elites from distinct niches",
-      "status": "measured_stage0_selection_policy_bridge_only",
-      "required_next_proof": "offspring mutation/replacement and multi-profile calibration"
+      "current_proof": "extended descriptors include slip_alignment; 3/3 current valid profiles build profile-specific extended archives; 3/3 runtime selection probes choose profile-weighted archive elites from distinct niches; offspring lineage gate emits 3 lineage decisions with 1 add-niche and 2 hold-parent outcomes",
+      "status": "measured_stage0_selection_and_lineage_decision_bridge_only",
+      "required_next_proof": "held-out multi-profile calibration and manual readability calibration"
     },
     {
       "surface": "workshop_roundtrip",
@@ -459,19 +531,43 @@
       "surface": "slip_preview_gates",
       "current_proof": "3/3 current valid profiles produce deterministic behavior previews and bounded mutation previews; measured lifecycle/archive bridge records 3 distinct preview, lifecycle, and archive fingerprints; 2/2 invalid preview/effect probes rejected before activation",
       "status": "proven_deterministic_stage0_preview_gate_plus_measured_effects_bridge",
-      "required_next_proof": "offspring mutation and lineage replacement before profile-weighted evolution claims"
+      "required_next_proof": "manual readability calibration before profile-weighted evolution claims"
     },
     {
       "surface": "slip_lifecycle_archive_effects",
       "current_proof": "3/3 current valid profiles link preview signals to lifecycle and extended archive measurements; mean lifecycle need balance 0.793865; mean archive QD score 7.671145",
       "status": "measured_stage0_effect_bridge_superseded_for_selection_by_runtime_selection_policy",
-      "required_next_proof": "offspring mutation and lineage replacement before profile-weighted evolution claims"
+      "required_next_proof": "manual readability calibration before profile-weighted evolution claims"
     },
     {
       "surface": "slip_runtime_selection_policy",
       "current_proof": "3/3 current valid profiles select one profile-weighted extended MAP-Elites archive elite using switchboard lifecycle metrics; selected grid ids: 3 distinct; selected niches: 3 distinct; mean selection score 0.955828; 2/2 invalid version/mismatched-corpus probes rejected before selection",
-      "status": "proven_stage0_runtime_selection_policy_only",
-      "required_next_proof": "offspring mutation, lineage replacement, package runtime integration, and held-out long-horizon calibration"
+      "status": "proven_stage0_runtime_selection_policy_superseded_for_offspring_by_offspring_lineage_gate",
+      "required_next_proof": "package runtime integration and manual readability calibration"
+    },
+    {
+      "surface": "slip_offspring_lineage_gate",
+      "current_proof": "3/3 current valid profiles produce bounded selected offspring from runtime-selected parents; 3 lineage decisions emitted; mean selected offspring score 0.928194; 1 add-niche and 2 hold-parent outcomes; 2/2 invalid version/mismatched-corpus probes rejected before the offspring gate starts",
+      "status": "proven_stage0_offspring_mutation_selection_and_lineage_policy_superseded_for_depth_by_multigeneration_runner",
+      "required_next_proof": "manual readability calibration and package runtime integration"
+    },
+    {
+      "surface": "slip_long_horizon_behavior_gate",
+      "current_proof": "3/3 current valid profiles pass selected-offspring long-horizon switchboard survival; 18/18 held-out generated candidates survive 96 switchboard ticks; 18/18 held-out idle probes die before the horizon; mean switchboard survival ratio 1.0; mean idle survival ratio 0.114583; mean need-balance delta vs idle 0.691676; 2/2 invalid version/mismatched-corpus probes rejected before the long-horizon gate starts; manual readability calibration remains not collected",
+      "status": "proven_stage0_held_out_long_horizon_behavior_gate_only",
+      "required_next_proof": "manual readability calibration and package runtime integration"
+    },
+    {
+      "surface": "slip_readability_calibration_gate",
+      "current_proof": "21/21 current long-horizon samples bound to the manual readability protocol; 3 selected offspring and 18 held-out candidates scored by the proxy metric; expected completed reviewer rows: 63; rating rows collected: 0; manual readability calibration ready: false",
+      "status": "packet_and_proxy_snapshot_prepared_human_calibration_absent",
+      "required_next_proof": "collect 63 reviewer rows, verify agreement and proxy-human rank correlation, then rerun calibration"
+    },
+    {
+      "surface": "slip_multigeneration_lineage_runner",
+      "current_proof": "3/3 current profiles persist three-generation candidate lineages; 9/9 selected offspring continue as qualified lineage frontiers; max generation reached: 4; mean selected offspring score 0.925309; mean selected runtime survival ratio 1.0; 2 add-niche and 7 hold-parent archive actions; 2/2 invalid version/mismatched-corpus probes rejected before the runner starts",
+      "status": "proven_stage0_lab_only_persistent_multigeneration_lineage_runner",
+      "required_next_proof": "package runtime integration and manual readability calibration"
     },
     {
       "surface": "ca_nca_growth_repair",
@@ -497,9 +593,6 @@
     "declared Pydantic package dependency",
     "profile-weighted evolution",
     "package runtime lifecycle integration",
-    "offspring mutation selection",
-    "lineage replacement policy",
-    "held-out long-horizon behavior tests",
     "manual readability calibration",
     "Adam7/APNG/full PNG conformance",
     "packed rotation/trim atlas handling",
@@ -520,12 +613,18 @@
     "python -m json.tool .\\data\\workshop_editor\\slip_behavior_mutation_preview_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\slip_lifecycle_archive_effects_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\slip_runtime_selection_policy_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\slip_offspring_lineage_gate_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\slip_long_horizon_behavior_gate_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\slip_multigeneration_lineage_runner_stage0.json",
+    "python -m json.tool .\\data\\readability\\slip_readability_calibration_gate_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\external_metadata_sidecar_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\standard_image_sidecar_decoder_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\png_variant_sidecar_decoder_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\spritesheet_sidecar_decoder_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\spritesheet_layout_variant_decoder_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\third_party_project_decoder_stage0.json",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_slip_multigeneration_lineage_runner.py",
+    "python -B -m unittest .\\labs\\readability_benchmark\\test_slip_readability_calibration_gate.py",
     "python -B -m unittest discover -s .\\labs\\slip_validator -p \"test_*.py\"",
     "python -B -m unittest discover -s .\\labs\\workshop_editor -p \"test_*.py\"",
     "Test-Path .\\packages",
@@ -533,5 +632,5 @@
     "git diff --check"
   ],
   "decision": "adopt_stage0_slip_profile_compatibility_matrix",
-  "next_research_step": "Define offspring mutation and lineage replacement gates before claiming profile-weighted evolution."
+  "next_research_step": "Integrate package/runtime lifecycle boundaries and collect 63 SLIP readability reviewer rows before claiming profile-weighted evolution."
 }

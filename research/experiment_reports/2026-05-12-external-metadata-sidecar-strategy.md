@@ -172,7 +172,7 @@ project files.
 
 Runtime lifecycle/archive selection is now covered by
 `research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`.
-Next research should define offspring mutation and lineage replacement gates
-before claiming profile-weighted evolution. The measured lifecycle/archive
+Next research should run held-out long-horizon behavior tests and manual
+readability calibration before claiming profile-weighted evolution. The measured lifecycle/archive
 bridge is now covered in
 `research/experiment_reports/2026-05-12-slip-lifecycle-archive-effects.md`.

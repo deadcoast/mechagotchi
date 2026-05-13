@@ -53,7 +53,10 @@ shaping outside the lifecycle package gate.
 Supersession note: SLIP runtime selection now consumes switchboard lifecycle
 metrics for profile-specific archive elite selection in
 `research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`.
-This still does not promote package runtime evolution.
+SLIP offspring lifecycle checks are now covered by
+`research/experiment_reports/2026-05-13-slip-offspring-lineage-gate.md`.
+This still does not promote package runtime evolution or persistent
+multigeneration lineage.
 
 The required public surface is:
 

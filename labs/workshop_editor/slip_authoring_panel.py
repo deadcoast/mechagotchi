@@ -212,8 +212,6 @@ def run_slip_authoring_panel_lab(profile_paths: list[Path]) -> dict:
             "declared_dependency_manifest",
             "profile_weighted_evolution",
             "package_runtime_lifecycle_integration",
-            "offspring_mutation_selection",
-            "lineage_replacement_policy",
             "real_image_project_decoder",
             "embedded_native_metadata_writer",
             "profile_authoring_usability_pilot",
@@ -221,8 +219,8 @@ def run_slip_authoring_panel_lab(profile_paths: list[Path]) -> dict:
         "decision": "prototype_minimal_slip_authoring_panel",
         "next_research_step": (
             "Run a usability pilot for the profile-authoring panel, then "
-            "define offspring mutation and lineage replacement before "
-            "claiming profile-weighted evolution."
+            "run held-out long-horizon behavior tests and manual readability "
+            "calibration before claiming profile-weighted evolution."
         ),
     }
 

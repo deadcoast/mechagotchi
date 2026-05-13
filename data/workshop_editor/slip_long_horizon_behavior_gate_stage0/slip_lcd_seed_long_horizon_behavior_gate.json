@@ -1,0 +1,734 @@
+{
+  "probe_id": "slip_lcd_seed_long_horizon_behavior_gate",
+  "profile_id": "slip_lcd_seed",
+  "profile_path": "data/slips/valid/slip_lcd_seed.json",
+  "candidate_profile_id": "slip_lcd_seed",
+  "candidate_limit": 12,
+  "heldout_count": 6,
+  "short_horizon_ticks": 24,
+  "long_horizon_ticks": 96,
+  "gate_started": true,
+  "offspring_lineage": {
+    "probe_id": "slip_lcd_seed_offspring_for_long_horizon_gate",
+    "profile_id": "slip_lcd_seed",
+    "gate_started": true,
+    "validation_ok": true,
+    "runtime_parent_grid_id": "slip_lcd_seed_constrained_011",
+    "selected_offspring_grid_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
+    "selected_offspring_score": 0.916112,
+    "lineage_action": "hold_parent"
+  },
+  "validation": {
+    "ok": true,
+    "profile_id": "slip_lcd_seed",
+    "grid_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
+    "profile_validation": {
+      "ok": true,
+      "migration": {
+        "ok": true,
+        "source_version": "0.1.0",
+        "target_version": "0.1.0",
+        "action": "accept_current_no_migration",
+        "errors": []
+      },
+      "dependency_free": {
+        "source_path": null,
+        "ok": true,
+        "errors": [],
+        "error_families": []
+      },
+      "pydantic": {
+        "source_path": "authoring_draft",
+        "ok": true,
+        "profile_id": "slip_lcd_seed",
+        "errors": [],
+        "error_families": []
+      },
+      "errors": [],
+      "error_families": []
+    },
+    "grid_validation": {
+      "ok": true,
+      "errors": []
+    },
+    "alignment": {
+      "ok": true,
+      "errors": []
+    },
+    "preview_surfaces": [
+      "behavior_preview",
+      "mutation_preview"
+    ],
+    "errors": [],
+    "error_families": []
+  },
+  "policy": {
+    "policy_id": "long_horizon_behavior_gate_v0",
+    "selected_offspring_source": "offspring_lineage_gate_v0",
+    "held_out_source": "multi_profile_generation_stage0_after_parent_candidate_window",
+    "comparison_policies": [
+      "switchboard",
+      "idle"
+    ],
+    "full_horizon_scoring": "post_death_missing_ticks_count_as_zero_need_balance"
+  },
+  "selected_offspring_grid_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
+  "selected_offspring_long_horizon": {
+    "switchboard": {
+      "policy": "switchboard",
+      "ticks_requested": 96,
+      "survival_ticks": 96,
+      "survival_ratio": 1.0,
+      "alive": true,
+      "death_cause": null,
+      "need_balance": 0.787221,
+      "recovery_events": 18,
+      "action_counts": {
+        "feed": 19,
+        "play": 59,
+        "sleep": 18,
+        "idle": 0,
+        "mutate": 0
+      },
+      "final_state": {
+        "hunger": 0.5662,
+        "energy": 0.172,
+        "stress": 0.0,
+        "bond": 1.0,
+        "grid_stability": 0.996
+      }
+    },
+    "idle": {
+      "policy": "idle",
+      "ticks_requested": 96,
+      "survival_ticks": 11,
+      "survival_ratio": 0.114583,
+      "alive": false,
+      "death_cause": "starvation",
+      "need_balance": 0.090753,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "final_state": {
+        "hunger": 1.0,
+        "energy": 0.24,
+        "stress": 0.55004,
+        "bond": 0.4395,
+        "grid_stability": 0.927
+      }
+    },
+    "need_balance_delta_vs_idle": 0.696468
+  },
+  "held_out_candidate_count": 6,
+  "held_out_candidates": [
+    {
+      "grid_id": "slip_lcd_seed_constrained_012",
+      "path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_012.json",
+      "validation": {
+        "ok": true,
+        "profile_id": "slip_lcd_seed",
+        "grid_id": "slip_lcd_seed_constrained_012",
+        "profile_validation": {
+          "ok": true,
+          "migration": {
+            "ok": true,
+            "source_version": "0.1.0",
+            "target_version": "0.1.0",
+            "action": "accept_current_no_migration",
+            "errors": []
+          },
+          "dependency_free": {
+            "source_path": null,
+            "ok": true,
+            "errors": [],
+            "error_families": []
+          },
+          "pydantic": {
+            "source_path": "authoring_draft",
+            "ok": true,
+            "profile_id": "slip_lcd_seed",
+            "errors": [],
+            "error_families": []
+          },
+          "errors": [],
+          "error_families": []
+        },
+        "grid_validation": {
+          "ok": true,
+          "errors": []
+        },
+        "alignment": {
+          "ok": true,
+          "errors": []
+        },
+        "preview_surfaces": [
+          "behavior_preview",
+          "mutation_preview"
+        ],
+        "errors": [],
+        "error_families": []
+      },
+      "switchboard": {
+        "policy": "switchboard",
+        "ticks_requested": 96,
+        "survival_ticks": 96,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787221,
+        "recovery_events": 18,
+        "action_counts": {
+          "feed": 19,
+          "play": 59,
+          "sleep": 18,
+          "idle": 0,
+          "mutate": 0
+        },
+        "final_state": {
+          "hunger": 0.5662,
+          "energy": 0.172,
+          "stress": 0.0,
+          "bond": 1.0,
+          "grid_stability": 0.996
+        }
+      },
+      "idle": {
+        "policy": "idle",
+        "ticks_requested": 96,
+        "survival_ticks": 11,
+        "survival_ratio": 0.114583,
+        "alive": false,
+        "death_cause": "starvation",
+        "need_balance": 0.090753,
+        "recovery_events": 0,
+        "action_counts": {
+          "feed": 0,
+          "play": 0,
+          "sleep": 0,
+          "idle": 11,
+          "mutate": 0
+        },
+        "final_state": {
+          "hunger": 1.0,
+          "energy": 0.24,
+          "stress": 0.55004,
+          "bond": 0.4395,
+          "grid_stability": 0.927
+        }
+      },
+      "need_balance_delta_vs_idle": 0.696468
+    },
+    {
+      "grid_id": "slip_lcd_seed_constrained_013",
+      "path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_013.json",
+      "validation": {
+        "ok": true,
+        "profile_id": "slip_lcd_seed",
+        "grid_id": "slip_lcd_seed_constrained_013",
+        "profile_validation": {
+          "ok": true,
+          "migration": {
+            "ok": true,
+            "source_version": "0.1.0",
+            "target_version": "0.1.0",
+            "action": "accept_current_no_migration",
+            "errors": []
+          },
+          "dependency_free": {
+            "source_path": null,
+            "ok": true,
+            "errors": [],
+            "error_families": []
+          },
+          "pydantic": {
+            "source_path": "authoring_draft",
+            "ok": true,
+            "profile_id": "slip_lcd_seed",
+            "errors": [],
+            "error_families": []
+          },
+          "errors": [],
+          "error_families": []
+        },
+        "grid_validation": {
+          "ok": true,
+          "errors": []
+        },
+        "alignment": {
+          "ok": true,
+          "errors": []
+        },
+        "preview_surfaces": [
+          "behavior_preview",
+          "mutation_preview"
+        ],
+        "errors": [],
+        "error_families": []
+      },
+      "switchboard": {
+        "policy": "switchboard",
+        "ticks_requested": 96,
+        "survival_ticks": 96,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787221,
+        "recovery_events": 18,
+        "action_counts": {
+          "feed": 19,
+          "play": 59,
+          "sleep": 18,
+          "idle": 0,
+          "mutate": 0
+        },
+        "final_state": {
+          "hunger": 0.5662,
+          "energy": 0.172,
+          "stress": 0.0,
+          "bond": 1.0,
+          "grid_stability": 0.996
+        }
+      },
+      "idle": {
+        "policy": "idle",
+        "ticks_requested": 96,
+        "survival_ticks": 11,
+        "survival_ratio": 0.114583,
+        "alive": false,
+        "death_cause": "starvation",
+        "need_balance": 0.090753,
+        "recovery_events": 0,
+        "action_counts": {
+          "feed": 0,
+          "play": 0,
+          "sleep": 0,
+          "idle": 11,
+          "mutate": 0
+        },
+        "final_state": {
+          "hunger": 1.0,
+          "energy": 0.24,
+          "stress": 0.55004,
+          "bond": 0.4395,
+          "grid_stability": 0.927
+        }
+      },
+      "need_balance_delta_vs_idle": 0.696468
+    },
+    {
+      "grid_id": "slip_lcd_seed_constrained_014",
+      "path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_014.json",
+      "validation": {
+        "ok": true,
+        "profile_id": "slip_lcd_seed",
+        "grid_id": "slip_lcd_seed_constrained_014",
+        "profile_validation": {
+          "ok": true,
+          "migration": {
+            "ok": true,
+            "source_version": "0.1.0",
+            "target_version": "0.1.0",
+            "action": "accept_current_no_migration",
+            "errors": []
+          },
+          "dependency_free": {
+            "source_path": null,
+            "ok": true,
+            "errors": [],
+            "error_families": []
+          },
+          "pydantic": {
+            "source_path": "authoring_draft",
+            "ok": true,
+            "profile_id": "slip_lcd_seed",
+            "errors": [],
+            "error_families": []
+          },
+          "errors": [],
+          "error_families": []
+        },
+        "grid_validation": {
+          "ok": true,
+          "errors": []
+        },
+        "alignment": {
+          "ok": true,
+          "errors": []
+        },
+        "preview_surfaces": [
+          "behavior_preview",
+          "mutation_preview"
+        ],
+        "errors": [],
+        "error_families": []
+      },
+      "switchboard": {
+        "policy": "switchboard",
+        "ticks_requested": 96,
+        "survival_ticks": 96,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787221,
+        "recovery_events": 18,
+        "action_counts": {
+          "feed": 19,
+          "play": 59,
+          "sleep": 18,
+          "idle": 0,
+          "mutate": 0
+        },
+        "final_state": {
+          "hunger": 0.5662,
+          "energy": 0.172,
+          "stress": 0.0,
+          "bond": 1.0,
+          "grid_stability": 0.996
+        }
+      },
+      "idle": {
+        "policy": "idle",
+        "ticks_requested": 96,
+        "survival_ticks": 11,
+        "survival_ratio": 0.114583,
+        "alive": false,
+        "death_cause": "starvation",
+        "need_balance": 0.090753,
+        "recovery_events": 0,
+        "action_counts": {
+          "feed": 0,
+          "play": 0,
+          "sleep": 0,
+          "idle": 11,
+          "mutate": 0
+        },
+        "final_state": {
+          "hunger": 1.0,
+          "energy": 0.24,
+          "stress": 0.55004,
+          "bond": 0.4395,
+          "grid_stability": 0.927
+        }
+      },
+      "need_balance_delta_vs_idle": 0.696468
+    },
+    {
+      "grid_id": "slip_lcd_seed_constrained_015",
+      "path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_015.json",
+      "validation": {
+        "ok": true,
+        "profile_id": "slip_lcd_seed",
+        "grid_id": "slip_lcd_seed_constrained_015",
+        "profile_validation": {
+          "ok": true,
+          "migration": {
+            "ok": true,
+            "source_version": "0.1.0",
+            "target_version": "0.1.0",
+            "action": "accept_current_no_migration",
+            "errors": []
+          },
+          "dependency_free": {
+            "source_path": null,
+            "ok": true,
+            "errors": [],
+            "error_families": []
+          },
+          "pydantic": {
+            "source_path": "authoring_draft",
+            "ok": true,
+            "profile_id": "slip_lcd_seed",
+            "errors": [],
+            "error_families": []
+          },
+          "errors": [],
+          "error_families": []
+        },
+        "grid_validation": {
+          "ok": true,
+          "errors": []
+        },
+        "alignment": {
+          "ok": true,
+          "errors": []
+        },
+        "preview_surfaces": [
+          "behavior_preview",
+          "mutation_preview"
+        ],
+        "errors": [],
+        "error_families": []
+      },
+      "switchboard": {
+        "policy": "switchboard",
+        "ticks_requested": 96,
+        "survival_ticks": 96,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787221,
+        "recovery_events": 18,
+        "action_counts": {
+          "feed": 19,
+          "play": 59,
+          "sleep": 18,
+          "idle": 0,
+          "mutate": 0
+        },
+        "final_state": {
+          "hunger": 0.5662,
+          "energy": 0.172,
+          "stress": 0.0,
+          "bond": 1.0,
+          "grid_stability": 0.996
+        }
+      },
+      "idle": {
+        "policy": "idle",
+        "ticks_requested": 96,
+        "survival_ticks": 11,
+        "survival_ratio": 0.114583,
+        "alive": false,
+        "death_cause": "starvation",
+        "need_balance": 0.090753,
+        "recovery_events": 0,
+        "action_counts": {
+          "feed": 0,
+          "play": 0,
+          "sleep": 0,
+          "idle": 11,
+          "mutate": 0
+        },
+        "final_state": {
+          "hunger": 1.0,
+          "energy": 0.24,
+          "stress": 0.55004,
+          "bond": 0.4395,
+          "grid_stability": 0.927
+        }
+      },
+      "need_balance_delta_vs_idle": 0.696468
+    },
+    {
+      "grid_id": "slip_lcd_seed_constrained_016",
+      "path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_016.json",
+      "validation": {
+        "ok": true,
+        "profile_id": "slip_lcd_seed",
+        "grid_id": "slip_lcd_seed_constrained_016",
+        "profile_validation": {
+          "ok": true,
+          "migration": {
+            "ok": true,
+            "source_version": "0.1.0",
+            "target_version": "0.1.0",
+            "action": "accept_current_no_migration",
+            "errors": []
+          },
+          "dependency_free": {
+            "source_path": null,
+            "ok": true,
+            "errors": [],
+            "error_families": []
+          },
+          "pydantic": {
+            "source_path": "authoring_draft",
+            "ok": true,
+            "profile_id": "slip_lcd_seed",
+            "errors": [],
+            "error_families": []
+          },
+          "errors": [],
+          "error_families": []
+        },
+        "grid_validation": {
+          "ok": true,
+          "errors": []
+        },
+        "alignment": {
+          "ok": true,
+          "errors": []
+        },
+        "preview_surfaces": [
+          "behavior_preview",
+          "mutation_preview"
+        ],
+        "errors": [],
+        "error_families": []
+      },
+      "switchboard": {
+        "policy": "switchboard",
+        "ticks_requested": 96,
+        "survival_ticks": 96,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787221,
+        "recovery_events": 18,
+        "action_counts": {
+          "feed": 19,
+          "play": 59,
+          "sleep": 18,
+          "idle": 0,
+          "mutate": 0
+        },
+        "final_state": {
+          "hunger": 0.5662,
+          "energy": 0.172,
+          "stress": 0.0,
+          "bond": 1.0,
+          "grid_stability": 0.996
+        }
+      },
+      "idle": {
+        "policy": "idle",
+        "ticks_requested": 96,
+        "survival_ticks": 11,
+        "survival_ratio": 0.114583,
+        "alive": false,
+        "death_cause": "starvation",
+        "need_balance": 0.090753,
+        "recovery_events": 0,
+        "action_counts": {
+          "feed": 0,
+          "play": 0,
+          "sleep": 0,
+          "idle": 11,
+          "mutate": 0
+        },
+        "final_state": {
+          "hunger": 1.0,
+          "energy": 0.24,
+          "stress": 0.55004,
+          "bond": 0.4395,
+          "grid_stability": 0.927
+        }
+      },
+      "need_balance_delta_vs_idle": 0.696468
+    },
+    {
+      "grid_id": "slip_lcd_seed_constrained_017",
+      "path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_017.json",
+      "validation": {
+        "ok": true,
+        "profile_id": "slip_lcd_seed",
+        "grid_id": "slip_lcd_seed_constrained_017",
+        "profile_validation": {
+          "ok": true,
+          "migration": {
+            "ok": true,
+            "source_version": "0.1.0",
+            "target_version": "0.1.0",
+            "action": "accept_current_no_migration",
+            "errors": []
+          },
+          "dependency_free": {
+            "source_path": null,
+            "ok": true,
+            "errors": [],
+            "error_families": []
+          },
+          "pydantic": {
+            "source_path": "authoring_draft",
+            "ok": true,
+            "profile_id": "slip_lcd_seed",
+            "errors": [],
+            "error_families": []
+          },
+          "errors": [],
+          "error_families": []
+        },
+        "grid_validation": {
+          "ok": true,
+          "errors": []
+        },
+        "alignment": {
+          "ok": true,
+          "errors": []
+        },
+        "preview_surfaces": [
+          "behavior_preview",
+          "mutation_preview"
+        ],
+        "errors": [],
+        "error_families": []
+      },
+      "switchboard": {
+        "policy": "switchboard",
+        "ticks_requested": 96,
+        "survival_ticks": 96,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787221,
+        "recovery_events": 18,
+        "action_counts": {
+          "feed": 19,
+          "play": 59,
+          "sleep": 18,
+          "idle": 0,
+          "mutate": 0
+        },
+        "final_state": {
+          "hunger": 0.5662,
+          "energy": 0.172,
+          "stress": 0.0,
+          "bond": 1.0,
+          "grid_stability": 0.996
+        }
+      },
+      "idle": {
+        "policy": "idle",
+        "ticks_requested": 96,
+        "survival_ticks": 11,
+        "survival_ratio": 0.114583,
+        "alive": false,
+        "death_cause": "starvation",
+        "need_balance": 0.090753,
+        "recovery_events": 0,
+        "action_counts": {
+          "feed": 0,
+          "play": 0,
+          "sleep": 0,
+          "idle": 11,
+          "mutate": 0
+        },
+        "final_state": {
+          "hunger": 1.0,
+          "energy": 0.24,
+          "stress": 0.55004,
+          "bond": 0.4395,
+          "grid_stability": 0.927
+        }
+      },
+      "need_balance_delta_vs_idle": 0.696468
+    }
+  ],
+  "held_out_summary": {
+    "candidate_count": 6,
+    "valid_candidate_count": 6,
+    "switchboard_full_survival_count": 6,
+    "idle_death_count": 6,
+    "mean_switchboard_survival_ratio": 1.0,
+    "mean_idle_survival_ratio": 0.114583,
+    "mean_switchboard_need_balance": 0.787221,
+    "mean_idle_need_balance": 0.090753,
+    "mean_need_balance_delta_vs_idle": 0.696468
+  },
+  "manual_readability_calibration": {
+    "status": "not_collected",
+    "ratings_collected": false,
+    "human_rating_count": 0,
+    "minimum_reviewers": 3,
+    "protocol_status": "protocol_defined_no_human_ratings_yet",
+    "source_path": "data/readability/readability_stage0.json",
+    "proxy_only": true,
+    "blocks_profile_weighted_evolution": true
+  },
+  "closed_policy_boundary": "Stage 0 proves current selected offspring and held-out generated candidates survive the long switchboard horizon while neglect still fails; it does not collect human readability ratings or run a persistent multigeneration runtime."
+}

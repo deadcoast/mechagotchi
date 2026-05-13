@@ -341,8 +341,8 @@ def run_external_metadata_sidecar_lab(
         ],
         "decision": "prototype_external_metadata_sidecar_strategy",
         "next_research_step": (
-            "Define offspring mutation and lineage replacement gates before "
-            "profile-weighted evolution claims."
+            "Run held-out long-horizon behavior tests and manual readability "
+            "calibration before profile-weighted evolution claims."
         ),
     }
 

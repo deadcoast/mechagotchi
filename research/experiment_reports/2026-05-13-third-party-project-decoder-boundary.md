@@ -175,8 +175,8 @@ contract.
 
 Runtime lifecycle/archive selection is now covered by
 `research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`.
-Next research should define offspring mutation and lineage replacement gates
-before claiming profile-weighted evolution. The explicit PNG color/filter
+Next research should run held-out long-horizon behavior tests and manual
+readability calibration before claiming profile-weighted evolution. The explicit PNG color/filter
 variant subset is now covered by
 `research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`.
 Spritesheet vertical/matrix/padded/sparse layout coverage is now covered by

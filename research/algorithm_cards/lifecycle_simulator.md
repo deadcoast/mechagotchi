@@ -81,13 +81,25 @@ mean_selected_need_balance: 0.793865
 mean_selected_survival_ratio: 1.0
 ```
 
+SLIP long-horizon behavior follow-up completed on 2026-05-13.
+
+```txt
+long_horizon_success_count: 3
+held_out_candidate_count: 18
+held_out_switchboard_full_survival_count: 18
+held_out_idle_death_count: 18
+mean_switchboard_survival_ratio: 1.0
+mean_idle_survival_ratio: 0.114583
+mean_need_balance_delta_vs_idle: 0.691676
+```
+
 ## Decision
 
 Keep as active prototype. Lifecycle metrics are now connected to a Stage 0
-archive elite selector, but package runtime integration and held-out
-long-horizon validation remain open.
+archive elite selector and held-out long-horizon behavior gate, but package
+runtime integration and manual readability calibration remain open.
 
 ## Go/No-Go Gate
 
-Adopt into the engine only after the simulator is validated against held-out
-creatures, user-authored SLIP profiles, and a manual readability/care protocol.
+Adopt into the engine only after package runtime integration exists and manual
+readability/care calibration is collected.

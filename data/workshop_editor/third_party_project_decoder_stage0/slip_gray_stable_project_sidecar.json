@@ -9,7 +9,7 @@
     "width": 8,
     "height": 8,
     "frame_count": 1,
-    "content_hash": "sha256:b8ae11e2a8e01f7008bcea0d3e72c536a9ff0556fbc7ad966eeabfc55da499a4",
+    "content_hash": "sha256:5de731953b6d2970a0d4d680a273b0990767032fc80db0a21c40cfa980ef8679",
     "semantic_policy": "sidecar_required"
   },
   "grid_contract": {
@@ -1012,10 +1012,10 @@
     }
   ],
   "integrity": {
-    "asset_content_hash": "sha256:b8ae11e2a8e01f7008bcea0d3e72c536a9ff0556fbc7ad966eeabfc55da499a4",
+    "asset_content_hash": "sha256:5de731953b6d2970a0d4d680a273b0990767032fc80db0a21c40cfa980ef8679",
     "semantic_overlay_hash": "sha256:afad2be9031c3b757897d63c9f981ad0fd206e62864854bb42d424d189b59099",
     "profile_hash": "sha256:94881f9e4c63f91b3c85862d8ff8a0dc5e177d1211e67335984ca3f2b47f9b63",
-    "binding_hash": "sha256:51b6de018a4b0a5e9fde2dafba06a05dd39d5073e6c3a0c331d3de6d2bdfbcda"
+    "binding_hash": "sha256:78588f9ce5d1fb75eed367419206e8799b17c1a4750e66944fef3cdc2a08bb9a"
   },
   "limitations": [
     "Stage 0 parses third-party project container boundaries only.",

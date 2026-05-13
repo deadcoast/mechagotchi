@@ -26,8 +26,6 @@ window.MECHAGOTCHI_SLIP_PREVIEW_GATES = {
       "declared_dependency_manifest",
       "profile_weighted_evolution",
       "package_runtime_lifecycle_integration",
-      "offspring_mutation_selection",
-      "lineage_replacement_policy",
       "png_adam7_interlace_decoder",
       "apng_decoder",
       "full_png_conformance",

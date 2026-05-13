@@ -27,3 +27,14 @@ Minimal semantic editor artifacts for testing Mechagotchi grid authoring.
 - `slip_runtime_selection_policy_stage0.json` records 3/3 profile-weighted
   archive elite selections from switchboard lifecycle metrics, with 2/2 invalid
   selection probes rejected before selection.
+- `slip_offspring_lineage_gate_stage0.json` records 3/3 bounded offspring
+  selections from runtime-selected parents, 3 lineage decisions, and 2/2
+  invalid offspring probes rejected before the gate starts.
+- `slip_long_horizon_behavior_gate_stage0.json` records 3/3 selected
+  offspring surviving the 96-tick switchboard horizon, 18/18 held-out
+  switchboard full-survival probes, 18/18 idle-neglect deaths, and 2/2 invalid
+  long-horizon probes rejected before the gate starts.
+- `slip_multigeneration_lineage_runner_stage0.json` records 3/3 current
+  profiles persisting three-generation candidate lineages, 9/9 selected
+  offspring continuing as qualified lineage frontiers, max generation 4, and
+  2/2 invalid multigeneration probes rejected before the runner starts.

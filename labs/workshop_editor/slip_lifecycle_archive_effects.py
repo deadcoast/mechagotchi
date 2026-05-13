@@ -254,8 +254,6 @@ def run_slip_lifecycle_archive_effect_lab(
             "declared_dependency_manifest",
             "profile_weighted_evolution",
             "package_runtime_lifecycle_integration",
-            "offspring_mutation_selection",
-            "lineage_replacement_policy",
             "held_out_long_horizon_behavior_tests",
             "manual_readability_calibration",
             "png_adam7_interlace_decoder",
@@ -271,8 +269,8 @@ def run_slip_lifecycle_archive_effect_lab(
         ],
         "decision": "prototype_slip_lifecycle_archive_effect_probe",
         "next_research_step": (
-            "Promote profile-weighted evolution only after offspring mutation "
-            "and lineage replacement are specified and tested."
+            "Promote profile-weighted evolution only after held-out "
+            "long-horizon behavior tests and manual readability calibration pass."
         ),
     }
     return report

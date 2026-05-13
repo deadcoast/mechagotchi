@@ -24,8 +24,6 @@ window.MECHAGOTCHI_SLIP_AUTHORING_PANEL = {
       "declared_dependency_manifest",
       "profile_weighted_evolution",
       "package_runtime_lifecycle_integration",
-      "offspring_mutation_selection",
-      "lineage_replacement_policy",
       "real_image_project_decoder",
       "embedded_native_metadata_writer",
       "profile_authoring_usability_pilot"

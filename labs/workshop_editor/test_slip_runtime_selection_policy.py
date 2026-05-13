@@ -74,7 +74,8 @@ class SLIPRuntimeSelectionPolicyTests(unittest.TestCase):
             report["closed_states"],
         )
         self.assertIn("profile_weighted_evolution", report["blocked_states"])
-        self.assertIn("offspring_mutation_selection", report["blocked_states"])
+        self.assertNotIn("offspring_mutation_selection", report["blocked_states"])
+        self.assertNotIn("lineage_replacement_policy", report["blocked_states"])
         self.assertNotIn("archive_selection_policy_integration", report["blocked_states"])
         self.assertNotEqual("profile_weighted_evolution", report["decision"])
 

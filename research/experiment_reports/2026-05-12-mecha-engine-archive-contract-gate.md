@@ -60,7 +60,11 @@ before descriptor bins and fitness weights can be locked.
 Supersession note: SLIP runtime selection now chooses profile-weighted archive
 elites from the extended archive in
 `research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`.
-This still does not define offspring mutation or lineage replacement.
+Stage 0 offspring mutation selection and lineage decisions are now covered by
+`research/experiment_reports/2026-05-13-slip-offspring-lineage-gate.md`; this
+is followed by
+`research/experiment_reports/2026-05-13-slip-multigeneration-lineage-runner.md`.
+The package contract still does not define runtime replacement state.
 
 The required public surface is:
 

@@ -1,7 +1,6 @@
 # PROMPTS
 
 ## [1]
-
 ---
 
 DEVELOPMENT: BRAINSTORMING + RESEARCH, PLANNING
@@ -14,9 +13,9 @@ DEVELOPMENT: BRAINSTORMING + RESEARCH, PLANNING
 
 I want to create a tamagotchi style personal companion. I want to use a grid to create the graphic assets of the companions. Grids are consistent, simple, scalable and mathematic. Combined with the back end logic of a tamagotchi style companion, we can create a consistent, scalable and highly modular engine.
 
-The project will operate on two comprehensive builds.[1],[2].
+The project will operate on two comprehensive builds.[A],[B].
 
-## [1] `mecha_engine` Back end Companion Logic
+### [A] `mecha_engine` Back end Companion Logic
 
 **DISCLAIMER**: THE SYSTEM IN ITSELF, NEEDS TO RUN OFF OF A PREDICTIVE ALGORITHM LIKE MARKOV CHAINS FOR ITS GRID. AT ITS CORE, IT WILL GENERATE ITS MECHAGOTCHI AND OVER TIME, GENERATE MORE COMPLEX ONES BASED ON THE SURVIVAL OF ITS ANCESTORS. **THIS IS THE MAIN AND CORE FUNCTION OF THE PROJECT AND MECHA ENGINE. THE FEATURES BELOW ARE WHAT MAKES IT A COMPLETE EXPERIENCE BUT NOT THE CORE EXPERIENCE.
 
@@ -28,7 +27,7 @@ This logic must link to the visual engine and vice versa.
 - the logic should incoperate real machine learning in an accelerated manner. We should be creative, and approach the machine learning as intelligence threads; we cannot utilize one broad machine learning logic because this format is too short in lifespan, the loop wont benefit from traditional ML.
   - Instead, we creat many micro machine learning threads that all link into something more concrete like a main logic switchboard. We can provide guidance to the ML where required, and have hundreds of smaller, isolated ML enviornments that, upon linking into the switchboard, would act in itself as 'automation'. Its providing a datastream back to the main engine, that hence can then translate that data and provide visual output to the user facing experience through[2].
 
-## [2] `mecha_workshop`: Pixel Art Grid Editor, `SLIP` Profile Creator
+### [B] `mecha_workshop`: Pixel Art Grid Editor, `SLIP` Profile Creator
 
  Id like to include a simple pixel art based proprietary editor the users can add their own `SLIP`(Synthetic Learning Intelligence Profile) for.
 
@@ -37,14 +36,11 @@ This logic must link to the visual engine and vice versa.
 - We should provide so be created in full so the users can create complete and workable profiles that link into the engine.
 
 ## [2]
-
 ---
 
 ### RESEARCH PLAN
 
 **NOTE**: MY REQUEST IS A START, I DO NOT KNOW THE FULL SCOPE OF WHAT IS REQUIRED FOR THE RESEARCH, YOU ARE REQUIRED TO FINISH THE ERQUIRED SCOPE AND DATA.
-
----
 
 ### REQUEST
 
@@ -72,7 +68,6 @@ SOURCING INSPIRATION AND ASSETS:
       - I have previously tried to utilize the CUBFF experiment with the self adjusting tapes utilizing `brainfuck` syntax. It was a largely successful google experiment, and released open source research where replication proved to be the train that created stability. While this proved to be good in theory, and it worked in code; i could not get the CUBFF output to make any sense visually for a human. This is my second attempt at this project, and CUBFF is a GOOD RESEARCH option, but under the terms that the visual/digigtal output can be solved with the GRID ENGINE format we are theorizing
 
 ---
-
 ## [3]
 
 > You are the [HEAD-OF-RESEARCH] for the project now.

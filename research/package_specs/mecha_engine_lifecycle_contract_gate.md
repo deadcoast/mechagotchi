@@ -28,9 +28,18 @@ The Stage 0 lifecycle labs already prove:
 - SLIP runtime selection policy now consumes switchboard lifecycle metrics for
   3/3 current profile-specific archive elite choices with mean selected need
   balance `0.793865` and mean selected survival ratio `1.0`.
+- SLIP offspring lineage gate now evaluates selected child lifecycle episodes
+  with mean selected offspring need balance `0.793865` and survival ratio `1.0`.
+- SLIP long-horizon behavior gate now records 3/3 selected offspring surviving
+  the 96-tick switchboard horizon, 18/18 held-out switchboard full-survival
+  probes, 18/18 idle-neglect deaths, and mean need-balance delta vs idle
+  `0.691676`.
+- SLIP multigeneration lineage runner records three-generation candidate
+  lineages for 3/3 current profiles, but remains lab evidence.
 
 The package lifecycle module may adopt the bounded simulator contract. It must
-not promote online reward shaping as production behavior.
+not promote online reward shaping as production behavior or treat the Stage 0
+multigeneration runner as package runtime state.
 
 ## State Model
 
@@ -207,7 +216,12 @@ Expected implementation-stage result:
 - `research/experiment_reports/2026-05-12-switchboard-lifecycle-feedback.md`
 - `research/experiment_reports/2026-05-12-switchboard-feedback-dynamic-stress.md`
 - `research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`
+- `research/experiment_reports/2026-05-13-slip-offspring-lineage-gate.md`
+- `research/experiment_reports/2026-05-13-slip-long-horizon-behavior-gate.md`
 - `data/lifecycle/lifecycle_stage0.json`
+- `data/workshop_editor/slip_runtime_selection_policy_stage0.json`
+- `data/workshop_editor/slip_offspring_lineage_gate_stage0.json`
+- `data/workshop_editor/slip_long_horizon_behavior_gate_stage0.json`
 - `data/package_promotion/mecha_engine_package_promotion_gate_stage0.json`
 - Tamagotchi Connection manual index:
   https://tamagotchi-official.com/manual/toy/connection/

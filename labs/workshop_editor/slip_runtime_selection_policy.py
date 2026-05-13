@@ -146,7 +146,8 @@ def run_profile_runtime_selection_probe(
             "selection_trace": _selection_trace(profile, selected, candidate_records),
             "closed_policy_boundary": (
                 "runtime lifecycle metrics and archive elite selection are connected "
-                "for Stage 0; offspring mutation and lineage replacement are not run"
+                "for Stage 0; bounded offspring and lineage decisions are recorded "
+                "by the separate slip_offspring_lineage_gate lab"
             ),
         }
     )
@@ -207,7 +208,9 @@ def run_slip_runtime_selection_policy_lab(
             "research/package_specs/mecha_engine_lifecycle_contract_gate.md",
             "research/package_specs/mecha_engine_archive_contract_gate.md",
             "research/experiment_reports/2026-05-12-slip-lifecycle-archive-effects.md",
+            "research/experiment_reports/2026-05-13-slip-offspring-lineage-gate.md",
             "labs/workshop_editor/slip_lifecycle_archive_effects.py",
+            "labs/workshop_editor/slip_offspring_lineage_gate.py",
             "labs/lifecycle_sim/lifecycle_sim.py",
             "labs/map_elites_archive/extended_descriptors.py",
             "data/slips/multi_profile_generation_stage0/",
@@ -285,8 +288,6 @@ def run_slip_runtime_selection_policy_lab(
             "declared_dependency_manifest",
             "profile_weighted_evolution",
             "package_runtime_lifecycle_integration",
-            "offspring_mutation_selection",
-            "lineage_replacement_policy",
             "held_out_long_horizon_behavior_tests",
             "manual_readability_calibration",
             "png_adam7_interlace_decoder",
@@ -302,8 +303,8 @@ def run_slip_runtime_selection_policy_lab(
         ],
         "decision": "prototype_slip_runtime_selection_policy",
         "next_research_step": (
-            "Define offspring mutation and lineage replacement gates before "
-            "claiming profile-weighted evolution."
+            "Run held-out long-horizon behavior tests and manual readability "
+            "calibration before claiming profile-weighted evolution."
         ),
     }
     return report

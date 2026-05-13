@@ -1,0 +1,1699 @@
+{
+  "artifact_id": "slip_readability_calibration_gate_stage0",
+  "status": "slip_readability_packet_ready_human_ratings_required",
+  "date": "2026-05-13",
+  "purpose": "Bind the current SLIP long-horizon corpus to the manual readability protocol, produce the reviewer template, and only unlock calibration after real reviewer rows satisfy completeness, reliability, and proxy-correlation checks.",
+  "source_artifacts": [
+    "data/workshop_editor/slip_long_horizon_behavior_gate_stage0.json",
+    "labs/readability_benchmark/slip_readability_calibration_gate.py",
+    "labs/workshop_editor/slip_long_horizon_behavior_gate.py",
+    "labs/readability_benchmark/readability_benchmark.py",
+    "labs/readability_benchmark/manual_rating_intake.py",
+    "data/readability/manual_rating_protocol.md"
+  ],
+  "external_anchors": [
+    {
+      "source": "Comparing PCG metrics with Human Evaluation in Minecraft Settlement Generation",
+      "url": "https://arxiv.org/abs/2107.02457",
+      "used_for": "Proxy readability metrics are treated as hypotheses that must be compared against human ratings before threshold claims."
+    },
+    {
+      "source": "A comprehensive guide to study the agreement and reliability of multi-observer ordinal data",
+      "url": "https://link.springer.com/article/10.1186/s12874-024-02431-y",
+      "used_for": "Stage 0 records reviewer count and agreement checks separately from proxy-human correlation."
+    }
+  ],
+  "benchmark": {
+    "lab_id": "slip_readability_calibration_gate_stage0",
+    "date": "2026-05-13",
+    "source_artifacts": [
+      "data/workshop_editor/slip_long_horizon_behavior_gate_stage0.json",
+      "labs/readability_benchmark/slip_readability_calibration_gate.py",
+      "labs/workshop_editor/slip_long_horizon_behavior_gate.py",
+      "labs/readability_benchmark/readability_benchmark.py",
+      "labs/readability_benchmark/manual_rating_intake.py",
+      "data/readability/manual_rating_protocol.md"
+    ],
+    "long_horizon_artifact_id": "slip_long_horizon_behavior_gate_stage0",
+    "manual_rating_protocol": {
+      "protocol_id": "readability_rating_v0_1",
+      "ratings_collected": false,
+      "rating_scale": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "questions": {
+        "silhouette": "Can the creature body be recognized from its outline alone?",
+        "organ_clarity": "Are sensors, expression cells, and body core easy to identify?",
+        "palette_contrast": "Does the palette separate body, organs, and background?",
+        "animation_readiness": "Is there a clear anchor or pose feature for simple motion?",
+        "companion_appeal": "Does the grid read as a plausible companion rather than noise?"
+      },
+      "instructions": [
+        "Rate each sample independently before seeing generator source.",
+        "Use 1 for unreadable/noisy, 3 for usable but ambiguous, and 5 for immediately legible.",
+        "Do not treat novelty as readability unless the creature remains recognizable.",
+        "Record reviewer id, timestamp, and optional notes separately from proxy metrics."
+      ],
+      "minimum_reviewers": 3,
+      "aggregation": "median_per_question_then_mean",
+      "status": "protocol_defined_no_human_ratings_yet"
+    },
+    "samples": [
+      {
+        "sample_id": "selected_offspring:slip_lcd_seed_constrained_011_offspring_stability_tune",
+        "grid_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
+        "source": "selected_offspring",
+        "profile_id": "slip_lcd_seed",
+        "path": null,
+        "grid_size": [
+          8,
+          8
+        ],
+        "cell_count": 11,
+        "readability": {
+          "grid_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
+          "valid": true,
+          "validation_errors": [],
+          "proxy_readability_score": 0.878639,
+          "metrics": {
+            "connected_components": 1,
+            "body_mass_ratio": 0.125,
+            "silhouette_entropy": 0.765371,
+            "symmetry_score": 0.545455,
+            "organ_detectability": 1.0,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "score_components": {
+            "validity": 1.0,
+            "component_score": 1.0,
+            "body_mass_score": 0.75,
+            "silhouette_score": 0.617446,
+            "symmetry_score": 0.545455,
+            "organ_detectability": 1.0,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "human_readability_rating": null,
+          "manual_rating_status": "not_collected"
+        },
+        "manual_rating": null,
+        "manual_rating_status": "not_collected",
+        "provenance": {
+          "long_horizon_probe_id": "slip_lcd_seed_long_horizon_behavior_gate",
+          "runtime_parent_grid_id": "slip_lcd_seed_constrained_011",
+          "selection_source": "slip_long_horizon_behavior_gate_stage0"
+        }
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_lcd_seed_constrained_012",
+        "grid_id": "slip_lcd_seed_constrained_012",
+        "source": "held_out_long_horizon",
+        "profile_id": "slip_lcd_seed",
+        "path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_012.json",
+        "grid_size": [
+          8,
+          8
+        ],
+        "cell_count": 14,
+        "readability": {
+          "grid_id": "slip_lcd_seed_constrained_012",
+          "valid": true,
+          "validation_errors": [],
+          "proxy_readability_score": 0.770304,
+          "metrics": {
+            "connected_components": 3,
+            "body_mass_ratio": 0.15625,
+            "silhouette_entropy": 0.849073,
+            "symmetry_score": 0.428571,
+            "organ_detectability": 0.85,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "score_components": {
+            "validity": 1.0,
+            "component_score": 0.5,
+            "body_mass_score": 0.973214,
+            "silhouette_score": 0.397177,
+            "symmetry_score": 0.428571,
+            "organ_detectability": 0.85,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "human_readability_rating": null,
+          "manual_rating_status": "not_collected"
+        },
+        "manual_rating": null,
+        "manual_rating_status": "not_collected",
+        "provenance": {
+          "long_horizon_probe_id": "slip_lcd_seed_long_horizon_behavior_gate",
+          "switchboard_survival_ratio": 1.0,
+          "idle_survival_ratio": 0.114583
+        }
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_lcd_seed_constrained_013",
+        "grid_id": "slip_lcd_seed_constrained_013",
+        "source": "held_out_long_horizon",
+        "profile_id": "slip_lcd_seed",
+        "path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_013.json",
+        "grid_size": [
+          8,
+          8
+        ],
+        "cell_count": 13,
+        "readability": {
+          "grid_id": "slip_lcd_seed_constrained_013",
+          "valid": true,
+          "validation_errors": [],
+          "proxy_readability_score": 0.881753,
+          "metrics": {
+            "connected_components": 1,
+            "body_mass_ratio": 0.171875,
+            "silhouette_entropy": 0.791703,
+            "symmetry_score": 0.461538,
+            "organ_detectability": 1.0,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "score_components": {
+            "validity": 1.0,
+            "component_score": 1.0,
+            "body_mass_score": 0.915179,
+            "silhouette_score": 0.54815,
+            "symmetry_score": 0.461538,
+            "organ_detectability": 1.0,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "human_readability_rating": null,
+          "manual_rating_status": "not_collected"
+        },
+        "manual_rating": null,
+        "manual_rating_status": "not_collected",
+        "provenance": {
+          "long_horizon_probe_id": "slip_lcd_seed_long_horizon_behavior_gate",
+          "switchboard_survival_ratio": 1.0,
+          "idle_survival_ratio": 0.114583
+        }
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_lcd_seed_constrained_014",
+        "grid_id": "slip_lcd_seed_constrained_014",
+        "source": "held_out_long_horizon",
+        "profile_id": "slip_lcd_seed",
+        "path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_014.json",
+        "grid_size": [
+          8,
+          8
+        ],
+        "cell_count": 11,
+        "readability": {
+          "grid_id": "slip_lcd_seed_constrained_014",
+          "valid": true,
+          "validation_errors": [],
+          "proxy_readability_score": 0.863166,
+          "metrics": {
+            "connected_components": 1,
+            "body_mass_ratio": 0.125,
+            "silhouette_entropy": 0.756792,
+            "symmetry_score": 0.363636,
+            "organ_detectability": 1.0,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "score_components": {
+            "validity": 1.0,
+            "component_score": 1.0,
+            "body_mass_score": 0.75,
+            "silhouette_score": 0.64002,
+            "symmetry_score": 0.363636,
+            "organ_detectability": 1.0,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "human_readability_rating": null,
+          "manual_rating_status": "not_collected"
+        },
+        "manual_rating": null,
+        "manual_rating_status": "not_collected",
+        "provenance": {
+          "long_horizon_probe_id": "slip_lcd_seed_long_horizon_behavior_gate",
+          "switchboard_survival_ratio": 1.0,
+          "idle_survival_ratio": 0.114583
+        }
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_lcd_seed_constrained_015",
+        "grid_id": "slip_lcd_seed_constrained_015",
+        "source": "held_out_long_horizon",
+        "profile_id": "slip_lcd_seed",
+        "path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_015.json",
+        "grid_size": [
+          8,
+          8
+        ],
+        "cell_count": 13,
+        "readability": {
+          "grid_id": "slip_lcd_seed_constrained_015",
+          "valid": true,
+          "validation_errors": [],
+          "proxy_readability_score": 0.84883,
+          "metrics": {
+            "connected_components": 2,
+            "body_mass_ratio": 0.15625,
+            "silhouette_entropy": 0.80718,
+            "symmetry_score": 0.461538,
+            "organ_detectability": 1.0,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "score_components": {
+            "validity": 1.0,
+            "component_score": 0.75,
+            "body_mass_score": 0.973214,
+            "silhouette_score": 0.50742,
+            "symmetry_score": 0.461538,
+            "organ_detectability": 1.0,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "human_readability_rating": null,
+          "manual_rating_status": "not_collected"
+        },
+        "manual_rating": null,
+        "manual_rating_status": "not_collected",
+        "provenance": {
+          "long_horizon_probe_id": "slip_lcd_seed_long_horizon_behavior_gate",
+          "switchboard_survival_ratio": 1.0,
+          "idle_survival_ratio": 0.114583
+        }
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_lcd_seed_constrained_016",
+        "grid_id": "slip_lcd_seed_constrained_016",
+        "source": "held_out_long_horizon",
+        "profile_id": "slip_lcd_seed",
+        "path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_016.json",
+        "grid_size": [
+          8,
+          8
+        ],
+        "cell_count": 13,
+        "readability": {
+          "grid_id": "slip_lcd_seed_constrained_016",
+          "valid": true,
+          "validation_errors": [],
+          "proxy_readability_score": 0.793999,
+          "metrics": {
+            "connected_components": 2,
+            "body_mass_ratio": 0.140625,
+            "silhouette_entropy": 0.852901,
+            "symmetry_score": 0.461538,
+            "organ_detectability": 0.85,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "score_components": {
+            "validity": 1.0,
+            "component_score": 0.75,
+            "body_mass_score": 0.861607,
+            "silhouette_score": 0.387104,
+            "symmetry_score": 0.461538,
+            "organ_detectability": 0.85,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "human_readability_rating": null,
+          "manual_rating_status": "not_collected"
+        },
+        "manual_rating": null,
+        "manual_rating_status": "not_collected",
+        "provenance": {
+          "long_horizon_probe_id": "slip_lcd_seed_long_horizon_behavior_gate",
+          "switchboard_survival_ratio": 1.0,
+          "idle_survival_ratio": 0.114583
+        }
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_lcd_seed_constrained_017",
+        "grid_id": "slip_lcd_seed_constrained_017",
+        "source": "held_out_long_horizon",
+        "profile_id": "slip_lcd_seed",
+        "path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_017.json",
+        "grid_size": [
+          8,
+          8
+        ],
+        "cell_count": 9,
+        "readability": {
+          "grid_id": "slip_lcd_seed_constrained_017",
+          "valid": true,
+          "validation_errors": [],
+          "proxy_readability_score": 0.768319,
+          "metrics": {
+            "connected_components": 1,
+            "body_mass_ratio": 0.09375,
+            "silhouette_entropy": 0.79929,
+            "symmetry_score": 0.222222,
+            "organ_detectability": 0.775,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "score_components": {
+            "validity": 1.0,
+            "component_score": 1.0,
+            "body_mass_score": 0.526786,
+            "silhouette_score": 0.528184,
+            "symmetry_score": 0.222222,
+            "organ_detectability": 0.775,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "human_readability_rating": null,
+          "manual_rating_status": "not_collected"
+        },
+        "manual_rating": null,
+        "manual_rating_status": "not_collected",
+        "provenance": {
+          "long_horizon_probe_id": "slip_lcd_seed_long_horizon_behavior_gate",
+          "switchboard_survival_ratio": 1.0,
+          "idle_survival_ratio": 0.114583
+        }
+      },
+      {
+        "sample_id": "selected_offspring:slip_gray_stable_constrained_008_offspring_core_growth",
+        "grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
+        "source": "selected_offspring",
+        "profile_id": "slip_gray_stable",
+        "path": null,
+        "grid_size": [
+          8,
+          8
+        ],
+        "cell_count": 13,
+        "readability": {
+          "grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
+          "valid": true,
+          "validation_errors": [],
+          "proxy_readability_score": 0.894487,
+          "metrics": {
+            "connected_components": 1,
+            "body_mass_ratio": 0.15625,
+            "silhouette_entropy": 0.773433,
+            "symmetry_score": 0.461538,
+            "organ_detectability": 1.0,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "score_components": {
+            "validity": 1.0,
+            "component_score": 1.0,
+            "body_mass_score": 0.973214,
+            "silhouette_score": 0.59623,
+            "symmetry_score": 0.461538,
+            "organ_detectability": 1.0,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "human_readability_rating": null,
+          "manual_rating_status": "not_collected"
+        },
+        "manual_rating": null,
+        "manual_rating_status": "not_collected",
+        "provenance": {
+          "long_horizon_probe_id": "slip_gray_stable_long_horizon_behavior_gate",
+          "runtime_parent_grid_id": "slip_gray_stable_constrained_008",
+          "selection_source": "slip_long_horizon_behavior_gate_stage0"
+        }
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_gray_stable_constrained_012",
+        "grid_id": "slip_gray_stable_constrained_012",
+        "source": "held_out_long_horizon",
+        "profile_id": "slip_gray_stable",
+        "path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_012.json",
+        "grid_size": [
+          8,
+          8
+        ],
+        "cell_count": 16,
+        "readability": {
+          "grid_id": "slip_gray_stable_constrained_012",
+          "valid": true,
+          "validation_errors": [],
+          "proxy_readability_score": 0.79467,
+          "metrics": {
+            "connected_components": 2,
+            "body_mass_ratio": 0.1875,
+            "silhouette_entropy": 0.840902,
+            "symmetry_score": 0.5,
+            "organ_detectability": 0.85,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "score_components": {
+            "validity": 1.0,
+            "component_score": 0.75,
+            "body_mass_score": 0.803571,
+            "silhouette_score": 0.418679,
+            "symmetry_score": 0.5,
+            "organ_detectability": 0.85,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "human_readability_rating": null,
+          "manual_rating_status": "not_collected"
+        },
+        "manual_rating": null,
+        "manual_rating_status": "not_collected",
+        "provenance": {
+          "long_horizon_probe_id": "slip_gray_stable_long_horizon_behavior_gate",
+          "switchboard_survival_ratio": 1.0,
+          "idle_survival_ratio": 0.125
+        }
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_gray_stable_constrained_013",
+        "grid_id": "slip_gray_stable_constrained_013",
+        "source": "held_out_long_horizon",
+        "profile_id": "slip_gray_stable",
+        "path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_013.json",
+        "grid_size": [
+          8,
+          8
+        ],
+        "cell_count": 14,
+        "readability": {
+          "grid_id": "slip_gray_stable_constrained_013",
+          "valid": true,
+          "validation_errors": [],
+          "proxy_readability_score": 0.903442,
+          "metrics": {
+            "connected_components": 1,
+            "body_mass_ratio": 0.171875,
+            "silhouette_entropy": 0.798987,
+            "symmetry_score": 0.714286,
+            "organ_detectability": 1.0,
+            "palette_contrast": 0.987143,
+            "animation_anchor_coverage": 1.0
+          },
+          "score_components": {
+            "validity": 1.0,
+            "component_score": 1.0,
+            "body_mass_score": 0.915179,
+            "silhouette_score": 0.528982,
+            "symmetry_score": 0.714286,
+            "organ_detectability": 1.0,
+            "palette_contrast": 0.987143,
+            "animation_anchor_coverage": 1.0
+          },
+          "human_readability_rating": null,
+          "manual_rating_status": "not_collected"
+        },
+        "manual_rating": null,
+        "manual_rating_status": "not_collected",
+        "provenance": {
+          "long_horizon_probe_id": "slip_gray_stable_long_horizon_behavior_gate",
+          "switchboard_survival_ratio": 1.0,
+          "idle_survival_ratio": 0.125
+        }
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_gray_stable_constrained_014",
+        "grid_id": "slip_gray_stable_constrained_014",
+        "source": "held_out_long_horizon",
+        "profile_id": "slip_gray_stable",
+        "path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_014.json",
+        "grid_size": [
+          8,
+          8
+        ],
+        "cell_count": 14,
+        "readability": {
+          "grid_id": "slip_gray_stable_constrained_014",
+          "valid": true,
+          "validation_errors": [],
+          "proxy_readability_score": 0.828953,
+          "metrics": {
+            "connected_components": 1,
+            "body_mass_ratio": 0.171875,
+            "silhouette_entropy": 0.770904,
+            "symmetry_score": 0.285714,
+            "organ_detectability": 0.775,
+            "palette_contrast": 0.987143,
+            "animation_anchor_coverage": 1.0
+          },
+          "score_components": {
+            "validity": 1.0,
+            "component_score": 1.0,
+            "body_mass_score": 0.915179,
+            "silhouette_score": 0.602884,
+            "symmetry_score": 0.285714,
+            "organ_detectability": 0.775,
+            "palette_contrast": 0.987143,
+            "animation_anchor_coverage": 1.0
+          },
+          "human_readability_rating": null,
+          "manual_rating_status": "not_collected"
+        },
+        "manual_rating": null,
+        "manual_rating_status": "not_collected",
+        "provenance": {
+          "long_horizon_probe_id": "slip_gray_stable_long_horizon_behavior_gate",
+          "switchboard_survival_ratio": 1.0,
+          "idle_survival_ratio": 0.125
+        }
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_gray_stable_constrained_015",
+        "grid_id": "slip_gray_stable_constrained_015",
+        "source": "held_out_long_horizon",
+        "profile_id": "slip_gray_stable",
+        "path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_015.json",
+        "grid_size": [
+          8,
+          8
+        ],
+        "cell_count": 16,
+        "readability": {
+          "grid_id": "slip_gray_stable_constrained_015",
+          "valid": true,
+          "validation_errors": [],
+          "proxy_readability_score": 0.795816,
+          "metrics": {
+            "connected_components": 2,
+            "body_mass_ratio": 0.1875,
+            "silhouette_entropy": 0.837274,
+            "symmetry_score": 0.5,
+            "organ_detectability": 0.85,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "score_components": {
+            "validity": 1.0,
+            "component_score": 0.75,
+            "body_mass_score": 0.803571,
+            "silhouette_score": 0.428226,
+            "symmetry_score": 0.5,
+            "organ_detectability": 0.85,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "human_readability_rating": null,
+          "manual_rating_status": "not_collected"
+        },
+        "manual_rating": null,
+        "manual_rating_status": "not_collected",
+        "provenance": {
+          "long_horizon_probe_id": "slip_gray_stable_long_horizon_behavior_gate",
+          "switchboard_survival_ratio": 1.0,
+          "idle_survival_ratio": 0.125
+        }
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_gray_stable_constrained_016",
+        "grid_id": "slip_gray_stable_constrained_016",
+        "source": "held_out_long_horizon",
+        "profile_id": "slip_gray_stable",
+        "path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_016.json",
+        "grid_size": [
+          8,
+          8
+        ],
+        "cell_count": 13,
+        "readability": {
+          "grid_id": "slip_gray_stable_constrained_016",
+          "valid": true,
+          "validation_errors": [],
+          "proxy_readability_score": 0.833718,
+          "metrics": {
+            "connected_components": 1,
+            "body_mass_ratio": 0.140625,
+            "silhouette_entropy": 0.795208,
+            "symmetry_score": 0.461538,
+            "organ_detectability": 0.775,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "score_components": {
+            "validity": 1.0,
+            "component_score": 1.0,
+            "body_mass_score": 0.861607,
+            "silhouette_score": 0.538926,
+            "symmetry_score": 0.461538,
+            "organ_detectability": 0.775,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "human_readability_rating": null,
+          "manual_rating_status": "not_collected"
+        },
+        "manual_rating": null,
+        "manual_rating_status": "not_collected",
+        "provenance": {
+          "long_horizon_probe_id": "slip_gray_stable_long_horizon_behavior_gate",
+          "switchboard_survival_ratio": 1.0,
+          "idle_survival_ratio": 0.125
+        }
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_gray_stable_constrained_017",
+        "grid_id": "slip_gray_stable_constrained_017",
+        "source": "held_out_long_horizon",
+        "profile_id": "slip_gray_stable",
+        "path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_017.json",
+        "grid_size": [
+          8,
+          8
+        ],
+        "cell_count": 15,
+        "readability": {
+          "grid_id": "slip_gray_stable_constrained_017",
+          "valid": true,
+          "validation_errors": [],
+          "proxy_readability_score": 0.810697,
+          "metrics": {
+            "connected_components": 1,
+            "body_mass_ratio": 0.1875,
+            "silhouette_entropy": 0.817394,
+            "symmetry_score": 0.4,
+            "organ_detectability": 0.775,
+            "palette_contrast": 0.971036,
+            "animation_anchor_coverage": 1.0
+          },
+          "score_components": {
+            "validity": 1.0,
+            "component_score": 1.0,
+            "body_mass_score": 0.803571,
+            "silhouette_score": 0.480542,
+            "symmetry_score": 0.4,
+            "organ_detectability": 0.775,
+            "palette_contrast": 0.971036,
+            "animation_anchor_coverage": 1.0
+          },
+          "human_readability_rating": null,
+          "manual_rating_status": "not_collected"
+        },
+        "manual_rating": null,
+        "manual_rating_status": "not_collected",
+        "provenance": {
+          "long_horizon_probe_id": "slip_gray_stable_long_horizon_behavior_gate",
+          "switchboard_survival_ratio": 1.0,
+          "idle_survival_ratio": 0.125
+        }
+      },
+      {
+        "sample_id": "selected_offspring:slip_amber_social_constrained_004_offspring_stability_tune",
+        "grid_id": "slip_amber_social_constrained_004_offspring_stability_tune",
+        "source": "selected_offspring",
+        "profile_id": "slip_amber_social",
+        "path": null,
+        "grid_size": [
+          8,
+          8
+        ],
+        "cell_count": 12,
+        "readability": {
+          "grid_id": "slip_amber_social_constrained_004_offspring_stability_tune",
+          "valid": true,
+          "validation_errors": [],
+          "proxy_readability_score": 0.911596,
+          "metrics": {
+            "connected_components": 1,
+            "body_mass_ratio": 0.15625,
+            "silhouette_entropy": 0.784211,
+            "symmetry_score": 0.666667,
+            "organ_detectability": 1.0,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "score_components": {
+            "validity": 1.0,
+            "component_score": 1.0,
+            "body_mass_score": 0.973214,
+            "silhouette_score": 0.567867,
+            "symmetry_score": 0.666667,
+            "organ_detectability": 1.0,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "human_readability_rating": null,
+          "manual_rating_status": "not_collected"
+        },
+        "manual_rating": null,
+        "manual_rating_status": "not_collected",
+        "provenance": {
+          "long_horizon_probe_id": "slip_amber_social_long_horizon_behavior_gate",
+          "runtime_parent_grid_id": "slip_amber_social_constrained_004",
+          "selection_source": "slip_long_horizon_behavior_gate_stage0"
+        }
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_amber_social_constrained_012",
+        "grid_id": "slip_amber_social_constrained_012",
+        "source": "held_out_long_horizon",
+        "profile_id": "slip_amber_social",
+        "path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_012.json",
+        "grid_size": [
+          8,
+          8
+        ],
+        "cell_count": 12,
+        "readability": {
+          "grid_id": "slip_amber_social_constrained_012",
+          "valid": true,
+          "validation_errors": [],
+          "proxy_readability_score": 0.778696,
+          "metrics": {
+            "connected_components": 2,
+            "body_mass_ratio": 0.140625,
+            "silhouette_entropy": 0.818014,
+            "symmetry_score": 0.333333,
+            "organ_detectability": 0.775,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "score_components": {
+            "validity": 1.0,
+            "component_score": 0.75,
+            "body_mass_score": 0.861607,
+            "silhouette_score": 0.478911,
+            "symmetry_score": 0.333333,
+            "organ_detectability": 0.775,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "human_readability_rating": null,
+          "manual_rating_status": "not_collected"
+        },
+        "manual_rating": null,
+        "manual_rating_status": "not_collected",
+        "provenance": {
+          "long_horizon_probe_id": "slip_amber_social_long_horizon_behavior_gate",
+          "switchboard_survival_ratio": 1.0,
+          "idle_survival_ratio": 0.104167
+        }
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_amber_social_constrained_013",
+        "grid_id": "slip_amber_social_constrained_013",
+        "source": "held_out_long_horizon",
+        "profile_id": "slip_amber_social",
+        "path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_013.json",
+        "grid_size": [
+          8,
+          8
+        ],
+        "cell_count": 14,
+        "readability": {
+          "grid_id": "slip_amber_social_constrained_013",
+          "valid": true,
+          "validation_errors": [],
+          "proxy_readability_score": 0.855742,
+          "metrics": {
+            "connected_components": 1,
+            "body_mass_ratio": 0.1875,
+            "silhouette_entropy": 0.821221,
+            "symmetry_score": 0.428571,
+            "organ_detectability": 1.0,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "score_components": {
+            "validity": 1.0,
+            "component_score": 1.0,
+            "body_mass_score": 0.803571,
+            "silhouette_score": 0.470471,
+            "symmetry_score": 0.428571,
+            "organ_detectability": 1.0,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "human_readability_rating": null,
+          "manual_rating_status": "not_collected"
+        },
+        "manual_rating": null,
+        "manual_rating_status": "not_collected",
+        "provenance": {
+          "long_horizon_probe_id": "slip_amber_social_long_horizon_behavior_gate",
+          "switchboard_survival_ratio": 1.0,
+          "idle_survival_ratio": 0.104167
+        }
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_amber_social_constrained_014",
+        "grid_id": "slip_amber_social_constrained_014",
+        "source": "held_out_long_horizon",
+        "profile_id": "slip_amber_social",
+        "path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_014.json",
+        "grid_size": [
+          8,
+          8
+        ],
+        "cell_count": 13,
+        "readability": {
+          "grid_id": "slip_amber_social_constrained_014",
+          "valid": true,
+          "validation_errors": [],
+          "proxy_readability_score": 0.794814,
+          "metrics": {
+            "connected_components": 2,
+            "body_mass_ratio": 0.140625,
+            "silhouette_entropy": 0.838383,
+            "symmetry_score": 0.153846,
+            "organ_detectability": 1.0,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "score_components": {
+            "validity": 1.0,
+            "component_score": 0.75,
+            "body_mass_score": 0.861607,
+            "silhouette_score": 0.425307,
+            "symmetry_score": 0.153846,
+            "organ_detectability": 1.0,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "human_readability_rating": null,
+          "manual_rating_status": "not_collected"
+        },
+        "manual_rating": null,
+        "manual_rating_status": "not_collected",
+        "provenance": {
+          "long_horizon_probe_id": "slip_amber_social_long_horizon_behavior_gate",
+          "switchboard_survival_ratio": 1.0,
+          "idle_survival_ratio": 0.104167
+        }
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_amber_social_constrained_015",
+        "grid_id": "slip_amber_social_constrained_015",
+        "source": "held_out_long_horizon",
+        "profile_id": "slip_amber_social",
+        "path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_015.json",
+        "grid_size": [
+          8,
+          8
+        ],
+        "cell_count": 14,
+        "readability": {
+          "grid_id": "slip_amber_social_constrained_015",
+          "valid": true,
+          "validation_errors": [],
+          "proxy_readability_score": 0.818208,
+          "metrics": {
+            "connected_components": 2,
+            "body_mass_ratio": 0.15625,
+            "silhouette_entropy": 0.85345,
+            "symmetry_score": 0.571429,
+            "organ_detectability": 0.85,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "score_components": {
+            "validity": 1.0,
+            "component_score": 0.75,
+            "body_mass_score": 0.973214,
+            "silhouette_score": 0.385658,
+            "symmetry_score": 0.571429,
+            "organ_detectability": 0.85,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "human_readability_rating": null,
+          "manual_rating_status": "not_collected"
+        },
+        "manual_rating": null,
+        "manual_rating_status": "not_collected",
+        "provenance": {
+          "long_horizon_probe_id": "slip_amber_social_long_horizon_behavior_gate",
+          "switchboard_survival_ratio": 1.0,
+          "idle_survival_ratio": 0.104167
+        }
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_amber_social_constrained_016",
+        "grid_id": "slip_amber_social_constrained_016",
+        "source": "held_out_long_horizon",
+        "profile_id": "slip_amber_social",
+        "path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_016.json",
+        "grid_size": [
+          8,
+          8
+        ],
+        "cell_count": 12,
+        "readability": {
+          "grid_id": "slip_amber_social_constrained_016",
+          "valid": true,
+          "validation_errors": [],
+          "proxy_readability_score": 0.825241,
+          "metrics": {
+            "connected_components": 1,
+            "body_mass_ratio": 0.140625,
+            "silhouette_entropy": 0.781454,
+            "symmetry_score": 0.333333,
+            "organ_detectability": 0.775,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "score_components": {
+            "validity": 1.0,
+            "component_score": 1.0,
+            "body_mass_score": 0.861607,
+            "silhouette_score": 0.575122,
+            "symmetry_score": 0.333333,
+            "organ_detectability": 0.775,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "human_readability_rating": null,
+          "manual_rating_status": "not_collected"
+        },
+        "manual_rating": null,
+        "manual_rating_status": "not_collected",
+        "provenance": {
+          "long_horizon_probe_id": "slip_amber_social_long_horizon_behavior_gate",
+          "switchboard_survival_ratio": 1.0,
+          "idle_survival_ratio": 0.104167
+        }
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_amber_social_constrained_017",
+        "grid_id": "slip_amber_social_constrained_017",
+        "source": "held_out_long_horizon",
+        "profile_id": "slip_amber_social",
+        "path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_017.json",
+        "grid_size": [
+          8,
+          8
+        ],
+        "cell_count": 13,
+        "readability": {
+          "grid_id": "slip_amber_social_constrained_017",
+          "valid": true,
+          "validation_errors": [],
+          "proxy_readability_score": 0.897464,
+          "metrics": {
+            "connected_components": 1,
+            "body_mass_ratio": 0.15625,
+            "silhouette_entropy": 0.764005,
+            "symmetry_score": 0.461538,
+            "organ_detectability": 1.0,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "score_components": {
+            "validity": 1.0,
+            "component_score": 1.0,
+            "body_mass_score": 0.973214,
+            "silhouette_score": 0.621039,
+            "symmetry_score": 0.461538,
+            "organ_detectability": 1.0,
+            "palette_contrast": 1.0,
+            "animation_anchor_coverage": 1.0
+          },
+          "human_readability_rating": null,
+          "manual_rating_status": "not_collected"
+        },
+        "manual_rating": null,
+        "manual_rating_status": "not_collected",
+        "provenance": {
+          "long_horizon_probe_id": "slip_amber_social_long_horizon_behavior_gate",
+          "switchboard_survival_ratio": 1.0,
+          "idle_survival_ratio": 0.104167
+        }
+      }
+    ],
+    "summary": {
+      "sample_count": 21,
+      "valid_sample_count": 21,
+      "by_source": {
+        "held_out_long_horizon": {
+          "count": 18,
+          "valid_count": 18,
+          "mean_proxy_readability_score": 0.825768,
+          "min_proxy_readability_score": 0.768319,
+          "max_proxy_readability_score": 0.903442
+        },
+        "selected_offspring": {
+          "count": 3,
+          "valid_count": 3,
+          "mean_proxy_readability_score": 0.894907,
+          "min_proxy_readability_score": 0.878639,
+          "max_proxy_readability_score": 0.911596
+        }
+      },
+      "mean_proxy_readability_score": 0.835645,
+      "min_proxy_readability_score": 0.768319,
+      "max_proxy_readability_score": 0.911596
+    }
+  },
+  "manual_intake": {
+    "lab_id": "manual_readability_rating_intake_stage0",
+    "date": "2026-05-12",
+    "rng_seed": 20260513,
+    "protocol_id": "readability_rating_v0_1",
+    "ratings_collected": false,
+    "summary": {
+      "status": "awaiting_human_ratings",
+      "template_row_count": 21,
+      "rating_row_count": 0,
+      "valid_rating_row_count": 0,
+      "rated_sample_count": 0,
+      "reviewer_count": 0,
+      "mean_human_rating": null,
+      "proxy_human_spearman": null,
+      "inter_reviewer_mean_absolute_delta": null
+    },
+    "template": {
+      "protocol_id": "readability_rating_v0_1",
+      "template_row_count": 21,
+      "fields": [
+        "sample_id",
+        "grid_id",
+        "source",
+        "reviewer_id",
+        "silhouette",
+        "organ_clarity",
+        "palette_contrast",
+        "animation_readiness",
+        "companion_appeal",
+        "notes"
+      ],
+      "rows": [
+        {
+          "sample_id": "selected_offspring:slip_lcd_seed_constrained_011_offspring_stability_tune",
+          "grid_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
+          "source": "selected_offspring",
+          "reviewer_id": "",
+          "silhouette": "",
+          "organ_clarity": "",
+          "palette_contrast": "",
+          "animation_readiness": "",
+          "companion_appeal": "",
+          "notes": ""
+        },
+        {
+          "sample_id": "held_out_long_horizon:slip_lcd_seed_constrained_012",
+          "grid_id": "slip_lcd_seed_constrained_012",
+          "source": "held_out_long_horizon",
+          "reviewer_id": "",
+          "silhouette": "",
+          "organ_clarity": "",
+          "palette_contrast": "",
+          "animation_readiness": "",
+          "companion_appeal": "",
+          "notes": ""
+        },
+        {
+          "sample_id": "held_out_long_horizon:slip_lcd_seed_constrained_013",
+          "grid_id": "slip_lcd_seed_constrained_013",
+          "source": "held_out_long_horizon",
+          "reviewer_id": "",
+          "silhouette": "",
+          "organ_clarity": "",
+          "palette_contrast": "",
+          "animation_readiness": "",
+          "companion_appeal": "",
+          "notes": ""
+        },
+        {
+          "sample_id": "held_out_long_horizon:slip_lcd_seed_constrained_014",
+          "grid_id": "slip_lcd_seed_constrained_014",
+          "source": "held_out_long_horizon",
+          "reviewer_id": "",
+          "silhouette": "",
+          "organ_clarity": "",
+          "palette_contrast": "",
+          "animation_readiness": "",
+          "companion_appeal": "",
+          "notes": ""
+        },
+        {
+          "sample_id": "held_out_long_horizon:slip_lcd_seed_constrained_015",
+          "grid_id": "slip_lcd_seed_constrained_015",
+          "source": "held_out_long_horizon",
+          "reviewer_id": "",
+          "silhouette": "",
+          "organ_clarity": "",
+          "palette_contrast": "",
+          "animation_readiness": "",
+          "companion_appeal": "",
+          "notes": ""
+        },
+        {
+          "sample_id": "held_out_long_horizon:slip_lcd_seed_constrained_016",
+          "grid_id": "slip_lcd_seed_constrained_016",
+          "source": "held_out_long_horizon",
+          "reviewer_id": "",
+          "silhouette": "",
+          "organ_clarity": "",
+          "palette_contrast": "",
+          "animation_readiness": "",
+          "companion_appeal": "",
+          "notes": ""
+        },
+        {
+          "sample_id": "held_out_long_horizon:slip_lcd_seed_constrained_017",
+          "grid_id": "slip_lcd_seed_constrained_017",
+          "source": "held_out_long_horizon",
+          "reviewer_id": "",
+          "silhouette": "",
+          "organ_clarity": "",
+          "palette_contrast": "",
+          "animation_readiness": "",
+          "companion_appeal": "",
+          "notes": ""
+        },
+        {
+          "sample_id": "selected_offspring:slip_gray_stable_constrained_008_offspring_core_growth",
+          "grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
+          "source": "selected_offspring",
+          "reviewer_id": "",
+          "silhouette": "",
+          "organ_clarity": "",
+          "palette_contrast": "",
+          "animation_readiness": "",
+          "companion_appeal": "",
+          "notes": ""
+        },
+        {
+          "sample_id": "held_out_long_horizon:slip_gray_stable_constrained_012",
+          "grid_id": "slip_gray_stable_constrained_012",
+          "source": "held_out_long_horizon",
+          "reviewer_id": "",
+          "silhouette": "",
+          "organ_clarity": "",
+          "palette_contrast": "",
+          "animation_readiness": "",
+          "companion_appeal": "",
+          "notes": ""
+        },
+        {
+          "sample_id": "held_out_long_horizon:slip_gray_stable_constrained_013",
+          "grid_id": "slip_gray_stable_constrained_013",
+          "source": "held_out_long_horizon",
+          "reviewer_id": "",
+          "silhouette": "",
+          "organ_clarity": "",
+          "palette_contrast": "",
+          "animation_readiness": "",
+          "companion_appeal": "",
+          "notes": ""
+        },
+        {
+          "sample_id": "held_out_long_horizon:slip_gray_stable_constrained_014",
+          "grid_id": "slip_gray_stable_constrained_014",
+          "source": "held_out_long_horizon",
+          "reviewer_id": "",
+          "silhouette": "",
+          "organ_clarity": "",
+          "palette_contrast": "",
+          "animation_readiness": "",
+          "companion_appeal": "",
+          "notes": ""
+        },
+        {
+          "sample_id": "held_out_long_horizon:slip_gray_stable_constrained_015",
+          "grid_id": "slip_gray_stable_constrained_015",
+          "source": "held_out_long_horizon",
+          "reviewer_id": "",
+          "silhouette": "",
+          "organ_clarity": "",
+          "palette_contrast": "",
+          "animation_readiness": "",
+          "companion_appeal": "",
+          "notes": ""
+        },
+        {
+          "sample_id": "held_out_long_horizon:slip_gray_stable_constrained_016",
+          "grid_id": "slip_gray_stable_constrained_016",
+          "source": "held_out_long_horizon",
+          "reviewer_id": "",
+          "silhouette": "",
+          "organ_clarity": "",
+          "palette_contrast": "",
+          "animation_readiness": "",
+          "companion_appeal": "",
+          "notes": ""
+        },
+        {
+          "sample_id": "held_out_long_horizon:slip_gray_stable_constrained_017",
+          "grid_id": "slip_gray_stable_constrained_017",
+          "source": "held_out_long_horizon",
+          "reviewer_id": "",
+          "silhouette": "",
+          "organ_clarity": "",
+          "palette_contrast": "",
+          "animation_readiness": "",
+          "companion_appeal": "",
+          "notes": ""
+        },
+        {
+          "sample_id": "selected_offspring:slip_amber_social_constrained_004_offspring_stability_tune",
+          "grid_id": "slip_amber_social_constrained_004_offspring_stability_tune",
+          "source": "selected_offspring",
+          "reviewer_id": "",
+          "silhouette": "",
+          "organ_clarity": "",
+          "palette_contrast": "",
+          "animation_readiness": "",
+          "companion_appeal": "",
+          "notes": ""
+        },
+        {
+          "sample_id": "held_out_long_horizon:slip_amber_social_constrained_012",
+          "grid_id": "slip_amber_social_constrained_012",
+          "source": "held_out_long_horizon",
+          "reviewer_id": "",
+          "silhouette": "",
+          "organ_clarity": "",
+          "palette_contrast": "",
+          "animation_readiness": "",
+          "companion_appeal": "",
+          "notes": ""
+        },
+        {
+          "sample_id": "held_out_long_horizon:slip_amber_social_constrained_013",
+          "grid_id": "slip_amber_social_constrained_013",
+          "source": "held_out_long_horizon",
+          "reviewer_id": "",
+          "silhouette": "",
+          "organ_clarity": "",
+          "palette_contrast": "",
+          "animation_readiness": "",
+          "companion_appeal": "",
+          "notes": ""
+        },
+        {
+          "sample_id": "held_out_long_horizon:slip_amber_social_constrained_014",
+          "grid_id": "slip_amber_social_constrained_014",
+          "source": "held_out_long_horizon",
+          "reviewer_id": "",
+          "silhouette": "",
+          "organ_clarity": "",
+          "palette_contrast": "",
+          "animation_readiness": "",
+          "companion_appeal": "",
+          "notes": ""
+        },
+        {
+          "sample_id": "held_out_long_horizon:slip_amber_social_constrained_015",
+          "grid_id": "slip_amber_social_constrained_015",
+          "source": "held_out_long_horizon",
+          "reviewer_id": "",
+          "silhouette": "",
+          "organ_clarity": "",
+          "palette_contrast": "",
+          "animation_readiness": "",
+          "companion_appeal": "",
+          "notes": ""
+        },
+        {
+          "sample_id": "held_out_long_horizon:slip_amber_social_constrained_016",
+          "grid_id": "slip_amber_social_constrained_016",
+          "source": "held_out_long_horizon",
+          "reviewer_id": "",
+          "silhouette": "",
+          "organ_clarity": "",
+          "palette_contrast": "",
+          "animation_readiness": "",
+          "companion_appeal": "",
+          "notes": ""
+        },
+        {
+          "sample_id": "held_out_long_horizon:slip_amber_social_constrained_017",
+          "grid_id": "slip_amber_social_constrained_017",
+          "source": "held_out_long_horizon",
+          "reviewer_id": "",
+          "silhouette": "",
+          "organ_clarity": "",
+          "palette_contrast": "",
+          "animation_readiness": "",
+          "companion_appeal": "",
+          "notes": ""
+        }
+      ]
+    },
+    "per_sample": [],
+    "row_errors": [],
+    "source_refs": [
+      {
+        "name": "Comparing PCG metrics with Human Evaluation in Minecraft Settlement Generation",
+        "url": "https://arxiv.org/abs/2107.02457",
+        "use": "Reference for comparing procedural-content metrics against human evaluation."
+      },
+      {
+        "name": "Measuring inter-rater reliability for nominal data",
+        "url": "https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-016-0200-9",
+        "use": "Reference for treating reviewer agreement as a required reliability concern."
+      }
+    ],
+    "decision": {
+      "status": "blocked_human_ratings_absent",
+      "adoption": "do_not_calibrate_proxy",
+      "reason": "The intake protocol and CSV template exist, but no reviewer ratings were supplied. Proxy calibration remains blocked."
+    },
+    "limitations": [
+      "No human ratings are bundled unless a reviewer CSV is supplied.",
+      "Spearman correlation is unstable for very small or tied rating sets.",
+      "Reviewer reliability is approximated with mean absolute deltas in Stage 0.",
+      "Formal inter-rater reliability should be added after real rating volume exists."
+    ]
+  },
+  "template": {
+    "protocol_id": "readability_rating_v0_1",
+    "template_row_count": 21,
+    "fields": [
+      "sample_id",
+      "grid_id",
+      "source",
+      "reviewer_id",
+      "silhouette",
+      "organ_clarity",
+      "palette_contrast",
+      "animation_readiness",
+      "companion_appeal",
+      "notes"
+    ],
+    "rows": [
+      {
+        "sample_id": "selected_offspring:slip_lcd_seed_constrained_011_offspring_stability_tune",
+        "grid_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
+        "source": "selected_offspring",
+        "reviewer_id": "",
+        "silhouette": "",
+        "organ_clarity": "",
+        "palette_contrast": "",
+        "animation_readiness": "",
+        "companion_appeal": "",
+        "notes": ""
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_lcd_seed_constrained_012",
+        "grid_id": "slip_lcd_seed_constrained_012",
+        "source": "held_out_long_horizon",
+        "reviewer_id": "",
+        "silhouette": "",
+        "organ_clarity": "",
+        "palette_contrast": "",
+        "animation_readiness": "",
+        "companion_appeal": "",
+        "notes": ""
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_lcd_seed_constrained_013",
+        "grid_id": "slip_lcd_seed_constrained_013",
+        "source": "held_out_long_horizon",
+        "reviewer_id": "",
+        "silhouette": "",
+        "organ_clarity": "",
+        "palette_contrast": "",
+        "animation_readiness": "",
+        "companion_appeal": "",
+        "notes": ""
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_lcd_seed_constrained_014",
+        "grid_id": "slip_lcd_seed_constrained_014",
+        "source": "held_out_long_horizon",
+        "reviewer_id": "",
+        "silhouette": "",
+        "organ_clarity": "",
+        "palette_contrast": "",
+        "animation_readiness": "",
+        "companion_appeal": "",
+        "notes": ""
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_lcd_seed_constrained_015",
+        "grid_id": "slip_lcd_seed_constrained_015",
+        "source": "held_out_long_horizon",
+        "reviewer_id": "",
+        "silhouette": "",
+        "organ_clarity": "",
+        "palette_contrast": "",
+        "animation_readiness": "",
+        "companion_appeal": "",
+        "notes": ""
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_lcd_seed_constrained_016",
+        "grid_id": "slip_lcd_seed_constrained_016",
+        "source": "held_out_long_horizon",
+        "reviewer_id": "",
+        "silhouette": "",
+        "organ_clarity": "",
+        "palette_contrast": "",
+        "animation_readiness": "",
+        "companion_appeal": "",
+        "notes": ""
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_lcd_seed_constrained_017",
+        "grid_id": "slip_lcd_seed_constrained_017",
+        "source": "held_out_long_horizon",
+        "reviewer_id": "",
+        "silhouette": "",
+        "organ_clarity": "",
+        "palette_contrast": "",
+        "animation_readiness": "",
+        "companion_appeal": "",
+        "notes": ""
+      },
+      {
+        "sample_id": "selected_offspring:slip_gray_stable_constrained_008_offspring_core_growth",
+        "grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
+        "source": "selected_offspring",
+        "reviewer_id": "",
+        "silhouette": "",
+        "organ_clarity": "",
+        "palette_contrast": "",
+        "animation_readiness": "",
+        "companion_appeal": "",
+        "notes": ""
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_gray_stable_constrained_012",
+        "grid_id": "slip_gray_stable_constrained_012",
+        "source": "held_out_long_horizon",
+        "reviewer_id": "",
+        "silhouette": "",
+        "organ_clarity": "",
+        "palette_contrast": "",
+        "animation_readiness": "",
+        "companion_appeal": "",
+        "notes": ""
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_gray_stable_constrained_013",
+        "grid_id": "slip_gray_stable_constrained_013",
+        "source": "held_out_long_horizon",
+        "reviewer_id": "",
+        "silhouette": "",
+        "organ_clarity": "",
+        "palette_contrast": "",
+        "animation_readiness": "",
+        "companion_appeal": "",
+        "notes": ""
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_gray_stable_constrained_014",
+        "grid_id": "slip_gray_stable_constrained_014",
+        "source": "held_out_long_horizon",
+        "reviewer_id": "",
+        "silhouette": "",
+        "organ_clarity": "",
+        "palette_contrast": "",
+        "animation_readiness": "",
+        "companion_appeal": "",
+        "notes": ""
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_gray_stable_constrained_015",
+        "grid_id": "slip_gray_stable_constrained_015",
+        "source": "held_out_long_horizon",
+        "reviewer_id": "",
+        "silhouette": "",
+        "organ_clarity": "",
+        "palette_contrast": "",
+        "animation_readiness": "",
+        "companion_appeal": "",
+        "notes": ""
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_gray_stable_constrained_016",
+        "grid_id": "slip_gray_stable_constrained_016",
+        "source": "held_out_long_horizon",
+        "reviewer_id": "",
+        "silhouette": "",
+        "organ_clarity": "",
+        "palette_contrast": "",
+        "animation_readiness": "",
+        "companion_appeal": "",
+        "notes": ""
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_gray_stable_constrained_017",
+        "grid_id": "slip_gray_stable_constrained_017",
+        "source": "held_out_long_horizon",
+        "reviewer_id": "",
+        "silhouette": "",
+        "organ_clarity": "",
+        "palette_contrast": "",
+        "animation_readiness": "",
+        "companion_appeal": "",
+        "notes": ""
+      },
+      {
+        "sample_id": "selected_offspring:slip_amber_social_constrained_004_offspring_stability_tune",
+        "grid_id": "slip_amber_social_constrained_004_offspring_stability_tune",
+        "source": "selected_offspring",
+        "reviewer_id": "",
+        "silhouette": "",
+        "organ_clarity": "",
+        "palette_contrast": "",
+        "animation_readiness": "",
+        "companion_appeal": "",
+        "notes": ""
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_amber_social_constrained_012",
+        "grid_id": "slip_amber_social_constrained_012",
+        "source": "held_out_long_horizon",
+        "reviewer_id": "",
+        "silhouette": "",
+        "organ_clarity": "",
+        "palette_contrast": "",
+        "animation_readiness": "",
+        "companion_appeal": "",
+        "notes": ""
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_amber_social_constrained_013",
+        "grid_id": "slip_amber_social_constrained_013",
+        "source": "held_out_long_horizon",
+        "reviewer_id": "",
+        "silhouette": "",
+        "organ_clarity": "",
+        "palette_contrast": "",
+        "animation_readiness": "",
+        "companion_appeal": "",
+        "notes": ""
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_amber_social_constrained_014",
+        "grid_id": "slip_amber_social_constrained_014",
+        "source": "held_out_long_horizon",
+        "reviewer_id": "",
+        "silhouette": "",
+        "organ_clarity": "",
+        "palette_contrast": "",
+        "animation_readiness": "",
+        "companion_appeal": "",
+        "notes": ""
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_amber_social_constrained_015",
+        "grid_id": "slip_amber_social_constrained_015",
+        "source": "held_out_long_horizon",
+        "reviewer_id": "",
+        "silhouette": "",
+        "organ_clarity": "",
+        "palette_contrast": "",
+        "animation_readiness": "",
+        "companion_appeal": "",
+        "notes": ""
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_amber_social_constrained_016",
+        "grid_id": "slip_amber_social_constrained_016",
+        "source": "held_out_long_horizon",
+        "reviewer_id": "",
+        "silhouette": "",
+        "organ_clarity": "",
+        "palette_contrast": "",
+        "animation_readiness": "",
+        "companion_appeal": "",
+        "notes": ""
+      },
+      {
+        "sample_id": "held_out_long_horizon:slip_amber_social_constrained_017",
+        "grid_id": "slip_amber_social_constrained_017",
+        "source": "held_out_long_horizon",
+        "reviewer_id": "",
+        "silhouette": "",
+        "organ_clarity": "",
+        "palette_contrast": "",
+        "animation_readiness": "",
+        "companion_appeal": "",
+        "notes": ""
+      }
+    ]
+  },
+  "ratings_collected": false,
+  "manual_readability_calibration_ready": false,
+  "expected_completed_rating_rows": 63,
+  "calibration_thresholds": {
+    "minimum_reviewers": 3,
+    "expected_completed_rating_rows": 63,
+    "inter_reviewer_mean_absolute_delta_max": 1.0,
+    "min_proxy_human_spearman": 0.25
+  },
+  "metrics": {
+    "sample_count": 21,
+    "selected_offspring_sample_count": 3,
+    "held_out_long_horizon_sample_count": 18,
+    "mean_proxy_readability_score": 0.835645,
+    "rating_row_count": 0,
+    "valid_rating_row_count": 0,
+    "rated_sample_count": 0,
+    "reviewer_count": 0,
+    "row_error_count": 0,
+    "inter_reviewer_mean_absolute_delta": null,
+    "proxy_human_spearman": null,
+    "manual_readability_calibration_ready": false
+  },
+  "readiness": {
+    "ready": false,
+    "complete_rating_matrix": false,
+    "inter_reviewer_reliability_ok": false,
+    "proxy_human_correlation_ok": false,
+    "row_error_count": 0,
+    "blocking_reasons": [
+      "human_ratings_absent",
+      "minimum_reviewer_count_not_met",
+      "not_all_samples_rated",
+      "expected_completed_rating_rows_not_met",
+      "inter_reviewer_reliability_not_established",
+      "proxy_human_correlation_not_established"
+    ]
+  },
+  "closed_states": [
+    "slip_long_horizon_readability_packet",
+    "manual_rating_template_for_slip_long_horizon_corpus",
+    "proxy_readability_snapshot_for_slip_long_horizon_corpus"
+  ],
+  "blocked_states": [
+    "profile_weighted_evolution",
+    "package_runtime_lifecycle_integration",
+    "final_descriptor_threshold_lock",
+    "manual_readability_calibration",
+    "proxy_human_readability_correlation_check",
+    "inter_reviewer_reliability_check"
+  ],
+  "decision": "prototype_slip_readability_packet_only",
+  "next_research_step": "Collect 63 reviewer rows in data/readability/slip_readability_calibration_ratings.csv and rerun this gate before changing proxy readability thresholds or claiming profile-weighted evolution.",
+  "limitations": [
+    "No human ratings are fabricated by this lab.",
+    "A complete template alone does not calibrate the proxy metric.",
+    "Spearman correlation remains descriptive at Stage 0 and must not be treated as a causal readability model.",
+    "Profile-weighted evolution still also requires package/runtime integration."
+  ]
+}

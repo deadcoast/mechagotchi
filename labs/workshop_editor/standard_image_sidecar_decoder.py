@@ -352,8 +352,8 @@ def run_standard_image_sidecar_decoder_lab(
         ],
         "decision": "prototype_static_rgba_png_sidecar_decoder",
         "next_research_step": (
-            "Define offspring mutation and lineage replacement gates before "
-            "profile-weighted evolution claims."
+            "Run held-out long-horizon behavior tests and manual readability "
+            "calibration before profile-weighted evolution claims."
         ),
     }
 

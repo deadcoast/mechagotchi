@@ -14,9 +14,13 @@
     "research/experiment_reports/2026-05-12-map-elites-archive-baseline.md",
     "research/experiment_reports/2026-05-12-map-elites-extended-descriptors.md",
     "research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md",
+    "research/experiment_reports/2026-05-13-slip-offspring-lineage-gate.md",
+    "research/experiment_reports/2026-05-13-slip-long-horizon-behavior-gate.md",
     "data/archives/map_elites_stage0.json",
     "data/archives/map_elites_extended_stage0.json",
     "data/workshop_editor/slip_runtime_selection_policy_stage0.json",
+    "data/workshop_editor/slip_offspring_lineage_gate_stage0.json",
+    "data/workshop_editor/slip_long_horizon_behavior_gate_stage0.json",
     "data/package_promotion/mecha_engine_package_promotion_gate_stage0.json"
   ],
   "external_references": [
@@ -121,6 +125,30 @@
       "mean_selected_survival_ratio": 1.0,
       "runtime_lifecycle_archive_selection_specified": true,
       "decision": "profile_weighted_archive_selection_bridge_specified"
+    },
+    "slip_offspring_lineage_gate": {
+      "profile_count": 3,
+      "offspring_gate_success_count": 3,
+      "lineage_decision_count": 3,
+      "distinct_selected_offspring_niches": 3,
+      "replace_parent_count": 0,
+      "add_archive_niche_count": 1,
+      "hold_parent_count": 2,
+      "mean_selected_offspring_score": 0.928194,
+      "offspring_mutation_selection_specified": true,
+      "lineage_replacement_policy_specified": true,
+      "decision": "offspring_archive_niche_decisions_specified"
+    },
+    "slip_long_horizon_behavior_gate": {
+      "profile_count": 3,
+      "long_horizon_success_count": 3,
+      "held_out_candidate_count": 18,
+      "held_out_switchboard_full_survival_count": 18,
+      "held_out_idle_death_count": 18,
+      "mean_switchboard_survival_ratio": 1.0,
+      "mean_idle_survival_ratio": 0.114583,
+      "manual_readability_calibration_ready": false,
+      "decision": "held_out_long_horizon_behavior_tests_specified"
     }
   },
   "candidate_acceptance": [
@@ -170,7 +198,6 @@
   ],
   "non_finalized_gates": [
     "manual_readability_required_before_final_descriptor_thresholds",
-    "broader_lifecycle_tests_required_before_final_archive_fitness_lock",
     "qdax_jax_dependency_deferred"
   ],
   "negative_checks": [
@@ -202,5 +229,5 @@
     "package_contains_no_labs_imports": true,
     "package_promotion_gate_rerun_after_package_tests_exist": true
   },
-  "next_research_step": "Define offspring mutation and lineage replacement gates before claiming profile-weighted evolution."
+  "next_research_step": "Collect manual readability ratings and calibrate proxy readability thresholds before claiming profile-weighted evolution."
 }

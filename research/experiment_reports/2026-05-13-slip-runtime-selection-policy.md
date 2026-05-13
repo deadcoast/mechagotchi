@@ -98,9 +98,6 @@ Blocked states:
 
 - `profile_weighted_evolution`
 - `package_runtime_lifecycle_integration`
-- `offspring_mutation_selection`
-- `lineage_replacement_policy`
-- `held_out_long_horizon_behavior_tests`
 - `manual_readability_calibration`
 
 ## Interpretation
@@ -110,8 +107,14 @@ Stage 0. The selector links `SLIP` weights, switchboard lifecycle metrics, and
 extended archive elites through an auditable policy trace.
 
 This is not profile-weighted evolution. The selected elite is an existing
-candidate, not a generated child. No mutation, lineage replacement, package
-runtime integration, or long-horizon held-out calibration is performed.
+candidate parent. Bounded child mutation and lineage decisions are covered by
+`research/experiment_reports/2026-05-13-slip-offspring-lineage-gate.md`;
+held-out long-horizon behavior is covered by
+`research/experiment_reports/2026-05-13-slip-long-horizon-behavior-gate.md`.
+Lab-only multigeneration lineage is now covered by
+`research/experiment_reports/2026-05-13-slip-multigeneration-lineage-runner.md`.
+Package runtime integration and manual readability calibration are still not
+performed.
 
 ## Verification
 
@@ -151,5 +154,5 @@ python -B .\labs\workshop_editor\slip_runtime_selection_policy.py
 Adopt `slip_runtime_selection_policy_stage0` as the Stage 0 proof for lab-only
 runtime lifecycle/archive elite selection.
 
-Next research should define offspring mutation and lineage replacement gates
-before claiming profile-weighted evolution.
+Next research should collect manual readability ratings and calibrate proxy
+readability thresholds before claiming profile-weighted evolution.

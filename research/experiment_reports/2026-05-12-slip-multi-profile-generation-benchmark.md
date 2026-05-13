@@ -91,5 +91,8 @@ Spritesheet vertical/matrix/padded/sparse layout coverage is now covered in
 `research/experiment_reports/2026-05-13-spritesheet-layout-variant-decoder.md`.
 Runtime lifecycle/archive selection is now covered in
 `research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`.
-Next research should move to offspring mutation/lineage replacement gates,
-packed rotation/trim atlas handling, or full project-format coverage.
+Held-out long-horizon behavior, SLIP readability packet preparation, and
+lab-only multigeneration lineage are now covered by their 2026-05-13 reports.
+Next research should move to package runtime boundaries, manual readability
+calibration, packed rotation/trim atlas handling, or full project-format
+coverage.

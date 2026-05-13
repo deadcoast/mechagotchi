@@ -107,12 +107,23 @@ Reviewer packet follow-up completed on 2026-05-12.
 - Expected completed rows: 90
 - Completed ratings CSV present: false
 
+SLIP long-horizon calibration packet completed on 2026-05-13.
+
+- Samples: 21
+- Selected offspring samples: 3
+- Held-out long-horizon samples: 18
+- Expected completed reviewer rows: 63
+- Rating rows collected: 0
+- Manual readability calibration ready: false
+
 ## Decision
 
 Keep as active prototype. Use this benchmark as the readability gate before
 expanding MAP-Elites descriptors or promoting visual generators. Proxy
-calibration remains blocked until real reviewer rows exist in
-`data/readability/manual_ratings.csv`.
+calibration remains blocked until real reviewer rows exist in the generic
+rating CSV or in
+`data/readability/slip_readability_calibration_ratings.csv` for the current
+SLIP long-horizon corpus.
 
 ## Go/No-Go Gate
 

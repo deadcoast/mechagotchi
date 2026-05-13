@@ -1,0 +1,842 @@
+{
+  "probe_id": "slip_lcd_seed_offspring_lineage_gate",
+  "profile_id": "slip_lcd_seed",
+  "profile_path": "data/slips/valid/slip_lcd_seed.json",
+  "candidate_profile_id": "slip_lcd_seed",
+  "candidate_limit": 12,
+  "lifecycle_ticks": 24,
+  "gate_started": true,
+  "runtime_selection": {
+    "probe_id": "slip_lcd_seed_runtime_parent_for_offspring_gate",
+    "profile_id": "slip_lcd_seed",
+    "selection_started": true,
+    "validation_ok": true,
+    "selected_grid_id": "slip_lcd_seed_constrained_011",
+    "selected_archive_niche": "1,1,2,4,4,4,1",
+    "selected_selection_score": 0.955499
+  },
+  "validation": {
+    "ok": true,
+    "profile_id": "slip_lcd_seed",
+    "grid_id": "slip_lcd_seed_constrained_011",
+    "profile_validation": {
+      "ok": true,
+      "migration": {
+        "ok": true,
+        "source_version": "0.1.0",
+        "target_version": "0.1.0",
+        "action": "accept_current_no_migration",
+        "errors": []
+      },
+      "dependency_free": {
+        "source_path": null,
+        "ok": true,
+        "errors": [],
+        "error_families": []
+      },
+      "pydantic": {
+        "source_path": "authoring_draft",
+        "ok": true,
+        "profile_id": "slip_lcd_seed",
+        "errors": [],
+        "error_families": []
+      },
+      "errors": [],
+      "error_families": []
+    },
+    "grid_validation": {
+      "ok": true,
+      "errors": []
+    },
+    "alignment": {
+      "ok": true,
+      "errors": []
+    },
+    "preview_surfaces": [
+      "behavior_preview",
+      "mutation_preview"
+    ],
+    "errors": [],
+    "error_families": []
+  },
+  "policy": {
+    "policy_id": "offspring_lineage_gate_v0",
+    "parent_selection_policy": "profile_weighted_archive_elite_v0",
+    "offspring_mutation_policy": "bounded_stage0_grid_mutation_from_slip_caps",
+    "lineage_policy": "replace_only_if_child_beats_parent_or_opens_qualified_niche"
+  },
+  "runtime_parent": {
+    "grid_id": "slip_lcd_seed_constrained_011",
+    "archive_niche": "1,1,2,4,4,4,1",
+    "archive_fitness": 0.968623,
+    "selection_score": 0.955499,
+    "components": {
+      "survival_ratio": 1.0,
+      "need_balance": 0.802552,
+      "bond": 1.0,
+      "mutation_stability": 0.9775,
+      "archive_niche_rarity": 1.0,
+      "readability": 0.878639,
+      "slip_alignment": 1.0
+    },
+    "runtime_episode": {
+      "policy": "switchboard",
+      "ticks_requested": 24,
+      "survival_ticks": 24,
+      "survival_ratio": 1.0,
+      "alive": true,
+      "death_cause": null,
+      "need_balance": 0.802552,
+      "recovery_events": 4,
+      "action_counts": {
+        "feed": 4,
+        "play": 16,
+        "sleep": 4,
+        "idle": 0,
+        "mutate": 0
+      },
+      "final_state": {
+        "hunger": 0.6888,
+        "energy": 0.288,
+        "stress": 0.0,
+        "bond": 1.0,
+        "grid_stability": 0.976
+      }
+    },
+    "lineage": {
+      "generation": 1,
+      "ancestor_ids": [
+        "mg_seed_016"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned"
+      ]
+    }
+  },
+  "mutation_preview": {
+    "profile_id": "slip_lcd_seed",
+    "grid_id": "slip_lcd_seed_constrained_011",
+    "preview_model": "deterministic_cap_projection_no_mutation_applied",
+    "body_mass": 8,
+    "mutable_cell_count": 11,
+    "organ_cell_count": 3,
+    "budgets": {
+      "cell_mutation_budget": 2,
+      "cell_mutation_budget_cap": 2,
+      "organ_shift_budget": 1,
+      "organ_shift_budget_cap": 1,
+      "symmetry_break_budget": 1,
+      "symmetry_break_budget_cap": 1
+    },
+    "caps": {
+      "cell_mutation_rate_max": 0.15,
+      "organ_shift_rate_max": 0.05,
+      "palette_shift_rate_max": 0.05,
+      "symmetry_break_rate_max": 0.05
+    },
+    "cell_mutation_candidates": [
+      {
+        "coordinate": [
+          3,
+          2
+        ],
+        "organ": "core",
+        "role": "body",
+        "mutation_weight": 0.1
+      },
+      {
+        "coordinate": [
+          4,
+          2
+        ],
+        "organ": "core",
+        "role": "body",
+        "mutation_weight": 0.1
+      }
+    ],
+    "organ_shift_candidates": [
+      {
+        "coordinate": [
+          3,
+          4
+        ],
+        "organ": "expression",
+        "role": "mouth",
+        "mutation_weight": 0.1
+      }
+    ],
+    "palette_shift": {
+      "allowed": false,
+      "current_palette": "lcd_green",
+      "allowed_palettes": [
+        "lcd_green"
+      ],
+      "reason": "single_allowed_palette_blocks_preview_shift"
+    },
+    "caps_respected": true,
+    "limitations": [
+      "Preview only: no grid cells are changed.",
+      "Preview only: does not prove offspring validity or archive impact."
+    ]
+  },
+  "offspring_candidate_count": 3,
+  "offspring_candidates": [
+    {
+      "grid_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
+      "parent_grid_id": "slip_lcd_seed_constrained_011",
+      "lineage": {
+        "generation": 2,
+        "ancestor_ids": [
+          "mg_seed_016",
+          "slip_lcd_seed_constrained_011"
+        ],
+        "mutation_events": [
+          "seed_parent_selected",
+          "validator_gated_resample",
+          "anchor_repositioned",
+          "offspring_stability_tune"
+        ]
+      },
+      "archive_niche": "1,1,2,4,4,4,1",
+      "parent_archive_niche": "1,1,2,4,4,4,1",
+      "opens_new_archive_niche": false,
+      "offspring_score": 0.916112,
+      "components": {
+        "survival_ratio": 1.0,
+        "need_balance": 0.802552,
+        "bond": 1.0,
+        "archive_fitness": 0.969186,
+        "parent_score_continuity": 1.0,
+        "qualified_novelty": 0.55,
+        "mutation_budget_compliance": 1.0,
+        "validity": 1.0,
+        "slip_alignment": 1.0,
+        "parent_archive_delta": 0.500563
+      },
+      "component_weights": {
+        "survival_ratio": 0.675,
+        "need_balance": 0.41,
+        "bond": 0.3,
+        "archive_fitness": 0.35,
+        "parent_score_continuity": 0.375,
+        "qualified_novelty": 0.3725,
+        "mutation_budget_compliance": 0.5,
+        "validity": 0.55,
+        "slip_alignment": 0.55,
+        "parent_archive_delta": 0.2
+      },
+      "runtime_episode": {
+        "policy": "switchboard",
+        "ticks_requested": 24,
+        "survival_ticks": 24,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.802552,
+        "recovery_events": 4,
+        "action_counts": {
+          "feed": 4,
+          "play": 16,
+          "sleep": 4,
+          "idle": 0,
+          "mutate": 0
+        },
+        "final_state": {
+          "hunger": 0.6888,
+          "energy": 0.288,
+          "stress": 0.0,
+          "bond": 1.0,
+          "grid_stability": 0.976
+        }
+      },
+      "descriptor_metrics": {
+        "body_mass": 8,
+        "sensor_count": 2,
+        "symmetry": 0.545455,
+        "readability": 0.878639,
+        "lifecycle_survival": 1.0,
+        "mutation_stability": 0.983125,
+        "behavior_neediness": 0.4
+      },
+      "extended_score": {
+        "fitness": 0.969186,
+        "components": {
+          "survival": 1.0,
+          "readability": 0.878639,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.983125,
+          "slip_alignment": 1.0
+        }
+      },
+      "mutation_delta": {
+        "cell_mutation_count": 1,
+        "organ_shift_count": 0,
+        "palette_shift_count": 0,
+        "symmetry_break_count": 0,
+        "changed_cells": [
+          [
+            2,
+            1
+          ]
+        ]
+      },
+      "cap_compliance": {
+        "checks": {
+          "cell_mutation_count_within_cap": true,
+          "organ_shift_count_within_cap": true,
+          "symmetry_break_count_within_cap": true,
+          "palette_shift_count_within_cap": true
+        },
+        "caps_respected": true
+      },
+      "validation": {
+        "ok": true,
+        "profile_id": "slip_lcd_seed",
+        "grid_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
+        "profile_validation": {
+          "ok": true,
+          "migration": {
+            "ok": true,
+            "source_version": "0.1.0",
+            "target_version": "0.1.0",
+            "action": "accept_current_no_migration",
+            "errors": []
+          },
+          "dependency_free": {
+            "source_path": null,
+            "ok": true,
+            "errors": [],
+            "error_families": []
+          },
+          "pydantic": {
+            "source_path": "authoring_draft",
+            "ok": true,
+            "profile_id": "slip_lcd_seed",
+            "errors": [],
+            "error_families": []
+          },
+          "errors": [],
+          "error_families": []
+        },
+        "grid_validation": {
+          "ok": true,
+          "errors": []
+        },
+        "alignment": {
+          "ok": true,
+          "errors": []
+        },
+        "preview_surfaces": [
+          "behavior_preview",
+          "mutation_preview"
+        ],
+        "errors": [],
+        "error_families": []
+      }
+    },
+    {
+      "grid_id": "slip_lcd_seed_constrained_011_offspring_expression_tune",
+      "parent_grid_id": "slip_lcd_seed_constrained_011",
+      "lineage": {
+        "generation": 2,
+        "ancestor_ids": [
+          "mg_seed_016",
+          "slip_lcd_seed_constrained_011"
+        ],
+        "mutation_events": [
+          "seed_parent_selected",
+          "validator_gated_resample",
+          "anchor_repositioned",
+          "offspring_expression_tune"
+        ]
+      },
+      "archive_niche": "1,1,2,4,4,4,1",
+      "parent_archive_niche": "1,1,2,4,4,4,1",
+      "opens_new_archive_niche": false,
+      "offspring_score": 0.91604,
+      "components": {
+        "survival_ratio": 1.0,
+        "need_balance": 0.802552,
+        "bond": 1.0,
+        "archive_fitness": 0.968623,
+        "parent_score_continuity": 1.0,
+        "qualified_novelty": 0.55,
+        "mutation_budget_compliance": 1.0,
+        "validity": 1.0,
+        "slip_alignment": 1.0,
+        "parent_archive_delta": 0.5
+      },
+      "component_weights": {
+        "survival_ratio": 0.675,
+        "need_balance": 0.41,
+        "bond": 0.3,
+        "archive_fitness": 0.35,
+        "parent_score_continuity": 0.375,
+        "qualified_novelty": 0.3725,
+        "mutation_budget_compliance": 0.5,
+        "validity": 0.55,
+        "slip_alignment": 0.55,
+        "parent_archive_delta": 0.2
+      },
+      "runtime_episode": {
+        "policy": "switchboard",
+        "ticks_requested": 24,
+        "survival_ticks": 24,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.802552,
+        "recovery_events": 4,
+        "action_counts": {
+          "feed": 4,
+          "play": 16,
+          "sleep": 4,
+          "idle": 0,
+          "mutate": 0
+        },
+        "final_state": {
+          "hunger": 0.6888,
+          "energy": 0.288,
+          "stress": 0.0,
+          "bond": 1.0,
+          "grid_stability": 0.976
+        }
+      },
+      "descriptor_metrics": {
+        "body_mass": 8,
+        "sensor_count": 2,
+        "symmetry": 0.545455,
+        "readability": 0.878639,
+        "lifecycle_survival": 1.0,
+        "mutation_stability": 0.9775,
+        "behavior_neediness": 0.4
+      },
+      "extended_score": {
+        "fitness": 0.968623,
+        "components": {
+          "survival": 1.0,
+          "readability": 0.878639,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "mutation_delta": {
+        "cell_mutation_count": 1,
+        "organ_shift_count": 0,
+        "palette_shift_count": 0,
+        "symmetry_break_count": 0,
+        "changed_cells": [
+          [
+            2,
+            1
+          ]
+        ]
+      },
+      "cap_compliance": {
+        "checks": {
+          "cell_mutation_count_within_cap": true,
+          "organ_shift_count_within_cap": true,
+          "symmetry_break_count_within_cap": true,
+          "palette_shift_count_within_cap": true
+        },
+        "caps_respected": true
+      },
+      "validation": {
+        "ok": true,
+        "profile_id": "slip_lcd_seed",
+        "grid_id": "slip_lcd_seed_constrained_011_offspring_expression_tune",
+        "profile_validation": {
+          "ok": true,
+          "migration": {
+            "ok": true,
+            "source_version": "0.1.0",
+            "target_version": "0.1.0",
+            "action": "accept_current_no_migration",
+            "errors": []
+          },
+          "dependency_free": {
+            "source_path": null,
+            "ok": true,
+            "errors": [],
+            "error_families": []
+          },
+          "pydantic": {
+            "source_path": "authoring_draft",
+            "ok": true,
+            "profile_id": "slip_lcd_seed",
+            "errors": [],
+            "error_families": []
+          },
+          "errors": [],
+          "error_families": []
+        },
+        "grid_validation": {
+          "ok": true,
+          "errors": []
+        },
+        "alignment": {
+          "ok": true,
+          "errors": []
+        },
+        "preview_surfaces": [
+          "behavior_preview",
+          "mutation_preview"
+        ],
+        "errors": [],
+        "error_families": []
+      }
+    },
+    {
+      "grid_id": "slip_lcd_seed_constrained_011_offspring_core_growth",
+      "parent_grid_id": "slip_lcd_seed_constrained_011",
+      "lineage": {
+        "generation": 2,
+        "ancestor_ids": [
+          "mg_seed_016",
+          "slip_lcd_seed_constrained_011"
+        ],
+        "mutation_events": [
+          "seed_parent_selected",
+          "validator_gated_resample",
+          "anchor_repositioned",
+          "offspring_core_growth"
+        ]
+      },
+      "archive_niche": "1,1,1,4,4,4,1",
+      "parent_archive_niche": "1,1,2,4,4,4,1",
+      "opens_new_archive_niche": false,
+      "offspring_score": 0.916032,
+      "components": {
+        "survival_ratio": 1.0,
+        "need_balance": 0.802552,
+        "bond": 1.0,
+        "archive_fitness": 0.968561,
+        "parent_score_continuity": 1.0,
+        "qualified_novelty": 0.55,
+        "mutation_budget_compliance": 1.0,
+        "validity": 1.0,
+        "slip_alignment": 1.0,
+        "parent_archive_delta": 0.499938
+      },
+      "component_weights": {
+        "survival_ratio": 0.675,
+        "need_balance": 0.41,
+        "bond": 0.3,
+        "archive_fitness": 0.35,
+        "parent_score_continuity": 0.375,
+        "qualified_novelty": 0.3725,
+        "mutation_budget_compliance": 0.5,
+        "validity": 0.55,
+        "slip_alignment": 0.55,
+        "parent_archive_delta": 0.2
+      },
+      "runtime_episode": {
+        "policy": "switchboard",
+        "ticks_requested": 24,
+        "survival_ticks": 24,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.802552,
+        "recovery_events": 4,
+        "action_counts": {
+          "feed": 4,
+          "play": 16,
+          "sleep": 4,
+          "idle": 0,
+          "mutate": 0
+        },
+        "final_state": {
+          "hunger": 0.6888,
+          "energy": 0.288,
+          "stress": 0.0,
+          "bond": 1.0,
+          "grid_stability": 0.976
+        }
+      },
+      "descriptor_metrics": {
+        "body_mass": 9,
+        "sensor_count": 2,
+        "symmetry": 0.5,
+        "readability": 0.877441,
+        "lifecycle_survival": 1.0,
+        "mutation_stability": 0.97975,
+        "behavior_neediness": 0.4
+      },
+      "extended_score": {
+        "fitness": 0.968561,
+        "components": {
+          "survival": 1.0,
+          "readability": 0.877441,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.97975,
+          "slip_alignment": 1.0
+        }
+      },
+      "mutation_delta": {
+        "cell_mutation_count": 1,
+        "organ_shift_count": 0,
+        "palette_shift_count": 0,
+        "symmetry_break_count": 1,
+        "changed_cells": [
+          [
+            2,
+            6
+          ]
+        ]
+      },
+      "cap_compliance": {
+        "checks": {
+          "cell_mutation_count_within_cap": true,
+          "organ_shift_count_within_cap": true,
+          "symmetry_break_count_within_cap": true,
+          "palette_shift_count_within_cap": true
+        },
+        "caps_respected": true
+      },
+      "validation": {
+        "ok": true,
+        "profile_id": "slip_lcd_seed",
+        "grid_id": "slip_lcd_seed_constrained_011_offspring_core_growth",
+        "profile_validation": {
+          "ok": true,
+          "migration": {
+            "ok": true,
+            "source_version": "0.1.0",
+            "target_version": "0.1.0",
+            "action": "accept_current_no_migration",
+            "errors": []
+          },
+          "dependency_free": {
+            "source_path": null,
+            "ok": true,
+            "errors": [],
+            "error_families": []
+          },
+          "pydantic": {
+            "source_path": "authoring_draft",
+            "ok": true,
+            "profile_id": "slip_lcd_seed",
+            "errors": [],
+            "error_families": []
+          },
+          "errors": [],
+          "error_families": []
+        },
+        "grid_validation": {
+          "ok": true,
+          "errors": []
+        },
+        "alignment": {
+          "ok": true,
+          "errors": []
+        },
+        "preview_surfaces": [
+          "behavior_preview",
+          "mutation_preview"
+        ],
+        "errors": [],
+        "error_families": []
+      }
+    }
+  ],
+  "selected_offspring": {
+    "grid_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
+    "parent_grid_id": "slip_lcd_seed_constrained_011",
+    "lineage": {
+      "generation": 2,
+      "ancestor_ids": [
+        "mg_seed_016",
+        "slip_lcd_seed_constrained_011"
+      ],
+      "mutation_events": [
+        "seed_parent_selected",
+        "validator_gated_resample",
+        "anchor_repositioned",
+        "offspring_stability_tune"
+      ]
+    },
+    "archive_niche": "1,1,2,4,4,4,1",
+    "parent_archive_niche": "1,1,2,4,4,4,1",
+    "opens_new_archive_niche": false,
+    "offspring_score": 0.916112,
+    "components": {
+      "survival_ratio": 1.0,
+      "need_balance": 0.802552,
+      "bond": 1.0,
+      "archive_fitness": 0.969186,
+      "parent_score_continuity": 1.0,
+      "qualified_novelty": 0.55,
+      "mutation_budget_compliance": 1.0,
+      "validity": 1.0,
+      "slip_alignment": 1.0,
+      "parent_archive_delta": 0.500563
+    },
+    "component_weights": {
+      "survival_ratio": 0.675,
+      "need_balance": 0.41,
+      "bond": 0.3,
+      "archive_fitness": 0.35,
+      "parent_score_continuity": 0.375,
+      "qualified_novelty": 0.3725,
+      "mutation_budget_compliance": 0.5,
+      "validity": 0.55,
+      "slip_alignment": 0.55,
+      "parent_archive_delta": 0.2
+    },
+    "runtime_episode": {
+      "policy": "switchboard",
+      "ticks_requested": 24,
+      "survival_ticks": 24,
+      "survival_ratio": 1.0,
+      "alive": true,
+      "death_cause": null,
+      "need_balance": 0.802552,
+      "recovery_events": 4,
+      "action_counts": {
+        "feed": 4,
+        "play": 16,
+        "sleep": 4,
+        "idle": 0,
+        "mutate": 0
+      },
+      "final_state": {
+        "hunger": 0.6888,
+        "energy": 0.288,
+        "stress": 0.0,
+        "bond": 1.0,
+        "grid_stability": 0.976
+      }
+    },
+    "descriptor_metrics": {
+      "body_mass": 8,
+      "sensor_count": 2,
+      "symmetry": 0.545455,
+      "readability": 0.878639,
+      "lifecycle_survival": 1.0,
+      "mutation_stability": 0.983125,
+      "behavior_neediness": 0.4
+    },
+    "extended_score": {
+      "fitness": 0.969186,
+      "components": {
+        "survival": 1.0,
+        "readability": 0.878639,
+        "validity": 1.0,
+        "bond": 1.0,
+        "mutation_stability": 0.983125,
+        "slip_alignment": 1.0
+      }
+    },
+    "mutation_delta": {
+      "cell_mutation_count": 1,
+      "organ_shift_count": 0,
+      "palette_shift_count": 0,
+      "symmetry_break_count": 0,
+      "changed_cells": [
+        [
+          2,
+          1
+        ]
+      ]
+    },
+    "cap_compliance": {
+      "checks": {
+        "cell_mutation_count_within_cap": true,
+        "organ_shift_count_within_cap": true,
+        "symmetry_break_count_within_cap": true,
+        "palette_shift_count_within_cap": true
+      },
+      "caps_respected": true
+    },
+    "validation": {
+      "ok": true,
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
+      "profile_validation": {
+        "ok": true,
+        "migration": {
+          "ok": true,
+          "source_version": "0.1.0",
+          "target_version": "0.1.0",
+          "action": "accept_current_no_migration",
+          "errors": []
+        },
+        "dependency_free": {
+          "source_path": null,
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "pydantic": {
+          "source_path": "authoring_draft",
+          "ok": true,
+          "profile_id": "slip_lcd_seed",
+          "errors": [],
+          "error_families": []
+        },
+        "errors": [],
+        "error_families": []
+      },
+      "grid_validation": {
+        "ok": true,
+        "errors": []
+      },
+      "alignment": {
+        "ok": true,
+        "errors": []
+      },
+      "preview_surfaces": [
+        "behavior_preview",
+        "mutation_preview"
+      ],
+      "errors": [],
+      "error_families": []
+    }
+  },
+  "mutation_gate": {
+    "profile_id": "slip_lcd_seed",
+    "parent_grid_id": "slip_lcd_seed_constrained_011",
+    "candidate_count": 3,
+    "budgets": {
+      "cell_mutation_budget": 2,
+      "cell_mutation_budget_cap": 2,
+      "organ_shift_budget": 1,
+      "organ_shift_budget_cap": 1,
+      "symmetry_break_budget": 1,
+      "symmetry_break_budget_cap": 1
+    },
+    "caps": {
+      "cell_mutation_rate_max": 0.15,
+      "organ_shift_rate_max": 0.05,
+      "palette_shift_rate_max": 0.05,
+      "symmetry_break_rate_max": 0.05
+    },
+    "caps_respected": true,
+    "selected_offspring_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
+    "selected_offspring_valid": true,
+    "selected_offspring_aligned": true,
+    "selection_rule": "rank by bounded offspring score over survival, need balance, bond, archive fitness, novelty, parent continuity, cap compliance, validity, and SLIP alignment"
+  },
+  "lineage_decision": {
+    "action": "hold_parent",
+    "reason": "parent remains elite until child beats replacement threshold",
+    "parent_grid_id": "slip_lcd_seed_constrained_011",
+    "offspring_grid_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
+    "parent_archive_niche": "1,1,2,4,4,4,1",
+    "offspring_archive_niche": "1,1,2,4,4,4,1",
+    "parent_selection_score": 0.955499,
+    "offspring_score": 0.916112,
+    "score_delta": -0.039387,
+    "qualified_for_lineage": true,
+    "replacement_threshold": 0.005,
+    "existing_archive_niche_count": 7
+  },
+  "closed_policy_boundary": "Stage 0 selects bounded offspring and emits a lineage decision; it still does not run persistent multigeneration evolution."
+}

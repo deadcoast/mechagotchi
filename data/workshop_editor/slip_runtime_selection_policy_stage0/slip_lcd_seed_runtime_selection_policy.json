@@ -745,5 +745,5 @@
       }
     ]
   },
-  "closed_policy_boundary": "runtime lifecycle metrics and archive elite selection are connected for Stage 0; offspring mutation and lineage replacement are not run"
+  "closed_policy_boundary": "runtime lifecycle metrics and archive elite selection are connected for Stage 0; bounded offspring and lineage decisions are recorded by the separate slip_offspring_lineage_gate lab"
 }
