@@ -1,0 +1,244 @@
+{
+  "artifact_id": "mecha_engine_test_fixture_manifest_stage0",
+  "date": "2026-05-12",
+  "status": "research_fixture_manifest_no_package_code",
+  "target_package_root": "packages/mecha_engine",
+  "package_root_exists_at_manifest_authoring": false,
+  "purpose": "Inventory concrete repository fixtures for future mecha_engine package tests without creating package code or package tests.",
+  "source_artifacts": [
+    "research/package_specs/mecha_engine_test_fixture_manifest.md",
+    "research/package_specs/mecha_engine_contract_traceability_matrix.md",
+    "data/architecture/mecha_engine_contract_traceability_matrix_stage0.json",
+    "data/lifecycle/lifecycle_stage0.json",
+    "data/archives/map_elites_stage0.json",
+    "data/archives/map_elites_extended_stage0.json",
+    "data/asset_provenance/provenance_ci_report.json",
+    "data/readability/manual_rating_recheck_stage0.json",
+    "data/readability/manual_rating_collection_gate_stage0.json",
+    "data/package_promotion/mecha_engine_package_promotion_gate_stage0.json"
+  ],
+  "fixture_groups": [
+    {
+      "fixture_id": "seed_grid_corpus",
+      "path": "data/seed_grids/*.json",
+      "exists": true,
+      "file_count": 50,
+      "package_surface": "mecha_engine.genome",
+      "role": "positive_validation_corpus",
+      "required_for_package_tests": true
+    },
+    {
+      "fixture_id": "invalid_grid_corpus",
+      "path": "data/invalid_grids/*.json",
+      "exists": true,
+      "file_count": 200,
+      "package_surface": "mecha_engine.genome",
+      "role": "negative_validation_corpus",
+      "required_for_package_tests": true
+    },
+    {
+      "fixture_id": "random_mutation_baseline",
+      "path": "data/generated_grids/random_mutation_baseline/*.json",
+      "exists": true,
+      "file_count": 100,
+      "package_surface": "mecha_engine.generation",
+      "role": "generator_comparator",
+      "valid_count": 42,
+      "invalid_count": 58,
+      "validity_rate": 0.42,
+      "required_for_package_tests": true
+    },
+    {
+      "fixture_id": "raw_markov_local",
+      "path": "data/generated_grids/markov_local/*.json",
+      "exists": true,
+      "file_count": 100,
+      "package_surface": "mecha_engine.generation",
+      "role": "proposal_source_comparator",
+      "valid_count": 13,
+      "invalid_count": 87,
+      "validity_rate": 0.13,
+      "required_for_package_tests": true
+    },
+    {
+      "fixture_id": "constrained_wfc_style",
+      "path": "data/generated_grids/constrained_wfc_style/*.json",
+      "exists": true,
+      "file_count": 100,
+      "package_surface": "mecha_engine.generation",
+      "role": "constrained_generator_acceptance_target",
+      "valid_count": 100,
+      "invalid_count": 0,
+      "validity_rate": 1.0,
+      "required_for_package_tests": true
+    },
+    {
+      "fixture_id": "slip_lcd_seed_constrained",
+      "path": "data/generated_grids/slip_lcd_seed_constrained/*.json",
+      "exists": true,
+      "file_count": 50,
+      "package_surface": "mecha_engine.generation",
+      "role": "slip_generation_acceptance_target",
+      "valid_count": 50,
+      "aligned_count": 50,
+      "invalid_count": 0,
+      "required_for_package_tests": true
+    },
+    {
+      "fixture_id": "lineage_constrained",
+      "path": "data/generated_grids/lineage_constrained/*.json",
+      "exists": true,
+      "file_count": 200,
+      "package_surface": "mecha_engine.archive",
+      "role": "archive_candidate_pool",
+      "required_for_package_tests": true
+    },
+    {
+      "fixture_id": "valid_slip_profiles",
+      "path": "data/slips/valid/*.json",
+      "exists": true,
+      "file_count": 3,
+      "package_surface": "mecha_engine.generation",
+      "role": "positive_profile_validation",
+      "files": [
+        "slip_amber_social.json",
+        "slip_gray_stable.json",
+        "slip_lcd_seed.json"
+      ],
+      "required_for_package_tests": true
+    },
+    {
+      "fixture_id": "invalid_slip_profiles",
+      "path": "data/slips/invalid/*.json",
+      "exists": true,
+      "file_count": 2,
+      "package_surface": "mecha_engine.generation",
+      "role": "negative_profile_validation",
+      "files": [
+        "slip_invalid_bad_weight.json",
+        "slip_invalid_palette.json"
+      ],
+      "required_for_package_tests": true
+    },
+    {
+      "fixture_id": "lifecycle_stage0",
+      "path": "data/lifecycle/lifecycle_stage0.json",
+      "exists": true,
+      "package_surface": "mecha_engine.lifecycle",
+      "role": "policy_comparator",
+      "switchboard_survival_ticks": 72,
+      "switchboard_need_balance": 0.789129,
+      "idle_survival_ticks": 11,
+      "idle_need_balance": 0.121004,
+      "random_survival_ticks": 21,
+      "random_need_balance": 0.236001,
+      "required_for_package_tests": true
+    },
+    {
+      "fixture_id": "archive_stage0",
+      "path": "data/archives/map_elites_stage0.json",
+      "exists": true,
+      "package_surface": "mecha_engine.archive",
+      "role": "baseline_3d_archive",
+      "occupied_niches": 24,
+      "scalar_top_occupied_niches": 7,
+      "best_fitness": 0.898214,
+      "required_for_package_tests": true
+    },
+    {
+      "fixture_id": "archive_extended_stage0",
+      "path": "data/archives/map_elites_extended_stage0.json",
+      "exists": true,
+      "package_surface": "mecha_engine.archive",
+      "role": "extended_descriptor_archive",
+      "occupied_niches": 29,
+      "best_fitness": 0.979592,
+      "qd_score": 27.773545,
+      "required_for_package_tests": true
+    },
+    {
+      "fixture_id": "provenance_ci_report",
+      "path": "data/asset_provenance/provenance_ci_report.json",
+      "exists": true,
+      "package_surface": "mecha_engine.provenance",
+      "role": "provenance_ci_acceptance",
+      "ok": true,
+      "asset_count": 7,
+      "included_count": 3,
+      "reference_only_count": 4,
+      "attribution_required_count": 3,
+      "spdx_expression_count": 7,
+      "parsed_expression_count": 7,
+      "required_for_package_tests": true
+    },
+    {
+      "fixture_id": "manual_rating_template",
+      "path": "data/readability/manual_rating_template.csv",
+      "exists": true,
+      "line_count_including_header": 31,
+      "package_surface": "future_evaluation",
+      "role": "reviewer_packet_template",
+      "required_for_package_tests": false
+    },
+    {
+      "fixture_id": "manual_rating_results",
+      "path": "data/readability/manual_ratings.csv",
+      "exists": false,
+      "package_surface": "future_evaluation",
+      "role": "human_calibration_results",
+      "ratings_collected": false,
+      "blocking_status": "blocked_human_ratings_absent",
+      "required_for_package_tests": false
+    },
+    {
+      "fixture_id": "package_promotion_gate",
+      "path": "data/package_promotion/mecha_engine_package_promotion_gate_stage0.json",
+      "exists": true,
+      "package_surface": "package_promotion",
+      "role": "promotion_gate_fixture",
+      "package_design_ready_count": 3,
+      "promotion_ready_count": 0,
+      "blocked_count": 1,
+      "hold_research_only_count": 2,
+      "required_for_package_tests": true
+    }
+  ],
+  "known_fixture_gaps": [
+    {
+      "gap_id": "package_root_absent",
+      "path": "packages/mecha_engine",
+      "exists": false,
+      "effect": "Package tests cannot exist until implementation is explicitly started."
+    },
+    {
+      "gap_id": "manual_human_ratings_absent",
+      "path": "data/readability/manual_ratings.csv",
+      "exists": false,
+      "effect": "Human-calibrated readability and final archive descriptor thresholds remain blocked."
+    },
+    {
+      "gap_id": "real_cubff_snapshots_absent",
+      "path": "data/cubff_real_ingest",
+      "exists": true,
+      "effect": "CuBFF adoption remains blocked because official or local real snapshot artifacts were not available."
+    },
+    {
+      "gap_id": "release_license_metadata_absent",
+      "path": "packages/mecha_engine/pyproject.toml",
+      "exists": false,
+      "effect": "Package license metadata remains deferred until package creation and explicit license decision."
+    }
+  ],
+  "verification_commands": [
+    "Get-ChildItem .\\data\\seed_grids -Filter *.json | Measure-Object",
+    "Get-ChildItem .\\data\\invalid_grids -Filter *.json | Measure-Object",
+    "Get-ChildItem .\\data\\generated_grids -Directory",
+    "Get-ChildItem .\\data\\slips\\valid -Filter *.json",
+    "Get-ChildItem .\\data\\slips\\invalid -Filter *.json",
+    "Test-Path .\\data\\readability\\manual_ratings.csv",
+    "Test-Path .\\packages",
+    "python -m json.tool .\\data\\architecture\\mecha_engine_test_fixture_manifest_stage0.json",
+    "git diff --check"
+  ],
+  "next_research_step": "Use this fixture manifest when converting the traceability matrix into package tests after package implementation is explicitly started."
+}

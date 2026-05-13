@@ -1,0 +1,247 @@
+{
+  "lab_id": "ctm_inspired_ticks_stage0",
+  "date": "2026-05-12",
+  "max_ticks": 4,
+  "confidence_threshold": 0.72,
+  "source_mode": "ctm_inspired_lightweight_internal_ticks",
+  "source_note": "This lab does not implement CTM. It adapts the useful CTM idea of an internal temporal axis into confidence-gated switchboard ticks and measures whether extra ticks improve decisions.",
+  "summary": {
+    "scenario_count": 4,
+    "baseline_accuracy": 1.0,
+    "deliberative_accuracy": 1.0,
+    "mean_baseline_confidence": 0.805435,
+    "mean_deliberative_confidence": 0.824067,
+    "mean_confidence_gain": 0.018632,
+    "mean_tick_count": 1.75,
+    "extra_tick_case_count": 1,
+    "decision_change_count": 0
+  },
+  "evaluations": [
+    {
+      "scenario": "ambiguous_attention",
+      "expected_action": "play",
+      "baseline_action": "play",
+      "deliberative_action": "play",
+      "baseline_correct": true,
+      "deliberative_correct": true,
+      "baseline_confidence": 0.620711,
+      "deliberative_confidence": 0.695238,
+      "confidence_gain": 0.074527,
+      "tick_count": 4,
+      "trace": [
+        {
+          "tick": 1,
+          "mode": "single_pass_switchboard",
+          "action": "play",
+          "confidence": 0.620711,
+          "sync_margin": 0.120711,
+          "utilities": {
+            "feed": 0.0,
+            "idle": 0.204865,
+            "mutate": -0.03888,
+            "play": 0.325576,
+            "sleep": 0.0025
+          },
+          "state_pressure": {
+            "feed": 0.0,
+            "play": 0.0,
+            "sleep": 0.0,
+            "idle": 0.0,
+            "mutate": 0.0
+          }
+        },
+        {
+          "tick": 2,
+          "mode": "confidence_gated_internal_tick",
+          "action": "play",
+          "confidence": 0.655108,
+          "sync_margin": 0.155108,
+          "utilities": {
+            "feed": 0.03509,
+            "idle": 0.22847,
+            "mutate": -0.03294,
+            "play": 0.383578,
+            "sleep": 0.03759
+          },
+          "state_pressure": {
+            "feed": 0.1276,
+            "sleep": 0.1276,
+            "play": 0.210915,
+            "idle": 0.085835,
+            "mutate": 0.0216
+          }
+        },
+        {
+          "tick": 3,
+          "mode": "confidence_gated_internal_tick",
+          "action": "play",
+          "confidence": 0.678039,
+          "sync_margin": 0.178039,
+          "utilities": {
+            "feed": 0.058483,
+            "idle": 0.244206,
+            "mutate": -0.02898,
+            "play": 0.422245,
+            "sleep": 0.060983
+          },
+          "state_pressure": {
+            "feed": 0.1276,
+            "sleep": 0.1276,
+            "play": 0.210915,
+            "idle": 0.085835,
+            "mutate": 0.0216
+          }
+        },
+        {
+          "tick": 4,
+          "mode": "confidence_gated_internal_tick",
+          "action": "play",
+          "confidence": 0.695238,
+          "sync_margin": 0.195238,
+          "utilities": {
+            "feed": 0.076028,
+            "idle": 0.256008,
+            "mutate": -0.02601,
+            "play": 0.451246,
+            "sleep": 0.078528
+          },
+          "state_pressure": {
+            "feed": 0.1276,
+            "sleep": 0.1276,
+            "play": 0.210915,
+            "idle": 0.085835,
+            "mutate": 0.0216
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "low_energy",
+      "expected_action": "sleep",
+      "baseline_action": "sleep",
+      "deliberative_action": "sleep",
+      "baseline_correct": true,
+      "deliberative_correct": true,
+      "baseline_confidence": 0.816769,
+      "deliberative_confidence": 0.816769,
+      "confidence_gain": 0.0,
+      "tick_count": 1,
+      "trace": [
+        {
+          "tick": 1,
+          "mode": "single_pass_switchboard",
+          "action": "sleep",
+          "confidence": 0.816769,
+          "sync_margin": 0.316769,
+          "utilities": {
+            "feed": -0.025,
+            "idle": 0.221981,
+            "mutate": -0.15795,
+            "play": -0.228469,
+            "sleep": 0.53875
+          },
+          "state_pressure": {
+            "feed": 0.0,
+            "play": 0.0,
+            "sleep": 0.0,
+            "idle": 0.0,
+            "mutate": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "hungry_uncertain_rewards",
+      "expected_action": "feed",
+      "baseline_action": "feed",
+      "deliberative_action": "feed",
+      "baseline_correct": true,
+      "deliberative_correct": true,
+      "baseline_confidence": 0.78426,
+      "deliberative_confidence": 0.78426,
+      "confidence_gain": 0.0,
+      "tick_count": 1,
+      "trace": [
+        {
+          "tick": 1,
+          "mode": "single_pass_switchboard",
+          "action": "feed",
+          "confidence": 0.78426,
+          "sync_margin": 0.28426,
+          "utilities": {
+            "feed": 0.43,
+            "idle": 0.14574,
+            "mutate": 0.07584,
+            "play": 0.048717,
+            "sleep": -0.0025
+          },
+          "state_pressure": {
+            "feed": 0.0,
+            "play": 0.0,
+            "sleep": 0.0,
+            "idle": 0.0,
+            "mutate": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "stress_recovery",
+      "expected_action": "idle",
+      "baseline_action": "idle",
+      "deliberative_action": "idle",
+      "baseline_correct": true,
+      "deliberative_correct": true,
+      "baseline_confidence": 1.0,
+      "deliberative_confidence": 1.0,
+      "confidence_gain": 0.0,
+      "tick_count": 1,
+      "trace": [
+        {
+          "tick": 1,
+          "mode": "single_pass_switchboard",
+          "action": "idle",
+          "confidence": 1.0,
+          "sync_margin": 0.52494,
+          "utilities": {
+            "feed": 0.0,
+            "idle": 0.579315,
+            "mutate": -0.51382,
+            "play": 0.054375,
+            "sleep": 0.0025
+          },
+          "state_pressure": {
+            "feed": 0.0,
+            "play": 0.0,
+            "sleep": 0.0,
+            "idle": 0.0,
+            "mutate": 0.0
+          }
+        }
+      ]
+    }
+  ],
+  "decision": {
+    "status": "prototype",
+    "adoption": "concept_only_no_ctm_dependency",
+    "reason": "Confidence-gated ticks improved decision confidence without reducing scenario accuracy, so the idea is useful as a small switchboard mechanism."
+  },
+  "limitations": [
+    "No neural CTM architecture or synchronization training is used.",
+    "State pressure is hand-authored and deterministic.",
+    "The scenario set is small and synthetic.",
+    "No user-facing latency or animation readability test is included."
+  ],
+  "source_refs": [
+    {
+      "name": "Continuous Thought Machines",
+      "url": "https://pub.sakana.ai/ctm/",
+      "use": "Internal temporal axis, neuron synchronization, and observable reasoning-over-time framing."
+    },
+    {
+      "name": "SakanaAI continuous-thought-machines",
+      "url": "https://github.com/SakanaAI/continuous-thought-machines",
+      "use": "Reference implementation and Apache-2.0 license check; no code is reused."
+    }
+  ]
+}

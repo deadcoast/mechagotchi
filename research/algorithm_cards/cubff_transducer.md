@@ -56,8 +56,8 @@ any code reuse.
 
 Sources:
 
-- https://arxiv.org/abs/2406.19108
-- https://github.com/paradigms-of-intelligence/cubff
+- [Computational-Life-arXiv](https://arxiv.org/abs/2406.19108)
+- [cubff-github](https://github.com/paradigms-of-intelligence/cubff)
 
 ## Prototype Result
 
@@ -79,6 +79,17 @@ Measured result:
 
 Caveat: this was a synthetic CUBFF-style snapshot lab, not a CUDA CuBFF
 simulation run.
+
+Real snapshot ingest follow-up completed on 2026-05-12:
+
+- `labs/cubff_transducer/real_snapshot_ingest.py`
+- `data/cubff_real_ingest/real_snapshot_ingest_stage0_report.json`
+- `research/experiment_reports/2026-05-12-cubff-real-snapshot-ingest.md`
+
+Result: the official upstream tree at
+`f212e849027c98fcf4b242eccfb5fed435223e23` contains metrics logs and
+checkpoint-writing code, but no committed soup/checkpoint snapshot artifacts.
+Local real snapshot ingestion remains at 0 records.
 
 ## Decision
 

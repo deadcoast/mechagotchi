@@ -73,10 +73,47 @@ Implemented micro-learners:
 - reward-average action preference bandit
 - mutation risk scorer
 
+Lifecycle feedback follow-up completed on 2026-05-12.
+
+Artifacts:
+
+- `labs/grid_genome/switchboard_feedback.py`
+- `labs/grid_genome/test_switchboard_feedback.py`
+- `data/micro_learners/switchboard_lifecycle_feedback_stage0.json`
+- `research/experiment_reports/2026-05-12-switchboard-lifecycle-feedback.md`
+- `research/source_notes/2026-05-12-switchboard-feedback-source-review.md`
+
+Measured feedback result:
+
+- Feedback survival ticks: 48
+- Frozen baseline survival ticks: 48
+- Feedback need balance: 0.767384
+- Frozen baseline need balance: 0.767384
+- Feedback reward updates: 48
+- Frozen reward updates: 0
+- Need balance delta: 0.0
+
+Dynamic stress follow-up completed on 2026-05-12.
+
+Artifacts:
+
+- `data/micro_learners/switchboard_feedback_dynamic_stress_stage0.json`
+- `research/experiment_reports/2026-05-12-switchboard-feedback-dynamic-stress.md`
+
+Measured dynamic stress result:
+
+- Scenario count: 3
+- Dynamic events: 6
+- Feedback better need-balance count: 0
+- Feedback worse need-balance count: 1
+- Mean need-balance delta: -0.002226
+
 ## Decision
 
-Keep as active prototype. Do not introduce a broad ML model. Next step is to
-connect switchboard actions to lifecycle rewards and survival metrics.
+Keep as active prototype. Do not introduce a broad ML model. The lifecycle
+feedback loop is now explicit and measured, but reward shaping must beat the
+frozen baseline under dynamic stress before any online learner is promoted into
+packages.
 
 ## Go/No-Go Gate
 

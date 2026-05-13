@@ -8,7 +8,6 @@ Minimal semantic editor artifacts for testing Mechagotchi grid authoring.
 - Export SLIP aligned: True
 - Decision: prototype
 
-
 ## Round Trip
 
 - Round-trip success: 1

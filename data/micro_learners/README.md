@@ -1,17 +1,29 @@
-# Micro-Learner Data
+# Micro-Learners Research Artifacts
 
-This directory contains Stage 5 micro-learning switchboard artifacts.
+Stage 0 artifacts for the interpretable micro-learning switchboard and
+lifecycle-reward feedback loop.
 
-Current artifact:
+Files:
 
-- `switchboard_stage0.json`: three scenario decisions with per-thread inputs,
-  outputs, confidence, explanations, and action effects.
+- `switchboard_stage0.json`
+- `switchboard_lifecycle_feedback_stage0.json`
+- `switchboard_feedback_dynamic_stress_stage0.json`
+- `switchboard_feedback_dynamic_stress_README.md`
 
-The first switchboard includes:
+Switchboard feedback key results:
 
-- recent interaction EWMA
-- rule-based hidden mood estimator
-- reward-average action preference bandit
-- mutation risk scorer
+- Ticks requested: 48
+- Feedback need balance: 0.767384
+- Frozen need balance: 0.767384
+- Feedback reward updates: 48
+- Frozen reward updates: 0
+- Decision: prototype
 
-This is an interpretable baseline, not a broad companion brain.
+Dynamic stress key results:
+
+- Scenario count: 3
+- Dynamic events: 6
+- Mean need-balance delta: -0.002226
+- Feedback better need-balance count: 0
+- Feedback worse need-balance count: 1
+- Decision: watch_reward_shaping

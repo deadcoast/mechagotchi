@@ -3,6 +3,7 @@
 Machine-readable provenance ledger for current Mechagotchi research artifacts.
 
 - Validation ok: True
+- CI report ok: True
 - Asset count: 7
 - Included count: 3
 - Reference-only count: 4

@@ -17,11 +17,12 @@
       "download_date": "2026-05-12",
       "license": "Mechagotchi internal research asset",
       "spdx_id": "LicenseRef-Mechagotchi-Internal-Research",
+      "spdx_expression": "LicenseRef-Mechagotchi-Internal-Research",
       "license_url": "",
       "derivative_of": "",
       "modifications": "created for Mechagotchi research",
       "hash_algorithm": "sha256-tree",
-      "hash": "d6cf9eedb0de1b8848a7f605d98e2046ef8be2f58498b6d28f1daec4173e3cb7",
+      "hash": "65ba59241d5c23ee143a2c91727c6a13a5a89093de8da75e54bd994cc2a8d5f3",
       "included_in_repo": true,
       "included_path": "data/seed_grids",
       "shipping_scope": "research",
@@ -32,6 +33,7 @@
       "attribution_text": "",
       "review_status": "approved",
       "reviewer": "research_lead",
+      "decision_record": "",
       "notes": "Hand-authored internal semantic grid corpus."
     },
     {
@@ -44,6 +46,7 @@
       "download_date": "2026-05-12",
       "license": "Mechagotchi internal research asset",
       "spdx_id": "LicenseRef-Mechagotchi-Internal-Research",
+      "spdx_expression": "LicenseRef-Mechagotchi-Internal-Research",
       "license_url": "",
       "derivative_of": "",
       "modifications": "created for Mechagotchi research",
@@ -59,6 +62,7 @@
       "attribution_text": "",
       "review_status": "approved",
       "reviewer": "research_lead",
+      "decision_record": "",
       "notes": "Synthetic research data; not real CuBFF output."
     },
     {
@@ -71,6 +75,7 @@
       "download_date": "2026-05-12",
       "license": "Mechagotchi internal research asset",
       "spdx_id": "LicenseRef-Mechagotchi-Internal-Research",
+      "spdx_expression": "LicenseRef-Mechagotchi-Internal-Research",
       "license_url": "",
       "derivative_of": "",
       "modifications": "created for Mechagotchi research",
@@ -86,6 +91,7 @@
       "attribution_text": "",
       "review_status": "approved",
       "reviewer": "research_lead",
+      "decision_record": "",
       "notes": "Internally generated workshop export sample."
     },
     {
@@ -98,6 +104,7 @@
       "download_date": "2026-05-12",
       "license": "Apache License 2.0",
       "spdx_id": "Apache-2.0",
+      "spdx_expression": "Apache-2.0",
       "license_url": "https://www.apache.org/licenses/LICENSE-2.0",
       "derivative_of": "",
       "modifications": "none; reference only",
@@ -113,6 +120,7 @@
       "attribution_text": "Piskel by Piskel contributors, licensed under Apache License 2.0. Source: https://github.com/piskelapp/piskel",
       "review_status": "reference_only",
       "reviewer": "research_lead",
+      "decision_record": "",
       "notes": "Web sprite editor reference. No code or assets embedded."
     },
     {
@@ -125,6 +133,7 @@
       "download_date": "2026-05-12",
       "license": "MIT License",
       "spdx_id": "MIT",
+      "spdx_expression": "MIT",
       "license_url": "https://opensource.org/license/mit",
       "derivative_of": "",
       "modifications": "none; reference only",
@@ -140,6 +149,7 @@
       "attribution_text": "Pixelorama by Orama Interactive contributors, licensed under MIT License. Source: https://github.com/Orama-Interactive/Pixelorama",
       "review_status": "reference_only",
       "reviewer": "research_lead",
+      "decision_record": "",
       "notes": "Metadata and export workflow reference. No code or assets embedded."
     },
     {
@@ -152,6 +162,7 @@
       "download_date": "2026-05-12",
       "license": "GNU General Public License v2.0 only",
       "spdx_id": "GPL-2.0-only",
+      "spdx_expression": "GPL-2.0-only",
       "license_url": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html",
       "derivative_of": "",
       "modifications": "none; reference only",
@@ -167,6 +178,7 @@
       "attribution_text": "LibreSprite by LibreSprite contributors, licensed under GNU General Public License v2.0 only. Source: https://github.com/LibreSprite/LibreSprite",
       "review_status": "reference_only",
       "reviewer": "research_lead",
+      "decision_record": "",
       "notes": "Animation UX reference only; GPL code is not embedded."
     },
     {
@@ -179,6 +191,7 @@
       "download_date": "2026-05-12",
       "license": "Reference only",
       "spdx_id": "LicenseRef-Reference-Only",
+      "spdx_expression": "LicenseRef-Reference-Only",
       "license_url": "https://opengameart.org/content/faq",
       "derivative_of": "",
       "modifications": "none; reference only",
@@ -194,6 +207,7 @@
       "attribution_text": "",
       "review_status": "reference_only",
       "reviewer": "research_lead",
+      "decision_record": "",
       "notes": "Used to define accepted/restricted art-license handling."
     }
   ]

@@ -1,0 +1,60 @@
+{
+  "report_version": "0.3",
+  "published_date": "2026-05-12",
+  "report_path": "research/reports/mechagotchi_research_report_v0_3.md",
+  "source_plan": "docs/02-research_plan.md",
+  "status": "published_internal",
+  "referenced_artifacts": [
+    "research/experiment_reports/2026-05-12-manual-readability-rating-intake.md",
+    "research/experiment_reports/2026-05-12-switchboard-lifecycle-feedback.md",
+    "research/experiment_reports/2026-05-12-ca-nca-repeated-stochastic-damage.md",
+    "research/experiment_reports/2026-05-12-mecha-engine-package-promotion-gate.md",
+    "research/experiment_reports/2026-05-12-mvp-architecture-decision.md",
+    "research/decision_records/0002-mecha-engine-package-promotion-gate.md",
+    "research/decision_records/0003-mvp-architecture.md",
+    "data/readability/manual_readability_rating_intake_stage0.json",
+    "data/micro_learners/switchboard_lifecycle_feedback_stage0.json",
+    "data/cellular_automata/ca_nca_repeated_stochastic_damage_stage0.json",
+    "data/package_promotion/mecha_engine_package_promotion_gate_stage0.json",
+    "data/architecture/mvp_architecture_decision_stage0.json"
+  ],
+  "headline_metrics": {
+    "manual_rating_template_row_count": 30,
+    "manual_rating_row_count": 0,
+    "manual_ratings_collected": false,
+    "switchboard_feedback_survival_ticks": 48,
+    "switchboard_frozen_survival_ticks": 48,
+    "switchboard_feedback_reward_update_count": 48,
+    "switchboard_need_balance_delta": 0.0,
+    "switchboard_survival_delta": 0,
+    "ca_nca_repeated_sample_count": 8,
+    "ca_nca_repeated_cycle_count": 5,
+    "ca_nca_repeated_total_damage_events": 40,
+    "ca_nca_repeated_final_validity_rate": 1.0,
+    "ca_nca_repeated_mean_final_overlap": 1.0,
+    "package_promotion_criteria_count": 7,
+    "package_promotion_candidate_count": 6,
+    "package_design_ready_count": 3,
+    "promotion_ready_count": 0,
+    "package_root_exists": false,
+    "mvp_target_package_module_count": 9,
+    "mvp_status": "accepted_for_mvp_design"
+  },
+  "decision_summary": {
+    "adopt": [
+      "mvp_architecture",
+      "package_promotion_gate",
+      "lifecycle_archive_provenance_package_design_candidates"
+    ],
+    "prototype": [
+      "manual_readability_intake",
+      "lab_only_switchboard_feedback",
+      "repeated_stochastic_ca_nca_stress"
+    ],
+    "blocked": [
+      "human_readability_calibration",
+      "actual_package_promotion"
+    ]
+  }
+}
+

@@ -1,0 +1,29 @@
+# Mecha Engine Package Promotion Criteria
+
+This gate defines when lab code may be considered for `packages/mecha_engine`.
+It does not promote code by itself.
+
+## Criteria
+
+- `research_artifacts_complete` (package_design): Algorithm card, experiment report, and metric artifact exist.
+- `metric_thresholds_met` (package_design): Candidate metrics satisfy component-specific thresholds.
+- `package_boundary_defined` (package_design): Target package path and ownership boundary are named.
+- `verification_surface_defined` (package_design): A focused verification command exists for the candidate.
+- `provenance_gate_clean` (promotion): External source, license, and attribution blockers are absent.
+- `package_root_exists` (promotion): `packages/mecha_engine` exists before lab code is moved.
+- `no_research_blockers` (promotion): Human-rating, real-ingest, or lab-only blockers are resolved.
+
+## Candidate Status
+
+- `lifecycle_simulator` -> `ready_for_package_design` for `packages/mecha_engine/lifecycle`
+- `switchboard_feedback` -> `hold_research_only` for `packages/mecha_engine/learning`
+- `map_elites_archive` -> `ready_for_package_design` for `packages/mecha_engine/archive`
+- `provenance_ci` -> `ready_for_package_design` for `packages/mecha_engine/provenance`
+- `readability_gate` -> `blocked_missing_or_failed_research_evidence` for `packages/mecha_engine/evaluation`
+- `ca_nca_repair` -> `hold_research_only` for `packages/mecha_engine/repair`
+
+## Decision
+
+Status: `criteria_defined_no_package_promotion`
+
+Research evidence can identify package-design candidates, but `packages/mecha_engine` does not exist, so no lab code should be promoted yet.

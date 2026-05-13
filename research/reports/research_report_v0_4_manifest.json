@@ -1,0 +1,74 @@
+{
+  "report_version": "0.4",
+  "published_date": "2026-05-12",
+  "report_path": "research/reports/mechagotchi_research_report_v0_4.md",
+  "source_plan": "docs/02-research_plan.md",
+  "status": "published_internal",
+  "referenced_artifacts": [
+    "research/experiment_reports/2026-05-12-mecha-engine-module-interface-specs.md",
+    "research/experiment_reports/2026-05-12-manual-readability-rating-recheck.md",
+    "research/experiment_reports/2026-05-12-switchboard-feedback-dynamic-stress.md",
+    "research/experiment_reports/2026-05-12-ca-nca-learned-repair-comparison.md",
+    "research/experiment_reports/2026-05-12-mecha-engine-package-scaffold-decision.md",
+    "research/decision_records/0004-mecha-engine-package-scaffold.md",
+    "research/package_specs/mecha_engine_module_interfaces.md",
+    "data/architecture/mecha_engine_module_interface_specs_stage0.json",
+    "data/readability/manual_rating_recheck_stage0.json",
+    "data/micro_learners/switchboard_feedback_dynamic_stress_stage0.json",
+    "data/cellular_automata/ca_nca_learned_repair_comparison_stage0.json",
+    "data/architecture/mecha_engine_package_scaffold_decision_stage0.json"
+  ],
+  "headline_metrics": {
+    "module_interface_status": "research_interface_spec_no_package_code",
+    "module_interface_count": 5,
+    "manual_ratings_collected": false,
+    "manual_ratings_csv_present": false,
+    "switchboard_dynamic_scenario_count": 3,
+    "switchboard_dynamic_event_count": 6,
+    "switchboard_mean_need_balance_delta": -0.002226,
+    "switchboard_feedback_better_need_balance_count": 0,
+    "switchboard_feedback_tied_need_balance_count": 2,
+    "switchboard_feedback_worse_need_balance_count": 1,
+    "switchboard_feedback_better_survival_count": 0,
+    "switchboard_feedback_worse_survival_count": 0,
+    "learned_repair_sample_count": 8,
+    "learned_repair_cycle_count": 5,
+    "learned_repair_total_damage_events": 40,
+    "assisted_final_validity_rate": 1.0,
+    "learned_final_validity_rate": 1.0,
+    "mean_assisted_final_overlap": 1.0,
+    "mean_learned_final_overlap": 0.778563,
+    "mean_final_overlap_delta_learned_vs_assisted": -0.221437,
+    "target_template_used_by_learned": false,
+    "package_scaffold_status": "accepted_scaffold_design_package_creation_deferred",
+    "package_root_exists": false,
+    "initial_scaffold_module_count": 5
+  },
+  "decision_summary": {
+    "adopt": [
+      "module_interface_specs",
+      "src_layout_package_scaffold",
+      "pyproject_toml_package_metadata_boundary"
+    ],
+    "prototype": [
+      "dynamic_switchboard_feedback_stress",
+      "less_assisted_role_prior_repair_comparison"
+    ],
+    "watch": [
+      "dynamic_reward_shaping",
+      "learned_repair"
+    ],
+    "blocked": [
+      "human_readability_calibration",
+      "actual_package_promotion"
+    ]
+  },
+  "next_sequence": [
+    "create_empty_packages_mecha_engine_src_layout_scaffold_when_explicitly_authorized",
+    "add_package_import_surface_tests",
+    "rerun_package_promotion_gate_after_scaffold_exists",
+    "begin_package_implementation_with_genome_contracts",
+    "collect_real_human_readability_ratings"
+  ]
+}
+

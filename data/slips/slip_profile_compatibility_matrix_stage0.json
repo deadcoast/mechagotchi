@@ -1,0 +1,225 @@
+{
+  "artifact_id": "slip_profile_compatibility_matrix_stage0",
+  "date": "2026-05-12",
+  "status": "research_slip_profile_compatibility_matrix_no_package_code",
+  "purpose": "Define Stage 0 SLIP profile compatibility tests and known gaps across generation, lifecycle, archive, workshop, and future package gates.",
+  "package_root_exists_at_authoring": false,
+  "source_artifacts": [
+    "docs/01-brainstorming.md",
+    "docs/02-research_plan.md",
+    "data/slips/README.md",
+    "data/slips/valid/slip_lcd_seed.json",
+    "data/slips/valid/slip_gray_stable.json",
+    "data/slips/valid/slip_amber_social.json",
+    "data/slips/invalid/slip_invalid_bad_weight.json",
+    "data/slips/invalid/slip_invalid_palette.json",
+    "labs/grid_genome/slip.py",
+    "labs/grid_genome/test_slip_constraints.py",
+    "research/algorithm_cards/slip_schema_validator.md",
+    "research/experiment_reports/2026-05-12-slip-constraint-baseline.md",
+    "research/experiment_reports/2026-05-12-slip-multi-profile-generation-benchmark.md",
+    "data/generated_grids/slip_lcd_seed_constrained/README.md",
+    "data/slips/multi_profile_generation_stage0/slip_multi_profile_generation_stage0.json",
+    "research/package_specs/mecha_engine_generation_contract_gate.md",
+    "research/package_specs/mecha_engine_property_negative_test_strategy.md"
+  ],
+  "external_anchors": [
+    {
+      "source": "JSON Schema Draft 2020-12",
+      "url": "https://json-schema.org/draft/2020-12",
+      "used_for": "Future machine-readable SLIP schema dialect target."
+    },
+    {
+      "source": "Pydantic JSON Schema docs",
+      "url": "https://docs.pydantic.dev/latest/concepts/json_schema/",
+      "used_for": "Candidate future Python model to JSON Schema path."
+    }
+  ],
+  "current_scope": {
+    "slip_version": "0.1.0",
+    "validated_fields": [
+      "slip_version",
+      "profile_id",
+      "name",
+      "grid.allowed_palettes",
+      "grid.body_mass_min",
+      "grid.body_mass_max",
+      "grid.required_organ_roles",
+      "mutation.cell_mutation_rate_max",
+      "mutation.organ_shift_rate_max",
+      "mutation.palette_shift_rate_max",
+      "mutation.symmetry_break_rate_max",
+      "behavior.* unit interval values when present",
+      "survival_weights.* unit interval values when present"
+    ],
+    "alignment_fields": [
+      "grid palette_id against allowed_palettes",
+      "core-cell body mass against body mass bounds",
+      "organ roles against required_organ_roles",
+      "grid mutation rates against mutation caps"
+    ],
+    "important_limitation": "Behavior and survival keys are bounded when present, but the validator does not yet require a complete vocabulary."
+  },
+  "fixture_counts": {
+    "valid_profiles": 3,
+    "invalid_profiles": 2,
+    "slip_lcd_seed_constrained_candidates": 50,
+    "slip_lcd_seed_constrained_valid": 50,
+    "slip_lcd_seed_constrained_aligned": 50,
+    "multi_profile_constrained_profiles": 3,
+    "multi_profile_constrained_candidates": 150,
+    "multi_profile_constrained_valid": 150,
+    "multi_profile_constrained_aligned": 150,
+    "workshop_roundtrip_profiles": 1,
+    "lifecycle_profile_fixtures": 1
+  },
+  "valid_profiles": [
+    {
+      "profile_id": "slip_lcd_seed",
+      "palette": "lcd_green",
+      "body_mass_min": 4,
+      "body_mass_max": 24,
+      "required_organ_roles": [
+        "sensor",
+        "expression"
+      ],
+      "behavior": {
+        "curiosity": 0.6,
+        "neediness": 0.4,
+        "sleepiness": 0.5
+      },
+      "survival_weights": {
+        "stability": 0.5,
+        "novelty": 0.25,
+        "bond": 0.25
+      },
+      "generation_corpus_status": "proven_50_valid_50_aligned_in_multi_profile_benchmark"
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "palette": "gameboy_gray",
+      "body_mass_min": 5,
+      "body_mass_max": 24,
+      "required_organ_roles": [
+        "sensor",
+        "expression"
+      ],
+      "behavior": {
+        "curiosity": 0.35,
+        "neediness": 0.3,
+        "sleepiness": 0.65
+      },
+      "survival_weights": {
+        "stability": 0.7,
+        "novelty": 0.1,
+        "bond": 0.2
+      },
+      "generation_corpus_status": "proven_50_valid_50_aligned_in_multi_profile_benchmark"
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "palette": "amber_terminal",
+      "body_mass_min": 6,
+      "body_mass_max": 24,
+      "required_organ_roles": [
+        "sensor",
+        "expression"
+      ],
+      "behavior": {
+        "curiosity": 0.7,
+        "neediness": 0.6,
+        "sleepiness": 0.35
+      },
+      "survival_weights": {
+        "stability": 0.4,
+        "novelty": 0.25,
+        "bond": 0.35
+      },
+      "generation_corpus_status": "proven_50_valid_50_aligned_in_multi_profile_benchmark"
+    }
+  ],
+  "invalid_profiles": [
+    {
+      "profile_id": "slip_invalid_bad_weight",
+      "fault": "behavior.curiosity is 1.2",
+      "expected_rejection_family": "unit_interval"
+    },
+    {
+      "profile_id": "slip_invalid_palette",
+      "fault": "grid.allowed_palettes contains unknown_palette",
+      "expected_rejection_family": "unknown_palette"
+    }
+  ],
+  "compatibility_matrix": [
+    {
+      "surface": "profile_validation",
+      "current_proof": "3 valid profiles accepted and 2 invalid profiles rejected",
+      "status": "proven_narrow",
+      "required_next_proof": "versioned schema and expanded failure corpus"
+    },
+    {
+      "surface": "generation_alignment",
+      "current_proof": "150/150 candidates valid and aligned across the 3 current valid profiles",
+      "status": "proven_for_current_three_profile_corpus",
+      "required_next_proof": "expanded community profiles and unsatisfiable-profile cases"
+    },
+    {
+      "surface": "grid_validator",
+      "current_proof": "generated profile-aware candidates pass grid validation",
+      "status": "proven_for_current_profile_aware_candidate_corpora",
+      "required_next_proof": "profile-aware negative cases and held-out profiles"
+    },
+    {
+      "surface": "lifecycle",
+      "current_proof": "lifecycle fixture records slip_lcd_seed",
+      "status": "partial",
+      "required_next_proof": "behavior-weight effect tests and invalid-profile rejection"
+    },
+    {
+      "surface": "archive",
+      "current_proof": "extended descriptors include slip_alignment",
+      "status": "partial",
+      "required_next_proof": "multi-profile descriptor calibration and blocked-state reporting"
+    },
+    {
+      "surface": "workshop_roundtrip",
+      "current_proof": "native JSON round trip under slip_lcd_seed",
+      "status": "proven_single_profile_single_seed",
+      "required_next_proof": "multi-profile and held-out grid round trips"
+    },
+    {
+      "surface": "ca_nca_growth_repair",
+      "current_proof": "LCD profile alignment rate is 0.25 across mixed seed palettes",
+      "status": "diagnostic_only",
+      "required_next_proof": "profile-matched CA/NCA alignment by palette family"
+    },
+    {
+      "surface": "cubff_hybrid_transducer",
+      "current_proof": "hybrid path reports 12/12 valid and aligned under active profile",
+      "status": "limited",
+      "required_next_proof": "real snapshot and multi-profile transducer compatibility"
+    },
+    {
+      "surface": "future_package_tests",
+      "current_proof": "generation lifecycle and property strategies mention SLIP rejection and alignment",
+      "status": "specified_only",
+      "required_next_proof": "package import-surface tests after package work starts"
+    }
+  ],
+  "blocked_states": [
+    "full SLIP JSON Schema",
+    "Pydantic-backed SLIP contract",
+    "behavior preview",
+    "mutation preview UI",
+    "profile-weighted evolution",
+    "community profile packs"
+  ],
+  "research_verification_commands": [
+    "python -m json.tool .\\data\\slips\\slip_profile_compatibility_matrix_stage0.json",
+    "Test-Path .\\packages",
+    "rg -n \"slip_profile_compatibility_matrix|research_slip_profile_compatibility_matrix_no_package_code|profile_compatibility_tests\" .\\research .\\data",
+    "git diff --check"
+  ],
+  "decision": "adopt_stage0_slip_profile_compatibility_matrix",
+  "next_research_step": "Either author the versioned SLIP schema and expanded failure-case corpus, or extend workshop round trips across the generated multi-profile corpora."
+}

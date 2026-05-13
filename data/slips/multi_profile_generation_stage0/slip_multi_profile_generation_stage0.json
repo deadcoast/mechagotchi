@@ -1,0 +1,94 @@
+{
+  "artifact_id": "slip_multi_profile_generation_stage0",
+  "status": "research_slip_multi_profile_generation_no_package_code",
+  "rng_seed": 214,
+  "count_per_profile": 50,
+  "profile_results": [
+    {
+      "profile_id": "slip_lcd_seed",
+      "source_path": "data/slips/valid/slip_lcd_seed.json",
+      "allowed_palettes": [
+        "lcd_green"
+      ],
+      "body_mass_min": 4,
+      "body_mass_max": 24,
+      "required_organ_roles": [
+        "sensor",
+        "expression"
+      ],
+      "candidate_count": 50,
+      "valid_count": 50,
+      "invalid_count": 0,
+      "aligned_count": 50,
+      "misaligned_count": 0,
+      "validity_rate": 1.0,
+      "alignment_rate": 1.0,
+      "unique_signatures": 50,
+      "validation_errors": {},
+      "alignment_errors": {}
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "source_path": "data/slips/valid/slip_gray_stable.json",
+      "allowed_palettes": [
+        "gameboy_gray"
+      ],
+      "body_mass_min": 5,
+      "body_mass_max": 24,
+      "required_organ_roles": [
+        "sensor",
+        "expression"
+      ],
+      "candidate_count": 50,
+      "valid_count": 50,
+      "invalid_count": 0,
+      "aligned_count": 50,
+      "misaligned_count": 0,
+      "validity_rate": 1.0,
+      "alignment_rate": 1.0,
+      "unique_signatures": 49,
+      "validation_errors": {},
+      "alignment_errors": {}
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "source_path": "data/slips/valid/slip_amber_social.json",
+      "allowed_palettes": [
+        "amber_terminal"
+      ],
+      "body_mass_min": 6,
+      "body_mass_max": 24,
+      "required_organ_roles": [
+        "sensor",
+        "expression"
+      ],
+      "candidate_count": 50,
+      "valid_count": 50,
+      "invalid_count": 0,
+      "aligned_count": 50,
+      "misaligned_count": 0,
+      "validity_rate": 1.0,
+      "alignment_rate": 1.0,
+      "unique_signatures": 50,
+      "validation_errors": {},
+      "alignment_errors": {}
+    }
+  ],
+  "totals": {
+    "profile_count": 3,
+    "candidate_count": 150,
+    "valid_count": 150,
+    "invalid_count": 0,
+    "aligned_count": 150,
+    "misaligned_count": 0,
+    "validity_rate": 1.0,
+    "alignment_rate": 1.0
+  },
+  "blocked_states": [
+    "behavior_preview",
+    "mutation_preview",
+    "profile_weighted_evolution",
+    "community_profile_pack_import",
+    "full_slip_json_schema"
+  ]
+}

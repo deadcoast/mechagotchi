@@ -1,0 +1,64 @@
+{
+  "artifact_id": "mvp_architecture_decision_stage0",
+  "date": "2026-05-12",
+  "status": "accepted_for_mvp_design",
+  "source_reports": [
+    "research/reports/mechagotchi_research_report_v0_1.md",
+    "research/reports/mechagotchi_research_report_v0_2.md",
+    "data/package_promotion/mecha_engine_package_promotion_gate_stage0.json"
+  ],
+  "mvp_loop": [
+    "SLIP profile",
+    "seed or parent grid genome",
+    "constrained generator",
+    "validator, readability, and lifecycle gates",
+    "switchboard policy",
+    "archive and lineage update",
+    "render packet",
+    "event log",
+    "next mutation or generation"
+  ],
+  "target_package_modules": [
+    "genome",
+    "generation",
+    "lifecycle",
+    "learning",
+    "archive",
+    "slip",
+    "render",
+    "storage",
+    "provenance"
+  ],
+  "adopted_for_mvp": [
+    "semantic_grid_genome",
+    "validator_gate",
+    "constraint_stabilized_generation",
+    "readability_gate",
+    "lifecycle_gate",
+    "map_elites_archive_concept",
+    "minimal_slip_interpreter",
+    "micro_switchboard_policy",
+    "render_packet_boundary",
+    "provenance_ledger_checks"
+  ],
+  "deferred": [
+    "full_mecha_workshop_editor",
+    "community_profile_packs",
+    "trained_nca_morphogenesis",
+    "ctm_model_dependencies",
+    "real_cubff_adoption",
+    "online_reward_shaping_production_behavior",
+    "external_editor_embedding"
+  ],
+  "rejected_for_mvp_core": [
+    "direct_cubff_tape_to_pixel_mapping",
+    "raw_markov_as_sole_generator",
+    "scalar_top_k_as_sole_archive",
+    "lab_code_promotion_before_package_gate"
+  ],
+  "package_promotion": {
+    "package_root_exists": false,
+    "decision": "define_architecture_only_no_package_code"
+  }
+}
+

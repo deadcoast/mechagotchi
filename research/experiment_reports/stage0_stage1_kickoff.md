@@ -99,3 +99,118 @@ CI.
 4. Add workshop import/export round trips. First native semantic round-trip
    baseline is done in
    `research/experiment_reports/2026-05-12-workshop-roundtrip-baseline.md`.
+5. Ingest real CuBFF snapshots before revisiting CUBFF adoption. The ingest
+   contract and upstream snapshot audit are done in
+   `research/experiment_reports/2026-05-12-cubff-real-snapshot-ingest.md`, but
+   the adoption gate remains blocked because no real CuBFF snapshot artifacts
+   were available in the official repo or local drop zone.
+6. Add provenance CI checks and SPDX expression parsing. First CI report and
+   parser baseline is done in
+   `research/experiment_reports/2026-05-12-provenance-ci-spdx-parser.md`.
+7. Start CA/NCA growth and repair after lifecycle metrics exist. First
+   discrete local-attractor baseline is done in
+   `research/experiment_reports/2026-05-12-ca-nca-growth-repair.md`.
+8. Stress CA/NCA repair with multiple deterministic damage masks and idle
+   persistence. First follow-up benchmark is done in
+   `research/experiment_reports/2026-05-12-ca-nca-persistence-damage-benchmark.md`.
+9. Prototype CTM-inspired internal ticks as a confidence-gated switchboard
+   wrapper. First benchmark is done in
+   `research/experiment_reports/2026-05-12-ctm-inspired-internal-ticks.md`.
+10. Publish the post-v0.1 consolidated research report. Done in
+    `research/reports/mechagotchi_research_report_v0_2.md`.
+11. Connect switchboard action rewards back to lifecycle outcomes. First
+    feedback-loop benchmark is done in
+    `research/experiment_reports/2026-05-12-switchboard-lifecycle-feedback.md`.
+12. Create the manual readability rating intake and aggregation gate. First
+    template/intake report is done in
+    `research/experiment_reports/2026-05-12-manual-readability-rating-intake.md`.
+13. Add repeated stochastic damage to the CA/NCA benchmark. First repeated
+    dropout stress report is done in
+    `research/experiment_reports/2026-05-12-ca-nca-repeated-stochastic-damage.md`.
+14. Define package promotion criteria for `packages/mecha_engine`. First gate
+    and decision record are done in
+    `research/experiment_reports/2026-05-12-mecha-engine-package-promotion-gate.md`
+    and
+    `research/decision_records/0002-mecha-engine-package-promotion-gate.md`.
+15. Produce the MVP architecture decision record from the v0.1 and v0.2
+    reports. Done in
+    `research/experiment_reports/2026-05-12-mvp-architecture-decision.md`
+    and `research/decision_records/0003-mvp-architecture.md`.
+16. Publish the post-v0.2 wrap-up report. Done in
+    `research/reports/mechagotchi_research_report_v0_3.md`.
+17. Create package module interface specs for `genome`, `generation`,
+    `lifecycle`, `archive`, and `provenance`. Done in
+    `research/package_specs/mecha_engine_module_interfaces.md`.
+18. Recheck manual readability ratings. Still blocked because no filled
+    reviewer CSV exists; recorded in
+    `research/experiment_reports/2026-05-12-manual-readability-rating-recheck.md`.
+19. Stress switchboard feedback under changing needs and user-interaction
+    patterns. Dynamic stress benchmark is done in
+    `research/experiment_reports/2026-05-12-switchboard-feedback-dynamic-stress.md`.
+20. Compare a less-assisted learned repair rule against the assisted CA/NCA
+    repair baseline. First role-prior comparison is done in
+    `research/experiment_reports/2026-05-12-ca-nca-learned-repair-comparison.md`.
+21. Produce a package-scaffold decision record before creating
+    `packages/mecha_engine`. Scaffold design is accepted and package creation
+    is deferred in
+    `research/decision_records/0004-mecha-engine-package-scaffold.md`.
+22. Publish the post-v0.3 wrap-up report. Done in
+    `research/reports/mechagotchi_research_report_v0_4.md`.
+23. Define the scaffold verification and package import-surface acceptance
+    gate before creating `packages/mecha_engine`. Done in
+    `research/package_specs/mecha_engine_scaffold_verification_gate.md`.
+24. Prepare the manual readability reviewer packet and collection gate. Packet
+    is ready, but human ratings remain absent until
+    `data/readability/manual_ratings.csv` is filled; recorded in
+    `research/experiment_reports/2026-05-12-manual-readability-reviewer-packet.md`.
+25. Define the `mecha_engine.genome` package contract and validator acceptance
+    gate before moving grid-genome code out of `labs/`. Done in
+    `research/package_specs/mecha_engine_genome_contract_gate.md` and
+    `research/experiment_reports/2026-05-12-mecha-engine-genome-contract-gate.md`.
+26. Define the `mecha_engine.generation` package contract and constrained
+    generator acceptance gate before moving generator code out of `labs/`. Done
+    in `research/package_specs/mecha_engine_generation_contract_gate.md` and
+    `research/experiment_reports/2026-05-12-mecha-engine-generation-contract-gate.md`.
+27. Define the `mecha_engine.lifecycle` package contract and bounded simulator
+    acceptance gate before moving lifecycle code out of `labs/`. Done in
+    `research/package_specs/mecha_engine_lifecycle_contract_gate.md` and
+    `research/experiment_reports/2026-05-12-mecha-engine-lifecycle-contract-gate.md`.
+28. Define the `mecha_engine.archive` package contract and MAP-Elites
+    acceptance gate before moving archive code out of `labs/`. Done in
+    `research/package_specs/mecha_engine_archive_contract_gate.md` and
+    `research/experiment_reports/2026-05-12-mecha-engine-archive-contract-gate.md`.
+29. Define the `mecha_engine.provenance` package contract and provenance CI
+    acceptance gate before moving asset-pipeline code out of `labs/`. Done in
+    `research/package_specs/mecha_engine_provenance_contract_gate.md` and
+    `research/experiment_reports/2026-05-12-mecha-engine-provenance-contract-gate.md`.
+30. Publish the post-v0.4 package-contract handoff report after scaffold,
+    genome, generation, lifecycle, archive, and provenance gates are defined.
+    Done in `research/reports/mechagotchi_research_report_v0_5.md` and
+    `research/reports/research_report_v0_5_manifest.json`.
+31. Translate the scaffold and module contract gates into future package test
+    obligations before implementation starts. Done in
+    `research/package_specs/mecha_engine_contract_traceability_matrix.md` and
+    `research/experiment_reports/2026-05-12-mecha-engine-contract-traceability-matrix.md`.
+32. Inventory the concrete repository fixtures that future package tests must
+    use. Done in `research/package_specs/mecha_engine_test_fixture_manifest.md`
+    and
+    `research/experiment_reports/2026-05-12-mecha-engine-test-fixture-manifest.md`.
+33. Define the formal cross-module invariant, dependency, and failure
+    propagation gate before package implementation starts. Done in
+    `research/package_specs/mecha_engine_formal_invariant_dependency_gate.md`
+    and
+    `research/experiment_reports/2026-05-12-mecha-engine-formal-invariant-dependency-gate.md`.
+34. Define the property-style, metamorphic, and single-fault negative test
+    strategy for future package gates before package implementation starts.
+    Done in
+    `research/package_specs/mecha_engine_property_negative_test_strategy.md`
+    and
+    `research/experiment_reports/2026-05-12-mecha-engine-property-negative-test-strategy.md`.
+35. Define the Stage 0 SLIP profile compatibility test matrix required by the
+    research plan. Done in `research/slip/profile_compatibility_tests.md` and
+    `research/experiment_reports/2026-05-12-slip-profile-compatibility-matrix.md`.
+36. Run the multi-profile SLIP generation compatibility benchmark called out by
+    the matrix. Done in
+    `research/experiment_reports/2026-05-12-slip-multi-profile-generation-benchmark.md`
+    and
+    `data/slips/multi_profile_generation_stage0/slip_multi_profile_generation_stage0.json`.

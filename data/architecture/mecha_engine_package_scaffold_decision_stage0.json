@@ -1,0 +1,80 @@
+{
+  "artifact_id": "mecha_engine_package_scaffold_decision_stage0",
+  "date": "2026-05-12",
+  "status": "accepted_scaffold_design_package_creation_deferred",
+  "target_package_root": "packages/mecha_engine",
+  "package_root_exists": false,
+  "distribution_name": "mecha-engine",
+  "import_package": "mecha_engine",
+  "source_decisions": [
+    "research/decision_records/0002-mecha-engine-package-promotion-gate.md",
+    "research/decision_records/0003-mvp-architecture.md",
+    "research/decision_records/0004-mecha-engine-package-scaffold.md",
+    "research/package_specs/mecha_engine_module_interfaces.md"
+  ],
+  "source_artifacts": [
+    "data/package_promotion/mecha_engine_package_promotion_gate_stage0.json",
+    "data/architecture/mvp_architecture_decision_stage0.json",
+    "data/architecture/mecha_engine_module_interface_specs_stage0.json"
+  ],
+  "scaffold_layout": [
+    "packages/mecha_engine/pyproject.toml",
+    "packages/mecha_engine/README.md",
+    "packages/mecha_engine/src/mecha_engine/__init__.py",
+    "packages/mecha_engine/src/mecha_engine/py.typed",
+    "packages/mecha_engine/src/mecha_engine/genome/__init__.py",
+    "packages/mecha_engine/src/mecha_engine/generation/__init__.py",
+    "packages/mecha_engine/src/mecha_engine/lifecycle/__init__.py",
+    "packages/mecha_engine/src/mecha_engine/archive/__init__.py",
+    "packages/mecha_engine/src/mecha_engine/provenance/__init__.py",
+    "packages/mecha_engine/tests/test_package_imports.py"
+  ],
+  "initial_modules": [
+    "genome",
+    "generation",
+    "lifecycle",
+    "archive",
+    "provenance"
+  ],
+  "deferred_modules": [
+    "learning",
+    "repair",
+    "render",
+    "storage",
+    "slip"
+  ],
+  "metadata_rules": {
+    "metadata_file": "pyproject.toml",
+    "layout": "src",
+    "license_metadata": "defer_until_repository_or_package_license_decision",
+    "release_status": "private_internal_until_provenance_and_promotion_gates_pass",
+    "import_style": "absolute_imports_from_mecha_engine"
+  },
+  "creation_gate": [
+    "pyproject_toml_exists",
+    "src_mecha_engine_init_imports",
+    "package_tests_import_mecha_engine_not_labs",
+    "no_lab_implementation_code_moved_during_scaffold",
+    "package_promotion_gate_rerun_after_scaffold_exists",
+    "release_license_metadata_blocked_until_license_decision"
+  ],
+  "non_goals": [
+    "do_not_create_package_root_in_this_research_step",
+    "do_not_move_lab_code",
+    "do_not_promote_online_learning",
+    "do_not_promote_ca_nca_repair",
+    "do_not_publish_distribution"
+  ],
+  "next_allowed_action": "create_empty_src_layout_scaffold_when_explicitly_authorized",
+  "external_references": [
+    {
+      "name": "Python Packaging User Guide - src layout vs flat layout",
+      "url": "https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/"
+    },
+    {
+      "name": "Python Packaging User Guide - pyproject.toml specification",
+      "url": "https://packaging.python.org/en/latest/specifications/pyproject-toml/"
+    }
+  ]
+}
+

@@ -1,6 +1,8 @@
 import argparse
 import hashlib
 import json
+import re
+import sys
 from pathlib import Path
 
 
@@ -14,6 +16,7 @@ REQUIRED_FIELDS = [
     "download_date",
     "license",
     "spdx_id",
+    "spdx_expression",
     "license_url",
     "derivative_of",
     "modifications",
@@ -29,6 +32,7 @@ REQUIRED_FIELDS = [
     "attribution_text",
     "review_status",
     "reviewer",
+    "decision_record",
     "notes",
 ]
 
@@ -45,12 +49,36 @@ KNOWN_SPDX_IDS = {
     "CC-BY-4.0",
     "CC-BY-SA-4.0",
     "CC0-1.0",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
     "GPL-2.0-only",
+    "GPL-2.0-or-later",
     "GPL-3.0-or-later",
+    "LGPL-2.1-only",
+    "LGPL-2.1-or-later",
     "MIT",
     "LicenseRef-Mechagotchi-Internal-Research",
     "LicenseRef-Reference-Only",
 }
+
+KNOWN_SPDX_EXCEPTIONS = {
+    "Autoconf-exception-3.0",
+    "Bison-exception-2.2",
+}
+
+COPYLEFT_OR_SHARE_ALIKE_IDS = {
+    "CC-BY-SA-4.0",
+    "GPL-2.0-only",
+    "GPL-2.0-or-later",
+    "GPL-3.0-or-later",
+}
+
+SPDX_TOKEN_RE = re.compile(
+    r"DocumentRef-[A-Za-z0-9.-]+:LicenseRef-[A-Za-z0-9.-]+"
+    r"|LicenseRef-[A-Za-z0-9.-]+"
+    r"|[A-Za-z0-9.-]+\+?"
+    r"|\(|\)"
+)
 
 
 def hash_included_path(path: Path) -> dict:
@@ -68,6 +96,11 @@ def hash_included_path(path: Path) -> dict:
             digest.update(b"\0")
         return {"hash_algorithm": "sha256-tree", "hash": digest.hexdigest()}
     raise FileNotFoundError(path)
+
+
+def parse_spdx_expression(expression: str) -> dict:
+    parser = _SpdxExpressionParser(expression)
+    return parser.parse()
 
 
 def build_stage0_ledger(repo_root: Path) -> dict:
@@ -189,6 +222,67 @@ def validate_ledger(ledger: dict, repo_root: Path) -> dict:
     }
 
 
+def build_provenance_ci_report(ledger: dict, repo_root: Path) -> dict:
+    validation = validate_ledger(ledger, repo_root)
+    spdx_results = []
+    expression_errors = []
+    license_ids: set[str] = set()
+    exception_ids: set[str] = set()
+    operators: set[str] = set()
+
+    for index, entry in enumerate(ledger.get("assets", [])):
+        if not isinstance(entry, dict):
+            continue
+        asset_id = entry.get("asset_id", f"asset[{index}]")
+        expression = entry.get("spdx_expression", entry.get("spdx_id", ""))
+        parsed = parse_spdx_expression(expression)
+        spdx_results.append(
+            {
+                "asset_id": asset_id,
+                "expression": expression,
+                "ok": parsed["ok"],
+                "license_ids": parsed["license_ids"],
+                "exception_ids": parsed["exception_ids"],
+                "operators": parsed["operators"],
+                "contains_copyleft": parsed["contains_copyleft"],
+                "errors": parsed["errors"],
+            }
+        )
+        if not parsed["ok"]:
+            for error in parsed["errors"]:
+                expression_errors.append(f"{asset_id}: {error}")
+        license_ids.update(parsed["license_ids"])
+        exception_ids.update(parsed["exception_ids"])
+        operators.update(parsed["operators"])
+
+    errors = list(validation["errors"]) + expression_errors
+    report = {
+        "report_version": "0.1.0",
+        "generated_date": ledger.get("generated_date", "2026-05-12"),
+        "ok": not errors,
+        "checks": {
+            "ledger_validation_ok": validation["ok"],
+            "spdx_expressions_ok": not expression_errors,
+            "included_hashes_ok": not any("hash" in error for error in validation["errors"]),
+            "decision_record_gate_ok": not any(
+                "requires decision_record" in error for error in validation["errors"]
+            ),
+        },
+        "errors": errors,
+        "warnings": validation["warnings"],
+        "validation": validation,
+        "spdx_summary": {
+            "expression_count": len(spdx_results),
+            "parsed_expression_count": sum(1 for result in spdx_results if result["ok"]),
+            "license_ids": sorted(license_ids),
+            "exception_ids": sorted(exception_ids),
+            "operators": sorted(operators),
+        },
+        "spdx_results": spdx_results,
+    }
+    return report
+
+
 def generate_attribution_manifest(ledger: dict) -> dict:
     attributions = []
     for entry in ledger.get("assets", []):
@@ -200,6 +294,7 @@ def generate_attribution_manifest(ledger: dict) -> dict:
                     "creator": entry["creator"],
                     "license": entry["license"],
                     "spdx_id": entry["spdx_id"],
+                    "spdx_expression": entry["spdx_expression"],
                     "source_url": entry["source_url"],
                     "attribution_text": entry["attribution_text"],
                     "included_in_repo": entry["included_in_repo"],
@@ -216,11 +311,13 @@ def generate_attribution_manifest(ledger: dict) -> dict:
 def write_stage0_artifacts(output_dir: Path, ledger: dict, repo_root: Path) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
     validation = validate_ledger(ledger, repo_root)
+    ci_report = build_provenance_ci_report(ledger, repo_root)
     attribution = generate_attribution_manifest(ledger)
     _write_json(output_dir / "ledger.json", ledger)
     _write_json(output_dir / "validation_report.json", validation)
+    _write_json(output_dir / "provenance_ci_report.json", ci_report)
     _write_json(output_dir / "attribution_manifest.json", attribution)
-    (output_dir / "README.md").write_text(_readme_text(validation), encoding="utf-8")
+    (output_dir / "README.md").write_text(_readme_text(validation, ci_report), encoding="utf-8")
 
 
 def _validate_entry(
@@ -244,6 +341,13 @@ def _validate_entry(
 
     if entry.get("spdx_id") not in KNOWN_SPDX_IDS:
         errors.append(f"{asset_id}: unknown or unsupported SPDX identifier {entry.get('spdx_id')}")
+    expression = str(entry.get("spdx_expression", entry.get("spdx_id", "")))
+    parsed_expression = parse_spdx_expression(expression)
+    if not parsed_expression["ok"]:
+        for error in parsed_expression["errors"]:
+            errors.append(f"{asset_id}: {error}")
+    if parsed_expression["ok"] and entry.get("spdx_id") not in parsed_expression["license_ids"]:
+        errors.append(f"{asset_id}: spdx_id must appear in spdx_expression")
 
     included = entry.get("included_in_repo") is True
     if included:
@@ -278,6 +382,14 @@ def _validate_entry(
     if entry.get("commercial_allowed") is False and entry.get("shipping_scope") == "core":
         errors.append(f"{asset_id}: noncommercial asset cannot be core")
 
+    expression_is_copyleft = parsed_expression["contains_copyleft"]
+    needs_decision_record = (
+        entry.get("included_in_repo") is True
+        and (entry.get("share_alike_required") is True or expression_is_copyleft)
+    )
+    if needs_decision_record and not entry.get("decision_record"):
+        errors.append(f"{asset_id}: share-alike or copyleft asset requires decision_record")
+
     if entry.get("share_alike_required") is True and entry.get("shipping_scope") == "core":
         errors.append(f"{asset_id}: share-alike asset cannot be core without decision record")
 
@@ -305,6 +417,7 @@ def _included_asset(
         "download_date": "2026-05-12",
         "license": "Mechagotchi internal research asset",
         "spdx_id": "LicenseRef-Mechagotchi-Internal-Research",
+        "spdx_expression": "LicenseRef-Mechagotchi-Internal-Research",
         "license_url": "",
         "derivative_of": "",
         "modifications": "created for Mechagotchi research",
@@ -320,6 +433,7 @@ def _included_asset(
         "attribution_text": "",
         "review_status": "approved",
         "reviewer": "research_lead",
+        "decision_record": "",
         "notes": notes,
     }
 
@@ -346,6 +460,7 @@ def _reference_asset(
         "download_date": "2026-05-12",
         "license": license,
         "spdx_id": spdx_id,
+        "spdx_expression": spdx_id,
         "license_url": license_url,
         "derivative_of": "",
         "modifications": "none; reference only",
@@ -365,6 +480,7 @@ def _reference_asset(
         ),
         "review_status": "reference_only",
         "reviewer": "research_lead",
+        "decision_record": "",
         "notes": notes,
     }
 
@@ -373,12 +489,13 @@ def _write_json(path: Path, payload: dict) -> None:
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
 
-def _readme_text(validation: dict) -> str:
+def _readme_text(validation: dict, ci_report: dict) -> str:
     summary = validation["summary"]
     return (
         "# Asset Provenance Ledger Stage 0\n\n"
         "Machine-readable provenance ledger for current Mechagotchi research artifacts.\n\n"
         f"- Validation ok: {validation['ok']}\n"
+        f"- CI report ok: {ci_report['ok']}\n"
         f"- Asset count: {summary['asset_count']}\n"
         f"- Included count: {summary['included_count']}\n"
         f"- Reference-only count: {summary['reference_only_count']}\n"
@@ -386,15 +503,130 @@ def _readme_text(validation: dict) -> str:
     )
 
 
+class _SpdxExpressionParser:
+    def __init__(self, expression: str):
+        self.expression = expression
+        self.tokens = SPDX_TOKEN_RE.findall(expression) if isinstance(expression, str) else []
+        self.index = 0
+        self.errors: list[str] = []
+        self.license_ids: set[str] = set()
+        self.exception_ids: set[str] = set()
+        self.operators: set[str] = set()
+
+    def parse(self) -> dict:
+        if not isinstance(self.expression, str) or not self.expression.strip():
+            self.errors.append("SPDX expression is empty")
+        elif "".join(self.tokens) != "".join(self.expression.split()):
+            self.errors.append("SPDX expression contains invalid characters or spacing")
+        else:
+            self._parse_or()
+            if self._peek() is not None:
+                self.errors.append(f"unexpected token {self._peek()}")
+        return {
+            "ok": not self.errors,
+            "expression": self.expression,
+            "license_ids": sorted(self.license_ids),
+            "exception_ids": sorted(self.exception_ids),
+            "operators": sorted(self.operators),
+            "contains_copyleft": bool(self.license_ids & COPYLEFT_OR_SHARE_ALIKE_IDS),
+            "errors": self.errors,
+        }
+
+    def _parse_or(self) -> None:
+        self._parse_and()
+        while self._peek() == "OR":
+            self._consume("OR")
+            self.operators.add("OR")
+            self._parse_and()
+
+    def _parse_and(self) -> None:
+        self._parse_with()
+        while self._peek() == "AND":
+            self._consume("AND")
+            self.operators.add("AND")
+            self._parse_with()
+
+    def _parse_with(self) -> None:
+        was_simple = self._parse_primary()
+        if self._peek() == "WITH":
+            self._consume("WITH")
+            self.operators.add("WITH")
+            if not was_simple:
+                self.errors.append("WITH left operand must be a simple license expression")
+            exception = self._consume_identifier()
+            if exception is None:
+                self.errors.append("WITH requires a license exception identifier")
+            elif exception not in KNOWN_SPDX_EXCEPTIONS:
+                self.errors.append(f"unknown SPDX exception identifier {exception}")
+            else:
+                self.exception_ids.add(exception)
+
+    def _parse_primary(self) -> bool:
+        token = self._peek()
+        if token is None:
+            self.errors.append("unexpected end of SPDX expression")
+            return False
+        if token == "(":
+            self._consume("(")
+            self._parse_or()
+            if self._peek() == ")":
+                self._consume(")")
+            else:
+                self.errors.append("missing closing parenthesis")
+            return False
+        if token in {"AND", "OR", "WITH", ")"}:
+            self.errors.append(f"unexpected token {token}")
+            self.index += 1
+            return False
+        identifier = self._consume_identifier()
+        if identifier is None:
+            return False
+        normalized = identifier[:-1] if identifier.endswith("+") else identifier
+        if _is_license_ref(normalized) or normalized in KNOWN_SPDX_IDS:
+            self.license_ids.add(normalized)
+        else:
+            self.errors.append(f"unknown SPDX license identifier {normalized}")
+        return True
+
+    def _consume_identifier(self) -> str | None:
+        token = self._peek()
+        if token is None:
+            return None
+        if token in {"(", ")", "AND", "OR", "WITH"}:
+            return None
+        self.index += 1
+        return token
+
+    def _consume(self, expected: str) -> None:
+        if self._peek() == expected:
+            self.index += 1
+        else:
+            self.errors.append(f"expected {expected}, got {self._peek()}")
+
+    def _peek(self) -> str | None:
+        return self.tokens[self.index] if self.index < len(self.tokens) else None
+
+
+def _is_license_ref(identifier: str) -> bool:
+    return re.fullmatch(
+        r"(DocumentRef-[A-Za-z0-9.-]+:)?LicenseRef-[A-Za-z0-9.-]+",
+        identifier,
+    ) is not None
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", type=Path, default=Path("data/asset_provenance"))
+    parser.add_argument("--ci", action="store_true")
     args = parser.parse_args()
 
     repo_root = Path(".")
     ledger = build_stage0_ledger(repo_root)
     write_stage0_artifacts(args.output_dir, ledger, repo_root)
-    print(json.dumps(validate_ledger(ledger, repo_root), indent=2))
+    report = build_provenance_ci_report(ledger, repo_root)
+    print(json.dumps(report if args.ci else validate_ledger(ledger, repo_root), indent=2))
+    if args.ci and not report["ok"]:
+        sys.exit(1)
 
 
 if __name__ == "__main__":

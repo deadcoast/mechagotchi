@@ -1,0 +1,87 @@
+{
+  "lab_id": "cubff_real_snapshot_ingest_stage0",
+  "source_mode": "real_cubff_snapshot_ingest",
+  "source_repo": "https://github.com/paradigms-of-intelligence/cubff",
+  "source_commit": "f212e849027c98fcf4b242eccfb5fed435223e23",
+  "language": "bff_noheads",
+  "seed": 0,
+  "input_dir": "data/cubff_real_ingest/source_snapshots",
+  "status": "awaiting_real_cubff_snapshots",
+  "ingested_snapshot_count": 0,
+  "rejected_file_count": 0,
+  "non_snapshot_file_count": 1,
+  "snapshot_ids": [],
+  "ingested_snapshots": [],
+  "feature_summary": {
+    "mean_tape_length": 0,
+    "mean_program_count": 0,
+    "mean_replication_score_count": 0
+  },
+  "rejected_files": [],
+  "non_snapshot_files": [
+    "README.md"
+  ],
+  "checkpoint_format": {
+    "source": "CuBFF common_language.h checkpoint writer",
+    "endianness_assumption": "little_endian_64_bit_size_t",
+    "program_size_bytes": 64,
+    "fields": [
+      "reset_index",
+      "num_programs",
+      "epoch",
+      "soup_bytes"
+    ],
+    "notes": "The official writer stores three size_t fields followed by num_programs * 64 raw soup bytes. Replication scores are not stored in checkpoints and require Python callback/state export."
+  },
+  "decision": {
+    "status": "blocked_real_snapshot_absent",
+    "adoption": "do_not_revisit_cubff_adoption",
+    "reason": "The upstream audit found run logs and checkpoint-writing code, but no committed soup/checkpoint snapshots. Metrics logs alone cannot prove semantic transducer value."
+  },
+  "source_anchors": [
+    "https://github.com/paradigms-of-intelligence/cubff",
+    "https://arxiv.org/abs/2406.19108",
+    "https://github.com/paradigms-of-intelligence/cubff/blob/main/common_language.h",
+    "https://github.com/paradigms-of-intelligence/cubff/blob/main/cubff_py.cc"
+  ],
+  "upstream_audit": {
+    "audited_file_count": 60,
+    "snapshot_artifacts": [],
+    "snapshot_artifact_count": 0,
+    "run_logs": [
+      "testdata/bff.txt",
+      "testdata/bff8.txt",
+      "testdata/bff8_noheads.txt",
+      "testdata/bff_noheads.txt",
+      "testdata/bff_noheads_4bit.txt",
+      "testdata/bff_perm.txt",
+      "testdata/bff_selfmove.txt",
+      "testdata/forth.txt",
+      "testdata/forthcopy.txt",
+      "testdata/forthtrivial.txt",
+      "testdata/forthtrivial_reset.txt",
+      "testdata/rsubleq4.txt",
+      "testdata/subleq.txt"
+    ],
+    "run_log_count": 13,
+    "trace_tools": [
+      "cubff_example.py",
+      "cubff_walk_back.py",
+      "python/analyse_soup.py",
+      "python/save_bff_trace.py"
+    ],
+    "checkpoint_format": {
+      "source": "CuBFF common_language.h checkpoint writer",
+      "endianness_assumption": "little_endian_64_bit_size_t",
+      "program_size_bytes": 64,
+      "fields": [
+        "reset_index",
+        "num_programs",
+        "epoch",
+        "soup_bytes"
+      ],
+      "notes": "The official writer stores three size_t fields followed by num_programs * 64 raw soup bytes. Replication scores are not stored in checkpoints and require Python callback/state export."
+    },
+    "finding": "No committed soup/checkpoint snapshot artifacts were found in the audited upstream tree; metrics logs are useful provenance but are not sufficient for semantic transducer ingestion."
+  }
+}

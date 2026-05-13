@@ -1,0 +1,284 @@
+{
+  "lab_id": "mecha_engine_package_promotion_gate_stage0",
+  "date": "2026-05-12",
+  "source_mode": "research_to_package_promotion_gate",
+  "summary": {
+    "package_root_exists": false,
+    "criteria_count": 7,
+    "candidate_count": 6,
+    "research_ready_count": 5,
+    "package_design_ready_count": 3,
+    "promotion_ready_count": 0,
+    "blocked_count": 1,
+    "hold_research_only_count": 2
+  },
+  "criteria": [
+    {
+      "criterion_id": "research_artifacts_complete",
+      "description": "Algorithm card, experiment report, and metric artifact exist.",
+      "required_for": "package_design"
+    },
+    {
+      "criterion_id": "metric_thresholds_met",
+      "description": "Candidate metrics satisfy component-specific thresholds.",
+      "required_for": "package_design"
+    },
+    {
+      "criterion_id": "package_boundary_defined",
+      "description": "Target package path and ownership boundary are named.",
+      "required_for": "package_design"
+    },
+    {
+      "criterion_id": "verification_surface_defined",
+      "description": "A focused verification command exists for the candidate.",
+      "required_for": "package_design"
+    },
+    {
+      "criterion_id": "provenance_gate_clean",
+      "description": "External source, license, and attribution blockers are absent.",
+      "required_for": "promotion"
+    },
+    {
+      "criterion_id": "package_root_exists",
+      "description": "`packages/mecha_engine` exists before lab code is moved.",
+      "required_for": "promotion"
+    },
+    {
+      "criterion_id": "no_research_blockers",
+      "description": "Human-rating, real-ingest, or lab-only blockers are resolved.",
+      "required_for": "promotion"
+    }
+  ],
+  "candidates": [
+    {
+      "component_id": "lifecycle_simulator",
+      "target_package": "packages/mecha_engine/lifecycle",
+      "gate_status": "ready_for_package_design",
+      "research_evidence_complete": true,
+      "missing_evidence": [],
+      "thresholds_met": true,
+      "threshold_results": [
+        {
+          "metric_path": [
+            "policies",
+            "switchboard",
+            "alive"
+          ],
+          "operator": "==",
+          "expected": true,
+          "actual": true,
+          "ok": true
+        },
+        {
+          "metric_path": [
+            "summary",
+            "switchboard_beats_idle_on_need_balance"
+          ],
+          "operator": "==",
+          "expected": true,
+          "actual": true,
+          "ok": true
+        }
+      ],
+      "verification": "python -B labs/lifecycle_sim/test_lifecycle_sim.py",
+      "promotion_blockers": [
+        "package_root_absent",
+        "target_package_absent"
+      ],
+      "research_notes": "Lifecycle is a first-class v0.2 gate."
+    },
+    {
+      "component_id": "switchboard_feedback",
+      "target_package": "packages/mecha_engine/learning",
+      "gate_status": "hold_research_only",
+      "research_evidence_complete": true,
+      "missing_evidence": [],
+      "thresholds_met": true,
+      "threshold_results": [
+        {
+          "metric_path": [
+            "summary",
+            "feedback_reward_update_count"
+          ],
+          "operator": ">=",
+          "expected": 1,
+          "actual": 48,
+          "ok": true
+        },
+        {
+          "metric_path": [
+            "summary",
+            "survival_delta"
+          ],
+          "operator": ">=",
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        }
+      ],
+      "verification": "python -B labs/grid_genome/test_switchboard_feedback.py",
+      "promotion_blockers": [
+        "package_root_absent",
+        "target_package_absent",
+        "reward_shaping_not_superior_to_frozen_baseline"
+      ],
+      "research_notes": "Feedback loop is wired but did not beat frozen baseline yet."
+    },
+    {
+      "component_id": "map_elites_archive",
+      "target_package": "packages/mecha_engine/archive",
+      "gate_status": "ready_for_package_design",
+      "research_evidence_complete": true,
+      "missing_evidence": [],
+      "thresholds_met": true,
+      "threshold_results": [
+        {
+          "metric_path": [
+            "archive",
+            "occupied_niches"
+          ],
+          "operator": ">=",
+          "expected": 20,
+          "actual": 29,
+          "ok": true
+        },
+        {
+          "metric_path": [
+            "archive",
+            "best_fitness"
+          ],
+          "operator": ">=",
+          "expected": 0.9,
+          "actual": 0.979592,
+          "ok": true
+        }
+      ],
+      "verification": "python -B labs/map_elites_archive/test_extended_descriptors.py",
+      "promotion_blockers": [
+        "package_root_absent",
+        "target_package_absent"
+      ],
+      "research_notes": "Descriptor space is richer but sparse."
+    },
+    {
+      "component_id": "provenance_ci",
+      "target_package": "packages/mecha_engine/provenance",
+      "gate_status": "ready_for_package_design",
+      "research_evidence_complete": true,
+      "missing_evidence": [],
+      "thresholds_met": true,
+      "threshold_results": [
+        {
+          "metric_path": [
+            "ok"
+          ],
+          "operator": "==",
+          "expected": true,
+          "actual": true,
+          "ok": true
+        },
+        {
+          "metric_path": [
+            "checks",
+            "spdx_expressions_ok"
+          ],
+          "operator": "==",
+          "expected": true,
+          "actual": true,
+          "ok": true
+        }
+      ],
+      "verification": "python -B labs/asset_pipeline/test_provenance_ledger.py",
+      "promotion_blockers": [
+        "package_root_absent",
+        "target_package_absent"
+      ],
+      "research_notes": "Research-artifact provenance gate is adoptable."
+    },
+    {
+      "component_id": "readability_gate",
+      "target_package": "packages/mecha_engine/evaluation",
+      "gate_status": "blocked_missing_or_failed_research_evidence",
+      "research_evidence_complete": false,
+      "missing_evidence": [],
+      "thresholds_met": false,
+      "threshold_results": [
+        {
+          "metric_path": [
+            "ratings_collected"
+          ],
+          "operator": "==",
+          "expected": true,
+          "actual": false,
+          "ok": false
+        }
+      ],
+      "verification": "python -B labs/readability_benchmark/test_manual_rating_intake.py",
+      "promotion_blockers": [
+        "package_root_absent",
+        "target_package_absent",
+        "human_ratings_absent"
+      ],
+      "research_notes": "Proxy calibration is blocked until real human ratings exist."
+    },
+    {
+      "component_id": "ca_nca_repair",
+      "target_package": "packages/mecha_engine/repair",
+      "gate_status": "hold_research_only",
+      "research_evidence_complete": true,
+      "missing_evidence": [],
+      "thresholds_met": true,
+      "threshold_results": [
+        {
+          "metric_path": [
+            "summary",
+            "final_validity_rate"
+          ],
+          "operator": ">=",
+          "expected": 0.9,
+          "actual": 1.0,
+          "ok": true
+        },
+        {
+          "metric_path": [
+            "summary",
+            "mean_final_overlap"
+          ],
+          "operator": ">=",
+          "expected": 0.9,
+          "actual": 1.0,
+          "ok": true
+        }
+      ],
+      "verification": "python -B labs/cellular_automata/test_ca_nca_growth_repair.py",
+      "promotion_blockers": [
+        "package_root_absent",
+        "target_package_absent",
+        "lab_only_target_template_assisted"
+      ],
+      "research_notes": "Assisted target-template baseline; not trained NCA."
+    }
+  ],
+  "decision": {
+    "status": "criteria_defined_no_package_promotion",
+    "adoption": "define_gate_only",
+    "reason": "Research evidence can identify package-design candidates, but `packages/mecha_engine` does not exist, so no lab code should be promoted yet."
+  },
+  "source_refs": [
+    {
+      "name": "Python Packaging User Guide - Writing your pyproject.toml",
+      "url": "https://packaging.python.org/en/latest/guides/writing-pyproject-toml/",
+      "use": "Reference for modern Python package metadata and build-system expectations."
+    },
+    {
+      "name": "Python Packaging User Guide - src layout vs flat layout",
+      "url": "https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/",
+      "use": "Reference for package boundary and import-layout decisions."
+    }
+  ],
+  "limitations": [
+    "This defines the gate; it does not create packages/mecha_engine.",
+    "Promotion remains blocked while the package root and target boundaries are absent.",
+    "Some lab candidates are intentionally held because their research status is lab-only or blocked."
+  ]
+}

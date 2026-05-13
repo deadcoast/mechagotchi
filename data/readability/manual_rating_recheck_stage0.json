@@ -1,0 +1,21 @@
+{
+  "artifact_id": "manual_rating_recheck_stage0",
+  "date": "2026-05-12",
+  "status": "blocked_human_ratings_absent",
+  "ratings_csv_present": false,
+  "ratings_collected": false,
+  "checked_paths": [
+    "data/readability/manual_rating_template.csv",
+    "data/readability/manual_readability_rating_intake_stage0.json",
+    "data/readability/manual_rating_protocol.md"
+  ],
+  "missing_expected_paths": [
+    "data/readability/manual_ratings.csv"
+  ],
+  "decision": {
+    "status": "blocked_human_ratings_absent",
+    "reason": "The Stage 0 template and intake artifact exist, but no filled reviewer CSV is present in data/readability."
+  },
+  "next_action": "Collect reviewer rows in data/readability/manual_ratings.csv, then rerun the manual rating intake."
+}
+

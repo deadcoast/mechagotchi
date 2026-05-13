@@ -1,0 +1,72 @@
+{
+  "artifact_id": "manual_rating_collection_gate_stage0",
+  "date": "2026-05-12",
+  "status": "reviewer_packet_prepared_human_ratings_absent",
+  "ratings_csv_present": false,
+  "ratings_collected": false,
+  "template_path": "data/readability/manual_rating_template.csv",
+  "expected_ratings_path": "data/readability/manual_ratings.csv",
+  "reviewer_packet_path": "data/readability/manual_rating_reviewer_packet.md",
+  "template": {
+    "row_count": 30,
+    "sources": {
+      "seed_holdout": 10,
+      "constrained_holdout": 10,
+      "markov_holdout": 10
+    },
+    "fields": [
+      "sample_id",
+      "grid_id",
+      "source",
+      "reviewer_id",
+      "silhouette",
+      "organ_clarity",
+      "palette_contrast",
+      "animation_readiness",
+      "companion_appeal",
+      "notes"
+    ]
+  },
+  "collection_requirements": {
+    "minimum_reviewers": 3,
+    "rows_per_reviewer": 30,
+    "expected_completed_rows": 90,
+    "rating_fields": [
+      "silhouette",
+      "organ_clarity",
+      "palette_contrast",
+      "animation_readiness",
+      "companion_appeal"
+    ],
+    "rating_value_range": [1, 5],
+    "aggregation": "median_per_question_then_mean"
+  },
+  "acceptance_gate": [
+    "data/readability/manual_ratings.csv exists",
+    "manual_ratings.csv preserves the template header",
+    "at least three unique reviewer_id values are present",
+    "each reviewer has one row for all 30 sample_id values",
+    "all rating fields are integers from 1 to 5",
+    "manual rating intake reports ratings_collected",
+    "proxy_human_spearman is populated",
+    "inter_reviewer_mean_absolute_delta is populated"
+  ],
+  "rerun_command": "python -B .\\labs\\readability_benchmark\\manual_rating_intake.py --output-dir .\\data\\readability --ratings .\\data\\readability\\manual_ratings.csv --count-per-source 10 --rng-seed 20260512",
+  "decision": {
+    "status": "blocked_until_reviewer_csv_exists",
+    "reason": "The reviewer packet and template are ready, but no completed data/readability/manual_ratings.csv file exists."
+  },
+  "source_refs": [
+    {
+      "name": "Comparing PCG metrics with Human Evaluation in Minecraft Settlement Generation",
+      "url": "https://arxiv.org/abs/2107.02457",
+      "use": "Reference for comparing procedural-content proxy metrics against human evaluation."
+    },
+    {
+      "name": "Measuring inter-rater reliability for nominal data",
+      "url": "https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-016-0200-9",
+      "use": "Reference for measuring reviewer reliability before treating human ratings as calibration truth."
+    }
+  ]
+}
+

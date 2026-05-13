@@ -1,0 +1,163 @@
+{
+  "artifact_id": "mecha_engine_module_interface_specs_stage0",
+  "date": "2026-05-12",
+  "status": "research_interface_spec_no_package_code",
+  "package_root_exists": false,
+  "target_package": "packages/mecha_engine",
+  "source_decisions": [
+    "research/decision_records/0002-mecha-engine-package-promotion-gate.md",
+    "research/decision_records/0003-mvp-architecture.md",
+    "research/reports/mechagotchi_research_report_v0_3.md"
+  ],
+  "modules": [
+    {
+      "module_id": "genome",
+      "target_path": "packages/mecha_engine/genome",
+      "status": "interface_specified",
+      "required_public_surface": [
+        "validate_grid(grid) -> ValidationResult",
+        "validate_grid_file(path) -> ValidationResult",
+        "grid_signature(grid) -> str",
+        "render_packet_from_grid(grid, state=None) -> dict"
+      ],
+      "hard_gates": [
+        "accept_50_seed_grids",
+        "reject_200_invalid_counterexamples",
+        "preserve_json_schema_2020_12_compatibility",
+        "do_not_mutate_input_payloads"
+      ],
+      "research_sources": [
+        "labs/grid_genome/validator.py",
+        "research/grid_genome/grid_invariants.md",
+        "research/experiment_reports/2026-05-12-grid-validator-baseline.md"
+      ]
+    },
+    {
+      "module_id": "generation",
+      "target_path": "packages/mecha_engine/generation",
+      "status": "interface_specified",
+      "required_public_surface": [
+        "train_generation_model(seed_grids) -> GenerationModel",
+        "generate_candidate(parent_grid, model, slip_profile=None, rng_seed=None) -> dict",
+        "generate_batch(seed_grids, count, slip_profile=None, rng_seed=None) -> list[dict]",
+        "explain_generation(candidate) -> dict"
+      ],
+      "hard_gates": [
+        "candidate_passes_genome_validation",
+        "slip_profile_alignment_when_supplied",
+        "generation_trace_preserves_lineage_and_provenance",
+        "raw_markov_not_sole_production_generator"
+      ],
+      "research_sources": [
+        "labs/grid_genome/constrained_generator.py",
+        "research/experiment_reports/2026-05-12-constrained-wfc-style-generator.md",
+        "research/experiment_reports/2026-05-12-slip-constraint-baseline.md"
+      ]
+    },
+    {
+      "module_id": "lifecycle",
+      "target_path": "packages/mecha_engine/lifecycle",
+      "status": "interface_specified",
+      "required_public_surface": [
+        "initial_state(grid, slip_profile=None) -> dict",
+        "advance_tick(state, action) -> dict",
+        "run_episode(grid, slip_profile=None, policy=None, actions=None, ticks=72, rng_seed=None) -> dict",
+        "reward_for_transition(previous_state, next_state, action) -> float"
+      ],
+      "hard_gates": [
+        "invalid_grids_fail_before_simulation",
+        "state_variables_remain_bounded",
+        "death_causes_are_explicit",
+        "online_reward_shaping_remains_lab_only_until_it_beats_frozen_baseline"
+      ],
+      "research_sources": [
+        "labs/lifecycle_sim/lifecycle_sim.py",
+        "research/algorithm_cards/lifecycle_simulator.md",
+        "research/experiment_reports/2026-05-12-lifecycle-simulator-baseline.md",
+        "research/experiment_reports/2026-05-12-switchboard-lifecycle-feedback.md"
+      ]
+    },
+    {
+      "module_id": "archive",
+      "target_path": "packages/mecha_engine/archive",
+      "status": "interface_specified",
+      "required_public_surface": [
+        "descriptor_for_candidate(candidate, metrics) -> tuple[int, ...]",
+        "score_candidate(candidate, metrics) -> dict",
+        "insert_candidate(archive, candidate, score, descriptor) -> dict",
+        "build_archive(candidates, metrics_by_grid_id) -> dict",
+        "archive_summary(archive) -> dict"
+      ],
+      "hard_gates": [
+        "archive_insertion_requires_valid_grids",
+        "descriptor_includes_lifecycle_and_readability_metrics",
+        "scalar_top_k_not_sole_archive_strategy",
+        "manual_readability_required_before_final_descriptor_thresholds"
+      ],
+      "research_sources": [
+        "labs/map_elites_archive/extended_descriptors.py",
+        "research/algorithm_cards/map_elites_extended_descriptors.md",
+        "research/experiment_reports/2026-05-12-map-elites-extended-descriptors.md"
+      ]
+    },
+    {
+      "module_id": "provenance",
+      "target_path": "packages/mecha_engine/provenance",
+      "status": "interface_specified",
+      "required_public_surface": [
+        "parse_spdx_expression(expression) -> dict",
+        "validate_ledger(ledger, repo_root) -> dict",
+        "build_ci_report(ledger, repo_root) -> dict",
+        "generate_attribution_manifest(ledger) -> dict",
+        "hash_included_path(path) -> dict"
+      ],
+      "hard_gates": [
+        "spdx_operators_are_case_sensitive",
+        "included_assets_have_hashes",
+        "included_share_alike_or_copyleft_assets_require_decision_record",
+        "provenance_checks_run_before_package_promotion"
+      ],
+      "research_sources": [
+        "labs/asset_pipeline/provenance_ledger.py",
+        "research/algorithm_cards/provenance_ci_spdx.md",
+        "research/experiment_reports/2026-05-12-provenance-ci-spdx-parser.md"
+      ]
+    }
+  ],
+  "cross_module_flow": [
+    "genome.validate_grid(seed_or_parent)",
+    "generation.generate_candidate(...)",
+    "genome.validate_grid(candidate)",
+    "lifecycle.run_episode(candidate, ...)",
+    "archive.score_candidate(candidate, metrics)",
+    "archive.insert_candidate(...)",
+    "provenance.build_ci_report(...)",
+    "render_packet_from_grid(...)"
+  ],
+  "non_goals": [
+    "do_not_create_packages_mecha_engine",
+    "do_not_add_package_metadata_yet",
+    "do_not_promote_trained_nca",
+    "do_not_promote_online_reward_shaping",
+    "do_not_implement_workshop_editor"
+  ],
+  "external_standards": [
+    {
+      "name": "Python Packaging User Guide - pyproject.toml specification",
+      "url": "https://packaging.python.org/en/latest/specifications/pyproject-toml/"
+    },
+    {
+      "name": "Python Packaging User Guide - src layout vs flat layout",
+      "url": "https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/"
+    },
+    {
+      "name": "JSON Schema Draft 2020-12",
+      "url": "https://json-schema.org/draft/2020-12"
+    },
+    {
+      "name": "SPDX License Expressions",
+      "url": "https://spdx.github.io/spdx-spec/v2.2.2/SPDX-license-expressions/"
+    }
+  ]
+}
+

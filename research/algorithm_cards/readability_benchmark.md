@@ -76,10 +76,43 @@ constrained_holdout    10       10     0.830172
 markov_holdout         10        0     0.374730
 ```
 
+Manual rating intake follow-up completed on 2026-05-12.
+
+Artifacts:
+
+- `labs/readability_benchmark/manual_rating_intake.py`
+- `labs/readability_benchmark/test_manual_rating_intake.py`
+- `data/readability/manual_readability_rating_intake_stage0.json`
+- `data/readability/manual_rating_template.csv`
+- `data/readability/manual_rating_reviewer_packet.md`
+- `data/readability/manual_rating_collection_gate_stage0.json`
+- `research/experiment_reports/2026-05-12-manual-readability-rating-intake.md`
+- `research/experiment_reports/2026-05-12-manual-readability-reviewer-packet.md`
+- `research/source_notes/2026-05-12-manual-readability-rating-source-review.md`
+
+Measured intake result:
+
+- Template rows: 30
+- Rating rows: 0
+- Rated samples: 0
+- Reviewers: 0
+- Status: awaiting_human_ratings
+- Decision: blocked_human_ratings_absent
+
+Reviewer packet follow-up completed on 2026-05-12.
+
+- Reviewer packet status: reviewer_packet_prepared_human_ratings_absent
+- Minimum reviewers: 3
+- Rows per reviewer: 30
+- Expected completed rows: 90
+- Completed ratings CSV present: false
+
 ## Decision
 
 Keep as active prototype. Use this benchmark as the readability gate before
-expanding MAP-Elites descriptors or promoting visual generators.
+expanding MAP-Elites descriptors or promoting visual generators. Proxy
+calibration remains blocked until real reviewer rows exist in
+`data/readability/manual_ratings.csv`.
 
 ## Go/No-Go Gate
 

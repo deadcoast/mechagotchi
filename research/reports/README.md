@@ -8,3 +8,15 @@ must not replace the underlying lab reports.
 
 - `mechagotchi_research_report_v0_1.md` - first consolidated research report
   for the initial 15-step research sequence.
+- `mechagotchi_research_report_v0_2.md` - post-v0.1 continuation report for
+  lifecycle, readability, archive, workshop, CuBFF, provenance, CA/NCA, and CTM
+  follow-up labs.
+- `mechagotchi_research_report_v0_3.md` - post-v0.2 wrap-up for manual
+  rating intake, switchboard feedback, repeated stochastic repair stress,
+  package promotion criteria, and MVP architecture.
+- `mechagotchi_research_report_v0_4.md` - post-v0.3 wrap-up for package module
+  interfaces, manual rating recheck, dynamic switchboard stress, learned repair
+  comparison, and package scaffold decision.
+- `mechagotchi_research_report_v0_5.md` - post-v0.4 wrap-up for scaffold,
+  genome, generation, lifecycle, archive, and provenance package-contract
+  gates.

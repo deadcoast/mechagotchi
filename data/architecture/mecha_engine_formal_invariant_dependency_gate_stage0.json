@@ -1,0 +1,289 @@
+{
+  "artifact_id": "mecha_engine_formal_invariant_dependency_gate_stage0",
+  "date": "2026-05-12",
+  "status": "research_formal_invariant_dependency_gate_no_package_code",
+  "target_package_root": "packages/mecha_engine",
+  "package_root_exists_at_gate_authoring": false,
+  "purpose": "Define cross-module formal invariants, dependency order, and failure propagation rules before creating package code.",
+  "source_artifacts": [
+    "docs/01-brainstorming.md",
+    "docs/02-research_plan.md",
+    "research/grid_genome/grid_invariants.md",
+    "research/package_specs/mecha_engine_module_interfaces.md",
+    "research/package_specs/mecha_engine_contract_traceability_matrix.md",
+    "research/package_specs/mecha_engine_test_fixture_manifest.md",
+    "data/architecture/mecha_engine_contract_traceability_matrix_stage0.json",
+    "data/architecture/mecha_engine_test_fixture_manifest_stage0.json"
+  ],
+  "external_anchors": [
+    {
+      "source": "JSON Schema Draft 2020-12",
+      "url": "https://json-schema.org/draft/2020-12",
+      "used_for": "Grid schema dialect and validator terminology."
+    },
+    {
+      "source": "python-jsonschema validation docs",
+      "url": "https://python-jsonschema.readthedocs.io/en/latest/validate/",
+      "used_for": "Draft202012Validator and validation-error collection terminology."
+    },
+    {
+      "source": "MAP-Elites",
+      "url": "https://arxiv.org/abs/1504.04909",
+      "used_for": "Archive-as-quality-diversity-map terminology."
+    },
+    {
+      "source": "Wave Function Collapse reference implementation",
+      "url": "https://github.com/mxgmn/WaveFunctionCollapse",
+      "used_for": "Constraint-propagation reference for local grid coherence."
+    },
+    {
+      "source": "SPDX license expressions",
+      "url": "https://spdx.github.io/spdx-spec/v2.2.2/SPDX-license-expressions/",
+      "used_for": "License-expression syntax and case-sensitive operator gate."
+    },
+    {
+      "source": "SPDX License List",
+      "url": "https://spdx.org/licenses/",
+      "used_for": "Canonical license identifier and exception reference."
+    }
+  ],
+  "formal_symbols": {
+    "G": "grid genome payload",
+    "V_G": "genome validation result",
+    "P": "SLIP profile or null profile",
+    "C": "generated candidate with grid, lineage, and trace metadata",
+    "E": "lifecycle episode result",
+    "D": "archive descriptor",
+    "F": "fitness vector or scalar comparator value",
+    "A": "archive state",
+    "R": "provenance report"
+  },
+  "admissibility_chain": [
+    "V(G).ok",
+    "generation may use G as parent",
+    "generation returns C",
+    "V(C.grid).ok",
+    "lifecycle may simulate C.grid",
+    "lifecycle returns finite bounded E",
+    "archive may derive D and F from C and E",
+    "archive may update A",
+    "provenance R must be ok before package promotion",
+    "genome may produce render packet from accepted G or C.grid"
+  ],
+  "dependency_graph": {
+    "scaffold": [
+      "genome",
+      "provenance"
+    ],
+    "genome": [
+      "generation",
+      "lifecycle",
+      "archive_validation_dependency"
+    ],
+    "generation": [
+      "genome",
+      "slip_profile_contract_when_profile_constraints_are_used"
+    ],
+    "lifecycle": [
+      "genome",
+      "slip_profile_contract_when_profile_weighted_needs_are_used"
+    ],
+    "archive": [
+      "genome",
+      "generation_trace",
+      "lifecycle_metrics",
+      "readability_evidence_when_human_calibrated_descriptors_are_claimed",
+      "provenance_metadata_when_assets_or_release_decisions_are_involved"
+    ],
+    "provenance": [
+      "asset_ledger",
+      "hashes",
+      "spdx_syntax",
+      "decision_records",
+      "package_promotion"
+    ]
+  },
+  "invariant_families": [
+    {
+      "id": "structural_grid_invariants",
+      "owning_surface": "mecha_engine.genome",
+      "requirements": [
+        "Draft 2020-12 compatible grid schema",
+        "cell coordinates within declared bounds",
+        "unique occupied coordinates",
+        "known semantic roles",
+        "bounded mutation weights",
+        "body mass within accepted range",
+        "connected occupied body when one-body profile requires it",
+        "sensor and animation-anchor requirements enforced",
+        "organ memberships reference existing occupied cells",
+        "palette and render packet constraints satisfiable"
+      ],
+      "current_evidence": {
+        "seed_grids_accepted": 50,
+        "invalid_counterexamples_rejected": 200
+      }
+    },
+    {
+      "id": "validation_monotonicity",
+      "owning_surface": "cross_module",
+      "requirements": [
+        "invalid parents rejected by generation",
+        "invalid grids rejected before lifecycle simulation",
+        "invalid candidates rejected before archive insertion",
+        "invalid grids cannot produce renderability claims"
+      ]
+    },
+    {
+      "id": "bounded_continuous_values",
+      "owning_surface": "cross_module",
+      "requirements": [
+        "mutation weights bounded",
+        "lifecycle state values finite",
+        "fitness components bounded and JSON-serializable",
+        "SLIP alignment values bounded",
+        "archive descriptors deterministic bins"
+      ]
+    },
+    {
+      "id": "determinism_reproducibility",
+      "owning_surface": "cross_module",
+      "requirements": [
+        "deterministic outputs reproduce under same declared seed and inputs",
+        "stochastic outputs preserve seed or random-source metadata"
+      ]
+    },
+    {
+      "id": "input_immutability",
+      "owning_surface": "cross_module",
+      "requirements": [
+        "caller-provided grids are not mutated",
+        "caller-provided profiles are not mutated",
+        "caller-provided candidates, episode results, and archive states are not mutated unless documented as in-place APIs"
+      ]
+    },
+    {
+      "id": "trace_preservation",
+      "owning_surface": "generation_archive_provenance",
+      "requirements": [
+        "parent ID or null seed origin preserved",
+        "generator name preserved",
+        "generator version or gate status preserved",
+        "random seed preserved when used",
+        "SLIP profile ID preserved when used",
+        "validation status preserved",
+        "rejected proposal count preserved when generation filters candidates",
+        "lifecycle episode configuration preserved",
+        "archive descriptor key and fitness components preserved",
+        "provenance decision references preserved when assets or licenses are involved"
+      ]
+    },
+    {
+      "id": "archive_correctness",
+      "owning_surface": "mecha_engine.archive",
+      "requirements": [
+        "descriptor keys deterministic",
+        "elite replacement only when candidate beats current elite for same descriptor key",
+        "coverage and QD score reportable",
+        "scalar top-k remains comparator/debug view only",
+        "human-calibrated readability descriptors blocked until reviewer data exists"
+      ]
+    },
+    {
+      "id": "calibration_gates",
+      "owning_surface": "research_promotion",
+      "blocked_states": [
+        "final human-readability thresholds without data/readability/manual_ratings.csv",
+        "final archive descriptor thresholds claiming human calibration without reviewer data",
+        "real CuBFF adoption without official or local real snapshot artifacts",
+        "online reward-shaping promotion until it beats frozen baseline under dynamic stress",
+        "release license metadata until package exists and license decision records are explicit"
+      ]
+    },
+    {
+      "id": "boundary_invariants",
+      "owning_surface": "package_boundary",
+      "requirements": [
+        "package runtime code does not import labs",
+        "package tests do not import labs",
+        "package tests do not mutate sys.path to reach labs",
+        "package imports do not write Stage 0 artifacts",
+        "package outputs remain JSON-serializable where report contracts require them",
+        "package-promotion checks rerun after package tests exist"
+      ]
+    }
+  ],
+  "failure_propagation_rules": [
+    {
+      "failure": "invalid_grid",
+      "required_propagation": "Reject parent, candidate, lifecycle simulation, archive insertion, and render packet until fresh validation passes."
+    },
+    {
+      "failure": "invalid_slip_profile",
+      "required_propagation": "Reject profile-constrained generation and profile-weighted lifecycle use; no implicit fallback profile unless explicit in result."
+    },
+    {
+      "failure": "generator_returns_invalid_candidate",
+      "required_propagation": "Keep candidate in rejection trace only; do not score it as lifecycle or archive candidate."
+    },
+    {
+      "failure": "lifecycle_non_finite_state",
+      "required_propagation": "Reject episode; archive may not derive descriptor or fitness from it."
+    },
+    {
+      "failure": "archive_descriptor_missing_human_ratings",
+      "required_propagation": "Block human-calibrated descriptor claim; use only non-human descriptors."
+    },
+    {
+      "failure": "provenance_report_fails",
+      "required_propagation": "Block package promotion even if package tests pass."
+    },
+    {
+      "failure": "package_root_absent",
+      "required_propagation": "Do not run package tests or claim package readiness; continue research-only gates."
+    }
+  ],
+  "required_future_package_test_order": [
+    "scaffold_import_surface_tests",
+    "genome_schema_and_semantic_validation_tests",
+    "generation_tests_call_package_genome_validator",
+    "lifecycle_tests_reject_invalid_grids_through_package_genome_validator",
+    "archive_tests_validate_candidates_through_package_genome_validator",
+    "provenance_tests_and_package_promotion_rerun",
+    "human_readability_and_release_compliance_gates_after_blocked_fixtures_exist"
+  ],
+  "evidence_required_before_package_promotion": {
+    "seed_grids_accepted_through_package_imports": 50,
+    "invalid_counterexamples_rejected_through_package_imports": 200,
+    "constrained_wfc_style_validity_required": "100/100 valid or stricter superseding evidence",
+    "slip_constrained_generation_required": "50/50 valid and aligned or stricter superseding evidence",
+    "lifecycle_required": "finite bounded episode summaries for frozen comparator scenarios",
+    "archive_required": "descriptor coverage, elite replacement, and QD-score evidence through package imports",
+    "provenance_required": "SPDX expression parsing and included/reference-only distinction",
+    "boundary_required": "no lab imports, no package-test sys.path mutation, no import-time artifact writes"
+  },
+  "negative_checks": [
+    "downstream module accepts invalid grid because it looks visually plausible",
+    "generator reports only successful candidates and drops rejected proposals without trace metadata",
+    "lifecycle clips non-finite or out-of-range values without reporting correction",
+    "archive replacement becomes scalar top-k selection",
+    "package docs claim full WFC CTM CuBFF NCA or online-learning adoption beyond tested contract",
+    "provenance accepts lowercase SPDX operators as equivalent to AND OR WITH",
+    "package code or tests import labs",
+    "package marked promotion-ready before promotion gate rerun"
+  ],
+  "research_verification_commands": [
+    "python -m json.tool .\\data\\architecture\\mecha_engine_formal_invariant_dependency_gate_stage0.json",
+    "Test-Path .\\packages",
+    "rg -n \"mecha_engine_formal_invariant_dependency_gate|research_formal_invariant_dependency_gate_no_package_code\" .\\research .\\data",
+    "git diff --check"
+  ],
+  "future_package_verification_commands": [
+    "python -B -m unittest discover -s .\\packages\\mecha_engine\\tests -p \"test_*.py\"",
+    "rg -n \"from labs|import labs|labs/|labs\\\\|sys\\.path\" .\\packages\\mecha_engine",
+    "python -B .\\labs\\package_promotion\\package_promotion_gate.py --root . --output-dir .\\data\\package_promotion"
+  ],
+  "decision": "adopt_as_cross_module_formal_invariant_dependency_gate",
+  "decision_rule": "No future package module may consume, promote, archive, render, or release a state that has not passed the upstream invariant gate required by its input.",
+  "next_research_step": "Use this gate when converting package contract obligations into concrete package tests after the user explicitly starts package implementation."
+}

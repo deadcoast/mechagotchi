@@ -1,0 +1,156 @@
+{
+  "artifact_id": "mecha_engine_genome_contract_gate_stage0",
+  "date": "2026-05-12",
+  "status": "research_genome_contract_gate_no_package_code",
+  "target_package_root": "packages/mecha_engine",
+  "target_module": "mecha_engine.genome",
+  "package_root_exists_at_gate_authoring": false,
+  "purpose": "Define the acceptance contract for the future mecha_engine.genome package module before moving validator code out of labs/grid_genome.",
+  "source_artifacts": [
+    "research/package_specs/mecha_engine_module_interfaces.md",
+    "research/package_specs/mecha_engine_genome_contract_gate.md",
+    "research/grid_genome/grid_invariants.md",
+    "research/grid_genome/grid_genome.schema.json",
+    "research/experiment_reports/2026-05-12-grid-validator-baseline.md",
+    "data/architecture/mecha_engine_module_interface_specs_stage0.json"
+  ],
+  "external_references": [
+    {
+      "title": "JSON Schema Draft 2020-12 validation specification",
+      "url": "https://json-schema.org/draft/2020-12/json-schema-validation",
+      "used_for": "Schema validation vocabulary and validity terminology."
+    },
+    {
+      "title": "Python unittest documentation",
+      "url": "https://docs.python.org/3/library/unittest.html",
+      "used_for": "Future package test discovery command."
+    }
+  ],
+  "required_public_surface": [
+    {
+      "name": "ValidationResult",
+      "contract": "Dataclass-like result with ok: bool, errors: list[str], warnings: list[str]."
+    },
+    {
+      "name": "validate_grid",
+      "signature": "validate_grid(grid: dict) -> ValidationResult",
+      "contract": "Validate an in-memory grid dictionary without mutating input and without throwing for ordinary invalid payloads."
+    },
+    {
+      "name": "validate_grid_file",
+      "signature": "validate_grid_file(path: str | Path) -> ValidationResult",
+      "contract": "Load and validate a JSON grid file using the same semantic checks as validate_grid."
+    },
+    {
+      "name": "grid_signature",
+      "signature": "grid_signature(grid: dict) -> str",
+      "contract": "Return a deterministic semantic signature for a grid."
+    },
+    {
+      "name": "render_packet_from_grid",
+      "signature": "render_packet_from_grid(grid: dict, state: dict | None = None) -> dict",
+      "contract": "Return a JSON-serializable renderer-neutral data packet."
+    }
+  ],
+  "required_corpora": {
+    "seed_grids": {
+      "path": "data/seed_grids",
+      "expected_count": 50,
+      "acceptance": "all_must_validate_ok"
+    },
+    "invalid_grids": {
+      "path": "data/invalid_grids",
+      "expected_count": 200,
+      "acceptance": "all_must_validate_not_ok"
+    }
+  },
+  "validation_acceptance": [
+    "Accept all 50 seed grids.",
+    "Reject all 200 invalid counterexamples.",
+    "Reject out-of-bounds cells.",
+    "Reject duplicate occupied coordinates.",
+    "Reject missing animation anchors.",
+    "Reject missing required sensor or expression organ.",
+    "Reject organ coordinates that do not match a real cell.",
+    "Reject required body cores with fewer than 4 cells.",
+    "Reject disconnected required body cores using 8-neighbor connectivity.",
+    "Reject cell and mutation values outside 0..1.",
+    "Return structured errors without throwing for ordinary invalid payloads.",
+    "Do not mutate the input dictionary."
+  ],
+  "schema_acceptance": {
+    "schema_path": "research/grid_genome/grid_genome.schema.json",
+    "draft": "2020-12",
+    "required_top_level_fields": [
+      "grid_id",
+      "schema_version",
+      "grid_size",
+      "cells",
+      "organs",
+      "palette",
+      "mutation"
+    ],
+    "require_schema_semantic_alignment": true
+  },
+  "signature_acceptance": {
+    "deterministic": true,
+    "must_change_on": [
+      "cell coordinates",
+      "cell roles",
+      "cell organs",
+      "palette id",
+      "palette colors",
+      "grid size",
+      "schema version"
+    ],
+    "must_ignore": [
+      "notes",
+      "timestamps",
+      "reviewer metadata"
+    ]
+  },
+  "render_packet_acceptance": {
+    "json_serializable": true,
+    "minimum_fields": [
+      "grid_id",
+      "grid_size",
+      "palette",
+      "cells",
+      "state"
+    ],
+    "invalid_grid_behavior": "fail_or_return_invalid_result",
+    "non_goals": [
+      "frontend rendering",
+      "animation playback",
+      "UI layout"
+    ]
+  },
+  "negative_checks": [
+    "packages/mecha_engine/src/mecha_engine/genome imports labs",
+    "package tests import labs",
+    "package tests mutate sys.path to reach labs",
+    "package code silently accepts a known invalid counterexample",
+    "package code mutates input grids during validation",
+    "render_packet_from_grid becomes a frontend renderer",
+    "package implementation skips the frozen seed/invalid corpora"
+  ],
+  "future_verification_commands": [
+    "python -m json.tool .\\research\\grid_genome\\grid_genome.schema.json > $null",
+    "python -B .\\labs\\grid_genome\\test_validator.py",
+    "python -B .\\labs\\grid_genome\\test_corpus_builder.py",
+    "python -B -m unittest discover -s .\\packages\\mecha_engine\\tests -p \"test_*.py\"",
+    "python -c \"from mecha_engine.genome import validate_grid, validate_grid_file, grid_signature, render_packet_from_grid\"",
+    "rg -n \"from labs|import labs|labs/|labs\\\\|sys\\.path\" .\\packages\\mecha_engine",
+    "python -B .\\labs\\package_promotion\\package_promotion_gate.py --root . --output-dir .\\data\\package_promotion",
+    "git diff --check"
+  ],
+  "expected_implementation_stage_result": {
+    "lab_validator_tests_pass": true,
+    "package_genome_tests_pass_through_package_imports": true,
+    "seed_grid_acceptance_count": 50,
+    "invalid_grid_rejection_count": 200,
+    "package_contains_no_labs_imports": true,
+    "package_promotion_gate_rerun_after_package_tests_exist": true
+  },
+  "next_research_step": "Use this gate as the first implementation acceptance checklist when the user explicitly starts package scaffold or genome package work."
+}

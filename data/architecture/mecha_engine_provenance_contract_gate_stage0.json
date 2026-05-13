@@ -1,0 +1,223 @@
+{
+  "artifact_id": "mecha_engine_provenance_contract_gate_stage0",
+  "date": "2026-05-12",
+  "status": "research_provenance_contract_gate_no_package_code",
+  "target_package_root": "packages/mecha_engine",
+  "target_module": "mecha_engine.provenance",
+  "package_root_exists_at_gate_authoring": false,
+  "purpose": "Define the acceptance contract for the future mecha_engine.provenance package module before moving provenance CI code out of labs/asset_pipeline.",
+  "source_artifacts": [
+    "research/package_specs/mecha_engine_module_interfaces.md",
+    "research/package_specs/mecha_engine_provenance_contract_gate.md",
+    "research/asset_provenance/ledger.schema.md",
+    "research/algorithm_cards/provenance_ci_spdx.md",
+    "research/experiment_reports/2026-05-12-provenance-ci-spdx-parser.md",
+    "labs/asset_pipeline/provenance_ledger.py",
+    "labs/asset_pipeline/test_provenance_ledger.py",
+    "data/asset_provenance/ledger.json",
+    "data/asset_provenance/provenance_ci_report.json",
+    "data/asset_provenance/attribution_manifest.json",
+    "data/package_promotion/mecha_engine_package_promotion_gate_stage0.json"
+  ],
+  "external_references": [
+    {
+      "title": "SPDX License Expressions v2.2.2",
+      "url": "https://spdx.github.io/spdx-spec/v2.2.2/SPDX-license-expressions/",
+      "used_for": "Canonical Stage 0 uppercase SPDX operator and expression grammar."
+    },
+    {
+      "title": "SPDX License Expressions v3.0.1",
+      "url": "https://spdx.github.io/spdx-spec/v3.0.1/annexes/spdx-license-expressions/",
+      "used_for": "Current SPDX grammar drift check; lowercase operator tolerance remains deferred."
+    },
+    {
+      "title": "SPDX License List",
+      "url": "https://spdx.org/licenses/",
+      "used_for": "Current short identifier and exception-list reference."
+    },
+    {
+      "title": "REUSE Specification 3.3",
+      "url": "https://reuse.software/spec-3.3/",
+      "used_for": "File-level licensing-information and SPDX-expression expectations."
+    }
+  ],
+  "required_public_surface": [
+    {
+      "name": "parse_spdx_expression",
+      "signature": "parse_spdx_expression(expression: str) -> dict",
+      "contract": "Parse the project-supported SPDX expression subset into license IDs, exception IDs, operators, copyleft/share-alike risk, and errors."
+    },
+    {
+      "name": "validate_ledger",
+      "signature": "validate_ledger(ledger: dict, repo_root) -> dict",
+      "contract": "Validate required ledger fields, review status, SPDX expressions, inclusion paths, hashes, attribution, and decision-record policy."
+    },
+    {
+      "name": "build_ci_report",
+      "signature": "build_ci_report(ledger: dict, repo_root) -> dict",
+      "contract": "Return the package-facing CI report for ledger validation, SPDX parsing, included hashes, and decision-record gates."
+    },
+    {
+      "name": "generate_attribution_manifest",
+      "signature": "generate_attribution_manifest(ledger: dict) -> dict",
+      "contract": "Return a manifest containing only assets that require attribution."
+    },
+    {
+      "name": "hash_included_path",
+      "signature": "hash_included_path(path) -> dict",
+      "contract": "Return deterministic sha256 or sha256-tree hash metadata for an included file or directory."
+    }
+  ],
+  "baseline_evidence": {
+    "provenance_ci_report": {
+      "report_version": "0.1.0",
+      "ok": true,
+      "ledger_validation_ok": true,
+      "spdx_expressions_ok": true,
+      "included_hashes_ok": true,
+      "decision_record_gate_ok": true,
+      "asset_count": 7,
+      "included_count": 3,
+      "reference_only_count": 4,
+      "attribution_required_count": 3,
+      "expression_count": 7,
+      "parsed_expression_count": 7,
+      "license_ids": [
+        "Apache-2.0",
+        "GPL-2.0-only",
+        "LicenseRef-Mechagotchi-Internal-Research",
+        "LicenseRef-Reference-Only",
+        "MIT"
+      ],
+      "exception_ids": [],
+      "operators": []
+    },
+    "package_promotion_gate": {
+      "component_id": "provenance_ci",
+      "gate_status": "ready_for_package_design",
+      "ok_threshold": true,
+      "spdx_expressions_threshold": true,
+      "promotion_blockers": [
+        "package_root_absent",
+        "target_package_absent"
+      ]
+    },
+    "lab_test_coverage": {
+      "test_count": 11,
+      "covered_behaviors": [
+        "file_hashing",
+        "directory_hashing",
+        "included_and_reference_entries",
+        "stage0_ledger_validation",
+        "compound_spdx_operators_and_license_refs",
+        "lowercase_operator_rejection",
+        "missing_included_hash_rejection",
+        "core_share_alike_without_review_rejection",
+        "unknown_license_rejection",
+        "ci_report_summary",
+        "attribution_manifest_filtering",
+        "artifact_writing"
+      ]
+    }
+  },
+  "ledger_acceptance": [
+    "Require ledger_version 0.1.0 until a schema migration gate exists.",
+    "Require a non-empty assets array.",
+    "Require every field listed in research/asset_provenance/ledger.schema.md.",
+    "Require stable unique asset_id values.",
+    "Require supported review_status values.",
+    "Require a supported SPDX short identifier or supported LicenseRef as spdx_id.",
+    "Require spdx_id to appear inside spdx_expression.",
+    "Require included assets to have existing included_path values.",
+    "Require included asset hashes to match committed file or directory contents.",
+    "Require included assets to be approved or needs_legal_review.",
+    "Require included external assets to be approved.",
+    "Reject core noncommercial assets.",
+    "Require included share-alike or copyleft assets to provide decision_record.",
+    "Reject share-alike assets as default core assets without decision-record metadata.",
+    "Require attribution text when attribution_required is true.",
+    "Return JSON-serializable ok, errors, warnings, and summary."
+  ],
+  "spdx_acceptance": [
+    "Accept project-supported SPDX identifiers.",
+    "Accept LicenseRef-*.",
+    "Accept DocumentRef-...:LicenseRef-*.",
+    "Accept AND, OR, WITH, +, and parentheses under the Stage 0 subset.",
+    "Return sorted license_ids, exception_ids, and operators.",
+    "Return contains_copyleft for known copyleft or share-alike identifiers.",
+    "Reject unknown SPDX license identifiers.",
+    "Reject unknown SPDX exception identifiers.",
+    "Reject malformed parentheses and unexpected tokens.",
+    "Reject lowercase operators under the current project policy."
+  ],
+  "hash_acceptance": [
+    "Return sha256 metadata for files.",
+    "Return sha256-tree metadata for directories.",
+    "Hash directory files in deterministic relative-path order.",
+    "Include relative path names and child file digests in directory tree hashes.",
+    "Raise FileNotFoundError for absent paths.",
+    "Avoid network access and environment-dependent metadata."
+  ],
+  "ci_report_acceptance": [
+    "Report report_version.",
+    "Report generated_date.",
+    "Report ok.",
+    "Report checks.",
+    "Report errors.",
+    "Report warnings.",
+    "Report validation.",
+    "Report spdx_summary.",
+    "Report spdx_results.",
+    "Expose ledger_validation_ok, spdx_expressions_ok, included_hashes_ok, and decision_record_gate_ok."
+  ],
+  "attribution_acceptance": [
+    "Include only assets where attribution_required is true.",
+    "Preserve asset_id, title, creator, license, SPDX ID, SPDX expression, source URL, attribution text, inclusion status, and included path.",
+    "Exclude internal assets that do not require attribution.",
+    "Return a stable manifest version until a schema migration gate exists."
+  ],
+  "non_finalized_gates": [
+    "repository_wide_reuse_scanning_deferred",
+    "reuse_toml_generation_deferred",
+    "legal_review_workflow_deferred",
+    "package_license_metadata_decision_deferred",
+    "full_spdx_license_list_ingestion_deferred",
+    "sbom_generation_deferred",
+    "spdx_3_lowercase_operator_policy_deferred"
+  ],
+  "negative_checks": [
+    "packages/mecha_engine/src/mecha_engine/provenance imports labs",
+    "package tests import labs",
+    "package tests mutate sys.path to reach labs",
+    "package code writes Stage 0 artifacts as an import side effect",
+    "unknown SPDX identifiers pass silently",
+    "lowercase operators pass without an explicit schema revision",
+    "included assets can omit hashes",
+    "stale included hashes pass",
+    "included share-alike or copyleft assets can ship without decision-record metadata",
+    "reference-only assets are treated as shipped assets",
+    "attribution-required assets are omitted from the attribution manifest",
+    "package metadata declares release license fields before the repository and package license decision is explicit",
+    "the gate is described as legal review or complete release compliance"
+  ],
+  "future_verification_commands": [
+    "python -B -m unittest discover -s .\\labs\\asset_pipeline -p \"test_*.py\"",
+    "python -B .\\labs\\asset_pipeline\\provenance_ledger.py --output-dir .\\data\\asset_provenance --ci",
+    "python -B -m unittest discover -s .\\packages\\mecha_engine\\tests -p \"test_*.py\"",
+    "python -c \"from mecha_engine.provenance import parse_spdx_expression, validate_ledger, build_ci_report, generate_attribution_manifest, hash_included_path\"",
+    "rg -n \"from labs|import labs|labs/|labs\\\\|sys\\.path\" .\\packages\\mecha_engine",
+    "python -B .\\labs\\package_promotion\\package_promotion_gate.py --root . --output-dir .\\data\\package_promotion",
+    "git diff --check"
+  ],
+  "expected_implementation_stage_result": {
+    "lab_provenance_tests_pass": true,
+    "package_provenance_tests_pass_through_package_imports": true,
+    "package_ci_report_reproduces_stage0_clean_checks_or_records_schema_revision": true,
+    "included_hashes_checked_against_committed_contents": true,
+    "spdx_parsing_is_deterministic": true,
+    "reference_only_external_sources_remain_excluded_from_shipped_package_assets": true,
+    "package_contains_no_labs_imports": true,
+    "package_promotion_gate_rerun_after_package_tests_exist": true
+  },
+  "next_research_step": "Use this gate as the provenance acceptance checklist when the user explicitly starts package scaffold or provenance package work."
+}

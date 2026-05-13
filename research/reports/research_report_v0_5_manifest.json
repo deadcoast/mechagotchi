@@ -1,0 +1,92 @@
+{
+  "report_version": "0.5",
+  "published_date": "2026-05-12",
+  "report_path": "research/reports/mechagotchi_research_report_v0_5.md",
+  "source_plan": "docs/02-research_plan.md",
+  "status": "published_internal",
+  "referenced_artifacts": [
+    "research/reports/mechagotchi_research_report_v0_4.md",
+    "research/reports/research_report_v0_4_manifest.json",
+    "research/package_specs/README.md",
+    "research/package_specs/mecha_engine_scaffold_verification_gate.md",
+    "research/package_specs/mecha_engine_genome_contract_gate.md",
+    "research/package_specs/mecha_engine_generation_contract_gate.md",
+    "research/package_specs/mecha_engine_lifecycle_contract_gate.md",
+    "research/package_specs/mecha_engine_archive_contract_gate.md",
+    "research/package_specs/mecha_engine_provenance_contract_gate.md",
+    "research/experiment_reports/2026-05-12-mecha-engine-scaffold-verification-gate.md",
+    "research/experiment_reports/2026-05-12-mecha-engine-genome-contract-gate.md",
+    "research/experiment_reports/2026-05-12-mecha-engine-generation-contract-gate.md",
+    "research/experiment_reports/2026-05-12-mecha-engine-lifecycle-contract-gate.md",
+    "research/experiment_reports/2026-05-12-mecha-engine-archive-contract-gate.md",
+    "research/experiment_reports/2026-05-12-mecha-engine-provenance-contract-gate.md",
+    "data/architecture/mecha_engine_scaffold_verification_gate_stage0.json",
+    "data/architecture/mecha_engine_genome_contract_gate_stage0.json",
+    "data/architecture/mecha_engine_generation_contract_gate_stage0.json",
+    "data/architecture/mecha_engine_lifecycle_contract_gate_stage0.json",
+    "data/architecture/mecha_engine_archive_contract_gate_stage0.json",
+    "data/architecture/mecha_engine_provenance_contract_gate_stage0.json"
+  ],
+  "headline_metrics": {
+    "scaffold_gate_defined": true,
+    "module_contract_gate_count": 5,
+    "package_root_exists": false,
+    "package_code_created": false,
+    "package_import_tests_exist": false,
+    "seed_grid_acceptance_count": 50,
+    "invalid_grid_rejection_count": 200,
+    "constrained_generator_validity_rate": 1.0,
+    "slip_constrained_valid_and_aligned_count": 50,
+    "lifecycle_switchboard_survival_ticks": 72,
+    "lifecycle_idle_survival_ticks": 11,
+    "lifecycle_random_survival_ticks": 21,
+    "archive_extended_occupied_niches": 29,
+    "archive_extended_best_fitness": 0.979592,
+    "archive_extended_qd_score": 27.773545,
+    "provenance_ci_ok": true,
+    "provenance_asset_count": 7,
+    "provenance_spdx_expression_count": 7,
+    "provenance_spdx_parsed_expression_count": 7,
+    "manual_ratings_collected": false,
+    "manual_ratings_csv_present": false,
+    "release_license_metadata_deferred": true
+  },
+  "contract_gate_statuses": {
+    "scaffold": "research_verification_gate_no_package_code",
+    "genome": "research_genome_contract_gate_no_package_code",
+    "generation": "research_generation_contract_gate_no_package_code",
+    "lifecycle": "research_lifecycle_contract_gate_no_package_code",
+    "archive": "research_archive_contract_gate_no_package_code",
+    "provenance": "research_provenance_contract_gate_no_package_code"
+  },
+  "decision_summary": {
+    "adopt": [
+      "module_contract_gates",
+      "scaffold_verification_gate",
+      "src_layout_package_boundary",
+      "pyproject_toml_metadata_boundary"
+    ],
+    "watch": [
+      "generation_raw_markov_remains_proposal_only",
+      "archive_descriptor_sparsity",
+      "lifecycle_reward_feedback_remains_lab_only",
+      "spdx_operator_policy_version_drift"
+    ],
+    "blocked": [
+      "actual_package_promotion",
+      "lab_code_migration",
+      "human_readability_calibration",
+      "final_archive_descriptor_thresholds",
+      "release_license_metadata",
+      "full_provenance_release_compliance"
+    ]
+  },
+  "next_sequence": [
+    "create_empty_packages_mecha_engine_src_layout_scaffold_when_explicitly_authorized",
+    "add_package_import_surface_tests",
+    "rerun_package_promotion_gate_after_scaffold_exists",
+    "begin_package_implementation_with_genome_contracts",
+    "keep_generation_lifecycle_archive_provenance_behind_contract_gates",
+    "collect_real_human_readability_ratings"
+  ]
+}

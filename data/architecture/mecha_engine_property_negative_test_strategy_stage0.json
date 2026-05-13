@@ -1,0 +1,336 @@
+{
+  "artifact_id": "mecha_engine_property_negative_test_strategy_stage0",
+  "date": "2026-05-12",
+  "status": "research_property_negative_test_strategy_no_package_code",
+  "target_package_root": "packages/mecha_engine",
+  "package_root_exists_at_strategy_authoring": false,
+  "purpose": "Define future property-style, single-fault negative, metamorphic, and cross-module rejection tests without creating package code or package tests.",
+  "source_artifacts": [
+    "docs/01-brainstorming.md",
+    "docs/02-research_plan.md",
+    "research/package_specs/mecha_engine_module_interfaces.md",
+    "research/package_specs/mecha_engine_contract_traceability_matrix.md",
+    "research/package_specs/mecha_engine_test_fixture_manifest.md",
+    "research/package_specs/mecha_engine_formal_invariant_dependency_gate.md",
+    "data/architecture/mecha_engine_contract_traceability_matrix_stage0.json",
+    "data/architecture/mecha_engine_test_fixture_manifest_stage0.json",
+    "data/architecture/mecha_engine_formal_invariant_dependency_gate_stage0.json"
+  ],
+  "external_anchors": [
+    {
+      "source": "Python unittest docs",
+      "url": "https://docs.python.org/3.11/library/unittest.html",
+      "used_for": "Default future package test runner, assertions, exception checks, and discovery terminology."
+    },
+    {
+      "source": "Hypothesis docs",
+      "url": "https://hypothesis.readthedocs.io/en/latest/",
+      "used_for": "Optional future property-based testing dependency and generated edge-case terminology."
+    },
+    {
+      "source": "Python jsonschema validation docs",
+      "url": "https://python-jsonschema.readthedocs.io/en/v4.22.0/validate/",
+      "used_for": "Draft202012Validator, is_valid, iter_errors, and validate behavior terminology."
+    }
+  ],
+  "dependency_policy": {
+    "required_initial_runner": "python -B -m unittest discover -s .\\packages\\mecha_engine\\tests -p \"test_*.py\"",
+    "hypothesis_status": "optional_future_dev_dependency_not_required_until_explicit_package_dependency_decision",
+    "pytest_status": "optional_future_runner_not_required_by_current_package_traceability_matrix",
+    "lab_import_policy": "future package tests must import mecha_engine and must not import labs"
+  },
+  "test_taxonomy": [
+    {
+      "type": "fixture_regression",
+      "role": "Replay frozen repository corpora and metrics.",
+      "required_before_promotion": true
+    },
+    {
+      "type": "single_fault_negative",
+      "role": "Derive one invalid mutation at a time from valid fixtures.",
+      "required_before_promotion": true
+    },
+    {
+      "type": "property_style_invariant",
+      "role": "Check general rules across generated or fixture-derived inputs.",
+      "required_before_promotion": true
+    },
+    {
+      "type": "metamorphic",
+      "role": "Apply transformations where validity or signature behavior is known.",
+      "required_before_promotion": true
+    },
+    {
+      "type": "cross_module_rejection",
+      "role": "Prove invalid upstream state cannot flow downstream.",
+      "required_before_promotion": true
+    },
+    {
+      "type": "boundary_import",
+      "role": "Prove package runtime and tests do not import labs or mutate sys.path.",
+      "required_before_promotion": true
+    },
+    {
+      "type": "promotion_rerun",
+      "role": "Re-execute package promotion after package tests exist.",
+      "required_before_promotion": true
+    },
+    {
+      "type": "human_calibration",
+      "role": "Prove manual readability ratings drive thresholds.",
+      "required_before_promotion": false,
+      "blocked_status": "blocked_until_manual_ratings_exist"
+    }
+  ],
+  "property_families": [
+    {
+      "id": "P1_schema_structural_grid_admissibility",
+      "input_sources": [
+        "data/seed_grids/*.json",
+        "fixture-derived single-fault variants"
+      ],
+      "single_fault_variants": [
+        "coordinate outside declared bounds",
+        "duplicate occupied coordinate",
+        "unknown semantic role",
+        "mutation weight below minimum",
+        "mutation weight above maximum",
+        "body mass below minimum",
+        "body mass above maximum",
+        "disconnected occupied body",
+        "missing sensor cell",
+        "missing animation anchor",
+        "organ reference to absent cell",
+        "palette reference not declared in palette contract"
+      ],
+      "oracles": [
+        "unmodified seed grid passes",
+        "single-fault variant fails",
+        "failure result contains structured error information",
+        "validation does not mutate input"
+      ]
+    },
+    {
+      "id": "P2_invalid_corpus_rejection",
+      "input_sources": [
+        "data/invalid_grids/*.json",
+        "two-fault deterministic variants after single-fault testing passes"
+      ],
+      "oracles": [
+        "every invalid input fails",
+        "invalid input does not become generation parent",
+        "invalid input does not become lifecycle subject",
+        "invalid input does not become archive elite",
+        "invalid input does not produce renderability claim"
+      ]
+    },
+    {
+      "id": "P3_generation_validity_trace",
+      "input_sources": [
+        "valid seed parent grids",
+        "valid SLIP profiles",
+        "invalid SLIP profiles",
+        "deterministic RNG seeds"
+      ],
+      "oracles": [
+        "invalid parent rejected before proposal generation",
+        "invalid SLIP profile rejected before constrained generation",
+        "returned candidate grid passes package genome validation",
+        "candidate trace preserves parent ID generator ID seed profile ID rejected proposal count and validation status",
+        "same inputs and seed reproduce candidate identity and grid signature",
+        "generated batch size equals request",
+        "generated batch candidate IDs are unique within batch"
+      ]
+    },
+    {
+      "id": "P4_lifecycle_boundedness_rejection",
+      "input_sources": [
+        "valid seed grid",
+        "invalid grid",
+        "valid SLIP profile",
+        "supported first action set",
+        "deterministic episode seed"
+      ],
+      "oracles": [
+        "invalid grid fails before state creation",
+        "invalid profile fails before profile-weighted state creation",
+        "initial_state does not mutate grid or profile",
+        "continuous state values stay in [0, 1]",
+        "reward values stay in [0, 1]",
+        "death cause is explicit",
+        "same inputs and seed reproduce episode summary",
+        "switchboard idle and random comparator scenarios reproduce or have decision-recorded successor"
+      ]
+    },
+    {
+      "id": "P5_archive_niche_correctness",
+      "input_sources": [
+        "package-valid candidates from lineage fixtures",
+        "deterministic lifecycle metric fixtures",
+        "baseline and extended descriptor functions"
+      ],
+      "oracles": [
+        "invalid candidate grids cannot become elites",
+        "descriptor key is deterministic integer tuple",
+        "descriptor metadata exposes names and cardinalities",
+        "empty niche accepts first valid candidate",
+        "occupied niche replaces only on higher documented fitness",
+        "tie behavior deterministic and documented",
+        "scalar top-k never replaces MAP-Elites archive behavior",
+        "summary reports coverage occupied niches best fitness mean elite fitness QD score blocked counts and readability calibration status"
+      ]
+    },
+    {
+      "id": "P6_provenance_license_strictness",
+      "input_sources": [
+        "data/asset_provenance/ledger.json",
+        "valid SPDX expressions from current fixtures",
+        "single-token SPDX mutations",
+        "included asset paths and altered hashes"
+      ],
+      "oracles": [
+        "supported expressions parse",
+        "unknown license IDs fail",
+        "unknown exception IDs fail",
+        "lowercase and or with fail under Stage 0 policy",
+        "included asset hashes use sha256",
+        "directory hashes are deterministic sha256-tree",
+        "missing included hashes fail",
+        "stale included hashes fail",
+        "included share-alike or copyleft assets require decision record",
+        "reference-only assets remain excluded from shipped asset lists"
+      ]
+    },
+    {
+      "id": "P7_cross_module_failure_propagation",
+      "input_sources": [
+        "invalid grids from P1 and P2",
+        "invalid profiles",
+        "lifecycle outputs with non-finite or out-of-range values",
+        "provenance reports with failed checks"
+      ],
+      "oracles": [
+        "generation rejects invalid parents",
+        "lifecycle rejects invalid grids and profiles",
+        "archive rejects invalid candidates and invalid lifecycle metrics",
+        "render packet creation rejects invalid grids",
+        "package promotion rejects provenance failure",
+        "blocked states remain blocked not partially accepted"
+      ]
+    },
+    {
+      "id": "P8_boundary_import_hygiene",
+      "input_sources": [
+        "future package source tree",
+        "future package tests",
+        "import statements",
+        "package import side effects"
+      ],
+      "oracles": [
+        "package runtime imports do not reference labs",
+        "package tests do not reference labs",
+        "package tests do not mutate sys.path",
+        "importing package modules writes no Stage 0 artifacts",
+        "package outputs remain JSON-serializable where report contracts require JSON"
+      ]
+    }
+  ],
+  "metamorphic_checks": [
+    {
+      "transformation": "reorder non-semantic metadata fields",
+      "expected_result": "same semantic signature"
+    },
+    {
+      "transformation": "change semantic role of occupied cell",
+      "expected_result": "different semantic signature"
+    },
+    {
+      "transformation": "deep-copy input before validation",
+      "expected_result": "copied and original payloads remain equal after validation"
+    },
+    {
+      "transformation": "validate same payload twice",
+      "expected_result": "same result and same error family"
+    },
+    {
+      "transformation": "use same generator seed and parent",
+      "expected_result": "same candidate identity and grid signature"
+    },
+    {
+      "transformation": "use different generator seed with same parent",
+      "expected_result": "candidate identity or trace seed differs"
+    },
+    {
+      "transformation": "insert weaker candidate into occupied archive niche",
+      "expected_result": "existing elite remains"
+    },
+    {
+      "transformation": "insert stronger candidate into occupied archive niche",
+      "expected_result": "elite changes to stronger candidate"
+    },
+    {
+      "transformation": "lowercase SPDX operator",
+      "expected_result": "expression rejected under Stage 0 policy"
+    }
+  ],
+  "future_test_allocation": [
+    {
+      "path": "tests/test_package_imports.py",
+      "coverage": "import hygiene, metadata boundary, no import-time writes"
+    },
+    {
+      "path": "tests/test_genome_contract.py",
+      "coverage": "P1, P2, genome metamorphic checks"
+    },
+    {
+      "path": "tests/test_generation_contract.py",
+      "coverage": "P3, invalid-parent propagation, deterministic batches"
+    },
+    {
+      "path": "tests/test_lifecycle_contract.py",
+      "coverage": "P4, invalid-grid rejection, bounded state"
+    },
+    {
+      "path": "tests/test_archive_contract.py",
+      "coverage": "P5, scalar top-k separation"
+    },
+    {
+      "path": "tests/test_provenance_contract.py",
+      "coverage": "P6, SPDX mutation tests, hash tests"
+    },
+    {
+      "path": "tests/test_cross_module_invariants.py",
+      "coverage": "P7, package-wide blocked-state propagation"
+    },
+    {
+      "path": "tests/helpers/fixtures.py",
+      "coverage": "fixture loading without importing labs"
+    },
+    {
+      "path": "tests/helpers/mutators.py",
+      "coverage": "deterministic single-fault fixture derivation"
+    }
+  ],
+  "blocked_state_assertions": [
+    "human-calibrated readability thresholds before manual ratings exist",
+    "archive descriptors claiming human calibration before manual ratings exist",
+    "real CuBFF adoption without real snapshot artifacts",
+    "online reward-shaping promotion before frozen dynamic stress baseline is beaten",
+    "release license metadata before package and repository license decision records exist"
+  ],
+  "research_verification_commands": [
+    "python -m json.tool .\\data\\architecture\\mecha_engine_property_negative_test_strategy_stage0.json",
+    "Test-Path .\\packages",
+    "rg -n \"mecha_engine_property_negative_test_strategy|research_property_negative_test_strategy_no_package_code\" .\\research .\\data",
+    "git diff --check"
+  ],
+  "future_package_verification_commands": [
+    "python -B -m unittest discover -s .\\packages\\mecha_engine\\tests -p \"test_*.py\"",
+    "python -c \"import mecha_engine, mecha_engine.genome, mecha_engine.generation, mecha_engine.lifecycle, mecha_engine.archive, mecha_engine.provenance\"",
+    "rg -n \"from labs|import labs|labs/|labs\\\\|sys\\.path\" .\\packages\\mecha_engine",
+    "python -B .\\labs\\package_promotion\\package_promotion_gate.py --root . --output-dir .\\data\\package_promotion",
+    "git diff --check"
+  ],
+  "decision": "adopt_as_future_property_negative_test_strategy",
+  "next_research_step": "Use this strategy to produce the first implementation checklist only after the user explicitly starts packages/mecha_engine package work."
+}

@@ -16,6 +16,7 @@ source_url:
 download_date:
 license:
 spdx_id:
+spdx_expression:
 license_url:
 derivative_of:
 modifications:
@@ -31,13 +32,17 @@ attribution_required:
 attribution_text:
 review_status:
 reviewer:
+decision_record:
 notes:
 ```
 
 ## Field Rules
 
 - `asset_id` must be unique and stable.
-- `spdx_id` must use the SPDX short identifier when one exists.
+- `spdx_id` must use the primary SPDX short identifier when one exists.
+- `spdx_expression` must be a valid SPDX license expression. It may be a
+  single identifier, `LicenseRef-*`, or a compound expression using `AND`,
+  `OR`, `WITH`, and parentheses.
 - `included_in_repo` must be `true` only if the asset is actually committed.
 - `included_path` must exist when `included_in_repo` is `true`.
 - `hash` is required for committed assets and must match the committed file or
@@ -48,6 +53,7 @@ notes:
   `reference_only`, or `needs_legal_review`.
 - Copyleft or share-alike assets must not become default core assets without a
   decision record.
+- Included copyleft or share-alike assets must include `decision_record`.
 - Proprietary inspiration must be marked `reference_only` and excluded from the
   repository.
 - External assets marked `reference_only` must not have an included path.
@@ -60,11 +66,14 @@ The first executable ledger prototype lives in:
 labs/asset_pipeline/provenance_ledger.py
 data/asset_provenance/ledger.json
 data/asset_provenance/validation_report.json
+data/asset_provenance/provenance_ci_report.json
 data/asset_provenance/attribution_manifest.json
 ```
 
 Stage 0 validates three included internal research artifacts and four
-reference-only external sources.
+reference-only external sources. The follow-up CI report parses SPDX
+expressions, checks hashes, and fails risky included share-alike or copyleft
+assets that lack decision-record metadata.
 
 ## Starting Policy
 
@@ -75,6 +84,7 @@ interoperability tests only when provenance is explicit.
 ## Sources
 
 - https://spdx.org/licenses/
-- https://reuse.software/
+- https://spdx.github.io/spdx-spec/v2.2.2/SPDX-license-expressions/
+- https://reuse.software/spec-3.3/
 - https://creativecommons.org/cc-licenses/
 - https://opengameart.org/content/faq

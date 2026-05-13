@@ -1,0 +1,207 @@
+{
+  "artifact_id": "mecha_engine_contract_traceability_matrix_stage0",
+  "date": "2026-05-12",
+  "status": "research_traceability_matrix_no_package_code",
+  "target_package_root": "packages/mecha_engine",
+  "package_root_exists_at_matrix_authoring": false,
+  "purpose": "Translate scaffold and module contract gates into concrete future package test obligations without creating package code.",
+  "source_artifacts": [
+    "research/package_specs/mecha_engine_contract_traceability_matrix.md",
+    "research/package_specs/mecha_engine_scaffold_verification_gate.md",
+    "research/package_specs/mecha_engine_genome_contract_gate.md",
+    "research/package_specs/mecha_engine_generation_contract_gate.md",
+    "research/package_specs/mecha_engine_lifecycle_contract_gate.md",
+    "research/package_specs/mecha_engine_archive_contract_gate.md",
+    "research/package_specs/mecha_engine_provenance_contract_gate.md",
+    "research/reports/mechagotchi_research_report_v0_5.md",
+    "data/architecture/mecha_engine_scaffold_verification_gate_stage0.json",
+    "data/architecture/mecha_engine_genome_contract_gate_stage0.json",
+    "data/architecture/mecha_engine_generation_contract_gate_stage0.json",
+    "data/architecture/mecha_engine_lifecycle_contract_gate_stage0.json",
+    "data/architecture/mecha_engine_archive_contract_gate_stage0.json",
+    "data/architecture/mecha_engine_provenance_contract_gate_stage0.json"
+  ],
+  "implementation_order": [
+    "scaffold_import_surface_tests",
+    "genome_validation_tests",
+    "generation_tests_using_package_genome_api",
+    "lifecycle_tests_rejecting_invalid_grids_before_simulation",
+    "archive_tests_validating_candidates_through_package_genome_api",
+    "provenance_tests_without_labs_imports",
+    "package_promotion_gate_rerun"
+  ],
+  "entries": [
+    {
+      "surface": "scaffold",
+      "source_gate": "research/package_specs/mecha_engine_scaffold_verification_gate.md",
+      "gate_status": "research_verification_gate_no_package_code",
+      "future_package_test": "packages/mecha_engine/tests/test_package_imports.py",
+      "required_assertions": [
+        "pyproject_toml_exists",
+        "readme_exists",
+        "src_mecha_engine_init_exists",
+        "py_typed_exists",
+        "initial_module_imports_work",
+        "project_name_is_mecha_engine_distribution_name",
+        "release_license_fields_deferred_until_license_decision",
+        "no_lab_implementation_copied_in_scaffold_step"
+      ],
+      "blocked_until": [
+        "user_explicitly_starts_package_implementation"
+      ]
+    },
+    {
+      "surface": "genome",
+      "source_gate": "research/package_specs/mecha_engine_genome_contract_gate.md",
+      "gate_status": "research_genome_contract_gate_no_package_code",
+      "future_package_test": "packages/mecha_engine/tests/test_genome_contract.py",
+      "required_assertions": [
+        "validate_all_50_seed_grids",
+        "reject_all_200_invalid_counterexamples",
+        "validate_grid_file_matches_validate_grid",
+        "ordinary_invalid_payloads_return_structured_errors",
+        "validation_does_not_mutate_inputs",
+        "grid_signature_is_deterministic",
+        "grid_signature_changes_on_semantic_changes",
+        "grid_signature_ignores_nonsemantic_review_metadata",
+        "render_packet_is_json_serializable"
+      ],
+      "source_evidence": {
+        "seed_grid_acceptance_count": 50,
+        "invalid_grid_rejection_count": 200
+      }
+    },
+    {
+      "surface": "generation",
+      "source_gate": "research/package_specs/mecha_engine_generation_contract_gate.md",
+      "gate_status": "research_generation_contract_gate_no_package_code",
+      "future_package_test": "packages/mecha_engine/tests/test_generation_contract.py",
+      "required_assertions": [
+        "reject_empty_or_invalid_seed_corpora",
+        "reject_invalid_parent_before_generation",
+        "candidate_passes_package_genome_validation",
+        "lineage_trace_preserved",
+        "deterministic_rng_reproduces_candidates_and_batches",
+        "batch_count_exact",
+        "batch_candidate_ids_unique",
+        "constrained_generation_reproduces_100_of_100_validity",
+        "slip_generation_reproduces_50_of_50_valid_and_aligned",
+        "raw_markov_not_production_generator"
+      ],
+      "source_evidence": {
+        "random_mutation_validity_rate": 0.42,
+        "raw_local_markov_validity_rate": 0.13,
+        "constrained_validity_rate": 1.0,
+        "slip_validity_rate": 1.0,
+        "slip_alignment_count": 50
+      },
+      "depends_on": [
+        "genome"
+      ]
+    },
+    {
+      "surface": "lifecycle",
+      "source_gate": "research/package_specs/mecha_engine_lifecycle_contract_gate.md",
+      "gate_status": "research_lifecycle_contract_gate_no_package_code",
+      "future_package_test": "packages/mecha_engine/tests/test_lifecycle_contract.py",
+      "required_assertions": [
+        "invalid_grids_fail_before_simulation",
+        "slip_profile_validated_before_state_creation",
+        "initial_state_does_not_mutate_inputs",
+        "only_supported_actions_are_accepted",
+        "continuous_state_values_stay_bounded",
+        "death_causes_are_explicit",
+        "early_death_does_not_inflate_need_balance",
+        "episodes_are_deterministic_for_same_inputs",
+        "stage0_policy_comparator_reproduced_or_revised_by_decision_record",
+        "reward_values_are_bounded",
+        "online_learner_memory_excluded"
+      ],
+      "source_evidence": {
+        "switchboard_survival_ticks": 72,
+        "idle_survival_ticks": 11,
+        "random_survival_ticks": 21,
+        "dynamic_reward_mean_need_balance_delta": -0.002226
+      },
+      "depends_on": [
+        "genome"
+      ]
+    },
+    {
+      "surface": "archive",
+      "source_gate": "research/package_specs/mecha_engine_archive_contract_gate.md",
+      "gate_status": "research_archive_contract_gate_no_package_code",
+      "future_package_test": "packages/mecha_engine/tests/test_archive_contract.py",
+      "required_assertions": [
+        "invalid_candidate_grids_cannot_be_elites",
+        "descriptors_are_deterministic_integer_tuples",
+        "descriptor_metadata_exposes_names_and_cardinalities",
+        "score_candidate_returns_bounded_components_and_fitness",
+        "insert_candidate_inserts_empty_niches",
+        "insert_candidate_replaces_only_higher_fitness_elites",
+        "tie_handling_is_deterministic",
+        "scalar_top_k_remains_comparator_only",
+        "archive_summary_reports_required_metrics",
+        "final_descriptor_thresholds_remain_unlocked_without_human_ratings"
+      ],
+      "source_evidence": {
+        "stage0_3d_occupied_niches": 24,
+        "stage0_extended_occupied_niches": 29,
+        "stage0_extended_best_fitness": 0.979592,
+        "stage0_extended_qd_score": 27.773545
+      },
+      "depends_on": [
+        "genome",
+        "lifecycle"
+      ]
+    },
+    {
+      "surface": "provenance",
+      "source_gate": "research/package_specs/mecha_engine_provenance_contract_gate.md",
+      "gate_status": "research_provenance_contract_gate_no_package_code",
+      "future_package_test": "packages/mecha_engine/tests/test_provenance_contract.py",
+      "required_assertions": [
+        "supported_spdx_subset_parses",
+        "unknown_spdx_ids_rejected",
+        "unknown_exception_ids_rejected",
+        "lowercase_operators_rejected_under_stage0_policy",
+        "file_hashes_use_sha256",
+        "directory_hashes_use_deterministic_sha256_tree",
+        "missing_included_hashes_fail",
+        "stale_included_hashes_fail",
+        "included_share_alike_or_copyleft_requires_decision_record",
+        "reference_only_assets_excluded_from_shipped_assets",
+        "attribution_required_assets_appear_in_manifest",
+        "ci_report_exposes_required_checks"
+      ],
+      "source_evidence": {
+        "provenance_asset_count": 7,
+        "spdx_expression_count": 7,
+        "parsed_expression_count": 7,
+        "ci_report_ok": true
+      }
+    }
+  ],
+  "cross_cutting_negative_checks": [
+    "package_tests_import_labs",
+    "package_tests_mutate_sys_path_to_labs",
+    "package_runtime_imports_labs",
+    "package_runtime_writes_stage0_artifacts_on_import",
+    "required_json_serializable_outputs_are_not_json_serializable",
+    "caller_owned_inputs_are_mutated_without_contract_permission",
+    "package_promotion_gate_not_rerun_after_package_tests_exist"
+  ],
+  "future_verification_commands": [
+    "python -B -m unittest discover -s .\\packages\\mecha_engine\\tests -p \"test_*.py\"",
+    "python -c \"import mecha_engine, mecha_engine.genome, mecha_engine.generation, mecha_engine.lifecycle, mecha_engine.archive, mecha_engine.provenance\"",
+    "rg -n \"from labs|import labs|labs/|labs\\\\|sys\\.path\" .\\packages\\mecha_engine",
+    "python -B .\\labs\\grid_genome\\test_validator.py",
+    "python -B .\\labs\\grid_genome\\test_constrained_generator.py",
+    "python -B .\\labs\\lifecycle_sim\\test_lifecycle_sim.py",
+    "python -B -m unittest discover -s .\\labs\\map_elites_archive -p \"test_*.py\"",
+    "python -B -m unittest discover -s .\\labs\\asset_pipeline -p \"test_*.py\"",
+    "python -B .\\labs\\package_promotion\\package_promotion_gate.py --root . --output-dir .\\data\\package_promotion",
+    "git diff --check"
+  ],
+  "next_research_step": "Use this matrix as the test-traceability checklist when package implementation is explicitly started."
+}

@@ -1,0 +1,191 @@
+{
+  "artifact_id": "mecha_engine_archive_contract_gate_stage0",
+  "date": "2026-05-12",
+  "status": "research_archive_contract_gate_no_package_code",
+  "target_package_root": "packages/mecha_engine",
+  "target_module": "mecha_engine.archive",
+  "package_root_exists_at_gate_authoring": false,
+  "purpose": "Define the acceptance contract for the future mecha_engine.archive package module before moving MAP-Elites archive code out of labs.",
+  "source_artifacts": [
+    "research/package_specs/mecha_engine_module_interfaces.md",
+    "research/package_specs/mecha_engine_archive_contract_gate.md",
+    "research/algorithm_cards/map_elites.md",
+    "research/algorithm_cards/map_elites_extended_descriptors.md",
+    "research/experiment_reports/2026-05-12-map-elites-archive-baseline.md",
+    "research/experiment_reports/2026-05-12-map-elites-extended-descriptors.md",
+    "data/archives/map_elites_stage0.json",
+    "data/archives/map_elites_extended_stage0.json",
+    "data/package_promotion/mecha_engine_package_promotion_gate_stage0.json"
+  ],
+  "external_references": [
+    {
+      "title": "Illuminating search spaces by mapping elites",
+      "url": "https://arxiv.org/abs/1504.04909",
+      "used_for": "MAP-Elites quality-diversity archive framing."
+    },
+    {
+      "title": "QDax overview",
+      "url": "https://qdax.readthedocs.io/en/latest/overview/",
+      "used_for": "Container, emitter, and scoring-function architecture split."
+    },
+    {
+      "title": "QDax repository",
+      "url": "https://github.com/adaptive-intelligent-robotics/QDax",
+      "used_for": "Future acceleration reference, not a package dependency."
+    }
+  ],
+  "mathematical_contract": {
+    "descriptor": "descriptor = phi(candidate, metrics)",
+    "fitness": "fitness = f(candidate, metrics)",
+    "niche": "niche = discretize(descriptor)",
+    "elite_rule": "archive[niche] = argmax_fitness(candidate in niche)",
+    "scalar_top_k_role": "comparator_only"
+  },
+  "required_public_surface": [
+    {
+      "name": "descriptor_for_candidate",
+      "signature": "descriptor_for_candidate(candidate: dict, metrics: dict) -> tuple[int, ...]",
+      "contract": "Return a deterministic integer descriptor tuple from a candidate and metric bundle."
+    },
+    {
+      "name": "score_candidate",
+      "signature": "score_candidate(candidate: dict, metrics: dict) -> dict",
+      "contract": "Return bounded fitness, components, and evidence required for audit."
+    },
+    {
+      "name": "insert_candidate",
+      "signature": "insert_candidate(archive: dict, candidate: dict, score: dict, descriptor: tuple[int, ...]) -> dict",
+      "contract": "Insert or replace an elite deterministically according to niche and fitness."
+    },
+    {
+      "name": "build_archive",
+      "signature": "build_archive(candidates: list[dict], metrics_by_grid_id: dict) -> dict",
+      "contract": "Build an archive from candidates and precomputed metrics without using scalar top-k as the archive."
+    },
+    {
+      "name": "archive_summary",
+      "signature": "archive_summary(archive: dict) -> dict",
+      "contract": "Return coverage, QD score, best fitness, mean elite fitness, and calibration status."
+    }
+  ],
+  "baseline_evidence": {
+    "stage0_3d_archive": {
+      "candidate_count": 200,
+      "descriptor_dimensions": 3,
+      "total_possible_niches": 125,
+      "occupied_niches": 24,
+      "coverage": 0.192,
+      "best_fitness": 0.898214,
+      "mean_elite_fitness": 0.821066,
+      "scalar_top_occupied_niches": 7,
+      "scalar_top_coverage": 0.056,
+      "scalar_top_best_fitness": 0.898214,
+      "decision": "active_archive_direction"
+    },
+    "stage0_extended_archive": {
+      "candidate_count": 160,
+      "descriptor_dimensions": 7,
+      "total_possible_niches": 78125,
+      "occupied_niches": 29,
+      "coverage": 0.000371,
+      "best_fitness": 0.979592,
+      "mean_elite_fitness": 0.957708,
+      "qd_score": 27.773545,
+      "legacy_occupied_niches_on_same_candidate_set": 19,
+      "extended_occupied_niches_on_same_candidate_set": 29,
+      "decision": "prototype_extended_descriptors"
+    },
+    "package_promotion_gate": {
+      "component_id": "map_elites_archive",
+      "gate_status": "ready_for_package_design",
+      "occupied_niches_threshold": 20,
+      "occupied_niches_actual": 29,
+      "best_fitness_threshold": 0.9,
+      "best_fitness_actual": 0.979592,
+      "promotion_blockers": [
+        "package_root_absent",
+        "target_package_absent"
+      ]
+    }
+  },
+  "candidate_acceptance": [
+    "Candidate contains grid, descriptor, fitness, fitness_components, validation, and provenance.",
+    "Candidate grid passes mecha_engine.genome.validate_grid before insertion.",
+    "Invalid candidates may be reported but must not become elites.",
+    "Candidate metric bundle includes readability, lifecycle, SLIP alignment, mutation stability, and provenance where available."
+  ],
+  "descriptor_acceptance": [
+    "Support baseline body_mass, sensor_count, and symmetry descriptor dimensions.",
+    "Support extended body_mass, sensor_count, symmetry, readability, lifecycle_survival, mutation_stability, and behavior_neediness dimensions.",
+    "Return deterministic integer descriptor tuples.",
+    "Expose descriptor names and cardinalities in archive metadata.",
+    "Reject or explicitly mark missing metric inputs.",
+    "Distinguish observed occupied niches from theoretical total coverage.",
+    "Keep manual readability calibration status visible.",
+    "Do not lock final descriptor thresholds before manual readability ratings are collected."
+  ],
+  "fitness_acceptance": [
+    "Return JSON-serializable fitness result.",
+    "Include components, validation, readability, lifecycle, slip_alignment, and provenance.",
+    "Support survival, readability, validity, bond, mutation_stability, and SLIP alignment components.",
+    "Every component remains inside 0..1.",
+    "Aggregate fitness remains inside 0..1."
+  ],
+  "insertion_acceptance": [
+    "Derive niche key from descriptor.",
+    "Insert candidate when niche is empty.",
+    "Replace existing elite only when new candidate has higher fitness.",
+    "Use deterministic tie handling.",
+    "Preserve previous archive when candidate does not win its niche.",
+    "Record enough information to audit insertion or replacement."
+  ],
+  "summary_acceptance": [
+    "Report descriptor names.",
+    "Report descriptor dimensions.",
+    "Report descriptor cardinalities.",
+    "Report total possible niches.",
+    "Report occupied niches.",
+    "Report coverage.",
+    "Report best fitness.",
+    "Report mean elite fitness.",
+    "Report QD score.",
+    "Report candidate count.",
+    "Report blocked or skipped candidate counts.",
+    "Report readability calibration status."
+  ],
+  "non_finalized_gates": [
+    "manual_readability_required_before_final_descriptor_thresholds",
+    "broader_lifecycle_tests_required_before_final_archive_fitness_lock",
+    "qdax_jax_dependency_deferred"
+  ],
+  "negative_checks": [
+    "packages/mecha_engine/src/mecha_engine/archive imports labs",
+    "package tests import labs",
+    "package tests mutate sys.path to reach labs",
+    "scalar top-k replaces MAP-Elites archive mechanics",
+    "invalid grids can become elites",
+    "descriptor metadata is absent",
+    "theoretical coverage is compared directly across different descriptor dimensionalities without observed-niche context",
+    "proxy readability is presented as human-calibrated readability",
+    "final descriptor thresholds are locked before manual readability ratings are collected"
+  ],
+  "future_verification_commands": [
+    "python -B .\\labs\\grid_genome\\test_darwin_archive.py",
+    "python -B -m unittest discover -s .\\labs\\map_elites_archive -p \"test_*.py\"",
+    "python -B -m unittest discover -s .\\packages\\mecha_engine\\tests -p \"test_*.py\"",
+    "python -c \"from mecha_engine.archive import descriptor_for_candidate, score_candidate, insert_candidate, build_archive, archive_summary\"",
+    "rg -n \"from labs|import labs|labs/|labs\\\\|sys\\.path\" .\\packages\\mecha_engine",
+    "python -B .\\labs\\package_promotion\\package_promotion_gate.py --root . --output-dir .\\data\\package_promotion",
+    "git diff --check"
+  ],
+  "expected_implementation_stage_result": {
+    "lab_archive_tests_pass": true,
+    "package_archive_tests_pass_through_package_imports": true,
+    "package_archive_candidates_validate_through_genome_api": true,
+    "scalar_top_k_remains_comparator_only": true,
+    "manual_readability_remains_explicit_calibration_gate": true,
+    "package_contains_no_labs_imports": true,
+    "package_promotion_gate_rerun_after_package_tests_exist": true
+  },
+  "next_research_step": "Use this gate as the archive acceptance checklist when the user explicitly starts package scaffold or archive package work."
+}
