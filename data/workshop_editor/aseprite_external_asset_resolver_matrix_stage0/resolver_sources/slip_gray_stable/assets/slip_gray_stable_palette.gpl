@@ -1,0 +1,7 @@
+GIMP Palette
+Name: slip_gray_stable_constrained_000
+Columns: 8
+# Deterministic Stage 0 Aseprite external palette reference.
+ 17  24  20	slip_palette_0_background
+126 143 118	slip_palette_1_foreground
+215 223 199	slip_palette_2_foreground

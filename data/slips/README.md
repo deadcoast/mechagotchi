@@ -72,6 +72,21 @@ Current generated compatibility evidence:
   across 1/2/4-bit greyscale, 1/2/4-bit indexed-color, 16-bit samples,
   greyscale-alpha color type 4, filters 0..4, 6 invalid deep-color probes
   rejected, and mean semantic and visual carrier fidelity of 1.0.
+- `../workshop_editor/png_adam7_deep_color_cross_product_stage0.json` records
+  the bounded Adam7/deep-color PNG proof: 33 current profile round trips across
+  the deep-color subset, seven reduced-image pass manifests, filters 0..4, 7
+  invalid cross-product probes rejected, and mean semantic and visual carrier
+  fidelity of 1.0.
+- `../workshop_editor/apng_sidecar_decoder_stage0.json` records the bounded
+  APNG sidecar decoder proof: 3 current profile APNG round trips, two
+  full-canvas 8-bit RGBA source frames per asset, `acTL`/`fcTL`/`fdAT`
+  sequence validation, 5 invalid APNG probes rejected, and mean semantic and
+  frame-pixel fidelity of 1.0.
+- `../workshop_editor/apng_metadata_carrier_cross_product_stage0.json`
+  records the bounded APNG metadata-carrier cross-product proof: 15 current
+  profile round trips across `tEXt`, `zTXt`, uncompressed `iTXt`, compressed
+  `iTXt`, and private `mgOT` carriers, 6 invalid carrier/APNG probes rejected,
+  and mean semantic and frame-pixel fidelity of 1.0.
 - `../workshop_editor/png_embedded_sidecar_writer_stage0.json` records the
   embedded PNG sidecar writer proof: 3 current profile PNG `tEXt` sidecar
   round trips, decoded pixel preservation, 3 invalid embedded metadata probes
@@ -86,6 +101,11 @@ Current generated compatibility evidence:
   using one `mgOT` ancillary private unsafe-to-copy chunk, 7 invalid private
   chunk probes rejected, and a carrier-selection input matrix that keeps the
   final production carrier decision blocked.
+- `../workshop_editor/png_private_chunk_preservation_matrix_stage0.json`
+  records the simulated private-chunk editor preservation matrix: 18/18
+  expected scenario outcomes across 3 profiles and 6 editor-behavior policies,
+  6 recoverable imports, 6 metadata-loss outcomes, 6 stale/strict hash
+  rejections, and live external editor validation still blocked.
 - `../workshop_editor/spritesheet_sidecar_decoder_stage0.json` records the
   fixed horizontal spritesheet PNG sidecar decoder proof: 3 current profile
   spritesheet round trips, 2 invalid PNG/frame probes rejected, and mean
@@ -166,6 +186,11 @@ Current generated compatibility evidence:
   across indexed 8 bpp, grayscale-alpha 16 bpp, and RGBA 32 bpp compressed
   cels with generated External Files Chunk `0x2008` assets resolved by hash,
   and 6 invalid variant/resolver probes rejected before semantic restore.
+- `../workshop_editor/aseprite_external_asset_resolver_matrix_stage0.json`
+  records the generated Aseprite/LibreSprite external-asset resolver matrix:
+  36 round trips across 3 profiles, 3 document variants, and direct,
+  relative-path, content-addressed, and multi-root resolver policies, with 5
+  invalid resolver probes rejected before semantic restore.
 - `failure_cases/` contains authored negative profile fixtures covering
   required fields, type errors, enums, unit intervals, additional properties,
   body-mass order, and boolean numeric mistakes.
@@ -181,11 +206,11 @@ Current generated compatibility evidence:
 It does not yet cover package/runtime lifecycle behavior integration, completed
 manual readability calibration, production renderer
 playback, full third-party
-project-format coverage, APNG/full PNG conformance, Adam7/deep-color PNG
-cross-product coverage, arbitrary Aseprite project schema coverage, arbitrary
+project-format coverage, full APNG/PNG conformance, arbitrary Aseprite
+project schema coverage, arbitrary
 Aseprite external asset resolution, final PNG production carrier selection,
-private chunk editor preservation matrix, editor-authored Aseprite document
-variants, live external editor rewrite validation, runtime JSON Schema dependency installation,
+editor-authored Aseprite document variants, live external editor rewrite
+validation, runtime JSON Schema dependency installation,
 declared package dependency policy, or profile-weighted evolution. The current
 SLIP long-horizon readability packet exists under `data/readability/`, but no
 reviewer rows have been collected yet. The

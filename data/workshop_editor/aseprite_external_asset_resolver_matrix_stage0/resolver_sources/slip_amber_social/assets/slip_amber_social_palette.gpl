@@ -1,0 +1,7 @@
+GIMP Palette
+Name: slip_amber_social_constrained_000
+Columns: 8
+# Deterministic Stage 0 Aseprite external palette reference.
+ 28  16   5	slip_palette_0_background
+217 132  40	slip_palette_1_foreground
+255 224 163	slip_palette_2_foreground

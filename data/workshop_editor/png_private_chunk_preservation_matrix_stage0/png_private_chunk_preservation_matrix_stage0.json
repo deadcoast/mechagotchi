@@ -1,0 +1,1059 @@
+{
+  "artifact_id": "png_private_chunk_preservation_matrix_stage0",
+  "status": "research_png_private_chunk_preservation_matrix_no_package_code",
+  "date": "2026-05-14",
+  "purpose": "Build a deterministic PNG editor-behavior matrix for the Stage 0 mgOT private chunk carrier, separating exact preservation, metadata stripping, stale unsafe-copy rejection, strict ancillary hash rejection, and Mechagotchi-aware rebinding.",
+  "source_artifacts": [
+    "docs/01-brainstorming.md",
+    "docs/02-research_plan.md",
+    "research/slip/profile_compatibility_tests.md",
+    "data/slips/slip_profile_compatibility_matrix_stage0.json",
+    "labs/workshop_editor/png_private_chunk_policy.py",
+    "labs/workshop_editor/png_private_chunk_preservation_matrix.py"
+  ],
+  "external_sources": [
+    {
+      "name": "W3C Portable Network Graphics (PNG) Specification, Third Edition",
+      "url": "https://www.w3.org/TR/png-3/",
+      "used_for": "PNG editor behavior, ancillary chunk handling, private chunk guidance, and safe-to-copy policy interpretation."
+    }
+  ],
+  "profile_count": 3,
+  "scenario_count": 6,
+  "matrix_result_count": 18,
+  "expected_outcome_match_count": 18,
+  "recoverable_import_count": 6,
+  "missing_metadata_count": 6,
+  "stale_private_chunk_rejection_count": 6,
+  "strict_ancillary_rejection_count": 3,
+  "scenario_policies": [
+    {
+      "scenario_id": "preserve_exact_bytes",
+      "editor_model": "identity_open_save_preserves_all_bytes",
+      "critical_image_data_changed": false,
+      "private_chunk_preserved": true,
+      "mechagotchi_metadata_aware": false,
+      "spec_copy_class": "no_editor_change",
+      "expected_outcome": "private_chunk_preserved_valid"
+    },
+    {
+      "scenario_id": "strip_private_without_visual_change",
+      "editor_model": "metadata_stripping_open_save_without_visual_change",
+      "critical_image_data_changed": false,
+      "private_chunk_preserved": false,
+      "mechagotchi_metadata_aware": false,
+      "spec_copy_class": "unknown_private_chunk_dropped",
+      "expected_outcome": "private_chunk_missing_after_editor_save"
+    },
+    {
+      "scenario_id": "preserve_private_after_ancillary_append",
+      "editor_model": "ancillary_metadata_append_preserves_unknown_private_chunk",
+      "critical_image_data_changed": false,
+      "private_chunk_preserved": true,
+      "mechagotchi_metadata_aware": false,
+      "spec_copy_class": "safe_to_copy_allowed_by_png_but_strict_hash_bound",
+      "expected_outcome": "strict_hash_rejects_ancillary_change"
+    },
+    {
+      "scenario_id": "strip_private_after_lossless_reencode",
+      "editor_model": "lossless_reencode_drops_unknown_private_chunk",
+      "critical_image_data_changed": true,
+      "private_chunk_preserved": false,
+      "mechagotchi_metadata_aware": false,
+      "spec_copy_class": "unsafe_to_copy_dropped_after_critical_change",
+      "expected_outcome": "private_chunk_missing_after_editor_save"
+    },
+    {
+      "scenario_id": "preserve_private_after_lossless_reencode",
+      "editor_model": "lossless_reencode_incorrectly_copies_unknown_unsafe_private_chunk",
+      "critical_image_data_changed": true,
+      "private_chunk_preserved": true,
+      "mechagotchi_metadata_aware": false,
+      "spec_copy_class": "unsafe_to_copy_stale_copy",
+      "expected_outcome": "stale_private_chunk_rejected"
+    },
+    {
+      "scenario_id": "mechagotchi_rebind_after_lossless_reencode",
+      "editor_model": "metadata_aware_lossless_reencode_rebinds_private_chunk",
+      "critical_image_data_changed": true,
+      "private_chunk_preserved": true,
+      "mechagotchi_metadata_aware": true,
+      "spec_copy_class": "recognized_application_rewrites_binding",
+      "expected_outcome": "private_chunk_rebound_valid"
+    }
+  ],
+  "matrix_results": [
+    {
+      "profile_id": "slip_lcd_seed",
+      "profile_path": "data/slips/valid/slip_lcd_seed.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_000.json",
+      "scenario_id": "preserve_exact_bytes",
+      "editor_model": "identity_open_save_preserves_all_bytes",
+      "spec_copy_class": "no_editor_change",
+      "critical_image_data_changed": false,
+      "private_chunk_preserved": true,
+      "mechagotchi_metadata_aware": false,
+      "expected_outcome": "private_chunk_preserved_valid",
+      "actual_outcome": "private_chunk_preserved_valid",
+      "expected_outcome_matched": true,
+      "png_file_name": "slip_lcd_seed_preserve_exact_bytes_private_chunk_matrix.png",
+      "input_byte_count": 11841,
+      "output_byte_count": 11841,
+      "byte_changed": false,
+      "chunk_sequence": [
+        "IHDR",
+        "mgOT",
+        "IDAT",
+        "IEND"
+      ],
+      "import_result": {
+        "ok": true,
+        "private_chunk_policy": {
+          "ok": true,
+          "chunk_type": "mgOT",
+          "magic": "mechagotchi.private_chunk.v1",
+          "private_chunk_policy": "ancillary_private_unsafe_to_copy_with_magic_prefix",
+          "ancillary": true,
+          "private": true,
+          "reserved_bit_valid": true,
+          "safe_to_copy": false,
+          "private_chunk_count": 1,
+          "live_external_editor_verified": false
+        },
+        "decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "mgOT",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "canonical_decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "semantic_fidelity": 1.0,
+        "pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "pixel_fidelity": 1.0
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "profile_path": "data/slips/valid/slip_lcd_seed.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_000.json",
+      "scenario_id": "strip_private_without_visual_change",
+      "editor_model": "metadata_stripping_open_save_without_visual_change",
+      "spec_copy_class": "unknown_private_chunk_dropped",
+      "critical_image_data_changed": false,
+      "private_chunk_preserved": false,
+      "mechagotchi_metadata_aware": false,
+      "expected_outcome": "private_chunk_missing_after_editor_save",
+      "actual_outcome": "private_chunk_missing_after_editor_save",
+      "expected_outcome_matched": true,
+      "png_file_name": "slip_lcd_seed_strip_private_without_visual_change_private_chunk_matrix.png",
+      "input_byte_count": 11841,
+      "output_byte_count": 112,
+      "byte_changed": true,
+      "chunk_sequence": [
+        "IHDR",
+        "IDAT",
+        "IEND"
+      ],
+      "import_result": {
+        "ok": false,
+        "private_chunk_policy": null,
+        "decoded_png": null,
+        "canonical_decoded_png": null,
+        "semantic_fidelity": 0.0,
+        "pixel_fidelity": 0.0,
+        "errors": [
+          {
+            "path": "png.private_chunk",
+            "family": "png_private_chunk_missing",
+            "message": "PNG does not contain a Mechagotchi private metadata chunk"
+          }
+        ],
+        "error_families": [
+          "png_private_chunk_missing"
+        ]
+      },
+      "semantic_fidelity": 0.0,
+      "pixel_fidelity": 0.0
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "profile_path": "data/slips/valid/slip_lcd_seed.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_000.json",
+      "scenario_id": "preserve_private_after_ancillary_append",
+      "editor_model": "ancillary_metadata_append_preserves_unknown_private_chunk",
+      "spec_copy_class": "safe_to_copy_allowed_by_png_but_strict_hash_bound",
+      "critical_image_data_changed": false,
+      "private_chunk_preserved": true,
+      "mechagotchi_metadata_aware": false,
+      "expected_outcome": "strict_hash_rejects_ancillary_change",
+      "actual_outcome": "strict_hash_rejects_ancillary_change",
+      "expected_outcome_matched": true,
+      "png_file_name": "slip_lcd_seed_preserve_private_after_ancillary_append_private_chunk_matrix.png",
+      "input_byte_count": 11841,
+      "output_byte_count": 11894,
+      "byte_changed": true,
+      "chunk_sequence": [
+        "IHDR",
+        "mgOT",
+        "IDAT",
+        "vpAg",
+        "IEND"
+      ],
+      "import_result": {
+        "ok": false,
+        "private_chunk_policy": null,
+        "decoded_png": null,
+        "canonical_decoded_png": null,
+        "semantic_fidelity": 0.0,
+        "pixel_fidelity": 0.0,
+        "errors": [
+          {
+            "path": "png.private_chunk",
+            "family": "png_private_chunk_canonical_hash_mismatch",
+            "message": "PNG private chunk canonical PNG hash does not match PNG without private metadata chunks"
+          }
+        ],
+        "error_families": [
+          "png_private_chunk_canonical_hash_mismatch"
+        ]
+      },
+      "semantic_fidelity": 0.0,
+      "pixel_fidelity": 0.0
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "profile_path": "data/slips/valid/slip_lcd_seed.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_000.json",
+      "scenario_id": "strip_private_after_lossless_reencode",
+      "editor_model": "lossless_reencode_drops_unknown_private_chunk",
+      "spec_copy_class": "unsafe_to_copy_dropped_after_critical_change",
+      "critical_image_data_changed": true,
+      "private_chunk_preserved": false,
+      "mechagotchi_metadata_aware": false,
+      "expected_outcome": "private_chunk_missing_after_editor_save",
+      "actual_outcome": "private_chunk_missing_after_editor_save",
+      "expected_outcome_matched": true,
+      "png_file_name": "slip_lcd_seed_strip_private_after_lossless_reencode_private_chunk_matrix.png",
+      "input_byte_count": 11841,
+      "output_byte_count": 332,
+      "byte_changed": true,
+      "chunk_sequence": [
+        "IHDR",
+        "IDAT",
+        "IEND"
+      ],
+      "import_result": {
+        "ok": false,
+        "private_chunk_policy": null,
+        "decoded_png": null,
+        "canonical_decoded_png": null,
+        "semantic_fidelity": 0.0,
+        "pixel_fidelity": 0.0,
+        "errors": [
+          {
+            "path": "png.private_chunk",
+            "family": "png_private_chunk_missing",
+            "message": "PNG does not contain a Mechagotchi private metadata chunk"
+          }
+        ],
+        "error_families": [
+          "png_private_chunk_missing"
+        ]
+      },
+      "semantic_fidelity": 0.0,
+      "pixel_fidelity": 0.0
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "profile_path": "data/slips/valid/slip_lcd_seed.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_000.json",
+      "scenario_id": "preserve_private_after_lossless_reencode",
+      "editor_model": "lossless_reencode_incorrectly_copies_unknown_unsafe_private_chunk",
+      "spec_copy_class": "unsafe_to_copy_stale_copy",
+      "critical_image_data_changed": true,
+      "private_chunk_preserved": true,
+      "mechagotchi_metadata_aware": false,
+      "expected_outcome": "stale_private_chunk_rejected",
+      "actual_outcome": "stale_private_chunk_rejected",
+      "expected_outcome_matched": true,
+      "png_file_name": "slip_lcd_seed_preserve_private_after_lossless_reencode_private_chunk_matrix.png",
+      "input_byte_count": 11841,
+      "output_byte_count": 12061,
+      "byte_changed": true,
+      "chunk_sequence": [
+        "IHDR",
+        "mgOT",
+        "IDAT",
+        "IEND"
+      ],
+      "import_result": {
+        "ok": false,
+        "private_chunk_policy": null,
+        "decoded_png": null,
+        "canonical_decoded_png": null,
+        "semantic_fidelity": 0.0,
+        "pixel_fidelity": 0.0,
+        "errors": [
+          {
+            "path": "png.private_chunk",
+            "family": "png_private_chunk_canonical_hash_mismatch",
+            "message": "PNG private chunk canonical PNG hash does not match PNG without private metadata chunks"
+          }
+        ],
+        "error_families": [
+          "png_private_chunk_canonical_hash_mismatch"
+        ]
+      },
+      "semantic_fidelity": 0.0,
+      "pixel_fidelity": 0.0
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "profile_path": "data/slips/valid/slip_lcd_seed.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_000.json",
+      "scenario_id": "mechagotchi_rebind_after_lossless_reencode",
+      "editor_model": "metadata_aware_lossless_reencode_rebinds_private_chunk",
+      "spec_copy_class": "recognized_application_rewrites_binding",
+      "critical_image_data_changed": true,
+      "private_chunk_preserved": true,
+      "mechagotchi_metadata_aware": true,
+      "expected_outcome": "private_chunk_rebound_valid",
+      "actual_outcome": "private_chunk_rebound_valid",
+      "expected_outcome_matched": true,
+      "png_file_name": "slip_lcd_seed_mechagotchi_rebind_after_lossless_reencode_private_chunk_matrix.png",
+      "input_byte_count": 11841,
+      "output_byte_count": 12161,
+      "byte_changed": true,
+      "chunk_sequence": [
+        "IHDR",
+        "mgOT",
+        "IDAT",
+        "IEND"
+      ],
+      "import_result": {
+        "ok": true,
+        "private_chunk_policy": {
+          "ok": true,
+          "chunk_type": "mgOT",
+          "magic": "mechagotchi.private_chunk.v1",
+          "private_chunk_policy": "ancillary_private_unsafe_to_copy_with_magic_prefix",
+          "ancillary": true,
+          "private": true,
+          "reserved_bit_valid": true,
+          "safe_to_copy": false,
+          "private_chunk_count": 1,
+          "live_external_editor_verified": false
+        },
+        "decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "mgOT",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "canonical_decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "semantic_fidelity": 1.0,
+        "pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "pixel_fidelity": 1.0
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "profile_path": "data/slips/valid/slip_gray_stable.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_000.json",
+      "scenario_id": "preserve_exact_bytes",
+      "editor_model": "identity_open_save_preserves_all_bytes",
+      "spec_copy_class": "no_editor_change",
+      "critical_image_data_changed": false,
+      "private_chunk_preserved": true,
+      "mechagotchi_metadata_aware": false,
+      "expected_outcome": "private_chunk_preserved_valid",
+      "actual_outcome": "private_chunk_preserved_valid",
+      "expected_outcome_matched": true,
+      "png_file_name": "slip_gray_stable_preserve_exact_bytes_private_chunk_matrix.png",
+      "input_byte_count": 12206,
+      "output_byte_count": 12206,
+      "byte_changed": false,
+      "chunk_sequence": [
+        "IHDR",
+        "mgOT",
+        "IDAT",
+        "IEND"
+      ],
+      "import_result": {
+        "ok": true,
+        "private_chunk_policy": {
+          "ok": true,
+          "chunk_type": "mgOT",
+          "magic": "mechagotchi.private_chunk.v1",
+          "private_chunk_policy": "ancillary_private_unsafe_to_copy_with_magic_prefix",
+          "ancillary": true,
+          "private": true,
+          "reserved_bit_valid": true,
+          "safe_to_copy": false,
+          "private_chunk_count": 1,
+          "live_external_editor_verified": false
+        },
+        "decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "mgOT",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "canonical_decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "semantic_fidelity": 1.0,
+        "pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "pixel_fidelity": 1.0
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "profile_path": "data/slips/valid/slip_gray_stable.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_000.json",
+      "scenario_id": "strip_private_without_visual_change",
+      "editor_model": "metadata_stripping_open_save_without_visual_change",
+      "spec_copy_class": "unknown_private_chunk_dropped",
+      "critical_image_data_changed": false,
+      "private_chunk_preserved": false,
+      "mechagotchi_metadata_aware": false,
+      "expected_outcome": "private_chunk_missing_after_editor_save",
+      "actual_outcome": "private_chunk_missing_after_editor_save",
+      "expected_outcome_matched": true,
+      "png_file_name": "slip_gray_stable_strip_private_without_visual_change_private_chunk_matrix.png",
+      "input_byte_count": 12206,
+      "output_byte_count": 106,
+      "byte_changed": true,
+      "chunk_sequence": [
+        "IHDR",
+        "IDAT",
+        "IEND"
+      ],
+      "import_result": {
+        "ok": false,
+        "private_chunk_policy": null,
+        "decoded_png": null,
+        "canonical_decoded_png": null,
+        "semantic_fidelity": 0.0,
+        "pixel_fidelity": 0.0,
+        "errors": [
+          {
+            "path": "png.private_chunk",
+            "family": "png_private_chunk_missing",
+            "message": "PNG does not contain a Mechagotchi private metadata chunk"
+          }
+        ],
+        "error_families": [
+          "png_private_chunk_missing"
+        ]
+      },
+      "semantic_fidelity": 0.0,
+      "pixel_fidelity": 0.0
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "profile_path": "data/slips/valid/slip_gray_stable.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_000.json",
+      "scenario_id": "preserve_private_after_ancillary_append",
+      "editor_model": "ancillary_metadata_append_preserves_unknown_private_chunk",
+      "spec_copy_class": "safe_to_copy_allowed_by_png_but_strict_hash_bound",
+      "critical_image_data_changed": false,
+      "private_chunk_preserved": true,
+      "mechagotchi_metadata_aware": false,
+      "expected_outcome": "strict_hash_rejects_ancillary_change",
+      "actual_outcome": "strict_hash_rejects_ancillary_change",
+      "expected_outcome_matched": true,
+      "png_file_name": "slip_gray_stable_preserve_private_after_ancillary_append_private_chunk_matrix.png",
+      "input_byte_count": 12206,
+      "output_byte_count": 12259,
+      "byte_changed": true,
+      "chunk_sequence": [
+        "IHDR",
+        "mgOT",
+        "IDAT",
+        "vpAg",
+        "IEND"
+      ],
+      "import_result": {
+        "ok": false,
+        "private_chunk_policy": null,
+        "decoded_png": null,
+        "canonical_decoded_png": null,
+        "semantic_fidelity": 0.0,
+        "pixel_fidelity": 0.0,
+        "errors": [
+          {
+            "path": "png.private_chunk",
+            "family": "png_private_chunk_canonical_hash_mismatch",
+            "message": "PNG private chunk canonical PNG hash does not match PNG without private metadata chunks"
+          }
+        ],
+        "error_families": [
+          "png_private_chunk_canonical_hash_mismatch"
+        ]
+      },
+      "semantic_fidelity": 0.0,
+      "pixel_fidelity": 0.0
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "profile_path": "data/slips/valid/slip_gray_stable.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_000.json",
+      "scenario_id": "strip_private_after_lossless_reencode",
+      "editor_model": "lossless_reencode_drops_unknown_private_chunk",
+      "spec_copy_class": "unsafe_to_copy_dropped_after_critical_change",
+      "critical_image_data_changed": true,
+      "private_chunk_preserved": false,
+      "mechagotchi_metadata_aware": false,
+      "expected_outcome": "private_chunk_missing_after_editor_save",
+      "actual_outcome": "private_chunk_missing_after_editor_save",
+      "expected_outcome_matched": true,
+      "png_file_name": "slip_gray_stable_strip_private_after_lossless_reencode_private_chunk_matrix.png",
+      "input_byte_count": 12206,
+      "output_byte_count": 332,
+      "byte_changed": true,
+      "chunk_sequence": [
+        "IHDR",
+        "IDAT",
+        "IEND"
+      ],
+      "import_result": {
+        "ok": false,
+        "private_chunk_policy": null,
+        "decoded_png": null,
+        "canonical_decoded_png": null,
+        "semantic_fidelity": 0.0,
+        "pixel_fidelity": 0.0,
+        "errors": [
+          {
+            "path": "png.private_chunk",
+            "family": "png_private_chunk_missing",
+            "message": "PNG does not contain a Mechagotchi private metadata chunk"
+          }
+        ],
+        "error_families": [
+          "png_private_chunk_missing"
+        ]
+      },
+      "semantic_fidelity": 0.0,
+      "pixel_fidelity": 0.0
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "profile_path": "data/slips/valid/slip_gray_stable.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_000.json",
+      "scenario_id": "preserve_private_after_lossless_reencode",
+      "editor_model": "lossless_reencode_incorrectly_copies_unknown_unsafe_private_chunk",
+      "spec_copy_class": "unsafe_to_copy_stale_copy",
+      "critical_image_data_changed": true,
+      "private_chunk_preserved": true,
+      "mechagotchi_metadata_aware": false,
+      "expected_outcome": "stale_private_chunk_rejected",
+      "actual_outcome": "stale_private_chunk_rejected",
+      "expected_outcome_matched": true,
+      "png_file_name": "slip_gray_stable_preserve_private_after_lossless_reencode_private_chunk_matrix.png",
+      "input_byte_count": 12206,
+      "output_byte_count": 12432,
+      "byte_changed": true,
+      "chunk_sequence": [
+        "IHDR",
+        "mgOT",
+        "IDAT",
+        "IEND"
+      ],
+      "import_result": {
+        "ok": false,
+        "private_chunk_policy": null,
+        "decoded_png": null,
+        "canonical_decoded_png": null,
+        "semantic_fidelity": 0.0,
+        "pixel_fidelity": 0.0,
+        "errors": [
+          {
+            "path": "png.private_chunk",
+            "family": "png_private_chunk_canonical_hash_mismatch",
+            "message": "PNG private chunk canonical PNG hash does not match PNG without private metadata chunks"
+          }
+        ],
+        "error_families": [
+          "png_private_chunk_canonical_hash_mismatch"
+        ]
+      },
+      "semantic_fidelity": 0.0,
+      "pixel_fidelity": 0.0
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "profile_path": "data/slips/valid/slip_gray_stable.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_000.json",
+      "scenario_id": "mechagotchi_rebind_after_lossless_reencode",
+      "editor_model": "metadata_aware_lossless_reencode_rebinds_private_chunk",
+      "spec_copy_class": "recognized_application_rewrites_binding",
+      "critical_image_data_changed": true,
+      "private_chunk_preserved": true,
+      "mechagotchi_metadata_aware": true,
+      "expected_outcome": "private_chunk_rebound_valid",
+      "actual_outcome": "private_chunk_rebound_valid",
+      "expected_outcome_matched": true,
+      "png_file_name": "slip_gray_stable_mechagotchi_rebind_after_lossless_reencode_private_chunk_matrix.png",
+      "input_byte_count": 12206,
+      "output_byte_count": 12532,
+      "byte_changed": true,
+      "chunk_sequence": [
+        "IHDR",
+        "mgOT",
+        "IDAT",
+        "IEND"
+      ],
+      "import_result": {
+        "ok": true,
+        "private_chunk_policy": {
+          "ok": true,
+          "chunk_type": "mgOT",
+          "magic": "mechagotchi.private_chunk.v1",
+          "private_chunk_policy": "ancillary_private_unsafe_to_copy_with_magic_prefix",
+          "ancillary": true,
+          "private": true,
+          "reserved_bit_valid": true,
+          "safe_to_copy": false,
+          "private_chunk_count": 1,
+          "live_external_editor_verified": false
+        },
+        "decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "mgOT",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "canonical_decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "semantic_fidelity": 1.0,
+        "pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "pixel_fidelity": 1.0
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "profile_path": "data/slips/valid/slip_amber_social.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_000.json",
+      "scenario_id": "preserve_exact_bytes",
+      "editor_model": "identity_open_save_preserves_all_bytes",
+      "spec_copy_class": "no_editor_change",
+      "critical_image_data_changed": false,
+      "private_chunk_preserved": true,
+      "mechagotchi_metadata_aware": false,
+      "expected_outcome": "private_chunk_preserved_valid",
+      "actual_outcome": "private_chunk_preserved_valid",
+      "expected_outcome_matched": true,
+      "png_file_name": "slip_amber_social_preserve_exact_bytes_private_chunk_matrix.png",
+      "input_byte_count": 12050,
+      "output_byte_count": 12050,
+      "byte_changed": false,
+      "chunk_sequence": [
+        "IHDR",
+        "mgOT",
+        "IDAT",
+        "IEND"
+      ],
+      "import_result": {
+        "ok": true,
+        "private_chunk_policy": {
+          "ok": true,
+          "chunk_type": "mgOT",
+          "magic": "mechagotchi.private_chunk.v1",
+          "private_chunk_policy": "ancillary_private_unsafe_to_copy_with_magic_prefix",
+          "ancillary": true,
+          "private": true,
+          "reserved_bit_valid": true,
+          "safe_to_copy": false,
+          "private_chunk_count": 1,
+          "live_external_editor_verified": false
+        },
+        "decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "mgOT",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "canonical_decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "semantic_fidelity": 1.0,
+        "pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "pixel_fidelity": 1.0
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "profile_path": "data/slips/valid/slip_amber_social.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_000.json",
+      "scenario_id": "strip_private_without_visual_change",
+      "editor_model": "metadata_stripping_open_save_without_visual_change",
+      "spec_copy_class": "unknown_private_chunk_dropped",
+      "critical_image_data_changed": false,
+      "private_chunk_preserved": false,
+      "mechagotchi_metadata_aware": false,
+      "expected_outcome": "private_chunk_missing_after_editor_save",
+      "actual_outcome": "private_chunk_missing_after_editor_save",
+      "expected_outcome_matched": true,
+      "png_file_name": "slip_amber_social_strip_private_without_visual_change_private_chunk_matrix.png",
+      "input_byte_count": 12050,
+      "output_byte_count": 107,
+      "byte_changed": true,
+      "chunk_sequence": [
+        "IHDR",
+        "IDAT",
+        "IEND"
+      ],
+      "import_result": {
+        "ok": false,
+        "private_chunk_policy": null,
+        "decoded_png": null,
+        "canonical_decoded_png": null,
+        "semantic_fidelity": 0.0,
+        "pixel_fidelity": 0.0,
+        "errors": [
+          {
+            "path": "png.private_chunk",
+            "family": "png_private_chunk_missing",
+            "message": "PNG does not contain a Mechagotchi private metadata chunk"
+          }
+        ],
+        "error_families": [
+          "png_private_chunk_missing"
+        ]
+      },
+      "semantic_fidelity": 0.0,
+      "pixel_fidelity": 0.0
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "profile_path": "data/slips/valid/slip_amber_social.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_000.json",
+      "scenario_id": "preserve_private_after_ancillary_append",
+      "editor_model": "ancillary_metadata_append_preserves_unknown_private_chunk",
+      "spec_copy_class": "safe_to_copy_allowed_by_png_but_strict_hash_bound",
+      "critical_image_data_changed": false,
+      "private_chunk_preserved": true,
+      "mechagotchi_metadata_aware": false,
+      "expected_outcome": "strict_hash_rejects_ancillary_change",
+      "actual_outcome": "strict_hash_rejects_ancillary_change",
+      "expected_outcome_matched": true,
+      "png_file_name": "slip_amber_social_preserve_private_after_ancillary_append_private_chunk_matrix.png",
+      "input_byte_count": 12050,
+      "output_byte_count": 12103,
+      "byte_changed": true,
+      "chunk_sequence": [
+        "IHDR",
+        "mgOT",
+        "IDAT",
+        "vpAg",
+        "IEND"
+      ],
+      "import_result": {
+        "ok": false,
+        "private_chunk_policy": null,
+        "decoded_png": null,
+        "canonical_decoded_png": null,
+        "semantic_fidelity": 0.0,
+        "pixel_fidelity": 0.0,
+        "errors": [
+          {
+            "path": "png.private_chunk",
+            "family": "png_private_chunk_canonical_hash_mismatch",
+            "message": "PNG private chunk canonical PNG hash does not match PNG without private metadata chunks"
+          }
+        ],
+        "error_families": [
+          "png_private_chunk_canonical_hash_mismatch"
+        ]
+      },
+      "semantic_fidelity": 0.0,
+      "pixel_fidelity": 0.0
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "profile_path": "data/slips/valid/slip_amber_social.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_000.json",
+      "scenario_id": "strip_private_after_lossless_reencode",
+      "editor_model": "lossless_reencode_drops_unknown_private_chunk",
+      "spec_copy_class": "unsafe_to_copy_dropped_after_critical_change",
+      "critical_image_data_changed": true,
+      "private_chunk_preserved": false,
+      "mechagotchi_metadata_aware": false,
+      "expected_outcome": "private_chunk_missing_after_editor_save",
+      "actual_outcome": "private_chunk_missing_after_editor_save",
+      "expected_outcome_matched": true,
+      "png_file_name": "slip_amber_social_strip_private_after_lossless_reencode_private_chunk_matrix.png",
+      "input_byte_count": 12050,
+      "output_byte_count": 332,
+      "byte_changed": true,
+      "chunk_sequence": [
+        "IHDR",
+        "IDAT",
+        "IEND"
+      ],
+      "import_result": {
+        "ok": false,
+        "private_chunk_policy": null,
+        "decoded_png": null,
+        "canonical_decoded_png": null,
+        "semantic_fidelity": 0.0,
+        "pixel_fidelity": 0.0,
+        "errors": [
+          {
+            "path": "png.private_chunk",
+            "family": "png_private_chunk_missing",
+            "message": "PNG does not contain a Mechagotchi private metadata chunk"
+          }
+        ],
+        "error_families": [
+          "png_private_chunk_missing"
+        ]
+      },
+      "semantic_fidelity": 0.0,
+      "pixel_fidelity": 0.0
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "profile_path": "data/slips/valid/slip_amber_social.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_000.json",
+      "scenario_id": "preserve_private_after_lossless_reencode",
+      "editor_model": "lossless_reencode_incorrectly_copies_unknown_unsafe_private_chunk",
+      "spec_copy_class": "unsafe_to_copy_stale_copy",
+      "critical_image_data_changed": true,
+      "private_chunk_preserved": true,
+      "mechagotchi_metadata_aware": false,
+      "expected_outcome": "stale_private_chunk_rejected",
+      "actual_outcome": "stale_private_chunk_rejected",
+      "expected_outcome_matched": true,
+      "png_file_name": "slip_amber_social_preserve_private_after_lossless_reencode_private_chunk_matrix.png",
+      "input_byte_count": 12050,
+      "output_byte_count": 12275,
+      "byte_changed": true,
+      "chunk_sequence": [
+        "IHDR",
+        "mgOT",
+        "IDAT",
+        "IEND"
+      ],
+      "import_result": {
+        "ok": false,
+        "private_chunk_policy": null,
+        "decoded_png": null,
+        "canonical_decoded_png": null,
+        "semantic_fidelity": 0.0,
+        "pixel_fidelity": 0.0,
+        "errors": [
+          {
+            "path": "png.private_chunk",
+            "family": "png_private_chunk_canonical_hash_mismatch",
+            "message": "PNG private chunk canonical PNG hash does not match PNG without private metadata chunks"
+          }
+        ],
+        "error_families": [
+          "png_private_chunk_canonical_hash_mismatch"
+        ]
+      },
+      "semantic_fidelity": 0.0,
+      "pixel_fidelity": 0.0
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "profile_path": "data/slips/valid/slip_amber_social.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_000.json",
+      "scenario_id": "mechagotchi_rebind_after_lossless_reencode",
+      "editor_model": "metadata_aware_lossless_reencode_rebinds_private_chunk",
+      "spec_copy_class": "recognized_application_rewrites_binding",
+      "critical_image_data_changed": true,
+      "private_chunk_preserved": true,
+      "mechagotchi_metadata_aware": true,
+      "expected_outcome": "private_chunk_rebound_valid",
+      "actual_outcome": "private_chunk_rebound_valid",
+      "expected_outcome_matched": true,
+      "png_file_name": "slip_amber_social_mechagotchi_rebind_after_lossless_reencode_private_chunk_matrix.png",
+      "input_byte_count": 12050,
+      "output_byte_count": 12375,
+      "byte_changed": true,
+      "chunk_sequence": [
+        "IHDR",
+        "mgOT",
+        "IDAT",
+        "IEND"
+      ],
+      "import_result": {
+        "ok": true,
+        "private_chunk_policy": {
+          "ok": true,
+          "chunk_type": "mgOT",
+          "magic": "mechagotchi.private_chunk.v1",
+          "private_chunk_policy": "ancillary_private_unsafe_to_copy_with_magic_prefix",
+          "ancillary": true,
+          "private": true,
+          "reserved_bit_valid": true,
+          "safe_to_copy": false,
+          "private_chunk_count": 1,
+          "live_external_editor_verified": false
+        },
+        "decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "mgOT",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "canonical_decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "semantic_fidelity": 1.0,
+        "pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "pixel_fidelity": 1.0
+    }
+  ],
+  "metrics": {
+    "expected_outcome_match_rate": 1.0,
+    "recoverable_import_rate": 0.333333,
+    "metadata_loss_rate": 0.333333,
+    "stale_private_chunk_rejection_rate": 0.333333,
+    "strict_ancillary_rejection_rate": 0.166667,
+    "recoverable_semantic_fidelity_mean": 1.0,
+    "recoverable_pixel_fidelity_mean": 1.0,
+    "live_external_editor_verified": false
+  },
+  "closed_states": [
+    "png_private_chunk_editor_preservation_matrix_simulated",
+    "png_private_chunk_exact_preservation_gate",
+    "png_private_chunk_stale_unsafe_copy_rejection_gate",
+    "png_private_chunk_metadata_loss_detection_gate",
+    "png_private_chunk_mechagotchi_rebind_gate"
+  ],
+  "blocked_states": [
+    "live_external_editor_rewrite_validation",
+    "final_png_production_carrier_selection",
+    "APNG/full PNG conformance",
+    "package_runtime_lifecycle_integration",
+    "manual_readability_calibration",
+    "profile_weighted_evolution"
+  ],
+  "decision": "prototype_png_private_chunk_preservation_matrix",
+  "next_research_step": "Use this simulated matrix as a carrier-selection input, but keep live external editor validation and final PNG production carrier selection blocked until real editor open-save fixtures exist."
+}

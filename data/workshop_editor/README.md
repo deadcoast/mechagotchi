@@ -34,6 +34,18 @@ Minimal semantic editor artifacts for testing Mechagotchi grid authoring.
   `mgOT` ancillary chunk metadata round trips, 7/7 invalid private chunk
   policy probes rejected, and a carrier-selection input matrix that keeps the
   final production carrier decision blocked.
+- `png_private_chunk_preservation_matrix_stage0.json` records the simulated
+  private chunk preservation matrix: 18/18 expected editor-behavior outcomes,
+  6 recoverable imports, 6 metadata-loss outcomes, and 6 stale/strict hash
+  rejections with live external editor validation still blocked.
+- `apng_sidecar_decoder_stage0.json` records 3/3 bounded APNG sidecar round
+  trips with two full-canvas 8-bit RGBA source frames, `acTL`/`fcTL`/`fdAT`
+  sequence validation, 5/5 invalid APNG probes rejected, and full APNG/PNG
+  conformance still blocked.
+- `apng_metadata_carrier_cross_product_stage0.json` records 15/15 bounded
+  APNG metadata-carrier round trips across `tEXt`, `zTXt`, uncompressed
+  `iTXt`, compressed `iTXt`, and private `mgOT` carriers, with 6/6 invalid
+  carrier/APNG probes rejected before semantic restore.
 - `spritesheet_layout_variant_decoder_stage0.json` records 12/12
   layout-variant spritesheet sidecar round trips across vertical strips,
   row-major matrix sheets, padded/guttered grids, and sparse atlas rects.
@@ -94,6 +106,10 @@ Minimal semantic editor artifacts for testing Mechagotchi grid authoring.
   8 bpp, grayscale-alpha 16 bpp, and RGBA 32 bpp compressed cels with
   hash-checked generated External Files Chunk `0x2008` assets, with 6/6
   invalid variant/resolver probes rejected before semantic restore.
+- `aseprite_external_asset_resolver_matrix_stage0.json` records 36/36
+  generated Aseprite/LibreSprite external-asset resolver round trips across
+  direct, relative-path, content-addressed, and multi-root policies, with 5/5
+  invalid resolver probes rejected before semantic restore.
 - `slip_runtime_selection_policy_stage0.json` records 3/3 profile-weighted
   archive elite selections from switchboard lifecycle metrics, with 2/2 invalid
   selection probes rejected before selection.

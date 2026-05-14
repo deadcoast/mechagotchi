@@ -1,0 +1,26 @@
+{
+  "asset_version": "mechagotchi.tileset_reference.v1",
+  "grid_id": "slip_amber_social_constrained_000",
+  "profile_id": "slip_amber_social",
+  "cell_count": 14,
+  "grid_size": [
+    8,
+    8
+  ],
+  "palette_id": "amber_terminal",
+  "organ_roles": [
+    "core",
+    "expression",
+    "sensors"
+  ],
+  "role_counts": {
+    "body": 10,
+    "eye": 3,
+    "mouth": 1
+  },
+  "organ_counts": {
+    "core": 10,
+    "expression": 1,
+    "sensors": 3
+  }
+}

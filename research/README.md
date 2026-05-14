@@ -109,6 +109,15 @@ The package-contract handoff is published as:
 - `research/experiment_reports/2026-05-14-png-private-chunk-policy.md`
 - `research/algorithm_cards/png_private_chunk_policy.md`
 - `data/workshop_editor/png_private_chunk_policy_stage0.json`
+- `research/experiment_reports/2026-05-14-png-private-chunk-preservation-matrix.md`
+- `research/algorithm_cards/png_private_chunk_preservation_matrix.md`
+- `data/workshop_editor/png_private_chunk_preservation_matrix_stage0.json`
+- `research/experiment_reports/2026-05-14-apng-sidecar-decoder.md`
+- `research/algorithm_cards/png_apng_sidecar_decoder.md`
+- `data/workshop_editor/apng_sidecar_decoder_stage0.json`
+- `research/experiment_reports/2026-05-14-apng-metadata-carrier-cross-product.md`
+- `research/algorithm_cards/png_apng_metadata_carrier_cross_product.md`
+- `data/workshop_editor/apng_metadata_carrier_cross_product_stage0.json`
 - `research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md`
 - `data/workshop_editor/spritesheet_sidecar_decoder_stage0.json`
 - `research/experiment_reports/2026-05-13-spritesheet-layout-variant-decoder.md`
@@ -154,6 +163,9 @@ The package-contract handoff is published as:
 - `research/experiment_reports/2026-05-14-aseprite-document-variant-resolution.md`
 - `research/algorithm_cards/aseprite_document_variant_resolution.md`
 - `data/workshop_editor/aseprite_document_variant_resolution_stage0.json`
+- `research/experiment_reports/2026-05-14-aseprite-external-asset-resolver-matrix.md`
+- `research/algorithm_cards/aseprite_external_asset_resolver_matrix.md`
+- `data/workshop_editor/aseprite_external_asset_resolver_matrix_stage0.json`
 
 Post-v0.1 continuation has started:
 
@@ -314,6 +326,12 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-05-14-png-private-chunk-policy.md`
 - `research/algorithm_cards/png_private_chunk_policy.md`
 - `data/workshop_editor/png_private_chunk_policy_stage0.json`
+- `research/experiment_reports/2026-05-14-png-private-chunk-preservation-matrix.md`
+- `research/algorithm_cards/png_private_chunk_preservation_matrix.md`
+- `data/workshop_editor/png_private_chunk_preservation_matrix_stage0.json`
+- `research/experiment_reports/2026-05-14-apng-sidecar-decoder.md`
+- `research/algorithm_cards/png_apng_sidecar_decoder.md`
+- `data/workshop_editor/apng_sidecar_decoder_stage0.json`
 - `research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md`
 - `data/workshop_editor/spritesheet_sidecar_decoder_stage0.json`
 - `research/experiment_reports/2026-05-13-spritesheet-layout-variant-decoder.md`

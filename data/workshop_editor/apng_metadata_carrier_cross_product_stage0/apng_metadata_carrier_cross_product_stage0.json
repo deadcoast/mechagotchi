@@ -1,0 +1,4008 @@
+{
+  "artifact_id": "apng_metadata_carrier_cross_product_stage0",
+  "status": "research_apng_metadata_carrier_cross_product_no_package_code",
+  "date": "2026-05-14",
+  "purpose": "Prove that bounded APNG sidecar semantics can round-trip through existing PNG textual and private metadata carrier policies without claiming full APNG/PNG conformance.",
+  "source_artifacts": [
+    "docs/01-brainstorming.md",
+    "docs/02-research_plan.md",
+    "research/slip/profile_compatibility_tests.md",
+    "data/slips/slip_profile_compatibility_matrix_stage0.json",
+    "labs/workshop_editor/png_apng_sidecar_decoder.py",
+    "labs/workshop_editor/png_textual_metadata_policy.py",
+    "labs/workshop_editor/png_private_chunk_policy.py",
+    "data/slips/multi_profile_generation_stage0/"
+  ],
+  "external_sources": [
+    {
+      "name": "W3C Portable Network Graphics (PNG) Specification, Third Edition",
+      "url": "https://www.w3.org/TR/png-3/",
+      "used_for": "APNG chunk order, textual chunks, private chunks, and safe-to-copy carrier policy anchors."
+    }
+  ],
+  "profile_count": 3,
+  "metadata_carrier_roundtrip_count": 15,
+  "metadata_carrier_roundtrip_success_count": 15,
+  "invalid_probe_count": 6,
+  "invalid_probe_rejected_count": 6,
+  "carrier_policies": [
+    {
+      "variant_id": "text_ascii",
+      "carrier_family": "textual",
+      "chunk_type": "tEXt",
+      "compressed": false,
+      "encoding_policy": "ascii_json_in_latin1_text_chunk"
+    },
+    {
+      "variant_id": "ztxt_ascii",
+      "carrier_family": "textual",
+      "chunk_type": "zTXt",
+      "compressed": true,
+      "encoding_policy": "ascii_json_in_latin1_ztxt_chunk"
+    },
+    {
+      "variant_id": "itxt_utf8",
+      "carrier_family": "textual",
+      "chunk_type": "iTXt",
+      "compressed": false,
+      "encoding_policy": "utf8_json_in_itxt_chunk"
+    },
+    {
+      "variant_id": "itxt_utf8_compressed",
+      "carrier_family": "textual",
+      "chunk_type": "iTXt",
+      "compressed": true,
+      "encoding_policy": "utf8_json_in_itxt_chunk"
+    },
+    {
+      "variant_id": "private_mgot",
+      "carrier_family": "private",
+      "chunk_type": "mgOT",
+      "compressed": false,
+      "encoding_policy": "magic_prefixed_utf8_json_private_chunk"
+    }
+  ],
+  "metadata_carrier_results": [
+    {
+      "profile_id": "slip_lcd_seed",
+      "profile_path": "data/slips/valid/slip_lcd_seed.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_000.json",
+      "variant_id": "text_ascii",
+      "carrier_family": "textual",
+      "chunk_type": "tEXt",
+      "encoding_policy": "ascii_json_in_latin1_text_chunk",
+      "compressed": false,
+      "png_file_name": "slip_lcd_seed_text_ascii_apng_carrier.png",
+      "png_byte_count": 12577,
+      "canonical_apng_byte_count": 293,
+      "metadata": {
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "variant_id": "text_ascii",
+        "keyword": "mechagotchi.sidecar.v1",
+        "chunk_type": "tEXt",
+        "encoding_policy": "ascii_json_in_latin1_text_chunk",
+        "compressed": false,
+        "canonical_png_hash": "sha256:94675d786bfe50bdecf444ae2b2fc28b3b194d37eceaa9cada8270b43d75744d",
+        "sidecar_hash": "sha256:8e47d0b2f32188870cb5030a3530092f18c1a5c789854ee073750aec8eb5b86e",
+        "hash_note": "canonical_png_hash names APNG bytes with Mechagotchi carrier chunks removed"
+      },
+      "decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "tEXt",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:36a30b12003b9e74aecefeb992a602fa13cd1ec01c93e0a80fc9d513ef36468b"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:77e711be9f751a723c41dba097dfe1d1ee88e42c58208a8b429fc8b595305363"
+          }
+        ]
+      },
+      "canonical_decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:36a30b12003b9e74aecefeb992a602fa13cd1ec01c93e0a80fc9d513ef36468b"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:77e711be9f751a723c41dba097dfe1d1ee88e42c58208a8b429fc8b595305363"
+          }
+        ]
+      },
+      "metadata_carrier_policy": {
+        "ok": true,
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "carrier_family": "textual",
+        "variant_id": "text_ascii",
+        "chunk_type": "tEXt",
+        "canonical_apng_hash": "sha256:94675d786bfe50bdecf444ae2b2fc28b3b194d37eceaa9cada8270b43d75744d",
+        "sidecar_hash": "sha256:8e47d0b2f32188870cb5030a3530092f18c1a5c789854ee073750aec8eb5b86e",
+        "live_external_editor_verified": false,
+        "encoding_policy": "ascii_json_in_latin1_text_chunk",
+        "compressed": false,
+        "keyword": "mechagotchi.sidecar.v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": false
+      },
+      "import_result": {
+        "ok": true,
+        "asset": {
+          "asset_id": "slip_lcd_seed_constrained_000.text_ascii.apng.png",
+          "format_id": "png",
+          "media_type": "image/apng",
+          "uri": "generated://workshop/apng-metadata-carrier-cross-product/slip_lcd_seed_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 2,
+          "content_hash": "sha256:85dfe34706fc340ace68b4561ea6ad26862120c0790300639cbc41136e41c666",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_apng": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "chunks": [
+            "IHDR",
+            "tEXt",
+            "acTL",
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT",
+            "IEND"
+          ],
+          "animation_control": {
+            "num_frames": 2,
+            "num_plays": 0
+          },
+          "frame_count": 2,
+          "sequence_numbers": [
+            0,
+            1,
+            2
+          ],
+          "animation_chunk_order": [
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT"
+          ],
+          "frames": [
+            {
+              "frame_index": 0,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "IDAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:36a30b12003b9e74aecefeb992a602fa13cd1ec01c93e0a80fc9d513ef36468b"
+            },
+            {
+              "frame_index": 1,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "fdAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:77e711be9f751a723c41dba097dfe1d1ee88e42c58208a8b429fc8b595305363"
+            }
+          ]
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "apng_policy": {
+          "frame_policy": "bounded_full_canvas_source_frames",
+          "frame_count": 2,
+          "full_canvas_only": true,
+          "source_blend_only": true,
+          "dispose_none_only": true,
+          "live_external_editor_verified": false
+        },
+        "semantic_fidelity": 1.0,
+        "frame_pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "frame_pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "profile_path": "data/slips/valid/slip_lcd_seed.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_000.json",
+      "variant_id": "ztxt_ascii",
+      "carrier_family": "textual",
+      "chunk_type": "zTXt",
+      "encoding_policy": "ascii_json_in_latin1_ztxt_chunk",
+      "compressed": true,
+      "png_file_name": "slip_lcd_seed_ztxt_ascii_apng_carrier.png",
+      "png_byte_count": 2503,
+      "canonical_apng_byte_count": 293,
+      "metadata": {
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "variant_id": "ztxt_ascii",
+        "keyword": "mechagotchi.sidecar.v1",
+        "chunk_type": "zTXt",
+        "encoding_policy": "ascii_json_in_latin1_ztxt_chunk",
+        "compressed": true,
+        "canonical_png_hash": "sha256:94675d786bfe50bdecf444ae2b2fc28b3b194d37eceaa9cada8270b43d75744d",
+        "sidecar_hash": "sha256:8e47d0b2f32188870cb5030a3530092f18c1a5c789854ee073750aec8eb5b86e",
+        "hash_note": "canonical_png_hash names APNG bytes with Mechagotchi carrier chunks removed"
+      },
+      "decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "zTXt",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:36a30b12003b9e74aecefeb992a602fa13cd1ec01c93e0a80fc9d513ef36468b"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:77e711be9f751a723c41dba097dfe1d1ee88e42c58208a8b429fc8b595305363"
+          }
+        ]
+      },
+      "canonical_decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:36a30b12003b9e74aecefeb992a602fa13cd1ec01c93e0a80fc9d513ef36468b"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:77e711be9f751a723c41dba097dfe1d1ee88e42c58208a8b429fc8b595305363"
+          }
+        ]
+      },
+      "metadata_carrier_policy": {
+        "ok": true,
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "carrier_family": "textual",
+        "variant_id": "ztxt_ascii",
+        "chunk_type": "zTXt",
+        "canonical_apng_hash": "sha256:94675d786bfe50bdecf444ae2b2fc28b3b194d37eceaa9cada8270b43d75744d",
+        "sidecar_hash": "sha256:8e47d0b2f32188870cb5030a3530092f18c1a5c789854ee073750aec8eb5b86e",
+        "live_external_editor_verified": false,
+        "encoding_policy": "ascii_json_in_latin1_ztxt_chunk",
+        "compressed": true,
+        "keyword": "mechagotchi.sidecar.v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": false
+      },
+      "import_result": {
+        "ok": true,
+        "asset": {
+          "asset_id": "slip_lcd_seed_constrained_000.ztxt_ascii.apng.png",
+          "format_id": "png",
+          "media_type": "image/apng",
+          "uri": "generated://workshop/apng-metadata-carrier-cross-product/slip_lcd_seed_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 2,
+          "content_hash": "sha256:59b381285f948ab430ca3b20ea69344c1b65c323e9ced3175e8bf77bde1664b9",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_apng": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "chunks": [
+            "IHDR",
+            "zTXt",
+            "acTL",
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT",
+            "IEND"
+          ],
+          "animation_control": {
+            "num_frames": 2,
+            "num_plays": 0
+          },
+          "frame_count": 2,
+          "sequence_numbers": [
+            0,
+            1,
+            2
+          ],
+          "animation_chunk_order": [
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT"
+          ],
+          "frames": [
+            {
+              "frame_index": 0,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "IDAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:36a30b12003b9e74aecefeb992a602fa13cd1ec01c93e0a80fc9d513ef36468b"
+            },
+            {
+              "frame_index": 1,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "fdAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:77e711be9f751a723c41dba097dfe1d1ee88e42c58208a8b429fc8b595305363"
+            }
+          ]
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "apng_policy": {
+          "frame_policy": "bounded_full_canvas_source_frames",
+          "frame_count": 2,
+          "full_canvas_only": true,
+          "source_blend_only": true,
+          "dispose_none_only": true,
+          "live_external_editor_verified": false
+        },
+        "semantic_fidelity": 1.0,
+        "frame_pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "frame_pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "profile_path": "data/slips/valid/slip_lcd_seed.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_000.json",
+      "variant_id": "itxt_utf8",
+      "carrier_family": "textual",
+      "chunk_type": "iTXt",
+      "encoding_policy": "utf8_json_in_itxt_chunk",
+      "compressed": false,
+      "png_file_name": "slip_lcd_seed_itxt_utf8_apng_carrier.png",
+      "png_byte_count": 12588,
+      "canonical_apng_byte_count": 293,
+      "metadata": {
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "variant_id": "itxt_utf8",
+        "keyword": "mechagotchi.sidecar.v1",
+        "chunk_type": "iTXt",
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": false,
+        "canonical_png_hash": "sha256:94675d786bfe50bdecf444ae2b2fc28b3b194d37eceaa9cada8270b43d75744d",
+        "sidecar_hash": "sha256:8e47d0b2f32188870cb5030a3530092f18c1a5c789854ee073750aec8eb5b86e",
+        "hash_note": "canonical_png_hash names APNG bytes with Mechagotchi carrier chunks removed"
+      },
+      "decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "iTXt",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:36a30b12003b9e74aecefeb992a602fa13cd1ec01c93e0a80fc9d513ef36468b"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:77e711be9f751a723c41dba097dfe1d1ee88e42c58208a8b429fc8b595305363"
+          }
+        ]
+      },
+      "canonical_decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:36a30b12003b9e74aecefeb992a602fa13cd1ec01c93e0a80fc9d513ef36468b"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:77e711be9f751a723c41dba097dfe1d1ee88e42c58208a8b429fc8b595305363"
+          }
+        ]
+      },
+      "metadata_carrier_policy": {
+        "ok": true,
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "carrier_family": "textual",
+        "variant_id": "itxt_utf8",
+        "chunk_type": "iTXt",
+        "canonical_apng_hash": "sha256:94675d786bfe50bdecf444ae2b2fc28b3b194d37eceaa9cada8270b43d75744d",
+        "sidecar_hash": "sha256:8e47d0b2f32188870cb5030a3530092f18c1a5c789854ee073750aec8eb5b86e",
+        "live_external_editor_verified": false,
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": false,
+        "keyword": "mechagotchi.sidecar.v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": true
+      },
+      "import_result": {
+        "ok": true,
+        "asset": {
+          "asset_id": "slip_lcd_seed_constrained_000.itxt_utf8.apng.png",
+          "format_id": "png",
+          "media_type": "image/apng",
+          "uri": "generated://workshop/apng-metadata-carrier-cross-product/slip_lcd_seed_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 2,
+          "content_hash": "sha256:49a7f3c6189e8b8b49b0a8dfd3b2a22658befd22c1762e9777bed5469a298073",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_apng": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "chunks": [
+            "IHDR",
+            "iTXt",
+            "acTL",
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT",
+            "IEND"
+          ],
+          "animation_control": {
+            "num_frames": 2,
+            "num_plays": 0
+          },
+          "frame_count": 2,
+          "sequence_numbers": [
+            0,
+            1,
+            2
+          ],
+          "animation_chunk_order": [
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT"
+          ],
+          "frames": [
+            {
+              "frame_index": 0,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "IDAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:36a30b12003b9e74aecefeb992a602fa13cd1ec01c93e0a80fc9d513ef36468b"
+            },
+            {
+              "frame_index": 1,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "fdAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:77e711be9f751a723c41dba097dfe1d1ee88e42c58208a8b429fc8b595305363"
+            }
+          ]
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "apng_policy": {
+          "frame_policy": "bounded_full_canvas_source_frames",
+          "frame_count": 2,
+          "full_canvas_only": true,
+          "source_blend_only": true,
+          "dispose_none_only": true,
+          "live_external_editor_verified": false
+        },
+        "semantic_fidelity": 1.0,
+        "frame_pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "frame_pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "profile_path": "data/slips/valid/slip_lcd_seed.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_000.json",
+      "variant_id": "itxt_utf8_compressed",
+      "carrier_family": "textual",
+      "chunk_type": "iTXt",
+      "encoding_policy": "utf8_json_in_itxt_chunk",
+      "compressed": true,
+      "png_file_name": "slip_lcd_seed_itxt_utf8_compressed_apng_carrier.png",
+      "png_byte_count": 2531,
+      "canonical_apng_byte_count": 293,
+      "metadata": {
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "variant_id": "itxt_utf8_compressed",
+        "keyword": "mechagotchi.sidecar.v1",
+        "chunk_type": "iTXt",
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": true,
+        "canonical_png_hash": "sha256:94675d786bfe50bdecf444ae2b2fc28b3b194d37eceaa9cada8270b43d75744d",
+        "sidecar_hash": "sha256:8e47d0b2f32188870cb5030a3530092f18c1a5c789854ee073750aec8eb5b86e",
+        "hash_note": "canonical_png_hash names APNG bytes with Mechagotchi carrier chunks removed"
+      },
+      "decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "iTXt",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:36a30b12003b9e74aecefeb992a602fa13cd1ec01c93e0a80fc9d513ef36468b"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:77e711be9f751a723c41dba097dfe1d1ee88e42c58208a8b429fc8b595305363"
+          }
+        ]
+      },
+      "canonical_decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:36a30b12003b9e74aecefeb992a602fa13cd1ec01c93e0a80fc9d513ef36468b"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:77e711be9f751a723c41dba097dfe1d1ee88e42c58208a8b429fc8b595305363"
+          }
+        ]
+      },
+      "metadata_carrier_policy": {
+        "ok": true,
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "carrier_family": "textual",
+        "variant_id": "itxt_utf8_compressed",
+        "chunk_type": "iTXt",
+        "canonical_apng_hash": "sha256:94675d786bfe50bdecf444ae2b2fc28b3b194d37eceaa9cada8270b43d75744d",
+        "sidecar_hash": "sha256:8e47d0b2f32188870cb5030a3530092f18c1a5c789854ee073750aec8eb5b86e",
+        "live_external_editor_verified": false,
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": true,
+        "keyword": "mechagotchi.sidecar.v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": true
+      },
+      "import_result": {
+        "ok": true,
+        "asset": {
+          "asset_id": "slip_lcd_seed_constrained_000.itxt_utf8_compressed.apng.png",
+          "format_id": "png",
+          "media_type": "image/apng",
+          "uri": "generated://workshop/apng-metadata-carrier-cross-product/slip_lcd_seed_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 2,
+          "content_hash": "sha256:9b3f47c98f16aee269d374281dbab7b65a0f78a8191e695175cf864bd4b119ce",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_apng": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "chunks": [
+            "IHDR",
+            "iTXt",
+            "acTL",
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT",
+            "IEND"
+          ],
+          "animation_control": {
+            "num_frames": 2,
+            "num_plays": 0
+          },
+          "frame_count": 2,
+          "sequence_numbers": [
+            0,
+            1,
+            2
+          ],
+          "animation_chunk_order": [
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT"
+          ],
+          "frames": [
+            {
+              "frame_index": 0,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "IDAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:36a30b12003b9e74aecefeb992a602fa13cd1ec01c93e0a80fc9d513ef36468b"
+            },
+            {
+              "frame_index": 1,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "fdAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:77e711be9f751a723c41dba097dfe1d1ee88e42c58208a8b429fc8b595305363"
+            }
+          ]
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "apng_policy": {
+          "frame_policy": "bounded_full_canvas_source_frames",
+          "frame_count": 2,
+          "full_canvas_only": true,
+          "source_blend_only": true,
+          "dispose_none_only": true,
+          "live_external_editor_verified": false
+        },
+        "semantic_fidelity": 1.0,
+        "frame_pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "frame_pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "profile_path": "data/slips/valid/slip_lcd_seed.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_000.json",
+      "variant_id": "private_mgot",
+      "carrier_family": "private",
+      "chunk_type": "mgOT",
+      "encoding_policy": "magic_prefixed_utf8_json_private_chunk",
+      "compressed": false,
+      "png_file_name": "slip_lcd_seed_private_mgot_apng_carrier.png",
+      "png_byte_count": 12681,
+      "canonical_apng_byte_count": 293,
+      "metadata": {
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "metadata_model": "png_private_chunk_policy_v1",
+        "chunk_type": "mgOT",
+        "magic": "mechagotchi.private_chunk.v1",
+        "private_chunk_policy": "ancillary_private_unsafe_to_copy_with_magic_prefix",
+        "canonical_png_hash": "sha256:94675d786bfe50bdecf444ae2b2fc28b3b194d37eceaa9cada8270b43d75744d",
+        "sidecar_hash": "sha256:8e47d0b2f32188870cb5030a3530092f18c1a5c789854ee073750aec8eb5b86e",
+        "hash_note": "canonical_png_hash names APNG bytes with Mechagotchi carrier chunks removed"
+      },
+      "decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "mgOT",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:36a30b12003b9e74aecefeb992a602fa13cd1ec01c93e0a80fc9d513ef36468b"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:77e711be9f751a723c41dba097dfe1d1ee88e42c58208a8b429fc8b595305363"
+          }
+        ]
+      },
+      "canonical_decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:36a30b12003b9e74aecefeb992a602fa13cd1ec01c93e0a80fc9d513ef36468b"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:77e711be9f751a723c41dba097dfe1d1ee88e42c58208a8b429fc8b595305363"
+          }
+        ]
+      },
+      "metadata_carrier_policy": {
+        "ok": true,
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "carrier_family": "private",
+        "variant_id": "private_mgot",
+        "chunk_type": "mgOT",
+        "canonical_apng_hash": "sha256:94675d786bfe50bdecf444ae2b2fc28b3b194d37eceaa9cada8270b43d75744d",
+        "sidecar_hash": "sha256:8e47d0b2f32188870cb5030a3530092f18c1a5c789854ee073750aec8eb5b86e",
+        "live_external_editor_verified": false,
+        "magic": "mechagotchi.private_chunk.v1",
+        "private_chunk_policy": "ancillary_private_unsafe_to_copy_with_magic_prefix",
+        "ancillary": true,
+        "private": true,
+        "reserved_bit_valid": true,
+        "safe_to_copy": false,
+        "private_chunk_count": 1
+      },
+      "import_result": {
+        "ok": true,
+        "asset": {
+          "asset_id": "slip_lcd_seed_constrained_000.private_mgot.apng.png",
+          "format_id": "png",
+          "media_type": "image/apng",
+          "uri": "generated://workshop/apng-metadata-carrier-cross-product/slip_lcd_seed_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 2,
+          "content_hash": "sha256:809fe48d695a19240962718f794ec8277796cb328fdd02e1225a6572353fe9ca",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_apng": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "chunks": [
+            "IHDR",
+            "mgOT",
+            "acTL",
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT",
+            "IEND"
+          ],
+          "animation_control": {
+            "num_frames": 2,
+            "num_plays": 0
+          },
+          "frame_count": 2,
+          "sequence_numbers": [
+            0,
+            1,
+            2
+          ],
+          "animation_chunk_order": [
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT"
+          ],
+          "frames": [
+            {
+              "frame_index": 0,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "IDAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:36a30b12003b9e74aecefeb992a602fa13cd1ec01c93e0a80fc9d513ef36468b"
+            },
+            {
+              "frame_index": 1,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "fdAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:77e711be9f751a723c41dba097dfe1d1ee88e42c58208a8b429fc8b595305363"
+            }
+          ]
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "apng_policy": {
+          "frame_policy": "bounded_full_canvas_source_frames",
+          "frame_count": 2,
+          "full_canvas_only": true,
+          "source_blend_only": true,
+          "dispose_none_only": true,
+          "live_external_editor_verified": false
+        },
+        "semantic_fidelity": 1.0,
+        "frame_pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "frame_pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "profile_path": "data/slips/valid/slip_gray_stable.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_000.json",
+      "variant_id": "text_ascii",
+      "carrier_family": "textual",
+      "chunk_type": "tEXt",
+      "encoding_policy": "ascii_json_in_latin1_text_chunk",
+      "compressed": false,
+      "png_file_name": "slip_gray_stable_text_ascii_apng_carrier.png",
+      "png_byte_count": 12944,
+      "canonical_apng_byte_count": 289,
+      "metadata": {
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "variant_id": "text_ascii",
+        "keyword": "mechagotchi.sidecar.v1",
+        "chunk_type": "tEXt",
+        "encoding_policy": "ascii_json_in_latin1_text_chunk",
+        "compressed": false,
+        "canonical_png_hash": "sha256:90d9571e27f879673e5739290eecdb5f9fa1afff0a072eb8e6d073d3d7ea7d82",
+        "sidecar_hash": "sha256:cb46d365519ecca7f73fef1c74c95ce8bc3cdd82dc9178b426e429f15ac2e875",
+        "hash_note": "canonical_png_hash names APNG bytes with Mechagotchi carrier chunks removed"
+      },
+      "decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "tEXt",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:b81f1f6c48601015838b407cceb766abc47c576a2be1d6b25eaa48ba323fc50a"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:266a4f78b717c1836f6c3666a4c65f8877c93ba3b9242d43a9b18ed4beacc3c4"
+          }
+        ]
+      },
+      "canonical_decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:b81f1f6c48601015838b407cceb766abc47c576a2be1d6b25eaa48ba323fc50a"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:266a4f78b717c1836f6c3666a4c65f8877c93ba3b9242d43a9b18ed4beacc3c4"
+          }
+        ]
+      },
+      "metadata_carrier_policy": {
+        "ok": true,
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "carrier_family": "textual",
+        "variant_id": "text_ascii",
+        "chunk_type": "tEXt",
+        "canonical_apng_hash": "sha256:90d9571e27f879673e5739290eecdb5f9fa1afff0a072eb8e6d073d3d7ea7d82",
+        "sidecar_hash": "sha256:cb46d365519ecca7f73fef1c74c95ce8bc3cdd82dc9178b426e429f15ac2e875",
+        "live_external_editor_verified": false,
+        "encoding_policy": "ascii_json_in_latin1_text_chunk",
+        "compressed": false,
+        "keyword": "mechagotchi.sidecar.v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": false
+      },
+      "import_result": {
+        "ok": true,
+        "asset": {
+          "asset_id": "slip_gray_stable_constrained_000.text_ascii.apng.png",
+          "format_id": "png",
+          "media_type": "image/apng",
+          "uri": "generated://workshop/apng-metadata-carrier-cross-product/slip_gray_stable_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 2,
+          "content_hash": "sha256:b341a742bdddae2a3fa22cab08791710bb8cb968441294a94e9384e3f43ee975",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_apng": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "chunks": [
+            "IHDR",
+            "tEXt",
+            "acTL",
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT",
+            "IEND"
+          ],
+          "animation_control": {
+            "num_frames": 2,
+            "num_plays": 0
+          },
+          "frame_count": 2,
+          "sequence_numbers": [
+            0,
+            1,
+            2
+          ],
+          "animation_chunk_order": [
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT"
+          ],
+          "frames": [
+            {
+              "frame_index": 0,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "IDAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:b81f1f6c48601015838b407cceb766abc47c576a2be1d6b25eaa48ba323fc50a"
+            },
+            {
+              "frame_index": 1,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "fdAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:266a4f78b717c1836f6c3666a4c65f8877c93ba3b9242d43a9b18ed4beacc3c4"
+            }
+          ]
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "apng_policy": {
+          "frame_policy": "bounded_full_canvas_source_frames",
+          "frame_count": 2,
+          "full_canvas_only": true,
+          "source_blend_only": true,
+          "dispose_none_only": true,
+          "live_external_editor_verified": false
+        },
+        "semantic_fidelity": 1.0,
+        "frame_pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "frame_pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "profile_path": "data/slips/valid/slip_gray_stable.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_000.json",
+      "variant_id": "ztxt_ascii",
+      "carrier_family": "textual",
+      "chunk_type": "zTXt",
+      "encoding_policy": "ascii_json_in_latin1_ztxt_chunk",
+      "compressed": true,
+      "png_file_name": "slip_gray_stable_ztxt_ascii_apng_carrier.png",
+      "png_byte_count": 2538,
+      "canonical_apng_byte_count": 289,
+      "metadata": {
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "variant_id": "ztxt_ascii",
+        "keyword": "mechagotchi.sidecar.v1",
+        "chunk_type": "zTXt",
+        "encoding_policy": "ascii_json_in_latin1_ztxt_chunk",
+        "compressed": true,
+        "canonical_png_hash": "sha256:90d9571e27f879673e5739290eecdb5f9fa1afff0a072eb8e6d073d3d7ea7d82",
+        "sidecar_hash": "sha256:cb46d365519ecca7f73fef1c74c95ce8bc3cdd82dc9178b426e429f15ac2e875",
+        "hash_note": "canonical_png_hash names APNG bytes with Mechagotchi carrier chunks removed"
+      },
+      "decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "zTXt",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:b81f1f6c48601015838b407cceb766abc47c576a2be1d6b25eaa48ba323fc50a"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:266a4f78b717c1836f6c3666a4c65f8877c93ba3b9242d43a9b18ed4beacc3c4"
+          }
+        ]
+      },
+      "canonical_decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:b81f1f6c48601015838b407cceb766abc47c576a2be1d6b25eaa48ba323fc50a"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:266a4f78b717c1836f6c3666a4c65f8877c93ba3b9242d43a9b18ed4beacc3c4"
+          }
+        ]
+      },
+      "metadata_carrier_policy": {
+        "ok": true,
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "carrier_family": "textual",
+        "variant_id": "ztxt_ascii",
+        "chunk_type": "zTXt",
+        "canonical_apng_hash": "sha256:90d9571e27f879673e5739290eecdb5f9fa1afff0a072eb8e6d073d3d7ea7d82",
+        "sidecar_hash": "sha256:cb46d365519ecca7f73fef1c74c95ce8bc3cdd82dc9178b426e429f15ac2e875",
+        "live_external_editor_verified": false,
+        "encoding_policy": "ascii_json_in_latin1_ztxt_chunk",
+        "compressed": true,
+        "keyword": "mechagotchi.sidecar.v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": false
+      },
+      "import_result": {
+        "ok": true,
+        "asset": {
+          "asset_id": "slip_gray_stable_constrained_000.ztxt_ascii.apng.png",
+          "format_id": "png",
+          "media_type": "image/apng",
+          "uri": "generated://workshop/apng-metadata-carrier-cross-product/slip_gray_stable_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 2,
+          "content_hash": "sha256:f787471a213b3dd1c89f60aafb6a8ca74fc7f46c2913df741eec4d17b8a931d0",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_apng": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "chunks": [
+            "IHDR",
+            "zTXt",
+            "acTL",
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT",
+            "IEND"
+          ],
+          "animation_control": {
+            "num_frames": 2,
+            "num_plays": 0
+          },
+          "frame_count": 2,
+          "sequence_numbers": [
+            0,
+            1,
+            2
+          ],
+          "animation_chunk_order": [
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT"
+          ],
+          "frames": [
+            {
+              "frame_index": 0,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "IDAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:b81f1f6c48601015838b407cceb766abc47c576a2be1d6b25eaa48ba323fc50a"
+            },
+            {
+              "frame_index": 1,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "fdAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:266a4f78b717c1836f6c3666a4c65f8877c93ba3b9242d43a9b18ed4beacc3c4"
+            }
+          ]
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "apng_policy": {
+          "frame_policy": "bounded_full_canvas_source_frames",
+          "frame_count": 2,
+          "full_canvas_only": true,
+          "source_blend_only": true,
+          "dispose_none_only": true,
+          "live_external_editor_verified": false
+        },
+        "semantic_fidelity": 1.0,
+        "frame_pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "frame_pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "profile_path": "data/slips/valid/slip_gray_stable.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_000.json",
+      "variant_id": "itxt_utf8",
+      "carrier_family": "textual",
+      "chunk_type": "iTXt",
+      "encoding_policy": "utf8_json_in_itxt_chunk",
+      "compressed": false,
+      "png_file_name": "slip_gray_stable_itxt_utf8_apng_carrier.png",
+      "png_byte_count": 12955,
+      "canonical_apng_byte_count": 289,
+      "metadata": {
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "variant_id": "itxt_utf8",
+        "keyword": "mechagotchi.sidecar.v1",
+        "chunk_type": "iTXt",
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": false,
+        "canonical_png_hash": "sha256:90d9571e27f879673e5739290eecdb5f9fa1afff0a072eb8e6d073d3d7ea7d82",
+        "sidecar_hash": "sha256:cb46d365519ecca7f73fef1c74c95ce8bc3cdd82dc9178b426e429f15ac2e875",
+        "hash_note": "canonical_png_hash names APNG bytes with Mechagotchi carrier chunks removed"
+      },
+      "decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "iTXt",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:b81f1f6c48601015838b407cceb766abc47c576a2be1d6b25eaa48ba323fc50a"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:266a4f78b717c1836f6c3666a4c65f8877c93ba3b9242d43a9b18ed4beacc3c4"
+          }
+        ]
+      },
+      "canonical_decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:b81f1f6c48601015838b407cceb766abc47c576a2be1d6b25eaa48ba323fc50a"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:266a4f78b717c1836f6c3666a4c65f8877c93ba3b9242d43a9b18ed4beacc3c4"
+          }
+        ]
+      },
+      "metadata_carrier_policy": {
+        "ok": true,
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "carrier_family": "textual",
+        "variant_id": "itxt_utf8",
+        "chunk_type": "iTXt",
+        "canonical_apng_hash": "sha256:90d9571e27f879673e5739290eecdb5f9fa1afff0a072eb8e6d073d3d7ea7d82",
+        "sidecar_hash": "sha256:cb46d365519ecca7f73fef1c74c95ce8bc3cdd82dc9178b426e429f15ac2e875",
+        "live_external_editor_verified": false,
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": false,
+        "keyword": "mechagotchi.sidecar.v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": true
+      },
+      "import_result": {
+        "ok": true,
+        "asset": {
+          "asset_id": "slip_gray_stable_constrained_000.itxt_utf8.apng.png",
+          "format_id": "png",
+          "media_type": "image/apng",
+          "uri": "generated://workshop/apng-metadata-carrier-cross-product/slip_gray_stable_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 2,
+          "content_hash": "sha256:cdff1b0874e3cee25f1e26df8178f8500a272537ad85bdf26ea6628cb77f5aa9",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_apng": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "chunks": [
+            "IHDR",
+            "iTXt",
+            "acTL",
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT",
+            "IEND"
+          ],
+          "animation_control": {
+            "num_frames": 2,
+            "num_plays": 0
+          },
+          "frame_count": 2,
+          "sequence_numbers": [
+            0,
+            1,
+            2
+          ],
+          "animation_chunk_order": [
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT"
+          ],
+          "frames": [
+            {
+              "frame_index": 0,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "IDAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:b81f1f6c48601015838b407cceb766abc47c576a2be1d6b25eaa48ba323fc50a"
+            },
+            {
+              "frame_index": 1,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "fdAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:266a4f78b717c1836f6c3666a4c65f8877c93ba3b9242d43a9b18ed4beacc3c4"
+            }
+          ]
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "apng_policy": {
+          "frame_policy": "bounded_full_canvas_source_frames",
+          "frame_count": 2,
+          "full_canvas_only": true,
+          "source_blend_only": true,
+          "dispose_none_only": true,
+          "live_external_editor_verified": false
+        },
+        "semantic_fidelity": 1.0,
+        "frame_pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "frame_pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "profile_path": "data/slips/valid/slip_gray_stable.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_000.json",
+      "variant_id": "itxt_utf8_compressed",
+      "carrier_family": "textual",
+      "chunk_type": "iTXt",
+      "encoding_policy": "utf8_json_in_itxt_chunk",
+      "compressed": true,
+      "png_file_name": "slip_gray_stable_itxt_utf8_compressed_apng_carrier.png",
+      "png_byte_count": 2567,
+      "canonical_apng_byte_count": 289,
+      "metadata": {
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "variant_id": "itxt_utf8_compressed",
+        "keyword": "mechagotchi.sidecar.v1",
+        "chunk_type": "iTXt",
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": true,
+        "canonical_png_hash": "sha256:90d9571e27f879673e5739290eecdb5f9fa1afff0a072eb8e6d073d3d7ea7d82",
+        "sidecar_hash": "sha256:cb46d365519ecca7f73fef1c74c95ce8bc3cdd82dc9178b426e429f15ac2e875",
+        "hash_note": "canonical_png_hash names APNG bytes with Mechagotchi carrier chunks removed"
+      },
+      "decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "iTXt",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:b81f1f6c48601015838b407cceb766abc47c576a2be1d6b25eaa48ba323fc50a"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:266a4f78b717c1836f6c3666a4c65f8877c93ba3b9242d43a9b18ed4beacc3c4"
+          }
+        ]
+      },
+      "canonical_decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:b81f1f6c48601015838b407cceb766abc47c576a2be1d6b25eaa48ba323fc50a"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:266a4f78b717c1836f6c3666a4c65f8877c93ba3b9242d43a9b18ed4beacc3c4"
+          }
+        ]
+      },
+      "metadata_carrier_policy": {
+        "ok": true,
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "carrier_family": "textual",
+        "variant_id": "itxt_utf8_compressed",
+        "chunk_type": "iTXt",
+        "canonical_apng_hash": "sha256:90d9571e27f879673e5739290eecdb5f9fa1afff0a072eb8e6d073d3d7ea7d82",
+        "sidecar_hash": "sha256:cb46d365519ecca7f73fef1c74c95ce8bc3cdd82dc9178b426e429f15ac2e875",
+        "live_external_editor_verified": false,
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": true,
+        "keyword": "mechagotchi.sidecar.v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": true
+      },
+      "import_result": {
+        "ok": true,
+        "asset": {
+          "asset_id": "slip_gray_stable_constrained_000.itxt_utf8_compressed.apng.png",
+          "format_id": "png",
+          "media_type": "image/apng",
+          "uri": "generated://workshop/apng-metadata-carrier-cross-product/slip_gray_stable_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 2,
+          "content_hash": "sha256:c7e59faaf59ee0fd550297c57a7f187ead9f8d851e068597324f6ea3562c7ec2",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_apng": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "chunks": [
+            "IHDR",
+            "iTXt",
+            "acTL",
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT",
+            "IEND"
+          ],
+          "animation_control": {
+            "num_frames": 2,
+            "num_plays": 0
+          },
+          "frame_count": 2,
+          "sequence_numbers": [
+            0,
+            1,
+            2
+          ],
+          "animation_chunk_order": [
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT"
+          ],
+          "frames": [
+            {
+              "frame_index": 0,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "IDAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:b81f1f6c48601015838b407cceb766abc47c576a2be1d6b25eaa48ba323fc50a"
+            },
+            {
+              "frame_index": 1,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "fdAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:266a4f78b717c1836f6c3666a4c65f8877c93ba3b9242d43a9b18ed4beacc3c4"
+            }
+          ]
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "apng_policy": {
+          "frame_policy": "bounded_full_canvas_source_frames",
+          "frame_count": 2,
+          "full_canvas_only": true,
+          "source_blend_only": true,
+          "dispose_none_only": true,
+          "live_external_editor_verified": false
+        },
+        "semantic_fidelity": 1.0,
+        "frame_pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "frame_pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "profile_path": "data/slips/valid/slip_gray_stable.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_000.json",
+      "variant_id": "private_mgot",
+      "carrier_family": "private",
+      "chunk_type": "mgOT",
+      "encoding_policy": "magic_prefixed_utf8_json_private_chunk",
+      "compressed": false,
+      "png_file_name": "slip_gray_stable_private_mgot_apng_carrier.png",
+      "png_byte_count": 13048,
+      "canonical_apng_byte_count": 289,
+      "metadata": {
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "metadata_model": "png_private_chunk_policy_v1",
+        "chunk_type": "mgOT",
+        "magic": "mechagotchi.private_chunk.v1",
+        "private_chunk_policy": "ancillary_private_unsafe_to_copy_with_magic_prefix",
+        "canonical_png_hash": "sha256:90d9571e27f879673e5739290eecdb5f9fa1afff0a072eb8e6d073d3d7ea7d82",
+        "sidecar_hash": "sha256:cb46d365519ecca7f73fef1c74c95ce8bc3cdd82dc9178b426e429f15ac2e875",
+        "hash_note": "canonical_png_hash names APNG bytes with Mechagotchi carrier chunks removed"
+      },
+      "decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "mgOT",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:b81f1f6c48601015838b407cceb766abc47c576a2be1d6b25eaa48ba323fc50a"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:266a4f78b717c1836f6c3666a4c65f8877c93ba3b9242d43a9b18ed4beacc3c4"
+          }
+        ]
+      },
+      "canonical_decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:b81f1f6c48601015838b407cceb766abc47c576a2be1d6b25eaa48ba323fc50a"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:266a4f78b717c1836f6c3666a4c65f8877c93ba3b9242d43a9b18ed4beacc3c4"
+          }
+        ]
+      },
+      "metadata_carrier_policy": {
+        "ok": true,
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "carrier_family": "private",
+        "variant_id": "private_mgot",
+        "chunk_type": "mgOT",
+        "canonical_apng_hash": "sha256:90d9571e27f879673e5739290eecdb5f9fa1afff0a072eb8e6d073d3d7ea7d82",
+        "sidecar_hash": "sha256:cb46d365519ecca7f73fef1c74c95ce8bc3cdd82dc9178b426e429f15ac2e875",
+        "live_external_editor_verified": false,
+        "magic": "mechagotchi.private_chunk.v1",
+        "private_chunk_policy": "ancillary_private_unsafe_to_copy_with_magic_prefix",
+        "ancillary": true,
+        "private": true,
+        "reserved_bit_valid": true,
+        "safe_to_copy": false,
+        "private_chunk_count": 1
+      },
+      "import_result": {
+        "ok": true,
+        "asset": {
+          "asset_id": "slip_gray_stable_constrained_000.private_mgot.apng.png",
+          "format_id": "png",
+          "media_type": "image/apng",
+          "uri": "generated://workshop/apng-metadata-carrier-cross-product/slip_gray_stable_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 2,
+          "content_hash": "sha256:75d32944a3d42bb25e95e75a16b52b81a04d84a54d3617d7172d1bcb76f30805",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_apng": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "chunks": [
+            "IHDR",
+            "mgOT",
+            "acTL",
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT",
+            "IEND"
+          ],
+          "animation_control": {
+            "num_frames": 2,
+            "num_plays": 0
+          },
+          "frame_count": 2,
+          "sequence_numbers": [
+            0,
+            1,
+            2
+          ],
+          "animation_chunk_order": [
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT"
+          ],
+          "frames": [
+            {
+              "frame_index": 0,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "IDAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:b81f1f6c48601015838b407cceb766abc47c576a2be1d6b25eaa48ba323fc50a"
+            },
+            {
+              "frame_index": 1,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "fdAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:266a4f78b717c1836f6c3666a4c65f8877c93ba3b9242d43a9b18ed4beacc3c4"
+            }
+          ]
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "apng_policy": {
+          "frame_policy": "bounded_full_canvas_source_frames",
+          "frame_count": 2,
+          "full_canvas_only": true,
+          "source_blend_only": true,
+          "dispose_none_only": true,
+          "live_external_editor_verified": false
+        },
+        "semantic_fidelity": 1.0,
+        "frame_pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "frame_pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "profile_path": "data/slips/valid/slip_amber_social.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_000.json",
+      "variant_id": "text_ascii",
+      "carrier_family": "textual",
+      "chunk_type": "tEXt",
+      "encoding_policy": "ascii_json_in_latin1_text_chunk",
+      "compressed": false,
+      "png_file_name": "slip_amber_social_text_ascii_apng_carrier.png",
+      "png_byte_count": 12793,
+      "canonical_apng_byte_count": 295,
+      "metadata": {
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "variant_id": "text_ascii",
+        "keyword": "mechagotchi.sidecar.v1",
+        "chunk_type": "tEXt",
+        "encoding_policy": "ascii_json_in_latin1_text_chunk",
+        "compressed": false,
+        "canonical_png_hash": "sha256:6d1a5e11e6f868cca5e06b29524f7ecaf177c90498189d4e6404d9c6107bf17b",
+        "sidecar_hash": "sha256:04b687fcca4adac0307c5d49264f4cb2f22f0a6109f7a7c5b6da190dc515e975",
+        "hash_note": "canonical_png_hash names APNG bytes with Mechagotchi carrier chunks removed"
+      },
+      "decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "tEXt",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:ca56f937335979c6b3d75627efb1eda1b610da60027fe1bca505275d261be99e"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:c56573e75e8ddf7f154eaf27676e2d6ecef49751a87ff46d5eec3cc226269608"
+          }
+        ]
+      },
+      "canonical_decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:ca56f937335979c6b3d75627efb1eda1b610da60027fe1bca505275d261be99e"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:c56573e75e8ddf7f154eaf27676e2d6ecef49751a87ff46d5eec3cc226269608"
+          }
+        ]
+      },
+      "metadata_carrier_policy": {
+        "ok": true,
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "carrier_family": "textual",
+        "variant_id": "text_ascii",
+        "chunk_type": "tEXt",
+        "canonical_apng_hash": "sha256:6d1a5e11e6f868cca5e06b29524f7ecaf177c90498189d4e6404d9c6107bf17b",
+        "sidecar_hash": "sha256:04b687fcca4adac0307c5d49264f4cb2f22f0a6109f7a7c5b6da190dc515e975",
+        "live_external_editor_verified": false,
+        "encoding_policy": "ascii_json_in_latin1_text_chunk",
+        "compressed": false,
+        "keyword": "mechagotchi.sidecar.v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": false
+      },
+      "import_result": {
+        "ok": true,
+        "asset": {
+          "asset_id": "slip_amber_social_constrained_000.text_ascii.apng.png",
+          "format_id": "png",
+          "media_type": "image/apng",
+          "uri": "generated://workshop/apng-metadata-carrier-cross-product/slip_amber_social_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 2,
+          "content_hash": "sha256:70088775f8459611883901117970b1086d78435b2ca43b36e34f2cdc6bb845b5",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_apng": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "chunks": [
+            "IHDR",
+            "tEXt",
+            "acTL",
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT",
+            "IEND"
+          ],
+          "animation_control": {
+            "num_frames": 2,
+            "num_plays": 0
+          },
+          "frame_count": 2,
+          "sequence_numbers": [
+            0,
+            1,
+            2
+          ],
+          "animation_chunk_order": [
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT"
+          ],
+          "frames": [
+            {
+              "frame_index": 0,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "IDAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:ca56f937335979c6b3d75627efb1eda1b610da60027fe1bca505275d261be99e"
+            },
+            {
+              "frame_index": 1,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "fdAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:c56573e75e8ddf7f154eaf27676e2d6ecef49751a87ff46d5eec3cc226269608"
+            }
+          ]
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "apng_policy": {
+          "frame_policy": "bounded_full_canvas_source_frames",
+          "frame_count": 2,
+          "full_canvas_only": true,
+          "source_blend_only": true,
+          "dispose_none_only": true,
+          "live_external_editor_verified": false
+        },
+        "semantic_fidelity": 1.0,
+        "frame_pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "frame_pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "profile_path": "data/slips/valid/slip_amber_social.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_000.json",
+      "variant_id": "ztxt_ascii",
+      "carrier_family": "textual",
+      "chunk_type": "zTXt",
+      "encoding_policy": "ascii_json_in_latin1_ztxt_chunk",
+      "compressed": true,
+      "png_file_name": "slip_amber_social_ztxt_ascii_apng_carrier.png",
+      "png_byte_count": 2528,
+      "canonical_apng_byte_count": 295,
+      "metadata": {
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "variant_id": "ztxt_ascii",
+        "keyword": "mechagotchi.sidecar.v1",
+        "chunk_type": "zTXt",
+        "encoding_policy": "ascii_json_in_latin1_ztxt_chunk",
+        "compressed": true,
+        "canonical_png_hash": "sha256:6d1a5e11e6f868cca5e06b29524f7ecaf177c90498189d4e6404d9c6107bf17b",
+        "sidecar_hash": "sha256:04b687fcca4adac0307c5d49264f4cb2f22f0a6109f7a7c5b6da190dc515e975",
+        "hash_note": "canonical_png_hash names APNG bytes with Mechagotchi carrier chunks removed"
+      },
+      "decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "zTXt",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:ca56f937335979c6b3d75627efb1eda1b610da60027fe1bca505275d261be99e"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:c56573e75e8ddf7f154eaf27676e2d6ecef49751a87ff46d5eec3cc226269608"
+          }
+        ]
+      },
+      "canonical_decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:ca56f937335979c6b3d75627efb1eda1b610da60027fe1bca505275d261be99e"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:c56573e75e8ddf7f154eaf27676e2d6ecef49751a87ff46d5eec3cc226269608"
+          }
+        ]
+      },
+      "metadata_carrier_policy": {
+        "ok": true,
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "carrier_family": "textual",
+        "variant_id": "ztxt_ascii",
+        "chunk_type": "zTXt",
+        "canonical_apng_hash": "sha256:6d1a5e11e6f868cca5e06b29524f7ecaf177c90498189d4e6404d9c6107bf17b",
+        "sidecar_hash": "sha256:04b687fcca4adac0307c5d49264f4cb2f22f0a6109f7a7c5b6da190dc515e975",
+        "live_external_editor_verified": false,
+        "encoding_policy": "ascii_json_in_latin1_ztxt_chunk",
+        "compressed": true,
+        "keyword": "mechagotchi.sidecar.v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": false
+      },
+      "import_result": {
+        "ok": true,
+        "asset": {
+          "asset_id": "slip_amber_social_constrained_000.ztxt_ascii.apng.png",
+          "format_id": "png",
+          "media_type": "image/apng",
+          "uri": "generated://workshop/apng-metadata-carrier-cross-product/slip_amber_social_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 2,
+          "content_hash": "sha256:5b7b0fa188e0c1c935f7503e7af21e9c39630f22d9a9bc65bcde8eca918b2f0b",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_apng": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "chunks": [
+            "IHDR",
+            "zTXt",
+            "acTL",
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT",
+            "IEND"
+          ],
+          "animation_control": {
+            "num_frames": 2,
+            "num_plays": 0
+          },
+          "frame_count": 2,
+          "sequence_numbers": [
+            0,
+            1,
+            2
+          ],
+          "animation_chunk_order": [
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT"
+          ],
+          "frames": [
+            {
+              "frame_index": 0,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "IDAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:ca56f937335979c6b3d75627efb1eda1b610da60027fe1bca505275d261be99e"
+            },
+            {
+              "frame_index": 1,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "fdAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:c56573e75e8ddf7f154eaf27676e2d6ecef49751a87ff46d5eec3cc226269608"
+            }
+          ]
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "apng_policy": {
+          "frame_policy": "bounded_full_canvas_source_frames",
+          "frame_count": 2,
+          "full_canvas_only": true,
+          "source_blend_only": true,
+          "dispose_none_only": true,
+          "live_external_editor_verified": false
+        },
+        "semantic_fidelity": 1.0,
+        "frame_pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "frame_pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "profile_path": "data/slips/valid/slip_amber_social.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_000.json",
+      "variant_id": "itxt_utf8",
+      "carrier_family": "textual",
+      "chunk_type": "iTXt",
+      "encoding_policy": "utf8_json_in_itxt_chunk",
+      "compressed": false,
+      "png_file_name": "slip_amber_social_itxt_utf8_apng_carrier.png",
+      "png_byte_count": 12804,
+      "canonical_apng_byte_count": 295,
+      "metadata": {
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "variant_id": "itxt_utf8",
+        "keyword": "mechagotchi.sidecar.v1",
+        "chunk_type": "iTXt",
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": false,
+        "canonical_png_hash": "sha256:6d1a5e11e6f868cca5e06b29524f7ecaf177c90498189d4e6404d9c6107bf17b",
+        "sidecar_hash": "sha256:04b687fcca4adac0307c5d49264f4cb2f22f0a6109f7a7c5b6da190dc515e975",
+        "hash_note": "canonical_png_hash names APNG bytes with Mechagotchi carrier chunks removed"
+      },
+      "decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "iTXt",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:ca56f937335979c6b3d75627efb1eda1b610da60027fe1bca505275d261be99e"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:c56573e75e8ddf7f154eaf27676e2d6ecef49751a87ff46d5eec3cc226269608"
+          }
+        ]
+      },
+      "canonical_decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:ca56f937335979c6b3d75627efb1eda1b610da60027fe1bca505275d261be99e"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:c56573e75e8ddf7f154eaf27676e2d6ecef49751a87ff46d5eec3cc226269608"
+          }
+        ]
+      },
+      "metadata_carrier_policy": {
+        "ok": true,
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "carrier_family": "textual",
+        "variant_id": "itxt_utf8",
+        "chunk_type": "iTXt",
+        "canonical_apng_hash": "sha256:6d1a5e11e6f868cca5e06b29524f7ecaf177c90498189d4e6404d9c6107bf17b",
+        "sidecar_hash": "sha256:04b687fcca4adac0307c5d49264f4cb2f22f0a6109f7a7c5b6da190dc515e975",
+        "live_external_editor_verified": false,
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": false,
+        "keyword": "mechagotchi.sidecar.v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": true
+      },
+      "import_result": {
+        "ok": true,
+        "asset": {
+          "asset_id": "slip_amber_social_constrained_000.itxt_utf8.apng.png",
+          "format_id": "png",
+          "media_type": "image/apng",
+          "uri": "generated://workshop/apng-metadata-carrier-cross-product/slip_amber_social_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 2,
+          "content_hash": "sha256:e61307fb48bb777511d19468a7592c88850d3db0ae07d7dd611cd8e68aa58644",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_apng": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "chunks": [
+            "IHDR",
+            "iTXt",
+            "acTL",
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT",
+            "IEND"
+          ],
+          "animation_control": {
+            "num_frames": 2,
+            "num_plays": 0
+          },
+          "frame_count": 2,
+          "sequence_numbers": [
+            0,
+            1,
+            2
+          ],
+          "animation_chunk_order": [
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT"
+          ],
+          "frames": [
+            {
+              "frame_index": 0,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "IDAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:ca56f937335979c6b3d75627efb1eda1b610da60027fe1bca505275d261be99e"
+            },
+            {
+              "frame_index": 1,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "fdAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:c56573e75e8ddf7f154eaf27676e2d6ecef49751a87ff46d5eec3cc226269608"
+            }
+          ]
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "apng_policy": {
+          "frame_policy": "bounded_full_canvas_source_frames",
+          "frame_count": 2,
+          "full_canvas_only": true,
+          "source_blend_only": true,
+          "dispose_none_only": true,
+          "live_external_editor_verified": false
+        },
+        "semantic_fidelity": 1.0,
+        "frame_pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "frame_pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "profile_path": "data/slips/valid/slip_amber_social.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_000.json",
+      "variant_id": "itxt_utf8_compressed",
+      "carrier_family": "textual",
+      "chunk_type": "iTXt",
+      "encoding_policy": "utf8_json_in_itxt_chunk",
+      "compressed": true,
+      "png_file_name": "slip_amber_social_itxt_utf8_compressed_apng_carrier.png",
+      "png_byte_count": 2557,
+      "canonical_apng_byte_count": 295,
+      "metadata": {
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "variant_id": "itxt_utf8_compressed",
+        "keyword": "mechagotchi.sidecar.v1",
+        "chunk_type": "iTXt",
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": true,
+        "canonical_png_hash": "sha256:6d1a5e11e6f868cca5e06b29524f7ecaf177c90498189d4e6404d9c6107bf17b",
+        "sidecar_hash": "sha256:04b687fcca4adac0307c5d49264f4cb2f22f0a6109f7a7c5b6da190dc515e975",
+        "hash_note": "canonical_png_hash names APNG bytes with Mechagotchi carrier chunks removed"
+      },
+      "decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "iTXt",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:ca56f937335979c6b3d75627efb1eda1b610da60027fe1bca505275d261be99e"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:c56573e75e8ddf7f154eaf27676e2d6ecef49751a87ff46d5eec3cc226269608"
+          }
+        ]
+      },
+      "canonical_decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:ca56f937335979c6b3d75627efb1eda1b610da60027fe1bca505275d261be99e"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:c56573e75e8ddf7f154eaf27676e2d6ecef49751a87ff46d5eec3cc226269608"
+          }
+        ]
+      },
+      "metadata_carrier_policy": {
+        "ok": true,
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "carrier_family": "textual",
+        "variant_id": "itxt_utf8_compressed",
+        "chunk_type": "iTXt",
+        "canonical_apng_hash": "sha256:6d1a5e11e6f868cca5e06b29524f7ecaf177c90498189d4e6404d9c6107bf17b",
+        "sidecar_hash": "sha256:04b687fcca4adac0307c5d49264f4cb2f22f0a6109f7a7c5b6da190dc515e975",
+        "live_external_editor_verified": false,
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": true,
+        "keyword": "mechagotchi.sidecar.v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": true
+      },
+      "import_result": {
+        "ok": true,
+        "asset": {
+          "asset_id": "slip_amber_social_constrained_000.itxt_utf8_compressed.apng.png",
+          "format_id": "png",
+          "media_type": "image/apng",
+          "uri": "generated://workshop/apng-metadata-carrier-cross-product/slip_amber_social_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 2,
+          "content_hash": "sha256:87af408f7adfb1160d26a7d750d59e2c775df803107afb0670c8dda8bbb9af4e",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_apng": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "chunks": [
+            "IHDR",
+            "iTXt",
+            "acTL",
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT",
+            "IEND"
+          ],
+          "animation_control": {
+            "num_frames": 2,
+            "num_plays": 0
+          },
+          "frame_count": 2,
+          "sequence_numbers": [
+            0,
+            1,
+            2
+          ],
+          "animation_chunk_order": [
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT"
+          ],
+          "frames": [
+            {
+              "frame_index": 0,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "IDAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:ca56f937335979c6b3d75627efb1eda1b610da60027fe1bca505275d261be99e"
+            },
+            {
+              "frame_index": 1,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "fdAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:c56573e75e8ddf7f154eaf27676e2d6ecef49751a87ff46d5eec3cc226269608"
+            }
+          ]
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "apng_policy": {
+          "frame_policy": "bounded_full_canvas_source_frames",
+          "frame_count": 2,
+          "full_canvas_only": true,
+          "source_blend_only": true,
+          "dispose_none_only": true,
+          "live_external_editor_verified": false
+        },
+        "semantic_fidelity": 1.0,
+        "frame_pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "frame_pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "profile_path": "data/slips/valid/slip_amber_social.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_000.json",
+      "variant_id": "private_mgot",
+      "carrier_family": "private",
+      "chunk_type": "mgOT",
+      "encoding_policy": "magic_prefixed_utf8_json_private_chunk",
+      "compressed": false,
+      "png_file_name": "slip_amber_social_private_mgot_apng_carrier.png",
+      "png_byte_count": 12897,
+      "canonical_apng_byte_count": 295,
+      "metadata": {
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "metadata_model": "png_private_chunk_policy_v1",
+        "chunk_type": "mgOT",
+        "magic": "mechagotchi.private_chunk.v1",
+        "private_chunk_policy": "ancillary_private_unsafe_to_copy_with_magic_prefix",
+        "canonical_png_hash": "sha256:6d1a5e11e6f868cca5e06b29524f7ecaf177c90498189d4e6404d9c6107bf17b",
+        "sidecar_hash": "sha256:04b687fcca4adac0307c5d49264f4cb2f22f0a6109f7a7c5b6da190dc515e975",
+        "hash_note": "canonical_png_hash names APNG bytes with Mechagotchi carrier chunks removed"
+      },
+      "decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "mgOT",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:ca56f937335979c6b3d75627efb1eda1b610da60027fe1bca505275d261be99e"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:c56573e75e8ddf7f154eaf27676e2d6ecef49751a87ff46d5eec3cc226269608"
+          }
+        ]
+      },
+      "canonical_decoded_apng": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "IEND"
+        ],
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT"
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:ca56f937335979c6b3d75627efb1eda1b610da60027fe1bca505275d261be99e"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "full_canvas": true,
+            "pixel_hash": "sha256:c56573e75e8ddf7f154eaf27676e2d6ecef49751a87ff46d5eec3cc226269608"
+          }
+        ]
+      },
+      "metadata_carrier_policy": {
+        "ok": true,
+        "carrier_model": "apng_metadata_carrier_cross_product_v1",
+        "carrier_family": "private",
+        "variant_id": "private_mgot",
+        "chunk_type": "mgOT",
+        "canonical_apng_hash": "sha256:6d1a5e11e6f868cca5e06b29524f7ecaf177c90498189d4e6404d9c6107bf17b",
+        "sidecar_hash": "sha256:04b687fcca4adac0307c5d49264f4cb2f22f0a6109f7a7c5b6da190dc515e975",
+        "live_external_editor_verified": false,
+        "magic": "mechagotchi.private_chunk.v1",
+        "private_chunk_policy": "ancillary_private_unsafe_to_copy_with_magic_prefix",
+        "ancillary": true,
+        "private": true,
+        "reserved_bit_valid": true,
+        "safe_to_copy": false,
+        "private_chunk_count": 1
+      },
+      "import_result": {
+        "ok": true,
+        "asset": {
+          "asset_id": "slip_amber_social_constrained_000.private_mgot.apng.png",
+          "format_id": "png",
+          "media_type": "image/apng",
+          "uri": "generated://workshop/apng-metadata-carrier-cross-product/slip_amber_social_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 2,
+          "content_hash": "sha256:87203be61456fba9908ef1dcf078e56acae207e57f3ad2bcebdf82e7339874a6",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_apng": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "chunks": [
+            "IHDR",
+            "mgOT",
+            "acTL",
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT",
+            "IEND"
+          ],
+          "animation_control": {
+            "num_frames": 2,
+            "num_plays": 0
+          },
+          "frame_count": 2,
+          "sequence_numbers": [
+            0,
+            1,
+            2
+          ],
+          "animation_chunk_order": [
+            "fcTL",
+            "IDAT",
+            "fcTL",
+            "fdAT"
+          ],
+          "frames": [
+            {
+              "frame_index": 0,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "IDAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:ca56f937335979c6b3d75627efb1eda1b610da60027fe1bca505275d261be99e"
+            },
+            {
+              "frame_index": 1,
+              "width": 8,
+              "height": 8,
+              "x_offset": 0,
+              "y_offset": 0,
+              "delay_ms": 200,
+              "dispose_op": 0,
+              "blend_op": 0,
+              "data_source": "fdAT",
+              "full_canvas": true,
+              "pixel_hash": "sha256:c56573e75e8ddf7f154eaf27676e2d6ecef49751a87ff46d5eec3cc226269608"
+            }
+          ]
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "apng_policy": {
+          "frame_policy": "bounded_full_canvas_source_frames",
+          "frame_count": 2,
+          "full_canvas_only": true,
+          "source_blend_only": true,
+          "dispose_none_only": true,
+          "live_external_editor_verified": false
+        },
+        "semantic_fidelity": 1.0,
+        "frame_pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "frame_pixel_fidelity": 1.0,
+      "ok": true
+    }
+  ],
+  "invalid_probe_results": [
+    {
+      "probe_id": "missing_textual_carrier",
+      "ok": false,
+      "asset": null,
+      "decoded_apng": null,
+      "validation": null,
+      "apng_policy": null,
+      "semantic_fidelity": 0.0,
+      "frame_pixel_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "apng.metadata_carrier",
+          "family": "apng_metadata_carrier_missing",
+          "message": "APNG does not contain a Mechagotchi textual or private metadata carrier"
+        }
+      ],
+      "error_families": [
+        "apng_metadata_carrier_missing"
+      ]
+    },
+    {
+      "probe_id": "duplicate_textual_carrier",
+      "ok": false,
+      "asset": null,
+      "decoded_apng": null,
+      "validation": null,
+      "apng_policy": null,
+      "semantic_fidelity": 0.0,
+      "frame_pixel_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "apng.metadata_carrier",
+          "family": "png_textual_metadata_chunk_duplicate",
+          "message": "PNG contains more than one Mechagotchi textual metadata chunk"
+        }
+      ],
+      "error_families": [
+        "png_textual_metadata_chunk_duplicate"
+      ]
+    },
+    {
+      "probe_id": "corrupt_ztxt_stream",
+      "ok": false,
+      "asset": null,
+      "decoded_apng": null,
+      "validation": null,
+      "apng_policy": null,
+      "semantic_fidelity": 0.0,
+      "frame_pixel_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "apng.metadata_carrier",
+          "family": "png_ztxt_decompression_failed",
+          "message": "Error -3 while decompressing data: incorrect header check"
+        }
+      ],
+      "error_families": [
+        "png_ztxt_decompression_failed"
+      ]
+    },
+    {
+      "probe_id": "tamper_private_canonical_hash",
+      "ok": false,
+      "asset": null,
+      "decoded_apng": null,
+      "validation": null,
+      "apng_policy": null,
+      "semantic_fidelity": 0.0,
+      "frame_pixel_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "apng.metadata_carrier",
+          "family": "png_private_chunk_canonical_hash_mismatch",
+          "message": "PNG private chunk canonical PNG hash does not match PNG without private metadata chunks"
+        }
+      ],
+      "error_families": [
+        "png_private_chunk_canonical_hash_mismatch"
+      ]
+    },
+    {
+      "probe_id": "missing_private_carrier",
+      "ok": false,
+      "asset": null,
+      "decoded_apng": null,
+      "validation": null,
+      "apng_policy": null,
+      "semantic_fidelity": 0.0,
+      "frame_pixel_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "apng.metadata_carrier",
+          "family": "apng_metadata_carrier_missing",
+          "message": "APNG does not contain a Mechagotchi textual or private metadata carrier"
+        }
+      ],
+      "error_families": [
+        "apng_metadata_carrier_missing"
+      ]
+    },
+    {
+      "probe_id": "tamper_apng_sequence_number",
+      "ok": false,
+      "asset": null,
+      "decoded_apng": null,
+      "validation": null,
+      "apng_policy": null,
+      "semantic_fidelity": 0.0,
+      "frame_pixel_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "apng",
+          "family": "apng_sequence_number_invalid",
+          "message": "APNG fdAT sequence numbers must be consecutive"
+        }
+      ],
+      "error_families": [
+        "apng_sequence_number_invalid"
+      ]
+    }
+  ],
+  "metrics": {
+    "metadata_carrier_roundtrip_success_rate": 1.0,
+    "mean_semantic_fidelity": 1.0,
+    "mean_frame_pixel_fidelity": 1.0,
+    "invalid_probe_rejection_rate": 1.0
+  },
+  "closed_states": [
+    "apng_textual_metadata_carrier_cross_product",
+    "apng_private_metadata_carrier_cross_product",
+    "apng_metadata_canonical_hash_validation",
+    "apng_metadata_frame_hash_preservation",
+    "apng_metadata_invalid_probe_rejection"
+  ],
+  "blocked_states": [
+    "full_apng_png_conformance",
+    "partial_frame_blend_over_disposal_variants",
+    "live_external_editor_rewrite_validation",
+    "final_png_production_carrier_selection",
+    "package_runtime_lifecycle_integration",
+    "manual_readability_calibration",
+    "profile_weighted_evolution"
+  ],
+  "decision": "prototype_bounded_apng_metadata_carrier_cross_product",
+  "next_research_step": "Keep full APNG/PNG conformance, partial-frame APNG playback, live external editor validation, and final PNG carrier selection blocked until direct fixtures exist."
+}

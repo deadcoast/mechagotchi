@@ -1,0 +1,26 @@
+{
+  "asset_version": "mechagotchi.tileset_reference.v1",
+  "grid_id": "slip_gray_stable_constrained_000",
+  "profile_id": "slip_gray_stable",
+  "cell_count": 15,
+  "grid_size": [
+    8,
+    8
+  ],
+  "palette_id": "gameboy_gray",
+  "organ_roles": [
+    "core",
+    "expression",
+    "sensors"
+  ],
+  "role_counts": {
+    "body": 11,
+    "eye": 3,
+    "mouth": 1
+  },
+  "organ_counts": {
+    "core": 11,
+    "expression": 1,
+    "sensors": 3
+  }
+}

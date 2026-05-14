@@ -1,0 +1,7 @@
+GIMP Palette
+Name: slip_lcd_seed_constrained_000
+Columns: 8
+# Deterministic Stage 0 Aseprite external palette reference.
+  7  20  13	slip_palette_0_background
+ 93 187  99	slip_palette_1_foreground
+216 255 214	slip_palette_2_foreground

@@ -1,0 +1,15 @@
+{
+  "resolver_version": "mechagotchi.aseprite_variant_resolver.v1",
+  "policy": "deterministic_stage0_resolver",
+  "variant_ids": [
+    "indexed_8",
+    "grayscale_alpha_16",
+    "rgba_32"
+  ],
+  "supported_color_depths_bpp": [
+    8,
+    16,
+    32
+  ],
+  "claim_boundary": "hash-checked generated assets only; not arbitrary external asset resolution"
+}
