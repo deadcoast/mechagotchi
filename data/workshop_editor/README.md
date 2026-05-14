@@ -20,9 +20,19 @@ Minimal semantic editor artifacts for testing Mechagotchi grid authoring.
 
 - `png_variant_sidecar_decoder_stage0.json` records 15/15 PNG variant sidecar
   round trips across 3 profiles, color types 0/2/3/6, and filter types 0..4.
+- `png_embedded_sidecar_writer_stage0.json` records 3/3 embedded PNG `tEXt`
+  sidecar round trips, decoded pixel preservation, and 3/3 invalid embedded
+  metadata probes rejected before semantic restore.
 - `spritesheet_layout_variant_decoder_stage0.json` records 12/12
   layout-variant spritesheet sidecar round trips across vertical strips,
   row-major matrix sheets, padded/guttered grids, and sparse atlas rects.
+- `spritesheet_packed_runtime_decoder_stage0.json` records 3/3 packed
+  trim/rotation spritesheet sidecar round trips, 3 runtime playback timelines,
+  and 4/4 invalid packed/runtime probes rejected before semantic restore.
+- `project_native_metadata_writer_stage0.json` records 6/6 Piskel and
+  Pixelorama native project metadata round trips across the 3 current profiles,
+  4/4 invalid native metadata probes rejected, and one explicit unsupported
+  Aseprite/LibreSprite User Data chunk writer policy.
 - `slip_runtime_selection_policy_stage0.json` records 3/3 profile-weighted
   archive elite selections from switchboard lifecycle metrics, with 2/2 invalid
   selection probes rejected before selection.

@@ -82,6 +82,11 @@
     "labs/workshop_editor/png_variant_sidecar_decoder.py",
     "data/workshop_editor/png_variant_sidecar_decoder_stage0.json",
     "data/workshop_editor/png_variant_sidecar_decoder_stage0/",
+    "research/experiment_reports/2026-05-13-png-embedded-sidecar-writer.md",
+    "research/algorithm_cards/png_embedded_sidecar_writer.md",
+    "labs/workshop_editor/png_embedded_sidecar_writer.py",
+    "data/workshop_editor/png_embedded_sidecar_writer_stage0.json",
+    "data/workshop_editor/png_embedded_sidecar_writer_stage0/",
     "research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md",
     "labs/workshop_editor/spritesheet_sidecar_decoder.py",
     "data/workshop_editor/spritesheet_sidecar_decoder_stage0.json",
@@ -90,10 +95,20 @@
     "labs/workshop_editor/spritesheet_layout_variant_decoder.py",
     "data/workshop_editor/spritesheet_layout_variant_decoder_stage0.json",
     "data/workshop_editor/spritesheet_layout_variant_decoder_stage0/",
+    "research/experiment_reports/2026-05-13-spritesheet-packed-runtime-decoder.md",
+    "research/algorithm_cards/spritesheet_packed_runtime_decoder.md",
+    "labs/workshop_editor/spritesheet_packed_runtime_decoder.py",
+    "data/workshop_editor/spritesheet_packed_runtime_decoder_stage0.json",
+    "data/workshop_editor/spritesheet_packed_runtime_decoder_stage0/",
     "research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md",
     "labs/workshop_editor/third_party_project_decoder.py",
     "data/workshop_editor/third_party_project_decoder_stage0.json",
     "data/workshop_editor/third_party_project_decoder_stage0/",
+    "data/workshop_editor/project_native_metadata_writer_stage0/",
+    "data/workshop_editor/project_native_metadata_writer_stage0.json",
+    "labs/workshop_editor/project_native_metadata_writer.py",
+    "research/algorithm_cards/project_native_metadata_writer.md",
+    "research/experiment_reports/2026-05-13-project-native-metadata-writer.md",
     "research/package_specs/mecha_engine_generation_contract_gate.md",
     "research/package_specs/mecha_engine_property_negative_test_strategy.md"
   ],
@@ -365,6 +380,11 @@
     ],
     "png_variant_sidecar_decoder_mean_semantic_fidelity": 1.0,
     "png_variant_sidecar_decoder_mean_pixel_fidelity": 1.0,
+    "png_embedded_sidecar_writer_profiles": 3,
+    "png_embedded_sidecar_writer_embedded_roundtrip_success": 3,
+    "png_embedded_sidecar_writer_invalid_probes_rejected": 3,
+    "png_embedded_sidecar_writer_mean_semantic_fidelity": 1.0,
+    "png_embedded_sidecar_writer_mean_pixel_fidelity": 1.0,
     "spritesheet_sidecar_decoder_profiles": 3,
     "spritesheet_sidecar_decoder_roundtrip_success": 3,
     "spritesheet_sidecar_decoder_invalid_probes_rejected": 2,
@@ -375,6 +395,12 @@
     "spritesheet_layout_variant_decoder_invalid_probes_rejected": 3,
     "spritesheet_layout_variant_decoder_mean_semantic_fidelity": 1.0,
     "spritesheet_layout_variant_decoder_mean_frame_pixel_fidelity": 1.0,
+    "spritesheet_packed_runtime_decoder_profiles": 3,
+    "spritesheet_packed_runtime_decoder_packed_roundtrip_success": 3,
+    "spritesheet_packed_runtime_decoder_invalid_probes_rejected": 4,
+    "spritesheet_packed_runtime_decoder_mean_semantic_fidelity": 1.0,
+    "spritesheet_packed_runtime_decoder_mean_reconstructed_frame_fidelity": 1.0,
+    "spritesheet_packed_runtime_decoder_mean_runtime_frame_fidelity": 1.0,
     "third_party_project_decoder_profiles": 3,
     "third_party_project_decoder_success": 3,
     "third_party_project_decoder_sidecar_restore_success": 3,
@@ -382,7 +408,14 @@
     "third_party_project_decoder_mean_semantic_fidelity": 1.0,
     "third_party_project_decoder_native_metadata_writer_count": 0,
     "workshop_roundtrip_profiles": 1,
-    "lifecycle_profile_fixtures": 1
+    "lifecycle_profile_fixtures": 1,
+    "project_native_metadata_writer_profiles": 3,
+    "project_native_metadata_writer_formats": 2,
+    "project_native_metadata_writer_roundtrip_success": 6,
+    "project_native_metadata_writer_invalid_probes_rejected": 4,
+    "project_native_metadata_writer_unsupported_policy_count": 1,
+    "project_native_metadata_writer_mean_semantic_fidelity": 1.0,
+    "project_native_metadata_writer_editor_rewrite_preservation_verified": false
   },
   "valid_profiles": [
     {
@@ -496,13 +529,13 @@
       "surface": "workshop_roundtrip",
       "current_proof": "150 native JSON round trips across generated candidates under the 3 current valid profiles",
       "status": "proven_for_generated_multi_profile_corpus",
-      "required_next_proof": "full project-format coverage, native/embedded metadata writer policy, runtime animation playback, and remaining packed rotation/trim handling"
+      "required_next_proof": "full project-format coverage, arbitrary atlas packing, tags/layers, and editor rewrite preservation"
     },
     {
       "surface": "external_metadata_sidecar",
       "current_proof": "3/3 current valid profile sidecars bind a non-native PNG asset stub to semantic overlays and restore SLIP-aligned grids; 2/2 invalid binding probes rejected; 5 adapter formats require sidecar semantics",
       "status": "proven_stage0_strategy_only",
-      "required_next_proof": "embedded/native metadata writer policy and full project-format coverage"
+      "required_next_proof": "full project-format coverage and editor rewrite preservation"
     },
     {
       "surface": "standard_image_sidecar_decoder",
@@ -517,22 +550,40 @@
       "required_next_proof": "Adam7 interlace, APNG, grayscale-alpha, 1/2/4/16-bit depths, and full PNG conformance"
     },
     {
+      "surface": "png_embedded_sidecar_writer",
+      "current_proof": "3/3 current profile PNG files embed Mechagotchi sidecar JSON in a PNG tEXt ancillary chunk, preserve decoded pixels, restore SLIP-aligned semantic grids, and reject 3/3 missing metadata, invalid JSON, or canonical-hash mismatch probes",
+      "status": "proven_stage0_embedded_png_text_chunk_sidecar_subset",
+      "required_next_proof": "iTXt/zTXt policy, non-ASCII metadata policy, editor rewrite preservation, Adam7/APNG/full PNG conformance, and project-file native metadata beyond Piskel/Pixelorama"
+    },
+    {
       "surface": "spritesheet_sidecar_decoder",
       "current_proof": "3/3 current valid profile grids export to fixed horizontal-strip spritesheet PNG, decode with PNG signature/chunk/CRC/IDAT checks, validate frame rectangles, durations, and pixel hashes, restore SLIP-aligned semantic grids from sidecars, and reject 2/2 corrupt PNG or frame-hash mismatch probes",
-      "status": "proven_fixed_grid_horizontal_strip_only_superseded_for_layout_variants",
-      "required_next_proof": "packed rotation/trim and runtime animation playback remain separate"
+      "status": "proven_fixed_grid_horizontal_strip_only_superseded_for_layout_variants_and_packed_runtime_playback",
+      "required_next_proof": "arbitrary atlas packing, tags/layers, and production renderer playback remain separate"
     },
     {
       "surface": "spritesheet_layout_variant_decoder",
       "current_proof": "12/12 current profile spritesheet layout variants export/import with sidecars across vertical strips, row-major matrix sheets, padded/guttered grids, and sparse atlas rects; 3/3 invalid out-of-bounds/overlap/frame-hash probes rejected",
       "status": "proven_stage0_layout_variant_subset_only",
-      "required_next_proof": "packed rotation/trim, arbitrary atlas packing, tags/layers, and runtime animation playback"
+      "required_next_proof": "arbitrary atlas packing, tags/layers, and production renderer playback"
+    },
+    {
+      "surface": "spritesheet_packed_runtime_decoder",
+      "current_proof": "3/3 current profile packed spritesheet atlases export/import with sidecars; trimmed frames reconstruct to canonical 8x8 frames; one 90-degree rotated frame per profile is decoded; looped runtime playback samples frame-duration boundaries; 4/4 invalid unsupported-rotation, trim, hash, and duration probes rejected",
+      "status": "proven_stage0_packed_trim_rotation_and_sidecar_runtime_playback_subset",
+      "required_next_proof": "arbitrary packing algorithms, tags/layers, production renderer playback, and full project-format coverage"
     },
     {
       "surface": "third_party_project_decoder_boundary",
       "current_proof": "3/3 current valid profile project payloads decode Piskel JSON, Pixelorama .pxo ZIP/data.json, and Aseprite/LibreSprite header boundaries, restore SLIP-aligned semantic grids from sidecars, and reject 3/3 corrupt project, mismatched sidecar, or unsupported format probes",
       "status": "proven_stage0_boundary_only",
-      "required_next_proof": "full project-format coverage and native project-file metadata writer policy"
+      "required_next_proof": "full project-format coverage, editor rewrite preservation, and Aseprite/LibreSprite User Data chunk writing"
+    },
+    {
+      "surface": "project_native_metadata_writer",
+      "current_proof": "6/6 current profile project payloads embed Mechagotchi sidecar JSON into native project metadata locations for Piskel description and Pixelorama data.json, restore SLIP-aligned semantic grids without external sidecars, reject 4/4 missing metadata, sidecar-hash, canonical-hash, or unsupported-format probes, and mark Aseprite/LibreSprite User Data chunk writing as unsupported in Stage 0",
+      "status": "proven_stage0_piskel_pixelorama_native_metadata_subset_only",
+      "required_next_proof": "Aseprite/LibreSprite User Data chunk writer, editor rewrite preservation, tags/layers native project semantics, and full project-format coverage"
     },
     {
       "surface": "slip_authoring_panel",
@@ -614,11 +665,9 @@
     "package runtime lifecycle integration",
     "manual readability calibration",
     "Adam7/APNG/full PNG conformance",
-    "packed rotation/trim atlas handling",
-    "runtime animation playback",
     "full project-format coverage",
-    "embedded PNG metadata writer",
-    "project-file native metadata writer",
+    "editor rewrite preservation",
+    "Aseprite/LibreSprite native User Data chunk writer",
     "community profile packs"
   ],
   "research_verification_commands": [
@@ -640,9 +689,15 @@
     "python -m json.tool .\\data\\workshop_editor\\external_metadata_sidecar_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\standard_image_sidecar_decoder_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\png_variant_sidecar_decoder_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\png_embedded_sidecar_writer_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\spritesheet_sidecar_decoder_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\spritesheet_layout_variant_decoder_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\spritesheet_packed_runtime_decoder_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\third_party_project_decoder_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\project_native_metadata_writer_stage0.json",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_spritesheet_packed_runtime_decoder.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_png_embedded_sidecar_writer.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_project_native_metadata_writer.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_slip_multigeneration_lineage_runner.py",
     "python -B -m unittest .\\labs\\readability_benchmark\\test_slip_readability_calibration_gate.py",
     "python -B -m unittest .\\labs\\architecture\\test_mecha_engine_runtime_boundary_gate.py",

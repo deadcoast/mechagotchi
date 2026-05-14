@@ -156,5 +156,10 @@ import/export.
 
 Runtime lifecycle/archive selection is now covered by
 `research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`.
-Next research should run held-out long-horizon behavior tests and manual
-readability calibration before claiming profile-weighted evolution.
+Packed trim/rotation and sidecar runtime playback are now covered by
+`research/experiment_reports/2026-05-13-spritesheet-packed-runtime-decoder.md`
+for the Stage 0 subset. Next research should keep arbitrary atlas packing,
+tags/layers, production renderer playback, full project-format coverage, and
+project-file native metadata writers explicitly blocked until separately
+proven. PNG `tEXt` embedded sidecar writing is tracked separately in
+`research/experiment_reports/2026-05-13-png-embedded-sidecar-writer.md`.

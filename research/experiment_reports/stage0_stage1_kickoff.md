@@ -324,3 +324,23 @@ CI.
     `research/package_specs/mecha_engine_runtime_boundary_gate.md`,
     `labs/architecture/mecha_engine_runtime_boundary_gate.py`, and
     `data/architecture/mecha_engine_runtime_boundary_gate_stage0.json`.
+56. Build the Stage 0 packed spritesheet runtime decoder for sidecar-described
+    trim/rotation reconstruction and deterministic playback sampling. Done in
+    `research/experiment_reports/2026-05-13-spritesheet-packed-runtime-decoder.md`,
+    `research/algorithm_cards/spritesheet_packed_runtime_decoder.md`,
+    `labs/workshop_editor/spritesheet_packed_runtime_decoder.py`, and
+    `data/workshop_editor/spritesheet_packed_runtime_decoder_stage0.json`.
+57. Build the Stage 0 embedded PNG metadata writer/reader for `tEXt` chunk
+    sidecar preservation without claiming full PNG conformance. Done in
+    `research/experiment_reports/2026-05-13-png-embedded-sidecar-writer.md`,
+    `research/algorithm_cards/png_embedded_sidecar_writer.md`,
+    `labs/workshop_editor/png_embedded_sidecar_writer.py`, and
+    `data/workshop_editor/png_embedded_sidecar_writer_stage0.json`.
+58. Build the Stage 0 project native metadata writer policy for Piskel
+    description metadata and Pixelorama `.pxo` `data.json` metadata without
+    claiming editor rewrite preservation or Aseprite/LibreSprite User Data
+    chunk writing. Done in
+    `research/experiment_reports/2026-05-13-project-native-metadata-writer.md`,
+    `research/algorithm_cards/project_native_metadata_writer.md`,
+    `labs/workshop_editor/project_native_metadata_writer.py`, and
+    `data/workshop_editor/project_native_metadata_writer_stage0.json`.

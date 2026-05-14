@@ -62,6 +62,10 @@ Current generated compatibility evidence:
   trips across 8-bit non-interlaced color types 0/2/3/6 and filter types
   0..4, 3 invalid variant probes rejected, and mean semantic and visual
   carrier fidelity of 1.0.
+- `../workshop_editor/png_embedded_sidecar_writer_stage0.json` records the
+  embedded PNG sidecar writer proof: 3 current profile PNG `tEXt` sidecar
+  round trips, decoded pixel preservation, 3 invalid embedded metadata probes
+  rejected, and mean semantic and pixel fidelity of 1.0.
 - `../workshop_editor/spritesheet_sidecar_decoder_stage0.json` records the
   fixed horizontal spritesheet PNG sidecar decoder proof: 3 current profile
   spritesheet round trips, 2 invalid PNG/frame probes rejected, and mean
@@ -71,11 +75,20 @@ Current generated compatibility evidence:
   layout round trips across vertical strips, row-major matrix sheets,
   padded/guttered grids, and sparse atlas rects; 3 invalid layout probes
   rejected; and mean semantic and frame-pixel fidelity of 1.0.
+- `../workshop_editor/spritesheet_packed_runtime_decoder_stage0.json` records
+  the packed runtime spritesheet sidecar decoder proof: 3 current profile
+  packed trim/rotation round trips, 3 runtime playback timelines, 4 invalid
+  packed/runtime probes rejected, and mean semantic, reconstructed-frame, and
+  runtime-frame fidelity of 1.0.
 - `../workshop_editor/third_party_project_decoder_stage0.json` records the
   third-party project decoder boundary proof: 3 current profile project
   payloads covering Piskel JSON, Pixelorama `.pxo`, and Aseprite/LibreSprite
   header boundaries, 3 sidecar restores, 3 invalid project/binding probes
   rejected, and mean semantic fidelity of 1.0.
+- `../workshop_editor/project_native_metadata_writer_stage0.json` records the
+  project native metadata writer proof: 6 Piskel/Pixelorama project metadata
+  round trips across the current profiles, 4 invalid native metadata probes
+  rejected, and Aseprite/LibreSprite User Data chunk writing kept blocked.
 - `failure_cases/` contains authored negative profile fixtures covering
   required fields, type errors, enums, unit intervals, additional properties,
   body-mass order, and boolean numeric mistakes.
@@ -89,11 +102,12 @@ Current generated compatibility evidence:
   profile-aligned generated grids.
 
 It does not yet cover package/runtime lifecycle behavior integration, completed
-manual readability calibration, packed rotation/trim atlas handling, runtime
-animation playback, full third-party project-format coverage, Adam7/APNG/full
-PNG conformance, embedded/native metadata writers, runtime JSON Schema
-dependency installation, declared package dependency policy, or
-profile-weighted evolution. The current SLIP long-horizon readability packet
-exists under `data/readability/`, but no reviewer rows have been collected yet.
-The multigeneration lineage runner exists as lab evidence under
+manual readability calibration, arbitrary atlas packing, tags/layers,
+production renderer playback, full third-party project-format coverage,
+Adam7/APNG/full PNG conformance, Aseprite/LibreSprite native User Data chunk
+writing, editor rewrite preservation, runtime JSON Schema dependency
+installation, declared package dependency policy, or profile-weighted
+evolution. The current SLIP long-horizon readability packet exists under
+`data/readability/`, but no reviewer rows have been collected yet. The
+multigeneration lineage runner exists as lab evidence under
 `data/workshop_editor/`, not as package runtime state.

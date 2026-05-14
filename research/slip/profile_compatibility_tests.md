@@ -82,8 +82,10 @@ runtime evolution.
 | External metadata sidecar | `data/workshop_editor/external_metadata_sidecar_stage0.json` | 1 | 3 sidecar round trips, 2 invalid binding probes rejected, 5 adapter formats require sidecar |
 | Standard image sidecar decoder | `data/workshop_editor/standard_image_sidecar_decoder_stage0.json` | 1 | 3 static RGBA PNG sidecar round trips, 2 invalid PNG/binding probes rejected |
 | PNG variant sidecar decoder | `data/workshop_editor/png_variant_sidecar_decoder_stage0.json` | 1 | 15 variant PNG sidecar round trips, color types 0/2/3/6, filters 0..4, 3 invalid variant probes rejected |
+| PNG embedded sidecar writer | `data/workshop_editor/png_embedded_sidecar_writer_stage0.json` | 1 | 3 embedded PNG `tEXt` sidecar round trips, decoded pixels preserved, 3 invalid embedded metadata probes rejected |
 | Spritesheet sidecar decoder | `data/workshop_editor/spritesheet_sidecar_decoder_stage0.json` | 1 | 3 fixed-grid spritesheet sidecar round trips, 2 invalid PNG/frame probes rejected |
 | Spritesheet layout variant decoder | `data/workshop_editor/spritesheet_layout_variant_decoder_stage0.json` | 1 | 12 layout-variant spritesheet sidecar round trips, vertical/matrix/padded/sparse layouts, 3 invalid layout probes rejected |
+| Spritesheet packed runtime decoder | `data/workshop_editor/spritesheet_packed_runtime_decoder_stage0.json` | 1 | 3 packed trim/rotation sidecar round trips, 3 runtime playback timelines, 4 invalid packed/runtime probes rejected |
 | Third-party project decoder boundary | `data/workshop_editor/third_party_project_decoder_stage0.json` | 1 | 3 project decoder successes, 3 sidecar restores, 3 invalid project/binding probes rejected |
 | SLIP-constrained grids | `data/generated_grids/slip_lcd_seed_constrained/*.json` | 50 | valid and aligned with `slip_lcd_seed` |
 | Multi-profile constrained grids | `data/slips/multi_profile_generation_stage0/*/*.json` | 150 | valid and aligned across all 3 valid profiles |
@@ -148,12 +150,14 @@ require a complete behavior vocabulary or survival-weight vocabulary.
 | Grid validator | generated candidates pass grid validation | proven for current profile-aware candidate corpora | profile-aware negative cases and held-out profiles |
 | Lifecycle | 3/3 current valid profiles produce measured 24-tick switchboard lifecycle effects from preview-validated grids; runtime selection policy consumes switchboard lifecycle episodes for 3/3 profile-specific archive elite choices; offspring lineage gate evaluates selected children with mean survival ratio `1.0`; long-horizon gate records 18/18 held-out switchboard full-survival runs and 18/18 idle deaths at 96 ticks | measured Stage 0 selection, offspring-lineage, and long-horizon behavior bridge only | package runtime integration and manual readability calibration |
 | Archive | extended descriptors include `slip_alignment`; 3/3 current valid profiles build profile-specific extended archives; 3/3 runtime selection probes choose profile-weighted archive elites from distinct niches; offspring lineage gate emits 3 lineage decisions with 1 add-niche and 2 hold-parent outcomes | measured Stage 0 selection and lineage decision bridge only | held-out multi-profile calibration and manual readability calibration |
-| Workshop round trip | native JSON round trip preserves semantics across 150 generated candidates under 3 valid profiles | proven for generated multi-profile corpus | full project-format coverage, native/embedded metadata writer policy, runtime animation playback, and remaining packed rotation/trim handling |
-| External metadata sidecar | 3/3 current profile sidecars bind a non-native PNG asset stub to the semantic overlay and restore SLIP-aligned grids; 2/2 invalid binding probes rejected; 5 adapter formats marked sidecar-required | proven Stage 0 strategy only | embedded/native metadata writer policy and full project-format coverage |
+| Workshop round trip | native JSON round trip preserves semantics across 150 generated candidates under 3 valid profiles | proven for generated multi-profile corpus | full project-format coverage, project-file native metadata writer policy, arbitrary atlas packing, and tags/layers |
+| External metadata sidecar | 3/3 current profile sidecars bind a non-native PNG asset stub to the semantic overlay and restore SLIP-aligned grids; 2/2 invalid binding probes rejected; 5 adapter formats marked sidecar-required | proven Stage 0 strategy only | project-file native metadata writer policy and full project-format coverage |
 | Standard image sidecar decoder | 3/3 current profile grids export to real static RGBA PNG, decode with PNG signature/chunk/CRC/IDAT checks, restore SLIP-aligned semantic grids from sidecars, and reject 2/2 corrupt PNG or hash-mismatch probes | proven static non-interlaced 8-bit RGBA PNG only; superseded for broader color/filter variants by PNG variant sidecar decoder | Adam7/APNG/full PNG conformance remains separate |
 | PNG variant sidecar decoder | 15/15 current profile PNG variants export/import with sidecars across 8-bit non-interlaced color types 0, 2, 3, and 6; filter types 0 through 4; PLTE indexed-color decoding; 3/3 invalid interlace/PLTE/carrier-hash probes rejected | proven Stage 0 PNG variant subset only | Adam7 interlace, APNG, grayscale-alpha, 1/2/4/16-bit depths, and full PNG conformance |
-| Spritesheet sidecar decoder | 3/3 current profile grids export to fixed horizontal-strip spritesheet PNG, decode with PNG signature/chunk/CRC/IDAT checks, validate frame rectangles/durations/pixel hashes, restore SLIP-aligned semantic grids from sidecars, and reject 2/2 corrupt PNG or frame-hash mismatch probes | proven fixed-grid horizontal strip only; superseded for layout variants by spritesheet layout variant decoder | packed rotation/trim and runtime animation playback remain separate |
-| Spritesheet layout variant decoder | 12/12 current profile spritesheet layout variants export/import with sidecars across vertical strips, row-major matrix sheets, padded/guttered grids, and sparse atlas rects; 3/3 invalid out-of-bounds/overlap/frame-hash probes rejected | proven Stage 0 layout variant subset only | packed rotation/trim, arbitrary atlas packing, tags/layers, and runtime animation playback |
+| PNG embedded sidecar writer | 3/3 current profile PNG files embed Mechagotchi sidecar JSON in a PNG `tEXt` ancillary chunk, preserve decoded pixels, restore SLIP-aligned semantic grids, and reject 3/3 missing metadata, invalid JSON, or canonical-hash mismatch probes | proven Stage 0 embedded PNG text-chunk sidecar subset | `iTXt`/`zTXt` policy, non-ASCII metadata policy, editor rewrite preservation, Adam7/APNG/full PNG conformance, and project-file native metadata writers |
+| Spritesheet sidecar decoder | 3/3 current profile grids export to fixed horizontal-strip spritesheet PNG, decode with PNG signature/chunk/CRC/IDAT checks, validate frame rectangles/durations/pixel hashes, restore SLIP-aligned semantic grids from sidecars, and reject 2/2 corrupt PNG or frame-hash mismatch probes | proven fixed-grid horizontal strip only; superseded for layout variants and packed-runtime playback by later decoder labs | arbitrary atlas packing, tags/layers, and production renderer playback remain separate |
+| Spritesheet layout variant decoder | 12/12 current profile spritesheet layout variants export/import with sidecars across vertical strips, row-major matrix sheets, padded/guttered grids, and sparse atlas rects; 3/3 invalid out-of-bounds/overlap/frame-hash probes rejected | proven Stage 0 layout variant subset only | arbitrary atlas packing, tags/layers, and production renderer playback |
+| Spritesheet packed runtime decoder | 3/3 current profile packed spritesheet atlases export/import with sidecars; trimmed frames reconstruct to canonical 8x8 frames; one 90-degree rotated frame per profile is decoded; looped runtime playback samples frame-duration boundaries; 4/4 invalid unsupported-rotation, trim, hash, and duration probes rejected | proven Stage 0 packed trim/rotation and sidecar runtime playback subset | arbitrary packing algorithms, tags/layers, production renderer playback, and full project-format coverage |
 | Third-party project decoder boundary | 3/3 current profile project payloads decode Piskel JSON, Pixelorama `.pxo` ZIP/data.json, and Aseprite/LibreSprite header boundaries, restore SLIP-aligned semantic grids from sidecars, and reject 3/3 corrupt project, mismatched sidecar, or unsupported format probes | proven Stage 0 boundary only | full project-format coverage and native project-file metadata writer policy |
 | SLIP authoring panel | 3/3 current profile drafts accepted and 3/3 invalid probes rejected by migration, dependency-free, and Pydantic gates | proven minimal panel for current Stage 0 schema | usability pilot |
 | SLIP preview gates | 3/3 current profiles produce deterministic behavior previews and bounded mutation previews; measured lifecycle/archive bridge records 3 distinct preview, lifecycle, and archive fingerprints; 2/2 invalid preview/effect probes rejected before activation | proven deterministic Stage 0 preview gate plus measured effects bridge | manual readability calibration before profile-weighted evolution claims |
@@ -284,21 +288,25 @@ Future workshop tests must check:
   against the sidecar contract, and Piskel JSON, Pixelorama `.pxo`, and
   Aseprite/LibreSprite header project boundaries are proven against the same
   sidecar contract;
-- Adam7/APNG/full PNG conformance, packed rotation/trim atlas handling, runtime
-  animation playback, full project-file coverage, and native/embedded metadata
-  writers remain blocked.
+- Adam7/APNG/full PNG conformance, arbitrary atlas packing, tags/layers, full
+  project-file coverage, production renderer playback, and project-file native
+  metadata writers remain blocked.
 
 Current proof is 150 native JSON round trips across the generated three-profile
 SLIP corpus. External sidecar strategy is proven for metadata preservation,
 static RGBA PNG sidecar import/export is proven, the PNG variant sidecar decoder
 is proven for the explicit 8-bit non-interlaced color/filter subset, fixed
-horizontal-strip spritesheet PNG sidecar import/export is proven, and
+horizontal-strip spritesheet PNG sidecar import/export is proven, the PNG
+embedded sidecar writer is proven for the `tEXt` chunk subset, and
 spritesheet layout variants are proven for vertical/matrix/padded/sparse
-layouts. Third-party project boundary decoding is proven for Piskel JSON,
-Pixelorama `.pxo` ZIP/data.json, and Aseprite/LibreSprite header payloads.
-Adam7/APNG/full PNG conformance, packed rotation/trim atlas handling, runtime
-animation playback, full editor-native project coverage, and metadata writers
-remain blocked.
+layouts. Packed trim/rotation spritesheets and sidecar runtime playback are
+proven for the Stage 0 subset in
+`data/workshop_editor/spritesheet_packed_runtime_decoder_stage0.json`.
+Third-party project boundary decoding is proven for Piskel JSON, Pixelorama
+`.pxo` ZIP/data.json, and Aseprite/LibreSprite header payloads.
+Adam7/APNG/full PNG conformance, arbitrary atlas packing, tags/layers,
+production renderer playback, full editor-native project coverage, and
+project-file native metadata writers remain blocked.
 
 ## Blocked States
 
@@ -316,14 +324,14 @@ The following claims remain blocked:
   scored;
 - Adam7/APNG/full PNG conformance, because the PNG variant proof covers only
   8-bit non-interlaced color types 0/2/3/6 and filter types 0..4;
-- packed rotation/trim atlas handling and runtime animation playback, because
-  the current spritesheet layout proof covers only unrotated full-frame
-  vertical, matrix, padded, and sparse rect layouts;
+- arbitrary atlas packing, tags/layers, and production renderer playback,
+  because the packed runtime proof covers only sidecar-described trim,
+  90-degree rotation, and deterministic playback sampling;
 - full project-format coverage, because the current project-file proof parses
   Piskel JSON, Pixelorama `.pxo` ZIP/data.json, and Aseprite/LibreSprite header
   boundaries only, not full editor-native layer/cel/chunk semantics;
-- embedded PNG metadata writer and native project-file metadata writer, because
-  the Stage 0 proof uses external JSON sidecars only;
+- project-file native metadata writer, because the Stage 0 embedded writer
+  covers PNG `tEXt` chunks only, not editor-native project metadata;
 - community profile packs, because profile versioning and compatibility
   migration are not defined.
 
@@ -349,9 +357,13 @@ python -m json.tool .\data\architecture\mecha_engine_runtime_boundary_gate_stage
 python -m json.tool .\data\workshop_editor\external_metadata_sidecar_stage0.json
 python -m json.tool .\data\workshop_editor\standard_image_sidecar_decoder_stage0.json
 python -m json.tool .\data\workshop_editor\png_variant_sidecar_decoder_stage0.json
+python -m json.tool .\data\workshop_editor\png_embedded_sidecar_writer_stage0.json
 python -m json.tool .\data\workshop_editor\spritesheet_sidecar_decoder_stage0.json
 python -m json.tool .\data\workshop_editor\spritesheet_layout_variant_decoder_stage0.json
+python -m json.tool .\data\workshop_editor\spritesheet_packed_runtime_decoder_stage0.json
 python -m json.tool .\data\workshop_editor\third_party_project_decoder_stage0.json
+python -B -m unittest .\labs\workshop_editor\test_spritesheet_packed_runtime_decoder.py
+python -B -m unittest .\labs\workshop_editor\test_png_embedded_sidecar_writer.py
 python -B -m unittest .\labs\architecture\test_mecha_engine_runtime_boundary_gate.py
 python -B -m unittest discover -s .\labs\slip_validator -p "test_*.py"
 python -B -m unittest discover -s .\labs\workshop_editor -p "test_*.py"
@@ -389,16 +401,19 @@ and profile-weighted evolution claims until package imports and manual
 readability calibration exist. Treat the external JSON
 sidecar strategy, static RGBA
 PNG sidecar decoder, PNG variant sidecar decoder subset, fixed-grid horizontal
-spritesheet sidecar decoder, and spritesheet layout variant decoder subset as
-proven for Stage 0 metadata preservation. Treat the third-party project decoder
+spritesheet sidecar decoder, spritesheet layout variant decoder subset, and
+packed spritesheet runtime decoder subset as proven for Stage 0 metadata
+preservation and playback sampling. Treat the PNG embedded sidecar writer as
+proven for Stage 0 PNG `tEXt` chunk metadata preservation only. Treat the third-party project decoder
 boundary as proof of sidecar binding for Piskel JSON, Pixelorama `.pxo`
 ZIP/data.json, and Aseprite/LibreSprite header payloads, not as proof of broad
 image/project interoperability. Do not claim full profile-authoring
 compatibility until runtime JSON Schema validation, declared dependency policy,
 package lifecycle runtime integration, manual readability calibration,
-usability evidence, full project-format coverage, native/embedded metadata
-writers, runtime animation playback, packed rotation/trim handling, and full
-PNG conformance questions are proven or explicitly rejected.
+usability evidence, full project-format coverage, project-file native metadata
+writers, PNG metadata policies beyond the `tEXt` subset, arbitrary atlas
+packing, tags/layers, production renderer playback, and full PNG conformance
+questions are proven or explicitly rejected.
 
 Next research step:
 
@@ -443,8 +458,10 @@ when explicitly authorized before claiming profile-weighted evolution.
 - `research/experiment_reports/2026-05-12-external-metadata-sidecar-strategy.md`
 - `research/experiment_reports/2026-05-12-standard-image-sidecar-decoder.md`
 - `research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`
+- `research/experiment_reports/2026-05-13-png-embedded-sidecar-writer.md`
 - `research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md`
 - `research/experiment_reports/2026-05-13-spritesheet-layout-variant-decoder.md`
+- `research/experiment_reports/2026-05-13-spritesheet-packed-runtime-decoder.md`
 - `research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md`
 - `labs/workshop_editor/slip_authoring_panel.py`
 - `labs/workshop_editor/slip_preview_gates.py`
@@ -457,8 +474,10 @@ when explicitly authorized before claiming profile-weighted evolution.
 - `labs/workshop_editor/external_metadata_sidecar.py`
 - `labs/workshop_editor/standard_image_sidecar_decoder.py`
 - `labs/workshop_editor/png_variant_sidecar_decoder.py`
+- `labs/workshop_editor/png_embedded_sidecar_writer.py`
 - `labs/workshop_editor/spritesheet_sidecar_decoder.py`
 - `labs/workshop_editor/spritesheet_layout_variant_decoder.py`
+- `labs/workshop_editor/spritesheet_packed_runtime_decoder.py`
 - `labs/workshop_editor/third_party_project_decoder.py`
 - `data/workshop_editor/slip_authoring_panel_stage0.json`
 - `data/workshop_editor/slip_behavior_mutation_preview_stage0.json`
@@ -471,14 +490,18 @@ when explicitly authorized before claiming profile-weighted evolution.
 - `data/workshop_editor/external_metadata_sidecar_stage0.json`
 - `data/workshop_editor/standard_image_sidecar_decoder_stage0.json`
 - `data/workshop_editor/png_variant_sidecar_decoder_stage0.json`
+- `data/workshop_editor/png_embedded_sidecar_writer_stage0.json`
 - `data/workshop_editor/spritesheet_sidecar_decoder_stage0.json`
 - `data/workshop_editor/spritesheet_layout_variant_decoder_stage0.json`
+- `data/workshop_editor/spritesheet_packed_runtime_decoder_stage0.json`
 - `data/workshop_editor/third_party_project_decoder_stage0.json`
 - `data/workshop_editor/external_metadata_sidecar_stage0/`
 - `data/workshop_editor/standard_image_sidecar_decoder_stage0/`
 - `data/workshop_editor/png_variant_sidecar_decoder_stage0/`
+- `data/workshop_editor/png_embedded_sidecar_writer_stage0/`
 - `data/workshop_editor/spritesheet_sidecar_decoder_stage0/`
 - `data/workshop_editor/spritesheet_layout_variant_decoder_stage0/`
+- `data/workshop_editor/spritesheet_packed_runtime_decoder_stage0/`
 - `data/workshop_editor/third_party_project_decoder_stage0/`
 - `data/workshop_editor/slip_authoring_panel_stage0/`
 - `data/workshop_editor/slip_behavior_mutation_preview_stage0/`
