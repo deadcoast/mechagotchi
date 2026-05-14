@@ -89,6 +89,7 @@ runtime evolution.
 | Spritesheet layout variant decoder | `data/workshop_editor/spritesheet_layout_variant_decoder_stage0.json` | 1 | 12 layout-variant spritesheet sidecar round trips, vertical/matrix/padded/sparse layouts, 3 invalid layout probes rejected |
 | Spritesheet packed runtime decoder | `data/workshop_editor/spritesheet_packed_runtime_decoder_stage0.json` | 1 | 3 packed trim/rotation sidecar round trips, 3 runtime playback timelines, 4 invalid packed/runtime probes rejected |
 | Spritesheet arbitrary atlas packer | `data/workshop_editor/spritesheet_arbitrary_atlas_packer_stage0.json` | 1 | 6 arbitrary atlas round trips across shelf and MaxRects-style policies, 6 invalid atlas probes rejected, best occupancy policy `maxrects_best_short_side_fit` |
+| Spritesheet multi-page atlas | `data/workshop_editor/spritesheet_multi_page_atlas_stage0.json` | 1 | 3 generated multi-page atlas bundle round trips, page manifests, per-page hashes, frame-to-page bindings, runtime page-switch sampling, 6 invalid page/frame probes rejected |
 | Third-party project decoder boundary | `data/workshop_editor/third_party_project_decoder_stage0.json` | 1 | 3 project decoder successes, 3 sidecar restores, 3 invalid project/binding probes rejected |
 | Project native metadata writer | `data/workshop_editor/project_native_metadata_writer_stage0.json` | 1 | 6 Piskel/Pixelorama native metadata round trips, 4 invalid native metadata probes rejected, 1 delegated Aseprite/LibreSprite User Data policy |
 | Project editor rewrite preservation | `data/workshop_editor/project_editor_rewrite_preservation_stage0.json` | 1 | 6 deterministic Piskel/Pixelorama rewrite round trips, visual hash preserved, 3 invalid rewrite probes rejected |
@@ -172,7 +173,8 @@ require a complete behavior vocabulary or survival-weight vocabulary.
 | Spritesheet sidecar decoder | 3/3 current profile grids export to fixed horizontal-strip spritesheet PNG, decode with PNG signature/chunk/CRC/IDAT checks, validate frame rectangles/durations/pixel hashes, restore SLIP-aligned semantic grids from sidecars, and reject 2/2 corrupt PNG or frame-hash mismatch probes | proven fixed-grid horizontal strip only; superseded for layout variants, packed-runtime playback, and arbitrary-atlas packing by later decoder labs | production renderer playback remains separate |
 | Spritesheet layout variant decoder | 12/12 current profile spritesheet layout variants export/import with sidecars across vertical strips, row-major matrix sheets, padded/guttered grids, and sparse atlas rects; 3/3 invalid out-of-bounds/overlap/frame-hash probes rejected | proven Stage 0 layout variant subset only; arbitrary atlas policy is handled separately | production renderer playback |
 | Spritesheet packed runtime decoder | 3/3 current profile packed spritesheet atlases export/import with sidecars; trimmed frames reconstruct to canonical 8x8 frames; one 90-degree rotated frame per profile is decoded; looped runtime playback samples frame-duration boundaries; 4/4 invalid unsupported-rotation, trim, hash, and duration probes rejected | proven Stage 0 packed trim/rotation and sidecar runtime playback subset; arbitrary atlas policy is handled separately | production renderer playback and full project-format coverage |
-| Spritesheet arbitrary atlas packer | 6/6 current profile arbitrary atlas exports/imports round-trip sidecar semantics across shelf and MaxRects-style best-short-side-fit packing policies; five variable-size regions per atlas are reconstructed to canonical 8x8 frames; 6/6 invalid overlap, bounds, hash, duration, algorithm, and rotation-policy probes rejected; `maxrects_best_short_side_fit` is the best occupancy policy for this fixed corpus | proven Stage 0 arbitrary rectangle atlas packing and policy comparison only | production renderer playback, live external editor validation, and multi-page/editor-authored atlas fixtures |
+| Spritesheet arbitrary atlas packer | 6/6 current profile arbitrary atlas exports/imports round-trip sidecar semantics across shelf and MaxRects-style best-short-side-fit packing policies; five variable-size regions per atlas are reconstructed to canonical 8x8 frames; 6/6 invalid overlap, bounds, hash, duration, algorithm, and rotation-policy probes rejected; `maxrects_best_short_side_fit` is the best occupancy policy for this fixed corpus | proven Stage 0 arbitrary rectangle atlas packing and policy comparison only; generated multi-page atlas fixtures are handled separately | production renderer playback, live external editor validation, and editor-authored atlas fixtures |
+| Spritesheet multi-page atlas | 3/3 current profile generated multi-page atlas bundles round-trip sidecar semantics with page manifests, per-page hashes, frame-to-page bindings, three pages per profile, seven reconstructed canonical frames per profile, runtime page-switch sampling, and 6/6 invalid missing-page, page-hash, unknown-page, out-of-bounds, frame-hash, and playback-order probes rejected | proven Stage 0 generated multi-page atlas fixture subset only | production renderer playback, live external editor validation, and editor-authored atlas fixtures |
 | Third-party project decoder boundary | 3/3 current profile project payloads decode Piskel JSON, Pixelorama `.pxo` ZIP/data.json, and Aseprite/LibreSprite header boundaries, restore SLIP-aligned semantic grids from sidecars, and reject 3/3 corrupt project, mismatched sidecar, or unsupported format probes | proven Stage 0 boundary only | full project-format coverage, live external editor rewrite validation, and broader Aseprite chunk/schema coverage |
 | Project native metadata writer | 6/6 current profile project payloads embed Mechagotchi sidecar JSON into Piskel description metadata and Pixelorama `.pxo` `data.json` metadata, restore SLIP-aligned semantic grids without external sidecars, and reject 4/4 missing metadata, sidecar-hash, canonical-hash, or unsupported-format probes | proven Stage 0 Piskel/Pixelorama native metadata subset only | live external editor rewrite validation, full project-format coverage, and cross-lab Aseprite dispatch if promoted |
 | Project editor rewrite preservation | 6/6 current profile project payloads survive deterministic Piskel description and Pixelorama `data.json` rewrite simulation; visual hashes are preserved; sidecars rebind to rewritten canonical project hashes; 3/3 missing metadata, sidecar hash, and visual hash probes rejected | proven Stage 0 simulated rewrite subset only | live external Piskel/Pixelorama open-save validation, arbitrary Aseprite project schema coverage, and full project-format coverage |
@@ -310,7 +312,8 @@ Future workshop tests must check:
 - static RGBA PNG import/export, 8-bit non-interlaced PNG color/filter variant
   import/export, fixed horizontal-strip spritesheet PNG import/export, and
   vertical/matrix/padded/sparse spritesheet layout import/export, packed
-  trim/rotation reconstruction, and arbitrary atlas packing are proven against
+  trim/rotation reconstruction, arbitrary atlas packing, and generated
+  multi-page atlas page/frame binding are proven against
   the sidecar contract, and Piskel JSON, Pixelorama `.pxo`, and
   Aseprite/LibreSprite header project boundaries are proven against the same
   sidecar contract;
@@ -332,7 +335,9 @@ layouts. Packed trim/rotation spritesheets and sidecar runtime playback are
 proven for the Stage 0 subset in
 `data/workshop_editor/spritesheet_packed_runtime_decoder_stage0.json`, and
 arbitrary atlas packing is proven for shelf and MaxRects-style policies in
-`data/workshop_editor/spritesheet_arbitrary_atlas_packer_stage0.json`.
+`data/workshop_editor/spritesheet_arbitrary_atlas_packer_stage0.json`, and
+generated multi-page atlas page/frame binding is proven in
+`data/workshop_editor/spritesheet_multi_page_atlas_stage0.json`.
 Third-party project boundary decoding is proven for Piskel JSON, Pixelorama
 `.pxo` ZIP/data.json, and Aseprite/LibreSprite header payloads.
 Adam7/APNG/full PNG conformance, production
@@ -364,8 +369,9 @@ The following claims remain blocked:
 - Adam7/APNG/full PNG conformance, because the PNG variant proof covers only
   8-bit non-interlaced color types 0/2/3/6 and filter types 0..4;
 - production renderer playback,
-  because the packed runtime and arbitrary atlas proofs cover only
-  sidecar-described reconstruction and deterministic playback sampling;
+  because the packed runtime, arbitrary atlas, and multi-page atlas proofs
+  cover only sidecar-described reconstruction and deterministic playback
+  sampling;
 - full project-format coverage, because the current project-file proof parses
   Piskel JSON, Pixelorama `.pxo` ZIP/data.json, and Aseprite/LibreSprite header
   boundaries only, not full editor-native layer/cel/chunk semantics;
@@ -418,9 +424,11 @@ python -m json.tool .\data\workshop_editor\spritesheet_sidecar_decoder_stage0.js
 python -m json.tool .\data\workshop_editor\spritesheet_layout_variant_decoder_stage0.json
 python -m json.tool .\data\workshop_editor\spritesheet_packed_runtime_decoder_stage0.json
 python -m json.tool .\data\workshop_editor\spritesheet_arbitrary_atlas_packer_stage0.json
+python -m json.tool .\data\workshop_editor\spritesheet_multi_page_atlas_stage0.json
 python -m json.tool .\data\workshop_editor\third_party_project_decoder_stage0.json
 python -B -m unittest .\labs\workshop_editor\test_spritesheet_packed_runtime_decoder.py
 python -B -m unittest .\labs\workshop_editor\test_spritesheet_arbitrary_atlas_packer.py
+python -B -m unittest .\labs\workshop_editor\test_spritesheet_multi_page_atlas.py
 python -B -m unittest .\labs\workshop_editor\test_png_embedded_sidecar_writer.py
 python -B -m unittest .\labs\workshop_editor\test_png_textual_metadata_policy.py
 python -B -m unittest .\labs\workshop_editor\test_png_private_chunk_policy.py

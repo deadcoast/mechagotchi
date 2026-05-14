@@ -96,6 +96,11 @@ Current generated compatibility evidence:
   mean semantic/reconstructed-frame/runtime-frame fidelity of 1.0, and
   `maxrects_best_short_side_fit` selected as best occupancy policy for the
   fixed Stage 0 corpus.
+- `../workshop_editor/spritesheet_multi_page_atlas_stage0.json` records the
+  generated multi-page atlas proof: 3 current profile bundle round trips, page
+  manifests, per-page hashes, frame-to-page bindings, runtime page-switch
+  sampling, 6 invalid page/frame probes rejected, mean page count 3.0, and
+  mean semantic/reconstructed-frame/runtime-frame fidelity of 1.0.
 - `../workshop_editor/third_party_project_decoder_stage0.json` records the
   third-party project decoder boundary proof: 3 current profile project
   payloads covering Piskel JSON, Pixelorama `.pxo`, and Aseprite/LibreSprite

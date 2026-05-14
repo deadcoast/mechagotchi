@@ -447,3 +447,12 @@ CI.
     `research/algorithm_cards/spritesheet_arbitrary_atlas_packer.md`,
     `labs/workshop_editor/spritesheet_arbitrary_atlas_packer.py`, and
     `data/workshop_editor/spritesheet_arbitrary_atlas_packer_stage0.json`.
+71. Build the Stage 0 generated spritesheet multi-page atlas lab with page
+    manifests, per-page hashes, frame-to-page bindings, and runtime page-switch
+    sampling without claiming editor-authored atlas fixtures, production
+    renderer playback, live external editor validation, or package runtime
+    integration. Done in
+    `research/experiment_reports/2026-05-14-spritesheet-multi-page-atlas.md`,
+    `research/algorithm_cards/spritesheet_multi_page_atlas.md`,
+    `labs/workshop_editor/spritesheet_multi_page_atlas.py`, and
+    `data/workshop_editor/spritesheet_multi_page_atlas_stage0.json`.

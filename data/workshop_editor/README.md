@@ -41,6 +41,10 @@ Minimal semantic editor artifacts for testing Mechagotchi grid authoring.
   atlas round trips across shelf and MaxRects-style packing policies, 6/6
   invalid atlas probes rejected, and the final production renderer playback
   claim still blocked.
+- `spritesheet_multi_page_atlas_stage0.json` records 3/3 generated multi-page
+  atlas bundle round trips, page manifests, per-page hashes, frame-to-page
+  bindings, runtime page-switch sampling, and 6/6 invalid page/frame probes
+  rejected before semantic restore.
 - `project_native_metadata_writer_stage0.json` records 6/6 Piskel and
   Pixelorama native project metadata round trips across the 3 current profiles,
   4/4 invalid native metadata probes rejected, and one explicit unsupported

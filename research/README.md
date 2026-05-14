@@ -116,6 +116,9 @@ The package-contract handoff is published as:
 - `research/experiment_reports/2026-05-14-spritesheet-arbitrary-atlas-packer.md`
 - `research/algorithm_cards/spritesheet_arbitrary_atlas_packer.md`
 - `data/workshop_editor/spritesheet_arbitrary_atlas_packer_stage0.json`
+- `research/experiment_reports/2026-05-14-spritesheet-multi-page-atlas.md`
+- `research/algorithm_cards/spritesheet_multi_page_atlas.md`
+- `data/workshop_editor/spritesheet_multi_page_atlas_stage0.json`
 - `research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md`
 - `data/workshop_editor/third_party_project_decoder_stage0.json`
 - `research/experiment_reports/2026-05-13-project-native-metadata-writer.md`
@@ -315,6 +318,9 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-05-14-spritesheet-arbitrary-atlas-packer.md`
 - `research/algorithm_cards/spritesheet_arbitrary_atlas_packer.md`
 - `data/workshop_editor/spritesheet_arbitrary_atlas_packer_stage0.json`
+- `research/experiment_reports/2026-05-14-spritesheet-multi-page-atlas.md`
+- `research/algorithm_cards/spritesheet_multi_page_atlas.md`
+- `data/workshop_editor/spritesheet_multi_page_atlas_stage0.json`
 - `research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md`
 - `data/workshop_editor/third_party_project_decoder_stage0.json`
 - `research/experiment_reports/2026-05-13-project-native-metadata-writer.md`
