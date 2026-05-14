@@ -987,6 +987,12 @@
       "required_next_proof": "live external Aseprite/LibreSprite open-save validation, arbitrary Aseprite project schemas, arbitrary external asset resolution, editor-authored document variants, and full project-format coverage"
     },
     {
+      "surface": "aseprite_external_asset_resolver_matrix",
+      "current_proof": "36/36 generated resolver round trips restore SLIP-aligned semantics across 3 profiles, indexed 8 bpp, grayscale-alpha 16 bpp, RGBA 32 bpp document variants, and direct manifest, relative file-map, content-addressed pool, and multi-root priority resolver policies; 5/5 missing-asset, hash-mismatch, ambiguity, path-traversal, and unsupported-policy probes rejected",
+      "status": "proven_stage0_generated_external_asset_resolver_matrix_subset_only",
+      "required_next_proof": "live external Aseprite/LibreSprite open-save validation, editor-authored Aseprite document variants, arbitrary Aseprite project schemas, and full project-format coverage"
+    },
+    {
       "surface": "slip_authoring_panel",
       "current_proof": "3/3 current valid profile drafts accepted and 3/3 invalid probes rejected by migration, dependency-free, and Pydantic gates",
       "status": "proven_minimal_current_schema_panel",
@@ -1120,6 +1126,7 @@
     "python -m json.tool .\\data\\workshop_editor\\aseprite_nested_timeline_semantics_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\aseprite_external_properties_semantics_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\aseprite_document_variant_resolution_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\aseprite_external_asset_resolver_matrix_stage0.json",
     "python -B -m unittest .\\labs\\workshop_editor\\test_spritesheet_packed_runtime_decoder.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_png_embedded_sidecar_writer.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_png_textual_metadata_policy.py",
@@ -1142,6 +1149,7 @@
     "python -B -m unittest .\\labs\\workshop_editor\\test_aseprite_nested_timeline_semantics.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_aseprite_external_properties_semantics.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_aseprite_document_variant_resolution.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_aseprite_external_asset_resolver_matrix.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_slip_multigeneration_lineage_runner.py",
     "python -B -m unittest .\\labs\\readability_benchmark\\test_slip_readability_calibration_gate.py",
     "python -B -m unittest .\\labs\\architecture\\test_mecha_engine_runtime_boundary_gate.py",
@@ -1152,5 +1160,5 @@
     "git diff --check"
   ],
   "decision": "adopt_stage0_slip_profile_compatibility_matrix",
-  "next_research_step": "Collect live external editor open-save fixtures, broaden remaining PNG coverage through full APNG/PNG conformance fixtures, broaden Aseprite chunk/schema coverage beyond the fixed Stage 0 carrier subsets with editor-authored document variants and arbitrary external asset resolution, collect 63 SLIP readability reviewer rows, and start package implementation only when explicitly authorized before claiming profile-weighted evolution."
+  "next_research_step": "Collect live external editor open-save fixtures, broaden remaining PNG coverage through full APNG/PNG conformance fixtures, broaden Aseprite chunk/schema coverage beyond the fixed Stage 0 carrier subsets with editor-authored document variants and editor-authored external asset resolution, collect 63 SLIP readability reviewer rows, and start package implementation only when explicitly authorized before claiming profile-weighted evolution."
 }

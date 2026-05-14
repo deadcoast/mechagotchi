@@ -19,7 +19,6 @@ from aseprite_document_variant_resolution import (
     _extract_document_variant_metadata,
     _failed_import,
     _hash_text,
-    _json_report as _document_variant_json_report,
     _portable,
     _ratio,
     _read_json,
