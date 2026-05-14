@@ -82,6 +82,16 @@
     "labs/workshop_editor/png_variant_sidecar_decoder.py",
     "data/workshop_editor/png_variant_sidecar_decoder_stage0.json",
     "data/workshop_editor/png_variant_sidecar_decoder_stage0/",
+    "research/experiment_reports/2026-05-14-png-adam7-interlace-decoder.md",
+    "research/algorithm_cards/png_adam7_interlace_decoder.md",
+    "labs/workshop_editor/png_adam7_interlace_decoder.py",
+    "data/workshop_editor/png_adam7_interlace_decoder_stage0.json",
+    "data/workshop_editor/png_adam7_interlace_decoder_stage0/",
+    "research/experiment_reports/2026-05-14-png-deep-color-sidecar-decoder.md",
+    "research/algorithm_cards/png_deep_color_sidecar_decoder.md",
+    "labs/workshop_editor/png_deep_color_sidecar_decoder.py",
+    "data/workshop_editor/png_deep_color_sidecar_decoder_stage0.json",
+    "data/workshop_editor/png_deep_color_sidecar_decoder_stage0/",
     "research/experiment_reports/2026-05-13-png-embedded-sidecar-writer.md",
     "research/algorithm_cards/png_embedded_sidecar_writer.md",
     "labs/workshop_editor/png_embedded_sidecar_writer.py",
@@ -480,6 +490,12 @@
     ],
     "png_variant_sidecar_decoder_mean_semantic_fidelity": 1.0,
     "png_variant_sidecar_decoder_mean_pixel_fidelity": 1.0,
+    "png_adam7_interlace_decoder_profiles": 3,
+    "png_adam7_interlace_decoder_png_roundtrip_success": 3,
+    "png_adam7_interlace_decoder_invalid_probes_rejected": 6,
+    "png_adam7_interlace_decoder_mean_semantic_fidelity": 1.0,
+    "png_adam7_interlace_decoder_mean_pixel_fidelity": 1.0,
+    "png_adam7_interlace_decoder_mean_non_empty_pass_count": 7.0,
     "png_embedded_sidecar_writer_profiles": 3,
     "png_embedded_sidecar_writer_embedded_roundtrip_success": 3,
     "png_embedded_sidecar_writer_invalid_probes_rejected": 3,
@@ -732,32 +748,44 @@
     {
       "surface": "standard_image_sidecar_decoder",
       "current_proof": "3/3 current valid profile grids export to real static RGBA PNG, decode with PNG signature/chunk/CRC/IDAT checks, restore SLIP-aligned semantic grids from sidecars, and reject 2/2 corrupt PNG or hash-mismatch probes",
-      "status": "proven_static_non_interlaced_8bit_rgba_png_only_superseded_for_color_filter_variants",
-      "required_next_proof": "Adam7/APNG/full PNG conformance remains separate"
+      "status": "proven_static_non_interlaced_8bit_rgba_png_only_superseded_for_color_filter_variants_and_adam7",
+      "required_next_proof": "APNG/full PNG conformance remains separate"
     },
     {
       "surface": "png_variant_sidecar_decoder",
       "current_proof": "15/15 current profile PNG variants export/import with sidecars across 8-bit non-interlaced color types 0, 2, 3, and 6; filter types 0 through 4; PLTE indexed-color decoding; 3/3 invalid interlace/PLTE/carrier-hash probes rejected",
-      "status": "proven_stage0_png_variant_subset_only",
-      "required_next_proof": "Adam7 interlace, APNG, grayscale-alpha, 1/2/4/16-bit depths, and full PNG conformance"
+      "status": "proven_stage0_png_variant_subset_only_adam7_and_deep_color_handled_separately",
+      "required_next_proof": "APNG and full PNG conformance remain separate"
+    },
+    {
+      "surface": "png_adam7_interlace_decoder",
+      "current_proof": "3/3 current profile 8-bit RGBA Adam7 interlaced PNG exports/imports round-trip sidecar semantics with seven reduced-image pass manifests, filters 0..4, exact pixel reconstruction, and 6/6 invalid non-Adam7, scanline-length, filter, pass-manifest, pixel-hash, and asset-hash probes rejected",
+      "status": "proven_stage0_bounded_8bit_rgba_adam7_subset_only",
+      "required_next_proof": "APNG, Adam7/deep-color cross-product coverage, full PNG conformance, live external editor rewrite validation, and final production carrier selection"
+    },
+    {
+      "surface": "png_deep_color_sidecar_decoder",
+      "current_proof": "33/33 current profile PNG deep-color variants export/import with sidecars across 1/2/4-bit greyscale, 1/2/4-bit indexed-color with PLTE, 16-bit greyscale/truecolor/greyscale-alpha/RGBA, 8-bit greyscale-alpha, and filters 0..4; 6/6 invalid bit-depth, scanline, filter, binding, pixel-hash, and asset-hash probes rejected",
+      "status": "proven_stage0_bounded_non_interlaced_deep_color_subset_only_adam7_deep_color_cross_product_not_covered",
+      "required_next_proof": "APNG/full PNG conformance, live external editor rewrite validation, and final production carrier selection"
     },
     {
       "surface": "png_embedded_sidecar_writer",
       "current_proof": "3/3 current profile PNG files embed Mechagotchi sidecar JSON in a PNG tEXt ancillary chunk, preserve decoded pixels, restore SLIP-aligned semantic grids, and reject 3/3 missing metadata, invalid JSON, or canonical-hash mismatch probes",
       "status": "proven_stage0_embedded_png_text_chunk_sidecar_subset_textual_variant_policy_superseded_by_png_textual_metadata_policy",
-      "required_next_proof": "live external editor rewrite validation, Adam7/APNG/full PNG conformance, and project-file native metadata beyond Piskel/Pixelorama"
+      "required_next_proof": "live external editor rewrite validation, APNG/full PNG conformance, and project-file native metadata beyond Piskel/Pixelorama"
     },
     {
       "surface": "png_textual_metadata_policy",
       "current_proof": "12/12 current profile PNG textual metadata variants round-trip sidecar semantics across tEXt ASCII JSON, zTXt compressed ASCII JSON, uncompressed iTXt UTF-8 JSON, and compressed iTXt UTF-8 JSON; 7/7 invalid missing, duplicate, non-ASCII text-policy, compression, UTF-8, and canonical-hash probes rejected",
       "status": "proven_stage0_bounded_textual_metadata_carrier_policy_only_private_chunk_policy_handled_separately",
-      "required_next_proof": "live external editor rewrite validation, Adam7/APNG/full PNG conformance, and production import/export carrier selection"
+      "required_next_proof": "live external editor rewrite validation, APNG/full PNG conformance, and production import/export carrier selection"
     },
     {
       "surface": "png_private_chunk_policy",
       "current_proof": "3/3 current profile PNG files round-trip sidecar semantics through one mgOT ancillary private unsafe-to-copy chunk with a magic-prefixed UTF-8 JSON payload; 7/7 invalid missing, duplicate, safe-to-copy type, magic, JSON, canonical-hash, and sidecar-hash probes rejected; carrier-selection inputs recorded",
       "status": "proven_stage0_bounded_private_ancillary_chunk_policy_and_carrier_selection_inputs_only",
-      "required_next_proof": "live external editor rewrite validation, private chunk editor preservation matrix, Adam7/APNG/full PNG conformance, and final production import/export carrier selection"
+      "required_next_proof": "live external editor rewrite validation, private chunk editor preservation matrix, APNG/full PNG conformance, and final production import/export carrier selection"
     },
     {
       "surface": "spritesheet_sidecar_decoder",
@@ -934,7 +962,8 @@
     "profile-weighted evolution",
     "package runtime lifecycle integration",
     "manual readability calibration",
-    "Adam7/APNG/full PNG conformance",
+    "APNG/full PNG conformance",
+    "Adam7/deep-color PNG cross-product coverage",
     "production renderer playback",
     "final PNG production carrier selection",
     "private chunk editor preservation matrix",
@@ -965,6 +994,8 @@
     "python -m json.tool .\\data\\workshop_editor\\external_metadata_sidecar_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\standard_image_sidecar_decoder_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\png_variant_sidecar_decoder_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\png_adam7_interlace_decoder_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\png_deep_color_sidecar_decoder_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\png_embedded_sidecar_writer_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\png_textual_metadata_policy_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\png_private_chunk_policy_stage0.json",
@@ -988,6 +1019,8 @@
     "python -B -m unittest .\\labs\\workshop_editor\\test_png_embedded_sidecar_writer.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_png_textual_metadata_policy.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_png_private_chunk_policy.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_png_adam7_interlace_decoder.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_png_deep_color_sidecar_decoder.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_spritesheet_arbitrary_atlas_packer.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_spritesheet_multi_page_atlas.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_project_native_metadata_writer.py",
@@ -1010,5 +1043,5 @@
     "git diff --check"
   ],
   "decision": "adopt_stage0_slip_profile_compatibility_matrix",
-  "next_research_step": "Collect live external editor open-save fixtures, broaden Aseprite chunk/schema coverage beyond the fixed Stage 0 carrier subsets with editor-authored document variants and arbitrary external asset resolution, collect 63 SLIP readability reviewer rows, and start package implementation only when explicitly authorized before claiming profile-weighted evolution."
+  "next_research_step": "Collect live external editor open-save fixtures, broaden remaining PNG coverage through APNG/full-conformance or Adam7/deep-color cross-product fixtures, broaden Aseprite chunk/schema coverage beyond the fixed Stage 0 carrier subsets with editor-authored document variants and arbitrary external asset resolution, collect 63 SLIP readability reviewer rows, and start package implementation only when explicitly authorized before claiming profile-weighted evolution."
 }

@@ -83,6 +83,7 @@ runtime evolution.
 | Standard image sidecar decoder | `data/workshop_editor/standard_image_sidecar_decoder_stage0.json` | 1 | 3 static RGBA PNG sidecar round trips, 2 invalid PNG/binding probes rejected |
 | PNG variant sidecar decoder | `data/workshop_editor/png_variant_sidecar_decoder_stage0.json` | 1 | 15 variant PNG sidecar round trips, color types 0/2/3/6, filters 0..4, 3 invalid variant probes rejected |
 | PNG Adam7 interlace decoder | `data/workshop_editor/png_adam7_interlace_decoder_stage0.json` | 1 | 3 bounded 8-bit RGBA Adam7 PNG sidecar round trips, seven reduced-image pass manifests, filters 0..4, 6 invalid Adam7 probes rejected |
+| PNG deep color sidecar decoder | `data/workshop_editor/png_deep_color_sidecar_decoder_stage0.json` | 1 | 33 deep-color PNG sidecar round trips across 1/2/4-bit greyscale, 1/2/4-bit indexed-color, 16-bit greyscale/truecolor/greyscale-alpha/RGBA, 8-bit greyscale-alpha, filters 0..4, 6 invalid deep-color probes rejected |
 | PNG embedded sidecar writer | `data/workshop_editor/png_embedded_sidecar_writer_stage0.json` | 1 | 3 embedded PNG `tEXt` sidecar round trips, decoded pixels preserved, 3 invalid embedded metadata probes rejected |
 | PNG textual metadata policy | `data/workshop_editor/png_textual_metadata_policy_stage0.json` | 1 | 12 bounded PNG textual metadata round trips across `tEXt`, `zTXt`, uncompressed `iTXt`, and compressed `iTXt`; 7 invalid metadata policy probes rejected |
 | PNG private chunk policy | `data/workshop_editor/png_private_chunk_policy_stage0.json` | 1 | 3 app-private PNG `mgOT` ancillary chunk round trips; 7 invalid private chunk probes rejected; carrier-selection inputs recorded without final production decision |
@@ -167,11 +168,12 @@ require a complete behavior vocabulary or survival-weight vocabulary.
 | Workshop round trip | native JSON round trip preserves semantics across 150 generated candidates under 3 valid profiles | proven for generated multi-profile corpus | full project-format coverage, production renderer playback, and live external editor rewrite validation |
 | External metadata sidecar | 3/3 current profile sidecars bind a non-native PNG asset stub to the semantic overlay and restore SLIP-aligned grids; 2/2 invalid binding probes rejected; 5 adapter formats marked sidecar-required | proven Stage 0 strategy only | full project-format coverage and live external editor rewrite validation |
 | Standard image sidecar decoder | 3/3 current profile grids export to real static RGBA PNG, decode with PNG signature/chunk/CRC/IDAT checks, restore SLIP-aligned semantic grids from sidecars, and reject 2/2 corrupt PNG or hash-mismatch probes | proven static non-interlaced 8-bit RGBA PNG only; superseded for broader color/filter variants by PNG variant sidecar decoder and Adam7 interlace by the Adam7 decoder lab | APNG/full PNG conformance remains separate |
-| PNG variant sidecar decoder | 15/15 current profile PNG variants export/import with sidecars across 8-bit non-interlaced color types 0, 2, 3, and 6; filter types 0 through 4; PLTE indexed-color decoding; 3/3 invalid interlace/PLTE/carrier-hash probes rejected | proven Stage 0 PNG variant subset only; Adam7 interlace is handled separately by the Adam7 decoder lab | APNG, grayscale-alpha, 1/2/4/16-bit depths, and full PNG conformance |
-| PNG Adam7 interlace decoder | 3/3 current profile 8-bit RGBA Adam7 interlaced PNG exports/imports round-trip sidecar semantics with seven reduced-image pass manifests, filters 0..4, exact pixel reconstruction, and 6/6 invalid non-Adam7, scanline-length, filter, pass-manifest, pixel-hash, and asset-hash probes rejected | proven Stage 0 bounded 8-bit RGBA Adam7 subset only | APNG, grayscale-alpha, 1/2/4/16-bit depths, full PNG conformance, live external editor rewrite validation, and final production carrier selection |
-| PNG embedded sidecar writer | 3/3 current profile PNG files embed Mechagotchi sidecar JSON in a PNG `tEXt` ancillary chunk, preserve decoded pixels, restore SLIP-aligned semantic grids, and reject 3/3 missing metadata, invalid JSON, or canonical-hash mismatch probes | proven Stage 0 embedded PNG text-chunk sidecar subset; textual variant policy is superseded by PNG textual metadata policy | live external editor rewrite validation, APNG/full PNG conformance, deeper PNG bit-depth/color-type coverage, and project-file native metadata beyond Piskel/Pixelorama |
-| PNG textual metadata policy | 12/12 current profile PNG textual metadata variants round-trip sidecar semantics across `tEXt` ASCII JSON, `zTXt` compressed ASCII JSON, uncompressed `iTXt` UTF-8 JSON, and compressed `iTXt` UTF-8 JSON; 7/7 invalid missing, duplicate, non-ASCII text-policy, compression, UTF-8, and canonical-hash probes rejected | proven Stage 0 bounded textual metadata carrier policy only; private chunk policy is handled separately | live external editor rewrite validation, APNG/full PNG conformance, deeper PNG bit-depth/color-type coverage, and production import/export carrier selection |
-| PNG private chunk policy | 3/3 current profile PNG files round-trip sidecar semantics through one `mgOT` ancillary private unsafe-to-copy chunk with a magic-prefixed UTF-8 JSON payload; 7/7 invalid missing, duplicate, safe-to-copy type, magic, JSON, canonical-hash, and sidecar-hash probes rejected; carrier-selection inputs recorded | proven Stage 0 bounded private ancillary chunk policy and carrier-selection input matrix only | live external editor rewrite validation, private chunk editor preservation matrix, APNG/full PNG conformance, deeper PNG bit-depth/color-type coverage, and final production import/export carrier selection |
+| PNG variant sidecar decoder | 15/15 current profile PNG variants export/import with sidecars across 8-bit non-interlaced color types 0, 2, 3, and 6; filter types 0 through 4; PLTE indexed-color decoding; 3/3 invalid interlace/PLTE/carrier-hash probes rejected | proven Stage 0 PNG variant subset only; Adam7 interlace and deep-color coverage are handled by separate decoder labs | APNG and full PNG conformance remain separate |
+| PNG Adam7 interlace decoder | 3/3 current profile 8-bit RGBA Adam7 interlaced PNG exports/imports round-trip sidecar semantics with seven reduced-image pass manifests, filters 0..4, exact pixel reconstruction, and 6/6 invalid non-Adam7, scanline-length, filter, pass-manifest, pixel-hash, and asset-hash probes rejected | proven Stage 0 bounded 8-bit RGBA Adam7 subset only | APNG, Adam7/deep-color cross-product coverage, full PNG conformance, live external editor rewrite validation, and final production carrier selection |
+| PNG deep color sidecar decoder | 33/33 current profile PNG deep-color variants export/import with sidecars across 1/2/4-bit greyscale, 1/2/4-bit indexed-color with PLTE, 16-bit greyscale/truecolor/greyscale-alpha/RGBA, 8-bit greyscale-alpha, and filters 0..4; 6/6 invalid bit-depth, scanline, filter, binding, pixel-hash, and asset-hash probes rejected | proven Stage 0 bounded non-interlaced deep-color subset only; Adam7/deep-color cross-products are not covered | APNG/full PNG conformance, live external editor rewrite validation, and final production carrier selection |
+| PNG embedded sidecar writer | 3/3 current profile PNG files embed Mechagotchi sidecar JSON in a PNG `tEXt` ancillary chunk, preserve decoded pixels, restore SLIP-aligned semantic grids, and reject 3/3 missing metadata, invalid JSON, or canonical-hash mismatch probes | proven Stage 0 embedded PNG text-chunk sidecar subset; textual variant policy is superseded by PNG textual metadata policy | live external editor rewrite validation, APNG/full PNG conformance, and project-file native metadata beyond Piskel/Pixelorama |
+| PNG textual metadata policy | 12/12 current profile PNG textual metadata variants round-trip sidecar semantics across `tEXt` ASCII JSON, `zTXt` compressed ASCII JSON, uncompressed `iTXt` UTF-8 JSON, and compressed `iTXt` UTF-8 JSON; 7/7 invalid missing, duplicate, non-ASCII text-policy, compression, UTF-8, and canonical-hash probes rejected | proven Stage 0 bounded textual metadata carrier policy only; private chunk policy is handled separately | live external editor rewrite validation, APNG/full PNG conformance, and production import/export carrier selection |
+| PNG private chunk policy | 3/3 current profile PNG files round-trip sidecar semantics through one `mgOT` ancillary private unsafe-to-copy chunk with a magic-prefixed UTF-8 JSON payload; 7/7 invalid missing, duplicate, safe-to-copy type, magic, JSON, canonical-hash, and sidecar-hash probes rejected; carrier-selection inputs recorded | proven Stage 0 bounded private ancillary chunk policy and carrier-selection input matrix only | live external editor rewrite validation, private chunk editor preservation matrix, APNG/full PNG conformance, and final production import/export carrier selection |
 | Spritesheet sidecar decoder | 3/3 current profile grids export to fixed horizontal-strip spritesheet PNG, decode with PNG signature/chunk/CRC/IDAT checks, validate frame rectangles/durations/pixel hashes, restore SLIP-aligned semantic grids from sidecars, and reject 2/2 corrupt PNG or frame-hash mismatch probes | proven fixed-grid horizontal strip only; superseded for layout variants, packed-runtime playback, and arbitrary-atlas packing by later decoder labs | production renderer playback remains separate |
 | Spritesheet layout variant decoder | 12/12 current profile spritesheet layout variants export/import with sidecars across vertical strips, row-major matrix sheets, padded/guttered grids, and sparse atlas rects; 3/3 invalid out-of-bounds/overlap/frame-hash probes rejected | proven Stage 0 layout variant subset only; arbitrary atlas policy is handled separately | production renderer playback |
 | Spritesheet packed runtime decoder | 3/3 current profile packed spritesheet atlases export/import with sidecars; trimmed frames reconstruct to canonical 8x8 frames; one 90-degree rotated frame per profile is decoded; looped runtime playback samples frame-duration boundaries; 4/4 invalid unsupported-rotation, trim, hash, and duration probes rejected | proven Stage 0 packed trim/rotation and sidecar runtime playback subset; arbitrary atlas policy is handled separately | production renderer playback and full project-format coverage |
@@ -312,7 +314,8 @@ Future workshop tests must check:
   multi-profile corpus proof is done;
 - invalid profiles cannot be loaded as active workshop constraints;
 - static RGBA PNG import/export, 8-bit non-interlaced PNG color/filter variant
-  import/export, bounded 8-bit RGBA Adam7 interlace import/export, fixed
+  import/export, bounded 8-bit RGBA Adam7 interlace import/export, bounded
+  non-interlaced low-bit/16-bit/greyscale-alpha PNG import/export, fixed
   horizontal-strip spritesheet PNG import/export, and
   vertical/matrix/padded/sparse spritesheet layout import/export, packed
   trim/rotation reconstruction, arbitrary atlas packing, and generated
@@ -320,7 +323,7 @@ Future workshop tests must check:
   the sidecar contract, and Piskel JSON, Pixelorama `.pxo`, and
   Aseprite/LibreSprite header project boundaries are proven against the same
   sidecar contract;
-- APNG/full PNG conformance, deeper PNG bit-depth and color-type coverage,
+- APNG/full PNG conformance, Adam7/deep-color PNG cross-product coverage,
   full project-file coverage, production renderer playback, arbitrary Aseprite/LibreSprite
   project schema coverage, and live external editor rewrite validation remain
   blocked.
@@ -330,7 +333,10 @@ SLIP corpus. External sidecar strategy is proven for metadata preservation,
 static RGBA PNG sidecar import/export is proven, the PNG variant sidecar decoder
 is proven for the explicit 8-bit non-interlaced color/filter subset, bounded
 8-bit RGBA Adam7 interlace is proven in
-`data/workshop_editor/png_adam7_interlace_decoder_stage0.json`, fixed
+`data/workshop_editor/png_adam7_interlace_decoder_stage0.json`, bounded
+non-interlaced low-bit, 16-bit, indexed low-bit, and greyscale-alpha PNG
+coverage is proven in
+`data/workshop_editor/png_deep_color_sidecar_decoder_stage0.json`, fixed
 horizontal-strip spritesheet PNG sidecar import/export is proven, the PNG
 embedded sidecar writer is proven for the `tEXt` chunk subset, the bounded PNG
 textual metadata policy is proven for `tEXt`/`zTXt`/`iTXt` carriers, the
@@ -345,7 +351,7 @@ generated multi-page atlas page/frame binding is proven in
 `data/workshop_editor/spritesheet_multi_page_atlas_stage0.json`.
 Third-party project boundary decoding is proven for Piskel JSON, Pixelorama
 `.pxo` ZIP/data.json, and Aseprite/LibreSprite header payloads.
-APNG/full PNG conformance, deeper PNG bit-depth and color-type coverage,
+APNG/full PNG conformance, Adam7/deep-color cross-product coverage,
 production renderer playback, full
 editor-native project coverage, arbitrary Aseprite/LibreSprite project schema
 coverage, and live external editor rewrite validation remain blocked. Project
@@ -371,9 +377,10 @@ The following claims remain blocked:
   lifecycle simulator or package import surface;
 - manual readability calibration, because archive readability is still proxy
   scored;
-- APNG/full PNG conformance and deeper PNG bit-depth/color-type coverage,
+- APNG/full PNG conformance and Adam7/deep-color cross-product coverage,
   because the PNG proofs now cover 8-bit non-interlaced color types 0/2/3/6,
-  filters 0..4, and bounded 8-bit RGBA Adam7 interlace only;
+  filters 0..4, bounded 8-bit RGBA Adam7 interlace, and bounded
+  non-interlaced low-bit/16-bit/greyscale-alpha variants only;
 - production renderer playback,
   because the packed runtime, arbitrary atlas, and multi-page atlas proofs
   cover only sidecar-described reconstruction and deterministic playback
@@ -414,6 +421,7 @@ python -m json.tool .\data\workshop_editor\external_metadata_sidecar_stage0.json
 python -m json.tool .\data\workshop_editor\standard_image_sidecar_decoder_stage0.json
 python -m json.tool .\data\workshop_editor\png_variant_sidecar_decoder_stage0.json
 python -m json.tool .\data\workshop_editor\png_adam7_interlace_decoder_stage0.json
+python -m json.tool .\data\workshop_editor\png_deep_color_sidecar_decoder_stage0.json
 python -m json.tool .\data\workshop_editor\png_embedded_sidecar_writer_stage0.json
 python -m json.tool .\data\workshop_editor\png_textual_metadata_policy_stage0.json
 python -m json.tool .\data\workshop_editor\png_private_chunk_policy_stage0.json
@@ -437,6 +445,7 @@ python -B -m unittest .\labs\workshop_editor\test_spritesheet_packed_runtime_dec
 python -B -m unittest .\labs\workshop_editor\test_spritesheet_arbitrary_atlas_packer.py
 python -B -m unittest .\labs\workshop_editor\test_spritesheet_multi_page_atlas.py
 python -B -m unittest .\labs\workshop_editor\test_png_adam7_interlace_decoder.py
+python -B -m unittest .\labs\workshop_editor\test_png_deep_color_sidecar_decoder.py
 python -B -m unittest .\labs\workshop_editor\test_png_embedded_sidecar_writer.py
 python -B -m unittest .\labs\workshop_editor\test_png_textual_metadata_policy.py
 python -B -m unittest .\labs\workshop_editor\test_png_private_chunk_policy.py
@@ -525,17 +534,19 @@ runtime integration, manual readability calibration, usability evidence, full
 project-format coverage, live external editor rewrite validation, final PNG
 production carrier selection, arbitrary Aseprite
 project schemas, arbitrary external asset resolution, editor-authored Aseprite
-document variants, production renderer playback, and full PNG conformance
+document variants, production renderer playback, Adam7/deep-color
+cross-product PNG coverage, and full PNG conformance
 questions are proven or explicitly rejected.
 
 Next research step:
 
 ```txt
-Collect live external editor open-save fixtures, broaden Aseprite chunk/schema
-coverage beyond the fixed Stage 0 carrier subsets with editor-authored
-document variants and arbitrary external asset resolution, collect 63 SLIP
-readability reviewer rows, and start package implementation only when
-explicitly authorized before claiming profile-weighted evolution.
+Collect live external editor open-save fixtures, broaden remaining PNG coverage
+through APNG/full-conformance or Adam7/deep-color cross-product fixtures,
+broaden Aseprite chunk/schema coverage beyond the fixed Stage 0 carrier subsets
+with editor-authored document variants and arbitrary external asset resolution,
+collect 63 SLIP readability reviewer rows, and start package implementation
+only when explicitly authorized before claiming profile-weighted evolution.
 ```
 
 ## References
@@ -574,6 +585,8 @@ explicitly authorized before claiming profile-weighted evolution.
 - `research/experiment_reports/2026-05-12-external-metadata-sidecar-strategy.md`
 - `research/experiment_reports/2026-05-12-standard-image-sidecar-decoder.md`
 - `research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`
+- `research/experiment_reports/2026-05-14-png-deep-color-sidecar-decoder.md`
+- `research/algorithm_cards/png_deep_color_sidecar_decoder.md`
 - `research/experiment_reports/2026-05-13-png-embedded-sidecar-writer.md`
 - `research/experiment_reports/2026-05-14-png-textual-metadata-policy.md`
 - `research/experiment_reports/2026-05-14-png-private-chunk-policy.md`
@@ -597,6 +610,7 @@ explicitly authorized before claiming profile-weighted evolution.
 - `labs/workshop_editor/standard_image_sidecar_decoder.py`
 - `labs/workshop_editor/png_variant_sidecar_decoder.py`
 - `labs/workshop_editor/png_adam7_interlace_decoder.py`
+- `labs/workshop_editor/png_deep_color_sidecar_decoder.py`
 - `labs/workshop_editor/png_embedded_sidecar_writer.py`
 - `labs/workshop_editor/png_textual_metadata_policy.py`
 - `labs/workshop_editor/png_private_chunk_policy.py`
@@ -621,6 +635,7 @@ explicitly authorized before claiming profile-weighted evolution.
 - `data/workshop_editor/standard_image_sidecar_decoder_stage0.json`
 - `data/workshop_editor/png_variant_sidecar_decoder_stage0.json`
 - `data/workshop_editor/png_adam7_interlace_decoder_stage0.json`
+- `data/workshop_editor/png_deep_color_sidecar_decoder_stage0.json`
 - `data/workshop_editor/png_embedded_sidecar_writer_stage0.json`
 - `data/workshop_editor/png_textual_metadata_policy_stage0.json`
 - `data/workshop_editor/png_private_chunk_policy_stage0.json`
@@ -637,6 +652,7 @@ explicitly authorized before claiming profile-weighted evolution.
 - `data/workshop_editor/standard_image_sidecar_decoder_stage0/`
 - `data/workshop_editor/png_variant_sidecar_decoder_stage0/`
 - `data/workshop_editor/png_adam7_interlace_decoder_stage0/`
+- `data/workshop_editor/png_deep_color_sidecar_decoder_stage0/`
 - `data/workshop_editor/png_embedded_sidecar_writer_stage0/`
 - `data/workshop_editor/png_textual_metadata_policy_stage0/`
 - `data/workshop_editor/png_private_chunk_policy_stage0/`

@@ -67,6 +67,11 @@ Current generated compatibility evidence:
   interlaced PNG round trips, seven reduced-image pass manifests, filters
   0..4, 6 invalid Adam7 probes rejected, and mean semantic and pixel fidelity
   of 1.0.
+- `../workshop_editor/png_deep_color_sidecar_decoder_stage0.json` records the
+  bounded PNG deep-color sidecar decoder proof: 33 current profile round trips
+  across 1/2/4-bit greyscale, 1/2/4-bit indexed-color, 16-bit samples,
+  greyscale-alpha color type 4, filters 0..4, 6 invalid deep-color probes
+  rejected, and mean semantic and visual carrier fidelity of 1.0.
 - `../workshop_editor/png_embedded_sidecar_writer_stage0.json` records the
   embedded PNG sidecar writer proof: 3 current profile PNG `tEXt` sidecar
   round trips, decoded pixel preservation, 3 invalid embedded metadata probes
@@ -176,8 +181,8 @@ Current generated compatibility evidence:
 It does not yet cover package/runtime lifecycle behavior integration, completed
 manual readability calibration, production renderer
 playback, full third-party
-project-format coverage, APNG/full PNG conformance, deeper PNG bit-depth and
-color-type coverage, arbitrary Aseprite project schema coverage, arbitrary
+project-format coverage, APNG/full PNG conformance, Adam7/deep-color PNG
+cross-product coverage, arbitrary Aseprite project schema coverage, arbitrary
 Aseprite external asset resolution, final PNG production carrier selection,
 private chunk editor preservation matrix, editor-authored Aseprite document
 variants, live external editor rewrite validation, runtime JSON Schema dependency installation,
