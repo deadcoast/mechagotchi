@@ -1004,8 +1004,8 @@
   },
   "limitations": [
     "Stage 0 native metadata writer covers Piskel description and Pixelorama data.json only.",
-    "Editor rewrite preservation is not verified by this lab.",
-    "Aseprite/LibreSprite User Data chunks require a separate full chunk-model writer."
+    "Live external editor rewrite validation is not verified by this lab.",
+    "Aseprite/LibreSprite User Data chunks are covered by the separate Stage 0 User Data chunk writer lab."
   ],
   "project_binding": {
     "format_id": "piskel_project",

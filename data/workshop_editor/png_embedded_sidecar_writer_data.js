@@ -21,7 +21,8 @@ window.MECHAGOTCHI_PNG_EMBEDDED_SIDECAR_WRITER = {
     ],
     "blocked_states": [
       "Adam7/APNG/full PNG conformance",
-      "project-file native metadata writer",
+      "arbitrary Aseprite project schema coverage",
+      "live external editor rewrite validation",
       "full project-format coverage",
       "arbitrary atlas packing",
       "tags/layers",

@@ -21,7 +21,7 @@ PNG `tEXt` ancillary chunk. No `packages/` code was created.
 
 Source used:
 
-- W3C PNG specification: https://www.w3.org/TR/png-3/
+- [W3C PNG specification](https://www.w3.org/TR/png-3/)
 
 The PNG specification permits ancillary chunks and allows decoders to ignore
 unknown ancillary chunks while still displaying the image. It also defines
@@ -91,7 +91,8 @@ Closed states:
 Blocked states:
 
 - `Adam7/APNG/full PNG conformance`
-- `project-file native metadata writer`
+- `arbitrary Aseprite project schema coverage`
+- `live external editor rewrite validation`
 - `full project-format coverage`
 - `arbitrary atlas packing`
 - `tags/layers`
@@ -108,9 +109,16 @@ chunk subset. It demonstrates that Mechagotchi can ship PNG pixels and semantic
 sidecar metadata in the same PNG carrier while preserving decoded pixels and
 semantic restore fidelity.
 
-This is not a full PNG conformance claim. It does not cover Adam7, APNG,
-`iTXt`, `zTXt`, non-ASCII metadata policy, editor rewrite preservation, or
-third-party project-file native metadata.
+This is not a full PNG conformance claim. At the time of this report it did
+not cover Adam7, APNG, `iTXt`, `zTXt`, non-ASCII metadata policy, live
+external editor rewrite validation, or third-party project-file native
+metadata beyond the Piskel/Pixelorama subset.
+
+Update on 2026-05-14: the bounded `tEXt`/`zTXt`/`iTXt` textual metadata policy
+subset is now covered by
+`research/experiment_reports/2026-05-14-png-textual-metadata-policy.md`.
+Adam7/APNG/full PNG conformance and live external editor rewrite validation
+remain blocked.
 
 ## Verification
 
@@ -150,6 +158,9 @@ python -B .\labs\workshop_editor\png_embedded_sidecar_writer.py
 Adopt `png_embedded_sidecar_writer_stage0` as the Stage 0 proof for PNG `tEXt`
 chunk sidecar embedding and extraction.
 
-Next workshop metadata research should address project-file native metadata
-writers separately. Full PNG conformance and editor rewrite preservation remain
-blocked until each has its own explicit test surface.
+Project-file native metadata is now separately proven only for the
+Piskel/Pixelorama subset in
+`research/experiment_reports/2026-05-13-project-native-metadata-writer.md`.
+Full PNG conformance, arbitrary Aseprite project schema coverage, and live external editor
+rewrite preservation remain blocked until each has its own explicit test
+surface.

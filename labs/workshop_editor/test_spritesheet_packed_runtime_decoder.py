@@ -150,7 +150,8 @@ class SpritesheetPackedRuntimeDecoderTests(unittest.TestCase):
         self.assertNotIn("runtime animation playback", report["blocked_states"])
         self.assertIn("Adam7/APNG/full PNG conformance", report["blocked_states"])
         self.assertIn("full project-format coverage", report["blocked_states"])
-        self.assertIn("project-file native metadata writer", report["blocked_states"])
+        self.assertIn("arbitrary Aseprite project schema coverage", report["blocked_states"])
+        self.assertIn("live external editor rewrite validation", report["blocked_states"])
         self.assertIn("package runtime lifecycle integration", report["blocked_states"])
         self.assertIn("profile-weighted evolution", report["blocked_states"])
 

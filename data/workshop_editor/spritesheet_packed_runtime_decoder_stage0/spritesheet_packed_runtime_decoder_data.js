@@ -26,7 +26,8 @@ window.MECHAGOTCHI_SPRITESHEET_PACKED_RUNTIME_DECODER = {
     "blocked_states": [
       "Adam7/APNG/full PNG conformance",
       "full project-format coverage",
-      "project-file native metadata writer",
+      "arbitrary Aseprite project schema coverage",
+      "live external editor rewrite validation",
       "package runtime lifecycle integration",
       "manual readability calibration",
       "profile-weighted evolution",

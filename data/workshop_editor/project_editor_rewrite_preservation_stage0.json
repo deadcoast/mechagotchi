@@ -1,0 +1,637 @@
+{
+  "artifact_id": "project_editor_rewrite_preservation_stage0",
+  "status": "research_project_editor_rewrite_preservation_no_package_code",
+  "date": "2026-05-13",
+  "purpose": "Prove deterministic editor-save rewrite preservation for the Stage 0 Piskel and Pixelorama native metadata subset without claiming live external-editor validation.",
+  "source_artifacts": [
+    "docs/01-brainstorming.md",
+    "docs/02-research_plan.md",
+    "research/slip/profile_compatibility_tests.md",
+    "data/slips/slip_profile_compatibility_matrix_stage0.json",
+    "data/slips/multi_profile_generation_stage0/",
+    "labs/workshop_editor/project_native_metadata_writer.py",
+    "labs/workshop_editor/project_editor_rewrite_preservation.py"
+  ],
+  "external_anchors": [
+    {
+      "source": "Piskel Serializer.js",
+      "url": "https://github.com/piskelapp/piskel/blob/master/src/js/utils/serialization/Serializer.js",
+      "used_for": "Piskel writes description into the serialized project envelope."
+    },
+    {
+      "source": "Piskel Deserializer.js",
+      "url": "https://github.com/piskelapp/piskel/blob/master/src/js/utils/serialization/Deserializer.js",
+      "used_for": "Piskel reads description back into the project descriptor."
+    },
+    {
+      "source": "Pixelorama project documentation",
+      "url": "https://pixelorama.org/concepts/project/",
+      "used_for": "Pixelorama .pxo data.json and image_data folder rewrite boundary."
+    },
+    {
+      "source": "Aseprite file-format specification",
+      "url": "https://github.com/aseprite/aseprite/blob/main/docs/ase-file-specs.md",
+      "used_for": "User Data Chunk remains a future live chunk writer target."
+    }
+  ],
+  "profile_count": 3,
+  "simulated_editor_format_count": 2,
+  "rewrite_roundtrip_count": 6,
+  "rewrite_roundtrip_success_count": 6,
+  "invalid_probe_count": 3,
+  "invalid_probe_rejected_count": 3,
+  "metrics": {
+    "rewrite_roundtrip_success_rate": 1.0,
+    "mean_semantic_fidelity": 1.0,
+    "visual_hash_preservation_rate": 1.0,
+    "invalid_probe_rejection_rate": 1.0,
+    "live_external_editor_verified": false
+  },
+  "rewrite_results": [
+    {
+      "profile_id": "slip_lcd_seed",
+      "profile_path": "data/slips/valid/slip_lcd_seed.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_000.json",
+      "format_id": "piskel_project",
+      "editor_id": "piskel_save_v1",
+      "project_file_name": "slip_lcd_seed_piskel_rewritten.piskel",
+      "project_byte_count": 14446,
+      "original_canonical_project_hash": "sha256:7d2af75a9e9b0e51b9791f3c601c6e12504a8a0a8edd2bf012363f0271ea1447",
+      "rewritten_canonical_project_hash": "sha256:d972a7e6b1f647a83824165b21df0e6b37d5522064133277c30ab2291e9ecf1c",
+      "project_visual_hash": "sha256:ef2ecf0ece32a4186bd36e40e676988d2373807e30557170cc06f33bbf3d653c",
+      "visual_hash_preserved": true,
+      "rewrite_detected": true,
+      "decoded_project": {
+        "format_id": "piskel_project",
+        "model_version": 2,
+        "name": "slip_lcd_seed_constrained_000",
+        "dimensions": [
+          8,
+          8
+        ],
+        "frame_count": 1,
+        "layer_count": 1,
+        "chunk_count": 1,
+        "native_mechagotchi_semantics": false
+      },
+      "import_result": {
+        "ok": true,
+        "format_id": "piskel_project",
+        "asset": {
+          "asset_id": "slip_lcd_seed_constrained_000.piskel",
+          "format_id": "piskel_project",
+          "media_type": "application/json",
+          "uri": "generated://workshop/project/slip_lcd_seed_constrained_000.piskel",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:d972a7e6b1f647a83824165b21df0e6b37d5522064133277c30ab2291e9ecf1c",
+          "semantic_policy": "project_native_metadata"
+        },
+        "decoded_project": {
+          "format_id": "piskel_project",
+          "model_version": 2,
+          "name": "slip_lcd_seed_constrained_000",
+          "dimensions": [
+            8,
+            8
+          ],
+          "frame_count": 1,
+          "layer_count": 1,
+          "chunk_count": 1,
+          "native_mechagotchi_semantics": false
+        },
+        "rewrite_detected": true,
+        "native_metadata": {
+          "metadata_version": "mechagotchi.project_native_metadata.v1",
+          "native_location": "piskel.description",
+          "project_visual_hash": "sha256:ef2ecf0ece32a4186bd36e40e676988d2373807e30557170cc06f33bbf3d653c",
+          "original_canonical_project_hash": "sha256:7d2af75a9e9b0e51b9791f3c601c6e12504a8a0a8edd2bf012363f0271ea1447",
+          "rewritten_canonical_project_hash": "sha256:d972a7e6b1f647a83824165b21df0e6b37d5522064133277c30ab2291e9ecf1c"
+        },
+        "project_policy": {
+          "semantic_policy": "project_editor_rewrite_rebound",
+          "native_mechagotchi_semantics": true,
+          "live_external_editor_verified": false,
+          "visual_hash_verified": true
+        },
+        "semantic_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "restored_grid_validation": {
+        "valid": true,
+        "errors": [],
+        "slip_aligned": true,
+        "slip_errors": []
+      },
+      "semantic_diff": {
+        "changed_cells": [],
+        "missing_cells": [],
+        "added_cells": []
+      },
+      "semantic_fidelity": 1.0
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "profile_path": "data/slips/valid/slip_lcd_seed.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_000.json",
+      "format_id": "pixelorama_pxo",
+      "editor_id": "pixelorama_save_v1",
+      "project_file_name": "slip_lcd_seed_pixelorama_rewritten.pxo",
+      "project_byte_count": 2849,
+      "original_canonical_project_hash": "sha256:671bebad519a9d7692590ea355cbd216101647d401720c0bd8a008740318b403",
+      "rewritten_canonical_project_hash": "sha256:ad998b73341e23c8c435745c4100ed9cba8af4881315e433e18cbddc1cdc24ce",
+      "project_visual_hash": "sha256:9ac058572970c660a2749ad73d52773cbbd3beab7c80e9dd15b1935f7bae9894",
+      "visual_hash_preserved": true,
+      "rewrite_detected": true,
+      "decoded_project": {
+        "format_id": "pixelorama_pxo",
+        "name": "slip_lcd_seed_constrained_000",
+        "is_zip": true,
+        "dimensions": [
+          8,
+          8
+        ],
+        "frame_count": 1,
+        "layer_count": 1,
+        "cel_count": 1,
+        "native_mechagotchi_semantics": false
+      },
+      "import_result": {
+        "ok": true,
+        "format_id": "pixelorama_pxo",
+        "asset": {
+          "asset_id": "slip_lcd_seed_constrained_000.pxo",
+          "format_id": "pixelorama_pxo",
+          "media_type": "application/octet-stream",
+          "uri": "generated://workshop/project/slip_lcd_seed_constrained_000.pxo",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:ad998b73341e23c8c435745c4100ed9cba8af4881315e433e18cbddc1cdc24ce",
+          "semantic_policy": "project_native_metadata"
+        },
+        "decoded_project": {
+          "format_id": "pixelorama_pxo",
+          "name": "slip_lcd_seed_constrained_000",
+          "is_zip": true,
+          "dimensions": [
+            8,
+            8
+          ],
+          "frame_count": 1,
+          "layer_count": 1,
+          "cel_count": 1,
+          "native_mechagotchi_semantics": false
+        },
+        "rewrite_detected": true,
+        "native_metadata": {
+          "metadata_version": "mechagotchi.project_native_metadata.v1",
+          "native_location": "data.json.mechagotchi_native_metadata",
+          "project_visual_hash": "sha256:9ac058572970c660a2749ad73d52773cbbd3beab7c80e9dd15b1935f7bae9894",
+          "original_canonical_project_hash": "sha256:671bebad519a9d7692590ea355cbd216101647d401720c0bd8a008740318b403",
+          "rewritten_canonical_project_hash": "sha256:ad998b73341e23c8c435745c4100ed9cba8af4881315e433e18cbddc1cdc24ce"
+        },
+        "project_policy": {
+          "semantic_policy": "project_editor_rewrite_rebound",
+          "native_mechagotchi_semantics": true,
+          "live_external_editor_verified": false,
+          "visual_hash_verified": true
+        },
+        "semantic_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "restored_grid_validation": {
+        "valid": true,
+        "errors": [],
+        "slip_aligned": true,
+        "slip_errors": []
+      },
+      "semantic_diff": {
+        "changed_cells": [],
+        "missing_cells": [],
+        "added_cells": []
+      },
+      "semantic_fidelity": 1.0
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "profile_path": "data/slips/valid/slip_gray_stable.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_000.json",
+      "format_id": "piskel_project",
+      "editor_id": "piskel_save_v1",
+      "project_file_name": "slip_gray_stable_piskel_rewritten.piskel",
+      "project_byte_count": 14885,
+      "original_canonical_project_hash": "sha256:76d3234d1ea7fc9bc6ee01e37e030833b1f957e74703d8d768305c1911a10c2c",
+      "rewritten_canonical_project_hash": "sha256:feb00e770def60788ec4ee93546664946f513f35e6967b96317744ae63c6bb04",
+      "project_visual_hash": "sha256:8eea7df077006ef2446132efdcb543d413c3f1ca8d730bf50059175ce223213e",
+      "visual_hash_preserved": true,
+      "rewrite_detected": true,
+      "decoded_project": {
+        "format_id": "piskel_project",
+        "model_version": 2,
+        "name": "slip_gray_stable_constrained_000",
+        "dimensions": [
+          8,
+          8
+        ],
+        "frame_count": 1,
+        "layer_count": 1,
+        "chunk_count": 1,
+        "native_mechagotchi_semantics": false
+      },
+      "import_result": {
+        "ok": true,
+        "format_id": "piskel_project",
+        "asset": {
+          "asset_id": "slip_gray_stable_constrained_000.piskel",
+          "format_id": "piskel_project",
+          "media_type": "application/json",
+          "uri": "generated://workshop/project/slip_gray_stable_constrained_000.piskel",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:feb00e770def60788ec4ee93546664946f513f35e6967b96317744ae63c6bb04",
+          "semantic_policy": "project_native_metadata"
+        },
+        "decoded_project": {
+          "format_id": "piskel_project",
+          "model_version": 2,
+          "name": "slip_gray_stable_constrained_000",
+          "dimensions": [
+            8,
+            8
+          ],
+          "frame_count": 1,
+          "layer_count": 1,
+          "chunk_count": 1,
+          "native_mechagotchi_semantics": false
+        },
+        "rewrite_detected": true,
+        "native_metadata": {
+          "metadata_version": "mechagotchi.project_native_metadata.v1",
+          "native_location": "piskel.description",
+          "project_visual_hash": "sha256:8eea7df077006ef2446132efdcb543d413c3f1ca8d730bf50059175ce223213e",
+          "original_canonical_project_hash": "sha256:76d3234d1ea7fc9bc6ee01e37e030833b1f957e74703d8d768305c1911a10c2c",
+          "rewritten_canonical_project_hash": "sha256:feb00e770def60788ec4ee93546664946f513f35e6967b96317744ae63c6bb04"
+        },
+        "project_policy": {
+          "semantic_policy": "project_editor_rewrite_rebound",
+          "native_mechagotchi_semantics": true,
+          "live_external_editor_verified": false,
+          "visual_hash_verified": true
+        },
+        "semantic_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "restored_grid_validation": {
+        "valid": true,
+        "errors": [],
+        "slip_aligned": true,
+        "slip_errors": []
+      },
+      "semantic_diff": {
+        "changed_cells": [],
+        "missing_cells": [],
+        "added_cells": []
+      },
+      "semantic_fidelity": 1.0
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "profile_path": "data/slips/valid/slip_gray_stable.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_000.json",
+      "format_id": "pixelorama_pxo",
+      "editor_id": "pixelorama_save_v1",
+      "project_file_name": "slip_gray_stable_pixelorama_rewritten.pxo",
+      "project_byte_count": 2876,
+      "original_canonical_project_hash": "sha256:865004c2d817fedea6bed66c356fb135f9366494185891ebe8cd104bedd5f588",
+      "rewritten_canonical_project_hash": "sha256:b040cc5b90144aa64c73b685afba42ceaaa660164ec69893ff21d1dbdef10511",
+      "project_visual_hash": "sha256:8e7095f47da5dbe4d9262f91b594bb5bbb68c17c0efdfc5101b457a0f8ab98fb",
+      "visual_hash_preserved": true,
+      "rewrite_detected": true,
+      "decoded_project": {
+        "format_id": "pixelorama_pxo",
+        "name": "slip_gray_stable_constrained_000",
+        "is_zip": true,
+        "dimensions": [
+          8,
+          8
+        ],
+        "frame_count": 1,
+        "layer_count": 1,
+        "cel_count": 1,
+        "native_mechagotchi_semantics": false
+      },
+      "import_result": {
+        "ok": true,
+        "format_id": "pixelorama_pxo",
+        "asset": {
+          "asset_id": "slip_gray_stable_constrained_000.pxo",
+          "format_id": "pixelorama_pxo",
+          "media_type": "application/octet-stream",
+          "uri": "generated://workshop/project/slip_gray_stable_constrained_000.pxo",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:b040cc5b90144aa64c73b685afba42ceaaa660164ec69893ff21d1dbdef10511",
+          "semantic_policy": "project_native_metadata"
+        },
+        "decoded_project": {
+          "format_id": "pixelorama_pxo",
+          "name": "slip_gray_stable_constrained_000",
+          "is_zip": true,
+          "dimensions": [
+            8,
+            8
+          ],
+          "frame_count": 1,
+          "layer_count": 1,
+          "cel_count": 1,
+          "native_mechagotchi_semantics": false
+        },
+        "rewrite_detected": true,
+        "native_metadata": {
+          "metadata_version": "mechagotchi.project_native_metadata.v1",
+          "native_location": "data.json.mechagotchi_native_metadata",
+          "project_visual_hash": "sha256:8e7095f47da5dbe4d9262f91b594bb5bbb68c17c0efdfc5101b457a0f8ab98fb",
+          "original_canonical_project_hash": "sha256:865004c2d817fedea6bed66c356fb135f9366494185891ebe8cd104bedd5f588",
+          "rewritten_canonical_project_hash": "sha256:b040cc5b90144aa64c73b685afba42ceaaa660164ec69893ff21d1dbdef10511"
+        },
+        "project_policy": {
+          "semantic_policy": "project_editor_rewrite_rebound",
+          "native_mechagotchi_semantics": true,
+          "live_external_editor_verified": false,
+          "visual_hash_verified": true
+        },
+        "semantic_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "restored_grid_validation": {
+        "valid": true,
+        "errors": [],
+        "slip_aligned": true,
+        "slip_errors": []
+      },
+      "semantic_diff": {
+        "changed_cells": [],
+        "missing_cells": [],
+        "added_cells": []
+      },
+      "semantic_fidelity": 1.0
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "profile_path": "data/slips/valid/slip_amber_social.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_000.json",
+      "format_id": "piskel_project",
+      "editor_id": "piskel_save_v1",
+      "project_file_name": "slip_amber_social_piskel_rewritten.piskel",
+      "project_byte_count": 14700,
+      "original_canonical_project_hash": "sha256:7b82224396bafa9f5da8a6071a7fb4c4aa05ec5638548d9b820fec9ab4a3522b",
+      "rewritten_canonical_project_hash": "sha256:bc385216285b681524b5e6fcaf9b833fbc9d80dcfa5cea568ff0c6c051597d8a",
+      "project_visual_hash": "sha256:29281a51eab3a1ce6fc8ea08a5bb9a0872d5a7045551e0f8b24192ff86ddcc4e",
+      "visual_hash_preserved": true,
+      "rewrite_detected": true,
+      "decoded_project": {
+        "format_id": "piskel_project",
+        "model_version": 2,
+        "name": "slip_amber_social_constrained_000",
+        "dimensions": [
+          8,
+          8
+        ],
+        "frame_count": 1,
+        "layer_count": 1,
+        "chunk_count": 1,
+        "native_mechagotchi_semantics": false
+      },
+      "import_result": {
+        "ok": true,
+        "format_id": "piskel_project",
+        "asset": {
+          "asset_id": "slip_amber_social_constrained_000.piskel",
+          "format_id": "piskel_project",
+          "media_type": "application/json",
+          "uri": "generated://workshop/project/slip_amber_social_constrained_000.piskel",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:bc385216285b681524b5e6fcaf9b833fbc9d80dcfa5cea568ff0c6c051597d8a",
+          "semantic_policy": "project_native_metadata"
+        },
+        "decoded_project": {
+          "format_id": "piskel_project",
+          "model_version": 2,
+          "name": "slip_amber_social_constrained_000",
+          "dimensions": [
+            8,
+            8
+          ],
+          "frame_count": 1,
+          "layer_count": 1,
+          "chunk_count": 1,
+          "native_mechagotchi_semantics": false
+        },
+        "rewrite_detected": true,
+        "native_metadata": {
+          "metadata_version": "mechagotchi.project_native_metadata.v1",
+          "native_location": "piskel.description",
+          "project_visual_hash": "sha256:29281a51eab3a1ce6fc8ea08a5bb9a0872d5a7045551e0f8b24192ff86ddcc4e",
+          "original_canonical_project_hash": "sha256:7b82224396bafa9f5da8a6071a7fb4c4aa05ec5638548d9b820fec9ab4a3522b",
+          "rewritten_canonical_project_hash": "sha256:bc385216285b681524b5e6fcaf9b833fbc9d80dcfa5cea568ff0c6c051597d8a"
+        },
+        "project_policy": {
+          "semantic_policy": "project_editor_rewrite_rebound",
+          "native_mechagotchi_semantics": true,
+          "live_external_editor_verified": false,
+          "visual_hash_verified": true
+        },
+        "semantic_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "restored_grid_validation": {
+        "valid": true,
+        "errors": [],
+        "slip_aligned": true,
+        "slip_errors": []
+      },
+      "semantic_diff": {
+        "changed_cells": [],
+        "missing_cells": [],
+        "added_cells": []
+      },
+      "semantic_fidelity": 1.0
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "profile_path": "data/slips/valid/slip_amber_social.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_000.json",
+      "format_id": "pixelorama_pxo",
+      "editor_id": "pixelorama_save_v1",
+      "project_file_name": "slip_amber_social_pixelorama_rewritten.pxo",
+      "project_byte_count": 2866,
+      "original_canonical_project_hash": "sha256:6fb28310d0dce5798046866f42a073514b6f914863e5dedd38e7baf0b5727ff4",
+      "rewritten_canonical_project_hash": "sha256:a3071da3543527542763cdc45306077062e052869df33f4a960629c0ca156198",
+      "project_visual_hash": "sha256:5b1ee4925a6131243658cb52e0d338b7194e8e7159063088ba09743f104fbaad",
+      "visual_hash_preserved": true,
+      "rewrite_detected": true,
+      "decoded_project": {
+        "format_id": "pixelorama_pxo",
+        "name": "slip_amber_social_constrained_000",
+        "is_zip": true,
+        "dimensions": [
+          8,
+          8
+        ],
+        "frame_count": 1,
+        "layer_count": 1,
+        "cel_count": 1,
+        "native_mechagotchi_semantics": false
+      },
+      "import_result": {
+        "ok": true,
+        "format_id": "pixelorama_pxo",
+        "asset": {
+          "asset_id": "slip_amber_social_constrained_000.pxo",
+          "format_id": "pixelorama_pxo",
+          "media_type": "application/octet-stream",
+          "uri": "generated://workshop/project/slip_amber_social_constrained_000.pxo",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:a3071da3543527542763cdc45306077062e052869df33f4a960629c0ca156198",
+          "semantic_policy": "project_native_metadata"
+        },
+        "decoded_project": {
+          "format_id": "pixelorama_pxo",
+          "name": "slip_amber_social_constrained_000",
+          "is_zip": true,
+          "dimensions": [
+            8,
+            8
+          ],
+          "frame_count": 1,
+          "layer_count": 1,
+          "cel_count": 1,
+          "native_mechagotchi_semantics": false
+        },
+        "rewrite_detected": true,
+        "native_metadata": {
+          "metadata_version": "mechagotchi.project_native_metadata.v1",
+          "native_location": "data.json.mechagotchi_native_metadata",
+          "project_visual_hash": "sha256:5b1ee4925a6131243658cb52e0d338b7194e8e7159063088ba09743f104fbaad",
+          "original_canonical_project_hash": "sha256:6fb28310d0dce5798046866f42a073514b6f914863e5dedd38e7baf0b5727ff4",
+          "rewritten_canonical_project_hash": "sha256:a3071da3543527542763cdc45306077062e052869df33f4a960629c0ca156198"
+        },
+        "project_policy": {
+          "semantic_policy": "project_editor_rewrite_rebound",
+          "native_mechagotchi_semantics": true,
+          "live_external_editor_verified": false,
+          "visual_hash_verified": true
+        },
+        "semantic_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "restored_grid_validation": {
+        "valid": true,
+        "errors": [],
+        "slip_aligned": true,
+        "slip_errors": []
+      },
+      "semantic_diff": {
+        "changed_cells": [],
+        "missing_cells": [],
+        "added_cells": []
+      },
+      "semantic_fidelity": 1.0
+    }
+  ],
+  "invalid_probe_results": [
+    {
+      "ok": false,
+      "format_id": null,
+      "asset": null,
+      "decoded_project": null,
+      "rewrite_detected": false,
+      "native_metadata": null,
+      "project_policy": null,
+      "semantic_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "project_editor_rewrite",
+          "family": "project_native_metadata_missing",
+          "message": "Piskel project description does not contain Mechagotchi native metadata"
+        }
+      ],
+      "error_families": [
+        "project_native_metadata_missing"
+      ]
+    },
+    {
+      "ok": false,
+      "format_id": null,
+      "asset": null,
+      "decoded_project": null,
+      "rewrite_detected": false,
+      "native_metadata": null,
+      "project_policy": null,
+      "semantic_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "project_editor_rewrite",
+          "family": "project_native_sidecar_hash_mismatch",
+          "message": "native metadata sidecar hash does not match the embedded sidecar"
+        }
+      ],
+      "error_families": [
+        "project_native_sidecar_hash_mismatch"
+      ]
+    },
+    {
+      "ok": false,
+      "format_id": null,
+      "asset": null,
+      "decoded_project": null,
+      "rewrite_detected": false,
+      "native_metadata": null,
+      "project_policy": null,
+      "semantic_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "project_editor_rewrite",
+          "family": "project_native_visual_hash_mismatch",
+          "message": "native metadata project visual hash does not match the current project carrier"
+        }
+      ],
+      "error_families": [
+        "project_native_visual_hash_mismatch"
+      ]
+    }
+  ],
+  "closed_states": [
+    "project_editor_rewrite_preservation_simulated",
+    "piskel_description_rewrite_preservation_simulated",
+    "pixelorama_data_json_rewrite_preservation_simulated",
+    "project_visual_hash_preservation_gate",
+    "project_rewrite_sidecar_rebind_policy"
+  ],
+  "blocked_states": [
+    "live_external_editor_rewrite_validation",
+    "full_project_format_coverage",
+    "advanced_tags_layers_timeline_schema_coverage",
+    "arbitrary_aseprite_project_schema_coverage",
+    "package_runtime_lifecycle_integration",
+    "manual_readability_calibration",
+    "profile_weighted_evolution",
+    "community_profile_packs"
+  ],
+  "decision": "prototype_project_editor_rewrite_preservation_subset",
+  "next_research_step": "Keep live external-editor rewrite validation, arbitrary Aseprite project schema coverage, advanced tags/layers timeline coverage, and full project-format coverage blocked until direct editor or broader chunk/schema tests exist."
+}

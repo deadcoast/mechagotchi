@@ -47,8 +47,9 @@ coordinates, roles, organs, materials, animation anchors, and lock state.
   padded/sparse layouts, PNG `tEXt` embedded sidecar writing, packed
   trim/rotation runtime sidecar decoding, and the project-file boundary decoder
   are proven, but arbitrary atlas packing, tags/layers, production renderer
-  playback, full project-format coverage, project-file native metadata writers,
-  and full PNG conformance are not implemented.
+  playback, full project-format coverage, Aseprite/LibreSprite User Data chunk
+  writing, live external editor rewrite validation, and full PNG conformance are not
+  implemented.
 - Static UI import uses paste-and-parse rather than a file picker.
 - No browser automation assertion has been added for the import button yet.
 
@@ -142,12 +143,14 @@ playback sampling. The third-party project decoder boundary is accepted for
 Piskel JSON, Pixelorama `.pxo` ZIP/data.json, and Aseprite/LibreSprite header
 binding only. These are not substitutes for arbitrary atlas packing,
 tags/layers, production renderer playback, full editor-native project
-coverage, project-file native metadata writer policy, or full PNG conformance.
+coverage, live external editor rewrite validation, Aseprite/LibreSprite User Data chunk
+writing, or full PNG conformance.
 
 ## Go/No-Go Gate
 
 Do not add broad external editor interoperability until arbitrary atlas
 packing, tags/layers, production renderer playback, full project-format
-coverage, project-file native metadata writer policy, and remaining full-PNG-conformance
-questions prove they can preserve SLIP organ, mutation, and profile metadata
-without depending on lossy editor-native fields.
+coverage, live external editor rewrite validation, Aseprite/LibreSprite User Data chunk
+writing, and remaining full-PNG-conformance questions prove they can preserve
+SLIP organ, mutation, and profile metadata without depending on lossy
+editor-native fields.

@@ -192,8 +192,8 @@ class ProjectNativeMetadataWriterTests(unittest.TestCase):
         self.assertIn("piskel_description_native_metadata_writer", report["closed_states"])
         self.assertIn("pixelorama_data_json_native_metadata_writer", report["closed_states"])
         self.assertNotIn("project_file_native_metadata_writer", report["blocked_states"])
-        self.assertIn("aseprite_libresprite_user_data_chunk_writer", report["blocked_states"])
-        self.assertIn("editor_rewrite_preservation", report["blocked_states"])
+        self.assertNotIn("aseprite_libresprite_user_data_chunk_writer", report["blocked_states"])
+        self.assertIn("live_external_editor_rewrite_validation", report["blocked_states"])
         self.assertIn("full_project_format_coverage", report["blocked_states"])
         self.assertIn("package_runtime_lifecycle_integration", report["blocked_states"])
 

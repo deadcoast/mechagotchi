@@ -36,8 +36,9 @@ Piskel serializes and deserializes a project description string, so Stage 0 uses
 a namespaced JSON envelope in `piskel.description`. Pixelorama documents `.pxo`
 as a zip container whose `data.json` carries project metadata, so Stage 0 uses a
 namespaced `mechagotchi_native_metadata` object there. Aseprite documents User
-Data Chunk `0x2020`, but the current lab only owns a header boundary, so
-Aseprite/LibreSprite native metadata writing remains blocked.
+Data Chunk `0x2020`; that route is handled by the separate Stage 0
+Aseprite/LibreSprite User Data Chunk writer lab, while this lab remains scoped
+to JSON-friendly Piskel and Pixelorama project containers.
 
 ## Method
 
@@ -56,9 +57,11 @@ watched it fail on the missing module. Then added
 - `run_project_native_metadata_writer_lab`
 - `write_project_native_metadata_writer_artifacts`
 
-The writer embeds the full Mechagotchi sidecar JSON plus a sidecar hash and a
-canonical-project hash. The canonical hash is computed over the project file
-after Mechagotchi metadata removal, avoiding self-reference.
+The writer embeds the full Mechagotchi sidecar JSON plus a sidecar hash, a
+canonical-project hash, and a project visual hash. The canonical hash is
+computed over the project file after Mechagotchi metadata removal, avoiding
+self-reference. The visual hash is used by the later rewrite-preservation gate
+to distinguish editor-owned serialization changes from visual carrier changes.
 
 ## Results
 
@@ -84,7 +87,7 @@ Summary:
 | Native metadata round-trip success rate | 1.0 |
 | Mean semantic fidelity | 1.0 |
 | Invalid probe rejection rate | 1.0 |
-| Editor rewrite preservation verified | false |
+| Live external editor rewrite validation verified | false |
 
 Closed states:
 
@@ -97,9 +100,8 @@ Closed states:
 Blocked states:
 
 - `full_project_format_coverage`
-- `aseprite_libresprite_user_data_chunk_writer`
-- `editor_rewrite_preservation`
-- `tags_layers_native_project_semantics`
+- `live_external_editor_rewrite_validation`
+- `advanced_tags_layers_timeline_schema_coverage`
 - `package_runtime_lifecycle_integration`
 - `manual_readability_calibration`
 - `profile_weighted_evolution`
@@ -112,10 +114,10 @@ Pixelorama project carriers. It demonstrates that Mechagotchi can preserve and
 recover semantic sidecar metadata inside two project-file metadata locations
 while maintaining semantic fidelity.
 
-This is not a broad editor compatibility claim. It does not prove actual editor
-open-save rewrite preservation, arbitrary Piskel/Pixelorama project schemas,
-Aseprite/LibreSprite User Data Chunk writing, tags/layers native semantics, or
-full project-format coverage.
+This is not a broad editor compatibility claim. It does not prove live editor
+open-save rewrite validation, arbitrary Piskel/Pixelorama project schemas,
+cross-lab Aseprite dispatch through this API, advanced tags/layers timeline
+schema coverage, or full project-format coverage.
 
 ## Verification
 
@@ -155,6 +157,6 @@ python -B .\labs\workshop_editor\project_native_metadata_writer.py
 Adopt `project_native_metadata_writer_stage0` as the Stage 0 proof for
 Piskel/Pixelorama native project-file metadata preservation.
 
-Next workshop metadata research should test editor rewrite preservation and
-the Aseprite/LibreSprite User Data chunk writer before removing the remaining
-project-format blockers.
+Next workshop metadata research should collect live external editor rewrite
+validation and broaden Aseprite/LibreSprite chunk/schema coverage before
+removing the remaining project-format blockers.

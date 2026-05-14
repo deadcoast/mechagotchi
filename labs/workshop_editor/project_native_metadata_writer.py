@@ -48,11 +48,12 @@ UNSUPPORTED_NATIVE_METADATA_FORMATS = {
     "libresprite_project": {
         "format_id": "libresprite_project",
         "native_writer_supported": False,
-        "blocked_state": "aseprite_libresprite_user_data_chunk_writer",
+        "delegated_state": "aseprite_libresprite_user_data_chunk_writer",
         "reason": (
-            "Aseprite/LibreSprite User Data Chunk writing requires a full "
-            "layer/cel/chunk model; the current project decoder owns only the "
-            "header boundary."
+            "Aseprite/LibreSprite User Data Chunk writing is handled by "
+            "labs/workshop_editor/aseprite_user_data_chunk_writer.py; this "
+            "generic native metadata writer remains scoped to JSON-friendly "
+            "Piskel and Pixelorama project containers."
         ),
         "external_anchor": "Aseprite file-format User Data Chunk 0x2020",
     }
@@ -76,12 +77,22 @@ def write_project_native_metadata(
     decode_project_payload(project_bytes, format_id)
 
     stripped = remove_project_native_metadata(project_bytes, format_id)
-    metadata = _build_native_metadata(format_id, sidecar, stripped["content_hash"])
+    metadata = _build_native_metadata(
+        format_id,
+        sidecar,
+        stripped["content_hash"],
+        stripped["project_bytes"],
+    )
     embedded_bytes = _embed_project_native_metadata(project_bytes, format_id, metadata)
 
     normalized = remove_project_native_metadata(embedded_bytes, format_id)
     if normalized["content_hash"] != metadata["canonical_project_hash"]:
-        metadata = _build_native_metadata(format_id, sidecar, normalized["content_hash"])
+        metadata = _build_native_metadata(
+            format_id,
+            sidecar,
+            normalized["content_hash"],
+            normalized["project_bytes"],
+        )
         embedded_bytes = _embed_project_native_metadata(project_bytes, format_id, metadata)
         normalized = remove_project_native_metadata(embedded_bytes, format_id)
 
@@ -102,7 +113,12 @@ def write_project_native_metadata(
     }
 
 
-def extract_project_native_metadata(project_bytes: bytes, format_id: str) -> dict:
+def extract_project_native_metadata(
+    project_bytes: bytes,
+    format_id: str,
+    *,
+    allow_rewrite: bool = False,
+) -> dict:
     _ensure_supported_format(format_id)
     metadata = _extract_project_native_metadata(project_bytes, format_id)
     if metadata.get("metadata_version") != NATIVE_METADATA_VERSION:
@@ -127,16 +143,24 @@ def extract_project_native_metadata(project_bytes: bytes, format_id: str) -> dic
             "native metadata sidecar hash does not match the embedded sidecar",
         )
 
+    visual_hash = project_visual_hash(project_bytes, format_id)
+    if metadata.get("project_visual_hash") != visual_hash:
+        raise ProjectNativeMetadataError(
+            "project_native_visual_hash_mismatch",
+            "native metadata project visual hash does not match the current project carrier",
+        )
+
     stripped = remove_project_native_metadata(project_bytes, format_id)
-    if stripped["content_hash"] != metadata.get("canonical_project_hash"):
+    canonical_hash_matches = stripped["content_hash"] == metadata.get("canonical_project_hash")
+    if not canonical_hash_matches and not allow_rewrite:
         raise ProjectNativeMetadataError(
             "project_native_canonical_hash_mismatch",
             "native metadata canonical project hash does not match the stripped project",
         )
-    if sidecar.get("asset_binding", {}).get("content_hash") != stripped["content_hash"]:
+    if sidecar.get("asset_binding", {}).get("content_hash") != metadata.get("canonical_project_hash"):
         raise ProjectNativeMetadataError(
             "project_native_sidecar_asset_hash_mismatch",
-            "native metadata sidecar asset hash does not match the stripped project",
+            "native metadata sidecar asset hash does not match the metadata canonical project hash",
         )
 
     decoded = decode_project_payload(project_bytes, format_id)
@@ -147,6 +171,8 @@ def extract_project_native_metadata(project_bytes: bytes, format_id: str) -> dic
         "sidecar": sidecar,
         "decoded_project": _decoded_project_summary(decoded),
         "canonical_project": stripped,
+        "current_canonical_project_hash": stripped["content_hash"],
+        "rewrite_detected": not canonical_hash_matches,
         "embedded_project_hash": _hash_bytes(project_bytes),
     }
 
@@ -165,6 +191,62 @@ def remove_project_native_metadata(project_bytes: bytes, format_id: str) -> dict
         "content_hash": _hash_bytes(stripped_bytes),
         "byte_count": len(stripped_bytes),
     }
+
+
+def project_visual_hash(project_bytes: bytes, format_id: str) -> str:
+    _ensure_supported_format(format_id)
+    if format_id == "piskel_project":
+        payload = _read_piskel_payload(project_bytes)
+        piskel = payload["piskel"]
+        layers = []
+        for layer_string in piskel.get("layers", []):
+            layer = json.loads(layer_string)
+            chunks = []
+            for chunk in layer.get("chunks", []):
+                chunks.append(
+                    {
+                        "layout": chunk.get("layout"),
+                        "base64_png_hash": _hash_text(chunk.get("base64PNG", "")),
+                    }
+                )
+            layers.append(
+                {
+                    "opacity": layer.get("opacity"),
+                    "frameCount": layer.get("frameCount"),
+                    "chunks": chunks,
+                }
+            )
+        return _hash_payload(
+            {
+                "format_id": format_id,
+                "width": piskel.get("width"),
+                "height": piskel.get("height"),
+                "fps": piskel.get("fps"),
+                "hiddenFrames": piskel.get("hiddenFrames", []),
+                "layers": layers,
+            }
+        )
+    data, members = _read_pixelorama_archive(project_bytes)
+    image_members = {
+        name: _hash_bytes(payload)
+        for name, payload in members.items()
+        if name.startswith("image_data/")
+    }
+    return _hash_payload(
+        {
+            "format_id": format_id,
+            "size": data.get("size"),
+            "fps": data.get("fps"),
+            "frames": data.get("frames"),
+            "layers": data.get("layers"),
+            "cels": data.get("cels"),
+            "image_members": image_members,
+        }
+    )
+
+
+def rebind_sidecar_to_project_hash(sidecar: dict, project_hash: str) -> dict:
+    return _sidecar_bound_to_project_hash(sidecar, project_hash)
 
 
 def import_project_with_native_metadata(
@@ -211,6 +293,7 @@ def import_project_with_native_metadata(
                 "native_location",
                 "writer_policy",
                 "canonical_project_hash",
+                "project_visual_hash",
                 "sidecar_hash",
             ]
         },
@@ -225,7 +308,7 @@ def import_project_with_native_metadata(
             "semantic_policy": "project_native_metadata",
             "native_mechagotchi_semantics": True,
             "native_location": extracted["metadata"]["native_location"],
-            "editor_rewrite_preservation_verified": False,
+            "live_external_editor_rewrite_validation_verified": False,
         },
         "semantic_diff": diff,
         "semantic_fidelity": fidelity,
@@ -299,8 +382,8 @@ def run_project_native_metadata_writer_lab(
         "date": "2026-05-13",
         "purpose": (
             "Prove a Stage 0 native project-file metadata writer policy for "
-            "JSON-friendly project containers without claiming full editor "
-            "rewrite preservation or Aseprite/LibreSprite User Data chunk writing."
+            "JSON-friendly project containers without claiming live external "
+            "editor rewrite validation or generic full project-format coverage."
         ),
         "source_artifacts": [
             "docs/01-brainstorming.md",
@@ -330,7 +413,7 @@ def run_project_native_metadata_writer_lab(
             {
                 "source": "Aseprite file-format specification",
                 "url": "https://github.com/aseprite/aseprite/blob/main/docs/ase-file-specs.md",
-                "used_for": "Aseprite User Data Chunk 0x2020 is treated as a future full chunk-model writer, not Stage 0 header-boundary work.",
+                "used_for": "Aseprite User Data Chunk 0x2020 is delegated to the dedicated Stage 0 User Data chunk writer lab.",
             },
         ],
         "profile_count": len(profile_paths),
@@ -351,7 +434,7 @@ def run_project_native_metadata_writer_lab(
                 invalid_rejected_count,
                 len(invalid_probe_results),
             ),
-            "editor_rewrite_preservation_verified": False,
+            "live_external_editor_rewrite_validation_verified": False,
         },
         "native_results": native_results,
         "unsupported_native_writer_policies": list(UNSUPPORTED_NATIVE_METADATA_FORMATS.values()),
@@ -365,9 +448,8 @@ def run_project_native_metadata_writer_lab(
         ],
         "blocked_states": [
             "full_project_format_coverage",
-            "aseprite_libresprite_user_data_chunk_writer",
-            "editor_rewrite_preservation",
-            "tags_layers_native_project_semantics",
+            "live_external_editor_rewrite_validation",
+            "advanced_tags_layers_timeline_schema_coverage",
             "package_runtime_lifecycle_integration",
             "manual_readability_calibration",
             "profile_weighted_evolution",
@@ -375,9 +457,9 @@ def run_project_native_metadata_writer_lab(
         ],
         "decision": "prototype_project_native_metadata_writer_subset",
         "next_research_step": (
-            "Keep Aseprite/LibreSprite User Data chunk writing, editor rewrite "
-            "preservation, tags/layers, and full project-format coverage blocked "
-            "until full native project chunk/schema tests exist."
+            "Keep live external editor rewrite validation, advanced tags/layers "
+            "timeline schema coverage, and full project-format coverage blocked "
+            "until direct editor and broader native project chunk/schema tests exist."
         ),
     }
 
@@ -399,7 +481,12 @@ def write_project_native_metadata_writer_artifacts(output_dir: Path, report: dic
     )
 
 
-def _build_native_metadata(format_id: str, sidecar: dict, canonical_hash: str) -> dict:
+def _build_native_metadata(
+    format_id: str,
+    sidecar: dict,
+    canonical_hash: str,
+    canonical_project_bytes: bytes,
+) -> dict:
     native_sidecar = _sidecar_bound_to_project_hash(sidecar, canonical_hash)
     policy = SUPPORTED_NATIVE_METADATA_FORMATS[format_id]
     return {
@@ -408,6 +495,7 @@ def _build_native_metadata(format_id: str, sidecar: dict, canonical_hash: str) -
         "native_location": policy["native_location"],
         "writer_policy": policy["writer_policy"],
         "canonical_project_hash": canonical_hash,
+        "project_visual_hash": project_visual_hash(canonical_project_bytes, format_id),
         "sidecar_hash": _hash_payload(native_sidecar),
         "sidecar": native_sidecar,
     }
@@ -439,8 +527,8 @@ def _sidecar_bound_to_project_hash(sidecar: dict, project_hash: str) -> dict:
     )
     rebuilt["limitations"] = [
         "Stage 0 native metadata writer covers Piskel description and Pixelorama data.json only.",
-        "Editor rewrite preservation is not verified by this lab.",
-        "Aseprite/LibreSprite User Data chunks require a separate full chunk-model writer.",
+        "Live external editor rewrite validation is not verified by this lab.",
+        "Aseprite/LibreSprite User Data chunks are covered by the separate Stage 0 User Data chunk writer lab.",
     ]
     return rebuilt
 
@@ -607,7 +695,7 @@ def _invalid_probe_results(reference_result: dict) -> list[dict]:
             _error(
                 "format_id",
                 "project_native_metadata_unsupported_format",
-                "libresprite_project native writer is blocked until the User Data chunk writer exists",
+                "libresprite_project native writing is delegated to the Aseprite User Data chunk writer lab",
             )
         ],
         "error_families": ["project_native_metadata_unsupported_format"],
@@ -639,6 +727,7 @@ def _metadata_summary(metadata: dict) -> dict:
             "native_location",
             "writer_policy",
             "canonical_project_hash",
+            "project_visual_hash",
             "sidecar_hash",
         ]
     }
@@ -687,11 +776,13 @@ def _readme_text(report: dict) -> str:
         f"{report['native_metadata_roundtrip_count']}\n"
         f"- Mean semantic fidelity: {metrics['mean_semantic_fidelity']}\n"
         f"- Invalid probe rejection rate: {metrics['invalid_probe_rejection_rate']}\n"
-        f"- Editor rewrite preservation verified: {metrics['editor_rewrite_preservation_verified']}\n"
+        "- Live external editor rewrite validation verified: "
+        f"{metrics['live_external_editor_rewrite_validation_verified']}\n"
         f"- Unsupported native writer policies: {report['unsupported_native_writer_policy_count']}\n\n"
         "This artifact does not claim Aseprite/LibreSprite User Data chunk "
-        "writing, editor rewrite preservation, tags/layers semantics, package "
-        "runtime integration, or full project-format coverage.\n"
+        "dispatch, live external editor rewrite validation, advanced "
+        "tags/layers timeline schema coverage, package runtime integration, or "
+        "full project-format coverage.\n"
     )
 
 
@@ -765,6 +856,10 @@ def _portable(path: Path) -> str:
 
 def _hash_bytes(payload: bytes) -> str:
     return "sha256:" + hashlib.sha256(payload).hexdigest()
+
+
+def _hash_text(payload: str) -> str:
+    return "sha256:" + hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
 def _hash_payload(payload: object) -> str:

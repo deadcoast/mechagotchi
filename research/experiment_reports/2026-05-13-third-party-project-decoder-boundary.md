@@ -123,9 +123,13 @@ SLIP-aligned semantic grids.
 
 This does not prove full `.piskel` animation editing, arbitrary Pixelorama
 project schemas, complete `.ase/.aseprite` chunk parsing, layer-aware project
-round trips, embedded PNG metadata writing, or native project-file metadata
-writing. Those remain separate risks under full project-format coverage and
-metadata writer policy.
+round trips, embedded PNG metadata writing, live external editor rewrite
+validation, or
+Aseprite/LibreSprite arbitrary project schema coverage. Piskel/Pixelorama native metadata
+writing is now covered by
+`research/experiment_reports/2026-05-13-project-native-metadata-writer.md`;
+the remaining risks stay under full project-format coverage and editor rewrite
+policy.
 
 ## Verification
 

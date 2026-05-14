@@ -100,7 +100,8 @@ Blocked states:
 
 - `Adam7/APNG/full PNG conformance`
 - `full project-format coverage`
-- `project-file native metadata writer`
+- `arbitrary Aseprite project schema coverage`
+- `live external editor rewrite validation`
 - `package runtime lifecycle integration`
 - `manual readability calibration`
 - `profile-weighted evolution`
@@ -160,6 +161,6 @@ runtime playback sampling.
 PNG `tEXt` embedded sidecar writing is now covered by
 `research/experiment_reports/2026-05-13-png-embedded-sidecar-writer.md` for
 the Stage 0 subset. Next workshop research should keep full project-format
-coverage, project-file native metadata writers, arbitrary atlas packing,
-tags/layers, and production renderer playback blocked until each has its own
-explicit test surface.
+coverage, arbitrary Aseprite project schema coverage, live external editor rewrite
+preservation, arbitrary atlas packing, tags/layers, and production renderer
+playback blocked until each has its own explicit test surface.

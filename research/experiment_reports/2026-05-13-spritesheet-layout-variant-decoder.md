@@ -109,9 +109,11 @@ The generic `spritesheet_variant_layout_coverage` blocker is now too coarse and
 has been replaced in current ledgers by the precise remaining spritesheet gaps
 above.
 
-This is not a claim that all atlas formats are supported. Rotated frames,
-trimmed frames, arbitrary packing algorithms, tags, layers, and runtime
-animation playback remain open. The semantic contract remains unchanged:
+This is not a claim that all atlas formats are supported. Rotated frames and
+trimmed-frame reconstruction are handled by the later packed-runtime lab, while
+arbitrary packing algorithms are handled by the later arbitrary-atlas packer
+lab. Tags, layers, editor-authored atlases, and production runtime animation
+playback remain open. The semantic contract remains unchanged:
 Mechagotchi profile, organ, mutation, and lineage semantics come from the
 sidecar, not from PNG pixels or third-party spritesheet metadata.
 
@@ -159,7 +161,7 @@ Runtime lifecycle/archive selection is now covered by
 Packed trim/rotation and sidecar runtime playback are now covered by
 `research/experiment_reports/2026-05-13-spritesheet-packed-runtime-decoder.md`
 for the Stage 0 subset. Next research should keep arbitrary atlas packing,
-tags/layers, production renderer playback, full project-format coverage, and
-project-file native metadata writers explicitly blocked until separately
-proven. PNG `tEXt` embedded sidecar writing is tracked separately in
+tags/layers, production renderer playback, full project-format coverage,
+live external editor rewrite validation, and arbitrary Aseprite project schema coverage
+explicitly blocked until separately proven. PNG `tEXt` embedded sidecar writing is tracked separately in
 `research/experiment_reports/2026-05-13-png-embedded-sidecar-writer.md`.

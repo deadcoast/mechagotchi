@@ -1,6 +1,6 @@
 {
   "artifact_id": "slip_profile_compatibility_matrix_stage0",
-  "date": "2026-05-13",
+  "date": "2026-05-14",
   "status": "research_slip_profile_compatibility_matrix_no_package_code",
   "purpose": "Define Stage 0 SLIP profile compatibility tests and known gaps across generation, lifecycle, archive, workshop, and future package gates.",
   "package_root_exists_at_authoring": false,
@@ -87,6 +87,16 @@
     "labs/workshop_editor/png_embedded_sidecar_writer.py",
     "data/workshop_editor/png_embedded_sidecar_writer_stage0.json",
     "data/workshop_editor/png_embedded_sidecar_writer_stage0/",
+    "research/experiment_reports/2026-05-14-png-textual-metadata-policy.md",
+    "research/algorithm_cards/png_textual_metadata_policy.md",
+    "labs/workshop_editor/png_textual_metadata_policy.py",
+    "data/workshop_editor/png_textual_metadata_policy_stage0.json",
+    "data/workshop_editor/png_textual_metadata_policy_stage0/",
+    "research/experiment_reports/2026-05-14-png-private-chunk-policy.md",
+    "research/algorithm_cards/png_private_chunk_policy.md",
+    "labs/workshop_editor/png_private_chunk_policy.py",
+    "data/workshop_editor/png_private_chunk_policy_stage0.json",
+    "data/workshop_editor/png_private_chunk_policy_stage0/",
     "research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md",
     "labs/workshop_editor/spritesheet_sidecar_decoder.py",
     "data/workshop_editor/spritesheet_sidecar_decoder_stage0.json",
@@ -100,14 +110,64 @@
     "labs/workshop_editor/spritesheet_packed_runtime_decoder.py",
     "data/workshop_editor/spritesheet_packed_runtime_decoder_stage0.json",
     "data/workshop_editor/spritesheet_packed_runtime_decoder_stage0/",
+    "research/experiment_reports/2026-05-14-spritesheet-arbitrary-atlas-packer.md",
+    "research/algorithm_cards/spritesheet_arbitrary_atlas_packer.md",
+    "labs/workshop_editor/spritesheet_arbitrary_atlas_packer.py",
+    "data/workshop_editor/spritesheet_arbitrary_atlas_packer_stage0.json",
+    "data/workshop_editor/spritesheet_arbitrary_atlas_packer_stage0/",
     "research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md",
     "labs/workshop_editor/third_party_project_decoder.py",
     "data/workshop_editor/third_party_project_decoder_stage0.json",
     "data/workshop_editor/third_party_project_decoder_stage0/",
     "data/workshop_editor/project_native_metadata_writer_stage0/",
     "data/workshop_editor/project_native_metadata_writer_stage0.json",
+    "data/workshop_editor/project_editor_rewrite_preservation_stage0.json",
+    "data/workshop_editor/project_editor_rewrite_preservation_stage0/",
+    "data/workshop_editor/aseprite_user_data_chunk_writer_stage0.json",
+    "data/workshop_editor/aseprite_user_data_chunk_writer_stage0/",
+    "data/workshop_editor/aseprite_tags_layers_semantics_stage0.json",
+    "data/workshop_editor/aseprite_tags_layers_semantics_stage0/",
+    "data/workshop_editor/aseprite_palette_slice_semantics_stage0.json",
+    "data/workshop_editor/aseprite_palette_slice_semantics_stage0/",
+    "data/workshop_editor/aseprite_linked_cel_semantics_stage0.json",
+    "data/workshop_editor/aseprite_linked_cel_semantics_stage0/",
+    "data/workshop_editor/aseprite_tilemap_tileset_semantics_stage0.json",
+    "data/workshop_editor/aseprite_tilemap_tileset_semantics_stage0/",
+    "data/workshop_editor/aseprite_nested_timeline_semantics_stage0.json",
+    "data/workshop_editor/aseprite_nested_timeline_semantics_stage0/",
+    "data/workshop_editor/aseprite_external_properties_semantics_stage0.json",
+    "data/workshop_editor/aseprite_external_properties_semantics_stage0/",
+    "data/workshop_editor/aseprite_document_variant_resolution_stage0.json",
+    "data/workshop_editor/aseprite_document_variant_resolution_stage0/",
     "labs/workshop_editor/project_native_metadata_writer.py",
+    "labs/workshop_editor/project_editor_rewrite_preservation.py",
+    "labs/workshop_editor/aseprite_user_data_chunk_writer.py",
+    "labs/workshop_editor/aseprite_tags_layers_semantics.py",
+    "labs/workshop_editor/aseprite_palette_slice_semantics.py",
+    "labs/workshop_editor/aseprite_linked_cel_semantics.py",
+    "labs/workshop_editor/aseprite_tilemap_tileset_semantics.py",
+    "labs/workshop_editor/aseprite_nested_timeline_semantics.py",
+    "labs/workshop_editor/aseprite_external_properties_semantics.py",
+    "labs/workshop_editor/aseprite_document_variant_resolution.py",
     "research/algorithm_cards/project_native_metadata_writer.md",
+    "research/experiment_reports/2026-05-13-project-editor-rewrite-preservation.md",
+    "research/algorithm_cards/project_editor_rewrite_preservation.md",
+    "research/experiment_reports/2026-05-14-aseprite-user-data-chunk-writer.md",
+    "research/algorithm_cards/aseprite_user_data_chunk_writer.md",
+    "research/experiment_reports/2026-05-14-aseprite-tags-layers-semantics.md",
+    "research/algorithm_cards/aseprite_tags_layers_semantics.md",
+    "research/experiment_reports/2026-05-14-aseprite-palette-slice-semantics.md",
+    "research/algorithm_cards/aseprite_palette_slice_semantics.md",
+    "research/experiment_reports/2026-05-14-aseprite-linked-cel-semantics.md",
+    "research/algorithm_cards/aseprite_linked_cel_semantics.md",
+    "research/experiment_reports/2026-05-14-aseprite-tilemap-tileset-semantics.md",
+    "research/algorithm_cards/aseprite_tilemap_tileset_semantics.md",
+    "research/experiment_reports/2026-05-14-aseprite-nested-timeline-semantics.md",
+    "research/algorithm_cards/aseprite_nested_timeline_semantics.md",
+    "research/experiment_reports/2026-05-14-aseprite-external-properties-semantics.md",
+    "research/algorithm_cards/aseprite_external_properties_semantics.md",
+    "research/experiment_reports/2026-05-14-aseprite-document-variant-resolution.md",
+    "research/algorithm_cards/aseprite_document_variant_resolution.md",
     "research/experiment_reports/2026-05-13-project-native-metadata-writer.md",
     "research/package_specs/mecha_engine_generation_contract_gate.md",
     "research/package_specs/mecha_engine_property_negative_test_strategy.md"
@@ -226,7 +286,42 @@
     {
       "source": "Aseprite file-format specification",
       "url": "https://github.com/aseprite/aseprite/blob/main/docs/ase-file-specs.md",
-      "used_for": "ASE little-endian header, magic number, dimensions, color depth, and frame header."
+      "used_for": "ASE little-endian header, frame header, 8/16/32 bpp pixel sizes, Layer Chunk 0x2004 including group type 1, child levels, and tilemap layer type 2, Cel Chunk 0x2005 compressed image, linked cel type 1, and tilemap cel type 3 layouts, Cel Extra Chunk 0x2006 precise bounds, Color Profile Chunk 0x2007, External Files Chunk 0x2008, Tags Chunk 0x2018 loop directions and repeat counts, tag-associated User Data Chunk 0x2020 ordering and property maps, Palette Chunk 0x2019, Slice Chunk 0x2022, Tileset Chunk 0x2023, and tile bitmask semantics."
+    },
+    {
+      "source": "Aseprite tags documentation",
+      "url": "https://www.aseprite.org/docs/tags/",
+      "used_for": "Tag workflow boundary: animation tags organize frame ranges and expose Forward, Reverse, Ping-pong, and Ping-pong Reverse directions."
+    },
+    {
+      "source": "Aseprite layers documentation",
+      "url": "https://www.aseprite.org/docs/layers/",
+      "used_for": "Layer group workflow boundary; nested groups are editor organization structures, not a replacement for Mechagotchi semantic metadata."
+    },
+    {
+      "source": "Aseprite tilemap documentation",
+      "url": "https://www.aseprite.org/docs/tilemap/",
+      "used_for": "Tilemap workflow boundary: tilemap cells reference tile indices in a tileset; Mechagotchi semantic restore still requires explicit metadata."
+    },
+    {
+      "source": "Aseprite slice documentation",
+      "url": "https://www.aseprite.org/docs/slices/",
+      "used_for": "Slice bounds and pivot semantics are treated as named regions, not as arbitrary Mechagotchi schema replacement."
+    },
+    {
+      "source": "Aseprite properties API documentation",
+      "url": "https://aseprite.org/api/properties",
+      "used_for": "User-defined and extension-defined properties are treated as carrier metadata, not as a replacement for Mechagotchi semantic restore."
+    },
+    {
+      "source": "Aseprite color-profile documentation",
+      "url": "https://www.aseprite.org/docs/color-profile/",
+      "used_for": "Color profiles can be saved in .aseprite files; this matrix tracks only the fixed Stage 0 sRGB subset."
+    },
+    {
+      "source": "Aseprite files documentation",
+      "url": "https://www.aseprite.org/docs/files",
+      "used_for": ".aseprite project files keep editor information intact, but live editor open-save preservation still requires direct fixtures."
     }
   ],
   "current_scope": {
@@ -385,6 +480,22 @@
     "png_embedded_sidecar_writer_invalid_probes_rejected": 3,
     "png_embedded_sidecar_writer_mean_semantic_fidelity": 1.0,
     "png_embedded_sidecar_writer_mean_pixel_fidelity": 1.0,
+    "png_textual_metadata_policy_profiles": 3,
+    "png_textual_metadata_policy_roundtrip_success": 12,
+    "png_textual_metadata_policy_invalid_probes_rejected": 7,
+    "png_textual_metadata_policy_supported_chunk_types": [
+      "tEXt",
+      "zTXt",
+      "iTXt"
+    ],
+    "png_textual_metadata_policy_mean_semantic_fidelity": 1.0,
+    "png_textual_metadata_policy_mean_pixel_fidelity": 1.0,
+    "png_private_chunk_policy_profiles": 3,
+    "png_private_chunk_policy_roundtrip_success": 3,
+    "png_private_chunk_policy_invalid_probes_rejected": 7,
+    "png_private_chunk_policy_chunk_type": "mgOT",
+    "png_private_chunk_policy_mean_semantic_fidelity": 1.0,
+    "png_private_chunk_policy_mean_pixel_fidelity": 1.0,
     "spritesheet_sidecar_decoder_profiles": 3,
     "spritesheet_sidecar_decoder_roundtrip_success": 3,
     "spritesheet_sidecar_decoder_invalid_probes_rejected": 2,
@@ -401,6 +512,15 @@
     "spritesheet_packed_runtime_decoder_mean_semantic_fidelity": 1.0,
     "spritesheet_packed_runtime_decoder_mean_reconstructed_frame_fidelity": 1.0,
     "spritesheet_packed_runtime_decoder_mean_runtime_frame_fidelity": 1.0,
+    "spritesheet_arbitrary_atlas_packer_profiles": 3,
+    "spritesheet_arbitrary_atlas_packer_policies": 2,
+    "spritesheet_arbitrary_atlas_packer_atlas_roundtrip_success": 6,
+    "spritesheet_arbitrary_atlas_packer_invalid_probes_rejected": 6,
+    "spritesheet_arbitrary_atlas_packer_mean_semantic_fidelity": 1.0,
+    "spritesheet_arbitrary_atlas_packer_mean_reconstructed_frame_fidelity": 1.0,
+    "spritesheet_arbitrary_atlas_packer_mean_runtime_frame_fidelity": 1.0,
+    "spritesheet_arbitrary_atlas_packer_mean_occupancy_rate": 0.682598,
+    "spritesheet_arbitrary_atlas_packer_best_occupancy_policy": "maxrects_best_short_side_fit",
     "third_party_project_decoder_profiles": 3,
     "third_party_project_decoder_success": 3,
     "third_party_project_decoder_sidecar_restore_success": 3,
@@ -415,7 +535,67 @@
     "project_native_metadata_writer_invalid_probes_rejected": 4,
     "project_native_metadata_writer_unsupported_policy_count": 1,
     "project_native_metadata_writer_mean_semantic_fidelity": 1.0,
-    "project_native_metadata_writer_editor_rewrite_preservation_verified": false
+    "project_native_metadata_writer_live_external_editor_rewrite_validation_verified": false,
+    "project_editor_rewrite_preservation_profiles": 3,
+    "project_editor_rewrite_preservation_formats": 2,
+    "project_editor_rewrite_preservation_rewrite_roundtrip_success": 6,
+    "project_editor_rewrite_preservation_invalid_probes_rejected": 3,
+    "project_editor_rewrite_preservation_mean_semantic_fidelity": 1.0,
+    "project_editor_rewrite_preservation_visual_hash_preservation_rate": 1.0,
+    "project_editor_rewrite_preservation_live_external_editor_verified": false,
+    "aseprite_user_data_chunk_writer_profiles": 3,
+    "aseprite_user_data_chunk_writer_roundtrip_success": 3,
+    "aseprite_user_data_chunk_writer_invalid_probes_rejected": 3,
+    "aseprite_user_data_chunk_writer_mean_semantic_fidelity": 1.0,
+    "aseprite_user_data_chunk_writer_cel_visual_hash_preservation_rate": 1.0,
+    "aseprite_user_data_chunk_writer_live_external_editor_verified": false,
+    "aseprite_tags_layers_semantics_profiles": 3,
+    "aseprite_tags_layers_semantics_roundtrip_success": 3,
+    "aseprite_tags_layers_semantics_invalid_probes_rejected": 4,
+    "aseprite_tags_layers_semantics_mean_semantic_fidelity": 1.0,
+    "aseprite_tags_layers_semantics_cel_visual_hash_preservation_rate": 1.0,
+    "aseprite_tags_layers_semantics_live_external_editor_verified": false,
+    "aseprite_palette_slice_semantics_profiles": 3,
+    "aseprite_palette_slice_semantics_roundtrip_success": 3,
+    "aseprite_palette_slice_semantics_invalid_probes_rejected": 5,
+    "aseprite_palette_slice_semantics_mean_semantic_fidelity": 1.0,
+    "aseprite_palette_slice_semantics_cel_visual_hash_preservation_rate": 1.0,
+    "aseprite_palette_slice_semantics_live_external_editor_verified": false,
+    "aseprite_linked_cel_semantics_profiles": 3,
+    "aseprite_linked_cel_semantics_roundtrip_success": 3,
+    "aseprite_linked_cel_semantics_invalid_probes_rejected": 5,
+    "aseprite_linked_cel_semantics_mean_semantic_fidelity": 1.0,
+    "aseprite_linked_cel_semantics_cel_visual_hash_preservation_rate": 1.0,
+    "aseprite_linked_cel_semantics_target_resolution_rate": 1.0,
+    "aseprite_linked_cel_semantics_live_external_editor_verified": false,
+    "aseprite_tilemap_tileset_semantics_profiles": 3,
+    "aseprite_tilemap_tileset_semantics_roundtrip_success": 3,
+    "aseprite_tilemap_tileset_semantics_invalid_probes_rejected": 5,
+    "aseprite_tilemap_tileset_semantics_mean_semantic_fidelity": 1.0,
+    "aseprite_tilemap_tileset_semantics_tilemap_hash_preservation_rate": 1.0,
+    "aseprite_tilemap_tileset_semantics_tileset_image_hash_preservation_rate": 1.0,
+    "aseprite_tilemap_tileset_semantics_live_external_editor_verified": false,
+    "aseprite_nested_timeline_semantics_profiles": 3,
+    "aseprite_nested_timeline_semantics_roundtrip_success": 3,
+    "aseprite_nested_timeline_semantics_invalid_probes_rejected": 6,
+    "aseprite_nested_timeline_semantics_mean_semantic_fidelity": 1.0,
+    "aseprite_nested_timeline_semantics_cel_visual_hash_preservation_rate": 1.0,
+    "aseprite_nested_timeline_semantics_tag_user_data_preservation_rate": 1.0,
+    "aseprite_nested_timeline_semantics_live_external_editor_verified": false,
+    "aseprite_external_properties_semantics_profiles": 3,
+    "aseprite_external_properties_semantics_roundtrip_success": 3,
+    "aseprite_external_properties_semantics_invalid_probes_rejected": 6,
+    "aseprite_external_properties_semantics_mean_semantic_fidelity": 1.0,
+    "aseprite_external_properties_semantics_cel_visual_hash_preservation_rate": 1.0,
+    "aseprite_external_properties_semantics_property_map_preservation_rate": 1.0,
+    "aseprite_external_properties_semantics_live_external_editor_verified": false,
+    "aseprite_document_variant_resolution_profiles": 3,
+    "aseprite_document_variant_resolution_roundtrip_success": 9,
+    "aseprite_document_variant_resolution_invalid_probes_rejected": 6,
+    "aseprite_document_variant_resolution_mean_semantic_fidelity": 1.0,
+    "aseprite_document_variant_resolution_variant_pixel_hash_preservation_rate": 1.0,
+    "aseprite_document_variant_resolution_external_asset_resolution_rate": 1.0,
+    "aseprite_document_variant_resolution_live_external_editor_verified": false
   },
   "valid_profiles": [
     {
@@ -529,13 +709,13 @@
       "surface": "workshop_roundtrip",
       "current_proof": "150 native JSON round trips across generated candidates under the 3 current valid profiles",
       "status": "proven_for_generated_multi_profile_corpus",
-      "required_next_proof": "full project-format coverage, arbitrary atlas packing, tags/layers, and editor rewrite preservation"
+      "required_next_proof": "full project-format coverage, production renderer playback, and live external editor rewrite validation"
     },
     {
       "surface": "external_metadata_sidecar",
       "current_proof": "3/3 current valid profile sidecars bind a non-native PNG asset stub to semantic overlays and restore SLIP-aligned grids; 2/2 invalid binding probes rejected; 5 adapter formats require sidecar semantics",
       "status": "proven_stage0_strategy_only",
-      "required_next_proof": "full project-format coverage and editor rewrite preservation"
+      "required_next_proof": "full project-format coverage and live external editor rewrite validation"
     },
     {
       "surface": "standard_image_sidecar_decoder",
@@ -552,38 +732,110 @@
     {
       "surface": "png_embedded_sidecar_writer",
       "current_proof": "3/3 current profile PNG files embed Mechagotchi sidecar JSON in a PNG tEXt ancillary chunk, preserve decoded pixels, restore SLIP-aligned semantic grids, and reject 3/3 missing metadata, invalid JSON, or canonical-hash mismatch probes",
-      "status": "proven_stage0_embedded_png_text_chunk_sidecar_subset",
-      "required_next_proof": "iTXt/zTXt policy, non-ASCII metadata policy, editor rewrite preservation, Adam7/APNG/full PNG conformance, and project-file native metadata beyond Piskel/Pixelorama"
+      "status": "proven_stage0_embedded_png_text_chunk_sidecar_subset_textual_variant_policy_superseded_by_png_textual_metadata_policy",
+      "required_next_proof": "live external editor rewrite validation, Adam7/APNG/full PNG conformance, and project-file native metadata beyond Piskel/Pixelorama"
+    },
+    {
+      "surface": "png_textual_metadata_policy",
+      "current_proof": "12/12 current profile PNG textual metadata variants round-trip sidecar semantics across tEXt ASCII JSON, zTXt compressed ASCII JSON, uncompressed iTXt UTF-8 JSON, and compressed iTXt UTF-8 JSON; 7/7 invalid missing, duplicate, non-ASCII text-policy, compression, UTF-8, and canonical-hash probes rejected",
+      "status": "proven_stage0_bounded_textual_metadata_carrier_policy_only_private_chunk_policy_handled_separately",
+      "required_next_proof": "live external editor rewrite validation, Adam7/APNG/full PNG conformance, and production import/export carrier selection"
+    },
+    {
+      "surface": "png_private_chunk_policy",
+      "current_proof": "3/3 current profile PNG files round-trip sidecar semantics through one mgOT ancillary private unsafe-to-copy chunk with a magic-prefixed UTF-8 JSON payload; 7/7 invalid missing, duplicate, safe-to-copy type, magic, JSON, canonical-hash, and sidecar-hash probes rejected; carrier-selection inputs recorded",
+      "status": "proven_stage0_bounded_private_ancillary_chunk_policy_and_carrier_selection_inputs_only",
+      "required_next_proof": "live external editor rewrite validation, private chunk editor preservation matrix, Adam7/APNG/full PNG conformance, and final production import/export carrier selection"
     },
     {
       "surface": "spritesheet_sidecar_decoder",
       "current_proof": "3/3 current valid profile grids export to fixed horizontal-strip spritesheet PNG, decode with PNG signature/chunk/CRC/IDAT checks, validate frame rectangles, durations, and pixel hashes, restore SLIP-aligned semantic grids from sidecars, and reject 2/2 corrupt PNG or frame-hash mismatch probes",
-      "status": "proven_fixed_grid_horizontal_strip_only_superseded_for_layout_variants_and_packed_runtime_playback",
-      "required_next_proof": "arbitrary atlas packing, tags/layers, and production renderer playback remain separate"
+      "status": "proven_fixed_grid_horizontal_strip_only_superseded_for_layout_variants_packed_runtime_playback_and_arbitrary_atlas_packing",
+      "required_next_proof": "production renderer playback remains separate"
     },
     {
       "surface": "spritesheet_layout_variant_decoder",
       "current_proof": "12/12 current profile spritesheet layout variants export/import with sidecars across vertical strips, row-major matrix sheets, padded/guttered grids, and sparse atlas rects; 3/3 invalid out-of-bounds/overlap/frame-hash probes rejected",
-      "status": "proven_stage0_layout_variant_subset_only",
-      "required_next_proof": "arbitrary atlas packing, tags/layers, and production renderer playback"
+      "status": "proven_stage0_layout_variant_subset_only_arbitrary_atlas_policy_handled_separately",
+      "required_next_proof": "production renderer playback"
     },
     {
       "surface": "spritesheet_packed_runtime_decoder",
       "current_proof": "3/3 current profile packed spritesheet atlases export/import with sidecars; trimmed frames reconstruct to canonical 8x8 frames; one 90-degree rotated frame per profile is decoded; looped runtime playback samples frame-duration boundaries; 4/4 invalid unsupported-rotation, trim, hash, and duration probes rejected",
-      "status": "proven_stage0_packed_trim_rotation_and_sidecar_runtime_playback_subset",
-      "required_next_proof": "arbitrary packing algorithms, tags/layers, production renderer playback, and full project-format coverage"
+      "status": "proven_stage0_packed_trim_rotation_and_sidecar_runtime_playback_subset_arbitrary_atlas_policy_handled_separately",
+      "required_next_proof": "production renderer playback and full project-format coverage"
+    },
+    {
+      "surface": "spritesheet_arbitrary_atlas_packer",
+      "current_proof": "6/6 current profile arbitrary atlas exports/imports round-trip sidecar semantics across shelf and MaxRects-style best-short-side-fit packing policies; five variable-size regions per atlas are reconstructed to canonical 8x8 frames; 6/6 invalid overlap, bounds, hash, duration, algorithm, and rotation-policy probes rejected; maxrects_best_short_side_fit is the best occupancy policy for this fixed corpus",
+      "status": "proven_stage0_arbitrary_rectangle_atlas_packing_and_policy_comparison_only",
+      "required_next_proof": "production renderer playback, live external editor validation, and multi-page/editor-authored atlas fixtures"
     },
     {
       "surface": "third_party_project_decoder_boundary",
       "current_proof": "3/3 current valid profile project payloads decode Piskel JSON, Pixelorama .pxo ZIP/data.json, and Aseprite/LibreSprite header boundaries, restore SLIP-aligned semantic grids from sidecars, and reject 3/3 corrupt project, mismatched sidecar, or unsupported format probes",
       "status": "proven_stage0_boundary_only",
-      "required_next_proof": "full project-format coverage, editor rewrite preservation, and Aseprite/LibreSprite User Data chunk writing"
+      "required_next_proof": "full project-format coverage, live external editor rewrite validation, and broader Aseprite chunk/schema coverage"
     },
     {
       "surface": "project_native_metadata_writer",
-      "current_proof": "6/6 current profile project payloads embed Mechagotchi sidecar JSON into native project metadata locations for Piskel description and Pixelorama data.json, restore SLIP-aligned semantic grids without external sidecars, reject 4/4 missing metadata, sidecar-hash, canonical-hash, or unsupported-format probes, and mark Aseprite/LibreSprite User Data chunk writing as unsupported in Stage 0",
+      "current_proof": "6/6 current profile project payloads embed Mechagotchi sidecar JSON into native project metadata locations for Piskel description and Pixelorama data.json, restore SLIP-aligned semantic grids without external sidecars, reject 4/4 missing metadata, sidecar-hash, canonical-hash, or unsupported-format probes, and delegate Aseprite/LibreSprite writing to the dedicated User Data Chunk lab",
       "status": "proven_stage0_piskel_pixelorama_native_metadata_subset_only",
-      "required_next_proof": "Aseprite/LibreSprite User Data chunk writer, editor rewrite preservation, tags/layers native project semantics, and full project-format coverage"
+      "required_next_proof": "live external editor rewrite validation, full project-format coverage, and cross-lab Aseprite dispatch if promoted"
+    },
+    {
+      "surface": "project_editor_rewrite_preservation",
+      "current_proof": "6/6 current profile project payloads survive deterministic Piskel description and Pixelorama data.json rewrite simulation; visual hashes are preserved; sidecars rebind to rewritten canonical project hashes; 3/3 missing metadata, sidecar hash, and visual hash probes rejected",
+      "status": "proven_stage0_simulated_rewrite_subset_only",
+      "required_next_proof": "live external Piskel/Pixelorama open-save validation, arbitrary Aseprite project schema coverage, and full project-format coverage"
+    },
+    {
+      "surface": "aseprite_user_data_chunk_writer",
+      "current_proof": "3/3 current profile .aseprite payloads write an ASE header, frame header, Layer Chunk 0x2004, User Data Chunk 0x2020, and compressed RGBA Cel Chunk 0x2005; restore SLIP-aligned semantic grids from native User Data metadata; reject 3/3 missing User Data, sidecar hash, or visual hash probes",
+      "status": "proven_stage0_one_frame_one_layer_compressed_cel_user_data_subset_only_superseded_for_tags_layers_palette_slice_linked_cel_tilemap_tileset_and_nested_timeline_subsets",
+      "required_next_proof": "live external Aseprite/LibreSprite open-save validation, arbitrary project schemas, and full project-format coverage"
+    },
+    {
+      "surface": "aseprite_tags_layers_semantics",
+      "current_proof": "3/3 current profile .aseprite payloads write three frames, three semantic layers, Tags Chunk 0x2018, layer User Data Chunk 0x2020 metadata, and 9 compressed RGBA Cel Chunk 0x2005 payloads; restore SLIP-aligned semantic grids; reject 4/4 missing-tags, invalid-tag-range, sidecar-hash, and visual-hash probes",
+      "status": "proven_stage0_tags_layers_native_semantics_subset_only_superseded_for_palette_slice_linked_cel_tilemap_tileset_and_nested_timeline_subsets",
+      "required_next_proof": "live external Aseprite/LibreSprite open-save validation, arbitrary Aseprite project schemas, and full project-format coverage"
+    },
+    {
+      "surface": "aseprite_palette_slice_semantics",
+      "current_proof": "3/3 current profile .aseprite payloads write Palette Chunk 0x2019 SLIP colors, Slice Chunk 0x2022 core/sensors/expression bounds, three frames, three semantic layers, Tags Chunk 0x2018, layer User Data Chunk 0x2020 metadata, and 9 compressed RGBA Cel Chunk 0x2005 payloads; restore SLIP-aligned semantic grids; reject 5/5 missing-palette, palette-mismatch, missing-slices, invalid-slice-bounds, and sidecar-hash probes",
+      "status": "proven_stage0_palette_slice_native_semantics_subset_only_superseded_for_linked_cel_tilemap_tileset_and_nested_timeline_coverage",
+      "required_next_proof": "live external Aseprite/LibreSprite open-save validation, arbitrary Aseprite project schemas, and full project-format coverage"
+    },
+    {
+      "surface": "aseprite_linked_cel_semantics",
+      "current_proof": "3/3 current profile .aseprite payloads write Palette Chunk 0x2019, Slice Chunk 0x2022, Tags Chunk 0x2018, three semantic layers, 5 compressed RGBA Cel Chunk 0x2005 payloads, and 4 linked Cel Chunk 0x2005 type 1 frame targets; restore SLIP-aligned semantic grids; reject 5/5 missing-linked-cels, invalid-target, missing-target, visual-hash, and sidecar-hash probes",
+      "status": "proven_stage0_linked_cel_native_semantics_subset_only_superseded_for_tilemap_tileset_and_nested_timeline_coverage",
+      "required_next_proof": "live external Aseprite/LibreSprite open-save validation, arbitrary Aseprite project schemas, and full project-format coverage"
+    },
+    {
+      "surface": "aseprite_tilemap_tileset_semantics",
+      "current_proof": "3/3 current profile .aseprite payloads write one Tilemap Layer type 2, one Tileset Chunk 0x2023, three compressed Tilemap Cel Chunk 0x2005 type 3 payloads, Palette Chunk 0x2019, Slice Chunk 0x2022, and Tags Chunk 0x2018; restore SLIP-aligned semantic grids; reject 5/5 missing-tileset, missing-tilemap-cels, tileset-image-hash, tile-ID, and sidecar-hash probes",
+      "status": "proven_stage0_tilemap_tileset_native_semantics_subset_only_superseded_for_nested_timeline_coverage",
+      "required_next_proof": "live external Aseprite/LibreSprite open-save validation, arbitrary Aseprite project schemas, and full project-format coverage"
+    },
+    {
+      "surface": "aseprite_nested_timeline_semantics",
+      "current_proof": "3/3 current profile .aseprite payloads write two group Layer Chunk 0x2004 type 1 entries, three image layers, child levels 0..2, four documented Tags Chunk 0x2018 loop directions and repeat counts, tag-associated User Data Chunk 0x2020 color/text payloads, and 12 compressed RGBA Cel Chunk 0x2005 payloads; restore SLIP-aligned semantic grids; reject 6/6 missing-group, hierarchy, missing-tag-User-Data, invalid-direction, tag-color, and sidecar-hash probes",
+      "status": "proven_stage0_nested_timeline_native_semantics_subset_only",
+      "required_next_proof": "live external Aseprite/LibreSprite open-save validation, arbitrary Aseprite project schemas, arbitrary external asset resolution, editor-authored document variants, and full project-format coverage"
+    },
+    {
+      "surface": "aseprite_external_properties_semantics",
+      "current_proof": "3/3 current profile .aseprite payloads write Color Profile Chunk 0x2007, External Files Chunk 0x2008 entries for palette/tileset/extension properties, User Data Chunk 0x2020 property maps keyed by user map 0 and extension map 303, two Cel Extra Chunk 0x2006 precise-bound payloads, and two compressed RGBA Cel Chunk 0x2005 payloads; restore SLIP-aligned semantic grids; reject 6/6 missing-external-files, color-profile, missing-properties, extension-map-key, cel-extra-bounds, and sidecar-hash probes",
+      "status": "proven_stage0_external_properties_native_semantics_subset_only",
+      "required_next_proof": "live external Aseprite/LibreSprite open-save validation, arbitrary Aseprite project schemas, arbitrary external asset resolution, editor-authored document variants, and full project-format coverage"
+    },
+    {
+      "surface": "aseprite_document_variant_resolution",
+      "current_proof": "9/9 current profile .aseprite payloads write indexed 8 bpp, grayscale-alpha 16 bpp, and RGBA 32 bpp compressed Cel Chunk 0x2005 variants; indexed documents write Palette Chunk 0x2019; all variants write External Files Chunk 0x2008 entries resolved against generated palette, tileset, and resolver payload hashes; restore SLIP-aligned semantic grids; reject 6/6 missing-external-files, external-asset-hash, unsupported-depth, indexed-palette, pixel-hash, and sidecar-hash probes",
+      "status": "proven_stage0_deterministic_document_variant_and_generated_external_asset_resolution_subset_only",
+      "required_next_proof": "live external Aseprite/LibreSprite open-save validation, arbitrary Aseprite project schemas, arbitrary external asset resolution, editor-authored document variants, and full project-format coverage"
     },
     {
       "surface": "slip_authoring_panel",
@@ -665,9 +917,14 @@
     "package runtime lifecycle integration",
     "manual readability calibration",
     "Adam7/APNG/full PNG conformance",
+    "production renderer playback",
+    "final PNG production carrier selection",
+    "private chunk editor preservation matrix",
     "full project-format coverage",
-    "editor rewrite preservation",
-    "Aseprite/LibreSprite native User Data chunk writer",
+    "live external editor rewrite validation",
+    "arbitrary Aseprite project schema coverage",
+    "editor-authored Aseprite document variants",
+    "arbitrary Aseprite external asset resolution",
     "community profile packs"
   ],
   "research_verification_commands": [
@@ -690,14 +947,38 @@
     "python -m json.tool .\\data\\workshop_editor\\standard_image_sidecar_decoder_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\png_variant_sidecar_decoder_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\png_embedded_sidecar_writer_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\png_textual_metadata_policy_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\png_private_chunk_policy_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\spritesheet_sidecar_decoder_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\spritesheet_layout_variant_decoder_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\spritesheet_packed_runtime_decoder_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\spritesheet_arbitrary_atlas_packer_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\third_party_project_decoder_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\project_native_metadata_writer_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\project_editor_rewrite_preservation_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\aseprite_user_data_chunk_writer_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\aseprite_tags_layers_semantics_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\aseprite_palette_slice_semantics_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\aseprite_linked_cel_semantics_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\aseprite_tilemap_tileset_semantics_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\aseprite_nested_timeline_semantics_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\aseprite_external_properties_semantics_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\aseprite_document_variant_resolution_stage0.json",
     "python -B -m unittest .\\labs\\workshop_editor\\test_spritesheet_packed_runtime_decoder.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_png_embedded_sidecar_writer.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_png_textual_metadata_policy.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_png_private_chunk_policy.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_spritesheet_arbitrary_atlas_packer.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_project_native_metadata_writer.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_project_editor_rewrite_preservation.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_aseprite_user_data_chunk_writer.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_aseprite_tags_layers_semantics.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_aseprite_palette_slice_semantics.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_aseprite_linked_cel_semantics.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_aseprite_tilemap_tileset_semantics.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_aseprite_nested_timeline_semantics.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_aseprite_external_properties_semantics.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_aseprite_document_variant_resolution.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_slip_multigeneration_lineage_runner.py",
     "python -B -m unittest .\\labs\\readability_benchmark\\test_slip_readability_calibration_gate.py",
     "python -B -m unittest .\\labs\\architecture\\test_mecha_engine_runtime_boundary_gate.py",
@@ -708,5 +989,5 @@
     "git diff --check"
   ],
   "decision": "adopt_stage0_slip_profile_compatibility_matrix",
-  "next_research_step": "Collect 63 SLIP readability reviewer rows and start package implementation only when explicitly authorized before claiming profile-weighted evolution."
+  "next_research_step": "Collect live external editor open-save fixtures, broaden Aseprite chunk/schema coverage beyond the fixed Stage 0 carrier subsets with editor-authored document variants and arbitrary external asset resolution, collect 63 SLIP readability reviewer rows, and start package implementation only when explicitly authorized before claiming profile-weighted evolution."
 }

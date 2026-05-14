@@ -1,6 +1,6 @@
 # SLIP Profile Compatibility Tests
 
-Date: 2026-05-13
+Date: 2026-05-14
 
 Status: `research_slip_profile_compatibility_matrix_no_package_code`
 
@@ -83,10 +83,22 @@ runtime evolution.
 | Standard image sidecar decoder | `data/workshop_editor/standard_image_sidecar_decoder_stage0.json` | 1 | 3 static RGBA PNG sidecar round trips, 2 invalid PNG/binding probes rejected |
 | PNG variant sidecar decoder | `data/workshop_editor/png_variant_sidecar_decoder_stage0.json` | 1 | 15 variant PNG sidecar round trips, color types 0/2/3/6, filters 0..4, 3 invalid variant probes rejected |
 | PNG embedded sidecar writer | `data/workshop_editor/png_embedded_sidecar_writer_stage0.json` | 1 | 3 embedded PNG `tEXt` sidecar round trips, decoded pixels preserved, 3 invalid embedded metadata probes rejected |
+| PNG textual metadata policy | `data/workshop_editor/png_textual_metadata_policy_stage0.json` | 1 | 12 bounded PNG textual metadata round trips across `tEXt`, `zTXt`, uncompressed `iTXt`, and compressed `iTXt`; 7 invalid metadata policy probes rejected |
+| PNG private chunk policy | `data/workshop_editor/png_private_chunk_policy_stage0.json` | 1 | 3 app-private PNG `mgOT` ancillary chunk round trips; 7 invalid private chunk probes rejected; carrier-selection inputs recorded without final production decision |
 | Spritesheet sidecar decoder | `data/workshop_editor/spritesheet_sidecar_decoder_stage0.json` | 1 | 3 fixed-grid spritesheet sidecar round trips, 2 invalid PNG/frame probes rejected |
 | Spritesheet layout variant decoder | `data/workshop_editor/spritesheet_layout_variant_decoder_stage0.json` | 1 | 12 layout-variant spritesheet sidecar round trips, vertical/matrix/padded/sparse layouts, 3 invalid layout probes rejected |
 | Spritesheet packed runtime decoder | `data/workshop_editor/spritesheet_packed_runtime_decoder_stage0.json` | 1 | 3 packed trim/rotation sidecar round trips, 3 runtime playback timelines, 4 invalid packed/runtime probes rejected |
+| Spritesheet arbitrary atlas packer | `data/workshop_editor/spritesheet_arbitrary_atlas_packer_stage0.json` | 1 | 6 arbitrary atlas round trips across shelf and MaxRects-style policies, 6 invalid atlas probes rejected, best occupancy policy `maxrects_best_short_side_fit` |
 | Third-party project decoder boundary | `data/workshop_editor/third_party_project_decoder_stage0.json` | 1 | 3 project decoder successes, 3 sidecar restores, 3 invalid project/binding probes rejected |
+| Project native metadata writer | `data/workshop_editor/project_native_metadata_writer_stage0.json` | 1 | 6 Piskel/Pixelorama native metadata round trips, 4 invalid native metadata probes rejected, 1 delegated Aseprite/LibreSprite User Data policy |
+| Project editor rewrite preservation | `data/workshop_editor/project_editor_rewrite_preservation_stage0.json` | 1 | 6 deterministic Piskel/Pixelorama rewrite round trips, visual hash preserved, 3 invalid rewrite probes rejected |
+| Aseprite User Data Chunk writer | `data/workshop_editor/aseprite_user_data_chunk_writer_stage0.json` | 1 | 3 Aseprite/LibreSprite User Data Chunk round trips, one-frame compressed RGBA cel subset, 3 invalid User Data probes rejected |
+| Aseprite tags/layers semantics | `data/workshop_editor/aseprite_tags_layers_semantics_stage0.json` | 1 | 3 Aseprite/LibreSprite tags/layers semantic round trips, three-frame/three-layer compressed RGBA cel subset, 4 invalid tags/layers probes rejected |
+| Aseprite palette/slice semantics | `data/workshop_editor/aseprite_palette_slice_semantics_stage0.json` | 1 | 3 Aseprite/LibreSprite palette/slice semantic round trips, Palette Chunk `0x2019`, Slice Chunk `0x2022`, three-frame/three-layer compressed RGBA cel subset, 5 invalid palette/slice probes rejected |
+| Aseprite linked-cel semantics | `data/workshop_editor/aseprite_linked_cel_semantics_stage0.json` | 1 | 3 Aseprite/LibreSprite linked-cel semantic round trips, Cel Chunk `0x2005` linked cel type 1 targets, 5 compressed RGBA cels, 4 linked cels, 5 invalid linked-cel probes rejected |
+| Aseprite tilemap/tileset semantics | `data/workshop_editor/aseprite_tilemap_tileset_semantics_stage0.json` | 1 | 3 Aseprite/LibreSprite tilemap/tileset semantic round trips, Tilemap Layer type 2, Tileset Chunk `0x2023`, Tilemap Cel Chunk `0x2005` type 3 payloads, 5 invalid tilemap/tileset probes rejected |
+| Aseprite nested timeline semantics | `data/workshop_editor/aseprite_nested_timeline_semantics_stage0.json` | 1 | 3 Aseprite/LibreSprite nested timeline semantic round trips, group Layer Chunk `0x2004` hierarchy, all 4 tag loop directions, tag User Data `0x2020`, 6 invalid nested/timeline probes rejected |
+| Aseprite document variant resolution | `data/workshop_editor/aseprite_document_variant_resolution_stage0.json` | 1 | 9 Aseprite/LibreSprite document-variant semantic round trips across indexed 8 bpp, grayscale-alpha 16 bpp, and RGBA 32 bpp compressed cels with generated External Files Chunk `0x2008` assets resolved by hash; 6 invalid variant/resolver probes rejected |
 | SLIP-constrained grids | `data/generated_grids/slip_lcd_seed_constrained/*.json` | 50 | valid and aligned with `slip_lcd_seed` |
 | Multi-profile constrained grids | `data/slips/multi_profile_generation_stage0/*/*.json` | 150 | valid and aligned across all 3 valid profiles |
 | Workshop round trip | `data/workshop_editor/workshop_roundtrip_stage0_report.json` | 1 | native JSON round trip with `slip_lcd_seed` |
@@ -150,15 +162,28 @@ require a complete behavior vocabulary or survival-weight vocabulary.
 | Grid validator | generated candidates pass grid validation | proven for current profile-aware candidate corpora | profile-aware negative cases and held-out profiles |
 | Lifecycle | 3/3 current valid profiles produce measured 24-tick switchboard lifecycle effects from preview-validated grids; runtime selection policy consumes switchboard lifecycle episodes for 3/3 profile-specific archive elite choices; offspring lineage gate evaluates selected children with mean survival ratio `1.0`; long-horizon gate records 18/18 held-out switchboard full-survival runs and 18/18 idle deaths at 96 ticks | measured Stage 0 selection, offspring-lineage, and long-horizon behavior bridge only | package runtime integration and manual readability calibration |
 | Archive | extended descriptors include `slip_alignment`; 3/3 current valid profiles build profile-specific extended archives; 3/3 runtime selection probes choose profile-weighted archive elites from distinct niches; offspring lineage gate emits 3 lineage decisions with 1 add-niche and 2 hold-parent outcomes | measured Stage 0 selection and lineage decision bridge only | held-out multi-profile calibration and manual readability calibration |
-| Workshop round trip | native JSON round trip preserves semantics across 150 generated candidates under 3 valid profiles | proven for generated multi-profile corpus | full project-format coverage, project-file native metadata writer policy, arbitrary atlas packing, and tags/layers |
-| External metadata sidecar | 3/3 current profile sidecars bind a non-native PNG asset stub to the semantic overlay and restore SLIP-aligned grids; 2/2 invalid binding probes rejected; 5 adapter formats marked sidecar-required | proven Stage 0 strategy only | project-file native metadata writer policy and full project-format coverage |
+| Workshop round trip | native JSON round trip preserves semantics across 150 generated candidates under 3 valid profiles | proven for generated multi-profile corpus | full project-format coverage, production renderer playback, and live external editor rewrite validation |
+| External metadata sidecar | 3/3 current profile sidecars bind a non-native PNG asset stub to the semantic overlay and restore SLIP-aligned grids; 2/2 invalid binding probes rejected; 5 adapter formats marked sidecar-required | proven Stage 0 strategy only | full project-format coverage and live external editor rewrite validation |
 | Standard image sidecar decoder | 3/3 current profile grids export to real static RGBA PNG, decode with PNG signature/chunk/CRC/IDAT checks, restore SLIP-aligned semantic grids from sidecars, and reject 2/2 corrupt PNG or hash-mismatch probes | proven static non-interlaced 8-bit RGBA PNG only; superseded for broader color/filter variants by PNG variant sidecar decoder | Adam7/APNG/full PNG conformance remains separate |
 | PNG variant sidecar decoder | 15/15 current profile PNG variants export/import with sidecars across 8-bit non-interlaced color types 0, 2, 3, and 6; filter types 0 through 4; PLTE indexed-color decoding; 3/3 invalid interlace/PLTE/carrier-hash probes rejected | proven Stage 0 PNG variant subset only | Adam7 interlace, APNG, grayscale-alpha, 1/2/4/16-bit depths, and full PNG conformance |
-| PNG embedded sidecar writer | 3/3 current profile PNG files embed Mechagotchi sidecar JSON in a PNG `tEXt` ancillary chunk, preserve decoded pixels, restore SLIP-aligned semantic grids, and reject 3/3 missing metadata, invalid JSON, or canonical-hash mismatch probes | proven Stage 0 embedded PNG text-chunk sidecar subset | `iTXt`/`zTXt` policy, non-ASCII metadata policy, editor rewrite preservation, Adam7/APNG/full PNG conformance, and project-file native metadata writers |
-| Spritesheet sidecar decoder | 3/3 current profile grids export to fixed horizontal-strip spritesheet PNG, decode with PNG signature/chunk/CRC/IDAT checks, validate frame rectangles/durations/pixel hashes, restore SLIP-aligned semantic grids from sidecars, and reject 2/2 corrupt PNG or frame-hash mismatch probes | proven fixed-grid horizontal strip only; superseded for layout variants and packed-runtime playback by later decoder labs | arbitrary atlas packing, tags/layers, and production renderer playback remain separate |
-| Spritesheet layout variant decoder | 12/12 current profile spritesheet layout variants export/import with sidecars across vertical strips, row-major matrix sheets, padded/guttered grids, and sparse atlas rects; 3/3 invalid out-of-bounds/overlap/frame-hash probes rejected | proven Stage 0 layout variant subset only | arbitrary atlas packing, tags/layers, and production renderer playback |
-| Spritesheet packed runtime decoder | 3/3 current profile packed spritesheet atlases export/import with sidecars; trimmed frames reconstruct to canonical 8x8 frames; one 90-degree rotated frame per profile is decoded; looped runtime playback samples frame-duration boundaries; 4/4 invalid unsupported-rotation, trim, hash, and duration probes rejected | proven Stage 0 packed trim/rotation and sidecar runtime playback subset | arbitrary packing algorithms, tags/layers, production renderer playback, and full project-format coverage |
-| Third-party project decoder boundary | 3/3 current profile project payloads decode Piskel JSON, Pixelorama `.pxo` ZIP/data.json, and Aseprite/LibreSprite header boundaries, restore SLIP-aligned semantic grids from sidecars, and reject 3/3 corrupt project, mismatched sidecar, or unsupported format probes | proven Stage 0 boundary only | full project-format coverage and native project-file metadata writer policy |
+| PNG embedded sidecar writer | 3/3 current profile PNG files embed Mechagotchi sidecar JSON in a PNG `tEXt` ancillary chunk, preserve decoded pixels, restore SLIP-aligned semantic grids, and reject 3/3 missing metadata, invalid JSON, or canonical-hash mismatch probes | proven Stage 0 embedded PNG text-chunk sidecar subset; textual variant policy is superseded by PNG textual metadata policy | live external editor rewrite validation, Adam7/APNG/full PNG conformance, and project-file native metadata beyond Piskel/Pixelorama |
+| PNG textual metadata policy | 12/12 current profile PNG textual metadata variants round-trip sidecar semantics across `tEXt` ASCII JSON, `zTXt` compressed ASCII JSON, uncompressed `iTXt` UTF-8 JSON, and compressed `iTXt` UTF-8 JSON; 7/7 invalid missing, duplicate, non-ASCII text-policy, compression, UTF-8, and canonical-hash probes rejected | proven Stage 0 bounded textual metadata carrier policy only; private chunk policy is handled separately | live external editor rewrite validation, Adam7/APNG/full PNG conformance, and production import/export carrier selection |
+| PNG private chunk policy | 3/3 current profile PNG files round-trip sidecar semantics through one `mgOT` ancillary private unsafe-to-copy chunk with a magic-prefixed UTF-8 JSON payload; 7/7 invalid missing, duplicate, safe-to-copy type, magic, JSON, canonical-hash, and sidecar-hash probes rejected; carrier-selection inputs recorded | proven Stage 0 bounded private ancillary chunk policy and carrier-selection input matrix only | live external editor rewrite validation, private chunk editor preservation matrix, Adam7/APNG/full PNG conformance, and final production import/export carrier selection |
+| Spritesheet sidecar decoder | 3/3 current profile grids export to fixed horizontal-strip spritesheet PNG, decode with PNG signature/chunk/CRC/IDAT checks, validate frame rectangles/durations/pixel hashes, restore SLIP-aligned semantic grids from sidecars, and reject 2/2 corrupt PNG or frame-hash mismatch probes | proven fixed-grid horizontal strip only; superseded for layout variants, packed-runtime playback, and arbitrary-atlas packing by later decoder labs | production renderer playback remains separate |
+| Spritesheet layout variant decoder | 12/12 current profile spritesheet layout variants export/import with sidecars across vertical strips, row-major matrix sheets, padded/guttered grids, and sparse atlas rects; 3/3 invalid out-of-bounds/overlap/frame-hash probes rejected | proven Stage 0 layout variant subset only; arbitrary atlas policy is handled separately | production renderer playback |
+| Spritesheet packed runtime decoder | 3/3 current profile packed spritesheet atlases export/import with sidecars; trimmed frames reconstruct to canonical 8x8 frames; one 90-degree rotated frame per profile is decoded; looped runtime playback samples frame-duration boundaries; 4/4 invalid unsupported-rotation, trim, hash, and duration probes rejected | proven Stage 0 packed trim/rotation and sidecar runtime playback subset; arbitrary atlas policy is handled separately | production renderer playback and full project-format coverage |
+| Spritesheet arbitrary atlas packer | 6/6 current profile arbitrary atlas exports/imports round-trip sidecar semantics across shelf and MaxRects-style best-short-side-fit packing policies; five variable-size regions per atlas are reconstructed to canonical 8x8 frames; 6/6 invalid overlap, bounds, hash, duration, algorithm, and rotation-policy probes rejected; `maxrects_best_short_side_fit` is the best occupancy policy for this fixed corpus | proven Stage 0 arbitrary rectangle atlas packing and policy comparison only | production renderer playback, live external editor validation, and multi-page/editor-authored atlas fixtures |
+| Third-party project decoder boundary | 3/3 current profile project payloads decode Piskel JSON, Pixelorama `.pxo` ZIP/data.json, and Aseprite/LibreSprite header boundaries, restore SLIP-aligned semantic grids from sidecars, and reject 3/3 corrupt project, mismatched sidecar, or unsupported format probes | proven Stage 0 boundary only | full project-format coverage, live external editor rewrite validation, and broader Aseprite chunk/schema coverage |
+| Project native metadata writer | 6/6 current profile project payloads embed Mechagotchi sidecar JSON into Piskel description metadata and Pixelorama `.pxo` `data.json` metadata, restore SLIP-aligned semantic grids without external sidecars, and reject 4/4 missing metadata, sidecar-hash, canonical-hash, or unsupported-format probes | proven Stage 0 Piskel/Pixelorama native metadata subset only | live external editor rewrite validation, full project-format coverage, and cross-lab Aseprite dispatch if promoted |
+| Project editor rewrite preservation | 6/6 current profile project payloads survive deterministic Piskel description and Pixelorama `data.json` rewrite simulation; visual hashes are preserved; sidecars rebind to rewritten canonical project hashes; 3/3 missing metadata, sidecar hash, and visual hash probes rejected | proven Stage 0 simulated rewrite subset only | live external Piskel/Pixelorama open-save validation, arbitrary Aseprite project schema coverage, and full project-format coverage |
+| Aseprite User Data Chunk writer | 3/3 current profile `.aseprite` payloads write an ASE header, frame header, Layer Chunk `0x2004`, User Data Chunk `0x2020`, and compressed RGBA Cel Chunk `0x2005`; restore SLIP-aligned semantic grids from native User Data metadata; reject 3/3 missing User Data, sidecar hash, or visual hash probes | proven Stage 0 one-frame one-layer compressed cel User Data subset only; superseded for the tags/layers, palette/slice, linked-cel, tilemap/tileset, and nested timeline subsets by later Aseprite labs | live external Aseprite/LibreSprite open-save validation, arbitrary project schemas, and full project-format coverage |
+| Aseprite tags/layers semantics | 3/3 current profile `.aseprite` payloads write three frames, three semantic layers, Tags Chunk `0x2018`, layer User Data Chunk `0x2020` metadata, and 9 compressed RGBA Cel Chunk `0x2005` payloads; restore SLIP-aligned semantic grids; reject 4/4 missing-tags, invalid-tag-range, sidecar-hash, and visual-hash probes | proven Stage 0 native layer/tag semantics subset only; superseded for palette/slice, linked-cel, tilemap/tileset, and nested timeline coverage by later Aseprite labs | live external Aseprite/LibreSprite open-save validation, arbitrary Aseprite project schemas, and full project-format coverage |
+| Aseprite palette/slice semantics | 3/3 current profile `.aseprite` payloads write Palette Chunk `0x2019` SLIP colors, Slice Chunk `0x2022` core/sensors/expression bounds, three frames, three semantic layers, Tags Chunk `0x2018`, layer User Data Chunk `0x2020` metadata, and 9 compressed RGBA Cel Chunk `0x2005` payloads; restore SLIP-aligned semantic grids; reject 5/5 missing-palette, palette-mismatch, missing-slices, invalid-slice-bounds, and sidecar-hash probes | proven Stage 0 native palette/slice semantics subset only; superseded for linked-cel, tilemap/tileset, and nested timeline coverage by later Aseprite labs | live external Aseprite/LibreSprite open-save validation, arbitrary Aseprite project schemas, and full project-format coverage |
+| Aseprite linked-cel semantics | 3/3 current profile `.aseprite` payloads write Palette Chunk `0x2019`, Slice Chunk `0x2022`, Tags Chunk `0x2018`, three semantic layers, 5 compressed RGBA Cel Chunk `0x2005` payloads, and 4 linked Cel Chunk `0x2005` type 1 frame targets; restore SLIP-aligned semantic grids; reject 5/5 missing-linked-cels, invalid-target, missing-target, visual-hash, and sidecar-hash probes | proven Stage 0 native linked-cel semantics subset only; superseded for tilemap/tileset and nested timeline coverage by later Aseprite labs | live external Aseprite/LibreSprite open-save validation, arbitrary Aseprite project schemas, and full project-format coverage |
+| Aseprite tilemap/tileset semantics | 3/3 current profile `.aseprite` payloads write one Tilemap Layer type 2, one Tileset Chunk `0x2023`, three compressed Tilemap Cel Chunk `0x2005` type 3 payloads, Palette Chunk `0x2019`, Slice Chunk `0x2022`, and Tags Chunk `0x2018`; restore SLIP-aligned semantic grids; reject 5/5 missing-tileset, missing-tilemap-cels, tileset-image-hash, tile-ID, and sidecar-hash probes | proven Stage 0 native tilemap/tileset semantics subset only; superseded for nested timeline coverage by Aseprite nested timeline semantics | live external Aseprite/LibreSprite open-save validation, arbitrary Aseprite project schemas, and full project-format coverage |
+| Aseprite nested timeline semantics | 3/3 current profile `.aseprite` payloads write two group Layer Chunk `0x2004` type 1 entries, three image layers, child levels `0..2`, four documented Tags Chunk `0x2018` loop directions and repeat counts, tag-associated User Data Chunk `0x2020` color/text payloads, and 12 compressed RGBA Cel Chunk `0x2005` payloads; restore SLIP-aligned semantic grids; reject 6/6 missing-group, hierarchy, missing-tag-User-Data, invalid-direction, tag-color, and sidecar-hash probes | proven Stage 0 native nested timeline subset only | live external Aseprite/LibreSprite open-save validation, arbitrary Aseprite project schemas, arbitrary external asset resolution, editor-authored document variants, and full project-format coverage |
+| Aseprite external properties semantics | 3/3 current profile `.aseprite` payloads write Color Profile Chunk `0x2007`, External Files Chunk `0x2008` entries for palette/tileset/extension properties, User Data Chunk `0x2020` property maps keyed by user map `0` and extension map `303`, two Cel Extra Chunk `0x2006` precise-bound payloads, and two compressed RGBA Cel Chunk `0x2005` payloads; restore SLIP-aligned semantic grids; reject 6/6 missing-external-files, color-profile, missing-properties, extension-map-key, cel-extra-bounds, and sidecar-hash probes | proven Stage 0 native external-properties subset only | live external Aseprite/LibreSprite open-save validation, arbitrary Aseprite project schemas, arbitrary external asset resolution, editor-authored document variants, and full project-format coverage |
+| Aseprite document variant resolution | 9/9 current profile `.aseprite` payloads write indexed 8 bpp, grayscale-alpha 16 bpp, and RGBA 32 bpp compressed Cel Chunk `0x2005` variants; indexed documents write Palette Chunk `0x2019`; all variants write External Files Chunk `0x2008` entries resolved against generated palette, tileset, and resolver payload hashes; restore SLIP-aligned semantic grids; reject 6/6 missing-external-files, external-asset-hash, unsupported-depth, indexed-palette, pixel-hash, and sidecar-hash probes | proven Stage 0 deterministic document-variant and generated external-asset-resolution subset only | live external Aseprite/LibreSprite open-save validation, arbitrary Aseprite project schemas, arbitrary external asset resolution, editor-authored document variants, and full project-format coverage |
 | SLIP authoring panel | 3/3 current profile drafts accepted and 3/3 invalid probes rejected by migration, dependency-free, and Pydantic gates | proven minimal panel for current Stage 0 schema | usability pilot |
 | SLIP preview gates | 3/3 current profiles produce deterministic behavior previews and bounded mutation previews; measured lifecycle/archive bridge records 3 distinct preview, lifecycle, and archive fingerprints; 2/2 invalid preview/effect probes rejected before activation | proven deterministic Stage 0 preview gate plus measured effects bridge | manual readability calibration before profile-weighted evolution claims |
 | SLIP runtime selection policy | 3/3 current profiles select one profile-weighted extended MAP-Elites archive elite using switchboard lifecycle metrics; selected grid ids: 3 distinct; selected niches: 3 distinct; mean selection score `0.955828`; 2/2 invalid version/mismatched-corpus probes rejected before selection | proven Stage 0 runtime selection policy superseded for offspring by offspring lineage gate | package runtime integration and manual readability calibration |
@@ -284,29 +309,43 @@ Future workshop tests must check:
 - invalid profiles cannot be loaded as active workshop constraints;
 - static RGBA PNG import/export, 8-bit non-interlaced PNG color/filter variant
   import/export, fixed horizontal-strip spritesheet PNG import/export, and
-  vertical/matrix/padded/sparse spritesheet layout import/export are proven
-  against the sidecar contract, and Piskel JSON, Pixelorama `.pxo`, and
+  vertical/matrix/padded/sparse spritesheet layout import/export, packed
+  trim/rotation reconstruction, and arbitrary atlas packing are proven against
+  the sidecar contract, and Piskel JSON, Pixelorama `.pxo`, and
   Aseprite/LibreSprite header project boundaries are proven against the same
   sidecar contract;
-- Adam7/APNG/full PNG conformance, arbitrary atlas packing, tags/layers, full
-  project-file coverage, production renderer playback, and project-file native
-  metadata writers remain blocked.
+- Adam7/APNG/full PNG conformance, full project-file
+  coverage, production renderer playback, arbitrary Aseprite/LibreSprite
+  project schema coverage, and live external editor rewrite validation remain
+  blocked.
 
 Current proof is 150 native JSON round trips across the generated three-profile
 SLIP corpus. External sidecar strategy is proven for metadata preservation,
 static RGBA PNG sidecar import/export is proven, the PNG variant sidecar decoder
 is proven for the explicit 8-bit non-interlaced color/filter subset, fixed
 horizontal-strip spritesheet PNG sidecar import/export is proven, the PNG
-embedded sidecar writer is proven for the `tEXt` chunk subset, and
-spritesheet layout variants are proven for vertical/matrix/padded/sparse
+embedded sidecar writer is proven for the `tEXt` chunk subset, the bounded PNG
+textual metadata policy is proven for `tEXt`/`zTXt`/`iTXt` carriers, the
+bounded PNG private chunk policy is proven for one app-private `mgOT` carrier,
+and spritesheet layout variants are proven for vertical/matrix/padded/sparse
 layouts. Packed trim/rotation spritesheets and sidecar runtime playback are
 proven for the Stage 0 subset in
-`data/workshop_editor/spritesheet_packed_runtime_decoder_stage0.json`.
+`data/workshop_editor/spritesheet_packed_runtime_decoder_stage0.json`, and
+arbitrary atlas packing is proven for shelf and MaxRects-style policies in
+`data/workshop_editor/spritesheet_arbitrary_atlas_packer_stage0.json`.
 Third-party project boundary decoding is proven for Piskel JSON, Pixelorama
 `.pxo` ZIP/data.json, and Aseprite/LibreSprite header payloads.
-Adam7/APNG/full PNG conformance, arbitrary atlas packing, tags/layers,
-production renderer playback, full editor-native project coverage, and
-project-file native metadata writers remain blocked.
+Adam7/APNG/full PNG conformance, production
+renderer playback, full
+editor-native project coverage, arbitrary Aseprite/LibreSprite project schema
+coverage, and live external editor rewrite validation remain blocked. Project
+native metadata writing is proven only for the Piskel description and
+Pixelorama `data.json` subset, deterministic rewrite simulation is proven only
+for that same subset, Aseprite/LibreSprite User Data Chunk writing is proven
+only for the one-frame compressed RGBA cel subset, and Aseprite/LibreSprite
+tags/layers, palette/slice, linked-cel, tilemap/tileset, nested timeline,
+external-properties semantics, and document-variant resolution are proven only
+for their explicit Stage 0 Aseprite carrier subsets.
 
 ## Blocked States
 
@@ -324,14 +363,19 @@ The following claims remain blocked:
   scored;
 - Adam7/APNG/full PNG conformance, because the PNG variant proof covers only
   8-bit non-interlaced color types 0/2/3/6 and filter types 0..4;
-- arbitrary atlas packing, tags/layers, and production renderer playback,
-  because the packed runtime proof covers only sidecar-described trim,
-  90-degree rotation, and deterministic playback sampling;
+- production renderer playback,
+  because the packed runtime and arbitrary atlas proofs cover only
+  sidecar-described reconstruction and deterministic playback sampling;
 - full project-format coverage, because the current project-file proof parses
   Piskel JSON, Pixelorama `.pxo` ZIP/data.json, and Aseprite/LibreSprite header
   boundaries only, not full editor-native layer/cel/chunk semantics;
-- project-file native metadata writer, because the Stage 0 embedded writer
-  covers PNG `tEXt` chunks only, not editor-native project metadata;
+- arbitrary Aseprite/LibreSprite project schema coverage, because the Aseprite
+  labs cover fixed User Data, tags/layers, palette/slice, linked-cel,
+  tilemap/tileset, nested timeline, external-properties, and deterministic
+  document-variant subsets, not arbitrary editor-authored project schemas or
+  arbitrary external asset resolution;
+- live external editor rewrite validation, because no live editor open-save
+  round trip has been collected for the embedded metadata payloads;
 - community profile packs, because profile versioning and compatibility
   migration are not defined.
 
@@ -358,12 +402,38 @@ python -m json.tool .\data\workshop_editor\external_metadata_sidecar_stage0.json
 python -m json.tool .\data\workshop_editor\standard_image_sidecar_decoder_stage0.json
 python -m json.tool .\data\workshop_editor\png_variant_sidecar_decoder_stage0.json
 python -m json.tool .\data\workshop_editor\png_embedded_sidecar_writer_stage0.json
+python -m json.tool .\data\workshop_editor\png_textual_metadata_policy_stage0.json
+python -m json.tool .\data\workshop_editor\png_private_chunk_policy_stage0.json
+python -m json.tool .\data\workshop_editor\project_native_metadata_writer_stage0.json
+python -m json.tool .\data\workshop_editor\project_editor_rewrite_preservation_stage0.json
+python -m json.tool .\data\workshop_editor\aseprite_user_data_chunk_writer_stage0.json
+python -m json.tool .\data\workshop_editor\aseprite_tags_layers_semantics_stage0.json
+python -m json.tool .\data\workshop_editor\aseprite_palette_slice_semantics_stage0.json
+python -m json.tool .\data\workshop_editor\aseprite_linked_cel_semantics_stage0.json
+python -m json.tool .\data\workshop_editor\aseprite_tilemap_tileset_semantics_stage0.json
+python -m json.tool .\data\workshop_editor\aseprite_nested_timeline_semantics_stage0.json
+python -m json.tool .\data\workshop_editor\aseprite_external_properties_semantics_stage0.json
+python -m json.tool .\data\workshop_editor\aseprite_document_variant_resolution_stage0.json
 python -m json.tool .\data\workshop_editor\spritesheet_sidecar_decoder_stage0.json
 python -m json.tool .\data\workshop_editor\spritesheet_layout_variant_decoder_stage0.json
 python -m json.tool .\data\workshop_editor\spritesheet_packed_runtime_decoder_stage0.json
+python -m json.tool .\data\workshop_editor\spritesheet_arbitrary_atlas_packer_stage0.json
 python -m json.tool .\data\workshop_editor\third_party_project_decoder_stage0.json
 python -B -m unittest .\labs\workshop_editor\test_spritesheet_packed_runtime_decoder.py
+python -B -m unittest .\labs\workshop_editor\test_spritesheet_arbitrary_atlas_packer.py
 python -B -m unittest .\labs\workshop_editor\test_png_embedded_sidecar_writer.py
+python -B -m unittest .\labs\workshop_editor\test_png_textual_metadata_policy.py
+python -B -m unittest .\labs\workshop_editor\test_png_private_chunk_policy.py
+python -B -m unittest .\labs\workshop_editor\test_project_native_metadata_writer.py
+python -B -m unittest .\labs\workshop_editor\test_project_editor_rewrite_preservation.py
+python -B -m unittest .\labs\workshop_editor\test_aseprite_user_data_chunk_writer.py
+python -B -m unittest .\labs\workshop_editor\test_aseprite_tags_layers_semantics.py
+python -B -m unittest .\labs\workshop_editor\test_aseprite_palette_slice_semantics.py
+python -B -m unittest .\labs\workshop_editor\test_aseprite_linked_cel_semantics.py
+python -B -m unittest .\labs\workshop_editor\test_aseprite_tilemap_tileset_semantics.py
+python -B -m unittest .\labs\workshop_editor\test_aseprite_nested_timeline_semantics.py
+python -B -m unittest .\labs\workshop_editor\test_aseprite_external_properties_semantics.py
+python -B -m unittest .\labs\workshop_editor\test_aseprite_document_variant_resolution.py
 python -B -m unittest .\labs\architecture\test_mecha_engine_runtime_boundary_gate.py
 python -B -m unittest discover -s .\labs\slip_validator -p "test_*.py"
 python -B -m unittest discover -s .\labs\workshop_editor -p "test_*.py"
@@ -404,22 +474,52 @@ PNG sidecar decoder, PNG variant sidecar decoder subset, fixed-grid horizontal
 spritesheet sidecar decoder, spritesheet layout variant decoder subset, and
 packed spritesheet runtime decoder subset as proven for Stage 0 metadata
 preservation and playback sampling. Treat the PNG embedded sidecar writer as
-proven for Stage 0 PNG `tEXt` chunk metadata preservation only. Treat the third-party project decoder
+proven for Stage 0 PNG `tEXt` chunk metadata preservation only. Treat the PNG
+textual metadata policy as proven for the bounded `tEXt`/`zTXt`/`iTXt` carrier
+subset only. Treat the PNG private chunk policy as proven for one app-private
+`mgOT` carrier and carrier-selection inputs only, not as a final production
+carrier decision. Treat the third-party project decoder
 boundary as proof of sidecar binding for Piskel JSON, Pixelorama `.pxo`
 ZIP/data.json, and Aseprite/LibreSprite header payloads, not as proof of broad
-image/project interoperability. Do not claim full profile-authoring
-compatibility until runtime JSON Schema validation, declared dependency policy,
-package lifecycle runtime integration, manual readability calibration,
-usability evidence, full project-format coverage, project-file native metadata
-writers, PNG metadata policies beyond the `tEXt` subset, arbitrary atlas
-packing, tags/layers, production renderer playback, and full PNG conformance
+image/project interoperability. Treat the project native metadata writer as
+proof of Piskel description and Pixelorama `data.json` metadata preservation
+only, not as proof of live external editor rewrite validation or
+Aseprite/LibreSprite coverage through that API. Treat the Aseprite User Data
+Chunk writer as proof of the one-frame compressed RGBA cel subset only, and
+treat the Aseprite tags/layers semantics lab as proof of the explicit
+three-frame, three-layer, three-tag subset only. Treat the Aseprite
+palette/slice semantics lab as proof of the explicit Palette Chunk `0x2019`
+SLIP color subset and Slice Chunk `0x2022` organ-bounds subset only. Treat the
+Aseprite linked-cel semantics lab as proof of the explicit Cel Chunk `0x2005`
+linked cel type 1 frame-target subset only. Treat the Aseprite tilemap/tileset
+semantics lab as proof of one Tilemap Layer type 2, one Tileset Chunk `0x2023`,
+and compressed Tilemap Cel Chunk `0x2005` type 3 payloads only. Treat the
+Aseprite nested timeline semantics lab as proof of the fixed group-layer,
+tag-User-Data, and timeline loop-direction subset only. Treat the Aseprite
+external properties semantics lab as proof of the fixed color-profile,
+external-file-reference, User Data property-map, extension property-map, and
+Cel Extra precise-bounds subset only. Treat the Aseprite document variant
+resolution lab as proof of deterministic indexed 8 bpp, grayscale-alpha
+16 bpp, RGBA 32 bpp, generated external asset resolution, and variant
+hash-validation subsets only. Do not claim arbitrary Aseprite project schema
+coverage. Do not claim full
+profile-authoring compatibility until
+runtime JSON Schema validation, declared dependency policy, package lifecycle
+runtime integration, manual readability calibration, usability evidence, full
+project-format coverage, live external editor rewrite validation, final PNG
+production carrier selection, arbitrary Aseprite
+project schemas, arbitrary external asset resolution, editor-authored Aseprite
+document variants, production renderer playback, and full PNG conformance
 questions are proven or explicitly rejected.
 
 Next research step:
 
 ```txt
-Collect 63 SLIP readability reviewer rows and start package implementation only
-when explicitly authorized before claiming profile-weighted evolution.
+Collect live external editor open-save fixtures, broaden Aseprite chunk/schema
+coverage beyond the fixed Stage 0 carrier subsets with editor-authored
+document variants and arbitrary external asset resolution, collect 63 SLIP
+readability reviewer rows, and start package implementation only when
+explicitly authorized before claiming profile-weighted evolution.
 ```
 
 ## References
@@ -459,10 +559,16 @@ when explicitly authorized before claiming profile-weighted evolution.
 - `research/experiment_reports/2026-05-12-standard-image-sidecar-decoder.md`
 - `research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`
 - `research/experiment_reports/2026-05-13-png-embedded-sidecar-writer.md`
+- `research/experiment_reports/2026-05-14-png-textual-metadata-policy.md`
+- `research/experiment_reports/2026-05-14-png-private-chunk-policy.md`
 - `research/experiment_reports/2026-05-12-spritesheet-sidecar-decoder.md`
 - `research/experiment_reports/2026-05-13-spritesheet-layout-variant-decoder.md`
 - `research/experiment_reports/2026-05-13-spritesheet-packed-runtime-decoder.md`
+- `research/experiment_reports/2026-05-14-spritesheet-arbitrary-atlas-packer.md`
 - `research/experiment_reports/2026-05-13-third-party-project-decoder-boundary.md`
+- `research/experiment_reports/2026-05-13-project-editor-rewrite-preservation.md`
+- `research/experiment_reports/2026-05-14-aseprite-user-data-chunk-writer.md`
+- `research/experiment_reports/2026-05-14-aseprite-tags-layers-semantics.md`
 - `labs/workshop_editor/slip_authoring_panel.py`
 - `labs/workshop_editor/slip_preview_gates.py`
 - `labs/workshop_editor/slip_lifecycle_archive_effects.py`
@@ -475,10 +581,17 @@ when explicitly authorized before claiming profile-weighted evolution.
 - `labs/workshop_editor/standard_image_sidecar_decoder.py`
 - `labs/workshop_editor/png_variant_sidecar_decoder.py`
 - `labs/workshop_editor/png_embedded_sidecar_writer.py`
+- `labs/workshop_editor/png_textual_metadata_policy.py`
+- `labs/workshop_editor/png_private_chunk_policy.py`
 - `labs/workshop_editor/spritesheet_sidecar_decoder.py`
 - `labs/workshop_editor/spritesheet_layout_variant_decoder.py`
 - `labs/workshop_editor/spritesheet_packed_runtime_decoder.py`
+- `labs/workshop_editor/spritesheet_arbitrary_atlas_packer.py`
 - `labs/workshop_editor/third_party_project_decoder.py`
+- `labs/workshop_editor/project_native_metadata_writer.py`
+- `labs/workshop_editor/project_editor_rewrite_preservation.py`
+- `labs/workshop_editor/aseprite_user_data_chunk_writer.py`
+- `labs/workshop_editor/aseprite_tags_layers_semantics.py`
 - `data/workshop_editor/slip_authoring_panel_stage0.json`
 - `data/workshop_editor/slip_behavior_mutation_preview_stage0.json`
 - `data/workshop_editor/slip_lifecycle_archive_effects_stage0.json`
@@ -491,18 +604,32 @@ when explicitly authorized before claiming profile-weighted evolution.
 - `data/workshop_editor/standard_image_sidecar_decoder_stage0.json`
 - `data/workshop_editor/png_variant_sidecar_decoder_stage0.json`
 - `data/workshop_editor/png_embedded_sidecar_writer_stage0.json`
+- `data/workshop_editor/png_textual_metadata_policy_stage0.json`
+- `data/workshop_editor/png_private_chunk_policy_stage0.json`
 - `data/workshop_editor/spritesheet_sidecar_decoder_stage0.json`
 - `data/workshop_editor/spritesheet_layout_variant_decoder_stage0.json`
 - `data/workshop_editor/spritesheet_packed_runtime_decoder_stage0.json`
+- `data/workshop_editor/spritesheet_arbitrary_atlas_packer_stage0.json`
 - `data/workshop_editor/third_party_project_decoder_stage0.json`
+- `data/workshop_editor/project_native_metadata_writer_stage0.json`
+- `data/workshop_editor/project_editor_rewrite_preservation_stage0.json`
+- `data/workshop_editor/aseprite_user_data_chunk_writer_stage0.json`
+- `data/workshop_editor/aseprite_tags_layers_semantics_stage0.json`
 - `data/workshop_editor/external_metadata_sidecar_stage0/`
 - `data/workshop_editor/standard_image_sidecar_decoder_stage0/`
 - `data/workshop_editor/png_variant_sidecar_decoder_stage0/`
 - `data/workshop_editor/png_embedded_sidecar_writer_stage0/`
+- `data/workshop_editor/png_textual_metadata_policy_stage0/`
+- `data/workshop_editor/png_private_chunk_policy_stage0/`
 - `data/workshop_editor/spritesheet_sidecar_decoder_stage0/`
 - `data/workshop_editor/spritesheet_layout_variant_decoder_stage0/`
 - `data/workshop_editor/spritesheet_packed_runtime_decoder_stage0/`
+- `data/workshop_editor/spritesheet_arbitrary_atlas_packer_stage0/`
 - `data/workshop_editor/third_party_project_decoder_stage0/`
+- `data/workshop_editor/project_native_metadata_writer_stage0/`
+- `data/workshop_editor/project_editor_rewrite_preservation_stage0/`
+- `data/workshop_editor/aseprite_user_data_chunk_writer_stage0/`
+- `data/workshop_editor/aseprite_tags_layers_semantics_stage0/`
 - `data/workshop_editor/slip_authoring_panel_stage0/`
 - `data/workshop_editor/slip_behavior_mutation_preview_stage0/`
 - `data/workshop_editor/slip_lifecycle_archive_effects_stage0/`

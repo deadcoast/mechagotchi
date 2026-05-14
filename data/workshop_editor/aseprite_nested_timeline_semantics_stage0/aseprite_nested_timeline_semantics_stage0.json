@@ -1,0 +1,3951 @@
+{
+  "artifact_id": "aseprite_nested_timeline_semantics_stage0",
+  "status": "research_aseprite_nested_timeline_semantics_no_package_code",
+  "date": "2026-05-14",
+  "purpose": "Broaden Stage 0 Aseprite/LibreSprite chunk coverage beyond fixed layer/tag carriers by proving group layer child hierarchy, tag-associated User Data chunks, and all documented timeline loop directions in a deterministic semantic-organ carrier.",
+  "source_artifacts": [
+    "docs/01-brainstorming.md",
+    "docs/02-research_plan.md",
+    "research/slip/profile_compatibility_tests.md",
+    "data/slips/slip_profile_compatibility_matrix_stage0.json",
+    "data/slips/multi_profile_generation_stage0/",
+    "labs/workshop_editor/aseprite_tags_layers_semantics.py",
+    "labs/workshop_editor/aseprite_nested_timeline_semantics.py"
+  ],
+  "external_anchors": [
+    {
+      "source": "Aseprite file-format specification",
+      "url": "https://github.com/aseprite/aseprite/blob/main/docs/ase-file-specs.md",
+      "used_for": "ASE Layer Chunk 0x2004 group layer type 1, child levels, Tags Chunk 0x2018 loop directions/repeat counts, tag-associated User Data Chunk 0x2020 ordering, and compressed Cel Chunk 0x2005 layout."
+    },
+    {
+      "source": "Aseprite tags documentation",
+      "url": "https://www.aseprite.org/docs/tags/",
+      "used_for": "Tag workflow boundary: tags organize animations and expose Forward, Reverse, Ping-pong, and Ping-pong Reverse directions."
+    },
+    {
+      "source": "Aseprite layers documentation",
+      "url": "https://www.aseprite.org/docs/layers/",
+      "used_for": "Layer group workflow boundary; nested groups remain an editor organization structure, not a replacement for Mechagotchi semantic metadata."
+    },
+    {
+      "source": "LibreSprite GitHub",
+      "url": "https://github.com/LibreSprite/LibreSprite",
+      "used_for": "LibreSprite remains a compatibility boundary; no GPL editor code is embedded."
+    }
+  ],
+  "profile_count": 3,
+  "nested_timeline_roundtrip_count": 3,
+  "nested_timeline_roundtrip_success_count": 3,
+  "invalid_probe_count": 6,
+  "invalid_probe_rejected_count": 6,
+  "metrics": {
+    "nested_timeline_roundtrip_success_rate": 1.0,
+    "mean_semantic_fidelity": 1.0,
+    "cel_visual_hash_preservation_rate": 1.0,
+    "tag_user_data_preservation_rate": 1.0,
+    "invalid_probe_rejection_rate": 1.0,
+    "live_external_editor_verified": false
+  },
+  "nested_timeline_results": [
+    {
+      "profile_id": "slip_lcd_seed",
+      "profile_path": "data/slips/valid/slip_lcd_seed.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_000.json",
+      "format_id": "libresprite_project",
+      "project_file_name": "slip_lcd_seed_nested_timeline.aseprite",
+      "project_byte_count": 135010,
+      "embedded_project_hash": "sha256:e425f1cb4b1aeab85c2acfaf128b1a09550afd0a88de2bede756483d313bf4e0",
+      "canonical_project_hash": "sha256:6940f49c1ebafd2fa4c40385e3af88298486f8bac56b0094e2ec47bd1a8336d0",
+      "metadata": {
+        "metadata_version": "mechagotchi.aseprite_nested_timeline.v1",
+        "format_id": "libresprite_project",
+        "native_location": "frame[0].nested_layers[*].user_data.text + frame[0].tags[*].user_data.text_color + frame[*].image_cels",
+        "writer_policy": "aseprite_nested_timeline_native_semantics",
+        "canonical_project_hash": "sha256:6940f49c1ebafd2fa4c40385e3af88298486f8bac56b0094e2ec47bd1a8336d0",
+        "sidecar_hash": "sha256:b549ff04a6d677cfd6900744538e3a68caeb16c443cdbb070e9d0ce05579a2ae"
+      },
+      "native_sidecar": {
+        "sidecar_version": "0.1.0",
+        "sidecar_id": "slip_lcd_seed_constrained_000_aseprite_nested_timeline_sidecar",
+        "asset_binding": {
+          "asset_id": "slip_lcd_seed_constrained_000_nested_timeline.aseprite",
+          "format_id": "libresprite_project",
+          "media_type": "application/octet-stream",
+          "uri": "generated://workshop/project-nested-timeline/slip_lcd_seed_constrained_000.aseprite",
+          "width": 8,
+          "height": 8,
+          "frame_count": 4,
+          "content_hash": "sha256:6940f49c1ebafd2fa4c40385e3af88298486f8bac56b0094e2ec47bd1a8336d0",
+          "semantic_policy": "aseprite_nested_timeline_native_semantics"
+        },
+        "grid_contract": {
+          "grid_id": "slip_lcd_seed_constrained_000",
+          "schema_version": "0.1.0",
+          "grid_size": [
+            8,
+            8
+          ],
+          "cell_count": 13,
+          "semantic_cell_encoding": "coordinate_overlay_v1",
+          "pixel_binding_count": 64
+        },
+        "slip_binding": {
+          "profile_id": "slip_lcd_seed",
+          "slip_version": "0.1.0",
+          "profile_hash": "sha256:58f14a0d36a2394b08070ef4333febf4bebde3bf558e500cb93b1c0b59f241ae",
+          "profile_snapshot": {
+            "slip_version": "0.1.0",
+            "profile_id": "slip_lcd_seed",
+            "name": "LCD Seed Companion",
+            "grid": {
+              "allowed_palettes": [
+                "lcd_green"
+              ],
+              "body_mass_min": 4,
+              "body_mass_max": 24,
+              "required_organ_roles": [
+                "sensor",
+                "expression"
+              ]
+            },
+            "mutation": {
+              "cell_mutation_rate_max": 0.15,
+              "organ_shift_rate_max": 0.05,
+              "palette_shift_rate_max": 0.05,
+              "symmetry_break_rate_max": 0.05
+            },
+            "behavior": {
+              "curiosity": 0.6,
+              "neediness": 0.4,
+              "sleepiness": 0.5
+            },
+            "survival_weights": {
+              "stability": 0.5,
+              "novelty": 0.25,
+              "bond": 0.25
+            }
+          }
+        },
+        "semantic_overlay": {
+          "cells": [
+            {
+              "x": 2,
+              "y": 1,
+              "visual": "#d8ffd6",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 1,
+              "visual": "#d8ffd6",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 2,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 2,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 2,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 1,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": true,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 4,
+              "visual": "#d8ffd6",
+              "role": "mouth",
+              "material": "soft",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "expression",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            }
+          ],
+          "organs": {
+            "core": {
+              "role": "body_core",
+              "cells": [
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  1,
+                  4
+                ],
+                [
+                  2,
+                  4
+                ],
+                [
+                  3,
+                  5
+                ]
+              ],
+              "required": true
+            },
+            "sensors": {
+              "role": "sensor",
+              "cells": [
+                [
+                  2,
+                  1
+                ],
+                [
+                  5,
+                  1
+                ]
+              ],
+              "required": true
+            },
+            "expression": {
+              "role": "expression",
+              "cells": [
+                [
+                  3,
+                  4
+                ]
+              ],
+              "required": false
+            }
+          },
+          "palette": {
+            "palette_id": "lcd_green",
+            "colors": [
+              "#07140d",
+              "#5dbb63",
+              "#d8ffd6"
+            ],
+            "background_index": 0
+          },
+          "mutation": {
+            "cell_mutation_rate": 0.05,
+            "organ_shift_rate": 0.02,
+            "palette_shift_rate": 0.01,
+            "symmetry_break_rate": 0.01
+          },
+          "lineage": {
+            "generation": 1,
+            "ancestor_ids": [
+              "mg_seed_021"
+            ],
+            "mutation_events": [
+              "seed_parent_selected",
+              "validator_gated_resample",
+              "anchor_repositioned"
+            ]
+          },
+          "metadata": {
+            "source": "constrained_wfc_style_lab",
+            "rng_seed": 214
+          }
+        },
+        "pixel_bindings": [
+          {
+            "coordinate": [
+              0,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              2,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              3,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              4,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              5,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              6,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              0,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              2,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "sensors",
+            "role": "eye"
+          },
+          {
+            "coordinate": [
+              3,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              4,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              5,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "sensors",
+            "role": "eye"
+          },
+          {
+            "coordinate": [
+              6,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              0,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              2,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              3,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              4,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              5,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              6,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              0,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              2,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              3,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              4,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              5,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              6,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              0,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              2,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              3,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "expression",
+            "role": "mouth"
+          },
+          {
+            "coordinate": [
+              4,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              5,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              6,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              0,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              2,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              3,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              4,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              5,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              6,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              0,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              2,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              3,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              4,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              5,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              6,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              0,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              2,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              3,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              4,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              5,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              6,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          }
+        ],
+        "integrity": {
+          "asset_content_hash": "sha256:6940f49c1ebafd2fa4c40385e3af88298486f8bac56b0094e2ec47bd1a8336d0",
+          "semantic_overlay_hash": "sha256:df183b9e6927bcb84f8792837441e12450c27430e76dcea5f0770197026a2a20",
+          "profile_hash": "sha256:58f14a0d36a2394b08070ef4333febf4bebde3bf558e500cb93b1c0b59f241ae",
+          "binding_hash": "sha256:1c862d9d4ce1caa13ce863e76bbf6f901a57af49b5da810878346b48bf732e2c"
+        },
+        "limitations": [
+          "Stage 0 Aseprite/LibreSprite nested timeline proof covers two group layers, three image layers, four timeline loop directions, and tag-associated User Data chunks.",
+          "Live external editor rewrite validation is not verified by this lab.",
+          "Arbitrary Aseprite project schemas, external assets, multiple documents, and full project-format coverage remain separate."
+        ],
+        "project_binding": {
+          "format_id": "libresprite_project",
+          "decoder_scope": "aseprite_nested_groups_tag_user_data_timeline_subset",
+          "native_mechagotchi_semantics": true,
+          "semantic_policy": "aseprite_nested_timeline_native_semantics",
+          "native_metadata_version": "mechagotchi.aseprite_nested_timeline.v1"
+        }
+      },
+      "decoded_project": {
+        "format_id": "libresprite_project",
+        "magic": "0xa5e0",
+        "frame_magic": "0xf1fa",
+        "dimensions": [
+          8,
+          8
+        ],
+        "frame_count": 4,
+        "layer_count": 5,
+        "group_layer_count": 2,
+        "image_layer_count": 3,
+        "max_child_level": 2,
+        "tag_count": 4,
+        "cel_count": 12,
+        "chunk_count": 27,
+        "user_data_chunk_count": 9,
+        "layer_user_data_count": 5,
+        "tag_user_data_count": 4,
+        "color_depth_bpp": 32,
+        "native_mechagotchi_semantics": true
+      },
+      "layer_hierarchy": [
+        {
+          "layer_index": 0,
+          "name": "Mechagotchi organs",
+          "layer_type": 1,
+          "child_level": 0,
+          "semantic_role": "organ_group",
+          "semantic_organ": null,
+          "cell_selector": "group:organs"
+        },
+        {
+          "layer_index": 1,
+          "name": "Core mass",
+          "layer_type": 0,
+          "child_level": 1,
+          "semantic_role": "body_core",
+          "semantic_organ": "core",
+          "cell_selector": "organ:core"
+        },
+        {
+          "layer_index": 2,
+          "name": "Mechagotchi affordances",
+          "layer_type": 1,
+          "child_level": 1,
+          "semantic_role": "affordance_group",
+          "semantic_organ": null,
+          "cell_selector": "group:affordances"
+        },
+        {
+          "layer_index": 3,
+          "name": "Sensor affordances",
+          "layer_type": 0,
+          "child_level": 2,
+          "semantic_role": "sensor",
+          "semantic_organ": "sensors",
+          "cell_selector": "organ:sensors"
+        },
+        {
+          "layer_index": 4,
+          "name": "Expression affordances",
+          "layer_type": 0,
+          "child_level": 2,
+          "semantic_role": "expression",
+          "semantic_organ": "expression",
+          "cell_selector": "organ:expression"
+        }
+      ],
+      "tag_semantics": [
+        {
+          "name": "idle_forward",
+          "from_frame": 0,
+          "to_frame": 3,
+          "direction": 0,
+          "repeat": 0,
+          "color_rgb": [
+            93,
+            187,
+            99
+          ],
+          "user_data_color_rgba": [
+            93,
+            187,
+            99,
+            255
+          ],
+          "semantic_phase": "full_body_idle_forward"
+        },
+        {
+          "name": "repair_reverse",
+          "from_frame": 1,
+          "to_frame": 3,
+          "direction": 1,
+          "repeat": 1,
+          "color_rgb": [
+            140,
+            163,
+            255
+          ],
+          "user_data_color_rgba": [
+            140,
+            163,
+            255,
+            255
+          ],
+          "semantic_phase": "reverse_repair_recovery"
+        },
+        {
+          "name": "sensor_pingpong",
+          "from_frame": 0,
+          "to_frame": 2,
+          "direction": 2,
+          "repeat": 2,
+          "color_rgb": [
+            216,
+            255,
+            214
+          ],
+          "user_data_color_rgba": [
+            216,
+            255,
+            214,
+            255
+          ],
+          "semantic_phase": "sensor_affordance_pingpong"
+        },
+        {
+          "name": "expression_pingpong_reverse",
+          "from_frame": 1,
+          "to_frame": 3,
+          "direction": 3,
+          "repeat": 3,
+          "color_rgb": [
+            255,
+            196,
+            87
+          ],
+          "user_data_color_rgba": [
+            255,
+            196,
+            87,
+            255
+          ],
+          "semantic_phase": "expression_pingpong_reverse"
+        }
+      ],
+      "import_result": {
+        "ok": true,
+        "format_id": "libresprite_project",
+        "asset": {
+          "asset_id": "slip_lcd_seed_constrained_000_nested_timeline.aseprite",
+          "content_hash": "sha256:6940f49c1ebafd2fa4c40385e3af88298486f8bac56b0094e2ec47bd1a8336d0",
+          "format_id": "libresprite_project",
+          "frame_count": 4,
+          "height": 8,
+          "media_type": "application/octet-stream",
+          "semantic_policy": "aseprite_nested_timeline_native_semantics",
+          "uri": "generated://workshop/project-nested-timeline/slip_lcd_seed_constrained_000.aseprite",
+          "width": 8
+        },
+        "decoded_project": {
+          "format_id": "libresprite_project",
+          "magic": "0xa5e0",
+          "frame_magic": "0xf1fa",
+          "dimensions": [
+            8,
+            8
+          ],
+          "frame_count": 4,
+          "layer_count": 5,
+          "group_layer_count": 2,
+          "image_layer_count": 3,
+          "max_child_level": 2,
+          "tag_count": 4,
+          "cel_count": 12,
+          "chunk_count": 27,
+          "user_data_chunk_count": 9,
+          "layer_user_data_count": 5,
+          "tag_user_data_count": 4,
+          "color_depth_bpp": 32,
+          "native_mechagotchi_semantics": true
+        },
+        "native_metadata": {
+          "metadata_version": "mechagotchi.aseprite_nested_timeline.v1",
+          "format_id": "libresprite_project",
+          "native_location": "frame[0].nested_layers[*].user_data.text + frame[0].tags[*].user_data.text_color + frame[*].image_cels",
+          "writer_policy": "aseprite_nested_timeline_native_semantics",
+          "canonical_project_hash": "sha256:6940f49c1ebafd2fa4c40385e3af88298486f8bac56b0094e2ec47bd1a8336d0",
+          "sidecar_hash": "sha256:b549ff04a6d677cfd6900744538e3a68caeb16c443cdbb070e9d0ce05579a2ae"
+        },
+        "project_policy": {
+          "semantic_policy": "aseprite_nested_timeline_native_semantics",
+          "native_mechagotchi_semantics": true,
+          "native_location": "frame[0].nested_layers[*].user_data.text + frame[0].tags[*].user_data.text_color + frame[*].image_cels",
+          "group_layer_type": 1,
+          "image_layer_type": 0,
+          "max_child_level": 2,
+          "layer_chunk_type": "0x2004",
+          "tags_chunk_type": "0x2018",
+          "tag_user_data_chunk_type": "0x2020",
+          "cel_chunk_type": "0x2005",
+          "live_external_editor_verified": false
+        },
+        "semantic_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "restored_grid_validation": {
+        "valid": true,
+        "errors": [],
+        "slip_aligned": true,
+        "slip_errors": []
+      },
+      "semantic_diff": {
+        "changed_cells": [],
+        "missing_cells": [],
+        "added_cells": []
+      },
+      "semantic_fidelity": 1.0,
+      "cel_visual_hashes_preserved": true,
+      "tag_user_data_preserved": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "profile_path": "data/slips/valid/slip_gray_stable.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_000.json",
+      "format_id": "libresprite_project",
+      "project_file_name": "slip_gray_stable_nested_timeline.aseprite",
+      "project_byte_count": 138353,
+      "embedded_project_hash": "sha256:4a20e5ecaf5d944c89e9682e64acf519fa061d268be6ec519471f1daa3dd32d0",
+      "canonical_project_hash": "sha256:9c3f130229549ded9e9b0d247cd1cebf37e2cbe4925aa5f4930df80a85031fd7",
+      "metadata": {
+        "metadata_version": "mechagotchi.aseprite_nested_timeline.v1",
+        "format_id": "libresprite_project",
+        "native_location": "frame[0].nested_layers[*].user_data.text + frame[0].tags[*].user_data.text_color + frame[*].image_cels",
+        "writer_policy": "aseprite_nested_timeline_native_semantics",
+        "canonical_project_hash": "sha256:9c3f130229549ded9e9b0d247cd1cebf37e2cbe4925aa5f4930df80a85031fd7",
+        "sidecar_hash": "sha256:cedb273306af4d7b6ffaca5f80fe1f1aea69b12ccb68051d4756d1d63a4d300b"
+      },
+      "native_sidecar": {
+        "sidecar_version": "0.1.0",
+        "sidecar_id": "slip_gray_stable_constrained_000_aseprite_nested_timeline_sidecar",
+        "asset_binding": {
+          "asset_id": "slip_gray_stable_constrained_000_nested_timeline.aseprite",
+          "format_id": "libresprite_project",
+          "media_type": "application/octet-stream",
+          "uri": "generated://workshop/project-nested-timeline/slip_gray_stable_constrained_000.aseprite",
+          "width": 8,
+          "height": 8,
+          "frame_count": 4,
+          "content_hash": "sha256:9c3f130229549ded9e9b0d247cd1cebf37e2cbe4925aa5f4930df80a85031fd7",
+          "semantic_policy": "aseprite_nested_timeline_native_semantics"
+        },
+        "grid_contract": {
+          "grid_id": "slip_gray_stable_constrained_000",
+          "schema_version": "0.1.0",
+          "grid_size": [
+            8,
+            8
+          ],
+          "cell_count": 15,
+          "semantic_cell_encoding": "coordinate_overlay_v1",
+          "pixel_binding_count": 64
+        },
+        "slip_binding": {
+          "profile_id": "slip_gray_stable",
+          "slip_version": "0.1.0",
+          "profile_hash": "sha256:94881f9e4c63f91b3c85862d8ff8a0dc5e177d1211e67335984ca3f2b47f9b63",
+          "profile_snapshot": {
+            "slip_version": "0.1.0",
+            "profile_id": "slip_gray_stable",
+            "name": "Gray Stable Companion",
+            "grid": {
+              "allowed_palettes": [
+                "gameboy_gray"
+              ],
+              "body_mass_min": 5,
+              "body_mass_max": 24,
+              "required_organ_roles": [
+                "sensor",
+                "expression"
+              ]
+            },
+            "mutation": {
+              "cell_mutation_rate_max": 0.1,
+              "organ_shift_rate_max": 0.05,
+              "palette_shift_rate_max": 0.05,
+              "symmetry_break_rate_max": 0.05
+            },
+            "behavior": {
+              "curiosity": 0.35,
+              "neediness": 0.3,
+              "sleepiness": 0.65
+            },
+            "survival_weights": {
+              "stability": 0.7,
+              "novelty": 0.1,
+              "bond": 0.2
+            }
+          }
+        },
+        "semantic_overlay": {
+          "cells": [
+            {
+              "x": 3,
+              "y": 1,
+              "visual": "#d7dfc7",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 1,
+              "visual": "#d7dfc7",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 2,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 2,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 2,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 2,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": true,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 1,
+              "y": 3,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 3,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 3,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 3,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 4,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 4,
+              "visual": "#d7dfc7",
+              "role": "mouth",
+              "material": "soft",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "expression",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 5,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 5,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 0,
+              "y": 6,
+              "visual": "#d7dfc7",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            }
+          ],
+          "organs": {
+            "core": {
+              "role": "body_core",
+              "cells": [
+                [
+                  3,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  5,
+                  2
+                ],
+                [
+                  6,
+                  2
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  3,
+                  4
+                ],
+                [
+                  3,
+                  5
+                ],
+                [
+                  4,
+                  5
+                ]
+              ],
+              "required": true
+            },
+            "sensors": {
+              "role": "sensor",
+              "cells": [
+                [
+                  3,
+                  1
+                ],
+                [
+                  5,
+                  1
+                ],
+                [
+                  0,
+                  6
+                ]
+              ],
+              "required": true
+            },
+            "expression": {
+              "role": "expression",
+              "cells": [
+                [
+                  4,
+                  4
+                ]
+              ],
+              "required": false
+            }
+          },
+          "palette": {
+            "palette_id": "gameboy_gray",
+            "colors": [
+              "#111814",
+              "#7e8f76",
+              "#d7dfc7"
+            ],
+            "background_index": 0
+          },
+          "mutation": {
+            "cell_mutation_rate": 0.05,
+            "organ_shift_rate": 0.02,
+            "palette_shift_rate": 0.01,
+            "symmetry_break_rate": 0.01
+          },
+          "lineage": {
+            "generation": 1,
+            "ancestor_ids": [
+              "mg_seed_027"
+            ],
+            "mutation_events": [
+              "seed_parent_selected",
+              "validator_gated_resample",
+              "anchor_repositioned"
+            ]
+          },
+          "metadata": {
+            "source": "constrained_wfc_style_lab",
+            "rng_seed": 214
+          }
+        },
+        "pixel_bindings": [
+          {
+            "coordinate": [
+              0,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              2,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              3,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              4,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              5,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              6,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              0,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              2,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              3,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "sensors",
+            "role": "eye"
+          },
+          {
+            "coordinate": [
+              4,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              5,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "sensors",
+            "role": "eye"
+          },
+          {
+            "coordinate": [
+              6,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              0,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              2,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              3,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              4,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              5,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              6,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              7,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              0,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              2,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              3,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              4,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              5,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              6,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              0,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              2,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              3,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              4,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "expression",
+            "role": "mouth"
+          },
+          {
+            "coordinate": [
+              5,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              6,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              0,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              2,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              3,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              4,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              5,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              6,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              0,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "sensors",
+            "role": "eye"
+          },
+          {
+            "coordinate": [
+              1,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              2,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              3,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              4,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              5,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              6,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              0,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              2,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              3,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              4,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              5,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              6,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          }
+        ],
+        "integrity": {
+          "asset_content_hash": "sha256:9c3f130229549ded9e9b0d247cd1cebf37e2cbe4925aa5f4930df80a85031fd7",
+          "semantic_overlay_hash": "sha256:afad2be9031c3b757897d63c9f981ad0fd206e62864854bb42d424d189b59099",
+          "profile_hash": "sha256:94881f9e4c63f91b3c85862d8ff8a0dc5e177d1211e67335984ca3f2b47f9b63",
+          "binding_hash": "sha256:7c32eb5f603c04bb7434924f7b339a5f0c07de9b0cad583f22f6a08eed76b7b7"
+        },
+        "limitations": [
+          "Stage 0 Aseprite/LibreSprite nested timeline proof covers two group layers, three image layers, four timeline loop directions, and tag-associated User Data chunks.",
+          "Live external editor rewrite validation is not verified by this lab.",
+          "Arbitrary Aseprite project schemas, external assets, multiple documents, and full project-format coverage remain separate."
+        ],
+        "project_binding": {
+          "format_id": "libresprite_project",
+          "decoder_scope": "aseprite_nested_groups_tag_user_data_timeline_subset",
+          "native_mechagotchi_semantics": true,
+          "semantic_policy": "aseprite_nested_timeline_native_semantics",
+          "native_metadata_version": "mechagotchi.aseprite_nested_timeline.v1"
+        }
+      },
+      "decoded_project": {
+        "format_id": "libresprite_project",
+        "magic": "0xa5e0",
+        "frame_magic": "0xf1fa",
+        "dimensions": [
+          8,
+          8
+        ],
+        "frame_count": 4,
+        "layer_count": 5,
+        "group_layer_count": 2,
+        "image_layer_count": 3,
+        "max_child_level": 2,
+        "tag_count": 4,
+        "cel_count": 12,
+        "chunk_count": 27,
+        "user_data_chunk_count": 9,
+        "layer_user_data_count": 5,
+        "tag_user_data_count": 4,
+        "color_depth_bpp": 32,
+        "native_mechagotchi_semantics": true
+      },
+      "layer_hierarchy": [
+        {
+          "layer_index": 0,
+          "name": "Mechagotchi organs",
+          "layer_type": 1,
+          "child_level": 0,
+          "semantic_role": "organ_group",
+          "semantic_organ": null,
+          "cell_selector": "group:organs"
+        },
+        {
+          "layer_index": 1,
+          "name": "Core mass",
+          "layer_type": 0,
+          "child_level": 1,
+          "semantic_role": "body_core",
+          "semantic_organ": "core",
+          "cell_selector": "organ:core"
+        },
+        {
+          "layer_index": 2,
+          "name": "Mechagotchi affordances",
+          "layer_type": 1,
+          "child_level": 1,
+          "semantic_role": "affordance_group",
+          "semantic_organ": null,
+          "cell_selector": "group:affordances"
+        },
+        {
+          "layer_index": 3,
+          "name": "Sensor affordances",
+          "layer_type": 0,
+          "child_level": 2,
+          "semantic_role": "sensor",
+          "semantic_organ": "sensors",
+          "cell_selector": "organ:sensors"
+        },
+        {
+          "layer_index": 4,
+          "name": "Expression affordances",
+          "layer_type": 0,
+          "child_level": 2,
+          "semantic_role": "expression",
+          "semantic_organ": "expression",
+          "cell_selector": "organ:expression"
+        }
+      ],
+      "tag_semantics": [
+        {
+          "name": "idle_forward",
+          "from_frame": 0,
+          "to_frame": 3,
+          "direction": 0,
+          "repeat": 0,
+          "color_rgb": [
+            93,
+            187,
+            99
+          ],
+          "user_data_color_rgba": [
+            93,
+            187,
+            99,
+            255
+          ],
+          "semantic_phase": "full_body_idle_forward"
+        },
+        {
+          "name": "repair_reverse",
+          "from_frame": 1,
+          "to_frame": 3,
+          "direction": 1,
+          "repeat": 1,
+          "color_rgb": [
+            140,
+            163,
+            255
+          ],
+          "user_data_color_rgba": [
+            140,
+            163,
+            255,
+            255
+          ],
+          "semantic_phase": "reverse_repair_recovery"
+        },
+        {
+          "name": "sensor_pingpong",
+          "from_frame": 0,
+          "to_frame": 2,
+          "direction": 2,
+          "repeat": 2,
+          "color_rgb": [
+            216,
+            255,
+            214
+          ],
+          "user_data_color_rgba": [
+            216,
+            255,
+            214,
+            255
+          ],
+          "semantic_phase": "sensor_affordance_pingpong"
+        },
+        {
+          "name": "expression_pingpong_reverse",
+          "from_frame": 1,
+          "to_frame": 3,
+          "direction": 3,
+          "repeat": 3,
+          "color_rgb": [
+            255,
+            196,
+            87
+          ],
+          "user_data_color_rgba": [
+            255,
+            196,
+            87,
+            255
+          ],
+          "semantic_phase": "expression_pingpong_reverse"
+        }
+      ],
+      "import_result": {
+        "ok": true,
+        "format_id": "libresprite_project",
+        "asset": {
+          "asset_id": "slip_gray_stable_constrained_000_nested_timeline.aseprite",
+          "content_hash": "sha256:9c3f130229549ded9e9b0d247cd1cebf37e2cbe4925aa5f4930df80a85031fd7",
+          "format_id": "libresprite_project",
+          "frame_count": 4,
+          "height": 8,
+          "media_type": "application/octet-stream",
+          "semantic_policy": "aseprite_nested_timeline_native_semantics",
+          "uri": "generated://workshop/project-nested-timeline/slip_gray_stable_constrained_000.aseprite",
+          "width": 8
+        },
+        "decoded_project": {
+          "format_id": "libresprite_project",
+          "magic": "0xa5e0",
+          "frame_magic": "0xf1fa",
+          "dimensions": [
+            8,
+            8
+          ],
+          "frame_count": 4,
+          "layer_count": 5,
+          "group_layer_count": 2,
+          "image_layer_count": 3,
+          "max_child_level": 2,
+          "tag_count": 4,
+          "cel_count": 12,
+          "chunk_count": 27,
+          "user_data_chunk_count": 9,
+          "layer_user_data_count": 5,
+          "tag_user_data_count": 4,
+          "color_depth_bpp": 32,
+          "native_mechagotchi_semantics": true
+        },
+        "native_metadata": {
+          "metadata_version": "mechagotchi.aseprite_nested_timeline.v1",
+          "format_id": "libresprite_project",
+          "native_location": "frame[0].nested_layers[*].user_data.text + frame[0].tags[*].user_data.text_color + frame[*].image_cels",
+          "writer_policy": "aseprite_nested_timeline_native_semantics",
+          "canonical_project_hash": "sha256:9c3f130229549ded9e9b0d247cd1cebf37e2cbe4925aa5f4930df80a85031fd7",
+          "sidecar_hash": "sha256:cedb273306af4d7b6ffaca5f80fe1f1aea69b12ccb68051d4756d1d63a4d300b"
+        },
+        "project_policy": {
+          "semantic_policy": "aseprite_nested_timeline_native_semantics",
+          "native_mechagotchi_semantics": true,
+          "native_location": "frame[0].nested_layers[*].user_data.text + frame[0].tags[*].user_data.text_color + frame[*].image_cels",
+          "group_layer_type": 1,
+          "image_layer_type": 0,
+          "max_child_level": 2,
+          "layer_chunk_type": "0x2004",
+          "tags_chunk_type": "0x2018",
+          "tag_user_data_chunk_type": "0x2020",
+          "cel_chunk_type": "0x2005",
+          "live_external_editor_verified": false
+        },
+        "semantic_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "restored_grid_validation": {
+        "valid": true,
+        "errors": [],
+        "slip_aligned": true,
+        "slip_errors": []
+      },
+      "semantic_diff": {
+        "changed_cells": [],
+        "missing_cells": [],
+        "added_cells": []
+      },
+      "semantic_fidelity": 1.0,
+      "cel_visual_hashes_preserved": true,
+      "tag_user_data_preserved": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "profile_path": "data/slips/valid/slip_amber_social.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_000.json",
+      "format_id": "libresprite_project",
+      "project_file_name": "slip_amber_social_nested_timeline.aseprite",
+      "project_byte_count": 136932,
+      "embedded_project_hash": "sha256:e5ae61df3eb23244060f03fab29bd2d8000ca51382737bb89583fbc38ef8928b",
+      "canonical_project_hash": "sha256:0456860a692059011f4ec6d4f229f71b475ac84cde7b89a9910c51908c86ff7c",
+      "metadata": {
+        "metadata_version": "mechagotchi.aseprite_nested_timeline.v1",
+        "format_id": "libresprite_project",
+        "native_location": "frame[0].nested_layers[*].user_data.text + frame[0].tags[*].user_data.text_color + frame[*].image_cels",
+        "writer_policy": "aseprite_nested_timeline_native_semantics",
+        "canonical_project_hash": "sha256:0456860a692059011f4ec6d4f229f71b475ac84cde7b89a9910c51908c86ff7c",
+        "sidecar_hash": "sha256:f3f4eaca9d35f84933c07259f4b671ff6310883b683beccb8afad873182a28b9"
+      },
+      "native_sidecar": {
+        "sidecar_version": "0.1.0",
+        "sidecar_id": "slip_amber_social_constrained_000_aseprite_nested_timeline_sidecar",
+        "asset_binding": {
+          "asset_id": "slip_amber_social_constrained_000_nested_timeline.aseprite",
+          "format_id": "libresprite_project",
+          "media_type": "application/octet-stream",
+          "uri": "generated://workshop/project-nested-timeline/slip_amber_social_constrained_000.aseprite",
+          "width": 8,
+          "height": 8,
+          "frame_count": 4,
+          "content_hash": "sha256:0456860a692059011f4ec6d4f229f71b475ac84cde7b89a9910c51908c86ff7c",
+          "semantic_policy": "aseprite_nested_timeline_native_semantics"
+        },
+        "grid_contract": {
+          "grid_id": "slip_amber_social_constrained_000",
+          "schema_version": "0.1.0",
+          "grid_size": [
+            8,
+            8
+          ],
+          "cell_count": 14,
+          "semantic_cell_encoding": "coordinate_overlay_v1",
+          "pixel_binding_count": 64
+        },
+        "slip_binding": {
+          "profile_id": "slip_amber_social",
+          "slip_version": "0.1.0",
+          "profile_hash": "sha256:d4f57e7f4ef6197584e7044301de12beabda703b309b6db0dddd3241b2b8655c",
+          "profile_snapshot": {
+            "slip_version": "0.1.0",
+            "profile_id": "slip_amber_social",
+            "name": "Amber Social Companion",
+            "grid": {
+              "allowed_palettes": [
+                "amber_terminal"
+              ],
+              "body_mass_min": 6,
+              "body_mass_max": 24,
+              "required_organ_roles": [
+                "sensor",
+                "expression"
+              ]
+            },
+            "mutation": {
+              "cell_mutation_rate_max": 0.15,
+              "organ_shift_rate_max": 0.05,
+              "palette_shift_rate_max": 0.05,
+              "symmetry_break_rate_max": 0.05
+            },
+            "behavior": {
+              "curiosity": 0.7,
+              "neediness": 0.6,
+              "sleepiness": 0.35
+            },
+            "survival_weights": {
+              "stability": 0.4,
+              "novelty": 0.25,
+              "bond": 0.35
+            }
+          }
+        },
+        "semantic_overlay": {
+          "cells": [
+            {
+              "x": 7,
+              "y": 0,
+              "visual": "#ffe0a3",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 1,
+              "visual": "#ffe0a3",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 2,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 2,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 2,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 1,
+              "y": 3,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": true,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 3,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 3,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 3,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 3,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 4,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 4,
+              "visual": "#ffe0a3",
+              "role": "mouth",
+              "material": "soft",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "expression",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 4,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 5,
+              "visual": "#ffe0a3",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            }
+          ],
+          "organs": {
+            "core": {
+              "role": "body_core",
+              "cells": [
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  2,
+                  4
+                ],
+                [
+                  4,
+                  4
+                ]
+              ],
+              "required": true
+            },
+            "sensors": {
+              "role": "sensor",
+              "cells": [
+                [
+                  7,
+                  0
+                ],
+                [
+                  3,
+                  1
+                ],
+                [
+                  3,
+                  5
+                ]
+              ],
+              "required": true
+            },
+            "expression": {
+              "role": "expression",
+              "cells": [
+                [
+                  3,
+                  4
+                ]
+              ],
+              "required": false
+            }
+          },
+          "palette": {
+            "palette_id": "amber_terminal",
+            "colors": [
+              "#1c1005",
+              "#d98428",
+              "#ffe0a3"
+            ],
+            "background_index": 0
+          },
+          "mutation": {
+            "cell_mutation_rate": 0.05,
+            "organ_shift_rate": 0.02,
+            "palette_shift_rate": 0.01,
+            "symmetry_break_rate": 0.01
+          },
+          "lineage": {
+            "generation": 1,
+            "ancestor_ids": [
+              "mg_seed_003"
+            ],
+            "mutation_events": [
+              "seed_parent_selected",
+              "validator_gated_resample",
+              "anchor_repositioned"
+            ]
+          },
+          "metadata": {
+            "source": "constrained_wfc_style_lab",
+            "rng_seed": 214
+          }
+        },
+        "pixel_bindings": [
+          {
+            "coordinate": [
+              0,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              2,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              3,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              4,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              5,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              6,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              0
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "sensors",
+            "role": "eye"
+          },
+          {
+            "coordinate": [
+              0,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              2,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              3,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "sensors",
+            "role": "eye"
+          },
+          {
+            "coordinate": [
+              4,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              5,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              6,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              1
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              0,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              2,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              3,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              4,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              5,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              6,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              2
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              0,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              2,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              3,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              4,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              5,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              6,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              3
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              0,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              2,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              3,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "expression",
+            "role": "mouth"
+          },
+          {
+            "coordinate": [
+              4,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "core",
+            "role": "body"
+          },
+          {
+            "coordinate": [
+              5,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              6,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              4
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              0,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              2,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              3,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": true,
+            "organ": "sensors",
+            "role": "eye"
+          },
+          {
+            "coordinate": [
+              4,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              5,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              6,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              5
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              0,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              2,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              3,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              4,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              5,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              6,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              6
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              0,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              1,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              2,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              3,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              4,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              5,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              6,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          },
+          {
+            "coordinate": [
+              7,
+              7
+            ],
+            "frame_index": 0,
+            "semantic_cell_present": false,
+            "organ": null,
+            "role": "empty"
+          }
+        ],
+        "integrity": {
+          "asset_content_hash": "sha256:0456860a692059011f4ec6d4f229f71b475ac84cde7b89a9910c51908c86ff7c",
+          "semantic_overlay_hash": "sha256:e78448e38f3eda404e029fe081e4b787234b40e4c42d066c6bbe571572a9b9ee",
+          "profile_hash": "sha256:d4f57e7f4ef6197584e7044301de12beabda703b309b6db0dddd3241b2b8655c",
+          "binding_hash": "sha256:29773b40a6da1bd19dd60a5625e520f0a2d5ade8386108bb1a5c1e62b393e4f0"
+        },
+        "limitations": [
+          "Stage 0 Aseprite/LibreSprite nested timeline proof covers two group layers, three image layers, four timeline loop directions, and tag-associated User Data chunks.",
+          "Live external editor rewrite validation is not verified by this lab.",
+          "Arbitrary Aseprite project schemas, external assets, multiple documents, and full project-format coverage remain separate."
+        ],
+        "project_binding": {
+          "format_id": "libresprite_project",
+          "decoder_scope": "aseprite_nested_groups_tag_user_data_timeline_subset",
+          "native_mechagotchi_semantics": true,
+          "semantic_policy": "aseprite_nested_timeline_native_semantics",
+          "native_metadata_version": "mechagotchi.aseprite_nested_timeline.v1"
+        }
+      },
+      "decoded_project": {
+        "format_id": "libresprite_project",
+        "magic": "0xa5e0",
+        "frame_magic": "0xf1fa",
+        "dimensions": [
+          8,
+          8
+        ],
+        "frame_count": 4,
+        "layer_count": 5,
+        "group_layer_count": 2,
+        "image_layer_count": 3,
+        "max_child_level": 2,
+        "tag_count": 4,
+        "cel_count": 12,
+        "chunk_count": 27,
+        "user_data_chunk_count": 9,
+        "layer_user_data_count": 5,
+        "tag_user_data_count": 4,
+        "color_depth_bpp": 32,
+        "native_mechagotchi_semantics": true
+      },
+      "layer_hierarchy": [
+        {
+          "layer_index": 0,
+          "name": "Mechagotchi organs",
+          "layer_type": 1,
+          "child_level": 0,
+          "semantic_role": "organ_group",
+          "semantic_organ": null,
+          "cell_selector": "group:organs"
+        },
+        {
+          "layer_index": 1,
+          "name": "Core mass",
+          "layer_type": 0,
+          "child_level": 1,
+          "semantic_role": "body_core",
+          "semantic_organ": "core",
+          "cell_selector": "organ:core"
+        },
+        {
+          "layer_index": 2,
+          "name": "Mechagotchi affordances",
+          "layer_type": 1,
+          "child_level": 1,
+          "semantic_role": "affordance_group",
+          "semantic_organ": null,
+          "cell_selector": "group:affordances"
+        },
+        {
+          "layer_index": 3,
+          "name": "Sensor affordances",
+          "layer_type": 0,
+          "child_level": 2,
+          "semantic_role": "sensor",
+          "semantic_organ": "sensors",
+          "cell_selector": "organ:sensors"
+        },
+        {
+          "layer_index": 4,
+          "name": "Expression affordances",
+          "layer_type": 0,
+          "child_level": 2,
+          "semantic_role": "expression",
+          "semantic_organ": "expression",
+          "cell_selector": "organ:expression"
+        }
+      ],
+      "tag_semantics": [
+        {
+          "name": "idle_forward",
+          "from_frame": 0,
+          "to_frame": 3,
+          "direction": 0,
+          "repeat": 0,
+          "color_rgb": [
+            93,
+            187,
+            99
+          ],
+          "user_data_color_rgba": [
+            93,
+            187,
+            99,
+            255
+          ],
+          "semantic_phase": "full_body_idle_forward"
+        },
+        {
+          "name": "repair_reverse",
+          "from_frame": 1,
+          "to_frame": 3,
+          "direction": 1,
+          "repeat": 1,
+          "color_rgb": [
+            140,
+            163,
+            255
+          ],
+          "user_data_color_rgba": [
+            140,
+            163,
+            255,
+            255
+          ],
+          "semantic_phase": "reverse_repair_recovery"
+        },
+        {
+          "name": "sensor_pingpong",
+          "from_frame": 0,
+          "to_frame": 2,
+          "direction": 2,
+          "repeat": 2,
+          "color_rgb": [
+            216,
+            255,
+            214
+          ],
+          "user_data_color_rgba": [
+            216,
+            255,
+            214,
+            255
+          ],
+          "semantic_phase": "sensor_affordance_pingpong"
+        },
+        {
+          "name": "expression_pingpong_reverse",
+          "from_frame": 1,
+          "to_frame": 3,
+          "direction": 3,
+          "repeat": 3,
+          "color_rgb": [
+            255,
+            196,
+            87
+          ],
+          "user_data_color_rgba": [
+            255,
+            196,
+            87,
+            255
+          ],
+          "semantic_phase": "expression_pingpong_reverse"
+        }
+      ],
+      "import_result": {
+        "ok": true,
+        "format_id": "libresprite_project",
+        "asset": {
+          "asset_id": "slip_amber_social_constrained_000_nested_timeline.aseprite",
+          "content_hash": "sha256:0456860a692059011f4ec6d4f229f71b475ac84cde7b89a9910c51908c86ff7c",
+          "format_id": "libresprite_project",
+          "frame_count": 4,
+          "height": 8,
+          "media_type": "application/octet-stream",
+          "semantic_policy": "aseprite_nested_timeline_native_semantics",
+          "uri": "generated://workshop/project-nested-timeline/slip_amber_social_constrained_000.aseprite",
+          "width": 8
+        },
+        "decoded_project": {
+          "format_id": "libresprite_project",
+          "magic": "0xa5e0",
+          "frame_magic": "0xf1fa",
+          "dimensions": [
+            8,
+            8
+          ],
+          "frame_count": 4,
+          "layer_count": 5,
+          "group_layer_count": 2,
+          "image_layer_count": 3,
+          "max_child_level": 2,
+          "tag_count": 4,
+          "cel_count": 12,
+          "chunk_count": 27,
+          "user_data_chunk_count": 9,
+          "layer_user_data_count": 5,
+          "tag_user_data_count": 4,
+          "color_depth_bpp": 32,
+          "native_mechagotchi_semantics": true
+        },
+        "native_metadata": {
+          "metadata_version": "mechagotchi.aseprite_nested_timeline.v1",
+          "format_id": "libresprite_project",
+          "native_location": "frame[0].nested_layers[*].user_data.text + frame[0].tags[*].user_data.text_color + frame[*].image_cels",
+          "writer_policy": "aseprite_nested_timeline_native_semantics",
+          "canonical_project_hash": "sha256:0456860a692059011f4ec6d4f229f71b475ac84cde7b89a9910c51908c86ff7c",
+          "sidecar_hash": "sha256:f3f4eaca9d35f84933c07259f4b671ff6310883b683beccb8afad873182a28b9"
+        },
+        "project_policy": {
+          "semantic_policy": "aseprite_nested_timeline_native_semantics",
+          "native_mechagotchi_semantics": true,
+          "native_location": "frame[0].nested_layers[*].user_data.text + frame[0].tags[*].user_data.text_color + frame[*].image_cels",
+          "group_layer_type": 1,
+          "image_layer_type": 0,
+          "max_child_level": 2,
+          "layer_chunk_type": "0x2004",
+          "tags_chunk_type": "0x2018",
+          "tag_user_data_chunk_type": "0x2020",
+          "cel_chunk_type": "0x2005",
+          "live_external_editor_verified": false
+        },
+        "semantic_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "restored_grid_validation": {
+        "valid": true,
+        "errors": [],
+        "slip_aligned": true,
+        "slip_errors": []
+      },
+      "semantic_diff": {
+        "changed_cells": [],
+        "missing_cells": [],
+        "added_cells": []
+      },
+      "semantic_fidelity": 1.0,
+      "cel_visual_hashes_preserved": true,
+      "tag_user_data_preserved": true
+    }
+  ],
+  "invalid_probe_results": [
+    {
+      "ok": false,
+      "format_id": null,
+      "asset": null,
+      "decoded_project": null,
+      "native_metadata": null,
+      "project_policy": null,
+      "semantic_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "aseprite_nested_timeline",
+          "family": "aseprite_nested_group_missing",
+          "message": "Aseprite nested timeline project must contain group layers"
+        }
+      ],
+      "error_families": [
+        "aseprite_nested_group_missing"
+      ]
+    },
+    {
+      "ok": false,
+      "format_id": null,
+      "asset": null,
+      "decoded_project": null,
+      "native_metadata": null,
+      "project_policy": null,
+      "semantic_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "aseprite_nested_timeline",
+          "family": "aseprite_layer_hierarchy_mismatch",
+          "message": "Aseprite nested layer hierarchy does not match embedded semantics"
+        }
+      ],
+      "error_families": [
+        "aseprite_layer_hierarchy_mismatch"
+      ]
+    },
+    {
+      "ok": false,
+      "format_id": null,
+      "asset": null,
+      "decoded_project": null,
+      "native_metadata": null,
+      "project_policy": null,
+      "semantic_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "aseprite_nested_timeline",
+          "family": "aseprite_tag_user_data_missing",
+          "message": "Aseprite nested timeline requires one User Data chunk for each tag"
+        }
+      ],
+      "error_families": [
+        "aseprite_tag_user_data_missing"
+      ]
+    },
+    {
+      "ok": false,
+      "format_id": null,
+      "asset": null,
+      "decoded_project": null,
+      "native_metadata": null,
+      "project_policy": null,
+      "semantic_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "aseprite_nested_timeline",
+          "family": "aseprite_timeline_loop_direction_invalid",
+          "message": "Aseprite nested timeline tag direction must be one of the documented directions"
+        }
+      ],
+      "error_families": [
+        "aseprite_timeline_loop_direction_invalid"
+      ]
+    },
+    {
+      "ok": false,
+      "format_id": null,
+      "asset": null,
+      "decoded_project": null,
+      "native_metadata": null,
+      "project_policy": null,
+      "semantic_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "aseprite_nested_timeline",
+          "family": "aseprite_tag_user_data_color_mismatch",
+          "message": "Aseprite nested timeline tag User Data colors do not match embedded metadata"
+        }
+      ],
+      "error_families": [
+        "aseprite_tag_user_data_color_mismatch"
+      ]
+    },
+    {
+      "ok": false,
+      "format_id": null,
+      "asset": null,
+      "decoded_project": null,
+      "native_metadata": null,
+      "project_policy": null,
+      "semantic_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "aseprite_nested_timeline",
+          "family": "aseprite_nested_timeline_sidecar_hash_mismatch",
+          "message": "Aseprite nested timeline sidecar hash does not match the embedded sidecar"
+        }
+      ],
+      "error_families": [
+        "aseprite_nested_timeline_sidecar_hash_mismatch"
+      ]
+    }
+  ],
+  "closed_states": [
+    "aseprite_nested_group_layer_subset",
+    "aseprite_layer_child_level_hierarchy_subset",
+    "aseprite_tag_user_data_subset",
+    "aseprite_timeline_loop_direction_subset",
+    "aseprite_nested_timeline_hash_validation"
+  ],
+  "blocked_states": [
+    "live_external_editor_rewrite_validation",
+    "arbitrary_aseprite_project_schema_coverage",
+    "full_project_format_coverage",
+    "package_runtime_lifecycle_integration",
+    "manual_readability_calibration",
+    "profile_weighted_evolution",
+    "community_profile_packs"
+  ],
+  "decision": "prototype_aseprite_nested_timeline_native_semantics_subset",
+  "next_research_step": "Keep live external editor validation, arbitrary Aseprite schemas, external file references, multiple document variants, and full project-format coverage blocked until direct editor fixtures and broader schema tests exist."
+}

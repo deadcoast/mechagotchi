@@ -1,0 +1,1857 @@
+{
+  "artifact_id": "png_textual_metadata_policy_stage0",
+  "status": "research_png_textual_metadata_policy_no_package_code",
+  "profile_count": 3,
+  "textual_metadata_roundtrip_count": 12,
+  "textual_metadata_roundtrip_success_count": 12,
+  "invalid_probe_count": 7,
+  "invalid_probe_rejected_count": 7,
+  "variant_policies": [
+    {
+      "variant_id": "text_ascii",
+      "chunk_type": "tEXt",
+      "compressed": false,
+      "encoding_policy": "ascii_json_in_latin1_text_chunk"
+    },
+    {
+      "variant_id": "ztxt_ascii",
+      "chunk_type": "zTXt",
+      "compressed": true,
+      "encoding_policy": "ascii_json_in_latin1_ztxt_chunk"
+    },
+    {
+      "variant_id": "itxt_utf8",
+      "chunk_type": "iTXt",
+      "compressed": false,
+      "encoding_policy": "utf8_json_in_itxt_chunk"
+    },
+    {
+      "variant_id": "itxt_utf8_compressed",
+      "chunk_type": "iTXt",
+      "compressed": true,
+      "encoding_policy": "utf8_json_in_itxt_chunk"
+    }
+  ],
+  "textual_metadata_results": [
+    {
+      "profile_id": "slip_lcd_seed",
+      "profile_path": "data/slips/valid/slip_lcd_seed.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_000.json",
+      "variant_id": "text_ascii",
+      "chunk_type": "tEXt",
+      "encoding_policy": "ascii_json_in_latin1_text_chunk",
+      "compressed": false,
+      "png_file_name": "slip_lcd_seed_text_ascii.png",
+      "png_byte_count": 11653,
+      "canonical_png_byte_count": 112,
+      "metadata": {
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "text_ascii",
+        "chunk_type": "tEXt",
+        "encoding_policy": "ascii_json_in_latin1_text_chunk",
+        "compressed": false,
+        "canonical_png_hash": "sha256:7ec438e0f21f3731d1746da4fdc96dc51a16299e4e1855f8a3d149a10f797877",
+        "sidecar_hash": "sha256:b71539696df90d53def583112f446d9afd5b72ba50232faf1fb582dd1d5191f9",
+        "ascii_probe": "cafe ascii metadata",
+        "unicode_probe": "caf\u00e9 \u0394 metadata",
+        "hash_note": "canonical_png_hash excludes Mechagotchi textual metadata chunks"
+      },
+      "decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "tEXt",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "canonical_decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "metadata_policy": {
+        "ok": true,
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "text_ascii",
+        "chunk_type": "tEXt",
+        "encoding_policy": "ascii_json_in_latin1_text_chunk",
+        "compressed": false,
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": false,
+        "live_external_editor_verified": false
+      },
+      "import_result": {
+        "ok": true,
+        "textual_metadata_asset": {
+          "asset_id": "slip_lcd_seed_constrained_000.text_ascii.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/png-textual-metadata-policy/slip_lcd_seed_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:8a3868c0136bfa684244dac4851ce6f8626f06afba8ae7e43f14830a0dc4bd29",
+          "semantic_policy": "embedded_sidecar_required"
+        },
+        "canonical_asset": {
+          "asset_id": "slip_lcd_seed_constrained_000.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/standard-image/slip_lcd_seed_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:7ec438e0f21f3731d1746da4fdc96dc51a16299e4e1855f8a3d149a10f797877",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "tEXt",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "canonical_decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "metadata_policy": {
+          "ok": true,
+          "keyword": "mechagotchi.sidecar.v1",
+          "variant_id": "text_ascii",
+          "chunk_type": "tEXt",
+          "encoding_policy": "ascii_json_in_latin1_text_chunk",
+          "compressed": false,
+          "metadata_model": "png_textual_metadata_policy_v1",
+          "textual_chunk_count": 1,
+          "unicode_metadata_supported": false,
+          "live_external_editor_verified": false
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "semantic_fidelity": 1.0,
+        "pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "profile_path": "data/slips/valid/slip_lcd_seed.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_000.json",
+      "variant_id": "ztxt_ascii",
+      "chunk_type": "zTXt",
+      "encoding_policy": "ascii_json_in_latin1_ztxt_chunk",
+      "compressed": true,
+      "png_file_name": "slip_lcd_seed_ztxt_ascii.png",
+      "png_byte_count": 2030,
+      "canonical_png_byte_count": 112,
+      "metadata": {
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "ztxt_ascii",
+        "chunk_type": "zTXt",
+        "encoding_policy": "ascii_json_in_latin1_ztxt_chunk",
+        "compressed": true,
+        "canonical_png_hash": "sha256:7ec438e0f21f3731d1746da4fdc96dc51a16299e4e1855f8a3d149a10f797877",
+        "sidecar_hash": "sha256:b71539696df90d53def583112f446d9afd5b72ba50232faf1fb582dd1d5191f9",
+        "ascii_probe": "cafe ascii metadata",
+        "unicode_probe": "caf\u00e9 \u0394 metadata",
+        "hash_note": "canonical_png_hash excludes Mechagotchi textual metadata chunks"
+      },
+      "decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "zTXt",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "canonical_decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "metadata_policy": {
+        "ok": true,
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "ztxt_ascii",
+        "chunk_type": "zTXt",
+        "encoding_policy": "ascii_json_in_latin1_ztxt_chunk",
+        "compressed": true,
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": false,
+        "live_external_editor_verified": false
+      },
+      "import_result": {
+        "ok": true,
+        "textual_metadata_asset": {
+          "asset_id": "slip_lcd_seed_constrained_000.ztxt_ascii.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/png-textual-metadata-policy/slip_lcd_seed_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:a84240db9f49620bd948b3247d8a32dbb2d47490eb5a1826f305b27707dfbef5",
+          "semantic_policy": "embedded_sidecar_required"
+        },
+        "canonical_asset": {
+          "asset_id": "slip_lcd_seed_constrained_000.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/standard-image/slip_lcd_seed_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:7ec438e0f21f3731d1746da4fdc96dc51a16299e4e1855f8a3d149a10f797877",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "zTXt",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "canonical_decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "metadata_policy": {
+          "ok": true,
+          "keyword": "mechagotchi.sidecar.v1",
+          "variant_id": "ztxt_ascii",
+          "chunk_type": "zTXt",
+          "encoding_policy": "ascii_json_in_latin1_ztxt_chunk",
+          "compressed": true,
+          "metadata_model": "png_textual_metadata_policy_v1",
+          "textual_chunk_count": 1,
+          "unicode_metadata_supported": false,
+          "live_external_editor_verified": false
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "semantic_fidelity": 1.0,
+        "pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "profile_path": "data/slips/valid/slip_lcd_seed.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_000.json",
+      "variant_id": "itxt_utf8",
+      "chunk_type": "iTXt",
+      "encoding_policy": "utf8_json_in_itxt_chunk",
+      "compressed": false,
+      "png_file_name": "slip_lcd_seed_itxt_utf8.png",
+      "png_byte_count": 11664,
+      "canonical_png_byte_count": 112,
+      "metadata": {
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "itxt_utf8",
+        "chunk_type": "iTXt",
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": false,
+        "canonical_png_hash": "sha256:7ec438e0f21f3731d1746da4fdc96dc51a16299e4e1855f8a3d149a10f797877",
+        "sidecar_hash": "sha256:b71539696df90d53def583112f446d9afd5b72ba50232faf1fb582dd1d5191f9",
+        "ascii_probe": "cafe ascii metadata",
+        "unicode_probe": "caf\u00e9 \u0394 metadata",
+        "hash_note": "canonical_png_hash excludes Mechagotchi textual metadata chunks"
+      },
+      "decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "iTXt",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "canonical_decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "metadata_policy": {
+        "ok": true,
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "itxt_utf8",
+        "chunk_type": "iTXt",
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": false,
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": true,
+        "live_external_editor_verified": false
+      },
+      "import_result": {
+        "ok": true,
+        "textual_metadata_asset": {
+          "asset_id": "slip_lcd_seed_constrained_000.itxt_utf8.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/png-textual-metadata-policy/slip_lcd_seed_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:bd7ea22fe40dc0c235eb09c43c9b44c4c50789ec680ec0fea215f16ebbfa167a",
+          "semantic_policy": "embedded_sidecar_required"
+        },
+        "canonical_asset": {
+          "asset_id": "slip_lcd_seed_constrained_000.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/standard-image/slip_lcd_seed_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:7ec438e0f21f3731d1746da4fdc96dc51a16299e4e1855f8a3d149a10f797877",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "iTXt",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "canonical_decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "metadata_policy": {
+          "ok": true,
+          "keyword": "mechagotchi.sidecar.v1",
+          "variant_id": "itxt_utf8",
+          "chunk_type": "iTXt",
+          "encoding_policy": "utf8_json_in_itxt_chunk",
+          "compressed": false,
+          "metadata_model": "png_textual_metadata_policy_v1",
+          "textual_chunk_count": 1,
+          "unicode_metadata_supported": true,
+          "live_external_editor_verified": false
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "semantic_fidelity": 1.0,
+        "pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "profile_path": "data/slips/valid/slip_lcd_seed.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_lcd_seed/slip_lcd_seed_constrained_000.json",
+      "variant_id": "itxt_utf8_compressed",
+      "chunk_type": "iTXt",
+      "encoding_policy": "utf8_json_in_itxt_chunk",
+      "compressed": true,
+      "png_file_name": "slip_lcd_seed_itxt_utf8_compressed.png",
+      "png_byte_count": 2059,
+      "canonical_png_byte_count": 112,
+      "metadata": {
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "itxt_utf8_compressed",
+        "chunk_type": "iTXt",
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": true,
+        "canonical_png_hash": "sha256:7ec438e0f21f3731d1746da4fdc96dc51a16299e4e1855f8a3d149a10f797877",
+        "sidecar_hash": "sha256:b71539696df90d53def583112f446d9afd5b72ba50232faf1fb582dd1d5191f9",
+        "ascii_probe": "cafe ascii metadata",
+        "unicode_probe": "caf\u00e9 \u0394 metadata",
+        "hash_note": "canonical_png_hash excludes Mechagotchi textual metadata chunks"
+      },
+      "decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "iTXt",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "canonical_decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "metadata_policy": {
+        "ok": true,
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "itxt_utf8_compressed",
+        "chunk_type": "iTXt",
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": true,
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": true,
+        "live_external_editor_verified": false
+      },
+      "import_result": {
+        "ok": true,
+        "textual_metadata_asset": {
+          "asset_id": "slip_lcd_seed_constrained_000.itxt_utf8_compressed.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/png-textual-metadata-policy/slip_lcd_seed_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:2b84007008a5ba94b7cdf2fa39626bfb36679e6e9a856efdc4365c4819e63e99",
+          "semantic_policy": "embedded_sidecar_required"
+        },
+        "canonical_asset": {
+          "asset_id": "slip_lcd_seed_constrained_000.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/standard-image/slip_lcd_seed_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:7ec438e0f21f3731d1746da4fdc96dc51a16299e4e1855f8a3d149a10f797877",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "iTXt",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "canonical_decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "metadata_policy": {
+          "ok": true,
+          "keyword": "mechagotchi.sidecar.v1",
+          "variant_id": "itxt_utf8_compressed",
+          "chunk_type": "iTXt",
+          "encoding_policy": "utf8_json_in_itxt_chunk",
+          "compressed": true,
+          "metadata_model": "png_textual_metadata_policy_v1",
+          "textual_chunk_count": 1,
+          "unicode_metadata_supported": true,
+          "live_external_editor_verified": false
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "semantic_fidelity": 1.0,
+        "pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "profile_path": "data/slips/valid/slip_gray_stable.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_000.json",
+      "variant_id": "text_ascii",
+      "chunk_type": "tEXt",
+      "encoding_policy": "ascii_json_in_latin1_text_chunk",
+      "compressed": false,
+      "png_file_name": "slip_gray_stable_text_ascii.png",
+      "png_byte_count": 12018,
+      "canonical_png_byte_count": 106,
+      "metadata": {
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "text_ascii",
+        "chunk_type": "tEXt",
+        "encoding_policy": "ascii_json_in_latin1_text_chunk",
+        "compressed": false,
+        "canonical_png_hash": "sha256:423852196fa1519d513342d2dc4ffdaa03d258fa3d22a58fe036227e386dee6c",
+        "sidecar_hash": "sha256:b31590e11aadfaa9fb86adfe2955dd5fb342241ec95cbf9afc1385212202624f",
+        "ascii_probe": "cafe ascii metadata",
+        "unicode_probe": "caf\u00e9 \u0394 metadata",
+        "hash_note": "canonical_png_hash excludes Mechagotchi textual metadata chunks"
+      },
+      "decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "tEXt",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "canonical_decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "metadata_policy": {
+        "ok": true,
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "text_ascii",
+        "chunk_type": "tEXt",
+        "encoding_policy": "ascii_json_in_latin1_text_chunk",
+        "compressed": false,
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": false,
+        "live_external_editor_verified": false
+      },
+      "import_result": {
+        "ok": true,
+        "textual_metadata_asset": {
+          "asset_id": "slip_gray_stable_constrained_000.text_ascii.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/png-textual-metadata-policy/slip_gray_stable_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:c922f27ec507de0491f295a0a7e724ef652488856cafbd9a88fb34268944842e",
+          "semantic_policy": "embedded_sidecar_required"
+        },
+        "canonical_asset": {
+          "asset_id": "slip_gray_stable_constrained_000.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/standard-image/slip_gray_stable_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:423852196fa1519d513342d2dc4ffdaa03d258fa3d22a58fe036227e386dee6c",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "tEXt",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "canonical_decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "metadata_policy": {
+          "ok": true,
+          "keyword": "mechagotchi.sidecar.v1",
+          "variant_id": "text_ascii",
+          "chunk_type": "tEXt",
+          "encoding_policy": "ascii_json_in_latin1_text_chunk",
+          "compressed": false,
+          "metadata_model": "png_textual_metadata_policy_v1",
+          "textual_chunk_count": 1,
+          "unicode_metadata_supported": false,
+          "live_external_editor_verified": false
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "semantic_fidelity": 1.0,
+        "pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "profile_path": "data/slips/valid/slip_gray_stable.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_000.json",
+      "variant_id": "ztxt_ascii",
+      "chunk_type": "zTXt",
+      "encoding_policy": "ascii_json_in_latin1_ztxt_chunk",
+      "compressed": true,
+      "png_file_name": "slip_gray_stable_ztxt_ascii.png",
+      "png_byte_count": 2051,
+      "canonical_png_byte_count": 106,
+      "metadata": {
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "ztxt_ascii",
+        "chunk_type": "zTXt",
+        "encoding_policy": "ascii_json_in_latin1_ztxt_chunk",
+        "compressed": true,
+        "canonical_png_hash": "sha256:423852196fa1519d513342d2dc4ffdaa03d258fa3d22a58fe036227e386dee6c",
+        "sidecar_hash": "sha256:b31590e11aadfaa9fb86adfe2955dd5fb342241ec95cbf9afc1385212202624f",
+        "ascii_probe": "cafe ascii metadata",
+        "unicode_probe": "caf\u00e9 \u0394 metadata",
+        "hash_note": "canonical_png_hash excludes Mechagotchi textual metadata chunks"
+      },
+      "decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "zTXt",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "canonical_decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "metadata_policy": {
+        "ok": true,
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "ztxt_ascii",
+        "chunk_type": "zTXt",
+        "encoding_policy": "ascii_json_in_latin1_ztxt_chunk",
+        "compressed": true,
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": false,
+        "live_external_editor_verified": false
+      },
+      "import_result": {
+        "ok": true,
+        "textual_metadata_asset": {
+          "asset_id": "slip_gray_stable_constrained_000.ztxt_ascii.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/png-textual-metadata-policy/slip_gray_stable_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:c45e55a83b7baaa38554a2d0d433031bd29ff437f1c834694a4dd72f59bd86bb",
+          "semantic_policy": "embedded_sidecar_required"
+        },
+        "canonical_asset": {
+          "asset_id": "slip_gray_stable_constrained_000.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/standard-image/slip_gray_stable_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:423852196fa1519d513342d2dc4ffdaa03d258fa3d22a58fe036227e386dee6c",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "zTXt",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "canonical_decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "metadata_policy": {
+          "ok": true,
+          "keyword": "mechagotchi.sidecar.v1",
+          "variant_id": "ztxt_ascii",
+          "chunk_type": "zTXt",
+          "encoding_policy": "ascii_json_in_latin1_ztxt_chunk",
+          "compressed": true,
+          "metadata_model": "png_textual_metadata_policy_v1",
+          "textual_chunk_count": 1,
+          "unicode_metadata_supported": false,
+          "live_external_editor_verified": false
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "semantic_fidelity": 1.0,
+        "pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "profile_path": "data/slips/valid/slip_gray_stable.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_000.json",
+      "variant_id": "itxt_utf8",
+      "chunk_type": "iTXt",
+      "encoding_policy": "utf8_json_in_itxt_chunk",
+      "compressed": false,
+      "png_file_name": "slip_gray_stable_itxt_utf8.png",
+      "png_byte_count": 12029,
+      "canonical_png_byte_count": 106,
+      "metadata": {
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "itxt_utf8",
+        "chunk_type": "iTXt",
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": false,
+        "canonical_png_hash": "sha256:423852196fa1519d513342d2dc4ffdaa03d258fa3d22a58fe036227e386dee6c",
+        "sidecar_hash": "sha256:b31590e11aadfaa9fb86adfe2955dd5fb342241ec95cbf9afc1385212202624f",
+        "ascii_probe": "cafe ascii metadata",
+        "unicode_probe": "caf\u00e9 \u0394 metadata",
+        "hash_note": "canonical_png_hash excludes Mechagotchi textual metadata chunks"
+      },
+      "decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "iTXt",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "canonical_decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "metadata_policy": {
+        "ok": true,
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "itxt_utf8",
+        "chunk_type": "iTXt",
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": false,
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": true,
+        "live_external_editor_verified": false
+      },
+      "import_result": {
+        "ok": true,
+        "textual_metadata_asset": {
+          "asset_id": "slip_gray_stable_constrained_000.itxt_utf8.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/png-textual-metadata-policy/slip_gray_stable_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:7ec293e0d7f87035be5c1251790b9beb10ef62cf6124b26d5a336635ee9cfcb9",
+          "semantic_policy": "embedded_sidecar_required"
+        },
+        "canonical_asset": {
+          "asset_id": "slip_gray_stable_constrained_000.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/standard-image/slip_gray_stable_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:423852196fa1519d513342d2dc4ffdaa03d258fa3d22a58fe036227e386dee6c",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "iTXt",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "canonical_decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "metadata_policy": {
+          "ok": true,
+          "keyword": "mechagotchi.sidecar.v1",
+          "variant_id": "itxt_utf8",
+          "chunk_type": "iTXt",
+          "encoding_policy": "utf8_json_in_itxt_chunk",
+          "compressed": false,
+          "metadata_model": "png_textual_metadata_policy_v1",
+          "textual_chunk_count": 1,
+          "unicode_metadata_supported": true,
+          "live_external_editor_verified": false
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "semantic_fidelity": 1.0,
+        "pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "profile_path": "data/slips/valid/slip_gray_stable.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_gray_stable/slip_gray_stable_constrained_000.json",
+      "variant_id": "itxt_utf8_compressed",
+      "chunk_type": "iTXt",
+      "encoding_policy": "utf8_json_in_itxt_chunk",
+      "compressed": true,
+      "png_file_name": "slip_gray_stable_itxt_utf8_compressed.png",
+      "png_byte_count": 2078,
+      "canonical_png_byte_count": 106,
+      "metadata": {
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "itxt_utf8_compressed",
+        "chunk_type": "iTXt",
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": true,
+        "canonical_png_hash": "sha256:423852196fa1519d513342d2dc4ffdaa03d258fa3d22a58fe036227e386dee6c",
+        "sidecar_hash": "sha256:b31590e11aadfaa9fb86adfe2955dd5fb342241ec95cbf9afc1385212202624f",
+        "ascii_probe": "cafe ascii metadata",
+        "unicode_probe": "caf\u00e9 \u0394 metadata",
+        "hash_note": "canonical_png_hash excludes Mechagotchi textual metadata chunks"
+      },
+      "decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "iTXt",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "canonical_decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "metadata_policy": {
+        "ok": true,
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "itxt_utf8_compressed",
+        "chunk_type": "iTXt",
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": true,
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": true,
+        "live_external_editor_verified": false
+      },
+      "import_result": {
+        "ok": true,
+        "textual_metadata_asset": {
+          "asset_id": "slip_gray_stable_constrained_000.itxt_utf8_compressed.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/png-textual-metadata-policy/slip_gray_stable_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:906fd7a25d3fb40006d0d1d73cc0778ed5e74b47f78778ffe71ff92f0ab15b29",
+          "semantic_policy": "embedded_sidecar_required"
+        },
+        "canonical_asset": {
+          "asset_id": "slip_gray_stable_constrained_000.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/standard-image/slip_gray_stable_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:423852196fa1519d513342d2dc4ffdaa03d258fa3d22a58fe036227e386dee6c",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "iTXt",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "canonical_decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "metadata_policy": {
+          "ok": true,
+          "keyword": "mechagotchi.sidecar.v1",
+          "variant_id": "itxt_utf8_compressed",
+          "chunk_type": "iTXt",
+          "encoding_policy": "utf8_json_in_itxt_chunk",
+          "compressed": true,
+          "metadata_model": "png_textual_metadata_policy_v1",
+          "textual_chunk_count": 1,
+          "unicode_metadata_supported": true,
+          "live_external_editor_verified": false
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "semantic_fidelity": 1.0,
+        "pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "profile_path": "data/slips/valid/slip_amber_social.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_000.json",
+      "variant_id": "text_ascii",
+      "chunk_type": "tEXt",
+      "encoding_policy": "ascii_json_in_latin1_text_chunk",
+      "compressed": false,
+      "png_file_name": "slip_amber_social_text_ascii.png",
+      "png_byte_count": 11862,
+      "canonical_png_byte_count": 107,
+      "metadata": {
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "text_ascii",
+        "chunk_type": "tEXt",
+        "encoding_policy": "ascii_json_in_latin1_text_chunk",
+        "compressed": false,
+        "canonical_png_hash": "sha256:caa3b67b904d9bdadd1ebe8821e196ec297ffbd4acc1086567f98c61502db8c1",
+        "sidecar_hash": "sha256:6a6b008d4a171f766522fe49a36de203e7fe32b7f51d7ef2c03e04ac4afe8af3",
+        "ascii_probe": "cafe ascii metadata",
+        "unicode_probe": "caf\u00e9 \u0394 metadata",
+        "hash_note": "canonical_png_hash excludes Mechagotchi textual metadata chunks"
+      },
+      "decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "tEXt",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "canonical_decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "metadata_policy": {
+        "ok": true,
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "text_ascii",
+        "chunk_type": "tEXt",
+        "encoding_policy": "ascii_json_in_latin1_text_chunk",
+        "compressed": false,
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": false,
+        "live_external_editor_verified": false
+      },
+      "import_result": {
+        "ok": true,
+        "textual_metadata_asset": {
+          "asset_id": "slip_amber_social_constrained_000.text_ascii.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/png-textual-metadata-policy/slip_amber_social_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:c700acf0a16b741420f9f7501d1debbb4acc2a315e9c62b5b237de843ffe482b",
+          "semantic_policy": "embedded_sidecar_required"
+        },
+        "canonical_asset": {
+          "asset_id": "slip_amber_social_constrained_000.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/standard-image/slip_amber_social_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:caa3b67b904d9bdadd1ebe8821e196ec297ffbd4acc1086567f98c61502db8c1",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "tEXt",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "canonical_decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "metadata_policy": {
+          "ok": true,
+          "keyword": "mechagotchi.sidecar.v1",
+          "variant_id": "text_ascii",
+          "chunk_type": "tEXt",
+          "encoding_policy": "ascii_json_in_latin1_text_chunk",
+          "compressed": false,
+          "metadata_model": "png_textual_metadata_policy_v1",
+          "textual_chunk_count": 1,
+          "unicode_metadata_supported": false,
+          "live_external_editor_verified": false
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "semantic_fidelity": 1.0,
+        "pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "profile_path": "data/slips/valid/slip_amber_social.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_000.json",
+      "variant_id": "ztxt_ascii",
+      "chunk_type": "zTXt",
+      "encoding_policy": "ascii_json_in_latin1_ztxt_chunk",
+      "compressed": true,
+      "png_file_name": "slip_amber_social_ztxt_ascii.png",
+      "png_byte_count": 2040,
+      "canonical_png_byte_count": 107,
+      "metadata": {
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "ztxt_ascii",
+        "chunk_type": "zTXt",
+        "encoding_policy": "ascii_json_in_latin1_ztxt_chunk",
+        "compressed": true,
+        "canonical_png_hash": "sha256:caa3b67b904d9bdadd1ebe8821e196ec297ffbd4acc1086567f98c61502db8c1",
+        "sidecar_hash": "sha256:6a6b008d4a171f766522fe49a36de203e7fe32b7f51d7ef2c03e04ac4afe8af3",
+        "ascii_probe": "cafe ascii metadata",
+        "unicode_probe": "caf\u00e9 \u0394 metadata",
+        "hash_note": "canonical_png_hash excludes Mechagotchi textual metadata chunks"
+      },
+      "decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "zTXt",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "canonical_decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "metadata_policy": {
+        "ok": true,
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "ztxt_ascii",
+        "chunk_type": "zTXt",
+        "encoding_policy": "ascii_json_in_latin1_ztxt_chunk",
+        "compressed": true,
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": false,
+        "live_external_editor_verified": false
+      },
+      "import_result": {
+        "ok": true,
+        "textual_metadata_asset": {
+          "asset_id": "slip_amber_social_constrained_000.ztxt_ascii.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/png-textual-metadata-policy/slip_amber_social_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:dc0656c116a56cc0c65818d4aab1303265d306c67cad0a96dd3abe95e66cee11",
+          "semantic_policy": "embedded_sidecar_required"
+        },
+        "canonical_asset": {
+          "asset_id": "slip_amber_social_constrained_000.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/standard-image/slip_amber_social_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:caa3b67b904d9bdadd1ebe8821e196ec297ffbd4acc1086567f98c61502db8c1",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "zTXt",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "canonical_decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "metadata_policy": {
+          "ok": true,
+          "keyword": "mechagotchi.sidecar.v1",
+          "variant_id": "ztxt_ascii",
+          "chunk_type": "zTXt",
+          "encoding_policy": "ascii_json_in_latin1_ztxt_chunk",
+          "compressed": true,
+          "metadata_model": "png_textual_metadata_policy_v1",
+          "textual_chunk_count": 1,
+          "unicode_metadata_supported": false,
+          "live_external_editor_verified": false
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "semantic_fidelity": 1.0,
+        "pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "profile_path": "data/slips/valid/slip_amber_social.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_000.json",
+      "variant_id": "itxt_utf8",
+      "chunk_type": "iTXt",
+      "encoding_policy": "utf8_json_in_itxt_chunk",
+      "compressed": false,
+      "png_file_name": "slip_amber_social_itxt_utf8.png",
+      "png_byte_count": 11873,
+      "canonical_png_byte_count": 107,
+      "metadata": {
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "itxt_utf8",
+        "chunk_type": "iTXt",
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": false,
+        "canonical_png_hash": "sha256:caa3b67b904d9bdadd1ebe8821e196ec297ffbd4acc1086567f98c61502db8c1",
+        "sidecar_hash": "sha256:6a6b008d4a171f766522fe49a36de203e7fe32b7f51d7ef2c03e04ac4afe8af3",
+        "ascii_probe": "cafe ascii metadata",
+        "unicode_probe": "caf\u00e9 \u0394 metadata",
+        "hash_note": "canonical_png_hash excludes Mechagotchi textual metadata chunks"
+      },
+      "decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "iTXt",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "canonical_decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "metadata_policy": {
+        "ok": true,
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "itxt_utf8",
+        "chunk_type": "iTXt",
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": false,
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": true,
+        "live_external_editor_verified": false
+      },
+      "import_result": {
+        "ok": true,
+        "textual_metadata_asset": {
+          "asset_id": "slip_amber_social_constrained_000.itxt_utf8.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/png-textual-metadata-policy/slip_amber_social_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:f55ba36cd149444fc6ec672a828770004dc2bcba3e306f0a6f97ec4450ab838c",
+          "semantic_policy": "embedded_sidecar_required"
+        },
+        "canonical_asset": {
+          "asset_id": "slip_amber_social_constrained_000.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/standard-image/slip_amber_social_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:caa3b67b904d9bdadd1ebe8821e196ec297ffbd4acc1086567f98c61502db8c1",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "iTXt",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "canonical_decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "metadata_policy": {
+          "ok": true,
+          "keyword": "mechagotchi.sidecar.v1",
+          "variant_id": "itxt_utf8",
+          "chunk_type": "iTXt",
+          "encoding_policy": "utf8_json_in_itxt_chunk",
+          "compressed": false,
+          "metadata_model": "png_textual_metadata_policy_v1",
+          "textual_chunk_count": 1,
+          "unicode_metadata_supported": true,
+          "live_external_editor_verified": false
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "semantic_fidelity": 1.0,
+        "pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "pixel_fidelity": 1.0,
+      "ok": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "profile_path": "data/slips/valid/slip_amber_social.json",
+      "grid_path": "data/slips/multi_profile_generation_stage0/slip_amber_social/slip_amber_social_constrained_000.json",
+      "variant_id": "itxt_utf8_compressed",
+      "chunk_type": "iTXt",
+      "encoding_policy": "utf8_json_in_itxt_chunk",
+      "compressed": true,
+      "png_file_name": "slip_amber_social_itxt_utf8_compressed.png",
+      "png_byte_count": 2069,
+      "canonical_png_byte_count": 107,
+      "metadata": {
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "itxt_utf8_compressed",
+        "chunk_type": "iTXt",
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": true,
+        "canonical_png_hash": "sha256:caa3b67b904d9bdadd1ebe8821e196ec297ffbd4acc1086567f98c61502db8c1",
+        "sidecar_hash": "sha256:6a6b008d4a171f766522fe49a36de203e7fe32b7f51d7ef2c03e04ac4afe8af3",
+        "ascii_probe": "cafe ascii metadata",
+        "unicode_probe": "caf\u00e9 \u0394 metadata",
+        "hash_note": "canonical_png_hash excludes Mechagotchi textual metadata chunks"
+      },
+      "decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "iTXt",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "canonical_decoded_png": {
+        "width": 8,
+        "height": 8,
+        "bit_depth": 8,
+        "color_type": 6,
+        "pixel_count": 64,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IEND"
+        ]
+      },
+      "metadata_policy": {
+        "ok": true,
+        "keyword": "mechagotchi.sidecar.v1",
+        "variant_id": "itxt_utf8_compressed",
+        "chunk_type": "iTXt",
+        "encoding_policy": "utf8_json_in_itxt_chunk",
+        "compressed": true,
+        "metadata_model": "png_textual_metadata_policy_v1",
+        "textual_chunk_count": 1,
+        "unicode_metadata_supported": true,
+        "live_external_editor_verified": false
+      },
+      "import_result": {
+        "ok": true,
+        "textual_metadata_asset": {
+          "asset_id": "slip_amber_social_constrained_000.itxt_utf8_compressed.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/png-textual-metadata-policy/slip_amber_social_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:76dcf5a8739d94803e4f1fe563c5a42e5454f232ab5d11482c84b5a63530722f",
+          "semantic_policy": "embedded_sidecar_required"
+        },
+        "canonical_asset": {
+          "asset_id": "slip_amber_social_constrained_000.png",
+          "format_id": "png",
+          "media_type": "image/png",
+          "uri": "generated://workshop/standard-image/slip_amber_social_constrained_000.png",
+          "width": 8,
+          "height": 8,
+          "frame_count": 1,
+          "content_hash": "sha256:caa3b67b904d9bdadd1ebe8821e196ec297ffbd4acc1086567f98c61502db8c1",
+          "semantic_policy": "sidecar_required"
+        },
+        "decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "iTXt",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "canonical_decoded_png": {
+          "width": 8,
+          "height": 8,
+          "bit_depth": 8,
+          "color_type": 6,
+          "pixel_count": 64,
+          "chunks": [
+            "IHDR",
+            "IDAT",
+            "IEND"
+          ]
+        },
+        "metadata_policy": {
+          "ok": true,
+          "keyword": "mechagotchi.sidecar.v1",
+          "variant_id": "itxt_utf8_compressed",
+          "chunk_type": "iTXt",
+          "encoding_policy": "utf8_json_in_itxt_chunk",
+          "compressed": true,
+          "metadata_model": "png_textual_metadata_policy_v1",
+          "textual_chunk_count": 1,
+          "unicode_metadata_supported": true,
+          "live_external_editor_verified": false
+        },
+        "validation": {
+          "ok": true,
+          "errors": [],
+          "error_families": []
+        },
+        "semantic_fidelity": 1.0,
+        "pixel_fidelity": 1.0,
+        "errors": [],
+        "error_families": []
+      },
+      "semantic_fidelity": 1.0,
+      "pixel_fidelity": 1.0,
+      "ok": true
+    }
+  ],
+  "invalid_probe_results": [
+    {
+      "probe_id": "missing_textual_metadata",
+      "ok": false,
+      "textual_metadata_asset": null,
+      "canonical_asset": null,
+      "decoded_png": null,
+      "canonical_decoded_png": null,
+      "metadata_policy": null,
+      "validation": null,
+      "semantic_fidelity": 0.0,
+      "pixel_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "png.textual_metadata",
+          "family": "png_textual_metadata_chunk_missing",
+          "message": "PNG does not contain a Mechagotchi textual metadata chunk"
+        }
+      ],
+      "error_families": [
+        "png_textual_metadata_chunk_missing"
+      ]
+    },
+    {
+      "probe_id": "duplicate_textual_metadata",
+      "ok": false,
+      "textual_metadata_asset": null,
+      "canonical_asset": null,
+      "decoded_png": null,
+      "canonical_decoded_png": null,
+      "metadata_policy": null,
+      "validation": null,
+      "semantic_fidelity": 0.0,
+      "pixel_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "png.textual_metadata",
+          "family": "png_textual_metadata_chunk_duplicate",
+          "message": "PNG contains more than one Mechagotchi textual metadata chunk"
+        }
+      ],
+      "error_families": [
+        "png_textual_metadata_chunk_duplicate"
+      ]
+    },
+    {
+      "probe_id": "non_ascii_text_policy",
+      "ok": false,
+      "textual_metadata_asset": null,
+      "canonical_asset": null,
+      "decoded_png": null,
+      "canonical_decoded_png": null,
+      "metadata_policy": null,
+      "validation": null,
+      "semantic_fidelity": 0.0,
+      "pixel_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "png.textual_metadata",
+          "family": "png_textual_metadata_non_ascii_text_policy_violation",
+          "message": "tEXt and zTXt metadata JSON must stay ASCII in this policy lab"
+        }
+      ],
+      "error_families": [
+        "png_textual_metadata_non_ascii_text_policy_violation"
+      ]
+    },
+    {
+      "probe_id": "ztxt_method",
+      "ok": false,
+      "textual_metadata_asset": null,
+      "canonical_asset": null,
+      "decoded_png": null,
+      "canonical_decoded_png": null,
+      "metadata_policy": null,
+      "validation": null,
+      "semantic_fidelity": 0.0,
+      "pixel_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "png.textual_metadata",
+          "family": "png_ztxt_compression_method_unsupported",
+          "message": "zTXt compression method must be 0"
+        }
+      ],
+      "error_families": [
+        "png_ztxt_compression_method_unsupported"
+      ]
+    },
+    {
+      "probe_id": "ztxt_stream",
+      "ok": false,
+      "textual_metadata_asset": null,
+      "canonical_asset": null,
+      "decoded_png": null,
+      "canonical_decoded_png": null,
+      "metadata_policy": null,
+      "validation": null,
+      "semantic_fidelity": 0.0,
+      "pixel_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "png.textual_metadata",
+          "family": "png_ztxt_decompression_failed",
+          "message": "Error -3 while decompressing data: incorrect header check"
+        }
+      ],
+      "error_families": [
+        "png_ztxt_decompression_failed"
+      ]
+    },
+    {
+      "probe_id": "itxt_utf8",
+      "ok": false,
+      "textual_metadata_asset": null,
+      "canonical_asset": null,
+      "decoded_png": null,
+      "canonical_decoded_png": null,
+      "metadata_policy": null,
+      "validation": null,
+      "semantic_fidelity": 0.0,
+      "pixel_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "png.textual_metadata",
+          "family": "png_itxt_utf8_invalid",
+          "message": "iTXt text field is not valid UTF-8"
+        }
+      ],
+      "error_families": [
+        "png_itxt_utf8_invalid"
+      ]
+    },
+    {
+      "probe_id": "canonical_hash",
+      "ok": false,
+      "textual_metadata_asset": null,
+      "canonical_asset": null,
+      "decoded_png": null,
+      "canonical_decoded_png": null,
+      "metadata_policy": null,
+      "validation": null,
+      "semantic_fidelity": 0.0,
+      "pixel_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "png.textual_metadata",
+          "family": "png_textual_metadata_canonical_hash_mismatch",
+          "message": "PNG textual metadata canonical PNG hash does not match PNG without metadata chunks"
+        }
+      ],
+      "error_families": [
+        "png_textual_metadata_canonical_hash_mismatch"
+      ]
+    }
+  ],
+  "metrics": {
+    "textual_metadata_roundtrip_success_rate": 1.0,
+    "mean_semantic_fidelity": 1.0,
+    "mean_pixel_fidelity": 1.0,
+    "invalid_probe_rejection_rate": 1.0
+  },
+  "closed_states": [
+    "png_textual_metadata_text_ascii_policy",
+    "png_textual_metadata_ztxt_compressed_policy",
+    "png_textual_metadata_itxt_utf8_policy",
+    "png_textual_metadata_hash_validation",
+    "png_textual_metadata_invalid_probe_rejection"
+  ],
+  "blocked_states": [
+    "live_external_editor_rewrite_validation",
+    "Adam7/APNG/full PNG conformance",
+    "arbitrary Aseprite project schema coverage",
+    "full project-format coverage",
+    "package_runtime_lifecycle_integration",
+    "manual readability calibration",
+    "profile_weighted_evolution",
+    "community profile packs"
+  ],
+  "external_sources": [
+    {
+      "name": "W3C Portable Network Graphics (PNG) Specification, Third Edition",
+      "url": "https://www.w3.org/TR/png-3/",
+      "used_for": "tEXt, zTXt, and iTXt textual chunk structure and encoding policy anchors"
+    }
+  ],
+  "decision": "prototype_png_textual_metadata_policy",
+  "next_research_step": "Keep live external editor rewrite validation, Adam7/APNG/full PNG conformance, and package runtime lifecycle integration blocked until each has explicit fixtures and authorization."
+}

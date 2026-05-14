@@ -44,8 +44,10 @@ contains a sidecar whose asset binding contains that same full PNG hash.
 ## Weaknesses
 
 - Covers only PNG `tEXt` chunks and ASCII JSON payloads.
-- Does not prove `iTXt`, `zTXt`, non-ASCII metadata, editor rewrite
-  preservation, Adam7, APNG, or full PNG conformance.
+- At the time of this card, it did not prove `iTXt`, `zTXt`, non-ASCII
+  metadata, editor rewrite preservation, Adam7, APNG, or full PNG conformance.
+  The bounded `tEXt`/`zTXt`/`iTXt` textual policy subset is now covered by
+  `png_textual_metadata_policy`.
 - Does not solve editor-native project metadata writers.
 - Larger sidecars make small PNG test fixtures much bigger.
 
@@ -84,12 +86,12 @@ invalid_probe_rejection_rate: 1.0
 
 Keep as active prototype. This closes the Stage 0 embedded PNG metadata writer
 gap for the `tEXt` sidecar subset, but does not close full PNG conformance,
-editor rewrite preservation, project-file native metadata writers, package
-runtime integration, manual readability calibration, or profile-weighted
-evolution.
+live external editor rewrite validation, arbitrary Aseprite project schema coverage,
+package runtime integration, manual readability calibration, or
+profile-weighted evolution.
 
 ## Go/No-Go Gate
 
 Promote only after production import/export policy decides whether PNG
 metadata should use `tEXt`, `iTXt`, private chunks, external sidecars, or a
-combination, and after editor rewrite preservation is tested.
+combination, and after live external editor rewrite validation is collected.

@@ -23,16 +23,70 @@ Minimal semantic editor artifacts for testing Mechagotchi grid authoring.
 - `png_embedded_sidecar_writer_stage0.json` records 3/3 embedded PNG `tEXt`
   sidecar round trips, decoded pixel preservation, and 3/3 invalid embedded
   metadata probes rejected before semantic restore.
+- `png_textual_metadata_policy_stage0.json` records 12/12 bounded PNG textual
+  metadata round trips across `tEXt`, `zTXt`, uncompressed `iTXt`, and
+  compressed `iTXt` carriers, with 7/7 invalid metadata policy probes rejected
+  before semantic restore.
+- `png_private_chunk_policy_stage0.json` records 3/3 bounded app-private PNG
+  `mgOT` ancillary chunk metadata round trips, 7/7 invalid private chunk
+  policy probes rejected, and a carrier-selection input matrix that keeps the
+  final production carrier decision blocked.
 - `spritesheet_layout_variant_decoder_stage0.json` records 12/12
   layout-variant spritesheet sidecar round trips across vertical strips,
   row-major matrix sheets, padded/guttered grids, and sparse atlas rects.
 - `spritesheet_packed_runtime_decoder_stage0.json` records 3/3 packed
   trim/rotation spritesheet sidecar round trips, 3 runtime playback timelines,
   and 4/4 invalid packed/runtime probes rejected before semantic restore.
+- `spritesheet_arbitrary_atlas_packer_stage0.json` records 6/6 arbitrary
+  atlas round trips across shelf and MaxRects-style packing policies, 6/6
+  invalid atlas probes rejected, and the final production renderer playback
+  claim still blocked.
 - `project_native_metadata_writer_stage0.json` records 6/6 Piskel and
   Pixelorama native project metadata round trips across the 3 current profiles,
   4/4 invalid native metadata probes rejected, and one explicit unsupported
   Aseprite/LibreSprite User Data chunk writer policy.
+- `project_editor_rewrite_preservation_stage0.json` records 6/6 deterministic
+  Piskel/Pixelorama rewrite-simulation round trips, visual hash preservation,
+  sidecar rebinding to rewritten canonical project hashes, and 3/3 invalid
+  rewrite probes rejected.
+- `aseprite_user_data_chunk_writer_stage0.json` records 3/3
+  Aseprite/LibreSprite User Data Chunk round trips for the one-frame,
+  one-layer, compressed RGBA cel subset, with 3/3 invalid User Data probes
+  rejected before semantic restore.
+- `aseprite_tags_layers_semantics_stage0.json` records 3/3
+  Aseprite/LibreSprite tags/layers semantic round trips for the three-frame,
+  three-layer, compressed RGBA cel subset, with 4/4 invalid tags/layers
+  probes rejected before semantic restore.
+- `aseprite_palette_slice_semantics_stage0.json` records 3/3
+  Aseprite/LibreSprite palette/slice semantic round trips for Palette Chunk
+  `0x2019` SLIP colors and Slice Chunk `0x2022` organ bounds layered onto the
+  three-frame tags/layers subset, with 5/5 invalid palette/slice probes
+  rejected before semantic restore.
+- `aseprite_linked_cel_semantics_stage0.json` records 3/3
+  Aseprite/LibreSprite linked-cel semantic round trips for Cel Chunk `0x2005`
+  linked cel type 1 frame targets layered onto the palette/slice tags/layers
+  carrier, with 5/5 invalid linked-cel probes rejected before semantic
+  restore.
+- `aseprite_tilemap_tileset_semantics_stage0.json` records 3/3
+  Aseprite/LibreSprite tilemap/tileset semantic round trips for one Tilemap
+  Layer type 2, one Tileset Chunk `0x2023`, and compressed Tilemap Cel Chunk
+  `0x2005` type 3 payloads, with 5/5 invalid tilemap/tileset probes rejected
+  before semantic restore.
+- `aseprite_nested_timeline_semantics_stage0.json` records 3/3
+  Aseprite/LibreSprite nested timeline semantic round trips for two group
+  layers, child levels `0..2`, four documented tag loop directions,
+  tag-associated User Data Chunk `0x2020` color/text payloads, and 6/6 invalid
+  nested/timeline probes rejected before semantic restore.
+- `aseprite_external_properties_semantics_stage0.json` records 3/3
+  Aseprite/LibreSprite external-properties semantic round trips for Color
+  Profile Chunk `0x2007`, External Files Chunk `0x2008`, User Data Chunk
+  `0x2020` property maps, and Cel Extra Chunk `0x2006` precise bounds, with
+  6/6 invalid external/property probes rejected before semantic restore.
+- `aseprite_document_variant_resolution_stage0.json` records 9/9
+  Aseprite/LibreSprite document-variant semantic round trips across indexed
+  8 bpp, grayscale-alpha 16 bpp, and RGBA 32 bpp compressed cels with
+  hash-checked generated External Files Chunk `0x2008` assets, with 6/6
+  invalid variant/resolver probes rejected before semantic restore.
 - `slip_runtime_selection_policy_stage0.json` records 3/3 profile-weighted
   archive elite selections from switchboard lifecycle metrics, with 2/2 invalid
   selection probes rejected before selection.

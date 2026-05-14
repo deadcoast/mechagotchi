@@ -336,7 +336,8 @@ def run_png_embedded_sidecar_writer_lab(
         ],
         "blocked_states": [
             "Adam7/APNG/full PNG conformance",
-            "project-file native metadata writer",
+            "arbitrary Aseprite project schema coverage",
+            "live external editor rewrite validation",
             "full project-format coverage",
             "arbitrary atlas packing",
             "tags/layers",
@@ -348,8 +349,9 @@ def run_png_embedded_sidecar_writer_lab(
         ],
         "decision": "prototype_png_embedded_sidecar_writer",
         "next_research_step": (
-            "Keep project-file native metadata writers and full project-format "
-            "coverage blocked until editor-native payload tests exist."
+            "Keep arbitrary Aseprite project schema coverage, live external "
+            "editor rewrite validation, and full project-format coverage "
+            "blocked until broader editor-native payload tests exist."
         ),
     }
 

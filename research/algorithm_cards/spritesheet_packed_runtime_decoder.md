@@ -93,8 +93,9 @@ invalid_probe_rejection_rate: 1.0
 Keep as active prototype. This closes the Stage 0 packed trim/rotation decoder
 and sidecar runtime playback sampling gap, but does not close arbitrary atlas
 packing, tags/layers, production renderer playback, full project-format
-coverage, project-file native metadata writers, package runtime integration,
-manual readability calibration, or profile-weighted evolution.
+coverage, arbitrary Aseprite project schema coverage, live external editor rewrite
+preservation, package runtime integration, manual readability calibration, or
+profile-weighted evolution.
 
 ## Go/No-Go Gate
 

@@ -442,7 +442,8 @@ def run_spritesheet_packed_runtime_decoder_lab(
         "blocked_states": [
             "Adam7/APNG/full PNG conformance",
             "full project-format coverage",
-            "project-file native metadata writer",
+            "arbitrary Aseprite project schema coverage",
+            "live external editor rewrite validation",
             "package runtime lifecycle integration",
             "manual readability calibration",
             "profile-weighted evolution",
@@ -451,8 +452,9 @@ def run_spritesheet_packed_runtime_decoder_lab(
         "decision": "prototype_spritesheet_packed_runtime_decoder",
         "next_research_step": (
             "Keep workshop metadata writer and full editor project coverage "
-            "blocked until project-file native metadata writer policy and "
-            "full project format tests exist."
+            "blocked until live external editor rewrite validation, "
+            "arbitrary Aseprite project schema coverage, and full project format "
+            "tests exist."
         ),
     }
 

@@ -338,9 +338,112 @@ CI.
     `data/workshop_editor/png_embedded_sidecar_writer_stage0.json`.
 58. Build the Stage 0 project native metadata writer policy for Piskel
     description metadata and Pixelorama `.pxo` `data.json` metadata without
-    claiming editor rewrite preservation or Aseprite/LibreSprite User Data
-    chunk writing. Done in
+    claiming live external editor rewrite validation or Aseprite/LibreSprite
+    User Data chunk writing. Done in
     `research/experiment_reports/2026-05-13-project-native-metadata-writer.md`,
     `research/algorithm_cards/project_native_metadata_writer.md`,
     `labs/workshop_editor/project_native_metadata_writer.py`, and
     `data/workshop_editor/project_native_metadata_writer_stage0.json`.
+59. Build the Stage 0 deterministic project editor rewrite preservation gate
+    for Piskel description metadata and Pixelorama `.pxo` `data.json`
+    metadata without claiming live external editor validation or
+    Aseprite/LibreSprite User Data chunk writing. Done in
+    `research/experiment_reports/2026-05-13-project-editor-rewrite-preservation.md`,
+    `research/algorithm_cards/project_editor_rewrite_preservation.md`,
+    `labs/workshop_editor/project_editor_rewrite_preservation.py`, and
+    `data/workshop_editor/project_editor_rewrite_preservation_stage0.json`.
+60. Build the Stage 0 Aseprite/LibreSprite User Data Chunk writer for a
+    one-frame, one-layer, compressed RGBA cel subset without claiming live
+    external editor validation or full project-format coverage. Done in
+    `research/experiment_reports/2026-05-14-aseprite-user-data-chunk-writer.md`,
+    `research/algorithm_cards/aseprite_user_data_chunk_writer.md`,
+    `labs/workshop_editor/aseprite_user_data_chunk_writer.py`, and
+    `data/workshop_editor/aseprite_user_data_chunk_writer_stage0.json`.
+61. Build the Stage 0 Aseprite/LibreSprite tags/layers semantics lab for a
+    three-frame, three-layer, Tags Chunk `0x2018`, layer User Data `0x2020`,
+    and compressed RGBA cel subset without claiming live external editor
+    validation or arbitrary project schema coverage. Done in
+    `research/experiment_reports/2026-05-14-aseprite-tags-layers-semantics.md`,
+    `research/algorithm_cards/aseprite_tags_layers_semantics.md`,
+    `labs/workshop_editor/aseprite_tags_layers_semantics.py`, and
+    `data/workshop_editor/aseprite_tags_layers_semantics_stage0.json`.
+62. Build the Stage 0 Aseprite/LibreSprite palette/slice semantics lab for
+    Palette Chunk `0x2019` SLIP colors and Slice Chunk `0x2022` organ bounds
+    layered onto the existing three-frame tags/layers subset without claiming
+    live external editor validation, tilemap/tileset support, or arbitrary
+    project schema coverage. Done in
+    `research/experiment_reports/2026-05-14-aseprite-palette-slice-semantics.md`,
+    `research/algorithm_cards/aseprite_palette_slice_semantics.md`,
+    `labs/workshop_editor/aseprite_palette_slice_semantics.py`, and
+    `data/workshop_editor/aseprite_palette_slice_semantics_stage0.json`.
+63. Build the Stage 0 Aseprite/LibreSprite linked-cel semantics lab for Cel
+    Chunk `0x2005` linked cel type 1 frame targets layered onto the
+    palette/slice tags/layers carrier without claiming live external editor
+    validation, tilemap/tileset support, or arbitrary project schema coverage.
+    Done in
+    `research/experiment_reports/2026-05-14-aseprite-linked-cel-semantics.md`,
+    `research/algorithm_cards/aseprite_linked_cel_semantics.md`,
+    `labs/workshop_editor/aseprite_linked_cel_semantics.py`, and
+    `data/workshop_editor/aseprite_linked_cel_semantics_stage0.json`.
+64. Build the Stage 0 Aseprite/LibreSprite tilemap/tileset semantics lab for
+    one Tilemap Layer type 2, one Tileset Chunk `0x2023`, and compressed
+    Tilemap Cel Chunk `0x2005` type 3 payloads without claiming live external
+    editor validation, arbitrary Aseprite project schemas, advanced timelines,
+    or full project-format coverage. Done in
+    `research/experiment_reports/2026-05-14-aseprite-tilemap-tileset-semantics.md`,
+    `research/algorithm_cards/aseprite_tilemap_tileset_semantics.md`,
+    `labs/workshop_editor/aseprite_tilemap_tileset_semantics.py`, and
+    `data/workshop_editor/aseprite_tilemap_tileset_semantics_stage0.json`.
+65. Build the Stage 0 Aseprite/LibreSprite nested timeline semantics lab for
+    group Layer Chunk `0x2004` type 1 hierarchy, tag-associated User Data Chunk
+    `0x2020` color/text payloads, and all documented Tags Chunk `0x2018` loop
+    directions without claiming live external editor validation, arbitrary
+    Aseprite project schemas, or full project-format coverage. Done in
+    `research/experiment_reports/2026-05-14-aseprite-nested-timeline-semantics.md`,
+    `research/algorithm_cards/aseprite_nested_timeline_semantics.md`,
+    `labs/workshop_editor/aseprite_nested_timeline_semantics.py`, and
+    `data/workshop_editor/aseprite_nested_timeline_semantics_stage0.json`.
+66. Build the Stage 0 Aseprite/LibreSprite external-properties semantics lab
+    for Color Profile Chunk `0x2007`, External Files Chunk `0x2008`, User Data
+    Chunk `0x2020` property maps, and Cel Extra Chunk `0x2006` precise bounds
+    without claiming live external editor validation, arbitrary Aseprite
+    project schemas, multiple document variants, or full project-format
+    coverage. Done in
+    `research/experiment_reports/2026-05-14-aseprite-external-properties-semantics.md`,
+    `research/algorithm_cards/aseprite_external_properties_semantics.md`,
+    `labs/workshop_editor/aseprite_external_properties_semantics.py`, and
+    `data/workshop_editor/aseprite_external_properties_semantics_stage0.json`.
+67. Build the Stage 0 Aseprite/LibreSprite document-variant resolution lab for
+    indexed 8 bpp, grayscale-alpha 16 bpp, and RGBA 32 bpp compressed Cel
+    Chunk `0x2005` carriers plus hash-checked generated External Files Chunk
+    `0x2008` assets without claiming live external editor validation,
+    arbitrary Aseprite project schemas, arbitrary external asset resolution, or
+    full project-format coverage. Done in
+    `research/experiment_reports/2026-05-14-aseprite-document-variant-resolution.md`,
+    `research/algorithm_cards/aseprite_document_variant_resolution.md`,
+    `labs/workshop_editor/aseprite_document_variant_resolution.py`, and
+    `data/workshop_editor/aseprite_document_variant_resolution_stage0.json`.
+68. Build the Stage 0 PNG textual metadata policy lab for `tEXt`, `zTXt`, and
+    `iTXt` sidecar carriers without claiming live external editor validation,
+    Adam7/APNG/full PNG conformance, or package runtime integration. Done in
+    `research/experiment_reports/2026-05-14-png-textual-metadata-policy.md`,
+    `research/algorithm_cards/png_textual_metadata_policy.md`,
+    `labs/workshop_editor/png_textual_metadata_policy.py`, and
+    `data/workshop_editor/png_textual_metadata_policy_stage0.json`.
+69. Build the Stage 0 PNG private chunk policy lab for one app-private `mgOT`
+    ancillary unsafe-to-copy sidecar carrier and metadata-carrier selection
+    inputs without claiming a final production carrier decision, live external
+    editor validation, Adam7/APNG/full PNG conformance, or package runtime
+    integration. Done in
+    `research/experiment_reports/2026-05-14-png-private-chunk-policy.md`,
+    `research/algorithm_cards/png_private_chunk_policy.md`,
+    `labs/workshop_editor/png_private_chunk_policy.py`, and
+    `data/workshop_editor/png_private_chunk_policy_stage0.json`.
+70. Build the Stage 0 arbitrary spritesheet atlas packer lab for shelf and
+    MaxRects-style packing policies without claiming production renderer
+    playback, live external editor validation, or package runtime integration.
+    Done in
+    `research/experiment_reports/2026-05-14-spritesheet-arbitrary-atlas-packer.md`,
+    `research/algorithm_cards/spritesheet_arbitrary_atlas_packer.md`,
+    `labs/workshop_editor/spritesheet_arbitrary_atlas_packer.py`, and
+    `data/workshop_editor/spritesheet_arbitrary_atlas_packer_stage0.json`.

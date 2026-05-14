@@ -66,6 +66,16 @@ Current generated compatibility evidence:
   embedded PNG sidecar writer proof: 3 current profile PNG `tEXt` sidecar
   round trips, decoded pixel preservation, 3 invalid embedded metadata probes
   rejected, and mean semantic and pixel fidelity of 1.0.
+- `../workshop_editor/png_textual_metadata_policy_stage0.json` records the
+  bounded PNG textual metadata policy proof: 12 current profile round trips
+  across `tEXt`, `zTXt`, uncompressed `iTXt`, and compressed `iTXt` sidecar
+  carriers, 7 invalid metadata policy probes rejected, and mean semantic and
+  pixel fidelity of 1.0.
+- `../workshop_editor/png_private_chunk_policy_stage0.json` records the
+  bounded app-private PNG chunk policy proof: 3 current profile round trips
+  using one `mgOT` ancillary private unsafe-to-copy chunk, 7 invalid private
+  chunk probes rejected, and a carrier-selection input matrix that keeps the
+  final production carrier decision blocked.
 - `../workshop_editor/spritesheet_sidecar_decoder_stage0.json` records the
   fixed horizontal spritesheet PNG sidecar decoder proof: 3 current profile
   spritesheet round trips, 2 invalid PNG/frame probes rejected, and mean
@@ -80,6 +90,12 @@ Current generated compatibility evidence:
   packed trim/rotation round trips, 3 runtime playback timelines, 4 invalid
   packed/runtime probes rejected, and mean semantic, reconstructed-frame, and
   runtime-frame fidelity of 1.0.
+- `../workshop_editor/spritesheet_arbitrary_atlas_packer_stage0.json` records
+  the arbitrary atlas packing proof: 6 current profile atlas round trips
+  across shelf and MaxRects-style policies, 6 invalid atlas probes rejected,
+  mean semantic/reconstructed-frame/runtime-frame fidelity of 1.0, and
+  `maxrects_best_short_side_fit` selected as best occupancy policy for the
+  fixed Stage 0 corpus.
 - `../workshop_editor/third_party_project_decoder_stage0.json` records the
   third-party project decoder boundary proof: 3 current profile project
   payloads covering Piskel JSON, Pixelorama `.pxo`, and Aseprite/LibreSprite
@@ -88,7 +104,53 @@ Current generated compatibility evidence:
 - `../workshop_editor/project_native_metadata_writer_stage0.json` records the
   project native metadata writer proof: 6 Piskel/Pixelorama project metadata
   round trips across the current profiles, 4 invalid native metadata probes
-  rejected, and Aseprite/LibreSprite User Data chunk writing kept blocked.
+  rejected, and Aseprite/LibreSprite writing delegated to the dedicated User
+  Data Chunk lab.
+- `../workshop_editor/project_editor_rewrite_preservation_stage0.json` records
+  the deterministic project editor rewrite proof: 6 Piskel/Pixelorama
+  rewrite-simulation round trips across the current profiles, visual hash
+  preservation, 3 invalid rewrite probes rejected, and live external editor
+  validation kept blocked.
+- `../workshop_editor/aseprite_user_data_chunk_writer_stage0.json` records the
+  Aseprite/LibreSprite User Data Chunk writer proof: 3 one-frame, one-layer,
+  compressed RGBA cel User Data round trips across the current profiles and 3
+  invalid User Data probes rejected before semantic restore.
+- `../workshop_editor/aseprite_tags_layers_semantics_stage0.json` records the
+  Aseprite/LibreSprite tags/layers semantic proof: 3 three-frame, three-layer,
+  compressed RGBA cel round trips with native Tags Chunk `0x2018`, layer User
+  Data `0x2020`, and 4 invalid tags/layers probes rejected before semantic
+  restore.
+- `../workshop_editor/aseprite_palette_slice_semantics_stage0.json` records
+  the Aseprite/LibreSprite palette/slice semantic proof: 3 three-frame,
+  three-layer, compressed RGBA cel round trips with native Palette Chunk
+  `0x2019` SLIP colors, Slice Chunk `0x2022` organ bounds, and 5 invalid
+  palette/slice probes rejected before semantic restore.
+- `../workshop_editor/aseprite_linked_cel_semantics_stage0.json` records the
+  Aseprite/LibreSprite linked-cel semantic proof: 3 three-frame, three-layer
+  round trips with 5 compressed RGBA cels, 4 linked Cel Chunk `0x2005` type 1
+  frame targets, and 5 invalid linked-cel probes rejected before semantic
+  restore.
+- `../workshop_editor/aseprite_tilemap_tileset_semantics_stage0.json` records
+  the Aseprite/LibreSprite tilemap/tileset semantic proof: 3 three-frame
+  tilemap round trips with one Tilemap Layer type 2, one Tileset Chunk
+  `0x2023`, three compressed Tilemap Cel Chunk `0x2005` type 3 payloads, and
+  5 invalid tilemap/tileset probes rejected before semantic restore.
+- `../workshop_editor/aseprite_nested_timeline_semantics_stage0.json` records
+  the Aseprite/LibreSprite nested timeline semantic proof: 3 four-frame round
+  trips with two group layers, child levels `0..2`, all four documented tag
+  loop directions, tag-associated User Data color/text payloads, and 6 invalid
+  nested/timeline probes rejected before semantic restore.
+- `../workshop_editor/aseprite_external_properties_semantics_stage0.json`
+  records the Aseprite/LibreSprite external-properties semantic proof: 3
+  two-frame round trips with Color Profile Chunk `0x2007`, External Files
+  Chunk `0x2008`, User Data Chunk `0x2020` property maps, Cel Extra Chunk
+  `0x2006` precise bounds, and 6 invalid external/property probes rejected
+  before semantic restore.
+- `../workshop_editor/aseprite_document_variant_resolution_stage0.json`
+  records the Aseprite/LibreSprite document-variant proof: 9 round trips
+  across indexed 8 bpp, grayscale-alpha 16 bpp, and RGBA 32 bpp compressed
+  cels with generated External Files Chunk `0x2008` assets resolved by hash,
+  and 6 invalid variant/resolver probes rejected before semantic restore.
 - `failure_cases/` contains authored negative profile fixtures covering
   required fields, type errors, enums, unit intervals, additional properties,
   body-mass order, and boolean numeric mistakes.
@@ -102,12 +164,14 @@ Current generated compatibility evidence:
   profile-aligned generated grids.
 
 It does not yet cover package/runtime lifecycle behavior integration, completed
-manual readability calibration, arbitrary atlas packing, tags/layers,
-production renderer playback, full third-party project-format coverage,
-Adam7/APNG/full PNG conformance, Aseprite/LibreSprite native User Data chunk
-writing, editor rewrite preservation, runtime JSON Schema dependency
-installation, declared package dependency policy, or profile-weighted
-evolution. The current SLIP long-horizon readability packet exists under
-`data/readability/`, but no reviewer rows have been collected yet. The
+manual readability calibration, production renderer
+playback, full third-party
+project-format coverage, Adam7/APNG/full PNG conformance, arbitrary Aseprite
+project schema coverage, arbitrary Aseprite external asset resolution, final
+PNG production carrier selection, private chunk editor preservation matrix,
+editor-authored Aseprite document variants, live external editor rewrite validation, runtime JSON Schema dependency installation,
+declared package dependency policy, or profile-weighted evolution. The current
+SLIP long-horizon readability packet exists under `data/readability/`, but no
+reviewer rows have been collected yet. The
 multigeneration lineage runner exists as lab evidence under
 `data/workshop_editor/`, not as package runtime state.

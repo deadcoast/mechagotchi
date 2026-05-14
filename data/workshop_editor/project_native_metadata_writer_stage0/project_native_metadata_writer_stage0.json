@@ -2,7 +2,7 @@
   "artifact_id": "project_native_metadata_writer_stage0",
   "status": "research_project_native_metadata_writer_no_package_code",
   "date": "2026-05-13",
-  "purpose": "Prove a Stage 0 native project-file metadata writer policy for JSON-friendly project containers without claiming full editor rewrite preservation or Aseprite/LibreSprite User Data chunk writing.",
+  "purpose": "Prove a Stage 0 native project-file metadata writer policy for JSON-friendly project containers without claiming live external editor rewrite validation or generic full project-format coverage.",
   "source_artifacts": [
     "docs/01-brainstorming.md",
     "docs/02-research_plan.md",
@@ -31,7 +31,7 @@
     {
       "source": "Aseprite file-format specification",
       "url": "https://github.com/aseprite/aseprite/blob/main/docs/ase-file-specs.md",
-      "used_for": "Aseprite User Data Chunk 0x2020 is treated as a future full chunk-model writer, not Stage 0 header-boundary work."
+      "used_for": "Aseprite User Data Chunk 0x2020 is delegated to the dedicated Stage 0 User Data chunk writer lab."
     }
   ],
   "profile_count": 3,
@@ -45,7 +45,7 @@
     "native_metadata_roundtrip_success_rate": 1.0,
     "mean_semantic_fidelity": 1.0,
     "invalid_probe_rejection_rate": 1.0,
-    "editor_rewrite_preservation_verified": false
+    "live_external_editor_rewrite_validation_verified": false
   },
   "native_results": [
     {
@@ -57,8 +57,8 @@
       "writer_policy": "description_field_json_envelope",
       "project_file_name": "slip_lcd_seed_native_metadata.piskel",
       "sidecar_file_name": "slip_lcd_seed_piskel_native_sidecar.json",
-      "project_byte_count": 13988,
-      "embedded_project_hash": "sha256:549f19c1a905c22308d93e29f12c2dbd0bf324f5b038fa73c90a0e26284061fc",
+      "project_byte_count": 14120,
+      "embedded_project_hash": "sha256:c4af3eb86b549815b1b1c5c15d1ea55647042e6cf7a7cfe0805af9e1dad64a9c",
       "canonical_project_hash": "sha256:7d2af75a9e9b0e51b9791f3c601c6e12504a8a0a8edd2bf012363f0271ea1447",
       "canonical_project_byte_count": 516,
       "metadata": {
@@ -67,7 +67,8 @@
         "native_location": "piskel.description",
         "writer_policy": "description_field_json_envelope",
         "canonical_project_hash": "sha256:7d2af75a9e9b0e51b9791f3c601c6e12504a8a0a8edd2bf012363f0271ea1447",
-        "sidecar_hash": "sha256:9f5c07af13ebac4eee573546c5e3d66a8ecccd6a7972c8f6259d2f2bd0f4d3e5"
+        "project_visual_hash": "sha256:ef2ecf0ece32a4186bd36e40e676988d2373807e30557170cc06f33bbf3d653c",
+        "sidecar_hash": "sha256:3669f5f162249d63e23ca2236a9efc6729dd8add3d2642b7c61ea49e075b59e6"
       },
       "native_sidecar": {
         "sidecar_version": "0.1.0",
@@ -1058,8 +1059,8 @@
         },
         "limitations": [
           "Stage 0 native metadata writer covers Piskel description and Pixelorama data.json only.",
-          "Editor rewrite preservation is not verified by this lab.",
-          "Aseprite/LibreSprite User Data chunks require a separate full chunk-model writer."
+          "Live external editor rewrite validation is not verified by this lab.",
+          "Aseprite/LibreSprite User Data chunks are covered by the separate Stage 0 User Data chunk writer lab."
         ],
         "project_binding": {
           "format_id": "piskel_project",
@@ -1128,13 +1129,14 @@
           "native_location": "piskel.description",
           "writer_policy": "description_field_json_envelope",
           "canonical_project_hash": "sha256:7d2af75a9e9b0e51b9791f3c601c6e12504a8a0a8edd2bf012363f0271ea1447",
-          "sidecar_hash": "sha256:9f5c07af13ebac4eee573546c5e3d66a8ecccd6a7972c8f6259d2f2bd0f4d3e5"
+          "project_visual_hash": "sha256:ef2ecf0ece32a4186bd36e40e676988d2373807e30557170cc06f33bbf3d653c",
+          "sidecar_hash": "sha256:3669f5f162249d63e23ca2236a9efc6729dd8add3d2642b7c61ea49e075b59e6"
         },
         "project_policy": {
           "semantic_policy": "project_native_metadata",
           "native_mechagotchi_semantics": true,
           "native_location": "piskel.description",
-          "editor_rewrite_preservation_verified": false
+          "live_external_editor_rewrite_validation_verified": false
         },
         "semantic_fidelity": 1.0,
         "errors": [],
@@ -1162,8 +1164,8 @@
       "writer_policy": "data_json_namespaced_metadata_object",
       "project_file_name": "slip_lcd_seed_native_metadata.pxo",
       "sidecar_file_name": "slip_lcd_seed_pixelorama_native_sidecar.json",
-      "project_byte_count": 2743,
-      "embedded_project_hash": "sha256:d897f6366684c543dc3c6d4e07963a4c326f5c3f7a88a28e33a716e1c2aa542b",
+      "project_byte_count": 2801,
+      "embedded_project_hash": "sha256:c13fe85a2273d517290afeda8b0a99a24aa510af99304e6345bd86aa23fd9469",
       "canonical_project_hash": "sha256:671bebad519a9d7692590ea355cbd216101647d401720c0bd8a008740318b403",
       "canonical_project_byte_count": 628,
       "metadata": {
@@ -1172,7 +1174,8 @@
         "native_location": "data.json.mechagotchi_native_metadata",
         "writer_policy": "data_json_namespaced_metadata_object",
         "canonical_project_hash": "sha256:671bebad519a9d7692590ea355cbd216101647d401720c0bd8a008740318b403",
-        "sidecar_hash": "sha256:3b9dfba19e35552c7fda365061df6929cdef4dcc07dc40f28cc83ccae2ea8709"
+        "project_visual_hash": "sha256:9ac058572970c660a2749ad73d52773cbbd3beab7c80e9dd15b1935f7bae9894",
+        "sidecar_hash": "sha256:f881be78ce3c742124a389ec76c3c4d51f3aed2f7a48faf913fb9983f8dce3e1"
       },
       "native_sidecar": {
         "sidecar_version": "0.1.0",
@@ -2163,8 +2166,8 @@
         },
         "limitations": [
           "Stage 0 native metadata writer covers Piskel description and Pixelorama data.json only.",
-          "Editor rewrite preservation is not verified by this lab.",
-          "Aseprite/LibreSprite User Data chunks require a separate full chunk-model writer."
+          "Live external editor rewrite validation is not verified by this lab.",
+          "Aseprite/LibreSprite User Data chunks are covered by the separate Stage 0 User Data chunk writer lab."
         ],
         "project_binding": {
           "format_id": "pixelorama_pxo",
@@ -2233,13 +2236,14 @@
           "native_location": "data.json.mechagotchi_native_metadata",
           "writer_policy": "data_json_namespaced_metadata_object",
           "canonical_project_hash": "sha256:671bebad519a9d7692590ea355cbd216101647d401720c0bd8a008740318b403",
-          "sidecar_hash": "sha256:3b9dfba19e35552c7fda365061df6929cdef4dcc07dc40f28cc83ccae2ea8709"
+          "project_visual_hash": "sha256:9ac058572970c660a2749ad73d52773cbbd3beab7c80e9dd15b1935f7bae9894",
+          "sidecar_hash": "sha256:f881be78ce3c742124a389ec76c3c4d51f3aed2f7a48faf913fb9983f8dce3e1"
         },
         "project_policy": {
           "semantic_policy": "project_native_metadata",
           "native_mechagotchi_semantics": true,
           "native_location": "data.json.mechagotchi_native_metadata",
-          "editor_rewrite_preservation_verified": false
+          "live_external_editor_rewrite_validation_verified": false
         },
         "semantic_fidelity": 1.0,
         "errors": [],
@@ -2267,8 +2271,8 @@
       "writer_policy": "description_field_json_envelope",
       "project_file_name": "slip_gray_stable_native_metadata.piskel",
       "sidecar_file_name": "slip_gray_stable_piskel_native_sidecar.json",
-      "project_byte_count": 14427,
-      "embedded_project_hash": "sha256:93b30d2a8d759328ef3a5171fe37c38de8e42b0bb107cb4a1b2a952a6bf7e839",
+      "project_byte_count": 14559,
+      "embedded_project_hash": "sha256:5aa2fbfa62a6f7e7b5be479c5fe353fafdf5406511d93c46a0056ec46c7674cb",
       "canonical_project_hash": "sha256:76d3234d1ea7fc9bc6ee01e37e030833b1f957e74703d8d768305c1911a10c2c",
       "canonical_project_byte_count": 511,
       "metadata": {
@@ -2277,7 +2281,8 @@
         "native_location": "piskel.description",
         "writer_policy": "description_field_json_envelope",
         "canonical_project_hash": "sha256:76d3234d1ea7fc9bc6ee01e37e030833b1f957e74703d8d768305c1911a10c2c",
-        "sidecar_hash": "sha256:0c7f6f2dd89393bba776c40be997a24ef5bf49fca7c1f1802d599add3602e151"
+        "project_visual_hash": "sha256:8eea7df077006ef2446132efdcb543d413c3f1ca8d730bf50059175ce223213e",
+        "sidecar_hash": "sha256:32ad6783e837e10ee7dd8f2d97ce26f6722416096ab659cb22b799e83efb3fa9"
       },
       "native_sidecar": {
         "sidecar_version": "0.1.0",
@@ -3302,8 +3307,8 @@
         },
         "limitations": [
           "Stage 0 native metadata writer covers Piskel description and Pixelorama data.json only.",
-          "Editor rewrite preservation is not verified by this lab.",
-          "Aseprite/LibreSprite User Data chunks require a separate full chunk-model writer."
+          "Live external editor rewrite validation is not verified by this lab.",
+          "Aseprite/LibreSprite User Data chunks are covered by the separate Stage 0 User Data chunk writer lab."
         ],
         "project_binding": {
           "format_id": "piskel_project",
@@ -3372,13 +3377,14 @@
           "native_location": "piskel.description",
           "writer_policy": "description_field_json_envelope",
           "canonical_project_hash": "sha256:76d3234d1ea7fc9bc6ee01e37e030833b1f957e74703d8d768305c1911a10c2c",
-          "sidecar_hash": "sha256:0c7f6f2dd89393bba776c40be997a24ef5bf49fca7c1f1802d599add3602e151"
+          "project_visual_hash": "sha256:8eea7df077006ef2446132efdcb543d413c3f1ca8d730bf50059175ce223213e",
+          "sidecar_hash": "sha256:32ad6783e837e10ee7dd8f2d97ce26f6722416096ab659cb22b799e83efb3fa9"
         },
         "project_policy": {
           "semantic_policy": "project_native_metadata",
           "native_mechagotchi_semantics": true,
           "native_location": "piskel.description",
-          "editor_rewrite_preservation_verified": false
+          "live_external_editor_rewrite_validation_verified": false
         },
         "semantic_fidelity": 1.0,
         "errors": [],
@@ -3406,8 +3412,8 @@
       "writer_policy": "data_json_namespaced_metadata_object",
       "project_file_name": "slip_gray_stable_native_metadata.pxo",
       "sidecar_file_name": "slip_gray_stable_pixelorama_native_sidecar.json",
-      "project_byte_count": 2767,
-      "embedded_project_hash": "sha256:cda594d5b1030026739eee71e82bde06f9b8d453e47cc8bf3e61b654a23d4dfb",
+      "project_byte_count": 2826,
+      "embedded_project_hash": "sha256:868e168ced115f52f438ec48b4fbafdf5a828670e524a8a2788df3036ca954b4",
       "canonical_project_hash": "sha256:865004c2d817fedea6bed66c356fb135f9366494185891ebe8cd104bedd5f588",
       "canonical_project_byte_count": 626,
       "metadata": {
@@ -3416,7 +3422,8 @@
         "native_location": "data.json.mechagotchi_native_metadata",
         "writer_policy": "data_json_namespaced_metadata_object",
         "canonical_project_hash": "sha256:865004c2d817fedea6bed66c356fb135f9366494185891ebe8cd104bedd5f588",
-        "sidecar_hash": "sha256:6c4ee89ab19b6dacd92961da6e6c89d1df2634cfcebecec57d9414681f0b27e0"
+        "project_visual_hash": "sha256:8e7095f47da5dbe4d9262f91b594bb5bbb68c17c0efdfc5101b457a0f8ab98fb",
+        "sidecar_hash": "sha256:c9584b86e33327c8f9c6a61bdc55749faa634d9bf6971919aa587858055ee4d5"
       },
       "native_sidecar": {
         "sidecar_version": "0.1.0",
@@ -4441,8 +4448,8 @@
         },
         "limitations": [
           "Stage 0 native metadata writer covers Piskel description and Pixelorama data.json only.",
-          "Editor rewrite preservation is not verified by this lab.",
-          "Aseprite/LibreSprite User Data chunks require a separate full chunk-model writer."
+          "Live external editor rewrite validation is not verified by this lab.",
+          "Aseprite/LibreSprite User Data chunks are covered by the separate Stage 0 User Data chunk writer lab."
         ],
         "project_binding": {
           "format_id": "pixelorama_pxo",
@@ -4511,13 +4518,14 @@
           "native_location": "data.json.mechagotchi_native_metadata",
           "writer_policy": "data_json_namespaced_metadata_object",
           "canonical_project_hash": "sha256:865004c2d817fedea6bed66c356fb135f9366494185891ebe8cd104bedd5f588",
-          "sidecar_hash": "sha256:6c4ee89ab19b6dacd92961da6e6c89d1df2634cfcebecec57d9414681f0b27e0"
+          "project_visual_hash": "sha256:8e7095f47da5dbe4d9262f91b594bb5bbb68c17c0efdfc5101b457a0f8ab98fb",
+          "sidecar_hash": "sha256:c9584b86e33327c8f9c6a61bdc55749faa634d9bf6971919aa587858055ee4d5"
         },
         "project_policy": {
           "semantic_policy": "project_native_metadata",
           "native_mechagotchi_semantics": true,
           "native_location": "data.json.mechagotchi_native_metadata",
-          "editor_rewrite_preservation_verified": false
+          "live_external_editor_rewrite_validation_verified": false
         },
         "semantic_fidelity": 1.0,
         "errors": [],
@@ -4545,8 +4553,8 @@
       "writer_policy": "description_field_json_envelope",
       "project_file_name": "slip_amber_social_native_metadata.piskel",
       "sidecar_file_name": "slip_amber_social_piskel_native_sidecar.json",
-      "project_byte_count": 14242,
-      "embedded_project_hash": "sha256:09080da8b5b7794b00a942425c2a3355dfd236e2760c0e32d1962d1b0b721f28",
+      "project_byte_count": 14374,
+      "embedded_project_hash": "sha256:58f27f2a64042a29e647380d3da8227198be9ff068564c27ec92a83b52ea730a",
       "canonical_project_hash": "sha256:7b82224396bafa9f5da8a6071a7fb4c4aa05ec5638548d9b820fec9ab4a3522b",
       "canonical_project_byte_count": 512,
       "metadata": {
@@ -4555,7 +4563,8 @@
         "native_location": "piskel.description",
         "writer_policy": "description_field_json_envelope",
         "canonical_project_hash": "sha256:7b82224396bafa9f5da8a6071a7fb4c4aa05ec5638548d9b820fec9ab4a3522b",
-        "sidecar_hash": "sha256:9e21be8feb7c22d6bc6ea669a884036f1745c8e8bcd7f1e7beed87879a9ef88e"
+        "project_visual_hash": "sha256:29281a51eab3a1ce6fc8ea08a5bb9a0872d5a7045551e0f8b24192ff86ddcc4e",
+        "sidecar_hash": "sha256:011a6d42960ec105abbcaa154c519467d9b6164464116d17dae28e49e77d2af9"
       },
       "native_sidecar": {
         "sidecar_version": "0.1.0",
@@ -5563,8 +5572,8 @@
         },
         "limitations": [
           "Stage 0 native metadata writer covers Piskel description and Pixelorama data.json only.",
-          "Editor rewrite preservation is not verified by this lab.",
-          "Aseprite/LibreSprite User Data chunks require a separate full chunk-model writer."
+          "Live external editor rewrite validation is not verified by this lab.",
+          "Aseprite/LibreSprite User Data chunks are covered by the separate Stage 0 User Data chunk writer lab."
         ],
         "project_binding": {
           "format_id": "piskel_project",
@@ -5633,13 +5642,14 @@
           "native_location": "piskel.description",
           "writer_policy": "description_field_json_envelope",
           "canonical_project_hash": "sha256:7b82224396bafa9f5da8a6071a7fb4c4aa05ec5638548d9b820fec9ab4a3522b",
-          "sidecar_hash": "sha256:9e21be8feb7c22d6bc6ea669a884036f1745c8e8bcd7f1e7beed87879a9ef88e"
+          "project_visual_hash": "sha256:29281a51eab3a1ce6fc8ea08a5bb9a0872d5a7045551e0f8b24192ff86ddcc4e",
+          "sidecar_hash": "sha256:011a6d42960ec105abbcaa154c519467d9b6164464116d17dae28e49e77d2af9"
         },
         "project_policy": {
           "semantic_policy": "project_native_metadata",
           "native_mechagotchi_semantics": true,
           "native_location": "piskel.description",
-          "editor_rewrite_preservation_verified": false
+          "live_external_editor_rewrite_validation_verified": false
         },
         "semantic_fidelity": 1.0,
         "errors": [],
@@ -5667,8 +5677,8 @@
       "writer_policy": "data_json_namespaced_metadata_object",
       "project_file_name": "slip_amber_social_native_metadata.pxo",
       "sidecar_file_name": "slip_amber_social_pixelorama_native_sidecar.json",
-      "project_byte_count": 2759,
-      "embedded_project_hash": "sha256:5a788ebfb36b23cb5931682f079d655bc915d6f6a67b531f7e1f159a72b60176",
+      "project_byte_count": 2817,
+      "embedded_project_hash": "sha256:fb3a26a19e7fe1c192d5ae3677c8426010a37aaf6a0d8ebb42a5996b9f71ffea",
       "canonical_project_hash": "sha256:6fb28310d0dce5798046866f42a073514b6f914863e5dedd38e7baf0b5727ff4",
       "canonical_project_byte_count": 627,
       "metadata": {
@@ -5677,7 +5687,8 @@
         "native_location": "data.json.mechagotchi_native_metadata",
         "writer_policy": "data_json_namespaced_metadata_object",
         "canonical_project_hash": "sha256:6fb28310d0dce5798046866f42a073514b6f914863e5dedd38e7baf0b5727ff4",
-        "sidecar_hash": "sha256:7441dd723ae6b6b0ba675e81994129247b12736ffe8602059a1580e11d759f6c"
+        "project_visual_hash": "sha256:5b1ee4925a6131243658cb52e0d338b7194e8e7159063088ba09743f104fbaad",
+        "sidecar_hash": "sha256:543daad12eabc0e42ef5e354b874a871c9fc89c187a15e956c8b7d8639627575"
       },
       "native_sidecar": {
         "sidecar_version": "0.1.0",
@@ -6685,8 +6696,8 @@
         },
         "limitations": [
           "Stage 0 native metadata writer covers Piskel description and Pixelorama data.json only.",
-          "Editor rewrite preservation is not verified by this lab.",
-          "Aseprite/LibreSprite User Data chunks require a separate full chunk-model writer."
+          "Live external editor rewrite validation is not verified by this lab.",
+          "Aseprite/LibreSprite User Data chunks are covered by the separate Stage 0 User Data chunk writer lab."
         ],
         "project_binding": {
           "format_id": "pixelorama_pxo",
@@ -6755,13 +6766,14 @@
           "native_location": "data.json.mechagotchi_native_metadata",
           "writer_policy": "data_json_namespaced_metadata_object",
           "canonical_project_hash": "sha256:6fb28310d0dce5798046866f42a073514b6f914863e5dedd38e7baf0b5727ff4",
-          "sidecar_hash": "sha256:7441dd723ae6b6b0ba675e81994129247b12736ffe8602059a1580e11d759f6c"
+          "project_visual_hash": "sha256:5b1ee4925a6131243658cb52e0d338b7194e8e7159063088ba09743f104fbaad",
+          "sidecar_hash": "sha256:543daad12eabc0e42ef5e354b874a871c9fc89c187a15e956c8b7d8639627575"
         },
         "project_policy": {
           "semantic_policy": "project_native_metadata",
           "native_mechagotchi_semantics": true,
           "native_location": "data.json.mechagotchi_native_metadata",
-          "editor_rewrite_preservation_verified": false
+          "live_external_editor_rewrite_validation_verified": false
         },
         "semantic_fidelity": 1.0,
         "errors": [],
@@ -6785,8 +6797,8 @@
     {
       "format_id": "libresprite_project",
       "native_writer_supported": false,
-      "blocked_state": "aseprite_libresprite_user_data_chunk_writer",
-      "reason": "Aseprite/LibreSprite User Data Chunk writing requires a full layer/cel/chunk model; the current project decoder owns only the header boundary.",
+      "delegated_state": "aseprite_libresprite_user_data_chunk_writer",
+      "reason": "Aseprite/LibreSprite User Data Chunk writing is handled by labs/workshop_editor/aseprite_user_data_chunk_writer.py; this generic native metadata writer remains scoped to JSON-friendly Piskel and Pixelorama project containers.",
       "external_anchor": "Aseprite file-format User Data Chunk 0x2020"
     }
   ],
@@ -6854,7 +6866,7 @@
         {
           "path": "format_id",
           "family": "project_native_metadata_unsupported_format",
-          "message": "libresprite_project native writer is blocked until the User Data chunk writer exists"
+          "message": "libresprite_project native writing is delegated to the Aseprite User Data chunk writer lab"
         }
       ],
       "error_families": [
@@ -6871,14 +6883,13 @@
   ],
   "blocked_states": [
     "full_project_format_coverage",
-    "aseprite_libresprite_user_data_chunk_writer",
-    "editor_rewrite_preservation",
-    "tags_layers_native_project_semantics",
+    "live_external_editor_rewrite_validation",
+    "advanced_tags_layers_timeline_schema_coverage",
     "package_runtime_lifecycle_integration",
     "manual_readability_calibration",
     "profile_weighted_evolution",
     "community_profile_packs"
   ],
   "decision": "prototype_project_native_metadata_writer_subset",
-  "next_research_step": "Keep Aseprite/LibreSprite User Data chunk writing, editor rewrite preservation, tags/layers, and full project-format coverage blocked until full native project chunk/schema tests exist."
+  "next_research_step": "Keep live external editor rewrite validation, advanced tags/layers timeline schema coverage, and full project-format coverage blocked until direct editor and broader native project chunk/schema tests exist."
 }
