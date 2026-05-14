@@ -107,6 +107,12 @@
     "labs/workshop_editor/png_apng_metadata_carrier_cross_product.py",
     "data/workshop_editor/apng_metadata_carrier_cross_product_stage0.json",
     "data/workshop_editor/apng_metadata_carrier_cross_product_stage0/",
+    "research/experiment_reports/2026-05-14-png-apng-chunk-order-conformance.md",
+    "research/algorithm_cards/png_apng_chunk_order_conformance.md",
+    "labs/workshop_editor/png_apng_chunk_order_conformance.py",
+    "labs/workshop_editor/test_png_apng_chunk_order_conformance.py",
+    "data/workshop_editor/png_apng_chunk_order_conformance_stage0.json",
+    "data/workshop_editor/png_apng_chunk_order_conformance_stage0/",
     "research/experiment_reports/2026-05-13-png-embedded-sidecar-writer.md",
     "research/algorithm_cards/png_embedded_sidecar_writer.md",
     "labs/workshop_editor/png_embedded_sidecar_writer.py",
@@ -281,7 +287,7 @@
     {
       "source": "W3C PNG specification",
       "url": "https://www.w3.org/TR/png-3/",
-      "used_for": "PNG remains a visual carrier; Mechagotchi semantics require the sidecar contract until an explicit metadata writer is implemented."
+      "used_for": "PNG remains a visual carrier; Mechagotchi semantics require the sidecar contract. The PNG/APNG chunk-order conformance lab also uses this source for IHDR/IEND/PLTE/tRNS/IDAT ordering and APNG acTL/fcTL/fdAT sequence rules."
     },
     {
       "source": "Aseprite sprite-sheet documentation",
@@ -702,7 +708,15 @@
     "aseprite_external_asset_resolver_matrix_policy_count": 4,
     "aseprite_external_asset_resolver_matrix_mean_semantic_fidelity": 1.0,
     "aseprite_external_asset_resolver_matrix_external_asset_resolution_rate": 1.0,
-    "aseprite_external_asset_resolver_matrix_live_external_editor_verified": false
+    "aseprite_external_asset_resolver_matrix_live_external_editor_verified": false,
+    "png_apng_chunk_order_conformance_profiles": 3,
+    "png_apng_chunk_order_conformance_cases": 12,
+    "png_apng_chunk_order_conformance_success": 12,
+    "png_apng_chunk_order_conformance_invalid_probes": 7,
+    "png_apng_chunk_order_conformance_invalid_probes_rejected": 7,
+    "png_apng_chunk_order_conformance_valid_case_family_count": 4,
+    "png_apng_chunk_order_conformance_success_rate": 1.0,
+    "png_apng_chunk_order_conformance_live_external_editor_verified": false
   },
   "valid_profiles": [
     {
@@ -865,6 +879,12 @@
       "current_proof": "15/15 current profile APNG metadata-carrier variants round-trip sidecar semantics across tEXt, zTXt, uncompressed iTXt, compressed iTXt, and private unsafe-to-copy mgOT; canonical APNG hashes and frame hashes are preserved after carrier removal; 6/6 missing-carrier, duplicate-text, corrupt-compression, private-hash, and APNG-sequence probes rejected",
       "status": "proven_stage0_bounded_apng_textual_private_carrier_cross_product_only",
       "required_next_proof": "full APNG/PNG conformance, live external editor rewrite validation, and final production carrier selection"
+    },
+    {
+      "surface": "png_apng_chunk_order_conformance",
+      "current_proof": "12/12 current profile chunk-order cases pass across static RGBA single-IDAT PNG, static RGBA split-IDAT PNG, indexed PLTE/tRNS PNG, and APNG static-first-frame carriers; 7/7 duplicate-IHDR, post-IEND, PLTE-after-IDAT, tRNS-before-PLTE, nonconsecutive-IDAT, acTL-after-IDAT, and fcTL sequence-gap probes rejected",
+      "status": "proven_stage0_bounded_structural_chunk_order_matrix_only",
+      "required_next_proof": "remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection"
     },
     {
       "surface": "png_embedded_sidecar_writer",
@@ -1106,6 +1126,7 @@
     "python -m json.tool .\\data\\workshop_editor\\png_adam7_deep_color_cross_product_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\apng_sidecar_decoder_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\apng_metadata_carrier_cross_product_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\png_apng_chunk_order_conformance_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\png_embedded_sidecar_writer_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\png_textual_metadata_policy_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\png_private_chunk_policy_stage0.json",
@@ -1137,6 +1158,7 @@
     "python -B -m unittest .\\labs\\workshop_editor\\test_png_adam7_deep_color_cross_product.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_png_apng_sidecar_decoder.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_png_apng_metadata_carrier_cross_product.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_png_apng_chunk_order_conformance.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_spritesheet_arbitrary_atlas_packer.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_spritesheet_multi_page_atlas.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_project_native_metadata_writer.py",
@@ -1160,5 +1182,5 @@
     "git diff --check"
   ],
   "decision": "adopt_stage0_slip_profile_compatibility_matrix",
-  "next_research_step": "Collect live external editor open-save fixtures, broaden remaining PNG coverage through full APNG/PNG conformance fixtures, broaden Aseprite chunk/schema coverage beyond the fixed Stage 0 carrier subsets with editor-authored document variants and editor-authored external asset resolution, collect 63 SLIP readability reviewer rows, and start package implementation only when explicitly authorized before claiming profile-weighted evolution."
+  "next_research_step": "Collect live external editor open-save fixtures, broaden remaining PNG/APNG coverage beyond the bounded chunk-order matrix through image-data conformance fixtures, broaden Aseprite chunk/schema coverage beyond the fixed Stage 0 carrier subsets with editor-authored document variants and editor-authored external asset resolution, collect 63 SLIP readability reviewer rows, and start package implementation only when explicitly authorized before claiming profile-weighted evolution."
 }

@@ -191,6 +191,10 @@ Current generated compatibility evidence:
   36 round trips across 3 profiles, 3 document variants, and direct,
   relative-path, content-addressed, and multi-root resolver policies, with 5
   invalid resolver probes rejected before semantic restore.
+- `../workshop_editor/png_apng_chunk_order_conformance_stage0.json` records
+  the bounded PNG/APNG chunk-order conformance matrix: 12 valid static RGBA,
+  split-IDAT, indexed PLTE/tRNS, and APNG static-first-frame cases across the
+  current profiles, with 7 invalid ordering/cardinality probes rejected.
 - `failure_cases/` contains authored negative profile fixtures covering
   required fields, type errors, enums, unit intervals, additional properties,
   body-mass order, and boolean numeric mistakes.
@@ -206,7 +210,8 @@ Current generated compatibility evidence:
 It does not yet cover package/runtime lifecycle behavior integration, completed
 manual readability calibration, production renderer
 playback, full third-party
-project-format coverage, full APNG/PNG conformance, arbitrary Aseprite
+project-format coverage, full APNG/PNG conformance beyond the bounded
+chunk-order matrix, arbitrary Aseprite
 project schema coverage, arbitrary
 Aseprite external asset resolution, final PNG production carrier selection,
 editor-authored Aseprite document variants, live external editor rewrite

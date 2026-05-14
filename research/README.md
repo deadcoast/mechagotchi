@@ -166,6 +166,9 @@ The package-contract handoff is published as:
 - `research/experiment_reports/2026-05-14-aseprite-external-asset-resolver-matrix.md`
 - `research/algorithm_cards/aseprite_external_asset_resolver_matrix.md`
 - `data/workshop_editor/aseprite_external_asset_resolver_matrix_stage0.json`
+- `research/experiment_reports/2026-05-14-png-apng-chunk-order-conformance.md`
+- `research/algorithm_cards/png_apng_chunk_order_conformance.md`
+- `data/workshop_editor/png_apng_chunk_order_conformance_stage0.json`
 
 Post-v0.1 continuation has started:
 

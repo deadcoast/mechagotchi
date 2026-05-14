@@ -46,6 +46,10 @@ Minimal semantic editor artifacts for testing Mechagotchi grid authoring.
   APNG metadata-carrier round trips across `tEXt`, `zTXt`, uncompressed
   `iTXt`, compressed `iTXt`, and private `mgOT` carriers, with 6/6 invalid
   carrier/APNG probes rejected before semantic restore.
+- `png_apng_chunk_order_conformance_stage0.json` records 12/12 bounded
+  PNG/APNG chunk-order conformance cases across static RGBA, split-IDAT,
+  indexed PLTE/tRNS, and APNG static-first-frame carriers, with 7/7 invalid
+  IHDR/IEND/PLTE/tRNS/IDAT/APNG sequence probes rejected.
 - `spritesheet_layout_variant_decoder_stage0.json` records 12/12
   layout-variant spritesheet sidecar round trips across vertical strips,
   row-major matrix sheets, padded/guttered grids, and sparse atlas rects.
