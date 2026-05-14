@@ -45,6 +45,9 @@ The package-contract handoff is published as:
 - `research/experiment_reports/2026-05-12-mecha-engine-formal-invariant-dependency-gate.md`
 - `research/package_specs/mecha_engine_formal_invariant_dependency_gate.md`
 - `data/architecture/mecha_engine_formal_invariant_dependency_gate_stage0.json`
+- `research/experiment_reports/2026-05-13-mecha-engine-runtime-boundary-gate.md`
+- `research/package_specs/mecha_engine_runtime_boundary_gate.md`
+- `data/architecture/mecha_engine_runtime_boundary_gate_stage0.json`
 - `research/experiment_reports/2026-05-12-mecha-engine-property-negative-test-strategy.md`
 - `research/package_specs/mecha_engine_property_negative_test_strategy.md`
 - `data/architecture/mecha_engine_property_negative_test_strategy_stage0.json`
@@ -125,6 +128,9 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-05-13-slip-multigeneration-lineage-runner.md`
 - `research/algorithm_cards/slip_multigeneration_lineage_runner.md`
 - `data/workshop_editor/slip_multigeneration_lineage_runner_stage0.json`
+- `research/experiment_reports/2026-05-13-mecha-engine-runtime-boundary-gate.md`
+- `research/package_specs/mecha_engine_runtime_boundary_gate.md`
+- `data/architecture/mecha_engine_runtime_boundary_gate_stage0.json`
 - `research/experiment_reports/2026-05-12-map-elites-extended-descriptors.md`
 - `research/algorithm_cards/map_elites_extended_descriptors.md`
 - `data/archives/map_elites_extended_stage0.json`
@@ -236,6 +242,9 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-05-13-slip-multigeneration-lineage-runner.md`
 - `research/algorithm_cards/slip_multigeneration_lineage_runner.md`
 - `data/workshop_editor/slip_multigeneration_lineage_runner_stage0.json`
+- `research/experiment_reports/2026-05-13-mecha-engine-runtime-boundary-gate.md`
+- `research/package_specs/mecha_engine_runtime_boundary_gate.md`
+- `data/architecture/mecha_engine_runtime_boundary_gate_stage0.json`
 - `research/experiment_reports/2026-05-12-external-metadata-sidecar-strategy.md`
 - `data/workshop_editor/external_metadata_sidecar_stage0.json`
 - `research/experiment_reports/2026-05-12-standard-image-sidecar-decoder.md`

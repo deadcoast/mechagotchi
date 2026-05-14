@@ -28,5 +28,8 @@ Published specs:
   fixtures required by the future package test obligations.
 - `mecha_engine_formal_invariant_dependency_gate.md` - cross-module invariant,
   dependency, and failure-propagation gate for future package implementation.
+- `mecha_engine_runtime_boundary_gate.md` - package/runtime lifecycle boundary
+  gate that keeps SLIP runtime-selection and multigeneration lineage labs
+  research-only until package imports and manual readability calibration exist.
 - `mecha_engine_property_negative_test_strategy.md` - future property-style,
   metamorphic, and single-fault negative test strategy for package gates.

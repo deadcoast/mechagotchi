@@ -78,6 +78,7 @@ runtime evolution.
 | SLIP offspring lineage gate | `data/workshop_editor/slip_offspring_lineage_gate_stage0.json` | 1 | 3 bounded offspring selections, 3 lineage decisions, 1 add-niche outcome, 2 invalid offspring probes rejected |
 | SLIP long-horizon behavior gate | `data/workshop_editor/slip_long_horizon_behavior_gate_stage0.json` | 1 | 3 selected-offspring full-survival probes, 18/18 held-out switchboard full-survival probes, 18/18 idle deaths, 2 invalid long-horizon probes rejected |
 | SLIP multigeneration lineage runner | `data/workshop_editor/slip_multigeneration_lineage_runner_stage0.json` | 1 | 3 three-generation profile runs, 9 qualified selected offspring, max generation 4, 2 invalid multigeneration probes rejected |
+| Mecha engine runtime boundary gate | `data/architecture/mecha_engine_runtime_boundary_gate_stage0.json` | 1 | 5 package/runtime contracts defined, 5/5 premature package/evolution probes rejected, package root absent, package runtime integration not ready |
 | External metadata sidecar | `data/workshop_editor/external_metadata_sidecar_stage0.json` | 1 | 3 sidecar round trips, 2 invalid binding probes rejected, 5 adapter formats require sidecar |
 | Standard image sidecar decoder | `data/workshop_editor/standard_image_sidecar_decoder_stage0.json` | 1 | 3 static RGBA PNG sidecar round trips, 2 invalid PNG/binding probes rejected |
 | PNG variant sidecar decoder | `data/workshop_editor/png_variant_sidecar_decoder_stage0.json` | 1 | 15 variant PNG sidecar round trips, color types 0/2/3/6, filters 0..4, 3 invalid variant probes rejected |
@@ -161,6 +162,7 @@ require a complete behavior vocabulary or survival-weight vocabulary.
 | SLIP long-horizon behavior gate | 3/3 current profiles pass selected-offspring long-horizon switchboard survival; 18/18 held-out generated candidates survive 96 switchboard ticks; 18/18 held-out idle probes die before the horizon; mean switchboard survival ratio `1.0`; mean idle survival ratio `0.114583`; mean need-balance delta vs idle `0.691676`; 2/2 invalid version/mismatched-corpus probes rejected before the long-horizon gate starts; manual readability calibration remains not collected | proven Stage 0 held-out long-horizon behavior gate only | manual readability calibration and package runtime integration |
 | SLIP readability calibration gate | 21/21 current long-horizon samples bound to the manual readability protocol; 3 selected offspring and 18 held-out candidates scored by the proxy metric; expected completed reviewer rows: 63; rating rows collected: 0; manual readability calibration ready: false | packet and proxy snapshot prepared; human calibration still absent | collect 63 reviewer rows, verify agreement and proxy-human rank correlation, then rerun calibration |
 | SLIP multigeneration lineage runner | 3/3 current profiles persist three-generation candidate lineages; 9/9 selected offspring continue as qualified lineage frontiers; max generation reached: 4; mean selected offspring score `0.925309`; mean selected runtime survival ratio `1.0`; 2 add-niche and 7 hold-parent archive actions; 2/2 invalid version/mismatched-corpus probes rejected before the runner starts | proven Stage 0 lab-only persistent multigeneration lineage runner | package runtime integration and manual readability calibration |
+| Mecha engine runtime boundary gate | 5 package/runtime contracts defined; 5/5 premature package/evolution probes rejected; package root exists: false; manual readability rows: 0/63; promotion-ready contracts: 0 | proven Stage 0 package/runtime boundary gate with no package code | explicit package implementation authorization, package import-surface tests, and manual readability calibration |
 | CA/NCA growth/repair | growth/repair measured against LCD profile; mixed palettes lower alignment to `0.25` | diagnostic only | profile-matched CA/NCA alignment by palette family |
 | CuBFF hybrid transducer | hybrid path reports 12/12 valid and aligned under active profile | limited | real snapshot and multi-profile transducer compatibility |
 | Future package tests | generation/lifecycle/property strategies mention SLIP rejection and alignment | specified only | package import-surface tests after package work starts |
@@ -307,8 +309,9 @@ The following claims remain blocked:
 - profile-weighted evolution, because the runtime selector, offspring gate,
   long-horizon gate, and multigeneration runner are still lab artifacts rather
   than package runtime evolution with calibrated readability thresholds;
-- package runtime lifecycle integration, because the lab selector is not a
-  production lifecycle simulator or package import surface;
+- package runtime lifecycle integration, because the runtime boundary gate
+  defines the required contracts but the lab selector is not a production
+  lifecycle simulator or package import surface;
 - manual readability calibration, because archive readability is still proxy
   scored;
 - Adam7/APNG/full PNG conformance, because the PNG variant proof covers only
@@ -342,12 +345,14 @@ python -m json.tool .\data\workshop_editor\slip_runtime_selection_policy_stage0.
 python -m json.tool .\data\workshop_editor\slip_offspring_lineage_gate_stage0.json
 python -m json.tool .\data\workshop_editor\slip_long_horizon_behavior_gate_stage0.json
 python -m json.tool .\data\workshop_editor\slip_multigeneration_lineage_runner_stage0.json
+python -m json.tool .\data\architecture\mecha_engine_runtime_boundary_gate_stage0.json
 python -m json.tool .\data\workshop_editor\external_metadata_sidecar_stage0.json
 python -m json.tool .\data\workshop_editor\standard_image_sidecar_decoder_stage0.json
 python -m json.tool .\data\workshop_editor\png_variant_sidecar_decoder_stage0.json
 python -m json.tool .\data\workshop_editor\spritesheet_sidecar_decoder_stage0.json
 python -m json.tool .\data\workshop_editor\spritesheet_layout_variant_decoder_stage0.json
 python -m json.tool .\data\workshop_editor\third_party_project_decoder_stage0.json
+python -B -m unittest .\labs\architecture\test_mecha_engine_runtime_boundary_gate.py
 python -B -m unittest discover -s .\labs\slip_validator -p "test_*.py"
 python -B -m unittest discover -s .\labs\workshop_editor -p "test_*.py"
 Test-Path .\packages
@@ -377,7 +382,11 @@ corpus, Pydantic lab model, and migration/dependency gate as the current
 file-level profile contract. Treat the measured lifecycle/archive bridge,
 runtime selection policy, and offspring lineage gate as Stage 0 lab-only
 effect, elite-selection, child-selection, lineage-decision, and long-horizon
-behavior probes, not as package runtime evolution. Treat the external JSON
+behavior probes, not as package runtime evolution. Treat the runtime boundary
+gate as the current package/runtime handoff for those labs; it rejects lab
+imports, missing dependency manifests, package promotion without a package root,
+and profile-weighted evolution claims until package imports and manual
+readability calibration exist. Treat the external JSON
 sidecar strategy, static RGBA
 PNG sidecar decoder, PNG variant sidecar decoder subset, fixed-grid horizontal
 spritesheet sidecar decoder, and spritesheet layout variant decoder subset as
@@ -394,8 +403,8 @@ PNG conformance questions are proven or explicitly rejected.
 Next research step:
 
 ```txt
-Integrate package/runtime lifecycle boundaries and collect 63 SLIP readability
-reviewer rows before claiming profile-weighted evolution.
+Collect 63 SLIP readability reviewer rows and start package implementation only
+when explicitly authorized before claiming profile-weighted evolution.
 ```
 
 ## References
@@ -430,6 +439,7 @@ reviewer rows before claiming profile-weighted evolution.
 - `research/experiment_reports/2026-05-13-slip-runtime-selection-policy.md`
 - `research/experiment_reports/2026-05-13-slip-offspring-lineage-gate.md`
 - `research/experiment_reports/2026-05-13-slip-long-horizon-behavior-gate.md`
+- `research/experiment_reports/2026-05-13-mecha-engine-runtime-boundary-gate.md`
 - `research/experiment_reports/2026-05-12-external-metadata-sidecar-strategy.md`
 - `research/experiment_reports/2026-05-12-standard-image-sidecar-decoder.md`
 - `research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`
@@ -443,6 +453,7 @@ reviewer rows before claiming profile-weighted evolution.
 - `labs/workshop_editor/slip_offspring_lineage_gate.py`
 - `labs/workshop_editor/slip_long_horizon_behavior_gate.py`
 - `labs/workshop_editor/slip_multigeneration_lineage_runner.py`
+- `labs/architecture/mecha_engine_runtime_boundary_gate.py`
 - `labs/workshop_editor/external_metadata_sidecar.py`
 - `labs/workshop_editor/standard_image_sidecar_decoder.py`
 - `labs/workshop_editor/png_variant_sidecar_decoder.py`
@@ -456,6 +467,7 @@ reviewer rows before claiming profile-weighted evolution.
 - `data/workshop_editor/slip_offspring_lineage_gate_stage0.json`
 - `data/workshop_editor/slip_long_horizon_behavior_gate_stage0.json`
 - `data/workshop_editor/slip_multigeneration_lineage_runner_stage0.json`
+- `data/architecture/mecha_engine_runtime_boundary_gate_stage0.json`
 - `data/workshop_editor/external_metadata_sidecar_stage0.json`
 - `data/workshop_editor/standard_image_sidecar_decoder_stage0.json`
 - `data/workshop_editor/png_variant_sidecar_decoder_stage0.json`
@@ -475,6 +487,7 @@ reviewer rows before claiming profile-weighted evolution.
 - `data/workshop_editor/slip_offspring_lineage_gate_stage0/`
 - `data/workshop_editor/slip_long_horizon_behavior_gate_stage0/`
 - `data/workshop_editor/slip_multigeneration_lineage_runner_stage0/`
+- `data/architecture/mecha_engine_runtime_boundary_gate_stage0/`
 - `data/generated_grids/slip_lcd_seed_constrained/README.md`
 - `data/slips/multi_profile_generation_stage0/slip_multi_profile_generation_stage0.json`
 - `data/workshop_editor/multi_profile_roundtrip_stage0/workshop_multi_profile_roundtrip_stage0.json`

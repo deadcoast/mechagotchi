@@ -11,7 +11,7 @@ DEVELOPMENT: BRAINSTORMING + RESEARCH, PLANNING
 
 - *Inspired by retro-computing and life in the 90's.*
 
-I want to create a tamagotchi style personal companion. I want to use a grid to create the graphic assets of the companions. Grids are consistent, simple, scalable and mathematic. Combined with the back end logic of a tamagotchi style companion, we can create a consistent, scalable and highly modular engine.
+A tamagotchi style personal companion, utilizing a grid to create graphic assets of the companions. Grids are consistent, simple, scalable and mathematic. Combined with the back end logic of a tamagotchi style companion, we can create a consistent, scalable and highly modular engine.
 
 The project will operate on two comprehensive builds.[A],[B].
 

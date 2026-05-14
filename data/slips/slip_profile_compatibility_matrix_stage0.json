@@ -49,6 +49,7 @@
     "labs/workshop_editor/slip_long_horizon_behavior_gate.py",
     "labs/workshop_editor/slip_multigeneration_lineage_runner.py",
     "labs/readability_benchmark/slip_readability_calibration_gate.py",
+    "labs/architecture/mecha_engine_runtime_boundary_gate.py",
     "data/workshop_editor/slip_authoring_panel_stage0.json",
     "data/workshop_editor/slip_authoring_panel_stage0/",
     "data/workshop_editor/slip_behavior_mutation_preview_stage0.json",
@@ -65,6 +66,10 @@
     "data/workshop_editor/slip_multigeneration_lineage_runner_stage0/",
     "data/readability/slip_readability_calibration_gate_stage0.json",
     "data/readability/slip_readability_calibration_template.csv",
+    "research/experiment_reports/2026-05-13-mecha-engine-runtime-boundary-gate.md",
+    "research/package_specs/mecha_engine_runtime_boundary_gate.md",
+    "data/architecture/mecha_engine_runtime_boundary_gate_stage0.json",
+    "data/architecture/mecha_engine_runtime_boundary_gate_stage0/",
     "research/experiment_reports/2026-05-12-external-metadata-sidecar-strategy.md",
     "labs/workshop_editor/external_metadata_sidecar.py",
     "data/workshop_editor/external_metadata_sidecar_stage0.json",
@@ -325,6 +330,14 @@
     "slip_multigeneration_lineage_runner_max_generation_reached": 4,
     "slip_multigeneration_lineage_runner_mean_selected_offspring_score": 0.925309,
     "slip_multigeneration_lineage_runner_mean_selected_runtime_survival_ratio": 1.0,
+    "mecha_engine_runtime_boundary_gate_contracts": 5,
+    "mecha_engine_runtime_boundary_gate_contracts_with_source_evidence": 5,
+    "mecha_engine_runtime_boundary_gate_negative_probes": 5,
+    "mecha_engine_runtime_boundary_gate_negative_probes_rejected": 5,
+    "mecha_engine_runtime_boundary_gate_package_root_exists": false,
+    "mecha_engine_runtime_boundary_gate_package_runtime_integration_ready": false,
+    "mecha_engine_runtime_boundary_gate_profile_weighted_evolution_ready": false,
+    "mecha_engine_runtime_boundary_gate_promotion_ready_contracts": 0,
     "external_sidecar_profiles": 3,
     "external_sidecar_roundtrip_success": 3,
     "external_sidecar_invalid_probes_rejected": 2,
@@ -570,6 +583,12 @@
       "required_next_proof": "package runtime integration and manual readability calibration"
     },
     {
+      "surface": "mecha_engine_runtime_boundary_gate",
+      "current_proof": "5 package/runtime contracts defined; 5/5 premature package/evolution probes rejected; package root exists false; manual readability rows 0/63; promotion-ready contracts 0",
+      "status": "proven_stage0_package_runtime_boundary_gate_no_package_code",
+      "required_next_proof": "explicit package implementation authorization, package import-surface tests, and manual readability calibration"
+    },
+    {
       "surface": "ca_nca_growth_repair",
       "current_proof": "LCD profile alignment rate is 0.25 across mixed seed palettes",
       "status": "diagnostic_only",
@@ -617,6 +636,7 @@
     "python -m json.tool .\\data\\workshop_editor\\slip_long_horizon_behavior_gate_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\slip_multigeneration_lineage_runner_stage0.json",
     "python -m json.tool .\\data\\readability\\slip_readability_calibration_gate_stage0.json",
+    "python -m json.tool .\\data\\architecture\\mecha_engine_runtime_boundary_gate_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\external_metadata_sidecar_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\standard_image_sidecar_decoder_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\png_variant_sidecar_decoder_stage0.json",
@@ -625,6 +645,7 @@
     "python -m json.tool .\\data\\workshop_editor\\third_party_project_decoder_stage0.json",
     "python -B -m unittest .\\labs\\workshop_editor\\test_slip_multigeneration_lineage_runner.py",
     "python -B -m unittest .\\labs\\readability_benchmark\\test_slip_readability_calibration_gate.py",
+    "python -B -m unittest .\\labs\\architecture\\test_mecha_engine_runtime_boundary_gate.py",
     "python -B -m unittest discover -s .\\labs\\slip_validator -p \"test_*.py\"",
     "python -B -m unittest discover -s .\\labs\\workshop_editor -p \"test_*.py\"",
     "Test-Path .\\packages",
@@ -632,5 +653,5 @@
     "git diff --check"
   ],
   "decision": "adopt_stage0_slip_profile_compatibility_matrix",
-  "next_research_step": "Integrate package/runtime lifecycle boundaries and collect 63 SLIP readability reviewer rows before claiming profile-weighted evolution."
+  "next_research_step": "Collect 63 SLIP readability reviewer rows and start package implementation only when explicitly authorized before claiming profile-weighted evolution."
 }

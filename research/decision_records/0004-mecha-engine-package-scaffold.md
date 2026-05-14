@@ -124,8 +124,5 @@ the scaffold and verifies:
 
 ## External References
 
-- Python Packaging User Guide, `src` layout vs flat layout:
-  https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/
-- Python Packaging User Guide, `pyproject.toml` specification:
-  https://packaging.python.org/en/latest/specifications/pyproject-toml/
-
+- Python Packaging User Guide, [`src` layout vs flat layout](https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/)
+- Python Packaging User Guide, `pyproject.toml` [specification](https://packaging.python.org/en/latest/specifications/pyproject-toml/)

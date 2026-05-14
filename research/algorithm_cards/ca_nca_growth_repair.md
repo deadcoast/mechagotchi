@@ -65,9 +65,9 @@ article references only; no external code is vendored.
 
 Sources:
 
-- https://distill.pub/2020/growing-ca/
-- https://distill.pub/selforg/2021/textures/
-- https://arxiv.org/abs/2102.02579
+- [a](https://distill.pub/2020/growing-ca/)
+- [b](https://distill.pub/selforg/2021/textures/)
+- [c](https://arxiv.org/abs/2102.02579)
 
 ## Prototype Result
 

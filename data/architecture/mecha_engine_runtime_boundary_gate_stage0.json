@@ -1,0 +1,299 @@
+{
+  "artifact_id": "mecha_engine_runtime_boundary_gate_stage0",
+  "status": "research_runtime_boundary_gate_no_package_code",
+  "date": "2026-05-13",
+  "purpose": "Integrate the current package/runtime lifecycle boundary research without creating packages, moving lab code, fabricating readability ratings, or claiming profile-weighted evolution.",
+  "package_root": "packages/mecha_engine",
+  "package_root_exists": false,
+  "package_runtime_integration_ready": false,
+  "manual_readability_calibration_ready": false,
+  "profile_weighted_evolution_ready": false,
+  "source_artifacts": [
+    "docs/01-brainstorming.md",
+    "docs/02-research_plan.md",
+    "research/decision_records/0004-mecha-engine-package-scaffold.md",
+    "research/package_specs/mecha_engine_module_interfaces.md",
+    "research/package_specs/mecha_engine_lifecycle_contract_gate.md",
+    "research/package_specs/mecha_engine_archive_contract_gate.md",
+    "research/package_specs/mecha_engine_contract_traceability_matrix.md",
+    "research/package_specs/mecha_engine_formal_invariant_dependency_gate.md",
+    "research/package_specs/mecha_engine_runtime_boundary_gate.md",
+    "research/experiment_reports/2026-05-13-mecha-engine-runtime-boundary-gate.md",
+    "research/slip/profile_compatibility_tests.md",
+    "data/slips/slip_profile_compatibility_matrix_stage0.json",
+    "data/readability/slip_readability_calibration_gate_stage0.json",
+    "data/package_promotion/mecha_engine_package_promotion_gate_stage0.json",
+    "data/workshop_editor/slip_runtime_selection_policy_stage0.json",
+    "data/workshop_editor/slip_offspring_lineage_gate_stage0.json",
+    "data/workshop_editor/slip_long_horizon_behavior_gate_stage0.json",
+    "data/workshop_editor/slip_multigeneration_lineage_runner_stage0.json"
+  ],
+  "external_anchors": [
+    {
+      "source": "Python Packaging User Guide - src layout vs flat layout",
+      "url": "https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/",
+      "used_for": "Package runtime imports must be exercised through an installed src-layout import surface, not repository-root lab imports."
+    },
+    {
+      "source": "Python Packaging User Guide - Writing your pyproject.toml",
+      "url": "https://packaging.python.org/en/latest/guides/writing-pyproject-toml/",
+      "used_for": "The future package dependency and metadata boundary belongs in pyproject.toml, not in a research artifact."
+    },
+    {
+      "source": "JSON Schema Draft 2020-12",
+      "url": "https://json-schema.org/draft/2020-12",
+      "used_for": "Runtime SLIP/profile schema validation remains blocked until a package dependency policy chooses and declares a validator."
+    }
+  ],
+  "runtime_boundary_contracts": [
+    {
+      "contract_id": "package_import_boundary",
+      "runtime_surface": "mecha_engine package import surface",
+      "package_target": "packages/mecha_engine/src/mecha_engine",
+      "source_artifacts": [
+        "research/decision_records/0004-mecha-engine-package-scaffold.md",
+        "research/package_specs/mecha_engine_contract_traceability_matrix.md",
+        "research/package_specs/mecha_engine_formal_invariant_dependency_gate.md"
+      ],
+      "required_runtime_inputs": [
+        "installed mecha_engine import package",
+        "pyproject.toml dependency and metadata boundary",
+        "package tests that import mecha_engine directly"
+      ],
+      "required_runtime_outputs": [
+        "importable mecha_engine package",
+        "no import-time Stage 0 artifact writes",
+        "no copied lab implementation during scaffold creation"
+      ],
+      "forbidden_dependencies": [
+        "labs",
+        "sys.path lab adapters",
+        "research artifact writers"
+      ],
+      "blocked_until": [
+        "packages/mecha_engine exists",
+        "scaffold verification gate passes through package imports",
+        "package-promotion gate reruns after scaffold exists"
+      ],
+      "evidence_present": true
+    },
+    {
+      "contract_id": "lifecycle_runtime_boundary",
+      "runtime_surface": "mecha_engine.lifecycle",
+      "package_target": "packages/mecha_engine/src/mecha_engine/lifecycle",
+      "source_artifacts": [
+        "research/package_specs/mecha_engine_lifecycle_contract_gate.md",
+        "data/workshop_editor/slip_runtime_selection_policy_stage0.json",
+        "data/workshop_editor/slip_long_horizon_behavior_gate_stage0.json",
+        "data/workshop_editor/slip_multigeneration_lineage_runner_stage0.json"
+      ],
+      "required_runtime_inputs": [
+        "package-validated grid genome",
+        "package-validated SLIP profile when supplied",
+        "policy or action stream",
+        "tick horizon and reproducibility seed"
+      ],
+      "required_runtime_outputs": [
+        "bounded episode summary",
+        "per-tick history",
+        "explicit death cause on terminal state",
+        "no online learner memory writes"
+      ],
+      "forbidden_dependencies": [
+        "labs",
+        "workshop_editor selector internals",
+        "readability proxy threshold lock"
+      ],
+      "blocked_until": [
+        "package genome validator exists",
+        "package lifecycle module exists",
+        "package tests reject invalid grids before simulation",
+        "manual readability calibration is available before evolution claims"
+      ],
+      "evidence_present": true
+    },
+    {
+      "contract_id": "slip_profile_runtime_validation_boundary",
+      "runtime_surface": "future mecha_engine SLIP/profile validation surface",
+      "package_target": "deferred packages/mecha_engine/src/mecha_engine/slip",
+      "source_artifacts": [
+        "research/slip/profile_compatibility_tests.md",
+        "data/slips/slip_profile_compatibility_matrix_stage0.json",
+        "research/slip/schema_migration_dependency_gate.md",
+        "data/slips/slip_schema_migration_dependency_gate_stage0.json"
+      ],
+      "required_runtime_inputs": [
+        "declared JSON Schema runtime validator dependency",
+        "declared Pydantic package dependency policy if retained",
+        "versioned SLIP profile payload"
+      ],
+      "required_runtime_outputs": [
+        "runtime schema validation result",
+        "migration or explicit rejection for unsupported versions",
+        "profile/grid alignment result"
+      ],
+      "forbidden_dependencies": [
+        "labs",
+        "dependency-free lab validator as runtime proof",
+        "undeclared package dependencies"
+      ],
+      "blocked_until": [
+        "runtime JSON Schema dependency is selected and declared",
+        "Pydantic package dependency decision exists",
+        "package import-surface tests cover SLIP validation"
+      ],
+      "evidence_present": true
+    },
+    {
+      "contract_id": "archive_readability_boundary",
+      "runtime_surface": "mecha_engine.archive readability-aware descriptor use",
+      "package_target": "packages/mecha_engine/src/mecha_engine/archive",
+      "source_artifacts": [
+        "research/package_specs/mecha_engine_archive_contract_gate.md",
+        "research/experiment_reports/2026-05-13-slip-readability-calibration-gate.md",
+        "data/readability/slip_readability_calibration_gate_stage0.json"
+      ],
+      "required_runtime_inputs": [
+        "package-validated candidate grid",
+        "lifecycle episode summary",
+        "manual-readability calibration status",
+        "profile alignment result when profile-weighted descriptors are used"
+      ],
+      "required_runtime_outputs": [
+        "descriptor metadata",
+        "bounded fitness components",
+        "explicit readability calibration status",
+        "blocked descriptor threshold lock when ratings are absent"
+      ],
+      "forbidden_dependencies": [
+        "labs",
+        "proxy readability as human calibration",
+        "scalar top-k replacement for archive behavior"
+      ],
+      "blocked_until": [
+        "63 completed SLIP readability reviewer rows exist",
+        "inter-reviewer agreement and proxy-human correlation pass",
+        "package archive tests preserve calibration status"
+      ],
+      "evidence_present": true
+    },
+    {
+      "contract_id": "lineage_runtime_state_boundary",
+      "runtime_surface": "future package lineage/runtime state persistence",
+      "package_target": "deferred package runtime state surface",
+      "source_artifacts": [
+        "research/slip/profile_compatibility_tests.md",
+        "research/experiment_reports/2026-05-13-slip-multigeneration-lineage-runner.md",
+        "data/workshop_editor/slip_multigeneration_lineage_runner_stage0.json"
+      ],
+      "required_runtime_inputs": [
+        "package-selected parent candidate",
+        "package-generated offspring candidate",
+        "package lifecycle and archive decision records"
+      ],
+      "required_runtime_outputs": [
+        "persistent lineage state with parent links",
+        "archive action trace",
+        "explicit lab-only boundary if package runtime state is absent"
+      ],
+      "forbidden_dependencies": [
+        "labs",
+        "workshop_editor lineage runner as runtime state",
+        "unbounded generation without package validation"
+      ],
+      "blocked_until": [
+        "package lifecycle/archive modules exist",
+        "runtime state persistence contract is defined",
+        "manual readability calibration is available before evolution claims"
+      ],
+      "evidence_present": true
+    }
+  ],
+  "negative_probes": [
+    {
+      "probe_id": "package_runtime_imports_labs",
+      "accepted": false,
+      "result": "rejected",
+      "reasons": [
+        "forbidden_lab_dependency"
+      ],
+      "evidence": "Future package runtime code must import mecha_engine modules, not labs/* research modules."
+    },
+    {
+      "probe_id": "package_test_mutates_sys_path_to_lab",
+      "accepted": false,
+      "result": "rejected",
+      "reasons": [
+        "forbidden_sys_path_lab_access"
+      ],
+      "evidence": "Future package tests must exercise the package import surface without sys.path adapters to lab directories."
+    },
+    {
+      "probe_id": "claim_profile_weighted_evolution",
+      "accepted": false,
+      "result": "rejected",
+      "reasons": [
+        "package_runtime_lifecycle_integration_absent",
+        "manual_readability_calibration_absent"
+      ],
+      "evidence": "Stage 0 selectors, offspring gates, long-horizon probes, and multigeneration lineage runs are lab artifacts until package runtime integration and manual readability calibration exist."
+    },
+    {
+      "probe_id": "declare_runtime_schema_validation_ready",
+      "accepted": false,
+      "result": "rejected",
+      "reasons": [
+        "dependency_manifest_absent"
+      ],
+      "evidence": "Runtime JSON Schema validation requires a declared package dependency policy in the future package metadata boundary."
+    },
+    {
+      "probe_id": "package_promotion_without_package_root",
+      "accepted": false,
+      "result": "rejected",
+      "reasons": [
+        "package_root_absent"
+      ],
+      "evidence": "The package-promotion gate reports zero promotion-ready candidates while packages/mecha_engine is absent."
+    }
+  ],
+  "metrics": {
+    "contract_count": 5,
+    "contracts_with_source_evidence": 5,
+    "package_directory_exists": false,
+    "package_root_exists": false,
+    "manual_readability_rating_rows": 0,
+    "expected_manual_readability_rows": 63,
+    "manual_readability_calibration_ready": false,
+    "package_runtime_integration_ready": false,
+    "profile_weighted_evolution_ready": false,
+    "negative_probe_count": 5,
+    "negative_probe_rejected_count": 5,
+    "promotion_ready_contracts": 0,
+    "package_promotion_ready_count": 0,
+    "slip_blocked_state_count": 12
+  },
+  "closed_states": [
+    "package_runtime_boundary_contracts_defined",
+    "lab_import_negative_probe_rejected",
+    "premature_profile_weighted_evolution_claim_rejected",
+    "manual_readability_row_requirement_preserved"
+  ],
+  "blocked_states": [
+    "runtime_jsonschema_validation",
+    "declared_pydantic_package_dependency",
+    "package_runtime_lifecycle_integration",
+    "manual_readability_calibration",
+    "profile_weighted_evolution",
+    "package_import_surface_tests",
+    "package_promotion"
+  ],
+  "decision": "adopt_runtime_boundary_gate_research_only",
+  "next_research_step": "Keep package/runtime lifecycle integration blocked until package implementation is explicitly started; collect 63 SLIP readability reviewer rows before claiming profile-weighted evolution.",
+  "limitations": [
+    "This gate does not create packages/ or packages/mecha_engine.",
+    "This gate does not run future package tests because no package surface exists.",
+    "This gate rejects lab imports as package runtime evidence.",
+    "This gate does not fabricate or infer human readability ratings."
+  ]
+}

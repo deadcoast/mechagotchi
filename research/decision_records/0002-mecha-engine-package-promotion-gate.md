@@ -64,4 +64,3 @@ The readability gate remains blocked until real human ratings are collected.
 - `data/package_promotion/mecha_engine_package_promotion_gate_stage0.json`
 - `data/package_promotion/mecha_engine_package_promotion_criteria.md`
 - `research/experiment_reports/2026-05-12-mecha-engine-package-promotion-gate.md`
-

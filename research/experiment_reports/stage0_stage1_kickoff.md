@@ -316,3 +316,11 @@ CI.
     `research/algorithm_cards/slip_multigeneration_lineage_runner.md`,
     `labs/workshop_editor/slip_multigeneration_lineage_runner.py`, and
     `data/workshop_editor/slip_multigeneration_lineage_runner_stage0.json`.
+55. Define and test the package/runtime lifecycle boundary for current SLIP
+    runtime-selection, offspring, long-horizon, and multigeneration lineage labs
+    without creating package code or claiming profile-weighted evolution. Done
+    in
+    `research/experiment_reports/2026-05-13-mecha-engine-runtime-boundary-gate.md`,
+    `research/package_specs/mecha_engine_runtime_boundary_gate.md`,
+    `labs/architecture/mecha_engine_runtime_boundary_gate.py`, and
+    `data/architecture/mecha_engine_runtime_boundary_gate_stage0.json`.
