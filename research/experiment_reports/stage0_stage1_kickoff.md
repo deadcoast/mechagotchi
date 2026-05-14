@@ -456,3 +456,11 @@ CI.
     `research/algorithm_cards/spritesheet_multi_page_atlas.md`,
     `labs/workshop_editor/spritesheet_multi_page_atlas.py`, and
     `data/workshop_editor/spritesheet_multi_page_atlas_stage0.json`.
+72. Build the Stage 0 bounded PNG Adam7 interlace decoder lab for 8-bit RGBA
+    carriers with seven reduced-image pass manifests and filters 0..4 without
+    claiming APNG, full PNG conformance, live external editor validation, final
+    production carrier selection, or package runtime integration. Done in
+    `research/experiment_reports/2026-05-14-png-adam7-interlace-decoder.md`,
+    `research/algorithm_cards/png_adam7_interlace_decoder.md`,
+    `labs/workshop_editor/png_adam7_interlace_decoder.py`, and
+    `data/workshop_editor/png_adam7_interlace_decoder_stage0.json`.

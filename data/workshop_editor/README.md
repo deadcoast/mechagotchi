@@ -20,6 +20,9 @@ Minimal semantic editor artifacts for testing Mechagotchi grid authoring.
 
 - `png_variant_sidecar_decoder_stage0.json` records 15/15 PNG variant sidecar
   round trips across 3 profiles, color types 0/2/3/6, and filter types 0..4.
+- `png_adam7_interlace_decoder_stage0.json` records 3/3 bounded 8-bit RGBA
+  Adam7 interlaced PNG sidecar round trips, seven reduced-image pass manifests,
+  filters 0..4, and 6/6 invalid Adam7 probes rejected before semantic restore.
 - `png_embedded_sidecar_writer_stage0.json` records 3/3 embedded PNG `tEXt`
   sidecar round trips, decoded pixel preservation, and 3/3 invalid embedded
   metadata probes rejected before semantic restore.

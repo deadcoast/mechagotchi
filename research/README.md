@@ -97,6 +97,9 @@ The package-contract handoff is published as:
 - `data/workshop_editor/standard_image_sidecar_decoder_stage0.json`
 - `research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`
 - `data/workshop_editor/png_variant_sidecar_decoder_stage0.json`
+- `research/experiment_reports/2026-05-14-png-adam7-interlace-decoder.md`
+- `research/algorithm_cards/png_adam7_interlace_decoder.md`
+- `data/workshop_editor/png_adam7_interlace_decoder_stage0.json`
 - `research/experiment_reports/2026-05-13-png-embedded-sidecar-writer.md`
 - `research/algorithm_cards/png_embedded_sidecar_writer.md`
 - `data/workshop_editor/png_embedded_sidecar_writer_stage0.json`
@@ -299,6 +302,9 @@ Post-v0.1 continuation has started:
 - `data/workshop_editor/standard_image_sidecar_decoder_stage0.json`
 - `research/experiment_reports/2026-05-13-png-variant-sidecar-decoder.md`
 - `data/workshop_editor/png_variant_sidecar_decoder_stage0.json`
+- `research/experiment_reports/2026-05-14-png-adam7-interlace-decoder.md`
+- `research/algorithm_cards/png_adam7_interlace_decoder.md`
+- `data/workshop_editor/png_adam7_interlace_decoder_stage0.json`
 - `research/experiment_reports/2026-05-13-png-embedded-sidecar-writer.md`
 - `research/algorithm_cards/png_embedded_sidecar_writer.md`
 - `data/workshop_editor/png_embedded_sidecar_writer_stage0.json`

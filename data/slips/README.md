@@ -62,6 +62,11 @@ Current generated compatibility evidence:
   trips across 8-bit non-interlaced color types 0/2/3/6 and filter types
   0..4, 3 invalid variant probes rejected, and mean semantic and visual
   carrier fidelity of 1.0.
+- `../workshop_editor/png_adam7_interlace_decoder_stage0.json` records the
+  bounded Adam7 PNG sidecar decoder proof: 3 current profile 8-bit RGBA Adam7
+  interlaced PNG round trips, seven reduced-image pass manifests, filters
+  0..4, 6 invalid Adam7 probes rejected, and mean semantic and pixel fidelity
+  of 1.0.
 - `../workshop_editor/png_embedded_sidecar_writer_stage0.json` records the
   embedded PNG sidecar writer proof: 3 current profile PNG `tEXt` sidecar
   round trips, decoded pixel preservation, 3 invalid embedded metadata probes
@@ -171,10 +176,11 @@ Current generated compatibility evidence:
 It does not yet cover package/runtime lifecycle behavior integration, completed
 manual readability calibration, production renderer
 playback, full third-party
-project-format coverage, Adam7/APNG/full PNG conformance, arbitrary Aseprite
-project schema coverage, arbitrary Aseprite external asset resolution, final
-PNG production carrier selection, private chunk editor preservation matrix,
-editor-authored Aseprite document variants, live external editor rewrite validation, runtime JSON Schema dependency installation,
+project-format coverage, APNG/full PNG conformance, deeper PNG bit-depth and
+color-type coverage, arbitrary Aseprite project schema coverage, arbitrary
+Aseprite external asset resolution, final PNG production carrier selection,
+private chunk editor preservation matrix, editor-authored Aseprite document
+variants, live external editor rewrite validation, runtime JSON Schema dependency installation,
 declared package dependency policy, or profile-weighted evolution. The current
 SLIP long-horizon readability packet exists under `data/readability/`, but no
 reviewer rows have been collected yet. The
