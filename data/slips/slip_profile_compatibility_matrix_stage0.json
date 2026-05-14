@@ -125,6 +125,54 @@
     "labs/workshop_editor/test_png_apng_filtered_frame_data.py",
     "data/workshop_editor/apng_filtered_frame_data_stage0.json",
     "data/workshop_editor/apng_filtered_frame_data_stage0/",
+    "research/experiment_reports/2026-05-14-apng-color-type-frame-data.md",
+    "research/algorithm_cards/png_apng_color_type_frame_data.md",
+    "labs/workshop_editor/png_apng_color_type_frame_data.py",
+    "labs/workshop_editor/test_png_apng_color_type_frame_data.py",
+    "data/workshop_editor/apng_color_type_frame_data_stage0.json",
+    "data/workshop_editor/apng_color_type_frame_data_stage0/",
+    "research/experiment_reports/2026-05-14-apng-bit-depth-frame-data.md",
+    "research/algorithm_cards/png_apng_bit_depth_frame_data.md",
+    "labs/workshop_editor/png_apng_bit_depth_frame_data.py",
+    "labs/workshop_editor/test_png_apng_bit_depth_frame_data.py",
+    "data/workshop_editor/apng_bit_depth_frame_data_stage0.json",
+    "data/workshop_editor/apng_bit_depth_frame_data_stage0/",
+    "research/experiment_reports/2026-05-14-apng-partial-sample-frame-data.md",
+    "research/algorithm_cards/png_apng_partial_sample_frame_data.md",
+    "labs/workshop_editor/png_apng_partial_sample_frame_data.py",
+    "labs/workshop_editor/test_png_apng_partial_sample_frame_data.py",
+    "data/workshop_editor/apng_partial_sample_frame_data_stage0.json",
+    "data/workshop_editor/apng_partial_sample_frame_data_stage0/",
+    "research/experiment_reports/2026-05-14-apng-adam7-frame-data.md",
+    "research/algorithm_cards/png_apng_adam7_frame_data.md",
+    "labs/workshop_editor/png_apng_adam7_frame_data.py",
+    "labs/workshop_editor/test_png_apng_adam7_frame_data.py",
+    "data/workshop_editor/apng_adam7_frame_data_stage0.json",
+    "data/workshop_editor/apng_adam7_frame_data_stage0/",
+    "research/experiment_reports/2026-05-14-apng-partial-adam7-frame-data.md",
+    "research/algorithm_cards/png_apng_partial_adam7_frame_data.md",
+    "labs/workshop_editor/png_apng_partial_adam7_frame_data.py",
+    "labs/workshop_editor/test_png_apng_partial_adam7_frame_data.py",
+    "data/workshop_editor/apng_partial_adam7_frame_data_stage0.json",
+    "data/workshop_editor/apng_partial_adam7_frame_data_stage0/",
+    "research/experiment_reports/2026-05-14-png-apng-image-data-chunking.md",
+    "research/algorithm_cards/png_apng_image_data_chunking.md",
+    "labs/workshop_editor/png_apng_image_data_chunking.py",
+    "labs/workshop_editor/test_png_apng_image_data_chunking.py",
+    "data/workshop_editor/png_apng_image_data_chunking_stage0.json",
+    "data/workshop_editor/png_apng_image_data_chunking_stage0/",
+    "research/experiment_reports/2026-05-14-png-apng-zlib-compression-matrix.md",
+    "research/algorithm_cards/png_apng_zlib_compression_matrix.md",
+    "labs/workshop_editor/png_apng_zlib_compression_matrix.py",
+    "labs/workshop_editor/test_png_apng_zlib_compression_matrix.py",
+    "data/workshop_editor/png_apng_zlib_compression_stage0.json",
+    "data/workshop_editor/png_apng_zlib_compression_stage0/",
+    "research/experiment_reports/2026-05-14-png-apng-zlib-header-policy.md",
+    "research/algorithm_cards/png_apng_zlib_header_policy.md",
+    "labs/workshop_editor/png_apng_zlib_header_policy.py",
+    "labs/workshop_editor/test_png_apng_zlib_header_policy.py",
+    "data/workshop_editor/png_apng_zlib_header_policy_stage0.json",
+    "data/workshop_editor/png_apng_zlib_header_policy_stage0/",
     "research/experiment_reports/2026-05-13-png-embedded-sidecar-writer.md",
     "research/algorithm_cards/png_embedded_sidecar_writer.md",
     "labs/workshop_editor/png_embedded_sidecar_writer.py",
@@ -299,7 +347,17 @@
     {
       "source": "W3C PNG specification",
       "url": "https://www.w3.org/TR/png-3/",
-      "used_for": "PNG remains a visual carrier; Mechagotchi semantics require the sidecar contract. The PNG/APNG chunk-order conformance lab uses this source for IHDR/IEND/PLTE/tRNS/IDAT ordering and APNG acTL/fcTL/fdAT sequence rules. The APNG partial-frame playback lab uses it for output-buffer, offset, blend, and dispose semantics. The APNG filtered frame-data lab uses it for filter method 0 reconstruction, zlib image-data streams, and fdAT frame-data concatenation."
+      "used_for": "PNG remains a visual carrier; Mechagotchi semantics require the sidecar contract. The PNG/APNG chunk-order conformance lab uses this source for IHDR/IEND/PLTE/tRNS/IDAT ordering and APNG acTL/fcTL/fdAT sequence rules. The APNG partial-frame playback lab uses it for output-buffer, offset, blend, and dispose semantics. The APNG filtered frame-data lab uses it for filter method 0 reconstruction, zlib image-data streams, and fdAT frame-data concatenation. The APNG color-type frame-data lab uses it for PNG color types, bit-depth restrictions, PLTE/tRNS rules, and fdAT frame-data inheritance. The APNG bit-depth frame-data lab uses it for bit-depth restrictions by color type, packed sample scanline sizing, filter method 0 reconstruction, PLTE/tRNS rules, and split fdAT sequence handling. The APNG partial-sample frame-data lab uses it for partial frame offsets combined with packed low-bit, indexed, and 16-bit sample reconstruction. The APNG Adam7 frame-data lab uses it for Adam7 pass reconstruction combined with APNG IDAT/fdAT frame-data inheritance, selected packed/indexed/8-bit/16-bit sample models, PLTE/tRNS transparency, and source/over composition. The APNG partial Adam7 frame-data lab uses it for non-zero APNG frame offsets combined with Adam7 pass reconstruction, selected packed/indexed/8-bit/16-bit sample models, PLTE/tRNS transparency, and source/over composition. The PNG/APNG image-data chunking lab uses it for IDAT/fdAT compressed datastream concatenation, zero-length IDAT data fields, zero-length fdAT frame_data fields, and chunk-boundary independence. The PNG/APNG zlib compression lab uses it for PNG compression method 0, IDAT image-data storage, fdAT frame_data inheritance, and APNG sequence validation. The PNG/APNG zlib header policy lab uses it for compression method 0 and IDAT/fdAT stream inheritance."
+    },
+    {
+      "source": "RFC 1950 zlib compressed data format",
+      "url": "https://www.rfc-editor.org/rfc/rfc1950",
+      "used_for": "The PNG/APNG zlib compression and zlib header policy labs use this source for zlib CMF/FLG headers, CM=8 deflate streams, CINFO window values, FCHECK divisibility, FDICT, FLEVEL, Adler-32 validation, and decompressor error expectations."
+    },
+    {
+      "source": "RFC 1951 DEFLATE compressed data format",
+      "url": "https://www.rfc-editor.org/rfc/rfc1951",
+      "used_for": "The PNG/APNG zlib compression and zlib header policy labs use this source for stored-block, fixed-Huffman, dynamic-Huffman, reserved DEFLATE block families, and deflate payload interpretation behind valid zlib method-8 headers."
     },
     {
       "source": "Aseprite sprite-sheet documentation",
@@ -745,7 +803,201 @@
     "apng_filtered_frame_data_filter_family_count": 5,
     "apng_filtered_frame_data_split_fdat_frames": 15,
     "apng_filtered_frame_data_success_rate": 1.0,
-    "apng_filtered_frame_data_live_external_editor_verified": false
+    "apng_filtered_frame_data_live_external_editor_verified": false,
+    "apng_color_type_frame_data_profiles": 3,
+    "apng_color_type_frame_data_cases": 15,
+    "apng_color_type_frame_data_success": 15,
+    "apng_color_type_frame_data_invalid_probes": 4,
+    "apng_color_type_frame_data_invalid_probes_rejected": 4,
+    "apng_color_type_frame_data_color_type_family_count": 5,
+    "apng_color_type_frame_data_color_types_covered": [
+      0,
+      2,
+      3,
+      4,
+      6
+    ],
+    "apng_color_type_frame_data_success_rate": 1.0,
+    "apng_color_type_frame_data_live_external_editor_verified": false,
+    "apng_bit_depth_frame_data_profiles": 3,
+    "apng_bit_depth_frame_data_cases": 30,
+    "apng_bit_depth_frame_data_success": 30,
+    "apng_bit_depth_frame_data_invalid_probes": 4,
+    "apng_bit_depth_frame_data_invalid_probes_rejected": 4,
+    "apng_bit_depth_frame_data_case_family_count": 10,
+    "apng_bit_depth_frame_data_color_types_covered": [
+      0,
+      2,
+      3,
+      4,
+      6
+    ],
+    "apng_bit_depth_frame_data_bit_depths_covered": [
+      1,
+      2,
+      4,
+      16
+    ],
+    "apng_bit_depth_frame_data_filter_types_covered": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "apng_bit_depth_frame_data_split_fdat_frames": 30,
+    "apng_bit_depth_frame_data_success_rate": 1.0,
+    "apng_bit_depth_frame_data_live_external_editor_verified": false,
+    "apng_partial_sample_frame_data_profiles": 3,
+    "apng_partial_sample_frame_data_cases": 15,
+    "apng_partial_sample_frame_data_success": 15,
+    "apng_partial_sample_frame_data_invalid_probes": 5,
+    "apng_partial_sample_frame_data_invalid_probes_rejected": 5,
+    "apng_partial_sample_frame_data_case_family_count": 5,
+    "apng_partial_sample_frame_data_color_types_covered": [
+      0,
+      2,
+      3,
+      4,
+      6
+    ],
+    "apng_partial_sample_frame_data_bit_depths_covered": [
+      1,
+      4,
+      16
+    ],
+    "apng_partial_sample_frame_data_filter_types_covered": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "apng_partial_sample_frame_data_partial_frame_cases": 15,
+    "apng_partial_sample_frame_data_split_fdat_frames": 15,
+    "apng_partial_sample_frame_data_success_rate": 1.0,
+    "apng_partial_sample_frame_data_live_external_editor_verified": false,
+    "apng_adam7_frame_data_profiles": 3,
+    "apng_adam7_frame_data_cases": 18,
+    "apng_adam7_frame_data_success": 18,
+    "apng_adam7_frame_data_invalid_probes": 5,
+    "apng_adam7_frame_data_invalid_probes_rejected": 5,
+    "apng_adam7_frame_data_case_family_count": 6,
+    "apng_adam7_frame_data_color_types_covered": [
+      0,
+      2,
+      3,
+      4,
+      6
+    ],
+    "apng_adam7_frame_data_bit_depths_covered": [
+      1,
+      4,
+      8,
+      16
+    ],
+    "apng_adam7_frame_data_filter_types_covered": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "apng_adam7_frame_data_interlace_methods_covered": [
+      1
+    ],
+    "apng_adam7_frame_data_adam7_pass_count": 7,
+    "apng_adam7_frame_data_split_fdat_frames": 18,
+    "apng_adam7_frame_data_over_blend_cases": 6,
+    "apng_adam7_frame_data_success_rate": 1.0,
+    "apng_adam7_frame_data_live_external_editor_verified": false,
+    "apng_partial_adam7_frame_data_profiles": 3,
+    "apng_partial_adam7_frame_data_cases": 18,
+    "apng_partial_adam7_frame_data_success": 18,
+    "apng_partial_adam7_frame_data_invalid_probes": 6,
+    "apng_partial_adam7_frame_data_invalid_probes_rejected": 6,
+    "apng_partial_adam7_frame_data_case_family_count": 6,
+    "apng_partial_adam7_frame_data_color_types_covered": [
+      0,
+      2,
+      3,
+      4,
+      6
+    ],
+    "apng_partial_adam7_frame_data_bit_depths_covered": [
+      1,
+      4,
+      8,
+      16
+    ],
+    "apng_partial_adam7_frame_data_filter_types_covered": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "apng_partial_adam7_frame_data_interlace_methods_covered": [
+      1
+    ],
+    "apng_partial_adam7_frame_data_adam7_pass_count": 7,
+    "apng_partial_adam7_frame_data_partial_frame_count": 18,
+    "apng_partial_adam7_frame_data_split_fdat_frames": 18,
+    "apng_partial_adam7_frame_data_over_blend_cases": 6,
+    "apng_partial_adam7_frame_data_success_rate": 1.0,
+    "apng_partial_adam7_frame_data_live_external_editor_verified": false,
+    "png_apng_image_data_chunking_profiles": 3,
+    "png_apng_image_data_chunking_cases": 18,
+    "png_apng_image_data_chunking_success": 18,
+    "png_apng_image_data_chunking_invalid_probes": 6,
+    "png_apng_image_data_chunking_invalid_probes_rejected": 6,
+    "png_apng_image_data_chunking_case_family_count": 6,
+    "png_apng_image_data_chunking_png_cases": 9,
+    "png_apng_image_data_chunking_apng_cases": 9,
+    "png_apng_image_data_chunking_zero_length_data_chunk_cases": 6,
+    "png_apng_image_data_chunking_zlib_header_split_cases": 6,
+    "png_apng_image_data_chunking_adler32_split_cases": 6,
+    "png_apng_image_data_chunking_max_data_chunk_count": 6,
+    "png_apng_image_data_chunking_success_rate": 1.0,
+    "png_apng_image_data_chunking_live_external_editor_verified": false,
+    "png_apng_zlib_compression_profiles": 3,
+    "png_apng_zlib_compression_cases": 18,
+    "png_apng_zlib_compression_success": 18,
+    "png_apng_zlib_compression_invalid_probes": 6,
+    "png_apng_zlib_compression_invalid_probes_rejected": 6,
+    "png_apng_zlib_compression_case_family_count": 6,
+    "png_apng_zlib_compression_png_cases": 9,
+    "png_apng_zlib_compression_apng_cases": 9,
+    "png_apng_zlib_compression_strategy_family_count": 4,
+    "png_apng_zlib_compression_ihdr_compression_method_0_cases": 18,
+    "png_apng_zlib_compression_zlib_cm8_cases": 18,
+    "png_apng_zlib_compression_split_fdat_cases": 9,
+    "png_apng_zlib_compression_stored_block_cases": 6,
+    "png_apng_zlib_compression_fixed_huffman_cases": 6,
+    "png_apng_zlib_compression_success_rate": 1.0,
+    "png_apng_zlib_compression_live_external_editor_verified": false,
+    "png_apng_zlib_header_policy_profiles": 3,
+    "png_apng_zlib_header_policy_cases": 18,
+    "png_apng_zlib_header_policy_success": 18,
+    "png_apng_zlib_header_policy_invalid_probes": 6,
+    "png_apng_zlib_header_policy_invalid_probes_rejected": 6,
+    "png_apng_zlib_header_policy_case_family_count": 6,
+    "png_apng_zlib_header_policy_png_cases": 9,
+    "png_apng_zlib_header_policy_apng_cases": 9,
+    "png_apng_zlib_header_policy_cinfo_values_covered": [
+      1,
+      4,
+      7
+    ],
+    "png_apng_zlib_header_policy_window_sizes_covered": [
+      512,
+      4096,
+      32768
+    ],
+    "png_apng_zlib_header_policy_fdict_false_cases": 18,
+    "png_apng_zlib_header_policy_cmf_flg_check_passed_cases": 18,
+    "png_apng_zlib_header_policy_success_rate": 1.0,
+    "png_apng_zlib_header_policy_live_external_editor_verified": false
   },
   "valid_profiles": [
     {
@@ -925,6 +1177,54 @@
       "surface": "apng_filtered_frame_data",
       "current_proof": "15/15 current profile APNG frame-data cases pass across PNG filter method 0 filter types 0..4 with two-fdAT split datastream reconstruction; frame pixel hashes and display hashes recorded; 4/4 invalid filter-byte, truncated-scanline, fdAT sequence-gap, and missing-fdAT continuation probes rejected",
       "status": "proven_stage0_bounded_apng_filtered_frame_data_matrix_only",
+      "required_next_proof": "remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection"
+    },
+    {
+      "surface": "apng_color_type_frame_data",
+      "current_proof": "15/15 current profile APNG frame-data cases pass across 8-bit color types 0, 2, 3, 4, and 6; indexed-color PLTE/tRNS transparency and explicit alpha-channel pixels are reconstructed; frame pixel hashes and display hashes recorded; 4/4 missing-PLTE, invalid-tRNS, unsupported-color-type, and alpha+tRNS conflict probes rejected",
+      "status": "proven_stage0_bounded_apng_color_type_frame_data_matrix_only",
+      "required_next_proof": "remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection"
+    },
+    {
+      "surface": "apng_bit_depth_frame_data",
+      "current_proof": "30/30 current profile APNG frame-data cases pass across packed 1/2/4-bit greyscale and indexed-color samples plus 16-bit greyscale, truecolor, greyscale-alpha, and truecolor-alpha samples; filter types 0..4, split fdAT, frame pixel hashes, display hashes, scanline byte lengths, and alpha counts recorded; 4/4 invalid bit-depth/color-type, truncated-scanline, invalid-filter, and fdAT sequence-gap probes rejected",
+      "status": "proven_stage0_bounded_apng_bit_depth_frame_data_matrix_only",
+      "required_next_proof": "remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection"
+    },
+    {
+      "surface": "apng_partial_sample_frame_data",
+      "current_proof": "15/15 current profile APNG partial-frame sample cases pass across packed 1-bit greyscale, 4-bit indexed-color PLTE/tRNS, 16-bit truecolor, 16-bit greyscale-alpha, and 16-bit truecolor-alpha regions; filter types 0..4, source/over composition, split fdAT, frame pixel hashes, display hashes, patch scanline byte lengths, and alpha counts recorded; 5/5 out-of-bounds frame, invalid bit-depth/color-type, truncated partial scanline, invalid filter, and fdAT sequence-gap probes rejected",
+      "status": "proven_stage0_bounded_apng_partial_sample_frame_data_matrix_only",
+      "required_next_proof": "remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection"
+    },
+    {
+      "surface": "apng_adam7_frame_data",
+      "current_proof": "18/18 current profile APNG Adam7 frame-data cases pass across selected color types 0, 2, 3, 4, and 6 plus bit depths 1, 4, 8, and 16; seven reduced-image pass manifests, filter types 0..4, indexed-color PLTE/tRNS transparency, source/over composition, split fdAT, frame pixel hashes, display hashes, final canvas hashes, and alpha counts recorded; 5/5 non-Adam7 interlace, invalid bit-depth/color-type, truncated Adam7 scanline, invalid filter, and fdAT sequence-gap probes rejected",
+      "status": "proven_stage0_bounded_apng_adam7_frame_data_matrix_only",
+      "required_next_proof": "remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection"
+    },
+    {
+      "surface": "apng_partial_adam7_frame_data",
+      "current_proof": "18/18 current profile APNG partial Adam7 frame-data cases pass across non-zero 6x6 patch offsets, selected color types 0, 2, 3, 4, and 6 plus bit depths 1, 4, 8, and 16; seven reduced-image pass manifests, filter types 0..4, indexed-color PLTE/tRNS transparency, source/over composition, split fdAT, frame pixel hashes, display hashes, final canvas hashes, patch offset metadata, and alpha counts recorded; 6/6 non-Adam7 interlace, out-of-bounds frame, invalid bit-depth/color-type, truncated partial Adam7 scanline, invalid filter, and fdAT sequence-gap probes rejected",
+      "status": "proven_stage0_bounded_apng_partial_adam7_frame_data_matrix_only",
+      "required_next_proof": "remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection"
+    },
+    {
+      "surface": "png_apng_image_data_chunking",
+      "current_proof": "18/18 current profile PNG/APNG image-data chunk-boundary cases pass across 9 static PNG IDAT datastream splits and 9 APNG fdAT frame-data splits; zero-length IDAT data fields, zero-length fdAT frame_data fields, zlib-header splits, Adler-32 trailer splits, IDAT/fdAT data lengths, data chunk counts, static pixel hashes, APNG display hashes, and final output hashes recorded; 6/6 nonconsecutive IDAT, corrupt IDAT, missing IDAT, missing fdAT, fdAT sequence-gap, and corrupt fdAT probes rejected",
+      "status": "proven_stage0_bounded_png_apng_image_data_chunking_matrix_only",
+      "required_next_proof": "remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection"
+    },
+    {
+      "surface": "png_apng_zlib_compression",
+      "current_proof": "18/18 current profile PNG/APNG zlib compression-method-0 cases pass across 9 static PNG IDAT streams and 9 APNG fdAT frame-data streams; stored-block, fixed-Huffman, filtered, and RLE zlib strategies, raw scanline hashes, compressed stream hashes, zlib CM=8 headers, static pixel hashes, APNG display hashes, and final output hashes recorded; 6/6 unsupported IHDR compression method, corrupt IDAT zlib header, truncated IDAT, truncated fdAT, corrupt fdAT Adler-32, and fdAT sequence-gap probes rejected",
+      "status": "proven_stage0_bounded_png_apng_zlib_compression_matrix_only",
+      "required_next_proof": "remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection; zlib header-policy and FDICT rejection are handled separately"
+    },
+    {
+      "surface": "png_apng_zlib_header_policy",
+      "current_proof": "18/18 current profile PNG/APNG zlib header-policy cases pass across 9 static PNG IDAT streams and 9 APNG fdAT frame-data streams; CINFO values 1, 4, and 7, 512/4096/32768-byte windows, FDICT=false valid streams, raw scanline hashes, compressed stream hashes, zlib CM=8 headers, static pixel hashes, APNG display hashes, and final output hashes recorded; 6/6 PNG/APNG FDICT, CMF/FLG check, reserved compression-method, and too-large CINFO probes rejected",
+      "status": "proven_stage0_bounded_png_apng_zlib_header_policy_matrix_only",
       "required_next_proof": "remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection"
     },
     {
@@ -1170,6 +1470,14 @@
     "python -m json.tool .\\data\\workshop_editor\\png_apng_chunk_order_conformance_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\apng_partial_frame_playback_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\apng_filtered_frame_data_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\apng_color_type_frame_data_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\apng_bit_depth_frame_data_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\apng_partial_sample_frame_data_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\apng_adam7_frame_data_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\apng_partial_adam7_frame_data_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\png_apng_image_data_chunking_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\png_apng_zlib_compression_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\png_apng_zlib_header_policy_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\png_embedded_sidecar_writer_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\png_textual_metadata_policy_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\png_private_chunk_policy_stage0.json",
@@ -1204,6 +1512,14 @@
     "python -B -m unittest .\\labs\\workshop_editor\\test_png_apng_chunk_order_conformance.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_png_apng_partial_frame_playback.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_png_apng_filtered_frame_data.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_png_apng_color_type_frame_data.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_png_apng_bit_depth_frame_data.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_png_apng_partial_sample_frame_data.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_png_apng_adam7_frame_data.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_png_apng_partial_adam7_frame_data.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_png_apng_image_data_chunking.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_png_apng_zlib_compression_matrix.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_png_apng_zlib_header_policy.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_spritesheet_arbitrary_atlas_packer.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_spritesheet_multi_page_atlas.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_project_native_metadata_writer.py",
@@ -1227,5 +1543,5 @@
     "git diff --check"
   ],
   "decision": "adopt_stage0_slip_profile_compatibility_matrix",
-  "next_research_step": "Collect live external editor open-save fixtures, broaden remaining PNG/APNG coverage beyond the bounded chunk-order, partial-frame playback, and filtered frame-data matrices through image-data conformance fixtures, broaden Aseprite chunk/schema coverage beyond the fixed Stage 0 carrier subsets with editor-authored document variants and editor-authored external asset resolution, collect 63 SLIP readability reviewer rows, and start package implementation only when explicitly authorized before claiming profile-weighted evolution."
+  "next_research_step": "Collect live external editor open-save fixtures, broaden remaining PNG/APNG coverage beyond the bounded chunk-order, partial-frame playback, filtered frame-data, color-type frame-data, bit-depth frame-data, partial-sample frame-data, Adam7 frame-data, partial Adam7 frame-data, image-data chunking, zlib compression, and zlib header-policy matrices through additional image-data conformance fixtures, broaden Aseprite chunk/schema coverage beyond the fixed Stage 0 carrier subsets with editor-authored document variants and editor-authored external asset resolution, collect 63 SLIP readability reviewer rows, and start package implementation only when explicitly authorized before claiming profile-weighted evolution."
 }

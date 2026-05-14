@@ -203,6 +203,48 @@ Current generated compatibility evidence:
   bounded APNG filtered frame-data matrix: 15 valid filter-method-0 cases
   across filter types 0..4 and split `fdAT` frame-data reconstruction, with 4
   invalid filter/scanline/sequence probes rejected.
+- `../workshop_editor/apng_color_type_frame_data_stage0.json` records the
+  bounded APNG color-type frame-data matrix: 15 valid color type 0/2/3/4/6
+  cases across the current profiles, with 4 invalid color metadata probes
+  rejected.
+- `../workshop_editor/apng_bit_depth_frame_data_stage0.json` records the
+  bounded APNG bit-depth frame-data matrix: 30 valid packed 1/2/4-bit and
+  16-bit frame-data cases across the current profiles, with 4 invalid
+  bit-depth/frame-data probes rejected.
+- `../workshop_editor/apng_partial_sample_frame_data_stage0.json` records the
+  bounded APNG partial-sample frame-data matrix: 15 valid partial-frame cases
+  across packed 1-bit greyscale, 4-bit indexed `PLTE`/`tRNS`, and 16-bit
+  truecolor/alpha sample regions, with 5 invalid bounds/sample/frame-data
+  probes rejected.
+- `../workshop_editor/apng_adam7_frame_data_stage0.json` records the bounded
+  APNG Adam7 frame-data matrix: 18 valid full-canvas Adam7 APNG cases across
+  selected color types 0/2/3/4/6, bit depths 1/4/8/16, indexed `PLTE`/`tRNS`,
+  seven reduced-image pass manifests, source/over composition, and split
+  `fdAT`, with 5 invalid interlace/sample/frame-data probes rejected.
+- `../workshop_editor/apng_partial_adam7_frame_data_stage0.json` records the
+  bounded APNG partial Adam7 frame-data matrix: 18 valid non-zero-offset 6x6
+  Adam7 APNG patch cases across selected color types 0/2/3/4/6, bit depths
+  1/4/8/16, indexed `PLTE`/`tRNS`, seven reduced-image pass manifests,
+  source/over composition, and split `fdAT`, with 6 invalid
+  bounds/interlace/sample/frame-data probes rejected.
+- `../workshop_editor/png_apng_image_data_chunking_stage0.json` records the
+  bounded PNG/APNG image-data chunking matrix: 18 valid static PNG IDAT and
+  APNG fdAT datastream split cases across the current profiles, including
+  zero-length IDAT data fields, zero-length fdAT `frame_data` fields,
+  zlib-header splits, and Adler-32 trailer splits, with 6 invalid
+  chunking/datastream probes rejected.
+- `../workshop_editor/png_apng_zlib_compression_stage0.json` records the
+  bounded PNG/APNG zlib compression matrix: 18 valid static PNG IDAT and APNG
+  fdAT zlib method-0 cases across the current profiles, including stored
+  blocks, fixed-Huffman, filtered, and RLE strategy streams, raw scanline hash
+  preservation, zlib CM=8 headers, and 6 invalid compression/datastream probes
+  rejected.
+- `../workshop_editor/png_apng_zlib_header_policy_stage0.json` records the
+  bounded PNG/APNG zlib header-policy matrix: 18 valid static PNG IDAT and
+  APNG fdAT zlib header cases across the current profiles, including CINFO
+  values 1/4/7, 512/4096/32768-byte window headers, FDICT=false valid streams,
+  raw scanline hash preservation, and 6 invalid FDICT/CMF/FLG/header probes
+  rejected.
 - `failure_cases/` contains authored negative profile fixtures covering
   required fields, type errors, enums, unit intervals, additional properties,
   body-mass order, and boolean numeric mistakes.
@@ -219,7 +261,10 @@ It does not yet cover package/runtime lifecycle behavior integration, completed
 manual readability calibration, production renderer
 playback, full third-party
 project-format coverage, full APNG/PNG conformance beyond the bounded
-chunk-order, partial-frame playback, and filtered frame-data matrices,
+chunk-order, partial-frame playback, filtered frame-data, color-type
+frame-data, bit-depth frame-data, partial-sample frame-data, and Adam7
+frame-data, partial Adam7 frame-data, image-data chunking, and zlib
+compression and zlib header-policy matrices,
 arbitrary Aseprite
 project schema coverage, arbitrary
 Aseprite external asset resolution, final PNG production carrier selection,

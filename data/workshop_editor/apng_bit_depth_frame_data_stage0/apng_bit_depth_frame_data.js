@@ -1,0 +1,3231 @@
+window.MECHAGOTCHI_APNG_BIT_DEPTH_FRAME_DATA = {
+  "report": {
+    "artifact_id": "apng_bit_depth_frame_data_stage0",
+    "status": "research_apng_bit_depth_frame_data_no_package_code",
+    "profile_count": 3,
+    "case_ids": [
+      "grayscale1_fdat",
+      "grayscale2_fdat",
+      "grayscale4_fdat",
+      "grayscale16_fdat",
+      "indexed1_fdat",
+      "indexed2_fdat",
+      "indexed4_fdat",
+      "truecolor16_fdat",
+      "grayscale_alpha16_fdat",
+      "truecolor_alpha16_fdat"
+    ],
+    "case_count": 30,
+    "case_success_count": 30,
+    "invalid_probe_count": 4,
+    "invalid_probe_rejected_count": 4,
+    "metrics": {
+      "case_success_rate": 1.0,
+      "invalid_probe_rejection_rate": 1.0,
+      "profile_coverage": 3,
+      "case_family_count": 10,
+      "supported_color_types": [
+        0,
+        2,
+        3,
+        4,
+        6
+      ],
+      "supported_bit_depths": [
+        1,
+        2,
+        4,
+        16
+      ],
+      "supported_filter_types": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "split_fdat_frame_count": 30
+    },
+    "closed_states": [
+      "apng_low_bit_packed_frame_reconstruction",
+      "apng_16bit_frame_reconstruction",
+      "apng_deep_color_filter_frame_reconstruction",
+      "apng_split_fdat_deep_sample_reconstruction",
+      "apng_bit_depth_invalid_probe_rejection"
+    ],
+    "blocked_states": [
+      "full_apng_png_conformance",
+      "live_external_editor_rewrite_validation",
+      "production_import_export_carrier_selection_final_decision",
+      "manual_readability_calibration",
+      "package_runtime_lifecycle_integration"
+    ],
+    "decision": "prototype_apng_bit_depth_frame_data_subset"
+  },
+  "case_summaries": [
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "grayscale1_fdat",
+      "color_type": 0,
+      "bit_depth": 1,
+      "png_file_name": "slip_lcd_seed_grayscale1_fdat.png",
+      "png_hash": "sha256:cda7f8faaeee86bcd56dd3b04fbfd3cc18945341bba9a184a492291e2f5e6ddf",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 1,
+        "color_type": 0,
+        "bytes_per_pixel": 1,
+        "scanline_byte_length": 1,
+        "filter_bpp": 1,
+        "has_plte": false,
+        "has_trns": false,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 1,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:a181f8ad524efbdabfaf736729e6183573f716c939ada4c4ba453bfafaae498b"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 1,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:2e8e39ea6552d9e815d880f04548c99525e7d6c567282bb161e738d1471d60d4"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:a181f8ad524efbdabfaf736729e6183573f716c939ada4c4ba453bfafaae498b",
+          "sha256:2e8e39ea6552d9e815d880f04548c99525e7d6c567282bb161e738d1471d60d4"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:a181f8ad524efbdabfaf736729e6183573f716c939ada4c4ba453bfafaae498b",
+          "sha256:2e8e39ea6552d9e815d880f04548c99525e7d6c567282bb161e738d1471d60d4"
+        ],
+        "final_output_hash": "sha256:2e8e39ea6552d9e815d880f04548c99525e7d6c567282bb161e738d1471d60d4"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "grayscale2_fdat",
+      "color_type": 0,
+      "bit_depth": 2,
+      "png_file_name": "slip_lcd_seed_grayscale2_fdat.png",
+      "png_hash": "sha256:06522fb1c1aaad01754dbd9c3a743372c406baea09803bc539c14b1832d5c6cf",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 2,
+        "color_type": 0,
+        "bytes_per_pixel": 1,
+        "scanline_byte_length": 2,
+        "filter_bpp": 1,
+        "has_plte": false,
+        "has_trns": false,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 2,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:94da1a8b37c4aefd95c161c6d5ac4459030386ee6e3691b6cab84163bb84f55b"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 2,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:a69205bd1397de8258b010583374489ca2287607ed663695a57a048ff9f44d83"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:94da1a8b37c4aefd95c161c6d5ac4459030386ee6e3691b6cab84163bb84f55b",
+          "sha256:a69205bd1397de8258b010583374489ca2287607ed663695a57a048ff9f44d83"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:94da1a8b37c4aefd95c161c6d5ac4459030386ee6e3691b6cab84163bb84f55b",
+          "sha256:a69205bd1397de8258b010583374489ca2287607ed663695a57a048ff9f44d83"
+        ],
+        "final_output_hash": "sha256:a69205bd1397de8258b010583374489ca2287607ed663695a57a048ff9f44d83"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "grayscale4_fdat",
+      "color_type": 0,
+      "bit_depth": 4,
+      "png_file_name": "slip_lcd_seed_grayscale4_fdat.png",
+      "png_hash": "sha256:16bd16b58e2fb163ebc062ce968cab9f5b18283813fe2013ec42b97f956079a8",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 4,
+        "color_type": 0,
+        "bytes_per_pixel": 1,
+        "scanline_byte_length": 4,
+        "filter_bpp": 1,
+        "has_plte": false,
+        "has_trns": false,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 4,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:f803c1c50613197ab3d45558892ed1a3b07a1cbf46030e1d0531492432e2adc7"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 4,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:1806bef8f9094a80ce88ee903cba01ca2cc42b099257e0693117d0c7e2dd8763"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:f803c1c50613197ab3d45558892ed1a3b07a1cbf46030e1d0531492432e2adc7",
+          "sha256:1806bef8f9094a80ce88ee903cba01ca2cc42b099257e0693117d0c7e2dd8763"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:f803c1c50613197ab3d45558892ed1a3b07a1cbf46030e1d0531492432e2adc7",
+          "sha256:1806bef8f9094a80ce88ee903cba01ca2cc42b099257e0693117d0c7e2dd8763"
+        ],
+        "final_output_hash": "sha256:1806bef8f9094a80ce88ee903cba01ca2cc42b099257e0693117d0c7e2dd8763"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "grayscale16_fdat",
+      "color_type": 0,
+      "bit_depth": 16,
+      "png_file_name": "slip_lcd_seed_grayscale16_fdat.png",
+      "png_hash": "sha256:9006e4a18ba0137a1478534ae2822c6baef115e710e746d11d805d38a6a73ae9",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 16,
+        "color_type": 0,
+        "bytes_per_pixel": 2,
+        "scanline_byte_length": 16,
+        "filter_bpp": 2,
+        "has_plte": false,
+        "has_trns": false,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 16,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:8803cac9a9a8ee1d47bd9124239ea35d0a0da0dd9b7c74b235fe428a96fbcecc"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 16,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:7603a2b97647c86f78d692148d13290fe2e333fe97a84b34d663dcfe3d758452"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:8803cac9a9a8ee1d47bd9124239ea35d0a0da0dd9b7c74b235fe428a96fbcecc",
+          "sha256:7603a2b97647c86f78d692148d13290fe2e333fe97a84b34d663dcfe3d758452"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:8803cac9a9a8ee1d47bd9124239ea35d0a0da0dd9b7c74b235fe428a96fbcecc",
+          "sha256:7603a2b97647c86f78d692148d13290fe2e333fe97a84b34d663dcfe3d758452"
+        ],
+        "final_output_hash": "sha256:7603a2b97647c86f78d692148d13290fe2e333fe97a84b34d663dcfe3d758452"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "indexed1_fdat",
+      "color_type": 3,
+      "bit_depth": 1,
+      "png_file_name": "slip_lcd_seed_indexed1_fdat.png",
+      "png_hash": "sha256:e21dd723666a7b99ed6632c95abf508315892af4e351cd6cb99f031d35d8f33d",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 1,
+        "color_type": 3,
+        "bytes_per_pixel": 1,
+        "scanline_byte_length": 1,
+        "filter_bpp": 1,
+        "has_plte": true,
+        "has_trns": true,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 1,
+            "pixel_count": 64,
+            "transparent_pixel_count": 52,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:7b616bf22bed609b350c8eb04d74ba10f8583fe457a1eb9941e456aab3c5599d"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 1,
+            "pixel_count": 64,
+            "transparent_pixel_count": 33,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:a1f8a91fdeb5ea70d0c53812d0d27214440564e12a51958c4b6b0db826eb3b37"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:7b616bf22bed609b350c8eb04d74ba10f8583fe457a1eb9941e456aab3c5599d",
+          "sha256:a1f8a91fdeb5ea70d0c53812d0d27214440564e12a51958c4b6b0db826eb3b37"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:7b616bf22bed609b350c8eb04d74ba10f8583fe457a1eb9941e456aab3c5599d",
+          "sha256:a1f8a91fdeb5ea70d0c53812d0d27214440564e12a51958c4b6b0db826eb3b37"
+        ],
+        "final_output_hash": "sha256:a1f8a91fdeb5ea70d0c53812d0d27214440564e12a51958c4b6b0db826eb3b37"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "indexed2_fdat",
+      "color_type": 3,
+      "bit_depth": 2,
+      "png_file_name": "slip_lcd_seed_indexed2_fdat.png",
+      "png_hash": "sha256:25648aabf48e63c1d50095557621404c9d8db00d8a71e6f5f3947fbb43cd6ede",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 2,
+        "color_type": 3,
+        "bytes_per_pixel": 1,
+        "scanline_byte_length": 2,
+        "filter_bpp": 1,
+        "has_plte": true,
+        "has_trns": true,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 2,
+            "pixel_count": 64,
+            "transparent_pixel_count": 52,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:0a2abfbdf7faa1419f7a764802025b92589dd656032ced9e81e072ba62ead059"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 2,
+            "pixel_count": 64,
+            "transparent_pixel_count": 7,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:85fa52bd45c2dd4c62eab07fbe22aa3154daf9766205e48c0b1f1c15fe096ffc"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:0a2abfbdf7faa1419f7a764802025b92589dd656032ced9e81e072ba62ead059",
+          "sha256:85fa52bd45c2dd4c62eab07fbe22aa3154daf9766205e48c0b1f1c15fe096ffc"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:0a2abfbdf7faa1419f7a764802025b92589dd656032ced9e81e072ba62ead059",
+          "sha256:85fa52bd45c2dd4c62eab07fbe22aa3154daf9766205e48c0b1f1c15fe096ffc"
+        ],
+        "final_output_hash": "sha256:85fa52bd45c2dd4c62eab07fbe22aa3154daf9766205e48c0b1f1c15fe096ffc"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "indexed4_fdat",
+      "color_type": 3,
+      "bit_depth": 4,
+      "png_file_name": "slip_lcd_seed_indexed4_fdat.png",
+      "png_hash": "sha256:62aabe44b1be7b2e7f5c4de4989f7ca7b8dc2bd2bef8ccf57990a40f6416a68c",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 4,
+        "color_type": 3,
+        "bytes_per_pixel": 1,
+        "scanline_byte_length": 4,
+        "filter_bpp": 1,
+        "has_plte": true,
+        "has_trns": true,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 4,
+            "pixel_count": 64,
+            "transparent_pixel_count": 6,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:22592babf8e16ecbf682cd916eae27effa210d6463ea1d8f5ef299242be16744"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 4,
+            "pixel_count": 64,
+            "transparent_pixel_count": 6,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:d5571bc60e8becc571493903550b4994322bfc4e323f13618c01927b16b55cf0"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:22592babf8e16ecbf682cd916eae27effa210d6463ea1d8f5ef299242be16744",
+          "sha256:d5571bc60e8becc571493903550b4994322bfc4e323f13618c01927b16b55cf0"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:22592babf8e16ecbf682cd916eae27effa210d6463ea1d8f5ef299242be16744",
+          "sha256:d5571bc60e8becc571493903550b4994322bfc4e323f13618c01927b16b55cf0"
+        ],
+        "final_output_hash": "sha256:d5571bc60e8becc571493903550b4994322bfc4e323f13618c01927b16b55cf0"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "truecolor16_fdat",
+      "color_type": 2,
+      "bit_depth": 16,
+      "png_file_name": "slip_lcd_seed_truecolor16_fdat.png",
+      "png_hash": "sha256:177955eb8608db27f3efdfb8c51ff5fcda032d047292acb4bc3323c769cd9b97",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 16,
+        "color_type": 2,
+        "bytes_per_pixel": 6,
+        "scanline_byte_length": 48,
+        "filter_bpp": 6,
+        "has_plte": false,
+        "has_trns": false,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 48,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 48,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:f33ddeecd3843a99d459f8e3d17619cadbc82535b71491bee229b83db17262e8"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+          "sha256:f33ddeecd3843a99d459f8e3d17619cadbc82535b71491bee229b83db17262e8"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+          "sha256:f33ddeecd3843a99d459f8e3d17619cadbc82535b71491bee229b83db17262e8"
+        ],
+        "final_output_hash": "sha256:f33ddeecd3843a99d459f8e3d17619cadbc82535b71491bee229b83db17262e8"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "grayscale_alpha16_fdat",
+      "color_type": 4,
+      "bit_depth": 16,
+      "png_file_name": "slip_lcd_seed_grayscale_alpha16_fdat.png",
+      "png_hash": "sha256:49baba812982c38ac3171dd1e3d3ed4950eeffb6a4a4a2dca2d68da698ec45f8",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 16,
+        "color_type": 4,
+        "bytes_per_pixel": 4,
+        "scanline_byte_length": 32,
+        "filter_bpp": 4,
+        "has_plte": false,
+        "has_trns": false,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 32,
+            "pixel_count": 64,
+            "transparent_pixel_count": 5,
+            "partial_alpha_pixel_count": 9,
+            "pixel_hash": "sha256:8d7fa0dfddf7968a1f05beecdb5599670c6c4cc693b9ab5f158d98e7059ae282"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 32,
+            "pixel_count": 64,
+            "transparent_pixel_count": 5,
+            "partial_alpha_pixel_count": 9,
+            "pixel_hash": "sha256:66b433a504f1da1ca8503dd38e3704f71df080e0d7a454f2cea95800cdd70feb"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:8d7fa0dfddf7968a1f05beecdb5599670c6c4cc693b9ab5f158d98e7059ae282",
+          "sha256:66b433a504f1da1ca8503dd38e3704f71df080e0d7a454f2cea95800cdd70feb"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:8d7fa0dfddf7968a1f05beecdb5599670c6c4cc693b9ab5f158d98e7059ae282",
+          "sha256:66b433a504f1da1ca8503dd38e3704f71df080e0d7a454f2cea95800cdd70feb"
+        ],
+        "final_output_hash": "sha256:66b433a504f1da1ca8503dd38e3704f71df080e0d7a454f2cea95800cdd70feb"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "truecolor_alpha16_fdat",
+      "color_type": 6,
+      "bit_depth": 16,
+      "png_file_name": "slip_lcd_seed_truecolor_alpha16_fdat.png",
+      "png_hash": "sha256:bbf0218e8a1e543b1299d5f1e6316e2a0ef3edea3c086c980aa81d6cfabcae89",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 16,
+        "color_type": 6,
+        "bytes_per_pixel": 8,
+        "scanline_byte_length": 64,
+        "filter_bpp": 8,
+        "has_plte": false,
+        "has_trns": false,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 64,
+            "pixel_count": 64,
+            "transparent_pixel_count": 5,
+            "partial_alpha_pixel_count": 9,
+            "pixel_hash": "sha256:a05934dcbed44d28e1cbf938ef18305421c1d62fedad6540e5c006a80ed7f79b"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 64,
+            "pixel_count": 64,
+            "transparent_pixel_count": 5,
+            "partial_alpha_pixel_count": 9,
+            "pixel_hash": "sha256:f95383cecc60457f520065899c2cf9db6048371dec65e57bcee67cc097a052c7"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:a05934dcbed44d28e1cbf938ef18305421c1d62fedad6540e5c006a80ed7f79b",
+          "sha256:f95383cecc60457f520065899c2cf9db6048371dec65e57bcee67cc097a052c7"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:a05934dcbed44d28e1cbf938ef18305421c1d62fedad6540e5c006a80ed7f79b",
+          "sha256:f95383cecc60457f520065899c2cf9db6048371dec65e57bcee67cc097a052c7"
+        ],
+        "final_output_hash": "sha256:f95383cecc60457f520065899c2cf9db6048371dec65e57bcee67cc097a052c7"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "grayscale1_fdat",
+      "color_type": 0,
+      "bit_depth": 1,
+      "png_file_name": "slip_gray_stable_grayscale1_fdat.png",
+      "png_hash": "sha256:1a53d3fcec862bcd20c90de5c157fb074130e60f41971ab8eff01f26a0cdde00",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 1,
+        "color_type": 0,
+        "bytes_per_pixel": 1,
+        "scanline_byte_length": 1,
+        "filter_bpp": 1,
+        "has_plte": false,
+        "has_trns": false,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 1,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:640882b56ffa6a01ab835affd7334cecf4241ffddf44f3ca401621c56fc999f3"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 1,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:3381d61da875e55ede4597ca365709923701ee6c802267818cdb5383c282839d"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:640882b56ffa6a01ab835affd7334cecf4241ffddf44f3ca401621c56fc999f3",
+          "sha256:3381d61da875e55ede4597ca365709923701ee6c802267818cdb5383c282839d"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:640882b56ffa6a01ab835affd7334cecf4241ffddf44f3ca401621c56fc999f3",
+          "sha256:3381d61da875e55ede4597ca365709923701ee6c802267818cdb5383c282839d"
+        ],
+        "final_output_hash": "sha256:3381d61da875e55ede4597ca365709923701ee6c802267818cdb5383c282839d"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "grayscale2_fdat",
+      "color_type": 0,
+      "bit_depth": 2,
+      "png_file_name": "slip_gray_stable_grayscale2_fdat.png",
+      "png_hash": "sha256:9c472079b4ff00c96353d7c0b3a8b374e038a02a010b8294014cec2d2f85276d",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 2,
+        "color_type": 0,
+        "bytes_per_pixel": 1,
+        "scanline_byte_length": 2,
+        "filter_bpp": 1,
+        "has_plte": false,
+        "has_trns": false,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 2,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:6878f862a4272112e940135a2123e38dcfcf2c28c8195bd6fd6910284e1d0233"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 2,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:a0769c6cf1ae7f6657b1d620b5c163c63108dfa83d1c35a8442021df813033a0"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:6878f862a4272112e940135a2123e38dcfcf2c28c8195bd6fd6910284e1d0233",
+          "sha256:a0769c6cf1ae7f6657b1d620b5c163c63108dfa83d1c35a8442021df813033a0"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:6878f862a4272112e940135a2123e38dcfcf2c28c8195bd6fd6910284e1d0233",
+          "sha256:a0769c6cf1ae7f6657b1d620b5c163c63108dfa83d1c35a8442021df813033a0"
+        ],
+        "final_output_hash": "sha256:a0769c6cf1ae7f6657b1d620b5c163c63108dfa83d1c35a8442021df813033a0"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "grayscale4_fdat",
+      "color_type": 0,
+      "bit_depth": 4,
+      "png_file_name": "slip_gray_stable_grayscale4_fdat.png",
+      "png_hash": "sha256:41fc37ffdcad78181a43b25e6cf83406dde586da38345cb8a10677bfe5e0c241",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 4,
+        "color_type": 0,
+        "bytes_per_pixel": 1,
+        "scanline_byte_length": 4,
+        "filter_bpp": 1,
+        "has_plte": false,
+        "has_trns": false,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 4,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:4831795d075b169eba982f6f05ace910d7f8bba34642bb98467e4c0a3e33375e"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 4,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:8e8c92b72c494f5c3d04f89b569c0a68272534caba01527cc5e83aee4c5af589"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:4831795d075b169eba982f6f05ace910d7f8bba34642bb98467e4c0a3e33375e",
+          "sha256:8e8c92b72c494f5c3d04f89b569c0a68272534caba01527cc5e83aee4c5af589"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:4831795d075b169eba982f6f05ace910d7f8bba34642bb98467e4c0a3e33375e",
+          "sha256:8e8c92b72c494f5c3d04f89b569c0a68272534caba01527cc5e83aee4c5af589"
+        ],
+        "final_output_hash": "sha256:8e8c92b72c494f5c3d04f89b569c0a68272534caba01527cc5e83aee4c5af589"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "grayscale16_fdat",
+      "color_type": 0,
+      "bit_depth": 16,
+      "png_file_name": "slip_gray_stable_grayscale16_fdat.png",
+      "png_hash": "sha256:7d198fb35911e11ba70887e432b757ea43b09552f436cfeedd9064dfeb375320",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 16,
+        "color_type": 0,
+        "bytes_per_pixel": 2,
+        "scanline_byte_length": 16,
+        "filter_bpp": 2,
+        "has_plte": false,
+        "has_trns": false,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 16,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:60415cad97d01d127ac756ba3e613887fda2272a4b1e8cee268c62a3fca405ec"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 16,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:222338a8193fd94dd92cc8f5f9a3facaa34c0b110b111ab98c93d163c8025eea"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:60415cad97d01d127ac756ba3e613887fda2272a4b1e8cee268c62a3fca405ec",
+          "sha256:222338a8193fd94dd92cc8f5f9a3facaa34c0b110b111ab98c93d163c8025eea"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:60415cad97d01d127ac756ba3e613887fda2272a4b1e8cee268c62a3fca405ec",
+          "sha256:222338a8193fd94dd92cc8f5f9a3facaa34c0b110b111ab98c93d163c8025eea"
+        ],
+        "final_output_hash": "sha256:222338a8193fd94dd92cc8f5f9a3facaa34c0b110b111ab98c93d163c8025eea"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "indexed1_fdat",
+      "color_type": 3,
+      "bit_depth": 1,
+      "png_file_name": "slip_gray_stable_indexed1_fdat.png",
+      "png_hash": "sha256:43cb323502a8c7db6f3979beabb0b15973159cf8c2f5f602f7ae0323e0364cae",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 1,
+        "color_type": 3,
+        "bytes_per_pixel": 1,
+        "scanline_byte_length": 1,
+        "filter_bpp": 1,
+        "has_plte": true,
+        "has_trns": true,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 1,
+            "pixel_count": 64,
+            "transparent_pixel_count": 52,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:2952fc1a86dff780182f258cbc74761cb92b0c157c21fc25e4184d1fd3d0b655"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 1,
+            "pixel_count": 64,
+            "transparent_pixel_count": 25,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:29370a1cf2f0a1814bdf8b29756163f2b1b72abe7f9efebd942e7d1d3e1e6f9c"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:2952fc1a86dff780182f258cbc74761cb92b0c157c21fc25e4184d1fd3d0b655",
+          "sha256:29370a1cf2f0a1814bdf8b29756163f2b1b72abe7f9efebd942e7d1d3e1e6f9c"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:2952fc1a86dff780182f258cbc74761cb92b0c157c21fc25e4184d1fd3d0b655",
+          "sha256:29370a1cf2f0a1814bdf8b29756163f2b1b72abe7f9efebd942e7d1d3e1e6f9c"
+        ],
+        "final_output_hash": "sha256:29370a1cf2f0a1814bdf8b29756163f2b1b72abe7f9efebd942e7d1d3e1e6f9c"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "indexed2_fdat",
+      "color_type": 3,
+      "bit_depth": 2,
+      "png_file_name": "slip_gray_stable_indexed2_fdat.png",
+      "png_hash": "sha256:9027ad6f60a90aa197e454639960e0527f3714e8034030adf4fab4ccb586a694",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 2,
+        "color_type": 3,
+        "bytes_per_pixel": 1,
+        "scanline_byte_length": 2,
+        "filter_bpp": 1,
+        "has_plte": true,
+        "has_trns": true,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 2,
+            "pixel_count": 64,
+            "transparent_pixel_count": 52,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:5fcc23f00f6dffd12be0a5c5daf5ff3a2459d1802bad988038e47ea54744b13d"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 2,
+            "pixel_count": 64,
+            "transparent_pixel_count": 9,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:00ef924611722a32af521e45c0a255c66aec9a641a8a234e6ad8951a572b3894"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:5fcc23f00f6dffd12be0a5c5daf5ff3a2459d1802bad988038e47ea54744b13d",
+          "sha256:00ef924611722a32af521e45c0a255c66aec9a641a8a234e6ad8951a572b3894"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:5fcc23f00f6dffd12be0a5c5daf5ff3a2459d1802bad988038e47ea54744b13d",
+          "sha256:00ef924611722a32af521e45c0a255c66aec9a641a8a234e6ad8951a572b3894"
+        ],
+        "final_output_hash": "sha256:00ef924611722a32af521e45c0a255c66aec9a641a8a234e6ad8951a572b3894"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "indexed4_fdat",
+      "color_type": 3,
+      "bit_depth": 4,
+      "png_file_name": "slip_gray_stable_indexed4_fdat.png",
+      "png_hash": "sha256:01a923767d60c1da5e705ba894849c7f0d27e315643e190258533777ec0ee07c",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 4,
+        "color_type": 3,
+        "bytes_per_pixel": 1,
+        "scanline_byte_length": 4,
+        "filter_bpp": 1,
+        "has_plte": true,
+        "has_trns": true,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 4,
+            "pixel_count": 64,
+            "transparent_pixel_count": 6,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:d06cb1f160bf6f501faa1dc60b00718d50e39c33004f3c226d4b1daec39c653e"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 4,
+            "pixel_count": 64,
+            "transparent_pixel_count": 6,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:e3a3ef95c236f4bef30acab10b552491fa1b5c9aa6195e36f6b350dacc5ee90d"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:d06cb1f160bf6f501faa1dc60b00718d50e39c33004f3c226d4b1daec39c653e",
+          "sha256:e3a3ef95c236f4bef30acab10b552491fa1b5c9aa6195e36f6b350dacc5ee90d"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:d06cb1f160bf6f501faa1dc60b00718d50e39c33004f3c226d4b1daec39c653e",
+          "sha256:e3a3ef95c236f4bef30acab10b552491fa1b5c9aa6195e36f6b350dacc5ee90d"
+        ],
+        "final_output_hash": "sha256:e3a3ef95c236f4bef30acab10b552491fa1b5c9aa6195e36f6b350dacc5ee90d"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "truecolor16_fdat",
+      "color_type": 2,
+      "bit_depth": 16,
+      "png_file_name": "slip_gray_stable_truecolor16_fdat.png",
+      "png_hash": "sha256:7429c33b974e8754af08cd6d5681fb23146b20bdb51f5f2ae0572ec6dc7e965f",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 16,
+        "color_type": 2,
+        "bytes_per_pixel": 6,
+        "scanline_byte_length": 48,
+        "filter_bpp": 6,
+        "has_plte": false,
+        "has_trns": false,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 48,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 48,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:0b0afb8f56825d2102446068b211aa96611928dfbe2e6790ecc97fb48b248021"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+          "sha256:0b0afb8f56825d2102446068b211aa96611928dfbe2e6790ecc97fb48b248021"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+          "sha256:0b0afb8f56825d2102446068b211aa96611928dfbe2e6790ecc97fb48b248021"
+        ],
+        "final_output_hash": "sha256:0b0afb8f56825d2102446068b211aa96611928dfbe2e6790ecc97fb48b248021"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "grayscale_alpha16_fdat",
+      "color_type": 4,
+      "bit_depth": 16,
+      "png_file_name": "slip_gray_stable_grayscale_alpha16_fdat.png",
+      "png_hash": "sha256:f9f7bd78a38cd4297405cf02562fa1b6e665d3ef61610e94de4b64f2c9f4426a",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 16,
+        "color_type": 4,
+        "bytes_per_pixel": 4,
+        "scanline_byte_length": 32,
+        "filter_bpp": 4,
+        "has_plte": false,
+        "has_trns": false,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 32,
+            "pixel_count": 64,
+            "transparent_pixel_count": 5,
+            "partial_alpha_pixel_count": 9,
+            "pixel_hash": "sha256:eb764661995399f3ff2e1088700d5f6054866fab56027598b066593697b3576f"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 32,
+            "pixel_count": 64,
+            "transparent_pixel_count": 5,
+            "partial_alpha_pixel_count": 9,
+            "pixel_hash": "sha256:65ee8addbe10d63eeeb112d8e85c606ce6e0f63fc2c71afc5ac7fec7f93b71a0"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:eb764661995399f3ff2e1088700d5f6054866fab56027598b066593697b3576f",
+          "sha256:65ee8addbe10d63eeeb112d8e85c606ce6e0f63fc2c71afc5ac7fec7f93b71a0"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:eb764661995399f3ff2e1088700d5f6054866fab56027598b066593697b3576f",
+          "sha256:65ee8addbe10d63eeeb112d8e85c606ce6e0f63fc2c71afc5ac7fec7f93b71a0"
+        ],
+        "final_output_hash": "sha256:65ee8addbe10d63eeeb112d8e85c606ce6e0f63fc2c71afc5ac7fec7f93b71a0"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "truecolor_alpha16_fdat",
+      "color_type": 6,
+      "bit_depth": 16,
+      "png_file_name": "slip_gray_stable_truecolor_alpha16_fdat.png",
+      "png_hash": "sha256:40b0ff1894ea21cda88f05bf1395fe031e8c3d1701e40f130347775203c8e5d6",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 16,
+        "color_type": 6,
+        "bytes_per_pixel": 8,
+        "scanline_byte_length": 64,
+        "filter_bpp": 8,
+        "has_plte": false,
+        "has_trns": false,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 64,
+            "pixel_count": 64,
+            "transparent_pixel_count": 5,
+            "partial_alpha_pixel_count": 9,
+            "pixel_hash": "sha256:379714cf07de62aed1cd54f21855ac6a3761f38b03a3324928918184225ecf68"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 64,
+            "pixel_count": 64,
+            "transparent_pixel_count": 5,
+            "partial_alpha_pixel_count": 9,
+            "pixel_hash": "sha256:ade18fc0349c9ae34a63015d3fdf458de2cfc6fc7344c7613ee00fd1f9f72cf7"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:379714cf07de62aed1cd54f21855ac6a3761f38b03a3324928918184225ecf68",
+          "sha256:ade18fc0349c9ae34a63015d3fdf458de2cfc6fc7344c7613ee00fd1f9f72cf7"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:379714cf07de62aed1cd54f21855ac6a3761f38b03a3324928918184225ecf68",
+          "sha256:ade18fc0349c9ae34a63015d3fdf458de2cfc6fc7344c7613ee00fd1f9f72cf7"
+        ],
+        "final_output_hash": "sha256:ade18fc0349c9ae34a63015d3fdf458de2cfc6fc7344c7613ee00fd1f9f72cf7"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "grayscale1_fdat",
+      "color_type": 0,
+      "bit_depth": 1,
+      "png_file_name": "slip_amber_social_grayscale1_fdat.png",
+      "png_hash": "sha256:5ddb18001307827b9932702a2c4b1da4f0756543c0d77e1ebb71a3a4025a2942",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 1,
+        "color_type": 0,
+        "bytes_per_pixel": 1,
+        "scanline_byte_length": 1,
+        "filter_bpp": 1,
+        "has_plte": false,
+        "has_trns": false,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 1,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:ff30b79b6c1a05043b92ecbc6b2ae71567b6dd457ff1b4e6a12cecab32a3eb46"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 1,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:aba7c9de6cfca3d3b8e16ef7e8d0c19dc16d98e0c26369267126d35ad4233ac4"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:ff30b79b6c1a05043b92ecbc6b2ae71567b6dd457ff1b4e6a12cecab32a3eb46",
+          "sha256:aba7c9de6cfca3d3b8e16ef7e8d0c19dc16d98e0c26369267126d35ad4233ac4"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:ff30b79b6c1a05043b92ecbc6b2ae71567b6dd457ff1b4e6a12cecab32a3eb46",
+          "sha256:aba7c9de6cfca3d3b8e16ef7e8d0c19dc16d98e0c26369267126d35ad4233ac4"
+        ],
+        "final_output_hash": "sha256:aba7c9de6cfca3d3b8e16ef7e8d0c19dc16d98e0c26369267126d35ad4233ac4"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "grayscale2_fdat",
+      "color_type": 0,
+      "bit_depth": 2,
+      "png_file_name": "slip_amber_social_grayscale2_fdat.png",
+      "png_hash": "sha256:c6b4b70b4e96f0b25e1638391638e34deca131e09573b5a061801026a926ed0e",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 2,
+        "color_type": 0,
+        "bytes_per_pixel": 1,
+        "scanline_byte_length": 2,
+        "filter_bpp": 1,
+        "has_plte": false,
+        "has_trns": false,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 2,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:c208eb2442ab437d61b1e6739175b504222efedc3321399bdf67cbb8f6196a9d"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 2,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:4a30ae4fb6c89aef53fe4e66ed054ca9687a9548518dda48282582f7c50536ec"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:c208eb2442ab437d61b1e6739175b504222efedc3321399bdf67cbb8f6196a9d",
+          "sha256:4a30ae4fb6c89aef53fe4e66ed054ca9687a9548518dda48282582f7c50536ec"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:c208eb2442ab437d61b1e6739175b504222efedc3321399bdf67cbb8f6196a9d",
+          "sha256:4a30ae4fb6c89aef53fe4e66ed054ca9687a9548518dda48282582f7c50536ec"
+        ],
+        "final_output_hash": "sha256:4a30ae4fb6c89aef53fe4e66ed054ca9687a9548518dda48282582f7c50536ec"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "grayscale4_fdat",
+      "color_type": 0,
+      "bit_depth": 4,
+      "png_file_name": "slip_amber_social_grayscale4_fdat.png",
+      "png_hash": "sha256:c5277711ee25546425bf64e6845db29993349537f9310281898ce5c830cf61a0",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 4,
+        "color_type": 0,
+        "bytes_per_pixel": 1,
+        "scanline_byte_length": 4,
+        "filter_bpp": 1,
+        "has_plte": false,
+        "has_trns": false,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 4,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:e31b9df4451391abb9277213e3c3b6b5479ed85caa153fb029daa086c37eeb3a"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 4,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:743804102c932d9bee227508e83152fc16e8a44642b26951b67d8501b291a201"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:e31b9df4451391abb9277213e3c3b6b5479ed85caa153fb029daa086c37eeb3a",
+          "sha256:743804102c932d9bee227508e83152fc16e8a44642b26951b67d8501b291a201"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:e31b9df4451391abb9277213e3c3b6b5479ed85caa153fb029daa086c37eeb3a",
+          "sha256:743804102c932d9bee227508e83152fc16e8a44642b26951b67d8501b291a201"
+        ],
+        "final_output_hash": "sha256:743804102c932d9bee227508e83152fc16e8a44642b26951b67d8501b291a201"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "grayscale16_fdat",
+      "color_type": 0,
+      "bit_depth": 16,
+      "png_file_name": "slip_amber_social_grayscale16_fdat.png",
+      "png_hash": "sha256:60b34699c96be048e4c3d70427e59dd1635591c20839f9ed4a6562b899ff39ae",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 16,
+        "color_type": 0,
+        "bytes_per_pixel": 2,
+        "scanline_byte_length": 16,
+        "filter_bpp": 2,
+        "has_plte": false,
+        "has_trns": false,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 16,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:1eeec4ccb0156690520f10e633c6ca35d5c7922ea49fa4c0fa00ae3d3e229b35"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 16,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:9f87fa2fef26bb638404aba87d46d7ac6abfbf1a4a11319f72556f0a6882e41b"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:1eeec4ccb0156690520f10e633c6ca35d5c7922ea49fa4c0fa00ae3d3e229b35",
+          "sha256:9f87fa2fef26bb638404aba87d46d7ac6abfbf1a4a11319f72556f0a6882e41b"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:1eeec4ccb0156690520f10e633c6ca35d5c7922ea49fa4c0fa00ae3d3e229b35",
+          "sha256:9f87fa2fef26bb638404aba87d46d7ac6abfbf1a4a11319f72556f0a6882e41b"
+        ],
+        "final_output_hash": "sha256:9f87fa2fef26bb638404aba87d46d7ac6abfbf1a4a11319f72556f0a6882e41b"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "indexed1_fdat",
+      "color_type": 3,
+      "bit_depth": 1,
+      "png_file_name": "slip_amber_social_indexed1_fdat.png",
+      "png_hash": "sha256:9aa32db317d78400975f9591eaf65e70f1371b79eb3eb2a055416360cb50b026",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 1,
+        "color_type": 3,
+        "bytes_per_pixel": 1,
+        "scanline_byte_length": 1,
+        "filter_bpp": 1,
+        "has_plte": true,
+        "has_trns": true,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 1,
+            "pixel_count": 64,
+            "transparent_pixel_count": 51,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:14c2cc3d955b421762955d461698753904a85b55d78061a5dca22cde6bd2ed00"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 1,
+            "pixel_count": 64,
+            "transparent_pixel_count": 39,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:838c6efd7654a143a37cc4d1d8c5ee1ded19e9ed57d2da22f35b6d4854dcb329"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:14c2cc3d955b421762955d461698753904a85b55d78061a5dca22cde6bd2ed00",
+          "sha256:838c6efd7654a143a37cc4d1d8c5ee1ded19e9ed57d2da22f35b6d4854dcb329"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:14c2cc3d955b421762955d461698753904a85b55d78061a5dca22cde6bd2ed00",
+          "sha256:838c6efd7654a143a37cc4d1d8c5ee1ded19e9ed57d2da22f35b6d4854dcb329"
+        ],
+        "final_output_hash": "sha256:838c6efd7654a143a37cc4d1d8c5ee1ded19e9ed57d2da22f35b6d4854dcb329"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "indexed2_fdat",
+      "color_type": 3,
+      "bit_depth": 2,
+      "png_file_name": "slip_amber_social_indexed2_fdat.png",
+      "png_hash": "sha256:5bba5120debae4b03e065f21b81ebf3673e43e33cc94e340d051d24bb69afbbc",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 2,
+        "color_type": 3,
+        "bytes_per_pixel": 1,
+        "scanline_byte_length": 2,
+        "filter_bpp": 1,
+        "has_plte": true,
+        "has_trns": true,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 2,
+            "pixel_count": 64,
+            "transparent_pixel_count": 51,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:9db154699166d85aff817a5ef40477dd5a1944cfb49f2787691b00699c490269"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 2,
+            "pixel_count": 64,
+            "transparent_pixel_count": 7,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:ab518ac25a49fa8ae36295600c90d5b1c38aa0af68088dd9102407f5a66eb541"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:9db154699166d85aff817a5ef40477dd5a1944cfb49f2787691b00699c490269",
+          "sha256:ab518ac25a49fa8ae36295600c90d5b1c38aa0af68088dd9102407f5a66eb541"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:9db154699166d85aff817a5ef40477dd5a1944cfb49f2787691b00699c490269",
+          "sha256:ab518ac25a49fa8ae36295600c90d5b1c38aa0af68088dd9102407f5a66eb541"
+        ],
+        "final_output_hash": "sha256:ab518ac25a49fa8ae36295600c90d5b1c38aa0af68088dd9102407f5a66eb541"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "indexed4_fdat",
+      "color_type": 3,
+      "bit_depth": 4,
+      "png_file_name": "slip_amber_social_indexed4_fdat.png",
+      "png_hash": "sha256:076ef5306ea248a0912b0fe1ea0e00dcf6aa420a201836ad5340e4bfe03c40c8",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 4,
+        "color_type": 3,
+        "bytes_per_pixel": 1,
+        "scanline_byte_length": 4,
+        "filter_bpp": 1,
+        "has_plte": true,
+        "has_trns": true,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 4,
+            "pixel_count": 64,
+            "transparent_pixel_count": 6,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:05abc4b97632c187bb33b9b5d5f3d864e6ded5c60cbbb2f95a7e3e5069aac740"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 4,
+            "pixel_count": 64,
+            "transparent_pixel_count": 6,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:7931ee6076f8429df88969300b1c1e744a903b1e0e202c9b7c590f21e11d6113"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:05abc4b97632c187bb33b9b5d5f3d864e6ded5c60cbbb2f95a7e3e5069aac740",
+          "sha256:7931ee6076f8429df88969300b1c1e744a903b1e0e202c9b7c590f21e11d6113"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:05abc4b97632c187bb33b9b5d5f3d864e6ded5c60cbbb2f95a7e3e5069aac740",
+          "sha256:7931ee6076f8429df88969300b1c1e744a903b1e0e202c9b7c590f21e11d6113"
+        ],
+        "final_output_hash": "sha256:7931ee6076f8429df88969300b1c1e744a903b1e0e202c9b7c590f21e11d6113"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "truecolor16_fdat",
+      "color_type": 2,
+      "bit_depth": 16,
+      "png_file_name": "slip_amber_social_truecolor16_fdat.png",
+      "png_hash": "sha256:47f6112fd0f7843abfd5a3fe14cc99130d5f6f96a8259d8c7bdf9d5be16a2146",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 16,
+        "color_type": 2,
+        "bytes_per_pixel": 6,
+        "scanline_byte_length": 48,
+        "filter_bpp": 6,
+        "has_plte": false,
+        "has_trns": false,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 48,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 48,
+            "pixel_count": 64,
+            "transparent_pixel_count": 0,
+            "partial_alpha_pixel_count": 0,
+            "pixel_hash": "sha256:48418c4b3721c5432c97709f6228e4ad0d1389433a6249d5e5f427dde9ca781b"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+          "sha256:48418c4b3721c5432c97709f6228e4ad0d1389433a6249d5e5f427dde9ca781b"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+          "sha256:48418c4b3721c5432c97709f6228e4ad0d1389433a6249d5e5f427dde9ca781b"
+        ],
+        "final_output_hash": "sha256:48418c4b3721c5432c97709f6228e4ad0d1389433a6249d5e5f427dde9ca781b"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "grayscale_alpha16_fdat",
+      "color_type": 4,
+      "bit_depth": 16,
+      "png_file_name": "slip_amber_social_grayscale_alpha16_fdat.png",
+      "png_hash": "sha256:560bb84c1bb4c6b9f33463a1d3cf8c9e1af93cd332c54efe8f87158d5a934497",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 16,
+        "color_type": 4,
+        "bytes_per_pixel": 4,
+        "scanline_byte_length": 32,
+        "filter_bpp": 4,
+        "has_plte": false,
+        "has_trns": false,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 32,
+            "pixel_count": 64,
+            "transparent_pixel_count": 5,
+            "partial_alpha_pixel_count": 9,
+            "pixel_hash": "sha256:b52078c12ad2034345e53e4510d26fa18b9dc704ad1f4bc2d4eff33682be9db6"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 32,
+            "pixel_count": 64,
+            "transparent_pixel_count": 5,
+            "partial_alpha_pixel_count": 9,
+            "pixel_hash": "sha256:87e074454fbd03d0401b5c972a779e4adcb06a4ee9e3e429dfc8bcfe724a91a5"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:b52078c12ad2034345e53e4510d26fa18b9dc704ad1f4bc2d4eff33682be9db6",
+          "sha256:87e074454fbd03d0401b5c972a779e4adcb06a4ee9e3e429dfc8bcfe724a91a5"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:b52078c12ad2034345e53e4510d26fa18b9dc704ad1f4bc2d4eff33682be9db6",
+          "sha256:87e074454fbd03d0401b5c972a779e4adcb06a4ee9e3e429dfc8bcfe724a91a5"
+        ],
+        "final_output_hash": "sha256:87e074454fbd03d0401b5c972a779e4adcb06a4ee9e3e429dfc8bcfe724a91a5"
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "truecolor_alpha16_fdat",
+      "color_type": 6,
+      "bit_depth": 16,
+      "png_file_name": "slip_amber_social_truecolor_alpha16_fdat.png",
+      "png_hash": "sha256:665da834982b3049a2aeead3bffc9f67413bed991739b2d612b9cf93ce6c6d3b",
+      "decoded": {
+        "ok": true,
+        "canvas_width": 8,
+        "canvas_height": 8,
+        "bit_depth": 16,
+        "color_type": 6,
+        "bytes_per_pixel": 8,
+        "scanline_byte_length": 64,
+        "filter_bpp": 8,
+        "has_plte": false,
+        "has_trns": false,
+        "animation_control": {
+          "num_frames": 2,
+          "num_plays": 0
+        },
+        "frame_count": 2,
+        "sequence_numbers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "frames": [
+          {
+            "frame_index": 0,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 5,
+            "delay_ms": 200,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "IDAT",
+            "fdat_chunk_count": 0,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 64,
+            "pixel_count": 64,
+            "transparent_pixel_count": 5,
+            "partial_alpha_pixel_count": 9,
+            "pixel_hash": "sha256:a50eb115b304e7c79e820bdf2d0839f104a9e4c3166758dd87a7747c2598a1aa"
+          },
+          {
+            "frame_index": 1,
+            "width": 8,
+            "height": 8,
+            "x_offset": 0,
+            "y_offset": 0,
+            "delay_num": 1,
+            "delay_den": 10,
+            "delay_ms": 100,
+            "dispose_op": 0,
+            "blend_op": 0,
+            "data_source": "fdAT",
+            "fdat_chunk_count": 2,
+            "filter_types_seen": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "scanline_byte_length": 64,
+            "pixel_count": 64,
+            "transparent_pixel_count": 5,
+            "partial_alpha_pixel_count": 9,
+            "pixel_hash": "sha256:a97d1f4377dd6b9cf40fa26ec429632a04877501f9e4a52fdb2a027c8e1e64c6"
+          }
+        ],
+        "frame_pixel_hashes": [
+          "sha256:a50eb115b304e7c79e820bdf2d0839f104a9e4c3166758dd87a7747c2598a1aa",
+          "sha256:a97d1f4377dd6b9cf40fa26ec429632a04877501f9e4a52fdb2a027c8e1e64c6"
+        ],
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ],
+        "display_hashes": [
+          "sha256:a50eb115b304e7c79e820bdf2d0839f104a9e4c3166758dd87a7747c2598a1aa",
+          "sha256:a97d1f4377dd6b9cf40fa26ec429632a04877501f9e4a52fdb2a027c8e1e64c6"
+        ],
+        "final_output_hash": "sha256:a97d1f4377dd6b9cf40fa26ec429632a04877501f9e4a52fdb2a027c8e1e64c6"
+      },
+      "success": true
+    }
+  ],
+  "invalid_probe_results": [
+    {
+      "probe_id": "invalid_bit_depth_color_type",
+      "expected_family": "png_bit_depth_color_type_invalid",
+      "rejected": true,
+      "decoded": {
+        "ok": false,
+        "errors": [
+          {
+            "path": "apng.bit_depth_frame_data",
+            "family": "png_bit_depth_color_type_invalid",
+            "message": "PNG bit depth is not allowed for this APNG bit-depth lab color type"
+          }
+        ],
+        "error_families": [
+          "png_bit_depth_color_type_invalid"
+        ]
+      }
+    },
+    {
+      "probe_id": "truncated_packed_scanline",
+      "expected_family": "apng_scanline_length_mismatch",
+      "rejected": true,
+      "decoded": {
+        "ok": false,
+        "errors": [
+          {
+            "path": "apng.bit_depth_frame_data",
+            "family": "apng_scanline_length_mismatch",
+            "message": "APNG scanline length does not match frame dimensions"
+          }
+        ],
+        "error_families": [
+          "apng_scanline_length_mismatch"
+        ]
+      }
+    },
+    {
+      "probe_id": "invalid_filter_type",
+      "expected_family": "png_filter_type_unsupported",
+      "rejected": true,
+      "decoded": {
+        "ok": false,
+        "errors": [
+          {
+            "path": "apng.bit_depth_frame_data",
+            "family": "png_filter_type_unsupported",
+            "message": "PNG filter type must be in 0..4 for filter method 0"
+          }
+        ],
+        "error_families": [
+          "png_filter_type_unsupported"
+        ]
+      }
+    },
+    {
+      "probe_id": "fdat_sequence_gap",
+      "expected_family": "apng_sequence_number_invalid",
+      "rejected": true,
+      "decoded": {
+        "ok": false,
+        "errors": [
+          {
+            "path": "apng.bit_depth_frame_data",
+            "family": "apng_sequence_number_invalid",
+            "message": "APNG sequence numbers must be consecutive"
+          }
+        ],
+        "error_families": [
+          "apng_sequence_number_invalid"
+        ]
+      }
+    }
+  ]
+};

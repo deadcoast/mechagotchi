@@ -90,6 +90,14 @@ runtime evolution.
 | PNG/APNG chunk order conformance | `data/workshop_editor/png_apng_chunk_order_conformance_stage0.json` | 1 | 12 PNG/APNG chunk-order cases across static RGBA, split-IDAT, indexed PLTE/tRNS, and APNG static-first-frame carriers; 7 invalid ordering/cardinality probes rejected |
 | APNG partial frame playback | `data/workshop_editor/apng_partial_frame_playback_stage0.json` | 1 | 12 APNG partial-frame playback cases across source blend, alpha-over blend, background disposal, and previous disposal; 5 invalid frame-control/data probes rejected |
 | APNG filtered frame data | `data/workshop_editor/apng_filtered_frame_data_stage0.json` | 1 | 15 APNG filter-method-0 frame-data cases across filter types 0..4 and split `fdAT` reconstruction; 4 invalid filter/scanline/sequence probes rejected |
+| APNG color type frame data | `data/workshop_editor/apng_color_type_frame_data_stage0.json` | 1 | 15 APNG color-type frame-data cases across color types 0/2/3/4/6, PLTE/tRNS, and alpha-channel reconstruction; 4 invalid color metadata probes rejected |
+| APNG bit depth frame data | `data/workshop_editor/apng_bit_depth_frame_data_stage0.json` | 1 | 30 APNG bit-depth frame-data cases across packed 1/2/4-bit and 16-bit samples, filter types 0..4, and split `fdAT`; 4 invalid bit-depth/frame-data probes rejected |
+| APNG partial sample frame data | `data/workshop_editor/apng_partial_sample_frame_data_stage0.json` | 1 | 15 APNG partial-frame sample cases across packed 1-bit greyscale, 4-bit indexed `PLTE`/`tRNS`, and 16-bit truecolor/alpha regions, filter types 0..4, source/over composition, and split `fdAT`; 5 invalid bounds/sample/frame-data probes rejected |
+| APNG Adam7 frame data | `data/workshop_editor/apng_adam7_frame_data_stage0.json` | 1 | 18 APNG Adam7 frame-data cases across color types 0/2/3/4/6, bit depths 1/4/8/16, seven reduced-image pass manifests, filter types 0..4, indexed `PLTE`/`tRNS`, source/over composition, and split `fdAT`; 5 invalid interlace/sample/frame-data probes rejected |
+| APNG partial Adam7 frame data | `data/workshop_editor/apng_partial_adam7_frame_data_stage0.json` | 1 | 18 APNG partial Adam7 frame-data cases across non-zero 6x6 patch offsets, color types 0/2/3/4/6, bit depths 1/4/8/16, seven reduced-image pass manifests, filter types 0..4, indexed `PLTE`/`tRNS`, source/over composition, and split `fdAT`; 6 invalid bounds/interlace/sample/frame-data probes rejected |
+| PNG/APNG image data chunking | `data/workshop_editor/png_apng_image_data_chunking_stage0.json` | 1 | 18 PNG/APNG image-data chunk-boundary cases across static PNG IDAT and APNG fdAT datastream splits, zero-length IDAT data fields, zero-length fdAT `frame_data` fields, zlib-header splits, and Adler-32 trailer splits; 6 invalid IDAT/fdAT chunking and datastream probes rejected |
+| PNG/APNG zlib compression matrix | `data/workshop_editor/png_apng_zlib_compression_stage0.json` | 1 | 18 PNG/APNG zlib compression-method-0 cases across static PNG IDAT and APNG fdAT streams, stored-block, fixed-Huffman, filtered, and RLE zlib strategies, raw scanline hash preservation, zlib CM=8 headers, and 6 invalid compression/datastream probes rejected |
+| PNG/APNG zlib header policy | `data/workshop_editor/png_apng_zlib_header_policy_stage0.json` | 1 | 18 PNG/APNG zlib header-policy cases across static PNG IDAT and APNG fdAT streams, CINFO values 1/4/7, 512/4096/32768-byte windows, FDICT=false valid streams, raw scanline hash preservation, and 6 invalid FDICT/CMF/FLG/header probes rejected |
 | PNG embedded sidecar writer | `data/workshop_editor/png_embedded_sidecar_writer_stage0.json` | 1 | 3 embedded PNG `tEXt` sidecar round trips, decoded pixels preserved, 3 invalid embedded metadata probes rejected |
 | PNG textual metadata policy | `data/workshop_editor/png_textual_metadata_policy_stage0.json` | 1 | 12 bounded PNG textual metadata round trips across `tEXt`, `zTXt`, uncompressed `iTXt`, and compressed `iTXt`; 7 invalid metadata policy probes rejected |
 | PNG private chunk policy | `data/workshop_editor/png_private_chunk_policy_stage0.json` | 1 | 3 app-private PNG `mgOT` ancillary chunk round trips; 7 invalid private chunk probes rejected; carrier-selection inputs recorded without final production decision |
@@ -185,6 +193,14 @@ require a complete behavior vocabulary or survival-weight vocabulary.
 | PNG/APNG chunk order conformance | 12/12 current profile chunk-order cases pass across static RGBA single-IDAT PNG, static RGBA split-IDAT PNG, indexed PLTE/tRNS PNG, and APNG static-first-frame carriers; 7/7 duplicate-IHDR, post-IEND, PLTE-after-IDAT, tRNS-before-PLTE, nonconsecutive-IDAT, acTL-after-IDAT, and fcTL sequence-gap probes rejected | proven Stage 0 bounded structural chunk-order matrix only | remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection |
 | APNG partial frame playback | 12/12 current profile playback cases pass across partial source-blend dispose-none patches, alpha-over dispose-none patches, background disposal, and previous disposal; display and after-disposal hashes recorded separately; 5/5 out-of-bounds, invalid-dispose, invalid-blend, missing-default-IDAT, and missing-frame-data probes rejected | proven Stage 0 bounded APNG partial-frame playback matrix only | remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection |
 | APNG filtered frame data | 15/15 current profile APNG frame-data cases pass across PNG filter method 0 filter types 0..4 with two-`fdAT` split datastream reconstruction; frame pixel hashes and display hashes recorded; 4/4 invalid filter-byte, truncated-scanline, `fdAT` sequence-gap, and missing-`fdAT` continuation probes rejected | proven Stage 0 bounded APNG filtered frame-data matrix only | remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection |
+| APNG color type frame data | 15/15 current profile APNG frame-data cases pass across 8-bit color types 0, 2, 3, 4, and 6; indexed-color PLTE/tRNS transparency and explicit alpha-channel pixels are reconstructed; frame pixel hashes and display hashes recorded; 4/4 missing-PLTE, invalid-tRNS, unsupported-color-type, and alpha+tRNS conflict probes rejected | proven Stage 0 bounded APNG color-type frame-data matrix only | remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection |
+| APNG bit depth frame data | 30/30 current profile APNG frame-data cases pass across packed 1/2/4-bit greyscale and indexed-color samples plus 16-bit greyscale, truecolor, greyscale-alpha, and truecolor-alpha samples; filter types 0..4, split `fdAT`, frame pixel hashes, display hashes, scanline byte lengths, and alpha counts recorded; 4/4 invalid bit-depth/color-type, truncated-scanline, invalid-filter, and `fdAT` sequence-gap probes rejected | proven Stage 0 bounded APNG bit-depth frame-data matrix only | remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection |
+| APNG partial sample frame data | 15/15 current profile APNG partial-frame sample cases pass across packed 1-bit greyscale, 4-bit indexed-color `PLTE`/`tRNS`, 16-bit truecolor, 16-bit greyscale-alpha, and 16-bit truecolor-alpha regions; filter types 0..4, source/over composition, split `fdAT`, frame pixel hashes, display hashes, patch scanline byte lengths, and alpha counts recorded; 5/5 out-of-bounds frame, invalid bit-depth/color-type, truncated partial scanline, invalid filter, and `fdAT` sequence-gap probes rejected | proven Stage 0 bounded APNG partial-sample frame-data matrix only | remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection |
+| APNG Adam7 frame data | 18/18 current profile APNG Adam7 frame-data cases pass across selected color types 0, 2, 3, 4, and 6 plus bit depths 1, 4, 8, and 16; seven reduced-image pass manifests, filter types 0..4, indexed-color `PLTE`/`tRNS` transparency, source/over composition, split `fdAT`, frame pixel hashes, display hashes, final canvas hashes, and alpha counts recorded; 5/5 non-Adam7 interlace, invalid bit-depth/color-type, truncated Adam7 scanline, invalid filter, and `fdAT` sequence-gap probes rejected | proven Stage 0 bounded APNG Adam7 frame-data matrix only | remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection |
+| APNG partial Adam7 frame data | 18/18 current profile APNG partial Adam7 frame-data cases pass across non-zero 6x6 patch offsets, selected color types 0, 2, 3, 4, and 6, and bit depths 1, 4, 8, and 16; seven reduced-image pass manifests, filter types 0..4, indexed-color `PLTE`/`tRNS` transparency, source/over composition, split `fdAT`, frame pixel hashes, display hashes, final canvas hashes, patch offset metadata, and alpha counts recorded; 6/6 non-Adam7 interlace, out-of-bounds frame, invalid bit-depth/color-type, truncated partial Adam7 scanline, invalid filter, and `fdAT` sequence-gap probes rejected | proven Stage 0 bounded APNG partial Adam7 frame-data matrix only | remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection |
+| PNG/APNG image data chunking | 18/18 current profile PNG/APNG image-data chunk-boundary cases pass across 9 static PNG IDAT datastream splits and 9 APNG fdAT frame-data splits; zero-length IDAT data fields, zero-length fdAT `frame_data` fields, zlib-header splits, Adler-32 trailer splits, IDAT/fdAT data lengths, data chunk counts, static pixel hashes, APNG display hashes, and final output hashes recorded; 6/6 nonconsecutive IDAT, corrupt IDAT, missing IDAT, missing fdAT, fdAT sequence-gap, and corrupt fdAT probes rejected | proven Stage 0 bounded PNG/APNG image-data chunking matrix only | remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection |
+| PNG/APNG zlib compression matrix | 18/18 current profile PNG/APNG zlib compression-method-0 cases pass across 9 static PNG IDAT streams and 9 APNG fdAT frame-data streams; stored-block, fixed-Huffman, filtered, and RLE zlib strategies, raw scanline hashes, compressed stream hashes, zlib CM=8 headers, static pixel hashes, APNG display hashes, and final output hashes recorded; 6/6 unsupported IHDR compression method, corrupt IDAT zlib header, truncated IDAT, truncated fdAT, corrupt fdAT Adler-32, and fdAT sequence-gap probes rejected | proven Stage 0 bounded PNG/APNG zlib compression matrix only; zlib header-policy and FDICT rejection handled separately | remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection |
+| PNG/APNG zlib header policy | 18/18 current profile PNG/APNG zlib header-policy cases pass across 9 static PNG IDAT streams and 9 APNG fdAT frame-data streams; CINFO values 1/4/7, 512/4096/32768-byte windows, FDICT=false valid streams, raw scanline hashes, compressed stream hashes, zlib CM=8 headers, static pixel hashes, APNG display hashes, and final output hashes recorded; 6/6 PNG/APNG FDICT, CMF/FLG check, reserved compression-method, and too-large CINFO probes rejected | proven Stage 0 bounded PNG/APNG zlib header policy matrix only | remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection |
 | PNG embedded sidecar writer | 3/3 current profile PNG files embed Mechagotchi sidecar JSON in a PNG `tEXt` ancillary chunk, preserve decoded pixels, restore SLIP-aligned semantic grids, and reject 3/3 missing metadata, invalid JSON, or canonical-hash mismatch probes | proven Stage 0 embedded PNG text-chunk sidecar subset; textual variant policy is superseded by PNG textual metadata policy | live external editor rewrite validation, full APNG/PNG conformance, and project-file native metadata beyond Piskel/Pixelorama |
 | PNG textual metadata policy | 12/12 current profile PNG textual metadata variants round-trip sidecar semantics across `tEXt` ASCII JSON, `zTXt` compressed ASCII JSON, uncompressed `iTXt` UTF-8 JSON, and compressed `iTXt` UTF-8 JSON; 7/7 invalid missing, duplicate, non-ASCII text-policy, compression, UTF-8, and canonical-hash probes rejected | proven Stage 0 bounded textual metadata carrier policy only; private chunk policy is handled separately | live external editor rewrite validation, full APNG/PNG conformance, and production import/export carrier selection |
 | PNG private chunk policy | 3/3 current profile PNG files round-trip sidecar semantics through one `mgOT` ancillary private unsafe-to-copy chunk with a magic-prefixed UTF-8 JSON payload; 7/7 invalid missing, duplicate, safe-to-copy type, magic, JSON, canonical-hash, and sidecar-hash probes rejected; carrier-selection inputs recorded | proven Stage 0 bounded private ancillary chunk policy and carrier-selection input matrix only; simulated preservation matrix handled separately | live external editor rewrite validation, full APNG/PNG conformance, and final production import/export carrier selection |
@@ -334,7 +350,11 @@ Future workshop tests must check:
   non-interlaced low-bit/16-bit/greyscale-alpha PNG import/export, bounded
   Adam7/deep-color cross-product PNG import/export, bounded full-canvas APNG
   sidecar import/export, bounded PNG/APNG chunk-order conformance, bounded
-  APNG partial-frame playback, bounded APNG filtered frame data,
+  APNG partial-frame playback, bounded APNG filtered frame data, bounded APNG
+  color-type frame data, bounded APNG bit-depth frame data, bounded APNG
+  partial-sample frame data, bounded APNG Adam7 frame data, bounded APNG
+  partial Adam7 frame data, bounded PNG/APNG image-data chunking, and bounded
+  PNG/APNG zlib compression, and bounded PNG/APNG zlib header policy,
   fixed horizontal-strip spritesheet PNG import/export, and
   vertical/matrix/padded/sparse spritesheet layout import/export, packed
   trim/rotation reconstruction, arbitrary atlas packing, and generated
@@ -343,7 +363,11 @@ Future workshop tests must check:
   Aseprite/LibreSprite header project boundaries are proven against the same
   sidecar contract;
 - full APNG/PNG image-data conformance beyond the bounded chunk-order,
-  partial-frame playback, and filtered frame-data matrices, full project-file coverage, production
+  partial-frame playback, filtered frame-data, color-type frame-data,
+  bit-depth frame-data, partial-sample frame-data, Adam7 frame-data, partial
+  Adam7 frame-data, image-data chunking, zlib compression, and zlib
+  header-policy matrices, full
+  project-file coverage, production
   renderer playback, arbitrary Aseprite/LibreSprite project schema coverage,
   and live external editor rewrite validation remain blocked.
 
@@ -366,7 +390,23 @@ PNG/APNG chunk-order conformance is proven in
 APNG partial-frame playback is proven in
 `data/workshop_editor/apng_partial_frame_playback_stage0.json`, bounded
 APNG filtered frame data is proven in
-`data/workshop_editor/apng_filtered_frame_data_stage0.json`, the PNG
+`data/workshop_editor/apng_filtered_frame_data_stage0.json`, bounded APNG
+color-type frame data is proven in
+`data/workshop_editor/apng_color_type_frame_data_stage0.json`, bounded APNG
+bit-depth frame data is proven in
+`data/workshop_editor/apng_bit_depth_frame_data_stage0.json`, bounded APNG
+partial-sample frame data is proven in
+`data/workshop_editor/apng_partial_sample_frame_data_stage0.json`, bounded
+APNG Adam7 frame data is proven in
+`data/workshop_editor/apng_adam7_frame_data_stage0.json`, bounded APNG partial
+Adam7 frame data is proven in
+`data/workshop_editor/apng_partial_adam7_frame_data_stage0.json`, bounded
+PNG/APNG image-data chunking is proven in
+`data/workshop_editor/png_apng_image_data_chunking_stage0.json`, bounded
+PNG/APNG zlib compression method-0 handling is proven in
+`data/workshop_editor/png_apng_zlib_compression_stage0.json`, bounded
+PNG/APNG zlib header policy and FDICT rejection are proven in
+`data/workshop_editor/png_apng_zlib_header_policy_stage0.json`, the PNG
 embedded sidecar writer is proven for the `tEXt` chunk subset, the bounded
 PNG textual metadata policy is proven for `tEXt`/`zTXt`/`iTXt` carriers, the
 bounded PNG private chunk policy is proven for one app-private `mgOT` carrier,
@@ -383,7 +423,11 @@ generated multi-page atlas page/frame binding is proven in
 Third-party project boundary decoding is proven for Piskel JSON, Pixelorama
 `.pxo` ZIP/data.json, and Aseprite/LibreSprite header payloads.
 full APNG/PNG image-data conformance beyond the bounded chunk-order,
-partial-frame playback, and filtered frame-data matrices, production renderer playback, full
+partial-frame playback, filtered frame-data, color-type frame-data, and
+bit-depth frame-data, partial-sample frame-data, Adam7 frame-data, partial
+Adam7 frame-data, image-data chunking, zlib compression, and zlib
+header-policy matrices, production
+renderer playback, full
 editor-native project coverage, arbitrary Aseprite/LibreSprite project schema
 coverage, and live external editor rewrite validation remain blocked. Project
 native metadata writing is proven only for the Piskel description and
@@ -414,8 +458,11 @@ The following claims remain blocked:
   non-interlaced and Adam7-interlaced low-bit/16-bit/greyscale-alpha variants,
   plus two-frame full-canvas APNG source-frame carriers, bounded APNG
   textual/private metadata carriers, structural chunk-order fixtures,
-  partial-frame playback fixtures, and filtered split-`fdAT` frame-data
-  fixtures only;
+  partial-frame playback fixtures, filtered split-`fdAT` frame-data fixtures,
+  color-type frame-data fixtures, bit-depth frame-data fixtures,
+  partial-sample frame-data fixtures, Adam7 frame-data fixtures, partial
+  Adam7 frame-data fixtures, image-data chunking fixtures, zlib compression
+  fixtures, and zlib header-policy fixtures only;
 - production renderer playback,
   because the packed runtime, arbitrary atlas, and multi-page atlas proofs
   cover only sidecar-described reconstruction and deterministic playback
@@ -464,6 +511,14 @@ python -m json.tool .\data\workshop_editor\apng_metadata_carrier_cross_product_s
 python -m json.tool .\data\workshop_editor\png_apng_chunk_order_conformance_stage0.json
 python -m json.tool .\data\workshop_editor\apng_partial_frame_playback_stage0.json
 python -m json.tool .\data\workshop_editor\apng_filtered_frame_data_stage0.json
+python -m json.tool .\data\workshop_editor\apng_color_type_frame_data_stage0.json
+python -m json.tool .\data\workshop_editor\apng_bit_depth_frame_data_stage0.json
+python -m json.tool .\data\workshop_editor\apng_partial_sample_frame_data_stage0.json
+python -m json.tool .\data\workshop_editor\apng_adam7_frame_data_stage0.json
+python -m json.tool .\data\workshop_editor\apng_partial_adam7_frame_data_stage0.json
+python -m json.tool .\data\workshop_editor\png_apng_image_data_chunking_stage0.json
+python -m json.tool .\data\workshop_editor\png_apng_zlib_compression_stage0.json
+python -m json.tool .\data\workshop_editor\png_apng_zlib_header_policy_stage0.json
 python -m json.tool .\data\workshop_editor\png_embedded_sidecar_writer_stage0.json
 python -m json.tool .\data\workshop_editor\png_textual_metadata_policy_stage0.json
 python -m json.tool .\data\workshop_editor\png_private_chunk_policy_stage0.json
@@ -496,6 +551,14 @@ python -B -m unittest .\labs\workshop_editor\test_png_apng_metadata_carrier_cros
 python -B -m unittest .\labs\workshop_editor\test_png_apng_chunk_order_conformance.py
 python -B -m unittest .\labs\workshop_editor\test_png_apng_partial_frame_playback.py
 python -B -m unittest .\labs\workshop_editor\test_png_apng_filtered_frame_data.py
+python -B -m unittest .\labs\workshop_editor\test_png_apng_color_type_frame_data.py
+python -B -m unittest .\labs\workshop_editor\test_png_apng_bit_depth_frame_data.py
+python -B -m unittest .\labs\workshop_editor\test_png_apng_partial_sample_frame_data.py
+python -B -m unittest .\labs\workshop_editor\test_png_apng_adam7_frame_data.py
+python -B -m unittest .\labs\workshop_editor\test_png_apng_partial_adam7_frame_data.py
+python -B -m unittest .\labs\workshop_editor\test_png_apng_image_data_chunking.py
+python -B -m unittest .\labs\workshop_editor\test_png_apng_zlib_compression_matrix.py
+python -B -m unittest .\labs\workshop_editor\test_png_apng_zlib_header_policy.py
 python -B -m unittest .\labs\workshop_editor\test_png_embedded_sidecar_writer.py
 python -B -m unittest .\labs\workshop_editor\test_png_textual_metadata_policy.py
 python -B -m unittest .\labs\workshop_editor\test_png_private_chunk_policy.py
@@ -568,6 +631,33 @@ disposal only, not full APNG/PNG image-data conformance.
 Treat the APNG filtered frame-data matrix as proof of bounded 8-bit RGBA
 non-interlaced PNG filter-method-0 reconstruction and split-`fdAT`
 concatenation only, not full APNG/PNG image-data conformance.
+Treat the APNG color-type frame-data matrix as proof of bounded 8-bit
+non-interlaced color types 0/2/3/4/6, PLTE/tRNS, and alpha-channel
+reconstruction only, not full APNG/PNG image-data conformance.
+Treat the APNG bit-depth frame-data matrix as proof of bounded non-interlaced
+packed 1/2/4-bit and 16-bit samples, filter method 0 row reconstruction, and
+split-`fdAT` reconstruction only, not full APNG/PNG image-data conformance.
+Treat the APNG partial-sample frame-data matrix as proof of bounded
+non-interlaced partial frame offsets for selected packed low-bit, indexed, and
+16-bit sample models with source/over composition only, not full APNG/PNG
+image-data conformance.
+Treat the APNG Adam7 frame-data matrix as proof of bounded full-canvas Adam7
+APNG frame reconstruction for selected packed low-bit, indexed, 8-bit, and
+16-bit sample models with source/over composition only, not full APNG/PNG
+image-data conformance.
+Treat the APNG partial Adam7 frame-data matrix as proof of bounded non-zero
+offset Adam7 APNG frame reconstruction for selected packed low-bit, indexed,
+8-bit, and 16-bit sample models with source/over composition only, not full
+APNG/PNG image-data conformance.
+Treat the PNG/APNG image-data chunking matrix as proof of bounded IDAT and
+fdAT chunk-boundary independence for selected static PNG and APNG frame-data
+fixtures only, not full APNG/PNG image-data conformance.
+Treat the PNG/APNG zlib compression matrix as proof of bounded zlib
+compression-method-0/DEFLATE variant reconstruction for selected static PNG
+and APNG frame-data fixtures only, not full APNG/PNG image-data conformance.
+Treat the PNG/APNG zlib header policy matrix as proof of bounded zlib
+CMF/FLG window handling and FDICT rejection for selected static PNG and APNG
+frame-data fixtures only, not full APNG/PNG image-data conformance.
 Treat the third-party project decoder
 boundary as proof of sidecar binding for Piskel JSON, Pixelorama `.pxo`
 ZIP/data.json, and Aseprite/LibreSprite header payloads, not as proof of broad
@@ -609,11 +699,14 @@ Next research step:
 
 ```txt
 Collect live external editor open-save fixtures, broaden remaining PNG/APNG
-coverage beyond the bounded chunk-order, partial-frame playback, and filtered
-frame-data matrices through image-data conformance fixtures, broaden Aseprite
-chunk/schema coverage
-beyond the fixed Stage 0 carrier subsets with editor-authored document variants
-and editor-authored external asset resolution, collect 63 SLIP readability reviewer
+coverage beyond the bounded chunk-order, partial-frame playback, filtered
+frame-data, color-type frame-data, bit-depth frame-data, partial-sample
+frame-data, Adam7 frame-data, partial Adam7 frame-data, image-data chunking,
+zlib compression, and zlib header-policy matrices through additional image-data conformance
+fixtures, broaden Aseprite
+chunk/schema coverage beyond
+the fixed Stage 0 carrier subsets with editor-authored document variants and
+editor-authored external asset resolution, collect 63 SLIP readability reviewer
 rows, and start package implementation only when explicitly authorized before
 claiming profile-weighted evolution.
 ```
@@ -668,6 +761,22 @@ claiming profile-weighted evolution.
 - `research/algorithm_cards/png_apng_partial_frame_playback.md`
 - `research/experiment_reports/2026-05-14-apng-filtered-frame-data.md`
 - `research/algorithm_cards/png_apng_filtered_frame_data.md`
+- `research/experiment_reports/2026-05-14-apng-color-type-frame-data.md`
+- `research/algorithm_cards/png_apng_color_type_frame_data.md`
+- `research/experiment_reports/2026-05-14-apng-bit-depth-frame-data.md`
+- `research/algorithm_cards/png_apng_bit_depth_frame_data.md`
+- `research/experiment_reports/2026-05-14-apng-partial-sample-frame-data.md`
+- `research/algorithm_cards/png_apng_partial_sample_frame_data.md`
+- `research/experiment_reports/2026-05-14-apng-adam7-frame-data.md`
+- `research/algorithm_cards/png_apng_adam7_frame_data.md`
+- `research/experiment_reports/2026-05-14-apng-partial-adam7-frame-data.md`
+- `research/algorithm_cards/png_apng_partial_adam7_frame_data.md`
+- `research/experiment_reports/2026-05-14-png-apng-image-data-chunking.md`
+- `research/algorithm_cards/png_apng_image_data_chunking.md`
+- `research/experiment_reports/2026-05-14-png-apng-zlib-compression-matrix.md`
+- `research/algorithm_cards/png_apng_zlib_compression_matrix.md`
+- `research/experiment_reports/2026-05-14-png-apng-zlib-header-policy.md`
+- `research/algorithm_cards/png_apng_zlib_header_policy.md`
 - `research/experiment_reports/2026-05-13-png-embedded-sidecar-writer.md`
 - `research/experiment_reports/2026-05-14-png-textual-metadata-policy.md`
 - `research/experiment_reports/2026-05-14-png-private-chunk-policy.md`
@@ -702,6 +811,14 @@ claiming profile-weighted evolution.
 - `labs/workshop_editor/png_apng_chunk_order_conformance.py`
 - `labs/workshop_editor/png_apng_partial_frame_playback.py`
 - `labs/workshop_editor/png_apng_filtered_frame_data.py`
+- `labs/workshop_editor/png_apng_color_type_frame_data.py`
+- `labs/workshop_editor/png_apng_bit_depth_frame_data.py`
+- `labs/workshop_editor/png_apng_partial_sample_frame_data.py`
+- `labs/workshop_editor/png_apng_adam7_frame_data.py`
+- `labs/workshop_editor/png_apng_partial_adam7_frame_data.py`
+- `labs/workshop_editor/png_apng_image_data_chunking.py`
+- `labs/workshop_editor/png_apng_zlib_compression_matrix.py`
+- `labs/workshop_editor/png_apng_zlib_header_policy.py`
 - `labs/workshop_editor/png_embedded_sidecar_writer.py`
 - `labs/workshop_editor/png_textual_metadata_policy.py`
 - `labs/workshop_editor/png_private_chunk_policy.py`
@@ -735,6 +852,14 @@ claiming profile-weighted evolution.
 - `data/workshop_editor/png_apng_chunk_order_conformance_stage0.json`
 - `data/workshop_editor/apng_partial_frame_playback_stage0.json`
 - `data/workshop_editor/apng_filtered_frame_data_stage0.json`
+- `data/workshop_editor/apng_color_type_frame_data_stage0.json`
+- `data/workshop_editor/apng_bit_depth_frame_data_stage0.json`
+- `data/workshop_editor/apng_partial_sample_frame_data_stage0.json`
+- `data/workshop_editor/apng_adam7_frame_data_stage0.json`
+- `data/workshop_editor/apng_partial_adam7_frame_data_stage0.json`
+- `data/workshop_editor/png_apng_image_data_chunking_stage0.json`
+- `data/workshop_editor/png_apng_zlib_compression_stage0.json`
+- `data/workshop_editor/png_apng_zlib_header_policy_stage0.json`
 - `data/workshop_editor/png_embedded_sidecar_writer_stage0.json`
 - `data/workshop_editor/png_textual_metadata_policy_stage0.json`
 - `data/workshop_editor/png_private_chunk_policy_stage0.json`
@@ -760,6 +885,13 @@ claiming profile-weighted evolution.
 - `data/workshop_editor/png_apng_chunk_order_conformance_stage0/`
 - `data/workshop_editor/apng_partial_frame_playback_stage0/`
 - `data/workshop_editor/apng_filtered_frame_data_stage0/`
+- `data/workshop_editor/apng_color_type_frame_data_stage0/`
+- `data/workshop_editor/apng_bit_depth_frame_data_stage0/`
+- `data/workshop_editor/apng_partial_sample_frame_data_stage0/`
+- `data/workshop_editor/apng_partial_adam7_frame_data_stage0/`
+- `data/workshop_editor/png_apng_image_data_chunking_stage0/`
+- `data/workshop_editor/png_apng_zlib_compression_stage0/`
+- `data/workshop_editor/png_apng_zlib_header_policy_stage0/`
 - `data/workshop_editor/png_embedded_sidecar_writer_stage0/`
 - `data/workshop_editor/png_textual_metadata_policy_stage0/`
 - `data/workshop_editor/png_private_chunk_policy_stage0/`

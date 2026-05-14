@@ -57,6 +57,43 @@ Minimal semantic editor artifacts for testing Mechagotchi grid authoring.
 - `apng_filtered_frame_data_stage0.json` records 15/15 bounded APNG
   filter-method-0 frame-data cases across filter types 0..4 and split `fdAT`
   reconstruction, with 4/4 invalid filter/scanline/sequence probes rejected.
+- `apng_color_type_frame_data_stage0.json` records 15/15 bounded APNG
+  color-type frame-data cases across color types 0/2/3/4/6, PLTE/tRNS, and
+  alpha-channel reconstruction, with 4/4 invalid color metadata probes rejected.
+- `apng_bit_depth_frame_data_stage0.json` records 30/30 bounded APNG
+  bit-depth frame-data cases across packed 1/2/4-bit and 16-bit frame samples,
+  filter types 0..4, and split `fdAT`, with 4/4 invalid bit-depth/frame-data
+  probes rejected.
+- `apng_partial_sample_frame_data_stage0.json` records 15/15 bounded APNG
+  partial-frame sample cases across packed 1-bit greyscale, 4-bit indexed
+  `PLTE`/`tRNS`, and 16-bit truecolor/alpha frame regions, filter types
+  0..4, source/over composition, and split `fdAT`, with 5/5 invalid
+  bounds/sample/frame-data probes rejected.
+- `apng_adam7_frame_data_stage0.json` records 18/18 bounded APNG Adam7
+  frame-data cases across color types 0/2/3/4/6, bit depths 1/4/8/16, seven
+  reduced-image passes, filter types 0..4, indexed `PLTE`/`tRNS`, source/over
+  composition, and split `fdAT`, with 5/5 invalid interlace/sample/frame-data
+  probes rejected.
+- `apng_partial_adam7_frame_data_stage0.json` records 18/18 bounded APNG
+  partial Adam7 frame-data cases across non-zero 6x6 patch offsets, color
+  types 0/2/3/4/6, bit depths 1/4/8/16, seven reduced-image passes, filter
+  types 0..4, indexed `PLTE`/`tRNS`, source/over composition, and split
+  `fdAT`, with 6/6 invalid bounds/interlace/sample/frame-data probes rejected.
+- `png_apng_image_data_chunking_stage0.json` records 18/18 bounded PNG/APNG
+  image-data chunking cases across static PNG IDAT and APNG fdAT datastream
+  splits, zero-length IDAT data fields, zero-length fdAT `frame_data` fields,
+  zlib-header splits, and Adler-32 trailer splits, with 6/6 invalid
+  chunking/datastream probes rejected.
+- `png_apng_zlib_compression_stage0.json` records 18/18 bounded PNG/APNG
+  zlib compression-method-0 cases across static PNG IDAT and APNG fdAT
+  streams, level-0 stored-block, fixed-Huffman, filtered, and RLE zlib
+  strategies, raw scanline hash preservation, zlib CM=8 headers, and 6/6
+  invalid compression/datastream probes rejected.
+- `png_apng_zlib_header_policy_stage0.json` records 18/18 bounded PNG/APNG
+  zlib header-policy cases across static PNG IDAT and APNG fdAT streams,
+  valid CINFO values 1/4/7, 512/4096/32768-byte window headers,
+  FDICT=false valid streams, raw scanline hash preservation, and 6/6 invalid
+  FDICT/CMF/FLG/header probes rejected.
 - `spritesheet_layout_variant_decoder_stage0.json` records 12/12
   layout-variant spritesheet sidecar round trips across vertical strips,
   row-major matrix sheets, padded/guttered grids, and sparse atlas rects.

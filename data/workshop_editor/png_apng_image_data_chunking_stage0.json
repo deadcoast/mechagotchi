@@ -1,0 +1,1115 @@
+{
+  "artifact_id": "png_apng_image_data_chunking_stage0",
+  "status": "research_png_apng_image_data_chunking_no_package_code",
+  "date": "2026-05-14",
+  "purpose": "Close a bounded PNG/APNG image-data gap by proving that selected static PNG IDAT and APNG fdAT chunk boundaries do not change decoded pixels or frame playback when the concatenated zlib datastream is unchanged.",
+  "source_artifacts": [
+    "docs/01-brainstorming.md",
+    "docs/02-research_plan.md",
+    "research/slip/profile_compatibility_tests.md",
+    "data/slips/slip_profile_compatibility_matrix_stage0.json",
+    "data/slips/multi_profile_generation_stage0/",
+    "labs/workshop_editor/png_deep_color_sidecar_decoder.py",
+    "labs/workshop_editor/png_apng_filtered_frame_data.py",
+    "labs/workshop_editor/png_apng_image_data_chunking.py"
+  ],
+  "external_anchors": [
+    {
+      "source": "W3C PNG specification",
+      "url": "https://www.w3.org/TR/png-3/",
+      "used_for": "PNG IDAT image-data concatenation, APNG fdAT frame_data concatenation in sequence-number order, zero-length fdAT frame_data fields, zlib compression method 0, and filter-byte scanline payload boundaries."
+    }
+  ],
+  "profile_count": 3,
+  "case_ids": [
+    "png_idat_leading_empty_chunk",
+    "png_idat_zlib_header_split",
+    "png_idat_adler32_split",
+    "apng_fdat_leading_empty_frame_data",
+    "apng_fdat_zlib_header_split",
+    "apng_fdat_adler32_split"
+  ],
+  "case_count": 18,
+  "case_success_count": 18,
+  "invalid_probe_count": 6,
+  "invalid_probe_rejected_count": 6,
+  "case_results": [
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "png_idat_leading_empty_chunk",
+      "description": "Static PNG with an empty IDAT data field before the compressed image datastream.",
+      "carrier_family": "png",
+      "split_target": "leading_empty",
+      "png_file_name": "slip_lcd_seed_png_idat_leading_empty_chunk.png",
+      "png_hash": "sha256:757fd3e3a435a5bbace7d61be1b5a8184688de9e381a349e55d01b8a528e2be2",
+      "expected_pixel_hash": "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+      "expected_idat_data_lengths": [
+        0,
+        95
+      ],
+      "expected_fdat_frame_data_lengths": [],
+      "decoded": {
+        "ok": true,
+        "carrier_family": "png",
+        "pixel_hash": "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+        "idat_data_lengths": [
+          0,
+          95
+        ],
+        "fdat_frame_data_lengths": [],
+        "idat_chunk_count": 2,
+        "fdat_chunk_count": 0,
+        "data_chunk_count": 2,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IDAT",
+          "IEND"
+        ],
+        "width": 8,
+        "height": 8,
+        "filter_types_seen": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "png_idat_zlib_header_split",
+      "description": "Static PNG with the zlib header split across IDAT chunk boundaries.",
+      "carrier_family": "png",
+      "split_target": "zlib_header",
+      "png_file_name": "slip_lcd_seed_png_idat_zlib_header_split.png",
+      "png_hash": "sha256:81a282d10123d1c161ebf5a315eb4239212bb48da05e9be1c072cceea8948238",
+      "expected_pixel_hash": "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+      "expected_idat_data_lengths": [
+        1,
+        94
+      ],
+      "expected_fdat_frame_data_lengths": [],
+      "decoded": {
+        "ok": true,
+        "carrier_family": "png",
+        "pixel_hash": "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+        "idat_data_lengths": [
+          1,
+          94
+        ],
+        "fdat_frame_data_lengths": [],
+        "idat_chunk_count": 2,
+        "fdat_chunk_count": 0,
+        "data_chunk_count": 2,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IDAT",
+          "IEND"
+        ],
+        "width": 8,
+        "height": 8,
+        "filter_types_seen": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "png_idat_adler32_split",
+      "description": "Static PNG with the compressed stream and Adler-32 trailer split across five IDAT chunks.",
+      "carrier_family": "png",
+      "split_target": "adler32",
+      "png_file_name": "slip_lcd_seed_png_idat_adler32_split.png",
+      "png_hash": "sha256:dc0a53d69a852864d760df6776336f01c38648705ffe2214928dae9aef93c672",
+      "expected_pixel_hash": "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+      "expected_idat_data_lengths": [
+        1,
+        1,
+        89,
+        2,
+        2
+      ],
+      "expected_fdat_frame_data_lengths": [],
+      "decoded": {
+        "ok": true,
+        "carrier_family": "png",
+        "pixel_hash": "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+        "idat_data_lengths": [
+          1,
+          1,
+          89,
+          2,
+          2
+        ],
+        "fdat_frame_data_lengths": [],
+        "idat_chunk_count": 5,
+        "fdat_chunk_count": 0,
+        "data_chunk_count": 5,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IDAT",
+          "IDAT",
+          "IDAT",
+          "IDAT",
+          "IEND"
+        ],
+        "width": 8,
+        "height": 8,
+        "filter_types_seen": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "apng_fdat_leading_empty_frame_data",
+      "description": "APNG with an empty fdAT frame_data field before the compressed frame datastream.",
+      "carrier_family": "apng",
+      "split_target": "leading_empty",
+      "png_file_name": "slip_lcd_seed_apng_fdat_leading_empty_frame_data.png",
+      "png_hash": "sha256:25f299b456c6ce5b9b66cdbc87fef9f70864939bb2ecf12fccd19a3d78684c46",
+      "expected_pixel_hash": "sha256:38c7963e14830a3fc5937ab6638f3bc070a2c0a7d362222f78cbfcb9233793d9",
+      "expected_idat_data_lengths": [
+        55
+      ],
+      "expected_fdat_frame_data_lengths": [
+        0,
+        95
+      ],
+      "decoded": {
+        "ok": true,
+        "carrier_family": "apng",
+        "pixel_hash": "sha256:38c7963e14830a3fc5937ab6638f3bc070a2c0a7d362222f78cbfcb9233793d9",
+        "idat_data_lengths": [
+          55
+        ],
+        "fdat_frame_data_lengths": [
+          0,
+          95
+        ],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 2,
+        "data_chunk_count": 3,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT",
+          "IEND"
+        ],
+        "frame_count": 2,
+        "display_hashes": [
+          "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+          "sha256:38c7963e14830a3fc5937ab6638f3bc070a2c0a7d362222f78cbfcb9233793d9"
+        ],
+        "final_output_hash": "sha256:38c7963e14830a3fc5937ab6638f3bc070a2c0a7d362222f78cbfcb9233793d9",
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "apng_fdat_zlib_header_split",
+      "description": "APNG with the zlib header split across fdAT frame_data chunk boundaries.",
+      "carrier_family": "apng",
+      "split_target": "zlib_header",
+      "png_file_name": "slip_lcd_seed_apng_fdat_zlib_header_split.png",
+      "png_hash": "sha256:8126f0358829c54dd563e154176c753932b92d663384bdb2a6bcca2ebb106380",
+      "expected_pixel_hash": "sha256:0cc2093c0a3e6a60bbe335fd84f41916f8003291c66b419b7feff1d5fcbf52c9",
+      "expected_idat_data_lengths": [
+        55
+      ],
+      "expected_fdat_frame_data_lengths": [
+        1,
+        94
+      ],
+      "decoded": {
+        "ok": true,
+        "carrier_family": "apng",
+        "pixel_hash": "sha256:0cc2093c0a3e6a60bbe335fd84f41916f8003291c66b419b7feff1d5fcbf52c9",
+        "idat_data_lengths": [
+          55
+        ],
+        "fdat_frame_data_lengths": [
+          1,
+          94
+        ],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 2,
+        "data_chunk_count": 3,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT",
+          "IEND"
+        ],
+        "frame_count": 2,
+        "display_hashes": [
+          "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+          "sha256:0cc2093c0a3e6a60bbe335fd84f41916f8003291c66b419b7feff1d5fcbf52c9"
+        ],
+        "final_output_hash": "sha256:0cc2093c0a3e6a60bbe335fd84f41916f8003291c66b419b7feff1d5fcbf52c9",
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "apng_fdat_adler32_split",
+      "description": "APNG with the compressed frame stream and Adler-32 trailer split across five fdAT chunks.",
+      "carrier_family": "apng",
+      "split_target": "adler32",
+      "png_file_name": "slip_lcd_seed_apng_fdat_adler32_split.png",
+      "png_hash": "sha256:b84e4dea637a0d4784bca131e227671643dfaf9da2cb52bf98fff726c552fcf0",
+      "expected_pixel_hash": "sha256:dba9a274a57f4023d8f87a9367b3d973d014db017c5c4f970ab3cd1372e36d20",
+      "expected_idat_data_lengths": [
+        55
+      ],
+      "expected_fdat_frame_data_lengths": [
+        1,
+        1,
+        89,
+        2,
+        2
+      ],
+      "decoded": {
+        "ok": true,
+        "carrier_family": "apng",
+        "pixel_hash": "sha256:dba9a274a57f4023d8f87a9367b3d973d014db017c5c4f970ab3cd1372e36d20",
+        "idat_data_lengths": [
+          55
+        ],
+        "fdat_frame_data_lengths": [
+          1,
+          1,
+          89,
+          2,
+          2
+        ],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 5,
+        "data_chunk_count": 6,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT",
+          "fdAT",
+          "fdAT",
+          "fdAT",
+          "IEND"
+        ],
+        "frame_count": 2,
+        "display_hashes": [
+          "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+          "sha256:dba9a274a57f4023d8f87a9367b3d973d014db017c5c4f970ab3cd1372e36d20"
+        ],
+        "final_output_hash": "sha256:dba9a274a57f4023d8f87a9367b3d973d014db017c5c4f970ab3cd1372e36d20",
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT",
+          "fdAT",
+          "fdAT",
+          "fdAT"
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "png_idat_leading_empty_chunk",
+      "description": "Static PNG with an empty IDAT data field before the compressed image datastream.",
+      "carrier_family": "png",
+      "split_target": "leading_empty",
+      "png_file_name": "slip_gray_stable_png_idat_leading_empty_chunk.png",
+      "png_hash": "sha256:2abc42a21b1fc6cec660a84ff3a58510276d36ec66aac340f141a9755e9139e0",
+      "expected_pixel_hash": "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+      "expected_idat_data_lengths": [
+        0,
+        102
+      ],
+      "expected_fdat_frame_data_lengths": [],
+      "decoded": {
+        "ok": true,
+        "carrier_family": "png",
+        "pixel_hash": "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+        "idat_data_lengths": [
+          0,
+          102
+        ],
+        "fdat_frame_data_lengths": [],
+        "idat_chunk_count": 2,
+        "fdat_chunk_count": 0,
+        "data_chunk_count": 2,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IDAT",
+          "IEND"
+        ],
+        "width": 8,
+        "height": 8,
+        "filter_types_seen": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "png_idat_zlib_header_split",
+      "description": "Static PNG with the zlib header split across IDAT chunk boundaries.",
+      "carrier_family": "png",
+      "split_target": "zlib_header",
+      "png_file_name": "slip_gray_stable_png_idat_zlib_header_split.png",
+      "png_hash": "sha256:e9e0aba190ec8da0c22c81c3a50cf514377c63389adb9bb81f314e12be926c97",
+      "expected_pixel_hash": "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+      "expected_idat_data_lengths": [
+        1,
+        101
+      ],
+      "expected_fdat_frame_data_lengths": [],
+      "decoded": {
+        "ok": true,
+        "carrier_family": "png",
+        "pixel_hash": "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+        "idat_data_lengths": [
+          1,
+          101
+        ],
+        "fdat_frame_data_lengths": [],
+        "idat_chunk_count": 2,
+        "fdat_chunk_count": 0,
+        "data_chunk_count": 2,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IDAT",
+          "IEND"
+        ],
+        "width": 8,
+        "height": 8,
+        "filter_types_seen": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "png_idat_adler32_split",
+      "description": "Static PNG with the compressed stream and Adler-32 trailer split across five IDAT chunks.",
+      "carrier_family": "png",
+      "split_target": "adler32",
+      "png_file_name": "slip_gray_stable_png_idat_adler32_split.png",
+      "png_hash": "sha256:b540f67e97a7a2d842b54a66b0cefd2e18679ee8c49f1e4e5ec97be6d64ab6d6",
+      "expected_pixel_hash": "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+      "expected_idat_data_lengths": [
+        1,
+        1,
+        96,
+        2,
+        2
+      ],
+      "expected_fdat_frame_data_lengths": [],
+      "decoded": {
+        "ok": true,
+        "carrier_family": "png",
+        "pixel_hash": "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+        "idat_data_lengths": [
+          1,
+          1,
+          96,
+          2,
+          2
+        ],
+        "fdat_frame_data_lengths": [],
+        "idat_chunk_count": 5,
+        "fdat_chunk_count": 0,
+        "data_chunk_count": 5,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IDAT",
+          "IDAT",
+          "IDAT",
+          "IDAT",
+          "IEND"
+        ],
+        "width": 8,
+        "height": 8,
+        "filter_types_seen": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "apng_fdat_leading_empty_frame_data",
+      "description": "APNG with an empty fdAT frame_data field before the compressed frame datastream.",
+      "carrier_family": "apng",
+      "split_target": "leading_empty",
+      "png_file_name": "slip_gray_stable_apng_fdat_leading_empty_frame_data.png",
+      "png_hash": "sha256:1791b8ddf83ad6dab614319ee3bb75fa6ae73424f075f5e5f4a0f0e792c89650",
+      "expected_pixel_hash": "sha256:351b6088a5f812b91442bf29ab7a0eeac898bbe83f14e59e3e88808c5e91bc20",
+      "expected_idat_data_lengths": [
+        49
+      ],
+      "expected_fdat_frame_data_lengths": [
+        0,
+        95
+      ],
+      "decoded": {
+        "ok": true,
+        "carrier_family": "apng",
+        "pixel_hash": "sha256:351b6088a5f812b91442bf29ab7a0eeac898bbe83f14e59e3e88808c5e91bc20",
+        "idat_data_lengths": [
+          49
+        ],
+        "fdat_frame_data_lengths": [
+          0,
+          95
+        ],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 2,
+        "data_chunk_count": 3,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT",
+          "IEND"
+        ],
+        "frame_count": 2,
+        "display_hashes": [
+          "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+          "sha256:351b6088a5f812b91442bf29ab7a0eeac898bbe83f14e59e3e88808c5e91bc20"
+        ],
+        "final_output_hash": "sha256:351b6088a5f812b91442bf29ab7a0eeac898bbe83f14e59e3e88808c5e91bc20",
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "apng_fdat_zlib_header_split",
+      "description": "APNG with the zlib header split across fdAT frame_data chunk boundaries.",
+      "carrier_family": "apng",
+      "split_target": "zlib_header",
+      "png_file_name": "slip_gray_stable_apng_fdat_zlib_header_split.png",
+      "png_hash": "sha256:7092626abbcb18f7487b8e5d8bdc2a89e446d4e4816c465bbe23804a3575740a",
+      "expected_pixel_hash": "sha256:cbb35a30ae04b3ea1e0f47e0d02ec270bfa95555f33c881f8168aae68d748bb7",
+      "expected_idat_data_lengths": [
+        49
+      ],
+      "expected_fdat_frame_data_lengths": [
+        1,
+        94
+      ],
+      "decoded": {
+        "ok": true,
+        "carrier_family": "apng",
+        "pixel_hash": "sha256:cbb35a30ae04b3ea1e0f47e0d02ec270bfa95555f33c881f8168aae68d748bb7",
+        "idat_data_lengths": [
+          49
+        ],
+        "fdat_frame_data_lengths": [
+          1,
+          94
+        ],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 2,
+        "data_chunk_count": 3,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT",
+          "IEND"
+        ],
+        "frame_count": 2,
+        "display_hashes": [
+          "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+          "sha256:cbb35a30ae04b3ea1e0f47e0d02ec270bfa95555f33c881f8168aae68d748bb7"
+        ],
+        "final_output_hash": "sha256:cbb35a30ae04b3ea1e0f47e0d02ec270bfa95555f33c881f8168aae68d748bb7",
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "apng_fdat_adler32_split",
+      "description": "APNG with the compressed frame stream and Adler-32 trailer split across five fdAT chunks.",
+      "carrier_family": "apng",
+      "split_target": "adler32",
+      "png_file_name": "slip_gray_stable_apng_fdat_adler32_split.png",
+      "png_hash": "sha256:896afcd472bd2b5aae8b942ea15f9a4d9905ce073d34c06c45c1eda8323698e2",
+      "expected_pixel_hash": "sha256:c2dafa56aad2778605d5a0ab1ce237eb82c9d60bc1ac9fedc2dd43b5217590d2",
+      "expected_idat_data_lengths": [
+        49
+      ],
+      "expected_fdat_frame_data_lengths": [
+        1,
+        1,
+        89,
+        2,
+        2
+      ],
+      "decoded": {
+        "ok": true,
+        "carrier_family": "apng",
+        "pixel_hash": "sha256:c2dafa56aad2778605d5a0ab1ce237eb82c9d60bc1ac9fedc2dd43b5217590d2",
+        "idat_data_lengths": [
+          49
+        ],
+        "fdat_frame_data_lengths": [
+          1,
+          1,
+          89,
+          2,
+          2
+        ],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 5,
+        "data_chunk_count": 6,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT",
+          "fdAT",
+          "fdAT",
+          "fdAT",
+          "IEND"
+        ],
+        "frame_count": 2,
+        "display_hashes": [
+          "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+          "sha256:c2dafa56aad2778605d5a0ab1ce237eb82c9d60bc1ac9fedc2dd43b5217590d2"
+        ],
+        "final_output_hash": "sha256:c2dafa56aad2778605d5a0ab1ce237eb82c9d60bc1ac9fedc2dd43b5217590d2",
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT",
+          "fdAT",
+          "fdAT",
+          "fdAT"
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "png_idat_leading_empty_chunk",
+      "description": "Static PNG with an empty IDAT data field before the compressed image datastream.",
+      "carrier_family": "png",
+      "split_target": "leading_empty",
+      "png_file_name": "slip_amber_social_png_idat_leading_empty_chunk.png",
+      "png_hash": "sha256:ed902d9e63f1de030c5d45b0d6d30aa4275fcc649c3457a27163528fe11bac57",
+      "expected_pixel_hash": "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+      "expected_idat_data_lengths": [
+        0,
+        93
+      ],
+      "expected_fdat_frame_data_lengths": [],
+      "decoded": {
+        "ok": true,
+        "carrier_family": "png",
+        "pixel_hash": "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+        "idat_data_lengths": [
+          0,
+          93
+        ],
+        "fdat_frame_data_lengths": [],
+        "idat_chunk_count": 2,
+        "fdat_chunk_count": 0,
+        "data_chunk_count": 2,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IDAT",
+          "IEND"
+        ],
+        "width": 8,
+        "height": 8,
+        "filter_types_seen": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "png_idat_zlib_header_split",
+      "description": "Static PNG with the zlib header split across IDAT chunk boundaries.",
+      "carrier_family": "png",
+      "split_target": "zlib_header",
+      "png_file_name": "slip_amber_social_png_idat_zlib_header_split.png",
+      "png_hash": "sha256:987ecc7ca2aea0f32c232eed23745ba5a92b3f7c10fe5434873c69a9a233905a",
+      "expected_pixel_hash": "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+      "expected_idat_data_lengths": [
+        1,
+        92
+      ],
+      "expected_fdat_frame_data_lengths": [],
+      "decoded": {
+        "ok": true,
+        "carrier_family": "png",
+        "pixel_hash": "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+        "idat_data_lengths": [
+          1,
+          92
+        ],
+        "fdat_frame_data_lengths": [],
+        "idat_chunk_count": 2,
+        "fdat_chunk_count": 0,
+        "data_chunk_count": 2,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IDAT",
+          "IEND"
+        ],
+        "width": 8,
+        "height": 8,
+        "filter_types_seen": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "png_idat_adler32_split",
+      "description": "Static PNG with the compressed stream and Adler-32 trailer split across five IDAT chunks.",
+      "carrier_family": "png",
+      "split_target": "adler32",
+      "png_file_name": "slip_amber_social_png_idat_adler32_split.png",
+      "png_hash": "sha256:cfc5cb2c1a7d4a0b20d227bc0ad2ea5e1a2b3132a176dbe9b84fdf158ba4108e",
+      "expected_pixel_hash": "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+      "expected_idat_data_lengths": [
+        1,
+        1,
+        87,
+        2,
+        2
+      ],
+      "expected_fdat_frame_data_lengths": [],
+      "decoded": {
+        "ok": true,
+        "carrier_family": "png",
+        "pixel_hash": "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+        "idat_data_lengths": [
+          1,
+          1,
+          87,
+          2,
+          2
+        ],
+        "fdat_frame_data_lengths": [],
+        "idat_chunk_count": 5,
+        "fdat_chunk_count": 0,
+        "data_chunk_count": 5,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IDAT",
+          "IDAT",
+          "IDAT",
+          "IDAT",
+          "IEND"
+        ],
+        "width": 8,
+        "height": 8,
+        "filter_types_seen": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "apng_fdat_leading_empty_frame_data",
+      "description": "APNG with an empty fdAT frame_data field before the compressed frame datastream.",
+      "carrier_family": "apng",
+      "split_target": "leading_empty",
+      "png_file_name": "slip_amber_social_apng_fdat_leading_empty_frame_data.png",
+      "png_hash": "sha256:ec94a19519b471d644132f4dea772e2286d02e81d43b38412df8d157df6a9d72",
+      "expected_pixel_hash": "sha256:f31c80df5af8c52672e25f892ca346821a831ed383f8e324f02786eaada14e8b",
+      "expected_idat_data_lengths": [
+        50
+      ],
+      "expected_fdat_frame_data_lengths": [
+        0,
+        95
+      ],
+      "decoded": {
+        "ok": true,
+        "carrier_family": "apng",
+        "pixel_hash": "sha256:f31c80df5af8c52672e25f892ca346821a831ed383f8e324f02786eaada14e8b",
+        "idat_data_lengths": [
+          50
+        ],
+        "fdat_frame_data_lengths": [
+          0,
+          95
+        ],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 2,
+        "data_chunk_count": 3,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT",
+          "IEND"
+        ],
+        "frame_count": 2,
+        "display_hashes": [
+          "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+          "sha256:f31c80df5af8c52672e25f892ca346821a831ed383f8e324f02786eaada14e8b"
+        ],
+        "final_output_hash": "sha256:f31c80df5af8c52672e25f892ca346821a831ed383f8e324f02786eaada14e8b",
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "apng_fdat_zlib_header_split",
+      "description": "APNG with the zlib header split across fdAT frame_data chunk boundaries.",
+      "carrier_family": "apng",
+      "split_target": "zlib_header",
+      "png_file_name": "slip_amber_social_apng_fdat_zlib_header_split.png",
+      "png_hash": "sha256:201db319698905559a610b63662c7b2bdc0ce598f389dc7189c6d58503d4f710",
+      "expected_pixel_hash": "sha256:203a0c70aaa53cbf30a407eb8380370f30caeb7cb94d37a152bcb119a99f2baf",
+      "expected_idat_data_lengths": [
+        50
+      ],
+      "expected_fdat_frame_data_lengths": [
+        1,
+        94
+      ],
+      "decoded": {
+        "ok": true,
+        "carrier_family": "apng",
+        "pixel_hash": "sha256:203a0c70aaa53cbf30a407eb8380370f30caeb7cb94d37a152bcb119a99f2baf",
+        "idat_data_lengths": [
+          50
+        ],
+        "fdat_frame_data_lengths": [
+          1,
+          94
+        ],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 2,
+        "data_chunk_count": 3,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT",
+          "IEND"
+        ],
+        "frame_count": 2,
+        "display_hashes": [
+          "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+          "sha256:203a0c70aaa53cbf30a407eb8380370f30caeb7cb94d37a152bcb119a99f2baf"
+        ],
+        "final_output_hash": "sha256:203a0c70aaa53cbf30a407eb8380370f30caeb7cb94d37a152bcb119a99f2baf",
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "apng_fdat_adler32_split",
+      "description": "APNG with the compressed frame stream and Adler-32 trailer split across five fdAT chunks.",
+      "carrier_family": "apng",
+      "split_target": "adler32",
+      "png_file_name": "slip_amber_social_apng_fdat_adler32_split.png",
+      "png_hash": "sha256:c8de0a0af91b3c07650f845432d68001775d46a5770938cfa92fd8b1046f731b",
+      "expected_pixel_hash": "sha256:91085e8990da8dbb3b03cfdbb87afc0bce4dee0f365fa869e4a9238260f2078a",
+      "expected_idat_data_lengths": [
+        50
+      ],
+      "expected_fdat_frame_data_lengths": [
+        1,
+        1,
+        89,
+        2,
+        2
+      ],
+      "decoded": {
+        "ok": true,
+        "carrier_family": "apng",
+        "pixel_hash": "sha256:91085e8990da8dbb3b03cfdbb87afc0bce4dee0f365fa869e4a9238260f2078a",
+        "idat_data_lengths": [
+          50
+        ],
+        "fdat_frame_data_lengths": [
+          1,
+          1,
+          89,
+          2,
+          2
+        ],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 5,
+        "data_chunk_count": 6,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT",
+          "fdAT",
+          "fdAT",
+          "fdAT",
+          "IEND"
+        ],
+        "frame_count": 2,
+        "display_hashes": [
+          "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+          "sha256:91085e8990da8dbb3b03cfdbb87afc0bce4dee0f365fa869e4a9238260f2078a"
+        ],
+        "final_output_hash": "sha256:91085e8990da8dbb3b03cfdbb87afc0bce4dee0f365fa869e4a9238260f2078a",
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT",
+          "fdAT",
+          "fdAT",
+          "fdAT"
+        ]
+      },
+      "success": true
+    }
+  ],
+  "invalid_probe_results": [
+    {
+      "probe_id": "idat_nonconsecutive",
+      "expected_family": "png_idat_not_consecutive",
+      "ok": false,
+      "error_families": [
+        "png_idat_not_consecutive"
+      ],
+      "error_family": "png_idat_not_consecutive",
+      "rejected": true
+    },
+    {
+      "probe_id": "corrupt_idat",
+      "expected_family": "png_image_data_decompression_failed",
+      "ok": false,
+      "error_families": [
+        "png_image_data_decompression_failed"
+      ],
+      "error_family": "png_image_data_decompression_failed",
+      "rejected": true
+    },
+    {
+      "probe_id": "missing_idat",
+      "expected_family": "png_idat_missing",
+      "ok": false,
+      "error_families": [
+        "png_idat_missing"
+      ],
+      "error_family": "png_idat_missing",
+      "rejected": true
+    },
+    {
+      "probe_id": "missing_fdat",
+      "expected_family": "apng_frame_data_missing",
+      "ok": false,
+      "error_families": [
+        "apng_frame_data_missing"
+      ],
+      "error_family": "apng_frame_data_missing",
+      "rejected": true
+    },
+    {
+      "probe_id": "sequence_gap",
+      "expected_family": "apng_sequence_number_invalid",
+      "ok": false,
+      "error_families": [
+        "apng_sequence_number_invalid"
+      ],
+      "error_family": "apng_sequence_number_invalid",
+      "rejected": true
+    },
+    {
+      "probe_id": "corrupt_fdat",
+      "expected_family": "apng_frame_decompression_failed",
+      "ok": false,
+      "error_families": [
+        "apng_frame_decompression_failed"
+      ],
+      "error_family": "apng_frame_decompression_failed",
+      "rejected": true
+    }
+  ],
+  "metrics": {
+    "case_success_ratio": 1.0,
+    "invalid_probe_rejection_ratio": 1.0,
+    "profile_coverage": 3,
+    "case_family_count": 6,
+    "png_case_count": 9,
+    "apng_case_count": 9,
+    "zero_length_data_chunk_case_count": 6,
+    "zlib_header_split_case_count": 6,
+    "adler32_split_case_count": 6,
+    "max_data_chunk_count": 6,
+    "live_external_editor_verified": false
+  },
+  "closed_states": [
+    "png_idat_arbitrary_boundary_reconstruction",
+    "png_idat_zero_length_data_field_reconstruction",
+    "apng_fdat_arbitrary_boundary_reconstruction",
+    "apng_fdat_zero_length_frame_data_reconstruction",
+    "png_apng_image_data_chunking_invalid_probe_rejection"
+  ],
+  "blocked_states": [
+    "full_apng_png_conformance",
+    "live_external_editor_rewrite_validation",
+    "production_import_export_carrier_selection_final_decision",
+    "manual_readability_calibration",
+    "package_runtime_lifecycle_integration"
+  ],
+  "decision": "prototype_png_apng_image_data_chunking_subset",
+  "notes": [
+    "This lab validates selected chunk-boundary variants only; it does not broaden color, bit-depth, interlace, or playback semantics beyond the source decoders.",
+    "The static PNG cases reuse the existing 8-bit RGBA/deep-color decoder path and split only the compressed IDAT byte stream.",
+    "The APNG cases reuse the existing filtered frame-data decoder path and split only the second-frame fdAT frame_data byte stream."
+  ],
+  "next_research_step": "Continue remaining APNG/PNG coverage through explicit image-data fixtures, live external editor preservation, or final carrier selection evidence before claiming full conformance."
+}

@@ -175,6 +175,30 @@ The package-contract handoff is published as:
 - `research/experiment_reports/2026-05-14-apng-filtered-frame-data.md`
 - `research/algorithm_cards/png_apng_filtered_frame_data.md`
 - `data/workshop_editor/apng_filtered_frame_data_stage0.json`
+- `research/experiment_reports/2026-05-14-apng-color-type-frame-data.md`
+- `research/algorithm_cards/png_apng_color_type_frame_data.md`
+- `data/workshop_editor/apng_color_type_frame_data_stage0.json`
+- `research/experiment_reports/2026-05-14-apng-bit-depth-frame-data.md`
+- `research/algorithm_cards/png_apng_bit_depth_frame_data.md`
+- `data/workshop_editor/apng_bit_depth_frame_data_stage0.json`
+- `research/experiment_reports/2026-05-14-apng-partial-sample-frame-data.md`
+- `research/algorithm_cards/png_apng_partial_sample_frame_data.md`
+- `data/workshop_editor/apng_partial_sample_frame_data_stage0.json`
+- `research/experiment_reports/2026-05-14-apng-adam7-frame-data.md`
+- `research/algorithm_cards/png_apng_adam7_frame_data.md`
+- `data/workshop_editor/apng_adam7_frame_data_stage0.json`
+- `research/experiment_reports/2026-05-14-apng-partial-adam7-frame-data.md`
+- `research/algorithm_cards/png_apng_partial_adam7_frame_data.md`
+- `data/workshop_editor/apng_partial_adam7_frame_data_stage0.json`
+- `research/experiment_reports/2026-05-14-png-apng-image-data-chunking.md`
+- `research/algorithm_cards/png_apng_image_data_chunking.md`
+- `data/workshop_editor/png_apng_image_data_chunking_stage0.json`
+- `research/experiment_reports/2026-05-14-png-apng-zlib-compression-matrix.md`
+- `research/algorithm_cards/png_apng_zlib_compression_matrix.md`
+- `data/workshop_editor/png_apng_zlib_compression_stage0.json`
+- `research/experiment_reports/2026-05-14-png-apng-zlib-header-policy.md`
+- `research/algorithm_cards/png_apng_zlib_header_policy.md`
+- `data/workshop_editor/png_apng_zlib_header_policy_stage0.json`
 
 Post-v0.1 continuation has started:
 

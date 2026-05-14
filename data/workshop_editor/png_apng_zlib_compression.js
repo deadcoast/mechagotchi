@@ -1,0 +1,1157 @@
+window.MECHAGOTCHI_PNG_APNG_ZLIB_COMPRESSION = {
+  "report": {
+    "artifact_id": "png_apng_zlib_compression_stage0",
+    "status": "research_png_apng_zlib_compression_no_package_code",
+    "date": "2026-05-14",
+    "profile_count": 3,
+    "case_ids": [
+      "png_zlib_stored_blocks",
+      "png_zlib_fixed_huffman",
+      "png_zlib_filtered_strategy",
+      "apng_fdat_zlib_stored_blocks",
+      "apng_fdat_zlib_fixed_huffman",
+      "apng_fdat_zlib_rle_strategy"
+    ],
+    "case_count": 18,
+    "case_success_count": 18,
+    "invalid_probe_count": 6,
+    "invalid_probe_rejected_count": 6,
+    "metrics": {
+      "case_success_ratio": 1.0,
+      "invalid_probe_rejection_ratio": 1.0,
+      "profile_coverage": 3,
+      "case_family_count": 6,
+      "png_case_count": 9,
+      "apng_case_count": 9,
+      "zlib_strategy_family_count": 4,
+      "ihdr_compression_method_0_count": 18,
+      "zlib_cm8_case_count": 18,
+      "split_fdat_case_count": 9,
+      "stored_block_case_count": 6,
+      "fixed_huffman_case_count": 6,
+      "live_external_editor_verified": false
+    },
+    "closed_states": [
+      "png_idat_zlib_deflate_variant_reconstruction",
+      "apng_fdat_zlib_deflate_variant_reconstruction",
+      "png_apng_zlib_header_and_adler_error_rejection",
+      "png_apng_zlib_compression_invalid_probe_rejection"
+    ],
+    "blocked_states": [
+      "full_apng_png_conformance",
+      "live_external_editor_rewrite_validation",
+      "production_import_export_carrier_selection_final_decision",
+      "manual_readability_calibration",
+      "package_runtime_lifecycle_integration"
+    ],
+    "decision": "prototype_png_apng_zlib_compression_subset"
+  },
+  "case_summaries": [
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "png_zlib_stored_blocks",
+      "carrier_family": "png",
+      "compression_strategy_id": "stored_blocks",
+      "zlib_strategy_name": "Z_DEFAULT_STRATEGY",
+      "deflate_block_family": "stored_blocks",
+      "png_file_name": "slip_lcd_seed_png_zlib_stored_blocks.png",
+      "png_hash": "sha256:662903730a9225ced5a4071cc9e3bdce17674f2da4e3fe7206e0439e3d5a1510",
+      "decoded": {
+        "ok": true,
+        "carrier_family": "png",
+        "ihdr_compression_method": 0,
+        "pixel_hash": "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+        "raw_image_data_hash": "sha256:67278881e3b35c10069a091535e7fba3cd769d6002e64d92ce89a46bc74a219b",
+        "raw_image_data_length": 264,
+        "compressed_data_hash": "sha256:b37e59ffaf4f298214c01793499d1c4960a52f0b5dd8af282d76b69a26594588",
+        "compressed_data_length": 275,
+        "zlib_header": {
+          "cmf": 120,
+          "flg": 1,
+          "compression_method": 8,
+          "compression_info": 7,
+          "fdict": false,
+          "flevel": 0,
+          "cmf_flg_check_passed": true
+        },
+        "idat_data_lengths": [
+          275
+        ],
+        "fdat_frame_data_lengths": [],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 0,
+        "data_chunk_count": 1,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IEND"
+        ],
+        "width": 8,
+        "height": 8,
+        "filter_types_seen": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "png_zlib_fixed_huffman",
+      "carrier_family": "png",
+      "compression_strategy_id": "fixed_huffman",
+      "zlib_strategy_name": "Z_FIXED",
+      "deflate_block_family": "fixed_huffman",
+      "png_file_name": "slip_lcd_seed_png_zlib_fixed_huffman.png",
+      "png_hash": "sha256:d51281d58f46612c4a01a5d548d6cf3c7f970881a7542d5a60f648457653a13e",
+      "decoded": {
+        "ok": true,
+        "carrier_family": "png",
+        "ihdr_compression_method": 0,
+        "pixel_hash": "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+        "raw_image_data_hash": "sha256:67278881e3b35c10069a091535e7fba3cd769d6002e64d92ce89a46bc74a219b",
+        "raw_image_data_length": 264,
+        "compressed_data_hash": "sha256:347f430809ae692f0fab8cdf9f0dc77f2b0fe67c1dcd79664e5bcf333dd70959",
+        "compressed_data_length": 90,
+        "zlib_header": {
+          "cmf": 120,
+          "flg": 1,
+          "compression_method": 8,
+          "compression_info": 7,
+          "fdict": false,
+          "flevel": 0,
+          "cmf_flg_check_passed": true
+        },
+        "idat_data_lengths": [
+          90
+        ],
+        "fdat_frame_data_lengths": [],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 0,
+        "data_chunk_count": 1,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IEND"
+        ],
+        "width": 8,
+        "height": 8,
+        "filter_types_seen": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "png_zlib_filtered_strategy",
+      "carrier_family": "png",
+      "compression_strategy_id": "filtered_strategy",
+      "zlib_strategy_name": "Z_FILTERED",
+      "deflate_block_family": "filtered_strategy",
+      "png_file_name": "slip_lcd_seed_png_zlib_filtered_strategy.png",
+      "png_hash": "sha256:b8fb895f8bdf4526df5f1f2b632250febd5f38e610329cecd2c7876861e795eb",
+      "decoded": {
+        "ok": true,
+        "carrier_family": "png",
+        "ihdr_compression_method": 0,
+        "pixel_hash": "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+        "raw_image_data_hash": "sha256:67278881e3b35c10069a091535e7fba3cd769d6002e64d92ce89a46bc74a219b",
+        "raw_image_data_length": 264,
+        "compressed_data_hash": "sha256:bb3b13aa62c81ece4fe84e7a67bac9bb793c4df2b9968df39678ce0cb609387d",
+        "compressed_data_length": 118,
+        "zlib_header": {
+          "cmf": 120,
+          "flg": 218,
+          "compression_method": 8,
+          "compression_info": 7,
+          "fdict": false,
+          "flevel": 3,
+          "cmf_flg_check_passed": true
+        },
+        "idat_data_lengths": [
+          118
+        ],
+        "fdat_frame_data_lengths": [],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 0,
+        "data_chunk_count": 1,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IEND"
+        ],
+        "width": 8,
+        "height": 8,
+        "filter_types_seen": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "apng_fdat_zlib_stored_blocks",
+      "carrier_family": "apng",
+      "compression_strategy_id": "stored_blocks",
+      "zlib_strategy_name": "Z_DEFAULT_STRATEGY",
+      "deflate_block_family": "stored_blocks",
+      "png_file_name": "slip_lcd_seed_apng_fdat_zlib_stored_blocks.png",
+      "png_hash": "sha256:b3448842b8575cb1c1671d8d5f420b79665632008e04acb21eacc002b765c97f",
+      "decoded": {
+        "ok": true,
+        "carrier_family": "apng",
+        "ihdr_compression_method": 0,
+        "pixel_hash": "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+        "raw_image_data_hash": "sha256:67278881e3b35c10069a091535e7fba3cd769d6002e64d92ce89a46bc74a219b",
+        "raw_image_data_length": 264,
+        "compressed_data_hash": "sha256:b37e59ffaf4f298214c01793499d1c4960a52f0b5dd8af282d76b69a26594588",
+        "compressed_data_length": 275,
+        "zlib_header": {
+          "cmf": 120,
+          "flg": 1,
+          "compression_method": 8,
+          "compression_info": 7,
+          "fdict": false,
+          "flevel": 0,
+          "cmf_flg_check_passed": true
+        },
+        "idat_data_lengths": [
+          95
+        ],
+        "fdat_frame_data_lengths": [
+          137,
+          138
+        ],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 2,
+        "data_chunk_count": 3,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT",
+          "IEND"
+        ],
+        "frame_count": 2,
+        "display_hashes": [
+          "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+          "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417"
+        ],
+        "final_output_hash": "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "apng_fdat_zlib_fixed_huffman",
+      "carrier_family": "apng",
+      "compression_strategy_id": "fixed_huffman",
+      "zlib_strategy_name": "Z_FIXED",
+      "deflate_block_family": "fixed_huffman",
+      "png_file_name": "slip_lcd_seed_apng_fdat_zlib_fixed_huffman.png",
+      "png_hash": "sha256:9f2415d13fba2062e81f3f1cb30d182947dd439089a948190fd22b40126b4dcd",
+      "decoded": {
+        "ok": true,
+        "carrier_family": "apng",
+        "ihdr_compression_method": 0,
+        "pixel_hash": "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+        "raw_image_data_hash": "sha256:67278881e3b35c10069a091535e7fba3cd769d6002e64d92ce89a46bc74a219b",
+        "raw_image_data_length": 264,
+        "compressed_data_hash": "sha256:347f430809ae692f0fab8cdf9f0dc77f2b0fe67c1dcd79664e5bcf333dd70959",
+        "compressed_data_length": 90,
+        "zlib_header": {
+          "cmf": 120,
+          "flg": 1,
+          "compression_method": 8,
+          "compression_info": 7,
+          "fdict": false,
+          "flevel": 0,
+          "cmf_flg_check_passed": true
+        },
+        "idat_data_lengths": [
+          95
+        ],
+        "fdat_frame_data_lengths": [
+          45,
+          45
+        ],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 2,
+        "data_chunk_count": 3,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT",
+          "IEND"
+        ],
+        "frame_count": 2,
+        "display_hashes": [
+          "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+          "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417"
+        ],
+        "final_output_hash": "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_lcd_seed",
+      "grid_id": "slip_lcd_seed_constrained_000",
+      "case_id": "apng_fdat_zlib_rle_strategy",
+      "carrier_family": "apng",
+      "compression_strategy_id": "rle_strategy",
+      "zlib_strategy_name": "Z_RLE",
+      "deflate_block_family": "rle_strategy",
+      "png_file_name": "slip_lcd_seed_apng_fdat_zlib_rle_strategy.png",
+      "png_hash": "sha256:6009405e7caffba25626d3a128c0a97102a64948331c66669aa9b39d5a85713b",
+      "decoded": {
+        "ok": true,
+        "carrier_family": "apng",
+        "ihdr_compression_method": 0,
+        "pixel_hash": "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+        "raw_image_data_hash": "sha256:67278881e3b35c10069a091535e7fba3cd769d6002e64d92ce89a46bc74a219b",
+        "raw_image_data_length": 264,
+        "compressed_data_hash": "sha256:1a33d8d304f05f710366c48166c82c4d1681db45b8d2fcfd7835df84282106f7",
+        "compressed_data_length": 144,
+        "zlib_header": {
+          "cmf": 120,
+          "flg": 1,
+          "compression_method": 8,
+          "compression_info": 7,
+          "fdict": false,
+          "flevel": 0,
+          "cmf_flg_check_passed": true
+        },
+        "idat_data_lengths": [
+          95
+        ],
+        "fdat_frame_data_lengths": [
+          72,
+          72
+        ],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 2,
+        "data_chunk_count": 3,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT",
+          "IEND"
+        ],
+        "frame_count": 2,
+        "display_hashes": [
+          "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+          "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417"
+        ],
+        "final_output_hash": "sha256:9c181bb6b445ce498b054d0c98ac2cb9cfb1bf93390f11462cc67dc386942417",
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "png_zlib_stored_blocks",
+      "carrier_family": "png",
+      "compression_strategy_id": "stored_blocks",
+      "zlib_strategy_name": "Z_DEFAULT_STRATEGY",
+      "deflate_block_family": "stored_blocks",
+      "png_file_name": "slip_gray_stable_png_zlib_stored_blocks.png",
+      "png_hash": "sha256:1d0daa8fae7e42d5a50358d0294e7cc14ed91837121b2e246a83b427034efa3b",
+      "decoded": {
+        "ok": true,
+        "carrier_family": "png",
+        "ihdr_compression_method": 0,
+        "pixel_hash": "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+        "raw_image_data_hash": "sha256:50f9e746e7524124ca177ccf04b7f820e3d42de1e520ef2764ad254b12787d60",
+        "raw_image_data_length": 264,
+        "compressed_data_hash": "sha256:e0353221c4ca0f7759a585fcda4bf43ddfa45f6b564dfdbec69e6d4ab101bca2",
+        "compressed_data_length": 275,
+        "zlib_header": {
+          "cmf": 120,
+          "flg": 1,
+          "compression_method": 8,
+          "compression_info": 7,
+          "fdict": false,
+          "flevel": 0,
+          "cmf_flg_check_passed": true
+        },
+        "idat_data_lengths": [
+          275
+        ],
+        "fdat_frame_data_lengths": [],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 0,
+        "data_chunk_count": 1,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IEND"
+        ],
+        "width": 8,
+        "height": 8,
+        "filter_types_seen": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "png_zlib_fixed_huffman",
+      "carrier_family": "png",
+      "compression_strategy_id": "fixed_huffman",
+      "zlib_strategy_name": "Z_FIXED",
+      "deflate_block_family": "fixed_huffman",
+      "png_file_name": "slip_gray_stable_png_zlib_fixed_huffman.png",
+      "png_hash": "sha256:e5219f4e22abc321c9a7d71084925f5a4ca7baefaf48fb1951463de2e08a0acb",
+      "decoded": {
+        "ok": true,
+        "carrier_family": "png",
+        "ihdr_compression_method": 0,
+        "pixel_hash": "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+        "raw_image_data_hash": "sha256:50f9e746e7524124ca177ccf04b7f820e3d42de1e520ef2764ad254b12787d60",
+        "raw_image_data_length": 264,
+        "compressed_data_hash": "sha256:d3faaaa0699f233148dd20919ce8443642bbb3a854c20c2559adcd1b87c52db6",
+        "compressed_data_length": 100,
+        "zlib_header": {
+          "cmf": 120,
+          "flg": 1,
+          "compression_method": 8,
+          "compression_info": 7,
+          "fdict": false,
+          "flevel": 0,
+          "cmf_flg_check_passed": true
+        },
+        "idat_data_lengths": [
+          100
+        ],
+        "fdat_frame_data_lengths": [],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 0,
+        "data_chunk_count": 1,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IEND"
+        ],
+        "width": 8,
+        "height": 8,
+        "filter_types_seen": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "png_zlib_filtered_strategy",
+      "carrier_family": "png",
+      "compression_strategy_id": "filtered_strategy",
+      "zlib_strategy_name": "Z_FILTERED",
+      "deflate_block_family": "filtered_strategy",
+      "png_file_name": "slip_gray_stable_png_zlib_filtered_strategy.png",
+      "png_hash": "sha256:002bf62adec9f5d872084dfcef907e512925a7cd74d6a8c0da82116ffb79da85",
+      "decoded": {
+        "ok": true,
+        "carrier_family": "png",
+        "ihdr_compression_method": 0,
+        "pixel_hash": "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+        "raw_image_data_hash": "sha256:50f9e746e7524124ca177ccf04b7f820e3d42de1e520ef2764ad254b12787d60",
+        "raw_image_data_length": 264,
+        "compressed_data_hash": "sha256:4bec75bbc14760306e2c507487011a472fd84a2a79a39d2c679471d2c39ed6ca",
+        "compressed_data_length": 127,
+        "zlib_header": {
+          "cmf": 120,
+          "flg": 218,
+          "compression_method": 8,
+          "compression_info": 7,
+          "fdict": false,
+          "flevel": 3,
+          "cmf_flg_check_passed": true
+        },
+        "idat_data_lengths": [
+          127
+        ],
+        "fdat_frame_data_lengths": [],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 0,
+        "data_chunk_count": 1,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IEND"
+        ],
+        "width": 8,
+        "height": 8,
+        "filter_types_seen": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "apng_fdat_zlib_stored_blocks",
+      "carrier_family": "apng",
+      "compression_strategy_id": "stored_blocks",
+      "zlib_strategy_name": "Z_DEFAULT_STRATEGY",
+      "deflate_block_family": "stored_blocks",
+      "png_file_name": "slip_gray_stable_apng_fdat_zlib_stored_blocks.png",
+      "png_hash": "sha256:7471c2b370a47d85934eeded041e7ab1a601c1896df336e1db9dc1611b138144",
+      "decoded": {
+        "ok": true,
+        "carrier_family": "apng",
+        "ihdr_compression_method": 0,
+        "pixel_hash": "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+        "raw_image_data_hash": "sha256:50f9e746e7524124ca177ccf04b7f820e3d42de1e520ef2764ad254b12787d60",
+        "raw_image_data_length": 264,
+        "compressed_data_hash": "sha256:e0353221c4ca0f7759a585fcda4bf43ddfa45f6b564dfdbec69e6d4ab101bca2",
+        "compressed_data_length": 275,
+        "zlib_header": {
+          "cmf": 120,
+          "flg": 1,
+          "compression_method": 8,
+          "compression_info": 7,
+          "fdict": false,
+          "flevel": 0,
+          "cmf_flg_check_passed": true
+        },
+        "idat_data_lengths": [
+          102
+        ],
+        "fdat_frame_data_lengths": [
+          137,
+          138
+        ],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 2,
+        "data_chunk_count": 3,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT",
+          "IEND"
+        ],
+        "frame_count": 2,
+        "display_hashes": [
+          "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+          "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0"
+        ],
+        "final_output_hash": "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "apng_fdat_zlib_fixed_huffman",
+      "carrier_family": "apng",
+      "compression_strategy_id": "fixed_huffman",
+      "zlib_strategy_name": "Z_FIXED",
+      "deflate_block_family": "fixed_huffman",
+      "png_file_name": "slip_gray_stable_apng_fdat_zlib_fixed_huffman.png",
+      "png_hash": "sha256:61efe85327595aba8a1e37276ea61d0cafd7b4a42907f4086fcaaf3d6c77d632",
+      "decoded": {
+        "ok": true,
+        "carrier_family": "apng",
+        "ihdr_compression_method": 0,
+        "pixel_hash": "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+        "raw_image_data_hash": "sha256:50f9e746e7524124ca177ccf04b7f820e3d42de1e520ef2764ad254b12787d60",
+        "raw_image_data_length": 264,
+        "compressed_data_hash": "sha256:d3faaaa0699f233148dd20919ce8443642bbb3a854c20c2559adcd1b87c52db6",
+        "compressed_data_length": 100,
+        "zlib_header": {
+          "cmf": 120,
+          "flg": 1,
+          "compression_method": 8,
+          "compression_info": 7,
+          "fdict": false,
+          "flevel": 0,
+          "cmf_flg_check_passed": true
+        },
+        "idat_data_lengths": [
+          102
+        ],
+        "fdat_frame_data_lengths": [
+          50,
+          50
+        ],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 2,
+        "data_chunk_count": 3,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT",
+          "IEND"
+        ],
+        "frame_count": 2,
+        "display_hashes": [
+          "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+          "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0"
+        ],
+        "final_output_hash": "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_gray_stable",
+      "grid_id": "slip_gray_stable_constrained_000",
+      "case_id": "apng_fdat_zlib_rle_strategy",
+      "carrier_family": "apng",
+      "compression_strategy_id": "rle_strategy",
+      "zlib_strategy_name": "Z_RLE",
+      "deflate_block_family": "rle_strategy",
+      "png_file_name": "slip_gray_stable_apng_fdat_zlib_rle_strategy.png",
+      "png_hash": "sha256:163c17c042d32ac63db3866792f0e67cc52b3faa865f0f771e5e18e264f01392",
+      "decoded": {
+        "ok": true,
+        "carrier_family": "apng",
+        "ihdr_compression_method": 0,
+        "pixel_hash": "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+        "raw_image_data_hash": "sha256:50f9e746e7524124ca177ccf04b7f820e3d42de1e520ef2764ad254b12787d60",
+        "raw_image_data_length": 264,
+        "compressed_data_hash": "sha256:7f5d285e684e509fd126924f1d62276f6661a1119122f803af3f83e4dcaf2314",
+        "compressed_data_length": 161,
+        "zlib_header": {
+          "cmf": 120,
+          "flg": 1,
+          "compression_method": 8,
+          "compression_info": 7,
+          "fdict": false,
+          "flevel": 0,
+          "cmf_flg_check_passed": true
+        },
+        "idat_data_lengths": [
+          102
+        ],
+        "fdat_frame_data_lengths": [
+          80,
+          81
+        ],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 2,
+        "data_chunk_count": 3,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT",
+          "IEND"
+        ],
+        "frame_count": 2,
+        "display_hashes": [
+          "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+          "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0"
+        ],
+        "final_output_hash": "sha256:d9bdc5be78d2111ce862360599da0401a62bebd28d1a72fea607a7fe153442f0",
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "png_zlib_stored_blocks",
+      "carrier_family": "png",
+      "compression_strategy_id": "stored_blocks",
+      "zlib_strategy_name": "Z_DEFAULT_STRATEGY",
+      "deflate_block_family": "stored_blocks",
+      "png_file_name": "slip_amber_social_png_zlib_stored_blocks.png",
+      "png_hash": "sha256:19057ec313ebb167334213c3650a6ee8ee2705f202141e592406ff7af72682d7",
+      "decoded": {
+        "ok": true,
+        "carrier_family": "png",
+        "ihdr_compression_method": 0,
+        "pixel_hash": "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+        "raw_image_data_hash": "sha256:034c35b8178764c7a5eb66352643a39aa520ac1205d942dc52b9eba965f017ce",
+        "raw_image_data_length": 264,
+        "compressed_data_hash": "sha256:7f3a674d21aee3649afa765711df0f20d7a92d86b7c33d02c7291a03ecbe31ff",
+        "compressed_data_length": 275,
+        "zlib_header": {
+          "cmf": 120,
+          "flg": 1,
+          "compression_method": 8,
+          "compression_info": 7,
+          "fdict": false,
+          "flevel": 0,
+          "cmf_flg_check_passed": true
+        },
+        "idat_data_lengths": [
+          275
+        ],
+        "fdat_frame_data_lengths": [],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 0,
+        "data_chunk_count": 1,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IEND"
+        ],
+        "width": 8,
+        "height": 8,
+        "filter_types_seen": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "png_zlib_fixed_huffman",
+      "carrier_family": "png",
+      "compression_strategy_id": "fixed_huffman",
+      "zlib_strategy_name": "Z_FIXED",
+      "deflate_block_family": "fixed_huffman",
+      "png_file_name": "slip_amber_social_png_zlib_fixed_huffman.png",
+      "png_hash": "sha256:31f98d12c8eebafefc35bfbdbcbbddb1d33a67b34d99288f9a6ce8af12f8ad75",
+      "decoded": {
+        "ok": true,
+        "carrier_family": "png",
+        "ihdr_compression_method": 0,
+        "pixel_hash": "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+        "raw_image_data_hash": "sha256:034c35b8178764c7a5eb66352643a39aa520ac1205d942dc52b9eba965f017ce",
+        "raw_image_data_length": 264,
+        "compressed_data_hash": "sha256:f45fb41251c1a40d2b9b0e74ff35a5a0ead66ada755c34f8385347bff0ee7281",
+        "compressed_data_length": 93,
+        "zlib_header": {
+          "cmf": 120,
+          "flg": 1,
+          "compression_method": 8,
+          "compression_info": 7,
+          "fdict": false,
+          "flevel": 0,
+          "cmf_flg_check_passed": true
+        },
+        "idat_data_lengths": [
+          93
+        ],
+        "fdat_frame_data_lengths": [],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 0,
+        "data_chunk_count": 1,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IEND"
+        ],
+        "width": 8,
+        "height": 8,
+        "filter_types_seen": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "png_zlib_filtered_strategy",
+      "carrier_family": "png",
+      "compression_strategy_id": "filtered_strategy",
+      "zlib_strategy_name": "Z_FILTERED",
+      "deflate_block_family": "filtered_strategy",
+      "png_file_name": "slip_amber_social_png_zlib_filtered_strategy.png",
+      "png_hash": "sha256:f5105f1f5dbca74b1aae8997a573717d61675c62ce19f9bd93fffe13a11aa1bb",
+      "decoded": {
+        "ok": true,
+        "carrier_family": "png",
+        "ihdr_compression_method": 0,
+        "pixel_hash": "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+        "raw_image_data_hash": "sha256:034c35b8178764c7a5eb66352643a39aa520ac1205d942dc52b9eba965f017ce",
+        "raw_image_data_length": 264,
+        "compressed_data_hash": "sha256:9e3c4eb32cadc35bc0894c13b122747533171e72b9b2550981508ed556a8d49b",
+        "compressed_data_length": 112,
+        "zlib_header": {
+          "cmf": 120,
+          "flg": 218,
+          "compression_method": 8,
+          "compression_info": 7,
+          "fdict": false,
+          "flevel": 3,
+          "cmf_flg_check_passed": true
+        },
+        "idat_data_lengths": [
+          112
+        ],
+        "fdat_frame_data_lengths": [],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 0,
+        "data_chunk_count": 1,
+        "chunks": [
+          "IHDR",
+          "IDAT",
+          "IEND"
+        ],
+        "width": 8,
+        "height": 8,
+        "filter_types_seen": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "apng_fdat_zlib_stored_blocks",
+      "carrier_family": "apng",
+      "compression_strategy_id": "stored_blocks",
+      "zlib_strategy_name": "Z_DEFAULT_STRATEGY",
+      "deflate_block_family": "stored_blocks",
+      "png_file_name": "slip_amber_social_apng_fdat_zlib_stored_blocks.png",
+      "png_hash": "sha256:b0ad29a42f5dac443ebccb303108c4a16f2c295c85e83d6017c0b58b66a9bec0",
+      "decoded": {
+        "ok": true,
+        "carrier_family": "apng",
+        "ihdr_compression_method": 0,
+        "pixel_hash": "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+        "raw_image_data_hash": "sha256:034c35b8178764c7a5eb66352643a39aa520ac1205d942dc52b9eba965f017ce",
+        "raw_image_data_length": 264,
+        "compressed_data_hash": "sha256:7f3a674d21aee3649afa765711df0f20d7a92d86b7c33d02c7291a03ecbe31ff",
+        "compressed_data_length": 275,
+        "zlib_header": {
+          "cmf": 120,
+          "flg": 1,
+          "compression_method": 8,
+          "compression_info": 7,
+          "fdict": false,
+          "flevel": 0,
+          "cmf_flg_check_passed": true
+        },
+        "idat_data_lengths": [
+          93
+        ],
+        "fdat_frame_data_lengths": [
+          137,
+          138
+        ],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 2,
+        "data_chunk_count": 3,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT",
+          "IEND"
+        ],
+        "frame_count": 2,
+        "display_hashes": [
+          "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+          "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb"
+        ],
+        "final_output_hash": "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "apng_fdat_zlib_fixed_huffman",
+      "carrier_family": "apng",
+      "compression_strategy_id": "fixed_huffman",
+      "zlib_strategy_name": "Z_FIXED",
+      "deflate_block_family": "fixed_huffman",
+      "png_file_name": "slip_amber_social_apng_fdat_zlib_fixed_huffman.png",
+      "png_hash": "sha256:0d8e2d8b807fb75dedaadf55b7252d6202dbe14c40f301ed230a0cf49d1851dd",
+      "decoded": {
+        "ok": true,
+        "carrier_family": "apng",
+        "ihdr_compression_method": 0,
+        "pixel_hash": "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+        "raw_image_data_hash": "sha256:034c35b8178764c7a5eb66352643a39aa520ac1205d942dc52b9eba965f017ce",
+        "raw_image_data_length": 264,
+        "compressed_data_hash": "sha256:f45fb41251c1a40d2b9b0e74ff35a5a0ead66ada755c34f8385347bff0ee7281",
+        "compressed_data_length": 93,
+        "zlib_header": {
+          "cmf": 120,
+          "flg": 1,
+          "compression_method": 8,
+          "compression_info": 7,
+          "fdict": false,
+          "flevel": 0,
+          "cmf_flg_check_passed": true
+        },
+        "idat_data_lengths": [
+          93
+        ],
+        "fdat_frame_data_lengths": [
+          46,
+          47
+        ],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 2,
+        "data_chunk_count": 3,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT",
+          "IEND"
+        ],
+        "frame_count": 2,
+        "display_hashes": [
+          "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+          "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb"
+        ],
+        "final_output_hash": "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ]
+      },
+      "success": true
+    },
+    {
+      "profile_id": "slip_amber_social",
+      "grid_id": "slip_amber_social_constrained_000",
+      "case_id": "apng_fdat_zlib_rle_strategy",
+      "carrier_family": "apng",
+      "compression_strategy_id": "rle_strategy",
+      "zlib_strategy_name": "Z_RLE",
+      "deflate_block_family": "rle_strategy",
+      "png_file_name": "slip_amber_social_apng_fdat_zlib_rle_strategy.png",
+      "png_hash": "sha256:12f7e48bee3799dd213e70e3825562e404def9932ca93762f67faea636dab262",
+      "decoded": {
+        "ok": true,
+        "carrier_family": "apng",
+        "ihdr_compression_method": 0,
+        "pixel_hash": "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+        "raw_image_data_hash": "sha256:034c35b8178764c7a5eb66352643a39aa520ac1205d942dc52b9eba965f017ce",
+        "raw_image_data_length": 264,
+        "compressed_data_hash": "sha256:d00f9af63a32007fdfcad2a51bdda4af99a2c3b0057eb68bf54d5fbea9686867",
+        "compressed_data_length": 143,
+        "zlib_header": {
+          "cmf": 120,
+          "flg": 1,
+          "compression_method": 8,
+          "compression_info": 7,
+          "fdict": false,
+          "flevel": 0,
+          "cmf_flg_check_passed": true
+        },
+        "idat_data_lengths": [
+          93
+        ],
+        "fdat_frame_data_lengths": [
+          71,
+          72
+        ],
+        "idat_chunk_count": 1,
+        "fdat_chunk_count": 2,
+        "data_chunk_count": 3,
+        "chunks": [
+          "IHDR",
+          "acTL",
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT",
+          "IEND"
+        ],
+        "frame_count": 2,
+        "display_hashes": [
+          "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+          "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb"
+        ],
+        "final_output_hash": "sha256:f8c5546c0f6c7f8bf95b224ab92c07cb6697ac67f460e2510a53373cbc3384bb",
+        "animation_chunk_order": [
+          "fcTL",
+          "IDAT",
+          "fcTL",
+          "fdAT",
+          "fdAT"
+        ]
+      },
+      "success": true
+    }
+  ],
+  "invalid_probe_results": [
+    {
+      "probe_id": "invalid_compression_method",
+      "expected_family": "png_method_unsupported",
+      "ok": false,
+      "error_families": [
+        "png_method_unsupported"
+      ],
+      "error_family": "png_method_unsupported",
+      "rejected": true
+    },
+    {
+      "probe_id": "corrupt_idat_zlib_header",
+      "expected_family": "png_image_data_decompression_failed",
+      "ok": false,
+      "error_families": [
+        "png_image_data_decompression_failed"
+      ],
+      "error_family": "png_image_data_decompression_failed",
+      "rejected": true
+    },
+    {
+      "probe_id": "truncated_idat",
+      "expected_family": "png_image_data_decompression_failed",
+      "ok": false,
+      "error_families": [
+        "png_image_data_decompression_failed"
+      ],
+      "error_family": "png_image_data_decompression_failed",
+      "rejected": true
+    },
+    {
+      "probe_id": "truncated_fdat",
+      "expected_family": "apng_frame_decompression_failed",
+      "ok": false,
+      "error_families": [
+        "apng_frame_decompression_failed"
+      ],
+      "error_family": "apng_frame_decompression_failed",
+      "rejected": true
+    },
+    {
+      "probe_id": "corrupt_fdat_adler",
+      "expected_family": "apng_frame_decompression_failed",
+      "ok": false,
+      "error_families": [
+        "apng_frame_decompression_failed"
+      ],
+      "error_family": "apng_frame_decompression_failed",
+      "rejected": true
+    },
+    {
+      "probe_id": "sequence_gap",
+      "expected_family": "apng_sequence_number_invalid",
+      "ok": false,
+      "error_families": [
+        "apng_sequence_number_invalid"
+      ],
+      "error_family": "apng_sequence_number_invalid",
+      "rejected": true
+    }
+  ]
+};
