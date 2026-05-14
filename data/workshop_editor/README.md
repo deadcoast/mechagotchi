@@ -50,6 +50,13 @@ Minimal semantic editor artifacts for testing Mechagotchi grid authoring.
   PNG/APNG chunk-order conformance cases across static RGBA, split-IDAT,
   indexed PLTE/tRNS, and APNG static-first-frame carriers, with 7/7 invalid
   IHDR/IEND/PLTE/tRNS/IDAT/APNG sequence probes rejected.
+- `apng_partial_frame_playback_stage0.json` records 12/12 bounded APNG
+  partial-frame playback cases across source blend, alpha-over blend,
+  background disposal, and previous disposal, with 5/5 invalid bounds/control
+  and missing-data probes rejected.
+- `apng_filtered_frame_data_stage0.json` records 15/15 bounded APNG
+  filter-method-0 frame-data cases across filter types 0..4 and split `fdAT`
+  reconstruction, with 4/4 invalid filter/scanline/sequence probes rejected.
 - `spritesheet_layout_variant_decoder_stage0.json` records 12/12
   layout-variant spritesheet sidecar round trips across vertical strips,
   row-major matrix sheets, padded/guttered grids, and sparse atlas rects.

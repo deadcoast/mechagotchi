@@ -88,6 +88,8 @@ runtime evolution.
 | APNG sidecar decoder | `data/workshop_editor/apng_sidecar_decoder_stage0.json` | 1 | 3 bounded APNG sidecar round trips, two full-canvas 8-bit RGBA source frames, `acTL`/`fcTL`/`fdAT` sequence validation, 5 invalid APNG probes rejected |
 | APNG metadata carrier cross product | `data/workshop_editor/apng_metadata_carrier_cross_product_stage0.json` | 1 | 15 bounded APNG metadata-carrier round trips across `tEXt`, `zTXt`, uncompressed `iTXt`, compressed `iTXt`, and private `mgOT`; 6 invalid carrier/APNG probes rejected |
 | PNG/APNG chunk order conformance | `data/workshop_editor/png_apng_chunk_order_conformance_stage0.json` | 1 | 12 PNG/APNG chunk-order cases across static RGBA, split-IDAT, indexed PLTE/tRNS, and APNG static-first-frame carriers; 7 invalid ordering/cardinality probes rejected |
+| APNG partial frame playback | `data/workshop_editor/apng_partial_frame_playback_stage0.json` | 1 | 12 APNG partial-frame playback cases across source blend, alpha-over blend, background disposal, and previous disposal; 5 invalid frame-control/data probes rejected |
+| APNG filtered frame data | `data/workshop_editor/apng_filtered_frame_data_stage0.json` | 1 | 15 APNG filter-method-0 frame-data cases across filter types 0..4 and split `fdAT` reconstruction; 4 invalid filter/scanline/sequence probes rejected |
 | PNG embedded sidecar writer | `data/workshop_editor/png_embedded_sidecar_writer_stage0.json` | 1 | 3 embedded PNG `tEXt` sidecar round trips, decoded pixels preserved, 3 invalid embedded metadata probes rejected |
 | PNG textual metadata policy | `data/workshop_editor/png_textual_metadata_policy_stage0.json` | 1 | 12 bounded PNG textual metadata round trips across `tEXt`, `zTXt`, uncompressed `iTXt`, and compressed `iTXt`; 7 invalid metadata policy probes rejected |
 | PNG private chunk policy | `data/workshop_editor/png_private_chunk_policy_stage0.json` | 1 | 3 app-private PNG `mgOT` ancillary chunk round trips; 7 invalid private chunk probes rejected; carrier-selection inputs recorded without final production decision |
@@ -181,6 +183,8 @@ require a complete behavior vocabulary or survival-weight vocabulary.
 | APNG sidecar decoder | 3/3 current profile APNG files round-trip sidecar semantics with two full-canvas 8-bit RGBA source frames per asset, `acTL`/`fcTL`/`fdAT` sequence validation, frame hash validation, and 5/5 invalid missing-control, sequence, blend, frame-hash, and asset-hash probes rejected | proven Stage 0 bounded full-canvas APNG sidecar subset only; metadata-carrier cross-products are handled by a separate APNG carrier lab | full APNG/PNG conformance, live external editor rewrite validation, and final production carrier selection |
 | APNG metadata carrier cross product | 15/15 current profile APNG metadata-carrier variants round-trip sidecar semantics across `tEXt`, `zTXt`, uncompressed `iTXt`, compressed `iTXt`, and private unsafe-to-copy `mgOT`; canonical APNG hashes and frame hashes are preserved after carrier removal; 6/6 missing-carrier, duplicate-text, corrupt-compression, private-hash, and APNG-sequence probes rejected | proven Stage 0 bounded APNG textual/private carrier cross-product only | full APNG/PNG conformance, live external editor rewrite validation, and final production carrier selection |
 | PNG/APNG chunk order conformance | 12/12 current profile chunk-order cases pass across static RGBA single-IDAT PNG, static RGBA split-IDAT PNG, indexed PLTE/tRNS PNG, and APNG static-first-frame carriers; 7/7 duplicate-IHDR, post-IEND, PLTE-after-IDAT, tRNS-before-PLTE, nonconsecutive-IDAT, acTL-after-IDAT, and fcTL sequence-gap probes rejected | proven Stage 0 bounded structural chunk-order matrix only | remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection |
+| APNG partial frame playback | 12/12 current profile playback cases pass across partial source-blend dispose-none patches, alpha-over dispose-none patches, background disposal, and previous disposal; display and after-disposal hashes recorded separately; 5/5 out-of-bounds, invalid-dispose, invalid-blend, missing-default-IDAT, and missing-frame-data probes rejected | proven Stage 0 bounded APNG partial-frame playback matrix only | remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection |
+| APNG filtered frame data | 15/15 current profile APNG frame-data cases pass across PNG filter method 0 filter types 0..4 with two-`fdAT` split datastream reconstruction; frame pixel hashes and display hashes recorded; 4/4 invalid filter-byte, truncated-scanline, `fdAT` sequence-gap, and missing-`fdAT` continuation probes rejected | proven Stage 0 bounded APNG filtered frame-data matrix only | remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection |
 | PNG embedded sidecar writer | 3/3 current profile PNG files embed Mechagotchi sidecar JSON in a PNG `tEXt` ancillary chunk, preserve decoded pixels, restore SLIP-aligned semantic grids, and reject 3/3 missing metadata, invalid JSON, or canonical-hash mismatch probes | proven Stage 0 embedded PNG text-chunk sidecar subset; textual variant policy is superseded by PNG textual metadata policy | live external editor rewrite validation, full APNG/PNG conformance, and project-file native metadata beyond Piskel/Pixelorama |
 | PNG textual metadata policy | 12/12 current profile PNG textual metadata variants round-trip sidecar semantics across `tEXt` ASCII JSON, `zTXt` compressed ASCII JSON, uncompressed `iTXt` UTF-8 JSON, and compressed `iTXt` UTF-8 JSON; 7/7 invalid missing, duplicate, non-ASCII text-policy, compression, UTF-8, and canonical-hash probes rejected | proven Stage 0 bounded textual metadata carrier policy only; private chunk policy is handled separately | live external editor rewrite validation, full APNG/PNG conformance, and production import/export carrier selection |
 | PNG private chunk policy | 3/3 current profile PNG files round-trip sidecar semantics through one `mgOT` ancillary private unsafe-to-copy chunk with a magic-prefixed UTF-8 JSON payload; 7/7 invalid missing, duplicate, safe-to-copy type, magic, JSON, canonical-hash, and sidecar-hash probes rejected; carrier-selection inputs recorded | proven Stage 0 bounded private ancillary chunk policy and carrier-selection input matrix only; simulated preservation matrix handled separately | live external editor rewrite validation, full APNG/PNG conformance, and final production import/export carrier selection |
@@ -329,7 +333,8 @@ Future workshop tests must check:
   import/export, bounded 8-bit RGBA Adam7 interlace import/export, bounded
   non-interlaced low-bit/16-bit/greyscale-alpha PNG import/export, bounded
   Adam7/deep-color cross-product PNG import/export, bounded full-canvas APNG
-  sidecar import/export, bounded PNG/APNG chunk-order conformance,
+  sidecar import/export, bounded PNG/APNG chunk-order conformance, bounded
+  APNG partial-frame playback, bounded APNG filtered frame data,
   fixed horizontal-strip spritesheet PNG import/export, and
   vertical/matrix/padded/sparse spritesheet layout import/export, packed
   trim/rotation reconstruction, arbitrary atlas packing, and generated
@@ -337,10 +342,10 @@ Future workshop tests must check:
   the sidecar contract, and Piskel JSON, Pixelorama `.pxo`, and
   Aseprite/LibreSprite header project boundaries are proven against the same
   sidecar contract;
-- full APNG/PNG image-data conformance beyond the bounded chunk-order matrix,
-  full project-file coverage, production renderer playback, arbitrary
-  Aseprite/LibreSprite project schema coverage, and live external editor
-  rewrite validation remain blocked.
+- full APNG/PNG image-data conformance beyond the bounded chunk-order,
+  partial-frame playback, and filtered frame-data matrices, full project-file coverage, production
+  renderer playback, arbitrary Aseprite/LibreSprite project schema coverage,
+  and live external editor rewrite validation remain blocked.
 
 Current proof is 150 native JSON round trips across the generated three-profile
 SLIP corpus. External sidecar strategy is proven for metadata preservation,
@@ -357,7 +362,11 @@ full-canvas APNG sidecar coverage is proven in
 `data/workshop_editor/apng_sidecar_decoder_stage0.json`, fixed
 horizontal-strip spritesheet PNG sidecar import/export is proven, bounded
 PNG/APNG chunk-order conformance is proven in
-`data/workshop_editor/png_apng_chunk_order_conformance_stage0.json`, the PNG
+`data/workshop_editor/png_apng_chunk_order_conformance_stage0.json`, bounded
+APNG partial-frame playback is proven in
+`data/workshop_editor/apng_partial_frame_playback_stage0.json`, bounded
+APNG filtered frame data is proven in
+`data/workshop_editor/apng_filtered_frame_data_stage0.json`, the PNG
 embedded sidecar writer is proven for the `tEXt` chunk subset, the bounded
 PNG textual metadata policy is proven for `tEXt`/`zTXt`/`iTXt` carriers, the
 bounded PNG private chunk policy is proven for one app-private `mgOT` carrier,
@@ -373,10 +382,10 @@ generated multi-page atlas page/frame binding is proven in
 `data/workshop_editor/spritesheet_multi_page_atlas_stage0.json`.
 Third-party project boundary decoding is proven for Piskel JSON, Pixelorama
 `.pxo` ZIP/data.json, and Aseprite/LibreSprite header payloads.
-full APNG/PNG image-data conformance beyond the bounded chunk-order matrix,
-production renderer playback, full editor-native project coverage, arbitrary
-Aseprite/LibreSprite project schema coverage, and live external editor rewrite
-validation remain blocked. Project
+full APNG/PNG image-data conformance beyond the bounded chunk-order,
+partial-frame playback, and filtered frame-data matrices, production renderer playback, full
+editor-native project coverage, arbitrary Aseprite/LibreSprite project schema
+coverage, and live external editor rewrite validation remain blocked. Project
 native metadata writing is proven only for the Piskel description and
 Pixelorama `data.json` subset, deterministic rewrite simulation is proven only
 for that same subset, Aseprite/LibreSprite User Data Chunk writing is proven
@@ -403,8 +412,10 @@ The following claims remain blocked:
   because the PNG proofs now cover 8-bit non-interlaced color types 0/2/3/6,
   filters 0..4, bounded 8-bit RGBA Adam7 interlace, and bounded
   non-interlaced and Adam7-interlaced low-bit/16-bit/greyscale-alpha variants,
-  plus two-frame full-canvas APNG source-frame carriers and bounded APNG
-  textual/private metadata carriers and structural chunk-order fixtures only;
+  plus two-frame full-canvas APNG source-frame carriers, bounded APNG
+  textual/private metadata carriers, structural chunk-order fixtures,
+  partial-frame playback fixtures, and filtered split-`fdAT` frame-data
+  fixtures only;
 - production renderer playback,
   because the packed runtime, arbitrary atlas, and multi-page atlas proofs
   cover only sidecar-described reconstruction and deterministic playback
@@ -451,6 +462,8 @@ python -m json.tool .\data\workshop_editor\png_adam7_deep_color_cross_product_st
 python -m json.tool .\data\workshop_editor\apng_sidecar_decoder_stage0.json
 python -m json.tool .\data\workshop_editor\apng_metadata_carrier_cross_product_stage0.json
 python -m json.tool .\data\workshop_editor\png_apng_chunk_order_conformance_stage0.json
+python -m json.tool .\data\workshop_editor\apng_partial_frame_playback_stage0.json
+python -m json.tool .\data\workshop_editor\apng_filtered_frame_data_stage0.json
 python -m json.tool .\data\workshop_editor\png_embedded_sidecar_writer_stage0.json
 python -m json.tool .\data\workshop_editor\png_textual_metadata_policy_stage0.json
 python -m json.tool .\data\workshop_editor\png_private_chunk_policy_stage0.json
@@ -481,6 +494,8 @@ python -B -m unittest .\labs\workshop_editor\test_png_adam7_deep_color_cross_pro
 python -B -m unittest .\labs\workshop_editor\test_png_apng_sidecar_decoder.py
 python -B -m unittest .\labs\workshop_editor\test_png_apng_metadata_carrier_cross_product.py
 python -B -m unittest .\labs\workshop_editor\test_png_apng_chunk_order_conformance.py
+python -B -m unittest .\labs\workshop_editor\test_png_apng_partial_frame_playback.py
+python -B -m unittest .\labs\workshop_editor\test_png_apng_filtered_frame_data.py
 python -B -m unittest .\labs\workshop_editor\test_png_embedded_sidecar_writer.py
 python -B -m unittest .\labs\workshop_editor\test_png_textual_metadata_policy.py
 python -B -m unittest .\labs\workshop_editor\test_png_private_chunk_policy.py
@@ -547,6 +562,12 @@ policies, not as full APNG/PNG conformance or a production carrier decision.
 Treat the PNG/APNG chunk order conformance matrix as proof of the bounded
 static RGBA, split-IDAT, indexed PLTE/tRNS, and APNG static-first-frame
 chunk-order subset only, not full APNG/PNG image-data conformance.
+Treat the APNG partial-frame playback matrix as proof of bounded 8-bit RGBA
+partial-frame offsets, source/over blend operations, and background/previous
+disposal only, not full APNG/PNG image-data conformance.
+Treat the APNG filtered frame-data matrix as proof of bounded 8-bit RGBA
+non-interlaced PNG filter-method-0 reconstruction and split-`fdAT`
+concatenation only, not full APNG/PNG image-data conformance.
 Treat the third-party project decoder
 boundary as proof of sidecar binding for Piskel JSON, Pixelorama `.pxo`
 ZIP/data.json, and Aseprite/LibreSprite header payloads, not as proof of broad
@@ -588,10 +609,11 @@ Next research step:
 
 ```txt
 Collect live external editor open-save fixtures, broaden remaining PNG/APNG
-coverage beyond the bounded chunk-order matrix through image-data conformance
-fixtures, broaden Aseprite chunk/schema coverage beyond the fixed Stage 0
-carrier subsets with editor-authored document variants and editor-authored
-external asset resolution, collect 63 SLIP readability reviewer
+coverage beyond the bounded chunk-order, partial-frame playback, and filtered
+frame-data matrices through image-data conformance fixtures, broaden Aseprite
+chunk/schema coverage
+beyond the fixed Stage 0 carrier subsets with editor-authored document variants
+and editor-authored external asset resolution, collect 63 SLIP readability reviewer
 rows, and start package implementation only when explicitly authorized before
 claiming profile-weighted evolution.
 ```
@@ -642,6 +664,10 @@ claiming profile-weighted evolution.
 - `research/algorithm_cards/png_apng_metadata_carrier_cross_product.md`
 - `research/experiment_reports/2026-05-14-png-apng-chunk-order-conformance.md`
 - `research/algorithm_cards/png_apng_chunk_order_conformance.md`
+- `research/experiment_reports/2026-05-14-apng-partial-frame-playback.md`
+- `research/algorithm_cards/png_apng_partial_frame_playback.md`
+- `research/experiment_reports/2026-05-14-apng-filtered-frame-data.md`
+- `research/algorithm_cards/png_apng_filtered_frame_data.md`
 - `research/experiment_reports/2026-05-13-png-embedded-sidecar-writer.md`
 - `research/experiment_reports/2026-05-14-png-textual-metadata-policy.md`
 - `research/experiment_reports/2026-05-14-png-private-chunk-policy.md`
@@ -674,6 +700,8 @@ claiming profile-weighted evolution.
 - `labs/workshop_editor/png_apng_sidecar_decoder.py`
 - `labs/workshop_editor/png_apng_metadata_carrier_cross_product.py`
 - `labs/workshop_editor/png_apng_chunk_order_conformance.py`
+- `labs/workshop_editor/png_apng_partial_frame_playback.py`
+- `labs/workshop_editor/png_apng_filtered_frame_data.py`
 - `labs/workshop_editor/png_embedded_sidecar_writer.py`
 - `labs/workshop_editor/png_textual_metadata_policy.py`
 - `labs/workshop_editor/png_private_chunk_policy.py`
@@ -705,6 +733,8 @@ claiming profile-weighted evolution.
 - `data/workshop_editor/apng_sidecar_decoder_stage0.json`
 - `data/workshop_editor/apng_metadata_carrier_cross_product_stage0.json`
 - `data/workshop_editor/png_apng_chunk_order_conformance_stage0.json`
+- `data/workshop_editor/apng_partial_frame_playback_stage0.json`
+- `data/workshop_editor/apng_filtered_frame_data_stage0.json`
 - `data/workshop_editor/png_embedded_sidecar_writer_stage0.json`
 - `data/workshop_editor/png_textual_metadata_policy_stage0.json`
 - `data/workshop_editor/png_private_chunk_policy_stage0.json`
@@ -728,6 +758,8 @@ claiming profile-weighted evolution.
 - `data/workshop_editor/apng_sidecar_decoder_stage0/`
 - `data/workshop_editor/apng_metadata_carrier_cross_product_stage0/`
 - `data/workshop_editor/png_apng_chunk_order_conformance_stage0/`
+- `data/workshop_editor/apng_partial_frame_playback_stage0/`
+- `data/workshop_editor/apng_filtered_frame_data_stage0/`
 - `data/workshop_editor/png_embedded_sidecar_writer_stage0/`
 - `data/workshop_editor/png_textual_metadata_policy_stage0/`
 - `data/workshop_editor/png_private_chunk_policy_stage0/`
@@ -753,8 +785,8 @@ claiming profile-weighted evolution.
 - `data/generated_grids/slip_lcd_seed_constrained/README.md`
 - `data/slips/multi_profile_generation_stage0/slip_multi_profile_generation_stage0.json`
 - `data/workshop_editor/multi_profile_roundtrip_stage0/workshop_multi_profile_roundtrip_stage0.json`
-- JSON Schema Draft 2020-12: https://json-schema.org/draft/2020-12
-- Pydantic JSON Schema docs: https://docs.pydantic.dev/latest/concepts/json_schema/
-- Avida Digital Evolution Platform: https://avida.devosoft.org/
-- JaxLife: An Open-Ended Agentic Simulator: https://arxiv.org/abs/2409.00853
-- Reinforcement Learning: An Introduction: https://mitpress.mit.edu/9780262039246/reinforcement-learning/
+- [JSON Schema Draft 2020-12](https://json-schema.org/draft/2020-12)
+- [Pydantic JSON Schema docs](https://docs.pydantic.dev/latest/concepts/json_schema/)
+- [Avida Digital Evolution Platform](https://avida.devosoft.org/)
+- [JaxLife: An Open-Ended Agentic Simulator](https://arxiv.org/abs/2409.00853)
+- [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/9780262039246/reinforcement-learning/)

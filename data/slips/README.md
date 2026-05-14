@@ -195,6 +195,14 @@ Current generated compatibility evidence:
   the bounded PNG/APNG chunk-order conformance matrix: 12 valid static RGBA,
   split-IDAT, indexed PLTE/tRNS, and APNG static-first-frame cases across the
   current profiles, with 7 invalid ordering/cardinality probes rejected.
+- `../workshop_editor/apng_partial_frame_playback_stage0.json` records the
+  bounded APNG partial-frame playback matrix: 12 valid source-blend,
+  alpha-over, background-disposal, and previous-disposal cases across the
+  current profiles, with 5 invalid frame-control/data probes rejected.
+- `../workshop_editor/apng_filtered_frame_data_stage0.json` records the
+  bounded APNG filtered frame-data matrix: 15 valid filter-method-0 cases
+  across filter types 0..4 and split `fdAT` frame-data reconstruction, with 4
+  invalid filter/scanline/sequence probes rejected.
 - `failure_cases/` contains authored negative profile fixtures covering
   required fields, type errors, enums, unit intervals, additional properties,
   body-mass order, and boolean numeric mistakes.
@@ -211,7 +219,8 @@ It does not yet cover package/runtime lifecycle behavior integration, completed
 manual readability calibration, production renderer
 playback, full third-party
 project-format coverage, full APNG/PNG conformance beyond the bounded
-chunk-order matrix, arbitrary Aseprite
+chunk-order, partial-frame playback, and filtered frame-data matrices,
+arbitrary Aseprite
 project schema coverage, arbitrary
 Aseprite external asset resolution, final PNG production carrier selection,
 editor-authored Aseprite document variants, live external editor rewrite

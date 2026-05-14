@@ -113,6 +113,18 @@
     "labs/workshop_editor/test_png_apng_chunk_order_conformance.py",
     "data/workshop_editor/png_apng_chunk_order_conformance_stage0.json",
     "data/workshop_editor/png_apng_chunk_order_conformance_stage0/",
+    "research/experiment_reports/2026-05-14-apng-partial-frame-playback.md",
+    "research/algorithm_cards/png_apng_partial_frame_playback.md",
+    "labs/workshop_editor/png_apng_partial_frame_playback.py",
+    "labs/workshop_editor/test_png_apng_partial_frame_playback.py",
+    "data/workshop_editor/apng_partial_frame_playback_stage0.json",
+    "data/workshop_editor/apng_partial_frame_playback_stage0/",
+    "research/experiment_reports/2026-05-14-apng-filtered-frame-data.md",
+    "research/algorithm_cards/png_apng_filtered_frame_data.md",
+    "labs/workshop_editor/png_apng_filtered_frame_data.py",
+    "labs/workshop_editor/test_png_apng_filtered_frame_data.py",
+    "data/workshop_editor/apng_filtered_frame_data_stage0.json",
+    "data/workshop_editor/apng_filtered_frame_data_stage0/",
     "research/experiment_reports/2026-05-13-png-embedded-sidecar-writer.md",
     "research/algorithm_cards/png_embedded_sidecar_writer.md",
     "labs/workshop_editor/png_embedded_sidecar_writer.py",
@@ -287,7 +299,7 @@
     {
       "source": "W3C PNG specification",
       "url": "https://www.w3.org/TR/png-3/",
-      "used_for": "PNG remains a visual carrier; Mechagotchi semantics require the sidecar contract. The PNG/APNG chunk-order conformance lab also uses this source for IHDR/IEND/PLTE/tRNS/IDAT ordering and APNG acTL/fcTL/fdAT sequence rules."
+      "used_for": "PNG remains a visual carrier; Mechagotchi semantics require the sidecar contract. The PNG/APNG chunk-order conformance lab uses this source for IHDR/IEND/PLTE/tRNS/IDAT ordering and APNG acTL/fcTL/fdAT sequence rules. The APNG partial-frame playback lab uses it for output-buffer, offset, blend, and dispose semantics. The APNG filtered frame-data lab uses it for filter method 0 reconstruction, zlib image-data streams, and fdAT frame-data concatenation."
     },
     {
       "source": "Aseprite sprite-sheet documentation",
@@ -716,7 +728,24 @@
     "png_apng_chunk_order_conformance_invalid_probes_rejected": 7,
     "png_apng_chunk_order_conformance_valid_case_family_count": 4,
     "png_apng_chunk_order_conformance_success_rate": 1.0,
-    "png_apng_chunk_order_conformance_live_external_editor_verified": false
+    "png_apng_chunk_order_conformance_live_external_editor_verified": false,
+    "apng_partial_frame_playback_profiles": 3,
+    "apng_partial_frame_playback_cases": 12,
+    "apng_partial_frame_playback_success": 12,
+    "apng_partial_frame_playback_invalid_probes": 5,
+    "apng_partial_frame_playback_invalid_probes_rejected": 5,
+    "apng_partial_frame_playback_scenario_family_count": 4,
+    "apng_partial_frame_playback_success_rate": 1.0,
+    "apng_partial_frame_playback_live_external_editor_verified": false,
+    "apng_filtered_frame_data_profiles": 3,
+    "apng_filtered_frame_data_cases": 15,
+    "apng_filtered_frame_data_success": 15,
+    "apng_filtered_frame_data_invalid_probes": 4,
+    "apng_filtered_frame_data_invalid_probes_rejected": 4,
+    "apng_filtered_frame_data_filter_family_count": 5,
+    "apng_filtered_frame_data_split_fdat_frames": 15,
+    "apng_filtered_frame_data_success_rate": 1.0,
+    "apng_filtered_frame_data_live_external_editor_verified": false
   },
   "valid_profiles": [
     {
@@ -884,6 +913,18 @@
       "surface": "png_apng_chunk_order_conformance",
       "current_proof": "12/12 current profile chunk-order cases pass across static RGBA single-IDAT PNG, static RGBA split-IDAT PNG, indexed PLTE/tRNS PNG, and APNG static-first-frame carriers; 7/7 duplicate-IHDR, post-IEND, PLTE-after-IDAT, tRNS-before-PLTE, nonconsecutive-IDAT, acTL-after-IDAT, and fcTL sequence-gap probes rejected",
       "status": "proven_stage0_bounded_structural_chunk_order_matrix_only",
+      "required_next_proof": "remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection"
+    },
+    {
+      "surface": "apng_partial_frame_playback",
+      "current_proof": "12/12 current profile playback cases pass across partial source-blend dispose-none patches, alpha-over dispose-none patches, background disposal, and previous disposal; display and after-disposal hashes recorded separately; 5/5 out-of-bounds, invalid-dispose, invalid-blend, missing-default-IDAT, and missing-frame-data probes rejected",
+      "status": "proven_stage0_bounded_apng_partial_frame_playback_matrix_only",
+      "required_next_proof": "remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection"
+    },
+    {
+      "surface": "apng_filtered_frame_data",
+      "current_proof": "15/15 current profile APNG frame-data cases pass across PNG filter method 0 filter types 0..4 with two-fdAT split datastream reconstruction; frame pixel hashes and display hashes recorded; 4/4 invalid filter-byte, truncated-scanline, fdAT sequence-gap, and missing-fdAT continuation probes rejected",
+      "status": "proven_stage0_bounded_apng_filtered_frame_data_matrix_only",
       "required_next_proof": "remaining APNG/PNG image-data conformance, live external editor rewrite validation, and final production carrier selection"
     },
     {
@@ -1127,6 +1168,8 @@
     "python -m json.tool .\\data\\workshop_editor\\apng_sidecar_decoder_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\apng_metadata_carrier_cross_product_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\png_apng_chunk_order_conformance_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\apng_partial_frame_playback_stage0.json",
+    "python -m json.tool .\\data\\workshop_editor\\apng_filtered_frame_data_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\png_embedded_sidecar_writer_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\png_textual_metadata_policy_stage0.json",
     "python -m json.tool .\\data\\workshop_editor\\png_private_chunk_policy_stage0.json",
@@ -1159,6 +1202,8 @@
     "python -B -m unittest .\\labs\\workshop_editor\\test_png_apng_sidecar_decoder.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_png_apng_metadata_carrier_cross_product.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_png_apng_chunk_order_conformance.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_png_apng_partial_frame_playback.py",
+    "python -B -m unittest .\\labs\\workshop_editor\\test_png_apng_filtered_frame_data.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_spritesheet_arbitrary_atlas_packer.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_spritesheet_multi_page_atlas.py",
     "python -B -m unittest .\\labs\\workshop_editor\\test_project_native_metadata_writer.py",
@@ -1182,5 +1227,5 @@
     "git diff --check"
   ],
   "decision": "adopt_stage0_slip_profile_compatibility_matrix",
-  "next_research_step": "Collect live external editor open-save fixtures, broaden remaining PNG/APNG coverage beyond the bounded chunk-order matrix through image-data conformance fixtures, broaden Aseprite chunk/schema coverage beyond the fixed Stage 0 carrier subsets with editor-authored document variants and editor-authored external asset resolution, collect 63 SLIP readability reviewer rows, and start package implementation only when explicitly authorized before claiming profile-weighted evolution."
+  "next_research_step": "Collect live external editor open-save fixtures, broaden remaining PNG/APNG coverage beyond the bounded chunk-order, partial-frame playback, and filtered frame-data matrices through image-data conformance fixtures, broaden Aseprite chunk/schema coverage beyond the fixed Stage 0 carrier subsets with editor-authored document variants and editor-authored external asset resolution, collect 63 SLIP readability reviewer rows, and start package implementation only when explicitly authorized before claiming profile-weighted evolution."
 }
