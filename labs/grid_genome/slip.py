@@ -1,7 +1,18 @@
 from dataclasses import dataclass
 
-from corpus_builder import PALETTES
 
+# Mirrors the palette enum in research/slip/slip.schema.json (and the literal
+# set in labs/slip_validator/slip_validator.py). Previously imported from
+# corpus_builder.PALETTES, which coupled contract validation to the corpus
+# generator (review finding L-05); the cross-validator agreement test in
+# test_slip_constraints.py pins this set against the authoritative validator.
+VALID_PALETTES = {
+    "lcd_green",
+    "gameboy_gray",
+    "amber_terminal",
+    "crt_blue",
+    "pocket_plum",
+}
 
 TOP_LEVEL_KEYS = {
     "slip_version",
@@ -62,7 +73,7 @@ def validate_slip(profile: dict) -> SlipResult:
 
     _validate_enum_array(
         grid.get("allowed_palettes"),
-        set(PALETTES),
+        VALID_PALETTES,
         "grid allowed_palettes",
         "grid allowed palette",
         errors,

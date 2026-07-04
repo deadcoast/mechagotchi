@@ -147,6 +147,60 @@ class GridValidatorTests(unittest.TestCase):
         self.assertFalse(result.ok)
         self.assertIn("mutation cell_mutation_rate outside 0..1: 1.2", result.errors)
 
+    def test_rejects_body_core_below_minimum_mass(self):
+        grid = valid_grid()
+        grid["organs"]["core"]["cells"] = [[3, 2], [4, 2], [3, 3]]
+
+        result = validate_grid(grid)
+
+        self.assertFalse(result.ok)
+        self.assertIn(
+            "body mass below minimum: required body core has fewer than 4 cells",
+            result.errors,
+        )
+
+    def test_rejects_unknown_cell_role_and_material(self):
+        grid = valid_grid()
+        grid["cells"][0]["role"] = "wing"
+        grid["cells"][1]["material"] = "plasma"
+
+        result = validate_grid(grid)
+
+        self.assertFalse(result.ok)
+        self.assertIn("cell role is unknown at 3,2: wing", result.errors)
+        self.assertIn("cell material is unknown at 4,2: plasma", result.errors)
+
+    def test_rejects_unknown_organ_role(self):
+        grid = valid_grid()
+        grid["organs"]["core"]["role"] = "chassis"
+
+        result = validate_grid(grid)
+
+        self.assertFalse(result.ok)
+        self.assertIn("organ core role is unknown: chassis", result.errors)
+
+    def test_rejects_grid_size_outside_schema_range(self):
+        grid = valid_grid()
+        grid["grid_size"] = [4, 8]
+
+        result = validate_grid(grid)
+
+        self.assertFalse(result.ok)
+        self.assertIn("grid_size dimension outside 8..64: 4", result.errors)
+
+    def test_rejects_bad_schema_version_grid_id_and_palette(self):
+        grid = valid_grid()
+        grid["schema_version"] = "0.2.0"
+        grid["grid_id"] = "Bad Id"
+        grid["palette"]["colors"] = ["#07140d", "not-a-color"]
+
+        result = validate_grid(grid)
+
+        self.assertFalse(result.ok)
+        self.assertIn("schema_version must be 0.1.0", result.errors)
+        self.assertTrue(any(error.startswith("grid_id must match") for error in result.errors))
+        self.assertIn("palette color must be #RRGGBB hex: not-a-color", result.errors)
+
     def test_validate_grid_file_loads_json(self):
         grid = valid_grid()
         with tempfile.TemporaryDirectory() as tmp_dir:

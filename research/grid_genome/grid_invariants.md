@@ -11,7 +11,10 @@ engine requirements from SLIP preferences.
 3. Unique occupancy: at most one cell definition may exist for a coordinate.
 4. Renderability: each non-empty cell must reference a valid palette color or
    visual token resolvable by the renderer.
-5. Body mass: non-empty body cells must meet a minimum mass threshold.
+5. Body mass: the required body-core organ must contain at least 4 cells
+   (`BODY_CORE_MIN_CELLS` in `labs/grid_genome/validator.py`). This is a lab
+   invariant layered on top of the schema, which only requires organ `cells`
+   `minItems 1`.
 6. Connectedness: required body-core cells must form one connected component
    under the selected neighborhood topology. The Stage 0 validator uses
    8-neighbor connectivity because pixel-art bodies can be visually connected

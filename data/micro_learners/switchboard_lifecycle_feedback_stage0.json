@@ -23,6 +23,7 @@
       "policy": "feedback_switchboard",
       "ticks_requested": 48,
       "rng_seed": 20260512,
+      "episode_deterministic": true,
       "survival_ticks": 48,
       "alive": true,
       "death_cause": null,
@@ -50,6 +51,8 @@
         "idle": 0.38,
         "mutate": 0.3
       },
+      "scenario_id": null,
+      "events_applied": [],
       "history": [
         {
           "tick": 1,
@@ -1161,6 +1164,7 @@
       "policy": "frozen_switchboard",
       "ticks_requested": 48,
       "rng_seed": 20260512,
+      "episode_deterministic": true,
       "survival_ticks": 48,
       "alive": true,
       "death_cause": null,
@@ -1188,6 +1192,8 @@
         "idle": 0.38,
         "mutate": 0.3
       },
+      "scenario_id": null,
+      "events_applied": [],
       "history": [
         {
           "tick": 1,

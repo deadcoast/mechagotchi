@@ -1,7 +1,35 @@
 import json
+import re
 from collections import deque
 from dataclasses import dataclass
 from pathlib import Path
+
+
+# Mirrors research/grid_genome/grid_genome.schema.json (hard invariant 1:
+# schema validity). Keep these in sync with the schema's $defs.
+ID_PATTERN = re.compile(r"^[a-z0-9][a-z0-9_-]{2,63}$")
+SCHEMA_VERSION = "0.1.0"
+GRID_SIZE_MIN = 8
+GRID_SIZE_MAX = 64
+CELL_ROLES = {
+    "empty",
+    "body",
+    "shell",
+    "sensor",
+    "eye",
+    "mouth",
+    "joint",
+    "limb",
+    "antenna",
+    "decoration",
+    "effect",
+    "anchor",
+}
+CELL_MATERIALS = {"void", "soft", "hard", "glass", "joint", "light", "signal"}
+ORGAN_ROLES = {"body_core", "sensor", "expression", "locomotion", "ornament", "effect"}
+COLOR_PATTERN = re.compile(r"^#[0-9A-Fa-f]{6}$")
+# Hard invariant 5: minimum required body-core mass in cells.
+BODY_CORE_MIN_CELLS = 4
 
 
 @dataclass(frozen=True)
@@ -14,6 +42,12 @@ class ValidationResult:
 def validate_grid(grid: dict) -> ValidationResult:
     errors: list[str] = []
     warnings: list[str] = []
+
+    grid_id = grid.get("grid_id")
+    if not isinstance(grid_id, str) or not ID_PATTERN.match(grid_id):
+        errors.append(f"grid_id must match {ID_PATTERN.pattern}: {grid_id}")
+    if grid.get("schema_version") != SCHEMA_VERSION:
+        errors.append(f"schema_version must be {SCHEMA_VERSION}")
 
     width, height = _grid_size(grid, errors)
     cells = grid.get("cells", [])
@@ -47,6 +81,13 @@ def validate_grid(grid: dict) -> ValidationResult:
         if entry.get("animation_anchor") is True:
             has_anchor = True
 
+        role = entry.get("role")
+        if role not in CELL_ROLES:
+            errors.append(f"cell role is unknown at {x},{y}: {role}")
+        material = entry.get("material")
+        if material not in CELL_MATERIALS:
+            errors.append(f"cell material is unknown at {x},{y}: {material}")
+
         _validate_unit_interval(entry.get("mutation_weight"), "cell mutation_weight", errors)
         _validate_unit_interval(entry.get("stress", 0), "cell stress", errors)
         _validate_unit_interval(entry.get("damage", 0), "cell damage", errors)
@@ -67,6 +108,8 @@ def validate_grid(grid: dict) -> ValidationResult:
             continue
 
         role = organ.get("role")
+        if role not in ORGAN_ROLES:
+            errors.append(f"organ {organ_name} role is unknown: {role}")
         required = organ.get("required") is True
         if required and role in {"sensor", "expression"}:
             has_required_sensor_or_expression = True
@@ -101,10 +144,15 @@ def validate_grid(grid: dict) -> ValidationResult:
     if not has_required_sensor_or_expression:
         errors.append("missing required sensor or expression organ")
 
-    if len(required_body_core) < 4:
-        errors.append("body mass below minimum: required body core has fewer than 4 cells")
+    if len(required_body_core) < BODY_CORE_MIN_CELLS:
+        errors.append(
+            "body mass below minimum: required body core has fewer than "
+            f"{BODY_CORE_MIN_CELLS} cells"
+        )
     elif not _is_connected(required_body_core):
         errors.append("required body core is disconnected")
+
+    _validate_palette(grid.get("palette"), errors)
 
     mutation = grid.get("mutation", {})
     if not isinstance(mutation, dict):
@@ -136,7 +184,30 @@ def _grid_size(grid: dict, errors: list[str]) -> tuple[int | None, int | None]:
     ):
         errors.append("grid_size must be [width, height]")
         return None, None
+    for dimension in grid_size:
+        if dimension < GRID_SIZE_MIN or dimension > GRID_SIZE_MAX:
+            errors.append(
+                "grid_size dimension outside "
+                f"{GRID_SIZE_MIN}..{GRID_SIZE_MAX}: {dimension}"
+            )
+            return None, None
     return grid_size[0], grid_size[1]
+
+
+def _validate_palette(palette: object, errors: list[str]) -> None:
+    if not isinstance(palette, dict):
+        errors.append("palette must be an object")
+        return
+    palette_id = palette.get("palette_id")
+    if not isinstance(palette_id, str) or not ID_PATTERN.match(palette_id):
+        errors.append(f"palette_id must match {ID_PATTERN.pattern}: {palette_id}")
+    colors = palette.get("colors")
+    if not isinstance(colors, list) or not 2 <= len(colors) <= 16:
+        errors.append("palette colors must be an array of 2..16 entries")
+        return
+    for color in colors:
+        if not isinstance(color, str) or not COLOR_PATTERN.match(color):
+            errors.append(f"palette color must be #RRGGBB hex: {color}")
 
 
 def _coordinate_tuple(value: object) -> tuple[int, int] | None:

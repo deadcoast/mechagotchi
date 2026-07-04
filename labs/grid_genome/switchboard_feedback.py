@@ -96,7 +96,10 @@ def run_feedback_episode(
     return {
         "policy": "feedback_switchboard" if feedback_enabled else "frozen_switchboard",
         "ticks_requested": ticks,
+        # rng_seed is recorded for interface parity only: the Stage 0 episode
+        # is fully deterministic and no code path consumes the seed (L-03).
         "rng_seed": rng_seed,
+        "episode_deterministic": True,
         "survival_ticks": state["age_ticks"],
         "alive": state["alive"],
         "death_cause": state["death_cause"],
