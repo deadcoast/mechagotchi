@@ -29,3 +29,8 @@ must not replace the underlying lab reports.
   validator schema alignment, small-labs gate integrity, the foreign-fixture
   conformance corpus, and structural debt retirement (helper dedup, repo-root
   path anchoring, ledger backfill).
+- `mechagotchi_research_report_v0_8.md` - post-v0.7 close-out resolving the
+  three items v0.7 left open: the dependency-manifest decision (record 0005,
+  with jsonschema runtime parity evidence), the grayscale/deep-color
+  foreign-fixture gap, and the degenerate descriptor axes. No open review
+  findings remain.
