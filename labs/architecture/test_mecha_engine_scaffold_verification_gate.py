@@ -32,17 +32,14 @@ class MechaEngineScaffoldVerificationGateTests(unittest.TestCase):
         self.assertTrue(report["package_root_exists"])
         self.assertTrue(report["gate_passed"], report["checks"])
         self.assertTrue(report["import_surface_accepted"])
-        # Genome, generation, lifecycle, and archive are promoted through
-        # their contract gates (in the traceability matrix's fixed order);
-        # the scaffold placeholder rule keeps covering the other modules.
+        # All five initial modules are promoted through their contract gates
+        # (in the traceability matrix's fixed order); the scaffold
+        # placeholder rule keeps covering the deferred-module boundary.
         self.assertEqual(
-            ["genome", "generation", "lifecycle", "archive"],
+            ["genome", "generation", "lifecycle", "archive", "provenance"],
             report["promoted_modules"],
         )
-        self.assertEqual(
-            ["provenance"],
-            report["unpromoted_modules"],
-        )
+        self.assertEqual([], report["unpromoted_modules"])
         self.assertEqual(
             "accept_package_scaffold_with_promoted_modules", report["decision"]
         )
@@ -54,7 +51,7 @@ class MechaEngineScaffoldVerificationGateTests(unittest.TestCase):
         self.assertEqual(0, report["metrics"]["lab_import_files"])
         self.assertEqual(0, report["metrics"]["sys_path_lab_files"])
         self.assertEqual(0, report["metrics"]["implementation_files"])
-        self.assertEqual(4, report["metrics"]["promoted_module_count"])
+        self.assertEqual(5, report["metrics"]["promoted_module_count"])
         self.assertEqual(0, report["metrics"]["deferred_modules_present"])
         self.assertGreaterEqual(report["metrics"]["import_suite_tests_run"], 6)
         self.assertEqual(10, len(REQUIRED_SCAFFOLD_PATHS))
