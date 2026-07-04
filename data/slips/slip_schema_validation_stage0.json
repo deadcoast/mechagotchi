@@ -4,7 +4,8 @@
   "schema_path": "research/slip/slip.schema.json",
   "schema_dialect": "https://json-schema.org/draft/2020-12/schema",
   "schema_engine": "dependency_free_stage0_structural_validator",
-  "jsonschema_dependency_available": false,
+  "jsonschema_dependency_available": true,
+  "related_runtime_parity_report": "data/slips/slip_jsonschema_runtime_parity_stage0.json",
   "valid_profile_count": 3,
   "failure_case_count": 12,
   "example_profile_count": 3,
@@ -249,8 +250,8 @@
   "related_pydantic_contract_report": "data/slips/slip_pydantic_contract_stage0.json",
   "related_migration_dependency_report": "data/slips/slip_schema_migration_dependency_gate_stage0.json",
   "blocked_states": [
-    "jsonschema_runtime_dependency_selection",
-    "pydantic_package_dependency_declaration",
+    "package_runtime_jsonschema_validation",
+    "declared_pydantic_package_dependency",
     "behavior_preview",
     "mutation_preview_ui"
   ]

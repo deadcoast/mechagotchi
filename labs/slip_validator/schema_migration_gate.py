@@ -30,13 +30,18 @@ def build_schema_migration_dependency_report() -> dict:
         "pydantic_schema_path": PYDANTIC_SCHEMA_PATH.relative_to(ROOT).as_posix(),
         "package_root_exists": (ROOT / "packages").exists(),
         "dependency_manifest_present": _dependency_manifest_present(),
+        "dependency_manifest_path": "pyproject.toml",
+        "dependency_group": "lab",
         "pydantic_available": _module_available("pydantic"),
         "pydantic_version": _module_version("pydantic"),
         "jsonschema_available": _module_available("jsonschema"),
         "jsonschema_version": _module_version("jsonschema"),
         "dependency_decision": {
-            "pydantic": "use_pydantic_for_lab_contract_do_not_require_package_dependency",
-            "jsonschema": "defer_python_jsonschema_until_dependency_manifest_exists",
+            "pydantic": "declared_in_lab_dependency_group_for_lab_contract",
+            "jsonschema": (
+                "declared_in_lab_dependency_group_runtime_validation_proven_by_parity_lab"
+            ),
+            "decision_record": "research/decision_records/0005-declare-lab-dependency-manifest.md",
         },
         "schema_surface_comparison": comparison,
         "migration_policy": {
@@ -60,10 +65,11 @@ def build_schema_migration_dependency_report() -> dict:
         "closed_states": [
             "schema_surface_parity_between_authored_and_pydantic_schema",
             "schema_migration_policy",
+            "declared_dependency_manifest",
+            "lab_runtime_jsonschema_validation",
         ],
         "blocked_states": [
-            "runtime_jsonschema_validation",
-            "declared_dependency_manifest",
+            "package_runtime_jsonschema_validation",
             "package_import_surface",
             "behavior_preview",
             "mutation_preview_ui",

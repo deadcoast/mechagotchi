@@ -449,6 +449,11 @@ Post-v0.1 continuation has started:
 - `labs/workshop_editor/foreign_fixture_writer.py`
 - `data/foreign_fixtures/manifest.json`
 - `research/experiment_reports/2026-07-04-repo-root-path-anchoring.md`
+- `research/experiment_reports/2026-07-04-lab-dependency-manifest-and-jsonschema-parity.md`
+- `research/decision_records/0005-declare-lab-dependency-manifest.md`
+- `labs/slip_validator/jsonschema_runtime_parity.py`
+- `data/slips/slip_jsonschema_runtime_parity_stage0.json`
+- `pyproject.toml`
 
 Stage 0 and Stage 1 established:
 

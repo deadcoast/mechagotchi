@@ -1,0 +1,23 @@
+# Lab dependency manifest (decision record 0005).
+#
+# This repository is a research workspace: there is deliberately no package
+# code and no build system. [project] carries no dependencies — the package
+# dependency policy remains blocked until a packages/ import-surface gate
+# exists (see labs/architecture/mecha_engine_runtime_boundary_gate.py).
+#
+# The [dependency-groups] "lab" group declares the interpreter extras some
+# labs require. Everything else is stdlib-only by convention. Provision with:
+#
+#     uv sync --group lab
+#
+[project]
+name = "mechagotchi"
+version = "0.0.0"
+description = "Research workspace for a grid-based artificial-life companion engine (labs only; no package code)"
+requires-python = ">=3.13"
+
+[dependency-groups]
+lab = [
+    "pydantic>=2.12",
+    "jsonschema>=4.26",
+]

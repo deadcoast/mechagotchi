@@ -182,9 +182,10 @@ def build_pydantic_contract_report(
         "jsonschema_available": _module_available("jsonschema"),
         "jsonschema_version": _module_version("jsonschema"),
         "dependency_policy": (
-            "Pydantic is available in this environment, but no repository "
-            "dependency manifest exists; package gates must declare it before "
-            "requiring it."
+            "Pydantic and jsonschema are declared in the pyproject lab "
+            "dependency group (decision record 0005); the package dependency "
+            "policy remains blocked until a packages/ import-surface gate "
+            "exists."
         ),
         "contract_methods": [
             "BaseModel.model_validate",
@@ -212,8 +213,7 @@ def build_pydantic_contract_report(
             "data/slips/slip_schema_migration_dependency_gate_stage0.json"
         ),
         "blocked_states": [
-            "python_jsonschema_runtime_validation",
-            "declared_dependency_manifest",
+            "package_runtime_jsonschema_validation",
             "package_import_surface",
             "behavior_preview",
             "mutation_preview_ui",

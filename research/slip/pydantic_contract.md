@@ -71,10 +71,12 @@ Adopt the Pydantic model as the current Stage 0 Python authoring contract. Do
 not promote it into `packages/` or make it a required package dependency until a
 repository dependency manifest and package import-surface gate exist.
 
-Runtime JSON Schema validation remains blocked because no repository
-dependency manifest declares `jsonschema`; whether the package happens to be
-importable in a given environment does not change the gate. Lab tests assert
-the dependency policy, not the environment observation (review finding H-01).
+Lab-level runtime JSON Schema validation is now unblocked: `jsonschema` is
+declared in the pyproject `lab` dependency group (decision record 0005) and
+`labs/slip_validator/jsonschema_runtime_parity.py` proves corpus parity with
+the dependency-free validator. Package-level runtime validation stays
+blocked on the package import-surface policy. Lab tests assert the
+dependency policy, not the environment observation (review finding H-01).
 Schema migration policy is handled separately in
 `research/slip/schema_migration_dependency_gate.md`.
 

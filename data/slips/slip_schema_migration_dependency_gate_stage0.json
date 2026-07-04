@@ -8,14 +8,17 @@
   "authored_schema_path": "research/slip/slip.schema.json",
   "pydantic_schema_path": "research/slip/slip_pydantic_model.schema.json",
   "package_root_exists": false,
-  "dependency_manifest_present": false,
+  "dependency_manifest_present": true,
+  "dependency_manifest_path": "pyproject.toml",
+  "dependency_group": "lab",
   "pydantic_available": true,
   "pydantic_version": "2.12.5",
   "jsonschema_available": true,
   "jsonschema_version": "4.26.0",
   "dependency_decision": {
-    "pydantic": "use_pydantic_for_lab_contract_do_not_require_package_dependency",
-    "jsonschema": "defer_python_jsonschema_until_dependency_manifest_exists"
+    "pydantic": "declared_in_lab_dependency_group_for_lab_contract",
+    "jsonschema": "declared_in_lab_dependency_group_runtime_validation_proven_by_parity_lab",
+    "decision_record": "research/decision_records/0005-declare-lab-dependency-manifest.md"
   },
   "schema_surface_comparison": {
     "mismatches": [],
@@ -128,11 +131,12 @@
   ],
   "closed_states": [
     "schema_surface_parity_between_authored_and_pydantic_schema",
-    "schema_migration_policy"
+    "schema_migration_policy",
+    "declared_dependency_manifest",
+    "lab_runtime_jsonschema_validation"
   ],
   "blocked_states": [
-    "runtime_jsonschema_validation",
-    "declared_dependency_manifest",
+    "package_runtime_jsonschema_validation",
     "package_import_surface",
     "behavior_preview",
     "mutation_preview_ui",

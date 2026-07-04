@@ -1,6 +1,7 @@
 import argparse
 import json
 import re
+import tomllib
 from pathlib import Path
 
 
@@ -268,7 +269,7 @@ def evaluate_runtime_boundary_gate(root: Path) -> dict:
         package_root_exists=package_root_exists,
         manual_readability_ready=manual_readability_ready,
         package_runtime_ready=package_runtime_ready,
-        dependency_manifest_exists=False,
+        package_dependency_policy=_package_dependency_policy_state(root),
     )
     rejected_probe_count = sum(
         1 for probe in negative_probes if probe["result"] == "rejected"
@@ -341,7 +342,7 @@ def evaluate_runtime_boundary_gate(root: Path) -> dict:
             "manual_readability_row_requirement_preserved",
         ],
         "blocked_states": [
-            "runtime_jsonschema_validation",
+            "package_runtime_jsonschema_validation",
             "declared_pydantic_package_dependency",
             "package_runtime_lifecycle_integration",
             "manual_readability_calibration",
@@ -463,14 +464,41 @@ def build_lab_boundary_probes(root: Path | None = None) -> list[dict]:
     ]
 
 
+def _package_dependency_policy_state(root: Path | None = None) -> dict:
+    """Inspect pyproject.toml for the package-vs-lab dependency distinction.
+
+    Decision record 0005 declares a *lab* dependency group; the *package*
+    dependency policy (a [project] dependencies list backing a packages/
+    import surface) remains a separate, still-blocked decision. This probe
+    input derives both facts from the manifest instead of hardcoding them.
+    """
+    base = (root or REPO_ROOT).resolve()
+    pyproject = base / "pyproject.toml"
+    state = {
+        "pyproject_exists": pyproject.exists(),
+        "lab_dependency_group_declared": False,
+        "package_dependencies_declared": False,
+    }
+    if pyproject.exists():
+        data = tomllib.loads(pyproject.read_text(encoding="utf-8"))
+        state["lab_dependency_group_declared"] = bool(
+            data.get("dependency-groups", {}).get("lab")
+        )
+        state["package_dependencies_declared"] = bool(
+            data.get("project", {}).get("dependencies")
+        )
+    return state
+
+
 def _negative_probes(
     *,
     root: Path | None = None,
     package_root_exists: bool,
     manual_readability_ready: bool,
     package_runtime_ready: bool,
-    dependency_manifest_exists: bool,
+    package_dependency_policy: dict,
 ) -> list[dict]:
+    package_policy_declared = package_dependency_policy["package_dependencies_declared"]
     return [
         *build_lab_boundary_probes(root),
         _probe(
@@ -485,12 +513,17 @@ def _negative_probes(
         ),
         _probe(
             "declare_runtime_schema_validation_ready",
-            accepted=dependency_manifest_exists,
-            reasons=[] if dependency_manifest_exists else ["dependency_manifest_absent"],
-            evidence=(
-                "Runtime JSON Schema validation requires a declared package "
-                "dependency policy in the future package metadata boundary."
-            ),
+            accepted=package_policy_declared,
+            reasons=[] if package_policy_declared else ["package_dependency_policy_absent"],
+            evidence={
+                "note": (
+                    "Package-level runtime JSON Schema validation requires a "
+                    "declared [project] dependency policy backing a packages/ "
+                    "import surface; the lab dependency group (decision record "
+                    "0005) does not satisfy it."
+                ),
+                "manifest_state": package_dependency_policy,
+            },
         ),
         _probe(
             "package_promotion_without_package_root",

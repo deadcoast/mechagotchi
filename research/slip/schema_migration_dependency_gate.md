@@ -2,7 +2,9 @@
 
 Date: 2026-05-12
 
-Updated: 2026-07-04 (environment decoupling, review finding H-01)
+Updated: 2026-07-04 (environment decoupling, review finding H-01; lab
+dependency manifest declared and lab-level runtime JSON Schema validation
+unblocked, decision record 0005)
 
 Status: `research_slip_schema_migration_dependency_gate_no_package_code`
 
@@ -20,8 +22,13 @@ Current documentation anchors:
 
 - JSON Schema Draft 2020-12 remains the machine-readable schema dialect.
 - Python `jsonschema` exposes `Draft202012Validator.check_schema()` and
-  `iter_errors()` for runtime schema validation, but the repository defers
-  that dependency until a dependency manifest exists.
+  `iter_errors()` for runtime schema validation. It is declared in the
+  pyproject `lab` dependency group (decision record 0005), and lab-level
+  runtime validation is proven by
+  `labs/slip_validator/jsonschema_runtime_parity.py` — 17/18 corpus
+  agreements with the dependency-free validator, the single divergence being
+  the documented semantic gap (body-mass ordering, which JSON Schema cannot
+  express and the layered semantic checks retain).
 - Pydantic v2 remains the lab Python model path and can emit JSON Schema through
   `model_json_schema()`.
 
@@ -74,13 +81,15 @@ source/target fixture corpora, a loss report, and validator parity evidence.
 
 Close the Stage 0 schema migration policy for the current `0.1.0` corpus.
 
-Keep runtime JSON Schema validation blocked until the repository has an
-explicit dependency manifest and package import-surface policy. The block is
-anchored to the missing manifest, not to whether `jsonschema` happens to be
-importable in a given environment; lab tests assert the dependency decision,
-not the environment observation (review finding H-01). Continue using the
-dependency-free checker and Pydantic lab contract for research-stage profile
-validation.
+The lab dependency manifest exists (`pyproject.toml`, dependency group
+`lab`; decision record 0005), so lab-level runtime JSON Schema validation is
+closed with parity evidence. Package-level runtime validation remains
+blocked on the package import-surface policy — the architecture
+runtime-boundary gate derives that distinction from real pyproject
+inspection. Lab tests continue to assert the dependency decision, not the
+environment observation (review finding H-01). The dependency-free checker
+and Pydantic lab contract remain the layered research-stage validators, with
+`Draft202012Validator` as the proven schema layer.
 
 ## Verification
 

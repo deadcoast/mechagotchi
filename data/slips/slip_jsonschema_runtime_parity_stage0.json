@@ -1,0 +1,253 @@
+{
+  "artifact_id": "slip_jsonschema_runtime_parity_stage0",
+  "status": "research_slip_jsonschema_runtime_parity_no_package_code",
+  "date": "2026-07-04",
+  "purpose": "Prove Draft 2020-12 runtime validation of SLIP profiles agrees with the dependency-free Stage 0 validator over the full corpus, as the evidence for unblocking lab-level runtime JSON Schema validation (decision record 0005).",
+  "authored_schema_path": "research/slip/slip.schema.json",
+  "jsonschema_version": "4.26.0",
+  "schema_check": "Draft202012Validator.check_schema passed",
+  "corpus_counts": {
+    "valid": 3,
+    "failure": 12,
+    "example": 3
+  },
+  "parity": {
+    "agreements": 17,
+    "total": 18,
+    "unexplained_disagreements": [],
+    "known_semantic_gap_cases": [
+      "data/slips/failure_cases/slip_body_mass_bounds_reversed.json"
+    ],
+    "semantic_gap_policy": "Schema validation is the first layer only; the structural validator's semantic checks (body-mass ordering) remain layered on top. layered_ok is the decision surface."
+  },
+  "layered_outcomes": {
+    "valid_accepted": 3,
+    "examples_accepted": 3,
+    "failures_rejected": 12
+  },
+  "results": [
+    {
+      "source_path": "data/slips/valid/slip_amber_social.json",
+      "group": "valid",
+      "jsonschema_ok": true,
+      "structural_ok": true,
+      "layered_ok": true,
+      "jsonschema_error_paths": [],
+      "structural_error_families": []
+    },
+    {
+      "source_path": "data/slips/valid/slip_gray_stable.json",
+      "group": "valid",
+      "jsonschema_ok": true,
+      "structural_ok": true,
+      "layered_ok": true,
+      "jsonschema_error_paths": [],
+      "structural_error_families": []
+    },
+    {
+      "source_path": "data/slips/valid/slip_lcd_seed.json",
+      "group": "valid",
+      "jsonschema_ok": true,
+      "structural_ok": true,
+      "layered_ok": true,
+      "jsonschema_error_paths": [],
+      "structural_error_families": []
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_bad_version.json",
+      "group": "failure",
+      "jsonschema_ok": false,
+      "structural_ok": false,
+      "layered_ok": false,
+      "jsonschema_error_paths": [
+        "slip_version"
+      ],
+      "structural_error_families": [
+        "schema_enum"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_behavior_weight_out_of_range.json",
+      "group": "failure",
+      "jsonschema_ok": false,
+      "structural_ok": false,
+      "layered_ok": false,
+      "jsonschema_error_paths": [
+        "behavior/curiosity"
+      ],
+      "structural_error_families": [
+        "schema_range"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_body_mass_bounds_reversed.json",
+      "group": "failure",
+      "jsonschema_ok": true,
+      "structural_ok": false,
+      "layered_ok": false,
+      "jsonschema_error_paths": [],
+      "structural_error_families": [
+        "semantic_body_mass_bounds"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_boolean_behavior_weight.json",
+      "group": "failure",
+      "jsonschema_ok": false,
+      "structural_ok": false,
+      "layered_ok": false,
+      "jsonschema_error_paths": [
+        "behavior/curiosity"
+      ],
+      "structural_error_families": [
+        "semantic_numeric_bool"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_empty_palette_list.json",
+      "group": "failure",
+      "jsonschema_ok": false,
+      "structural_ok": false,
+      "layered_ok": false,
+      "jsonschema_error_paths": [
+        "grid/allowed_palettes"
+      ],
+      "structural_error_families": [
+        "schema_min_items"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_extra_top_level.json",
+      "group": "failure",
+      "jsonschema_ok": false,
+      "structural_ok": false,
+      "layered_ok": false,
+      "jsonschema_error_paths": [
+        "$"
+      ],
+      "structural_error_families": [
+        "schema_additional_properties"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_missing_mutation_cap.json",
+      "group": "failure",
+      "jsonschema_ok": false,
+      "structural_ok": false,
+      "layered_ok": false,
+      "jsonschema_error_paths": [
+        "mutation"
+      ],
+      "structural_error_families": [
+        "schema_required",
+        "schema_type"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_missing_version.json",
+      "group": "failure",
+      "jsonschema_ok": false,
+      "structural_ok": false,
+      "layered_ok": false,
+      "jsonschema_error_paths": [
+        "$"
+      ],
+      "structural_error_families": [
+        "schema_enum",
+        "schema_required"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_profile_id_type.json",
+      "group": "failure",
+      "jsonschema_ok": false,
+      "structural_ok": false,
+      "layered_ok": false,
+      "jsonschema_error_paths": [
+        "profile_id"
+      ],
+      "structural_error_families": [
+        "schema_type"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_survival_extra_key.json",
+      "group": "failure",
+      "jsonschema_ok": false,
+      "structural_ok": false,
+      "layered_ok": false,
+      "jsonschema_error_paths": [
+        "survival_weights"
+      ],
+      "structural_error_families": [
+        "schema_additional_properties"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_unknown_palette.json",
+      "group": "failure",
+      "jsonschema_ok": false,
+      "structural_ok": false,
+      "layered_ok": false,
+      "jsonschema_error_paths": [
+        "grid/allowed_palettes/0"
+      ],
+      "structural_error_families": [
+        "schema_enum"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_unknown_required_role.json",
+      "group": "failure",
+      "jsonschema_ok": false,
+      "structural_ok": false,
+      "layered_ok": false,
+      "jsonschema_error_paths": [
+        "grid/required_organ_roles/1"
+      ],
+      "structural_error_families": [
+        "schema_enum"
+      ]
+    },
+    {
+      "source_path": "research/slip/slip_examples/slip_amber_social.json",
+      "group": "example",
+      "jsonschema_ok": true,
+      "structural_ok": true,
+      "layered_ok": true,
+      "jsonschema_error_paths": [],
+      "structural_error_families": []
+    },
+    {
+      "source_path": "research/slip/slip_examples/slip_gray_stable.json",
+      "group": "example",
+      "jsonschema_ok": true,
+      "structural_ok": true,
+      "layered_ok": true,
+      "jsonschema_error_paths": [],
+      "structural_error_families": []
+    },
+    {
+      "source_path": "research/slip/slip_examples/slip_lcd_seed.json",
+      "group": "example",
+      "jsonschema_ok": true,
+      "structural_ok": true,
+      "layered_ok": true,
+      "jsonschema_error_paths": [],
+      "structural_error_families": []
+    }
+  ],
+  "closed_states": [
+    "lab_runtime_jsonschema_validation",
+    "jsonschema_structural_validator_parity"
+  ],
+  "blocked_states": [
+    "package_runtime_jsonschema_validation",
+    "package_import_surface"
+  ],
+  "decision": "adopt_layered_runtime_schema_validation_for_labs",
+  "sources": [
+    "research/decision_records/0005-declare-lab-dependency-manifest.md",
+    "pyproject.toml"
+  ]
+}

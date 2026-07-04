@@ -323,7 +323,6 @@ def run_slip_multigeneration_lineage_runner_lab(
         ],
         "blocked_states": [
             "runtime_jsonschema_validation",
-            "declared_dependency_manifest",
             "profile_weighted_evolution",
             "package_runtime_lifecycle_integration",
             "manual_readability_calibration",

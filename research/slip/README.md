@@ -49,6 +49,11 @@ Published artifacts:
   - report decoupling the dependency-gate tests from environment state:
   `jsonschema_available` is a recorded observation, the pinned claim is the
   dependency-manifest deferral policy (review finding H-01).
+- `../experiment_reports/2026-07-04-lab-dependency-manifest-and-jsonschema-parity.md`
+  - report closing the dependency-manifest decision (record 0005): pyproject
+  lab dependency group declared, and lab-level runtime JSON Schema validation
+  proven by corpus parity (17/18 agreements; the one divergence is the
+  documented body-mass semantic gap retained by the layered checks).
 - `../experiment_reports/2026-07-04-slip-lab-validator-alignment.md`
   - report aligning the grid_genome lab validator with the authoritative
   contract: exact key sets, boolean/pattern/uniqueness checks, typed

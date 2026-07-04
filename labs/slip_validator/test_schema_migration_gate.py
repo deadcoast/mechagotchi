@@ -25,17 +25,17 @@ class SlipSchemaMigrationGateTests(unittest.TestCase):
         )
         self.assertTrue(report["pydantic_available"])
         # jsonschema availability is an environment observation, recorded but
-        # not pinned: the stable claim is the dependency decision below, which
-        # defers jsonschema until a repository dependency manifest exists.
+        # not pinned: the stable claim is the dependency decision below
+        # (decision record 0005 declares the lab dependency group).
         self.assertIsInstance(report["jsonschema_available"], bool)
-        self.assertFalse(report["dependency_manifest_present"])
+        self.assertTrue(report["dependency_manifest_present"])
         self.assertFalse(report["package_root_exists"])
         self.assertEqual(
-            "use_pydantic_for_lab_contract_do_not_require_package_dependency",
+            "declared_in_lab_dependency_group_for_lab_contract",
             report["dependency_decision"]["pydantic"],
         )
         self.assertEqual(
-            "defer_python_jsonschema_until_dependency_manifest_exists",
+            "declared_in_lab_dependency_group_runtime_validation_proven_by_parity_lab",
             report["dependency_decision"]["jsonschema"],
         )
 
@@ -91,7 +91,10 @@ class SlipSchemaMigrationGateTests(unittest.TestCase):
         persisted = json.loads(REPORT_PATH.read_text(encoding="utf-8"))
         self.assertEqual(report["artifact_id"], persisted["artifact_id"])
         self.assertIn("schema_migration_policy", persisted["closed_states"])
-        self.assertIn("runtime_jsonschema_validation", persisted["blocked_states"])
+        self.assertIn("lab_runtime_jsonschema_validation", persisted["closed_states"])
+        self.assertIn(
+            "package_runtime_jsonschema_validation", persisted["blocked_states"]
+        )
 
 
 if __name__ == "__main__":

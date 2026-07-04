@@ -33,7 +33,7 @@ python labs/workshop_editor/png_apng_sidecar_decoder.py
 python -m json.tool data\<path>\artifact.json
 ```
 
-**Interpreter caveat:** `.venv` is a uv-created CPython 3.13 venv with **zero third-party packages** — almost all labs are pure-stdlib and run fine under it. The exception is `labs/slip_validator/` (`pydantic_contract.py`, `schema_migration_gate.py`), which requires pydantic and only runs under the system `C:\Python314\python.exe` (pydantic 2.12.5 installed). Note that `python` in a plain shell may resolve to the system 3.14, and user site-packages (`AppData\Roaming\Python\Python314`) leak into it — the dependency-gate labs *record* module availability (`jsonschema_available` etc.) as per-run observations; never write tests that pin those observations (see review finding H-01).
+**Interpreter caveat:** labs are stdlib-only by convention, with the declared exceptions in `pyproject.toml`'s `lab` dependency group (`pydantic`, `jsonschema` — decision record 0005; provision with `uv sync --group lab`). The `labs/slip_validator/` pydantic/jsonschema labs need those installed; their tests skip (jsonschema) or fail at import (pydantic) without them. Note that `python` in a plain shell may resolve to the system 3.14, and user site-packages (`AppData\Roaming\Python\Python314`) leak into it — the dependency-gate labs *record* module availability (`jsonschema_available` etc.) as per-run observations; never write tests that pin those observations (see review finding H-01). The *package* dependency policy (a `[project]` dependencies list backing `packages/`) is deliberately still blocked.
 
 ## Architecture
 

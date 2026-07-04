@@ -1,4 +1,5 @@
 import argparse
+import importlib.util
 import json
 from pathlib import Path
 
@@ -137,7 +138,12 @@ def validate_profile_corpus(
         "schema_path": SCHEMA_PATH.relative_to(ROOT).as_posix(),
         "schema_dialect": "https://json-schema.org/draft/2020-12/schema",
         "schema_engine": "dependency_free_stage0_structural_validator",
-        "jsonschema_dependency_available": False,
+        # Environment observation, recorded per run (see review finding H-01).
+        "jsonschema_dependency_available": importlib.util.find_spec("jsonschema")
+        is not None,
+        "related_runtime_parity_report": (
+            "data/slips/slip_jsonschema_runtime_parity_stage0.json"
+        ),
         "valid_profile_count": len(valid_paths),
         "failure_case_count": len(failure_paths),
         "example_profile_count": len(example_paths),
@@ -154,8 +160,8 @@ def validate_profile_corpus(
         "related_pydantic_contract_report": "data/slips/slip_pydantic_contract_stage0.json",
         "related_migration_dependency_report": "data/slips/slip_schema_migration_dependency_gate_stage0.json",
         "blocked_states": [
-            "jsonschema_runtime_dependency_selection",
-            "pydantic_package_dependency_declaration",
+            "package_runtime_jsonschema_validation",
+            "declared_pydantic_package_dependency",
             "behavior_preview",
             "mutation_preview_ui",
         ],

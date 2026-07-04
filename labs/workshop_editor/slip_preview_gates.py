@@ -323,7 +323,6 @@ def run_slip_preview_gate_lab(profile_paths: list[Path], generated_root: Path) -
         ],
         "blocked_states": [
             "runtime_jsonschema_validation",
-            "declared_dependency_manifest",
             "profile_weighted_evolution",
             "package_runtime_lifecycle_integration",
             "png_adam7_interlace_decoder",
