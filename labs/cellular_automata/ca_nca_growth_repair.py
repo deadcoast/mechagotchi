@@ -1,5 +1,6 @@
 import argparse
 import json
+import math
 import random
 import sys
 from collections import Counter
@@ -44,6 +45,21 @@ LEARNED_REPAIR_SOURCE_REFS = SOURCE_REFS + [
     },
 ]
 DEFAULT_DAMAGE_PATTERNS = ("center_cut", "left_sensor", "lower_body")
+
+# Feature layout for the gradient-trained neighborhood repair model.
+LIVE_TOKENS = ["B", "A", "E", "M"]
+CLASS_TOKENS = [".", "B", "A", "E", "M"]
+_CLASS_INDEX = {token: index for index, token in enumerate(CLASS_TOKENS)}
+_LIVE_INDEX = {token: index for index, token in enumerate(LIVE_TOKENS)}
+NEIGHBORHOOD_OFFSETS = [
+    (dx, dy)
+    for dy in range(-2, 3)
+    for dx in range(-2, 3)
+    if not (dx == 0 and dy == 0)
+]
+_POSITION_FEATURE_BASE = len(NEIGHBORHOOD_OFFSETS) * len(LIVE_TOKENS)
+NEIGHBORHOOD_FEATURE_COUNT = _POSITION_FEATURE_BASE + 64 + 1
+_BIAS_FEATURE_INDEX = NEIGHBORHOOD_FEATURE_COUNT - 1
 
 
 def apply_damage(grid: dict, *, pattern: str = "center_cut") -> dict:
@@ -629,6 +645,587 @@ def repair_with_role_prior_model(
     repaired["metadata"]["target_template_used"] = False
     repaired["metadata"]["repair_steps"] = steps
     return repaired
+
+
+def structural_agreement(candidate_grid: dict, target_grid: dict) -> float:
+    """Two-sided token agreement over the union of live positions.
+
+    Unlike `matrix_overlap`, which only scores target-live cells and therefore
+    never penalises spurious fills, this metric counts any position that is
+    live in either grid, so overgrowth lowers the score.
+    """
+    candidate = matrix_from_grid(candidate_grid)
+    target = matrix_from_grid(target_grid)
+    positions = [
+        (x, y)
+        for y, row in enumerate(target)
+        for x, token in enumerate(row)
+        if token != "." or candidate[y][x] != "."
+    ]
+    if not positions:
+        return 1.0
+    matches = sum(1 for x, y in positions if candidate[y][x] == target[y][x])
+    return round(matches / len(positions), 6)
+
+
+def train_neighborhood_repair_model(
+    training_grids: list[dict],
+    *,
+    dropout_rates: tuple[float, ...] = (0.1, 0.2, 0.3, 0.4),
+    damage_instances: int = 1,
+    epochs: int = 150,
+    learning_rate: float = 1.5,
+    live_class_weight: float = 3.0,
+    rng_seed: int = 20260512,
+) -> dict:
+    """Train a per-cell softmax repair rule by deterministic gradient descent.
+
+    Training pairs are (damaged 5x5 neighborhood + cell position -> target
+    token) examples generated from seeded stochastic damage over the training
+    corpus. The model never receives a target template at repair time; it
+    learns corpus-level shape statistics through its weights. Full-batch
+    gradient descent from zero-initialised weights on a convex softmax loss
+    makes the training run exactly reproducible.
+    """
+    if not training_grids:
+        raise ValueError("training_grids must not be empty")
+    examples = []
+    for grid_index, grid in enumerate(training_grids):
+        target = matrix_from_grid(grid)
+        for rate_index, rate in enumerate(dropout_rates):
+            for instance in range(damage_instances):
+                seed = rng_seed + grid_index * 1000 + rate_index * 100 + instance
+                damaged = apply_stochastic_damage(
+                    grid,
+                    dropout_rate=rate,
+                    rng_seed=seed,
+                    event_index=1,
+                )
+                damaged_matrix = matrix_from_grid(damaged)
+                for y in range(8):
+                    for x in range(8):
+                        if damaged_matrix[y][x] != ".":
+                            continue
+                        label = _CLASS_INDEX[target[y][x]]
+                        weight = live_class_weight if label != 0 else 1.0
+                        examples.append(
+                            (
+                                _neighborhood_features(damaged_matrix, x, y),
+                                label,
+                                weight,
+                            )
+                        )
+
+    weights, initial_loss, final_loss = _train_softmax(
+        examples,
+        epochs=epochs,
+        learning_rate=learning_rate,
+    )
+    return {
+        "model_id": "neighborhood_softmax_repair_model_stage0",
+        "source_mode": "learned_neighborhood_softmax_gradient_descent",
+        "training_grid_count": len(training_grids),
+        "training_grid_ids": [grid.get("grid_id") for grid in training_grids],
+        "example_count": len(examples),
+        "feature_count": NEIGHBORHOOD_FEATURE_COUNT,
+        "class_tokens": list(CLASS_TOKENS),
+        "dropout_rates": list(dropout_rates),
+        "damage_instances": damage_instances,
+        "epochs": epochs,
+        "learning_rate": learning_rate,
+        "live_class_weight": live_class_weight,
+        "rng_seed": rng_seed,
+        "initial_loss": initial_loss,
+        "final_loss": final_loss,
+        "target_template_used": False,
+        "weights": weights,
+        "limitations": [
+            "The model is a linear softmax over one-hot neighborhood and position features, not a neural cellular automaton with hidden state.",
+            "It only fills empty cells; it cannot relocate or delete misplaced cells.",
+            "It learns one species-level shape prior across the corpus and cannot distinguish individual grid variants.",
+        ],
+    }
+
+
+def repair_with_neighborhood_model(
+    damaged_grid: dict,
+    model: dict,
+    *,
+    steps: int = 8,
+) -> dict:
+    """Iteratively fill empty cells using the trained softmax rule.
+
+    A cell is filled when the model puts more probability mass on live tokens
+    than on empty, taking the most likely live token. The update is
+    synchronous and fully deterministic; no target grid is consulted.
+    """
+    weights = model["weights"]
+    matrix = matrix_from_grid(damaged_grid)
+    for _ in range(steps):
+        updated = [row[:] for row in matrix]
+        changed = False
+        for y in range(8):
+            for x in range(8):
+                if matrix[y][x] != ".":
+                    continue
+                probs = _softmax_probs(
+                    weights,
+                    _neighborhood_features(matrix, x, y),
+                )
+                if probs[0] < 0.5:
+                    best = max(range(1, len(CLASS_TOKENS)), key=lambda c: probs[c])
+                    updated[y][x] = CLASS_TOKENS[best]
+                    changed = True
+        matrix = updated
+        if not changed:
+            break
+
+    repaired = grid_from_matrix(
+        grid_id=f"{damaged_grid.get('grid_id', 'grid')}_trained_repaired",
+        matrix=matrix,
+        palette=damaged_grid.get("palette", {}),
+        parent_grid_id=damaged_grid.get("grid_id"),
+        source="learned_neighborhood_softmax_repair",
+        mutation_events=[
+            "ca_damage_observed",
+            "learned_neighborhood_softmax_repair",
+        ],
+        generation_delta=1,
+    )
+    repaired["metadata"]["learned_model_id"] = model.get("model_id")
+    repaired["metadata"]["target_template_used"] = False
+    repaired["metadata"]["repair_steps"] = steps
+    return repaired
+
+
+def run_trained_repair_benchmark(
+    *,
+    training_count: int = 40,
+    holdout_count: int | None = None,
+    cycles: int = 5,
+    dropout_rate: float = 0.2,
+    repair_steps: int = 8,
+    epochs: int = 150,
+    rng_seed: int = 20260512,
+) -> dict:
+    """Held-out repair benchmark: no-repair vs role-prior vs trained vs assisted.
+
+    The corpus is split deterministically: the first `training_count` seed
+    grids train both learned models; the remaining grids are held out and
+    only ever used as damage sources and scoring references. The assisted
+    arm receives the target template (the existing upper-bound baseline);
+    the two learned arms and the no-repair arm never see it.
+    """
+    slip_profile = _load_default_slip()
+    seed_grids = build_seed_grids()
+    if training_count >= len(seed_grids):
+        raise ValueError("training_count must leave at least one held-out grid")
+    training_grids = seed_grids[:training_count]
+    targets = seed_grids[training_count:]
+    if holdout_count is not None:
+        targets = targets[:holdout_count]
+
+    trained_model = train_neighborhood_repair_model(
+        training_grids,
+        epochs=epochs,
+        rng_seed=rng_seed,
+    )
+    role_prior_model = train_role_prior_repair_model(training_grids)
+
+    arms = ["no_repair", "role_prior", "trained", "assisted"]
+    results = []
+    for index, target in enumerate(targets):
+        current = {arm: target for arm in arms}
+        cycle_reports = []
+        for cycle in range(1, cycles + 1):
+            damage_seed = rng_seed + index * 1000 + cycle
+            cycle_metrics = {}
+            for arm in arms:
+                damaged = apply_stochastic_damage(
+                    current[arm],
+                    dropout_rate=dropout_rate,
+                    rng_seed=damage_seed,
+                    event_index=cycle,
+                )
+                if arm == "no_repair":
+                    repaired = damaged
+                elif arm == "role_prior":
+                    repaired = repair_with_role_prior_model(
+                        damaged,
+                        role_prior_model,
+                        steps=repair_steps,
+                        rng_seed=damage_seed + 7000,
+                    )
+                elif arm == "trained":
+                    repaired = repair_with_neighborhood_model(
+                        damaged,
+                        trained_model,
+                        steps=repair_steps,
+                    )
+                else:
+                    repaired = repair_with_local_attractor(
+                        damaged,
+                        target,
+                        steps=repair_steps,
+                        rng_seed=damage_seed + 5000,
+                    )
+                repaired["grid_id"] = (
+                    f"{target['grid_id']}_cycle_{cycle:02d}_{arm}"
+                )
+                damaged_overlap = matrix_overlap(damaged, target)
+                repair_overlap = matrix_overlap(repaired, target)
+                cycle_metrics[arm] = {
+                    "damaged_overlap": damaged_overlap,
+                    "repair_overlap": repair_overlap,
+                    "repair_gain": round(repair_overlap - damaged_overlap, 6),
+                    "structural_agreement": structural_agreement(repaired, target),
+                    "valid": validate_grid(repaired).ok,
+                }
+                current[arm] = repaired
+            cycle_reports.append({"cycle": cycle, "metrics": cycle_metrics})
+
+        final_metrics = {}
+        for arm in arms:
+            grid = current[arm]
+            validation = validate_grid(grid)
+            final_metrics[arm] = {
+                "final_overlap": matrix_overlap(grid, target),
+                "final_structural_agreement": structural_agreement(grid, target),
+                "final_valid": validation.ok,
+                "final_errors": validation.errors,
+                "final_readability": score_readability(grid)[
+                    "proxy_readability_score"
+                ],
+                "final_lifecycle_survival": _lifecycle_survival(
+                    grid,
+                    slip_profile,
+                ),
+            }
+        results.append(
+            {
+                "target_grid_id": target["grid_id"],
+                "final_grids": {arm: current[arm] for arm in arms},
+                "cycle_reports": cycle_reports,
+                "final_metrics": final_metrics,
+            }
+        )
+
+    summary = _trained_repair_summary(results, arms, cycles)
+    return {
+        "lab_id": "ca_nca_trained_repair_stage0",
+        "date": "2026-07-04",
+        "rng_seed": rng_seed,
+        "training_grid_count": len(training_grids),
+        "holdout_target_count": len(targets),
+        "holdout_target_ids": [target["grid_id"] for target in targets],
+        "cycles": cycles,
+        "dropout_rate": dropout_rate,
+        "repair_steps": repair_steps,
+        "source_mode": "gradient_trained_neighborhood_repair_vs_baselines",
+        "source_note": (
+            "The trained arm is a per-cell softmax rule fitted by "
+            "deterministic full-batch gradient descent on (damaged "
+            "neighborhood -> target token) pairs from the training split. "
+            "It never receives the target template at repair time and is "
+            "evaluated only on held-out grids. The assisted arm keeps the "
+            "target-template local attractor as the upper-bound baseline, "
+            "and the no-repair arm shows unrepaired decay."
+        ),
+        "trained_model": {
+            key: value
+            for key, value in trained_model.items()
+            if key != "weights"
+        },
+        "trained_model_weights": trained_model["weights"],
+        "summary": summary,
+        "results": results,
+        "decision": _trained_repair_decision(summary),
+        "limitations": [
+            "The trained rule is a linear softmax, not a neural cellular automaton with hidden state.",
+            "matrix_overlap does not penalise spurious fills, so structural_agreement is reported alongside it; the trained arm overgrows relative to the assisted baseline.",
+            "Held-out grids come from the same hand-authored species corpus, so the split tests variant generalisation, not novel-species generalisation.",
+            "No human visual repair ratings are included.",
+        ],
+        "source_refs": LEARNED_REPAIR_SOURCE_REFS,
+    }
+
+
+def write_trained_repair_artifacts(output_dir: Path, report: dict) -> None:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    (output_dir / "ca_nca_trained_repair_stage0.json").write_text(
+        json.dumps(report, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    samples_dir = output_dir / "trained_repair_samples"
+    samples_dir.mkdir(exist_ok=True)
+    for result in report["results"]:
+        prefix = result["target_grid_id"]
+        for arm, grid in result["final_grids"].items():
+            (samples_dir / f"{prefix}_{arm}_final_grid.json").write_text(
+                json.dumps(grid, indent=2) + "\n",
+                encoding="utf-8",
+            )
+    (output_dir / "trained_repair_README.md").write_text(
+        _trained_repair_readme_text(report),
+        encoding="utf-8",
+    )
+
+
+def _neighborhood_features(
+    matrix: list[list[str]], x: int, y: int
+) -> list[tuple[int, float]]:
+    features = []
+    for offset_index, (dx, dy) in enumerate(NEIGHBORHOOD_OFFSETS):
+        nx = x + dx
+        ny = y + dy
+        if 0 <= nx < 8 and 0 <= ny < 8:
+            token = matrix[ny][nx]
+            if token != ".":
+                features.append(
+                    (offset_index * len(LIVE_TOKENS) + _LIVE_INDEX[token], 1.0)
+                )
+    features.append((_POSITION_FEATURE_BASE + y * 8 + x, 1.0))
+    features.append((_BIAS_FEATURE_INDEX, 1.0))
+    return features
+
+
+def _train_softmax(
+    examples: list[tuple[list[tuple[int, float]], int, float]],
+    *,
+    epochs: int,
+    learning_rate: float,
+) -> tuple[list[list[float]], float, float]:
+    class_count = len(CLASS_TOKENS)
+    weights = [[0.0] * NEIGHBORHOOD_FEATURE_COUNT for _ in range(class_count)]
+    total_weight = sum(weight for _, _, weight in examples)
+    initial_loss = final_loss = 0.0
+    for epoch in range(epochs):
+        gradients = [
+            [0.0] * NEIGHBORHOOD_FEATURE_COUNT for _ in range(class_count)
+        ]
+        loss = 0.0
+        for features, label, example_weight in examples:
+            probs = _softmax_probs(weights, features)
+            loss -= example_weight * math.log(max(probs[label], 1e-12))
+            for class_index in range(class_count):
+                error = example_weight * (
+                    probs[class_index] - (1.0 if class_index == label else 0.0)
+                )
+                if error:
+                    gradient = gradients[class_index]
+                    for feature_index, value in features:
+                        gradient[feature_index] += error * value
+        for class_index in range(class_count):
+            weight_row = weights[class_index]
+            gradient_row = gradients[class_index]
+            for feature_index in range(NEIGHBORHOOD_FEATURE_COUNT):
+                weight_row[feature_index] -= (
+                    learning_rate * gradient_row[feature_index] / total_weight
+                )
+        if epoch == 0:
+            initial_loss = loss / total_weight
+        final_loss = loss / total_weight
+    return (
+        [[round(value, 6) for value in row] for row in weights],
+        round(initial_loss, 6),
+        round(final_loss, 6),
+    )
+
+
+def _softmax_probs(
+    weights: list[list[float]], features: list[tuple[int, float]]
+) -> list[float]:
+    logits = [
+        sum(row[index] * value for index, value in features)
+        for row in weights
+    ]
+    peak = max(logits)
+    exps = [math.exp(logit - peak) for logit in logits]
+    total = sum(exps)
+    return [value / total for value in exps]
+
+
+def _trained_repair_summary(
+    results: list[dict], arms: list[str], cycles: int
+) -> dict:
+    summary = {
+        "holdout_target_count": len(results),
+        "cycle_count": cycles,
+        "total_damage_events": len(results) * cycles,
+        "arms": {},
+    }
+    for arm in arms:
+        finals = [result["final_metrics"][arm] for result in results]
+        cycle_metrics = [
+            cycle["metrics"][arm]
+            for result in results
+            for cycle in result["cycle_reports"]
+        ]
+        summary["arms"][arm] = {
+            "mean_final_overlap": _mean(
+                metric["final_overlap"] for metric in finals
+            ),
+            "mean_final_structural_agreement": _mean(
+                metric["final_structural_agreement"] for metric in finals
+            ),
+            "final_validity_rate": _rate(
+                metric["final_valid"] for metric in finals
+            ),
+            "mean_final_readability": _mean(
+                metric["final_readability"] for metric in finals
+            ),
+            "mean_final_lifecycle_survival": _mean(
+                metric["final_lifecycle_survival"] for metric in finals
+            ),
+            "mean_repair_gain_per_event": _mean(
+                metric["repair_gain"] for metric in cycle_metrics
+            ),
+            "mean_first_cycle_repair_overlap": _mean(
+                result["cycle_reports"][0]["metrics"][arm]["repair_overlap"]
+                for result in results
+            ),
+        }
+    trained = summary["arms"]["trained"]
+    summary["trained_vs_no_repair_final_overlap_delta"] = round(
+        trained["mean_final_overlap"]
+        - summary["arms"]["no_repair"]["mean_final_overlap"],
+        6,
+    )
+    summary["trained_vs_role_prior_final_overlap_delta"] = round(
+        trained["mean_final_overlap"]
+        - summary["arms"]["role_prior"]["mean_final_overlap"],
+        6,
+    )
+    summary["trained_vs_role_prior_final_agreement_delta"] = round(
+        trained["mean_final_structural_agreement"]
+        - summary["arms"]["role_prior"]["mean_final_structural_agreement"],
+        6,
+    )
+    summary["trained_vs_no_repair_final_agreement_delta"] = round(
+        trained["mean_final_structural_agreement"]
+        - summary["arms"]["no_repair"]["mean_final_structural_agreement"],
+        6,
+    )
+    summary["trained_vs_assisted_final_overlap_delta"] = round(
+        trained["mean_final_overlap"]
+        - summary["arms"]["assisted"]["mean_final_overlap"],
+        6,
+    )
+    summary["target_template_used_by_trained"] = False
+    return summary
+
+
+def _trained_repair_decision(summary: dict) -> dict:
+    """Decision tiers derived from the existing lab artifact thresholds.
+
+    The 0.9 overlap and 0.9 validity bars come from the repeated stochastic
+    damage artifact's stability criteria for the assisted baseline; the
+    substantial-improvement margin of 0.3 final overlap over no-repair is
+    under half the gap the assisted baseline maintains in that artifact.
+    Because `matrix_overlap` is one-sided (it never penalises spurious
+    fills, which lets an overgrowing filler inflate it), the learned-arm
+    comparison additionally uses the two-sided structural agreement.
+    """
+    trained = summary["arms"]["trained"]
+    beats_no_repair_substantially = (
+        summary["trained_vs_no_repair_final_overlap_delta"] >= 0.3
+        and summary["trained_vs_no_repair_final_agreement_delta"] >= 0.2
+    )
+    best_learned_on_structural_agreement = (
+        summary["trained_vs_role_prior_final_agreement_delta"] >= 0
+    )
+    meets_assisted_stability_bar = (
+        trained["mean_final_overlap"] >= 0.9
+        and trained["final_validity_rate"] >= 0.9
+        and trained["mean_final_structural_agreement"] >= 0.9
+    )
+    if (
+        beats_no_repair_substantially
+        and best_learned_on_structural_agreement
+        and meets_assisted_stability_bar
+    ):
+        status = "promote_less_assisted_repair"
+        reason = (
+            "The gradient-trained neighborhood rule repairs held-out grids "
+            "to the assisted stability bar without any target template, so "
+            "it can replace the template-assisted baseline as the repair "
+            "surface."
+        )
+    elif beats_no_repair_substantially and best_learned_on_structural_agreement:
+        status = "prototype_learned_repair_gap_narrowed"
+        reason = (
+            "The gradient-trained neighborhood rule substantially beats "
+            "no-repair on held-out grids without a target template and is "
+            "the best learned arm on two-sided structural agreement and "
+            "readability. The role-prior baseline reaches higher one-sided "
+            "overlap only by overfilling common positions. The trained rule "
+            "still falls short of the assisted stability bar, so the "
+            "template-assisted attractor remains the benchmark upper bound."
+        )
+    else:
+        status = "keep_assisted_baseline"
+        reason = (
+            "The gradient-trained neighborhood rule does not clearly beat "
+            "the untrained baselines, so the target-template benchmark "
+            "remains the comparison contract."
+        )
+    return {
+        "status": status,
+        "adoption": "lab_only_less_assisted_repair_candidate",
+        "reason": reason,
+        "thresholds": {
+            "beats_no_repair_substantially": beats_no_repair_substantially,
+            "best_learned_on_structural_agreement": (
+                best_learned_on_structural_agreement
+            ),
+            "meets_assisted_stability_bar": meets_assisted_stability_bar,
+        },
+    }
+
+
+def _trained_repair_readme_text(report: dict) -> str:
+    summary = report["summary"]
+    lines = [
+        "# CA/NCA Trained Repair Stage 0",
+        "",
+        "Held-out benchmark for a gradient-trained per-cell softmax repair "
+        "rule against no-repair, the role-prior baseline, and the "
+        "target-template assisted attractor.",
+        "",
+        f"- Training grids: {report['training_grid_count']}",
+        f"- Held-out targets: {report['holdout_target_count']}",
+        f"- Cycles: {report['cycles']} at dropout {report['dropout_rate']}",
+        "",
+        "| Arm | Final overlap | Structural agreement | Validity | Repair gain/event |",
+        "| --- | ---: | ---: | ---: | ---: |",
+    ]
+    for arm, metrics in summary["arms"].items():
+        lines.append(
+            f"| {arm} | {metrics['mean_final_overlap']} | "
+            f"{metrics['mean_final_structural_agreement']} | "
+            f"{metrics['final_validity_rate']} | "
+            f"{metrics['mean_repair_gain_per_event']} |"
+        )
+    lines.extend(
+        [
+            "",
+            f"- Trained vs no-repair overlap delta: "
+            f"{summary['trained_vs_no_repair_final_overlap_delta']}",
+            f"- Trained vs role-prior overlap delta: "
+            f"{summary['trained_vs_role_prior_final_overlap_delta']}",
+            f"- Trained vs assisted overlap delta: "
+            f"{summary['trained_vs_assisted_final_overlap_delta']}",
+            f"- Decision: {report['decision']['status']}",
+            "",
+            "The trained arm learns from (damaged neighborhood -> target "
+            "token) pairs by deterministic gradient descent and never sees "
+            "a target template during repair. Structural agreement is "
+            "reported because plain overlap does not penalise spurious "
+            "fills.",
+            "",
+        ]
+    )
+    return "\n".join(lines)
 
 
 def run_learned_repair_comparison(
@@ -1663,6 +2260,7 @@ def main() -> None:
             "persistence-damage",
             "repeated-stochastic-damage",
             "learned-repair-comparison",
+            "trained-repair",
         ],
         default="growth-repair",
     )
@@ -1672,9 +2270,21 @@ def main() -> None:
     parser.add_argument("--persistence-steps", type=int, default=12)
     parser.add_argument("--cycles", type=int, default=5)
     parser.add_argument("--dropout-rate", type=float, default=0.2)
+    parser.add_argument("--training-count", type=int, default=40)
+    parser.add_argument("--epochs", type=int, default=150)
     parser.add_argument("--rng-seed", type=int, default=20260512)
     args = parser.parse_args()
-    if args.mode == "learned-repair-comparison":
+    if args.mode == "trained-repair":
+        report = run_trained_repair_benchmark(
+            training_count=args.training_count,
+            cycles=args.cycles,
+            dropout_rate=args.dropout_rate,
+            repair_steps=args.repair_steps,
+            epochs=args.epochs,
+            rng_seed=args.rng_seed,
+        )
+        write_trained_repair_artifacts(args.output_dir, report)
+    elif args.mode == "learned-repair-comparison":
         report = run_learned_repair_comparison(
             count=args.count,
             cycles=args.cycles,

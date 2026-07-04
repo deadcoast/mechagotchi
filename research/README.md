@@ -467,6 +467,10 @@ Post-v0.1 continuation has started:
 - `packages/mecha_engine/src/mecha_engine/genome/`
 - `packages/mecha_engine/tests/test_genome_contract.py`
 
+- `research/experiment_reports/2026-07-04-ca-nca-trained-neighborhood-repair.md`
+- `data/cellular_automata/ca_nca_trained_repair_stage0.json`
+- `data/micro_learners/switchboard_lifecycle_feedback_stage0.json`
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

@@ -19,17 +19,22 @@ from ca_nca_growth_repair import (  # noqa: E402
     grow_from_seed,
     matrix_overlap,
     repair_with_local_attractor,
+    repair_with_neighborhood_model,
     repair_with_role_prior_model,
     run_ca_nca_lab,
     run_damage_stress_benchmark,
     run_learned_repair_comparison,
     run_repeated_stochastic_damage_benchmark,
     run_persistence_rollout,
+    run_trained_repair_benchmark,
+    structural_agreement,
+    train_neighborhood_repair_model,
     train_role_prior_repair_model,
     write_ca_nca_artifacts,
     write_learned_repair_comparison_artifacts,
     write_persistence_damage_artifacts,
     write_repeated_stochastic_damage_artifacts,
+    write_trained_repair_artifacts,
 )
 from corpus_builder import build_seed_grids  # noqa: E402
 from validator import validate_grid  # noqa: E402
@@ -163,6 +168,158 @@ class CaNcaGrowthRepairTests(unittest.TestCase):
             report["decision"]["status"],
             {"promote_less_assisted_repair", "watch_learned_repair", "keep_assisted_baseline"},
         )
+
+    def test_train_neighborhood_repair_model_is_deterministic_and_templateless(self):
+        training_grids = build_seed_grids()[:8]
+
+        first = train_neighborhood_repair_model(
+            training_grids,
+            epochs=20,
+            rng_seed=20260512,
+        )
+        second = train_neighborhood_repair_model(
+            training_grids,
+            epochs=20,
+            rng_seed=20260512,
+        )
+
+        self.assertFalse(first["target_template_used"])
+        self.assertEqual(first["weights"], second["weights"])
+        self.assertEqual(8, first["training_grid_count"])
+        self.assertGreater(first["example_count"], 0)
+        self.assertLess(first["final_loss"], first["initial_loss"])
+
+    def test_neighborhood_model_repairs_heldout_damage_without_template(self):
+        seed_grids = build_seed_grids()
+        model = train_neighborhood_repair_model(
+            seed_grids[:12],
+            epochs=60,
+            rng_seed=20260512,
+        )
+        # Held-out grid never seen during training.
+        target = seed_grids[45]
+        damaged = apply_stochastic_damage(
+            target,
+            dropout_rate=0.2,
+            rng_seed=20260512,
+            event_index=1,
+        )
+
+        repaired = repair_with_neighborhood_model(damaged, model, steps=8)
+
+        self.assertEqual(
+            "learned_neighborhood_softmax_repair",
+            repaired["metadata"]["source"],
+        )
+        self.assertFalse(repaired["metadata"]["target_template_used"])
+        self.assertTrue(validate_grid(repaired).ok, validate_grid(repaired).errors)
+        self.assertGreater(
+            matrix_overlap(repaired, target),
+            matrix_overlap(damaged, target),
+        )
+        # Deterministic repair: same inputs give identical cells.
+        again = repair_with_neighborhood_model(damaged, model, steps=8)
+        self.assertEqual(repaired["cells"], again["cells"])
+
+    def test_structural_agreement_penalises_spurious_fills(self):
+        target = build_seed_grids()[0]
+        damaged = apply_damage(target, pattern="center_cut")
+
+        self.assertEqual(1.0, structural_agreement(target, target))
+        self.assertLess(structural_agreement(damaged, target), 1.0)
+        # Overgrown grid: perfect one-sided overlap can hide spurious cells,
+        # but structural agreement must not.
+        overgrown = json.loads(json.dumps(target))
+        overgrown["cells"] = list(overgrown["cells"]) + [
+            {
+                "x": 7,
+                "y": 7,
+                "visual": overgrown["cells"][0]["visual"],
+                "role": "body",
+                "material": "hard",
+                "mutation_weight": 0.1,
+                "animation_anchor": False,
+                "organ": "core",
+                "stress": 0,
+                "damage": 0,
+                "locked": False,
+            }
+        ]
+        self.assertEqual(1.0, matrix_overlap(overgrown, target))
+        self.assertLess(structural_agreement(overgrown, target), 1.0)
+
+    def test_run_trained_repair_benchmark_compares_all_arms_on_heldout_grids(self):
+        report = run_trained_repair_benchmark(
+            training_count=10,
+            holdout_count=2,
+            cycles=2,
+            dropout_rate=0.2,
+            repair_steps=8,
+            epochs=30,
+            rng_seed=20260512,
+        )
+
+        self.assertEqual("ca_nca_trained_repair_stage0", report["lab_id"])
+        self.assertEqual(2, report["summary"]["holdout_target_count"])
+        self.assertEqual(4, report["summary"]["total_damage_events"])
+        self.assertFalse(report["summary"]["target_template_used_by_trained"])
+        arms = report["summary"]["arms"]
+        self.assertEqual(
+            {"no_repair", "role_prior", "trained", "assisted"},
+            set(arms.keys()),
+        )
+        # Training grids must not appear among held-out targets.
+        self.assertTrue(
+            set(report["trained_model"]["training_grid_ids"]).isdisjoint(
+                set(report["holdout_target_ids"])
+            )
+        )
+        self.assertGreater(
+            arms["trained"]["mean_final_overlap"],
+            arms["no_repair"]["mean_final_overlap"],
+        )
+        self.assertGreaterEqual(
+            arms["assisted"]["mean_final_overlap"],
+            arms["trained"]["mean_final_overlap"],
+        )
+        self.assertIn(
+            report["decision"]["status"],
+            {
+                "promote_less_assisted_repair",
+                "prototype_learned_repair_gap_narrowed",
+                "keep_assisted_baseline",
+            },
+        )
+
+    def test_write_trained_repair_artifacts_creates_report_and_samples(self):
+        report = run_trained_repair_benchmark(
+            training_count=10,
+            holdout_count=2,
+            cycles=2,
+            dropout_rate=0.2,
+            repair_steps=6,
+            epochs=20,
+            rng_seed=7,
+        )
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output_dir = Path(temp_dir)
+            write_trained_repair_artifacts(output_dir, report)
+
+            self.assertTrue(
+                (output_dir / "ca_nca_trained_repair_stage0.json").exists()
+            )
+            self.assertTrue((output_dir / "trained_repair_README.md").exists())
+            self.assertTrue((output_dir / "trained_repair_samples").is_dir())
+            loaded = json.loads(
+                (output_dir / "ca_nca_trained_repair_stage0.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            self.assertEqual("ca_nca_trained_repair_stage0", loaded["lab_id"])
+            self.assertEqual(
+                2 * 4,
+                len(list((output_dir / "trained_repair_samples").glob("*.json"))),
+            )
 
     def test_grow_from_seed_reaches_valid_target_like_grid(self):
         target = build_seed_grids()[0]

@@ -219,7 +219,7 @@
       ],
       "evidence": {
         "package_root_exists": true,
-        "files_scanned": 7,
+        "files_scanned": 12,
         "lab_import_files": [],
         "policy": "Future package runtime code must import mecha_engine modules, not labs/* research modules."
       }
@@ -233,7 +233,7 @@
       ],
       "evidence": {
         "package_root_exists": true,
-        "files_scanned": 7,
+        "files_scanned": 12,
         "sys_path_lab_files": [],
         "policy": "Future package tests must exercise the package import surface without sys.path adapters to lab directories."
       }

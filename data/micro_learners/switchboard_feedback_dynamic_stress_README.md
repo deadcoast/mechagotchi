@@ -6,7 +6,7 @@ Key results:
 
 - Scenario count: 3
 - Dynamic events: 6
-- Feedback better need-balance count: 0
-- Feedback worse need-balance count: 1
-- Mean need-balance delta: -0.002226
-- Decision: watch_reward_shaping
+- Feedback better need-balance count: 1
+- Feedback worse need-balance count: 0
+- Mean need-balance delta: 0.026947
+- Decision: prototype_stress_feedback

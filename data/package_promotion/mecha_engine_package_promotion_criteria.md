@@ -16,7 +16,7 @@ It does not promote code by itself.
 ## Candidate Status
 
 - `lifecycle_simulator` -> `ready_for_package_design` for `packages/mecha_engine/lifecycle`
-- `switchboard_feedback` -> `hold_research_only` for `packages/mecha_engine/learning`
+- `switchboard_feedback` -> `ready_for_package_design` for `packages/mecha_engine/learning`
 - `map_elites_archive` -> `ready_for_package_design` for `packages/mecha_engine/archive`
 - `provenance_ci` -> `ready_for_package_design` for `packages/mecha_engine/provenance`
 - `readability_gate` -> `blocked_missing_or_failed_research_evidence` for `packages/mecha_engine/evaluation`

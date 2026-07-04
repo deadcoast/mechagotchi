@@ -201,11 +201,30 @@ def build_candidate_registry() -> list[dict]:
                 },
             ],
             "verification": "python -B labs/cellular_automata/test_ca_nca_growth_repair.py",
-            "research_notes": "Assisted target-template baseline; not trained NCA.",
+            "research_notes": (
+                "Assisted target-template baseline; a gradient-trained "
+                "neighborhood repair model now exists and beats no-repair "
+                "substantially, but has not reached the assisted stability "
+                "bar (0.9)."
+            ),
             "research_blockers": [
-                # No artifact field can prove the method stopped being
-                # target-template assisted, so this blocker stays static.
-                {"blocker_id": "lab_only_target_template_assisted"}
+                # Derived since 2026-07-04: the trained-repair lab records a
+                # machine-checkable stability-bar verdict in its own artifact.
+                {
+                    "blocker_id": "lab_only_target_template_assisted",
+                    "cleared_when": {
+                        "artifact": (
+                            "data/cellular_automata/ca_nca_trained_repair_stage0.json"
+                        ),
+                        "metric_path": [
+                            "decision",
+                            "thresholds",
+                            "meets_assisted_stability_bar",
+                        ],
+                        "operator": "==",
+                        "value": True,
+                    },
+                }
             ],
         },
     ]
@@ -236,6 +255,7 @@ def evaluate_candidate(
     blocker_details = _evaluate_research_blockers(
         candidate.get("research_blockers", []),
         metrics,
+        root,
     )
     active_research_blockers = [
         detail["blocker_id"] for detail in blocker_details if detail["active"]
@@ -275,14 +295,18 @@ def evaluate_candidate(
 def _evaluate_research_blockers(
     blockers: list,
     metrics: dict | None,
+    root: Path,
 ) -> list[dict]:
     """Derive blocker activity from the metric artifact where possible.
 
     A blocker with a `cleared_when` check is derived: it stays active until
-    the referenced artifact field satisfies the check. A blocker without a
-    check (or declared as a bare string) has no corresponding artifact
-    evidence and is reported with `"static": true` so static and derived
-    blockers stay distinguishable.
+    the referenced artifact field satisfies the check. The check reads the
+    candidate's metric artifact by default; a check carrying an `artifact`
+    path reads that artifact instead (for evidence recorded outside the
+    candidate's primary metric report). A blocker without a check (or
+    declared as a bare string) has no corresponding artifact evidence and is
+    reported with `"static": true` so static and derived blockers stay
+    distinguishable.
     """
     details = []
     for blocker in blockers:
@@ -299,7 +323,13 @@ def _evaluate_research_blockers(
                 }
             )
             continue
-        evidence = _evaluate_threshold(metrics, cleared_when)
+        evidence_source = metrics
+        artifact_override = cleared_when.get("artifact")
+        if artifact_override is not None:
+            evidence_source = _load_json(root / artifact_override)
+        evidence = _evaluate_threshold(evidence_source, cleared_when)
+        if artifact_override is not None:
+            evidence["artifact"] = artifact_override
         details.append(
             {
                 "blocker_id": blocker["blocker_id"],

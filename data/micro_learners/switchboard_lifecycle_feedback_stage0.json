@@ -4,18 +4,18 @@
   "source_grid_id": "mg_seed_001",
   "slip_profile_id": "slip_lcd_seed",
   "source_mode": "contextual_reward_feedback_switchboard",
-  "source_note": "This lab explicitly compares a switchboard that keeps lifecycle reward updates with one that observes the same rewards but freezes its action-reward memory.",
+  "source_note": "This lab explicitly compares a switchboard that keeps lifecycle reward updates with one that observes the same rewards but freezes its action-reward memory. Both policies start from the same stale idle-favoring reward memory: the frozen policy locks into idle in the curious-mood band, while the feedback policy corrects the idle mean from observed lifecycle rewards and resumes active care.",
   "summary": {
     "ticks_requested": 48,
     "feedback_survival_ticks": 48,
     "frozen_survival_ticks": 48,
-    "feedback_need_balance": 0.767384,
-    "frozen_need_balance": 0.767384,
+    "feedback_need_balance": 0.790524,
+    "frozen_need_balance": 0.750884,
     "feedback_reward_update_count": 48,
     "frozen_reward_update_count": 0,
-    "feedback_recovery_events": 9,
-    "frozen_recovery_events": 9,
-    "need_balance_delta": 0.0,
+    "feedback_recovery_events": 13,
+    "frozen_recovery_events": 8,
+    "need_balance_delta": 0.03964,
     "survival_delta": 0
   },
   "episodes": {
@@ -27,167 +27,167 @@
       "survival_ticks": 48,
       "alive": true,
       "death_cause": null,
-      "need_balance": 0.767384,
-      "recovery_events": 9,
+      "need_balance": 0.790524,
+      "recovery_events": 13,
       "action_counts": {
-        "feed": 10,
-        "play": 29,
-        "sleep": 9,
-        "idle": 0,
+        "feed": 8,
+        "play": 18,
+        "sleep": 8,
+        "idle": 14,
         "mutate": 0
       },
       "reward_update_count": 48,
       "initial_action_reward_means": {
-        "feed": 0.42,
-        "play": 0.86,
-        "sleep": 0.4,
-        "idle": 0.38,
-        "mutate": 0.3
+        "feed": 0.5,
+        "play": 0.5,
+        "sleep": 0.5,
+        "idle": 0.95,
+        "mutate": 0.5
       },
       "final_action_reward_means": {
-        "feed": 0.813376,
-        "play": 0.74404,
-        "sleep": 0.834801,
-        "idle": 0.38,
-        "mutate": 0.3
+        "feed": 0.897044,
+        "play": 0.745205,
+        "sleep": 0.833347,
+        "idle": 0.779495,
+        "mutate": 0.5
       },
       "scenario_id": null,
       "events_applied": [],
       "history": [
         {
           "tick": 1,
-          "action": "play",
-          "decision_confidence": 0.695161,
-          "observed_reward": 0.7714,
-          "need_balance": 0.7214,
+          "action": "idle",
+          "decision_confidence": 0.554159,
+          "observed_reward": 0.88446,
+          "need_balance": 0.88446,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.83785,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.933615,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 2,
-          "action": "feed",
-          "decision_confidence": 0.733338,
-          "observed_reward": 0.860652,
-          "need_balance": 0.780652,
+          "action": "idle",
+          "decision_confidence": 0.626493,
+          "observed_reward": 0.866402,
+          "need_balance": 0.866402,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.83785,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.933615,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.640326,
-            "play": 0.83785,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.920172,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 3,
-          "action": "play",
-          "decision_confidence": 0.818126,
-          "observed_reward": 0.816465,
-          "need_balance": 0.766465,
+          "action": "idle",
+          "decision_confidence": 0.662213,
+          "observed_reward": 0.836425,
+          "need_balance": 0.836425,
           "reward_means_before": {
-            "feed": 0.640326,
-            "play": 0.83785,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.920172,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.640326,
-            "play": 0.833573,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.906214,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 4,
-          "action": "sleep",
-          "decision_confidence": 0.874762,
-          "observed_reward": 0.89923,
-          "need_balance": 0.83923,
+          "action": "idle",
+          "decision_confidence": 0.686168,
+          "observed_reward": 0.80633,
+          "need_balance": 0.80633,
           "reward_means_before": {
-            "feed": 0.640326,
-            "play": 0.833573,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.906214,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.640326,
-            "play": 0.833573,
-            "sleep": 0.649615,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.891945,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 5,
-          "action": "play",
-          "decision_confidence": 0.694112,
-          "observed_reward": 0.874766,
-          "need_balance": 0.824766,
+          "action": "idle",
+          "decision_confidence": 0.702596,
+          "observed_reward": 0.776116,
+          "need_balance": 0.776116,
           "reward_means_before": {
-            "feed": 0.640326,
-            "play": 0.833573,
-            "sleep": 0.649615,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.891945,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.640326,
-            "play": 0.840438,
-            "sleep": 0.649615,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.877467,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 6,
-          "action": "play",
-          "decision_confidence": 0.779985,
-          "observed_reward": 0.840554,
-          "need_balance": 0.790554,
+          "action": "idle",
+          "decision_confidence": 0.702563,
+          "observed_reward": 0.745784,
+          "need_balance": 0.745784,
           "reward_means_before": {
-            "feed": 0.640326,
-            "play": 0.840438,
-            "sleep": 0.649615,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.877467,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.640326,
-            "play": 0.840455,
-            "sleep": 0.649615,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.85194,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
@@ -195,114 +195,114 @@
         {
           "tick": 7,
           "action": "feed",
-          "decision_confidence": 0.75658,
-          "observed_reward": 0.923394,
-          "need_balance": 0.843394,
+          "decision_confidence": 0.595172,
+          "observed_reward": 0.884934,
+          "need_balance": 0.804934,
           "reward_means_before": {
-            "feed": 0.640326,
-            "play": 0.840455,
-            "sleep": 0.649615,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.85194,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.734682,
-            "play": 0.840455,
-            "sleep": 0.649615,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.692467,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.85194,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 8,
-          "action": "play",
-          "decision_confidence": 0.853977,
-          "observed_reward": 0.851195,
-          "need_balance": 0.801195,
+          "action": "sleep",
+          "decision_confidence": 0.734482,
+          "observed_reward": 0.937615,
+          "need_balance": 0.877615,
           "reward_means_before": {
-            "feed": 0.734682,
-            "play": 0.840455,
-            "sleep": 0.649615,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.692467,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.85194,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.734682,
-            "play": 0.841797,
-            "sleep": 0.649615,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.692467,
+            "play": 0.5,
+            "sleep": 0.718808,
+            "idle": 0.85194,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 9,
-          "action": "sleep",
-          "decision_confidence": 0.944832,
-          "observed_reward": 0.904532,
-          "need_balance": 0.844532,
+          "action": "idle",
+          "decision_confidence": 0.586631,
+          "observed_reward": 0.847728,
+          "need_balance": 0.847728,
           "reward_means_before": {
-            "feed": 0.734682,
-            "play": 0.841797,
-            "sleep": 0.649615,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.692467,
+            "play": 0.5,
+            "sleep": 0.718808,
+            "idle": 0.85194,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.734682,
-            "play": 0.841797,
-            "sleep": 0.734587,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.692467,
+            "play": 0.5,
+            "sleep": 0.718808,
+            "idle": 0.840406,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 10,
-          "action": "play",
-          "decision_confidence": 0.71991,
-          "observed_reward": 0.839728,
-          "need_balance": 0.789728,
+          "action": "idle",
+          "decision_confidence": 0.631781,
+          "observed_reward": 0.817592,
+          "need_balance": 0.817592,
           "reward_means_before": {
-            "feed": 0.734682,
-            "play": 0.841797,
-            "sleep": 0.734587,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.692467,
+            "play": 0.5,
+            "sleep": 0.718808,
+            "idle": 0.840406,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.734682,
-            "play": 0.834264,
-            "sleep": 0.734587,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.692467,
+            "play": 0.5,
+            "sleep": 0.718808,
+            "idle": 0.822605,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 11,
-          "action": "play",
-          "decision_confidence": 0.802177,
-          "observed_reward": 0.785072,
-          "need_balance": 0.735072,
+          "action": "idle",
+          "decision_confidence": 0.65538,
+          "observed_reward": 0.787338,
+          "need_balance": 0.787338,
           "reward_means_before": {
-            "feed": 0.734682,
-            "play": 0.834264,
-            "sleep": 0.734587,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.692467,
+            "play": 0.5,
+            "sleep": 0.718808,
+            "idle": 0.822605,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.734682,
-            "play": 0.824898,
-            "sleep": 0.734587,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.692467,
+            "play": 0.5,
+            "sleep": 0.718808,
+            "idle": 0.810464,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
@@ -310,183 +310,183 @@
         {
           "tick": 12,
           "action": "feed",
-          "decision_confidence": 0.784059,
-          "observed_reward": 0.861364,
-          "need_balance": 0.781364,
+          "decision_confidence": 0.663395,
+          "observed_reward": 0.926566,
+          "need_balance": 0.846566,
           "reward_means_before": {
-            "feed": 0.734682,
-            "play": 0.824898,
-            "sleep": 0.734587,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.692467,
+            "play": 0.5,
+            "sleep": 0.718808,
+            "idle": 0.810464,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.766352,
-            "play": 0.824898,
-            "sleep": 0.734587,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.7705,
+            "play": 0.5,
+            "sleep": 0.718808,
+            "idle": 0.810464,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 13,
-          "action": "play",
-          "decision_confidence": 0.87381,
-          "observed_reward": 0.77268,
-          "need_balance": 0.74268,
+          "action": "idle",
+          "decision_confidence": 0.504048,
+          "observed_reward": 0.816755,
+          "need_balance": 0.816755,
           "reward_means_before": {
-            "feed": 0.766352,
-            "play": 0.824898,
-            "sleep": 0.734587,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.7705,
+            "play": 0.5,
+            "sleep": 0.718808,
+            "idle": 0.810464,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.766352,
-            "play": 0.818983,
-            "sleep": 0.734587,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.7705,
+            "play": 0.5,
+            "sleep": 0.718808,
+            "idle": 0.804258,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 14,
-          "action": "sleep",
-          "decision_confidence": 0.971778,
-          "observed_reward": 0.82544,
-          "need_balance": 0.79544,
+          "action": "idle",
+          "decision_confidence": 0.586874,
+          "observed_reward": 0.786826,
+          "need_balance": 0.786826,
           "reward_means_before": {
-            "feed": 0.766352,
-            "play": 0.818983,
-            "sleep": 0.734587,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.7705,
+            "play": 0.5,
+            "sleep": 0.718808,
+            "idle": 0.804258,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.766352,
-            "play": 0.818983,
-            "sleep": 0.7573,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.7705,
+            "play": 0.5,
+            "sleep": 0.718808,
+            "idle": 0.798059,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 15,
-          "action": "play",
-          "decision_confidence": 0.724831,
-          "observed_reward": 0.7794,
-          "need_balance": 0.7594,
+          "action": "idle",
+          "decision_confidence": 0.633312,
+          "observed_reward": 0.756778,
+          "need_balance": 0.756778,
           "reward_means_before": {
-            "feed": 0.766352,
-            "play": 0.818983,
-            "sleep": 0.7573,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.7705,
+            "play": 0.5,
+            "sleep": 0.718808,
+            "idle": 0.798059,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.766352,
-            "play": 0.819983,
-            "sleep": 0.7573,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.7705,
+            "play": 0.5,
+            "sleep": 0.718808,
+            "idle": 0.791865,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 16,
-          "action": "play",
-          "decision_confidence": 0.806025,
-          "observed_reward": 0.72476,
-          "need_balance": 0.72476,
+          "action": "idle",
+          "decision_confidence": 0.659766,
+          "observed_reward": 0.726612,
+          "need_balance": 0.726612,
           "reward_means_before": {
-            "feed": 0.766352,
-            "play": 0.819983,
-            "sleep": 0.7573,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.7705,
+            "play": 0.5,
+            "sleep": 0.718808,
+            "idle": 0.791865,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.766352,
-            "play": 0.808519,
-            "sleep": 0.7573,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.7705,
+            "play": 0.5,
+            "sleep": 0.718808,
+            "idle": 0.785677,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 17,
-          "action": "feed",
-          "decision_confidence": 0.796071,
-          "observed_reward": 0.80712,
-          "need_balance": 0.77712,
+          "action": "idle",
+          "decision_confidence": 0.675257,
+          "observed_reward": 0.696328,
+          "need_balance": 0.696328,
           "reward_means_before": {
-            "feed": 0.766352,
-            "play": 0.808519,
-            "sleep": 0.7573,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.7705,
+            "play": 0.5,
+            "sleep": 0.718808,
+            "idle": 0.785677,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.774506,
-            "play": 0.808519,
-            "sleep": 0.7573,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.7705,
+            "play": 0.5,
+            "sleep": 0.718808,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 18,
-          "action": "play",
-          "decision_confidence": 0.872099,
-          "observed_reward": 0.74248,
-          "need_balance": 0.74248,
+          "action": "sleep",
+          "decision_confidence": 0.725896,
+          "observed_reward": 0.828625,
+          "need_balance": 0.768625,
           "reward_means_before": {
-            "feed": 0.774506,
-            "play": 0.808519,
-            "sleep": 0.7573,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.7705,
+            "play": 0.5,
+            "sleep": 0.718808,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.774506,
-            "play": 0.791984,
-            "sleep": 0.7573,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.7705,
+            "play": 0.5,
+            "sleep": 0.755413,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 19,
-          "action": "sleep",
-          "decision_confidence": 0.984206,
-          "observed_reward": 0.82524,
-          "need_balance": 0.79524,
+          "action": "feed",
+          "decision_confidence": 0.680938,
+          "observed_reward": 0.907694,
+          "need_balance": 0.827694,
           "reward_means_before": {
-            "feed": 0.774506,
-            "play": 0.791984,
-            "sleep": 0.7573,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.7705,
+            "play": 0.5,
+            "sleep": 0.755413,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.774506,
-            "play": 0.791984,
-            "sleep": 0.770888,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.804798,
+            "play": 0.5,
+            "sleep": 0.755413,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
@@ -494,22 +494,22 @@
         {
           "tick": 20,
           "action": "play",
-          "decision_confidence": 0.718361,
-          "observed_reward": 0.7792,
-          "need_balance": 0.7592,
+          "decision_confidence": 0.500082,
+          "observed_reward": 0.863324,
+          "need_balance": 0.813324,
           "reward_means_before": {
-            "feed": 0.774506,
-            "play": 0.791984,
-            "sleep": 0.770888,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.804798,
+            "play": 0.5,
+            "sleep": 0.755413,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.774506,
-            "play": 0.784314,
-            "sleep": 0.770888,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.804798,
+            "play": 0.681662,
+            "sleep": 0.755413,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
@@ -517,91 +517,91 @@
         {
           "tick": 21,
           "action": "play",
-          "decision_confidence": 0.797388,
-          "observed_reward": 0.72456,
-          "need_balance": 0.72456,
+          "decision_confidence": 0.647702,
+          "observed_reward": 0.848806,
+          "need_balance": 0.798806,
           "reward_means_before": {
-            "feed": 0.774506,
-            "play": 0.784314,
-            "sleep": 0.770888,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.804798,
+            "play": 0.681662,
+            "sleep": 0.755413,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.774506,
-            "play": 0.768485,
-            "sleep": 0.770888,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.804798,
+            "play": 0.737377,
+            "sleep": 0.755413,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 22,
-          "action": "feed",
-          "decision_confidence": 0.808118,
-          "observed_reward": 0.80692,
-          "need_balance": 0.77692,
+          "action": "play",
+          "decision_confidence": 0.719208,
+          "observed_reward": 0.83414,
+          "need_balance": 0.78414,
           "reward_means_before": {
-            "feed": 0.774506,
-            "play": 0.768485,
-            "sleep": 0.770888,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.804798,
+            "play": 0.737377,
+            "sleep": 0.755413,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.779908,
-            "play": 0.768485,
-            "sleep": 0.770888,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.804798,
+            "play": 0.761567,
+            "sleep": 0.755413,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 23,
-          "action": "play",
-          "decision_confidence": 0.86237,
-          "observed_reward": 0.74228,
-          "need_balance": 0.74228,
+          "action": "sleep",
+          "decision_confidence": 0.894591,
+          "observed_reward": 0.878935,
+          "need_balance": 0.818935,
           "reward_means_before": {
-            "feed": 0.779908,
-            "play": 0.768485,
-            "sleep": 0.770888,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.804798,
+            "play": 0.761567,
+            "sleep": 0.755413,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.779908,
-            "play": 0.756304,
-            "sleep": 0.770888,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.804798,
+            "play": 0.761567,
+            "sleep": 0.786294,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 24,
-          "action": "sleep",
-          "decision_confidence": 0.992745,
-          "observed_reward": 0.82504,
-          "need_balance": 0.79504,
+          "action": "feed",
+          "decision_confidence": 0.787728,
+          "observed_reward": 0.950998,
+          "need_balance": 0.870998,
           "reward_means_before": {
-            "feed": 0.779908,
-            "play": 0.756304,
-            "sleep": 0.770888,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.804798,
+            "play": 0.761567,
+            "sleep": 0.786294,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.779908,
-            "play": 0.756304,
-            "sleep": 0.779914,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.834038,
+            "play": 0.761567,
+            "sleep": 0.786294,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
@@ -609,22 +609,22 @@
         {
           "tick": 25,
           "action": "play",
-          "decision_confidence": 0.709721,
-          "observed_reward": 0.779,
-          "need_balance": 0.759,
+          "decision_confidence": 0.689601,
+          "observed_reward": 0.8941,
+          "need_balance": 0.8441,
           "reward_means_before": {
-            "feed": 0.779908,
-            "play": 0.756304,
-            "sleep": 0.779914,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.834038,
+            "play": 0.761567,
+            "sleep": 0.786294,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.779908,
-            "play": 0.755545,
-            "sleep": 0.779914,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.834038,
+            "play": 0.788074,
+            "sleep": 0.786294,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
@@ -632,91 +632,91 @@
         {
           "tick": 26,
           "action": "play",
-          "decision_confidence": 0.790475,
-          "observed_reward": 0.72436,
-          "need_balance": 0.72436,
+          "decision_confidence": 0.743975,
+          "observed_reward": 0.84775,
+          "need_balance": 0.79775,
           "reward_means_before": {
-            "feed": 0.779908,
-            "play": 0.755545,
-            "sleep": 0.779914,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.834038,
+            "play": 0.788074,
+            "sleep": 0.786294,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.779908,
-            "play": 0.749505,
-            "sleep": 0.779914,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.834038,
+            "play": 0.79802,
+            "sleep": 0.786294,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 27,
-          "action": "feed",
-          "decision_confidence": 0.814214,
-          "observed_reward": 0.80672,
-          "need_balance": 0.77672,
+          "action": "play",
+          "decision_confidence": 0.774085,
+          "observed_reward": 0.79772,
+          "need_balance": 0.74772,
           "reward_means_before": {
-            "feed": 0.779908,
-            "play": 0.749505,
-            "sleep": 0.779914,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.834038,
+            "play": 0.79802,
+            "sleep": 0.786294,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.783739,
-            "play": 0.749505,
-            "sleep": 0.779914,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.834038,
+            "play": 0.797977,
+            "sleep": 0.786294,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 28,
-          "action": "play",
-          "decision_confidence": 0.857905,
-          "observed_reward": 0.74208,
-          "need_balance": 0.74208,
+          "action": "sleep",
+          "decision_confidence": 0.923173,
+          "observed_reward": 0.83048,
+          "need_balance": 0.80048,
           "reward_means_before": {
-            "feed": 0.783739,
-            "play": 0.749505,
-            "sleep": 0.779914,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.834038,
+            "play": 0.797977,
+            "sleep": 0.786294,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.783739,
-            "play": 0.74484,
-            "sleep": 0.779914,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.834038,
+            "play": 0.797977,
+            "sleep": 0.795131,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 29,
-          "action": "sleep",
-          "decision_confidence": 0.994043,
-          "observed_reward": 0.82484,
-          "need_balance": 0.79484,
+          "action": "feed",
+          "decision_confidence": 0.804291,
+          "observed_reward": 0.89964,
+          "need_balance": 0.84964,
           "reward_means_before": {
-            "feed": 0.783739,
-            "play": 0.74484,
-            "sleep": 0.779914,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.834038,
+            "play": 0.797977,
+            "sleep": 0.795131,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.783739,
-            "play": 0.74484,
-            "sleep": 0.786332,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.844972,
+            "play": 0.797977,
+            "sleep": 0.795131,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
@@ -724,22 +724,22 @@
         {
           "tick": 30,
           "action": "play",
-          "decision_confidence": 0.707135,
-          "observed_reward": 0.7788,
-          "need_balance": 0.7588,
+          "decision_confidence": 0.706137,
+          "observed_reward": 0.821,
+          "need_balance": 0.801,
           "reward_means_before": {
-            "feed": 0.783739,
-            "play": 0.74484,
-            "sleep": 0.786332,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.844972,
+            "play": 0.797977,
+            "sleep": 0.795131,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.783739,
-            "play": 0.751595,
-            "sleep": 0.786332,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.844972,
+            "play": 0.800855,
+            "sleep": 0.795131,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
@@ -747,91 +747,91 @@
         {
           "tick": 31,
           "action": "play",
-          "decision_confidence": 0.789768,
-          "observed_reward": 0.72416,
-          "need_balance": 0.72416,
+          "decision_confidence": 0.751351,
+          "observed_reward": 0.77236,
+          "need_balance": 0.75236,
           "reward_means_before": {
-            "feed": 0.783739,
-            "play": 0.751595,
-            "sleep": 0.786332,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.844972,
+            "play": 0.800855,
+            "sleep": 0.795131,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.783739,
-            "play": 0.749305,
-            "sleep": 0.786332,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.844972,
+            "play": 0.8349,
+            "sleep": 0.795131,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 32,
-          "action": "feed",
-          "decision_confidence": 0.815222,
-          "observed_reward": 0.80652,
-          "need_balance": 0.77652,
+          "action": "play",
+          "decision_confidence": 0.784308,
+          "observed_reward": 0.73532,
+          "need_balance": 0.71532,
           "reward_means_before": {
-            "feed": 0.783739,
-            "play": 0.749305,
-            "sleep": 0.786332,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.844972,
+            "play": 0.8349,
+            "sleep": 0.795131,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.786586,
-            "play": 0.749305,
-            "sleep": 0.786332,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.844972,
+            "play": 0.8189,
+            "sleep": 0.795131,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 33,
-          "action": "play",
-          "decision_confidence": 0.858135,
-          "observed_reward": 0.74188,
-          "need_balance": 0.74188,
+          "action": "sleep",
+          "decision_confidence": 0.925663,
+          "observed_reward": 0.79808,
+          "need_balance": 0.76808,
           "reward_means_before": {
-            "feed": 0.786586,
-            "play": 0.749305,
-            "sleep": 0.786332,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.844972,
+            "play": 0.8189,
+            "sleep": 0.795131,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.786586,
-            "play": 0.74464,
-            "sleep": 0.786332,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.844972,
+            "play": 0.8189,
+            "sleep": 0.795623,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 34,
-          "action": "sleep",
-          "decision_confidence": 0.994936,
-          "observed_reward": 0.82464,
-          "need_balance": 0.79464,
+          "action": "feed",
+          "decision_confidence": 0.807304,
+          "observed_reward": 0.86904,
+          "need_balance": 0.81904,
           "reward_means_before": {
-            "feed": 0.786586,
-            "play": 0.74464,
-            "sleep": 0.786332,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.844972,
+            "play": 0.8189,
+            "sleep": 0.795623,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.786586,
-            "play": 0.74464,
-            "sleep": 0.79112,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.84841,
+            "play": 0.8189,
+            "sleep": 0.795623,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
@@ -839,22 +839,22 @@
         {
           "tick": 35,
           "action": "play",
-          "decision_confidence": 0.707365,
-          "observed_reward": 0.7786,
-          "need_balance": 0.7586,
+          "decision_confidence": 0.711648,
+          "observed_reward": 0.7844,
+          "need_balance": 0.7844,
           "reward_means_before": {
-            "feed": 0.786586,
-            "play": 0.74464,
-            "sleep": 0.79112,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.84841,
+            "play": 0.8189,
+            "sleep": 0.795623,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.786586,
-            "play": 0.751395,
-            "sleep": 0.79112,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.84841,
+            "play": 0.810849,
+            "sleep": 0.795623,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
@@ -862,91 +862,91 @@
         {
           "tick": 36,
           "action": "play",
-          "decision_confidence": 0.789998,
-          "observed_reward": 0.72396,
-          "need_balance": 0.72396,
+          "decision_confidence": 0.754129,
+          "observed_reward": 0.74976,
+          "need_balance": 0.74976,
           "reward_means_before": {
-            "feed": 0.786586,
-            "play": 0.751395,
-            "sleep": 0.79112,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.84841,
+            "play": 0.810849,
+            "sleep": 0.795623,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.786586,
-            "play": 0.749105,
-            "sleep": 0.79112,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.84841,
+            "play": 0.800301,
+            "sleep": 0.795623,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 37,
-          "action": "feed",
-          "decision_confidence": 0.815984,
-          "observed_reward": 0.80632,
-          "need_balance": 0.77632,
+          "action": "play",
+          "decision_confidence": 0.775938,
+          "observed_reward": 0.71512,
+          "need_balance": 0.71512,
           "reward_means_before": {
-            "feed": 0.786586,
-            "play": 0.749105,
-            "sleep": 0.79112,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.84841,
+            "play": 0.800301,
+            "sleep": 0.795623,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.834876,
-            "play": 0.749105,
-            "sleep": 0.79112,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.84841,
+            "play": 0.777929,
+            "sleep": 0.795623,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 38,
-          "action": "play",
-          "decision_confidence": 0.858365,
-          "observed_reward": 0.74168,
-          "need_balance": 0.74168,
+          "action": "sleep",
+          "decision_confidence": 0.926066,
+          "observed_reward": 0.79788,
+          "need_balance": 0.76788,
           "reward_means_before": {
-            "feed": 0.834876,
-            "play": 0.749105,
-            "sleep": 0.79112,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.84841,
+            "play": 0.777929,
+            "sleep": 0.795623,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.834876,
-            "play": 0.74444,
-            "sleep": 0.79112,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.84841,
+            "play": 0.777929,
+            "sleep": 0.795945,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 39,
-          "action": "sleep",
-          "decision_confidence": 0.984061,
-          "observed_reward": 0.82444,
-          "need_balance": 0.79444,
+          "action": "feed",
+          "decision_confidence": 0.808444,
+          "observed_reward": 0.86884,
+          "need_balance": 0.81884,
           "reward_means_before": {
-            "feed": 0.834876,
-            "play": 0.74444,
-            "sleep": 0.79112,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.84841,
+            "play": 0.777929,
+            "sleep": 0.795945,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.834876,
-            "play": 0.74444,
-            "sleep": 0.844175,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.850964,
+            "play": 0.777929,
+            "sleep": 0.795945,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
@@ -954,22 +954,22 @@
         {
           "tick": 40,
           "action": "play",
-          "decision_confidence": 0.707595,
-          "observed_reward": 0.7784,
-          "need_balance": 0.7584,
+          "decision_confidence": 0.701685,
+          "observed_reward": 0.7842,
+          "need_balance": 0.7842,
           "reward_means_before": {
-            "feed": 0.834876,
-            "play": 0.74444,
-            "sleep": 0.844175,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.850964,
+            "play": 0.777929,
+            "sleep": 0.795945,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.834876,
-            "play": 0.751195,
-            "sleep": 0.844175,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.850964,
+            "play": 0.769985,
+            "sleep": 0.795945,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
@@ -977,91 +977,91 @@
         {
           "tick": 41,
           "action": "play",
-          "decision_confidence": 0.790228,
-          "observed_reward": 0.72376,
-          "need_balance": 0.72376,
+          "decision_confidence": 0.744193,
+          "observed_reward": 0.74956,
+          "need_balance": 0.74956,
           "reward_means_before": {
-            "feed": 0.834876,
-            "play": 0.751195,
-            "sleep": 0.844175,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.850964,
+            "play": 0.769985,
+            "sleep": 0.795945,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.834876,
-            "play": 0.748905,
-            "sleep": 0.844175,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.850964,
+            "play": 0.763965,
+            "sleep": 0.795945,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 42,
-          "action": "feed",
-          "decision_confidence": 0.828106,
-          "observed_reward": 0.80612,
-          "need_balance": 0.77612,
+          "action": "play",
+          "decision_confidence": 0.767134,
+          "observed_reward": 0.71492,
+          "need_balance": 0.71492,
           "reward_means_before": {
-            "feed": 0.834876,
-            "play": 0.748905,
-            "sleep": 0.844175,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.850964,
+            "play": 0.763965,
+            "sleep": 0.795945,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.82806,
-            "play": 0.748905,
-            "sleep": 0.844175,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.850964,
+            "play": 0.750705,
+            "sleep": 0.795945,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 43,
-          "action": "play",
-          "decision_confidence": 0.857383,
-          "observed_reward": 0.74148,
-          "need_balance": 0.74148,
+          "action": "sleep",
+          "decision_confidence": 0.926426,
+          "observed_reward": 0.79768,
+          "need_balance": 0.76768,
           "reward_means_before": {
-            "feed": 0.82806,
-            "play": 0.748905,
-            "sleep": 0.844175,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.850964,
+            "play": 0.750705,
+            "sleep": 0.795945,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.82806,
-            "play": 0.74424,
-            "sleep": 0.844175,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.850964,
+            "play": 0.750705,
+            "sleep": 0.796162,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 44,
-          "action": "sleep",
-          "decision_confidence": 0.999029,
-          "observed_reward": 0.82424,
-          "need_balance": 0.79424,
+          "action": "feed",
+          "decision_confidence": 0.809362,
+          "observed_reward": 0.86864,
+          "need_balance": 0.81864,
           "reward_means_before": {
-            "feed": 0.82806,
-            "play": 0.74424,
-            "sleep": 0.844175,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.850964,
+            "play": 0.750705,
+            "sleep": 0.796162,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.82806,
-            "play": 0.74424,
-            "sleep": 0.834801,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.897044,
+            "play": 0.750705,
+            "sleep": 0.796162,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
@@ -1069,22 +1069,22 @@
         {
           "tick": 45,
           "action": "play",
-          "decision_confidence": 0.707825,
-          "observed_reward": 0.7782,
-          "need_balance": 0.7582,
+          "decision_confidence": 0.695159,
+          "observed_reward": 0.784,
+          "need_balance": 0.784,
           "reward_means_before": {
-            "feed": 0.82806,
-            "play": 0.74424,
-            "sleep": 0.834801,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.897044,
+            "play": 0.750705,
+            "sleep": 0.796162,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.82806,
-            "play": 0.750995,
-            "sleep": 0.834801,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.897044,
+            "play": 0.75216,
+            "sleep": 0.796162,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
@@ -1092,68 +1092,68 @@
         {
           "tick": 46,
           "action": "play",
-          "decision_confidence": 0.790458,
-          "observed_reward": 0.72356,
-          "need_balance": 0.72356,
+          "decision_confidence": 0.740017,
+          "observed_reward": 0.74936,
+          "need_balance": 0.74936,
           "reward_means_before": {
-            "feed": 0.82806,
-            "play": 0.750995,
-            "sleep": 0.834801,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.897044,
+            "play": 0.75216,
+            "sleep": 0.796162,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.82806,
-            "play": 0.748705,
-            "sleep": 0.834801,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.897044,
+            "play": 0.753915,
+            "sleep": 0.796162,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 47,
-          "action": "feed",
-          "decision_confidence": 0.826452,
-          "observed_reward": 0.80592,
-          "need_balance": 0.77592,
+          "action": "play",
+          "decision_confidence": 0.764902,
+          "observed_reward": 0.71472,
+          "need_balance": 0.71472,
           "reward_means_before": {
-            "feed": 0.82806,
-            "play": 0.748705,
-            "sleep": 0.834801,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.897044,
+            "play": 0.753915,
+            "sleep": 0.796162,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.813376,
-            "play": 0.748705,
-            "sleep": 0.834801,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.897044,
+            "play": 0.745205,
+            "sleep": 0.796162,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 48,
-          "action": "play",
-          "decision_confidence": 0.858825,
-          "observed_reward": 0.74128,
-          "need_balance": 0.74128,
+          "action": "sleep",
+          "decision_confidence": 0.92676,
+          "observed_reward": 0.79748,
+          "need_balance": 0.76748,
           "reward_means_before": {
-            "feed": 0.813376,
-            "play": 0.748705,
-            "sleep": 0.834801,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.897044,
+            "play": 0.745205,
+            "sleep": 0.796162,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.813376,
-            "play": 0.74404,
-            "sleep": 0.834801,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.897044,
+            "play": 0.745205,
+            "sleep": 0.833347,
+            "idle": 0.779495,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
@@ -1168,167 +1168,167 @@
       "survival_ticks": 48,
       "alive": true,
       "death_cause": null,
-      "need_balance": 0.767384,
-      "recovery_events": 9,
+      "need_balance": 0.750884,
+      "recovery_events": 8,
       "action_counts": {
-        "feed": 10,
-        "play": 29,
-        "sleep": 9,
-        "idle": 0,
+        "feed": 8,
+        "play": 0,
+        "sleep": 5,
+        "idle": 35,
         "mutate": 0
       },
       "reward_update_count": 0,
       "initial_action_reward_means": {
-        "feed": 0.42,
-        "play": 0.86,
-        "sleep": 0.4,
-        "idle": 0.38,
-        "mutate": 0.3
+        "feed": 0.5,
+        "play": 0.5,
+        "sleep": 0.5,
+        "idle": 0.95,
+        "mutate": 0.5
       },
       "final_action_reward_means": {
-        "feed": 0.42,
-        "play": 0.86,
-        "sleep": 0.4,
-        "idle": 0.38,
-        "mutate": 0.3
+        "feed": 0.5,
+        "play": 0.5,
+        "sleep": 0.5,
+        "idle": 0.95,
+        "mutate": 0.5
       },
       "scenario_id": null,
       "events_applied": [],
       "history": [
         {
           "tick": 1,
-          "action": "play",
-          "decision_confidence": 0.695161,
-          "observed_reward": 0.7714,
-          "need_balance": 0.7214,
+          "action": "idle",
+          "decision_confidence": 0.554159,
+          "observed_reward": 0.88446,
+          "need_balance": 0.88446,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 2,
-          "action": "feed",
-          "decision_confidence": 0.739908,
-          "observed_reward": 0.860652,
-          "need_balance": 0.780652,
+          "action": "idle",
+          "decision_confidence": 0.61852,
+          "observed_reward": 0.866402,
+          "need_balance": 0.866402,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 3,
-          "action": "play",
-          "decision_confidence": 0.79911,
-          "observed_reward": 0.816465,
-          "need_balance": 0.766465,
+          "action": "idle",
+          "decision_confidence": 0.646425,
+          "observed_reward": 0.836425,
+          "need_balance": 0.836425,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 4,
-          "action": "sleep",
-          "decision_confidence": 0.873262,
-          "observed_reward": 0.89923,
-          "need_balance": 0.83923,
+          "action": "idle",
+          "decision_confidence": 0.663364,
+          "observed_reward": 0.80633,
+          "need_balance": 0.80633,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 5,
-          "action": "play",
-          "decision_confidence": 0.664719,
-          "observed_reward": 0.874766,
-          "need_balance": 0.824766,
+          "action": "idle",
+          "decision_confidence": 0.68336,
+          "observed_reward": 0.776116,
+          "need_balance": 0.776116,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 6,
-          "action": "play",
-          "decision_confidence": 0.748875,
-          "observed_reward": 0.840554,
-          "need_balance": 0.790554,
+          "action": "idle",
+          "decision_confidence": 0.686946,
+          "observed_reward": 0.745784,
+          "need_balance": 0.745784,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
@@ -1336,114 +1336,114 @@
         {
           "tick": 7,
           "action": "feed",
-          "decision_confidence": 0.729613,
-          "observed_reward": 0.923394,
-          "need_balance": 0.843394,
+          "decision_confidence": 0.604407,
+          "observed_reward": 0.884934,
+          "need_balance": 0.804934,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 8,
-          "action": "play",
-          "decision_confidence": 0.822863,
-          "observed_reward": 0.851195,
-          "need_balance": 0.801195,
+          "action": "sleep",
+          "decision_confidence": 0.743717,
+          "observed_reward": 0.937615,
+          "need_balance": 0.877615,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 9,
-          "action": "sleep",
-          "decision_confidence": 0.89701,
-          "observed_reward": 0.904532,
-          "need_balance": 0.844532,
+          "action": "idle",
+          "decision_confidence": 0.577396,
+          "observed_reward": 0.847728,
+          "need_balance": 0.847728,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 10,
-          "action": "play",
-          "decision_confidence": 0.688461,
-          "observed_reward": 0.839728,
-          "need_balance": 0.789728,
+          "action": "idle",
+          "decision_confidence": 0.62543,
+          "observed_reward": 0.817592,
+          "need_balance": 0.817592,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 11,
-          "action": "play",
-          "decision_confidence": 0.772611,
-          "observed_reward": 0.785072,
-          "need_balance": 0.735072,
+          "action": "idle",
+          "decision_confidence": 0.653479,
+          "observed_reward": 0.787338,
+          "need_balance": 0.787338,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
@@ -1451,850 +1451,850 @@
         {
           "tick": 12,
           "action": "feed",
-          "decision_confidence": 0.729613,
-          "observed_reward": 0.861364,
-          "need_balance": 0.781364,
+          "decision_confidence": 0.614144,
+          "observed_reward": 0.926566,
+          "need_balance": 0.846566,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 13,
-          "action": "play",
-          "decision_confidence": 0.846586,
-          "observed_reward": 0.77268,
-          "need_balance": 0.74268,
+          "action": "idle",
+          "decision_confidence": 0.505182,
+          "observed_reward": 0.816755,
+          "need_balance": 0.816755,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 14,
-          "action": "sleep",
-          "decision_confidence": 0.912377,
-          "observed_reward": 0.82544,
-          "need_balance": 0.79544,
+          "action": "idle",
+          "decision_confidence": 0.589559,
+          "observed_reward": 0.786826,
+          "need_balance": 0.786826,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 15,
-          "action": "play",
-          "decision_confidence": 0.699085,
-          "observed_reward": 0.7794,
-          "need_balance": 0.7594,
+          "action": "idle",
+          "decision_confidence": 0.637547,
+          "observed_reward": 0.756778,
+          "need_balance": 0.756778,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 16,
-          "action": "play",
-          "decision_confidence": 0.780029,
-          "observed_reward": 0.72476,
-          "need_balance": 0.72476,
+          "action": "idle",
+          "decision_confidence": 0.66555,
+          "observed_reward": 0.726612,
+          "need_balance": 0.726612,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 17,
-          "action": "feed",
-          "decision_confidence": 0.729613,
-          "observed_reward": 0.80712,
-          "need_balance": 0.77712,
+          "action": "idle",
+          "decision_confidence": 0.682588,
+          "observed_reward": 0.696328,
+          "need_balance": 0.696328,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 18,
-          "action": "play",
-          "decision_confidence": 0.848969,
-          "observed_reward": 0.74248,
-          "need_balance": 0.74248,
+          "action": "sleep",
+          "decision_confidence": 0.662318,
+          "observed_reward": 0.828625,
+          "need_balance": 0.768625,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 19,
-          "action": "sleep",
-          "decision_confidence": 0.912377,
-          "observed_reward": 0.82524,
-          "need_balance": 0.79524,
+          "action": "feed",
+          "decision_confidence": 0.604437,
+          "observed_reward": 0.907694,
+          "need_balance": 0.827694,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 20,
-          "action": "play",
-          "decision_confidence": 0.699365,
-          "observed_reward": 0.7792,
-          "need_balance": 0.7592,
+          "action": "idle",
+          "decision_confidence": 0.508794,
+          "observed_reward": 0.797724,
+          "need_balance": 0.797724,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 21,
-          "action": "play",
-          "decision_confidence": 0.780309,
-          "observed_reward": 0.72456,
-          "need_balance": 0.72456,
+          "action": "idle",
+          "decision_confidence": 0.593253,
+          "observed_reward": 0.767636,
+          "need_balance": 0.767636,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 22,
-          "action": "feed",
-          "decision_confidence": 0.729613,
-          "observed_reward": 0.80692,
-          "need_balance": 0.77692,
+          "action": "idle",
+          "decision_confidence": 0.641325,
+          "observed_reward": 0.73743,
+          "need_balance": 0.73743,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 23,
-          "action": "play",
-          "decision_confidence": 0.849249,
-          "observed_reward": 0.74228,
-          "need_balance": 0.74228,
+          "action": "idle",
+          "decision_confidence": 0.66941,
+          "observed_reward": 0.707105,
+          "need_balance": 0.707105,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 24,
-          "action": "sleep",
-          "decision_confidence": 0.912377,
-          "observed_reward": 0.82504,
-          "need_balance": 0.79504,
+          "action": "feed",
+          "decision_confidence": 0.598176,
+          "observed_reward": 0.846262,
+          "need_balance": 0.766262,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 25,
-          "action": "play",
-          "decision_confidence": 0.699645,
-          "observed_reward": 0.779,
-          "need_balance": 0.759,
+          "action": "idle",
+          "decision_confidence": 0.521187,
+          "observed_reward": 0.73638,
+          "need_balance": 0.73638,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 26,
-          "action": "play",
-          "decision_confidence": 0.780589,
-          "observed_reward": 0.72436,
-          "need_balance": 0.72436,
+          "action": "idle",
+          "decision_confidence": 0.6056,
+          "observed_reward": 0.70638,
+          "need_balance": 0.70638,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 27,
-          "action": "feed",
-          "decision_confidence": 0.729613,
-          "observed_reward": 0.80672,
-          "need_balance": 0.77672,
+          "action": "idle",
+          "decision_confidence": 0.653626,
+          "observed_reward": 0.676262,
+          "need_balance": 0.676262,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 28,
-          "action": "play",
-          "decision_confidence": 0.849529,
-          "observed_reward": 0.74208,
-          "need_balance": 0.74208,
+          "action": "sleep",
+          "decision_confidence": 0.664618,
+          "observed_reward": 0.808725,
+          "need_balance": 0.748725,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 29,
-          "action": "sleep",
-          "decision_confidence": 0.912377,
-          "observed_reward": 0.82484,
-          "need_balance": 0.79484,
+          "action": "feed",
+          "decision_confidence": 0.60177,
+          "observed_reward": 0.88796,
+          "need_balance": 0.80796,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 30,
-          "action": "play",
-          "decision_confidence": 0.699925,
-          "observed_reward": 0.7788,
-          "need_balance": 0.7588,
+          "action": "idle",
+          "decision_confidence": 0.517552,
+          "observed_reward": 0.778156,
+          "need_balance": 0.778156,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 31,
-          "action": "play",
-          "decision_confidence": 0.780869,
-          "observed_reward": 0.72416,
-          "need_balance": 0.72416,
+          "action": "idle",
+          "decision_confidence": 0.601925,
+          "observed_reward": 0.748234,
+          "need_balance": 0.748234,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 32,
-          "action": "feed",
-          "decision_confidence": 0.729613,
-          "observed_reward": 0.80652,
-          "need_balance": 0.77652,
+          "action": "idle",
+          "decision_confidence": 0.64991,
+          "observed_reward": 0.718194,
+          "need_balance": 0.718194,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 33,
-          "action": "play",
-          "decision_confidence": 0.849809,
-          "observed_reward": 0.74188,
-          "need_balance": 0.74188,
+          "action": "idle",
+          "decision_confidence": 0.677909,
+          "observed_reward": 0.688035,
+          "need_balance": 0.688035,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 34,
-          "action": "sleep",
-          "decision_confidence": 0.912377,
-          "observed_reward": 0.82464,
-          "need_balance": 0.79464,
+          "action": "idle",
+          "decision_confidence": 0.694942,
+          "observed_reward": 0.657758,
+          "need_balance": 0.657758,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 35,
-          "action": "play",
-          "decision_confidence": 0.700205,
-          "observed_reward": 0.7786,
-          "need_balance": 0.7586,
+          "action": "feed",
+          "decision_confidence": 0.579967,
+          "observed_reward": 0.796962,
+          "need_balance": 0.716962,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 36,
-          "action": "play",
-          "decision_confidence": 0.781149,
-          "observed_reward": 0.72396,
-          "need_balance": 0.72396,
+          "action": "idle",
+          "decision_confidence": 0.533194,
+          "observed_reward": 0.687128,
+          "need_balance": 0.687128,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 37,
-          "action": "feed",
-          "decision_confidence": 0.729613,
-          "observed_reward": 0.80632,
-          "need_balance": 0.77632,
+          "action": "sleep",
+          "decision_confidence": 0.685542,
+          "observed_reward": 0.819876,
+          "need_balance": 0.759876,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 38,
-          "action": "play",
-          "decision_confidence": 0.850089,
-          "observed_reward": 0.74168,
-          "need_balance": 0.74168,
+          "action": "idle",
+          "decision_confidence": 0.649779,
+          "observed_reward": 0.729795,
+          "need_balance": 0.729795,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 39,
-          "action": "sleep",
-          "decision_confidence": 0.912377,
-          "observed_reward": 0.82444,
-          "need_balance": 0.79444,
+          "action": "idle",
+          "decision_confidence": 0.677799,
+          "observed_reward": 0.699596,
+          "need_balance": 0.699596,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 40,
-          "action": "play",
-          "decision_confidence": 0.700485,
-          "observed_reward": 0.7784,
-          "need_balance": 0.7584,
+          "action": "idle",
+          "decision_confidence": 0.694854,
+          "observed_reward": 0.669278,
+          "need_balance": 0.669278,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 41,
-          "action": "play",
-          "decision_confidence": 0.781429,
-          "observed_reward": 0.72376,
-          "need_balance": 0.72376,
+          "action": "feed",
+          "decision_confidence": 0.580035,
+          "observed_reward": 0.808442,
+          "need_balance": 0.728442,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 42,
-          "action": "feed",
-          "decision_confidence": 0.729613,
-          "observed_reward": 0.80612,
-          "need_balance": 0.77612,
+          "action": "idle",
+          "decision_confidence": 0.533148,
+          "observed_reward": 0.698568,
+          "need_balance": 0.698568,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 43,
-          "action": "play",
-          "decision_confidence": 0.850369,
-          "observed_reward": 0.74148,
-          "need_balance": 0.74148,
+          "action": "idle",
+          "decision_confidence": 0.617557,
+          "observed_reward": 0.668575,
+          "need_balance": 0.668575,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 44,
-          "action": "sleep",
-          "decision_confidence": 0.912377,
-          "observed_reward": 0.82424,
-          "need_balance": 0.79424,
+          "action": "idle",
+          "decision_confidence": 0.665578,
+          "observed_reward": 0.638464,
+          "need_balance": 0.638464,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 45,
-          "action": "play",
-          "decision_confidence": 0.700765,
-          "observed_reward": 0.7782,
-          "need_balance": 0.7582,
+          "action": "idle",
+          "decision_confidence": 0.693615,
+          "observed_reward": 0.608234,
+          "need_balance": 0.608234,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 46,
-          "action": "play",
-          "decision_confidence": 0.781709,
-          "observed_reward": 0.72356,
-          "need_balance": 0.72356,
+          "action": "feed",
+          "decision_confidence": 0.574021,
+          "observed_reward": 0.747486,
+          "need_balance": 0.667486,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 47,
-          "action": "feed",
-          "decision_confidence": 0.729613,
-          "observed_reward": 0.80592,
-          "need_balance": 0.77592,
+          "action": "sleep",
+          "decision_confidence": 0.707208,
+          "observed_reward": 0.8004,
+          "need_balance": 0.7404,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
         },
         {
           "tick": 48,
-          "action": "play",
-          "decision_confidence": 0.850649,
-          "observed_reward": 0.74128,
-          "need_balance": 0.74128,
+          "action": "idle",
+          "decision_confidence": 0.613852,
+          "observed_reward": 0.710485,
+          "need_balance": 0.710485,
           "reward_means_before": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "reward_means_after": {
-            "feed": 0.42,
-            "play": 0.86,
-            "sleep": 0.4,
-            "idle": 0.38,
-            "mutate": 0.3
+            "feed": 0.5,
+            "play": 0.5,
+            "sleep": 0.5,
+            "idle": 0.95,
+            "mutate": 0.5
           },
           "alive": true,
           "death_cause": null
@@ -2305,11 +2305,13 @@
   "decision": {
     "status": "prototype",
     "adoption": "lab_only_feedback_loop",
-    "reason": "Lifecycle rewards can update switchboard action preferences without reducing survival or need balance in this Stage 0 scenario."
+    "reason": "Lifecycle reward feedback corrects a stale idle-favoring action memory and strictly improves need balance over the frozen baseline without reducing survival in this Stage 0 scenario."
   },
   "limitations": [
     "The reward function is still synthetic and hand-authored.",
-    "The scenario starts from deliberately miscalibrated action rewards.",
+    "The scenario starts from a deliberately stale idle-favoring reward memory; the advantage is specific to miscalibrations the bandit thread can act on.",
+    "The bandit thread's utility contribution is capped at +/-0.125 * confidence, so mood-heuristic-favored miscalibrations (for example stale play rewards) remain undetectable in this architecture.",
+    "The lifecycle reward is dominated by the global need balance, which limits how sharply the learner can differentiate action quality.",
     "No persisted online learner state is promoted into packages yet.",
     "No human non-annoyance or attachment rating is included."
   ],

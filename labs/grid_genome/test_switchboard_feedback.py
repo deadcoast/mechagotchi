@@ -60,6 +60,33 @@ class SwitchboardFeedbackTests(unittest.TestCase):
         )
         self.assertIn(report["decision"]["status"], {"prototype", "watch"})
 
+    def test_feedback_corrects_stale_idle_memory_and_beats_frozen_baseline(self):
+        report = run_switchboard_feedback_lab(ticks=48, rng_seed=20260512)
+
+        summary = report["summary"]
+        self.assertGreater(summary["need_balance_delta"], 0)
+        self.assertGreaterEqual(summary["survival_delta"], 0)
+        feedback = report["episodes"]["feedback_switchboard"]
+        frozen = report["episodes"]["frozen_switchboard"]
+        # The frozen policy keeps acting on the stale idle-favoring reward
+        # memory; the feedback policy corrects the idle mean from observed
+        # lifecycle rewards and re-engages with active care actions.
+        self.assertLess(
+            feedback["action_counts"]["idle"],
+            frozen["action_counts"]["idle"],
+        )
+        self.assertGreater(
+            feedback["action_counts"]["play"],
+            frozen["action_counts"]["play"],
+        )
+        self.assertEqual("prototype", report["decision"]["status"])
+
+    def test_feedback_delta_is_deterministic_across_repeat_runs(self):
+        first = run_switchboard_feedback_lab(ticks=48, rng_seed=20260512)
+        second = run_switchboard_feedback_lab(ticks=48, rng_seed=20260512)
+
+        self.assertEqual(first["summary"], second["summary"])
+
     def test_write_switchboard_feedback_artifacts_creates_report(self):
         report = run_switchboard_feedback_lab(ticks=12, rng_seed=7)
         with tempfile.TemporaryDirectory() as temp_dir:

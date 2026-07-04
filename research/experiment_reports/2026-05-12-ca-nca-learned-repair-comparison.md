@@ -139,3 +139,15 @@ learned repair into the engine package yet. The next repair research step should
 use either a stronger learned local rule or a true trained NCA damage curriculum
 and compare against this artifact.
 
+## Update (2026-07-04)
+
+The follow-up step exists: a gradient-trained per-cell softmax repair rule was
+trained from (damaged neighborhood -> target token) pairs and benchmarked on
+held-out grids against no-repair, this role-prior baseline, and the assisted
+attractor. See
+`research/experiment_reports/2026-07-04-ca-nca-trained-neighborhood-repair.md`
+and `data/cellular_automata/ca_nca_trained_repair_stage0.json`. The trained
+rule is the best learned arm on two-sided structural agreement (0.6319 vs
+0.5320 for this role prior) but still does not reach the assisted stability
+bar, so the assisted baseline remains the benchmark upper bound.
+

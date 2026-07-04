@@ -7,10 +7,10 @@
     "criteria_count": 7,
     "candidate_count": 6,
     "research_ready_count": 5,
-    "package_design_ready_count": 3,
+    "package_design_ready_count": 4,
     "promotion_ready_count": 0,
     "blocked_count": 1,
-    "hold_research_only_count": 2
+    "hold_research_only_count": 1
   },
   "criteria": [
     {
@@ -90,7 +90,7 @@
     {
       "component_id": "switchboard_feedback",
       "target_package": "packages/mecha_engine/learning",
-      "gate_status": "hold_research_only",
+      "gate_status": "ready_for_package_design",
       "research_evidence_complete": true,
       "missing_evidence": [],
       "thresholds_met": true,
@@ -118,14 +118,13 @@
       ],
       "verification": "python -B labs/grid_genome/test_switchboard_feedback.py",
       "promotion_blockers": [
-        "target_package_absent",
-        "reward_shaping_not_superior_to_frozen_baseline"
+        "target_package_absent"
       ],
       "research_blocker_details": [
         {
           "blocker_id": "reward_shaping_not_superior_to_frozen_baseline",
           "static": false,
-          "active": true,
+          "active": false,
           "evidence": {
             "metric_path": [
               "summary",
@@ -133,8 +132,8 @@
             ],
             "operator": ">",
             "expected": 0,
-            "actual": 0.0,
-            "ok": false
+            "actual": 0.03964,
+            "ok": true
           }
         }
       ],
@@ -289,12 +288,23 @@
       "research_blocker_details": [
         {
           "blocker_id": "lab_only_target_template_assisted",
-          "static": true,
+          "static": false,
           "active": true,
-          "evidence": null
+          "evidence": {
+            "metric_path": [
+              "decision",
+              "thresholds",
+              "meets_assisted_stability_bar"
+            ],
+            "operator": "==",
+            "expected": true,
+            "actual": false,
+            "ok": false,
+            "artifact": "data/cellular_automata/ca_nca_trained_repair_stage0.json"
+          }
         }
       ],
-      "research_notes": "Assisted target-template baseline; not trained NCA."
+      "research_notes": "Assisted target-template baseline; a gradient-trained neighborhood repair model now exists and beats no-repair substantially, but has not reached the assisted stability bar (0.9)."
     }
   ],
   "decision": {

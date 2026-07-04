@@ -155,7 +155,10 @@ def run_switchboard_feedback_lab(
         "source_note": (
             "This lab explicitly compares a switchboard that keeps lifecycle "
             "reward updates with one that observes the same rewards but freezes "
-            "its action-reward memory."
+            "its action-reward memory. Both policies start from the same stale "
+            "idle-favoring reward memory: the frozen policy locks into idle in "
+            "the curious-mood band, while the feedback policy corrects the idle "
+            "mean from observed lifecycle rewards and resumes active care."
         ),
         "summary": summary,
         "episodes": {
@@ -165,7 +168,13 @@ def run_switchboard_feedback_lab(
         "decision": _decision(summary),
         "limitations": [
             "The reward function is still synthetic and hand-authored.",
-            "The scenario starts from deliberately miscalibrated action rewards.",
+            "The scenario starts from a deliberately stale idle-favoring reward memory; "
+            "the advantage is specific to miscalibrations the bandit thread can act on.",
+            "The bandit thread's utility contribution is capped at +/-0.125 * confidence, "
+            "so mood-heuristic-favored miscalibrations (for example stale play rewards) "
+            "remain undetectable in this architecture.",
+            "The lifecycle reward is dominated by the global need balance, which limits "
+            "how sharply the learner can differentiate action quality.",
             "No persisted online learner state is promoted into packages yet.",
             "No human non-annoyance or attachment rating is included.",
         ],
@@ -361,19 +370,36 @@ def write_switchboard_feedback_stress_artifacts(output_dir: Path, report: dict) 
 
 
 def _miscalibrate_rewards(state: dict) -> dict:
+    """Install a stale, behaviorally harmful action-reward memory.
+
+    The memory claims idling is the most rewarding action (as if calibrated
+    during an earlier quiet phase), while the other actions carry flat,
+    uninformative reward means. In the curious-mood band only the bandit
+    thread separates idle from active care, so a frozen switchboard acting
+    on this memory locks into idle and lets bond and stress drift, while the
+    feedback switchboard corrects the idle mean from observed lifecycle
+    rewards within roughly a dozen ticks and re-engages.
+
+    Diagnosis of the earlier zero-delta result: the previous revision
+    miscalibrated `play` upward instead. Play is already favored by the
+    mood and interaction-EWMA threads, whose utility contributions (0.16 to
+    0.50) dominate the bandit thread's capped contribution (at most
+    +/-0.125 * confidence), so the stale play memory never flipped a single
+    action choice and both policies traced identical trajectories.
+    """
     updated = deepcopy(state)
-    updated["hunger"] = 0.58
-    updated["energy"] = 0.38
-    updated["stress"] = 0.52
-    updated["bond"] = 0.48
-    updated["grid_stability"] = 0.72
-    updated["recent_interactions"] = [1, 0, 1, 0, 1]
+    updated["hunger"] = 0.35
+    updated["energy"] = 0.45
+    updated["stress"] = 0.12
+    updated["bond"] = 0.6
+    updated["grid_stability"] = 0.85
+    updated["recent_interactions"] = [1, 0, 0, 1, 0]
     updated["action_rewards"] = {
-        "feed": [0.42],
-        "play": [0.9, 0.86, 0.82],
-        "sleep": [0.4],
-        "idle": [0.38],
-        "mutate": [0.3],
+        "feed": [0.5],
+        "play": [0.5],
+        "sleep": [0.5],
+        "idle": [0.95, 0.94, 0.96],
+        "mutate": [0.5],
     }
     return updated
 
@@ -409,18 +435,19 @@ def _reward_means(rewards: dict) -> dict[str, float]:
 
 
 def _decision(summary: dict) -> dict:
-    adoptable = (
+    beats_frozen = (
         summary["feedback_reward_update_count"] > summary["frozen_reward_update_count"]
-        and summary["feedback_need_balance"] >= summary["frozen_need_balance"]
+        and summary["need_balance_delta"] > 0
         and summary["feedback_survival_ticks"] >= summary["frozen_survival_ticks"]
     )
     return {
-        "status": "prototype" if adoptable else "watch",
+        "status": "prototype" if beats_frozen else "watch",
         "adoption": "lab_only_feedback_loop",
         "reason": (
-            "Lifecycle rewards can update switchboard action preferences "
-            "without reducing survival or need balance in this Stage 0 scenario."
-            if adoptable
+            "Lifecycle reward feedback corrects a stale idle-favoring action "
+            "memory and strictly improves need balance over the frozen "
+            "baseline without reducing survival in this Stage 0 scenario."
+            if beats_frozen
             else "Lifecycle reward feedback needs better shaping before it can "
             "beat the frozen switchboard baseline."
         ),
