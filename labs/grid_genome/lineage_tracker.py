@@ -8,6 +8,9 @@ from constrained_generator import build_constrained_corpus
 from corpus_builder import build_seed_grids
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 def build_lineage_graph(
     seed_grids: list[dict], child_grids: list[dict], elite_ids: set[str] | None = None
 ) -> dict:
@@ -112,9 +115,9 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--count", type=int, default=200)
     parser.add_argument("--rng-seed", type=int, default=818)
-    parser.add_argument("--archive", type=Path, default=Path("data/archives/map_elites_stage0.json"))
-    parser.add_argument("--generated-dir", type=Path, default=Path("data/generated_grids/lineage_constrained"))
-    parser.add_argument("--output", type=Path, default=Path("data/lineage/lineage_stage0.json"))
+    parser.add_argument("--archive", type=Path, default=ROOT / "data/archives/map_elites_stage0.json")
+    parser.add_argument("--generated-dir", type=Path, default=ROOT / "data/generated_grids/lineage_constrained")
+    parser.add_argument("--output", type=Path, default=ROOT / "data/lineage/lineage_stage0.json")
     args = parser.parse_args()
 
     seeds = build_seed_grids()

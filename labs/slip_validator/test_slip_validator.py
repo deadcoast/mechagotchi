@@ -10,9 +10,12 @@ from slip_validator import (
 )
 
 
-VALID_PROFILE_PATHS = sorted(Path("data/slips/valid").glob("*.json"))
-FAILURE_CASE_PATHS = sorted(Path("data/slips/failure_cases").glob("*.json"))
-EXAMPLE_PROFILE_PATHS = sorted(Path("research/slip/slip_examples").glob("*.json"))
+ROOT = Path(__file__).resolve().parents[2]
+
+
+VALID_PROFILE_PATHS = sorted((ROOT / "data/slips/valid").glob("*.json"))
+FAILURE_CASE_PATHS = sorted((ROOT / "data/slips/failure_cases").glob("*.json"))
+EXAMPLE_PROFILE_PATHS = sorted((ROOT / "research/slip/slip_examples").glob("*.json"))
 
 
 class SlipValidatorTests(unittest.TestCase):
@@ -68,7 +71,7 @@ class SlipValidatorTests(unittest.TestCase):
         self.assertTrue(expected.issubset(observed), observed)
 
     def test_boolean_weights_are_rejected_as_semantic_numeric_errors(self):
-        profile = json.loads(Path("data/slips/valid/slip_lcd_seed.json").read_text(encoding="utf-8"))
+        profile = json.loads((ROOT / "data/slips/valid/slip_lcd_seed.json").read_text(encoding="utf-8"))
         profile["behavior"]["curiosity"] = True
 
         result = validate_profile(profile)

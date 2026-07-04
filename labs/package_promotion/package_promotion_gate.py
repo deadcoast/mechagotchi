@@ -3,6 +3,9 @@ import json
 from pathlib import Path
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 SOURCE_REFS = [
     {
         "name": "Python Packaging User Guide - Writing your pyproject.toml",
@@ -477,8 +480,8 @@ def _criteria_markdown(report: dict) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output-dir", type=Path, default=Path("data/package_promotion"))
-    parser.add_argument("--root", type=Path, default=Path("."))
+    parser.add_argument("--output-dir", type=Path, default=ROOT / "data/package_promotion")
+    parser.add_argument("--root", type=Path, default=ROOT)
     args = parser.parse_args()
     report = run_package_promotion_gate(args.root.resolve())
     write_package_promotion_artifacts(args.output_dir, report)

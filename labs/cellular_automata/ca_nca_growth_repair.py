@@ -1655,7 +1655,7 @@ def _learned_repair_comparison_readme_text(report: dict) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output-dir", type=Path, default=Path("data/cellular_automata"))
+    parser.add_argument("--output-dir", type=Path, default=ROOT / "data/cellular_automata")
     parser.add_argument(
         "--mode",
         choices=[

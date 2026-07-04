@@ -5,6 +5,9 @@ import unittest
 from pathlib import Path
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 WORKSHOP_DIR = Path(__file__).resolve().parent
 if str(WORKSHOP_DIR) not in sys.path:
     sys.path.insert(0, str(WORKSHOP_DIR))
@@ -17,11 +20,11 @@ from slip_runtime_selection_policy import (
 
 
 VALID_PROFILE_PATHS = [
-    Path("data/slips/valid/slip_lcd_seed.json"),
-    Path("data/slips/valid/slip_gray_stable.json"),
-    Path("data/slips/valid/slip_amber_social.json"),
+    ROOT / "data/slips/valid/slip_lcd_seed.json",
+    ROOT / "data/slips/valid/slip_gray_stable.json",
+    ROOT / "data/slips/valid/slip_amber_social.json",
 ]
-GENERATED_ROOT = Path("data/slips/multi_profile_generation_stage0")
+GENERATED_ROOT = ROOT / "data/slips/multi_profile_generation_stage0"
 
 
 class SLIPRuntimeSelectionPolicyTests(unittest.TestCase):

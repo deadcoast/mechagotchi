@@ -3,7 +3,10 @@ import json
 from pathlib import Path
 
 
-SCHEMA_PATH = Path("research/slip/slip.schema.json")
+ROOT = Path(__file__).resolve().parents[2]
+
+
+SCHEMA_PATH = ROOT / "research/slip/slip.schema.json"
 VALID_PALETTES = {
     "lcd_green",
     "gameboy_gray",
@@ -131,7 +134,7 @@ def validate_profile_corpus(
     return {
         "artifact_id": "slip_schema_validation_stage0",
         "status": "research_slip_schema_failure_corpus_no_package_code",
-        "schema_path": str(SCHEMA_PATH).replace("\\", "/"),
+        "schema_path": SCHEMA_PATH.relative_to(ROOT).as_posix(),
         "schema_dialect": "https://json-schema.org/draft/2020-12/schema",
         "schema_engine": "dependency_free_stage0_structural_validator",
         "jsonschema_dependency_available": False,
@@ -265,9 +268,16 @@ def _validate_unit_interval(value: object, path: list[str], errors: list[dict]) 
         _add(errors, "schema_range", path, f"{_path(path)} must be in [0, 1]")
 
 
+def _portable(path: Path) -> str:
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
 def _result(source_path: Path | None, errors: list[dict]) -> dict:
     return {
-        "source_path": str(source_path).replace("\\", "/") if source_path else None,
+        "source_path": _portable(Path(source_path)) if source_path else None,
         "ok": not errors,
         "errors": errors,
         "error_families": sorted({error["family"] for error in errors}),
@@ -284,17 +294,17 @@ def _path(path: list[str]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--valid-dir", type=Path, default=Path("data/slips/valid"))
-    parser.add_argument("--failure-dir", type=Path, default=Path("data/slips/failure_cases"))
+    parser.add_argument("--valid-dir", type=Path, default=ROOT / "data/slips/valid")
+    parser.add_argument("--failure-dir", type=Path, default=ROOT / "data/slips/failure_cases")
     parser.add_argument(
         "--examples-dir",
         type=Path,
-        default=Path("research/slip/slip_examples"),
+        default=ROOT / "research/slip/slip_examples",
     )
     parser.add_argument(
         "--output",
         type=Path,
-        default=Path("data/slips/slip_schema_validation_stage0.json"),
+        default=ROOT / "data/slips/slip_schema_validation_stage0.json",
     )
     args = parser.parse_args()
 

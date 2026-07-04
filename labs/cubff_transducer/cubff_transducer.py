@@ -7,6 +7,9 @@ from collections import Counter
 from pathlib import Path
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 GRID_GENOME_DIR = Path(__file__).resolve().parents[1] / "grid_genome"
 if str(GRID_GENOME_DIR) not in sys.path:
     sys.path.insert(0, str(GRID_GENOME_DIR))
@@ -481,11 +484,11 @@ def _readme_text(report: dict) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output-dir", type=Path, default=Path("data/cubff_transducer"))
+    parser.add_argument("--output-dir", type=Path, default=ROOT / "data/cubff_transducer")
     parser.add_argument("--count", type=int, default=12)
     parser.add_argument("--rng-seed", type=int, default=5150)
     parser.add_argument(
-        "--slip", type=Path, default=Path("data/slips/valid/slip_lcd_seed.json")
+        "--slip", type=Path, default=ROOT / "data/slips/valid/slip_lcd_seed.json"
     )
     args = parser.parse_args()
 

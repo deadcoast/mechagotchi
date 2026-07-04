@@ -50,14 +50,14 @@ from png_deep_color_sidecar_decoder import (
 )
 
 
-REPORT_PATH = Path("data/workshop_editor/apng_partial_adam7_frame_data_stage0.json")
-DATA_PATH = Path("data/workshop_editor/apng_partial_adam7_frame_data.js")
-ARTIFACT_DIR = Path("data/workshop_editor/apng_partial_adam7_frame_data_stage0")
-DEFAULT_GENERATED_ROOT = Path("data/slips/multi_profile_generation_stage0")
+REPORT_PATH = ROOT / "data/workshop_editor/apng_partial_adam7_frame_data_stage0.json"
+DATA_PATH = ROOT / "data/workshop_editor/apng_partial_adam7_frame_data.js"
+ARTIFACT_DIR = ROOT / "data/workshop_editor/apng_partial_adam7_frame_data_stage0"
+DEFAULT_GENERATED_ROOT = ROOT / "data/slips/multi_profile_generation_stage0"
 DEFAULT_PROFILE_PATHS = [
-    Path("data/slips/valid/slip_lcd_seed.json"),
-    Path("data/slips/valid/slip_gray_stable.json"),
-    Path("data/slips/valid/slip_amber_social.json"),
+    ROOT / "data/slips/valid/slip_lcd_seed.json",
+    ROOT / "data/slips/valid/slip_gray_stable.json",
+    ROOT / "data/slips/valid/slip_amber_social.json",
 ]
 TRANSPARENT_BLACK = (0, 0, 0, 0)
 PATCH_WIDTH = 6
@@ -391,7 +391,7 @@ def run_apng_partial_adam7_frame_data_lab(
 
 
 def write_apng_partial_adam7_frame_data_artifacts(
-    output_root: Path = Path("data/workshop_editor"),
+    output_root: Path = ROOT / "data/workshop_editor",
     report: dict | None = None,
 ) -> dict:
     report = report or run_apng_partial_adam7_frame_data_lab()
@@ -1101,7 +1101,7 @@ def main() -> None:
     parser.add_argument(
         "--output-root",
         type=Path,
-        default=Path("data/workshop_editor"),
+        default=ROOT / "data/workshop_editor",
     )
     parser.add_argument(
         "--generated-root",

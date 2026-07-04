@@ -38,9 +38,9 @@ from png_deep_color_sidecar_decoder import (
 from standard_image_sidecar_decoder import PNG_SIGNATURE, render_grid_rgba_pixels
 
 
-REPORT_PATH = Path("data/workshop_editor/png_apng_zlib_compression_stage0.json")
-DATA_PATH = Path("data/workshop_editor/png_apng_zlib_compression.js")
-ARTIFACT_DIR = Path("data/workshop_editor/png_apng_zlib_compression_stage0")
+REPORT_PATH = ROOT / "data/workshop_editor/png_apng_zlib_compression_stage0.json"
+DATA_PATH = ROOT / "data/workshop_editor/png_apng_zlib_compression.js"
+ARTIFACT_DIR = ROOT / "data/workshop_editor/png_apng_zlib_compression_stage0"
 PNG_SOURCE_URL = "https://www.w3.org/TR/png-3/"
 ZLIB_SOURCE_URL = "https://www.rfc-editor.org/rfc/rfc1950"
 DEFLATE_SOURCE_URL = "https://www.rfc-editor.org/rfc/rfc1951"
@@ -273,11 +273,11 @@ def run_png_apng_zlib_compression_lab(
     generated_root: Path | None = None,
 ) -> dict:
     profile_paths = profile_paths or [
-        Path("data/slips/valid/slip_lcd_seed.json"),
-        Path("data/slips/valid/slip_gray_stable.json"),
-        Path("data/slips/valid/slip_amber_social.json"),
+        ROOT / "data/slips/valid/slip_lcd_seed.json",
+        ROOT / "data/slips/valid/slip_gray_stable.json",
+        ROOT / "data/slips/valid/slip_amber_social.json",
     ]
-    generated_root = generated_root or Path("data/slips/multi_profile_generation_stage0")
+    generated_root = generated_root or ROOT / "data/slips/multi_profile_generation_stage0"
 
     case_results = []
     first_profile_cases = None
@@ -442,7 +442,7 @@ def run_png_apng_zlib_compression_lab(
 
 
 def write_png_apng_zlib_compression_artifacts(
-    output_root: Path = Path("data/workshop_editor"),
+    output_root: Path = ROOT / "data/workshop_editor",
     report: dict | None = None,
 ) -> dict:
     report = report or run_png_apng_zlib_compression_lab()
@@ -931,7 +931,7 @@ def main() -> None:
     parser.add_argument(
         "--output-root",
         type=Path,
-        default=Path("data/workshop_editor"),
+        default=ROOT / "data/workshop_editor",
     )
     args = parser.parse_args()
     report = run_png_apng_zlib_compression_lab()

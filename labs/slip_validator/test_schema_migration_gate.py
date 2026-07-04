@@ -12,6 +12,9 @@ from schema_migration_gate import (
 )
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 class SlipSchemaMigrationGateTests(unittest.TestCase):
     def test_dependency_state_records_available_tools_without_package_assumptions(self):
         report = build_schema_migration_dependency_report()
@@ -59,7 +62,7 @@ class SlipSchemaMigrationGateTests(unittest.TestCase):
         self.assertEqual(["body_core", "expression", "sensor"], comparison["organ_roles"])
 
     def test_migration_policy_accepts_only_current_version_without_conversion(self):
-        payload = json.loads(Path("data/slips/valid/slip_lcd_seed.json").read_text(encoding="utf-8"))
+        payload = json.loads((ROOT / "data/slips/valid/slip_lcd_seed.json").read_text(encoding="utf-8"))
 
         result = evaluate_migration_request(payload)
 

@@ -5,6 +5,9 @@ import unittest
 from pathlib import Path
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 WORKSHOP_DIR = Path(__file__).resolve().parent
 if str(WORKSHOP_DIR) not in sys.path:
     sys.path.insert(0, str(WORKSHOP_DIR))
@@ -20,11 +23,11 @@ from slip_preview_gates import (
 
 
 VALID_PROFILE_PATHS = [
-    Path("data/slips/valid/slip_lcd_seed.json"),
-    Path("data/slips/valid/slip_gray_stable.json"),
-    Path("data/slips/valid/slip_amber_social.json"),
+    ROOT / "data/slips/valid/slip_lcd_seed.json",
+    ROOT / "data/slips/valid/slip_gray_stable.json",
+    ROOT / "data/slips/valid/slip_amber_social.json",
 ]
-GENERATED_ROOT = Path("data/slips/multi_profile_generation_stage0")
+GENERATED_ROOT = ROOT / "data/slips/multi_profile_generation_stage0"
 
 
 def load_profile(path: Path) -> dict:
@@ -179,8 +182,8 @@ class SLIPPreviewGateTests(unittest.TestCase):
             self.assertIn("MECHAGOTCHI_SLIP_PREVIEW_GATES", app_data)
 
     def test_static_editor_shell_contains_preview_surfaces(self):
-        html = Path("labs/workshop_editor/index.html").read_text(encoding="utf-8")
-        script = Path("labs/workshop_editor/app.js").read_text(encoding="utf-8")
+        html = (ROOT / "labs/workshop_editor/index.html").read_text(encoding="utf-8")
+        script = (ROOT / "labs/workshop_editor/app.js").read_text(encoding="utf-8")
 
         self.assertIn('data-testid="behavior-preview-panel"', html)
         self.assertIn('data-testid="mutation-preview-panel"', html)

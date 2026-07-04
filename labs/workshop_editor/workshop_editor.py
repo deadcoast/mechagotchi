@@ -5,6 +5,9 @@ from copy import deepcopy
 from pathlib import Path
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 GRID_GENOME_DIR = Path(__file__).resolve().parents[1] / "grid_genome"
 if str(GRID_GENOME_DIR) not in sys.path:
     sys.path.insert(0, str(GRID_GENOME_DIR))
@@ -341,7 +344,7 @@ def run_workshop_multi_profile_roundtrip_suite(
     return {
         "lab_id": "workshop_multi_profile_roundtrip_stage0",
         "status": "research_workshop_multi_profile_roundtrip_no_package_code",
-        "generated_root": str(generated_root).replace("\\", "/"),
+        "generated_root": _portable(generated_root),
         "profile_results": profile_results,
         "totals": _multi_profile_totals(profile_results),
         "blocked_states": [
@@ -510,6 +513,13 @@ def _write_json(path: Path, payload: dict) -> None:
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
 
+def _portable(path: Path) -> str:
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
 def _semantic_cell_signature(cell: dict) -> dict:
     return {
         "x": cell["x"],
@@ -567,7 +577,7 @@ def _run_profile_roundtrips(
     )
     return {
         "profile_id": profile_id,
-        "profile_path": str(profile_path).replace("\\", "/"),
+        "profile_path": _portable(profile_path),
         "candidate_count": candidate_count,
         "roundtrip_success_count": success_count,
         "roundtrip_failure_count": candidate_count - success_count,
@@ -583,7 +593,7 @@ def _run_profile_roundtrips(
 def _compact_roundtrip_result(grid_path: Path, roundtrip: dict) -> dict:
     metrics = roundtrip["metrics"]
     return {
-        "source_path": str(grid_path).replace("\\", "/"),
+        "source_path": _portable(grid_path),
         "source_grid_id": roundtrip["source_grid_id"],
         "export_grid_id": roundtrip["export_grid_id"],
         "roundtrip_success": metrics["roundtrip_success"],
@@ -667,16 +677,16 @@ def _multi_profile_roundtrip_readme_text(report: dict) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output-dir", type=Path, default=Path("data/workshop_editor"))
+    parser.add_argument("--output-dir", type=Path, default=ROOT / "data/workshop_editor")
     parser.add_argument(
-        "--slip", type=Path, default=Path("data/slips/valid/slip_lcd_seed.json")
+        "--slip", type=Path, default=ROOT / "data/slips/valid/slip_lcd_seed.json"
     )
     parser.add_argument("--seed-index", type=int, default=0)
     parser.add_argument("--multi-profile-root", type=Path)
     parser.add_argument(
         "--multi-profile-output-dir",
         type=Path,
-        default=Path("data/workshop_editor/multi_profile_roundtrip_stage0"),
+        default=ROOT / "data/workshop_editor/multi_profile_roundtrip_stage0",
     )
     parser.add_argument("--multi-profile-limit", type=int)
     parser.add_argument("--profile", type=Path, action="append")
@@ -684,9 +694,9 @@ def main() -> None:
 
     if args.multi_profile_root:
         profile_paths = args.profile or [
-            Path("data/slips/valid/slip_lcd_seed.json"),
-            Path("data/slips/valid/slip_gray_stable.json"),
-            Path("data/slips/valid/slip_amber_social.json"),
+            ROOT / "data/slips/valid/slip_lcd_seed.json",
+            ROOT / "data/slips/valid/slip_gray_stable.json",
+            ROOT / "data/slips/valid/slip_amber_social.json",
         ]
         report = run_workshop_multi_profile_roundtrip_suite(
             profile_paths,

@@ -6,6 +6,9 @@ import sys
 from pathlib import Path
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 REQUIRED_FIELDS = [
     "asset_id",
     "title",
@@ -616,11 +619,11 @@ def _is_license_ref(identifier: str) -> bool:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output-dir", type=Path, default=Path("data/asset_provenance"))
+    parser.add_argument("--output-dir", type=Path, default=ROOT / "data/asset_provenance")
     parser.add_argument("--ci", action="store_true")
     args = parser.parse_args()
 
-    repo_root = Path(".")
+    repo_root = ROOT
     ledger = build_stage0_ledger(repo_root)
     write_stage0_artifacts(args.output_dir, ledger, repo_root)
     report = build_provenance_ci_report(ledger, repo_root)

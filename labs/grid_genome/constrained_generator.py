@@ -14,6 +14,9 @@ from slip import is_grid_aligned, validate_slip
 from validator import validate_grid
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 TOKENS = [".", "B", "A", "E", "M"]
 
 
@@ -221,7 +224,7 @@ def _ensure_semantic_variation(grid: dict, rng: random.Random) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--generated-dir", type=Path, default=Path("data/generated_grids/constrained_wfc_style"))
+    parser.add_argument("--generated-dir", type=Path, default=ROOT / "data/generated_grids/constrained_wfc_style")
     parser.add_argument("--count", type=int, default=100)
     parser.add_argument("--rng-seed", type=int, default=77)
     parser.add_argument("--slip", type=Path)

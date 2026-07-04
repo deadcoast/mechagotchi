@@ -44,8 +44,8 @@ from workshop_editor import compare_semantic_grid_fidelity
 
 
 TEXTUAL_METADATA_KEYWORD = "mechagotchi.sidecar.v1"
-REPORT_PATH = Path("data/workshop_editor/png_textual_metadata_policy_stage0.json")
-DATA_PATH = Path("data/workshop_editor/png_textual_metadata_policy_data.js")
+REPORT_PATH = ROOT / "data/workshop_editor/png_textual_metadata_policy_stage0.json"
+DATA_PATH = ROOT / "data/workshop_editor/png_textual_metadata_policy_data.js"
 METADATA_MODEL = "png_textual_metadata_policy_v1"
 MAX_DECOMPRESSED_TEXT_BYTES = 1 << 20
 ASCII_PROBE = "cafe ascii metadata"
@@ -994,19 +994,19 @@ def main() -> None:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("data/workshop_editor/png_textual_metadata_policy_stage0"),
+        default=ROOT / "data/workshop_editor/png_textual_metadata_policy_stage0",
     )
     parser.add_argument(
         "--generated-root",
         type=Path,
-        default=Path("data/slips/multi_profile_generation_stage0"),
+        default=ROOT / "data/slips/multi_profile_generation_stage0",
     )
     parser.add_argument("--profile", type=Path, action="append")
     args = parser.parse_args()
     profile_paths = args.profile or [
-        Path("data/slips/valid/slip_lcd_seed.json"),
-        Path("data/slips/valid/slip_gray_stable.json"),
-        Path("data/slips/valid/slip_amber_social.json"),
+        ROOT / "data/slips/valid/slip_lcd_seed.json",
+        ROOT / "data/slips/valid/slip_gray_stable.json",
+        ROOT / "data/slips/valid/slip_amber_social.json",
     ]
     report = run_png_textual_metadata_policy_lab(profile_paths, args.generated_root)
     write_png_textual_metadata_policy_artifacts(args.output_dir, report)

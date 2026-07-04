@@ -14,6 +14,9 @@ from grid_helpers import run_baseline  # noqa: F401
 from validator import validate_grid  # noqa: F401  (kept for API compatibility)
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 def mutate_grid(parent: dict, mutation_index: int, rng_seed: int) -> dict:
     rng = random.Random(f"{rng_seed}:{parent['grid_id']}:{mutation_index}")
     child = deepcopy(parent)
@@ -144,7 +147,7 @@ def _palette_shift(grid: dict, rng: random.Random) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--generated-dir", type=Path, default=Path("data/generated_grids/random_mutation_baseline"))
+    parser.add_argument("--generated-dir", type=Path, default=ROOT / "data/generated_grids/random_mutation_baseline")
     parser.add_argument("--per-seed", type=int, default=2)
     parser.add_argument("--rng-seed", type=int, default=90210)
     args = parser.parse_args()

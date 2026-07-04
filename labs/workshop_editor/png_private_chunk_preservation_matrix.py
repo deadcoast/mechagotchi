@@ -34,8 +34,8 @@ from png_private_chunk_policy import (
 )
 
 
-REPORT_PATH = Path("data/workshop_editor/png_private_chunk_preservation_matrix_stage0.json")
-DATA_PATH = Path("data/workshop_editor/png_private_chunk_preservation_matrix_data.js")
+REPORT_PATH = ROOT / "data/workshop_editor/png_private_chunk_preservation_matrix_stage0.json"
+DATA_PATH = ROOT / "data/workshop_editor/png_private_chunk_preservation_matrix_data.js"
 EDITOR_ANCILLARY_CHUNK_TYPE = "vpAg"
 
 
@@ -488,19 +488,19 @@ def main() -> None:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("data/workshop_editor/png_private_chunk_preservation_matrix_stage0"),
+        default=ROOT / "data/workshop_editor/png_private_chunk_preservation_matrix_stage0",
     )
     parser.add_argument(
         "--generated-root",
         type=Path,
-        default=Path("data/slips/multi_profile_generation_stage0"),
+        default=ROOT / "data/slips/multi_profile_generation_stage0",
     )
     parser.add_argument("--profile", type=Path, action="append")
     args = parser.parse_args()
     profile_paths = args.profile or [
-        Path("data/slips/valid/slip_lcd_seed.json"),
-        Path("data/slips/valid/slip_gray_stable.json"),
-        Path("data/slips/valid/slip_amber_social.json"),
+        ROOT / "data/slips/valid/slip_lcd_seed.json",
+        ROOT / "data/slips/valid/slip_gray_stable.json",
+        ROOT / "data/slips/valid/slip_amber_social.json",
     ]
     report = run_png_private_chunk_preservation_matrix_lab(
         profile_paths,

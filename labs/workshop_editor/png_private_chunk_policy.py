@@ -44,8 +44,8 @@ PRIVATE_METADATA_CHUNK_TYPE = "mgOT"
 PRIVATE_METADATA_MAGIC = "mechagotchi.private_chunk.v1"
 PRIVATE_METADATA_MODEL = "png_private_chunk_policy_v1"
 PRIVATE_CHUNK_POLICY = "ancillary_private_unsafe_to_copy_with_magic_prefix"
-REPORT_PATH = Path("data/workshop_editor/png_private_chunk_policy_stage0.json")
-DATA_PATH = Path("data/workshop_editor/png_private_chunk_policy_data.js")
+REPORT_PATH = ROOT / "data/workshop_editor/png_private_chunk_policy_stage0.json"
+DATA_PATH = ROOT / "data/workshop_editor/png_private_chunk_policy_data.js"
 
 
 class PNGPrivateChunkPolicyError(ValueError):
@@ -705,19 +705,19 @@ def main() -> None:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("data/workshop_editor/png_private_chunk_policy_stage0"),
+        default=ROOT / "data/workshop_editor/png_private_chunk_policy_stage0",
     )
     parser.add_argument(
         "--generated-root",
         type=Path,
-        default=Path("data/slips/multi_profile_generation_stage0"),
+        default=ROOT / "data/slips/multi_profile_generation_stage0",
     )
     parser.add_argument("--profile", type=Path, action="append")
     args = parser.parse_args()
     profile_paths = args.profile or [
-        Path("data/slips/valid/slip_lcd_seed.json"),
-        Path("data/slips/valid/slip_gray_stable.json"),
-        Path("data/slips/valid/slip_amber_social.json"),
+        ROOT / "data/slips/valid/slip_lcd_seed.json",
+        ROOT / "data/slips/valid/slip_gray_stable.json",
+        ROOT / "data/slips/valid/slip_amber_social.json",
     ]
     report = run_png_private_chunk_policy_lab(profile_paths, args.generated_root)
     write_png_private_chunk_policy_artifacts(args.output_dir, report)

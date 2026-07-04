@@ -9,6 +9,9 @@ from slip import is_grid_aligned
 from validator import validate_grid
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 def descriptor_for_grid(grid: dict) -> tuple[int, int, int]:
     body_mass = _body_mass(grid)
     sensor_count = _sensor_count(grid)
@@ -147,7 +150,7 @@ def main() -> None:
     parser.add_argument("--count", type=int, default=200)
     parser.add_argument("--rng-seed", type=int, default=818)
     parser.add_argument("--top-k", type=int, default=20)
-    parser.add_argument("--output", type=Path, default=Path("data/archives/map_elites_stage0.json"))
+    parser.add_argument("--output", type=Path, default=ROOT / "data/archives/map_elites_stage0.json")
     args = parser.parse_args()
 
     candidates = build_constrained_corpus(

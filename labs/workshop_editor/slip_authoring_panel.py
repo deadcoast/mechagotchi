@@ -5,6 +5,9 @@ from copy import deepcopy
 from pathlib import Path
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 SLIP_VALIDATOR_DIR = Path(__file__).resolve().parents[1] / "slip_validator"
 if str(SLIP_VALIDATOR_DIR) not in sys.path:
     sys.path.insert(0, str(SLIP_VALIDATOR_DIR))
@@ -18,8 +21,8 @@ from schema_migration_gate import (
 from slip_validator import validate_profile
 
 
-REPORT_PATH = Path("data/workshop_editor/slip_authoring_panel_stage0.json")
-AUTHORING_DATA_PATH = Path("data/workshop_editor/slip_authoring_panel_data.js")
+REPORT_PATH = ROOT / "data/workshop_editor/slip_authoring_panel_stage0.json"
+AUTHORING_DATA_PATH = ROOT / "data/workshop_editor/slip_authoring_panel_data.js"
 
 
 def build_authoring_state(profile: dict) -> dict:
@@ -340,7 +343,10 @@ def _write_json(path: Path, payload: dict) -> None:
 
 
 def _portable(path: Path) -> str:
-    return str(path).replace("\\", "/")
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
 
 
 def _ratio(numerator: int, denominator: int) -> float:
@@ -354,15 +360,15 @@ def main() -> None:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("data/workshop_editor/slip_authoring_panel_stage0"),
+        default=ROOT / "data/workshop_editor/slip_authoring_panel_stage0",
     )
     parser.add_argument("--profile", type=Path, action="append")
     args = parser.parse_args()
 
     profile_paths = args.profile or [
-        Path("data/slips/valid/slip_lcd_seed.json"),
-        Path("data/slips/valid/slip_gray_stable.json"),
-        Path("data/slips/valid/slip_amber_social.json"),
+        ROOT / "data/slips/valid/slip_lcd_seed.json",
+        ROOT / "data/slips/valid/slip_gray_stable.json",
+        ROOT / "data/slips/valid/slip_amber_social.json",
     ]
     report = run_slip_authoring_panel_lab(profile_paths)
     write_slip_authoring_panel_artifacts(args.output_dir, report)

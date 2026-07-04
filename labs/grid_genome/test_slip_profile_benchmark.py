@@ -9,12 +9,15 @@ from slip_profile_benchmark import (
 )
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 class SlipProfileBenchmarkTests(unittest.TestCase):
     def test_suite_generates_valid_aligned_corpus_for_each_profile(self):
         profiles = [
-            Path("data/slips/valid/slip_lcd_seed.json"),
-            Path("data/slips/valid/slip_gray_stable.json"),
-            Path("data/slips/valid/slip_amber_social.json"),
+            ROOT / "data/slips/valid/slip_lcd_seed.json",
+            ROOT / "data/slips/valid/slip_gray_stable.json",
+            ROOT / "data/slips/valid/slip_amber_social.json",
         ]
 
         report = run_profile_compatibility_suite(
@@ -45,8 +48,8 @@ class SlipProfileBenchmarkTests(unittest.TestCase):
 
     def test_writer_creates_report_and_profile_corpora(self):
         profiles = [
-            Path("data/slips/valid/slip_lcd_seed.json"),
-            Path("data/slips/valid/slip_gray_stable.json"),
+            ROOT / "data/slips/valid/slip_lcd_seed.json",
+            ROOT / "data/slips/valid/slip_gray_stable.json",
         ]
         report = run_profile_compatibility_suite(
             profiles, count_per_profile=3, rng_seed=214

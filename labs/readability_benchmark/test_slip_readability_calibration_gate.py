@@ -5,6 +5,9 @@ import unittest
 from pathlib import Path
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 LAB_DIR = Path(__file__).resolve().parent
 WORKSHOP_DIR = LAB_DIR.parent / "workshop_editor"
 for path in [LAB_DIR, WORKSHOP_DIR]:
@@ -18,7 +21,7 @@ from slip_readability_calibration_gate import (
 )
 
 
-LONG_HORIZON_PATH = Path("data/workshop_editor/slip_long_horizon_behavior_gate_stage0.json")
+LONG_HORIZON_PATH = ROOT / "data/workshop_editor/slip_long_horizon_behavior_gate_stage0.json"
 
 
 class SLIPReadabilityCalibrationGateTests(unittest.TestCase):

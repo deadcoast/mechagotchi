@@ -6,6 +6,9 @@ from pathlib import Path
 from typing import Any
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 CUBFF_REPO_URL = "https://github.com/paradigms-of-intelligence/cubff"
 CUBFF_PAPER_URL = "https://arxiv.org/abs/2406.19108"
 PROGRAM_SIZE = 64
@@ -200,7 +203,7 @@ def build_ingest_report(
         "source_commit": source_commit,
         "language": language,
         "seed": seed,
-        "input_dir": str(input_dir.as_posix()),
+        "input_dir": _relative_path(input_dir, ROOT),
         "status": status,
         "ingested_snapshot_count": len(snapshots),
         "rejected_file_count": len(rejected_files),
@@ -377,7 +380,7 @@ def _snapshot_record(
         "provenance": {
             "source_repo": source_repo,
             "source_commit": source_commit,
-            "source_path": source_path.as_posix(),
+            "source_path": _relative_path(source_path, ROOT),
             "capture_method": capture_method,
             "seed": seed,
         },
@@ -515,8 +518,8 @@ def _readme_text(report: dict) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input-dir", type=Path, default=Path("data/cubff_real_ingest/source_snapshots"))
-    parser.add_argument("--output-dir", type=Path, default=Path("data/cubff_real_ingest"))
+    parser.add_argument("--input-dir", type=Path, default=ROOT / "data/cubff_real_ingest/source_snapshots")
+    parser.add_argument("--output-dir", type=Path, default=ROOT / "data/cubff_real_ingest")
     parser.add_argument("--source-repo", default=CUBFF_REPO_URL)
     parser.add_argument("--source-commit", required=True)
     parser.add_argument("--language", default="bff_noheads")

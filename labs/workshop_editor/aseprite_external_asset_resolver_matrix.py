@@ -27,8 +27,8 @@ from aseprite_document_variant_resolution import (
 from aseprite_user_data_chunk_writer import AsepriteUserDataError
 
 
-REPORT_PATH = Path("data/workshop_editor/aseprite_external_asset_resolver_matrix_stage0.json")
-DATA_PATH = Path("data/workshop_editor/aseprite_external_asset_resolver_matrix_data.js")
+REPORT_PATH = ROOT / "data/workshop_editor/aseprite_external_asset_resolver_matrix_stage0.json"
+DATA_PATH = ROOT / "data/workshop_editor/aseprite_external_asset_resolver_matrix_data.js"
 RESOLVER_MATRIX_VERSION = "mechagotchi.aseprite_external_asset_resolver_matrix.v1"
 RESOLVER_POLICY_IDS = [
     "direct_manifest",
@@ -598,19 +598,19 @@ def main() -> None:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("data/workshop_editor/aseprite_external_asset_resolver_matrix_stage0"),
+        default=ROOT / "data/workshop_editor/aseprite_external_asset_resolver_matrix_stage0",
     )
     parser.add_argument(
         "--generated-root",
         type=Path,
-        default=Path("data/slips/multi_profile_generation_stage0"),
+        default=ROOT / "data/slips/multi_profile_generation_stage0",
     )
     parser.add_argument("--profile", type=Path, action="append")
     args = parser.parse_args()
     profile_paths = args.profile or [
-        Path("data/slips/valid/slip_lcd_seed.json"),
-        Path("data/slips/valid/slip_gray_stable.json"),
-        Path("data/slips/valid/slip_amber_social.json"),
+        ROOT / "data/slips/valid/slip_lcd_seed.json",
+        ROOT / "data/slips/valid/slip_gray_stable.json",
+        ROOT / "data/slips/valid/slip_amber_social.json",
     ]
     report = run_aseprite_external_asset_resolver_matrix_lab(
         profile_paths,

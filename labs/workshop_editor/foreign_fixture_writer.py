@@ -31,10 +31,13 @@ from fractions import Fraction
 from pathlib import Path
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 SPEC_URL = "https://www.w3.org/TR/png-3/"
 CORPUS_ID = "foreign_fixture_corpus_v1"
-DEFAULT_OUTPUT_DIR = Path("data/foreign_fixtures")
+DEFAULT_OUTPUT_DIR = ROOT / "data/foreign_fixtures"
 
 # Adam7 pass grid from the PNG specification: (x_start, y_start, x_step, y_step).
 ADAM7_PASSES = (

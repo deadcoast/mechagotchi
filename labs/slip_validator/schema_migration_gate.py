@@ -4,10 +4,13 @@ import json
 from pathlib import Path
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 CURRENT_SLIP_VERSION = "0.1.0"
-AUTHORED_SCHEMA_PATH = Path("research/slip/slip.schema.json")
-PYDANTIC_SCHEMA_PATH = Path("research/slip/slip_pydantic_model.schema.json")
-REPORT_PATH = Path("data/slips/slip_schema_migration_dependency_gate_stage0.json")
+AUTHORED_SCHEMA_PATH = ROOT / "research/slip/slip.schema.json"
+PYDANTIC_SCHEMA_PATH = ROOT / "research/slip/slip_pydantic_model.schema.json"
+REPORT_PATH = ROOT / "data/slips/slip_schema_migration_dependency_gate_stage0.json"
 
 
 def build_schema_migration_dependency_report() -> dict:
@@ -23,9 +26,9 @@ def build_schema_migration_dependency_report() -> dict:
         "status": "research_slip_schema_migration_dependency_gate_no_package_code",
         "current_slip_version": CURRENT_SLIP_VERSION,
         "supported_versions": [CURRENT_SLIP_VERSION],
-        "authored_schema_path": str(AUTHORED_SCHEMA_PATH).replace("\\", "/"),
-        "pydantic_schema_path": str(PYDANTIC_SCHEMA_PATH).replace("\\", "/"),
-        "package_root_exists": Path("packages").exists(),
+        "authored_schema_path": AUTHORED_SCHEMA_PATH.relative_to(ROOT).as_posix(),
+        "pydantic_schema_path": PYDANTIC_SCHEMA_PATH.relative_to(ROOT).as_posix(),
+        "package_root_exists": (ROOT / "packages").exists(),
         "dependency_manifest_present": _dependency_manifest_present(),
         "pydantic_available": _module_available("pydantic"),
         "pydantic_version": _module_version("pydantic"),
@@ -232,7 +235,7 @@ def _dependency_manifest_present() -> bool:
         "poetry.lock",
         "uv.lock",
     }
-    return any(Path(name).exists() for name in manifest_names)
+    return any((ROOT / name).exists() for name in manifest_names)
 
 
 def _module_available(name: str) -> bool:

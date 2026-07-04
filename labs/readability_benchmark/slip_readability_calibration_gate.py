@@ -30,7 +30,7 @@ from slip_preview_gates import build_mutation_preview  # noqa: E402
 
 
 ARTIFACT_ID = "slip_readability_calibration_gate_stage0"
-DEFAULT_OUTPUT_DIR = Path("data/readability")
+DEFAULT_OUTPUT_DIR = ROOT / "data/readability"
 DEFAULT_RATINGS_PATH = DEFAULT_OUTPUT_DIR / "slip_readability_calibration_ratings.csv"
 DEFAULT_INTER_REVIEWER_DELTA_MAX = 1.0
 DEFAULT_MIN_PROXY_HUMAN_SPEARMAN = 0.25
@@ -49,7 +49,7 @@ def build_slip_long_horizon_readability_benchmark(
     for profile_index, result in enumerate(long_horizon.get("profile_results", [])):
         if not result.get("gate_started"):
             continue
-        profile = _read_json(Path(result["profile_path"]))
+        profile = _read_json(ROOT / result["profile_path"])
         profile_id = result["profile_id"]
         corpus_profile_id = result.get("candidate_profile_id", profile_id)
         parent_grid_id = result["offspring_lineage"]["runtime_parent_grid_id"]
@@ -79,7 +79,7 @@ def build_slip_long_horizon_readability_benchmark(
         for record in result.get("held_out_candidates", []):
             if not record.get("validation", {}).get("ok"):
                 continue
-            source_path = Path(record["path"])
+            source_path = ROOT / record["path"]
             grid = _read_json(source_path)
             samples.append(
                 _sample_entry(
@@ -468,7 +468,10 @@ def _write_json(path: Path, payload: object) -> None:
 def _portable(path: Path | None) -> str | None:
     if path is None:
         return None
-    return path.as_posix()
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
 
 
 def _round(value: float | int) -> float:

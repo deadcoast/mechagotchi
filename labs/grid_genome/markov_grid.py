@@ -14,6 +14,9 @@ from grid_helpers import weighted_sample as _sample
 from validator import validate_grid  # noqa: F401  (kept for API compatibility)
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 START = "START"
 
 
@@ -105,7 +108,7 @@ def _increment(counts: dict[str, int], token: str) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--generated-dir", type=Path, default=Path("data/generated_grids/markov_local"))
+    parser.add_argument("--generated-dir", type=Path, default=ROOT / "data/generated_grids/markov_local")
     parser.add_argument("--count", type=int, default=100)
     parser.add_argument("--rng-seed", type=int, default=4242)
     args = parser.parse_args()

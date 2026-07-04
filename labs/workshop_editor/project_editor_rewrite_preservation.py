@@ -36,8 +36,8 @@ from third_party_project_decoder import (
 from workshop_editor import compare_semantic_grid_fidelity
 
 
-REPORT_PATH = Path("data/workshop_editor/project_editor_rewrite_preservation_stage0.json")
-DATA_PATH = Path("data/workshop_editor/project_editor_rewrite_preservation_data.js")
+REPORT_PATH = ROOT / "data/workshop_editor/project_editor_rewrite_preservation_stage0.json"
+DATA_PATH = ROOT / "data/workshop_editor/project_editor_rewrite_preservation_data.js"
 SUPPORTED_REWRITE_FORMATS = ["piskel_project", "pixelorama_pxo"]
 _REWRITE_ZIP_DATE = (2026, 2, 1, 0, 0, 0)
 
@@ -557,7 +557,10 @@ def _first_grid_path(profile: dict, generated_root: Path) -> Path:
 
 
 def _portable(path: Path) -> str:
-    return str(path).replace("\\", "/")
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
 
 
 def _error(path: str, family: str, message: str | None = None) -> dict:
@@ -582,19 +585,19 @@ def main() -> None:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("data/workshop_editor/project_editor_rewrite_preservation_stage0"),
+        default=ROOT / "data/workshop_editor/project_editor_rewrite_preservation_stage0",
     )
     parser.add_argument(
         "--generated-root",
         type=Path,
-        default=Path("data/slips/multi_profile_generation_stage0"),
+        default=ROOT / "data/slips/multi_profile_generation_stage0",
     )
     parser.add_argument("--profile", type=Path, action="append")
     args = parser.parse_args()
     profile_paths = args.profile or [
-        Path("data/slips/valid/slip_lcd_seed.json"),
-        Path("data/slips/valid/slip_gray_stable.json"),
-        Path("data/slips/valid/slip_amber_social.json"),
+        ROOT / "data/slips/valid/slip_lcd_seed.json",
+        ROOT / "data/slips/valid/slip_gray_stable.json",
+        ROOT / "data/slips/valid/slip_amber_social.json",
     ]
     report = run_project_editor_rewrite_preservation_lab(profile_paths, args.generated_root)
     write_project_editor_rewrite_preservation_artifacts(args.output_dir, report)

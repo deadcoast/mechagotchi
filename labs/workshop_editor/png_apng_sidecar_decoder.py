@@ -40,8 +40,8 @@ from png_chunk_reader import PNGChunkError, bounded_decompress
 from workshop_editor import compare_semantic_grid_fidelity
 
 
-REPORT_PATH = Path("data/workshop_editor/apng_sidecar_decoder_stage0.json")
-DATA_PATH = Path("data/workshop_editor/apng_sidecar_decoder_data.js")
+REPORT_PATH = ROOT / "data/workshop_editor/apng_sidecar_decoder_stage0.json"
+DATA_PATH = ROOT / "data/workshop_editor/apng_sidecar_decoder_data.js"
 APNG_FRAME_POLICY = "bounded_full_canvas_source_frames"
 
 
@@ -847,19 +847,19 @@ def main() -> None:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("data/workshop_editor/apng_sidecar_decoder_stage0"),
+        default=ROOT / "data/workshop_editor/apng_sidecar_decoder_stage0",
     )
     parser.add_argument(
         "--generated-root",
         type=Path,
-        default=Path("data/slips/multi_profile_generation_stage0"),
+        default=ROOT / "data/slips/multi_profile_generation_stage0",
     )
     parser.add_argument("--profile", type=Path, action="append")
     args = parser.parse_args()
     profile_paths = args.profile or [
-        Path("data/slips/valid/slip_lcd_seed.json"),
-        Path("data/slips/valid/slip_gray_stable.json"),
-        Path("data/slips/valid/slip_amber_social.json"),
+        ROOT / "data/slips/valid/slip_lcd_seed.json",
+        ROOT / "data/slips/valid/slip_gray_stable.json",
+        ROOT / "data/slips/valid/slip_amber_social.json",
     ]
     report = run_apng_sidecar_decoder_lab(profile_paths, args.generated_root)
     write_apng_sidecar_decoder_artifacts(args.output_dir, report)

@@ -9,6 +9,9 @@ from slip import is_grid_aligned, validate_slip
 from validator import validate_grid
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 def run_profile_compatibility_suite(
     profile_paths: list[Path],
     *,
@@ -101,7 +104,7 @@ def _run_profile_benchmark(
     candidate_count = len(generated)
     return {
         "profile_id": profile_id,
-        "source_path": str(source_path).replace("\\", "/"),
+        "source_path": _portable(source_path),
         "allowed_palettes": profile["grid"]["allowed_palettes"],
         "body_mass_min": profile["grid"]["body_mass_min"],
         "body_mass_max": profile["grid"]["body_mass_max"],
@@ -149,6 +152,13 @@ def _load_profile(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def _portable(path: Path) -> str:
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
 def _count_errors(target: dict[str, int], errors: list[str]) -> None:
     for error in errors:
         target[error] = target.get(error, 0) + 1
@@ -172,7 +182,7 @@ def main() -> None:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("data/slips/multi_profile_generation_stage0"),
+        default=ROOT / "data/slips/multi_profile_generation_stage0",
     )
     args = parser.parse_args()
 

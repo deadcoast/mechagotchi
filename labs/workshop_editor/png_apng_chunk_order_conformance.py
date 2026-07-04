@@ -19,8 +19,8 @@ from png_variant_sidecar_decoder import export_png_variant_suite_with_sidecars
 from standard_image_sidecar_decoder import PNG_SIGNATURE, export_standard_png_with_sidecar
 
 
-REPORT_PATH = Path("data/workshop_editor/png_apng_chunk_order_conformance_stage0.json")
-DATA_PATH = Path("data/workshop_editor/png_apng_chunk_order_conformance_data.js")
+REPORT_PATH = ROOT / "data/workshop_editor/png_apng_chunk_order_conformance_stage0.json"
+DATA_PATH = ROOT / "data/workshop_editor/png_apng_chunk_order_conformance_data.js"
 
 CONFORMANCE_CASE_IDS = [
     "static_rgba_single_idat",
@@ -782,19 +782,19 @@ def main() -> None:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("data/workshop_editor/png_apng_chunk_order_conformance_stage0"),
+        default=ROOT / "data/workshop_editor/png_apng_chunk_order_conformance_stage0",
     )
     parser.add_argument(
         "--generated-root",
         type=Path,
-        default=Path("data/slips/multi_profile_generation_stage0"),
+        default=ROOT / "data/slips/multi_profile_generation_stage0",
     )
     parser.add_argument("--profile", type=Path, action="append")
     args = parser.parse_args()
     profile_paths = args.profile or [
-        Path("data/slips/valid/slip_lcd_seed.json"),
-        Path("data/slips/valid/slip_gray_stable.json"),
-        Path("data/slips/valid/slip_amber_social.json"),
+        ROOT / "data/slips/valid/slip_lcd_seed.json",
+        ROOT / "data/slips/valid/slip_gray_stable.json",
+        ROOT / "data/slips/valid/slip_amber_social.json",
     ]
     report = run_png_apng_chunk_order_conformance_lab(profile_paths, args.generated_root)
     write_png_apng_chunk_order_conformance_artifacts(args.output_dir, report)

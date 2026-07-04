@@ -47,8 +47,8 @@ ASE_EXTERNAL_PROPERTIES_NATIVE_LOCATION = (
     "frame[0].color_profile + frame[0].external_files + "
     "frame[0].layer.user_data.properties + frame[*].cel_extra"
 )
-REPORT_PATH = Path("data/workshop_editor/aseprite_external_properties_semantics_stage0.json")
-DATA_PATH = Path("data/workshop_editor/aseprite_external_properties_semantics_data.js")
+REPORT_PATH = ROOT / "data/workshop_editor/aseprite_external_properties_semantics_stage0.json"
+DATA_PATH = ROOT / "data/workshop_editor/aseprite_external_properties_semantics_data.js"
 
 
 def export_aseprite_external_properties_project(grid: dict, slip_profile: dict) -> dict:
@@ -1469,7 +1469,10 @@ def _write_json(path: Path, payload: object) -> None:
 
 
 def _portable(path: Path) -> str:
-    return str(path).replace("\\", "/")
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
 
 
 def _semantic_fidelity(diff: dict, source: dict) -> float:
@@ -1504,19 +1507,19 @@ def main() -> None:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("data/workshop_editor/aseprite_external_properties_semantics_stage0"),
+        default=ROOT / "data/workshop_editor/aseprite_external_properties_semantics_stage0",
     )
     parser.add_argument(
         "--generated-root",
         type=Path,
-        default=Path("data/slips/multi_profile_generation_stage0"),
+        default=ROOT / "data/slips/multi_profile_generation_stage0",
     )
     parser.add_argument("--profile", type=Path, action="append")
     args = parser.parse_args()
     profile_paths = args.profile or [
-        Path("data/slips/valid/slip_lcd_seed.json"),
-        Path("data/slips/valid/slip_gray_stable.json"),
-        Path("data/slips/valid/slip_amber_social.json"),
+        ROOT / "data/slips/valid/slip_lcd_seed.json",
+        ROOT / "data/slips/valid/slip_gray_stable.json",
+        ROOT / "data/slips/valid/slip_amber_social.json",
     ]
     report = run_aseprite_external_properties_semantics_lab(profile_paths, args.generated_root)
     write_aseprite_external_properties_semantics_artifacts(args.output_dir, report)

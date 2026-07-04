@@ -369,8 +369,8 @@ def _readme_text(report: dict) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output-dir", type=Path, default=Path("data/readability"))
-    parser.add_argument("--ratings", type=Path, default=Path("data/readability/manual_ratings.csv"))
+    parser.add_argument("--output-dir", type=Path, default=ROOT / "data/readability")
+    parser.add_argument("--ratings", type=Path, default=ROOT / "data/readability/manual_ratings.csv")
     parser.add_argument("--count-per-source", type=int, default=10)
     parser.add_argument("--rng-seed", type=int, default=20260512)
     args = parser.parse_args()

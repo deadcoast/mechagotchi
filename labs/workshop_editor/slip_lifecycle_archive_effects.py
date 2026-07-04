@@ -25,14 +25,14 @@ from slip_preview_gates import (
 
 
 ARTIFACT_ID = "slip_lifecycle_archive_effects_stage0"
-REPORT_PATH = Path("data/workshop_editor/slip_lifecycle_archive_effects_stage0.json")
-EFFECT_DATA_PATH = Path("data/workshop_editor/slip_lifecycle_archive_effects_data.js")
+REPORT_PATH = ROOT / "data/workshop_editor/slip_lifecycle_archive_effects_stage0.json"
+EFFECT_DATA_PATH = ROOT / "data/workshop_editor/slip_lifecycle_archive_effects_data.js"
 DEFAULT_PROFILE_PATHS = [
-    Path("data/slips/valid/slip_lcd_seed.json"),
-    Path("data/slips/valid/slip_gray_stable.json"),
-    Path("data/slips/valid/slip_amber_social.json"),
+    ROOT / "data/slips/valid/slip_lcd_seed.json",
+    ROOT / "data/slips/valid/slip_gray_stable.json",
+    ROOT / "data/slips/valid/slip_amber_social.json",
 ]
-DEFAULT_GENERATED_ROOT = Path("data/slips/multi_profile_generation_stage0")
+DEFAULT_GENERATED_ROOT = ROOT / "data/slips/multi_profile_generation_stage0"
 ACTIONS = ["feed", "play", "sleep", "idle", "mutate"]
 
 
@@ -598,7 +598,10 @@ def _write_json(path: Path, payload: dict) -> None:
 
 
 def _portable(path: Path) -> str:
-    return str(path).replace("\\", "/")
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
 
 
 def _ratio(numerator: int | float, denominator: int | float) -> float:
@@ -616,7 +619,7 @@ def main() -> None:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("data/workshop_editor/slip_lifecycle_archive_effects_stage0"),
+        default=ROOT / "data/workshop_editor/slip_lifecycle_archive_effects_stage0",
     )
     parser.add_argument("--generated-root", type=Path, default=DEFAULT_GENERATED_ROOT)
     parser.add_argument("--profile", type=Path, action="append")

@@ -11,10 +11,13 @@ from slip_authoring_panel import (
 )
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 VALID_PROFILE_PATHS = [
-    Path("data/slips/valid/slip_lcd_seed.json"),
-    Path("data/slips/valid/slip_gray_stable.json"),
-    Path("data/slips/valid/slip_amber_social.json"),
+    ROOT / "data/slips/valid/slip_lcd_seed.json",
+    ROOT / "data/slips/valid/slip_gray_stable.json",
+    ROOT / "data/slips/valid/slip_amber_social.json",
 ]
 
 

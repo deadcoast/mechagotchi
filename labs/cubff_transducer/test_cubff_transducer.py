@@ -4,6 +4,9 @@ import unittest
 from pathlib import Path
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 GRID_GENOME_DIR = Path(__file__).resolve().parents[1] / "grid_genome"
 if str(GRID_GENOME_DIR) not in sys.path:
     sys.path.insert(0, str(GRID_GENOME_DIR))
@@ -61,7 +64,7 @@ class CubffTransducerTests(unittest.TestCase):
 
     def test_compile_semantic_grid_returns_valid_slip_aligned_genome(self):
         profile = json.loads(
-            Path("data/slips/valid/slip_lcd_seed.json").read_text(encoding="utf-8")
+            (ROOT / "data/slips/valid/slip_lcd_seed.json").read_text(encoding="utf-8")
         )
         grid = compile_semantic_grid(
             sample_snapshot(),
@@ -79,7 +82,7 @@ class CubffTransducerTests(unittest.TestCase):
 
     def test_run_transducer_lab_compares_direct_and_semantic_pipelines(self):
         profile = json.loads(
-            Path("data/slips/valid/slip_lcd_seed.json").read_text(encoding="utf-8")
+            (ROOT / "data/slips/valid/slip_lcd_seed.json").read_text(encoding="utf-8")
         )
         report = run_transducer_lab(
             [sample_snapshot()],
@@ -111,7 +114,7 @@ class CubffTransducerTests(unittest.TestCase):
 
     def test_run_transducer_lab_accepts_precompiled_semantic_grids(self):
         profile = json.loads(
-            Path("data/slips/valid/slip_lcd_seed.json").read_text(encoding="utf-8")
+            (ROOT / "data/slips/valid/slip_lcd_seed.json").read_text(encoding="utf-8")
         )
         seed_grids = build_seed_grids()
         snapshots = [sample_snapshot()]

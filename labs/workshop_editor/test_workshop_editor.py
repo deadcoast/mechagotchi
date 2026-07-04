@@ -5,6 +5,9 @@ import unittest
 from pathlib import Path
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 GRID_GENOME_DIR = Path(__file__).resolve().parents[1] / "grid_genome"
 if str(GRID_GENOME_DIR) not in sys.path:
     sys.path.insert(0, str(GRID_GENOME_DIR))
@@ -30,7 +33,7 @@ from workshop_editor import (
 
 def lcd_profile() -> dict:
     return json.loads(
-        Path("data/slips/valid/slip_lcd_seed.json").read_text(encoding="utf-8")
+        (ROOT / "data/slips/valid/slip_lcd_seed.json").read_text(encoding="utf-8")
     )
 
 
@@ -141,14 +144,14 @@ class WorkshopEditorTests(unittest.TestCase):
 
     def test_multi_profile_roundtrip_suite_covers_generated_profile_corpora(self):
         profile_paths = [
-            Path("data/slips/valid/slip_lcd_seed.json"),
-            Path("data/slips/valid/slip_gray_stable.json"),
-            Path("data/slips/valid/slip_amber_social.json"),
+            ROOT / "data/slips/valid/slip_lcd_seed.json",
+            ROOT / "data/slips/valid/slip_gray_stable.json",
+            ROOT / "data/slips/valid/slip_amber_social.json",
         ]
 
         report = run_workshop_multi_profile_roundtrip_suite(
             profile_paths,
-            Path("data/slips/multi_profile_generation_stage0"),
+            ROOT / "data/slips/multi_profile_generation_stage0",
             limit_per_profile=4,
         )
 
@@ -183,12 +186,12 @@ class WorkshopEditorTests(unittest.TestCase):
 
     def test_write_multi_profile_roundtrip_artifacts_creates_summary_and_profile_reports(self):
         profile_paths = [
-            Path("data/slips/valid/slip_lcd_seed.json"),
-            Path("data/slips/valid/slip_gray_stable.json"),
+            ROOT / "data/slips/valid/slip_lcd_seed.json",
+            ROOT / "data/slips/valid/slip_gray_stable.json",
         ]
         report = run_workshop_multi_profile_roundtrip_suite(
             profile_paths,
-            Path("data/slips/multi_profile_generation_stage0"),
+            ROOT / "data/slips/multi_profile_generation_stage0",
             limit_per_profile=2,
         )
 
@@ -204,8 +207,8 @@ class WorkshopEditorTests(unittest.TestCase):
                 self.assertTrue((output_dir / f"{result['profile_id']}_roundtrips.json").exists())
 
     def test_static_editor_shell_contains_required_surfaces(self):
-        html = Path("labs/workshop_editor/index.html").read_text(encoding="utf-8")
-        script = Path("labs/workshop_editor/app.js").read_text(encoding="utf-8")
+        html = (ROOT / "labs/workshop_editor/index.html").read_text(encoding="utf-8")
+        script = (ROOT / "labs/workshop_editor/app.js").read_text(encoding="utf-8")
 
         self.assertIn('data-testid="semantic-grid"', html)
         self.assertIn('data-testid="slip-authoring-panel"', html)

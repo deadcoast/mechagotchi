@@ -12,9 +12,12 @@ from pydantic_contract import (
 )
 
 
-VALID_PROFILE_PATHS = sorted(Path("data/slips/valid").glob("*.json"))
-FAILURE_CASE_PATHS = sorted(Path("data/slips/failure_cases").glob("*.json"))
-EXAMPLE_PROFILE_PATHS = sorted(Path("research/slip/slip_examples").glob("*.json"))
+ROOT = Path(__file__).resolve().parents[2]
+
+
+VALID_PROFILE_PATHS = sorted((ROOT / "data/slips/valid").glob("*.json"))
+FAILURE_CASE_PATHS = sorted((ROOT / "data/slips/failure_cases").glob("*.json"))
+EXAMPLE_PROFILE_PATHS = sorted((ROOT / "research/slip/slip_examples").glob("*.json"))
 
 
 class SlipPydanticContractTests(unittest.TestCase):
@@ -52,7 +55,7 @@ class SlipPydanticContractTests(unittest.TestCase):
         self.assertIsInstance(report["jsonschema_available"], bool)
 
     def test_pydantic_model_rejects_numeric_string_coercion(self):
-        payload = json.loads(Path("data/slips/valid/slip_lcd_seed.json").read_text(encoding="utf-8"))
+        payload = json.loads((ROOT / "data/slips/valid/slip_lcd_seed.json").read_text(encoding="utf-8"))
         payload["grid"]["body_mass_min"] = "4"
         payload["behavior"]["curiosity"] = "0.6"
 

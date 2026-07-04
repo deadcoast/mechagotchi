@@ -381,7 +381,7 @@ def _readme_text(report: dict) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output-dir", type=Path, default=Path("data/ctm_ticks"))
+    parser.add_argument("--output-dir", type=Path, default=ROOT / "data/ctm_ticks")
     parser.add_argument("--max-ticks", type=int, default=4)
     parser.add_argument("--confidence-threshold", type=float, default=0.72)
     args = parser.parse_args()

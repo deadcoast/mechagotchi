@@ -28,14 +28,14 @@ from slip_runtime_selection_policy import run_profile_runtime_selection_probe  #
 
 
 ARTIFACT_ID = "slip_offspring_lineage_gate_stage0"
-REPORT_PATH = Path("data/workshop_editor/slip_offspring_lineage_gate_stage0.json")
-APP_DATA_PATH = Path("data/workshop_editor/slip_offspring_lineage_gate_data.js")
+REPORT_PATH = ROOT / "data/workshop_editor/slip_offspring_lineage_gate_stage0.json"
+APP_DATA_PATH = ROOT / "data/workshop_editor/slip_offspring_lineage_gate_data.js"
 DEFAULT_PROFILE_PATHS = [
-    Path("data/slips/valid/slip_lcd_seed.json"),
-    Path("data/slips/valid/slip_gray_stable.json"),
-    Path("data/slips/valid/slip_amber_social.json"),
+    ROOT / "data/slips/valid/slip_lcd_seed.json",
+    ROOT / "data/slips/valid/slip_gray_stable.json",
+    ROOT / "data/slips/valid/slip_amber_social.json",
 ]
-DEFAULT_GENERATED_ROOT = Path("data/slips/multi_profile_generation_stage0")
+DEFAULT_GENERATED_ROOT = ROOT / "data/slips/multi_profile_generation_stage0"
 
 
 def run_profile_offspring_lineage_probe(
@@ -1015,7 +1015,7 @@ def main() -> None:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("data/workshop_editor/slip_offspring_lineage_gate_stage0"),
+        default=ROOT / "data/workshop_editor/slip_offspring_lineage_gate_stage0",
     )
     parser.add_argument("--candidate-limit", type=int, default=12)
     parser.add_argument("--lifecycle-ticks", type=int, default=24)

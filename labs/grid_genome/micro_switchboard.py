@@ -3,6 +3,9 @@ import json
 from pathlib import Path
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 ACTIONS = ["feed", "play", "sleep", "idle", "mutate"]
 
 
@@ -206,7 +209,7 @@ def _clamp(value: object) -> float:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output", type=Path, default=Path("data/micro_learners/switchboard_stage0.json"))
+    parser.add_argument("--output", type=Path, default=ROOT / "data/micro_learners/switchboard_stage0.json")
     args = parser.parse_args()
     results = run_scenarios()
     write_scenarios(args.output, results)

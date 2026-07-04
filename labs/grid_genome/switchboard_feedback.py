@@ -503,7 +503,7 @@ def _stress_readme_text(report: dict) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output-dir", type=Path, default=Path("data/micro_learners"))
+    parser.add_argument("--output-dir", type=Path, default=ROOT / "data/micro_learners")
     parser.add_argument("--ticks", type=int, default=48)
     parser.add_argument("--rng-seed", type=int, default=20260512)
     parser.add_argument("--stress", action="store_true")

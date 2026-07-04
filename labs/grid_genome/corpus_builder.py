@@ -9,6 +9,9 @@ from pathlib import Path
 from grid_helpers import PALETTES, _cell, grid_from_matrix
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 BLUEPRINTS = [
     ("mg_seed_001", "lcd_green", [".E..E...", "..BB....", ".BABB...", "..BB.M..", "...BB...", "........", "........", "........"]),
     ("mg_seed_002", "gameboy_gray", ["........", "..E.E...", "..BBB...", ".BBABB..", "..BMB...", "...B....", "........", "........"]),
@@ -143,8 +146,8 @@ def _write_json(path: Path, payload: dict) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--seed-dir", type=Path, default=Path("data/seed_grids"))
-    parser.add_argument("--invalid-dir", type=Path, default=Path("data/invalid_grids"))
+    parser.add_argument("--seed-dir", type=Path, default=ROOT / "data/seed_grids")
+    parser.add_argument("--invalid-dir", type=Path, default=ROOT / "data/invalid_grids")
     args = parser.parse_args()
     write_corpus(args.seed_dir, args.invalid_dir)
 

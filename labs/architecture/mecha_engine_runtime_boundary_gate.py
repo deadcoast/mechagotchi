@@ -8,8 +8,8 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 
 ARTIFACT_ID = "mecha_engine_runtime_boundary_gate_stage0"
 STATUS = "research_runtime_boundary_gate_no_package_code"
-REPORT_PATH = Path("data/architecture/mecha_engine_runtime_boundary_gate_stage0.json")
-DEFAULT_OUTPUT_DIR = Path("data/architecture/mecha_engine_runtime_boundary_gate_stage0")
+REPORT_PATH = REPO_ROOT / "data/architecture/mecha_engine_runtime_boundary_gate_stage0.json"
+DEFAULT_OUTPUT_DIR = REPO_ROOT / "data/architecture/mecha_engine_runtime_boundary_gate_stage0"
 
 
 SOURCE_ARTIFACTS = [
@@ -586,7 +586,7 @@ def _readme_text(report: dict) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--root", type=Path, default=Path("."))
+    parser.add_argument("--root", type=Path, default=REPO_ROOT)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--report-path", type=Path, default=REPORT_PATH)
     args = parser.parse_args()

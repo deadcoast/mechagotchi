@@ -404,7 +404,7 @@ def _clamp(value: object) -> float:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output-dir", type=Path, default=Path("data/readability"))
+    parser.add_argument("--output-dir", type=Path, default=ROOT / "data/readability")
     parser.add_argument("--count-per-source", type=int, default=10)
     parser.add_argument("--rng-seed", type=int, default=20260512)
     args = parser.parse_args()

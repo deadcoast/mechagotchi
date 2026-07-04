@@ -8,6 +8,9 @@ from copy import deepcopy
 from pathlib import Path
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 WORKSHOP_DIR = Path(__file__).resolve().parent
 GRID_GENOME_DIR = WORKSHOP_DIR.parents[0] / "grid_genome"
 for import_path in [WORKSHOP_DIR, GRID_GENOME_DIR]:
@@ -32,11 +35,11 @@ from third_party_project_decoder import PXO_MEMBER_SIZE_CAP, export_project_with
 
 
 VALID_PROFILE_PATHS = [
-    Path("data/slips/valid/slip_lcd_seed.json"),
-    Path("data/slips/valid/slip_gray_stable.json"),
-    Path("data/slips/valid/slip_amber_social.json"),
+    ROOT / "data/slips/valid/slip_lcd_seed.json",
+    ROOT / "data/slips/valid/slip_gray_stable.json",
+    ROOT / "data/slips/valid/slip_amber_social.json",
 ]
-GENERATED_ROOT = Path("data/slips/multi_profile_generation_stage0")
+GENERATED_ROOT = ROOT / "data/slips/multi_profile_generation_stage0"
 
 
 def load_profile(path: Path) -> dict:

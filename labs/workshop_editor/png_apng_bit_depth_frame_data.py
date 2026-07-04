@@ -36,8 +36,8 @@ from png_deep_color_sidecar_decoder import (
 )
 
 
-REPORT_PATH = Path("data/workshop_editor/apng_bit_depth_frame_data_stage0.json")
-DATA_PATH = Path("data/workshop_editor/apng_bit_depth_frame_data.js")
+REPORT_PATH = ROOT / "data/workshop_editor/apng_bit_depth_frame_data_stage0.json"
+DATA_PATH = ROOT / "data/workshop_editor/apng_bit_depth_frame_data.js"
 PNG_SOURCE_URL = "https://www.w3.org/TR/png-3/"
 TRANSPARENT_BLACK = (0, 0, 0, 0)
 FILTER_TYPES = [0, 1, 2, 3, 4]
@@ -1026,7 +1026,10 @@ def _error(path: str, family: str, message: str | None = None) -> dict:
 
 
 def _portable(path: Path) -> str:
-    return str(path).replace("\\", "/")
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
 
 
 def _first_grid_path(profile: dict, generated_root: Path) -> Path:
@@ -1041,19 +1044,19 @@ def main() -> None:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("data/workshop_editor/apng_bit_depth_frame_data_stage0"),
+        default=ROOT / "data/workshop_editor/apng_bit_depth_frame_data_stage0",
     )
     parser.add_argument(
         "--generated-root",
         type=Path,
-        default=Path("data/slips/multi_profile_generation_stage0"),
+        default=ROOT / "data/slips/multi_profile_generation_stage0",
     )
     parser.add_argument("--profile", type=Path, action="append")
     args = parser.parse_args()
     profile_paths = args.profile or [
-        Path("data/slips/valid/slip_lcd_seed.json"),
-        Path("data/slips/valid/slip_gray_stable.json"),
-        Path("data/slips/valid/slip_amber_social.json"),
+        ROOT / "data/slips/valid/slip_lcd_seed.json",
+        ROOT / "data/slips/valid/slip_gray_stable.json",
+        ROOT / "data/slips/valid/slip_amber_social.json",
     ]
     report = run_apng_bit_depth_frame_data_lab(profile_paths, args.generated_root)
     write_apng_bit_depth_frame_data_artifacts(args.output_dir, report)

@@ -448,6 +448,7 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-07-04-foreign-fixture-conformance.md`
 - `labs/workshop_editor/foreign_fixture_writer.py`
 - `data/foreign_fixtures/manifest.json`
+- `research/experiment_reports/2026-07-04-repo-root-path-anchoring.md`
 
 Stage 0 and Stage 1 established:
 

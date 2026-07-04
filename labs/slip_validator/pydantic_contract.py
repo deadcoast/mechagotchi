@@ -8,9 +8,12 @@ from typing import Annotated, Literal
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator, model_validator
 
 
-AUTHORED_SCHEMA_PATH = Path("research/slip/slip.schema.json")
-GENERATED_SCHEMA_PATH = Path("research/slip/slip_pydantic_model.schema.json")
-REPORT_PATH = Path("data/slips/slip_pydantic_contract_stage0.json")
+ROOT = Path(__file__).resolve().parents[2]
+
+
+AUTHORED_SCHEMA_PATH = ROOT / "research/slip/slip.schema.json"
+GENERATED_SCHEMA_PATH = ROOT / "research/slip/slip_pydantic_model.schema.json"
+REPORT_PATH = ROOT / "data/slips/slip_pydantic_contract_stage0.json"
 CONTRACT_STATUS = "research_slip_pydantic_contract_no_package_code"
 
 UnitInterval = Annotated[float, Field(ge=0, le=1)]
@@ -172,8 +175,8 @@ def build_pydantic_contract_report(
     return {
         "artifact_id": "slip_pydantic_contract_stage0",
         "status": CONTRACT_STATUS,
-        "authored_schema_path": str(AUTHORED_SCHEMA_PATH).replace("\\", "/"),
-        "generated_schema_path": str(GENERATED_SCHEMA_PATH).replace("\\", "/"),
+        "authored_schema_path": AUTHORED_SCHEMA_PATH.relative_to(ROOT).as_posix(),
+        "generated_schema_path": GENERATED_SCHEMA_PATH.relative_to(ROOT).as_posix(),
         "pydantic_available": _module_available("pydantic"),
         "pydantic_version": _module_version("pydantic"),
         "jsonschema_available": _module_available("jsonschema"),
@@ -243,9 +246,16 @@ def _reject_numeric_bool(value: object) -> object:
     return value
 
 
+def _portable(path: Path) -> str:
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
 def _validate_path(path: Path) -> dict:
     payload = json.loads(path.read_text(encoding="utf-8"))
-    return _validate_payload(str(path).replace("\\", "/"), payload)
+    return _validate_payload(_portable(path), payload)
 
 
 def _validate_payload(source_name: str, payload: dict) -> dict:
@@ -355,9 +365,9 @@ def _module_version(name: str) -> str | None:
 
 
 def main() -> None:
-    valid_paths = sorted(Path("data/slips/valid").glob("*.json"))
-    failure_paths = sorted(Path("data/slips/failure_cases").glob("*.json"))
-    example_paths = sorted(Path("research/slip/slip_examples").glob("*.json"))
+    valid_paths = sorted((ROOT / "data/slips/valid").glob("*.json"))
+    failure_paths = sorted((ROOT / "data/slips/failure_cases").glob("*.json"))
+    example_paths = sorted((ROOT / "research/slip/slip_examples").glob("*.json"))
     report = write_pydantic_contract_artifacts(
         valid_paths=valid_paths,
         failure_paths=failure_paths,

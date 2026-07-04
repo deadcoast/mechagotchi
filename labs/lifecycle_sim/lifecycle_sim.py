@@ -408,7 +408,7 @@ def _clamp(value: object) -> float:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output", type=Path, default=Path("data/lifecycle/lifecycle_stage0.json"))
+    parser.add_argument("--output", type=Path, default=ROOT / "data/lifecycle/lifecycle_stage0.json")
     parser.add_argument("--ticks", type=int, default=72)
     parser.add_argument("--rng-seed", type=int, default=20260512)
     args = parser.parse_args()

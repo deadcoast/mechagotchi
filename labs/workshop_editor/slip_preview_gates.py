@@ -17,8 +17,8 @@ from validator import validate_grid
 from slip_authoring_panel import validate_authoring_draft
 
 
-REPORT_PATH = Path("data/workshop_editor/slip_behavior_mutation_preview_stage0.json")
-PREVIEW_DATA_PATH = Path("data/workshop_editor/slip_preview_gate_data.js")
+REPORT_PATH = ROOT / "data/workshop_editor/slip_behavior_mutation_preview_stage0.json"
+PREVIEW_DATA_PATH = ROOT / "data/workshop_editor/slip_preview_gate_data.js"
 
 
 def validate_preview_request(profile: dict, grid: dict) -> dict:
@@ -507,7 +507,10 @@ def _write_json(path: Path, payload: dict) -> None:
 
 
 def _portable(path: Path) -> str:
-    return str(path).replace("\\", "/")
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
 
 
 def _ratio(numerator: int, denominator: int) -> float:
@@ -533,19 +536,19 @@ def main() -> None:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("data/workshop_editor/slip_behavior_mutation_preview_stage0"),
+        default=ROOT / "data/workshop_editor/slip_behavior_mutation_preview_stage0",
     )
     parser.add_argument(
         "--generated-root",
         type=Path,
-        default=Path("data/slips/multi_profile_generation_stage0"),
+        default=ROOT / "data/slips/multi_profile_generation_stage0",
     )
     parser.add_argument("--profile", type=Path, action="append")
     args = parser.parse_args()
     profile_paths = args.profile or [
-        Path("data/slips/valid/slip_lcd_seed.json"),
-        Path("data/slips/valid/slip_gray_stable.json"),
-        Path("data/slips/valid/slip_amber_social.json"),
+        ROOT / "data/slips/valid/slip_lcd_seed.json",
+        ROOT / "data/slips/valid/slip_gray_stable.json",
+        ROOT / "data/slips/valid/slip_amber_social.json",
     ]
     report = run_slip_preview_gate_lab(profile_paths, args.generated_root)
     write_slip_preview_gate_artifacts(args.output_dir, report)

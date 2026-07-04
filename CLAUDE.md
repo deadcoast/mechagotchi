@@ -10,7 +10,7 @@ The governing document is `docs/02-research_plan.md` (thesis, math/ALife layers,
 
 ## Commands
 
-All commands run from the repo root (tests read fixtures from `data/` via cwd-relative paths).
+Lab modules and tests anchor all `data/`/`research/` paths on the repo root via `ROOT = Path(__file__).resolve().parents[2]`, so suites and module `main()`s work from any cwd (review finding L-08). Keep new code on that pattern — and record path *strings* in artifacts repo-relative (`path.relative_to(ROOT).as_posix()`), never absolute.
 
 ```powershell
 # Run one lab's test suite (stdlib unittest — no pytest, no config files)

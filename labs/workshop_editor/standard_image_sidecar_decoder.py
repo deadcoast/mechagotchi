@@ -28,8 +28,8 @@ from workshop_editor import compare_semantic_grid_fidelity
 
 
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
-REPORT_PATH = Path("data/workshop_editor/standard_image_sidecar_decoder_stage0.json")
-DATA_PATH = Path("data/workshop_editor/standard_image_sidecar_decoder_data.js")
+REPORT_PATH = ROOT / "data/workshop_editor/standard_image_sidecar_decoder_stage0.json"
+DATA_PATH = ROOT / "data/workshop_editor/standard_image_sidecar_decoder_data.js"
 
 
 class PNGDecodeError(ValueError):
@@ -499,7 +499,10 @@ def _write_json(path: Path, payload: object) -> None:
 
 
 def _portable(path: Path) -> str:
-    return str(path).replace("\\", "/")
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
 
 
 def _ratio(numerator: int, denominator: int) -> float:
@@ -567,19 +570,19 @@ def main() -> None:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("data/workshop_editor/standard_image_sidecar_decoder_stage0"),
+        default=ROOT / "data/workshop_editor/standard_image_sidecar_decoder_stage0",
     )
     parser.add_argument(
         "--generated-root",
         type=Path,
-        default=Path("data/slips/multi_profile_generation_stage0"),
+        default=ROOT / "data/slips/multi_profile_generation_stage0",
     )
     parser.add_argument("--profile", type=Path, action="append")
     args = parser.parse_args()
     profile_paths = args.profile or [
-        Path("data/slips/valid/slip_lcd_seed.json"),
-        Path("data/slips/valid/slip_gray_stable.json"),
-        Path("data/slips/valid/slip_amber_social.json"),
+        ROOT / "data/slips/valid/slip_lcd_seed.json",
+        ROOT / "data/slips/valid/slip_gray_stable.json",
+        ROOT / "data/slips/valid/slip_amber_social.json",
     ]
     report = run_standard_image_sidecar_decoder_lab(profile_paths, args.generated_root)
     write_standard_image_sidecar_decoder_artifacts(args.output_dir, report)
