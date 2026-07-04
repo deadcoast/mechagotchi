@@ -11,8 +11,8 @@
   "dependency_manifest_present": false,
   "pydantic_available": true,
   "pydantic_version": "2.12.5",
-  "jsonschema_available": false,
-  "jsonschema_version": null,
+  "jsonschema_available": true,
+  "jsonschema_version": "4.26.0",
   "dependency_decision": {
     "pydantic": "use_pydantic_for_lab_contract_do_not_require_package_dependency",
     "jsonschema": "defer_python_jsonschema_until_dependency_manifest_exists"

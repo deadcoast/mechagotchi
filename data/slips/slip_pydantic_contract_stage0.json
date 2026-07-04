@@ -5,8 +5,8 @@
   "generated_schema_path": "research/slip/slip_pydantic_model.schema.json",
   "pydantic_available": true,
   "pydantic_version": "2.12.5",
-  "jsonschema_available": false,
-  "jsonschema_version": null,
+  "jsonschema_available": true,
+  "jsonschema_version": "4.26.0",
   "dependency_policy": "Pydantic is available in this environment, but no repository dependency manifest exists; package gates must declare it before requiring it.",
   "contract_methods": [
     "BaseModel.model_validate",

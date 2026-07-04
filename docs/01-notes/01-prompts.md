@@ -1,11 +1,10 @@
 # PROMPTS
-
 ## [1]
----
 
 DEVELOPMENT: BRAINSTORMING + RESEARCH, PLANNING
 
-## CURRENT STEP: "BRAINSTORMING + RESEARCH"
+---
+## [2] CURRENT STEP: "BRAINSTORMING + RESEARCH"
 
 `Mechagotchi`: The open source digital-visual companion engine.
 
@@ -23,9 +22,9 @@ This logic must link to the visual engine and vice versa.
 
 - mecha: `engine` <-> `SLIP` <-> `workshop`
   - THE SLIP PROFILES ARE USED FOR THE CORE `mecha_darwin` ALGORITHM THAT SHOULD CONTROL WHAT IS WEIGHTED AS IMPORTANT, OR 'OPTIMAL' FOR ITS NEXT EVOLUTION PASS.
-  - THE `Pixel Art Grid Editor` EDITOR IN [2] ARE DESIGNED TO LINK WITH THE `SLIP` PROFILES IS TO CREATE CUSTOM ASSETS FOR THE ENGINE, NOT THE CORE ENGINE ITSELF
+  - THE `Pixel Art Grid Editor` EDITOR IN [3] ARE DESIGNED TO LINK WITH THE `SLIP` PROFILES IS TO CREATE CUSTOM ASSETS FOR THE ENGINE, NOT THE CORE ENGINE ITSELF
 - the logic should incoperate real machine learning in an accelerated manner. We should be creative, and approach the machine learning as intelligence threads; we cannot utilize one broad machine learning logic because this format is too short in lifespan, the loop wont benefit from traditional ML.
-  - Instead, we creat many micro machine learning threads that all link into something more concrete like a main logic switchboard. We can provide guidance to the ML where required, and have hundreds of smaller, isolated ML enviornments that, upon linking into the switchboard, would act in itself as 'automation'. Its providing a datastream back to the main engine, that hence can then translate that data and provide visual output to the user facing experience through[2].
+  - Instead, we creat many micro machine learning threads that all link into something more concrete like a main logic switchboard. We can provide guidance to the ML where required, and have hundreds of smaller, isolated ML enviornments that, upon linking into the switchboard, would act in itself as 'automation'. Its providing a datastream back to the main engine, that hence can then translate that data and provide visual output to the user facing experience through[3].
 
 ### [B] `mecha_workshop`: Pixel Art Grid Editor, `SLIP` Profile Creator
 
@@ -35,9 +34,8 @@ This logic must link to the visual engine and vice versa.
 - Pre set Profiles, the profile logic should robustly and thorougly designed modular. These `modular` style development and design system should be deeply rooted into the engines source code operation for futureproofing and easy modifications, additions, enhanvements.
 - We should provide so be created in full so the users can create complete and workable profiles that link into the engine.
 
-## [2]
 ---
-
+## [3]
 ### RESEARCH PLAN
 
 **NOTE**: MY REQUEST IS A START, I DO NOT KNOW THE FULL SCOPE OF WHAT IS REQUIRED FOR THE RESEARCH, YOU ARE REQUIRED TO FINISH THE ERQUIRED SCOPE AND DATA.
@@ -68,11 +66,11 @@ SOURCING INSPIRATION AND ASSETS:
       - I have previously tried to utilize the CUBFF experiment with the self adjusting tapes utilizing `brainfuck` syntax. It was a largely successful google experiment, and released open source research where replication proved to be the train that created stability. While this proved to be good in theory, and it worked in code; i could not get the CUBFF output to make any sense visually for a human. This is my second attempt at this project, and CUBFF is a GOOD RESEARCH option, but under the terms that the visual/digigtal output can be solved with the GRID ENGINE format we are theorizing
 
 ---
-## [3]
+## [4]
 
 > You are the [HEAD-OF-RESEARCH] for the project now.
-[1] Review the research and brainstorming done so far in docs\01-brainstorming.md .
-[2] I have created plans for you to strictly follow in the research; docs\02-research_plan.md .
-[3] Begin the research utilizing the planning in the docs. Use serena, MCP, and websearch and any tools that will help you achieve your task.
+> 1. Review the research and brainstorming done so far in docs\01-brainstorming.md .
+> 2. I have created plans for you to strictly follow in the research; docs\02-research_plan.md .
+> 3. Begin the research utilizing the planning in the docs. Use serena, MCP, and websearch and any tools that will help you achieve your task.
 
 ---
