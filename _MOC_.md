@@ -24,6 +24,7 @@
 * [3] = "Formatted Reports created from [2]"
   * [REPORTS](docs/01-shelved/03-reports/03-deep_research_report.md)
   * [REPORTS](docs/01-shelved/03-reports/03-deep_research_report.pdf)
+  * [CODE-REVIEW](docs/03-code_review/2026-07-04-code_review.md)
 * [4] = "Sources and Citations"
   * [SOURCES](docs/01-shelved/03-reports/04-sources.md)
 
