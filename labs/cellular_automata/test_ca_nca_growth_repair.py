@@ -21,6 +21,7 @@ from ca_nca_growth_repair import (  # noqa: E402
     repair_with_local_attractor,
     repair_with_neighborhood_model,
     repair_with_role_prior_model,
+    repair_with_wound_sites,
     run_ca_nca_lab,
     run_damage_stress_benchmark,
     run_learned_repair_comparison,
@@ -102,6 +103,28 @@ class CaNcaGrowthRepairTests(unittest.TestCase):
         self.assertEqual("stochastic_dropout", first["metadata"]["damage_pattern"])
         self.assertGreater(first["metadata"]["removed_cell_count"], 0)
         self.assertLess(matrix_overlap(first, target), 1.0)
+
+    def test_apply_stochastic_damage_records_removed_cell_positions(self):
+        target = build_seed_grids()[0]
+        damaged = apply_stochastic_damage(
+            target,
+            dropout_rate=0.35,
+            rng_seed=20260512,
+            event_index=1,
+        )
+
+        removed = damaged["metadata"]["removed_cells"]
+        self.assertEqual(len(removed), damaged["metadata"]["removed_cell_count"])
+        self.assertGreater(len(removed), 0)
+        target_live = {
+            (cell["x"], cell["y"]) for cell in target["cells"]
+        }
+        damaged_live = {
+            (cell["x"], cell["y"]) for cell in damaged["cells"]
+        }
+        for x, y in removed:
+            self.assertIn((x, y), target_live)
+            self.assertNotIn((x, y), damaged_live)
 
     def test_repeated_stochastic_damage_benchmark_repairs_multiple_cycles(self):
         report = run_repeated_stochastic_damage_benchmark(
@@ -221,6 +244,50 @@ class CaNcaGrowthRepairTests(unittest.TestCase):
         again = repair_with_neighborhood_model(damaged, model, steps=8)
         self.assertEqual(repaired["cells"], again["cells"])
 
+    def test_repair_with_wound_sites_fills_exactly_the_damage_sites(self):
+        seed_grids = build_seed_grids()
+        model = train_neighborhood_repair_model(
+            seed_grids[:12],
+            epochs=60,
+            rng_seed=20260512,
+        )
+        # Held-out grid never seen during training.
+        target = seed_grids[45]
+        damaged = apply_stochastic_damage(
+            target,
+            dropout_rate=0.2,
+            rng_seed=20260512,
+            event_index=1,
+        )
+        wound_sites = damaged["metadata"]["removed_cells"]
+        self.assertGreater(len(wound_sites), 0)
+
+        repaired = repair_with_wound_sites(damaged, model)
+
+        self.assertEqual(
+            "learned_wound_site_softmax_repair",
+            repaired["metadata"]["source"],
+        )
+        self.assertFalse(repaired["metadata"]["target_template_used"])
+        self.assertEqual(len(wound_sites), repaired["metadata"]["wound_site_count"])
+        # Every wound site is refilled with some live token...
+        repaired_tokens = {
+            (cell["x"], cell["y"]) for cell in repaired["cells"]
+        }
+        for x, y in wound_sites:
+            self.assertIn((x, y), repaired_tokens)
+        # ...and no other position changes: live set = damaged live + sites.
+        damaged_tokens = {
+            (cell["x"], cell["y"]) for cell in damaged["cells"]
+        }
+        self.assertEqual(
+            damaged_tokens | {(x, y) for x, y in wound_sites},
+            repaired_tokens,
+        )
+        # Deterministic repair: same inputs give identical cells.
+        again = repair_with_wound_sites(damaged, model)
+        self.assertEqual(repaired["cells"], again["cells"])
+
     def test_structural_agreement_penalises_spurious_fills(self):
         target = build_seed_grids()[0]
         damaged = apply_damage(target, pattern="center_cut")
@@ -265,7 +332,7 @@ class CaNcaGrowthRepairTests(unittest.TestCase):
         self.assertFalse(report["summary"]["target_template_used_by_trained"])
         arms = report["summary"]["arms"]
         self.assertEqual(
-            {"no_repair", "role_prior", "trained", "assisted"},
+            {"no_repair", "role_prior", "trained", "site_aware", "assisted"},
             set(arms.keys()),
         )
         # Training grids must not appear among held-out targets.
@@ -282,10 +349,31 @@ class CaNcaGrowthRepairTests(unittest.TestCase):
             arms["assisted"]["mean_final_overlap"],
             arms["trained"]["mean_final_overlap"],
         )
+        self.assertGreater(
+            arms["site_aware"]["mean_final_overlap"],
+            arms["no_repair"]["mean_final_overlap"],
+        )
+        # The wound-site arm never overgrows, so its one-sided overlap and
+        # two-sided agreement coincide by construction.
+        self.assertEqual(
+            arms["site_aware"]["mean_final_overlap"],
+            arms["site_aware"]["mean_final_structural_agreement"],
+        )
+        self.assertIn(
+            "site_aware_meets_assisted_stability_bar",
+            report["decision"]["thresholds"],
+        )
+        self.assertIsInstance(
+            report["decision"]["thresholds"][
+                "site_aware_meets_assisted_stability_bar"
+            ],
+            bool,
+        )
         self.assertIn(
             report["decision"]["status"],
             {
                 "promote_less_assisted_repair",
+                "wound_signal_repair_meets_bar",
                 "prototype_learned_repair_gap_narrowed",
                 "keep_assisted_baseline",
             },
@@ -317,7 +405,7 @@ class CaNcaGrowthRepairTests(unittest.TestCase):
             )
             self.assertEqual("ca_nca_trained_repair_stage0", loaded["lab_id"])
             self.assertEqual(
-                2 * 4,
+                2 * 5,
                 len(list((output_dir / "trained_repair_samples").glob("*.json"))),
             )
 

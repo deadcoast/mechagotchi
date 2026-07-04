@@ -1,0 +1,178 @@
+{
+  "lab_id": "ca_nca_repair_context_ablation_stage0",
+  "date": "2026-07-04",
+  "rng_seed": 20260512,
+  "training_grid_count": 40,
+  "holdout_target_count": 10,
+  "holdout_target_ids": [
+    "mg_seed_041",
+    "mg_seed_042",
+    "mg_seed_043",
+    "mg_seed_044",
+    "mg_seed_045",
+    "mg_seed_046",
+    "mg_seed_047",
+    "mg_seed_048",
+    "mg_seed_049",
+    "mg_seed_050"
+  ],
+  "cycles": 5,
+  "dropout_rate": 0.2,
+  "epochs": 150,
+  "purpose": "Ablate retrieval-context conditioning, self-play retraining, and confidence pruning for the gradient-trained repair rule, and measure the exemplar-retrieval ceiling that bounds template-retrieval repair on this corpus.",
+  "source_artifacts": [
+    "data/cellular_automata/ca_nca_trained_repair_stage0.json"
+  ],
+  "configs": {
+    "plain_replication": {
+      "use_context": false,
+      "self_play": false,
+      "prune": false,
+      "example_count": 8639,
+      "final_loss": 0.251315,
+      "mean_final_overlap": 0.862546,
+      "mean_final_agreement": 0.631871,
+      "validity_rate": 1.0
+    },
+    "context": {
+      "use_context": true,
+      "self_play": false,
+      "prune": false,
+      "example_count": 8639,
+      "final_loss": 0.217345,
+      "mean_final_overlap": 0.802656,
+      "mean_final_agreement": 0.615123,
+      "validity_rate": 1.0
+    },
+    "context_self_play": {
+      "use_context": true,
+      "self_play": true,
+      "prune": false,
+      "example_count": 18879,
+      "final_loss": 0.234676,
+      "mean_final_overlap": 0.809249,
+      "mean_final_agreement": 0.590334,
+      "validity_rate": 1.0
+    },
+    "context_self_play_prune": {
+      "use_context": true,
+      "self_play": true,
+      "prune": true,
+      "example_count": 18879,
+      "final_loss": 0.234676,
+      "mean_final_overlap": 0.801557,
+      "mean_final_agreement": 0.61331,
+      "validity_rate": 1.0
+    },
+    "plain_self_play_prune": {
+      "use_context": false,
+      "self_play": true,
+      "prune": true,
+      "example_count": 18879,
+      "final_loss": 0.279735,
+      "mean_final_overlap": 0.838278,
+      "mean_final_agreement": 0.589837,
+      "validity_rate": 1.0
+    }
+  },
+  "retrieval_ceiling": {
+    "dropout_rate": 0.2,
+    "per_target": [
+      {
+        "target_grid_id": "mg_seed_041",
+        "oracle_agreement": 0.857143,
+        "retrieved_agreement": 0.857143,
+        "top_match_score": 1.0
+      },
+      {
+        "target_grid_id": "mg_seed_042",
+        "oracle_agreement": 0.733333,
+        "retrieved_agreement": 0.6875,
+        "top_match_score": 0.818182
+      },
+      {
+        "target_grid_id": "mg_seed_043",
+        "oracle_agreement": 0.785714,
+        "retrieved_agreement": 0.785714,
+        "top_match_score": 0.888889
+      },
+      {
+        "target_grid_id": "mg_seed_044",
+        "oracle_agreement": 0.857143,
+        "retrieved_agreement": 0.625,
+        "top_match_score": 0.909091
+      },
+      {
+        "target_grid_id": "mg_seed_045",
+        "oracle_agreement": 0.733333,
+        "retrieved_agreement": 0.733333,
+        "top_match_score": 0.727273
+      },
+      {
+        "target_grid_id": "mg_seed_046",
+        "oracle_agreement": 0.8,
+        "retrieved_agreement": 0.8,
+        "top_match_score": 0.916667
+      },
+      {
+        "target_grid_id": "mg_seed_047",
+        "oracle_agreement": 0.733333,
+        "retrieved_agreement": 0.5625,
+        "top_match_score": 0.818182
+      },
+      {
+        "target_grid_id": "mg_seed_048",
+        "oracle_agreement": 0.733333,
+        "retrieved_agreement": 0.6875,
+        "top_match_score": 0.818182
+      },
+      {
+        "target_grid_id": "mg_seed_049",
+        "oracle_agreement": 0.866667,
+        "retrieved_agreement": 0.866667,
+        "top_match_score": 0.8
+      },
+      {
+        "target_grid_id": "mg_seed_050",
+        "oracle_agreement": 0.75,
+        "retrieved_agreement": 0.705882,
+        "top_match_score": 0.818182
+      }
+    ],
+    "mean_oracle_agreement": 0.785,
+    "mean_retrieved_agreement": 0.731124
+  },
+  "decision": {
+    "status": "reject_context_conditioning",
+    "adoption": "negative_result_recorded",
+    "reason": "Retrieval-context conditioning, self-play retraining, and confidence pruning each fail to improve \u2014 and mostly degrade \u2014 held-out final overlap and structural agreement versus the plain trained rule. Leave-one-out retrieval is more reliable over the training corpus than for held-out variants, so the model over-trusts consensus features that mislead at evaluation time. The retrieval ceiling additionally bounds every exemplar-template strategy below the assisted stability bar on this corpus.",
+    "thresholds": {
+      "context_improves_overlap": false,
+      "context_improves_agreement": false,
+      "best_config_meets_assisted_stability_bar": false,
+      "exemplar_ceiling_below_bar": true
+    }
+  },
+  "limitations": [
+    "All configs share the linear softmax hypothesis class; the ablation rules out these conditioning mechanisms, not nonlinear learners.",
+    "Leave-one-out retrieval during training is structurally easier than held-out retrieval at evaluation, which is exactly the measured failure mode.",
+    "The retrieval ceiling is corpus-specific: a denser variant corpus would raise it."
+  ],
+  "source_refs": [
+    {
+      "name": "Growing Neural Cellular Automata",
+      "url": "https://distill.pub/2020/growing-ca/",
+      "use": "Seed growth, persistence, and regeneration framing for local update rules."
+    },
+    {
+      "name": "Self-organising Textures",
+      "url": "https://distill.pub/selforg/2021/textures/",
+      "use": "Reference for local cellular update rules as generative texture dynamics."
+    },
+    {
+      "name": "Regenerating Soft Robots through Neural Cellular Automata",
+      "url": "https://arxiv.org/abs/2102.02579",
+      "use": "Reference for regeneration as a learned local-rule benchmark rather than target-template reconstruction."
+    }
+  ]
+}

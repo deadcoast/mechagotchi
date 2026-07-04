@@ -202,14 +202,23 @@ def build_candidate_registry() -> list[dict]:
             ],
             "verification": "python -B labs/cellular_automata/test_ca_nca_growth_repair.py",
             "research_notes": (
-                "Assisted target-template baseline; a gradient-trained "
-                "neighborhood repair model now exists and beats no-repair "
-                "substantially, but has not reached the assisted stability "
-                "bar (0.9)."
+                "Assisted target-template baseline; the blind "
+                "gradient-trained neighborhood model still falls short of "
+                "the assisted stability bar, but its wound-site variant "
+                "(damage-event positions observed, tokens predicted, no "
+                "template) meets all three bars on held-out grids. "
+                "Retrieval-context conditioning was ablated and rejected "
+                "(ca_nca_repair_context_ablation_stage0)."
             ),
             "research_blockers": [
                 # Derived since 2026-07-04: the trained-repair lab records a
                 # machine-checkable stability-bar verdict in its own artifact.
+                # The blocker's factual basis is "only template-assisted
+                # repair reaches stability", so it clears on the wound-site
+                # arm's verdict: that arm observes damage-event positions
+                # (an engine-native signal) but never destroyed tokens and
+                # never a template. The blind arm's verdict stays recorded
+                # separately as meets_assisted_stability_bar.
                 {
                     "blocker_id": "lab_only_target_template_assisted",
                     "cleared_when": {
@@ -219,7 +228,7 @@ def build_candidate_registry() -> list[dict]:
                         "metric_path": [
                             "decision",
                             "thresholds",
-                            "meets_assisted_stability_bar",
+                            "site_aware_meets_assisted_stability_bar",
                         ],
                         "operator": "==",
                         "value": True,

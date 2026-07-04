@@ -97,16 +97,24 @@ def apply_stochastic_damage(
     event_index: int = 1,
 ) -> dict:
     rng = random.Random(rng_seed)
-    matrix = matrix_from_grid(grid)
-    removed = 0
-    for y, row in enumerate(matrix):
+    before = matrix_from_grid(grid)
+    matrix = [row[:] for row in before]
+    for y, row in enumerate(before):
         for x, token in enumerate(row):
             if token == ".":
                 continue
             if rng.random() < dropout_rate:
                 matrix[y][x] = "."
-                removed += 1
     reseeded = _ensure_anchor(matrix)
+    # The damage event reports which cells it destroyed (live before, empty
+    # after) — the observability the wound-site repair arm relies on.
+    removed_cells = [
+        [x, y]
+        for y in range(len(before))
+        for x in range(len(before[y]))
+        if before[y][x] != "." and matrix[y][x] == "."
+    ]
+    removed = len(removed_cells)
     damaged = grid_from_matrix(
         grid_id=f"{grid.get('grid_id', 'grid')}_stochastic_damage_{event_index:02d}",
         matrix=matrix,
@@ -123,6 +131,7 @@ def apply_stochastic_damage(
     damaged["metadata"]["dropout_rate"] = dropout_rate
     damaged["metadata"]["damage_event_index"] = event_index
     damaged["metadata"]["removed_cell_count"] = removed
+    damaged["metadata"]["removed_cells"] = removed_cells
     return damaged
 
 
@@ -798,6 +807,56 @@ def repair_with_neighborhood_model(
     return repaired
 
 
+def repair_with_wound_sites(
+    damaged_grid: dict,
+    model: dict,
+    *,
+    wound_sites: list[list[int]] | None = None,
+) -> dict:
+    """Refill exactly the cells the damage event reports as destroyed.
+
+    Observability contract: the arm receives the damage event's destroyed
+    positions (`metadata.removed_cells`) but never the destroyed tokens and
+    never a target template — every token is predicted by the trained
+    softmax rule. Sites are filled most-confident-first so later fills see
+    earlier ones as live neighborhood context; the procedure is fully
+    deterministic.
+    """
+    weights = model["weights"]
+    matrix = matrix_from_grid(damaged_grid)
+    if wound_sites is None:
+        wound_sites = damaged_grid["metadata"]["removed_cells"]
+    site_count = len(wound_sites)
+    pending = [(x, y) for x, y in wound_sites if matrix[y][x] == "."]
+    while pending:
+        best_choice = None
+        for x, y in pending:
+            probs = _softmax_probs(weights, _neighborhood_features(matrix, x, y))
+            live_class = max(range(1, len(CLASS_TOKENS)), key=lambda c: probs[c])
+            if best_choice is None or probs[live_class] > best_choice[0]:
+                best_choice = (probs[live_class], x, y, CLASS_TOKENS[live_class])
+        _, x, y, token = best_choice
+        matrix[y][x] = token
+        pending.remove((x, y))
+
+    repaired = grid_from_matrix(
+        grid_id=f"{damaged_grid.get('grid_id', 'grid')}_wound_repaired",
+        matrix=matrix,
+        palette=damaged_grid.get("palette", {}),
+        parent_grid_id=damaged_grid.get("grid_id"),
+        source="learned_wound_site_softmax_repair",
+        mutation_events=[
+            "ca_damage_observed",
+            "learned_wound_site_softmax_repair",
+        ],
+        generation_delta=1,
+    )
+    repaired["metadata"]["learned_model_id"] = model.get("model_id")
+    repaired["metadata"]["target_template_used"] = False
+    repaired["metadata"]["wound_site_count"] = site_count
+    return repaired
+
+
 def run_trained_repair_benchmark(
     *,
     training_count: int = 40,
@@ -832,7 +891,7 @@ def run_trained_repair_benchmark(
     )
     role_prior_model = train_role_prior_repair_model(training_grids)
 
-    arms = ["no_repair", "role_prior", "trained", "assisted"]
+    arms = ["no_repair", "role_prior", "trained", "site_aware", "assisted"]
     results = []
     for index, target in enumerate(targets):
         current = {arm: target for arm in arms}
@@ -862,6 +921,8 @@ def run_trained_repair_benchmark(
                         trained_model,
                         steps=repair_steps,
                     )
+                elif arm == "site_aware":
+                    repaired = repair_with_wound_sites(damaged, trained_model)
                 else:
                     repaired = repair_with_local_attractor(
                         damaged,
@@ -927,9 +988,13 @@ def run_trained_repair_benchmark(
             "deterministic full-batch gradient descent on (damaged "
             "neighborhood -> target token) pairs from the training split. "
             "It never receives the target template at repair time and is "
-            "evaluated only on held-out grids. The assisted arm keeps the "
-            "target-template local attractor as the upper-bound baseline, "
-            "and the no-repair arm shows unrepaired decay."
+            "evaluated only on held-out grids. The site_aware arm uses the "
+            "same trained model but additionally observes the damage "
+            "event's destroyed positions (never the destroyed tokens): it "
+            "refills exactly those wound sites with model-predicted tokens. "
+            "The assisted arm keeps the target-template local attractor as "
+            "the upper-bound baseline, and the no-repair arm shows "
+            "unrepaired decay."
         ),
         "trained_model": {
             key: value
@@ -943,6 +1008,7 @@ def run_trained_repair_benchmark(
         "limitations": [
             "The trained rule is a linear softmax, not a neural cellular automaton with hidden state.",
             "matrix_overlap does not penalise spurious fills, so structural_agreement is reported alongside it; the trained arm overgrows relative to the assisted baseline.",
+            "The site_aware arm assumes damage events report destroyed positions; it would not apply to damage whose location is unobserved, and its verdict is recorded under its own threshold key for that reason.",
             "Held-out grids come from the same hand-authored species corpus, so the split tests variant generalisation, not novel-species generalisation.",
             "No human visual repair ratings are included.",
         ],
@@ -1111,7 +1177,19 @@ def _trained_repair_summary(
         - summary["arms"]["assisted"]["mean_final_overlap"],
         6,
     )
+    site_aware = summary["arms"]["site_aware"]
+    summary["site_aware_vs_trained_final_agreement_delta"] = round(
+        site_aware["mean_final_structural_agreement"]
+        - trained["mean_final_structural_agreement"],
+        6,
+    )
+    summary["site_aware_vs_assisted_final_overlap_delta"] = round(
+        site_aware["mean_final_overlap"]
+        - summary["arms"]["assisted"]["mean_final_overlap"],
+        6,
+    )
     summary["target_template_used_by_trained"] = False
+    summary["target_template_used_by_site_aware"] = False
     return summary
 
 
@@ -1125,8 +1203,15 @@ def _trained_repair_decision(summary: dict) -> dict:
     Because `matrix_overlap` is one-sided (it never penalises spurious
     fills, which lets an overgrowing filler inflate it), the learned-arm
     comparison additionally uses the two-sided structural agreement.
+
+    The site-aware arm is judged against the same three bars but under its
+    own key, because its observability differs: it sees the damage event's
+    destroyed positions (never the destroyed tokens, never a template).
+    The two verdicts are kept separate so neither arm's result can be
+    mistaken for the other's.
     """
     trained = summary["arms"]["trained"]
+    site_aware = summary["arms"]["site_aware"]
     beats_no_repair_substantially = (
         summary["trained_vs_no_repair_final_overlap_delta"] >= 0.3
         and summary["trained_vs_no_repair_final_agreement_delta"] >= 0.2
@@ -1139,6 +1224,11 @@ def _trained_repair_decision(summary: dict) -> dict:
         and trained["final_validity_rate"] >= 0.9
         and trained["mean_final_structural_agreement"] >= 0.9
     )
+    site_aware_meets_assisted_stability_bar = (
+        site_aware["mean_final_overlap"] >= 0.9
+        and site_aware["final_validity_rate"] >= 0.9
+        and site_aware["mean_final_structural_agreement"] >= 0.9
+    )
     if (
         beats_no_repair_substantially
         and best_learned_on_structural_agreement
@@ -1150,6 +1240,19 @@ def _trained_repair_decision(summary: dict) -> dict:
             "to the assisted stability bar without any target template, so "
             "it can replace the template-assisted baseline as the repair "
             "surface."
+        )
+    elif site_aware_meets_assisted_stability_bar:
+        status = "wound_signal_repair_meets_bar"
+        reason = (
+            "The blind trained arm still falls short of the assisted "
+            "stability bar, but the wound-site arm — the same trained "
+            "model, additionally observing which positions the damage "
+            "event destroyed (never the destroyed tokens, never a "
+            "template) — meets all three bars on held-out grids. Refill "
+            "restricted to reported damage sites removes overgrowth by "
+            "construction, so the residual error is purely token "
+            "prediction. Template assistance is no longer required for "
+            "stability when damage-site observability is available."
         )
     elif beats_no_repair_substantially and best_learned_on_structural_agreement:
         status = "prototype_learned_repair_gap_narrowed"
@@ -1179,6 +1282,9 @@ def _trained_repair_decision(summary: dict) -> dict:
                 best_learned_on_structural_agreement
             ),
             "meets_assisted_stability_bar": meets_assisted_stability_bar,
+            "site_aware_meets_assisted_stability_bar": (
+                site_aware_meets_assisted_stability_bar
+            ),
         },
     }
 
@@ -1189,8 +1295,10 @@ def _trained_repair_readme_text(report: dict) -> str:
         "# CA/NCA Trained Repair Stage 0",
         "",
         "Held-out benchmark for a gradient-trained per-cell softmax repair "
-        "rule against no-repair, the role-prior baseline, and the "
-        "target-template assisted attractor.",
+        "rule against no-repair, the role-prior baseline, a wound-site "
+        "variant of the same model (damage-event positions observed, "
+        "tokens still predicted), and the target-template assisted "
+        "attractor.",
         "",
         f"- Training grids: {report['training_grid_count']}",
         f"- Held-out targets: {report['holdout_target_count']}",
@@ -1215,13 +1323,20 @@ def _trained_repair_readme_text(report: dict) -> str:
             f"{summary['trained_vs_role_prior_final_overlap_delta']}",
             f"- Trained vs assisted overlap delta: "
             f"{summary['trained_vs_assisted_final_overlap_delta']}",
+            f"- Site-aware vs trained agreement delta: "
+            f"{summary['site_aware_vs_trained_final_agreement_delta']}",
+            f"- Site-aware vs assisted overlap delta: "
+            f"{summary['site_aware_vs_assisted_final_overlap_delta']}",
             f"- Decision: {report['decision']['status']}",
             "",
             "The trained arm learns from (damaged neighborhood -> target "
             "token) pairs by deterministic gradient descent and never sees "
-            "a target template during repair. Structural agreement is "
-            "reported because plain overlap does not penalise spurious "
-            "fills.",
+            "a target template during repair. The site_aware arm reuses "
+            "that model but refills exactly the positions the damage event "
+            "reports as destroyed (tokens still predicted, never "
+            "remembered), which removes overgrowth by construction. "
+            "Structural agreement is reported because plain overlap does "
+            "not penalise spurious fills.",
             "",
         ]
     )

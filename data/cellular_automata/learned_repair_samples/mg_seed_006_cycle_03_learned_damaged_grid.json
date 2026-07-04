@@ -397,6 +397,24 @@
     "damage_pattern": "stochastic_dropout",
     "dropout_rate": 0.2,
     "damage_event_index": 3,
-    "removed_cell_count": 4
+    "removed_cell_count": 4,
+    "removed_cells": [
+      [
+        5,
+        2
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        4,
+        4
+      ],
+      [
+        2,
+        5
+      ]
+    ]
   }
 }

@@ -4,17 +4,25 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-Mechagotchi is a **research-first** workspace for a grid-based artificial-life companion engine. All implementation code lives in `labs/` as executable research prototypes; `packages/mecha_engine` exists only as an **empty scaffold boundary** (decision record 0004 — docstring-only modules, no lab code promoted, verified by `labs/architecture/mecha_engine_scaffold_verification_gate.py`). The documentation under `research/` *is* the deliverable: a living evidence ledger where every claim traces from the research plan down through experiment reports to lab code and JSON data artifacts.
+Mechagotchi is a **research-first** workspace for a grid-based artificial-life companion engine. All algorithms are first proven in `labs/` as executable research prototypes; since report v0.9 the project is in the **package-implementation phase**: `packages/mecha_engine` (src layout, decision record 0004) contains five promoted modules — `genome`, `generation`, `lifecycle`, `archive`, `provenance` — each backed by contract tests and lab-side parity pins. Promotion is governed by `labs/package_promotion/package_promotion_gate.py`; a module only moves when its gate says `promotion_ready`. The documentation under `research/` *is* the deliverable: a living evidence ledger where every claim traces from the research plan down through experiment reports to lab code and JSON data artifacts.
 
-The governing document is `docs/02-research_plan.md` (thesis, math/ALife layers, Stages 0–7, evaluation framework). `research/README.md` is the master traceability ledger. `_MOC_.md` defines the numeric filename-prefix categories used in `docs/` (`01-` brainstorm/notes → `02-` research plan → `03-` reports → `04-` sources).
+The governing document is `docs/02-research_plan.md` (thesis, math/ALife layers, Stages 0–7, evaluation framework). `research/README.md` is the master traceability ledger. `docs/00-agent_onboarding.md` orients a fresh session (state snapshot, honesty norms, first moves — re-verify its claims against `git log` and the gate artifacts). `_MOC_.md` defines the numeric filename-prefix categories used in `docs/` (`01-` brainstorm/notes → `02-` research plan → `03-` reports → `04-` sources).
 
 ## Commands
 
 Lab modules and tests anchor all `data/`/`research/` paths on the repo root via `ROOT = Path(__file__).resolve().parents[2]`, so suites and module `main()`s work from any cwd (review finding L-08). Keep new code on that pattern — and record path *strings* in artifacts repo-relative (`path.relative_to(ROOT).as_posix()`), never absolute.
 
+Always run Python with `-B` — `__pycache__` directories are tracked in git (pre-existing hazard), and `-B` keeps them from churning.
+
 ```powershell
 # Run one lab's test suite (stdlib unittest — no pytest, no config files)
 python -B -m unittest discover -s labs/grid_genome -p "test_*.py"
+
+# Run the package suite
+python -B -m unittest discover -s packages/mecha_engine/tests -p "test_*.py"
+
+# Rerun the promotion gate (current candidate statuses are the machine-readable truth)
+python -B labs/package_promotion/package_promotion_gate.py
 
 # Run a single test file
 python -B -m unittest discover -s labs/grid_genome -p "test_validator.py"
@@ -43,6 +51,7 @@ Data flow: **SLIP profile → grid generator → validator → genome → lifecy
 - **SLIP** (Synthetic Learning Intelligence Profile) — a user-authored constraint profile (palettes, body mass bounds, required organ roles, mutation caps, behavior/survival weights) that governs generation. Schema: `research/slip/slip.schema.json`; validated by both stdlib code (`labs/grid_genome/slip.py`, `labs/slip_validator/slip_validator.py`) and a pydantic mirror (`labs/slip_validator/pydantic_contract.py`, which also *generates* `research/slip/slip_pydantic_model.schema.json`). Fixtures: `data/slips/valid/`, `data/slips/failure_cases/`.
 - **`labs/`** — each subdirectory is one research lab (grid_genome, workshop_editor, cellular_automata, map_elites_archive, lifecycle_sim, asset_pipeline, readability_benchmark, architecture, package_promotion, …). `labs/workshop_editor/` is the largest: ~30 modules that each isolate one corner of the PNG/APNG/Aseprite/spritesheet spec, hand-encoding and decoding binary formats with only stdlib `struct` + `zlib`, and binding image assets to semantic grids via external metadata sidecars.
 - **`data/`** — JSON evidence artifacts and fixture corpora (`data/seed_grids/mg_seed_NNN.json`, `data/invalid_grids/`, per-lab `*_stage0.json` reports).
+- **`packages/mecha_engine/`** — the promoted engine package (src layout, stdlib-only). Boundary rules are enforced by a scan: no `sys.path` text may appear anywhere in the package tree; package code and tests import `mecha_engine`, never `labs`. Labs *may* import the package — that is how lab-side parity tests pin that a port kept lab semantics verbatim (error strings included). Package tests locate the module via a subprocess with `PYTHONPATH=packages/mecha_engine/src`. Contracts live in `research/package_specs/` (spec wins over a raw port only where the gate says so, and the divergence is documented).
 
 ### Lab module pattern
 
@@ -83,7 +92,7 @@ data/cellular_automata/ca_nca_growth_repair_stage0.json          ← evidence
 
 ### Completion checklist (before claiming any change done)
 
-1. Run the changed lab's tests: `python -B -m unittest discover -s labs/<lab> -p "test_*.py"`.
+1. Run the changed lab's tests: `python -B -m unittest discover -s labs/<lab> -p "test_*.py"`. Before committing, run the full lab sweep plus the package suite (all suites together take <30 s).
 2. Validate changed JSON artifacts with `python -m json.tool`.
 3. Update the triad documents (experiment report, algorithm card, `research/README.md` ledger entry, `## Sources` footers) in the same change.
 4. Do a targeted stale-text search over `research/`, `data/`, and `labs/` for outdated blocker/status wording — `blocked_states` and `closed_states` in prose must match the current artifacts.

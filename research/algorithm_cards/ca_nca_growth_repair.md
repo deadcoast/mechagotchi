@@ -81,14 +81,22 @@ Artifacts:
 - `data/cellular_automata/ca_nca_persistence_damage_stage0.json`
 - `data/cellular_automata/ca_nca_repeated_stochastic_damage_stage0.json`
 - `data/cellular_automata/ca_nca_learned_repair_comparison_stage0.json`
+- `data/cellular_automata/ca_nca_trained_repair_stage0.json`
+- `data/cellular_automata/ca_nca_repair_context_ablation_stage0.json`
+- `labs/cellular_automata/ca_nca_repair_context_ablation.py`
+- `labs/cellular_automata/test_ca_nca_repair_context_ablation.py`
 - `data/cellular_automata/samples/`
 - `data/cellular_automata/stress_samples/`
 - `data/cellular_automata/repeated_stress_samples/`
 - `data/cellular_automata/learned_repair_samples/`
+- `data/cellular_automata/trained_repair_samples/`
 - `research/experiment_reports/2026-05-12-ca-nca-growth-repair.md`
 - `research/experiment_reports/2026-05-12-ca-nca-persistence-damage-benchmark.md`
 - `research/experiment_reports/2026-05-12-ca-nca-repeated-stochastic-damage.md`
 - `research/experiment_reports/2026-05-12-ca-nca-learned-repair-comparison.md`
+- `research/experiment_reports/2026-07-04-ca-nca-trained-neighborhood-repair.md`
+- `research/experiment_reports/2026-07-04-ca-nca-repair-context-ablation.md`
+- `research/experiment_reports/2026-07-04-ca-nca-wound-site-repair.md`
 
 Measured result:
 
@@ -137,11 +145,42 @@ Learned repair comparison follow-up:
 - Learned final lifecycle survival: 1.0
 - Target template used by learned repair: false
 
+Gradient-trained repair follow-up (2026-07-04, held-out grids, 5 cycles at
+dropout 0.2):
+
+- Trained (blind) arm: final overlap 0.862546, structural agreement 0.631871,
+  validity 1.0 — `meets_assisted_stability_bar = false` (the blocker's
+  measured basis)
+- Site-aware (wound-signal) arm — same trained model, additionally observing
+  the damage event's destroyed positions, never the destroyed tokens, never a
+  template: final overlap 0.930769, structural agreement 0.930769, validity
+  0.9 — `site_aware_meets_assisted_stability_bar = true`. The single validity
+  failure is `mg_seed_046` ("required body core is disconnected" after a
+  wrong-token refill).
+- Restricting refill to reported damage sites removes overgrowth by
+  construction; the residual error is pure token prediction.
+
+Context-conditioning ablation (2026-07-04, negative result, identical
+protocol):
+
+- Retrieval-context features: final overlap 0.802656 (worse than plain
+  0.862546); self-play retraining: 0.809249; plus confidence pruning:
+  0.801557; plain+self-play+prune: 0.838278 — every config degrades the
+  plain trained rule.
+- Exemplar-retrieval ceiling: the best training exemplar reaches only mean
+  structural agreement 0.785 against held-out targets, bounding the entire
+  retrieved-template repair family below the 0.9 bar on this corpus.
+
 ## Decision
 
-Prototype as a discrete local-attractor growth, repair, and persistence lab. Do
-not adopt a trained NCA dependency yet. Repeated stochastic damage is now part
-of the benchmark contract. The learned role-prior repair is less assisted and
-valid, but it does not beat the assisted target-template baseline, so visual
-ratings and stronger learned repair are still required before adding ML
-training.
+Prototype as a discrete local-attractor growth, repair, and persistence lab
+plus a gradient-trained wound-site repair rule. Do not adopt a trained NCA
+dependency yet. Repeated stochastic damage is now part of the benchmark
+contract. Blind (no-observability) learned repair remains below the assisted
+stability bar, and retrieval-context conditioning is rejected as a measured
+negative result. The wound-site arm meets the assisted stability bar without
+any target template, so template assistance is no longer required for repair
+stability when damage events report destroyed positions — an engine-native
+signal. The repair candidate's `lab_only_target_template_assisted` blocker
+now derives from `site_aware_meets_assisted_stability_bar`; the blind arm's
+verdict stays recorded separately.

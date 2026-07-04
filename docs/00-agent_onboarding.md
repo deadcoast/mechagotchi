@@ -57,8 +57,14 @@ over plans; and executed artifacts win over prose claims.
      filled CSV goes to `data/readability/manual_ratings.csv`. Blocks the
      evaluation module, final descriptor threshold locks, and any
      profile-weighted evolution claim. Ask the user; do not fabricate.
-  2. Learned NCA repair: 0.8625 vs the 0.9 assisted stability bar
-     (`data/cellular_automata/ca_nca_trained_repair_stage0.json`).
+  2. Learned NCA repair — resolved 2026-07-04 with nuance: the blind
+     trained arm stays below the bar (0.8625, recorded honestly), but the
+     wound-site arm (damage-event positions observed, tokens predicted, no
+     template) meets all three 0.9 bars; retrieval-context conditioning was
+     ablated and rejected (negative result). The repair gate candidate is
+     now `ready_for_package_design`; creating a repair package target
+     remains a decision-record-gated scope step. See
+     `research/experiment_reports/2026-07-04-ca-nca-wound-site-repair.md`.
   3. Learning module target: candidate is design-ready; creating the
      deferred `learning` package target is a scope decision — write a
      decision record first.

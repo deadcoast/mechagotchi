@@ -7,10 +7,10 @@
     "criteria_count": 7,
     "candidate_count": 6,
     "research_ready_count": 5,
-    "package_design_ready_count": 1,
+    "package_design_ready_count": 2,
     "promotion_ready_count": 3,
     "blocked_count": 1,
-    "hold_research_only_count": 1
+    "hold_research_only_count": 0
   },
   "criteria": [
     {
@@ -248,7 +248,7 @@
     {
       "component_id": "ca_nca_repair",
       "target_package": "packages/mecha_engine/src/mecha_engine/repair",
-      "gate_status": "hold_research_only",
+      "gate_status": "ready_for_package_design",
       "research_evidence_complete": true,
       "missing_evidence": [],
       "thresholds_met": true,
@@ -276,29 +276,28 @@
       ],
       "verification": "python -B labs/cellular_automata/test_ca_nca_growth_repair.py",
       "promotion_blockers": [
-        "target_package_absent",
-        "lab_only_target_template_assisted"
+        "target_package_absent"
       ],
       "research_blocker_details": [
         {
           "blocker_id": "lab_only_target_template_assisted",
           "static": false,
-          "active": true,
+          "active": false,
           "evidence": {
             "metric_path": [
               "decision",
               "thresholds",
-              "meets_assisted_stability_bar"
+              "site_aware_meets_assisted_stability_bar"
             ],
             "operator": "==",
             "expected": true,
-            "actual": false,
-            "ok": false,
+            "actual": true,
+            "ok": true,
             "artifact": "data/cellular_automata/ca_nca_trained_repair_stage0.json"
           }
         }
       ],
-      "research_notes": "Assisted target-template baseline; a gradient-trained neighborhood repair model now exists and beats no-repair substantially, but has not reached the assisted stability bar (0.9)."
+      "research_notes": "Assisted target-template baseline; the blind gradient-trained neighborhood model still falls short of the assisted stability bar, but its wound-site variant (damage-event positions observed, tokens predicted, no template) meets all three bars on held-out grids. Retrieval-context conditioning was ablated and rejected (ca_nca_repair_context_ablation_stage0)."
     }
   ],
   "decision": {

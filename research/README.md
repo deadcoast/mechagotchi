@@ -493,6 +493,16 @@ Post-v0.1 continuation has started:
 - `research/reports/mechagotchi_research_report_v0_9.md`
 - `research/reports/research_report_v0_9_manifest.json`
 
+- `research/experiment_reports/2026-07-04-ca-nca-repair-context-ablation.md`
+- `research/algorithm_cards/ca_nca_growth_repair.md`
+- `labs/cellular_automata/ca_nca_repair_context_ablation.py`
+- `data/cellular_automata/ca_nca_repair_context_ablation_stage0.json` (negative result: retrieval-context conditioning rejected; exemplar ceiling 0.785 bounds the retrieved-template family)
+
+- `research/experiment_reports/2026-07-04-ca-nca-wound-site-repair.md`
+- `research/algorithm_cards/ca_nca_growth_repair.md`
+- `labs/cellular_automata/ca_nca_growth_repair.py`
+- `data/cellular_automata/ca_nca_trained_repair_stage0.json` (wound-site arm meets the assisted stability bar without a template; blind-arm verdict unchanged; `ca_nca_repair` gate candidate now `ready_for_package_design`)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

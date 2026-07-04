@@ -20,7 +20,7 @@
   "dropout_rate": 0.2,
   "repair_steps": 8,
   "source_mode": "gradient_trained_neighborhood_repair_vs_baselines",
-  "source_note": "The trained arm is a per-cell softmax rule fitted by deterministic full-batch gradient descent on (damaged neighborhood -> target token) pairs from the training split. It never receives the target template at repair time and is evaluated only on held-out grids. The assisted arm keeps the target-template local attractor as the upper-bound baseline, and the no-repair arm shows unrepaired decay.",
+  "source_note": "The trained arm is a per-cell softmax rule fitted by deterministic full-batch gradient descent on (damaged neighborhood -> target token) pairs from the training split. It never receives the target template at repair time and is evaluated only on held-out grids. The site_aware arm uses the same trained model but additionally observes the damage event's destroyed positions (never the destroyed tokens): it refills exactly those wound sites with model-predicted tokens. The assisted arm keeps the target-template local attractor as the upper-bound baseline, and the no-repair arm shows unrepaired decay.",
   "trained_model": {
     "model_id": "neighborhood_softmax_repair_model_stage0",
     "source_mode": "learned_neighborhood_softmax_gradient_descent",
@@ -945,6 +945,15 @@
         "mean_repair_gain_per_event": 0.152124,
         "mean_first_cycle_repair_overlap": 0.939011
       },
+      "site_aware": {
+        "mean_final_overlap": 0.930769,
+        "mean_final_structural_agreement": 0.930769,
+        "final_validity_rate": 0.9,
+        "mean_final_readability": 0.83289,
+        "mean_final_lifecycle_survival": 0.9,
+        "mean_repair_gain_per_event": 0.189707,
+        "mean_first_cycle_repair_overlap": 0.962088
+      },
       "assisted": {
         "mean_final_overlap": 1.0,
         "mean_final_structural_agreement": 1.0,
@@ -960,7 +969,10 @@
     "trained_vs_role_prior_final_agreement_delta": 0.099855,
     "trained_vs_no_repair_final_agreement_delta": 0.400095,
     "trained_vs_assisted_final_overlap_delta": -0.137454,
-    "target_template_used_by_trained": false
+    "site_aware_vs_trained_final_agreement_delta": 0.298898,
+    "site_aware_vs_assisted_final_overlap_delta": -0.069231,
+    "target_template_used_by_trained": false,
+    "target_template_used_by_site_aware": false
   },
   "results": [
     {
@@ -1076,7 +1088,17 @@
             "damage_pattern": "stochastic_dropout",
             "dropout_rate": 0.2,
             "damage_event_index": 5,
-            "removed_cell_count": 2
+            "removed_cell_count": 2,
+            "removed_cells": [
+              [
+                5,
+                2
+              ],
+              [
+                3,
+                3
+              ]
+            ]
           }
         },
         "role_prior": {
@@ -1883,6 +1905,289 @@
             "repair_steps": 8
           }
         },
+        "site_aware": {
+          "grid_id": "mg_seed_041_cycle_05_site_aware",
+          "schema_version": "0.1.0",
+          "parent_grid_id": "mg_seed_041_cycle_04_site_aware_stochastic_damage_05",
+          "grid_size": [
+            8,
+            8
+          ],
+          "cells": [
+            {
+              "x": 2,
+              "y": 1,
+              "visual": "#d8ffd6",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 1,
+              "visual": "#d8ffd6",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 2,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 2,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 2,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 1,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": true,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 4,
+              "visual": "#d8ffd6",
+              "role": "mouth",
+              "material": "soft",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "expression",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            }
+          ],
+          "organs": {
+            "core": {
+              "role": "body_core",
+              "cells": [
+                [
+                  3,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  5,
+                  2
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  2,
+                  4
+                ],
+                [
+                  3,
+                  5
+                ]
+              ],
+              "required": true
+            },
+            "sensors": {
+              "role": "sensor",
+              "cells": [
+                [
+                  2,
+                  1
+                ],
+                [
+                  5,
+                  1
+                ]
+              ],
+              "required": true
+            },
+            "expression": {
+              "role": "expression",
+              "cells": [
+                [
+                  3,
+                  4
+                ]
+              ],
+              "required": false
+            }
+          },
+          "palette": {
+            "palette_id": "lcd_green",
+            "colors": [
+              "#07140d",
+              "#5dbb63",
+              "#d8ffd6"
+            ],
+            "background_index": 0
+          },
+          "mutation": {
+            "cell_mutation_rate": 0.05,
+            "organ_shift_rate": 0.02,
+            "palette_shift_rate": 0.01,
+            "symmetry_break_rate": 0.01
+          },
+          "lineage": {
+            "generation": 1,
+            "ancestor_ids": [
+              "mg_seed_041_cycle_04_site_aware_stochastic_damage_05"
+            ],
+            "mutation_events": [
+              "ca_damage_observed",
+              "learned_wound_site_softmax_repair"
+            ]
+          },
+          "metadata": {
+            "source": "learned_wound_site_softmax_repair",
+            "learned_model_id": "neighborhood_softmax_repair_model_stage0",
+            "target_template_used": false,
+            "wound_site_count": 4
+          }
+        },
         "assisted": {
           "grid_id": "mg_seed_041_cycle_05_assisted",
           "schema_version": "0.1.0",
@@ -2189,6 +2494,13 @@
               "structural_agreement": 0.6875,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.692308,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.307692,
+              "structural_agreement": 1.0,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.692308,
               "repair_overlap": 1.0,
@@ -2220,6 +2532,13 @@
               "repair_overlap": 1.0,
               "repair_gain": 0.384615,
               "structural_agreement": 0.722222,
+              "valid": true
+            },
+            "site_aware": {
+              "damaged_overlap": 0.692308,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.307692,
+              "structural_agreement": 1.0,
               "valid": true
             },
             "assisted": {
@@ -2255,6 +2574,13 @@
               "structural_agreement": 0.631579,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.846154,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.153846,
+              "structural_agreement": 1.0,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.846154,
               "repair_overlap": 1.0,
@@ -2288,6 +2614,13 @@
               "structural_agreement": 0.578947,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.846154,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.153846,
+              "structural_agreement": 1.0,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.846154,
               "repair_overlap": 1.0,
@@ -2319,6 +2652,13 @@
               "repair_overlap": 0.923077,
               "repair_gain": 0.230769,
               "structural_agreement": 0.666667,
+              "valid": true
+            },
+            "site_aware": {
+              "damaged_overlap": 0.692308,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.307692,
+              "structural_agreement": 1.0,
               "valid": true
             },
             "assisted": {
@@ -2356,6 +2696,14 @@
           "final_valid": true,
           "final_errors": [],
           "final_readability": 0.825468,
+          "final_lifecycle_survival": 1.0
+        },
+        "site_aware": {
+          "final_overlap": 1.0,
+          "final_structural_agreement": 1.0,
+          "final_valid": true,
+          "final_errors": [],
+          "final_readability": 0.904102,
           "final_lifecycle_survival": 1.0
         },
         "assisted": {
@@ -2475,7 +2823,17 @@
             "damage_pattern": "stochastic_dropout",
             "dropout_rate": 0.2,
             "damage_event_index": 5,
-            "removed_cell_count": 2
+            "removed_cell_count": 2,
+            "removed_cells": [
+              [
+                2,
+                2
+              ],
+              [
+                3,
+                4
+              ]
+            ]
           }
         },
         "role_prior": {
@@ -3276,6 +3634,283 @@
             "repair_steps": 8
           }
         },
+        "site_aware": {
+          "grid_id": "mg_seed_042_cycle_05_site_aware",
+          "schema_version": "0.1.0",
+          "parent_grid_id": "mg_seed_042_cycle_04_site_aware_stochastic_damage_05",
+          "grid_size": [
+            8,
+            8
+          ],
+          "cells": [
+            {
+              "x": 1,
+              "y": 1,
+              "visual": "#d7dfc7",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 1,
+              "visual": "#d7dfc7",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 1,
+              "y": 2,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 2,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 2,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 2,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 3,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 3,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": true,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 3,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": true,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 3,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 4,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 4,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 5,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            }
+          ],
+          "organs": {
+            "core": {
+              "role": "body_core",
+              "cells": [
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  3,
+                  4
+                ],
+                [
+                  4,
+                  4
+                ],
+                [
+                  3,
+                  5
+                ]
+              ],
+              "required": true
+            },
+            "sensors": {
+              "role": "sensor",
+              "cells": [
+                [
+                  1,
+                  1
+                ],
+                [
+                  5,
+                  1
+                ]
+              ],
+              "required": true
+            }
+          },
+          "palette": {
+            "palette_id": "gameboy_gray",
+            "colors": [
+              "#111814",
+              "#7e8f76",
+              "#d7dfc7"
+            ],
+            "background_index": 0
+          },
+          "mutation": {
+            "cell_mutation_rate": 0.05,
+            "organ_shift_rate": 0.02,
+            "palette_shift_rate": 0.01,
+            "symmetry_break_rate": 0.01
+          },
+          "lineage": {
+            "generation": 1,
+            "ancestor_ids": [
+              "mg_seed_042_cycle_04_site_aware_stochastic_damage_05"
+            ],
+            "mutation_events": [
+              "ca_damage_observed",
+              "learned_wound_site_softmax_repair"
+            ]
+          },
+          "metadata": {
+            "source": "learned_wound_site_softmax_repair",
+            "learned_model_id": "neighborhood_softmax_repair_model_stage0",
+            "target_template_used": false,
+            "wound_site_count": 3
+          }
+        },
         "assisted": {
           "grid_id": "mg_seed_042_cycle_05_assisted",
           "schema_version": "0.1.0",
@@ -3582,6 +4217,13 @@
               "structural_agreement": 0.666667,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.846154,
+              "repair_overlap": 0.923077,
+              "repair_gain": 0.076923,
+              "structural_agreement": 0.923077,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.846154,
               "repair_overlap": 1.0,
@@ -3613,6 +4255,13 @@
               "repair_overlap": 0.846154,
               "repair_gain": 0.307692,
               "structural_agreement": 0.52381,
+              "valid": true
+            },
+            "site_aware": {
+              "damaged_overlap": 0.615385,
+              "repair_overlap": 0.923077,
+              "repair_gain": 0.307692,
+              "structural_agreement": 0.923077,
               "valid": true
             },
             "assisted": {
@@ -3648,6 +4297,13 @@
               "structural_agreement": 0.52381,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.769231,
+              "repair_overlap": 0.923077,
+              "repair_gain": 0.153846,
+              "structural_agreement": 0.923077,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.846154,
               "repair_overlap": 1.0,
@@ -3681,6 +4337,13 @@
               "structural_agreement": 0.47619,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.615385,
+              "repair_overlap": 0.846154,
+              "repair_gain": 0.230769,
+              "structural_agreement": 0.846154,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.692308,
               "repair_overlap": 1.0,
@@ -3712,6 +4375,13 @@
               "repair_overlap": 0.769231,
               "repair_gain": 0.076923,
               "structural_agreement": 0.5,
+              "valid": true
+            },
+            "site_aware": {
+              "damaged_overlap": 0.615385,
+              "repair_overlap": 0.846154,
+              "repair_gain": 0.230769,
+              "structural_agreement": 0.846154,
               "valid": true
             },
             "assisted": {
@@ -3749,6 +4419,14 @@
           "final_valid": true,
           "final_errors": [],
           "final_readability": 0.754075,
+          "final_lifecycle_survival": 1.0
+        },
+        "site_aware": {
+          "final_overlap": 0.846154,
+          "final_structural_agreement": 0.846154,
+          "final_valid": true,
+          "final_errors": [],
+          "final_readability": 0.783639,
           "final_lifecycle_survival": 1.0
         },
         "assisted": {
@@ -3902,7 +4580,8 @@
             "damage_pattern": "stochastic_dropout",
             "dropout_rate": 0.2,
             "damage_event_index": 5,
-            "removed_cell_count": 0
+            "removed_cell_count": 0,
+            "removed_cells": []
           }
         },
         "role_prior": {
@@ -4675,6 +5354,272 @@
             "repair_steps": 8
           }
         },
+        "site_aware": {
+          "grid_id": "mg_seed_043_cycle_05_site_aware",
+          "schema_version": "0.1.0",
+          "parent_grid_id": "mg_seed_043_cycle_04_site_aware_stochastic_damage_05",
+          "grid_size": [
+            8,
+            8
+          ],
+          "cells": [
+            {
+              "x": 3,
+              "y": 1,
+              "visual": "#ffe0a3",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 2,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 2,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 2,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 1,
+              "y": 3,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 3,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 3,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": true,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 3,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 4,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 4,
+              "visual": "#ffe0a3",
+              "role": "mouth",
+              "material": "soft",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "expression",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 4,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 5,
+              "visual": "#ffe0a3",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            }
+          ],
+          "organs": {
+            "core": {
+              "role": "body_core",
+              "cells": [
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  2,
+                  4
+                ],
+                [
+                  4,
+                  4
+                ]
+              ],
+              "required": true
+            },
+            "sensors": {
+              "role": "sensor",
+              "cells": [
+                [
+                  3,
+                  1
+                ],
+                [
+                  5,
+                  5
+                ]
+              ],
+              "required": true
+            },
+            "expression": {
+              "role": "expression",
+              "cells": [
+                [
+                  3,
+                  4
+                ]
+              ],
+              "required": false
+            }
+          },
+          "palette": {
+            "palette_id": "amber_terminal",
+            "colors": [
+              "#1c1005",
+              "#d98428",
+              "#ffe0a3"
+            ],
+            "background_index": 0
+          },
+          "mutation": {
+            "cell_mutation_rate": 0.05,
+            "organ_shift_rate": 0.02,
+            "palette_shift_rate": 0.01,
+            "symmetry_break_rate": 0.01
+          },
+          "lineage": {
+            "generation": 1,
+            "ancestor_ids": [
+              "mg_seed_043_cycle_04_site_aware_stochastic_damage_05"
+            ],
+            "mutation_events": [
+              "ca_damage_observed",
+              "learned_wound_site_softmax_repair"
+            ]
+          },
+          "metadata": {
+            "source": "learned_wound_site_softmax_repair",
+            "learned_model_id": "neighborhood_softmax_repair_model_stage0",
+            "target_template_used": false,
+            "wound_site_count": 0
+          }
+        },
         "assisted": {
           "grid_id": "mg_seed_043_cycle_05_assisted",
           "schema_version": "0.1.0",
@@ -4964,6 +5909,13 @@
               "structural_agreement": 0.75,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.75,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.25,
+              "structural_agreement": 1.0,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.75,
               "repair_overlap": 1.0,
@@ -4995,6 +5947,13 @@
               "repair_overlap": 1.0,
               "repair_gain": 0.25,
               "structural_agreement": 0.75,
+              "valid": true
+            },
+            "site_aware": {
+              "damaged_overlap": 0.833333,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.166667,
+              "structural_agreement": 1.0,
               "valid": true
             },
             "assisted": {
@@ -5030,6 +5989,13 @@
               "structural_agreement": 0.75,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 1.0,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.0,
+              "structural_agreement": 1.0,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 1.0,
               "repair_overlap": 1.0,
@@ -5063,6 +6029,13 @@
               "structural_agreement": 0.75,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.75,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.25,
+              "structural_agreement": 1.0,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.75,
               "repair_overlap": 1.0,
@@ -5094,6 +6067,13 @@
               "repair_overlap": 0.916667,
               "repair_gain": 0.0,
               "structural_agreement": 0.6875,
+              "valid": true
+            },
+            "site_aware": {
+              "damaged_overlap": 1.0,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.0,
+              "structural_agreement": 1.0,
               "valid": true
             },
             "assisted": {
@@ -5131,6 +6111,14 @@
           "final_valid": true,
           "final_errors": [],
           "final_readability": 0.875636,
+          "final_lifecycle_survival": 1.0
+        },
+        "site_aware": {
+          "final_overlap": 1.0,
+          "final_structural_agreement": 1.0,
+          "final_valid": true,
+          "final_errors": [],
+          "final_readability": 0.825241,
           "final_lifecycle_survival": 1.0
         },
         "assisted": {
@@ -5266,7 +6254,13 @@
             "damage_pattern": "stochastic_dropout",
             "dropout_rate": 0.2,
             "damage_event_index": 5,
-            "removed_cell_count": 1
+            "removed_cell_count": 1,
+            "removed_cells": [
+              [
+                2,
+                3
+              ]
+            ]
           }
         },
         "role_prior": {
@@ -6073,6 +7067,289 @@
             "repair_steps": 8
           }
         },
+        "site_aware": {
+          "grid_id": "mg_seed_044_cycle_05_site_aware",
+          "schema_version": "0.1.0",
+          "parent_grid_id": "mg_seed_044_cycle_04_site_aware_stochastic_damage_05",
+          "grid_size": [
+            8,
+            8
+          ],
+          "cells": [
+            {
+              "x": 2,
+              "y": 1,
+              "visual": "#d6f3ff",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 1,
+              "visual": "#d6f3ff",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 1,
+              "y": 2,
+              "visual": "#3e8fbf",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 2,
+              "visual": "#3e8fbf",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 2,
+              "visual": "#3e8fbf",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 2,
+              "visual": "#3e8fbf",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 3,
+              "visual": "#3e8fbf",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 3,
+              "visual": "#3e8fbf",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": true,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 3,
+              "visual": "#3e8fbf",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 4,
+              "visual": "#3e8fbf",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 4,
+              "visual": "#d6f3ff",
+              "role": "mouth",
+              "material": "soft",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "expression",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 4,
+              "visual": "#3e8fbf",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": true,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 5,
+              "visual": "#3e8fbf",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            }
+          ],
+          "organs": {
+            "core": {
+              "role": "body_core",
+              "cells": [
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  2,
+                  4
+                ],
+                [
+                  4,
+                  4
+                ],
+                [
+                  4,
+                  5
+                ]
+              ],
+              "required": true
+            },
+            "sensors": {
+              "role": "sensor",
+              "cells": [
+                [
+                  2,
+                  1
+                ],
+                [
+                  4,
+                  1
+                ]
+              ],
+              "required": true
+            },
+            "expression": {
+              "role": "expression",
+              "cells": [
+                [
+                  3,
+                  4
+                ]
+              ],
+              "required": false
+            }
+          },
+          "palette": {
+            "palette_id": "crt_blue",
+            "colors": [
+              "#06131f",
+              "#3e8fbf",
+              "#d6f3ff"
+            ],
+            "background_index": 0
+          },
+          "mutation": {
+            "cell_mutation_rate": 0.05,
+            "organ_shift_rate": 0.02,
+            "palette_shift_rate": 0.01,
+            "symmetry_break_rate": 0.01
+          },
+          "lineage": {
+            "generation": 1,
+            "ancestor_ids": [
+              "mg_seed_044_cycle_04_site_aware_stochastic_damage_05"
+            ],
+            "mutation_events": [
+              "ca_damage_observed",
+              "learned_wound_site_softmax_repair"
+            ]
+          },
+          "metadata": {
+            "source": "learned_wound_site_softmax_repair",
+            "learned_model_id": "neighborhood_softmax_repair_model_stage0",
+            "target_template_used": false,
+            "wound_site_count": 2
+          }
+        },
         "assisted": {
           "grid_id": "mg_seed_044_cycle_05_assisted",
           "schema_version": "0.1.0",
@@ -6379,6 +7656,13 @@
               "structural_agreement": 0.631579,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.846154,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.153846,
+              "structural_agreement": 1.0,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.846154,
               "repair_overlap": 1.0,
@@ -6410,6 +7694,13 @@
               "repair_overlap": 0.923077,
               "repair_gain": 0.076923,
               "structural_agreement": 0.631579,
+              "valid": true
+            },
+            "site_aware": {
+              "damaged_overlap": 0.615385,
+              "repair_overlap": 0.923077,
+              "repair_gain": 0.307692,
+              "structural_agreement": 0.923077,
               "valid": true
             },
             "assisted": {
@@ -6445,6 +7736,13 @@
               "structural_agreement": 0.631579,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.769231,
+              "repair_overlap": 0.923077,
+              "repair_gain": 0.153846,
+              "structural_agreement": 0.923077,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.846154,
               "repair_overlap": 1.0,
@@ -6478,6 +7776,13 @@
               "structural_agreement": 0.631579,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.615385,
+              "repair_overlap": 0.923077,
+              "repair_gain": 0.307692,
+              "structural_agreement": 0.923077,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.692308,
               "repair_overlap": 1.0,
@@ -6509,6 +7814,13 @@
               "repair_overlap": 0.923077,
               "repair_gain": 0.153846,
               "structural_agreement": 0.631579,
+              "valid": true
+            },
+            "site_aware": {
+              "damaged_overlap": 0.769231,
+              "repair_overlap": 0.923077,
+              "repair_gain": 0.153846,
+              "structural_agreement": 0.923077,
               "valid": true
             },
             "assisted": {
@@ -6546,6 +7858,14 @@
           "final_valid": true,
           "final_errors": [],
           "final_readability": 0.855468,
+          "final_lifecycle_survival": 1.0
+        },
+        "site_aware": {
+          "final_overlap": 0.923077,
+          "final_structural_agreement": 0.923077,
+          "final_valid": true,
+          "final_errors": [],
+          "final_readability": 0.855479,
           "final_lifecycle_survival": 1.0
         },
         "assisted": {
@@ -6670,7 +7990,17 @@
             "damage_pattern": "stochastic_dropout",
             "dropout_rate": 0.2,
             "damage_event_index": 5,
-            "removed_cell_count": 2
+            "removed_cell_count": 2,
+            "removed_cells": [
+              [
+                1,
+                1
+              ],
+              [
+                1,
+                4
+              ]
+            ]
           }
         },
         "role_prior": {
@@ -7494,6 +8824,289 @@
             "repair_steps": 8
           }
         },
+        "site_aware": {
+          "grid_id": "mg_seed_045_cycle_05_site_aware",
+          "schema_version": "0.1.0",
+          "parent_grid_id": "mg_seed_045_cycle_04_site_aware_stochastic_damage_05",
+          "grid_size": [
+            8,
+            8
+          ],
+          "cells": [
+            {
+              "x": 1,
+              "y": 1,
+              "visual": "#f2dcff",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 1,
+              "visual": "#f2dcff",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 2,
+              "visual": "#7e5aa6",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 2,
+              "visual": "#7e5aa6",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 2,
+              "visual": "#7e5aa6",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 2,
+              "visual": "#7e5aa6",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 3,
+              "visual": "#7e5aa6",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 3,
+              "visual": "#7e5aa6",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": true,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 3,
+              "visual": "#7e5aa6",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 3,
+              "visual": "#7e5aa6",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 1,
+              "y": 4,
+              "visual": "#7e5aa6",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 4,
+              "visual": "#7e5aa6",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 4,
+              "visual": "#f2dcff",
+              "role": "mouth",
+              "material": "soft",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "expression",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            }
+          ],
+          "organs": {
+            "core": {
+              "role": "body_core",
+              "cells": [
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  5,
+                  2
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  1,
+                  4
+                ],
+                [
+                  2,
+                  4
+                ]
+              ],
+              "required": true
+            },
+            "sensors": {
+              "role": "sensor",
+              "cells": [
+                [
+                  1,
+                  1
+                ],
+                [
+                  4,
+                  1
+                ]
+              ],
+              "required": true
+            },
+            "expression": {
+              "role": "expression",
+              "cells": [
+                [
+                  3,
+                  4
+                ]
+              ],
+              "required": false
+            }
+          },
+          "palette": {
+            "palette_id": "pocket_plum",
+            "colors": [
+              "#160e1f",
+              "#7e5aa6",
+              "#f2dcff"
+            ],
+            "background_index": 0
+          },
+          "mutation": {
+            "cell_mutation_rate": 0.05,
+            "organ_shift_rate": 0.02,
+            "palette_shift_rate": 0.01,
+            "symmetry_break_rate": 0.01
+          },
+          "lineage": {
+            "generation": 1,
+            "ancestor_ids": [
+              "mg_seed_045_cycle_04_site_aware_stochastic_damage_05"
+            ],
+            "mutation_events": [
+              "ca_damage_observed",
+              "learned_wound_site_softmax_repair"
+            ]
+          },
+          "metadata": {
+            "source": "learned_wound_site_softmax_repair",
+            "learned_model_id": "neighborhood_softmax_repair_model_stage0",
+            "target_template_used": false,
+            "wound_site_count": 2
+          }
+        },
         "assisted": {
           "grid_id": "mg_seed_045_cycle_05_assisted",
           "schema_version": "0.1.0",
@@ -7800,6 +9413,13 @@
               "structural_agreement": 0.6,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.769231,
+              "repair_overlap": 0.923077,
+              "repair_gain": 0.153846,
+              "structural_agreement": 0.923077,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.769231,
               "repair_overlap": 1.0,
@@ -7831,6 +9451,13 @@
               "repair_overlap": 0.846154,
               "repair_gain": 0.230769,
               "structural_agreement": 0.578947,
+              "valid": true
+            },
+            "site_aware": {
+              "damaged_overlap": 0.692308,
+              "repair_overlap": 0.923077,
+              "repair_gain": 0.230769,
+              "structural_agreement": 0.923077,
               "valid": true
             },
             "assisted": {
@@ -7866,6 +9493,13 @@
               "structural_agreement": 0.52381,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.846154,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.153846,
+              "structural_agreement": 1.0,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.846154,
               "repair_overlap": 1.0,
@@ -7899,6 +9533,13 @@
               "structural_agreement": 0.52381,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.769231,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.230769,
+              "structural_agreement": 1.0,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.769231,
               "repair_overlap": 1.0,
@@ -7930,6 +9571,13 @@
               "repair_overlap": 0.769231,
               "repair_gain": 0.0,
               "structural_agreement": 0.5,
+              "valid": true
+            },
+            "site_aware": {
+              "damaged_overlap": 0.846154,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.153846,
+              "structural_agreement": 1.0,
               "valid": true
             },
             "assisted": {
@@ -7967,6 +9615,14 @@
           "final_valid": true,
           "final_errors": [],
           "final_readability": 0.760012,
+          "final_lifecycle_survival": 1.0
+        },
+        "site_aware": {
+          "final_overlap": 1.0,
+          "final_structural_agreement": 1.0,
+          "final_valid": true,
+          "final_errors": [],
+          "final_readability": 0.894542,
           "final_lifecycle_survival": 1.0
         },
         "assisted": {
@@ -8137,7 +9793,13 @@
             "damage_pattern": "stochastic_dropout",
             "dropout_rate": 0.2,
             "damage_event_index": 5,
-            "removed_cell_count": 1
+            "removed_cell_count": 1,
+            "removed_cells": [
+              [
+                3,
+                5
+              ]
+            ]
           }
         },
         "role_prior": {
@@ -8887,6 +10549,289 @@
             "repair_steps": 8
           }
         },
+        "site_aware": {
+          "grid_id": "mg_seed_046_cycle_05_site_aware",
+          "schema_version": "0.1.0",
+          "parent_grid_id": "mg_seed_046_cycle_04_site_aware_stochastic_damage_05",
+          "grid_size": [
+            8,
+            8
+          ],
+          "cells": [
+            {
+              "x": 3,
+              "y": 1,
+              "visual": "#d8ffd6",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 1,
+              "visual": "#d8ffd6",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 2,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 2,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 2,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 1,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": true,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 4,
+              "visual": "#d8ffd6",
+              "role": "mouth",
+              "material": "soft",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "expression",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 4,
+              "visual": "#d8ffd6",
+              "role": "mouth",
+              "material": "soft",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "expression",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            }
+          ],
+          "organs": {
+            "core": {
+              "role": "body_core",
+              "cells": [
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  3,
+                  5
+                ]
+              ],
+              "required": true
+            },
+            "sensors": {
+              "role": "sensor",
+              "cells": [
+                [
+                  3,
+                  1
+                ],
+                [
+                  5,
+                  1
+                ]
+              ],
+              "required": true
+            },
+            "expression": {
+              "role": "expression",
+              "cells": [
+                [
+                  3,
+                  4
+                ],
+                [
+                  4,
+                  4
+                ]
+              ],
+              "required": false
+            }
+          },
+          "palette": {
+            "palette_id": "lcd_green",
+            "colors": [
+              "#07140d",
+              "#5dbb63",
+              "#d8ffd6"
+            ],
+            "background_index": 0
+          },
+          "mutation": {
+            "cell_mutation_rate": 0.05,
+            "organ_shift_rate": 0.02,
+            "palette_shift_rate": 0.01,
+            "symmetry_break_rate": 0.01
+          },
+          "lineage": {
+            "generation": 1,
+            "ancestor_ids": [
+              "mg_seed_046_cycle_04_site_aware_stochastic_damage_05"
+            ],
+            "mutation_events": [
+              "ca_damage_observed",
+              "learned_wound_site_softmax_repair"
+            ]
+          },
+          "metadata": {
+            "source": "learned_wound_site_softmax_repair",
+            "learned_model_id": "neighborhood_softmax_repair_model_stage0",
+            "target_template_used": false,
+            "wound_site_count": 1
+          }
+        },
         "assisted": {
           "grid_id": "mg_seed_046_cycle_05_assisted",
           "schema_version": "0.1.0",
@@ -9193,6 +11138,13 @@
               "structural_agreement": 0.8125,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.923077,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.076923,
+              "structural_agreement": 1.0,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.923077,
               "repair_overlap": 1.0,
@@ -9225,6 +11177,13 @@
               "repair_gain": 0.153846,
               "structural_agreement": 0.6875,
               "valid": true
+            },
+            "site_aware": {
+              "damaged_overlap": 0.769231,
+              "repair_overlap": 0.923077,
+              "repair_gain": 0.153846,
+              "structural_agreement": 0.923077,
+              "valid": false
             },
             "assisted": {
               "damaged_overlap": 0.769231,
@@ -9259,6 +11218,13 @@
               "structural_agreement": 0.6875,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.846154,
+              "repair_overlap": 0.923077,
+              "repair_gain": 0.076923,
+              "structural_agreement": 0.923077,
+              "valid": false
+            },
             "assisted": {
               "damaged_overlap": 0.923077,
               "repair_overlap": 1.0,
@@ -9292,6 +11258,13 @@
               "structural_agreement": 0.6875,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.769231,
+              "repair_overlap": 0.923077,
+              "repair_gain": 0.153846,
+              "structural_agreement": 0.923077,
+              "valid": false
+            },
             "assisted": {
               "damaged_overlap": 0.846154,
               "repair_overlap": 1.0,
@@ -9324,6 +11297,13 @@
               "repair_gain": 0.076923,
               "structural_agreement": 0.6875,
               "valid": true
+            },
+            "site_aware": {
+              "damaged_overlap": 0.846154,
+              "repair_overlap": 0.923077,
+              "repair_gain": 0.076923,
+              "structural_agreement": 0.923077,
+              "valid": false
             },
             "assisted": {
               "damaged_overlap": 0.923077,
@@ -9359,6 +11339,16 @@
           "final_errors": [],
           "final_readability": 0.821214,
           "final_lifecycle_survival": 1.0
+        },
+        "site_aware": {
+          "final_overlap": 0.923077,
+          "final_structural_agreement": 0.923077,
+          "final_valid": false,
+          "final_errors": [
+            "required body core is disconnected"
+          ],
+          "final_readability": 0.713305,
+          "final_lifecycle_survival": 0.0
         },
         "assisted": {
           "final_overlap": 1.0,
@@ -9476,7 +11466,13 @@
             "damage_pattern": "stochastic_dropout",
             "dropout_rate": 0.2,
             "damage_event_index": 5,
-            "removed_cell_count": 1
+            "removed_cell_count": 1,
+            "removed_cells": [
+              [
+                3,
+                4
+              ]
+            ]
           }
         },
         "role_prior": {
@@ -10232,6 +12228,289 @@
             "repair_steps": 8
           }
         },
+        "site_aware": {
+          "grid_id": "mg_seed_047_cycle_05_site_aware",
+          "schema_version": "0.1.0",
+          "parent_grid_id": "mg_seed_047_cycle_04_site_aware_stochastic_damage_05",
+          "grid_size": [
+            8,
+            8
+          ],
+          "cells": [
+            {
+              "x": 2,
+              "y": 1,
+              "visual": "#d7dfc7",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 1,
+              "y": 2,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 2,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 2,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 2,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 1,
+              "y": 3,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 3,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 3,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": true,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 3,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": true,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 4,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 4,
+              "visual": "#d7dfc7",
+              "role": "mouth",
+              "material": "soft",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "expression",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 4,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 5,
+              "visual": "#7e8f76",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            }
+          ],
+          "organs": {
+            "core": {
+              "role": "body_core",
+              "cells": [
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  2,
+                  4
+                ],
+                [
+                  4,
+                  4
+                ],
+                [
+                  4,
+                  5
+                ]
+              ],
+              "required": true
+            },
+            "sensors": {
+              "role": "sensor",
+              "cells": [
+                [
+                  2,
+                  1
+                ]
+              ],
+              "required": true
+            },
+            "expression": {
+              "role": "expression",
+              "cells": [
+                [
+                  3,
+                  4
+                ]
+              ],
+              "required": false
+            }
+          },
+          "palette": {
+            "palette_id": "gameboy_gray",
+            "colors": [
+              "#111814",
+              "#7e8f76",
+              "#d7dfc7"
+            ],
+            "background_index": 0
+          },
+          "mutation": {
+            "cell_mutation_rate": 0.05,
+            "organ_shift_rate": 0.02,
+            "palette_shift_rate": 0.01,
+            "symmetry_break_rate": 0.01
+          },
+          "lineage": {
+            "generation": 1,
+            "ancestor_ids": [
+              "mg_seed_047_cycle_04_site_aware_stochastic_damage_05"
+            ],
+            "mutation_events": [
+              "ca_damage_observed",
+              "learned_wound_site_softmax_repair"
+            ]
+          },
+          "metadata": {
+            "source": "learned_wound_site_softmax_repair",
+            "learned_model_id": "neighborhood_softmax_repair_model_stage0",
+            "target_template_used": false,
+            "wound_site_count": 3
+          }
+        },
         "assisted": {
           "grid_id": "mg_seed_047_cycle_05_assisted",
           "schema_version": "0.1.0",
@@ -10538,6 +12817,13 @@
               "structural_agreement": 0.647059,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.769231,
+              "repair_overlap": 0.846154,
+              "repair_gain": 0.076923,
+              "structural_agreement": 0.846154,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.769231,
               "repair_overlap": 1.0,
@@ -10569,6 +12855,13 @@
               "repair_overlap": 0.769231,
               "repair_gain": 0.076923,
               "structural_agreement": 0.588235,
+              "valid": true
+            },
+            "site_aware": {
+              "damaged_overlap": 0.615385,
+              "repair_overlap": 0.769231,
+              "repair_gain": 0.153846,
+              "structural_agreement": 0.769231,
               "valid": true
             },
             "assisted": {
@@ -10604,6 +12897,13 @@
               "structural_agreement": 0.647059,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.538462,
+              "repair_overlap": 0.769231,
+              "repair_gain": 0.230769,
+              "structural_agreement": 0.769231,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.769231,
               "repair_overlap": 1.0,
@@ -10637,6 +12937,13 @@
               "structural_agreement": 0.6875,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.461538,
+              "repair_overlap": 0.769231,
+              "repair_gain": 0.307693,
+              "structural_agreement": 0.769231,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.692308,
               "repair_overlap": 1.0,
@@ -10668,6 +12975,13 @@
               "repair_overlap": 0.769231,
               "repair_gain": 0.076923,
               "structural_agreement": 0.625,
+              "valid": true
+            },
+            "site_aware": {
+              "damaged_overlap": 0.538462,
+              "repair_overlap": 0.692308,
+              "repair_gain": 0.153846,
+              "structural_agreement": 0.692308,
               "valid": true
             },
             "assisted": {
@@ -10705,6 +13019,14 @@
           "final_valid": true,
           "final_errors": [],
           "final_readability": 0.863319,
+          "final_lifecycle_survival": 1.0
+        },
+        "site_aware": {
+          "final_overlap": 0.692308,
+          "final_structural_agreement": 0.692308,
+          "final_valid": true,
+          "final_errors": [],
+          "final_readability": 0.839307,
           "final_lifecycle_survival": 1.0
         },
         "assisted": {
@@ -10863,7 +13185,17 @@
             "damage_pattern": "stochastic_dropout",
             "dropout_rate": 0.2,
             "damage_event_index": 5,
-            "removed_cell_count": 2
+            "removed_cell_count": 2,
+            "removed_cells": [
+              [
+                2,
+                2
+              ],
+              [
+                5,
+                5
+              ]
+            ]
           }
         },
         "role_prior": {
@@ -11670,6 +14002,289 @@
             "repair_steps": 8
           }
         },
+        "site_aware": {
+          "grid_id": "mg_seed_048_cycle_05_site_aware",
+          "schema_version": "0.1.0",
+          "parent_grid_id": "mg_seed_048_cycle_04_site_aware_stochastic_damage_05",
+          "grid_size": [
+            8,
+            8
+          ],
+          "cells": [
+            {
+              "x": 3,
+              "y": 1,
+              "visual": "#ffe0a3",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 2,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 2,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 2,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 2,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 3,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 3,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": true,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 3,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": true,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 3,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 1,
+              "y": 4,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 4,
+              "visual": "#d98428",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 4,
+              "visual": "#ffe0a3",
+              "role": "mouth",
+              "material": "soft",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "expression",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 5,
+              "visual": "#ffe0a3",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            }
+          ],
+          "organs": {
+            "core": {
+              "role": "body_core",
+              "cells": [
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  5,
+                  2
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  1,
+                  4
+                ],
+                [
+                  2,
+                  4
+                ]
+              ],
+              "required": true
+            },
+            "sensors": {
+              "role": "sensor",
+              "cells": [
+                [
+                  3,
+                  1
+                ],
+                [
+                  5,
+                  5
+                ]
+              ],
+              "required": true
+            },
+            "expression": {
+              "role": "expression",
+              "cells": [
+                [
+                  3,
+                  4
+                ]
+              ],
+              "required": false
+            }
+          },
+          "palette": {
+            "palette_id": "amber_terminal",
+            "colors": [
+              "#1c1005",
+              "#d98428",
+              "#ffe0a3"
+            ],
+            "background_index": 0
+          },
+          "mutation": {
+            "cell_mutation_rate": 0.05,
+            "organ_shift_rate": 0.02,
+            "palette_shift_rate": 0.01,
+            "symmetry_break_rate": 0.01
+          },
+          "lineage": {
+            "generation": 1,
+            "ancestor_ids": [
+              "mg_seed_048_cycle_04_site_aware_stochastic_damage_05"
+            ],
+            "mutation_events": [
+              "ca_damage_observed",
+              "learned_wound_site_softmax_repair"
+            ]
+          },
+          "metadata": {
+            "source": "learned_wound_site_softmax_repair",
+            "learned_model_id": "neighborhood_softmax_repair_model_stage0",
+            "target_template_used": false,
+            "wound_site_count": 4
+          }
+        },
         "assisted": {
           "grid_id": "mg_seed_048_cycle_05_assisted",
           "schema_version": "0.1.0",
@@ -11976,6 +14591,13 @@
               "structural_agreement": 0.764706,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.846154,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.153846,
+              "structural_agreement": 1.0,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.846154,
               "repair_overlap": 1.0,
@@ -12007,6 +14629,13 @@
               "repair_overlap": 0.923077,
               "repair_gain": 0.0,
               "structural_agreement": 0.705882,
+              "valid": true
+            },
+            "site_aware": {
+              "damaged_overlap": 1.0,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.0,
+              "structural_agreement": 1.0,
               "valid": true
             },
             "assisted": {
@@ -12042,6 +14671,13 @@
               "structural_agreement": 0.611111,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.846154,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.153846,
+              "structural_agreement": 1.0,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.846154,
               "repair_overlap": 1.0,
@@ -12075,6 +14711,13 @@
               "structural_agreement": 0.611111,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.846154,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.153846,
+              "structural_agreement": 1.0,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.846154,
               "repair_overlap": 1.0,
@@ -12106,6 +14749,13 @@
               "repair_overlap": 0.923077,
               "repair_gain": 0.230769,
               "structural_agreement": 0.631579,
+              "valid": true
+            },
+            "site_aware": {
+              "damaged_overlap": 0.615385,
+              "repair_overlap": 0.923077,
+              "repair_gain": 0.307692,
+              "structural_agreement": 0.923077,
               "valid": true
             },
             "assisted": {
@@ -12143,6 +14793,14 @@
           "final_valid": true,
           "final_errors": [],
           "final_readability": 0.846012,
+          "final_lifecycle_survival": 1.0
+        },
+        "site_aware": {
+          "final_overlap": 0.923077,
+          "final_structural_agreement": 0.923077,
+          "final_valid": true,
+          "final_errors": [],
+          "final_readability": 0.799787,
           "final_lifecycle_survival": 1.0
         },
         "assisted": {
@@ -12227,7 +14885,8 @@
             "damage_pattern": "stochastic_dropout",
             "dropout_rate": 0.2,
             "damage_event_index": 5,
-            "removed_cell_count": 0
+            "removed_cell_count": 0,
+            "removed_cells": []
           }
         },
         "role_prior": {
@@ -13017,6 +15676,306 @@
             "repair_steps": 8
           }
         },
+        "site_aware": {
+          "grid_id": "mg_seed_049_cycle_05_site_aware",
+          "schema_version": "0.1.0",
+          "parent_grid_id": "mg_seed_049_cycle_04_site_aware_stochastic_damage_05",
+          "grid_size": [
+            8,
+            8
+          ],
+          "cells": [
+            {
+              "x": 1,
+              "y": 1,
+              "visual": "#d6f3ff",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 1,
+              "visual": "#d6f3ff",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 2,
+              "visual": "#3e8fbf",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 2,
+              "visual": "#3e8fbf",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 2,
+              "visual": "#3e8fbf",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 3,
+              "visual": "#3e8fbf",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 3,
+              "visual": "#3e8fbf",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": true,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 3,
+              "visual": "#3e8fbf",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 3,
+              "visual": "#3e8fbf",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 4,
+              "visual": "#3e8fbf",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 4,
+              "visual": "#d6f3ff",
+              "role": "mouth",
+              "material": "soft",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "expression",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 4,
+              "visual": "#3e8fbf",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 5,
+              "visual": "#3e8fbf",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 5,
+              "visual": "#3e8fbf",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            }
+          ],
+          "organs": {
+            "core": {
+              "role": "body_core",
+              "cells": [
+                [
+                  3,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  5,
+                  2
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  2,
+                  4
+                ],
+                [
+                  4,
+                  4
+                ],
+                [
+                  2,
+                  5
+                ],
+                [
+                  3,
+                  5
+                ]
+              ],
+              "required": true
+            },
+            "sensors": {
+              "role": "sensor",
+              "cells": [
+                [
+                  1,
+                  1
+                ],
+                [
+                  3,
+                  1
+                ]
+              ],
+              "required": true
+            },
+            "expression": {
+              "role": "expression",
+              "cells": [
+                [
+                  3,
+                  4
+                ]
+              ],
+              "required": false
+            }
+          },
+          "palette": {
+            "palette_id": "crt_blue",
+            "colors": [
+              "#06131f",
+              "#3e8fbf",
+              "#d6f3ff"
+            ],
+            "background_index": 0
+          },
+          "mutation": {
+            "cell_mutation_rate": 0.05,
+            "organ_shift_rate": 0.02,
+            "palette_shift_rate": 0.01,
+            "symmetry_break_rate": 0.01
+          },
+          "lineage": {
+            "generation": 1,
+            "ancestor_ids": [
+              "mg_seed_049_cycle_04_site_aware_stochastic_damage_05"
+            ],
+            "mutation_events": [
+              "ca_damage_observed",
+              "learned_wound_site_softmax_repair"
+            ]
+          },
+          "metadata": {
+            "source": "learned_wound_site_softmax_repair",
+            "learned_model_id": "neighborhood_softmax_repair_model_stage0",
+            "target_template_used": false,
+            "wound_site_count": 2
+          }
+        },
         "assisted": {
           "grid_id": "mg_seed_049_cycle_05_assisted",
           "schema_version": "0.1.0",
@@ -13340,6 +16299,13 @@
               "structural_agreement": 0.722222,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.642857,
+              "repair_overlap": 0.928571,
+              "repair_gain": 0.285714,
+              "structural_agreement": 0.928571,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.642857,
               "repair_overlap": 1.0,
@@ -13371,6 +16337,13 @@
               "repair_overlap": 0.928571,
               "repair_gain": 0.285714,
               "structural_agreement": 0.722222,
+              "valid": true
+            },
+            "site_aware": {
+              "damaged_overlap": 0.642857,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.357143,
+              "structural_agreement": 1.0,
               "valid": true
             },
             "assisted": {
@@ -13406,6 +16379,13 @@
               "structural_agreement": 0.777778,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.642857,
+              "repair_overlap": 0.928571,
+              "repair_gain": 0.285714,
+              "structural_agreement": 0.928571,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.642857,
               "repair_overlap": 1.0,
@@ -13439,6 +16419,13 @@
               "structural_agreement": 0.777778,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.714286,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.285714,
+              "structural_agreement": 1.0,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.714286,
               "repair_overlap": 1.0,
@@ -13470,6 +16457,13 @@
               "repair_overlap": 0.928571,
               "repair_gain": 0.142857,
               "structural_agreement": 0.722222,
+              "valid": true
+            },
+            "site_aware": {
+              "damaged_overlap": 0.857143,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.142857,
+              "structural_agreement": 1.0,
               "valid": true
             },
             "assisted": {
@@ -13508,6 +16502,14 @@
           "final_valid": true,
           "final_errors": [],
           "final_readability": 0.860524,
+          "final_lifecycle_survival": 1.0
+        },
+        "site_aware": {
+          "final_overlap": 1.0,
+          "final_structural_agreement": 1.0,
+          "final_valid": true,
+          "final_errors": [],
+          "final_readability": 0.839774,
           "final_lifecycle_survival": 1.0
         },
         "assisted": {
@@ -13626,7 +16628,13 @@
             "damage_pattern": "stochastic_dropout",
             "dropout_rate": 0.2,
             "damage_event_index": 5,
-            "removed_cell_count": 1
+            "removed_cell_count": 1,
+            "removed_cells": [
+              [
+                3,
+                2
+              ]
+            ]
           }
         },
         "role_prior": {
@@ -14399,6 +17407,306 @@
             "repair_steps": 8
           }
         },
+        "site_aware": {
+          "grid_id": "mg_seed_050_cycle_05_site_aware",
+          "schema_version": "0.1.0",
+          "parent_grid_id": "mg_seed_050_cycle_04_site_aware_stochastic_damage_05",
+          "grid_size": [
+            8,
+            8
+          ],
+          "cells": [
+            {
+              "x": 2,
+              "y": 1,
+              "visual": "#f2dcff",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 1,
+              "visual": "#f2dcff",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 1,
+              "y": 2,
+              "visual": "#7e5aa6",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 2,
+              "visual": "#7e5aa6",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 2,
+              "visual": "#7e5aa6",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 2,
+              "visual": "#7e5aa6",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 1,
+              "y": 3,
+              "visual": "#7e5aa6",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 3,
+              "visual": "#7e5aa6",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 3,
+              "visual": "#7e5aa6",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": true,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 3,
+              "visual": "#7e5aa6",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 4,
+              "visual": "#7e5aa6",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 4,
+              "visual": "#f2dcff",
+              "role": "mouth",
+              "material": "soft",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "expression",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 5,
+              "visual": "#7e5aa6",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 5,
+              "visual": "#7e5aa6",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            }
+          ],
+          "organs": {
+            "core": {
+              "role": "body_core",
+              "cells": [
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  2,
+                  4
+                ],
+                [
+                  3,
+                  5
+                ],
+                [
+                  4,
+                  5
+                ]
+              ],
+              "required": true
+            },
+            "sensors": {
+              "role": "sensor",
+              "cells": [
+                [
+                  2,
+                  1
+                ],
+                [
+                  5,
+                  1
+                ]
+              ],
+              "required": true
+            },
+            "expression": {
+              "role": "expression",
+              "cells": [
+                [
+                  3,
+                  4
+                ]
+              ],
+              "required": false
+            }
+          },
+          "palette": {
+            "palette_id": "pocket_plum",
+            "colors": [
+              "#160e1f",
+              "#7e5aa6",
+              "#f2dcff"
+            ],
+            "background_index": 0
+          },
+          "mutation": {
+            "cell_mutation_rate": 0.05,
+            "organ_shift_rate": 0.02,
+            "palette_shift_rate": 0.01,
+            "symmetry_break_rate": 0.01
+          },
+          "lineage": {
+            "generation": 1,
+            "ancestor_ids": [
+              "mg_seed_050_cycle_04_site_aware_stochastic_damage_05"
+            ],
+            "mutation_events": [
+              "ca_damage_observed",
+              "learned_wound_site_softmax_repair"
+            ]
+          },
+          "metadata": {
+            "source": "learned_wound_site_softmax_repair",
+            "learned_model_id": "neighborhood_softmax_repair_model_stage0",
+            "target_template_used": false,
+            "wound_site_count": 1
+          }
+        },
         "assisted": {
           "grid_id": "mg_seed_050_cycle_05_assisted",
           "schema_version": "0.1.0",
@@ -14722,6 +18030,13 @@
               "structural_agreement": 0.823529,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.785714,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.214286,
+              "structural_agreement": 1.0,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.785714,
               "repair_overlap": 1.0,
@@ -14753,6 +18068,13 @@
               "repair_overlap": 0.928571,
               "repair_gain": 0.142857,
               "structural_agreement": 0.764706,
+              "valid": true
+            },
+            "site_aware": {
+              "damaged_overlap": 0.785714,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.214286,
+              "structural_agreement": 1.0,
               "valid": true
             },
             "assisted": {
@@ -14788,6 +18110,13 @@
               "structural_agreement": 0.666667,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.642857,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.357143,
+              "structural_agreement": 1.0,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.642857,
               "repair_overlap": 1.0,
@@ -14821,6 +18150,13 @@
               "structural_agreement": 0.666667,
               "valid": true
             },
+            "site_aware": {
+              "damaged_overlap": 0.857143,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.142857,
+              "structural_agreement": 1.0,
+              "valid": true
+            },
             "assisted": {
               "damaged_overlap": 0.857143,
               "repair_overlap": 1.0,
@@ -14852,6 +18188,13 @@
               "repair_overlap": 0.857143,
               "repair_gain": 0.071429,
               "structural_agreement": 0.666667,
+              "valid": true
+            },
+            "site_aware": {
+              "damaged_overlap": 0.928571,
+              "repair_overlap": 1.0,
+              "repair_gain": 0.071429,
+              "structural_agreement": 1.0,
               "valid": true
             },
             "assisted": {
@@ -14891,6 +18234,14 @@
           "final_readability": 0.872815,
           "final_lifecycle_survival": 1.0
         },
+        "site_aware": {
+          "final_overlap": 1.0,
+          "final_structural_agreement": 1.0,
+          "final_valid": true,
+          "final_errors": [],
+          "final_readability": 0.873729,
+          "final_lifecycle_survival": 1.0
+        },
         "assisted": {
           "final_overlap": 1.0,
           "final_structural_agreement": 1.0,
@@ -14903,18 +18254,20 @@
     }
   ],
   "decision": {
-    "status": "prototype_learned_repair_gap_narrowed",
+    "status": "wound_signal_repair_meets_bar",
     "adoption": "lab_only_less_assisted_repair_candidate",
-    "reason": "The gradient-trained neighborhood rule substantially beats no-repair on held-out grids without a target template and is the best learned arm on two-sided structural agreement and readability. The role-prior baseline reaches higher one-sided overlap only by overfilling common positions. The trained rule still falls short of the assisted stability bar, so the template-assisted attractor remains the benchmark upper bound.",
+    "reason": "The blind trained arm still falls short of the assisted stability bar, but the wound-site arm \u2014 the same trained model, additionally observing which positions the damage event destroyed (never the destroyed tokens, never a template) \u2014 meets all three bars on held-out grids. Refill restricted to reported damage sites removes overgrowth by construction, so the residual error is purely token prediction. Template assistance is no longer required for stability when damage-site observability is available.",
     "thresholds": {
       "beats_no_repair_substantially": true,
       "best_learned_on_structural_agreement": true,
-      "meets_assisted_stability_bar": false
+      "meets_assisted_stability_bar": false,
+      "site_aware_meets_assisted_stability_bar": true
     }
   },
   "limitations": [
     "The trained rule is a linear softmax, not a neural cellular automaton with hidden state.",
     "matrix_overlap does not penalise spurious fills, so structural_agreement is reported alongside it; the trained arm overgrows relative to the assisted baseline.",
+    "The site_aware arm assumes damage events report destroyed positions; it would not apply to damage whose location is unobserved, and its verdict is recorded under its own threshold key for that reason.",
     "Held-out grids come from the same hand-authored species corpus, so the split tests variant generalisation, not novel-species generalisation.",
     "No human visual repair ratings are included."
   ],

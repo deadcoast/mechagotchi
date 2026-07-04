@@ -172,6 +172,34 @@ class PackagePromotionGateTests(unittest.TestCase):
                     "target_package_absent", candidate["promotion_blockers"]
                 )
 
+    def test_repair_candidate_blocker_derives_from_wound_site_evidence(self):
+        # The trained-repair artifact records a wound-site arm that meets
+        # the assisted stability bar without a target template
+        # (site_aware_meets_assisted_stability_bar), so the
+        # lab_only_target_template_assisted blocker must derive from that
+        # key and clear. The repair candidate stays unpromoted only because
+        # its target package does not exist yet.
+        report = run_package_promotion_gate(ROOT)
+        repair = next(
+            candidate
+            for candidate in report["candidates"]
+            if candidate["component_id"] == "ca_nca_repair"
+        )
+
+        details = {
+            detail["blocker_id"]: detail
+            for detail in repair["research_blocker_details"]
+        }
+        self.assertFalse(
+            details["lab_only_target_template_assisted"]["active"]
+        )
+        self.assertNotIn(
+            "lab_only_target_template_assisted",
+            repair["promotion_blockers"],
+        )
+        self.assertEqual("ready_for_package_design", repair["gate_status"])
+        self.assertIn("target_package_absent", repair["promotion_blockers"])
+
     def test_write_package_promotion_artifacts_creates_report_and_criteria_doc(self):
         report = run_package_promotion_gate(ROOT)
         with tempfile.TemporaryDirectory() as temp_dir:

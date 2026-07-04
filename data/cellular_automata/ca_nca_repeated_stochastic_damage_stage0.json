@@ -516,7 +516,25 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 1,
-              "removed_cell_count": 4
+              "removed_cell_count": 4,
+              "removed_cells": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  5,
+                  3
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -1023,7 +1041,25 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 2,
-              "removed_cell_count": 4
+              "removed_cell_count": 4,
+              "removed_cells": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  4,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  3
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -1565,7 +1601,17 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 3,
-              "removed_cell_count": 2
+              "removed_cell_count": 2,
+              "removed_cells": [
+                [
+                  3,
+                  2
+                ],
+                [
+                  3,
+                  4
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -2107,7 +2153,17 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 4,
-              "removed_cell_count": 2
+              "removed_cell_count": 2,
+              "removed_cells": [
+                [
+                  3,
+                  2
+                ],
+                [
+                  3,
+                  3
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -2616,7 +2672,25 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 5,
-              "removed_cell_count": 4
+              "removed_cell_count": 4,
+              "removed_cells": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -3465,7 +3539,21 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 1,
-              "removed_cell_count": 3
+              "removed_cell_count": 3,
+              "removed_cells": [
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  4
+                ],
+                [
+                  3,
+                  5
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -4007,7 +4095,25 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 2,
-              "removed_cell_count": 4
+              "removed_cell_count": 4,
+              "removed_cells": [
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  1,
+                  3
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -4583,7 +4689,17 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 3,
-              "removed_cell_count": 2
+              "removed_cell_count": 2,
+              "removed_cells": [
+                [
+                  4,
+                  2
+                ],
+                [
+                  5,
+                  3
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -5126,7 +5242,25 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 4,
-              "removed_cell_count": 4
+              "removed_cell_count": 4,
+              "removed_cells": [
+                [
+                  3,
+                  2
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  3,
+                  5
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -5685,7 +5819,21 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 5,
-              "removed_cell_count": 3
+              "removed_cell_count": 3,
+              "removed_cells": [
+                [
+                  4,
+                  1
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  2,
+                  3
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -6517,7 +6665,21 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 1,
-              "removed_cell_count": 3
+              "removed_cell_count": 3,
+              "removed_cells": [
+                [
+                  4,
+                  2
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  3,
+                  4
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -7042,7 +7204,21 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 2,
-              "removed_cell_count": 3
+              "removed_cell_count": 3,
+              "removed_cells": [
+                [
+                  4,
+                  2
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  3,
+                  5
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -7618,7 +7794,8 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 3,
-              "removed_cell_count": 0
+              "removed_cell_count": 0,
+              "removed_cells": []
             }
           },
           "repaired_grid": {
@@ -8143,7 +8320,21 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 4,
-              "removed_cell_count": 3
+              "removed_cell_count": 3,
+              "removed_cells": [
+                [
+                  3,
+                  2
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  2,
+                  4
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -8719,7 +8910,8 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 5,
-              "removed_cell_count": 0
+              "removed_cell_count": 0,
+              "removed_cells": []
             }
           },
           "repaired_grid": {
@@ -9590,7 +9782,17 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 1,
-              "removed_cell_count": 2
+              "removed_cell_count": 2,
+              "removed_cells": [
+                [
+                  2,
+                  0
+                ],
+                [
+                  5,
+                  0
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -10132,7 +10334,25 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 2,
-              "removed_cell_count": 4
+              "removed_cell_count": 4,
+              "removed_cells": [
+                [
+                  5,
+                  0
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -10709,7 +10929,17 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 3,
-              "removed_cell_count": 2
+              "removed_cell_count": 2,
+              "removed_cells": [
+                [
+                  2,
+                  0
+                ],
+                [
+                  3,
+                  2
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -11251,7 +11481,25 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 4,
-              "removed_cell_count": 4
+              "removed_cell_count": 4,
+              "removed_cells": [
+                [
+                  4,
+                  2
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  4
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -11810,7 +12058,21 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 5,
-              "removed_cell_count": 3
+              "removed_cell_count": 3,
+              "removed_cells": [
+                [
+                  3,
+                  1
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  3,
+                  5
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -12802,7 +13064,17 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 1,
-              "removed_cell_count": 2
+              "removed_cell_count": 2,
+              "removed_cells": [
+                [
+                  2,
+                  3
+                ],
+                [
+                  2,
+                  4
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -13430,7 +13702,29 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 2,
-              "removed_cell_count": 5
+              "removed_cell_count": 5,
+              "removed_cells": [
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  2,
+                  5
+                ],
+                [
+                  3,
+                  5
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -14057,7 +14351,29 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 3,
-              "removed_cell_count": 5
+              "removed_cell_count": 5,
+              "removed_cells": [
+                [
+                  1,
+                  2
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  4
+                ],
+                [
+                  2,
+                  5
+                ],
+                [
+                  3,
+                  5
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -14701,7 +15017,25 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 4,
-              "removed_cell_count": 4
+              "removed_cell_count": 4,
+              "removed_cells": [
+                [
+                  5,
+                  1
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  4
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -15379,7 +15713,17 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 5,
-              "removed_cell_count": 2
+              "removed_cell_count": 2,
+              "removed_cells": [
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  2
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -16302,7 +16646,13 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 1,
-              "removed_cell_count": 1
+              "removed_cell_count": 1,
+              "removed_cells": [
+                [
+                  2,
+                  3
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -16827,7 +17177,21 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 2,
-              "removed_cell_count": 3
+              "removed_cell_count": 3,
+              "removed_cells": [
+                [
+                  2,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  1,
+                  5
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -17386,7 +17750,13 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 3,
-              "removed_cell_count": 1
+              "removed_cell_count": 1,
+              "removed_cells": [
+                [
+                  4,
+                  4
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -17928,7 +18298,17 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 4,
-              "removed_cell_count": 2
+              "removed_cell_count": 2,
+              "removed_cells": [
+                [
+                  3,
+                  1
+                ],
+                [
+                  2,
+                  3
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -18487,7 +18867,13 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 5,
-              "removed_cell_count": 1
+              "removed_cell_count": 1,
+              "removed_cells": [
+                [
+                  4,
+                  3
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -19359,7 +19745,17 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 1,
-              "removed_cell_count": 2
+              "removed_cell_count": 2,
+              "removed_cells": [
+                [
+                  3,
+                  2
+                ],
+                [
+                  2,
+                  3
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -19919,7 +20315,21 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 2,
-              "removed_cell_count": 3
+              "removed_cell_count": 3,
+              "removed_cells": [
+                [
+                  3,
+                  2
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  3,
+                  4
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -20472,7 +20882,21 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 3,
-              "removed_cell_count": 3
+              "removed_cell_count": 3,
+              "removed_cells": [
+                [
+                  4,
+                  2
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  4,
+                  4
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -21014,7 +21438,25 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 4,
-              "removed_cell_count": 4
+              "removed_cell_count": 4,
+              "removed_cells": [
+                [
+                  1,
+                  1
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  5,
+                  3
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -21567,7 +22009,21 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 5,
-              "removed_cell_count": 3
+              "removed_cell_count": 3,
+              "removed_cells": [
+                [
+                  2,
+                  2
+                ],
+                [
+                  4,
+                  4
+                ],
+                [
+                  3,
+                  5
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -22422,7 +22878,17 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 1,
-              "removed_cell_count": 2
+              "removed_cell_count": 2,
+              "removed_cells": [
+                [
+                  1,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -22998,7 +23464,8 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 2,
-              "removed_cell_count": 0
+              "removed_cell_count": 0,
+              "removed_cells": []
             }
           },
           "repaired_grid": {
@@ -23540,7 +24007,17 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 3,
-              "removed_cell_count": 2
+              "removed_cell_count": 2,
+              "removed_cells": [
+                [
+                  2,
+                  1
+                ],
+                [
+                  3,
+                  2
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -24082,7 +24559,17 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 4,
-              "removed_cell_count": 2
+              "removed_cell_count": 2,
+              "removed_cells": [
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  2
+                ]
+              ]
             }
           },
           "repaired_grid": {
@@ -24585,7 +25072,25 @@
               "damage_pattern": "stochastic_dropout",
               "dropout_rate": 0.2,
               "damage_event_index": 5,
-              "removed_cell_count": 4
+              "removed_cell_count": 4,
+              "removed_cells": [
+                [
+                  2,
+                  1
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  3,
+                  4
+                ],
+                [
+                  3,
+                  5
+                ]
+              ]
             }
           },
           "repaired_grid": {
