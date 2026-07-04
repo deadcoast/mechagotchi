@@ -53,6 +53,7 @@ from aseprite_user_data_chunk_writer import (
     _write_aseprite,
 )
 from external_metadata_sidecar import build_sidecar_for_grid, restore_grid_from_sidecar
+from png_chunk_reader import PNGChunkError, bounded_decompress
 from workshop_editor import compare_semantic_grid_fidelity
 
 
@@ -221,7 +222,10 @@ def decode_aseprite_tilemap_tileset_project(project_bytes: bytes) -> dict:
                     **target,
                 }
                 if isinstance(text, str) and text.startswith(ASE_USER_DATA_PREFIX):
-                    metadata = json.loads(text[len(ASE_USER_DATA_PREFIX) :])
+                    try:
+                        metadata = json.loads(text[len(ASE_USER_DATA_PREFIX) :])
+                    except json.JSONDecodeError as exc:
+                        raise AsepriteUserDataError("aseprite_tilemap_tileset_json_invalid", str(exc)) from exc
                     if metadata.get("metadata_version") == ASE_TILEMAP_TILESET_VERSION:
                         native = True
                     tilemap_binding = metadata.get("tilemap_layer_binding", {})
@@ -527,6 +531,28 @@ def tamper_aseprite_tilemap_metadata(project_bytes: bytes) -> bytes:
             "aseprite_tilemap_tileset_metadata_missing",
             "no Mechagotchi tilemap/tileset User Data chunk found",
         )
+    return _write_aseprite(parsed["header"], frames)
+
+
+def tamper_aseprite_tilemap_metadata_json(project_bytes: bytes) -> bytes:
+    parsed = _parse_aseprite(project_bytes)
+    replaced = False
+    frames = []
+    for frame in parsed["frames"]:
+        chunks = []
+        for chunk in frame["chunks"]:
+            if chunk["type"] == ASE_CHUNK_USER_DATA and not replaced:
+                user_data = _parse_user_data_chunk(chunk["data"])
+                text = user_data["text"]
+                if isinstance(text, str) and text.startswith(ASE_USER_DATA_PREFIX):
+                    corrupted = struct.pack("<I", 1) + _pack_string(ASE_USER_DATA_PREFIX + '{"metadata_version":')
+                    chunks.append(_chunk(ASE_CHUNK_USER_DATA, corrupted))
+                    replaced = True
+                    continue
+            chunks.append(chunk)
+        frames.append({"duration_ms": frame["duration_ms"], "chunks": chunks})
+    if not replaced:
+        raise AsepriteUserDataError("aseprite_tilemap_tileset_metadata_missing", "no Mechagotchi tilemap User Data chunk found")
     return _write_aseprite(parsed["header"], frames)
 
 
@@ -862,11 +888,11 @@ def _parse_tileset_chunk(data: bytes) -> dict:
             )
         compressed = data[offset : offset + compressed_size]
         offset += compressed_size
-        try:
-            image_raw = zlib.decompress(compressed)
-        except zlib.error as exc:
-            raise AsepriteUserDataError("aseprite_tileset_image_decompression_failed", str(exc)) from exc
         expected_size = tile_width * tile_height * tile_count * 4
+        try:
+            image_raw = bounded_decompress(compressed, expected_size)
+        except PNGChunkError as exc:
+            raise AsepriteUserDataError("aseprite_tileset_image_decompression_failed", exc.message) from exc
         if len(image_raw) != expected_size:
             raise AsepriteUserDataError(
                 "aseprite_tileset_image_size_mismatch",
@@ -948,9 +974,9 @@ def _parse_tilemap_or_compressed_cel_chunk(data: bytes, project_width: int, proj
                 "compressed ASE Cel dimensions must match project dimensions",
             )
         try:
-            raw = zlib.decompress(data[offset:])
-        except zlib.error as exc:
-            raise AsepriteUserDataError("aseprite_cel_decompression_failed", str(exc)) from exc
+            raw = bounded_decompress(data[offset:], width * height * 4)
+        except PNGChunkError as exc:
+            raise AsepriteUserDataError("aseprite_cel_decompression_failed", exc.message) from exc
         if len(raw) != width * height * 4:
             raise AsepriteUserDataError(
                 "aseprite_cel_payload_size_mismatch",
@@ -995,11 +1021,11 @@ def _parse_tilemap_or_compressed_cel_chunk(data: bytes, project_width: int, proj
             "aseprite_tilemap_dimensions_mismatch",
             "compressed Aseprite Tilemap Cel dimensions must match project dimensions",
         )
-    try:
-        raw = zlib.decompress(data[offset:])
-    except zlib.error as exc:
-        raise AsepriteUserDataError("aseprite_tilemap_decompression_failed", str(exc)) from exc
     expected_size = width * height * 4
+    try:
+        raw = bounded_decompress(data[offset:], expected_size)
+    except PNGChunkError as exc:
+        raise AsepriteUserDataError("aseprite_tilemap_decompression_failed", exc.message) from exc
     if len(raw) != expected_size:
         raise AsepriteUserDataError(
             "aseprite_tilemap_payload_size_mismatch",
@@ -1407,6 +1433,7 @@ def _invalid_probe_results(reference_result: dict) -> list[dict]:
         _compact_import_result(import_aseprite_tilemap_tileset_project(tamper_aseprite_tileset_image(project_bytes))),
         _compact_import_result(import_aseprite_tilemap_tileset_project(tamper_aseprite_tilemap_tile_id(project_bytes))),
         _compact_import_result(import_aseprite_tilemap_tileset_project(tamper_aseprite_tilemap_metadata(project_bytes))),
+        _compact_import_result(import_aseprite_tilemap_tileset_project(tamper_aseprite_tilemap_metadata_json(project_bytes))),
     ]
 
 

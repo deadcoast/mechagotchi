@@ -1,5 +1,8 @@
+import binascii
 import json
+import struct
 import sys
+import zlib
 import tempfile
 import unittest
 from pathlib import Path
@@ -14,6 +17,7 @@ for import_path in [WORKSHOP_DIR, GRID_GENOME_DIR]:
 from slip import is_grid_aligned
 from standard_image_sidecar_decoder import (
     PNG_SIGNATURE,
+    PNGDecodeError,
     decode_png_rgba,
     export_standard_png_with_sidecar,
     import_standard_png_with_sidecar,
@@ -102,6 +106,31 @@ class StandardImageSidecarDecoderTests(unittest.TestCase):
         self.assertIn("png_signature_invalid", corrupt_result["error_families"])
         self.assertFalse(wrong_hash_result["ok"])
         self.assertIn("asset_hash_mismatch", wrong_hash_result["error_families"])
+
+    def test_decode_rejects_oversized_idat_stream(self):
+        profile = load_profile(VALID_PROFILE_PATHS[0])
+        grid = first_grid_for(profile)
+        exported = export_standard_png_with_sidecar(grid, profile)
+        decoded = decode_png_rgba(exported["png_bytes"])
+        stride = decoded["width"] * 4
+        oversized = zlib.compress(b"\x00" * ((stride + 1) * decoded["height"] + 1))
+
+        png = exported["png_bytes"]
+        offset = len(PNG_SIGNATURE)
+        rebuilt = bytearray(png[:offset])
+        while offset < len(png):
+            length = struct.unpack(">I", png[offset : offset + 4])[0]
+            chunk_type = png[offset + 4 : offset + 8]
+            payload = png[offset + 8 : offset + 8 + length]
+            if chunk_type == b"IDAT":
+                payload = oversized
+            rebuilt += struct.pack(">I", len(payload)) + chunk_type + payload
+            rebuilt += struct.pack(">I", binascii.crc32(payload, binascii.crc32(chunk_type)) & 0xFFFFFFFF)
+            offset += 12 + length
+
+        with self.assertRaises(PNGDecodeError) as ctx:
+            decode_png_rgba(bytes(rebuilt))
+        self.assertEqual("png_idat_decompression_failed", ctx.exception.family)
 
     def test_lab_report_closes_static_rgba_png_decoder_only(self):
         report = run_standard_image_sidecar_decoder_lab(

@@ -31,8 +31,8 @@
   "profile_count": 3,
   "document_variant_roundtrip_count": 9,
   "document_variant_roundtrip_success_count": 9,
-  "invalid_probe_count": 6,
-  "invalid_probe_rejected_count": 6,
+  "invalid_probe_count": 7,
+  "invalid_probe_rejected_count": 7,
   "metrics": {
     "document_variant_roundtrip_success_rate": 1.0,
     "mean_semantic_fidelity": 1.0,
@@ -11619,6 +11619,26 @@
       ],
       "error_families": [
         "aseprite_document_variant_sidecar_hash_mismatch"
+      ]
+    },
+    {
+      "ok": false,
+      "format_id": null,
+      "asset": null,
+      "decoded_project": null,
+      "native_metadata": null,
+      "resolved_external_assets": [],
+      "project_policy": null,
+      "semantic_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "aseprite_document_variant",
+          "family": "aseprite_document_variant_json_invalid",
+          "message": "Expecting value: line 1 column 21 (char 20)"
+        }
+      ],
+      "error_families": [
+        "aseprite_document_variant_json_invalid"
       ]
     }
   ],

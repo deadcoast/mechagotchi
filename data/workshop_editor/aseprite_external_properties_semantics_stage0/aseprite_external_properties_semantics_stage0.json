@@ -41,8 +41,8 @@
   "profile_count": 3,
   "external_properties_roundtrip_count": 3,
   "external_properties_roundtrip_success_count": 3,
-  "invalid_probe_count": 6,
-  "invalid_probe_rejected_count": 6,
+  "invalid_probe_count": 7,
+  "invalid_probe_rejected_count": 7,
   "metrics": {
     "external_properties_roundtrip_success_rate": 1.0,
     "mean_semantic_fidelity": 1.0,
@@ -3931,6 +3931,25 @@
       ],
       "error_families": [
         "aseprite_external_properties_sidecar_hash_mismatch"
+      ]
+    },
+    {
+      "ok": false,
+      "format_id": null,
+      "asset": null,
+      "decoded_project": null,
+      "native_metadata": null,
+      "project_policy": null,
+      "semantic_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "aseprite_external_properties",
+          "family": "aseprite_external_properties_json_invalid",
+          "message": "Expecting value: line 1 column 21 (char 20)"
+        }
+      ],
+      "error_families": [
+        "aseprite_external_properties_json_invalid"
       ]
     }
   ],

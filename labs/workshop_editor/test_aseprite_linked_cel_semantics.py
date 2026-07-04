@@ -19,6 +19,7 @@ from aseprite_linked_cel_semantics import (
     strip_aseprite_linked_cel_chunks,
     strip_aseprite_linked_cel_target,
     tamper_aseprite_linked_cel_metadata,
+    tamper_aseprite_linked_cel_metadata_json,
     tamper_aseprite_linked_cel_source_visual,
     tamper_aseprite_linked_cel_target,
     write_aseprite_linked_cel_semantics_artifacts,
@@ -194,6 +195,18 @@ class AsepriteLinkedCelSemanticsTests(unittest.TestCase):
         ]:
             self.assertNotIn("restored_grid", result)
 
+    def test_import_rejects_malformed_metadata_json(self):
+        profile = load_profile(VALID_PROFILE_PATHS[0])
+        grid = first_grid_for(profile)
+        exported = export_aseprite_linked_cel_project(grid, profile)
+
+        malformed = import_aseprite_linked_cel_project(
+            tamper_aseprite_linked_cel_metadata_json(exported["project_bytes"])
+        )
+
+        self.assertFalse(malformed["ok"])
+        self.assertIn("aseprite_linked_cel_json_invalid", malformed["error_families"])
+
     def test_lab_report_closes_only_stage0_linked_cel_subset(self):
         report = run_aseprite_linked_cel_semantics_lab(
             VALID_PROFILE_PATHS,
@@ -204,7 +217,7 @@ class AsepriteLinkedCelSemanticsTests(unittest.TestCase):
         self.assertEqual(3, report["profile_count"])
         self.assertEqual(3, report["linked_cel_roundtrip_count"])
         self.assertEqual(3, report["linked_cel_roundtrip_success_count"])
-        self.assertEqual(5, report["invalid_probe_rejected_count"])
+        self.assertEqual(6, report["invalid_probe_rejected_count"])
         self.assertEqual(1.0, report["metrics"]["linked_cel_roundtrip_success_rate"])
         self.assertEqual(1.0, report["metrics"]["mean_semantic_fidelity"])
         self.assertEqual(1.0, report["metrics"]["cel_visual_hash_preservation_rate"])

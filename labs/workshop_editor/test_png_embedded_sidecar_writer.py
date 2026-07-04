@@ -1,4 +1,6 @@
+import binascii
 import json
+import struct
 import sys
 import tempfile
 import unittest
@@ -117,6 +119,29 @@ class PNGEmbeddedSidecarWriterTests(unittest.TestCase):
         self.assertIn("embedded_sidecar_chunk_missing", missing["error_families"])
         self.assertIn("embedded_sidecar_json_invalid", corrupt_json["error_families"])
         self.assertIn("embedded_sidecar_canonical_hash_mismatch", corrupt_hash["error_families"])
+
+    def test_import_rejects_trailing_bytes_and_non_ascii_chunk_type(self):
+        profile = load_profile(VALID_PROFILE_PATHS[0])
+        grid = first_grid_for(profile)
+        exported = export_png_with_embedded_sidecar(grid, profile)
+        embedded = exported["embedded_png_bytes"]
+
+        trailing = import_png_with_embedded_sidecar(embedded + b"trailing-garbage")
+
+        chunk_type = b"t\xffXt"
+        data = b"probe"
+        bad_chunk = (
+            struct.pack(">I", len(data))
+            + chunk_type
+            + data
+            + struct.pack(">I", binascii.crc32(chunk_type + data) & 0xFFFFFFFF)
+        )
+        non_ascii = import_png_with_embedded_sidecar(embedded[:-12] + bad_chunk + embedded[-12:])
+
+        self.assertFalse(trailing["ok"])
+        self.assertIn("png_trailing_bytes", trailing["error_families"])
+        self.assertFalse(non_ascii["ok"])
+        self.assertIn("png_chunk_type_invalid", non_ascii["error_families"])
 
     def test_lab_report_closes_embedded_png_metadata_writer_only_for_text_chunk_subset(self):
         report = run_png_embedded_sidecar_writer_lab(

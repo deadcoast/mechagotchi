@@ -22,6 +22,7 @@ from standard_image_sidecar_decoder import (
     export_standard_png_with_sidecar,
     import_standard_png_with_sidecar,
 )
+from png_chunk_reader import PNGChunkError, read_png_chunks
 from workshop_editor import compare_semantic_grid_fidelity
 
 
@@ -386,30 +387,12 @@ def _invalid_probe_results(reference_result: dict) -> list[dict]:
 
 
 def _read_png_chunks(png_bytes: bytes) -> list[dict]:
-    if not png_bytes.startswith(PNG_SIGNATURE):
-        raise PNGEmbeddedSidecarError("png_signature_invalid", "PNG signature is invalid")
-    offset = len(PNG_SIGNATURE)
-    chunks = []
-    while offset < len(png_bytes):
-        if offset + 12 > len(png_bytes):
-            raise PNGEmbeddedSidecarError("png_chunk_truncated", "PNG chunk header is truncated")
-        length = struct.unpack(">I", png_bytes[offset : offset + 4])[0]
-        chunk_type_bytes = png_bytes[offset + 4 : offset + 8]
-        chunk_type = chunk_type_bytes.decode("ascii", errors="strict")
-        data_start = offset + 8
-        data_end = data_start + length
-        crc_end = data_end + 4
-        if crc_end > len(png_bytes):
-            raise PNGEmbeddedSidecarError("png_chunk_truncated", f"PNG chunk {chunk_type} is truncated")
-        data = png_bytes[data_start:data_end]
-        observed_crc = struct.unpack(">I", png_bytes[data_end:crc_end])[0]
-        expected_crc = binascii.crc32(chunk_type_bytes + data) & 0xFFFFFFFF
-        if observed_crc != expected_crc:
-            raise PNGEmbeddedSidecarError("png_chunk_crc_mismatch", f"PNG chunk {chunk_type} CRC mismatch")
-        chunks.append({"type": chunk_type, "data": data})
-        offset = crc_end
-        if chunk_type == "IEND":
-            break
+    try:
+        parsed = read_png_chunks(png_bytes)
+    except PNGChunkError as exc:
+        family = "png_chunk_crc_mismatch" if exc.family == "png_crc_mismatch" else exc.family
+        raise PNGEmbeddedSidecarError(family, exc.message) from exc
+    chunks = [{"type": chunk["type"], "data": chunk["payload"]} for chunk in parsed]
     if not chunks or chunks[0]["type"] != "IHDR":
         raise PNGEmbeddedSidecarError("png_ihdr_missing", "PNG IHDR chunk must be first")
     if chunks[-1]["type"] != "IEND":

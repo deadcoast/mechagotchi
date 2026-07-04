@@ -20,6 +20,7 @@ from aseprite_nested_timeline_semantics import (
     strip_aseprite_tag_user_data_chunks,
     tamper_aseprite_nested_child_level,
     tamper_aseprite_nested_timeline_metadata,
+    tamper_aseprite_nested_timeline_metadata_json,
     tamper_aseprite_tag_user_data_color,
     tamper_aseprite_timeline_loop_direction,
     write_aseprite_nested_timeline_semantics_artifacts,
@@ -180,6 +181,18 @@ class AsepriteNestedTimelineSemanticsTests(unittest.TestCase):
         ]:
             self.assertNotIn("restored_grid", result)
 
+    def test_import_rejects_malformed_metadata_json(self):
+        profile = load_profile(VALID_PROFILE_PATHS[0])
+        grid = first_grid_for(profile)
+        exported = export_aseprite_nested_timeline_project(grid, profile)
+
+        malformed = import_aseprite_nested_timeline_project(
+            tamper_aseprite_nested_timeline_metadata_json(exported["project_bytes"])
+        )
+
+        self.assertFalse(malformed["ok"])
+        self.assertIn("aseprite_nested_timeline_json_invalid", malformed["error_families"])
+
     def test_lab_report_closes_only_stage0_nested_timeline_subset(self):
         report = run_aseprite_nested_timeline_semantics_lab(
             VALID_PROFILE_PATHS,
@@ -190,7 +203,7 @@ class AsepriteNestedTimelineSemanticsTests(unittest.TestCase):
         self.assertEqual(3, report["profile_count"])
         self.assertEqual(3, report["nested_timeline_roundtrip_count"])
         self.assertEqual(3, report["nested_timeline_roundtrip_success_count"])
-        self.assertEqual(6, report["invalid_probe_rejected_count"])
+        self.assertEqual(7, report["invalid_probe_rejected_count"])
         self.assertEqual(1.0, report["metrics"]["nested_timeline_roundtrip_success_rate"])
         self.assertEqual(1.0, report["metrics"]["mean_semantic_fidelity"])
         self.assertEqual(1.0, report["metrics"]["cel_visual_hash_preservation_rate"])

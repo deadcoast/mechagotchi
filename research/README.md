@@ -405,6 +405,8 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-07-04-map-elites-neediness-descriptor-fix.md`
 - `research/algorithm_cards/map_elites_extended_descriptors.md`
 - `data/archives/map_elites_extended_stage0.json`
+- `research/experiment_reports/2026-07-04-workshop-editor-decoder-hardening.md`
+- `labs/workshop_editor/png_chunk_reader.py`
 
 Stage 0 and Stage 1 established:
 

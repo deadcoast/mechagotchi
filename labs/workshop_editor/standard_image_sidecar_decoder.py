@@ -23,6 +23,7 @@ from external_metadata_sidecar import (
     restore_grid_from_sidecar,
     validate_sidecar_binding,
 )
+from png_chunk_reader import PNGChunkError, bounded_decompress, read_png_chunks
 from workshop_editor import compare_semantic_grid_fidelity
 
 
@@ -110,13 +111,13 @@ def decode_png_rgba(png_bytes: bytes) -> dict:
         raise PNGDecodeError("png_idat_missing", "PNG IDAT chunk is required")
     if not any(chunk["type"] == "IEND" for chunk in chunks):
         raise PNGDecodeError("png_iend_missing", "PNG IEND chunk is required")
-    try:
-        raw = zlib.decompress(idat)
-    except zlib.error as exc:
-        raise PNGDecodeError("png_idat_decompression_failed", str(exc)) from exc
-
     stride = width * 4
     expected_length = (stride + 1) * height
+    try:
+        raw = bounded_decompress(idat, expected_length)
+    except PNGChunkError as exc:
+        raise PNGDecodeError("png_idat_decompression_failed", exc.message) from exc
+
     if len(raw) != expected_length:
         raise PNGDecodeError(
             "png_scanline_length_mismatch",
@@ -378,36 +379,10 @@ def write_standard_image_sidecar_decoder_artifacts(
 
 
 def _read_png_chunks(png_bytes: bytes) -> list[dict]:
-    if not png_bytes.startswith(PNG_SIGNATURE):
-        raise PNGDecodeError("png_signature_invalid", "PNG signature is invalid")
-    chunks = []
-    offset = len(PNG_SIGNATURE)
-    while offset < len(png_bytes):
-        if offset + 12 > len(png_bytes):
-            raise PNGDecodeError("png_chunk_truncated", "PNG chunk header is truncated")
-        length = struct.unpack(">I", png_bytes[offset : offset + 4])[0]
-        chunk_type = png_bytes[offset + 4 : offset + 8]
-        data_start = offset + 8
-        data_end = data_start + length
-        crc_end = data_end + 4
-        if crc_end > len(png_bytes):
-            raise PNGDecodeError("png_chunk_truncated", "PNG chunk payload is truncated")
-        payload = png_bytes[data_start:data_end]
-        expected_crc = struct.unpack(">I", png_bytes[data_end:crc_end])[0]
-        actual_crc = binascii.crc32(payload, binascii.crc32(chunk_type)) & 0xFFFFFFFF
-        if actual_crc != expected_crc:
-            raise PNGDecodeError("png_crc_mismatch", f"CRC mismatch in {chunk_type!r}")
-        try:
-            chunk_name = chunk_type.decode("ascii")
-        except UnicodeDecodeError as exc:
-            raise PNGDecodeError("png_chunk_type_invalid", "chunk type must be ASCII") from exc
-        chunks.append({"type": chunk_name, "payload": payload})
-        offset = crc_end
-        if chunk_type == b"IEND":
-            break
-    if offset != len(png_bytes):
-        raise PNGDecodeError("png_trailing_bytes", "PNG has trailing bytes after IEND")
-    return chunks
+    try:
+        return read_png_chunks(png_bytes)
+    except PNGChunkError as exc:
+        raise PNGDecodeError(exc.family, exc.message) from exc
 
 
 def _png_chunk(chunk_type: bytes, payload: bytes) -> bytes:

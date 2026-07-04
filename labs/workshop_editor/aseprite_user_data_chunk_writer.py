@@ -18,6 +18,7 @@ from validator import validate_grid
 
 from external_metadata_sidecar import build_sidecar_for_grid, restore_grid_from_sidecar
 from standard_image_sidecar_decoder import render_grid_rgba_pixels
+from png_chunk_reader import PNGChunkError, bounded_decompress
 from workshop_editor import compare_semantic_grid_fidelity
 
 
@@ -737,9 +738,9 @@ def _parse_cel_chunk(data: bytes, project_width: int, project_height: int) -> di
     if [width, height] != [project_width, project_height]:
         raise AsepriteUserDataError("aseprite_cel_dimensions_mismatch", "compressed ASE Cel dimensions must match project dimensions")
     try:
-        raw = zlib.decompress(data[offset:])
-    except zlib.error as exc:
-        raise AsepriteUserDataError("aseprite_cel_decompression_failed", str(exc)) from exc
+        raw = bounded_decompress(data[offset:], width * height * 4)
+    except PNGChunkError as exc:
+        raise AsepriteUserDataError("aseprite_cel_decompression_failed", exc.message) from exc
     if len(raw) != width * height * 4:
         raise AsepriteUserDataError("aseprite_cel_payload_size_mismatch", "decoded ASE Cel payload size does not match dimensions")
     return {

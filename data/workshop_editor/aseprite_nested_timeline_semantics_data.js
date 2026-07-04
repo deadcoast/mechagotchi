@@ -5,8 +5,8 @@ window.MECHAGOTCHI_ASEPRITE_NESTED_TIMELINE_SEMANTICS = {
     "profile_count": 3,
     "nested_timeline_roundtrip_count": 3,
     "nested_timeline_roundtrip_success_count": 3,
-    "invalid_probe_count": 6,
-    "invalid_probe_rejected_count": 6,
+    "invalid_probe_count": 7,
+    "invalid_probe_rejected_count": 7,
     "metrics": {
       "nested_timeline_roundtrip_success_rate": 1.0,
       "mean_semantic_fidelity": 1.0,

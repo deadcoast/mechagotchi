@@ -5,8 +5,8 @@ window.MECHAGOTCHI_ASEPRITE_LINKED_CEL_SEMANTICS = {
     "profile_count": 3,
     "linked_cel_roundtrip_count": 3,
     "linked_cel_roundtrip_success_count": 3,
-    "invalid_probe_count": 5,
-    "invalid_probe_rejected_count": 5,
+    "invalid_probe_count": 6,
+    "invalid_probe_rejected_count": 6,
     "metrics": {
       "linked_cel_roundtrip_success_rate": 1.0,
       "mean_semantic_fidelity": 1.0,

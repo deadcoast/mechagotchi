@@ -3,7 +3,7 @@
 Aseprite/LibreSprite document-variant proof for deterministic indexed 8 bpp, grayscale-alpha 16 bpp, and RGBA 32 bpp compressed cels with hashed External Files Chunk asset resolution.
 
 - Document variant round trips: 9/9
-- Invalid probes rejected: 6/6
+- Invalid probes rejected: 7/7
 - Mean semantic fidelity: 1.0
 - Variant pixel hash preservation rate: 1.0
 - External asset resolution rate: 1.0

@@ -27,8 +27,8 @@
   "profile_count": 3,
   "linked_cel_roundtrip_count": 3,
   "linked_cel_roundtrip_success_count": 3,
-  "invalid_probe_count": 5,
-  "invalid_probe_rejected_count": 5,
+  "invalid_probe_count": 6,
+  "invalid_probe_rejected_count": 6,
   "metrics": {
     "linked_cel_roundtrip_success_rate": 1.0,
     "mean_semantic_fidelity": 1.0,
@@ -4102,6 +4102,25 @@
       ],
       "error_families": [
         "aseprite_linked_cel_sidecar_hash_mismatch"
+      ]
+    },
+    {
+      "ok": false,
+      "format_id": null,
+      "asset": null,
+      "decoded_project": null,
+      "native_metadata": null,
+      "project_policy": null,
+      "semantic_fidelity": 0.0,
+      "errors": [
+        {
+          "path": "aseprite_linked_cel",
+          "family": "aseprite_linked_cel_json_invalid",
+          "message": "Expecting value: line 1 column 21 (char 20)"
+        }
+      ],
+      "error_families": [
+        "aseprite_linked_cel_json_invalid"
       ]
     }
   ],

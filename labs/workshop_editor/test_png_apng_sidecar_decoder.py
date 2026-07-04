@@ -1,4 +1,6 @@
+import binascii
 import json
+import struct
 import sys
 import tempfile
 import unittest
@@ -121,6 +123,37 @@ class APNGSidecarDecoderTests(unittest.TestCase):
             imported = import_apng_with_sidecar(png_bytes, sidecar, source_grid=grid)
             self.assertFalse(imported["ok"])
             self.assertIn(family, imported["error_families"])
+
+    def test_import_rejects_trailing_bytes_and_non_ascii_chunk_type(self):
+        profile = load_profile(VALID_PROFILE_PATHS[0])
+        grid = first_grid_for(profile)
+        bundle = export_apng_with_sidecar(grid, profile)
+        png_bytes = bundle["png_bytes"]
+
+        trailing = import_apng_with_sidecar(
+            png_bytes + b"trailing-garbage",
+            bundle["sidecar"],
+            source_grid=grid,
+        )
+
+        chunk_type = b"t\xffXt"
+        data = b"probe"
+        bad_chunk = (
+            struct.pack(">I", len(data))
+            + chunk_type
+            + data
+            + struct.pack(">I", binascii.crc32(chunk_type + data) & 0xFFFFFFFF)
+        )
+        non_ascii = import_apng_with_sidecar(
+            png_bytes[:-12] + bad_chunk + png_bytes[-12:],
+            bundle["sidecar"],
+            source_grid=grid,
+        )
+
+        self.assertFalse(trailing["ok"])
+        self.assertIn("png_trailing_bytes", trailing["error_families"])
+        self.assertFalse(non_ascii["ok"])
+        self.assertIn("png_chunk_type_invalid", non_ascii["error_families"])
 
     def test_lab_report_closes_bounded_apng_subset_without_full_conformance_claim(self):
         report = run_apng_sidecar_decoder_lab(

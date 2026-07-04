@@ -35,6 +35,7 @@ from png_embedded_sidecar_writer import (
     _write_png_chunks,
 )
 from standard_image_sidecar_decoder import render_grid_rgba_pixels
+from png_chunk_reader import PNGChunkError, bounded_decompress
 from workshop_editor import compare_semantic_grid_fidelity
 
 
@@ -559,9 +560,9 @@ def _decode_frame(frame: dict, frame_index: int, canvas_width: int, canvas_heigh
             "Stage 0 APNG supports only full-canvas dispose-none source-blend frames",
         )
     try:
-        raw = zlib.decompress(bytes(frame["data"]))
-    except zlib.error as exc:
-        raise APNGDecodeError("apng_frame_decompression_failed", str(exc)) from exc
+        raw = bounded_decompress(bytes(frame["data"]), (canvas_width * 4 + 1) * canvas_height)
+    except PNGChunkError as exc:
+        raise APNGDecodeError("apng_frame_decompression_failed", exc.message) from exc
     pixels = _decode_rgba_scanlines(canvas_width, canvas_height, raw)
     delay_den = frame["delay_den"] or 100
     delay_ms = round((frame["delay_num"] / delay_den) * 1000)

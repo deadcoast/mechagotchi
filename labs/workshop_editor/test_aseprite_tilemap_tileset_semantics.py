@@ -19,6 +19,7 @@ from aseprite_tilemap_tileset_semantics import (
     strip_aseprite_tilemap_cel_chunks,
     strip_aseprite_tileset_chunks,
     tamper_aseprite_tilemap_metadata,
+    tamper_aseprite_tilemap_metadata_json,
     tamper_aseprite_tilemap_tile_id,
     tamper_aseprite_tileset_image,
     write_aseprite_tilemap_tileset_semantics_artifacts,
@@ -174,6 +175,18 @@ class AsepriteTilemapTilesetSemanticsTests(unittest.TestCase):
         ]:
             self.assertNotIn("restored_grid", result)
 
+    def test_import_rejects_malformed_metadata_json(self):
+        profile = load_profile(VALID_PROFILE_PATHS[0])
+        grid = first_grid_for(profile)
+        exported = export_aseprite_tilemap_tileset_project(grid, profile)
+
+        malformed = import_aseprite_tilemap_tileset_project(
+            tamper_aseprite_tilemap_metadata_json(exported["project_bytes"])
+        )
+
+        self.assertFalse(malformed["ok"])
+        self.assertIn("aseprite_tilemap_tileset_json_invalid", malformed["error_families"])
+
     def test_lab_report_closes_only_stage0_tilemap_tileset_subset(self):
         report = run_aseprite_tilemap_tileset_semantics_lab(
             VALID_PROFILE_PATHS,
@@ -184,7 +197,7 @@ class AsepriteTilemapTilesetSemanticsTests(unittest.TestCase):
         self.assertEqual(3, report["profile_count"])
         self.assertEqual(3, report["tilemap_tileset_roundtrip_count"])
         self.assertEqual(3, report["tilemap_tileset_roundtrip_success_count"])
-        self.assertEqual(5, report["invalid_probe_rejected_count"])
+        self.assertEqual(6, report["invalid_probe_rejected_count"])
         self.assertEqual(1.0, report["metrics"]["tilemap_tileset_roundtrip_success_rate"])
         self.assertEqual(1.0, report["metrics"]["mean_semantic_fidelity"])
         self.assertEqual(1.0, report["metrics"]["tilemap_hash_preservation_rate"])

@@ -39,6 +39,7 @@ from standard_image_sidecar_decoder import (
     export_standard_png_with_sidecar,
     import_standard_png_with_sidecar,
 )
+from png_chunk_reader import PNGChunkError, bounded_decompress
 from workshop_editor import compare_semantic_grid_fidelity
 
 
@@ -46,6 +47,7 @@ TEXTUAL_METADATA_KEYWORD = "mechagotchi.sidecar.v1"
 REPORT_PATH = Path("data/workshop_editor/png_textual_metadata_policy_stage0.json")
 DATA_PATH = Path("data/workshop_editor/png_textual_metadata_policy_data.js")
 METADATA_MODEL = "png_textual_metadata_policy_v1"
+MAX_DECOMPRESSED_TEXT_BYTES = 1 << 20
 ASCII_PROBE = "cafe ascii metadata"
 UNICODE_PROBE = "caf\u00e9 \u0394 metadata"
 
@@ -553,11 +555,11 @@ def _decode_policy_chunk(chunk: dict) -> dict:
                 "zTXt compression method must be 0",
             )
         try:
-            text_bytes = zlib.decompress(payload[1:])
-        except zlib.error as exc:
+            text_bytes = bounded_decompress(payload[1:], MAX_DECOMPRESSED_TEXT_BYTES)
+        except PNGChunkError as exc:
             raise PNGTextualMetadataPolicyError(
                 "png_ztxt_decompression_failed",
-                str(exc),
+                exc.message,
             ) from exc
         _require_ascii_text_policy(text_bytes)
         text = text_bytes.decode("latin-1")
@@ -631,11 +633,11 @@ def _decode_itxt_data(data: bytes) -> tuple[str, bool, bytes]:
         ) from exc
     if compression_flag == 1:
         try:
-            text_bytes = zlib.decompress(text_bytes)
-        except zlib.error as exc:
+            text_bytes = bounded_decompress(text_bytes, MAX_DECOMPRESSED_TEXT_BYTES)
+        except PNGChunkError as exc:
             raise PNGTextualMetadataPolicyError(
                 "png_itxt_decompression_failed",
-                str(exc),
+                exc.message,
             ) from exc
     return keyword, compression_flag == 1, text_bytes
 

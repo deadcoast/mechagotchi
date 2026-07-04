@@ -14,6 +14,7 @@ GRID_GENOME_DIR = ROOT / "labs" / "grid_genome"
 if str(GRID_GENOME_DIR) not in sys.path:
     sys.path.insert(0, str(GRID_GENOME_DIR))
 
+from png_chunk_reader import PNGChunkError, bounded_decompress
 from standard_image_sidecar_decoder import PNG_SIGNATURE, render_grid_rgba_pixels
 
 
@@ -379,9 +380,9 @@ def _append_frame(frames: list[dict], frame: dict) -> None:
     if not frame["data"]:
         raise APNGFilteredFrameDataError("apng_frame_data_missing", "APNG frame has no image data")
     try:
-        raw = zlib.decompress(bytes(frame["data"]))
-    except zlib.error as exc:
-        raise APNGFilteredFrameDataError("apng_frame_decompression_failed", str(exc)) from exc
+        raw = bounded_decompress(bytes(frame["data"]), (frame["width"] * 4 + 1) * frame["height"])
+    except PNGChunkError as exc:
+        raise APNGFilteredFrameDataError("apng_frame_decompression_failed", exc.message) from exc
     decoded = _decode_filtered_rgba_scanlines(frame["width"], frame["height"], raw)
     frame["pixels"] = decoded["pixels"]
     frame["filter_types_seen"] = decoded["filter_types_seen"]

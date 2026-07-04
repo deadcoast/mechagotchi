@@ -18,6 +18,7 @@ from aseprite_tags_layers_semantics import (
     run_aseprite_tags_layers_semantics_lab,
     strip_aseprite_tags_chunk,
     tamper_aseprite_layer_user_data,
+    tamper_aseprite_layer_user_data_json,
     tamper_aseprite_layer_visual_payload,
     tamper_aseprite_tag_range,
     write_aseprite_tags_layers_semantics_artifacts,
@@ -154,6 +155,18 @@ class AsepriteTagsLayersSemanticsTests(unittest.TestCase):
         for result in [missing_tags, invalid_tag_range, tampered_metadata, tampered_visual]:
             self.assertNotIn("restored_grid", result)
 
+    def test_import_rejects_malformed_metadata_json(self):
+        profile = load_profile(VALID_PROFILE_PATHS[0])
+        grid = first_grid_for(profile)
+        exported = export_aseprite_tags_layers_project(grid, profile)
+
+        malformed = import_aseprite_tags_layers_project(
+            tamper_aseprite_layer_user_data_json(exported["project_bytes"])
+        )
+
+        self.assertFalse(malformed["ok"])
+        self.assertIn("aseprite_tags_layers_json_invalid", malformed["error_families"])
+
     def test_lab_report_closes_only_stage0_tags_layers_subset(self):
         report = run_aseprite_tags_layers_semantics_lab(
             VALID_PROFILE_PATHS,
@@ -164,7 +177,7 @@ class AsepriteTagsLayersSemanticsTests(unittest.TestCase):
         self.assertEqual(3, report["profile_count"])
         self.assertEqual(3, report["tags_layers_roundtrip_count"])
         self.assertEqual(3, report["tags_layers_roundtrip_success_count"])
-        self.assertEqual(4, report["invalid_probe_rejected_count"])
+        self.assertEqual(5, report["invalid_probe_rejected_count"])
         self.assertEqual(1.0, report["metrics"]["tags_layers_roundtrip_success_rate"])
         self.assertEqual(1.0, report["metrics"]["mean_semantic_fidelity"])
         self.assertEqual(1.0, report["metrics"]["cel_visual_hash_preservation_rate"])

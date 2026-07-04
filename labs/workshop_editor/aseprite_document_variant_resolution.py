@@ -40,6 +40,7 @@ from aseprite_user_data_chunk_writer import (
     _hash_bytes,
     _hash_payload,
     _hash_text,
+    _pack_string,
     _parse_layer_chunk,
     _parse_user_data_chunk,
     _ratio,
@@ -48,6 +49,7 @@ from aseprite_user_data_chunk_writer import (
 )
 from external_metadata_sidecar import build_sidecar_for_grid, restore_grid_from_sidecar
 from standard_image_sidecar_decoder import render_grid_rgba_pixels
+from png_chunk_reader import PNGChunkError, bounded_decompress
 from workshop_editor import compare_semantic_grid_fidelity
 
 
@@ -259,7 +261,10 @@ def decode_aseprite_document_variant_project(project_bytes: bytes) -> dict:
                     **target,
                 }
                 if isinstance(text, str) and text.startswith(ASE_USER_DATA_PREFIX):
-                    metadata = json.loads(text[len(ASE_USER_DATA_PREFIX) :])
+                    try:
+                        metadata = json.loads(text[len(ASE_USER_DATA_PREFIX) :])
+                    except json.JSONDecodeError as exc:
+                        raise AsepriteUserDataError("aseprite_document_variant_json_invalid", str(exc)) from exc
                     if metadata.get("metadata_version") == ASE_DOCUMENT_VARIANT_VERSION:
                         native = True
                         variant_id = metadata.get("variant_id", variant_id)
@@ -514,6 +519,20 @@ def tamper_aseprite_document_variant_metadata(project_bytes: bytes) -> bytes:
         tampered = deepcopy(metadata)
         tampered["sidecar"]["semantic_overlay"]["metadata"]["tampered"] = True
         return _chunk(ASE_CHUNK_USER_DATA, _user_data_chunk_data(tampered))
+
+    return _map_chunks(project_bytes, mutate)
+
+
+def tamper_aseprite_document_variant_metadata_json(project_bytes: bytes) -> bytes:
+    def mutate(chunk: dict) -> dict:
+        if chunk["type"] != ASE_CHUNK_USER_DATA:
+            return chunk
+        user_data = _parse_user_data_chunk(chunk["data"])
+        text = user_data.get("text")
+        if not isinstance(text, str) or not text.startswith(ASE_USER_DATA_PREFIX):
+            return chunk
+        corrupted = struct.pack("<I", 1) + _pack_string(ASE_USER_DATA_PREFIX + '{"metadata_version":')
+        return _chunk(ASE_CHUNK_USER_DATA, corrupted)
 
     return _map_chunks(project_bytes, mutate)
 
@@ -849,9 +868,9 @@ def _parse_variant_cel_chunk(
     if [width, height] != [project_width, project_height]:
         raise AsepriteUserDataError("aseprite_cel_dimensions_mismatch", "compressed ASE Cel dimensions must match project dimensions")
     try:
-        raw = zlib.decompress(data[offset:])
-    except zlib.error as exc:
-        raise AsepriteUserDataError("aseprite_cel_decompression_failed", str(exc)) from exc
+        raw = bounded_decompress(data[offset:], width * height * bytes_per_pixel)
+    except PNGChunkError as exc:
+        raise AsepriteUserDataError("aseprite_cel_decompression_failed", exc.message) from exc
     if len(raw) != width * height * bytes_per_pixel:
         raise AsepriteUserDataError("aseprite_cel_payload_size_mismatch", "decoded ASE Cel payload size does not match dimensions")
     return {
@@ -1233,6 +1252,9 @@ def _invalid_probe_results(bundle: dict) -> list[dict]:
         ),
         _compact_import_result(
             import_aseprite_document_variant_project(tamper_aseprite_document_variant_metadata(reference), assets)
+        ),
+        _compact_import_result(
+            import_aseprite_document_variant_project(tamper_aseprite_document_variant_metadata_json(reference), assets)
         ),
     ]
 

@@ -3,7 +3,7 @@
 Aseprite/LibreSprite palette and slice semantic proof for Palette Chunk 0x2019 colors, Slice Chunk 0x2022 organ bounds, three-frame tags/layers, and compressed RGBA cel payloads.
 
 - Palette/slice round trips: 3/3
-- Invalid probes rejected: 5/5
+- Invalid probes rejected: 6/6
 - Mean semantic fidelity: 1.0
 - Cel visual hash preservation rate: 1.0
 - Live external editor verified: False

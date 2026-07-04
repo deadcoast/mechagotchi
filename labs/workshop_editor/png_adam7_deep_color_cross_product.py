@@ -38,6 +38,7 @@ from png_deep_color_sidecar_decoder import (
     _variant_rows,
 )
 from standard_image_sidecar_decoder import PNG_SIGNATURE, render_grid_rgba_pixels
+from png_chunk_reader import PNGChunkError, bounded_decompress
 from workshop_editor import compare_semantic_grid_fidelity
 
 
@@ -124,10 +125,22 @@ def decode_png_adam7_deep_color(png_bytes: bytes) -> dict:
         raise PNGAdam7DeepColorDecodeError("png_idat_missing", "PNG IDAT chunk is required")
     if not any(chunk["type"] == "IEND" for chunk in chunks):
         raise PNGAdam7DeepColorDecodeError("png_iend_missing", "PNG IEND chunk is required")
+    expected_length = sum(
+        _pass_size(height, pass_spec["y_start"], pass_spec["y_step"])
+        * (
+            1
+            + _scanline_byte_length(
+                _pass_size(width, pass_spec["x_start"], pass_spec["x_step"]),
+                color_type,
+                bit_depth,
+            )
+        )
+        for pass_spec in ADAM7_PASSES
+    )
     try:
-        raw = zlib.decompress(idat)
-    except zlib.error as exc:
-        raise PNGAdam7DeepColorDecodeError("png_idat_decompression_failed", str(exc)) from exc
+        raw = bounded_decompress(idat, expected_length)
+    except PNGChunkError as exc:
+        raise PNGAdam7DeepColorDecodeError("png_idat_decompression_failed", exc.message) from exc
 
     pixels: list[tuple[int, int, int, int]] = [(0, 0, 0, 0)] * (width * height)
     assigned = [False] * (width * height)

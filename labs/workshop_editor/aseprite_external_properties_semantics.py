@@ -194,7 +194,10 @@ def decode_aseprite_external_properties_project(project_bytes: bytes) -> dict:
                     **target,
                 }
                 if isinstance(text, str) and text.startswith(ASE_USER_DATA_PREFIX):
-                    metadata = json.loads(text[len(ASE_USER_DATA_PREFIX) :])
+                    try:
+                        metadata = json.loads(text[len(ASE_USER_DATA_PREFIX) :])
+                    except json.JSONDecodeError as exc:
+                        raise AsepriteUserDataError("aseprite_external_properties_json_invalid", str(exc)) from exc
                     if metadata.get("metadata_version") == ASE_EXTERNAL_PROPERTIES_VERSION:
                         native = True
                 user_data_chunks.append(entry)
@@ -450,6 +453,17 @@ def tamper_aseprite_external_properties_metadata(project_bytes: bytes) -> bytes:
         tampered_text = ASE_USER_DATA_PREFIX + json.dumps(metadata, sort_keys=True, separators=(",", ":"))
         return _user_data_text_color_properties_data(
             tampered_text,
+            user_data["color"],
+            user_data["property_maps"],
+        )
+
+    return _rewrite_first_external_properties_user_data(project_bytes, replace)
+
+
+def tamper_aseprite_external_properties_metadata_json(project_bytes: bytes) -> bytes:
+    def replace(user_data: dict) -> bytes:
+        return _user_data_text_color_properties_data(
+            ASE_USER_DATA_PREFIX + '{"metadata_version":',
             user_data["color"],
             user_data["property_maps"],
         )
@@ -1311,6 +1325,7 @@ def _invalid_probe_results(reference_result: dict) -> list[dict]:
         _compact_import_result(import_aseprite_external_properties_project(tamper_aseprite_extension_property_map_key(project_bytes))),
         _compact_import_result(import_aseprite_external_properties_project(tamper_aseprite_cel_extra_precise_bounds(project_bytes))),
         _compact_import_result(import_aseprite_external_properties_project(tamper_aseprite_external_properties_metadata(project_bytes))),
+        _compact_import_result(import_aseprite_external_properties_project(tamper_aseprite_external_properties_metadata_json(project_bytes))),
     ]
 
 

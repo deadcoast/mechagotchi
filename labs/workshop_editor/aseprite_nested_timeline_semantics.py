@@ -174,7 +174,10 @@ def decode_aseprite_nested_timeline_project(project_bytes: bytes) -> dict:
                 }
                 if isinstance(text, str) and text.startswith(ASE_USER_DATA_PREFIX):
                     native = True
-                    metadata = json.loads(text[len(ASE_USER_DATA_PREFIX) :])
+                    try:
+                        metadata = json.loads(text[len(ASE_USER_DATA_PREFIX) :])
+                    except json.JSONDecodeError as exc:
+                        raise AsepriteUserDataError("aseprite_nested_timeline_json_invalid", str(exc)) from exc
                     if target["target_type"] == "layer":
                         layer_binding = metadata.get("layer_binding", {})
                         entry["semantic_role"] = layer_binding.get("semantic_role")
@@ -497,6 +500,28 @@ def tamper_aseprite_nested_timeline_metadata(project_bytes: bytes) -> bytes:
         frames.append({"duration_ms": frame["duration_ms"], "chunks": chunks})
     if not replaced:
         raise AsepriteUserDataError("aseprite_nested_timeline_metadata_missing", "no nested timeline metadata found")
+    return _write_aseprite(parsed["header"], frames)
+
+
+def tamper_aseprite_nested_timeline_metadata_json(project_bytes: bytes) -> bytes:
+    parsed = _parse_aseprite(project_bytes)
+    replaced = False
+    frames = []
+    for frame in parsed["frames"]:
+        chunks = []
+        for chunk in frame["chunks"]:
+            if chunk["type"] == ASE_CHUNK_USER_DATA and not replaced:
+                user_data = _parse_user_data_chunk(chunk["data"])
+                text = user_data["text"]
+                if isinstance(text, str) and text.startswith(ASE_USER_DATA_PREFIX):
+                    corrupted = struct.pack("<I", 1) + _pack_string(ASE_USER_DATA_PREFIX + '{"metadata_version":')
+                    chunks.append(_chunk(ASE_CHUNK_USER_DATA, corrupted))
+                    replaced = True
+                    continue
+            chunks.append(chunk)
+        frames.append({"duration_ms": frame["duration_ms"], "chunks": chunks})
+    if not replaced:
+        raise AsepriteUserDataError("aseprite_nested_timeline_metadata_missing", "no Mechagotchi nested-timeline User Data chunk found")
     return _write_aseprite(parsed["header"], frames)
 
 
@@ -1103,6 +1128,7 @@ def _invalid_probe_results(reference_result: dict) -> list[dict]:
         _compact_import_result(import_aseprite_nested_timeline_project(tamper_aseprite_timeline_loop_direction(project_bytes))),
         _compact_import_result(import_aseprite_nested_timeline_project(tamper_aseprite_tag_user_data_color(project_bytes))),
         _compact_import_result(import_aseprite_nested_timeline_project(tamper_aseprite_nested_timeline_metadata(project_bytes))),
+        _compact_import_result(import_aseprite_nested_timeline_project(tamper_aseprite_nested_timeline_metadata_json(project_bytes))),
     ]
 
 

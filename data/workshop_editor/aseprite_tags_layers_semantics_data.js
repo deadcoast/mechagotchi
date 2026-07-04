@@ -5,8 +5,8 @@ window.MECHAGOTCHI_ASEPRITE_TAGS_LAYERS_SEMANTICS = {
     "profile_count": 3,
     "tags_layers_roundtrip_count": 3,
     "tags_layers_roundtrip_success_count": 3,
-    "invalid_probe_count": 4,
-    "invalid_probe_rejected_count": 4,
+    "invalid_probe_count": 5,
+    "invalid_probe_rejected_count": 5,
     "metrics": {
       "tags_layers_roundtrip_success_rate": 1.0,
       "mean_semantic_fidelity": 1.0,

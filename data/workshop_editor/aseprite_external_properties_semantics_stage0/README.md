@@ -3,7 +3,7 @@
 Aseprite/LibreSprite external file, color-profile, property-map, and Cel Extra semantic proof for one fixed two-frame carrier.
 
 - External-properties round trips: 3/3
-- Invalid probes rejected: 6/6
+- Invalid probes rejected: 7/7
 - Mean semantic fidelity: 1.0
 - Cel visual hash preservation rate: 1.0
 - Property map preservation rate: 1.0

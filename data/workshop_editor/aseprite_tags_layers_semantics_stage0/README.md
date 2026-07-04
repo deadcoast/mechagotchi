@@ -3,7 +3,7 @@
 Aseprite/LibreSprite tags/layers semantic proof for three-frame, three-layer, compressed RGBA cel payloads with embedded Mechagotchi layer User Data and frame tags.
 
 - Tags/layers round trips: 3/3
-- Invalid probes rejected: 4/4
+- Invalid probes rejected: 5/5
 - Mean semantic fidelity: 1.0
 - Cel visual hash preservation rate: 1.0
 - Live external editor verified: False

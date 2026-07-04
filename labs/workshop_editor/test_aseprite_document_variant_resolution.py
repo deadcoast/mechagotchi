@@ -18,6 +18,7 @@ from aseprite_document_variant_resolution import (
     run_aseprite_document_variant_resolution_lab,
     strip_aseprite_variant_external_file_chunks,
     tamper_aseprite_document_variant_metadata,
+    tamper_aseprite_document_variant_metadata_json,
     tamper_aseprite_indexed_palette,
     tamper_aseprite_variant_color_depth,
     tamper_aseprite_variant_external_asset_hash,
@@ -165,6 +166,19 @@ class AsepriteDocumentVariantResolutionTests(unittest.TestCase):
             self.assertIn(family, result["error_families"])
             self.assertNotIn("restored_grid", result)
 
+    def test_import_rejects_malformed_metadata_json(self):
+        profile = load_profile(VALID_PROFILE_PATHS[0])
+        grid = first_grid_for(profile)
+        bundle = export_aseprite_document_variant_bundle(grid, profile)
+
+        malformed = import_aseprite_document_variant_project(
+            tamper_aseprite_document_variant_metadata_json(bundle["variants"][0]["project_bytes"]),
+            bundle["external_assets"],
+        )
+
+        self.assertFalse(malformed["ok"])
+        self.assertIn("aseprite_document_variant_json_invalid", malformed["error_families"])
+
     def test_lab_report_closes_only_deterministic_document_variant_and_resolution_subset(self):
         report = run_aseprite_document_variant_resolution_lab(
             VALID_PROFILE_PATHS,
@@ -175,7 +189,7 @@ class AsepriteDocumentVariantResolutionTests(unittest.TestCase):
         self.assertEqual(3, report["profile_count"])
         self.assertEqual(9, report["document_variant_roundtrip_count"])
         self.assertEqual(9, report["document_variant_roundtrip_success_count"])
-        self.assertEqual(6, report["invalid_probe_rejected_count"])
+        self.assertEqual(7, report["invalid_probe_rejected_count"])
         self.assertEqual(1.0, report["metrics"]["document_variant_roundtrip_success_rate"])
         self.assertEqual(1.0, report["metrics"]["mean_semantic_fidelity"])
         self.assertEqual(1.0, report["metrics"]["variant_pixel_hash_preservation_rate"])

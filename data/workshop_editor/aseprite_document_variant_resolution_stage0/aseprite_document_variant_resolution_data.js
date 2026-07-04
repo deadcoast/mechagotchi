@@ -5,8 +5,8 @@ window.MECHAGOTCHI_ASEPRITE_DOCUMENT_VARIANT_RESOLUTION = {
     "profile_count": 3,
     "document_variant_roundtrip_count": 9,
     "document_variant_roundtrip_success_count": 9,
-    "invalid_probe_count": 6,
-    "invalid_probe_rejected_count": 6,
+    "invalid_probe_count": 7,
+    "invalid_probe_rejected_count": 7,
     "metrics": {
       "document_variant_roundtrip_success_rate": 1.0,
       "mean_semantic_fidelity": 1.0,
