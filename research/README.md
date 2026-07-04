@@ -17,6 +17,38 @@ The first research sequence is published as:
 - `research/reports/mechagotchi_research_report_v0_1.md`
 - `research/reports/research_report_v0_1_manifest.json`
 
+Stage 0 baseline triads from that sequence (backfilled into this ledger on
+2026-07-04; traceability previously held only via the v0_1/v0_2 manifests):
+
+- `research/experiment_reports/2026-05-12-grid-validator-baseline.md`
+- `data/seed_grids/` and `data/invalid_grids/` (validator fixture corpora)
+- `research/experiment_reports/2026-05-12-random-mutation-baseline.md`
+- `research/algorithm_cards/random_mutation_baseline.md`
+- `research/experiment_reports/2026-05-12-markov-local-generator.md`
+- `research/algorithm_cards/markov_grid.md`
+- `research/experiment_reports/2026-05-12-constrained-wfc-style-generator.md`
+- `research/experiment_reports/2026-05-12-map-elites-archive-baseline.md`
+- `research/algorithm_cards/map_elites.md`
+- `data/archives/map_elites_stage0.json`
+- `research/experiment_reports/2026-05-12-lineage-tracking-baseline.md`
+- `research/algorithm_cards/lineage_tracking.md`
+- `research/experiment_reports/2026-05-12-micro-switchboard-baseline.md`
+- `research/algorithm_cards/micro_learning_switchboard.md`
+- `research/experiment_reports/2026-05-12-slip-constraint-baseline.md`
+- `research/experiment_reports/2026-05-12-asset-provenance-ledger-baseline.md`
+- `research/algorithm_cards/provenance_ci_spdx.md`
+- `data/asset_provenance/ledger.json`
+- `research/experiment_reports/2026-05-12-cubff-semantic-transducer-baseline.md`
+- `research/algorithm_cards/cubff_transducer.md`
+- `research/experiment_reports/2026-05-12-workshop-editor-baseline.md`
+- `research/algorithm_cards/workshop_roundtrip_io.md`
+
+Note: several early lab modules are ledgered under report slugs that differ
+from the module filename (e.g. `labs/grid_genome/validator.py` under
+`grid-validator-baseline`, `labs/grid_genome/slip.py` under
+`slip-constraint-baseline`). New triads should keep report, card, lab, and
+artifact stems aligned.
+
 The post-v0.1 continuation is published as:
 
 - `research/reports/mechagotchi_research_report_v0_2.md`
