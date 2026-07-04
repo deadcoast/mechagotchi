@@ -392,6 +392,12 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-05-14-aseprite-tags-layers-semantics.md`
 - `research/algorithm_cards/aseprite_tags_layers_semantics.md`
 - `data/workshop_editor/aseprite_tags_layers_semantics_stage0.json`
+- `research/experiment_reports/2026-05-14-png-deep-color-sidecar-decoder.md`
+- `research/algorithm_cards/png_deep_color_sidecar_decoder.md`
+- `data/workshop_editor/png_deep_color_sidecar_decoder_stage0.json`
+- `research/experiment_reports/2026-05-14-png-adam7-deep-color-cross-product.md`
+- `research/algorithm_cards/png_adam7_deep_color_cross_product.md`
+- `data/workshop_editor/png_adam7_deep_color_cross_product_stage0.json`
 - `research/experiment_reports/2026-07-04-slip-dependency-gate-env-decoupling.md`
 - `data/slips/slip_pydantic_contract_stage0.json`
 - `data/slips/slip_schema_migration_dependency_gate_stage0.json`

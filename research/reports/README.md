@@ -20,3 +20,7 @@ must not replace the underlying lab reports.
 - `mechagotchi_research_report_v0_5.md` - post-v0.4 wrap-up for scaffold,
   genome, generation, lifecycle, archive, and provenance package-contract
   gates.
+- `mechagotchi_research_report_v0_6.md` - post-v0.5 wrap-up for the SLIP evolution gates,
+  runtime boundary gate, third-party project/native-metadata boundary,
+  spritesheet/PNG/APNG conformance matrices, Aseprite chunk-semantics family,
+  and the in-progress 2026-07-04 code-review remediation.

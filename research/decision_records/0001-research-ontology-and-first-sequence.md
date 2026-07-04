@@ -41,5 +41,5 @@ to make all later experiments measurable.
 
 - `docs/01-brainstorming.md`
 - `docs/02-research_plan.md`
-- `docs/01-notes/01-shelved/03-reports/03-deep_research_report.md`
+- `docs/01-shelved/03-reports/03-deep_research_report.md`
 - `research/literature_map.md`
