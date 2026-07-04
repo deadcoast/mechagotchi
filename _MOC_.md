@@ -16,6 +16,8 @@
 
 > *NUMERIC MEANING/CATEGORY IN THE INDEX*
 
+* [0] = "Orientation and onboarding"
+  * [AGENT-ONBOARDING](docs/00-agent_onboarding.md)
 * [1] = "Unformatted notes or rough ideas"
   * [BRAINSTORMING](docs\01-brainstorming.md)
   * [FUTURE-IDEAS](docs/01-shelved/01-future_ideas.md)
