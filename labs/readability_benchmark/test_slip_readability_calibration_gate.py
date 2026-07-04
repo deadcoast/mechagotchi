@@ -115,6 +115,34 @@ class SLIPReadabilityCalibrationGateTests(unittest.TestCase):
         self.assertIn("manual_readability_calibration", report["blocked_states"])
         self.assertEqual(1, len(report["manual_intake"]["row_errors"]))
 
+    def test_metrics_report_zero_counts_when_source_groups_are_empty(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            long_horizon_path = Path(temp_dir) / "long_horizon_empty.json"
+            long_horizon_path.write_text(
+                json.dumps(
+                    {
+                        "artifact_id": "synthetic_empty_long_horizon",
+                        "parameters": {"rng_seed": 20260513},
+                        "profile_results": [
+                            {"probe_id": "probe_never_started", "gate_started": False}
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            report = run_slip_readability_calibration_gate_lab(
+                long_horizon_path=long_horizon_path,
+                rating_rows=[],
+            )
+
+        self.assertEqual(0, report["metrics"]["sample_count"])
+        self.assertEqual(0, report["metrics"]["selected_offspring_sample_count"])
+        self.assertEqual(0, report["metrics"]["held_out_long_horizon_sample_count"])
+        self.assertEqual({}, report["benchmark"]["summary"]["by_source"])
+        self.assertEqual(0, report["expected_completed_rating_rows"])
+        self.assertFalse(report["manual_readability_calibration_ready"])
+
     def test_write_artifacts_creates_report_template_packet_and_readme(self):
         report = run_slip_readability_calibration_gate_lab(
             long_horizon_path=LONG_HORIZON_PATH,

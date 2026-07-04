@@ -70,6 +70,78 @@ class PackagePromotionGateTests(unittest.TestCase):
             self.assertEqual("ready_for_package_design", result["gate_status"])
             self.assertIn("package_root_absent", result["promotion_blockers"])
 
+    def test_derived_research_blocker_follows_metric_artifact_evidence(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            (root / "research" / "algorithm_cards").mkdir(parents=True)
+            (root / "research" / "experiment_reports").mkdir(parents=True)
+            (root / "data" / "fixture").mkdir(parents=True)
+            (root / "research" / "algorithm_cards" / "fixture.md").write_text(
+                "# Fixture\n",
+                encoding="utf-8",
+            )
+            (root / "research" / "experiment_reports" / "fixture.md").write_text(
+                "# Fixture Report\n",
+                encoding="utf-8",
+            )
+            metrics_path = root / "data" / "fixture" / "metrics.json"
+            candidate = {
+                "component_id": "fixture_component",
+                "target_package": "packages/mecha_engine/fixture",
+                "algorithm_card": "research/algorithm_cards/fixture.md",
+                "experiment_report": "research/experiment_reports/fixture.md",
+                "metric_artifact": "data/fixture/metrics.json",
+                "thresholds": [],
+                "verification": "python -B fixture_test.py",
+                "research_blockers": [
+                    {
+                        "blocker_id": "human_ratings_absent",
+                        "cleared_when": {
+                            "metric_path": ["ratings_collected"],
+                            "operator": "==",
+                            "value": True,
+                        },
+                    },
+                    {"blocker_id": "lab_only_method"},
+                ],
+            }
+
+            metrics_path.write_text(
+                json.dumps({"ratings_collected": False}) + "\n",
+                encoding="utf-8",
+            )
+            blocked = evaluate_candidate(root, candidate, package_root_exists=False)
+
+            metrics_path.write_text(
+                json.dumps({"ratings_collected": True}) + "\n",
+                encoding="utf-8",
+            )
+            cleared = evaluate_candidate(root, candidate, package_root_exists=False)
+
+        blocked_details = {
+            detail["blocker_id"]: detail
+            for detail in blocked["research_blocker_details"]
+        }
+        self.assertEqual("hold_research_only", blocked["gate_status"])
+        self.assertIn("human_ratings_absent", blocked["promotion_blockers"])
+        self.assertTrue(blocked_details["human_ratings_absent"]["active"])
+        self.assertFalse(blocked_details["human_ratings_absent"]["static"])
+        self.assertFalse(blocked_details["human_ratings_absent"]["evidence"]["ok"])
+        self.assertTrue(blocked_details["lab_only_method"]["static"])
+        self.assertTrue(blocked_details["lab_only_method"]["active"])
+        self.assertIsNone(blocked_details["lab_only_method"]["evidence"])
+
+        cleared_details = {
+            detail["blocker_id"]: detail
+            for detail in cleared["research_blocker_details"]
+        }
+        self.assertFalse(cleared_details["human_ratings_absent"]["active"])
+        self.assertTrue(cleared_details["human_ratings_absent"]["evidence"]["ok"])
+        self.assertNotIn("human_ratings_absent", cleared["promotion_blockers"])
+        # The static blocker still holds the candidate in research-only state.
+        self.assertEqual("hold_research_only", cleared["gate_status"])
+        self.assertIn("lab_only_method", cleared["promotion_blockers"])
+
     def test_run_package_promotion_gate_reports_no_actual_promotion_without_package_dir(self):
         report = run_package_promotion_gate(ROOT)
 

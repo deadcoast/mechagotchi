@@ -410,6 +410,7 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-07-04-grid-validator-schema-alignment.md`
 - `data/micro_learners/switchboard_lifecycle_feedback_stage0.json`
 - `research/experiment_reports/2026-07-04-workshop-editor-boundary-hardening.md`
+- `research/experiment_reports/2026-07-04-small-labs-gate-integrity.md`
 
 Stage 0 and Stage 1 established:
 

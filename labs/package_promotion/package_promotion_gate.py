@@ -100,7 +100,16 @@ def build_candidate_registry() -> list[dict]:
             ],
             "verification": "python -B labs/grid_genome/test_switchboard_feedback.py",
             "research_notes": "Feedback loop is wired but did not beat frozen baseline yet.",
-            "research_blockers": ["reward_shaping_not_superior_to_frozen_baseline"],
+            "research_blockers": [
+                {
+                    "blocker_id": "reward_shaping_not_superior_to_frozen_baseline",
+                    "cleared_when": {
+                        "metric_path": ["summary", "need_balance_delta"],
+                        "operator": ">",
+                        "value": 0,
+                    },
+                }
+            ],
         },
         {
             "component_id": "map_elites_archive",
@@ -159,7 +168,16 @@ def build_candidate_registry() -> list[dict]:
             ],
             "verification": "python -B labs/readability_benchmark/test_manual_rating_intake.py",
             "research_notes": "Proxy calibration is blocked until real human ratings exist.",
-            "research_blockers": ["human_ratings_absent"],
+            "research_blockers": [
+                {
+                    "blocker_id": "human_ratings_absent",
+                    "cleared_when": {
+                        "metric_path": ["ratings_collected"],
+                        "operator": "==",
+                        "value": True,
+                    },
+                }
+            ],
         },
         {
             "component_id": "ca_nca_repair",
@@ -181,7 +199,11 @@ def build_candidate_registry() -> list[dict]:
             ],
             "verification": "python -B labs/cellular_automata/test_ca_nca_growth_repair.py",
             "research_notes": "Assisted target-template baseline; not trained NCA.",
-            "research_blockers": ["lab_only_target_template_assisted"],
+            "research_blockers": [
+                # No artifact field can prove the method stopped being
+                # target-template assisted, so this blocker stays static.
+                {"blocker_id": "lab_only_target_template_assisted"}
+            ],
         },
     ]
 
@@ -208,16 +230,24 @@ def evaluate_candidate(
     thresholds_met = all(result["ok"] for result in threshold_results)
     research_evidence_complete = not missing_evidence and thresholds_met
 
+    blocker_details = _evaluate_research_blockers(
+        candidate.get("research_blockers", []),
+        metrics,
+    )
+    active_research_blockers = [
+        detail["blocker_id"] for detail in blocker_details if detail["active"]
+    ]
+
     promotion_blockers = []
     if not package_root_exists:
         promotion_blockers.append("package_root_absent")
     if not (root / candidate["target_package"]).exists():
         promotion_blockers.append("target_package_absent")
-    promotion_blockers.extend(candidate.get("research_blockers", []))
+    promotion_blockers.extend(active_research_blockers)
 
     if not research_evidence_complete:
         gate_status = "blocked_missing_or_failed_research_evidence"
-    elif candidate.get("research_blockers"):
+    elif active_research_blockers:
         gate_status = "hold_research_only"
     elif package_root_exists and (root / candidate["target_package"]).exists():
         gate_status = "promotion_ready"
@@ -234,8 +264,50 @@ def evaluate_candidate(
         "threshold_results": threshold_results,
         "verification": candidate["verification"],
         "promotion_blockers": promotion_blockers,
+        "research_blocker_details": blocker_details,
         "research_notes": candidate.get("research_notes", ""),
     }
+
+
+def _evaluate_research_blockers(
+    blockers: list,
+    metrics: dict | None,
+) -> list[dict]:
+    """Derive blocker activity from the metric artifact where possible.
+
+    A blocker with a `cleared_when` check is derived: it stays active until
+    the referenced artifact field satisfies the check. A blocker without a
+    check (or declared as a bare string) has no corresponding artifact
+    evidence and is reported with `"static": true` so static and derived
+    blockers stay distinguishable.
+    """
+    details = []
+    for blocker in blockers:
+        if isinstance(blocker, str):
+            blocker = {"blocker_id": blocker}
+        cleared_when = blocker.get("cleared_when")
+        if cleared_when is None:
+            details.append(
+                {
+                    "blocker_id": blocker["blocker_id"],
+                    "static": True,
+                    "active": True,
+                    "evidence": None,
+                }
+            )
+            continue
+        evidence = _evaluate_threshold(metrics, cleared_when)
+        details.append(
+            {
+                "blocker_id": blocker["blocker_id"],
+                "static": False,
+                # If the artifact is missing or the field is absent, the
+                # check cannot pass and the blocker conservatively stays on.
+                "active": not evidence["ok"],
+                "evidence": evidence,
+            }
+        )
+    return details
 
 
 def run_package_promotion_gate(root: Path) -> dict:

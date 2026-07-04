@@ -1,7 +1,10 @@
 import argparse
 import json
+import re
 from pathlib import Path
 
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
 ARTIFACT_ID = "mecha_engine_runtime_boundary_gate_stage0"
 STATUS = "research_runtime_boundary_gate_no_package_code"
@@ -261,6 +264,7 @@ def evaluate_runtime_boundary_gate(root: Path) -> dict:
     package_runtime_ready = package_root_exists and _package_contracts_promotable(contracts)
     profile_weighted_ready = package_runtime_ready and manual_readability_ready
     negative_probes = _negative_probes(
+        root=root,
         package_root_exists=package_root_exists,
         manual_readability_ready=manual_readability_ready,
         package_runtime_ready=package_runtime_ready,
@@ -268,6 +272,15 @@ def evaluate_runtime_boundary_gate(root: Path) -> dict:
     )
     rejected_probe_count = sum(
         1 for probe in negative_probes if probe["result"] == "rejected"
+    )
+    lab_boundary_probe_ids = {
+        "package_runtime_imports_labs",
+        "package_test_mutates_sys_path_to_lab",
+    }
+    lab_import_probes_rejected = all(
+        probe["result"] == "rejected"
+        for probe in negative_probes
+        if probe["probe_id"] in lab_boundary_probe_ids
     )
     metrics = {
         "contract_count": len(contracts),
@@ -319,7 +332,11 @@ def evaluate_runtime_boundary_gate(root: Path) -> dict:
         "metrics": metrics,
         "closed_states": [
             "package_runtime_boundary_contracts_defined",
-            "lab_import_negative_probe_rejected",
+            *(
+                ["lab_import_negative_probe_rejected"]
+                if lab_import_probes_rejected
+                else []
+            ),
             "premature_profile_weighted_evolution_claim_rejected",
             "manual_readability_row_requirement_preserved",
         ],
@@ -353,32 +370,109 @@ def write_runtime_boundary_gate_artifacts(output_dir: Path, report: dict) -> Non
     (output_dir / "README.md").write_text(_readme_text(report), encoding="utf-8")
 
 
+_LAB_IMPORT_PATTERN = re.compile(r"^\s*(?:from|import)\s+labs\b", re.MULTILINE)
+_LAB_PATH_REFERENCE_PATTERN = re.compile(r"labs[/\\.]|[\"']labs[\"']")
+
+
+def inspect_package_lab_boundary(root: Path | None = None) -> dict:
+    """Scan any packages/ root for lab imports and sys.path lab adapters.
+
+    Returns real inspection evidence instead of assuming the boundary holds:
+    when no packages/ root exists the boundary holds vacuously, and that is
+    derived from repository state, not hardcoded.
+    """
+    root = (Path(root) if root is not None else REPO_ROOT).resolve()
+    package_root = root / "packages"
+    package_root_exists = package_root.exists()
+    files_scanned = 0
+    lab_import_files: list[str] = []
+    sys_path_lab_files: list[str] = []
+    if package_root_exists:
+        for path in sorted(package_root.rglob("*.py")):
+            if not path.is_file():
+                continue
+            files_scanned += 1
+            try:
+                text = path.read_text(encoding="utf-8")
+            except (OSError, UnicodeDecodeError):
+                continue
+            relative = path.relative_to(package_root).as_posix()
+            if _LAB_IMPORT_PATTERN.search(text):
+                lab_import_files.append(relative)
+            if any(
+                "sys.path" in line and _LAB_PATH_REFERENCE_PATTERN.search(line)
+                for line in text.splitlines()
+            ):
+                sys_path_lab_files.append(relative)
+    return {
+        "package_root_exists": package_root_exists,
+        "files_scanned": files_scanned,
+        "lab_import_files": lab_import_files,
+        "sys_path_lab_files": sys_path_lab_files,
+    }
+
+
+def build_lab_boundary_probes(root: Path | None = None) -> list[dict]:
+    """Build the two lab-boundary negative probes from inspected repo state.
+
+    A probe is "rejected" when the forbidden pattern is absent from the
+    scanned packages/ tree (or the tree does not exist, so the boundary holds
+    vacuously). A probe is "accepted" when the inspection actually found the
+    forbidden pattern, which breaks the closed boundary state.
+    """
+    inspection = inspect_package_lab_boundary(root)
+    lab_import_violation = bool(inspection["lab_import_files"])
+    sys_path_violation = bool(inspection["sys_path_lab_files"])
+    return [
+        _probe(
+            "package_runtime_imports_labs",
+            accepted=lab_import_violation,
+            reasons=(
+                ["lab_import_violation_present"]
+                if lab_import_violation
+                else ["forbidden_lab_dependency"]
+            ),
+            evidence={
+                "package_root_exists": inspection["package_root_exists"],
+                "files_scanned": inspection["files_scanned"],
+                "lab_import_files": inspection["lab_import_files"],
+                "policy": (
+                    "Future package runtime code must import mecha_engine modules, "
+                    "not labs/* research modules."
+                ),
+            },
+        ),
+        _probe(
+            "package_test_mutates_sys_path_to_lab",
+            accepted=sys_path_violation,
+            reasons=(
+                ["sys_path_lab_mutation_present"]
+                if sys_path_violation
+                else ["forbidden_sys_path_lab_access"]
+            ),
+            evidence={
+                "package_root_exists": inspection["package_root_exists"],
+                "files_scanned": inspection["files_scanned"],
+                "sys_path_lab_files": inspection["sys_path_lab_files"],
+                "policy": (
+                    "Future package tests must exercise the package import surface "
+                    "without sys.path adapters to lab directories."
+                ),
+            },
+        ),
+    ]
+
+
 def _negative_probes(
     *,
+    root: Path | None = None,
     package_root_exists: bool,
     manual_readability_ready: bool,
     package_runtime_ready: bool,
     dependency_manifest_exists: bool,
 ) -> list[dict]:
     return [
-        _probe(
-            "package_runtime_imports_labs",
-            accepted=False,
-            reasons=["forbidden_lab_dependency"],
-            evidence=(
-                "Future package runtime code must import mecha_engine modules, "
-                "not labs/* research modules."
-            ),
-        ),
-        _probe(
-            "package_test_mutates_sys_path_to_lab",
-            accepted=False,
-            reasons=["forbidden_sys_path_lab_access"],
-            evidence=(
-                "Future package tests must exercise the package import surface "
-                "without sys.path adapters to lab directories."
-            ),
-        ),
+        *build_lab_boundary_probes(root),
         _probe(
             "claim_profile_weighted_evolution",
             accepted=package_runtime_ready and manual_readability_ready,
@@ -410,7 +504,7 @@ def _negative_probes(
     ]
 
 
-def _probe(probe_id: str, *, accepted: bool, reasons: list[str], evidence: str) -> dict:
+def _probe(probe_id: str, *, accepted: bool, reasons: list[str], evidence: object) -> dict:
     return {
         "probe_id": probe_id,
         "accepted": accepted,

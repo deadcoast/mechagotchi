@@ -37,6 +37,14 @@ def run_deliberative_switchboard(
     aggregate_utilities = {
         action: float(baseline["utilities"].get(action, 0.0)) for action in ACTIONS
     }
+    # Recompute the baseline confidence with the same _clamp(0.5 + margin)
+    # formula used by _decision_from_utilities (applied to the baseline
+    # utilities before any tick pressure is added), so confidence_gain
+    # compares like with like instead of mixing run_switchboard's internal
+    # confidence with the deliberative recomputation.
+    baseline_confidence = _decision_from_utilities(dict(aggregate_utilities), 1)[
+        "confidence"
+    ]
     trace = [
         _trace_entry(
             tick=1,
@@ -66,14 +74,21 @@ def run_deliberative_switchboard(
             )
         )
 
+    # Apply the same formula to the final utilities so both sides of the
+    # subtraction share one confidence definition. When no extra tick ran the
+    # utilities are unchanged and the gain is exactly zero.
+    final_confidence = _decision_from_utilities(dict(aggregate_utilities), len(trace))[
+        "confidence"
+    ]
     return {
         "baseline_decision": baseline,
+        "baseline_confidence_like_for_like": baseline_confidence,
         "final_decision": final_decision,
         "tick_count": len(trace),
         "max_ticks": max_ticks,
         "confidence_threshold": confidence_threshold,
         "confidence_gain": round(
-            final_decision["confidence"] - baseline["confidence"],
+            final_confidence - baseline_confidence,
             6,
         ),
         "final_utilities": final_decision["utilities"],

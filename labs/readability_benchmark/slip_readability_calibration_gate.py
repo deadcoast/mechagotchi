@@ -221,12 +221,15 @@ def run_slip_readability_calibration_gate_lab(
         },
         "metrics": {
             "sample_count": benchmark["summary"]["sample_count"],
-            "selected_offspring_sample_count": benchmark["summary"]["by_source"][
-                "selected_offspring"
-            ]["count"],
-            "held_out_long_horizon_sample_count": benchmark["summary"]["by_source"][
-                "held_out_long_horizon"
-            ]["count"],
+            # _benchmark_summary only creates by_source entries for sources that
+            # produced samples, so an empty source group must report count 0
+            # instead of raising KeyError.
+            "selected_offspring_sample_count": benchmark["summary"]["by_source"]
+            .get("selected_offspring", {})
+            .get("count", 0),
+            "held_out_long_horizon_sample_count": benchmark["summary"]["by_source"]
+            .get("held_out_long_horizon", {})
+            .get("count", 0),
             "mean_proxy_readability_score": benchmark["summary"][
                 "mean_proxy_readability_score"
             ],

@@ -217,7 +217,12 @@
       "reasons": [
         "forbidden_lab_dependency"
       ],
-      "evidence": "Future package runtime code must import mecha_engine modules, not labs/* research modules."
+      "evidence": {
+        "package_root_exists": false,
+        "files_scanned": 0,
+        "lab_import_files": [],
+        "policy": "Future package runtime code must import mecha_engine modules, not labs/* research modules."
+      }
     },
     {
       "probe_id": "package_test_mutates_sys_path_to_lab",
@@ -226,7 +231,12 @@
       "reasons": [
         "forbidden_sys_path_lab_access"
       ],
-      "evidence": "Future package tests must exercise the package import surface without sys.path adapters to lab directories."
+      "evidence": {
+        "package_root_exists": false,
+        "files_scanned": 0,
+        "sys_path_lab_files": [],
+        "policy": "Future package tests must exercise the package import surface without sys.path adapters to lab directories."
+      }
     },
     {
       "probe_id": "claim_profile_weighted_evolution",
@@ -271,7 +281,7 @@
     "negative_probe_rejected_count": 5,
     "promotion_ready_contracts": 0,
     "package_promotion_ready_count": 0,
-    "slip_blocked_state_count": 12
+    "slip_blocked_state_count": 15
   },
   "closed_states": [
     "package_runtime_boundary_contracts_defined",

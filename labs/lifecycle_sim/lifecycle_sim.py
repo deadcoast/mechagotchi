@@ -215,6 +215,11 @@ def run_lifecycle_simulation(
     return {
         "policy": policy,
         "ticks_requested": ticks,
+        # survival_ticks counts ticks entered, including the tick on which
+        # death occurs: advance_tick increments age_ticks and sets alive=False
+        # in the same call, so a pet that dies on tick N reports
+        # survival_ticks == N (not N - 1). Downstream artifacts and metrics
+        # depend on this arithmetic; do not change it.
         "survival_ticks": state["age_ticks"],
         "alive": state["alive"],
         "death_cause": state["death_cause"],

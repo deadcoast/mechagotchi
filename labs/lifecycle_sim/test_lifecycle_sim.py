@@ -76,6 +76,37 @@ class LifecycleSimulatorTests(unittest.TestCase):
         self.assertGreater(switchboard["need_balance"], idle["need_balance"])
         self.assertGreater(switchboard["recovery_events"], idle["recovery_events"])
 
+    def test_survival_ticks_count_includes_the_tick_on_which_death_occurs(self):
+        # Pin the survival_ticks semantics: ticks entered are counted,
+        # including the tick on which death occurs, because advance_tick
+        # increments age_ticks and sets alive=False in the same call.
+        state = initial_lifecycle_state(build_seed_grids()[0], load_lcd_slip())
+        state["hunger"] = 0.99
+
+        next_state = advance_tick(state, "idle")
+
+        self.assertFalse(next_state["alive"])
+        self.assertEqual("starvation", next_state["death_cause"])
+        # The pet died on tick 1 and that tick is counted.
+        self.assertEqual(1, next_state["age_ticks"])
+        self.assertEqual(1, next_state["history"][-1]["tick"])
+
+        # The same semantics hold for a full simulation run: survival_ticks
+        # equals the tick recorded on the death history entry.
+        result = run_lifecycle_simulation(
+            build_seed_grids()[0],
+            load_lcd_slip(),
+            ticks=200,
+            policy="idle",
+            rng_seed=20260512,
+        )
+        self.assertFalse(result["alive"])
+        death_entry = next(
+            entry for entry in result["history"] if not entry["alive"]
+        )
+        self.assertEqual(death_entry["tick"], result["survival_ticks"])
+        self.assertEqual(len(result["history"]), result["survival_ticks"])
+
     def test_lifecycle_lab_report_contains_required_metrics(self):
         report = run_lifecycle_lab(ticks=48, rng_seed=20260512)
 

@@ -22,11 +22,21 @@ def ingest_snapshot_file(
     source_commit: str,
     language: str,
     seed: int | None = None,
-) -> list[dict]:
+) -> dict:
+    """Ingest one snapshot file with per-record error isolation.
+
+    Returns {"snapshots": [...], "rejected_records": [...]}. A malformed
+    record inside a .json list or a .jsonl line is recorded in
+    rejected_records without discarding the file's valid records.
+    Container-level failures (unreadable file, unparseable .json payload,
+    malformed .dat checkpoint) still raise.
+    """
     path = Path(path)
     suffix = path.suffix.lower()
+    snapshots: list[dict] = []
+    rejected_records: list[dict] = []
     if suffix == ".dat":
-        return [
+        snapshots.append(
             _parse_binary_checkpoint(
                 path,
                 source_repo=source_repo,
@@ -34,11 +44,72 @@ def ingest_snapshot_file(
                 language=language,
                 seed=seed,
             )
-        ]
-    if suffix == ".json":
+        )
+    elif suffix == ".json":
         payload = json.loads(path.read_text(encoding="utf-8"))
         records = payload if isinstance(payload, list) else [payload]
-        return [
+        for index, record in enumerate(records):
+            _ingest_record(
+                record,
+                path=path,
+                index=index,
+                source_repo=source_repo,
+                source_commit=source_commit,
+                language=language,
+                seed=seed,
+                snapshots=snapshots,
+                rejected_records=rejected_records,
+            )
+    elif suffix == ".jsonl":
+        for index, line in enumerate(path.read_text(encoding="utf-8").splitlines()):
+            if not line.strip():
+                continue
+            try:
+                record = json.loads(line)
+            except json.JSONDecodeError as exc:
+                rejected_records.append(
+                    _rejected_record(index, exc, line_number=index + 1)
+                )
+                continue
+            _ingest_record(
+                record,
+                path=path,
+                index=index,
+                source_repo=source_repo,
+                source_commit=source_commit,
+                language=language,
+                seed=seed,
+                snapshots=snapshots,
+                rejected_records=rejected_records,
+                line_number=index + 1,
+            )
+    return {"snapshots": snapshots, "rejected_records": rejected_records}
+
+
+def _ingest_record(
+    record: Any,
+    *,
+    path: Path,
+    index: int,
+    source_repo: str,
+    source_commit: str,
+    language: str,
+    seed: int | None,
+    snapshots: list[dict],
+    rejected_records: list[dict],
+    line_number: int | None = None,
+) -> None:
+    if not isinstance(record, dict):
+        rejected_records.append(
+            _rejected_record(
+                index,
+                ValueError("CuBFF snapshot record must be a JSON object"),
+                line_number=line_number,
+            )
+        )
+        return
+    try:
+        snapshots.append(
             _normalize_python_state(
                 record,
                 path=path,
@@ -48,29 +119,25 @@ def ingest_snapshot_file(
                 language=language,
                 seed=seed,
             )
-            for index, record in enumerate(records)
-            if isinstance(record, dict)
-        ]
-    if suffix == ".jsonl":
-        snapshots = []
-        for index, line in enumerate(path.read_text(encoding="utf-8").splitlines()):
-            if not line.strip():
-                continue
-            record = json.loads(line)
-            if isinstance(record, dict):
-                snapshots.append(
-                    _normalize_python_state(
-                        record,
-                        path=path,
-                        index=index,
-                        source_repo=source_repo,
-                        source_commit=source_commit,
-                        language=language,
-                        seed=seed,
-                    )
-                )
-        return snapshots
-    return []
+        )
+    except (ValueError, TypeError) as exc:
+        rejected_records.append(_rejected_record(index, exc, line_number=line_number))
+
+
+def _rejected_record(
+    index: int,
+    exc: Exception,
+    *,
+    line_number: int | None = None,
+) -> dict:
+    rejected = {
+        "record_index": index,
+        "error_family": type(exc).__name__,
+        "reason": str(exc),
+    }
+    if line_number is not None:
+        rejected["line_number"] = line_number
+    return rejected
 
 
 def build_ingest_report(
@@ -85,6 +152,7 @@ def build_ingest_report(
     input_dir = Path(input_dir)
     snapshots = []
     rejected_files = []
+    rejected_records = []
     non_snapshot_files = []
 
     files = sorted(path for path in input_dir.rglob("*") if path.is_file()) if input_dir.exists() else []
@@ -92,6 +160,7 @@ def build_ingest_report(
         if path.suffix.lower() not in SNAPSHOT_EXTENSIONS:
             non_snapshot_files.append(_relative_path(path, input_dir))
             continue
+        relative = _relative_path(path, input_dir)
         try:
             ingested = ingest_snapshot_file(
                 path,
@@ -100,17 +169,28 @@ def build_ingest_report(
                 language=language,
                 seed=seed,
             )
-            if ingested:
-                snapshots.extend(ingested)
-            else:
-                non_snapshot_files.append(_relative_path(path, input_dir))
         except (OSError, ValueError, json.JSONDecodeError, struct.error) as exc:
             rejected_files.append(
                 {
-                    "path": _relative_path(path, input_dir),
+                    "path": relative,
                     "reason": str(exc),
                 }
             )
+            continue
+        for rejected in ingested["rejected_records"]:
+            rejected_records.append({"path": relative, **rejected})
+        if ingested["snapshots"]:
+            snapshots.extend(ingested["snapshots"])
+        elif ingested["rejected_records"]:
+            # Every record in the file was malformed: reject the file itself.
+            rejected_files.append(
+                {
+                    "path": relative,
+                    "reason": "zero_valid_records",
+                }
+            )
+        else:
+            non_snapshot_files.append(relative)
 
     status = "ingested_real_cubff_snapshots" if snapshots else "awaiting_real_cubff_snapshots"
     report = {
@@ -124,11 +204,13 @@ def build_ingest_report(
         "status": status,
         "ingested_snapshot_count": len(snapshots),
         "rejected_file_count": len(rejected_files),
+        "rejected_record_count": len(rejected_records),
         "non_snapshot_file_count": len(non_snapshot_files),
         "snapshot_ids": [snapshot["snapshot_id"] for snapshot in snapshots],
         "ingested_snapshots": snapshots,
         "feature_summary": _feature_summary(snapshots),
         "rejected_files": rejected_files,
+        "rejected_records": rejected_records,
         "non_snapshot_files": non_snapshot_files,
         "checkpoint_format": _checkpoint_format(),
         "decision": _decision(len(snapshots)),

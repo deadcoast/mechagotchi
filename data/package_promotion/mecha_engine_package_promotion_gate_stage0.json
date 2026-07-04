@@ -85,6 +85,7 @@
         "package_root_absent",
         "target_package_absent"
       ],
+      "research_blocker_details": [],
       "research_notes": "Lifecycle is a first-class v0.2 gate."
     },
     {
@@ -122,6 +123,23 @@
         "target_package_absent",
         "reward_shaping_not_superior_to_frozen_baseline"
       ],
+      "research_blocker_details": [
+        {
+          "blocker_id": "reward_shaping_not_superior_to_frozen_baseline",
+          "static": false,
+          "active": true,
+          "evidence": {
+            "metric_path": [
+              "summary",
+              "need_balance_delta"
+            ],
+            "operator": ">",
+            "expected": 0,
+            "actual": 0.0,
+            "ok": false
+          }
+        }
+      ],
       "research_notes": "Feedback loop is wired but did not beat frozen baseline yet."
     },
     {
@@ -139,7 +157,7 @@
           ],
           "operator": ">=",
           "expected": 20,
-          "actual": 29,
+          "actual": 33,
           "ok": true
         },
         {
@@ -158,6 +176,7 @@
         "package_root_absent",
         "target_package_absent"
       ],
+      "research_blocker_details": [],
       "research_notes": "Descriptor space is richer but sparse."
     },
     {
@@ -193,6 +212,7 @@
         "package_root_absent",
         "target_package_absent"
       ],
+      "research_blocker_details": [],
       "research_notes": "Research-artifact provenance gate is adoptable."
     },
     {
@@ -218,6 +238,22 @@
         "package_root_absent",
         "target_package_absent",
         "human_ratings_absent"
+      ],
+      "research_blocker_details": [
+        {
+          "blocker_id": "human_ratings_absent",
+          "static": false,
+          "active": true,
+          "evidence": {
+            "metric_path": [
+              "ratings_collected"
+            ],
+            "operator": "==",
+            "expected": true,
+            "actual": false,
+            "ok": false
+          }
+        }
       ],
       "research_notes": "Proxy calibration is blocked until real human ratings exist."
     },
@@ -255,6 +291,14 @@
         "package_root_absent",
         "target_package_absent",
         "lab_only_target_template_assisted"
+      ],
+      "research_blocker_details": [
+        {
+          "blocker_id": "lab_only_target_template_assisted",
+          "static": true,
+          "active": true,
+          "evidence": null
+        }
       ],
       "research_notes": "Assisted target-template baseline; not trained NCA."
     }

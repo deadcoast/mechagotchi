@@ -30,7 +30,7 @@ class RealCuBffSnapshotIngestTests(unittest.TestCase):
             checkpoint = Path(temp_dir) / "0000000016.dat"
             checkpoint.write_bytes(checkpoint_bytes())
 
-            snapshots = ingest_snapshot_file(
+            result = ingest_snapshot_file(
                 checkpoint,
                 source_repo=CUBFF_REPO_URL,
                 source_commit="f212e849027c98fcf4b242eccfb5fed435223e23",
@@ -38,7 +38,9 @@ class RealCuBffSnapshotIngestTests(unittest.TestCase):
                 seed=0,
             )
 
+        snapshots = result["snapshots"]
         self.assertEqual(1, len(snapshots))
+        self.assertEqual([], result["rejected_records"])
         snapshot = snapshots[0]
         self.assertEqual("real_cubff_checkpoint", snapshot["source_type"])
         self.assertEqual("0000000016", snapshot["snapshot_id"])
@@ -69,7 +71,7 @@ class RealCuBffSnapshotIngestTests(unittest.TestCase):
                 encoding="utf-8",
             )
 
-            snapshots = ingest_snapshot_file(
+            result = ingest_snapshot_file(
                 state_path,
                 source_repo=CUBFF_REPO_URL,
                 source_commit="f212e849027c98fcf4b242eccfb5fed435223e23",
@@ -77,7 +79,9 @@ class RealCuBffSnapshotIngestTests(unittest.TestCase):
                 seed=3,
             )
 
+        snapshots = result["snapshots"]
         self.assertEqual(1, len(snapshots))
+        self.assertEqual([], result["rejected_records"])
         snapshot = snapshots[0]
         self.assertEqual("real_cubff_python_state", snapshot["source_type"])
         self.assertEqual("state", snapshot["snapshot_id"])
@@ -114,6 +118,88 @@ class RealCuBffSnapshotIngestTests(unittest.TestCase):
             "blocked_real_snapshot_absent",
             report["decision"]["status"],
         )
+
+    def test_mixed_jsonl_file_keeps_valid_records_and_isolates_bad_ones(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            input_dir = Path(temp_dir)
+            (input_dir / "states.jsonl").write_text(
+                json.dumps({"epoch": 1, "soup": [7] * 64}) + "\n"
+                + "this is not json\n"
+                + json.dumps({"epoch": 2, "soup": [1] * 63}) + "\n"
+                + json.dumps({"epoch": 3, "soup": [9] * 64}) + "\n",
+                encoding="utf-8",
+            )
+
+            report = build_ingest_report(
+                input_dir=input_dir,
+                source_repo=CUBFF_REPO_URL,
+                source_commit="f212e849027c98fcf4b242eccfb5fed435223e23",
+                language="bff_noheads",
+                seed=0,
+            )
+
+        self.assertEqual(2, report["ingested_snapshot_count"])
+        self.assertEqual([1, 3], [s["epoch"] for s in report["ingested_snapshots"]])
+        self.assertEqual(0, report["rejected_file_count"])
+        self.assertEqual([], report["rejected_files"])
+        self.assertEqual(2, report["rejected_record_count"])
+        rejected_by_line = {r["line_number"]: r for r in report["rejected_records"]}
+        self.assertEqual("JSONDecodeError", rejected_by_line[2]["error_family"])
+        self.assertEqual("ValueError", rejected_by_line[3]["error_family"])
+        self.assertEqual("states.jsonl", rejected_by_line[3]["path"])
+        self.assertEqual("ingested_real_cubff_snapshots", report["status"])
+
+    def test_mixed_json_list_keeps_valid_records_and_isolates_bad_one(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            input_dir = Path(temp_dir)
+            (input_dir / "states.json").write_text(
+                json.dumps(
+                    [
+                        {"epoch": 1, "soup": [7] * 64},
+                        {"epoch": 2, "soup": [1] * 63},
+                        {"epoch": 3, "soup": [9] * 64},
+                    ]
+                ),
+                encoding="utf-8",
+            )
+
+            report = build_ingest_report(
+                input_dir=input_dir,
+                source_repo=CUBFF_REPO_URL,
+                source_commit="f212e849027c98fcf4b242eccfb5fed435223e23",
+                language="bff_noheads",
+                seed=0,
+            )
+
+        self.assertEqual(2, report["ingested_snapshot_count"])
+        self.assertEqual(0, report["rejected_file_count"])
+        self.assertEqual(1, report["rejected_record_count"])
+        rejected = report["rejected_records"][0]
+        self.assertEqual("states.json", rejected["path"])
+        self.assertEqual(1, rejected["record_index"])
+        self.assertEqual("ValueError", rejected["error_family"])
+
+    def test_file_with_zero_valid_records_is_rejected_at_file_level(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            input_dir = Path(temp_dir)
+            (input_dir / "states.json").write_text(
+                json.dumps([{"epoch": 1, "soup": [1] * 63}]),
+                encoding="utf-8",
+            )
+
+            report = build_ingest_report(
+                input_dir=input_dir,
+                source_repo=CUBFF_REPO_URL,
+                source_commit="f212e849027c98fcf4b242eccfb5fed435223e23",
+                language="bff_noheads",
+                seed=0,
+            )
+
+        self.assertEqual(0, report["ingested_snapshot_count"])
+        self.assertEqual(1, report["rejected_file_count"])
+        self.assertEqual("zero_valid_records", report["rejected_files"][0]["reason"])
+        self.assertEqual(1, report["rejected_record_count"])
+        self.assertEqual("awaiting_real_cubff_snapshots", report["status"])
 
     def test_audit_upstream_tree_reports_logs_without_snapshot_artifacts(self):
         with tempfile.TemporaryDirectory() as temp_dir:

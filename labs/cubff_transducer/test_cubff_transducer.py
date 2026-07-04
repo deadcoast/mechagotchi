@@ -13,6 +13,7 @@ from slip import is_grid_aligned
 from validator import validate_grid
 
 from cubff_transducer import (
+    _decision,
     compile_semantic_grid,
     direct_tape_to_grid,
     extract_cubff_features,
@@ -96,6 +97,49 @@ class CubffTransducerTests(unittest.TestCase):
             report["direct_visual_baseline"]["mean_readability"],
         )
         self.assertEqual("watch_synthetic_only", report["decision"]["status"])
+        self.assertIn("beats direct tape projection", report["decision"]["reason"])
+
+    def test_decision_reason_matches_reject_status(self):
+        direct = {"mean_readability": 0.5, "validity_rate": 1.0}
+        hybrid = {"mean_readability": 0.4, "validity_rate": 1.0}
+
+        decision = _decision(direct, hybrid)
+
+        self.assertEqual("reject_direct_mapping", decision["status"])
+        self.assertIn("did not beat", decision["reason"])
+        self.assertNotIn("beats direct tape projection here", decision["reason"])
+
+    def test_run_transducer_lab_accepts_precompiled_semantic_grids(self):
+        profile = json.loads(
+            Path("data/slips/valid/slip_lcd_seed.json").read_text(encoding="utf-8")
+        )
+        seed_grids = build_seed_grids()
+        snapshots = [sample_snapshot()]
+        precompiled = [
+            compile_semantic_grid(
+                snapshots[0],
+                seed_grids,
+                profile,
+                grid_id="cubff_semantic_000",
+                rng_seed=5150,
+            )
+        ]
+
+        report_precompiled = run_transducer_lab(
+            snapshots,
+            seed_grids,
+            profile,
+            rng_seed=5150,
+            semantic_grids=precompiled,
+        )
+        report_internal = run_transducer_lab(
+            snapshots,
+            seed_grids,
+            profile,
+            rng_seed=5150,
+        )
+
+        self.assertEqual(report_internal, report_precompiled)
 
 
 if __name__ == "__main__":

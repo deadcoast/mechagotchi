@@ -9,6 +9,7 @@
   "status": "awaiting_real_cubff_snapshots",
   "ingested_snapshot_count": 0,
   "rejected_file_count": 0,
+  "rejected_record_count": 0,
   "non_snapshot_file_count": 1,
   "snapshot_ids": [],
   "ingested_snapshots": [],
@@ -18,6 +19,7 @@
     "mean_replication_score_count": 0
   },
   "rejected_files": [],
+  "rejected_records": [],
   "non_snapshot_files": [
     "README.md"
   ],

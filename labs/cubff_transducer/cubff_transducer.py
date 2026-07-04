@@ -202,21 +202,23 @@ def run_transducer_lab(
     slip_profile: dict,
     *,
     rng_seed: int = 5150,
+    semantic_grids: list[dict] | None = None,
 ) -> dict:
     direct_grids = [
         direct_tape_to_grid(snapshot, grid_id=f"cubff_direct_{index:03d}")
         for index, snapshot in enumerate(snapshots)
     ]
-    semantic_grids = [
-        compile_semantic_grid(
-            snapshot,
-            seed_grids,
-            slip_profile,
-            grid_id=f"cubff_semantic_{index:03d}",
-            rng_seed=rng_seed + index,
-        )
-        for index, snapshot in enumerate(snapshots)
-    ]
+    if semantic_grids is None:
+        semantic_grids = [
+            compile_semantic_grid(
+                snapshot,
+                seed_grids,
+                slip_profile,
+                grid_id=f"cubff_semantic_{index:03d}",
+                rng_seed=rng_seed + index,
+            )
+            for index, snapshot in enumerate(snapshots)
+        ]
     features = [extract_cubff_features(snapshot) for snapshot in snapshots]
     trait_vectors = [features_to_traits(feature) for feature in features]
 
@@ -381,17 +383,25 @@ def _decision(direct: dict, hybrid: dict) -> dict:
         hybrid["mean_readability"] > direct["mean_readability"]
     )
     improves_validity = hybrid["validity_rate"] > direct["validity_rate"]
-    status = "watch_synthetic_only"
-    if not improves_readability or not improves_validity:
-        status = "reject_direct_mapping"
-    return {
-        "status": status,
-        "adoption": "do_not_adopt_core_dependency_from_synthetic_lab",
-        "reason": (
+    if improves_readability and improves_validity:
+        status = "watch_synthetic_only"
+        reason = (
             "Semantic compilation beats direct tape projection here, but the input "
             "snapshots are synthetic. Real CuBFF snapshot ingestion is required "
             "before any adoption decision."
-        ),
+        )
+    else:
+        status = "reject_direct_mapping"
+        reason = (
+            "Semantic compilation did not beat direct tape projection on both "
+            "validity and readability, so this comparison is rejected. The input "
+            "snapshots are synthetic, and real CuBFF snapshot ingestion is "
+            "required before any adoption decision."
+        )
+    return {
+        "status": status,
+        "adoption": "do_not_adopt_core_dependency_from_synthetic_lab",
+        "reason": reason,
     }
 
 
@@ -497,6 +507,7 @@ def main() -> None:
         seed_grids,
         profile,
         rng_seed=args.rng_seed,
+        semantic_grids=semantic_grids,
     )
     write_lab_outputs(args.output_dir, report, snapshots, semantic_grids)
     print(json.dumps(report, indent=2))
