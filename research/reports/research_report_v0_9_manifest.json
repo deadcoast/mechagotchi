@@ -1,0 +1,84 @@
+{
+  "report_version": "0.9",
+  "published_date": "2026-07-04",
+  "report_path": "research/reports/mechagotchi_research_report_v0_9.md",
+  "source_plan": "docs/02-research_plan.md",
+  "status": "published_internal",
+  "consolidated_experiment_report_count": 8,
+  "consolidation_window": {
+    "after": "2026-07-04",
+    "through": "2026-07-04",
+    "note": "same-day package-implementation wave: scaffold, five initial module promotions, parallel research blockers, and the capstone promotion-gate rerun"
+  },
+  "referenced_artifacts": [
+    "research/experiment_reports/2026-07-04-mecha-engine-package-scaffold.md",
+    "research/experiment_reports/2026-07-04-mecha-engine-genome-promotion.md",
+    "research/experiment_reports/2026-07-04-mecha-engine-generation-promotion.md",
+    "research/experiment_reports/2026-07-04-mecha-engine-lifecycle-promotion.md",
+    "research/experiment_reports/2026-07-04-mecha-engine-archive-promotion.md",
+    "research/experiment_reports/2026-07-04-mecha-engine-provenance-promotion.md",
+    "research/experiment_reports/2026-07-04-ca-nca-trained-neighborhood-repair.md",
+    "research/experiment_reports/2026-07-04-package-promotion-gate-first-ready.md",
+    "research/reports/mechagotchi_research_report_v0_8.md",
+    "research/reports/research_report_v0_8_manifest.json",
+    "research/decision_records/0004-mecha-engine-package-scaffold.md",
+    "research/decision_records/0005-declare-lab-dependency-manifest.md",
+    "research/package_specs/mecha_engine_contract_traceability_matrix.md",
+    "packages/mecha_engine/pyproject.toml",
+    "packages/mecha_engine/src/mecha_engine/genome/validation.py",
+    "packages/mecha_engine/src/mecha_engine/generation/generate.py",
+    "packages/mecha_engine/src/mecha_engine/lifecycle/simulate.py",
+    "packages/mecha_engine/src/mecha_engine/archive/store.py",
+    "packages/mecha_engine/src/mecha_engine/provenance/ledger.py",
+    "packages/mecha_engine/tests/test_package_imports.py",
+    "packages/mecha_engine/tests/test_genome_contract.py",
+    "packages/mecha_engine/tests/test_generation_contract.py",
+    "packages/mecha_engine/tests/test_lifecycle_contract.py",
+    "packages/mecha_engine/tests/test_archive_contract.py",
+    "packages/mecha_engine/tests/test_provenance_contract.py",
+    "labs/architecture/mecha_engine_scaffold_verification_gate.py",
+    "data/architecture/mecha_engine_scaffold_verification_gate_stage0.json",
+    "data/package_promotion/mecha_engine_package_promotion_gate_stage0.json",
+    "data/architecture/mecha_engine_runtime_boundary_gate_stage0.json",
+    "data/cellular_automata/ca_nca_trained_repair_stage0.json",
+    "data/micro_learners/switchboard_lifecycle_feedback_stage0.json"
+  ],
+  "headline_metrics": {
+    "package_root_exists": true,
+    "promoted_modules": [
+      "genome",
+      "generation",
+      "lifecycle",
+      "archive",
+      "provenance"
+    ],
+    "promotion_ready_candidates": [
+      "lifecycle_simulator",
+      "map_elites_archive",
+      "provenance_ci"
+    ],
+    "package_tests": 163,
+    "lab_tests": 520,
+    "failing_tests": 0,
+    "package_runtime_integration_ready": true,
+    "profile_weighted_evolution_ready": false,
+    "profile_weighted_evolution_blocked_on": "manual_readability_calibration_absent (0 of 63 rows)",
+    "reward_shaping_need_balance_delta": 0.03964,
+    "trained_repair_overlap_vs_bar": [
+      0.8625,
+      0.9
+    ]
+  },
+  "decision_summary": [
+    "five_initial_modules_promoted_with_contract_and_parity_evidence",
+    "first_promotion_ready_candidates_recognized",
+    "deferred_module_targets_await_their_own_gates",
+    "package_dependency_policy_remains_blocked_all_modules_stdlib_only"
+  ],
+  "next_sequence": [
+    "manual readability calibration (63 reviewer rows) - human input",
+    "learned repair stability bar (0.8625 vs 0.9)",
+    "learning module target decision (design-ready candidate waiting)",
+    "mecha_workshop build track per docs/01-brainstorming.md"
+  ]
+}

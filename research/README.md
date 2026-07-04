@@ -490,6 +490,9 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-07-04-package-promotion-gate-first-ready.md`
 - `data/package_promotion/mecha_engine_package_promotion_gate_stage0.json`
 
+- `research/reports/mechagotchi_research_report_v0_9.md`
+- `research/reports/research_report_v0_9_manifest.json`
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

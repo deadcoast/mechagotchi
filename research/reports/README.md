@@ -34,3 +34,9 @@ must not replace the underlying lab reports.
   with jsonschema runtime parity evidence), the grayscale/deep-color
   foreign-fixture gap, and the degenerate descriptor axes. No open review
   findings remain.
+- `mechagotchi_research_report_v0_9.md` - the package-implementation wave:
+  the packages/mecha_engine scaffold, all five initial module promotions
+  with contract and parity evidence, the parallel research-blocker batch,
+  and the promotion-gate rerun producing the first promotion-ready
+  candidates.
+- `research_report_v0_9_manifest.json`
