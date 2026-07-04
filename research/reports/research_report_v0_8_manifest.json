@@ -1,0 +1,74 @@
+{
+  "report_version": "0.8",
+  "published_date": "2026-07-04",
+  "report_path": "research/reports/mechagotchi_research_report_v0_8.md",
+  "source_plan": "docs/02-research_plan.md",
+  "status": "published_internal",
+  "consolidated_experiment_report_count": 3,
+  "consolidation_window": {
+    "after": "2026-07-04",
+    "through": "2026-07-04",
+    "note": "same-day close-out: consolidates the three reports resolving the items v0_7 left open (M-15 remainder, deep-color fixture gap, L-12 descriptor calibration)"
+  },
+  "referenced_artifacts": [
+    "docs/03-code_review/2026-07-04-code_review.md",
+    "research/reports/mechagotchi_research_report_v0_7.md",
+    "research/reports/research_report_v0_7_manifest.json",
+    "research/decision_records/0005-declare-lab-dependency-manifest.md",
+    "research/experiment_reports/2026-07-04-lab-dependency-manifest-and-jsonschema-parity.md",
+    "research/experiment_reports/2026-07-04-deep-color-foreign-fixtures.md",
+    "research/experiment_reports/2026-07-04-descriptor-axis-calibration.md",
+    "pyproject.toml",
+    "labs/slip_validator/jsonschema_runtime_parity.py",
+    "labs/slip_validator/test_jsonschema_runtime_parity.py",
+    "labs/workshop_editor/foreign_fixture_writer.py",
+    "labs/workshop_editor/test_foreign_fixture_conformance.py",
+    "labs/grid_genome/constrained_generator.py",
+    "labs/map_elites_archive/extended_descriptors.py",
+    "labs/architecture/mecha_engine_runtime_boundary_gate.py",
+    "data/slips/slip_jsonschema_runtime_parity_stage0.json",
+    "data/foreign_fixtures/manifest.json",
+    "data/archives/map_elites_extended_stage0.json",
+    "data/slips/slip_schema_migration_dependency_gate_stage0.json",
+    "research/algorithm_cards/map_elites_extended_descriptors.md",
+    "research/slip/schema_migration_dependency_gate.md",
+    "research/slip/pydantic_contract.md",
+    "CLAUDE.md"
+  ],
+  "headline_metrics": {
+    "package_root_exists": false,
+    "package_code_created": false,
+    "post_remediation_total_tests": 474,
+    "post_remediation_failing_tests": 0,
+    "review_findings_open": [],
+    "dependency_manifest": "pyproject.toml dependency-group lab (decision record 0005)",
+    "jsonschema_parity": "17/18 corpus agreements; layered outcome 3/3 valid, 3/3 examples, 12/12 failures",
+    "foreign_fixture_corpus": "22 fixtures x 10 decoders, zero raw exceptions, known_deficiencies empty",
+    "descriptor_bin_spread": {
+      "body_mass": 3,
+      "sensor_count": 4,
+      "symmetry": 4,
+      "readability": 3,
+      "lifecycle_survival": 2,
+      "mutation_stability": 5,
+      "behavior_neediness": 2
+    },
+    "extended_archive": {
+      "occupied_niches": 83,
+      "qd_score": 72.069987,
+      "coverage": 0.001062
+    }
+  },
+  "decision_summary": [
+    "adopt_layered_runtime_schema_validation_for_labs",
+    "package_dependency_policy_remains_blocked_and_is_now_measured",
+    "descriptor_axes_require_bin_spread_before_niche_claims",
+    "foreign_fixture_corpus_is_the_decoder_conformance_bar"
+  ],
+  "next_sequence": [
+    "packages import-surface gate and package dependency policy",
+    "manual readability calibration (63 reviewer rows)",
+    "harsher lifecycle model for intermediate survival bins",
+    "foreign-fixture out-of-scope items per corpus coverage_notes"
+  ]
+}
