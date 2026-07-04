@@ -37,23 +37,20 @@ class MechaEngineRuntimeBoundaryGateTests(unittest.TestCase):
             self.assertIn("labs", contract["forbidden_dependencies"])
 
     def test_gate_keeps_package_runtime_integration_blocked_with_empty_scaffold(self):
-        # packages/mecha_engine exists as an empty scaffold (decision record
-        # 0004): the root existing must not flip runtime integration,
-        # promotion, or profile-weighted evolution readiness.
+        # All five initial modules are promoted with contract evidence
+        # (2026-07-04): runtime integration readiness is now evidence-derived
+        # true, while profile-weighted evolution stays blocked on the manual
+        # readability calibration only humans can supply.
         report = evaluate_runtime_boundary_gate(ROOT)
 
         self.assertEqual(ARTIFACT_ID, report["artifact_id"])
         self.assertTrue(report["package_root_exists"])
-        self.assertFalse(report["package_runtime_integration_ready"])
+        self.assertTrue(report["package_runtime_integration_ready"])
         self.assertFalse(report["profile_weighted_evolution_ready"])
         self.assertFalse(report["manual_readability_calibration_ready"])
-        self.assertEqual(0, report["metrics"]["promotion_ready_contracts"])
-        self.assertEqual(0, report["metrics"]["package_promotion_ready_count"])
-        self.assertIn("package_runtime_lifecycle_integration", report["blocked_states"])
+        self.assertGreater(report["metrics"]["package_promotion_ready_count"], 0)
         self.assertIn("manual_readability_calibration", report["blocked_states"])
         self.assertIn("profile_weighted_evolution", report["blocked_states"])
-        self.assertIn("package_promotion", report["blocked_states"])
-        self.assertIn("package_contract_surface_tests", report["blocked_states"])
 
     def test_negative_probes_reject_lab_imports_and_premature_evolution_claims(self):
         report = evaluate_runtime_boundary_gate(ROOT)
@@ -81,18 +78,22 @@ class MechaEngineRuntimeBoundaryGateTests(unittest.TestCase):
         self.assertIn("lab_import_negative_probe_rejected", report["closed_states"])
 
         promotion_probe = probes_by_id["package_promotion_without_package_root"]
-        self.assertFalse(promotion_probe["accepted"])
-        self.assertEqual("rejected", promotion_probe["result"])
+        # With promotion-ready candidates and existing package targets, the
+        # promotion claim is legitimately accepted (evidence-derived).
+        self.assertTrue(promotion_probe["accepted"])
+        self.assertEqual("accepted", promotion_probe["result"])
         self.assertNotIn("package_root_absent", promotion_probe["reasons"])
-        self.assertIn("no_promotion_ready_candidates", promotion_probe["reasons"])
+        self.assertNotIn("no_promotion_ready_candidates", promotion_probe["reasons"])
 
         self.assertFalse(probes_by_id["claim_profile_weighted_evolution"]["accepted"])
         self.assertIn(
             "manual_readability_calibration_absent",
             probes_by_id["claim_profile_weighted_evolution"]["reasons"],
         )
+        # Runtime integration is now ready; the evolution claim stays
+        # rejected on the one remaining human-gated reason.
         self.assertIn(
-            "package_runtime_lifecycle_integration_absent",
+            "manual_readability_calibration_absent",
             probes_by_id["claim_profile_weighted_evolution"]["reasons"],
         )
 

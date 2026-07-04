@@ -15,15 +15,15 @@ It does not promote code by itself.
 
 ## Candidate Status
 
-- `lifecycle_simulator` -> `ready_for_package_design` for `packages/mecha_engine/lifecycle`
-- `switchboard_feedback` -> `ready_for_package_design` for `packages/mecha_engine/learning`
-- `map_elites_archive` -> `ready_for_package_design` for `packages/mecha_engine/archive`
-- `provenance_ci` -> `ready_for_package_design` for `packages/mecha_engine/provenance`
-- `readability_gate` -> `blocked_missing_or_failed_research_evidence` for `packages/mecha_engine/evaluation`
-- `ca_nca_repair` -> `hold_research_only` for `packages/mecha_engine/repair`
+- `lifecycle_simulator` -> `promotion_ready` for `packages/mecha_engine/src/mecha_engine/lifecycle`
+- `switchboard_feedback` -> `ready_for_package_design` for `packages/mecha_engine/src/mecha_engine/learning`
+- `map_elites_archive` -> `promotion_ready` for `packages/mecha_engine/src/mecha_engine/archive`
+- `provenance_ci` -> `promotion_ready` for `packages/mecha_engine/src/mecha_engine/provenance`
+- `readability_gate` -> `blocked_missing_or_failed_research_evidence` for `packages/mecha_engine/src/mecha_engine/evaluation`
+- `ca_nca_repair` -> `hold_research_only` for `packages/mecha_engine/src/mecha_engine/repair`
 
 ## Decision
 
-Status: `criteria_defined_no_ready_candidates`
+Status: `promotion_candidates_available`
 
-The package root exists but no component clears the promotion gate.
+At least one candidate has evidence and a package boundary.

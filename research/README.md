@@ -487,6 +487,9 @@ Post-v0.1 continuation has started:
 - `packages/mecha_engine/src/mecha_engine/provenance/`
 - `packages/mecha_engine/tests/test_provenance_contract.py`
 
+- `research/experiment_reports/2026-07-04-package-promotion-gate-first-ready.md`
+- `data/package_promotion/mecha_engine_package_promotion_gate_stage0.json`
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

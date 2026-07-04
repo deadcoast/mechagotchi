@@ -142,11 +142,12 @@ class PackagePromotionGateTests(unittest.TestCase):
         self.assertEqual("hold_research_only", cleared["gate_status"])
         self.assertIn("lab_only_method", cleared["promotion_blockers"])
 
-    def test_run_package_promotion_gate_reports_no_actual_promotion_with_empty_scaffold(self):
-        # The packages/mecha_engine scaffold exists (decision record 0004,
-        # scaffold verification gate), but the empty scaffold clears no
-        # candidate: target package boundaries and package-level tests are
-        # still absent, so promotion stays blocked.
+    def test_run_package_promotion_gate_reports_promoted_module_state(self):
+        # All five initial modules carry contract tests and parity evidence
+        # (2026-07-04 promotions), so lifecycle, archive, and provenance are
+        # the first promotion-ready candidates. Learning/repair/evaluation
+        # targets stay absent (deferred or blocked), so their candidates keep
+        # target_package_absent.
         report = run_package_promotion_gate(ROOT)
 
         self.assertEqual("mecha_engine_package_promotion_gate_stage0", report["lab_id"])
@@ -154,14 +155,22 @@ class PackagePromotionGateTests(unittest.TestCase):
         self.assertGreaterEqual(report["summary"]["criteria_count"], 5)
         self.assertGreaterEqual(report["summary"]["candidate_count"], 4)
         self.assertGreater(report["summary"]["research_ready_count"], 0)
-        self.assertEqual(0, report["summary"]["promotion_ready_count"])
+        self.assertEqual(3, report["summary"]["promotion_ready_count"])
         self.assertEqual(
-            "criteria_defined_no_ready_candidates",
+            "promotion_candidates_available",
             report["decision"]["status"],
         )
+        promoted = {"lifecycle_simulator", "map_elites_archive", "provenance_ci"}
         for candidate in report["candidates"]:
             self.assertNotIn("package_root_absent", candidate["promotion_blockers"])
-            self.assertIn("target_package_absent", candidate["promotion_blockers"])
+            if candidate["component_id"] in promoted:
+                self.assertNotIn(
+                    "target_package_absent", candidate["promotion_blockers"]
+                )
+            else:
+                self.assertIn(
+                    "target_package_absent", candidate["promotion_blockers"]
+                )
 
     def test_write_package_promotion_artifacts_creates_report_and_criteria_doc(self):
         report = run_package_promotion_gate(ROOT)

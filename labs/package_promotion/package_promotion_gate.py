@@ -64,7 +64,7 @@ def build_candidate_registry() -> list[dict]:
     return [
         {
             "component_id": "lifecycle_simulator",
-            "target_package": "packages/mecha_engine/lifecycle",
+            "target_package": "packages/mecha_engine/src/mecha_engine/lifecycle",
             "algorithm_card": "research/algorithm_cards/lifecycle_simulator.md",
             "experiment_report": "research/experiment_reports/2026-05-12-lifecycle-simulator-baseline.md",
             "metric_artifact": "data/lifecycle/lifecycle_stage0.json",
@@ -85,7 +85,7 @@ def build_candidate_registry() -> list[dict]:
         },
         {
             "component_id": "switchboard_feedback",
-            "target_package": "packages/mecha_engine/learning",
+            "target_package": "packages/mecha_engine/src/mecha_engine/learning",
             "algorithm_card": "research/algorithm_cards/micro_learning_switchboard.md",
             "experiment_report": "research/experiment_reports/2026-05-12-switchboard-lifecycle-feedback.md",
             "metric_artifact": "data/micro_learners/switchboard_lifecycle_feedback_stage0.json",
@@ -116,7 +116,7 @@ def build_candidate_registry() -> list[dict]:
         },
         {
             "component_id": "map_elites_archive",
-            "target_package": "packages/mecha_engine/archive",
+            "target_package": "packages/mecha_engine/src/mecha_engine/archive",
             "algorithm_card": "research/algorithm_cards/map_elites_extended_descriptors.md",
             "experiment_report": "research/experiment_reports/2026-05-12-map-elites-extended-descriptors.md",
             "metric_artifact": "data/archives/map_elites_extended_stage0.json",
@@ -137,7 +137,7 @@ def build_candidate_registry() -> list[dict]:
         },
         {
             "component_id": "provenance_ci",
-            "target_package": "packages/mecha_engine/provenance",
+            "target_package": "packages/mecha_engine/src/mecha_engine/provenance",
             "algorithm_card": "research/algorithm_cards/provenance_ci_spdx.md",
             "experiment_report": "research/experiment_reports/2026-05-12-provenance-ci-spdx-parser.md",
             "metric_artifact": "data/asset_provenance/provenance_ci_report.json",
@@ -158,7 +158,7 @@ def build_candidate_registry() -> list[dict]:
         },
         {
             "component_id": "readability_gate",
-            "target_package": "packages/mecha_engine/evaluation",
+            "target_package": "packages/mecha_engine/src/mecha_engine/evaluation",
             "algorithm_card": "research/algorithm_cards/readability_benchmark.md",
             "experiment_report": "research/experiment_reports/2026-05-12-manual-readability-rating-intake.md",
             "metric_artifact": "data/readability/manual_readability_rating_intake_stage0.json",
@@ -184,7 +184,7 @@ def build_candidate_registry() -> list[dict]:
         },
         {
             "component_id": "ca_nca_repair",
-            "target_package": "packages/mecha_engine/repair",
+            "target_package": "packages/mecha_engine/src/mecha_engine/repair",
             "algorithm_card": "research/algorithm_cards/ca_nca_growth_repair.md",
             "experiment_report": "research/experiment_reports/2026-05-12-ca-nca-repeated-stochastic-damage.md",
             "metric_artifact": "data/cellular_automata/ca_nca_repeated_stochastic_damage_stage0.json",

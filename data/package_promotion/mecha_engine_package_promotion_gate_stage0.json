@@ -7,8 +7,8 @@
     "criteria_count": 7,
     "candidate_count": 6,
     "research_ready_count": 5,
-    "package_design_ready_count": 4,
-    "promotion_ready_count": 0,
+    "package_design_ready_count": 1,
+    "promotion_ready_count": 3,
     "blocked_count": 1,
     "hold_research_only_count": 1
   },
@@ -52,8 +52,8 @@
   "candidates": [
     {
       "component_id": "lifecycle_simulator",
-      "target_package": "packages/mecha_engine/lifecycle",
-      "gate_status": "ready_for_package_design",
+      "target_package": "packages/mecha_engine/src/mecha_engine/lifecycle",
+      "gate_status": "promotion_ready",
       "research_evidence_complete": true,
       "missing_evidence": [],
       "thresholds_met": true,
@@ -81,15 +81,13 @@
         }
       ],
       "verification": "python -B labs/lifecycle_sim/test_lifecycle_sim.py",
-      "promotion_blockers": [
-        "target_package_absent"
-      ],
+      "promotion_blockers": [],
       "research_blocker_details": [],
       "research_notes": "Lifecycle is a first-class v0.2 gate."
     },
     {
       "component_id": "switchboard_feedback",
-      "target_package": "packages/mecha_engine/learning",
+      "target_package": "packages/mecha_engine/src/mecha_engine/learning",
       "gate_status": "ready_for_package_design",
       "research_evidence_complete": true,
       "missing_evidence": [],
@@ -141,8 +139,8 @@
     },
     {
       "component_id": "map_elites_archive",
-      "target_package": "packages/mecha_engine/archive",
-      "gate_status": "ready_for_package_design",
+      "target_package": "packages/mecha_engine/src/mecha_engine/archive",
+      "gate_status": "promotion_ready",
       "research_evidence_complete": true,
       "missing_evidence": [],
       "thresholds_met": true,
@@ -169,16 +167,14 @@
         }
       ],
       "verification": "python -B labs/map_elites_archive/test_extended_descriptors.py",
-      "promotion_blockers": [
-        "target_package_absent"
-      ],
+      "promotion_blockers": [],
       "research_blocker_details": [],
       "research_notes": "Descriptor space is richer but sparse."
     },
     {
       "component_id": "provenance_ci",
-      "target_package": "packages/mecha_engine/provenance",
-      "gate_status": "ready_for_package_design",
+      "target_package": "packages/mecha_engine/src/mecha_engine/provenance",
+      "gate_status": "promotion_ready",
       "research_evidence_complete": true,
       "missing_evidence": [],
       "thresholds_met": true,
@@ -204,15 +200,13 @@
         }
       ],
       "verification": "python -B labs/asset_pipeline/test_provenance_ledger.py",
-      "promotion_blockers": [
-        "target_package_absent"
-      ],
+      "promotion_blockers": [],
       "research_blocker_details": [],
       "research_notes": "Research-artifact provenance gate is adoptable."
     },
     {
       "component_id": "readability_gate",
-      "target_package": "packages/mecha_engine/evaluation",
+      "target_package": "packages/mecha_engine/src/mecha_engine/evaluation",
       "gate_status": "blocked_missing_or_failed_research_evidence",
       "research_evidence_complete": false,
       "missing_evidence": [],
@@ -253,7 +247,7 @@
     },
     {
       "component_id": "ca_nca_repair",
-      "target_package": "packages/mecha_engine/repair",
+      "target_package": "packages/mecha_engine/src/mecha_engine/repair",
       "gate_status": "hold_research_only",
       "research_evidence_complete": true,
       "missing_evidence": [],
@@ -308,9 +302,9 @@
     }
   ],
   "decision": {
-    "status": "criteria_defined_no_ready_candidates",
-    "adoption": "hold",
-    "reason": "The package root exists but no component clears the promotion gate."
+    "status": "promotion_candidates_available",
+    "adoption": "review_before_copying_lab_code",
+    "reason": "At least one candidate has evidence and a package boundary."
   },
   "source_refs": [
     {

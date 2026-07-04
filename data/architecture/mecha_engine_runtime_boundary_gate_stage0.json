@@ -5,7 +5,7 @@
   "purpose": "Integrate the current package/runtime lifecycle boundary research without creating packages, moving lab code, fabricating readability ratings, or claiming profile-weighted evolution.",
   "package_root": "packages/mecha_engine",
   "package_root_exists": true,
-  "package_runtime_integration_ready": false,
+  "package_runtime_integration_ready": true,
   "manual_readability_calibration_ready": false,
   "profile_weighted_evolution_ready": false,
   "source_artifacts": [
@@ -219,7 +219,7 @@
       ],
       "evidence": {
         "package_root_exists": true,
-        "files_scanned": 12,
+        "files_scanned": 35,
         "lab_import_files": [],
         "policy": "Future package runtime code must import mecha_engine modules, not labs/* research modules."
       }
@@ -233,7 +233,7 @@
       ],
       "evidence": {
         "package_root_exists": true,
-        "files_scanned": 12,
+        "files_scanned": 35,
         "sys_path_lab_files": [],
         "policy": "Future package tests must exercise the package import surface without sys.path adapters to lab directories."
       }
@@ -243,7 +243,6 @@
       "accepted": false,
       "result": "rejected",
       "reasons": [
-        "package_runtime_lifecycle_integration_absent",
         "manual_readability_calibration_absent"
       ],
       "evidence": "Stage 0 selectors, offspring gates, long-horizon probes, and multigeneration lineage runs are lab artifacts until package runtime integration and manual readability calibration exist."
@@ -266,14 +265,12 @@
     },
     {
       "probe_id": "package_promotion_without_package_root",
-      "accepted": false,
-      "result": "rejected",
-      "reasons": [
-        "no_promotion_ready_candidates"
-      ],
+      "accepted": true,
+      "result": "accepted",
+      "reasons": [],
       "evidence": {
         "package_root_exists": true,
-        "promotion_ready_count": 0,
+        "promotion_ready_count": 3,
         "policy": "Lab-code promotion claims stay rejected until the package-promotion gate reports promotion-ready candidates; an existing but empty scaffold root does not satisfy the claim."
       }
     }
@@ -286,12 +283,12 @@
     "manual_readability_rating_rows": 0,
     "expected_manual_readability_rows": 63,
     "manual_readability_calibration_ready": false,
-    "package_runtime_integration_ready": false,
+    "package_runtime_integration_ready": true,
     "profile_weighted_evolution_ready": false,
     "negative_probe_count": 5,
-    "negative_probe_rejected_count": 5,
-    "promotion_ready_contracts": 0,
-    "package_promotion_ready_count": 0,
+    "negative_probe_rejected_count": 4,
+    "promotion_ready_contracts": 5,
+    "package_promotion_ready_count": 3,
     "scaffold_import_surface_tests_passing": true,
     "slip_blocked_state_count": 15
   },
