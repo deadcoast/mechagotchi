@@ -231,33 +231,33 @@
     "descriptor_dimensions": 7,
     "candidate_count": 12,
     "lifecycle_ticks": 12,
-    "occupied_niches": 7,
-    "coverage": 9e-05,
-    "best_fitness": 0.973629,
-    "mean_elite_fitness": 0.960404,
-    "qd_score": 6.722827,
-    "elite_count": 7,
+    "occupied_niches": 10,
+    "coverage": 0.000128,
+    "best_fitness": 0.939533,
+    "mean_elite_fitness": 0.901632,
+    "qd_score": 9.016318,
+    "elite_count": 10,
     "score_component_means": {
       "bond": 0.993,
-      "mutation_stability": 0.9775,
-      "readability": 0.847891,
+      "mutation_stability": 0.363874,
+      "readability": 0.858685,
       "slip_alignment": 1.0,
       "survival": 1.0,
       "validity": 1.0
     },
     "descriptor_metric_means": {
-      "behavior_neediness": 0.402857,
-      "body_mass": 9.857143,
+      "behavior_neediness": 0.391,
+      "body_mass": 9.9,
       "lifecycle_survival": 1.0,
-      "mutation_stability": 0.9775,
-      "readability": 0.847891,
-      "sensor_count": 2.142857,
-      "symmetry": 0.521787
+      "mutation_stability": 0.363874,
+      "readability": 0.858685,
+      "sensor_count": 2.0,
+      "symmetry": 0.505727
     },
     "representative_elites": [
       {
         "grid_id": "slip_lcd_seed_constrained_009",
-        "fitness": 0.964767,
+        "fitness": 0.898875,
         "descriptor": {
           "names": [
             "body_mass",
@@ -274,17 +274,17 @@
             1,
             4,
             4,
-            4,
+            1,
             1
           ],
-          "key": "1,1,1,4,4,4,1",
+          "key": "1,1,1,4,4,1,1",
           "metrics": {
             "body_mass": 9,
             "sensor_count": 2,
             "symmetry": 0.333333,
             "readability": 0.866069,
             "lifecycle_survival": 1.0,
-            "mutation_stability": 0.9775,
+            "mutation_stability": 0.318582,
             "behavior_neediness": 0.4
           }
         },
@@ -293,13 +293,55 @@
           "readability": 0.866069,
           "validity": 1.0,
           "bond": 0.993,
-          "mutation_stability": 0.9775,
+          "mutation_stability": 0.318582,
+          "slip_alignment": 1.0
+        }
+      },
+      {
+        "grid_id": "slip_lcd_seed_constrained_010",
+        "fitness": 0.934247,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            1,
+            1,
+            1,
+            4,
+            4,
+            2,
+            1
+          ],
+          "key": "1,1,1,4,4,2,1",
+          "metrics": {
+            "body_mass": 9,
+            "sensor_count": 2,
+            "symmetry": 0.333333,
+            "readability": 0.866069,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.672302,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.866069,
+          "validity": 1.0,
+          "bond": 0.993,
+          "mutation_stability": 0.672302,
           "slip_alignment": 1.0
         }
       },
       {
         "grid_id": "slip_lcd_seed_constrained_011",
-        "fitness": 0.967783,
+        "fitness": 0.879833,
         "descriptor": {
           "names": [
             "body_mass",
@@ -316,17 +358,17 @@
             2,
             4,
             4,
-            4,
+            0,
             2
           ],
-          "key": "1,1,2,4,4,4,2",
+          "key": "1,1,2,4,4,0,2",
           "metrics": {
             "body_mass": 8,
             "sensor_count": 2,
             "symmetry": 0.545455,
             "readability": 0.878639,
             "lifecycle_survival": 1.0,
-            "mutation_stability": 0.9775,
+            "mutation_stability": 0.098,
             "behavior_neediness": 0.41
           }
         },
@@ -335,49 +377,7 @@
           "readability": 0.878639,
           "validity": 1.0,
           "bond": 0.993,
-          "mutation_stability": 0.9775,
-          "slip_alignment": 1.0
-        }
-      },
-      {
-        "grid_id": "slip_lcd_seed_constrained_008",
-        "fitness": 0.944192,
-        "descriptor": {
-          "names": [
-            "body_mass",
-            "sensor_count",
-            "symmetry",
-            "readability",
-            "lifecycle_survival",
-            "mutation_stability",
-            "behavior_neediness"
-          ],
-          "values": [
-            1,
-            2,
-            1,
-            3,
-            4,
-            4,
-            2
-          ],
-          "key": "1,2,1,3,4,4,2",
-          "metrics": {
-            "body_mass": 8,
-            "sensor_count": 3,
-            "symmetry": 0.5,
-            "readability": 0.780343,
-            "lifecycle_survival": 1.0,
-            "mutation_stability": 0.9775,
-            "behavior_neediness": 0.49
-          }
-        },
-        "score_components": {
-          "survival": 1.0,
-          "readability": 0.780343,
-          "validity": 1.0,
-          "bond": 0.993,
-          "mutation_stability": 0.9775,
+          "mutation_stability": 0.098,
           "slip_alignment": 1.0
         }
       }
@@ -402,13 +402,13 @@
       "preview_signal": 0.4225,
       "cell_mutation_budget": 2,
       "organ_shift_budget": 1,
-      "archive_mutation_stability_mean": 0.9775
+      "archive_mutation_stability_mean": 0.363874
     },
     "mutation_caution_to_archive": {
       "preview_signal": 0.5625,
       "caps_respected": true,
-      "archive_best_fitness": 0.973629,
-      "archive_qd_score": 6.722827
+      "archive_best_fitness": 0.939533,
+      "archive_qd_score": 9.016318
     }
   },
   "preview_effect_fingerprint": [
@@ -431,14 +431,14 @@
     0.288
   ],
   "archive_effect_fingerprint": [
-    7.0,
-    9e-05,
-    0.973629,
-    0.960404,
-    6.722827,
+    10.0,
+    0.000128,
+    0.939533,
+    0.901632,
+    9.016318,
     1.0,
-    0.402857,
-    0.9775,
+    0.391,
+    0.363874,
     1.0
   ],
   "measured_effect_fingerprint": {
@@ -447,8 +447,8 @@
     "lifecycle_recovery_rate": 0.166667,
     "lifecycle_play_ratio": 0.666667,
     "lifecycle_sleep_ratio": 0.166667,
-    "archive_occupied_niches": 7,
-    "archive_best_fitness": 0.973629,
-    "archive_qd_score": 6.722827
+    "archive_occupied_niches": 10,
+    "archive_best_fitness": 0.939533,
+    "archive_qd_score": 9.016318
   }
 }

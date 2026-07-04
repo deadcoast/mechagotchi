@@ -5,14 +5,14 @@ window.MECHAGOTCHI_SLIP_OFFSPRING_LINEAGE_GATE = {
   "metrics": {
     "offspring_gate_success_rate": 1.0,
     "invalid_probe_rejection_rate": 1.0,
-    "mean_selected_offspring_score": 0.928194,
+    "mean_selected_offspring_score": 0.941742,
     "mean_selected_offspring_need_balance": 0.793865,
     "mean_selected_offspring_survival_ratio": 1.0,
     "distinct_selected_offspring_ids": 3,
     "distinct_selected_offspring_niches": 3,
     "replace_parent_count": 0,
-    "add_archive_niche_count": 1,
-    "hold_parent_count": 2,
+    "add_archive_niche_count": 2,
+    "hold_parent_count": 1,
     "offspring_mutation_selection_specified": true,
     "lineage_replacement_policy_specified": true
   },
@@ -21,23 +21,23 @@ window.MECHAGOTCHI_SLIP_OFFSPRING_LINEAGE_GATE = {
       "profile_id": "slip_lcd_seed",
       "gate_started": true,
       "validation_ok": true,
-      "parent_grid_id": "slip_lcd_seed_constrained_011",
-      "selected_offspring_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
-      "selected_offspring_score": 0.916112,
-      "selected_archive_niche": "1,1,2,4,4,4,2",
-      "lineage_action": "hold_parent",
-      "lineage_reason": "parent remains elite until child beats replacement threshold"
+      "parent_grid_id": "slip_lcd_seed_constrained_007",
+      "selected_offspring_id": "slip_lcd_seed_constrained_007_offspring_core_growth",
+      "selected_offspring_score": 0.952005,
+      "selected_archive_niche": "2,2,1,3,4,3,2",
+      "lineage_action": "add_archive_niche",
+      "lineage_reason": "child opens a qualified archive niche without displacing parent"
     },
     {
       "profile_id": "slip_gray_stable",
       "gate_started": true,
       "validation_ok": true,
-      "parent_grid_id": "slip_gray_stable_constrained_008",
-      "selected_offspring_id": "slip_gray_stable_constrained_008_offspring_core_growth",
-      "selected_offspring_score": 0.954665,
-      "selected_archive_niche": "2,1,1,4,4,4,1",
-      "lineage_action": "add_archive_niche",
-      "lineage_reason": "child opens a qualified archive niche without displacing parent"
+      "parent_grid_id": "slip_gray_stable_constrained_004",
+      "selected_offspring_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
+      "selected_offspring_score": 0.920873,
+      "selected_archive_niche": "2,1,1,3,4,4,1",
+      "lineage_action": "hold_parent",
+      "lineage_reason": "parent remains elite until child beats replacement threshold"
     },
     {
       "profile_id": "slip_amber_social",
@@ -45,10 +45,10 @@ window.MECHAGOTCHI_SLIP_OFFSPRING_LINEAGE_GATE = {
       "validation_ok": true,
       "parent_grid_id": "slip_amber_social_constrained_004",
       "selected_offspring_id": "slip_amber_social_constrained_004_offspring_stability_tune",
-      "selected_offspring_score": 0.913805,
-      "selected_archive_niche": "2,0,2,4,4,4,1",
-      "lineage_action": "hold_parent",
-      "lineage_reason": "parent remains elite until child beats replacement threshold"
+      "selected_offspring_score": 0.952347,
+      "selected_archive_niche": "2,0,2,4,4,3,1",
+      "lineage_action": "add_archive_niche",
+      "lineage_reason": "child opens a qualified archive niche without displacing parent"
     }
   ],
   "closed_states": [
@@ -59,7 +59,6 @@ window.MECHAGOTCHI_SLIP_OFFSPRING_LINEAGE_GATE = {
   ],
   "blocked_states": [
     "runtime_jsonschema_validation",
-    "declared_dependency_manifest",
     "profile_weighted_evolution",
     "package_runtime_lifecycle_integration",
     "held_out_long_horizon_behavior_tests",

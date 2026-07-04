@@ -21,7 +21,6 @@ window.MECHAGOTCHI_SLIP_AUTHORING_PANEL = {
     ],
     "blocked_states": [
       "runtime_jsonschema_validation",
-      "declared_dependency_manifest",
       "profile_weighted_evolution",
       "package_runtime_lifecycle_integration",
       "real_image_project_decoder",
@@ -126,12 +125,12 @@ window.MECHAGOTCHI_SLIP_AUTHORING_PANEL = {
         "unknown_version_action": "reject_before_validation"
       },
       "dependency_contracts": {
-        "dependency_manifest_present": false,
+        "dependency_manifest_present": true,
         "pydantic_available": true,
         "pydantic_version": "2.12.5",
-        "jsonschema_available": false,
-        "jsonschema_version": null,
-        "runtime_jsonschema_policy": "defer_python_jsonschema_until_dependency_manifest_exists"
+        "jsonschema_available": true,
+        "jsonschema_version": "4.26.0",
+        "runtime_jsonschema_policy": "declared_in_lab_dependency_group_runtime_validation_proven_by_parity_lab"
       },
       "validation": {
         "ok": true,
@@ -255,12 +254,12 @@ window.MECHAGOTCHI_SLIP_AUTHORING_PANEL = {
         "unknown_version_action": "reject_before_validation"
       },
       "dependency_contracts": {
-        "dependency_manifest_present": false,
+        "dependency_manifest_present": true,
         "pydantic_available": true,
         "pydantic_version": "2.12.5",
-        "jsonschema_available": false,
-        "jsonschema_version": null,
-        "runtime_jsonschema_policy": "defer_python_jsonschema_until_dependency_manifest_exists"
+        "jsonschema_available": true,
+        "jsonschema_version": "4.26.0",
+        "runtime_jsonschema_policy": "declared_in_lab_dependency_group_runtime_validation_proven_by_parity_lab"
       },
       "validation": {
         "ok": true,
@@ -384,12 +383,12 @@ window.MECHAGOTCHI_SLIP_AUTHORING_PANEL = {
         "unknown_version_action": "reject_before_validation"
       },
       "dependency_contracts": {
-        "dependency_manifest_present": false,
+        "dependency_manifest_present": true,
         "pydantic_available": true,
         "pydantic_version": "2.12.5",
-        "jsonschema_available": false,
-        "jsonschema_version": null,
-        "runtime_jsonschema_policy": "defer_python_jsonschema_until_dependency_manifest_exists"
+        "jsonschema_available": true,
+        "jsonschema_version": "4.26.0",
+        "runtime_jsonschema_policy": "declared_in_lab_dependency_group_runtime_validation_proven_by_parity_lab"
       },
       "validation": {
         "ok": true,

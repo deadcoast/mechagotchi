@@ -231,33 +231,33 @@
     "descriptor_dimensions": 7,
     "candidate_count": 12,
     "lifecycle_ticks": 12,
-    "occupied_niches": 8,
-    "coverage": 0.000102,
-    "best_fitness": 0.973786,
-    "mean_elite_fitness": 0.955711,
-    "qd_score": 7.645688,
-    "elite_count": 8,
+    "occupied_niches": 12,
+    "coverage": 0.000154,
+    "best_fitness": 0.957558,
+    "mean_elite_fitness": 0.91098,
+    "qd_score": 10.931758,
+    "elite_count": 12,
     "score_component_means": {
-      "bond": 1.0,
-      "mutation_stability": 0.9775,
-      "readability": 0.824837,
+      "bond": 0.903,
+      "mutation_stability": 0.634095,
+      "readability": 0.830043,
       "slip_alignment": 1.0,
       "survival": 1.0,
       "validity": 1.0
     },
     "descriptor_metric_means": {
-      "behavior_neediness": 0.37125,
-      "body_mass": 9.875,
+      "behavior_neediness": 0.341667,
+      "body_mass": 10.166667,
       "lifecycle_survival": 1.0,
-      "mutation_stability": 0.9775,
-      "readability": 0.824837,
-      "sensor_count": 2.0,
-      "symmetry": 0.475525
+      "mutation_stability": 0.634095,
+      "readability": 0.830043,
+      "sensor_count": 1.666667,
+      "symmetry": 0.461372
     },
     "representative_elites": [
       {
         "grid_id": "slip_gray_stable_constrained_008",
-        "fitness": 0.970124,
+        "fitness": 0.91187,
         "descriptor": {
           "names": [
             "body_mass",
@@ -274,17 +274,17 @@
             1,
             4,
             4,
-            4,
+            1,
             1
           ],
-          "key": "1,1,1,4,4,4,1",
+          "key": "1,1,1,4,4,1,1",
           "metrics": {
             "body_mass": 9,
             "sensor_count": 2,
             "symmetry": 0.5,
             "readability": 0.884891,
             "lifecycle_survival": 1.0,
-            "mutation_stability": 0.9775,
+            "mutation_stability": 0.39496,
             "behavior_neediness": 0.38
           }
         },
@@ -293,13 +293,13 @@
           "readability": 0.884891,
           "validity": 1.0,
           "bond": 1.0,
-          "mutation_stability": 0.9775,
+          "mutation_stability": 0.39496,
           "slip_alignment": 1.0
         }
       },
       {
         "grid_id": "slip_gray_stable_constrained_011",
-        "fitness": 0.929396,
+        "fitness": 0.898046,
         "descriptor": {
           "names": [
             "body_mass",
@@ -316,17 +316,17 @@
             1,
             3,
             4,
-            4,
+            2,
             2
           ],
-          "key": "1,2,1,3,4,4,2",
+          "key": "1,2,1,3,4,2,2",
           "metrics": {
             "body_mass": 8,
             "sensor_count": 3,
             "symmetry": 0.333333,
             "readability": 0.71519,
             "lifecycle_survival": 1.0,
-            "mutation_stability": 0.9775,
+            "mutation_stability": 0.664003,
             "behavior_neediness": 0.47
           }
         },
@@ -335,13 +335,13 @@
           "readability": 0.71519,
           "validity": 1.0,
           "bond": 1.0,
-          "mutation_stability": 0.9775,
+          "mutation_stability": 0.664003,
           "slip_alignment": 1.0
         }
       },
       {
         "grid_id": "slip_gray_stable_constrained_009",
-        "fitness": 0.973786,
+        "fitness": 0.931556,
         "descriptor": {
           "names": [
             "body_mass",
@@ -358,17 +358,17 @@
             1,
             4,
             4,
-            4,
+            2,
             1
           ],
-          "key": "2,0,1,4,4,4,1",
+          "key": "2,0,1,4,4,2,1",
           "metrics": {
             "body_mass": 10,
             "sensor_count": 1,
             "symmetry": 0.5,
             "readability": 0.900149,
             "lifecycle_survival": 1.0,
-            "mutation_stability": 0.9775,
+            "mutation_stability": 0.555203,
             "behavior_neediness": 0.29
           }
         },
@@ -377,7 +377,7 @@
           "readability": 0.900149,
           "validity": 1.0,
           "bond": 1.0,
-          "mutation_stability": 0.9775,
+          "mutation_stability": 0.555203,
           "slip_alignment": 1.0
         }
       }
@@ -402,13 +402,13 @@
       "preview_signal": 0.2275,
       "cell_mutation_budget": 2,
       "organ_shift_budget": 1,
-      "archive_mutation_stability_mean": 0.9775
+      "archive_mutation_stability_mean": 0.634095
     },
     "mutation_caution_to_archive": {
       "preview_signal": 0.74,
       "caps_respected": true,
-      "archive_best_fitness": 0.973786,
-      "archive_qd_score": 7.645688
+      "archive_best_fitness": 0.957558,
+      "archive_qd_score": 10.931758
     }
   },
   "preview_effect_fingerprint": [
@@ -431,14 +431,14 @@
     0.2268
   ],
   "archive_effect_fingerprint": [
-    8.0,
-    0.000102,
-    0.973786,
-    0.955711,
-    7.645688,
+    12.0,
+    0.000154,
+    0.957558,
+    0.91098,
+    10.931758,
     1.0,
-    0.37125,
-    0.9775,
+    0.341667,
+    0.634095,
     1.0
   ],
   "measured_effect_fingerprint": {
@@ -447,8 +447,8 @@
     "lifecycle_recovery_rate": 0.333333,
     "lifecycle_play_ratio": 0.666667,
     "lifecycle_sleep_ratio": 0.166667,
-    "archive_occupied_niches": 8,
-    "archive_best_fitness": 0.973786,
-    "archive_qd_score": 7.645688
+    "archive_occupied_niches": 12,
+    "archive_best_fitness": 0.957558,
+    "archive_qd_score": 10.931758
   }
 }

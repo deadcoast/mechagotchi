@@ -15,8 +15,8 @@
     "validation_ok": true,
     "runtime_parent_grid_id": "slip_amber_social_constrained_004",
     "selected_offspring_grid_id": "slip_amber_social_constrained_004_offspring_stability_tune",
-    "selected_offspring_score": 0.913805,
-    "lineage_action": "hold_parent"
+    "selected_offspring_score": 0.952347,
+    "lineage_action": "add_archive_niche"
   },
   "validation": {
     "ok": true,

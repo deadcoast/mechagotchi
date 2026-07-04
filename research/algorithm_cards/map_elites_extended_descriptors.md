@@ -45,11 +45,12 @@ new bins:
 - Lifecycle probes are synthetic and short.
 - Readability is still proxy-scored until manual ratings are collected.
 - Seven 5-bin dimensions create a large sparse space.
-- `descriptor_bin_spread` on the 2026-07-04 run shows `lifecycle_survival`
-  and `mutation_stability` are degenerate (spread 1) for the current seed
-  corpus: all candidates survive the short probe and share one mutation
-  vector. Threshold calibration and corpus variation remain open (review
-  finding L-12).
+- Lifecycle dynamics are bistable under the switchboard policy (stress load
+  ≤ 0.94 stabilizes forever; ≥ 0.95 collapses at tick 12–14), so the
+  morphology-derived stress probe yields survival spread 2, not a continuum;
+  intermediate survival bins await a harsher lifecycle model.
+- `mutation_stability` is cap-normalized (`1 − mean(rate/cap)`): the raw-mean
+  form mathematically could not leave the top bin under LCD caps.
 
 ## Failure Modes
 
@@ -95,6 +96,21 @@ extended_mean_elite_fitness: 0.958156
 extended_qd_score: 31.619138
 descriptor_bin_spread: body_mass 3, sensor_count 4, symmetry 4,
   readability 3, lifecycle_survival 1, mutation_stability 1,
+  behavior_neediness 2
+```
+
+Descriptor-axis calibration regenerated on 2026-07-04 (review finding
+L-12): per-candidate mutation-temperature jitter within SLIP caps in the
+constrained generator, cap-normalized mutation stability, and a
+morphology-derived lifecycle stress probe.
+
+```txt
+candidate_count: 160
+extended_occupied_niches: 83
+extended_best_fitness: 0.972366
+extended_qd_score: 72.069987
+descriptor_bin_spread: body_mass 3, sensor_count 4, symmetry 4,
+  readability 3, lifecycle_survival 2, mutation_stability 5,
   behavior_neediness 2
 ```
 

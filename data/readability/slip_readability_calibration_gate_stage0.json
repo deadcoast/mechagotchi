@@ -64,8 +64,8 @@
     },
     "samples": [
       {
-        "sample_id": "selected_offspring:slip_lcd_seed_constrained_011_offspring_stability_tune",
-        "grid_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
+        "sample_id": "selected_offspring:slip_lcd_seed_constrained_007_offspring_core_growth",
+        "grid_id": "slip_lcd_seed_constrained_007_offspring_core_growth",
         "source": "selected_offspring",
         "profile_id": "slip_lcd_seed",
         "path": null,
@@ -73,28 +73,28 @@
           8,
           8
         ],
-        "cell_count": 11,
+        "cell_count": 16,
         "readability": {
-          "grid_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
+          "grid_id": "slip_lcd_seed_constrained_007_offspring_core_growth",
           "valid": true,
           "validation_errors": [],
-          "proxy_readability_score": 0.878639,
+          "proxy_readability_score": 0.800504,
           "metrics": {
-            "connected_components": 1,
-            "body_mass_ratio": 0.125,
-            "silhouette_entropy": 0.765371,
-            "symmetry_score": 0.545455,
-            "organ_detectability": 1.0,
+            "connected_components": 2,
+            "body_mass_ratio": 0.1875,
+            "silhouette_entropy": 0.822429,
+            "symmetry_score": 0.5,
+            "organ_detectability": 0.85,
             "palette_contrast": 1.0,
             "animation_anchor_coverage": 1.0
           },
           "score_components": {
             "validity": 1.0,
-            "component_score": 1.0,
-            "body_mass_score": 0.75,
-            "silhouette_score": 0.617446,
-            "symmetry_score": 0.545455,
-            "organ_detectability": 1.0,
+            "component_score": 0.75,
+            "body_mass_score": 0.803571,
+            "silhouette_score": 0.467291,
+            "symmetry_score": 0.5,
+            "organ_detectability": 0.85,
             "palette_contrast": 1.0,
             "animation_anchor_coverage": 1.0
           },
@@ -105,7 +105,7 @@
         "manual_rating_status": "not_collected",
         "provenance": {
           "long_horizon_probe_id": "slip_lcd_seed_long_horizon_behavior_gate",
-          "runtime_parent_grid_id": "slip_lcd_seed_constrained_011",
+          "runtime_parent_grid_id": "slip_lcd_seed_constrained_007",
           "selection_source": "slip_long_horizon_behavior_gate_stage0"
         }
       },
@@ -386,8 +386,8 @@
         }
       },
       {
-        "sample_id": "selected_offspring:slip_gray_stable_constrained_008_offspring_core_growth",
-        "grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
+        "sample_id": "selected_offspring:slip_gray_stable_constrained_004_offspring_stability_tune",
+        "grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
         "source": "selected_offspring",
         "profile_id": "slip_gray_stable",
         "path": null,
@@ -397,16 +397,16 @@
         ],
         "cell_count": 13,
         "readability": {
-          "grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
+          "grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
           "valid": true,
           "validation_errors": [],
-          "proxy_readability_score": 0.894487,
+          "proxy_readability_score": 0.848218,
           "metrics": {
             "connected_components": 1,
             "body_mass_ratio": 0.15625,
-            "silhouette_entropy": 0.773433,
+            "silhouette_entropy": 0.791703,
             "symmetry_score": 0.461538,
-            "organ_detectability": 1.0,
+            "organ_detectability": 0.775,
             "palette_contrast": 1.0,
             "animation_anchor_coverage": 1.0
           },
@@ -414,9 +414,9 @@
             "validity": 1.0,
             "component_score": 1.0,
             "body_mass_score": 0.973214,
-            "silhouette_score": 0.59623,
+            "silhouette_score": 0.54815,
             "symmetry_score": 0.461538,
-            "organ_detectability": 1.0,
+            "organ_detectability": 0.775,
             "palette_contrast": 1.0,
             "animation_anchor_coverage": 1.0
           },
@@ -427,7 +427,7 @@
         "manual_rating_status": "not_collected",
         "provenance": {
           "long_horizon_probe_id": "slip_gray_stable_long_horizon_behavior_gate",
-          "runtime_parent_grid_id": "slip_gray_stable_constrained_008",
+          "runtime_parent_grid_id": "slip_gray_stable_constrained_004",
           "selection_source": "slip_long_horizon_behavior_gate_stage0"
         }
       },
@@ -1044,12 +1044,12 @@
         "selected_offspring": {
           "count": 3,
           "valid_count": 3,
-          "mean_proxy_readability_score": 0.894907,
-          "min_proxy_readability_score": 0.878639,
+          "mean_proxy_readability_score": 0.853439,
+          "min_proxy_readability_score": 0.800504,
           "max_proxy_readability_score": 0.911596
         }
       },
-      "mean_proxy_readability_score": 0.835645,
+      "mean_proxy_readability_score": 0.829721,
       "min_proxy_readability_score": 0.768319,
       "max_proxy_readability_score": 0.911596
     }
@@ -1088,8 +1088,8 @@
       ],
       "rows": [
         {
-          "sample_id": "selected_offspring:slip_lcd_seed_constrained_011_offspring_stability_tune",
-          "grid_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
+          "sample_id": "selected_offspring:slip_lcd_seed_constrained_007_offspring_core_growth",
+          "grid_id": "slip_lcd_seed_constrained_007_offspring_core_growth",
           "source": "selected_offspring",
           "reviewer_id": "",
           "silhouette": "",
@@ -1172,8 +1172,8 @@
           "notes": ""
         },
         {
-          "sample_id": "selected_offspring:slip_gray_stable_constrained_008_offspring_core_growth",
-          "grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
+          "sample_id": "selected_offspring:slip_gray_stable_constrained_004_offspring_stability_tune",
+          "grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
           "source": "selected_offspring",
           "reviewer_id": "",
           "silhouette": "",
@@ -1384,8 +1384,8 @@
     ],
     "rows": [
       {
-        "sample_id": "selected_offspring:slip_lcd_seed_constrained_011_offspring_stability_tune",
-        "grid_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
+        "sample_id": "selected_offspring:slip_lcd_seed_constrained_007_offspring_core_growth",
+        "grid_id": "slip_lcd_seed_constrained_007_offspring_core_growth",
         "source": "selected_offspring",
         "reviewer_id": "",
         "silhouette": "",
@@ -1468,8 +1468,8 @@
         "notes": ""
       },
       {
-        "sample_id": "selected_offspring:slip_gray_stable_constrained_008_offspring_core_growth",
-        "grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
+        "sample_id": "selected_offspring:slip_gray_stable_constrained_004_offspring_stability_tune",
+        "grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
         "source": "selected_offspring",
         "reviewer_id": "",
         "silhouette": "",
@@ -1650,7 +1650,7 @@
     "sample_count": 21,
     "selected_offspring_sample_count": 3,
     "held_out_long_horizon_sample_count": 18,
-    "mean_proxy_readability_score": 0.835645,
+    "mean_proxy_readability_score": 0.829721,
     "rating_row_count": 0,
     "valid_rating_row_count": 0,
     "rated_sample_count": 0,

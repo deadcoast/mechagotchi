@@ -1,7 +1,7 @@
 {
   "grid_id": "mg_constrained_031",
   "schema_version": "0.1.0",
-  "parent_grid_id": null,
+  "parent_grid_id": "mg_seed_016",
   "grid_size": [
     8,
     8
@@ -242,14 +242,16 @@
     "background_index": 0
   },
   "mutation": {
-    "cell_mutation_rate": 0.05,
-    "organ_shift_rate": 0.02,
-    "palette_shift_rate": 0.01,
-    "symmetry_break_rate": 0.01
+    "cell_mutation_rate": 0.011063,
+    "organ_shift_rate": 0.003688,
+    "palette_shift_rate": 0.003688,
+    "symmetry_break_rate": 0.003688
   },
   "lineage": {
-    "generation": 0,
-    "ancestor_ids": [],
+    "generation": 1,
+    "ancestor_ids": [
+      "mg_seed_016"
+    ],
     "mutation_events": [
       "seed_parent_selected",
       "validator_gated_resample",

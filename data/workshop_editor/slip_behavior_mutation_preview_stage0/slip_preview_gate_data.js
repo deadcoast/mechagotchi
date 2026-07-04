@@ -23,7 +23,6 @@ window.MECHAGOTCHI_SLIP_PREVIEW_GATES = {
     ],
     "blocked_states": [
       "runtime_jsonschema_validation",
-      "declared_dependency_manifest",
       "profile_weighted_evolution",
       "package_runtime_lifecycle_integration",
       "png_adam7_interlace_decoder",

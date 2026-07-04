@@ -12,10 +12,10 @@
     "profile_id": "slip_gray_stable",
     "selection_started": true,
     "validation_ok": true,
-    "candidate_record_count": 8,
-    "selected_grid_id": "slip_gray_stable_constrained_008",
-    "selected_archive_niche": "1,1,1,4,4,4,1",
-    "selected_score": 0.955179
+    "candidate_record_count": 12,
+    "selected_grid_id": "slip_gray_stable_constrained_004",
+    "selected_archive_niche": "2,1,1,3,4,4,1",
+    "selected_score": 0.94518
   },
   "validation": {
     "ok": true,
@@ -69,14 +69,14 @@
     "frontier_policy": "continue_qualified_selected_child_for_lineage_stress_test"
   },
   "initial_parent": {
-    "grid_id": "slip_gray_stable_constrained_008",
-    "archive_niche": "1,1,1,4,4,4,1",
-    "archive_fitness": 0.970124,
-    "selection_score": 0.955179,
+    "grid_id": "slip_gray_stable_constrained_004",
+    "archive_niche": "2,1,1,3,4,4,1",
+    "archive_fitness": 0.957558,
+    "selection_score": 0.94518,
     "lineage": {
       "generation": 1,
       "ancestor_ids": [
-        "mg_seed_017"
+        "mg_seed_037"
       ],
       "mutation_events": [
         "seed_parent_selected",
@@ -110,49 +110,49 @@
     }
   },
   "final_frontier_parent": {
-    "grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_0afe0c30d3",
-    "archive_niche": "2,1,1,4,4,4,1",
-    "selection_score": 0.92196,
-    "archive_fitness": 0.972988
+    "grid_id": "slip_gray_stable_constrained_004_offspring_stability_f96f199e15",
+    "archive_niche": "2,1,1,3,4,4,1",
+    "selection_score": 0.921004,
+    "archive_fitness": 0.961036
   },
   "generation_records": [
     {
       "generation_index": 1,
-      "parent_grid_id": "slip_gray_stable_constrained_008",
+      "parent_grid_id": "slip_gray_stable_constrained_004",
       "parent_generation": 1,
       "offspring_candidate_count": 3,
       "offspring_candidates": [
         {
-          "grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
-          "parent_grid_id": "slip_gray_stable_constrained_008",
+          "grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
+          "parent_grid_id": "slip_gray_stable_constrained_004",
           "lineage": {
             "generation": 2,
             "ancestor_ids": [
-              "mg_seed_017",
-              "slip_gray_stable_constrained_008"
+              "mg_seed_037",
+              "slip_gray_stable_constrained_004"
             ],
             "mutation_events": [
               "seed_parent_selected",
               "validator_gated_resample",
               "anchor_repositioned",
-              "offspring_core_growth"
+              "offspring_stability_tune"
             ]
           },
-          "archive_niche": "2,1,1,4,4,4,1",
-          "parent_archive_niche": "1,1,1,4,4,4,1",
-          "opens_new_archive_niche": true,
-          "offspring_score": 0.954594,
+          "archive_niche": "2,1,1,3,4,4,1",
+          "parent_archive_niche": "2,1,1,3,4,4,1",
+          "opens_new_archive_niche": false,
+          "offspring_score": 0.920873,
           "components": {
             "survival_ratio": 1.0,
             "need_balance": 0.785464,
             "bond": 1.0,
-            "archive_fitness": 0.972102,
+            "archive_fitness": 0.959062,
             "parent_score_continuity": 1.0,
-            "qualified_novelty": 1.0,
+            "qualified_novelty": 0.55,
             "mutation_budget_compliance": 1.0,
             "validity": 1.0,
             "slip_alignment": 1.0,
-            "parent_archive_delta": 0.501978
+            "parent_archive_delta": 0.501504
           },
           "component_weights": {
             "survival_ratio": 0.7250000000000001,
@@ -194,173 +194,19 @@
             "body_mass": 10,
             "sensor_count": 2,
             "symmetry": 0.461538,
-            "readability": 0.892195,
+            "readability": 0.848218,
             "lifecycle_survival": 1.0,
-            "mutation_stability": 0.97975,
+            "mutation_stability": 0.954897,
             "behavior_neediness": 0.37
           },
           "extended_score": {
-            "fitness": 0.972102,
+            "fitness": 0.959062,
             "components": {
               "survival": 1.0,
-              "readability": 0.892195,
+              "readability": 0.848218,
               "validity": 1.0,
               "bond": 1.0,
-              "mutation_stability": 0.97975,
-              "slip_alignment": 1.0
-            }
-          },
-          "mutation_delta": {
-            "cell_mutation_count": 1,
-            "organ_shift_count": 0,
-            "palette_shift_count": 0,
-            "symmetry_break_count": 1,
-            "changed_cells": [
-              [
-                1,
-                3
-              ]
-            ]
-          },
-          "cap_compliance": {
-            "checks": {
-              "cell_mutation_count_within_cap": true,
-              "organ_shift_count_within_cap": true,
-              "symmetry_break_count_within_cap": true,
-              "palette_shift_count_within_cap": true
-            },
-            "caps_respected": true
-          },
-          "validation": {
-            "ok": true,
-            "profile_id": "slip_gray_stable",
-            "grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
-            "profile_validation": {
-              "ok": true,
-              "migration": {
-                "ok": true,
-                "source_version": "0.1.0",
-                "target_version": "0.1.0",
-                "action": "accept_current_no_migration",
-                "errors": []
-              },
-              "dependency_free": {
-                "source_path": null,
-                "ok": true,
-                "errors": [],
-                "error_families": []
-              },
-              "pydantic": {
-                "source_path": "authoring_draft",
-                "ok": true,
-                "profile_id": "slip_gray_stable",
-                "errors": [],
-                "error_families": []
-              },
-              "errors": [],
-              "error_families": []
-            },
-            "grid_validation": {
-              "ok": true,
-              "errors": []
-            },
-            "alignment": {
-              "ok": true,
-              "errors": []
-            },
-            "preview_surfaces": [
-              "behavior_preview",
-              "mutation_preview"
-            ],
-            "errors": [],
-            "error_families": []
-          }
-        },
-        {
-          "grid_id": "slip_gray_stable_constrained_008_offspring_stability_tune",
-          "parent_grid_id": "slip_gray_stable_constrained_008",
-          "lineage": {
-            "generation": 2,
-            "ancestor_ids": [
-              "mg_seed_017",
-              "slip_gray_stable_constrained_008"
-            ],
-            "mutation_events": [
-              "seed_parent_selected",
-              "validator_gated_resample",
-              "anchor_repositioned",
-              "offspring_stability_tune"
-            ]
-          },
-          "archive_niche": "1,1,1,4,4,4,1",
-          "parent_archive_niche": "1,1,1,4,4,4,1",
-          "opens_new_archive_niche": false,
-          "offspring_score": 0.92178,
-          "components": {
-            "survival_ratio": 1.0,
-            "need_balance": 0.785464,
-            "bond": 1.0,
-            "archive_fitness": 0.970686,
-            "parent_score_continuity": 1.0,
-            "qualified_novelty": 0.55,
-            "mutation_budget_compliance": 1.0,
-            "validity": 1.0,
-            "slip_alignment": 1.0,
-            "parent_archive_delta": 0.5005620000000001
-          },
-          "component_weights": {
-            "survival_ratio": 0.7250000000000001,
-            "need_balance": 0.39499999999999996,
-            "bond": 0.29000000000000004,
-            "archive_fitness": 0.35,
-            "parent_score_continuity": 0.40499999999999997,
-            "qualified_novelty": 0.31,
-            "mutation_budget_compliance": 0.5,
-            "validity": 0.55,
-            "slip_alignment": 0.55,
-            "parent_archive_delta": 0.2
-          },
-          "runtime_episode": {
-            "policy": "switchboard",
-            "ticks_requested": 24,
-            "survival_ticks": 24,
-            "survival_ratio": 1.0,
-            "alive": true,
-            "death_cause": null,
-            "need_balance": 0.785464,
-            "recovery_events": 8,
-            "action_counts": {
-              "feed": 4,
-              "play": 16,
-              "sleep": 4,
-              "idle": 0,
-              "mutate": 0
-            },
-            "final_state": {
-              "hunger": 0.6336,
-              "energy": 0.2268,
-              "stress": 0.0,
-              "bond": 1.0,
-              "grid_stability": 0.988
-            }
-          },
-          "descriptor_metrics": {
-            "body_mass": 9,
-            "sensor_count": 2,
-            "symmetry": 0.5,
-            "readability": 0.884891,
-            "lifecycle_survival": 1.0,
-            "mutation_stability": 0.983125,
-            "behavior_neediness": 0.38
-          },
-          "extended_score": {
-            "fitness": 0.970686,
-            "components": {
-              "survival": 1.0,
-              "readability": 0.884891,
-              "validity": 1.0,
-              "bond": 1.0,
-              "mutation_stability": 0.983125,
+              "mutation_stability": 0.954897,
               "slip_alignment": 1.0
             }
           },
@@ -371,7 +217,7 @@
             "symmetry_break_count": 0,
             "changed_cells": [
               [
-                1,
+                2,
                 1
               ]
             ]
@@ -388,7 +234,7 @@
           "validation": {
             "ok": true,
             "profile_id": "slip_gray_stable",
-            "grid_id": "slip_gray_stable_constrained_008_offspring_stability_tune",
+            "grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
             "profile_validation": {
               "ok": true,
               "migration": {
@@ -431,13 +277,13 @@
           }
         },
         {
-          "grid_id": "slip_gray_stable_constrained_008_offspring_expression_tune",
-          "parent_grid_id": "slip_gray_stable_constrained_008",
+          "grid_id": "slip_gray_stable_constrained_004_offspring_expression_tune",
+          "parent_grid_id": "slip_gray_stable_constrained_004",
           "lineage": {
             "generation": 2,
             "ancestor_ids": [
-              "mg_seed_017",
-              "slip_gray_stable_constrained_008"
+              "mg_seed_037",
+              "slip_gray_stable_constrained_004"
             ],
             "mutation_events": [
               "seed_parent_selected",
@@ -446,15 +292,15 @@
               "offspring_expression_tune"
             ]
           },
-          "archive_niche": "1,1,1,4,4,4,1",
-          "parent_archive_niche": "1,1,1,4,4,4,1",
+          "archive_niche": "2,1,1,3,4,4,1",
+          "parent_archive_niche": "2,1,1,3,4,4,1",
           "opens_new_archive_niche": false,
-          "offspring_score": 0.921708,
+          "offspring_score": 0.920679,
           "components": {
             "survival_ratio": 1.0,
             "need_balance": 0.785464,
             "bond": 1.0,
-            "archive_fitness": 0.970124,
+            "archive_fitness": 0.957558,
             "parent_score_continuity": 1.0,
             "qualified_novelty": 0.55,
             "mutation_budget_compliance": 1.0,
@@ -499,22 +345,22 @@
             }
           },
           "descriptor_metrics": {
-            "body_mass": 9,
+            "body_mass": 10,
             "sensor_count": 2,
-            "symmetry": 0.5,
-            "readability": 0.884891,
+            "symmetry": 0.461538,
+            "readability": 0.848218,
             "lifecycle_survival": 1.0,
-            "mutation_stability": 0.9775,
-            "behavior_neediness": 0.38
+            "mutation_stability": 0.939858,
+            "behavior_neediness": 0.37
           },
           "extended_score": {
-            "fitness": 0.970124,
+            "fitness": 0.957558,
             "components": {
               "survival": 1.0,
-              "readability": 0.884891,
+              "readability": 0.848218,
               "validity": 1.0,
               "bond": 1.0,
-              "mutation_stability": 0.9775,
+              "mutation_stability": 0.939858,
               "slip_alignment": 1.0
             }
           },
@@ -525,7 +371,7 @@
             "symmetry_break_count": 0,
             "changed_cells": [
               [
-                1,
+                2,
                 1
               ]
             ]
@@ -542,7 +388,161 @@
           "validation": {
             "ok": true,
             "profile_id": "slip_gray_stable",
-            "grid_id": "slip_gray_stable_constrained_008_offspring_expression_tune",
+            "grid_id": "slip_gray_stable_constrained_004_offspring_expression_tune",
+            "profile_validation": {
+              "ok": true,
+              "migration": {
+                "ok": true,
+                "source_version": "0.1.0",
+                "target_version": "0.1.0",
+                "action": "accept_current_no_migration",
+                "errors": []
+              },
+              "dependency_free": {
+                "source_path": null,
+                "ok": true,
+                "errors": [],
+                "error_families": []
+              },
+              "pydantic": {
+                "source_path": "authoring_draft",
+                "ok": true,
+                "profile_id": "slip_gray_stable",
+                "errors": [],
+                "error_families": []
+              },
+              "errors": [],
+              "error_families": []
+            },
+            "grid_validation": {
+              "ok": true,
+              "errors": []
+            },
+            "alignment": {
+              "ok": true,
+              "errors": []
+            },
+            "preview_surfaces": [
+              "behavior_preview",
+              "mutation_preview"
+            ],
+            "errors": [],
+            "error_families": []
+          }
+        },
+        {
+          "grid_id": "slip_gray_stable_constrained_004_offspring_core_growth",
+          "parent_grid_id": "slip_gray_stable_constrained_004",
+          "lineage": {
+            "generation": 2,
+            "ancestor_ids": [
+              "mg_seed_037",
+              "slip_gray_stable_constrained_004"
+            ],
+            "mutation_events": [
+              "seed_parent_selected",
+              "validator_gated_resample",
+              "anchor_repositioned",
+              "offspring_core_growth"
+            ]
+          },
+          "archive_niche": "2,1,1,3,4,4,1",
+          "parent_archive_niche": "2,1,1,3,4,4,1",
+          "opens_new_archive_niche": false,
+          "offspring_score": 0.920155,
+          "components": {
+            "survival_ratio": 1.0,
+            "need_balance": 0.785464,
+            "bond": 1.0,
+            "archive_fitness": 0.953483,
+            "parent_score_continuity": 1.0,
+            "qualified_novelty": 0.55,
+            "mutation_budget_compliance": 1.0,
+            "validity": 1.0,
+            "slip_alignment": 1.0,
+            "parent_archive_delta": 0.49592499999999995
+          },
+          "component_weights": {
+            "survival_ratio": 0.7250000000000001,
+            "need_balance": 0.39499999999999996,
+            "bond": 0.29000000000000004,
+            "archive_fitness": 0.35,
+            "parent_score_continuity": 0.40499999999999997,
+            "qualified_novelty": 0.31,
+            "mutation_budget_compliance": 0.5,
+            "validity": 0.55,
+            "slip_alignment": 0.55,
+            "parent_archive_delta": 0.2
+          },
+          "runtime_episode": {
+            "policy": "switchboard",
+            "ticks_requested": 24,
+            "survival_ticks": 24,
+            "survival_ratio": 1.0,
+            "alive": true,
+            "death_cause": null,
+            "need_balance": 0.785464,
+            "recovery_events": 8,
+            "action_counts": {
+              "feed": 4,
+              "play": 16,
+              "sleep": 4,
+              "idle": 0,
+              "mutate": 0
+            },
+            "final_state": {
+              "hunger": 0.6336,
+              "energy": 0.2268,
+              "stress": 0.0,
+              "bond": 1.0,
+              "grid_stability": 0.988
+            }
+          },
+          "descriptor_metrics": {
+            "body_mass": 11,
+            "sensor_count": 2,
+            "symmetry": 0.428571,
+            "readability": 0.828732,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.945875,
+            "behavior_neediness": 0.36
+          },
+          "extended_score": {
+            "fitness": 0.953483,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.828732,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.945875,
+              "slip_alignment": 1.0
+            }
+          },
+          "mutation_delta": {
+            "cell_mutation_count": 1,
+            "organ_shift_count": 0,
+            "palette_shift_count": 0,
+            "symmetry_break_count": 1,
+            "changed_cells": [
+              [
+                5,
+                0
+              ]
+            ]
+          },
+          "cap_compliance": {
+            "checks": {
+              "cell_mutation_count_within_cap": true,
+              "organ_shift_count_within_cap": true,
+              "symmetry_break_count_within_cap": true,
+              "palette_shift_count_within_cap": true
+            },
+            "caps_respected": true
+          },
+          "validation": {
+            "ok": true,
+            "profile_id": "slip_gray_stable",
+            "grid_id": "slip_gray_stable_constrained_004_offspring_core_growth",
             "profile_validation": {
               "ok": true,
               "migration": {
@@ -586,36 +586,36 @@
         }
       ],
       "selected_offspring": {
-        "grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
-        "parent_grid_id": "slip_gray_stable_constrained_008",
+        "grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
+        "parent_grid_id": "slip_gray_stable_constrained_004",
         "lineage": {
           "generation": 2,
           "ancestor_ids": [
-            "mg_seed_017",
-            "slip_gray_stable_constrained_008"
+            "mg_seed_037",
+            "slip_gray_stable_constrained_004"
           ],
           "mutation_events": [
             "seed_parent_selected",
             "validator_gated_resample",
             "anchor_repositioned",
-            "offspring_core_growth"
+            "offspring_stability_tune"
           ]
         },
-        "archive_niche": "2,1,1,4,4,4,1",
-        "parent_archive_niche": "1,1,1,4,4,4,1",
-        "opens_new_archive_niche": true,
-        "offspring_score": 0.954594,
+        "archive_niche": "2,1,1,3,4,4,1",
+        "parent_archive_niche": "2,1,1,3,4,4,1",
+        "opens_new_archive_niche": false,
+        "offspring_score": 0.920873,
         "components": {
           "survival_ratio": 1.0,
           "need_balance": 0.785464,
           "bond": 1.0,
-          "archive_fitness": 0.972102,
+          "archive_fitness": 0.959062,
           "parent_score_continuity": 1.0,
-          "qualified_novelty": 1.0,
+          "qualified_novelty": 0.55,
           "mutation_budget_compliance": 1.0,
           "validity": 1.0,
           "slip_alignment": 1.0,
-          "parent_archive_delta": 0.501978
+          "parent_archive_delta": 0.501504
         },
         "component_weights": {
           "survival_ratio": 0.7250000000000001,
@@ -657,19 +657,19 @@
           "body_mass": 10,
           "sensor_count": 2,
           "symmetry": 0.461538,
-          "readability": 0.892195,
+          "readability": 0.848218,
           "lifecycle_survival": 1.0,
-          "mutation_stability": 0.97975,
+          "mutation_stability": 0.954897,
           "behavior_neediness": 0.37
         },
         "extended_score": {
-          "fitness": 0.972102,
+          "fitness": 0.959062,
           "components": {
             "survival": 1.0,
-            "readability": 0.892195,
+            "readability": 0.848218,
             "validity": 1.0,
             "bond": 1.0,
-            "mutation_stability": 0.97975,
+            "mutation_stability": 0.954897,
             "slip_alignment": 1.0
           }
         },
@@ -677,11 +677,11 @@
           "cell_mutation_count": 1,
           "organ_shift_count": 0,
           "palette_shift_count": 0,
-          "symmetry_break_count": 1,
+          "symmetry_break_count": 0,
           "changed_cells": [
             [
-              1,
-              3
+              2,
+              1
             ]
           ]
         },
@@ -697,7 +697,7 @@
         "validation": {
           "ok": true,
           "profile_id": "slip_gray_stable",
-          "grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
+          "grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
           "profile_validation": {
             "ok": true,
             "migration": {
@@ -740,72 +740,72 @@
         }
       },
       "lineage_decision": {
-        "action": "add_archive_niche",
-        "reason": "child opens a qualified archive niche without displacing parent",
-        "parent_grid_id": "slip_gray_stable_constrained_008",
-        "offspring_grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
-        "parent_archive_niche": "1,1,1,4,4,4,1",
-        "offspring_archive_niche": "2,1,1,4,4,4,1",
-        "parent_selection_score": 0.955179,
-        "offspring_score": 0.954594,
-        "score_delta": -0.000585,
+        "action": "hold_parent",
+        "reason": "parent remains elite until child beats replacement threshold",
+        "parent_grid_id": "slip_gray_stable_constrained_004",
+        "offspring_grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
+        "parent_archive_niche": "2,1,1,3,4,4,1",
+        "offspring_archive_niche": "2,1,1,3,4,4,1",
+        "parent_selection_score": 0.94518,
+        "offspring_score": 0.920873,
+        "score_delta": -0.024307,
         "qualified_for_lineage": true,
         "replacement_threshold": 0.005,
-        "existing_archive_niche_count": 8
+        "existing_archive_niche_count": 12
       },
       "archive_update": {
-        "action": "add_archive_niche",
-        "parent_grid_id": "slip_gray_stable_constrained_008",
-        "offspring_grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
-        "archive_record_count_before": 8,
-        "archive_record_count_after": 9,
-        "archive_niche_count_before": 8,
-        "archive_niche_count_after": 9,
-        "archive_mutated": true
+        "action": "hold_parent",
+        "parent_grid_id": "slip_gray_stable_constrained_004",
+        "offspring_grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
+        "archive_record_count_before": 12,
+        "archive_record_count_after": 12,
+        "archive_niche_count_before": 12,
+        "archive_niche_count_after": 12,
+        "archive_mutated": false
       },
-      "continuation_parent_grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
+      "continuation_parent_grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
       "selected_child_continued": true,
       "frontier_policy": "qualified selected offspring continues the candidate lineage even when the archive action holds the parent"
     },
     {
       "generation_index": 2,
-      "parent_grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
+      "parent_grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
       "parent_generation": 2,
       "offspring_candidate_count": 3,
       "offspring_candidates": [
         {
-          "grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128",
-          "parent_grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
+          "grid_id": "slip_gray_stable_constrained_004_offspring_stability_fa9764e438",
+          "parent_grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
           "lineage": {
             "generation": 3,
             "ancestor_ids": [
-              "mg_seed_017",
-              "slip_gray_stable_constrained_008",
-              "slip_gray_stable_constrained_008_offspring_core_growth"
+              "mg_seed_037",
+              "slip_gray_stable_constrained_004",
+              "slip_gray_stable_constrained_004_offspring_stability_tune"
             ],
             "mutation_events": [
               "seed_parent_selected",
               "validator_gated_resample",
               "anchor_repositioned",
-              "offspring_core_growth",
+              "offspring_stability_tune",
               "offspring_stability_tune"
             ]
           },
-          "archive_niche": "2,1,1,4,4,4,1",
-          "parent_archive_niche": "2,1,1,4,4,4,1",
+          "archive_niche": "2,1,1,3,4,4,1",
+          "parent_archive_niche": "2,1,1,3,4,4,1",
           "opens_new_archive_niche": false,
-          "offspring_score": 0.921935,
+          "offspring_score": 0.920947,
           "components": {
             "survival_ratio": 1.0,
             "need_balance": 0.785464,
             "bond": 1.0,
-            "archive_fitness": 0.972608,
+            "archive_fitness": 0.96019,
             "parent_score_continuity": 1.0,
             "qualified_novelty": 0.55,
             "mutation_budget_compliance": 1.0,
             "validity": 1.0,
             "slip_alignment": 1.0,
-            "parent_archive_delta": 0.500506
+            "parent_archive_delta": 0.501128
           },
           "component_weights": {
             "survival_ratio": 0.7250000000000001,
@@ -847,19 +847,19 @@
             "body_mass": 10,
             "sensor_count": 2,
             "symmetry": 0.461538,
-            "readability": 0.892195,
+            "readability": 0.848218,
             "lifecycle_survival": 1.0,
-            "mutation_stability": 0.984812,
+            "mutation_stability": 0.966178,
             "behavior_neediness": 0.37
           },
           "extended_score": {
-            "fitness": 0.972608,
+            "fitness": 0.96019,
             "components": {
               "survival": 1.0,
-              "readability": 0.892195,
+              "readability": 0.848218,
               "validity": 1.0,
               "bond": 1.0,
-              "mutation_stability": 0.984812,
+              "mutation_stability": 0.966178,
               "slip_alignment": 1.0
             }
           },
@@ -870,7 +870,7 @@
             "symmetry_break_count": 0,
             "changed_cells": [
               [
-                1,
+                2,
                 1
               ]
             ]
@@ -887,7 +887,7 @@
           "validation": {
             "ok": true,
             "profile_id": "slip_gray_stable",
-            "grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128",
+            "grid_id": "slip_gray_stable_constrained_004_offspring_stability_fa9764e438",
             "profile_validation": {
               "ok": true,
               "migration": {
@@ -930,32 +930,32 @@
           }
         },
         {
-          "grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_91939e23b1",
-          "parent_grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
+          "grid_id": "slip_gray_stable_constrained_004_offspring_stability_62d352579e",
+          "parent_grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
           "lineage": {
             "generation": 3,
             "ancestor_ids": [
-              "mg_seed_017",
-              "slip_gray_stable_constrained_008",
-              "slip_gray_stable_constrained_008_offspring_core_growth"
+              "mg_seed_037",
+              "slip_gray_stable_constrained_004",
+              "slip_gray_stable_constrained_004_offspring_stability_tune"
             ],
             "mutation_events": [
               "seed_parent_selected",
               "validator_gated_resample",
               "anchor_repositioned",
-              "offspring_core_growth",
+              "offspring_stability_tune",
               "offspring_expression_tune"
             ]
           },
-          "archive_niche": "2,1,1,4,4,4,1",
-          "parent_archive_niche": "2,1,1,4,4,4,1",
+          "archive_niche": "2,1,1,3,4,4,1",
+          "parent_archive_niche": "2,1,1,3,4,4,1",
           "opens_new_archive_niche": false,
-          "offspring_score": 0.92187,
+          "offspring_score": 0.920802,
           "components": {
             "survival_ratio": 1.0,
             "need_balance": 0.785464,
             "bond": 1.0,
-            "archive_fitness": 0.972102,
+            "archive_fitness": 0.959062,
             "parent_score_continuity": 1.0,
             "qualified_novelty": 0.55,
             "mutation_budget_compliance": 1.0,
@@ -1003,19 +1003,19 @@
             "body_mass": 10,
             "sensor_count": 2,
             "symmetry": 0.461538,
-            "readability": 0.892195,
+            "readability": 0.848218,
             "lifecycle_survival": 1.0,
-            "mutation_stability": 0.97975,
+            "mutation_stability": 0.954897,
             "behavior_neediness": 0.37
           },
           "extended_score": {
-            "fitness": 0.972102,
+            "fitness": 0.959062,
             "components": {
               "survival": 1.0,
-              "readability": 0.892195,
+              "readability": 0.848218,
               "validity": 1.0,
               "bond": 1.0,
-              "mutation_stability": 0.97975,
+              "mutation_stability": 0.954897,
               "slip_alignment": 1.0
             }
           },
@@ -1026,7 +1026,7 @@
             "symmetry_break_count": 0,
             "changed_cells": [
               [
-                1,
+                2,
                 1
               ]
             ]
@@ -1043,7 +1043,7 @@
           "validation": {
             "ok": true,
             "profile_id": "slip_gray_stable",
-            "grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_91939e23b1",
+            "grid_id": "slip_gray_stable_constrained_004_offspring_stability_62d352579e",
             "profile_validation": {
               "ok": true,
               "migration": {
@@ -1086,38 +1086,38 @@
           }
         },
         {
-          "grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_bdcae9df1c",
-          "parent_grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
+          "grid_id": "slip_gray_stable_constrained_004_offspring_stability_55a60e12ba",
+          "parent_grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
           "lineage": {
             "generation": 3,
             "ancestor_ids": [
-              "mg_seed_017",
-              "slip_gray_stable_constrained_008",
-              "slip_gray_stable_constrained_008_offspring_core_growth"
+              "mg_seed_037",
+              "slip_gray_stable_constrained_004",
+              "slip_gray_stable_constrained_004_offspring_stability_tune"
             ],
             "mutation_events": [
               "seed_parent_selected",
               "validator_gated_resample",
               "anchor_repositioned",
-              "offspring_core_growth",
+              "offspring_stability_tune",
               "offspring_core_growth"
             ]
           },
-          "archive_niche": "2,1,1,4,4,4,1",
-          "parent_archive_niche": "2,1,1,4,4,4,1",
+          "archive_niche": "2,1,1,3,4,4,1",
+          "parent_archive_niche": "2,1,1,3,4,4,1",
           "opens_new_archive_niche": false,
-          "offspring_score": 0.921318,
+          "offspring_score": 0.920433,
           "components": {
             "survival_ratio": 1.0,
             "need_balance": 0.785464,
             "bond": 1.0,
-            "archive_fitness": 0.967815,
+            "archive_fitness": 0.956189,
             "parent_score_continuity": 1.0,
             "qualified_novelty": 0.55,
             "mutation_budget_compliance": 1.0,
             "validity": 1.0,
             "slip_alignment": 1.0,
-            "parent_archive_delta": 0.49571299999999996
+            "parent_archive_delta": 0.497127
           },
           "component_weights": {
             "survival_ratio": 0.7250000000000001,
@@ -1159,19 +1159,19 @@
             "body_mass": 11,
             "sensor_count": 2,
             "symmetry": 0.428571,
-            "readability": 0.873489,
+            "readability": 0.834371,
             "lifecycle_survival": 1.0,
-            "mutation_stability": 0.981775,
+            "mutation_stability": 0.9594,
             "behavior_neediness": 0.36
           },
           "extended_score": {
-            "fitness": 0.967815,
+            "fitness": 0.956189,
             "components": {
               "survival": 1.0,
-              "readability": 0.873489,
+              "readability": 0.834371,
               "validity": 1.0,
               "bond": 1.0,
-              "mutation_stability": 0.981775,
+              "mutation_stability": 0.9594,
               "slip_alignment": 1.0
             }
           },
@@ -1182,7 +1182,7 @@
             "symmetry_break_count": 1,
             "changed_cells": [
               [
-                0,
+                1,
                 2
               ]
             ]
@@ -1199,7 +1199,7 @@
           "validation": {
             "ok": true,
             "profile_id": "slip_gray_stable",
-            "grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_bdcae9df1c",
+            "grid_id": "slip_gray_stable_constrained_004_offspring_stability_55a60e12ba",
             "profile_validation": {
               "ok": true,
               "migration": {
@@ -1243,38 +1243,38 @@
         }
       ],
       "selected_offspring": {
-        "grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128",
-        "parent_grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
+        "grid_id": "slip_gray_stable_constrained_004_offspring_stability_fa9764e438",
+        "parent_grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
         "lineage": {
           "generation": 3,
           "ancestor_ids": [
-            "mg_seed_017",
-            "slip_gray_stable_constrained_008",
-            "slip_gray_stable_constrained_008_offspring_core_growth"
+            "mg_seed_037",
+            "slip_gray_stable_constrained_004",
+            "slip_gray_stable_constrained_004_offspring_stability_tune"
           ],
           "mutation_events": [
             "seed_parent_selected",
             "validator_gated_resample",
             "anchor_repositioned",
-            "offspring_core_growth",
+            "offspring_stability_tune",
             "offspring_stability_tune"
           ]
         },
-        "archive_niche": "2,1,1,4,4,4,1",
-        "parent_archive_niche": "2,1,1,4,4,4,1",
+        "archive_niche": "2,1,1,3,4,4,1",
+        "parent_archive_niche": "2,1,1,3,4,4,1",
         "opens_new_archive_niche": false,
-        "offspring_score": 0.921935,
+        "offspring_score": 0.920947,
         "components": {
           "survival_ratio": 1.0,
           "need_balance": 0.785464,
           "bond": 1.0,
-          "archive_fitness": 0.972608,
+          "archive_fitness": 0.96019,
           "parent_score_continuity": 1.0,
           "qualified_novelty": 0.55,
           "mutation_budget_compliance": 1.0,
           "validity": 1.0,
           "slip_alignment": 1.0,
-          "parent_archive_delta": 0.500506
+          "parent_archive_delta": 0.501128
         },
         "component_weights": {
           "survival_ratio": 0.7250000000000001,
@@ -1316,19 +1316,19 @@
           "body_mass": 10,
           "sensor_count": 2,
           "symmetry": 0.461538,
-          "readability": 0.892195,
+          "readability": 0.848218,
           "lifecycle_survival": 1.0,
-          "mutation_stability": 0.984812,
+          "mutation_stability": 0.966178,
           "behavior_neediness": 0.37
         },
         "extended_score": {
-          "fitness": 0.972608,
+          "fitness": 0.96019,
           "components": {
             "survival": 1.0,
-            "readability": 0.892195,
+            "readability": 0.848218,
             "validity": 1.0,
             "bond": 1.0,
-            "mutation_stability": 0.984812,
+            "mutation_stability": 0.966178,
             "slip_alignment": 1.0
           }
         },
@@ -1339,7 +1339,7 @@
           "symmetry_break_count": 0,
           "changed_cells": [
             [
-              1,
+              2,
               1
             ]
           ]
@@ -1356,7 +1356,7 @@
         "validation": {
           "ok": true,
           "profile_id": "slip_gray_stable",
-          "grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128",
+          "grid_id": "slip_gray_stable_constrained_004_offspring_stability_fa9764e438",
           "profile_validation": {
             "ok": true,
             "migration": {
@@ -1401,72 +1401,72 @@
       "lineage_decision": {
         "action": "hold_parent",
         "reason": "parent remains elite until child beats replacement threshold",
-        "parent_grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
-        "offspring_grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128",
-        "parent_archive_niche": "2,1,1,4,4,4,1",
-        "offspring_archive_niche": "2,1,1,4,4,4,1",
-        "parent_selection_score": 0.954594,
-        "offspring_score": 0.921935,
-        "score_delta": -0.032659,
+        "parent_grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
+        "offspring_grid_id": "slip_gray_stable_constrained_004_offspring_stability_fa9764e438",
+        "parent_archive_niche": "2,1,1,3,4,4,1",
+        "offspring_archive_niche": "2,1,1,3,4,4,1",
+        "parent_selection_score": 0.920873,
+        "offspring_score": 0.920947,
+        "score_delta": 7.4e-05,
         "qualified_for_lineage": true,
         "replacement_threshold": 0.005,
-        "existing_archive_niche_count": 9
+        "existing_archive_niche_count": 12
       },
       "archive_update": {
         "action": "hold_parent",
-        "parent_grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
-        "offspring_grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128",
-        "archive_record_count_before": 9,
-        "archive_record_count_after": 9,
-        "archive_niche_count_before": 9,
-        "archive_niche_count_after": 9,
+        "parent_grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
+        "offspring_grid_id": "slip_gray_stable_constrained_004_offspring_stability_fa9764e438",
+        "archive_record_count_before": 12,
+        "archive_record_count_after": 12,
+        "archive_niche_count_before": 12,
+        "archive_niche_count_after": 12,
         "archive_mutated": false
       },
-      "continuation_parent_grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128",
+      "continuation_parent_grid_id": "slip_gray_stable_constrained_004_offspring_stability_fa9764e438",
       "selected_child_continued": true,
       "frontier_policy": "qualified selected offspring continues the candidate lineage even when the archive action holds the parent"
     },
     {
       "generation_index": 3,
-      "parent_grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128",
+      "parent_grid_id": "slip_gray_stable_constrained_004_offspring_stability_fa9764e438",
       "parent_generation": 3,
       "offspring_candidate_count": 3,
       "offspring_candidates": [
         {
-          "grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_0afe0c30d3",
-          "parent_grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128",
+          "grid_id": "slip_gray_stable_constrained_004_offspring_stability_f96f199e15",
+          "parent_grid_id": "slip_gray_stable_constrained_004_offspring_stability_fa9764e438",
           "lineage": {
             "generation": 4,
             "ancestor_ids": [
-              "mg_seed_017",
-              "slip_gray_stable_constrained_008",
-              "slip_gray_stable_constrained_008_offspring_core_growth",
-              "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128"
+              "mg_seed_037",
+              "slip_gray_stable_constrained_004",
+              "slip_gray_stable_constrained_004_offspring_stability_tune",
+              "slip_gray_stable_constrained_004_offspring_stability_fa9764e438"
             ],
             "mutation_events": [
               "seed_parent_selected",
               "validator_gated_resample",
               "anchor_repositioned",
-              "offspring_core_growth",
+              "offspring_stability_tune",
               "offspring_stability_tune",
               "offspring_stability_tune"
             ]
           },
-          "archive_niche": "2,1,1,4,4,4,1",
-          "parent_archive_niche": "2,1,1,4,4,4,1",
+          "archive_niche": "2,1,1,3,4,4,1",
+          "parent_archive_niche": "2,1,1,3,4,4,1",
           "opens_new_archive_niche": false,
-          "offspring_score": 0.92196,
+          "offspring_score": 0.921004,
           "components": {
             "survival_ratio": 1.0,
             "need_balance": 0.785464,
             "bond": 1.0,
-            "archive_fitness": 0.972988,
+            "archive_fitness": 0.961036,
             "parent_score_continuity": 1.0,
             "qualified_novelty": 0.55,
             "mutation_budget_compliance": 1.0,
             "validity": 1.0,
             "slip_alignment": 1.0,
-            "parent_archive_delta": 0.5003799999999999
+            "parent_archive_delta": 0.500846
           },
           "component_weights": {
             "survival_ratio": 0.7250000000000001,
@@ -1508,19 +1508,19 @@
             "body_mass": 10,
             "sensor_count": 2,
             "symmetry": 0.461538,
-            "readability": 0.892195,
+            "readability": 0.848218,
             "lifecycle_survival": 1.0,
-            "mutation_stability": 0.988609,
+            "mutation_stability": 0.974638,
             "behavior_neediness": 0.37
           },
           "extended_score": {
-            "fitness": 0.972988,
+            "fitness": 0.961036,
             "components": {
               "survival": 1.0,
-              "readability": 0.892195,
+              "readability": 0.848218,
               "validity": 1.0,
               "bond": 1.0,
-              "mutation_stability": 0.988609,
+              "mutation_stability": 0.974638,
               "slip_alignment": 1.0
             }
           },
@@ -1531,7 +1531,7 @@
             "symmetry_break_count": 0,
             "changed_cells": [
               [
-                1,
+                2,
                 1
               ]
             ]
@@ -1548,7 +1548,7 @@
           "validation": {
             "ok": true,
             "profile_id": "slip_gray_stable",
-            "grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_0afe0c30d3",
+            "grid_id": "slip_gray_stable_constrained_004_offspring_stability_f96f199e15",
             "profile_validation": {
               "ok": true,
               "migration": {
@@ -1591,34 +1591,34 @@
           }
         },
         {
-          "grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_93af3bb2ea",
-          "parent_grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128",
+          "grid_id": "slip_gray_stable_constrained_004_offspring_stability_37c984ae6d",
+          "parent_grid_id": "slip_gray_stable_constrained_004_offspring_stability_fa9764e438",
           "lineage": {
             "generation": 4,
             "ancestor_ids": [
-              "mg_seed_017",
-              "slip_gray_stable_constrained_008",
-              "slip_gray_stable_constrained_008_offspring_core_growth",
-              "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128"
+              "mg_seed_037",
+              "slip_gray_stable_constrained_004",
+              "slip_gray_stable_constrained_004_offspring_stability_tune",
+              "slip_gray_stable_constrained_004_offspring_stability_fa9764e438"
             ],
             "mutation_events": [
               "seed_parent_selected",
               "validator_gated_resample",
               "anchor_repositioned",
-              "offspring_core_growth",
+              "offspring_stability_tune",
               "offspring_stability_tune",
               "offspring_expression_tune"
             ]
           },
-          "archive_niche": "2,1,1,4,4,4,1",
-          "parent_archive_niche": "2,1,1,4,4,4,1",
+          "archive_niche": "2,1,1,3,4,4,1",
+          "parent_archive_niche": "2,1,1,3,4,4,1",
           "opens_new_archive_niche": false,
-          "offspring_score": 0.921911,
+          "offspring_score": 0.920895,
           "components": {
             "survival_ratio": 1.0,
             "need_balance": 0.785464,
             "bond": 1.0,
-            "archive_fitness": 0.972608,
+            "archive_fitness": 0.96019,
             "parent_score_continuity": 1.0,
             "qualified_novelty": 0.55,
             "mutation_budget_compliance": 1.0,
@@ -1666,19 +1666,19 @@
             "body_mass": 10,
             "sensor_count": 2,
             "symmetry": 0.461538,
-            "readability": 0.892195,
+            "readability": 0.848218,
             "lifecycle_survival": 1.0,
-            "mutation_stability": 0.984812,
+            "mutation_stability": 0.966178,
             "behavior_neediness": 0.37
           },
           "extended_score": {
-            "fitness": 0.972608,
+            "fitness": 0.96019,
             "components": {
               "survival": 1.0,
-              "readability": 0.892195,
+              "readability": 0.848218,
               "validity": 1.0,
               "bond": 1.0,
-              "mutation_stability": 0.984812,
+              "mutation_stability": 0.966178,
               "slip_alignment": 1.0
             }
           },
@@ -1689,7 +1689,7 @@
             "symmetry_break_count": 0,
             "changed_cells": [
               [
-                1,
+                2,
                 1
               ]
             ]
@@ -1706,7 +1706,7 @@
           "validation": {
             "ok": true,
             "profile_id": "slip_gray_stable",
-            "grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_93af3bb2ea",
+            "grid_id": "slip_gray_stable_constrained_004_offspring_stability_37c984ae6d",
             "profile_validation": {
               "ok": true,
               "migration": {
@@ -1749,40 +1749,40 @@
           }
         },
         {
-          "grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_8b10819869",
-          "parent_grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128",
+          "grid_id": "slip_gray_stable_constrained_004_offspring_stability_0aeece66be",
+          "parent_grid_id": "slip_gray_stable_constrained_004_offspring_stability_fa9764e438",
           "lineage": {
             "generation": 4,
             "ancestor_ids": [
-              "mg_seed_017",
-              "slip_gray_stable_constrained_008",
-              "slip_gray_stable_constrained_008_offspring_core_growth",
-              "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128"
+              "mg_seed_037",
+              "slip_gray_stable_constrained_004",
+              "slip_gray_stable_constrained_004_offspring_stability_tune",
+              "slip_gray_stable_constrained_004_offspring_stability_fa9764e438"
             ],
             "mutation_events": [
               "seed_parent_selected",
               "validator_gated_resample",
               "anchor_repositioned",
-              "offspring_core_growth",
+              "offspring_stability_tune",
               "offspring_stability_tune",
               "offspring_core_growth"
             ]
           },
-          "archive_niche": "2,1,1,4,4,4,1",
-          "parent_archive_niche": "2,1,1,4,4,4,1",
+          "archive_niche": "2,1,1,3,4,4,1",
+          "parent_archive_niche": "2,1,1,3,4,4,1",
           "opens_new_archive_niche": false,
-          "offspring_score": 0.921322,
+          "offspring_score": 0.920294,
           "components": {
             "survival_ratio": 1.0,
             "need_balance": 0.785464,
             "bond": 1.0,
-            "archive_fitness": 0.968024,
+            "archive_fitness": 0.95552,
             "parent_score_continuity": 1.0,
             "qualified_novelty": 0.55,
             "mutation_budget_compliance": 1.0,
             "validity": 1.0,
             "slip_alignment": 1.0,
-            "parent_archive_delta": 0.49541599999999997
+            "parent_archive_delta": 0.49533000000000005
           },
           "component_weights": {
             "survival_ratio": 0.7250000000000001,
@@ -1824,19 +1824,19 @@
             "body_mass": 11,
             "sensor_count": 2,
             "symmetry": 0.428571,
-            "readability": 0.872461,
+            "readability": 0.827349,
             "lifecycle_survival": 1.0,
-            "mutation_stability": 0.986331,
+            "mutation_stability": 0.969557,
             "behavior_neediness": 0.36
           },
           "extended_score": {
-            "fitness": 0.968024,
+            "fitness": 0.95552,
             "components": {
               "survival": 1.0,
-              "readability": 0.872461,
+              "readability": 0.827349,
               "validity": 1.0,
               "bond": 1.0,
-              "mutation_stability": 0.986331,
+              "mutation_stability": 0.969557,
               "slip_alignment": 1.0
             }
           },
@@ -1847,8 +1847,8 @@
             "symmetry_break_count": 1,
             "changed_cells": [
               [
-                2,
-                5
+                0,
+                4
               ]
             ]
           },
@@ -1864,7 +1864,7 @@
           "validation": {
             "ok": true,
             "profile_id": "slip_gray_stable",
-            "grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_8b10819869",
+            "grid_id": "slip_gray_stable_constrained_004_offspring_stability_0aeece66be",
             "profile_validation": {
               "ok": true,
               "migration": {
@@ -1908,40 +1908,40 @@
         }
       ],
       "selected_offspring": {
-        "grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_0afe0c30d3",
-        "parent_grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128",
+        "grid_id": "slip_gray_stable_constrained_004_offspring_stability_f96f199e15",
+        "parent_grid_id": "slip_gray_stable_constrained_004_offspring_stability_fa9764e438",
         "lineage": {
           "generation": 4,
           "ancestor_ids": [
-            "mg_seed_017",
-            "slip_gray_stable_constrained_008",
-            "slip_gray_stable_constrained_008_offspring_core_growth",
-            "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128"
+            "mg_seed_037",
+            "slip_gray_stable_constrained_004",
+            "slip_gray_stable_constrained_004_offspring_stability_tune",
+            "slip_gray_stable_constrained_004_offspring_stability_fa9764e438"
           ],
           "mutation_events": [
             "seed_parent_selected",
             "validator_gated_resample",
             "anchor_repositioned",
-            "offspring_core_growth",
+            "offspring_stability_tune",
             "offspring_stability_tune",
             "offspring_stability_tune"
           ]
         },
-        "archive_niche": "2,1,1,4,4,4,1",
-        "parent_archive_niche": "2,1,1,4,4,4,1",
+        "archive_niche": "2,1,1,3,4,4,1",
+        "parent_archive_niche": "2,1,1,3,4,4,1",
         "opens_new_archive_niche": false,
-        "offspring_score": 0.92196,
+        "offspring_score": 0.921004,
         "components": {
           "survival_ratio": 1.0,
           "need_balance": 0.785464,
           "bond": 1.0,
-          "archive_fitness": 0.972988,
+          "archive_fitness": 0.961036,
           "parent_score_continuity": 1.0,
           "qualified_novelty": 0.55,
           "mutation_budget_compliance": 1.0,
           "validity": 1.0,
           "slip_alignment": 1.0,
-          "parent_archive_delta": 0.5003799999999999
+          "parent_archive_delta": 0.500846
         },
         "component_weights": {
           "survival_ratio": 0.7250000000000001,
@@ -1983,19 +1983,19 @@
           "body_mass": 10,
           "sensor_count": 2,
           "symmetry": 0.461538,
-          "readability": 0.892195,
+          "readability": 0.848218,
           "lifecycle_survival": 1.0,
-          "mutation_stability": 0.988609,
+          "mutation_stability": 0.974638,
           "behavior_neediness": 0.37
         },
         "extended_score": {
-          "fitness": 0.972988,
+          "fitness": 0.961036,
           "components": {
             "survival": 1.0,
-            "readability": 0.892195,
+            "readability": 0.848218,
             "validity": 1.0,
             "bond": 1.0,
-            "mutation_stability": 0.988609,
+            "mutation_stability": 0.974638,
             "slip_alignment": 1.0
           }
         },
@@ -2006,7 +2006,7 @@
           "symmetry_break_count": 0,
           "changed_cells": [
             [
-              1,
+              2,
               1
             ]
           ]
@@ -2023,7 +2023,7 @@
         "validation": {
           "ok": true,
           "profile_id": "slip_gray_stable",
-          "grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_0afe0c30d3",
+          "grid_id": "slip_gray_stable_constrained_004_offspring_stability_f96f199e15",
           "profile_validation": {
             "ok": true,
             "migration": {
@@ -2068,28 +2068,28 @@
       "lineage_decision": {
         "action": "hold_parent",
         "reason": "parent remains elite until child beats replacement threshold",
-        "parent_grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128",
-        "offspring_grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_0afe0c30d3",
-        "parent_archive_niche": "2,1,1,4,4,4,1",
-        "offspring_archive_niche": "2,1,1,4,4,4,1",
-        "parent_selection_score": 0.921935,
-        "offspring_score": 0.92196,
-        "score_delta": 2.5e-05,
+        "parent_grid_id": "slip_gray_stable_constrained_004_offspring_stability_fa9764e438",
+        "offspring_grid_id": "slip_gray_stable_constrained_004_offspring_stability_f96f199e15",
+        "parent_archive_niche": "2,1,1,3,4,4,1",
+        "offspring_archive_niche": "2,1,1,3,4,4,1",
+        "parent_selection_score": 0.920947,
+        "offspring_score": 0.921004,
+        "score_delta": 5.7e-05,
         "qualified_for_lineage": true,
         "replacement_threshold": 0.005,
-        "existing_archive_niche_count": 9
+        "existing_archive_niche_count": 12
       },
       "archive_update": {
         "action": "hold_parent",
-        "parent_grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128",
-        "offspring_grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_0afe0c30d3",
-        "archive_record_count_before": 9,
-        "archive_record_count_after": 9,
-        "archive_niche_count_before": 9,
-        "archive_niche_count_after": 9,
+        "parent_grid_id": "slip_gray_stable_constrained_004_offspring_stability_fa9764e438",
+        "offspring_grid_id": "slip_gray_stable_constrained_004_offspring_stability_f96f199e15",
+        "archive_record_count_before": 12,
+        "archive_record_count_after": 12,
+        "archive_niche_count_before": 12,
+        "archive_niche_count_after": 12,
         "archive_mutated": false
       },
-      "continuation_parent_grid_id": "slip_gray_stable_constrained_008_offspring_core_growt_0afe0c30d3",
+      "continuation_parent_grid_id": "slip_gray_stable_constrained_004_offspring_stability_f96f199e15",
       "selected_child_continued": true,
       "frontier_policy": "qualified selected offspring continues the candidate lineage even when the archive action holds the parent"
     }
@@ -2109,7 +2109,7 @@
       "founder_count": 1,
       "candidate_count": 9,
       "distinct_parent_count": 3,
-      "dominant_parent_id": "slip_gray_stable_constrained_008",
+      "dominant_parent_id": "slip_gray_stable_constrained_004",
       "dominant_lineage_children": 3,
       "dominant_lineage_share": 0.333333,
       "elite_count": 4,
@@ -2117,8 +2117,8 @@
     },
     "edges": [
       {
-        "parent_id": "slip_gray_stable_constrained_008",
-        "child_id": "slip_gray_stable_constrained_008_offspring_core_growth",
+        "parent_id": "slip_gray_stable_constrained_004",
+        "child_id": "slip_gray_stable_constrained_004_offspring_core_growth",
         "generation": 2,
         "mutation_events": [
           "seed_parent_selected",
@@ -2126,11 +2126,11 @@
           "anchor_repositioned",
           "offspring_core_growth"
         ],
-        "elite": true
+        "elite": false
       },
       {
-        "parent_id": "slip_gray_stable_constrained_008",
-        "child_id": "slip_gray_stable_constrained_008_offspring_stability_tune",
+        "parent_id": "slip_gray_stable_constrained_004",
+        "child_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
         "generation": 2,
         "mutation_events": [
           "seed_parent_selected",
@@ -2138,11 +2138,11 @@
           "anchor_repositioned",
           "offspring_stability_tune"
         ],
-        "elite": false
+        "elite": true
       },
       {
-        "parent_id": "slip_gray_stable_constrained_008",
-        "child_id": "slip_gray_stable_constrained_008_offspring_expression_tune",
+        "parent_id": "slip_gray_stable_constrained_004",
+        "child_id": "slip_gray_stable_constrained_004_offspring_expression_tune",
         "generation": 2,
         "mutation_events": [
           "seed_parent_selected",
@@ -2153,81 +2153,81 @@
         "elite": false
       },
       {
-        "parent_id": "slip_gray_stable_constrained_008_offspring_core_growth",
-        "child_id": "slip_gray_stable_constrained_008_offspring_core_growt_bdcae9df1c",
+        "parent_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
+        "child_id": "slip_gray_stable_constrained_004_offspring_stability_55a60e12ba",
         "generation": 3,
         "mutation_events": [
           "seed_parent_selected",
           "validator_gated_resample",
           "anchor_repositioned",
-          "offspring_core_growth",
+          "offspring_stability_tune",
           "offspring_core_growth"
         ],
         "elite": false
       },
       {
-        "parent_id": "slip_gray_stable_constrained_008_offspring_core_growth",
-        "child_id": "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128",
+        "parent_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
+        "child_id": "slip_gray_stable_constrained_004_offspring_stability_fa9764e438",
         "generation": 3,
         "mutation_events": [
           "seed_parent_selected",
           "validator_gated_resample",
           "anchor_repositioned",
-          "offspring_core_growth",
+          "offspring_stability_tune",
           "offspring_stability_tune"
         ],
         "elite": true
       },
       {
-        "parent_id": "slip_gray_stable_constrained_008_offspring_core_growth",
-        "child_id": "slip_gray_stable_constrained_008_offspring_core_growt_91939e23b1",
+        "parent_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
+        "child_id": "slip_gray_stable_constrained_004_offspring_stability_62d352579e",
         "generation": 3,
         "mutation_events": [
           "seed_parent_selected",
           "validator_gated_resample",
           "anchor_repositioned",
-          "offspring_core_growth",
+          "offspring_stability_tune",
           "offspring_expression_tune"
         ],
         "elite": false
       },
       {
-        "parent_id": "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128",
-        "child_id": "slip_gray_stable_constrained_008_offspring_core_growt_8b10819869",
+        "parent_id": "slip_gray_stable_constrained_004_offspring_stability_fa9764e438",
+        "child_id": "slip_gray_stable_constrained_004_offspring_stability_0aeece66be",
         "generation": 4,
         "mutation_events": [
           "seed_parent_selected",
           "validator_gated_resample",
           "anchor_repositioned",
-          "offspring_core_growth",
+          "offspring_stability_tune",
           "offspring_stability_tune",
           "offspring_core_growth"
         ],
         "elite": false
       },
       {
-        "parent_id": "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128",
-        "child_id": "slip_gray_stable_constrained_008_offspring_core_growt_0afe0c30d3",
+        "parent_id": "slip_gray_stable_constrained_004_offspring_stability_fa9764e438",
+        "child_id": "slip_gray_stable_constrained_004_offspring_stability_f96f199e15",
         "generation": 4,
         "mutation_events": [
           "seed_parent_selected",
           "validator_gated_resample",
           "anchor_repositioned",
-          "offspring_core_growth",
+          "offspring_stability_tune",
           "offspring_stability_tune",
           "offspring_stability_tune"
         ],
         "elite": true
       },
       {
-        "parent_id": "slip_gray_stable_constrained_008_offspring_core_growt_f2d64a2128",
-        "child_id": "slip_gray_stable_constrained_008_offspring_core_growt_93af3bb2ea",
+        "parent_id": "slip_gray_stable_constrained_004_offspring_stability_fa9764e438",
+        "child_id": "slip_gray_stable_constrained_004_offspring_stability_37c984ae6d",
         "generation": 4,
         "mutation_events": [
           "seed_parent_selected",
           "validator_gated_resample",
           "anchor_repositioned",
-          "offspring_core_growth",
+          "offspring_stability_tune",
           "offspring_stability_tune",
           "offspring_expression_tune"
         ],
@@ -2237,19 +2237,22 @@
     "orphans": []
   },
   "archive_summary": {
-    "initial_record_count": 8,
-    "final_record_count": 9,
-    "initial_niche_count": 8,
-    "final_niche_count": 9,
+    "initial_record_count": 12,
+    "final_record_count": 12,
+    "initial_niche_count": 12,
+    "final_niche_count": 12,
     "final_archive_grid_ids": [
       "slip_gray_stable_constrained_000",
+      "slip_gray_stable_constrained_001",
+      "slip_gray_stable_constrained_002",
+      "slip_gray_stable_constrained_003",
       "slip_gray_stable_constrained_004",
       "slip_gray_stable_constrained_005",
       "slip_gray_stable_constrained_006",
       "slip_gray_stable_constrained_007",
       "slip_gray_stable_constrained_008",
-      "slip_gray_stable_constrained_008_offspring_core_growth",
       "slip_gray_stable_constrained_009",
+      "slip_gray_stable_constrained_010",
       "slip_gray_stable_constrained_011"
     ]
   },
@@ -2259,9 +2262,9 @@
     "selected_offspring_count": 3,
     "continued_child_count": 3,
     "replace_parent_count": 0,
-    "add_archive_niche_count": 1,
-    "hold_parent_count": 2,
-    "mean_selected_offspring_score": 0.93283,
+    "add_archive_niche_count": 0,
+    "hold_parent_count": 3,
+    "mean_selected_offspring_score": 0.920941,
     "mean_selected_runtime_survival_ratio": 1.0,
     "all_selected_offspring_valid": true,
     "all_selected_offspring_aligned": true,

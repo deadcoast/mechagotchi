@@ -242,10 +242,10 @@
     "background_index": 0
   },
   "mutation": {
-    "cell_mutation_rate": 0.05,
-    "organ_shift_rate": 0.02,
-    "palette_shift_rate": 0.01,
-    "symmetry_break_rate": 0.01
+    "cell_mutation_rate": 0.02923,
+    "organ_shift_rate": 0.011692,
+    "palette_shift_rate": 0.005846,
+    "symmetry_break_rate": 0.005846
   },
   "lineage": {
     "generation": 1,

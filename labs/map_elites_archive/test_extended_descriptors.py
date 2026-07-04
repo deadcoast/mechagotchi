@@ -132,6 +132,44 @@ class ExtendedDescriptorTests(unittest.TestCase):
             with self.subTest(axis=name):
                 self.assertGreaterEqual(distinct_bins, 1)
         self.assertGreater(spread["behavior_neediness"], 1)
+        self.assertGreater(spread["mutation_stability"], 1)
+
+    def test_mutation_stability_axis_varies_across_slip_aligned_candidates(self):
+        # Regression for review finding L-12: all generated candidates used to
+        # inherit one fixed mutation vector, collapsing this axis to one bin.
+        slip = load_lcd_slip()
+        candidates = build_constrained_corpus(
+            build_seed_grids(), count=40, rng_seed=42, slip=slip
+        )
+
+        stability_bins = {
+            extended_descriptor_for_grid(
+                grid, slip_profile=slip, lifecycle_ticks=12, rng_seed=42 + index
+            )["values"][5]
+            for index, grid in enumerate(candidates)
+        }
+
+        self.assertGreater(len(stability_bins), 1)
+
+    def test_lifecycle_survival_axis_varies_across_slip_aligned_candidates(self):
+        # Regression for review finding L-12: every valid candidate used to
+        # survive the whole probe because all candidates shared one identical
+        # lifecycle trajectory (pristine cells, constant profile). The
+        # morphology-derived stress probe must divide the corpus into
+        # survivors and stress-collapse deaths.
+        slip = load_lcd_slip()
+        candidates = build_constrained_corpus(
+            build_seed_grids(), count=40, rng_seed=42, slip=slip
+        )
+
+        survival_bins = {
+            extended_descriptor_for_grid(
+                grid, slip_profile=slip, lifecycle_ticks=24, rng_seed=42 + index
+            )["values"][4]
+            for index, grid in enumerate(candidates)
+        }
+
+        self.assertGreater(len(survival_bins), 1)
 
     def test_write_extended_archive_artifacts_creates_json_and_readme(self):
         candidates = build_constrained_corpus(build_seed_grids(), count=12, rng_seed=7)

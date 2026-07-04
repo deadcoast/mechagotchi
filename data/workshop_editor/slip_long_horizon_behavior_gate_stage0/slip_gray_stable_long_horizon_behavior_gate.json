@@ -13,15 +13,15 @@
     "profile_id": "slip_gray_stable",
     "gate_started": true,
     "validation_ok": true,
-    "runtime_parent_grid_id": "slip_gray_stable_constrained_008",
-    "selected_offspring_grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
-    "selected_offspring_score": 0.954665,
-    "lineage_action": "add_archive_niche"
+    "runtime_parent_grid_id": "slip_gray_stable_constrained_004",
+    "selected_offspring_grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
+    "selected_offspring_score": 0.920873,
+    "lineage_action": "hold_parent"
   },
   "validation": {
     "ok": true,
     "profile_id": "slip_gray_stable",
-    "grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
+    "grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
     "profile_validation": {
       "ok": true,
       "migration": {
@@ -72,7 +72,7 @@
     ],
     "full_horizon_scoring": "post_death_missing_ticks_count_as_zero_need_balance"
   },
-  "selected_offspring_grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
+  "selected_offspring_grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
   "selected_offspring_long_horizon": {
     "switchboard": {
       "policy": "switchboard",

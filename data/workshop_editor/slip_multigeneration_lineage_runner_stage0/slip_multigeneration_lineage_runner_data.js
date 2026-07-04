@@ -11,10 +11,10 @@ window.MECHAGOTCHI_SLIP_MULTIGENERATION_LINEAGE_RUNNER = {
     "total_selected_offspring": 9,
     "continued_child_count": 9,
     "replace_parent_count": 0,
-    "add_archive_niche_count": 2,
-    "hold_parent_count": 7,
+    "add_archive_niche_count": 3,
+    "hold_parent_count": 6,
     "max_generation_reached": 4,
-    "mean_selected_offspring_score": 0.925309,
+    "mean_selected_offspring_score": 0.928304,
     "mean_selected_runtime_survival_ratio": 1.0,
     "mean_dominant_lineage_share": 0.333333
   },
@@ -22,22 +22,22 @@ window.MECHAGOTCHI_SLIP_MULTIGENERATION_LINEAGE_RUNNER = {
     {
       "profile_id": "slip_lcd_seed",
       "runner_started": true,
-      "initial_parent_id": "slip_lcd_seed_constrained_011",
-      "final_frontier_parent_id": "slip_lcd_seed_constrained_011_offspring_core_growth_o_686974ae08",
+      "initial_parent_id": "slip_lcd_seed_constrained_007",
+      "final_frontier_parent_id": "slip_lcd_seed_constrained_007_offspring_core_growth_o_e501a58f38",
       "generation_records": 3,
       "continued_child_count": 3,
       "max_generation": 4,
-      "mean_selected_offspring_score": 0.929265
+      "mean_selected_offspring_score": 0.937934
     },
     {
       "profile_id": "slip_gray_stable",
       "runner_started": true,
-      "initial_parent_id": "slip_gray_stable_constrained_008",
-      "final_frontier_parent_id": "slip_gray_stable_constrained_008_offspring_core_growt_0afe0c30d3",
+      "initial_parent_id": "slip_gray_stable_constrained_004",
+      "final_frontier_parent_id": "slip_gray_stable_constrained_004_offspring_stability_f96f199e15",
       "generation_records": 3,
       "continued_child_count": 3,
       "max_generation": 4,
-      "mean_selected_offspring_score": 0.93283
+      "mean_selected_offspring_score": 0.920941
     },
     {
       "profile_id": "slip_amber_social",
@@ -47,12 +47,11 @@ window.MECHAGOTCHI_SLIP_MULTIGENERATION_LINEAGE_RUNNER = {
       "generation_records": 3,
       "continued_child_count": 3,
       "max_generation": 4,
-      "mean_selected_offspring_score": 0.913831
+      "mean_selected_offspring_score": 0.926037
     }
   ],
   "blocked_states": [
     "runtime_jsonschema_validation",
-    "declared_dependency_manifest",
     "profile_weighted_evolution",
     "package_runtime_lifecycle_integration",
     "manual_readability_calibration",

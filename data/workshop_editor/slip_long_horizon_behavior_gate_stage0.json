@@ -76,15 +76,15 @@
         "profile_id": "slip_lcd_seed",
         "gate_started": true,
         "validation_ok": true,
-        "runtime_parent_grid_id": "slip_lcd_seed_constrained_011",
-        "selected_offspring_grid_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
-        "selected_offspring_score": 0.916112,
-        "lineage_action": "hold_parent"
+        "runtime_parent_grid_id": "slip_lcd_seed_constrained_007",
+        "selected_offspring_grid_id": "slip_lcd_seed_constrained_007_offspring_core_growth",
+        "selected_offspring_score": 0.952005,
+        "lineage_action": "add_archive_niche"
       },
       "validation": {
         "ok": true,
         "profile_id": "slip_lcd_seed",
-        "grid_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
+        "grid_id": "slip_lcd_seed_constrained_007_offspring_core_growth",
         "profile_validation": {
           "ok": true,
           "migration": {
@@ -135,7 +135,7 @@
         ],
         "full_horizon_scoring": "post_death_missing_ticks_count_as_zero_need_balance"
       },
-      "selected_offspring_grid_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
+      "selected_offspring_grid_id": "slip_lcd_seed_constrained_007_offspring_core_growth",
       "selected_offspring_long_horizon": {
         "switchboard": {
           "policy": "switchboard",
@@ -810,15 +810,15 @@
         "profile_id": "slip_gray_stable",
         "gate_started": true,
         "validation_ok": true,
-        "runtime_parent_grid_id": "slip_gray_stable_constrained_008",
-        "selected_offspring_grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
-        "selected_offspring_score": 0.954665,
-        "lineage_action": "add_archive_niche"
+        "runtime_parent_grid_id": "slip_gray_stable_constrained_004",
+        "selected_offspring_grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
+        "selected_offspring_score": 0.920873,
+        "lineage_action": "hold_parent"
       },
       "validation": {
         "ok": true,
         "profile_id": "slip_gray_stable",
-        "grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
+        "grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
         "profile_validation": {
           "ok": true,
           "migration": {
@@ -869,7 +869,7 @@
         ],
         "full_horizon_scoring": "post_death_missing_ticks_count_as_zero_need_balance"
       },
-      "selected_offspring_grid_id": "slip_gray_stable_constrained_008_offspring_core_growth",
+      "selected_offspring_grid_id": "slip_gray_stable_constrained_004_offspring_stability_tune",
       "selected_offspring_long_horizon": {
         "switchboard": {
           "policy": "switchboard",
@@ -1546,8 +1546,8 @@
         "validation_ok": true,
         "runtime_parent_grid_id": "slip_amber_social_constrained_004",
         "selected_offspring_grid_id": "slip_amber_social_constrained_004_offspring_stability_tune",
-        "selected_offspring_score": 0.913805,
-        "lineage_action": "hold_parent"
+        "selected_offspring_score": 0.952347,
+        "lineage_action": "add_archive_niche"
       },
       "validation": {
         "ok": true,
@@ -2473,7 +2473,6 @@
   ],
   "blocked_states": [
     "runtime_jsonschema_validation",
-    "declared_dependency_manifest",
     "profile_weighted_evolution",
     "package_runtime_lifecycle_integration",
     "manual_readability_calibration",

@@ -3404,10 +3404,10 @@
           "background_index": 0
         },
         "mutation": {
-          "cell_mutation_rate": 0.05,
-          "organ_shift_rate": 0.02,
-          "palette_shift_rate": 0.01,
-          "symmetry_break_rate": 0.01
+          "cell_mutation_rate": 0.045629,
+          "organ_shift_rate": 0.018251,
+          "palette_shift_rate": 0.009126,
+          "symmetry_break_rate": 0.009126
         },
         "lineage": {
           "generation": 1,
@@ -3719,10 +3719,10 @@
           "background_index": 0
         },
         "mutation": {
-          "cell_mutation_rate": 0.05,
-          "organ_shift_rate": 0.02,
-          "palette_shift_rate": 0.01,
-          "symmetry_break_rate": 0.01
+          "cell_mutation_rate": 0.044766,
+          "organ_shift_rate": 0.017907,
+          "palette_shift_rate": 0.008953,
+          "symmetry_break_rate": 0.008953
         },
         "lineage": {
           "generation": 1,
@@ -4017,10 +4017,10 @@
           "background_index": 0
         },
         "mutation": {
-          "cell_mutation_rate": 0.05,
-          "organ_shift_rate": 0.02,
-          "palette_shift_rate": 0.01,
-          "symmetry_break_rate": 0.01
+          "cell_mutation_rate": 0.005505,
+          "organ_shift_rate": 0.002202,
+          "palette_shift_rate": 0.001101,
+          "symmetry_break_rate": 0.001101
         },
         "lineage": {
           "generation": 1,
@@ -4332,10 +4332,10 @@
           "background_index": 0
         },
         "mutation": {
-          "cell_mutation_rate": 0.05,
-          "organ_shift_rate": 0.02,
-          "palette_shift_rate": 0.01,
-          "symmetry_break_rate": 0.01
+          "cell_mutation_rate": 0.043752,
+          "organ_shift_rate": 0.017501,
+          "palette_shift_rate": 0.00875,
+          "symmetry_break_rate": 0.00875
         },
         "lineage": {
           "generation": 1,
@@ -4630,10 +4630,10 @@
           "background_index": 0
         },
         "mutation": {
-          "cell_mutation_rate": 0.05,
-          "organ_shift_rate": 0.02,
-          "palette_shift_rate": 0.01,
-          "symmetry_break_rate": 0.01
+          "cell_mutation_rate": 0.029109,
+          "organ_shift_rate": 0.011644,
+          "palette_shift_rate": 0.005822,
+          "symmetry_break_rate": 0.005822
         },
         "lineage": {
           "generation": 1,
@@ -4922,10 +4922,10 @@
           "background_index": 0
         },
         "mutation": {
-          "cell_mutation_rate": 0.05,
-          "organ_shift_rate": 0.02,
-          "palette_shift_rate": 0.01,
-          "symmetry_break_rate": 0.01
+          "cell_mutation_rate": 0.044375,
+          "organ_shift_rate": 0.01775,
+          "palette_shift_rate": 0.008875,
+          "symmetry_break_rate": 0.008875
         },
         "lineage": {
           "generation": 1,
@@ -5254,10 +5254,10 @@
           "background_index": 0
         },
         "mutation": {
-          "cell_mutation_rate": 0.05,
-          "organ_shift_rate": 0.02,
-          "palette_shift_rate": 0.01,
-          "symmetry_break_rate": 0.01
+          "cell_mutation_rate": 0.026408,
+          "organ_shift_rate": 0.010563,
+          "palette_shift_rate": 0.005282,
+          "symmetry_break_rate": 0.005282
         },
         "lineage": {
           "generation": 1,
@@ -5552,10 +5552,10 @@
           "background_index": 0
         },
         "mutation": {
-          "cell_mutation_rate": 0.05,
-          "organ_shift_rate": 0.02,
-          "palette_shift_rate": 0.01,
-          "symmetry_break_rate": 0.01
+          "cell_mutation_rate": 0.010449,
+          "organ_shift_rate": 0.00418,
+          "palette_shift_rate": 0.00209,
+          "symmetry_break_rate": 0.00209
         },
         "lineage": {
           "generation": 1,
@@ -5833,10 +5833,10 @@
           "background_index": 0
         },
         "mutation": {
-          "cell_mutation_rate": 0.05,
-          "organ_shift_rate": 0.02,
-          "palette_shift_rate": 0.01,
-          "symmetry_break_rate": 0.01
+          "cell_mutation_rate": 0.036955,
+          "organ_shift_rate": 0.014782,
+          "palette_shift_rate": 0.007391,
+          "symmetry_break_rate": 0.007391
         },
         "lineage": {
           "generation": 1,
@@ -6125,10 +6125,10 @@
           "background_index": 0
         },
         "mutation": {
-          "cell_mutation_rate": 0.05,
-          "organ_shift_rate": 0.02,
-          "palette_shift_rate": 0.01,
-          "symmetry_break_rate": 0.01
+          "cell_mutation_rate": 0.02641,
+          "organ_shift_rate": 0.010564,
+          "palette_shift_rate": 0.005282,
+          "symmetry_break_rate": 0.005282
         },
         "lineage": {
           "generation": 1,

@@ -20,7 +20,7 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
       "preview_to_lifecycle_archive_effects_measured": true,
       "mean_lifecycle_need_balance": 0.793865,
       "mean_lifecycle_survival_ratio": 1.0,
-      "mean_archive_qd_score": 7.671145
+      "mean_archive_qd_score": 9.609017
     },
     "parameters": {
       "candidate_limit": 12,
@@ -36,7 +36,6 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
     ],
     "blocked_states": [
       "runtime_jsonschema_validation",
-      "declared_dependency_manifest",
       "profile_weighted_evolution",
       "package_runtime_lifecycle_integration",
       "held_out_long_horizon_behavior_tests",
@@ -288,33 +287,33 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
         "descriptor_dimensions": 7,
         "candidate_count": 12,
         "lifecycle_ticks": 12,
-        "occupied_niches": 7,
-        "coverage": 9e-05,
-        "best_fitness": 0.973629,
-        "mean_elite_fitness": 0.960404,
-        "qd_score": 6.722827,
-        "elite_count": 7,
+        "occupied_niches": 10,
+        "coverage": 0.000128,
+        "best_fitness": 0.939533,
+        "mean_elite_fitness": 0.901632,
+        "qd_score": 9.016318,
+        "elite_count": 10,
         "score_component_means": {
           "bond": 0.993,
-          "mutation_stability": 0.9775,
-          "readability": 0.847891,
+          "mutation_stability": 0.363874,
+          "readability": 0.858685,
           "slip_alignment": 1.0,
           "survival": 1.0,
           "validity": 1.0
         },
         "descriptor_metric_means": {
-          "behavior_neediness": 0.402857,
-          "body_mass": 9.857143,
+          "behavior_neediness": 0.391,
+          "body_mass": 9.9,
           "lifecycle_survival": 1.0,
-          "mutation_stability": 0.9775,
-          "readability": 0.847891,
-          "sensor_count": 2.142857,
-          "symmetry": 0.521787
+          "mutation_stability": 0.363874,
+          "readability": 0.858685,
+          "sensor_count": 2.0,
+          "symmetry": 0.505727
         },
         "representative_elites": [
           {
             "grid_id": "slip_lcd_seed_constrained_009",
-            "fitness": 0.964767,
+            "fitness": 0.898875,
             "descriptor": {
               "names": [
                 "body_mass",
@@ -331,17 +330,17 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
                 1,
                 4,
                 4,
-                4,
+                1,
                 1
               ],
-              "key": "1,1,1,4,4,4,1",
+              "key": "1,1,1,4,4,1,1",
               "metrics": {
                 "body_mass": 9,
                 "sensor_count": 2,
                 "symmetry": 0.333333,
                 "readability": 0.866069,
                 "lifecycle_survival": 1.0,
-                "mutation_stability": 0.9775,
+                "mutation_stability": 0.318582,
                 "behavior_neediness": 0.4
               }
             },
@@ -350,13 +349,55 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
               "readability": 0.866069,
               "validity": 1.0,
               "bond": 0.993,
-              "mutation_stability": 0.9775,
+              "mutation_stability": 0.318582,
+              "slip_alignment": 1.0
+            }
+          },
+          {
+            "grid_id": "slip_lcd_seed_constrained_010",
+            "fitness": 0.934247,
+            "descriptor": {
+              "names": [
+                "body_mass",
+                "sensor_count",
+                "symmetry",
+                "readability",
+                "lifecycle_survival",
+                "mutation_stability",
+                "behavior_neediness"
+              ],
+              "values": [
+                1,
+                1,
+                1,
+                4,
+                4,
+                2,
+                1
+              ],
+              "key": "1,1,1,4,4,2,1",
+              "metrics": {
+                "body_mass": 9,
+                "sensor_count": 2,
+                "symmetry": 0.333333,
+                "readability": 0.866069,
+                "lifecycle_survival": 1.0,
+                "mutation_stability": 0.672302,
+                "behavior_neediness": 0.4
+              }
+            },
+            "score_components": {
+              "survival": 1.0,
+              "readability": 0.866069,
+              "validity": 1.0,
+              "bond": 0.993,
+              "mutation_stability": 0.672302,
               "slip_alignment": 1.0
             }
           },
           {
             "grid_id": "slip_lcd_seed_constrained_011",
-            "fitness": 0.967783,
+            "fitness": 0.879833,
             "descriptor": {
               "names": [
                 "body_mass",
@@ -373,17 +414,17 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
                 2,
                 4,
                 4,
-                4,
+                0,
                 2
               ],
-              "key": "1,1,2,4,4,4,2",
+              "key": "1,1,2,4,4,0,2",
               "metrics": {
                 "body_mass": 8,
                 "sensor_count": 2,
                 "symmetry": 0.545455,
                 "readability": 0.878639,
                 "lifecycle_survival": 1.0,
-                "mutation_stability": 0.9775,
+                "mutation_stability": 0.098,
                 "behavior_neediness": 0.41
               }
             },
@@ -392,49 +433,7 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
               "readability": 0.878639,
               "validity": 1.0,
               "bond": 0.993,
-              "mutation_stability": 0.9775,
-              "slip_alignment": 1.0
-            }
-          },
-          {
-            "grid_id": "slip_lcd_seed_constrained_008",
-            "fitness": 0.944192,
-            "descriptor": {
-              "names": [
-                "body_mass",
-                "sensor_count",
-                "symmetry",
-                "readability",
-                "lifecycle_survival",
-                "mutation_stability",
-                "behavior_neediness"
-              ],
-              "values": [
-                1,
-                2,
-                1,
-                3,
-                4,
-                4,
-                2
-              ],
-              "key": "1,2,1,3,4,4,2",
-              "metrics": {
-                "body_mass": 8,
-                "sensor_count": 3,
-                "symmetry": 0.5,
-                "readability": 0.780343,
-                "lifecycle_survival": 1.0,
-                "mutation_stability": 0.9775,
-                "behavior_neediness": 0.49
-              }
-            },
-            "score_components": {
-              "survival": 1.0,
-              "readability": 0.780343,
-              "validity": 1.0,
-              "bond": 0.993,
-              "mutation_stability": 0.9775,
+              "mutation_stability": 0.098,
               "slip_alignment": 1.0
             }
           }
@@ -459,13 +458,13 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
           "preview_signal": 0.4225,
           "cell_mutation_budget": 2,
           "organ_shift_budget": 1,
-          "archive_mutation_stability_mean": 0.9775
+          "archive_mutation_stability_mean": 0.363874
         },
         "mutation_caution_to_archive": {
           "preview_signal": 0.5625,
           "caps_respected": true,
-          "archive_best_fitness": 0.973629,
-          "archive_qd_score": 6.722827
+          "archive_best_fitness": 0.939533,
+          "archive_qd_score": 9.016318
         }
       },
       "preview_effect_fingerprint": [
@@ -488,14 +487,14 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
         0.288
       ],
       "archive_effect_fingerprint": [
-        7.0,
-        9e-05,
-        0.973629,
-        0.960404,
-        6.722827,
+        10.0,
+        0.000128,
+        0.939533,
+        0.901632,
+        9.016318,
         1.0,
-        0.402857,
-        0.9775,
+        0.391,
+        0.363874,
         1.0
       ],
       "measured_effect_fingerprint": {
@@ -504,9 +503,9 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
         "lifecycle_recovery_rate": 0.166667,
         "lifecycle_play_ratio": 0.666667,
         "lifecycle_sleep_ratio": 0.166667,
-        "archive_occupied_niches": 7,
-        "archive_best_fitness": 0.973629,
-        "archive_qd_score": 6.722827
+        "archive_occupied_niches": 10,
+        "archive_best_fitness": 0.939533,
+        "archive_qd_score": 9.016318
       }
     },
     {
@@ -742,33 +741,33 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
         "descriptor_dimensions": 7,
         "candidate_count": 12,
         "lifecycle_ticks": 12,
-        "occupied_niches": 8,
-        "coverage": 0.000102,
-        "best_fitness": 0.973786,
-        "mean_elite_fitness": 0.955711,
-        "qd_score": 7.645688,
-        "elite_count": 8,
+        "occupied_niches": 12,
+        "coverage": 0.000154,
+        "best_fitness": 0.957558,
+        "mean_elite_fitness": 0.91098,
+        "qd_score": 10.931758,
+        "elite_count": 12,
         "score_component_means": {
-          "bond": 1.0,
-          "mutation_stability": 0.9775,
-          "readability": 0.824837,
+          "bond": 0.903,
+          "mutation_stability": 0.634095,
+          "readability": 0.830043,
           "slip_alignment": 1.0,
           "survival": 1.0,
           "validity": 1.0
         },
         "descriptor_metric_means": {
-          "behavior_neediness": 0.37125,
-          "body_mass": 9.875,
+          "behavior_neediness": 0.341667,
+          "body_mass": 10.166667,
           "lifecycle_survival": 1.0,
-          "mutation_stability": 0.9775,
-          "readability": 0.824837,
-          "sensor_count": 2.0,
-          "symmetry": 0.475525
+          "mutation_stability": 0.634095,
+          "readability": 0.830043,
+          "sensor_count": 1.666667,
+          "symmetry": 0.461372
         },
         "representative_elites": [
           {
             "grid_id": "slip_gray_stable_constrained_008",
-            "fitness": 0.970124,
+            "fitness": 0.91187,
             "descriptor": {
               "names": [
                 "body_mass",
@@ -785,17 +784,17 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
                 1,
                 4,
                 4,
-                4,
+                1,
                 1
               ],
-              "key": "1,1,1,4,4,4,1",
+              "key": "1,1,1,4,4,1,1",
               "metrics": {
                 "body_mass": 9,
                 "sensor_count": 2,
                 "symmetry": 0.5,
                 "readability": 0.884891,
                 "lifecycle_survival": 1.0,
-                "mutation_stability": 0.9775,
+                "mutation_stability": 0.39496,
                 "behavior_neediness": 0.38
               }
             },
@@ -804,13 +803,13 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
               "readability": 0.884891,
               "validity": 1.0,
               "bond": 1.0,
-              "mutation_stability": 0.9775,
+              "mutation_stability": 0.39496,
               "slip_alignment": 1.0
             }
           },
           {
             "grid_id": "slip_gray_stable_constrained_011",
-            "fitness": 0.929396,
+            "fitness": 0.898046,
             "descriptor": {
               "names": [
                 "body_mass",
@@ -827,17 +826,17 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
                 1,
                 3,
                 4,
-                4,
+                2,
                 2
               ],
-              "key": "1,2,1,3,4,4,2",
+              "key": "1,2,1,3,4,2,2",
               "metrics": {
                 "body_mass": 8,
                 "sensor_count": 3,
                 "symmetry": 0.333333,
                 "readability": 0.71519,
                 "lifecycle_survival": 1.0,
-                "mutation_stability": 0.9775,
+                "mutation_stability": 0.664003,
                 "behavior_neediness": 0.47
               }
             },
@@ -846,13 +845,13 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
               "readability": 0.71519,
               "validity": 1.0,
               "bond": 1.0,
-              "mutation_stability": 0.9775,
+              "mutation_stability": 0.664003,
               "slip_alignment": 1.0
             }
           },
           {
             "grid_id": "slip_gray_stable_constrained_009",
-            "fitness": 0.973786,
+            "fitness": 0.931556,
             "descriptor": {
               "names": [
                 "body_mass",
@@ -869,17 +868,17 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
                 1,
                 4,
                 4,
-                4,
+                2,
                 1
               ],
-              "key": "2,0,1,4,4,4,1",
+              "key": "2,0,1,4,4,2,1",
               "metrics": {
                 "body_mass": 10,
                 "sensor_count": 1,
                 "symmetry": 0.5,
                 "readability": 0.900149,
                 "lifecycle_survival": 1.0,
-                "mutation_stability": 0.9775,
+                "mutation_stability": 0.555203,
                 "behavior_neediness": 0.29
               }
             },
@@ -888,7 +887,7 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
               "readability": 0.900149,
               "validity": 1.0,
               "bond": 1.0,
-              "mutation_stability": 0.9775,
+              "mutation_stability": 0.555203,
               "slip_alignment": 1.0
             }
           }
@@ -913,13 +912,13 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
           "preview_signal": 0.2275,
           "cell_mutation_budget": 2,
           "organ_shift_budget": 1,
-          "archive_mutation_stability_mean": 0.9775
+          "archive_mutation_stability_mean": 0.634095
         },
         "mutation_caution_to_archive": {
           "preview_signal": 0.74,
           "caps_respected": true,
-          "archive_best_fitness": 0.973786,
-          "archive_qd_score": 7.645688
+          "archive_best_fitness": 0.957558,
+          "archive_qd_score": 10.931758
         }
       },
       "preview_effect_fingerprint": [
@@ -942,14 +941,14 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
         0.2268
       ],
       "archive_effect_fingerprint": [
-        8.0,
-        0.000102,
-        0.973786,
-        0.955711,
-        7.645688,
+        12.0,
+        0.000154,
+        0.957558,
+        0.91098,
+        10.931758,
         1.0,
-        0.37125,
-        0.9775,
+        0.341667,
+        0.634095,
         1.0
       ],
       "measured_effect_fingerprint": {
@@ -958,9 +957,9 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
         "lifecycle_recovery_rate": 0.333333,
         "lifecycle_play_ratio": 0.666667,
         "lifecycle_sleep_ratio": 0.166667,
-        "archive_occupied_niches": 8,
-        "archive_best_fitness": 0.973786,
-        "archive_qd_score": 7.645688
+        "archive_occupied_niches": 12,
+        "archive_best_fitness": 0.957558,
+        "archive_qd_score": 10.931758
       }
     },
     {
@@ -1205,33 +1204,33 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
         "descriptor_dimensions": 7,
         "candidate_count": 12,
         "lifecycle_ticks": 12,
-        "occupied_niches": 9,
-        "coverage": 0.000115,
-        "best_fitness": 0.976533,
-        "mean_elite_fitness": 0.960547,
-        "qd_score": 8.644921,
-        "elite_count": 9,
+        "occupied_niches": 10,
+        "coverage": 0.000128,
+        "best_fitness": 0.946905,
+        "mean_elite_fitness": 0.887898,
+        "qd_score": 8.878976,
+        "elite_count": 10,
         "score_component_means": {
-          "bond": 1.0,
-          "mutation_stability": 0.9775,
-          "readability": 0.844986,
+          "bond": 0.95305,
+          "mutation_stability": 0.329474,
+          "readability": 0.835767,
           "slip_alignment": 1.0,
           "survival": 1.0,
           "validity": 1.0
         },
         "descriptor_metric_means": {
-          "behavior_neediness": 0.413333,
-          "body_mass": 9.888889,
+          "behavior_neediness": 0.424,
+          "body_mass": 9.8,
           "lifecycle_survival": 1.0,
-          "mutation_stability": 0.9775,
-          "readability": 0.844986,
-          "sensor_count": 1.777778,
-          "symmetry": 0.463573
+          "mutation_stability": 0.329474,
+          "readability": 0.835767,
+          "sensor_count": 1.9,
+          "symmetry": 0.460073
         },
         "representative_elites": [
           {
             "grid_id": "slip_amber_social_constrained_005",
-            "fitness": 0.973542,
+            "fitness": 0.893513,
             "descriptor": {
               "names": [
                 "body_mass",
@@ -1248,17 +1247,17 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
                 2,
                 4,
                 4,
-                4,
+                0,
                 1
               ],
-              "key": "1,0,2,4,4,4,1",
+              "key": "1,0,2,4,4,0,1",
               "metrics": {
                 "body_mass": 8,
                 "sensor_count": 1,
                 "symmetry": 0.6,
                 "readability": 0.899135,
                 "lifecycle_survival": 1.0,
-                "mutation_stability": 0.9775,
+                "mutation_stability": 0.177202,
                 "behavior_neediness": 0.37
               }
             },
@@ -1267,13 +1266,13 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
               "readability": 0.899135,
               "validity": 1.0,
               "bond": 1.0,
-              "mutation_stability": 0.9775,
+              "mutation_stability": 0.177202,
               "slip_alignment": 1.0
             }
           },
           {
             "grid_id": "slip_amber_social_constrained_003",
-            "fitness": 0.949312,
+            "fitness": 0.915032,
             "descriptor": {
               "names": [
                 "body_mass",
@@ -1290,17 +1289,17 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
                 1,
                 3,
                 4,
-                4,
+                2,
                 2
               ],
-              "key": "1,1,1,3,4,4,2",
+              "key": "1,1,1,3,4,2,2",
               "metrics": {
                 "body_mass": 9,
                 "sensor_count": 2,
                 "symmetry": 0.5,
                 "readability": 0.798174,
                 "lifecycle_survival": 1.0,
-                "mutation_stability": 0.9775,
+                "mutation_stability": 0.6347,
                 "behavior_neediness": 0.44
               }
             },
@@ -1309,13 +1308,13 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
               "readability": 0.798174,
               "validity": 1.0,
               "bond": 1.0,
-              "mutation_stability": 0.9775,
+              "mutation_stability": 0.6347,
               "slip_alignment": 1.0
             }
           },
           {
             "grid_id": "slip_amber_social_constrained_007",
-            "fitness": 0.942308,
+            "fitness": 0.897014,
             "descriptor": {
               "names": [
                 "body_mass",
@@ -1332,17 +1331,17 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
                 1,
                 3,
                 4,
-                4,
+                2,
                 1
               ],
-              "key": "2,0,1,3,4,4,1",
+              "key": "2,0,1,3,4,2,1",
               "metrics": {
                 "body_mass": 10,
                 "sensor_count": 1,
                 "symmetry": 0.5,
                 "readability": 0.768992,
                 "lifecycle_survival": 1.0,
-                "mutation_stability": 0.9775,
+                "mutation_stability": 0.524558,
                 "behavior_neediness": 0.35
               }
             },
@@ -1351,7 +1350,7 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
               "readability": 0.768992,
               "validity": 1.0,
               "bond": 1.0,
-              "mutation_stability": 0.9775,
+              "mutation_stability": 0.524558,
               "slip_alignment": 1.0
             }
           }
@@ -1376,13 +1375,13 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
           "preview_signal": 0.4775,
           "cell_mutation_budget": 3,
           "organ_shift_budget": 1,
-          "archive_mutation_stability_mean": 0.9775
+          "archive_mutation_stability_mean": 0.329474
         },
         "mutation_caution_to_archive": {
           "preview_signal": 0.4775,
           "caps_respected": true,
-          "archive_best_fitness": 0.976533,
-          "archive_qd_score": 8.644921
+          "archive_best_fitness": 0.946905,
+          "archive_qd_score": 8.878976
         }
       },
       "preview_effect_fingerprint": [
@@ -1405,14 +1404,14 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
         0.4292
       ],
       "archive_effect_fingerprint": [
-        9.0,
-        0.000115,
-        0.976533,
-        0.960547,
-        8.644921,
+        10.0,
+        0.000128,
+        0.946905,
+        0.887898,
+        8.878976,
         1.0,
-        0.413333,
-        0.9775,
+        0.424,
+        0.329474,
         1.0
       ],
       "measured_effect_fingerprint": {
@@ -1421,9 +1420,9 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
         "lifecycle_recovery_rate": 0.166667,
         "lifecycle_play_ratio": 0.625,
         "lifecycle_sleep_ratio": 0.166667,
-        "archive_occupied_niches": 9,
-        "archive_best_fitness": 0.976533,
-        "archive_qd_score": 8.644921
+        "archive_occupied_niches": 10,
+        "archive_best_fitness": 0.946905,
+        "archive_qd_score": 8.878976
       }
     }
   ],

@@ -1,6 +1,7 @@
 import argparse
 import json
 import sys
+from copy import deepcopy
 from pathlib import Path
 from statistics import mean
 
@@ -13,7 +14,11 @@ for path in [GRID_GENOME, READABILITY, LIFECYCLE]:
     if str(path) not in sys.path:
         sys.path.insert(0, str(path))
 
-from constrained_generator import build_constrained_corpus
+from constrained_generator import (
+    DEFAULT_MUTATION_RATE_CAPS,
+    SLIP_MUTATION_CAP_KEYS,
+    build_constrained_corpus,
+)
 from corpus_builder import build_seed_grids
 from darwin_archive import build_map_elites_archive, descriptor_for_grid
 from lifecycle_sim import run_lifecycle_simulation
@@ -55,7 +60,7 @@ def extended_descriptor_for_grid(
     lifecycle = _lifecycle_or_empty(
         grid, slip_profile=slip_profile, lifecycle_ticks=lifecycle_ticks, rng_seed=rng_seed
     )
-    mutation_stability = _mutation_stability(grid)
+    mutation_stability = _mutation_stability(grid, slip_profile)
     neediness = _behavior_neediness(grid, slip_profile)
 
     values = (
@@ -95,7 +100,7 @@ def score_extended_candidate(
     lifecycle = _lifecycle_or_empty(
         grid, slip_profile=slip_profile, lifecycle_ticks=lifecycle_ticks, rng_seed=rng_seed
     )
-    mutation_stability = _mutation_stability(grid)
+    mutation_stability = _mutation_stability(grid, slip_profile)
     slip_alignment = 1.0 if slip_profile is None or is_grid_aligned(grid, slip_profile).ok else 0.0
     bond = lifecycle["final_state"].get("bond", 0.0)
 
@@ -246,6 +251,19 @@ def write_extended_archive_artifacts(
             "Lifecycle metrics use synthetic switchboard policy simulations.",
             "Readability is still proxy-scored until manual ratings are collected.",
             "Descriptor cardinalities are hand-set and need calibration.",
+            (
+                "The lifecycle probe stresses each candidate with a "
+                "morphology-derived load, but the stage-0 switchboard sim is "
+                "bistable: a candidate either stabilizes (full survival) or "
+                "enters a terminal stress spiral lasting ~12-14 ticks, so the "
+                "lifecycle_survival axis reaches only 2 of its 5 bins. "
+                "Intermediate survival bins await a harsher lifecycle model."
+            ),
+            (
+                "mutation_stability is cap-normalized (share of the SLIP "
+                "mutation budget used); raw mean rates cannot leave the top "
+                "bin under profile caps."
+            ),
         ],
     }
     output_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
@@ -259,6 +277,42 @@ def write_extended_archive_artifacts(
         "and behavior neediness.\n",
         encoding="utf-8",
     )
+
+
+def _lifecycle_probe_grid(grid: dict) -> dict:
+    """Return a copy of the grid carrying a morphology-derived stress load.
+
+    Generated candidates ship with pristine cells (stress 0, damage 0) and
+    the SLIP behavior profile is constant for an archive run, so every valid
+    candidate used to share one identical lifecycle trajectory and the
+    lifecycle_survival axis collapsed into a single bin (review finding
+    L-12). The archive therefore probes each candidate under a deterministic
+    structural stress load derived from its own morphology:
+
+        load = clamp(body_mass / 16 + (1 - symmetry) * 0.65
+                     - sensor_count * 0.08)
+
+    - body_mass / 16: heavier bodies strain the substrate (16 is the top
+      body-mass descriptor bin edge);
+    - (1 - symmetry) * 0.65: asymmetric silhouettes carry unbalanced load;
+    - sensor_count * 0.08: sensor coverage relieves load (needs are noticed
+      and regulated sooner).
+
+    The load is written to every cell's "stress" field on a deep copy;
+    initial_lifecycle_state translates mean cell stress into the starting
+    stress/grid_stability, and whether the switchboard policy can stabilize
+    that starting point decides survival. lifecycle_sim's drift, action, and
+    death arithmetic are untouched.
+    """
+    probe = deepcopy(grid)
+    load = _clamp(
+        _body_mass(grid) / 16
+        + (1 - _symmetry_score(grid)) * 0.65
+        - _sensor_count(grid) * 0.08
+    )
+    for cell in probe.get("cells", []):
+        cell["stress"] = round(load, 6)
+    return probe
 
 
 def _lifecycle_or_empty(
@@ -277,7 +331,7 @@ def _lifecycle_or_empty(
         }
     try:
         result = run_lifecycle_simulation(
-            grid,
+            _lifecycle_probe_grid(grid),
             slip_profile,
             ticks=lifecycle_ticks,
             policy="switchboard",
@@ -320,16 +374,35 @@ def _symmetry_score(grid: dict) -> float:
     return mirrored / len(occupied)
 
 
-def _mutation_stability(grid: dict) -> float:
+def _mutation_stability(grid: dict, slip_profile: dict | None) -> float:
+    # Cap-normalized stability (review finding L-12). The previous metric,
+    # 1 - mean(raw rates), could not leave the top descriptor bin for any
+    # SLIP-compliant grid: the LCD profile caps the four rates at
+    # 0.15/0.05/0.05/0.05, so the raw mean never exceeds 0.075 and stability
+    # was pinned above 0.925 (> the 0.9 top bin edge). Measuring the share of
+    # the permitted mutation budget a genome actually uses spans [0, 1] for
+    # any profile:
+    #
+    #     stability = 1 - mean(rate_i / cap_i), each ratio clamped to [0, 1]
+    #
+    # Caps come from the archive run's SLIP profile (*_max limits) or, when
+    # no profile is supplied, from the generator's default rate vector.
     mutation = grid.get("mutation", {})
-    values = [
-        mutation.get("cell_mutation_rate", 1.0),
-        mutation.get("organ_shift_rate", 1.0),
-        mutation.get("palette_shift_rate", 1.0),
-        mutation.get("symmetry_break_rate", 1.0),
-    ]
-    mean_rate = mean(float(value) for value in values)
-    return _clamp(1.0 - mean_rate)
+    caps = DEFAULT_MUTATION_RATE_CAPS
+    if slip_profile is not None:
+        caps = {
+            rate_key: _clamp(slip_profile.get("mutation", {}).get(cap_key, 0.0))
+            for rate_key, cap_key in SLIP_MUTATION_CAP_KEYS.items()
+        }
+    ratios = []
+    for rate_key, cap in caps.items():
+        rate = _clamp(mutation.get(rate_key, 1.0))
+        if cap <= 0:
+            # A zero cap permits no mutation: any positive rate exhausts it.
+            ratios.append(1.0 if rate > 0 else 0.0)
+        else:
+            ratios.append(min(1.0, rate / cap))
+    return _clamp(1.0 - mean(ratios))
 
 
 def _behavior_neediness(grid: dict, slip_profile: dict | None) -> float:

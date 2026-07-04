@@ -19,6 +19,25 @@ ROOT = Path(__file__).resolve().parents[2]
 
 TOKENS = [".", "B", "A", "E", "M"]
 
+# Per-rate ceilings for the deterministic mutation-rate jitter (review
+# finding L-12). When no SLIP profile is supplied the ceilings are the fixed
+# default vector grid_from_matrix emits, so jittered rates never exceed the
+# historical defaults; with a SLIP profile the ceilings are the profile's
+# *_max caps, so jittered grids always stay is_grid_aligned.
+DEFAULT_MUTATION_RATE_CAPS = {
+    "cell_mutation_rate": 0.05,
+    "organ_shift_rate": 0.02,
+    "palette_shift_rate": 0.01,
+    "symmetry_break_rate": 0.01,
+}
+
+SLIP_MUTATION_CAP_KEYS = {
+    "cell_mutation_rate": "cell_mutation_rate_max",
+    "organ_shift_rate": "organ_shift_rate_max",
+    "palette_shift_rate": "palette_shift_rate_max",
+    "symmetry_break_rate": "symmetry_break_rate_max",
+}
+
 
 def train_constraints(seed_grids: list[dict]) -> dict:
     adjacency = {"right": {}, "down": {}}
@@ -87,7 +106,9 @@ def generate_constrained_grid(
         mutation_events=["seed_parent_selected", "validator_gated_resample"],
         parent_grid_id=parent_grid_id,
     )
-    return _ensure_semantic_variation(safe_variant, rng)
+    variant = _ensure_semantic_variation(safe_variant, rng)
+    _apply_mutation_temperature(variant, grid_id, rng_seed, slip)
+    return variant
 
 
 def build_constrained_corpus(
@@ -206,6 +227,39 @@ def _acceptable(grid: dict, slip: dict | None) -> bool:
     if not validate_grid(grid).ok:
         return False
     return slip is None or is_grid_aligned(grid, slip).ok
+
+
+def _apply_mutation_temperature(
+    grid: dict, grid_id: str, rng_seed: int, slip: dict | None
+) -> None:
+    """Deterministically vary the candidate's mutation vector (finding L-12).
+
+    Every candidate previously inherited grid_from_matrix's fixed rate vector
+    (0.05/0.02/0.01/0.01), which collapsed the extended archive's
+    mutation_stability descriptor axis to a single bin. Each candidate now
+    draws a "mutation temperature" in [0.05, 1.0) from its own dedicated rng
+    stream (separate from the structural stream, so cell layouts are
+    byte-identical to the pre-jitter generator) and scales every rate ceiling
+    by it:
+
+        rate = round(cap * temperature, 6)
+
+    Determinism: the stream is seeded with f"{rng_seed}:{grid_id}:mutation",
+    so the same seed always reproduces the same vector. Safety: rates stay in
+    (0, cap], so validate_grid (rates in [0, 1]) and is_grid_aligned (rates
+    <= the profile's *_max caps) both keep passing.
+    """
+    rng = random.Random(f"{rng_seed}:{grid_id}:mutation")
+    temperature = 0.05 + 0.95 * rng.random()
+    caps = DEFAULT_MUTATION_RATE_CAPS
+    if slip is not None:
+        caps = {
+            rate_key: float(slip["mutation"][cap_key])
+            for rate_key, cap_key in SLIP_MUTATION_CAP_KEYS.items()
+        }
+    grid["mutation"] = {
+        rate_key: round(cap * temperature, 6) for rate_key, cap in caps.items()
+    }
 
 
 def _ensure_semantic_variation(grid: dict, rng: random.Random) -> dict:
