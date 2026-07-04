@@ -33,7 +33,7 @@ python labs/workshop_editor/png_apng_sidecar_decoder.py
 python -m json.tool data\<path>\artifact.json
 ```
 
-**Interpreter caveat:** `.venv` is a uv-created CPython 3.13 venv with **zero third-party packages** — almost all labs are pure-stdlib and run fine under it. The exception is `labs/slip_validator/` (`pydantic_contract.py`, `schema_migration_gate.py`), which requires pydantic and only runs under the system `C:\Python314\python.exe` (pydantic 2.12.5 installed).
+**Interpreter caveat:** `.venv` is a uv-created CPython 3.13 venv with **zero third-party packages** — almost all labs are pure-stdlib and run fine under it. The exception is `labs/slip_validator/` (`pydantic_contract.py`, `schema_migration_gate.py`), which requires pydantic and only runs under the system `C:\Python314\python.exe` (pydantic 2.12.5 installed). Note that `python` in a plain shell may resolve to the system 3.14, and user site-packages (`AppData\Roaming\Python\Python314`) leak into it — the dependency-gate labs *record* module availability (`jsonschema_available` etc.) as per-run observations; never write tests that pin those observations (see review finding H-01).
 
 ## Architecture
 
@@ -61,7 +61,7 @@ Documents are living files: **every code or data change must update the correspo
 
 Each research finding exists as linked files sharing one slug, differing only by directory and suffix:
 
-```
+```text
 research/experiment_reports/2026-05-12-ca-nca-growth-repair.md   ← dated report (YYYY-MM-DD-kebab-slug.md)
 research/algorithm_cards/ca_nca_growth_repair.md                 ← card (snake_case, same stem)
 labs/cellular_automata/ca_nca_growth_repair.py (+ test_*.py)     ← code

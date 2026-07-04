@@ -1,4 +1,4 @@
-import importlib
+import importlib.metadata
 import importlib.util
 import json
 from enum import Enum
@@ -348,8 +348,10 @@ def _module_available(name: str) -> bool:
 def _module_version(name: str) -> str | None:
     if not _module_available(name):
         return None
-    module = importlib.import_module(name)
-    return str(getattr(module, "__version__", "unknown"))
+    try:
+        return importlib.metadata.version(name)
+    except importlib.metadata.PackageNotFoundError:
+        return "unknown"
 
 
 def main() -> None:

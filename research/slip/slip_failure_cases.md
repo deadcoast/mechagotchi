@@ -15,8 +15,8 @@ creating package code or claiming final workshop authoring compatibility.
 The schema artifact is `research/slip/slip.schema.json`.
 
 The executable Stage 0 checker is `labs/slip_validator/slip_validator.py`. It is
-a dependency-free structural validator used because the current environment does
-not provide a `jsonschema` runtime package. It mirrors the authored schema's
+a dependency-free structural validator used because the repository defers a
+`jsonschema` runtime dependency until a dependency manifest exists. It mirrors the authored schema's
 required fields, enums, unit intervals, and additional-property restrictions,
 then adds the semantic body-mass order check.
 

@@ -45,3 +45,7 @@ Published artifacts:
 - `../experiment_reports/2026-05-12-slip-multi-profile-generation-benchmark.md`
   - benchmark proving the current constrained generator can produce valid,
   aligned corpora for all current valid Stage 0 profiles.
+- `../experiment_reports/2026-07-04-slip-dependency-gate-env-decoupling.md`
+  - report decoupling the dependency-gate tests from environment state:
+  `jsonschema_available` is a recorded observation, the pinned claim is the
+  dependency-manifest deferral policy (review finding H-01).

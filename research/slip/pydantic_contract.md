@@ -2,6 +2,8 @@
 
 Date: 2026-05-12
 
+Updated: 2026-07-04 (environment decoupling, review finding H-01)
+
 Status: `research_slip_pydantic_contract_no_package_code`
 
 ## Purpose
@@ -18,14 +20,16 @@ Current documentation anchors:
   `BaseModel.model_validate_json()`, `BaseModel.model_json_schema()`,
   `ConfigDict(extra="forbid")`, and bounded `Field` constraints.
 - Python `jsonschema` supports Draft 2020-12 validation through
-  `Draft202012Validator.check_schema()` and `iter_errors()`, but that package
-  is not installed in the current environment.
+  `Draft202012Validator.check_schema()` and `iter_errors()`, but the
+  repository defers that dependency until a dependency manifest exists.
 
-Local environment evidence:
+Local environment evidence (an observation recorded per run, not a pinned
+claim — `jsonschema_available` in the stage 0 artifact reflects whatever the
+executing environment provides):
 
 ```txt
 Pydantic: available, version 2.12.5
-jsonschema: missing
+jsonschema: environment-dependent (missing on 2026-05-12; 4.26.0 observed 2026-07-04)
 repository dependency manifest: absent
 ```
 
@@ -67,8 +71,11 @@ Adopt the Pydantic model as the current Stage 0 Python authoring contract. Do
 not promote it into `packages/` or make it a required package dependency until a
 repository dependency manifest and package import-surface gate exist.
 
-Runtime JSON Schema validation remains blocked because `jsonschema` is not
-installed or declared. Schema migration policy is handled separately in
+Runtime JSON Schema validation remains blocked because no repository
+dependency manifest declares `jsonschema`; whether the package happens to be
+importable in a given environment does not change the gate. Lab tests assert
+the dependency policy, not the environment observation (review finding H-01).
+Schema migration policy is handled separately in
 `research/slip/schema_migration_dependency_gate.md`.
 
 ## Verification

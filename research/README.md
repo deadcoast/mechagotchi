@@ -392,6 +392,9 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-05-14-aseprite-tags-layers-semantics.md`
 - `research/algorithm_cards/aseprite_tags_layers_semantics.md`
 - `data/workshop_editor/aseprite_tags_layers_semantics_stage0.json`
+- `research/experiment_reports/2026-07-04-slip-dependency-gate-env-decoupling.md`
+- `data/slips/slip_pydantic_contract_stage0.json`
+- `data/slips/slip_schema_migration_dependency_gate_stage0.json`
 
 Stage 0 and Stage 1 established:
 
