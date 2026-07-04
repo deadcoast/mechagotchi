@@ -143,14 +143,26 @@ class MechaEngineScaffoldImportTests(unittest.TestCase):
             self.assertEqual(data_before, _snapshot(REPO_ROOT / "data"))
             self.assertEqual(set(), _snapshot(scratch))
 
-    def test_scaffold_contains_no_implementation_code(self):
-        # The first scaffold must not carry copied lab implementation: no
-        # top-level function or class definitions in the package source.
+    def test_unpromoted_modules_contain_no_implementation_code(self):
+        # The scaffold-stage rule ("no copied lab implementation") applies to
+        # module boundaries that have not been promoted yet. A module counts
+        # as promoted once its package contract test exists
+        # (tests/test_<module>_contract.py, per the contract traceability
+        # matrix); every other package source file must stay a placeholder
+        # with no top-level function or class definitions.
+        promoted = {
+            module
+            for module in INITIAL_MODULES
+            if (PACKAGE_ROOT / "tests" / f"test_{module}_contract.py").exists()
+        }
         for path in sorted((SRC_DIR / "mecha_engine").rglob("*.py")):
+            relative_parts = path.relative_to(SRC_DIR / "mecha_engine").parts
+            if relative_parts[0] in promoted:
+                continue
             text = path.read_text(encoding="utf-8")
             self.assertIsNone(
                 _TOP_LEVEL_IMPLEMENTATION.search(text),
-                f"non-placeholder implementation found in scaffold: {path}",
+                f"non-placeholder implementation in unpromoted scaffold area: {path}",
             )
 
 

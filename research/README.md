@@ -463,6 +463,10 @@ Post-v0.1 continuation has started:
 - `data/architecture/mecha_engine_scaffold_verification_gate_stage0.json`
 - `packages/mecha_engine/` (empty package scaffold per decision record 0004; no lab code promoted)
 
+- `research/experiment_reports/2026-07-04-mecha-engine-genome-promotion.md`
+- `packages/mecha_engine/src/mecha_engine/genome/`
+- `packages/mecha_engine/tests/test_genome_contract.py`
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

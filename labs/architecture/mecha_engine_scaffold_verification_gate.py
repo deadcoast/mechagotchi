@@ -217,18 +217,51 @@ def check_lab_boundary(root: Path) -> dict:
     }
 
 
+def promoted_modules(root: Path) -> list[str]:
+    """Modules promoted past the scaffold step.
+
+    A module counts as promoted once its package contract test exists
+    (packages/mecha_engine/tests/test_<module>_contract.py), per the
+    per-module contract gates in the contract traceability matrix. The
+    scaffold-stage placeholder-only rule keeps applying to everything else.
+    """
+    tests_dir = root / "packages/mecha_engine/tests"
+    return [
+        module
+        for module in INITIAL_MODULES
+        if (tests_dir / f"test_{module}_contract.py").exists()
+    ]
+
+
 def check_placeholder_only(root: Path) -> dict:
+    # Scaffold-stage negative check: "no copied lab implementation" applies
+    # to the scaffold step only (scaffold verification gate, "Expected
+    # scaffold-stage result"). Modules promoted through their own contract
+    # gate carry implementation legitimately, so the placeholder-only scan
+    # covers only the unpromoted package source.
     src_root = root / "packages/mecha_engine/src/mecha_engine"
+    promoted = promoted_modules(root)
     implementation_files = []
+    promoted_implementation_files = []
     if src_root.exists():
         for path in sorted(src_root.rglob("*.py")):
-            if _TOP_LEVEL_IMPLEMENTATION.search(path.read_text(encoding="utf-8")):
-                implementation_files.append(path.relative_to(root).as_posix())
+            if not _TOP_LEVEL_IMPLEMENTATION.search(
+                path.read_text(encoding="utf-8")
+            ):
+                continue
+            relative = path.relative_to(root).as_posix()
+            module_parts = path.relative_to(src_root).parts
+            if module_parts[0] in promoted:
+                promoted_implementation_files.append(relative)
+            else:
+                implementation_files.append(relative)
     return {
         "check_id": "no_copied_lab_implementation",
         "ok": src_root.exists() and not implementation_files,
         "evidence": {
             "src_root_exists": src_root.exists(),
+            "promoted_modules": promoted,
+            "promoted_implementation_files": promoted_implementation_files,
             "implementation_files": implementation_files,
         },
     }
@@ -315,6 +348,8 @@ def build_scaffold_verification_report(root: Path | None = None) -> dict:
     ]
     checks_by_id = {check["check_id"]: check for check in checks}
     gate_passed = all(check["ok"] for check in checks)
+    promoted = promoted_modules(root)
+    unpromoted = [module for module in INITIAL_MODULES if module not in promoted]
     import_surface_accepted = (
         checks_by_id["package_import_surface"]["ok"]
         and checks_by_id["package_import_test_suite_passes"]["ok"]
@@ -352,23 +387,31 @@ def build_scaffold_verification_report(root: Path | None = None) -> dict:
         "import_suite_tests_run": checks_by_id["package_import_test_suite_passes"][
             "evidence"
         ]["tests_run"],
+        "promoted_module_count": len(promoted),
     }
     return {
         "artifact_id": ARTIFACT_ID,
         "date": "2026-07-04",
         "status": (
-            "package_scaffold_verification_executed_no_lab_code_promoted"
-            if gate_passed
-            else "package_scaffold_verification_failed"
+            "package_scaffold_verification_failed"
+            if not gate_passed
+            else (
+                "package_scaffold_verification_executed_promoted_modules_present"
+                if promoted
+                else "package_scaffold_verification_executed_no_lab_code_promoted"
+            )
         ),
         "purpose": (
             "Execute the scaffold verification checklist against the real "
-            "packages/mecha_engine scaffold: verify the empty package "
-            "boundary without promoting lab code, declaring license "
-            "metadata, or creating deferred modules."
+            "packages/mecha_engine scaffold: verify the package boundary "
+            "without unpromoted implementation, license metadata, or "
+            "deferred modules; modules that passed their own contract gate "
+            "are recorded as promoted instead of failing the scaffold rule."
         ),
         "target_package_root": "packages/mecha_engine",
         "package_root_exists": (root / "packages" / "mecha_engine").exists(),
+        "promoted_modules": promoted,
+        "unpromoted_modules": unpromoted,
         "gate_passed": gate_passed,
         "import_surface_accepted": import_surface_accepted,
         "required_scaffold_paths": REQUIRED_SCAFFOLD_PATHS,
@@ -394,7 +437,14 @@ def build_scaffold_verification_report(root: Path | None = None) -> dict:
                 "package_import_surface_accepted",
                 "import_side_effect_free",
                 "lab_boundary_negative_checks_rejected",
-                "scaffold_placeholder_only",
+                (
+                    "scaffold_placeholder_only_outside_promoted_modules"
+                    if promoted
+                    else "scaffold_placeholder_only"
+                ),
+                *(
+                    [f"module_{module}_promoted_with_contract_tests" for module in promoted]
+                ),
                 "deferred_modules_absent",
                 "package_promotion_gate_rerun_after_scaffold",
             ]
@@ -403,24 +453,40 @@ def build_scaffold_verification_report(root: Path | None = None) -> dict:
         ),
         "blocked_states": [
             "release_license_metadata",
-            "package_module_implementations",
+            (
+                "unpromoted_package_module_implementations"
+                if promoted
+                else "package_module_implementations"
+            ),
             "deferred_modules_learning_repair_render_storage_slip",
             "lab_code_promotion",
             "package_dependency_policy",
         ],
         "decision": (
-            "accept_empty_package_scaffold"
-            if gate_passed
-            else "reject_package_scaffold"
+            "reject_package_scaffold"
+            if not gate_passed
+            else (
+                "accept_package_scaffold_with_promoted_modules"
+                if promoted
+                else "accept_empty_package_scaffold"
+            )
         ),
         "next_research_step": (
-            "Start the genome contract surface first: package-level tests per "
-            "research/package_specs/mecha_engine_genome_contract_gate.md, then "
-            "generation, lifecycle, archive, and provenance, rerunning the "
-            "package-promotion gate as each surface lands."
+            (
+                "Continue the contract-gate order with the unpromoted modules "
+                f"({', '.join(unpromoted)}), rerunning the package-promotion "
+                "gate as each surface lands."
+            )
+            if promoted
+            else (
+                "Start the genome contract surface first: package-level tests per "
+                "research/package_specs/mecha_engine_genome_contract_gate.md, then "
+                "generation, lifecycle, archive, and provenance, rerunning the "
+                "package-promotion gate as each surface lands."
+            )
         ),
         "limitations": [
-            "This gate verifies the empty scaffold boundary only; it does not prove any module contract.",
+            "This gate verifies the scaffold boundary only; module contracts are proven by each module's own package contract tests, which this gate records as promotion evidence without re-proving them.",
             "It does not promote lab code or authorize deferred modules.",
             "License/release metadata remains blocked until a license decision record exists.",
             "Import checks run through the src layout via subprocess PYTHONPATH, matching the documented editable-install surface without requiring installation.",

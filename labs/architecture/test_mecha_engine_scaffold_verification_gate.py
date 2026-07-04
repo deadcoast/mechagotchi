@@ -32,7 +32,16 @@ class MechaEngineScaffoldVerificationGateTests(unittest.TestCase):
         self.assertTrue(report["package_root_exists"])
         self.assertTrue(report["gate_passed"], report["checks"])
         self.assertTrue(report["import_surface_accepted"])
-        self.assertEqual("accept_empty_package_scaffold", report["decision"])
+        # Genome is the first module promoted through its contract gate;
+        # the scaffold placeholder rule keeps covering the other modules.
+        self.assertEqual(["genome"], report["promoted_modules"])
+        self.assertEqual(
+            ["generation", "lifecycle", "archive", "provenance"],
+            report["unpromoted_modules"],
+        )
+        self.assertEqual(
+            "accept_package_scaffold_with_promoted_modules", report["decision"]
+        )
         for check in report["checks"]:
             self.assertTrue(check["ok"], check)
         self.assertEqual(
@@ -41,6 +50,7 @@ class MechaEngineScaffoldVerificationGateTests(unittest.TestCase):
         self.assertEqual(0, report["metrics"]["lab_import_files"])
         self.assertEqual(0, report["metrics"]["sys_path_lab_files"])
         self.assertEqual(0, report["metrics"]["implementation_files"])
+        self.assertEqual(1, report["metrics"]["promoted_module_count"])
         self.assertEqual(0, report["metrics"]["deferred_modules_present"])
         self.assertGreaterEqual(report["metrics"]["import_suite_tests_run"], 6)
         self.assertEqual(10, len(REQUIRED_SCAFFOLD_PATHS))
@@ -99,6 +109,34 @@ class MechaEngineScaffoldVerificationGateTests(unittest.TestCase):
         self.assertEqual(
             ["packages/mecha_engine/src/mecha_engine/genome/__init__.py"],
             result["evidence"]["implementation_files"],
+        )
+        self.assertEqual([], result["evidence"]["promoted_modules"])
+
+    def test_placeholder_check_accepts_promoted_module_implementation(self):
+        # A module with its own package contract test is promoted past the
+        # scaffold step, so its implementation no longer violates the
+        # scaffold-stage placeholder rule.
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            module = root / "packages/mecha_engine/src/mecha_engine/genome"
+            module.mkdir(parents=True)
+            (module / "__init__.py").write_text(
+                "def validate_grid(payload):\n    return payload\n",
+                encoding="utf-8",
+            )
+            tests_dir = root / "packages/mecha_engine/tests"
+            tests_dir.mkdir(parents=True)
+            (tests_dir / "test_genome_contract.py").write_text(
+                "# genome contract tests\n", encoding="utf-8"
+            )
+            result = check_placeholder_only(root)
+
+        self.assertTrue(result["ok"], result)
+        self.assertEqual(["genome"], result["evidence"]["promoted_modules"])
+        self.assertEqual([], result["evidence"]["implementation_files"])
+        self.assertEqual(
+            ["packages/mecha_engine/src/mecha_engine/genome/__init__.py"],
+            result["evidence"]["promoted_implementation_files"],
         )
 
     def test_deferred_module_check_rejects_premature_modules(self):
