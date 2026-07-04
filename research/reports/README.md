@@ -24,3 +24,8 @@ must not replace the underlying lab reports.
   runtime boundary gate, third-party project/native-metadata boundary,
   spritesheet/PNG/APNG conformance matrices, Aseprite chunk-semantics family,
   and the in-progress 2026-07-04 code-review remediation.
+- `mechagotchi_research_report_v0_7.md` - post-v0.6 completion of the
+  2026-07-04 code-review remediation: decoder/boundary hardening, grid
+  validator schema alignment, small-labs gate integrity, the foreign-fixture
+  conformance corpus, and structural debt retirement (helper dedup, repo-root
+  path anchoring, ledger backfill).
