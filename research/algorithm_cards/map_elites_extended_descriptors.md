@@ -45,7 +45,11 @@ new bins:
 - Lifecycle probes are synthetic and short.
 - Readability is still proxy-scored until manual ratings are collected.
 - Seven 5-bin dimensions create a large sparse space.
-- Behavior neediness is currently SLIP-derived when available.
+- `descriptor_bin_spread` on the 2026-07-04 run shows `lifecycle_survival`
+  and `mutation_stability` are degenerate (spread 1) for the current seed
+  corpus: all candidates survive the short probe and share one mutation
+  vector. Threshold calibration and corpus variation remain open (review
+  finding L-12).
 
 ## Failure Modes
 
@@ -75,6 +79,23 @@ extended_occupied_niches: 29
 extended_best_fitness: 0.979592
 extended_mean_elite_fitness: 0.957708
 extended_qd_score: 27.773545
+```
+
+Behavior-neediness descriptor fix regenerated on 2026-07-04 (review finding
+H-03): the axis was SLIP-derived and therefore constant per archive run; it
+is now grid-derived with the profile neediness as a prior shift, and the
+archive reports per-axis `descriptor_bin_spread`.
+
+```txt
+candidate_count: 160
+legacy_occupied_niches: 19
+extended_occupied_niches: 33
+extended_best_fitness: 0.979592
+extended_mean_elite_fitness: 0.958156
+extended_qd_score: 31.619138
+descriptor_bin_spread: body_mass 3, sensor_count 4, symmetry 4,
+  readability 3, lifecycle_survival 1, mutation_stability 1,
+  behavior_neediness 2
 ```
 
 SLIP lifecycle/archive bridge completed on 2026-05-12.

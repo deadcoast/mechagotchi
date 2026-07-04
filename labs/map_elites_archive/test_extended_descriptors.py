@@ -101,6 +101,38 @@ class ExtendedDescriptorTests(unittest.TestCase):
             comparison["legacy_occupied_niches"],
         )
 
+    def test_behavior_neediness_axis_varies_across_candidates_with_slip(self):
+        # Regression for review finding H-03: the SLIP profile is constant per
+        # archive run, so a profile-derived neediness collapsed this axis to a
+        # single bin for every candidate.
+        candidates = build_constrained_corpus(build_seed_grids(), count=80, rng_seed=20260512)
+        slip = load_lcd_slip()
+
+        neediness_bins = {
+            extended_descriptor_for_grid(
+                grid, slip_profile=slip, lifecycle_ticks=12, rng_seed=20260512 + index
+            )["values"][6]
+            for index, grid in enumerate(candidates)
+        }
+
+        self.assertGreater(len(neediness_bins), 1)
+
+    def test_archive_reports_descriptor_bin_spread_for_every_axis(self):
+        candidates = build_constrained_corpus(build_seed_grids(), count=40, rng_seed=42)
+        archive = build_extended_map_elites_archive(
+            candidates,
+            slip_profile=load_lcd_slip(),
+            lifecycle_ticks=12,
+            rng_seed=42,
+        )
+
+        spread = archive["descriptor_bin_spread"]
+        self.assertEqual(set(archive["descriptor_names"]), set(spread))
+        for name, distinct_bins in spread.items():
+            with self.subTest(axis=name):
+                self.assertGreaterEqual(distinct_bins, 1)
+        self.assertGreater(spread["behavior_neediness"], 1)
+
     def test_write_extended_archive_artifacts_creates_json_and_readme(self):
         candidates = build_constrained_corpus(build_seed_grids(), count=12, rng_seed=7)
         archive = build_extended_map_elites_archive(

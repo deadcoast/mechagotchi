@@ -1,7 +1,7 @@
 {
   "archive": {
     "archive_id": "map_elites_extended_stage0",
-    "date": "2026-05-12",
+    "date": "2026-07-04",
     "descriptor_names": [
       "body_mass",
       "sensor_count",
@@ -22,11 +22,20 @@
       5
     ],
     "total_possible_niches": 78125,
-    "occupied_niches": 29,
-    "coverage": 0.000371,
+    "occupied_niches": 33,
+    "coverage": 0.000422,
+    "descriptor_bin_spread": {
+      "body_mass": 3,
+      "sensor_count": 4,
+      "symmetry": 4,
+      "readability": 3,
+      "lifecycle_survival": 1,
+      "mutation_stability": 1,
+      "behavior_neediness": 2
+    },
     "best_fitness": 0.979592,
-    "mean_elite_fitness": 0.957708,
-    "qd_score": 27.773545,
+    "mean_elite_fitness": 0.958156,
+    "qd_score": 31.619138,
     "elites": {
       "1,0,1,3,4,4,1": {
         "grid_id": "mg_constrained_121",
@@ -58,7 +67,7 @@
             "readability": 0.838674,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.32
           }
         },
         "score_components": {
@@ -100,7 +109,7 @@
             "readability": 0.879135,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.33
           }
         },
         "score_components": {
@@ -142,7 +151,7 @@
             "readability": 0.750281,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.33
           }
         },
         "score_components": {
@@ -184,7 +193,7 @@
             "readability": 0.903037,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.32
           }
         },
         "score_components": {
@@ -197,8 +206,8 @@
         }
       },
       "1,1,0,3,4,4,1": {
-        "grid_id": "mg_constrained_037",
-        "fitness": 0.954329,
+        "grid_id": "mg_constrained_082",
+        "fitness": 0.952224,
         "descriptor": {
           "names": [
             "body_mass",
@@ -220,13 +229,55 @@
           ],
           "key": "1,1,0,3,4,4,1",
           "metrics": {
+            "body_mass": 9,
+            "sensor_count": 2,
+            "symmetry": 0.166667,
+            "readability": 0.810307,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.4
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.810307,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "1,1,0,3,4,4,2": {
+        "grid_id": "mg_constrained_037",
+        "fitness": 0.954329,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            1,
+            1,
+            0,
+            3,
+            4,
+            4,
+            2
+          ],
+          "key": "1,1,0,3,4,4,2",
+          "metrics": {
             "body_mass": 7,
             "sensor_count": 2,
             "symmetry": 0.2,
             "readability": 0.819079,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.42
           }
         },
         "score_components": {
@@ -280,6 +331,48 @@
           "slip_alignment": 1.0
         }
       },
+      "1,1,1,3,4,4,2": {
+        "grid_id": "mg_constrained_146",
+        "fitness": 0.956413,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            1,
+            1,
+            1,
+            3,
+            4,
+            4,
+            2
+          ],
+          "key": "1,1,1,3,4,4,2",
+          "metrics": {
+            "body_mass": 8,
+            "sensor_count": 2,
+            "symmetry": 0.5,
+            "readability": 0.827764,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.41
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.827764,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
       "1,1,1,4,4,4,1": {
         "grid_id": "mg_constrained_072",
         "fitness": 0.971186,
@@ -322,7 +415,49 @@
           "slip_alignment": 1.0
         }
       },
-      "1,1,2,3,4,4,1": {
+      "1,1,1,4,4,4,2": {
+        "grid_id": "mg_constrained_079",
+        "fitness": 0.965224,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            1,
+            1,
+            1,
+            4,
+            4,
+            4,
+            2
+          ],
+          "key": "1,1,1,4,4,4,2",
+          "metrics": {
+            "body_mass": 8,
+            "sensor_count": 2,
+            "symmetry": 0.363636,
+            "readability": 0.864474,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.41
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.864474,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "1,1,2,3,4,4,2": {
         "grid_id": "mg_constrained_149",
         "fitness": 0.959131,
         "descriptor": {
@@ -342,9 +477,9 @@
             3,
             4,
             4,
-            1
+            2
           ],
-          "key": "1,1,2,3,4,4,1",
+          "key": "1,1,2,3,4,4,2",
           "metrics": {
             "body_mass": 8,
             "sensor_count": 2,
@@ -352,7 +487,7 @@
             "readability": 0.839089,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.41
           }
         },
         "score_components": {
@@ -406,7 +541,49 @@
           "slip_alignment": 1.0
         }
       },
-      "1,2,1,3,4,4,1": {
+      "1,1,2,4,4,4,2": {
+        "grid_id": "mg_constrained_140",
+        "fitness": 0.971732,
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            1,
+            1,
+            2,
+            4,
+            4,
+            4,
+            2
+          ],
+          "key": "1,1,2,4,4,4,2",
+          "metrics": {
+            "body_mass": 8,
+            "sensor_count": 2,
+            "symmetry": 0.545455,
+            "readability": 0.891592,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.9775,
+            "behavior_neediness": 0.41
+          }
+        },
+        "score_components": {
+          "survival": 1.0,
+          "readability": 0.891592,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.9775,
+          "slip_alignment": 1.0
+        }
+      },
+      "1,2,1,3,4,4,2": {
         "grid_id": "mg_constrained_156",
         "fitness": 0.957659,
         "descriptor": {
@@ -426,9 +603,9 @@
             3,
             4,
             4,
-            1
+            2
           ],
-          "key": "1,2,1,3,4,4,1",
+          "key": "1,2,1,3,4,4,2",
           "metrics": {
             "body_mass": 8,
             "sensor_count": 3,
@@ -436,7 +613,7 @@
             "readability": 0.832953,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.49
           }
         },
         "score_components": {
@@ -448,7 +625,7 @@
           "slip_alignment": 1.0
         }
       },
-      "1,3,0,2,4,4,1": {
+      "1,3,0,2,4,4,2": {
         "grid_id": "mg_constrained_023",
         "fitness": 0.923842,
         "descriptor": {
@@ -468,9 +645,9 @@
             2,
             4,
             4,
-            1
+            2
           ],
-          "key": "1,3,0,2,4,4,1",
+          "key": "1,3,0,2,4,4,2",
           "metrics": {
             "body_mass": 7,
             "sensor_count": 4,
@@ -478,7 +655,7 @@
             "readability": 0.692052,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.58
           }
         },
         "score_components": {
@@ -490,7 +667,7 @@
           "slip_alignment": 1.0
         }
       },
-      "1,3,1,3,4,4,1": {
+      "1,3,1,3,4,4,2": {
         "grid_id": "mg_constrained_039",
         "fitness": 0.944994,
         "descriptor": {
@@ -510,9 +687,9 @@
             3,
             4,
             4,
-            1
+            2
           ],
-          "key": "1,3,1,3,4,4,1",
+          "key": "1,3,1,3,4,4,2",
           "metrics": {
             "body_mass": 9,
             "sensor_count": 4,
@@ -520,7 +697,7 @@
             "readability": 0.780185,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.56
           }
         },
         "score_components": {
@@ -562,7 +739,7 @@
             "readability": 0.680769,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.31
           }
         },
         "score_components": {
@@ -604,7 +781,7 @@
             "readability": 0.861596,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.31
           }
         },
         "score_components": {
@@ -646,7 +823,7 @@
             "readability": 0.831725,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.3
           }
         },
         "score_components": {
@@ -688,7 +865,7 @@
             "readability": 0.907674,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.31
           }
         },
         "score_components": {
@@ -730,7 +907,7 @@
             "readability": 0.924341,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.31
           }
         },
         "score_components": {
@@ -772,7 +949,7 @@
             "readability": 0.808241,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.21
           }
         },
         "score_components": {
@@ -814,7 +991,7 @@
             "readability": 0.849706,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.39
           }
         },
         "score_components": {
@@ -856,7 +1033,7 @@
             "readability": 0.895976,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.39
           }
         },
         "score_components": {
@@ -898,7 +1075,7 @@
             "readability": 0.849803,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.38
           }
         },
         "score_components": {
@@ -940,7 +1117,7 @@
             "readability": 0.913956,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.39
           }
         },
         "score_components": {
@@ -952,7 +1129,7 @@
           "slip_alignment": 1.0
         }
       },
-      "2,2,1,2,4,4,1": {
+      "2,2,1,2,4,4,2": {
         "grid_id": "mg_constrained_081",
         "fitness": 0.920863,
         "descriptor": {
@@ -972,9 +1149,9 @@
             2,
             4,
             4,
-            1
+            2
           ],
-          "key": "2,2,1,2,4,4,1",
+          "key": "2,2,1,2,4,4,2",
           "metrics": {
             "body_mass": 10,
             "sensor_count": 3,
@@ -982,7 +1159,7 @@
             "readability": 0.679636,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.47
           }
         },
         "score_components": {
@@ -994,7 +1171,7 @@
           "slip_alignment": 1.0
         }
       },
-      "2,2,1,3,4,4,1": {
+      "2,2,1,3,4,4,2": {
         "grid_id": "mg_constrained_069",
         "fitness": 0.95953,
         "descriptor": {
@@ -1014,9 +1191,9 @@
             3,
             4,
             4,
-            1
+            2
           ],
-          "key": "2,2,1,3,4,4,1",
+          "key": "2,2,1,3,4,4,2",
           "metrics": {
             "body_mass": 11,
             "sensor_count": 3,
@@ -1024,7 +1201,7 @@
             "readability": 0.840749,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.46
           }
         },
         "score_components": {
@@ -1036,7 +1213,7 @@
           "slip_alignment": 1.0
         }
       },
-      "2,2,1,4,4,4,1": {
+      "2,2,1,4,4,4,2": {
         "grid_id": "mg_constrained_144",
         "fitness": 0.964917,
         "descriptor": {
@@ -1056,9 +1233,9 @@
             4,
             4,
             4,
-            1
+            2
           ],
-          "key": "2,2,1,4,4,4,1",
+          "key": "2,2,1,4,4,4,2",
           "metrics": {
             "body_mass": 10,
             "sensor_count": 3,
@@ -1066,7 +1243,7 @@
             "readability": 0.863196,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.47
           }
         },
         "score_components": {
@@ -1078,7 +1255,7 @@
           "slip_alignment": 1.0
         }
       },
-      "2,2,2,3,4,4,1": {
+      "2,2,2,3,4,4,2": {
         "grid_id": "mg_constrained_095",
         "fitness": 0.95973,
         "descriptor": {
@@ -1098,9 +1275,9 @@
             3,
             4,
             4,
-            1
+            2
           ],
-          "key": "2,2,2,3,4,4,1",
+          "key": "2,2,2,3,4,4,2",
           "metrics": {
             "body_mass": 11,
             "sensor_count": 3,
@@ -1108,7 +1285,7 @@
             "readability": 0.841584,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.46
           }
         },
         "score_components": {
@@ -1120,7 +1297,7 @@
           "slip_alignment": 1.0
         }
       },
-      "2,3,1,3,4,4,1": {
+      "2,3,1,3,4,4,2": {
         "grid_id": "mg_constrained_045",
         "fitness": 0.959509,
         "descriptor": {
@@ -1140,9 +1317,9 @@
             3,
             4,
             4,
-            1
+            2
           ],
-          "key": "2,3,1,3,4,4,1",
+          "key": "2,3,1,3,4,4,2",
           "metrics": {
             "body_mass": 10,
             "sensor_count": 4,
@@ -1150,7 +1327,7 @@
             "readability": 0.840661,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.55
           }
         },
         "score_components": {
@@ -1162,7 +1339,7 @@
           "slip_alignment": 1.0
         }
       },
-      "3,2,0,3,4,4,1": {
+      "3,2,0,3,4,4,2": {
         "grid_id": "mg_constrained_042",
         "fitness": 0.945288,
         "descriptor": {
@@ -1182,9 +1359,9 @@
             3,
             4,
             4,
-            1
+            2
           ],
-          "key": "3,2,0,3,4,4,1",
+          "key": "3,2,0,3,4,4,2",
           "metrics": {
             "body_mass": 13,
             "sensor_count": 3,
@@ -1192,7 +1369,7 @@
             "readability": 0.781407,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.44
           }
         },
         "score_components": {
@@ -1204,7 +1381,7 @@
           "slip_alignment": 1.0
         }
       },
-      "3,3,2,3,4,4,1": {
+      "3,3,2,3,4,4,2": {
         "grid_id": "mg_constrained_137",
         "fitness": 0.954553,
         "descriptor": {
@@ -1224,9 +1401,9 @@
             3,
             4,
             4,
-            1
+            2
           ],
-          "key": "3,3,2,3,4,4,1",
+          "key": "3,3,2,3,4,4,2",
           "metrics": {
             "body_mass": 13,
             "sensor_count": 4,
@@ -1234,7 +1411,7 @@
             "readability": 0.820013,
             "lifecycle_survival": 1.0,
             "mutation_stability": 0.9775,
-            "behavior_neediness": 0.4
+            "behavior_neediness": 0.52
           }
         },
         "score_components": {
@@ -1258,14 +1435,14 @@
     "legacy_descriptor_dimensions": 3,
     "extended_descriptor_dimensions": 7,
     "legacy_unique_candidate_niches": 19,
-    "extended_unique_candidate_niches": 29,
+    "extended_unique_candidate_niches": 33,
     "legacy_occupied_niches": 19,
-    "extended_occupied_niches": 29,
+    "extended_occupied_niches": 33,
     "legacy_coverage": 0.152,
-    "extended_coverage": 0.000371,
+    "extended_coverage": 0.000422,
     "legacy_best_fitness": 0.91,
     "extended_best_fitness": 0.979592,
-    "extended_qd_score": 27.773545,
+    "extended_qd_score": 31.619138,
     "descriptor_expansion": 4
   },
   "source_refs": [

@@ -1,14 +1,11 @@
-# MAP-Elites Archive Artifacts
+# Extended MAP-Elites Archive Stage 0
 
-Archive artifacts for the `mecha_darwin` research line.
+Descriptor-expanded MAP-Elites artifact for the post-v0.1 research gate.
 
-Primary artifacts:
+Primary artifact:
 
-- `map_elites_stage0.json`
 - `map_elites_extended_stage0.json`
 
-`map_elites_stage0.json` is the first 3D baseline using body mass, sensor count,
-and symmetry.
-
-`map_elites_extended_stage0.json` keeps those baseline dimensions and adds
-readability, lifecycle survival, mutation stability, and behavior neediness.
+The archive keeps the original body mass, sensor count, and symmetry
+dimensions, then adds readability, lifecycle survival, mutation stability,
+and behavior neediness.

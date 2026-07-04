@@ -125,6 +125,7 @@ def build_extended_map_elites_archive(
     rng_seed: int = 20260512,
 ) -> dict:
     elites: dict[str, dict] = {}
+    observed_bins: dict[str, set[int]] = {name: set() for name in DESCRIPTOR_NAMES}
     for index, grid in enumerate(candidates):
         descriptor = extended_descriptor_for_grid(
             grid,
@@ -132,6 +133,8 @@ def build_extended_map_elites_archive(
             lifecycle_ticks=lifecycle_ticks,
             rng_seed=rng_seed + index,
         )
+        for name, value in zip(DESCRIPTOR_NAMES, descriptor["values"]):
+            observed_bins[name].add(value)
         score = score_extended_candidate(
             grid,
             slip_profile=slip_profile,
@@ -151,13 +154,19 @@ def build_extended_map_elites_archive(
     qd_score = sum(elite["fitness"] for elite in elites.values())
     return {
         "archive_id": "map_elites_extended_stage0",
-        "date": "2026-05-12",
+        "date": "2026-07-04",
         "descriptor_names": DESCRIPTOR_NAMES,
         "descriptor_dimensions": len(DESCRIPTOR_NAMES),
         "descriptor_cardinalities": DESCRIPTOR_CARDINALITIES,
         "total_possible_niches": total_niches,
         "occupied_niches": len(elites),
         "coverage": round(len(elites) / total_niches, 6),
+        # Distinct bins observed per axis across all candidates. An axis with
+        # spread 1 is degenerate for this run and inflates total_possible_niches
+        # relative to what the candidate set can actually reach (H-03 guard).
+        "descriptor_bin_spread": {
+            name: len(observed_bins[name]) for name in DESCRIPTOR_NAMES
+        },
         "best_fitness": max((elite["fitness"] for elite in elites.values()), default=0),
         "mean_elite_fitness": round(qd_score / len(elites), 6) if elites else 0,
         "qd_score": round(qd_score, 6),
@@ -324,13 +333,18 @@ def _mutation_stability(grid: dict) -> float:
 
 
 def _behavior_neediness(grid: dict, slip_profile: dict | None) -> float:
+    # Descriptor axes must vary per candidate: a SLIP profile is constant for
+    # an archive run, so using its neediness directly collapsed this axis to a
+    # single bin (review finding H-03). The grid-derived term carries the
+    # per-candidate signal; the profile neediness acts as a prior shift only.
+    body_mass = _body_mass(grid)
+    sensor_count = _sensor_count(grid)
+    grid_term = 0.35 + sensor_count * 0.08 - body_mass * 0.01
     if slip_profile is not None:
         behavior = slip_profile.get("behavior", {})
         if "neediness" in behavior:
-            return _clamp(behavior["neediness"])
-    body_mass = _body_mass(grid)
-    sensor_count = _sensor_count(grid)
-    return _clamp(0.35 + sensor_count * 0.08 - body_mass * 0.01)
+            return _clamp(grid_term + (_clamp(behavior["neediness"]) - 0.5) * 0.2)
+    return _clamp(grid_term)
 
 
 def _bin(value: float, thresholds: list[float]) -> int:

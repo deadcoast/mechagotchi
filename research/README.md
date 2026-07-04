@@ -396,6 +396,9 @@ Post-v0.1 continuation has started:
 - `data/slips/slip_pydantic_contract_stage0.json`
 - `data/slips/slip_schema_migration_dependency_gate_stage0.json`
 - `research/experiment_reports/2026-07-04-slip-lab-validator-alignment.md`
+- `research/experiment_reports/2026-07-04-map-elites-neediness-descriptor-fix.md`
+- `research/algorithm_cards/map_elites_extended_descriptors.md`
+- `data/archives/map_elites_extended_stage0.json`
 
 Stage 0 and Stage 1 established:
 
