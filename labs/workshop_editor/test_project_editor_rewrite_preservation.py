@@ -1,7 +1,9 @@
+import io
 import json
 import sys
 import tempfile
 import unittest
+import zipfile
 from copy import deepcopy
 from pathlib import Path
 
@@ -20,12 +22,13 @@ from project_editor_rewrite_preservation import (
     write_project_editor_rewrite_preservation_artifacts,
 )
 from project_native_metadata_writer import (
+    ProjectNativeMetadataError,
     extract_project_native_metadata,
     project_visual_hash,
     remove_project_native_metadata,
     write_project_native_metadata,
 )
-from third_party_project_decoder import export_project_with_sidecar
+from third_party_project_decoder import PXO_MEMBER_SIZE_CAP, export_project_with_sidecar
 
 
 VALID_PROFILE_PATHS = [
@@ -175,6 +178,24 @@ class ProjectEditorRewritePreservationTests(unittest.TestCase):
         self.assertIn("project_native_sidecar_hash_mismatch", sidecar_tampered["error_families"])
         self.assertFalse(visual_changed["ok"])
         self.assertIn("project_native_visual_hash_mismatch", visual_changed["error_families"])
+
+    def test_rewrite_simulation_rejects_oversized_pxo_member(self):
+        buffer = io.BytesIO()
+        with zipfile.ZipFile(buffer, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+            archive.writestr("data.json", json.dumps({"name": "member_probe"}))
+            archive.writestr(
+                "image_data/frames/0/cel_0.png",
+                b"\x00" * (PXO_MEMBER_SIZE_CAP + 1),
+            )
+
+        with self.assertRaises(ProjectNativeMetadataError) as oversized:
+            simulate_editor_rewrite(
+                buffer.getvalue(),
+                "pixelorama_pxo",
+                editor_id="member_probe_editor",
+            )
+
+        self.assertEqual("pxo_member_too_large", oversized.exception.family)
 
     def test_lab_report_closes_simulated_rewrite_subset_only(self):
         report = run_project_editor_rewrite_preservation_lab(

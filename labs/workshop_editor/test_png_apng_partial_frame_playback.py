@@ -92,6 +92,16 @@ class APNGPartialFramePlaybackTests(unittest.TestCase):
         self.assertNotEqual(previous["display_hashes"][1], previous["after_dispose_hashes"][1])
         self.assertEqual(previous["display_hashes"][0], previous["after_dispose_hashes"][1])
 
+    def test_decoder_rejects_trailing_bytes_after_iend(self):
+        profile = load_profile(VALID_PROFILE_PATHS[0])
+        grid = first_grid_for(profile)
+        reference = export_apng_partial_frame_playback_cases(grid, profile)[0]
+
+        decoded = decode_apng_partial_frame_playback(reference["png_bytes"] + b"junk")
+
+        self.assertFalse(decoded["ok"])
+        self.assertEqual(["png_trailing_bytes"], decoded["error_families"])
+
     def test_decoder_rejects_invalid_partial_frame_bounds_control_and_data(self):
         profile = load_profile(VALID_PROFILE_PATHS[0])
         grid = first_grid_for(profile)

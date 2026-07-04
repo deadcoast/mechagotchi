@@ -20,6 +20,7 @@ from project_native_metadata_writer import (
     NATIVE_METADATA_KEY,
     PISKEL_DESCRIPTION_PREFIX,
     ProjectNativeMetadataError,
+    _read_pxo_member,
     extract_project_native_metadata,
     project_visual_hash,
     rebind_sidecar_to_project_hash,
@@ -396,14 +397,14 @@ def _read_pixelorama_archive(project_bytes: bytes) -> tuple[dict, dict[str, byte
     try:
         with zipfile.ZipFile(io.BytesIO(project_bytes), "r") as archive:
             members = {
-                name: archive.read(name)
+                name: _read_pxo_member(archive, name)
                 for name in sorted(archive.namelist())
                 if name != "data.json"
             }
             if "data.json" not in archive.namelist():
                 raise ProjectNativeMetadataError("pxo_data_json_missing", "data.json is required")
             try:
-                data = json.loads(archive.read("data.json").decode("utf-8"))
+                data = json.loads(_read_pxo_member(archive, "data.json").decode("utf-8"))
             except (UnicodeDecodeError, json.JSONDecodeError) as exc:
                 raise ProjectNativeMetadataError("pxo_data_json_invalid", str(exc)) from exc
     except zipfile.BadZipFile as exc:

@@ -98,6 +98,16 @@ class APNGColorTypeFrameDataTests(unittest.TestCase):
         self.assertEqual(2, grayscale_alpha["bytes_per_pixel"])
         self.assertEqual(4, truecolor_alpha["bytes_per_pixel"])
 
+    def test_decoder_rejects_trailing_bytes_after_iend(self):
+        profile = load_profile(VALID_PROFILE_PATHS[0])
+        grid = first_grid_for(profile)
+        reference = export_apng_color_type_frame_data_cases(grid, profile)[0]
+
+        decoded = decode_apng_color_type_frame_data(reference["png_bytes"] + b"junk")
+
+        self.assertFalse(decoded["ok"])
+        self.assertEqual(["png_trailing_bytes"], decoded["error_families"])
+
     def test_decoder_rejects_invalid_color_type_metadata(self):
         profile = load_profile(VALID_PROFILE_PATHS[0])
         grid = first_grid_for(profile)

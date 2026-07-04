@@ -160,7 +160,7 @@ window.MECHAGOTCHI_SLIP_PREVIEW_GATES = {
           "cell_mutation_budget_cap": 2,
           "organ_shift_budget": 1,
           "organ_shift_budget_cap": 1,
-          "symmetry_break_budget": 1,
+          "symmetry_break_budget": null,
           "symmetry_break_budget_cap": 1
         },
         "caps": {
@@ -336,7 +336,7 @@ window.MECHAGOTCHI_SLIP_PREVIEW_GATES = {
           "cell_mutation_budget_cap": 2,
           "organ_shift_budget": 1,
           "organ_shift_budget_cap": 1,
-          "symmetry_break_budget": 1,
+          "symmetry_break_budget": null,
           "symmetry_break_budget_cap": 1
         },
         "caps": {
@@ -512,7 +512,7 @@ window.MECHAGOTCHI_SLIP_PREVIEW_GATES = {
           "cell_mutation_budget_cap": 3,
           "organ_shift_budget": 1,
           "organ_shift_budget_cap": 1,
-          "symmetry_break_budget": 1,
+          "symmetry_break_budget": null,
           "symmetry_break_budget_cap": 1
         },
         "caps": {

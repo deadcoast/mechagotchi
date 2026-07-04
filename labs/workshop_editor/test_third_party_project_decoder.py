@@ -1,8 +1,10 @@
 import base64
+import io
 import json
 import sys
 import tempfile
 import unittest
+import zipfile
 from pathlib import Path
 
 
@@ -14,6 +16,8 @@ for import_path in [WORKSHOP_DIR, GRID_GENOME_DIR]:
 
 from slip import is_grid_aligned
 from third_party_project_decoder import (
+    PXO_MEMBER_SIZE_CAP,
+    ProjectDecodeError,
     decode_aseprite_header,
     decode_piskel_project,
     decode_pixelorama_pxo,
@@ -136,6 +140,37 @@ class ThirdPartyProjectDecoderTests(unittest.TestCase):
         self.assertNotIn("restored_grid", corrupt_result)
         self.assertNotIn("restored_grid", corrupt_chunk_result)
         self.assertNotIn("restored_grid", wrong_hash_result)
+
+    def test_decode_pixelorama_pxo_rejects_missing_and_oversized_cel_members(self):
+        def build_pxo(cel_payload: bytes | None) -> bytes:
+            data = {
+                "name": "member_probe",
+                "size": {"width": 2, "height": 2},
+                "fps": 12,
+                "frames": [{"index": 0, "duration_ms": 120}],
+                "layers": [{"name": "probe layer", "type": "pixel"}],
+                "cels": [
+                    {
+                        "frame": 0,
+                        "layer": 0,
+                        "path": "image_data/frames/0/cel_0.png",
+                    }
+                ],
+            }
+            buffer = io.BytesIO()
+            with zipfile.ZipFile(buffer, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+                archive.writestr("data.json", json.dumps(data))
+                if cel_payload is not None:
+                    archive.writestr("image_data/frames/0/cel_0.png", cel_payload)
+            return buffer.getvalue()
+
+        with self.assertRaises(ProjectDecodeError) as missing:
+            decode_pixelorama_pxo(build_pxo(None))
+        with self.assertRaises(ProjectDecodeError) as oversized:
+            decode_pixelorama_pxo(build_pxo(b"\x00" * (PXO_MEMBER_SIZE_CAP + 1)))
+
+        self.assertEqual("pxo_member_missing", missing.exception.family)
+        self.assertEqual("pxo_member_too_large", oversized.exception.family)
 
     def test_lab_report_closes_decoder_boundary_without_native_writer_claims(self):
         report = run_third_party_project_decoder_lab(

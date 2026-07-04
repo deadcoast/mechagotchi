@@ -10,6 +10,7 @@ if str(WORKSHOP_DIR) not in sys.path:
     sys.path.insert(0, str(WORKSHOP_DIR))
 
 from slip_offspring_lineage_gate import (
+    _offspring_grid_id,
     run_profile_offspring_lineage_probe,
     run_slip_offspring_lineage_gate_lab,
     write_slip_offspring_lineage_gate_artifacts,
@@ -25,6 +26,25 @@ GENERATED_ROOT = Path("data/slips/multi_profile_generation_stage0")
 
 
 class SLIPOffspringLineageGateTests(unittest.TestCase):
+    def test_offspring_grid_id_stays_within_schema_pattern_across_generations(self):
+        # Regression: compounded "_offspring_<variant>" ids exceeded the
+        # schema's 64-char grid_id limit at generation 2+ once the grid
+        # validator began enforcing the pattern.
+        import re
+
+        pattern = re.compile(r"^[a-z0-9][a-z0-9_-]{2,63}$")
+        grid_id = "mg_seed_001"
+        for generation in range(1, 6):
+            grid_id = _offspring_grid_id(grid_id, "social_recolor")
+            with self.subTest(generation=generation):
+                self.assertLessEqual(len(grid_id), 64)
+                self.assertRegex(grid_id, pattern)
+        # Deterministic: same inputs, same compressed id.
+        long_parent = "mg_seed_001" + "_offspring_social_recolor" * 3
+        self.assertEqual(
+            _offspring_grid_id(long_parent, "x"), _offspring_grid_id(long_parent, "x")
+        )
+
     def test_profile_probe_selects_valid_offspring_from_runtime_parent(self):
         probe = run_profile_offspring_lineage_probe(
             VALID_PROFILE_PATHS[0],

@@ -67,6 +67,27 @@ class ProjectDecodeError(ValueError):
         self.message = message
 
 
+# Stage 0 .pxo payloads are a small data.json plus tiny cel PNGs, so a fixed
+# decompressed-size cap per member is a generous zip-bomb guard.
+PXO_MEMBER_SIZE_CAP = 8 * 1024 * 1024
+
+
+def _read_pxo_member(archive: zipfile.ZipFile, name: str) -> bytes:
+    try:
+        info = archive.getinfo(name)
+    except KeyError as exc:
+        raise ProjectDecodeError(
+            "pxo_member_missing",
+            f".pxo member is missing from the archive: {name}",
+        ) from exc
+    if info.file_size > PXO_MEMBER_SIZE_CAP:
+        raise ProjectDecodeError(
+            "pxo_member_too_large",
+            f".pxo member exceeds the {PXO_MEMBER_SIZE_CAP} byte cap: {name}",
+        )
+    return archive.read(name)
+
+
 def export_project_with_sidecar(
     grid: dict,
     slip_profile: dict,
@@ -328,7 +349,7 @@ def decode_pixelorama_pxo(project_bytes: bytes) -> dict:
             if "data.json" not in members:
                 raise ProjectDecodeError("pxo_data_json_missing", "data.json is required")
             try:
-                data = json.loads(archive.read("data.json").decode("utf-8"))
+                data = json.loads(_read_pxo_member(archive, "data.json").decode("utf-8"))
             except (UnicodeDecodeError, json.JSONDecodeError) as exc:
                 raise ProjectDecodeError("pxo_data_json_invalid", str(exc)) from exc
             cel_paths = [
@@ -341,7 +362,7 @@ def decode_pixelorama_pxo(project_bytes: bytes) -> dict:
             if not cel_paths:
                 raise ProjectDecodeError("pxo_frame_images_missing", "frame image data is required")
             try:
-                decoded_png = decode_png_rgba(archive.read(cel_paths[0]))
+                decoded_png = decode_png_rgba(_read_pxo_member(archive, cel_paths[0]))
             except PNGDecodeError as exc:
                 raise ProjectDecodeError(
                     "pxo_frame_png_invalid",

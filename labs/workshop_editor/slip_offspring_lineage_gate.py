@@ -2,6 +2,7 @@ import argparse
 import json
 import sys
 from copy import deepcopy
+from hashlib import sha256
 from pathlib import Path
 from statistics import mean
 
@@ -442,10 +443,23 @@ def _offspring_expression_tune(
     return _strip_private(child)
 
 
+def _offspring_grid_id(parent_id: str, variant_id: str) -> str:
+    # grid_id must match the schema pattern ^[a-z0-9][a-z0-9_-]{2,63}$ (64
+    # chars max). Multigeneration runs compound "_offspring_<variant>" per
+    # generation, so long ids are compressed deterministically: the ancestry
+    # stays in lineage.ancestor_ids, the id keeps a stable hashed suffix.
+    candidate = f"{parent_id}_offspring_{variant_id}"
+    if len(candidate) <= 64:
+        return candidate
+    digest = sha256(candidate.encode("utf-8")).hexdigest()[:10]
+    prefix = candidate[: 64 - 1 - len(digest)].rstrip("_-")
+    return f"{prefix}_{digest}"
+
+
 def _offspring_base(parent_grid: dict, variant_id: str, event_id: str) -> dict:
     parent_id = parent_grid["grid_id"]
     child = deepcopy(parent_grid)
-    child["grid_id"] = f"{parent_id}_offspring_{variant_id}"
+    child["grid_id"] = _offspring_grid_id(parent_id, variant_id)
     child["parent_grid_id"] = parent_id
     parent_lineage = parent_grid.get("lineage", {})
     parent_generation = int(parent_lineage.get("generation", 0))

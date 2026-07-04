@@ -24,7 +24,7 @@ window.MECHAGOTCHI_SLIP_OFFSPRING_LINEAGE_GATE = {
       "parent_grid_id": "slip_lcd_seed_constrained_011",
       "selected_offspring_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
       "selected_offspring_score": 0.916112,
-      "selected_archive_niche": "1,1,2,4,4,4,1",
+      "selected_archive_niche": "1,1,2,4,4,4,2",
       "lineage_action": "hold_parent",
       "lineage_reason": "parent remains elite until child beats replacement threshold"
     },
@@ -46,7 +46,7 @@ window.MECHAGOTCHI_SLIP_OFFSPRING_LINEAGE_GATE = {
       "parent_grid_id": "slip_amber_social_constrained_004",
       "selected_offspring_id": "slip_amber_social_constrained_004_offspring_stability_tune",
       "selected_offspring_score": 0.913805,
-      "selected_archive_niche": "2,0,2,4,4,4,2",
+      "selected_archive_niche": "2,0,2,4,4,4,1",
       "lineage_action": "hold_parent",
       "lineage_reason": "parent remains elite until child beats replacement threshold"
     }

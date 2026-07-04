@@ -19,6 +19,7 @@ from validator import validate_grid
 from external_metadata_sidecar import build_sidecar_for_grid, restore_grid_from_sidecar
 from third_party_project_decoder import (
     PROJECT_FORMATS,
+    PXO_MEMBER_SIZE_CAP,
     ProjectDecodeError,
     decode_project_payload,
     export_project_with_sidecar,
@@ -637,20 +638,36 @@ def _strip_pixelorama_native_metadata(project_bytes: bytes) -> bytes:
     return _write_pixelorama_archive(data, members)
 
 
+def _read_pxo_member(archive: zipfile.ZipFile, name: str) -> bytes:
+    try:
+        info = archive.getinfo(name)
+    except KeyError as exc:
+        raise ProjectNativeMetadataError(
+            "pxo_member_missing",
+            f".pxo member is missing from the archive: {name}",
+        ) from exc
+    if info.file_size > PXO_MEMBER_SIZE_CAP:
+        raise ProjectNativeMetadataError(
+            "pxo_member_too_large",
+            f".pxo member exceeds the {PXO_MEMBER_SIZE_CAP} byte cap: {name}",
+        )
+    return archive.read(name)
+
+
 def _read_pixelorama_archive(project_bytes: bytes) -> tuple[dict, dict[str, bytes]]:
     if not zipfile.is_zipfile(io.BytesIO(project_bytes)):
         raise ProjectNativeMetadataError("pxo_zip_invalid", "Pixelorama .pxo must be a zip container")
     try:
         with zipfile.ZipFile(io.BytesIO(project_bytes), "r") as archive:
             members = {
-                name: archive.read(name)
+                name: _read_pxo_member(archive, name)
                 for name in sorted(archive.namelist())
                 if name != "data.json"
             }
             if "data.json" not in archive.namelist():
                 raise ProjectNativeMetadataError("pxo_data_json_missing", "data.json is required")
             try:
-                data = json.loads(archive.read("data.json").decode("utf-8"))
+                data = json.loads(_read_pxo_member(archive, "data.json").decode("utf-8"))
             except (UnicodeDecodeError, json.JSONDecodeError) as exc:
                 raise ProjectNativeMetadataError("pxo_data_json_invalid", str(exc)) from exc
     except zipfile.BadZipFile as exc:

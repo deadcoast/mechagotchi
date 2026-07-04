@@ -179,7 +179,7 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
           "cell_mutation_budget_cap": 2,
           "organ_shift_budget": 1,
           "organ_shift_budget_cap": 1,
-          "symmetry_break_budget": 1,
+          "symmetry_break_budget": null,
           "symmetry_break_budget_cap": 1
         },
         "caps": {
@@ -303,7 +303,7 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
           "validity": 1.0
         },
         "descriptor_metric_means": {
-          "behavior_neediness": 0.4,
+          "behavior_neediness": 0.402857,
           "body_mass": 9.857143,
           "lifecycle_survival": 1.0,
           "mutation_stability": 0.9775,
@@ -374,9 +374,9 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
                 4,
                 4,
                 4,
-                1
+                2
               ],
-              "key": "1,1,2,4,4,4,1",
+              "key": "1,1,2,4,4,4,2",
               "metrics": {
                 "body_mass": 8,
                 "sensor_count": 2,
@@ -384,7 +384,7 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
                 "readability": 0.878639,
                 "lifecycle_survival": 1.0,
                 "mutation_stability": 0.9775,
-                "behavior_neediness": 0.4
+                "behavior_neediness": 0.41
               }
             },
             "score_components": {
@@ -416,9 +416,9 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
                 3,
                 4,
                 4,
-                1
+                2
               ],
-              "key": "1,2,1,3,4,4,1",
+              "key": "1,2,1,3,4,4,2",
               "metrics": {
                 "body_mass": 8,
                 "sensor_count": 3,
@@ -426,7 +426,7 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
                 "readability": 0.780343,
                 "lifecycle_survival": 1.0,
                 "mutation_stability": 0.9775,
-                "behavior_neediness": 0.4
+                "behavior_neediness": 0.49
               }
             },
             "score_components": {
@@ -494,7 +494,7 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
         0.960404,
         6.722827,
         1.0,
-        0.4,
+        0.402857,
         0.9775,
         1.0
       ],
@@ -633,7 +633,7 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
           "cell_mutation_budget_cap": 2,
           "organ_shift_budget": 1,
           "organ_shift_budget_cap": 1,
-          "symmetry_break_budget": 1,
+          "symmetry_break_budget": null,
           "symmetry_break_budget_cap": 1
         },
         "caps": {
@@ -757,7 +757,7 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
           "validity": 1.0
         },
         "descriptor_metric_means": {
-          "behavior_neediness": 0.3,
+          "behavior_neediness": 0.37125,
           "body_mass": 9.875,
           "lifecycle_survival": 1.0,
           "mutation_stability": 0.9775,
@@ -796,7 +796,7 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
                 "readability": 0.884891,
                 "lifecycle_survival": 1.0,
                 "mutation_stability": 0.9775,
-                "behavior_neediness": 0.3
+                "behavior_neediness": 0.38
               }
             },
             "score_components": {
@@ -828,9 +828,9 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
                 3,
                 4,
                 4,
-                1
+                2
               ],
-              "key": "1,2,1,3,4,4,1",
+              "key": "1,2,1,3,4,4,2",
               "metrics": {
                 "body_mass": 8,
                 "sensor_count": 3,
@@ -838,7 +838,7 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
                 "readability": 0.71519,
                 "lifecycle_survival": 1.0,
                 "mutation_stability": 0.9775,
-                "behavior_neediness": 0.3
+                "behavior_neediness": 0.47
               }
             },
             "score_components": {
@@ -880,7 +880,7 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
                 "readability": 0.900149,
                 "lifecycle_survival": 1.0,
                 "mutation_stability": 0.9775,
-                "behavior_neediness": 0.3
+                "behavior_neediness": 0.29
               }
             },
             "score_components": {
@@ -948,7 +948,7 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
         0.955711,
         7.645688,
         1.0,
-        0.3,
+        0.37125,
         0.9775,
         1.0
       ],
@@ -1087,7 +1087,7 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
           "cell_mutation_budget_cap": 3,
           "organ_shift_budget": 1,
           "organ_shift_budget_cap": 1,
-          "symmetry_break_budget": 1,
+          "symmetry_break_budget": null,
           "symmetry_break_budget_cap": 1
         },
         "caps": {
@@ -1220,7 +1220,7 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
           "validity": 1.0
         },
         "descriptor_metric_means": {
-          "behavior_neediness": 0.6,
+          "behavior_neediness": 0.413333,
           "body_mass": 9.888889,
           "lifecycle_survival": 1.0,
           "mutation_stability": 0.9775,
@@ -1249,9 +1249,9 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
                 4,
                 4,
                 4,
-                2
+                1
               ],
-              "key": "1,0,2,4,4,4,2",
+              "key": "1,0,2,4,4,4,1",
               "metrics": {
                 "body_mass": 8,
                 "sensor_count": 1,
@@ -1259,7 +1259,7 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
                 "readability": 0.899135,
                 "lifecycle_survival": 1.0,
                 "mutation_stability": 0.9775,
-                "behavior_neediness": 0.6
+                "behavior_neediness": 0.37
               }
             },
             "score_components": {
@@ -1301,7 +1301,7 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
                 "readability": 0.798174,
                 "lifecycle_survival": 1.0,
                 "mutation_stability": 0.9775,
-                "behavior_neediness": 0.6
+                "behavior_neediness": 0.44
               }
             },
             "score_components": {
@@ -1333,9 +1333,9 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
                 3,
                 4,
                 4,
-                2
+                1
               ],
-              "key": "2,0,1,3,4,4,2",
+              "key": "2,0,1,3,4,4,1",
               "metrics": {
                 "body_mass": 10,
                 "sensor_count": 1,
@@ -1343,7 +1343,7 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
                 "readability": 0.768992,
                 "lifecycle_survival": 1.0,
                 "mutation_stability": 0.9775,
-                "behavior_neediness": 0.6
+                "behavior_neediness": 0.35
               }
             },
             "score_components": {
@@ -1411,7 +1411,7 @@ window.MECHAGOTCHI_SLIP_LIFECYCLE_ARCHIVE_EFFECTS = {
         0.960547,
         8.644921,
         1.0,
-        0.6,
+        0.413333,
         0.9775,
         1.0
       ],

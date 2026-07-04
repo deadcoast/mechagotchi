@@ -21,6 +21,7 @@ from external_metadata_sidecar import (
     validate_sidecar_binding,
 )
 from png_embedded_sidecar_writer import (
+    PNGEmbeddedSidecarError,
     _chunk,
     _compact_import_result,
     _decoded_summary,
@@ -243,12 +244,8 @@ def import_apng_with_sidecar(
 ) -> dict:
     try:
         decoded = decode_apng_frames(png_bytes)
-    except APNGDecodeError as exc:
+    except (APNGDecodeError, PNGEmbeddedSidecarError, PNGChunkError) as exc:
         return _failed_import("apng", exc.family, exc.message)
-    except Exception as exc:
-        family = getattr(exc, "family", "apng_decode_failed")
-        message = getattr(exc, "message", str(exc))
-        return _failed_import("apng", family, message)
 
     asset = _asset_from_apng_bytes(
         png_bytes,

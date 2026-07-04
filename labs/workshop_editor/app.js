@@ -411,7 +411,9 @@
         cell_mutation_budget_cap: cellBudgetCap,
         organ_shift_budget: organBudgetCap,
         organ_shift_budget_cap: organBudgetCap,
-        symmetry_break_budget: symmetryBudgetCap,
+        // No symmetry-break candidates are enumerated by the preview model,
+        // so only the cap is a computed value (mirrors slip_preview_gates.py).
+        symmetry_break_budget: null,
         symmetry_break_budget_cap: symmetryBudgetCap
       },
       cell_mutation_candidates: mutationCandidates(mutableCells, cellBudgetCap),

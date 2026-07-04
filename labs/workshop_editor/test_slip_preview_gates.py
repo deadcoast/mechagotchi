@@ -10,6 +10,7 @@ if str(WORKSHOP_DIR) not in sys.path:
     sys.path.insert(0, str(WORKSHOP_DIR))
 
 from slip_preview_gates import (
+    _profile_weight_effects_observed,
     build_behavior_preview,
     build_mutation_preview,
     run_slip_preview_gate_lab,
@@ -81,6 +82,8 @@ class SLIPPreviewGateTests(unittest.TestCase):
                 preview["budgets"]["organ_shift_budget"],
                 preview["budgets"]["organ_shift_budget_cap"],
             )
+            self.assertIsNone(preview["budgets"]["symmetry_break_budget"])
+            self.assertGreaterEqual(preview["budgets"]["symmetry_break_budget_cap"], 0)
             self.assertFalse(preview["palette_shift"]["allowed"])
             self.assertEqual(
                 "single_allowed_palette_blocks_preview_shift",
@@ -97,6 +100,32 @@ class SLIPPreviewGateTests(unittest.TestCase):
         self.assertFalse(result["ok"])
         self.assertIn("schema_version_unsupported", result["error_families"])
         self.assertEqual([], result["preview_surfaces"])
+
+    def test_profile_weight_effects_metric_handles_custom_profile_sets(self):
+        custom = load_profile(VALID_PROFILE_PATHS[0])
+        custom["profile_id"] = "slip_custom_probe"
+        single_result = [
+            {
+                "profile_id": custom["profile_id"],
+                "behavior_preview": build_behavior_preview(custom),
+            }
+        ]
+
+        self.assertEqual(
+            "insufficient_profiles",
+            _profile_weight_effects_observed(single_result),
+        )
+
+        second = load_profile(VALID_PROFILE_PATHS[1])
+        second["profile_id"] = "slip_custom_probe_b"
+        pair_results = single_result + [
+            {
+                "profile_id": second["profile_id"],
+                "behavior_preview": build_behavior_preview(second),
+            }
+        ]
+
+        self.assertIsInstance(_profile_weight_effects_observed(pair_results), bool)
 
     def test_lab_report_closes_preview_gates_without_claiming_evolution(self):
         report = run_slip_preview_gate_lab(VALID_PROFILE_PATHS, GENERATED_ROOT)

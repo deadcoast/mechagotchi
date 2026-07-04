@@ -184,7 +184,11 @@ def build_mutation_preview(profile: dict, grid: dict) -> dict:
             "cell_mutation_budget_cap": cell_budget_cap,
             "organ_shift_budget": len(organ_candidates),
             "organ_shift_budget_cap": organ_budget_cap,
-            "symmetry_break_budget": symmetry_budget_cap,
+            # The preview model enumerates no symmetry-break candidates, so
+            # there is no genuinely computed symmetry budget to report; only
+            # the cap is a real value. Recording null keeps the field honest
+            # instead of echoing the cap back as a fake computed budget.
+            "symmetry_break_budget": None,
             "symmetry_break_budget_cap": symmetry_budget_cap,
         },
         "caps": {
@@ -413,22 +417,32 @@ def _invalid_preview_probes(profile_path: Path, generated_root: Path) -> list[di
     ]
 
 
-def _profile_weight_effects_observed(profile_results: list[dict]) -> bool:
-    by_profile = {
-        result["profile_id"]: result["behavior_preview"]["signals"]
+def _profile_weight_effects_observed(profile_results: list[dict]) -> bool | str:
+    """Report whether profile weights measurably diverge across the profiles
+    that actually ran: strictly distinct social_pull and rest_pull values
+    whose orderings are exact inverses of each other, plus pairwise-distinct
+    effect fingerprints. Needs at least two profiles to compare."""
+    if len(profile_results) < 2:
+        return "insufficient_profiles"
+    social_pulls = [
+        result["behavior_preview"]["signals"]["social_pull"]
         for result in profile_results
-    }
+    ]
+    rest_pulls = [
+        result["behavior_preview"]["signals"]["rest_pull"]
+        for result in profile_results
+    ]
     fingerprints = {
         tuple(result["behavior_preview"]["effect_fingerprint"])
         for result in profile_results
     }
+    indexes = range(len(profile_results))
+    by_social = sorted(indexes, key=lambda index: social_pulls[index], reverse=True)
+    by_rest = sorted(indexes, key=lambda index: rest_pulls[index], reverse=True)
     return (
-        by_profile["slip_amber_social"]["social_pull"]
-        > by_profile["slip_lcd_seed"]["social_pull"]
-        > by_profile["slip_gray_stable"]["social_pull"]
-        and by_profile["slip_gray_stable"]["rest_pull"]
-        > by_profile["slip_lcd_seed"]["rest_pull"]
-        > by_profile["slip_amber_social"]["rest_pull"]
+        len(set(social_pulls)) == len(social_pulls)
+        and len(set(rest_pulls)) == len(rest_pulls)
+        and by_social == list(reversed(by_rest))
         and len(fingerprints) == len(profile_results)
     )
 

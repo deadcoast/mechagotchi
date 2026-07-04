@@ -1258,7 +1258,7 @@ window.MECHAGOTCHI_APNG_FILTERED_FRAME_DATA = {
           {
             "path": "apng.filtered_frame_data",
             "family": "apng_frame_decompression_failed",
-            "message": "Error -5 while decompressing data: incomplete or truncated stream"
+            "message": "zlib stream is incomplete or truncated"
           }
         ],
         "error_families": [

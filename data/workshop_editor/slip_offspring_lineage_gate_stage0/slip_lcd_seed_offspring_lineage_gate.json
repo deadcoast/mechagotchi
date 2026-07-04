@@ -12,7 +12,7 @@
     "selection_started": true,
     "validation_ok": true,
     "selected_grid_id": "slip_lcd_seed_constrained_011",
-    "selected_archive_niche": "1,1,2,4,4,4,1",
+    "selected_archive_niche": "1,1,2,4,4,4,2",
     "selected_selection_score": 0.955499
   },
   "validation": {
@@ -67,7 +67,7 @@
   },
   "runtime_parent": {
     "grid_id": "slip_lcd_seed_constrained_011",
-    "archive_niche": "1,1,2,4,4,4,1",
+    "archive_niche": "1,1,2,4,4,4,2",
     "archive_fitness": 0.968623,
     "selection_score": 0.955499,
     "components": {
@@ -127,7 +127,7 @@
       "cell_mutation_budget_cap": 2,
       "organ_shift_budget": 1,
       "organ_shift_budget_cap": 1,
-      "symmetry_break_budget": 1,
+      "symmetry_break_budget": null,
       "symmetry_break_budget_cap": 1
     },
     "caps": {
@@ -199,8 +199,8 @@
           "offspring_stability_tune"
         ]
       },
-      "archive_niche": "1,1,2,4,4,4,1",
-      "parent_archive_niche": "1,1,2,4,4,4,1",
+      "archive_niche": "1,1,2,4,4,4,2",
+      "parent_archive_niche": "1,1,2,4,4,4,2",
       "opens_new_archive_niche": false,
       "offspring_score": 0.916112,
       "components": {
@@ -258,7 +258,7 @@
         "readability": 0.878639,
         "lifecycle_survival": 1.0,
         "mutation_stability": 0.983125,
-        "behavior_neediness": 0.4
+        "behavior_neediness": 0.41
       },
       "extended_score": {
         "fitness": 0.969186,
@@ -353,8 +353,8 @@
           "offspring_expression_tune"
         ]
       },
-      "archive_niche": "1,1,2,4,4,4,1",
-      "parent_archive_niche": "1,1,2,4,4,4,1",
+      "archive_niche": "1,1,2,4,4,4,2",
+      "parent_archive_niche": "1,1,2,4,4,4,2",
       "opens_new_archive_niche": false,
       "offspring_score": 0.91604,
       "components": {
@@ -412,7 +412,7 @@
         "readability": 0.878639,
         "lifecycle_survival": 1.0,
         "mutation_stability": 0.9775,
-        "behavior_neediness": 0.4
+        "behavior_neediness": 0.41
       },
       "extended_score": {
         "fitness": 0.968623,
@@ -508,7 +508,7 @@
         ]
       },
       "archive_niche": "1,1,1,4,4,4,1",
-      "parent_archive_niche": "1,1,2,4,4,4,1",
+      "parent_archive_niche": "1,1,2,4,4,4,2",
       "opens_new_archive_niche": false,
       "offspring_score": 0.916032,
       "components": {
@@ -662,8 +662,8 @@
         "offspring_stability_tune"
       ]
     },
-    "archive_niche": "1,1,2,4,4,4,1",
-    "parent_archive_niche": "1,1,2,4,4,4,1",
+    "archive_niche": "1,1,2,4,4,4,2",
+    "parent_archive_niche": "1,1,2,4,4,4,2",
     "opens_new_archive_niche": false,
     "offspring_score": 0.916112,
     "components": {
@@ -721,7 +721,7 @@
       "readability": 0.878639,
       "lifecycle_survival": 1.0,
       "mutation_stability": 0.983125,
-      "behavior_neediness": 0.4
+      "behavior_neediness": 0.41
     },
     "extended_score": {
       "fitness": 0.969186,
@@ -809,7 +809,7 @@
       "cell_mutation_budget_cap": 2,
       "organ_shift_budget": 1,
       "organ_shift_budget_cap": 1,
-      "symmetry_break_budget": 1,
+      "symmetry_break_budget": null,
       "symmetry_break_budget_cap": 1
     },
     "caps": {
@@ -829,8 +829,8 @@
     "reason": "parent remains elite until child beats replacement threshold",
     "parent_grid_id": "slip_lcd_seed_constrained_011",
     "offspring_grid_id": "slip_lcd_seed_constrained_011_offspring_stability_tune",
-    "parent_archive_niche": "1,1,2,4,4,4,1",
-    "offspring_archive_niche": "1,1,2,4,4,4,1",
+    "parent_archive_niche": "1,1,2,4,4,4,2",
+    "offspring_archive_niche": "1,1,2,4,4,4,2",
     "parent_selection_score": 0.955499,
     "offspring_score": 0.916112,
     "score_delta": -0.039387,

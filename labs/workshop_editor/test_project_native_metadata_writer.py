@@ -25,6 +25,7 @@ from project_native_metadata_writer import (
     write_project_native_metadata_writer_artifacts,
 )
 from third_party_project_decoder import (
+    PXO_MEMBER_SIZE_CAP,
     export_project_with_sidecar,
     decode_piskel_project,
     decode_pixelorama_pxo,
@@ -122,6 +123,20 @@ class ProjectNativeMetadataWriterTests(unittest.TestCase):
         self.assertTrue(validate_grid(imported["restored_grid"]).ok)
         self.assertEqual(1.0, imported["semantic_fidelity"])
         self.assertEqual("project_native_metadata", imported["project_policy"]["semantic_policy"])
+
+    def test_import_rejects_oversized_pxo_member(self):
+        buffer = io.BytesIO()
+        with zipfile.ZipFile(buffer, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+            archive.writestr("data.json", json.dumps({"name": "member_probe"}))
+            archive.writestr(
+                "image_data/frames/0/cel_0.png",
+                b"\x00" * (PXO_MEMBER_SIZE_CAP + 1),
+            )
+
+        result = import_project_with_native_metadata(buffer.getvalue(), "pixelorama_pxo")
+
+        self.assertFalse(result["ok"])
+        self.assertIn("pxo_member_too_large", result["error_families"])
 
     def test_import_rejects_missing_tampered_and_unsupported_native_metadata(self):
         profile = load_profile(VALID_PROFILE_PATHS[0])

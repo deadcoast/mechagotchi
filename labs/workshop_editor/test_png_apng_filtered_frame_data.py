@@ -85,6 +85,16 @@ class APNGFilteredFrameDataTests(unittest.TestCase):
         self.assertEqual([0, 1, 2, 3], decoded["sequence_numbers"])
         self.assertEqual(2, decoded["frames"][1]["fdat_chunk_count"])
 
+    def test_decoder_rejects_trailing_bytes_after_iend(self):
+        profile = load_profile(VALID_PROFILE_PATHS[0])
+        grid = first_grid_for(profile)
+        reference = export_apng_filtered_frame_data_cases(grid, profile)[0]
+
+        decoded = decode_apng_filtered_frame_data(reference["png_bytes"] + b"junk")
+
+        self.assertFalse(decoded["ok"])
+        self.assertEqual(["png_trailing_bytes"], decoded["error_families"])
+
     def test_decoder_rejects_invalid_filter_scanline_and_fdat_sequences(self):
         profile = load_profile(VALID_PROFILE_PATHS[0])
         grid = first_grid_for(profile)

@@ -14,7 +14,7 @@ GRID_GENOME_DIR = ROOT / "labs" / "grid_genome"
 if str(GRID_GENOME_DIR) not in sys.path:
     sys.path.insert(0, str(GRID_GENOME_DIR))
 
-from png_chunk_reader import PNGChunkError, bounded_decompress
+from png_chunk_reader import PNGChunkError, bounded_decompress, read_png_chunks
 from standard_image_sidecar_decoder import PNG_SIGNATURE, render_grid_rgba_pixels
 
 
@@ -726,28 +726,11 @@ def _rewrite_ihdr(png_bytes: bytes, mutate) -> bytes:
 
 
 def _read_png_chunks(png_bytes: bytes) -> list[dict]:
-    if not png_bytes.startswith(PNG_SIGNATURE):
-        raise APNGColorTypeFrameDataError("png_signature_invalid", "PNG signature is invalid")
-    chunks = []
-    offset = len(PNG_SIGNATURE)
-    while offset < len(png_bytes):
-        if offset + 8 > len(png_bytes):
-            raise APNGColorTypeFrameDataError("png_chunk_truncated", "PNG chunk header is truncated")
-        length = struct.unpack(">I", png_bytes[offset : offset + 4])[0]
-        chunk_type = png_bytes[offset + 4 : offset + 8]
-        data_start = offset + 8
-        data_end = data_start + length
-        crc_end = data_end + 4
-        if crc_end > len(png_bytes):
-            raise APNGColorTypeFrameDataError("png_chunk_truncated", "PNG chunk payload is truncated")
-        data = png_bytes[data_start:data_end]
-        expected_crc = struct.unpack(">I", png_bytes[data_end:crc_end])[0]
-        actual_crc = binascii.crc32(data, binascii.crc32(chunk_type)) & 0xFFFFFFFF
-        if expected_crc != actual_crc:
-            raise APNGColorTypeFrameDataError("png_crc_mismatch", f"CRC mismatch in {chunk_type!r}")
-        chunks.append({"type": chunk_type.decode("ascii"), "data": data})
-        offset = crc_end
-    return chunks
+    try:
+        parsed = read_png_chunks(png_bytes)
+    except PNGChunkError as exc:
+        raise APNGColorTypeFrameDataError(exc.family, exc.message) from exc
+    return [{"type": chunk["type"], "data": chunk["payload"]} for chunk in parsed]
 
 
 def _chunk(chunk_type: str, data: bytes) -> dict:

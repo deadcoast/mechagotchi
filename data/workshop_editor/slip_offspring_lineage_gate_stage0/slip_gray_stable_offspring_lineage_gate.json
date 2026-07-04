@@ -127,7 +127,7 @@
       "cell_mutation_budget_cap": 2,
       "organ_shift_budget": 1,
       "organ_shift_budget_cap": 1,
-      "symmetry_break_budget": 1,
+      "symmetry_break_budget": null,
       "symmetry_break_budget_cap": 1
     },
     "caps": {
@@ -258,7 +258,7 @@
         "readability": 0.894487,
         "lifecycle_survival": 1.0,
         "mutation_stability": 0.97975,
-        "behavior_neediness": 0.3
+        "behavior_neediness": 0.37
       },
       "extended_score": {
         "fitness": 0.972652,
@@ -412,7 +412,7 @@
         "readability": 0.884891,
         "lifecycle_survival": 1.0,
         "mutation_stability": 0.983125,
-        "behavior_neediness": 0.3
+        "behavior_neediness": 0.38
       },
       "extended_score": {
         "fitness": 0.970686,
@@ -566,7 +566,7 @@
         "readability": 0.884891,
         "lifecycle_survival": 1.0,
         "mutation_stability": 0.9775,
-        "behavior_neediness": 0.3
+        "behavior_neediness": 0.38
       },
       "extended_score": {
         "fitness": 0.970124,
@@ -721,7 +721,7 @@
       "readability": 0.894487,
       "lifecycle_survival": 1.0,
       "mutation_stability": 0.97975,
-      "behavior_neediness": 0.3
+      "behavior_neediness": 0.37
     },
     "extended_score": {
       "fitness": 0.972652,
@@ -809,7 +809,7 @@
       "cell_mutation_budget_cap": 2,
       "organ_shift_budget": 1,
       "organ_shift_budget_cap": 1,
-      "symmetry_break_budget": 1,
+      "symmetry_break_budget": null,
       "symmetry_break_budget_cap": 1
     },
     "caps": {
