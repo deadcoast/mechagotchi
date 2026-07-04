@@ -479,6 +479,10 @@ Post-v0.1 continuation has started:
 - `packages/mecha_engine/src/mecha_engine/lifecycle/`
 - `packages/mecha_engine/tests/test_lifecycle_contract.py`
 
+- `research/experiment_reports/2026-07-04-mecha-engine-archive-promotion.md`
+- `packages/mecha_engine/src/mecha_engine/archive/`
+- `packages/mecha_engine/tests/test_archive_contract.py`
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

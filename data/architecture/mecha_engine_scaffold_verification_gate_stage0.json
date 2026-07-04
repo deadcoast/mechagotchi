@@ -8,10 +8,10 @@
   "promoted_modules": [
     "genome",
     "generation",
-    "lifecycle"
+    "lifecycle",
+    "archive"
   ],
   "unpromoted_modules": [
-    "archive",
     "provenance"
   ],
   "gate_passed": true,
@@ -101,7 +101,7 @@
       "ok": true,
       "evidence": {
         "package_root_exists": true,
-        "files_scanned": 23,
+        "files_scanned": 29,
         "lab_import_files": [],
         "sys_path_lab_files": []
       }
@@ -114,9 +114,14 @@
         "promoted_modules": [
           "genome",
           "generation",
-          "lifecycle"
+          "lifecycle",
+          "archive"
         ],
         "promoted_implementation_files": [
+          "packages/mecha_engine/src/mecha_engine/archive/_metrics.py",
+          "packages/mecha_engine/src/mecha_engine/archive/descriptors.py",
+          "packages/mecha_engine/src/mecha_engine/archive/scoring.py",
+          "packages/mecha_engine/src/mecha_engine/archive/store.py",
           "packages/mecha_engine/src/mecha_engine/generation/_slip.py",
           "packages/mecha_engine/src/mecha_engine/generation/explain.py",
           "packages/mecha_engine/src/mecha_engine/generation/generate.py",
@@ -150,7 +155,7 @@
       "ok": true,
       "evidence": {
         "returncode": 0,
-        "tests_run": 83
+        "tests_run": 123
       }
     },
     {
@@ -173,8 +178,8 @@
     "sys_path_lab_files": 0,
     "implementation_files": 0,
     "deferred_modules_present": 0,
-    "import_suite_tests_run": 83,
-    "promoted_module_count": 3
+    "import_suite_tests_run": 123,
+    "promoted_module_count": 4
   },
   "closed_states": [
     "package_scaffold_created",
@@ -187,6 +192,7 @@
     "module_genome_promoted_with_contract_tests",
     "module_generation_promoted_with_contract_tests",
     "module_lifecycle_promoted_with_contract_tests",
+    "module_archive_promoted_with_contract_tests",
     "deferred_modules_absent",
     "package_promotion_gate_rerun_after_scaffold"
   ],
@@ -198,7 +204,7 @@
     "package_dependency_policy"
   ],
   "decision": "accept_package_scaffold_with_promoted_modules",
-  "next_research_step": "Continue the contract-gate order with the unpromoted modules (archive, provenance), rerunning the package-promotion gate as each surface lands.",
+  "next_research_step": "Continue the contract-gate order with the unpromoted modules (provenance), rerunning the package-promotion gate as each surface lands.",
   "limitations": [
     "This gate verifies the scaffold boundary only; module contracts are proven by each module's own package contract tests, which this gate records as promotion evidence without re-proving them.",
     "It does not promote lab code or authorize deferred modules.",
