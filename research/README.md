@@ -395,6 +395,7 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-07-04-slip-dependency-gate-env-decoupling.md`
 - `data/slips/slip_pydantic_contract_stage0.json`
 - `data/slips/slip_schema_migration_dependency_gate_stage0.json`
+- `research/experiment_reports/2026-07-04-slip-lab-validator-alignment.md`
 
 Stage 0 and Stage 1 established:
 
