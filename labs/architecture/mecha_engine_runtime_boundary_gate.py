@@ -9,6 +9,9 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 
 ARTIFACT_ID = "mecha_engine_runtime_boundary_gate_stage0"
 STATUS = "research_runtime_boundary_gate_no_package_code"
+STATUS_SCAFFOLD_PRESENT = (
+    "research_runtime_boundary_gate_empty_scaffold_no_promotion"
+)
 REPORT_PATH = REPO_ROOT / "data/architecture/mecha_engine_runtime_boundary_gate_stage0.json"
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "data/architecture/mecha_engine_runtime_boundary_gate_stage0"
 
@@ -260,9 +263,31 @@ def evaluate_runtime_boundary_gate(root: Path) -> dict:
     readability = _read_json(root / "data/readability/slip_readability_calibration_gate_stage0.json")
     profile_matrix = _read_json(root / "data/slips/slip_profile_compatibility_matrix_stage0.json")
     promotion = _read_json(root / "data/package_promotion/mecha_engine_package_promotion_gate_stage0.json")
+    scaffold_gate = _read_json(
+        root / "data/architecture/mecha_engine_scaffold_verification_gate_stage0.json"
+    )
     contracts = build_runtime_boundary_contracts(root)
     manual_readability_ready = bool(readability.get("manual_readability_calibration_ready"))
-    package_runtime_ready = package_root_exists and _package_contracts_promotable(contracts)
+    package_promotion_ready_count = _metric(
+        promotion,
+        ["summary", "promotion_ready_count"],
+        0,
+    )
+    # Package runtime integration requires more than an existing (empty)
+    # scaffold root and source-evidence docs: the package-promotion gate must
+    # report at least one candidate that actually cleared promotion into the
+    # package. The empty scaffold (decision record 0004) clears none, so this
+    # stays false until package-level contracts land.
+    package_runtime_ready = (
+        package_root_exists
+        and _package_contracts_promotable(contracts)
+        and package_promotion_ready_count > 0
+    )
+    # Scaffold-scope import-surface tests are evidenced by the executed
+    # scaffold verification gate artifact, not assumed.
+    scaffold_import_tests_passing = bool(scaffold_gate.get("gate_passed")) and bool(
+        scaffold_gate.get("import_surface_accepted")
+    )
     profile_weighted_ready = package_runtime_ready and manual_readability_ready
     negative_probes = _negative_probes(
         root=root,
@@ -270,6 +295,7 @@ def evaluate_runtime_boundary_gate(root: Path) -> dict:
         manual_readability_ready=manual_readability_ready,
         package_runtime_ready=package_runtime_ready,
         package_dependency_policy=_package_dependency_policy_state(root),
+        package_promotion_ready_count=package_promotion_ready_count,
     )
     rejected_probe_count = sum(
         1 for probe in negative_probes if probe["result"] == "rejected"
@@ -305,17 +331,16 @@ def evaluate_runtime_boundary_gate(root: Path) -> dict:
         "negative_probe_count": len(negative_probes),
         "negative_probe_rejected_count": rejected_probe_count,
         "promotion_ready_contracts": 0 if not package_runtime_ready else len(contracts),
-        "package_promotion_ready_count": _metric(
-            promotion,
-            ["summary", "promotion_ready_count"],
-            0,
-        ),
+        "package_promotion_ready_count": package_promotion_ready_count,
+        "scaffold_import_surface_tests_passing": scaffold_import_tests_passing,
         "slip_blocked_state_count": len(profile_matrix.get("blocked_states", [])),
     }
     return {
         "artifact_id": ARTIFACT_ID,
-        "status": STATUS,
-        "date": "2026-05-13",
+        "status": (
+            STATUS_SCAFFOLD_PRESENT if package_root_exists else STATUS
+        ),
+        "date": "2026-07-04",
         "purpose": (
             "Integrate the current package/runtime lifecycle boundary research "
             "without creating packages, moving lab code, fabricating readability "
@@ -338,6 +363,11 @@ def evaluate_runtime_boundary_gate(root: Path) -> dict:
                 if lab_import_probes_rejected
                 else []
             ),
+            *(
+                ["scaffold_import_surface_tests_passing"]
+                if scaffold_import_tests_passing
+                else []
+            ),
             "premature_profile_weighted_evolution_claim_rejected",
             "manual_readability_row_requirement_preserved",
         ],
@@ -347,18 +377,27 @@ def evaluate_runtime_boundary_gate(root: Path) -> dict:
             "package_runtime_lifecycle_integration",
             "manual_readability_calibration",
             "profile_weighted_evolution",
-            "package_import_surface_tests",
+            # Scaffold-scope import tests pass once the executed scaffold
+            # verification gate says so; module contract-surface tests stay
+            # blocked until each contract gate lands.
+            *(
+                []
+                if scaffold_import_tests_passing
+                else ["package_import_surface_tests"]
+            ),
+            "package_contract_surface_tests",
             "package_promotion",
         ],
         "decision": "adopt_runtime_boundary_gate_research_only",
         "next_research_step": (
             "Keep package/runtime lifecycle integration blocked until package "
-            "implementation is explicitly started; collect 63 SLIP readability "
-            "reviewer rows before claiming profile-weighted evolution."
+            "module contracts clear the promotion gate; collect 63 SLIP "
+            "readability reviewer rows before claiming profile-weighted "
+            "evolution."
         ),
         "limitations": [
             "This gate does not create packages/ or packages/mecha_engine.",
-            "This gate does not run future package tests because no package surface exists.",
+            "This gate does not run package tests itself; scaffold import-surface evidence comes from the executed scaffold verification gate artifact.",
             "This gate rejects lab imports as package runtime evidence.",
             "This gate does not fabricate or infer human readability ratings.",
         ],
@@ -497,6 +536,7 @@ def _negative_probes(
     manual_readability_ready: bool,
     package_runtime_ready: bool,
     package_dependency_policy: dict,
+    package_promotion_ready_count: int,
 ) -> list[dict]:
     package_policy_declared = package_dependency_policy["package_dependencies_declared"]
     return [
@@ -527,14 +567,35 @@ def _negative_probes(
         ),
         _probe(
             "package_promotion_without_package_root",
-            accepted=package_root_exists,
-            reasons=[] if package_root_exists else ["package_root_absent"],
-            evidence=(
-                "The package-promotion gate reports zero promotion-ready "
-                "candidates while packages/mecha_engine is absent."
+            accepted=package_root_exists and package_promotion_ready_count > 0,
+            reasons=_promotion_claim_reasons(
+                package_root_exists,
+                package_promotion_ready_count,
             ),
+            evidence={
+                "package_root_exists": package_root_exists,
+                "promotion_ready_count": package_promotion_ready_count,
+                "policy": (
+                    "Lab-code promotion claims stay rejected until the "
+                    "package-promotion gate reports promotion-ready "
+                    "candidates; an existing but empty scaffold root does "
+                    "not satisfy the claim."
+                ),
+            },
         ),
     ]
+
+
+def _promotion_claim_reasons(
+    package_root_exists: bool,
+    package_promotion_ready_count: int,
+) -> list[str]:
+    reasons = []
+    if not package_root_exists:
+        reasons.append("package_root_absent")
+    if package_promotion_ready_count <= 0:
+        reasons.append("no_promotion_ready_candidates")
+    return reasons
 
 
 def _probe(probe_id: str, *, accepted: bool, reasons: list[str], evidence: object) -> dict:

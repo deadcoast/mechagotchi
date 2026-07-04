@@ -7,7 +7,7 @@
   ],
   "authored_schema_path": "research/slip/slip.schema.json",
   "pydantic_schema_path": "research/slip/slip_pydantic_model.schema.json",
-  "package_root_exists": false,
+  "package_root_exists": true,
   "dependency_manifest_present": true,
   "dependency_manifest_path": "pyproject.toml",
   "dependency_group": "lab",

@@ -1,23 +1,12 @@
 {
   "artifact_id": "mecha_engine_scaffold_verification_gate_stage0",
-  "date": "2026-05-12",
-  "status": "research_verification_gate_no_package_code",
+  "date": "2026-07-04",
+  "status": "package_scaffold_verification_executed_no_lab_code_promoted",
+  "purpose": "Execute the scaffold verification checklist against the real packages/mecha_engine scaffold: verify the empty package boundary without promoting lab code, declaring license metadata, or creating deferred modules.",
   "target_package_root": "packages/mecha_engine",
-  "package_root_exists_at_gate_authoring": false,
-  "source_decisions": [
-    "research/decision_records/0004-mecha-engine-package-scaffold.md",
-    "research/reports/mechagotchi_research_report_v0_4.md"
-  ],
-  "source_artifacts": [
-    "data/architecture/mecha_engine_package_scaffold_decision_stage0.json",
-    "data/package_promotion/mecha_engine_package_promotion_gate_stage0.json"
-  ],
-  "preconditions": [
-    "scaffold_decision_0004_accepted",
-    "user_explicitly_starts_package_implementation",
-    "packages_mecha_engine_absent_before_scaffold_step",
-    "no_lab_implementation_moved_during_scaffold_creation"
-  ],
+  "package_root_exists": true,
+  "gate_passed": true,
+  "import_surface_accepted": true,
   "required_scaffold_paths": [
     "packages/mecha_engine/pyproject.toml",
     "packages/mecha_engine/README.md",
@@ -49,34 +38,150 @@
     "mecha_engine.archive",
     "mecha_engine.provenance"
   ],
-  "negative_checks": [
-    "package_code_imports_labs",
-    "package_tests_import_labs",
-    "package_tests_mutate_sys_path_to_labs",
-    "lab_implementation_copied_into_initial_scaffold",
-    "deferred_modules_created_before_core_boundary_verified",
-    "release_license_metadata_declared_before_license_decision",
-    "package_promotion_gate_not_rerun_after_scaffold"
+  "checks": [
+    {
+      "check_id": "required_scaffold_paths_present",
+      "ok": true,
+      "evidence": {
+        "required_path_count": 10,
+        "missing_paths": []
+      }
+    },
+    {
+      "check_id": "package_metadata_boundary",
+      "ok": true,
+      "evidence": {
+        "pyproject_exists": true,
+        "build_system_present": true,
+        "project_present": true,
+        "name": "mecha-engine",
+        "version": "0.0.0",
+        "requires_python": ">=3.13",
+        "declared_license_fields": [],
+        "license_classifiers": []
+      }
+    },
+    {
+      "check_id": "package_import_surface",
+      "ok": true,
+      "evidence": {
+        "import_targets": [
+          "mecha_engine",
+          "mecha_engine.genome",
+          "mecha_engine.generation",
+          "mecha_engine.lifecycle",
+          "mecha_engine.archive",
+          "mecha_engine.provenance"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "lab_modules_loaded": []
+      }
+    },
+    {
+      "check_id": "import_writes_no_stage0_artifacts",
+      "ok": true,
+      "evidence": {
+        "returncode": 0,
+        "new_package_files": [],
+        "new_data_files": []
+      }
+    },
+    {
+      "check_id": "no_lab_imports_or_sys_path_lab_bypass",
+      "ok": true,
+      "evidence": {
+        "package_root_exists": true,
+        "files_scanned": 7,
+        "lab_import_files": [],
+        "sys_path_lab_files": []
+      }
+    },
+    {
+      "check_id": "no_copied_lab_implementation",
+      "ok": true,
+      "evidence": {
+        "src_root_exists": true,
+        "implementation_files": []
+      }
+    },
+    {
+      "check_id": "deferred_modules_absent",
+      "ok": true,
+      "evidence": {
+        "deferred_modules": [
+          "learning",
+          "repair",
+          "render",
+          "storage",
+          "slip"
+        ],
+        "present_deferred_modules": []
+      }
+    },
+    {
+      "check_id": "package_import_test_suite_passes",
+      "ok": true,
+      "evidence": {
+        "returncode": 0,
+        "tests_run": 7
+      }
+    },
+    {
+      "check_id": "package_promotion_gate_rerun_after_scaffold",
+      "ok": true,
+      "evidence": {
+        "artifact_exists": true,
+        "summary_package_root_exists": true,
+        "promotion_ready_count": 0
+      }
+    }
   ],
-  "future_verification_commands": [
-    "Test-Path .\\packages\\mecha_engine",
-    "Test-Path .\\packages\\mecha_engine\\pyproject.toml",
-    "Test-Path .\\packages\\mecha_engine\\src\\mecha_engine\\__init__.py",
-    "python -m pip install -e .\\packages\\mecha_engine",
-    "python -B -m unittest discover -s .\\packages\\mecha_engine\\tests -p \"test_*.py\"",
-    "python -c \"import mecha_engine, mecha_engine.genome, mecha_engine.generation, mecha_engine.lifecycle, mecha_engine.archive, mecha_engine.provenance\"",
-    "rg -n \"from labs|import labs|labs/|labs\\\\|sys\\\\.path\" .\\packages\\mecha_engine",
-    "rg -n \"^def |^class \" .\\packages\\mecha_engine\\src\\mecha_engine",
-    "python -B .\\labs\\package_promotion\\package_promotion_gate.py --root . --output-dir .\\data\\package_promotion",
-    "git diff --check"
-  ],
-  "expected_scaffold_stage_result": {
-    "import_tests_pass": true,
-    "labs_import_scan_has_matches": false,
-    "implementation_code_scan_has_non_placeholder_matches": false,
-    "package_promotion_gate_rerun": true,
-    "lab_code_promotion_still_blocked_until_candidate_package_tests_exist": true
+  "metrics": {
+    "checks_total": 9,
+    "checks_passed": 9,
+    "required_path_count": 10,
+    "missing_required_paths": 0,
+    "import_target_count": 6,
+    "lab_import_files": 0,
+    "sys_path_lab_files": 0,
+    "implementation_files": 0,
+    "deferred_modules_present": 0,
+    "import_suite_tests_run": 7
   },
+  "closed_states": [
+    "package_scaffold_created",
+    "scaffold_required_paths_present",
+    "package_metadata_boundary_accepted",
+    "package_import_surface_accepted",
+    "import_side_effect_free",
+    "lab_boundary_negative_checks_rejected",
+    "scaffold_placeholder_only",
+    "deferred_modules_absent",
+    "package_promotion_gate_rerun_after_scaffold"
+  ],
+  "blocked_states": [
+    "release_license_metadata",
+    "package_module_implementations",
+    "deferred_modules_learning_repair_render_storage_slip",
+    "lab_code_promotion",
+    "package_dependency_policy"
+  ],
+  "decision": "accept_empty_package_scaffold",
+  "next_research_step": "Start the genome contract surface first: package-level tests per research/package_specs/mecha_engine_genome_contract_gate.md, then generation, lifecycle, archive, and provenance, rerunning the package-promotion gate as each surface lands.",
+  "limitations": [
+    "This gate verifies the empty scaffold boundary only; it does not prove any module contract.",
+    "It does not promote lab code or authorize deferred modules.",
+    "License/release metadata remains blocked until a license decision record exists.",
+    "Import checks run through the src layout via subprocess PYTHONPATH, matching the documented editable-install surface without requiring installation."
+  ],
+  "source_artifacts": [
+    "research/decision_records/0004-mecha-engine-package-scaffold.md",
+    "research/package_specs/mecha_engine_scaffold_verification_gate.md",
+    "research/package_specs/mecha_engine_contract_traceability_matrix.md",
+    "data/architecture/mecha_engine_package_scaffold_decision_stage0.json",
+    "data/package_promotion/mecha_engine_package_promotion_gate_stage0.json"
+  ],
   "external_references": [
     {
       "name": "Python Packaging User Guide - src layout vs flat layout",
@@ -88,4 +193,3 @@
     }
   ]
 }
-

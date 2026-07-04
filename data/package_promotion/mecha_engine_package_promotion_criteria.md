@@ -24,6 +24,6 @@ It does not promote code by itself.
 
 ## Decision
 
-Status: `criteria_defined_no_package_promotion`
+Status: `criteria_defined_no_ready_candidates`
 
-Research evidence can identify package-design candidates, but `packages/mecha_engine` does not exist, so no lab code should be promoted yet.
+The package root exists but no component clears the promotion gate.

@@ -362,7 +362,7 @@ def run_package_promotion_gate(root: Path) -> dict:
         "source_refs": SOURCE_REFS,
         "limitations": [
             "This defines the gate; it does not create packages/mecha_engine.",
-            "Promotion remains blocked while the package root and target boundaries are absent.",
+            "Promotion remains blocked while target package boundaries and their package-level tests are absent, even though the empty scaffold root exists.",
             "Some lab candidates are intentionally held because their research status is lab-only or blocked.",
         ],
     }

@@ -3,7 +3,7 @@
   "date": "2026-05-12",
   "source_mode": "research_to_package_promotion_gate",
   "summary": {
-    "package_root_exists": false,
+    "package_root_exists": true,
     "criteria_count": 7,
     "candidate_count": 6,
     "research_ready_count": 5,
@@ -82,7 +82,6 @@
       ],
       "verification": "python -B labs/lifecycle_sim/test_lifecycle_sim.py",
       "promotion_blockers": [
-        "package_root_absent",
         "target_package_absent"
       ],
       "research_blocker_details": [],
@@ -119,7 +118,6 @@
       ],
       "verification": "python -B labs/grid_genome/test_switchboard_feedback.py",
       "promotion_blockers": [
-        "package_root_absent",
         "target_package_absent",
         "reward_shaping_not_superior_to_frozen_baseline"
       ],
@@ -157,7 +155,7 @@
           ],
           "operator": ">=",
           "expected": 20,
-          "actual": 33,
+          "actual": 83,
           "ok": true
         },
         {
@@ -167,13 +165,12 @@
           ],
           "operator": ">=",
           "expected": 0.9,
-          "actual": 0.979592,
+          "actual": 0.972366,
           "ok": true
         }
       ],
       "verification": "python -B labs/map_elites_archive/test_extended_descriptors.py",
       "promotion_blockers": [
-        "package_root_absent",
         "target_package_absent"
       ],
       "research_blocker_details": [],
@@ -209,7 +206,6 @@
       ],
       "verification": "python -B labs/asset_pipeline/test_provenance_ledger.py",
       "promotion_blockers": [
-        "package_root_absent",
         "target_package_absent"
       ],
       "research_blocker_details": [],
@@ -235,7 +231,6 @@
       ],
       "verification": "python -B labs/readability_benchmark/test_manual_rating_intake.py",
       "promotion_blockers": [
-        "package_root_absent",
         "target_package_absent",
         "human_ratings_absent"
       ],
@@ -288,7 +283,6 @@
       ],
       "verification": "python -B labs/cellular_automata/test_ca_nca_growth_repair.py",
       "promotion_blockers": [
-        "package_root_absent",
         "target_package_absent",
         "lab_only_target_template_assisted"
       ],
@@ -304,9 +298,9 @@
     }
   ],
   "decision": {
-    "status": "criteria_defined_no_package_promotion",
-    "adoption": "define_gate_only",
-    "reason": "Research evidence can identify package-design candidates, but `packages/mecha_engine` does not exist, so no lab code should be promoted yet."
+    "status": "criteria_defined_no_ready_candidates",
+    "adoption": "hold",
+    "reason": "The package root exists but no component clears the promotion gate."
   },
   "source_refs": [
     {
@@ -322,7 +316,7 @@
   ],
   "limitations": [
     "This defines the gate; it does not create packages/mecha_engine.",
-    "Promotion remains blocked while the package root and target boundaries are absent.",
+    "Promotion remains blocked while target package boundaries and their package-level tests are absent, even though the empty scaffold root exists.",
     "Some lab candidates are intentionally held because their research status is lab-only or blocked."
   ]
 }

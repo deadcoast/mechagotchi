@@ -1,10 +1,10 @@
 {
   "artifact_id": "mecha_engine_runtime_boundary_gate_stage0",
-  "status": "research_runtime_boundary_gate_no_package_code",
-  "date": "2026-05-13",
+  "status": "research_runtime_boundary_gate_empty_scaffold_no_promotion",
+  "date": "2026-07-04",
   "purpose": "Integrate the current package/runtime lifecycle boundary research without creating packages, moving lab code, fabricating readability ratings, or claiming profile-weighted evolution.",
   "package_root": "packages/mecha_engine",
-  "package_root_exists": false,
+  "package_root_exists": true,
   "package_runtime_integration_ready": false,
   "manual_readability_calibration_ready": false,
   "profile_weighted_evolution_ready": false,
@@ -218,8 +218,8 @@
         "forbidden_lab_dependency"
       ],
       "evidence": {
-        "package_root_exists": false,
-        "files_scanned": 0,
+        "package_root_exists": true,
+        "files_scanned": 7,
         "lab_import_files": [],
         "policy": "Future package runtime code must import mecha_engine modules, not labs/* research modules."
       }
@@ -232,8 +232,8 @@
         "forbidden_sys_path_lab_access"
       ],
       "evidence": {
-        "package_root_exists": false,
-        "files_scanned": 0,
+        "package_root_exists": true,
+        "files_scanned": 7,
         "sys_path_lab_files": [],
         "policy": "Future package tests must exercise the package import surface without sys.path adapters to lab directories."
       }
@@ -269,16 +269,20 @@
       "accepted": false,
       "result": "rejected",
       "reasons": [
-        "package_root_absent"
+        "no_promotion_ready_candidates"
       ],
-      "evidence": "The package-promotion gate reports zero promotion-ready candidates while packages/mecha_engine is absent."
+      "evidence": {
+        "package_root_exists": true,
+        "promotion_ready_count": 0,
+        "policy": "Lab-code promotion claims stay rejected until the package-promotion gate reports promotion-ready candidates; an existing but empty scaffold root does not satisfy the claim."
+      }
     }
   ],
   "metrics": {
     "contract_count": 5,
     "contracts_with_source_evidence": 5,
-    "package_directory_exists": false,
-    "package_root_exists": false,
+    "package_directory_exists": true,
+    "package_root_exists": true,
     "manual_readability_rating_rows": 0,
     "expected_manual_readability_rows": 63,
     "manual_readability_calibration_ready": false,
@@ -288,11 +292,13 @@
     "negative_probe_rejected_count": 5,
     "promotion_ready_contracts": 0,
     "package_promotion_ready_count": 0,
+    "scaffold_import_surface_tests_passing": true,
     "slip_blocked_state_count": 15
   },
   "closed_states": [
     "package_runtime_boundary_contracts_defined",
     "lab_import_negative_probe_rejected",
+    "scaffold_import_surface_tests_passing",
     "premature_profile_weighted_evolution_claim_rejected",
     "manual_readability_row_requirement_preserved"
   ],
@@ -302,14 +308,14 @@
     "package_runtime_lifecycle_integration",
     "manual_readability_calibration",
     "profile_weighted_evolution",
-    "package_import_surface_tests",
+    "package_contract_surface_tests",
     "package_promotion"
   ],
   "decision": "adopt_runtime_boundary_gate_research_only",
-  "next_research_step": "Keep package/runtime lifecycle integration blocked until package implementation is explicitly started; collect 63 SLIP readability reviewer rows before claiming profile-weighted evolution.",
+  "next_research_step": "Keep package/runtime lifecycle integration blocked until package module contracts clear the promotion gate; collect 63 SLIP readability reviewer rows before claiming profile-weighted evolution.",
   "limitations": [
     "This gate does not create packages/ or packages/mecha_engine.",
-    "This gate does not run future package tests because no package surface exists.",
+    "This gate does not run package tests itself; scaffold import-surface evidence comes from the executed scaffold verification gate artifact.",
     "This gate rejects lab imports as package runtime evidence.",
     "This gate does not fabricate or infer human readability ratings."
   ]

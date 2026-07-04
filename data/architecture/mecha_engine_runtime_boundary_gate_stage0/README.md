@@ -5,7 +5,7 @@ Package/runtime lifecycle boundary evidence for the current research state.
 Key results:
 
 - Contracts: 5
-- Package root exists: False
+- Package root exists: True
 - Package runtime integration ready: False
 - Manual readability calibration ready: False
 - Profile-weighted evolution ready: False

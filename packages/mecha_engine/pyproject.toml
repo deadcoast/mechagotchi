@@ -1,0 +1,22 @@
+# mecha-engine package metadata boundary (decision record 0004).
+#
+# Release license metadata is deliberately unset: `license` and
+# `license-files` stay undeclared until the repository/package license
+# decision record exists (scaffold verification gate, "Metadata Acceptance").
+# The package stays private/internal until provenance and promotion gates
+# are satisfied.
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mecha-engine"
+version = "0.0.0"
+description = "Empty engine-core scaffold for the Mechagotchi grid-based artificial-life engine; modules stay empty until their promotion gates pass"
+requires-python = ">=3.13"
+classifiers = [
+    "Private :: Do Not Upload",
+]
+
+[tool.setuptools.package-data]
+mecha_engine = ["py.typed"]

@@ -142,19 +142,26 @@ class PackagePromotionGateTests(unittest.TestCase):
         self.assertEqual("hold_research_only", cleared["gate_status"])
         self.assertIn("lab_only_method", cleared["promotion_blockers"])
 
-    def test_run_package_promotion_gate_reports_no_actual_promotion_without_package_dir(self):
+    def test_run_package_promotion_gate_reports_no_actual_promotion_with_empty_scaffold(self):
+        # The packages/mecha_engine scaffold exists (decision record 0004,
+        # scaffold verification gate), but the empty scaffold clears no
+        # candidate: target package boundaries and package-level tests are
+        # still absent, so promotion stays blocked.
         report = run_package_promotion_gate(ROOT)
 
         self.assertEqual("mecha_engine_package_promotion_gate_stage0", report["lab_id"])
-        self.assertFalse(report["summary"]["package_root_exists"])
+        self.assertTrue(report["summary"]["package_root_exists"])
         self.assertGreaterEqual(report["summary"]["criteria_count"], 5)
         self.assertGreaterEqual(report["summary"]["candidate_count"], 4)
         self.assertGreater(report["summary"]["research_ready_count"], 0)
         self.assertEqual(0, report["summary"]["promotion_ready_count"])
         self.assertEqual(
-            "criteria_defined_no_package_promotion",
+            "criteria_defined_no_ready_candidates",
             report["decision"]["status"],
         )
+        for candidate in report["candidates"]:
+            self.assertNotIn("package_root_absent", candidate["promotion_blockers"])
+            self.assertIn("target_package_absent", candidate["promotion_blockers"])
 
     def test_write_package_promotion_artifacts_creates_report_and_criteria_doc(self):
         report = run_package_promotion_gate(ROOT)

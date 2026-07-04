@@ -36,18 +36,24 @@ class MechaEngineRuntimeBoundaryGateTests(unittest.TestCase):
             self.assertIn("blocked_until", contract)
             self.assertIn("labs", contract["forbidden_dependencies"])
 
-    def test_gate_keeps_package_runtime_integration_blocked_without_package_root(self):
+    def test_gate_keeps_package_runtime_integration_blocked_with_empty_scaffold(self):
+        # packages/mecha_engine exists as an empty scaffold (decision record
+        # 0004): the root existing must not flip runtime integration,
+        # promotion, or profile-weighted evolution readiness.
         report = evaluate_runtime_boundary_gate(ROOT)
 
         self.assertEqual(ARTIFACT_ID, report["artifact_id"])
-        self.assertFalse(report["package_root_exists"])
+        self.assertTrue(report["package_root_exists"])
         self.assertFalse(report["package_runtime_integration_ready"])
         self.assertFalse(report["profile_weighted_evolution_ready"])
         self.assertFalse(report["manual_readability_calibration_ready"])
         self.assertEqual(0, report["metrics"]["promotion_ready_contracts"])
+        self.assertEqual(0, report["metrics"]["package_promotion_ready_count"])
         self.assertIn("package_runtime_lifecycle_integration", report["blocked_states"])
         self.assertIn("manual_readability_calibration", report["blocked_states"])
         self.assertIn("profile_weighted_evolution", report["blocked_states"])
+        self.assertIn("package_promotion", report["blocked_states"])
+        self.assertIn("package_contract_surface_tests", report["blocked_states"])
 
     def test_negative_probes_reject_lab_imports_and_premature_evolution_claims(self):
         report = evaluate_runtime_boundary_gate(ROOT)
@@ -57,11 +63,12 @@ class MechaEngineRuntimeBoundaryGateTests(unittest.TestCase):
         self.assertEqual("rejected", probes_by_id["package_runtime_imports_labs"]["result"])
         self.assertIn("forbidden_lab_dependency", probes_by_id["package_runtime_imports_labs"]["reasons"])
 
+        # The probes now scan the real scaffold tree and must find it clean.
         lab_import_evidence = probes_by_id["package_runtime_imports_labs"]["evidence"]
         self.assertIn("package_root_exists", lab_import_evidence)
         self.assertIn("files_scanned", lab_import_evidence)
-        self.assertFalse(lab_import_evidence["package_root_exists"])
-        self.assertEqual(0, lab_import_evidence["files_scanned"])
+        self.assertTrue(lab_import_evidence["package_root_exists"])
+        self.assertGreater(lab_import_evidence["files_scanned"], 0)
         self.assertEqual([], lab_import_evidence["lab_import_files"])
 
         sys_path_probe = probes_by_id["package_test_mutates_sys_path_to_lab"]
@@ -72,6 +79,12 @@ class MechaEngineRuntimeBoundaryGateTests(unittest.TestCase):
         self.assertEqual([], sys_path_probe["evidence"]["sys_path_lab_files"])
 
         self.assertIn("lab_import_negative_probe_rejected", report["closed_states"])
+
+        promotion_probe = probes_by_id["package_promotion_without_package_root"]
+        self.assertFalse(promotion_probe["accepted"])
+        self.assertEqual("rejected", promotion_probe["result"])
+        self.assertNotIn("package_root_absent", promotion_probe["reasons"])
+        self.assertIn("no_promotion_ready_candidates", promotion_probe["reasons"])
 
         self.assertFalse(probes_by_id["claim_profile_weighted_evolution"]["accepted"])
         self.assertIn(

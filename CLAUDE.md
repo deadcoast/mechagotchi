@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-Mechagotchi is a **research-first** workspace for a grid-based artificial-life companion engine. There is intentionally **no `packages/` directory yet** — all code lives in `labs/` as executable research prototypes, and the documentation under `research/` *is* the deliverable: a living evidence ledger where every claim traces from the research plan down through experiment reports to lab code and JSON data artifacts.
+Mechagotchi is a **research-first** workspace for a grid-based artificial-life companion engine. All implementation code lives in `labs/` as executable research prototypes; `packages/mecha_engine` exists only as an **empty scaffold boundary** (decision record 0004 — docstring-only modules, no lab code promoted, verified by `labs/architecture/mecha_engine_scaffold_verification_gate.py`). The documentation under `research/` *is* the deliverable: a living evidence ledger where every claim traces from the research plan down through experiment reports to lab code and JSON data artifacts.
 
 The governing document is `docs/02-research_plan.md` (thesis, math/ALife layers, Stages 0–7, evaluation framework). `research/README.md` is the master traceability ledger. `_MOC_.md` defines the numeric filename-prefix categories used in `docs/` (`01-` brainstorm/notes → `02-` research plan → `03-` reports → `04-` sources).
 

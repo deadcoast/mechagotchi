@@ -458,6 +458,10 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-07-04-descriptor-axis-calibration.md`
 - `research/reports/mechagotchi_research_report_v0_8.md`
 - `research/reports/research_report_v0_8_manifest.json`
+- `research/experiment_reports/2026-07-04-mecha-engine-package-scaffold.md`
+- `labs/architecture/mecha_engine_scaffold_verification_gate.py`
+- `data/architecture/mecha_engine_scaffold_verification_gate_stage0.json`
+- `packages/mecha_engine/` (empty package scaffold per decision record 0004; no lab code promoted)
 
 Stage 0 and Stage 1 established:
 

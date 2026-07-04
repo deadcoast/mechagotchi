@@ -29,7 +29,10 @@ class SlipSchemaMigrationGateTests(unittest.TestCase):
         # (decision record 0005 declares the lab dependency group).
         self.assertIsInstance(report["jsonschema_available"], bool)
         self.assertTrue(report["dependency_manifest_present"])
-        self.assertFalse(report["package_root_exists"])
+        # The packages/ root exists as of the mecha_engine scaffold step
+        # (decision record 0004); package-scoped states below stay blocked
+        # because the scaffold carries no implementation or dependencies.
+        self.assertTrue(report["package_root_exists"])
         self.assertEqual(
             "declared_in_lab_dependency_group_for_lab_contract",
             report["dependency_decision"]["pydantic"],
