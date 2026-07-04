@@ -454,6 +454,7 @@ Post-v0.1 continuation has started:
 - `labs/slip_validator/jsonschema_runtime_parity.py`
 - `data/slips/slip_jsonschema_runtime_parity_stage0.json`
 - `pyproject.toml`
+- `research/experiment_reports/2026-07-04-deep-color-foreign-fixtures.md`
 
 Stage 0 and Stage 1 established:
 

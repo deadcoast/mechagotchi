@@ -202,8 +202,14 @@ def _even_segment_lengths(total: int, chunk_count: int) -> list[int]:
     return [base] * (chunk_count - 1)
 
 
-def _ihdr_payload(width: int, height: int, interlace: int) -> bytes:
-    return struct.pack(">IIBBBBB", width, height, 8, 6, 0, 0, interlace)
+def _ihdr_payload(
+    width: int,
+    height: int,
+    interlace: int,
+    bit_depth: int = 8,
+    color_type: int = 6,
+) -> bytes:
+    return struct.pack(">IIBBBBB", width, height, bit_depth, color_type, 0, 0, interlace)
 
 
 def build_static_png(
@@ -231,6 +237,133 @@ def build_static_png(
     segments = _split_segments(compressed, idat_segment_lengths)
 
     parts = [PNG_SIGNATURE, write_chunk("IHDR", _ihdr_payload(width, height, interlace))]
+    for chunk_type, payload in pre_idat_chunks:
+        parts.append(write_chunk(chunk_type, payload))
+    for segment in segments:
+        parts.append(write_chunk("IDAT", segment))
+    for chunk_type, payload in post_idat_chunks:
+        parts.append(write_chunk(chunk_type, payload))
+    parts.append(write_chunk("IEND", b""))
+    return b"".join(parts)
+
+
+# ---------------------------------------------------------------------------
+# Grayscale and deep-color (16-bit) serialization
+#
+# Encoded pixels are represented as one ``bytes`` object per pixel so the
+# same filter and Adam7 pass-extraction code covers every sample size. Per
+# the specification, filter method 0 operates on bytes with the pixel byte
+# stride ``bpp``: 1 for 8-bit grayscale, 2 for 16-bit grayscale, and 8 for
+# 16-bit RGBA. 16-bit samples are serialized big-endian (network order).
+# ---------------------------------------------------------------------------
+
+
+def _gray8_pixel_bytes(samples: list[int]) -> list[bytes]:
+    encoded = []
+    for sample in samples:
+        if sample < 0 or sample > 255:
+            raise ValueError("8-bit grayscale samples must be in [0, 255]")
+        encoded.append(bytes([sample]))
+    return encoded
+
+
+def _gray16_pixel_bytes(samples: list[int]) -> list[bytes]:
+    encoded = []
+    for sample in samples:
+        if sample < 0 or sample > 65535:
+            raise ValueError("16-bit grayscale samples must be in [0, 65535]")
+        encoded.append(struct.pack(">H", sample))
+    return encoded
+
+
+def _rgba16_pixel_bytes(pixels: list[tuple[int, int, int, int]]) -> list[bytes]:
+    encoded = []
+    for pixel in pixels:
+        if len(pixel) != 4 or any(channel < 0 or channel > 65535 for channel in pixel):
+            raise ValueError("16-bit RGBA channels must be in [0, 65535]")
+        encoded.append(struct.pack(">HHHH", *pixel))
+    return encoded
+
+
+def _sequential_raw_from_pixel_bytes(
+    width: int,
+    height: int,
+    pixel_bytes: list[bytes],
+    row_filters: list[int],
+    bpp: int,
+) -> bytes:
+    rows = [
+        b"".join(pixel_bytes[y * width : (y + 1) * width]) for y in range(height)
+    ]
+    return _serialize_rows(rows, row_filters, bpp)
+
+
+def _adam7_raw_from_pixel_bytes(
+    width: int,
+    height: int,
+    pixel_bytes: list[bytes],
+    row_filters: list[int],
+    bpp: int,
+) -> bytes:
+    """Adam7 datastream for arbitrary sample sizes (independent extraction).
+
+    Same pass semantics as ``_adam7_raw``: each reduced image is filtered
+    independently and the filter cycle advances across all emitted reduced
+    scanlines; empty passes emit nothing.
+    """
+    raw = bytearray()
+    filter_cursor = 0
+    for x_start, y_start, x_step, y_step in ADAM7_PASSES:
+        pass_columns = list(range(x_start, width, x_step))
+        pass_rows = list(range(y_start, height, y_step))
+        if not pass_columns or not pass_rows:
+            continue
+        previous = None
+        for y in pass_rows:
+            row_bytes = b"".join(pixel_bytes[y * width + x] for x in pass_columns)
+            filter_type = row_filters[filter_cursor % len(row_filters)]
+            filter_cursor += 1
+            raw.append(filter_type)
+            raw.extend(_filter_scanline(row_bytes, previous, filter_type, bpp))
+            previous = row_bytes
+    return bytes(raw)
+
+
+def build_static_deep_png(
+    width: int,
+    height: int,
+    pixel_bytes: list[bytes],
+    *,
+    bit_depth: int,
+    color_type: int,
+    row_filters: list[int] | None = None,
+    interlace: int = 0,
+    idat_segment_lengths: list[int] | None = None,
+    idat_chunk_count: int | None = None,
+    pre_idat_chunks: tuple[tuple[str, bytes], ...] = (),
+    post_idat_chunks: tuple[tuple[str, bytes], ...] = (),
+) -> bytes:
+    if len(pixel_bytes) != width * height:
+        raise ValueError("pixel count does not match dimensions")
+    bpp = len(pixel_bytes[0])
+    if any(len(encoded) != bpp for encoded in pixel_bytes):
+        raise ValueError("encoded pixels must share one byte stride")
+    filters = row_filters or [0]
+    if interlace == 0:
+        raw = _sequential_raw_from_pixel_bytes(width, height, pixel_bytes, filters, bpp)
+    elif interlace == 1:
+        raw = _adam7_raw_from_pixel_bytes(width, height, pixel_bytes, filters, bpp)
+    else:
+        raise ValueError("interlace method must be 0 or 1")
+    compressed = zlib.compress(raw)
+    if idat_chunk_count is not None and idat_segment_lengths is None:
+        idat_segment_lengths = _even_segment_lengths(len(compressed), idat_chunk_count)
+    segments = _split_segments(compressed, idat_segment_lengths)
+
+    parts = [
+        PNG_SIGNATURE,
+        write_chunk("IHDR", _ihdr_payload(width, height, interlace, bit_depth, color_type)),
+    ]
     for chunk_type, payload in pre_idat_chunks:
         parts.append(write_chunk(chunk_type, payload))
     for segment in segments:
@@ -484,6 +617,70 @@ def quantized_pixels(
     return pixels
 
 
+def gray8_pattern_samples(width: int, height: int, variant: int = 0) -> list[int]:
+    return [
+        (x * 23 + y * 47 + variant * 13) % 256
+        for y in range(height)
+        for x in range(width)
+    ]
+
+
+def gray16_pattern_samples(width: int, height: int, variant: int = 0) -> list[int]:
+    """16-bit grayscale samples whose high and low bytes both vary, so
+    byte-oriented filtering is exercised across the full sample width."""
+    return [
+        (x * 4813 + y * 12289 + variant * 769) % 65536
+        for y in range(height)
+        for x in range(width)
+    ]
+
+
+def rgba16_pattern_pixels(
+    width: int, height: int, variant: int = 0
+) -> list[tuple[int, int, int, int]]:
+    pixels = []
+    for y in range(height):
+        for x in range(width):
+            pixels.append(
+                (
+                    (x * 4099 + y * 259 + variant * 6151) % 65536,
+                    (x * 307 + y * 9973 + variant * 211) % 65536,
+                    (x * 7919 + y * 1031 + variant * 97) % 65536,
+                    (x * 257 + y * 8191 + variant * 127) % 65536,
+                )
+            )
+    return pixels
+
+
+def scale_16bit_sample_to_byte(value: int) -> int:
+    """Sample-depth rescaling from the specification:
+    ``round(value * 255 / 65535)``. Because 65535 is odd, an exact .5 tie is
+    impossible, so round-half-up integer arithmetic equals true rounding."""
+    if value < 0 or value > 65535:
+        raise ValueError("16-bit sample must be in [0, 65535]")
+    return (value * 255 + 32767) // 65535
+
+
+def gray_reference_pixels(samples: list[int], bit_depth: int) -> list[tuple[int, int, int, int]]:
+    if bit_depth == 8:
+        return [(sample, sample, sample, 255) for sample in samples]
+    if bit_depth == 16:
+        return [
+            (byte, byte, byte, 255)
+            for byte in (scale_16bit_sample_to_byte(sample) for sample in samples)
+        ]
+    raise ValueError("grayscale reference pixels require bit depth 8 or 16")
+
+
+def rgba16_reference_pixels(
+    pixels: list[tuple[int, int, int, int]],
+) -> list[tuple[int, int, int, int]]:
+    return [
+        tuple(scale_16bit_sample_to_byte(channel) for channel in pixel)
+        for pixel in pixels
+    ]
+
+
 def hash_bytes(payload: bytes) -> str:
     return "sha256:" + hashlib.sha256(payload).hexdigest()
 
@@ -543,10 +740,76 @@ def _static_fixture(
         "features": features,
         "width": width,
         "height": height,
+        "color_type": 6,
+        "bit_depth": 8,
         "frame_count": 1,
         "reference": {
             "pixels": pixels,
             "pixel_hash": hash_pixels(pixels),
+        },
+        "expected": expected,
+    }
+
+
+def _deep_static_fixture(
+    fixture_id: str,
+    *,
+    width: int,
+    height: int,
+    color_type: int,
+    bit_depth: int,
+    variant: int,
+    features: list[str],
+    row_filters: list[int] | None = None,
+    interlace: int = 0,
+    idat_chunk_count: int | None = None,
+    expected: dict,
+) -> dict:
+    """Grayscale or 16-bit fixture. The RGBA8 reference records the spec
+    sample-depth rescaling of the source samples; ``source_sample_hash``
+    pins the raw big-endian sample bytes the file actually carries."""
+    if color_type == 0 and bit_depth == 8:
+        samples = gray8_pattern_samples(width, height, variant)
+        pixel_bytes = _gray8_pixel_bytes(samples)
+        reference_pixels = gray_reference_pixels(samples, 8)
+    elif color_type == 0 and bit_depth == 16:
+        samples = gray16_pattern_samples(width, height, variant)
+        pixel_bytes = _gray16_pixel_bytes(samples)
+        reference_pixels = gray_reference_pixels(samples, 16)
+    elif color_type == 6 and bit_depth == 16:
+        pixels16 = rgba16_pattern_pixels(width, height, variant)
+        pixel_bytes = _rgba16_pixel_bytes(pixels16)
+        reference_pixels = rgba16_reference_pixels(pixels16)
+    else:
+        raise ValueError(
+            "deep static fixtures cover color type 0 (bit depth 8/16) and "
+            "color type 6 (bit depth 16) only"
+        )
+    png_bytes = build_static_deep_png(
+        width,
+        height,
+        pixel_bytes,
+        bit_depth=bit_depth,
+        color_type=color_type,
+        row_filters=row_filters,
+        interlace=interlace,
+        idat_chunk_count=idat_chunk_count,
+    )
+    return {
+        "fixture_id": fixture_id,
+        "file_name": f"{fixture_id}.png",
+        "png_bytes": png_bytes,
+        "kind": "static",
+        "features": features,
+        "width": width,
+        "height": height,
+        "color_type": color_type,
+        "bit_depth": bit_depth,
+        "frame_count": 1,
+        "reference": {
+            "pixels": reference_pixels,
+            "pixel_hash": hash_pixels(reference_pixels),
+            "source_sample_hash": hash_bytes(b"".join(pixel_bytes)),
         },
         "expected": expected,
     }
@@ -580,6 +843,8 @@ def _apng_fixture(
         "features": features,
         "width": canvas_width,
         "height": canvas_height,
+        "color_type": 6,
+        "bit_depth": 8,
         "frame_count": len(frames),
         "reference": {
             "default_image_pixels": default_pixels,
@@ -740,6 +1005,163 @@ def build_all_fixtures() -> list[dict]:
                 "standard_decode_png_rgba": _reject("png_method_unsupported"),
                 "adam7_decode_png_adam7_rgba": _decode(),
                 "chunk_order_validator": _decode({"idat_chunk_count": 3}),
+            },
+        )
+    )
+
+    fixtures.append(
+        _deep_static_fixture(
+            "gray8_multi_idat_mixed_filters",
+            width=7,
+            height=6,
+            color_type=0,
+            bit_depth=8,
+            variant=40,
+            features=[
+                "gray8",
+                "color_type_0",
+                "filters_mixed_per_row_0_to_4",
+                "multi_idat_even_split",
+                "filter_bpp_1",
+            ],
+            row_filters=[0, 1, 2, 3, 4, 2],
+            idat_chunk_count=2,
+            expected={
+                "standard_decode_png_rgba": _reject("png_color_type_unsupported"),
+                "adam7_decode_png_adam7_rgba": _reject("png_color_type_unsupported"),
+                "apng_decode_apng_frames": _reject("apng_color_model_unsupported"),
+                "apng_filtered_frame_data": _reject("apng_color_model_unsupported"),
+                "apng_partial_frame_playback": _reject("apng_color_model_unsupported"),
+                "image_data_chunking": _decode({"idat_chunk_count": 2}),
+                "chunk_order_validator": _decode(),
+                "textual_metadata_import": _reject("png_color_type_unsupported"),
+                "deep_color_decode": _decode(),
+                "adam7_deep_color_decode": _reject("png_adam7_deep_color_interlace_required"),
+            },
+        )
+    )
+
+    fixtures.append(
+        _deep_static_fixture(
+            "gray16_multi_idat_mixed_filters",
+            width=6,
+            height=5,
+            color_type=0,
+            bit_depth=16,
+            variant=41,
+            features=[
+                "gray16",
+                "color_type_0",
+                "bit_depth_16",
+                "filters_mixed_per_row_0_to_4",
+                "multi_idat_even_split",
+                "filter_bpp_2",
+            ],
+            row_filters=[4, 2, 1, 3, 0],
+            idat_chunk_count=3,
+            expected={
+                "standard_decode_png_rgba": _reject("png_bit_depth_unsupported"),
+                "adam7_decode_png_adam7_rgba": _reject("png_bit_depth_unsupported"),
+                "apng_decode_apng_frames": _reject("apng_color_model_unsupported"),
+                "apng_filtered_frame_data": _reject("apng_color_model_unsupported"),
+                "apng_partial_frame_playback": _reject("apng_color_model_unsupported"),
+                "image_data_chunking": _decode({"idat_chunk_count": 3}),
+                "chunk_order_validator": _decode(),
+                "textual_metadata_import": _reject("png_bit_depth_unsupported"),
+                "deep_color_decode": _decode(),
+                "adam7_deep_color_decode": _reject("png_adam7_deep_color_interlace_required"),
+            },
+        )
+    )
+
+    fixtures.append(
+        _deep_static_fixture(
+            "rgba16_basic",
+            width=5,
+            height=4,
+            color_type=6,
+            bit_depth=16,
+            variant=42,
+            features=["rgba16", "bit_depth_16", "filter_0", "single_idat"],
+            row_filters=[0],
+            expected={
+                "standard_decode_png_rgba": _reject("png_bit_depth_unsupported"),
+                "adam7_decode_png_adam7_rgba": _reject("png_bit_depth_unsupported"),
+                "apng_decode_apng_frames": _reject("apng_color_model_unsupported"),
+                "apng_filtered_frame_data": _reject("apng_color_model_unsupported"),
+                "apng_partial_frame_playback": _reject("apng_color_model_unsupported"),
+                "image_data_chunking": _decode({"idat_chunk_count": 1}),
+                "chunk_order_validator": _decode(),
+                "textual_metadata_import": _reject("png_bit_depth_unsupported"),
+                "deep_color_decode": _decode(),
+                "adam7_deep_color_decode": _reject("png_adam7_deep_color_interlace_required"),
+            },
+        )
+    )
+
+    fixtures.append(
+        _deep_static_fixture(
+            "rgba16_paeth_sub_multi_idat",
+            width=8,
+            height=6,
+            color_type=6,
+            bit_depth=16,
+            variant=43,
+            features=[
+                "rgba16",
+                "bit_depth_16",
+                "filters_sub_paeth_up_average",
+                "multi_idat_even_split",
+                "filter_bpp_8",
+            ],
+            row_filters=[1, 4, 2, 3, 4, 1],
+            idat_chunk_count=3,
+            expected={
+                "standard_decode_png_rgba": _reject("png_bit_depth_unsupported"),
+                "adam7_decode_png_adam7_rgba": _reject("png_bit_depth_unsupported"),
+                "apng_decode_apng_frames": _reject("apng_color_model_unsupported"),
+                "apng_filtered_frame_data": _reject("apng_color_model_unsupported"),
+                "apng_partial_frame_playback": _reject("apng_color_model_unsupported"),
+                "image_data_chunking": _decode({"idat_chunk_count": 3}),
+                "chunk_order_validator": _decode(),
+                "textual_metadata_import": _reject("png_bit_depth_unsupported"),
+                "deep_color_decode": _decode(),
+                "adam7_deep_color_decode": _reject("png_adam7_deep_color_interlace_required"),
+            },
+        )
+    )
+
+    fixtures.append(
+        _deep_static_fixture(
+            "rgba16_adam7_mixed_filters_multi_idat",
+            width=6,
+            height=7,
+            color_type=6,
+            bit_depth=16,
+            variant=44,
+            features=[
+                "rgba16",
+                "bit_depth_16",
+                "adam7_interlace",
+                "filters_mixed_per_reduced_row",
+                "multi_idat",
+                "non_power_of_two_dimensions",
+                "filter_bpp_8",
+            ],
+            row_filters=[4, 3, 1, 0, 2],
+            interlace=1,
+            idat_chunk_count=2,
+            expected={
+                "standard_decode_png_rgba": _reject("png_bit_depth_unsupported"),
+                "adam7_decode_png_adam7_rgba": _reject("png_bit_depth_unsupported"),
+                "apng_decode_apng_frames": _reject("apng_color_model_unsupported"),
+                "apng_filtered_frame_data": _reject("apng_color_model_unsupported"),
+                "apng_partial_frame_playback": _reject("apng_color_model_unsupported"),
+                "image_data_chunking": _reject("png_interlace_unsupported"),
+                "chunk_order_validator": _decode(),
+                "textual_metadata_import": _reject("png_bit_depth_unsupported"),
+                "deep_color_decode": _reject("png_interlace_unsupported"),
+                "adam7_deep_color_decode": _decode({"idat_chunk_count": 2}),
             },
         )
     )
@@ -1013,7 +1435,10 @@ def build_all_fixtures() -> list[dict]:
 def _manifest_reference(fixture: dict) -> dict:
     reference = fixture["reference"]
     if fixture["kind"] == "static":
-        return {"pixel_hash": reference["pixel_hash"]}
+        manifest_reference = {"pixel_hash": reference["pixel_hash"]}
+        if "source_sample_hash" in reference:
+            manifest_reference["source_sample_hash"] = reference["source_sample_hash"]
+        return manifest_reference
     return {
         "default_image_pixel_hash": reference["default_image_pixel_hash"],
         "frame_pixel_hashes": [frame["pixel_hash"] for frame in reference["frames"]],
@@ -1033,9 +1458,35 @@ def build_manifest(fixtures: list[dict]) -> dict:
             "Generated in-repo from the public W3C PNG specification; contains no "
             "third-party image data."
         ),
-        "pixel_hash_model": "sha256 over concatenated RGBA bytes, row-major",
+        "pixel_hash_model": (
+            "sha256 over concatenated RGBA bytes, row-major; 16-bit fixtures "
+            "record the RGBA8 reference after the specification's sample-depth "
+            "rescaling (round(sample * 255 / 65535)) plus a source_sample_hash "
+            "over the raw big-endian sample bytes carried by the file"
+        ),
         "fixture_count": len(fixtures),
         "known_deficiencies": [],
+        "coverage_notes": {
+            "closed": (
+                "Grayscale (color type 0, bit depths 8 and 16) and deep-color "
+                "RGBA (color type 6, bit depth 16) foreign fixtures are covered, "
+                "including 16-bit multi-IDAT streams with non-zero filters "
+                "(filter bpp 2 for gray16, 8 for rgba16) and one 16-bit RGBA "
+                "Adam7 fixture; png_deep_color_sidecar_decoder and "
+                "png_adam7_deep_color_cross_product decode them pixel-exact "
+                "against the writer's independent references."
+            ),
+            "out_of_scope": [
+                "indexed color type 3 (claimed by png_deep_color_sidecar_decoder "
+                "at bit depths 1/2/4 but not yet covered by foreign fixtures)",
+                "truecolor color type 2 and grayscale-alpha color type 4 "
+                "(claimed by png_deep_color_sidecar_decoder but not yet covered "
+                "by foreign fixtures)",
+                "low-bit grayscale (bit depths 1/2/4)",
+                "grayscale or 16-bit APNG frame data (no APNG decoder in the "
+                "conformance sweep claims frame data beyond 8-bit RGBA)",
+            ],
+        },
         "fixtures": [
             {
                 "fixture_id": fixture["fixture_id"],
@@ -1046,6 +1497,8 @@ def build_manifest(fixtures: list[dict]) -> dict:
                 "features": fixture["features"],
                 "width": fixture["width"],
                 "height": fixture["height"],
+                "color_type": fixture["color_type"],
+                "bit_depth": fixture["bit_depth"],
                 "frame_count": fixture["frame_count"],
                 "reference": _manifest_reference(fixture),
                 "expected": fixture["expected"],
@@ -1077,6 +1530,19 @@ def _readme_text(manifest: dict) -> str:
         "sub-canvas frame regions, a default image excluded from the",
         "animation, and fdAT payloads split across chunks with consecutive",
         "sequence numbers.",
+        "",
+        "Grayscale and deep-color coverage: 8-bit grayscale (color type 0),",
+        "16-bit grayscale, and 16-bit RGBA fixtures, including 16-bit",
+        "multi-IDAT streams with non-zero filters (byte-oriented filtering",
+        "with bpp 2 for gray16 and bpp 8 for rgba16) and one 16-bit RGBA",
+        "Adam7 fixture for the Adam7/deep-color cross-product decoder.",
+        "16-bit references record the specification's sample-depth",
+        "rescaling to RGBA8 (round(sample * 255 / 65535)) plus a hash of",
+        "the raw big-endian samples. Still out of scope (see the manifest",
+        "coverage_notes): indexed color type 3, truecolor color type 2,",
+        "grayscale-alpha color type 4, low-bit grayscale (1/2/4), and",
+        "grayscale/16-bit APNG frame data (no APNG decoder in the sweep",
+        "claims frame data beyond 8-bit RGBA).",
         "",
         "`manifest.json` describes every fixture: features, dimensions,",
         "frame count, reference pixel hashes computed by the writer's own",

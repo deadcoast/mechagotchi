@@ -4,9 +4,18 @@
   "spec_source": "https://www.w3.org/TR/png-3/",
   "deterministic": true,
   "license": "Generated in-repo from the public W3C PNG specification; contains no third-party image data.",
-  "pixel_hash_model": "sha256 over concatenated RGBA bytes, row-major",
-  "fixture_count": 17,
+  "pixel_hash_model": "sha256 over concatenated RGBA bytes, row-major; 16-bit fixtures record the RGBA8 reference after the specification's sample-depth rescaling (round(sample * 255 / 65535)) plus a source_sample_hash over the raw big-endian sample bytes carried by the file",
+  "fixture_count": 22,
   "known_deficiencies": [],
+  "coverage_notes": {
+    "closed": "Grayscale (color type 0, bit depths 8 and 16) and deep-color RGBA (color type 6, bit depth 16) foreign fixtures are covered, including 16-bit multi-IDAT streams with non-zero filters (filter bpp 2 for gray16, 8 for rgba16) and one 16-bit RGBA Adam7 fixture; png_deep_color_sidecar_decoder and png_adam7_deep_color_cross_product decode them pixel-exact against the writer's independent references.",
+    "out_of_scope": [
+      "indexed color type 3 (claimed by png_deep_color_sidecar_decoder at bit depths 1/2/4 but not yet covered by foreign fixtures)",
+      "truecolor color type 2 and grayscale-alpha color type 4 (claimed by png_deep_color_sidecar_decoder but not yet covered by foreign fixtures)",
+      "low-bit grayscale (bit depths 1/2/4)",
+      "grayscale or 16-bit APNG frame data (no APNG decoder in the conformance sweep claims frame data beyond 8-bit RGBA)"
+    ]
+  },
   "fixtures": [
     {
       "fixture_id": "static_multi_idat_even",
@@ -21,6 +30,8 @@
       ],
       "width": 8,
       "height": 8,
+      "color_type": 6,
+      "bit_depth": 8,
       "frame_count": 1,
       "reference": {
         "pixel_hash": "sha256:0b6bea47697502a3e72713dfbb55790e629c725bcfe10024fa49b749214b8c5b"
@@ -64,6 +75,8 @@
       ],
       "width": 6,
       "height": 5,
+      "color_type": 6,
+      "bit_depth": 8,
       "frame_count": 1,
       "reference": {
         "pixel_hash": "sha256:1d4da4e4a2e6365d09817a566edc7762195a4f100b44724e3d7c26d7db583fd7"
@@ -93,6 +106,8 @@
       ],
       "width": 6,
       "height": 6,
+      "color_type": 6,
+      "bit_depth": 8,
       "frame_count": 1,
       "reference": {
         "pixel_hash": "sha256:98d49f2c78a9f4606aa371e0f5111c1fca501497a92bc838bc7a8f27c146d965"
@@ -123,6 +138,8 @@
       ],
       "width": 6,
       "height": 6,
+      "color_type": 6,
+      "bit_depth": 8,
       "frame_count": 1,
       "reference": {
         "pixel_hash": "sha256:469006870dba960523fa76d9038bd32e237410332f016cf56a19e5cd88c4c81c"
@@ -153,6 +170,8 @@
       ],
       "width": 6,
       "height": 6,
+      "color_type": 6,
+      "bit_depth": 8,
       "frame_count": 1,
       "reference": {
         "pixel_hash": "sha256:a68cc6b1443c4a1f1fe412e60aeb4f55b2472a1bcbb440a7aba9995a087f6ef2"
@@ -183,6 +202,8 @@
       ],
       "width": 6,
       "height": 6,
+      "color_type": 6,
+      "bit_depth": 8,
       "frame_count": 1,
       "reference": {
         "pixel_hash": "sha256:d13ef63f4d1c9d53f004591876d5a70e51e427db3b32b9714ff097e8fe78f0d5"
@@ -213,6 +234,8 @@
       ],
       "width": 8,
       "height": 8,
+      "color_type": 6,
+      "bit_depth": 8,
       "frame_count": 1,
       "reference": {
         "pixel_hash": "sha256:978707f61ed145859055635130ad77eaf716548464c839876fa31bd23f489315"
@@ -247,6 +270,8 @@
       ],
       "width": 8,
       "height": 8,
+      "color_type": 6,
+      "bit_depth": 8,
       "frame_count": 1,
       "reference": {
         "pixel_hash": "sha256:9903bb28301554826d2c59699b88cac0d0aedc4fa9b87dd9f92763b56ab6373d"
@@ -282,6 +307,8 @@
       ],
       "width": 10,
       "height": 9,
+      "color_type": 6,
+      "bit_depth": 8,
       "frame_count": 1,
       "reference": {
         "pixel_hash": "sha256:ec0c97f2c33d39b9be7c901f63a0bc4d21d0c8609f5d1eadd7c48b5d9b43a734"
@@ -317,6 +344,8 @@
       ],
       "width": 8,
       "height": 8,
+      "color_type": 6,
+      "bit_depth": 8,
       "frame_count": 1,
       "reference": {
         "pixel_hash": "sha256:c9da077c08ccd12303150aee310200dab693e8b8b316396334ad330d6fd53b01"
@@ -336,6 +365,324 @@
       }
     },
     {
+      "fixture_id": "gray8_multi_idat_mixed_filters",
+      "file_name": "gray8_multi_idat_mixed_filters.png",
+      "kind": "static",
+      "byte_count": 105,
+      "sha256": "sha256:049439fb63f9e859d0d3361fd4fdb1209cd9d903217bae85035786e0b48b8c3e",
+      "features": [
+        "gray8",
+        "color_type_0",
+        "filters_mixed_per_row_0_to_4",
+        "multi_idat_even_split",
+        "filter_bpp_1"
+      ],
+      "width": 7,
+      "height": 6,
+      "color_type": 0,
+      "bit_depth": 8,
+      "frame_count": 1,
+      "reference": {
+        "pixel_hash": "sha256:b8288491c7cc42b825cb721ace8d2c90b36142a1c79dd491aef67051ab364ee7",
+        "source_sample_hash": "sha256:f0a7e55558679d50e3777162243651a55e3e9aeedb5f423eb8e1cc71143d0281"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "typed_reject",
+          "family": "png_color_type_unsupported"
+        },
+        "adam7_decode_png_adam7_rgba": {
+          "outcome": "typed_reject",
+          "family": "png_color_type_unsupported"
+        },
+        "apng_decode_apng_frames": {
+          "outcome": "typed_reject",
+          "family": "apng_color_model_unsupported"
+        },
+        "apng_filtered_frame_data": {
+          "outcome": "typed_reject",
+          "family": "apng_color_model_unsupported"
+        },
+        "apng_partial_frame_playback": {
+          "outcome": "typed_reject",
+          "family": "apng_color_model_unsupported"
+        },
+        "image_data_chunking": {
+          "outcome": "decode",
+          "idat_chunk_count": 2
+        },
+        "chunk_order_validator": {
+          "outcome": "decode"
+        },
+        "textual_metadata_import": {
+          "outcome": "typed_reject",
+          "family": "png_color_type_unsupported"
+        },
+        "deep_color_decode": {
+          "outcome": "decode"
+        },
+        "adam7_deep_color_decode": {
+          "outcome": "typed_reject",
+          "family": "png_adam7_deep_color_interlace_required"
+        }
+      }
+    },
+    {
+      "fixture_id": "gray16_multi_idat_mixed_filters",
+      "file_name": "gray16_multi_idat_mixed_filters.png",
+      "kind": "static",
+      "byte_count": 128,
+      "sha256": "sha256:327cc23fd65eb88e86fbc56df2eb5d1eca1ce2107e89a6f4bb969c151c9badda",
+      "features": [
+        "gray16",
+        "color_type_0",
+        "bit_depth_16",
+        "filters_mixed_per_row_0_to_4",
+        "multi_idat_even_split",
+        "filter_bpp_2"
+      ],
+      "width": 6,
+      "height": 5,
+      "color_type": 0,
+      "bit_depth": 16,
+      "frame_count": 1,
+      "reference": {
+        "pixel_hash": "sha256:73c4b6c50e2f9847d49502ebdeb50bd906e611c60846d4a279ab3a84751ed8d9",
+        "source_sample_hash": "sha256:1897c7048ffe35d9e26b607a11b1bc25f31ccd4d9058900a7659204955adfd8c"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "typed_reject",
+          "family": "png_bit_depth_unsupported"
+        },
+        "adam7_decode_png_adam7_rgba": {
+          "outcome": "typed_reject",
+          "family": "png_bit_depth_unsupported"
+        },
+        "apng_decode_apng_frames": {
+          "outcome": "typed_reject",
+          "family": "apng_color_model_unsupported"
+        },
+        "apng_filtered_frame_data": {
+          "outcome": "typed_reject",
+          "family": "apng_color_model_unsupported"
+        },
+        "apng_partial_frame_playback": {
+          "outcome": "typed_reject",
+          "family": "apng_color_model_unsupported"
+        },
+        "image_data_chunking": {
+          "outcome": "decode",
+          "idat_chunk_count": 3
+        },
+        "chunk_order_validator": {
+          "outcome": "decode"
+        },
+        "textual_metadata_import": {
+          "outcome": "typed_reject",
+          "family": "png_bit_depth_unsupported"
+        },
+        "deep_color_decode": {
+          "outcome": "decode"
+        },
+        "adam7_deep_color_decode": {
+          "outcome": "typed_reject",
+          "family": "png_adam7_deep_color_interlace_required"
+        }
+      }
+    },
+    {
+      "fixture_id": "rgba16_basic",
+      "file_name": "rgba16_basic.png",
+      "kind": "static",
+      "byte_count": 232,
+      "sha256": "sha256:9099f682b383c511953d4bfb64d2af6750e86c937b868f4eba3683f248e347ba",
+      "features": [
+        "rgba16",
+        "bit_depth_16",
+        "filter_0",
+        "single_idat"
+      ],
+      "width": 5,
+      "height": 4,
+      "color_type": 6,
+      "bit_depth": 16,
+      "frame_count": 1,
+      "reference": {
+        "pixel_hash": "sha256:80e803ee73b9f9ed886826b285e34b1511e44a04fc379b35e90d4b2e4f69b7a8",
+        "source_sample_hash": "sha256:0e2f17eff0f0f958c5bb9e8c8a33ff0bd5ba72953bfb121fac2d411b8997e1bd"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "typed_reject",
+          "family": "png_bit_depth_unsupported"
+        },
+        "adam7_decode_png_adam7_rgba": {
+          "outcome": "typed_reject",
+          "family": "png_bit_depth_unsupported"
+        },
+        "apng_decode_apng_frames": {
+          "outcome": "typed_reject",
+          "family": "apng_color_model_unsupported"
+        },
+        "apng_filtered_frame_data": {
+          "outcome": "typed_reject",
+          "family": "apng_color_model_unsupported"
+        },
+        "apng_partial_frame_playback": {
+          "outcome": "typed_reject",
+          "family": "apng_color_model_unsupported"
+        },
+        "image_data_chunking": {
+          "outcome": "decode",
+          "idat_chunk_count": 1
+        },
+        "chunk_order_validator": {
+          "outcome": "decode"
+        },
+        "textual_metadata_import": {
+          "outcome": "typed_reject",
+          "family": "png_bit_depth_unsupported"
+        },
+        "deep_color_decode": {
+          "outcome": "decode"
+        },
+        "adam7_deep_color_decode": {
+          "outcome": "typed_reject",
+          "family": "png_adam7_deep_color_interlace_required"
+        }
+      }
+    },
+    {
+      "fixture_id": "rgba16_paeth_sub_multi_idat",
+      "file_name": "rgba16_paeth_sub_multi_idat.png",
+      "kind": "static",
+      "byte_count": 204,
+      "sha256": "sha256:aef26369e296f58284e79c8a1de8bef6880088bdab8931d978cd06e0b84e6f0e",
+      "features": [
+        "rgba16",
+        "bit_depth_16",
+        "filters_sub_paeth_up_average",
+        "multi_idat_even_split",
+        "filter_bpp_8"
+      ],
+      "width": 8,
+      "height": 6,
+      "color_type": 6,
+      "bit_depth": 16,
+      "frame_count": 1,
+      "reference": {
+        "pixel_hash": "sha256:f550d1d35f49441018ab9d8e90767b77b0b06039a45043eefddb63c7f319638c",
+        "source_sample_hash": "sha256:9f9baf3c154e2d546ca999c5d03d85a48b44e5566baa0c26f97952fcb1f6487b"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "typed_reject",
+          "family": "png_bit_depth_unsupported"
+        },
+        "adam7_decode_png_adam7_rgba": {
+          "outcome": "typed_reject",
+          "family": "png_bit_depth_unsupported"
+        },
+        "apng_decode_apng_frames": {
+          "outcome": "typed_reject",
+          "family": "apng_color_model_unsupported"
+        },
+        "apng_filtered_frame_data": {
+          "outcome": "typed_reject",
+          "family": "apng_color_model_unsupported"
+        },
+        "apng_partial_frame_playback": {
+          "outcome": "typed_reject",
+          "family": "apng_color_model_unsupported"
+        },
+        "image_data_chunking": {
+          "outcome": "decode",
+          "idat_chunk_count": 3
+        },
+        "chunk_order_validator": {
+          "outcome": "decode"
+        },
+        "textual_metadata_import": {
+          "outcome": "typed_reject",
+          "family": "png_bit_depth_unsupported"
+        },
+        "deep_color_decode": {
+          "outcome": "decode"
+        },
+        "adam7_deep_color_decode": {
+          "outcome": "typed_reject",
+          "family": "png_adam7_deep_color_interlace_required"
+        }
+      }
+    },
+    {
+      "fixture_id": "rgba16_adam7_mixed_filters_multi_idat",
+      "file_name": "rgba16_adam7_mixed_filters_multi_idat.png",
+      "kind": "static",
+      "byte_count": 358,
+      "sha256": "sha256:99c37bd6a237413d6e818e9609c62101a422dbbd9305d8d41154681e15c448f5",
+      "features": [
+        "rgba16",
+        "bit_depth_16",
+        "adam7_interlace",
+        "filters_mixed_per_reduced_row",
+        "multi_idat",
+        "non_power_of_two_dimensions",
+        "filter_bpp_8"
+      ],
+      "width": 6,
+      "height": 7,
+      "color_type": 6,
+      "bit_depth": 16,
+      "frame_count": 1,
+      "reference": {
+        "pixel_hash": "sha256:1749382398e410d5809a821f97b045399424809f0192643767c031dd8fe887c3",
+        "source_sample_hash": "sha256:96ffeb4e9135af4211fce415c5b80baa6bce17caa18f275f698ca8f6e96ca22b"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "typed_reject",
+          "family": "png_bit_depth_unsupported"
+        },
+        "adam7_decode_png_adam7_rgba": {
+          "outcome": "typed_reject",
+          "family": "png_bit_depth_unsupported"
+        },
+        "apng_decode_apng_frames": {
+          "outcome": "typed_reject",
+          "family": "apng_color_model_unsupported"
+        },
+        "apng_filtered_frame_data": {
+          "outcome": "typed_reject",
+          "family": "apng_color_model_unsupported"
+        },
+        "apng_partial_frame_playback": {
+          "outcome": "typed_reject",
+          "family": "apng_color_model_unsupported"
+        },
+        "image_data_chunking": {
+          "outcome": "typed_reject",
+          "family": "png_interlace_unsupported"
+        },
+        "chunk_order_validator": {
+          "outcome": "decode"
+        },
+        "textual_metadata_import": {
+          "outcome": "typed_reject",
+          "family": "png_bit_depth_unsupported"
+        },
+        "deep_color_decode": {
+          "outcome": "typed_reject",
+          "family": "png_interlace_unsupported"
+        },
+        "adam7_deep_color_decode": {
+          "outcome": "decode",
+          "idat_chunk_count": 2
+        }
+      }
+    },
+    {
       "fixture_id": "apng_basic_split_fdat",
       "file_name": "apng_basic_split_fdat.png",
       "kind": "apng",
@@ -351,6 +698,8 @@
       ],
       "width": 8,
       "height": 8,
+      "color_type": 6,
+      "bit_depth": 8,
       "frame_count": 2,
       "reference": {
         "default_image_pixel_hash": "sha256:146b2b61d786ea95bf7297f78eeed1974bcf6f2bc2b5d06094bc82d388d591f0",
@@ -406,6 +755,8 @@
       ],
       "width": 8,
       "height": 8,
+      "color_type": 6,
+      "bit_depth": 8,
       "frame_count": 2,
       "reference": {
         "default_image_pixel_hash": "sha256:d51611a4251f46d25cf0156f9aa8e3794f4a949a8a25a00cd26bc5de66727467",
@@ -461,6 +812,8 @@
       ],
       "width": 8,
       "height": 8,
+      "color_type": 6,
+      "bit_depth": 8,
       "frame_count": 2,
       "reference": {
         "default_image_pixel_hash": "sha256:7090cada36d8a32e00543552f4ffff71e5cf56cb575f62ebb300b7009f8bc6a3",
@@ -516,6 +869,8 @@
       ],
       "width": 8,
       "height": 8,
+      "color_type": 6,
+      "bit_depth": 8,
       "frame_count": 3,
       "reference": {
         "default_image_pixel_hash": "sha256:da2109ef477e700ee1a368811913ddee6f948268dfb8ba2f575cea035f873438",
@@ -573,6 +928,8 @@
       ],
       "width": 8,
       "height": 8,
+      "color_type": 6,
+      "bit_depth": 8,
       "frame_count": 2,
       "reference": {
         "default_image_pixel_hash": "sha256:cfeee1736e71ac1a4529e7d62e065188026847a911abbc3a73087886f5a74399",
@@ -627,6 +984,8 @@
       ],
       "width": 8,
       "height": 8,
+      "color_type": 6,
+      "bit_depth": 8,
       "frame_count": 2,
       "reference": {
         "default_image_pixel_hash": "sha256:c83e03e21c55cbb6a5601575e156b8a3a7857b8a86be90d11b90e0e97b4eb5d8",
@@ -681,6 +1040,8 @@
       ],
       "width": 8,
       "height": 8,
+      "color_type": 6,
+      "bit_depth": 8,
       "frame_count": 2,
       "reference": {
         "default_image_pixel_hash": "sha256:c80a6f5de510a6a291cfcf7d3c3da0f441b9709c8129834e9840547567519699",

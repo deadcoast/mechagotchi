@@ -20,12 +20,20 @@ from foreign_fixture_writer import (
     hash_bytes,
     write_foreign_fixture_corpus,
 )
+from png_adam7_deep_color_cross_product import (
+    PNGAdam7DeepColorDecodeError,
+    decode_png_adam7_deep_color,
+)
 from png_adam7_interlace_decoder import PNGAdam7DecodeError, decode_png_adam7_rgba
 from png_apng_chunk_order_conformance import validate_png_apng_chunk_order
 from png_apng_filtered_frame_data import decode_apng_filtered_frame_data
 from png_apng_image_data_chunking import decode_png_apng_image_data_chunking
 from png_apng_partial_frame_playback import decode_apng_partial_frame_playback
 from png_apng_sidecar_decoder import decode_apng_frames
+from png_deep_color_sidecar_decoder import (
+    PNGDeepColorDecodeError,
+    decode_png_deep_color,
+)
 from png_textual_metadata_policy import import_png_textual_metadata
 from standard_image_sidecar_decoder import PNGDecodeError, decode_png_rgba
 
@@ -46,6 +54,8 @@ DECODERS = {
     "image_data_chunking": decode_png_apng_image_data_chunking,
     "chunk_order_validator": validate_png_apng_chunk_order,
     "textual_metadata_import": import_png_textual_metadata,
+    "deep_color_decode": decode_png_deep_color,
+    "adam7_deep_color_decode": decode_png_adam7_deep_color,
 }
 
 STATIC_FILTER_FIXTURE_IDS = [
@@ -54,6 +64,17 @@ STATIC_FILTER_FIXTURE_IDS = [
     "static_filter_average",
     "static_filter_paeth",
     "static_filter_mixed",
+]
+
+DEEP_STATIC_FIXTURE_IDS = [
+    "gray8_multi_idat_mixed_filters",
+    "gray16_multi_idat_mixed_filters",
+    "rgba16_basic",
+    "rgba16_paeth_sub_multi_idat",
+]
+
+GRAY_DEEP_FIXTURE_IDS = DEEP_STATIC_FIXTURE_IDS + [
+    "rgba16_adam7_mixed_filters_multi_idat",
 ]
 
 APNG_FIXTURE_IDS = [
@@ -221,6 +242,135 @@ class TestAdam7DecoderForeignConformance(unittest.TestCase):
         with self.assertRaises(PNGAdam7DecodeError) as context:
             decode_png_adam7_rgba(FIXTURES_BY_ID["static_multi_idat_even"]["png_bytes"])
         self.assertEqual(context.exception.family, "png_adam7_interlace_required")
+
+
+class TestDeepColorDecoderForeignConformance(unittest.TestCase):
+    def test_gray_and_16bit_fixtures_decode_reference_pixels(self):
+        for fixture_id in DEEP_STATIC_FIXTURE_IDS:
+            with self.subTest(fixture=fixture_id):
+                fixture = FIXTURES_BY_ID[fixture_id]
+                decoded = decode_png_deep_color(fixture["png_bytes"])
+                self.assertEqual(decoded["width"], fixture["width"])
+                self.assertEqual(decoded["height"], fixture["height"])
+                self.assertEqual(decoded["color_type"], fixture["color_type"])
+                self.assertEqual(decoded["bit_depth"], fixture["bit_depth"])
+                self.assertEqual(decoded["interlace_method"], 0)
+                self.assertEqual(decoded["pixels"], fixture["reference"]["pixels"])
+
+    def test_gray8_multi_idat_uses_single_byte_filter_stride(self):
+        decoded = decode_png_deep_color(
+            FIXTURES_BY_ID["gray8_multi_idat_mixed_filters"]["png_bytes"]
+        )
+        self.assertEqual(decoded["filter_bpp"], 1)
+        self.assertEqual(decoded["chunks"].count("IDAT"), 2)
+        self.assertEqual(sorted(decoded["filter_types_seen"]), [0, 1, 2, 3, 4])
+
+    def test_16bit_multi_idat_nonzero_filters_use_16bit_strides(self):
+        gray16 = decode_png_deep_color(
+            FIXTURES_BY_ID["gray16_multi_idat_mixed_filters"]["png_bytes"]
+        )
+        self.assertEqual(gray16["filter_bpp"], 2)
+        self.assertEqual(gray16["chunks"].count("IDAT"), 3)
+        self.assertEqual(sorted(gray16["filter_types_seen"]), [0, 1, 2, 3, 4])
+
+        rgba16 = decode_png_deep_color(
+            FIXTURES_BY_ID["rgba16_paeth_sub_multi_idat"]["png_bytes"]
+        )
+        self.assertEqual(rgba16["filter_bpp"], 8)
+        self.assertEqual(rgba16["chunks"].count("IDAT"), 3)
+        self.assertEqual(sorted(rgba16["filter_types_seen"]), [1, 2, 3, 4])
+
+    def test_rgba8_foreign_fixtures_also_decode_pixel_exact(self):
+        fixture_ids = [
+            "static_multi_idat_even",
+            "static_multi_idat_ragged",
+            "static_ancillary_interleaved",
+        ] + STATIC_FILTER_FIXTURE_IDS
+        for fixture_id in fixture_ids:
+            with self.subTest(fixture=fixture_id):
+                fixture = FIXTURES_BY_ID[fixture_id]
+                decoded = decode_png_deep_color(fixture["png_bytes"])
+                self.assertEqual(decoded["pixels"], fixture["reference"]["pixels"])
+
+    def test_adam7_16bit_fixture_is_typed_interlace_rejection(self):
+        with self.assertRaises(PNGDeepColorDecodeError) as context:
+            decode_png_deep_color(
+                FIXTURES_BY_ID["rgba16_adam7_mixed_filters_multi_idat"]["png_bytes"]
+            )
+        self.assertEqual(context.exception.family, "png_interlace_unsupported")
+
+
+class TestAdam7DeepColorForeignConformance(unittest.TestCase):
+    def test_rgba16_adam7_fixture_decodes_reference_pixels(self):
+        fixture = FIXTURES_BY_ID["rgba16_adam7_mixed_filters_multi_idat"]
+        decoded = decode_png_adam7_deep_color(fixture["png_bytes"])
+        self.assertEqual(decoded["width"], fixture["width"])
+        self.assertEqual(decoded["height"], fixture["height"])
+        self.assertEqual(decoded["color_type"], 6)
+        self.assertEqual(decoded["bit_depth"], 16)
+        self.assertEqual(decoded["chunks"].count("IDAT"), 2)
+        self.assertEqual(sorted(decoded["filter_types_seen"]), [0, 1, 2, 3, 4])
+        self.assertEqual(decoded["pixels"], fixture["reference"]["pixels"])
+
+    def test_non_interlaced_gray_deep_fixtures_require_adam7(self):
+        for fixture_id in DEEP_STATIC_FIXTURE_IDS:
+            with self.subTest(fixture=fixture_id):
+                with self.assertRaises(PNGAdam7DeepColorDecodeError) as context:
+                    decode_png_adam7_deep_color(FIXTURES_BY_ID[fixture_id]["png_bytes"])
+                self.assertEqual(
+                    context.exception.family,
+                    "png_adam7_deep_color_interlace_required",
+                )
+
+
+class TestGrayDeepRejectionForeignConformance(unittest.TestCase):
+    RGBA8_ONLY_EXPECTED_FAMILIES = {
+        "gray8_multi_idat_mixed_filters": "png_color_type_unsupported",
+        "gray16_multi_idat_mixed_filters": "png_bit_depth_unsupported",
+        "rgba16_basic": "png_bit_depth_unsupported",
+        "rgba16_paeth_sub_multi_idat": "png_bit_depth_unsupported",
+        "rgba16_adam7_mixed_filters_multi_idat": "png_bit_depth_unsupported",
+    }
+
+    def test_standard_decoder_rejects_with_documented_families(self):
+        for fixture_id, family in self.RGBA8_ONLY_EXPECTED_FAMILIES.items():
+            with self.subTest(fixture=fixture_id):
+                with self.assertRaises(PNGDecodeError) as context:
+                    decode_png_rgba(FIXTURES_BY_ID[fixture_id]["png_bytes"])
+                self.assertEqual(context.exception.family, family)
+
+    def test_adam7_rgba8_decoder_rejects_with_documented_families(self):
+        for fixture_id, family in self.RGBA8_ONLY_EXPECTED_FAMILIES.items():
+            with self.subTest(fixture=fixture_id):
+                with self.assertRaises(PNGAdam7DecodeError) as context:
+                    decode_png_adam7_rgba(FIXTURES_BY_ID[fixture_id]["png_bytes"])
+                self.assertEqual(context.exception.family, family)
+
+    def test_apng_family_rejects_with_color_model_family(self):
+        apng_decoder_ids = [
+            "apng_decode_apng_frames",
+            "apng_filtered_frame_data",
+            "apng_partial_frame_playback",
+        ]
+        for fixture_id in GRAY_DEEP_FIXTURE_IDS:
+            for decoder_id in apng_decoder_ids:
+                with self.subTest(fixture=fixture_id, decoder=decoder_id):
+                    observed = _run_decoder(
+                        decoder_id, FIXTURES_BY_ID[fixture_id]["png_bytes"]
+                    )
+                    self.assertEqual(observed["outcome"], "typed_reject")
+                    self.assertEqual(
+                        observed["families"], ["apng_color_model_unsupported"]
+                    )
+
+    def test_textual_metadata_import_rejects_with_documented_families(self):
+        for fixture_id, family in self.RGBA8_ONLY_EXPECTED_FAMILIES.items():
+            with self.subTest(fixture=fixture_id):
+                imported = import_png_textual_metadata(
+                    FIXTURES_BY_ID[fixture_id]["png_bytes"]
+                )
+                self.assertFalse(imported["ok"])
+                self.assertEqual(imported["error_families"], [family])
 
 
 class TestApngSidecarDecoderForeignConformance(unittest.TestCase):

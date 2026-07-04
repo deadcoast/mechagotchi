@@ -19,6 +19,19 @@ sub-canvas frame regions, a default image excluded from the
 animation, and fdAT payloads split across chunks with consecutive
 sequence numbers.
 
+Grayscale and deep-color coverage: 8-bit grayscale (color type 0),
+16-bit grayscale, and 16-bit RGBA fixtures, including 16-bit
+multi-IDAT streams with non-zero filters (byte-oriented filtering
+with bpp 2 for gray16 and bpp 8 for rgba16) and one 16-bit RGBA
+Adam7 fixture for the Adam7/deep-color cross-product decoder.
+16-bit references record the specification's sample-depth
+rescaling to RGBA8 (round(sample * 255 / 65535)) plus a hash of
+the raw big-endian samples. Still out of scope (see the manifest
+coverage_notes): indexed color type 3, truecolor color type 2,
+grayscale-alpha color type 4, low-bit grayscale (1/2/4), and
+grayscale/16-bit APNG frame data (no APNG decoder in the sweep
+claims frame data beyond 8-bit RGBA).
+
 `manifest.json` describes every fixture: features, dimensions,
 frame count, reference pixel hashes computed by the writer's own
 reference model, and the expected outcome (decode or typed
@@ -30,5 +43,5 @@ Regenerate with:
 python labs/workshop_editor/foreign_fixture_writer.py
 ```
 
-- Fixtures: 17
+- Fixtures: 22
 - Corpus id: foreign_fixture_corpus_v1
