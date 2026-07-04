@@ -5,6 +5,10 @@ from copy import deepcopy
 from pathlib import Path
 
 from corpus_builder import PALETTES, build_seed_grids
+from grid_helpers import grid_from_matrix
+from grid_helpers import grid_signature as _signature
+from grid_helpers import run_baseline as _run_baseline
+from grid_helpers import weighted_sample as _weighted_sample
 from markov_grid import _matrix_from_grid
 from slip import is_grid_aligned, validate_slip
 from validator import validate_grid
@@ -103,25 +107,9 @@ def build_constrained_corpus(
 
 
 def run_baseline(generated_grids: list[dict]) -> dict:
-    error_counts: dict[str, int] = {}
-    valid_count = 0
-    for grid in generated_grids:
-        result = validate_grid(grid)
-        if result.ok:
-            valid_count += 1
-        for error in result.errors:
-            error_counts[error] = error_counts.get(error, 0) + 1
-
-    candidate_count = len(generated_grids)
-    invalid_count = candidate_count - valid_count
-    return {
-        "candidate_count": candidate_count,
-        "valid_count": valid_count,
-        "invalid_count": invalid_count,
-        "validity_rate": valid_count / candidate_count if candidate_count else 0,
-        "unique_signatures": len({_signature(grid) for grid in generated_grids}),
-        "error_counts": dict(sorted(error_counts.items())),
-    }
+    # Divergence from markov_grid/random_mutation run_baseline: this lab's
+    # report also counts unique cell signatures (diversity metric).
+    return _run_baseline(generated_grids, signature=_signature)
 
 
 def write_constrained_corpus(generated_dir: Path, generated_grids: list[dict]) -> None:
@@ -172,17 +160,6 @@ def _allowed_at(matrix: list[list[str]], model: dict, x: int, y: int, token: str
     return True
 
 
-def _weighted_sample(counts: dict[str, int], rng: random.Random) -> str:
-    total = sum(counts.values())
-    pick = rng.randint(1, total)
-    cursor = 0
-    for token, count in sorted(counts.items()):
-        cursor += count
-        if pick <= cursor:
-            return token
-    raise RuntimeError("unreachable sample state")
-
-
 def _grid_from_matrix(
     grid_id: str,
     matrix: list[list[str]],
@@ -191,118 +168,17 @@ def _grid_from_matrix(
     mutation_events: list[str],
     parent_grid_id: str | None = None,
 ) -> dict:
-    palette = PALETTES[palette_id]
-    cells: list[dict] = []
-    core_cells: list[list[int]] = []
-    sensor_cells: list[list[int]] = []
-    expression_cells: list[list[int]] = []
-
-    for y, row in enumerate(matrix):
-        for x, token in enumerate(row):
-            if token == ".":
-                continue
-            if token in {"B", "A"}:
-                cells.append(
-                    _cell(
-                        x,
-                        y,
-                        visual=palette[1],
-                        role="body",
-                        material="hard",
-                        organ="core",
-                        animation_anchor=token == "A",
-                    )
-                )
-                core_cells.append([x, y])
-            elif token == "E":
-                cells.append(
-                    _cell(
-                        x,
-                        y,
-                        visual=palette[2],
-                        role="eye",
-                        material="glass",
-                        organ="sensors",
-                    )
-                )
-                sensor_cells.append([x, y])
-            elif token == "M":
-                cells.append(
-                    _cell(
-                        x,
-                        y,
-                        visual=palette[2],
-                        role="mouth",
-                        material="soft",
-                        organ="expression",
-                    )
-                )
-                expression_cells.append([x, y])
-
-    organs = {
-        "core": {"role": "body_core", "cells": core_cells, "required": True},
-        "sensors": {"role": "sensor", "cells": sensor_cells, "required": True},
-    }
-    if expression_cells:
-        organs["expression"] = {
-            "role": "expression",
-            "cells": expression_cells,
-            "required": False,
-        }
-
-    return {
-        "grid_id": grid_id,
-        "schema_version": "0.1.0",
-        "parent_grid_id": parent_grid_id,
-        "grid_size": [len(matrix[0]), len(matrix)],
-        "cells": cells,
-        "organs": organs,
-        "palette": {
-            "palette_id": palette_id,
-            "colors": palette,
-            "background_index": 0,
-        },
-        "mutation": {
-            "cell_mutation_rate": 0.05,
-            "organ_shift_rate": 0.02,
-            "palette_shift_rate": 0.01,
-            "symmetry_break_rate": 0.01,
-        },
-        "lineage": {
-            "generation": 1 if parent_grid_id else 0,
-            "ancestor_ids": [parent_grid_id] if parent_grid_id else [],
-            "mutation_events": mutation_events,
-        },
-        "metadata": {
-            "source": "constrained_wfc_style_lab",
-            "rng_seed": rng_seed,
-        },
-    }
-
-
-def _cell(
-    x: int,
-    y: int,
-    *,
-    visual: str,
-    role: str,
-    material: str,
-    organ: str,
-    animation_anchor: bool = False,
-) -> dict:
-    return {
-        "x": x,
-        "y": y,
-        "visual": visual,
-        "role": role,
-        "material": material,
-        "mutation_weight": 0.1,
-        "animation_anchor": animation_anchor,
-        "organ": organ,
-        "stress": 0,
-        "damage": 0,
-        "locked": False,
-    }
+    # This lab's fixed label: source "constrained_wfc_style_lab"; lineage
+    # events and parent linkage vary per call (unlike markov_grid's).
+    return grid_from_matrix(
+        grid_id,
+        matrix,
+        palette_id,
+        source="constrained_wfc_style_lab",
+        rng_seed=rng_seed,
+        mutation_events=mutation_events,
+        parent_grid_id=parent_grid_id,
+    )
 
 
 def _filter_seed_pool(seed_grids: list[dict], slip: dict | None) -> list[dict]:
@@ -341,13 +217,6 @@ def _ensure_semantic_variation(grid: dict, rng: random.Random) -> dict:
         if "anchor_repositioned" not in variant["lineage"]["mutation_events"]:
             variant["lineage"]["mutation_events"].append("anchor_repositioned")
     return variant if validate_grid(variant).ok else grid
-
-
-def _signature(grid: dict) -> str:
-    return "|".join(
-        f"{cell['x']},{cell['y']}:{cell['role']}:{int(cell['animation_anchor'])}"
-        for cell in sorted(grid["cells"], key=lambda item: (item["y"], item["x"], item["role"]))
-    )
 
 
 def main() -> None:

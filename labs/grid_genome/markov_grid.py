@@ -5,7 +5,13 @@ from pathlib import Path
 
 
 from corpus_builder import PALETTES, build_seed_grids
-from validator import validate_grid
+
+# run_baseline is re-exported from grid_helpers: tests and callers use
+# `from markov_grid import run_baseline` (identical to random_mutation's;
+# constrained_generator's variant adds unique_signatures).
+from grid_helpers import grid_from_matrix, run_baseline  # noqa: F401
+from grid_helpers import weighted_sample as _sample
+from validator import validate_grid  # noqa: F401  (kept for API compatibility)
 
 
 START = "START"
@@ -58,27 +64,6 @@ def build_markov_corpus(
     ]
 
 
-def run_baseline(generated_grids: list[dict]) -> dict:
-    error_counts: dict[str, int] = {}
-    valid_count = 0
-    for grid in generated_grids:
-        result = validate_grid(grid)
-        if result.ok:
-            valid_count += 1
-        for error in result.errors:
-            error_counts[error] = error_counts.get(error, 0) + 1
-
-    candidate_count = len(generated_grids)
-    invalid_count = candidate_count - valid_count
-    return {
-        "candidate_count": candidate_count,
-        "valid_count": valid_count,
-        "invalid_count": invalid_count,
-        "validity_rate": valid_count / candidate_count if candidate_count else 0,
-        "error_counts": dict(sorted(error_counts.items())),
-    }
-
-
 def write_markov_corpus(generated_dir: Path, generated_grids: list[dict]) -> None:
     generated_dir.mkdir(parents=True, exist_ok=True)
     for grid in generated_grids:
@@ -102,133 +87,20 @@ def _matrix_from_grid(grid: dict) -> list[list[str]]:
 def _grid_from_matrix(
     grid_id: str, matrix: list[list[str]], palette_id: str, rng_seed: int
 ) -> dict:
-    palette = PALETTES[palette_id]
-    cells: list[dict] = []
-    core_cells: list[list[int]] = []
-    sensor_cells: list[list[int]] = []
-    expression_cells: list[list[int]] = []
-
-    for y, row in enumerate(matrix):
-        for x, token in enumerate(row):
-            if token == ".":
-                continue
-            if token in {"B", "A"}:
-                cells.append(
-                    _cell(
-                        x,
-                        y,
-                        visual=palette[1],
-                        role="body",
-                        material="hard",
-                        organ="core",
-                        animation_anchor=token == "A",
-                    )
-                )
-                core_cells.append([x, y])
-            elif token == "E":
-                cells.append(
-                    _cell(
-                        x,
-                        y,
-                        visual=palette[2],
-                        role="eye",
-                        material="glass",
-                        organ="sensors",
-                    )
-                )
-                sensor_cells.append([x, y])
-            elif token == "M":
-                cells.append(
-                    _cell(
-                        x,
-                        y,
-                        visual=palette[2],
-                        role="mouth",
-                        material="soft",
-                        organ="expression",
-                    )
-                )
-                expression_cells.append([x, y])
-
-    organs = {
-        "core": {"role": "body_core", "cells": core_cells, "required": True},
-        "sensors": {"role": "sensor", "cells": sensor_cells, "required": True},
-    }
-    if expression_cells:
-        organs["expression"] = {
-            "role": "expression",
-            "cells": expression_cells,
-            "required": False,
-        }
-
-    return {
-        "grid_id": grid_id,
-        "schema_version": "0.1.0",
-        "parent_grid_id": None,
-        "grid_size": [len(matrix[0]), len(matrix)],
-        "cells": cells,
-        "organs": organs,
-        "palette": {
-            "palette_id": palette_id,
-            "colors": palette,
-            "background_index": 0,
-        },
-        "mutation": {
-            "cell_mutation_rate": 0.05,
-            "organ_shift_rate": 0.02,
-            "palette_shift_rate": 0.01,
-            "symmetry_break_rate": 0.01,
-        },
-        "lineage": {
-            "generation": 0,
-            "ancestor_ids": [],
-            "mutation_events": ["markov_local_generation"],
-        },
-        "metadata": {
-            "source": "markov_grid_lab",
-            "rng_seed": rng_seed,
-        },
-    }
-
-
-def _cell(
-    x: int,
-    y: int,
-    *,
-    visual: str,
-    role: str,
-    material: str,
-    organ: str,
-    animation_anchor: bool = False,
-) -> dict:
-    return {
-        "x": x,
-        "y": y,
-        "visual": visual,
-        "role": role,
-        "material": material,
-        "mutation_weight": 0.1,
-        "animation_anchor": animation_anchor,
-        "organ": organ,
-        "stress": 0,
-        "damage": 0,
-        "locked": False,
-    }
+    # This lab's fixed labels: source "markov_grid_lab" and the
+    # "markov_local_generation" lineage event.
+    return grid_from_matrix(
+        grid_id,
+        matrix,
+        palette_id,
+        source="markov_grid_lab",
+        rng_seed=rng_seed,
+        mutation_events=["markov_local_generation"],
+    )
 
 
 def _increment(counts: dict[str, int], token: str) -> None:
     counts[token] = counts.get(token, 0) + 1
-
-
-def _sample(counts: dict[str, int], rng: random.Random) -> str:
-    total = sum(counts.values())
-    pick = rng.randint(1, total)
-    cursor = 0
-    for token, count in sorted(counts.items()):
-        cursor += count
-        if pick <= cursor:
-            return token
-    raise RuntimeError("unreachable sample state")
 
 
 def main() -> None:

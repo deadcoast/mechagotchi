@@ -4,6 +4,7 @@ from pathlib import Path
 
 from constrained_generator import generate_constrained_grid, train_constraints
 from corpus_builder import build_seed_grids
+from grid_helpers import grid_signature as _signature
 from slip import is_grid_aligned, validate_slip
 from validator import validate_grid
 
@@ -151,15 +152,6 @@ def _load_profile(path: Path) -> dict:
 def _count_errors(target: dict[str, int], errors: list[str]) -> None:
     for error in errors:
         target[error] = target.get(error, 0) + 1
-
-
-def _signature(grid: dict) -> str:
-    return "|".join(
-        f"{cell['x']},{cell['y']}:{cell['role']}:{int(cell['animation_anchor'])}"
-        for cell in sorted(
-            grid["cells"], key=lambda item: (item["y"], item["x"], item["role"])
-        )
-    )
 
 
 def _write_json(path: Path, payload: dict) -> None:

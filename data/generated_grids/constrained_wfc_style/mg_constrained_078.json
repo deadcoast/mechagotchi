@@ -1,7 +1,7 @@
 {
   "grid_id": "mg_constrained_078",
   "schema_version": "0.1.0",
-  "parent_grid_id": null,
+  "parent_grid_id": "mg_seed_002",
   "grid_size": [
     8,
     8
@@ -213,8 +213,10 @@
     "symmetry_break_rate": 0.01
   },
   "lineage": {
-    "generation": 0,
-    "ancestor_ids": [],
+    "generation": 1,
+    "ancestor_ids": [
+      "mg_seed_002"
+    ],
     "mutation_events": [
       "seed_parent_selected",
       "validator_gated_resample",

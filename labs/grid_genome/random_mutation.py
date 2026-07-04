@@ -6,7 +6,12 @@ from pathlib import Path
 
 
 from corpus_builder import build_seed_grids
-from validator import validate_grid
+
+# run_baseline is re-exported from grid_helpers: tests and callers use
+# `from random_mutation import run_baseline` (identical to markov_grid's;
+# constrained_generator's variant adds unique_signatures).
+from grid_helpers import run_baseline  # noqa: F401
+from validator import validate_grid  # noqa: F401  (kept for API compatibility)
 
 
 def mutate_grid(parent: dict, mutation_index: int, rng_seed: int) -> dict:
@@ -36,27 +41,6 @@ def mutate_grid(parent: dict, mutation_index: int, rng_seed: int) -> dict:
     )
     operation(child, rng)
     return child
-
-
-def run_baseline(generated_grids: list[dict]) -> dict:
-    error_counts: dict[str, int] = {}
-    valid_count = 0
-    for grid in generated_grids:
-        result = validate_grid(grid)
-        if result.ok:
-            valid_count += 1
-        for error in result.errors:
-            error_counts[error] = error_counts.get(error, 0) + 1
-
-    candidate_count = len(generated_grids)
-    invalid_count = candidate_count - valid_count
-    return {
-        "candidate_count": candidate_count,
-        "valid_count": valid_count,
-        "invalid_count": invalid_count,
-        "validity_rate": valid_count / candidate_count if candidate_count else 0,
-        "error_counts": dict(sorted(error_counts.items())),
-    }
 
 
 def build_generated_corpus(

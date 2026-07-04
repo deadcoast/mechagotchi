@@ -3,14 +3,10 @@ import json
 from copy import deepcopy
 from pathlib import Path
 
-
-PALETTES = {
-    "lcd_green": ["#07140d", "#5dbb63", "#d8ffd6"],
-    "gameboy_gray": ["#111814", "#7e8f76", "#d7dfc7"],
-    "amber_terminal": ["#1c1005", "#d98428", "#ffe0a3"],
-    "crt_blue": ["#06131f", "#3e8fbf", "#d6f3ff"],
-    "pocket_plum": ["#160e1f", "#7e5aa6", "#f2dcff"],
-}
+# PALETTES and _cell are re-exported here for backward compatibility:
+# markov_grid, constrained_generator, and cross-lab consumers
+# (workshop_editor, cellular_automata) import them from corpus_builder.
+from grid_helpers import PALETTES, _cell, grid_from_matrix
 
 
 BLUEPRINTS = [
@@ -101,119 +97,15 @@ def _grid_from_blueprint(grid_id: str, palette_id: str, rows: list[str]) -> dict
     if len(rows) != 8 or any(len(row) != 8 for row in rows):
         raise ValueError(f"{grid_id} must be an 8x8 blueprint")
 
-    cells: list[dict] = []
-    core_cells: list[list[int]] = []
-    sensor_cells: list[list[int]] = []
-    expression_cells: list[list[int]] = []
-    palette = PALETTES[palette_id]
-
-    for y, row in enumerate(rows):
-        for x, token in enumerate(row):
-            if token == ".":
-                continue
-            if token in {"B", "A"}:
-                cells.append(
-                    _cell(
-                        x,
-                        y,
-                        visual=palette[1],
-                        role="body",
-                        material="hard",
-                        organ="core",
-                        animation_anchor=token == "A",
-                    )
-                )
-                core_cells.append([x, y])
-            elif token == "E":
-                cells.append(
-                    _cell(
-                        x,
-                        y,
-                        visual=palette[2],
-                        role="eye",
-                        material="glass",
-                        organ="sensors",
-                    )
-                )
-                sensor_cells.append([x, y])
-            elif token == "M":
-                cells.append(
-                    _cell(
-                        x,
-                        y,
-                        visual=palette[2],
-                        role="mouth",
-                        material="soft",
-                        organ="expression",
-                    )
-                )
-                expression_cells.append([x, y])
-            else:
-                raise ValueError(f"{grid_id} has unsupported token {token!r}")
-
-    organs = {
-        "core": {"role": "body_core", "cells": core_cells, "required": True},
-        "sensors": {"role": "sensor", "cells": sensor_cells, "required": True},
-    }
-    if expression_cells:
-        organs["expression"] = {
-            "role": "expression",
-            "cells": expression_cells,
-            "required": False,
-        }
-
-    return {
-        "grid_id": grid_id,
-        "schema_version": "0.1.0",
-        "parent_grid_id": None,
-        "grid_size": [8, 8],
-        "cells": cells,
-        "organs": organs,
-        "palette": {
-            "palette_id": palette_id,
-            "colors": palette,
-            "background_index": 0,
-        },
-        "mutation": {
-            "cell_mutation_rate": 0.05,
-            "organ_shift_rate": 0.02,
-            "palette_shift_rate": 0.01,
-            "symmetry_break_rate": 0.01,
-        },
-        "lineage": {
-            "generation": 0,
-            "ancestor_ids": [],
-            "mutation_events": [],
-        },
-        "metadata": {
-            "source": "stage0_hand_authored_blueprint",
-        },
-    }
-
-
-def _cell(
-    x: int,
-    y: int,
-    *,
-    visual: str,
-    role: str,
-    material: str,
-    organ: str,
-    animation_anchor: bool = False,
-) -> dict:
-    return {
-        "x": x,
-        "y": y,
-        "visual": visual,
-        "role": role,
-        "material": material,
-        "mutation_weight": 0.1,
-        "animation_anchor": animation_anchor,
-        "organ": organ,
-        "stress": 0,
-        "damage": 0,
-        "locked": False,
-    }
+    # strict_tokens: hand-authored blueprints must reject unknown tokens
+    # (generator paths in markov_grid/constrained_generator skip them).
+    return grid_from_matrix(
+        grid_id,
+        rows,
+        palette_id,
+        source="stage0_hand_authored_blueprint",
+        strict_tokens=True,
+    )
 
 
 def _duplicate_coordinate(grid: dict) -> dict:
