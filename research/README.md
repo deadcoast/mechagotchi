@@ -443,6 +443,11 @@ Post-v0.1 continuation has started:
 - `data/micro_learners/switchboard_lifecycle_feedback_stage0.json`
 - `research/experiment_reports/2026-07-04-workshop-editor-boundary-hardening.md`
 - `research/experiment_reports/2026-07-04-small-labs-gate-integrity.md`
+- `research/experiment_reports/2026-07-04-grid-genome-helper-dedup.md`
+- `labs/grid_genome/grid_helpers.py`
+- `research/experiment_reports/2026-07-04-foreign-fixture-conformance.md`
+- `labs/workshop_editor/foreign_fixture_writer.py`
+- `data/foreign_fixtures/manifest.json`
 
 Stage 0 and Stage 1 established:
 

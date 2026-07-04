@@ -1,0 +1,728 @@
+{
+  "corpus_id": "foreign_fixture_corpus_v1",
+  "generator": "labs/workshop_editor/foreign_fixture_writer.py",
+  "spec_source": "https://www.w3.org/TR/png-3/",
+  "deterministic": true,
+  "license": "Generated in-repo from the public W3C PNG specification; contains no third-party image data.",
+  "pixel_hash_model": "sha256 over concatenated RGBA bytes, row-major",
+  "fixture_count": 17,
+  "known_deficiencies": [],
+  "fixtures": [
+    {
+      "fixture_id": "static_multi_idat_even",
+      "file_name": "static_multi_idat_even.png",
+      "kind": "static",
+      "byte_count": 368,
+      "sha256": "sha256:cd6da7d6265fd85aba950055e51010a63dade85f716bc6cb485f535d56843727",
+      "features": [
+        "rgba8",
+        "filter_0",
+        "multi_idat_even_split"
+      ],
+      "width": 8,
+      "height": 8,
+      "frame_count": 1,
+      "reference": {
+        "pixel_hash": "sha256:0b6bea47697502a3e72713dfbb55790e629c725bcfe10024fa49b749214b8c5b"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "decode"
+        },
+        "adam7_decode_png_adam7_rgba": {
+          "outcome": "typed_reject",
+          "family": "png_adam7_interlace_required"
+        },
+        "apng_decode_apng_frames": {
+          "outcome": "typed_reject",
+          "family": "apng_control_missing"
+        },
+        "image_data_chunking": {
+          "outcome": "decode",
+          "idat_chunk_count": 4
+        },
+        "chunk_order_validator": {
+          "outcome": "decode"
+        },
+        "textual_metadata_import": {
+          "outcome": "typed_reject",
+          "family": "png_textual_metadata_chunk_missing"
+        }
+      }
+    },
+    {
+      "fixture_id": "static_multi_idat_ragged",
+      "file_name": "static_multi_idat_ragged.png",
+      "kind": "static",
+      "byte_count": 229,
+      "sha256": "sha256:f860723bfbedd9c88afb3c1556ece2fe12eb9fc77c2119cbe1d989cca23c82a9",
+      "features": [
+        "rgba8",
+        "filter_0",
+        "multi_idat_ragged_split",
+        "zero_length_idat_chunk"
+      ],
+      "width": 6,
+      "height": 5,
+      "frame_count": 1,
+      "reference": {
+        "pixel_hash": "sha256:1d4da4e4a2e6365d09817a566edc7762195a4f100b44724e3d7c26d7db583fd7"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "decode"
+        },
+        "image_data_chunking": {
+          "outcome": "decode",
+          "idat_chunk_count": 4
+        },
+        "chunk_order_validator": {
+          "outcome": "decode"
+        }
+      }
+    },
+    {
+      "fixture_id": "static_filter_sub",
+      "file_name": "static_filter_sub.png",
+      "kind": "static",
+      "byte_count": 124,
+      "sha256": "sha256:86407022a85c9859a79b6201b22ff29ed6d4c7362e1e95d48c1055730fd76569",
+      "features": [
+        "rgba8",
+        "filter_1_all_rows"
+      ],
+      "width": 6,
+      "height": 6,
+      "frame_count": 1,
+      "reference": {
+        "pixel_hash": "sha256:98d49f2c78a9f4606aa371e0f5111c1fca501497a92bc838bc7a8f27c146d965"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "typed_reject",
+          "family": "png_filter_unsupported"
+        },
+        "image_data_chunking": {
+          "outcome": "decode",
+          "idat_chunk_count": 1
+        },
+        "chunk_order_validator": {
+          "outcome": "decode"
+        }
+      }
+    },
+    {
+      "fixture_id": "static_filter_up",
+      "file_name": "static_filter_up.png",
+      "kind": "static",
+      "byte_count": 123,
+      "sha256": "sha256:412e17b8ac8d1cd1bb4288eada0e4d64eed70cba4f576744163d7905adc8ac1f",
+      "features": [
+        "rgba8",
+        "filter_2_all_rows"
+      ],
+      "width": 6,
+      "height": 6,
+      "frame_count": 1,
+      "reference": {
+        "pixel_hash": "sha256:469006870dba960523fa76d9038bd32e237410332f016cf56a19e5cd88c4c81c"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "typed_reject",
+          "family": "png_filter_unsupported"
+        },
+        "image_data_chunking": {
+          "outcome": "decode",
+          "idat_chunk_count": 1
+        },
+        "chunk_order_validator": {
+          "outcome": "decode"
+        }
+      }
+    },
+    {
+      "fixture_id": "static_filter_average",
+      "file_name": "static_filter_average.png",
+      "kind": "static",
+      "byte_count": 165,
+      "sha256": "sha256:c3ea1411bac5da16a96ce3fefb33d61114af61e86c1ab0441f632e6bd266b278",
+      "features": [
+        "rgba8",
+        "filter_3_all_rows"
+      ],
+      "width": 6,
+      "height": 6,
+      "frame_count": 1,
+      "reference": {
+        "pixel_hash": "sha256:a68cc6b1443c4a1f1fe412e60aeb4f55b2472a1bcbb440a7aba9995a087f6ef2"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "typed_reject",
+          "family": "png_filter_unsupported"
+        },
+        "image_data_chunking": {
+          "outcome": "decode",
+          "idat_chunk_count": 1
+        },
+        "chunk_order_validator": {
+          "outcome": "decode"
+        }
+      }
+    },
+    {
+      "fixture_id": "static_filter_paeth",
+      "file_name": "static_filter_paeth.png",
+      "kind": "static",
+      "byte_count": 124,
+      "sha256": "sha256:6e19a7c441f02776bde690f15dbe3a3c9cd3a8842377ee8fae487ad3c6767a00",
+      "features": [
+        "rgba8",
+        "filter_4_all_rows"
+      ],
+      "width": 6,
+      "height": 6,
+      "frame_count": 1,
+      "reference": {
+        "pixel_hash": "sha256:d13ef63f4d1c9d53f004591876d5a70e51e427db3b32b9714ff097e8fe78f0d5"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "typed_reject",
+          "family": "png_filter_unsupported"
+        },
+        "image_data_chunking": {
+          "outcome": "decode",
+          "idat_chunk_count": 1
+        },
+        "chunk_order_validator": {
+          "outcome": "decode"
+        }
+      }
+    },
+    {
+      "fixture_id": "static_filter_mixed",
+      "file_name": "static_filter_mixed.png",
+      "kind": "static",
+      "byte_count": 208,
+      "sha256": "sha256:c4cc99db7e406729cbe44e6b3d4861bdcc86013bc4f134dde1f50d8d2afb650f",
+      "features": [
+        "rgba8",
+        "filters_mixed_per_row_0_to_4"
+      ],
+      "width": 8,
+      "height": 8,
+      "frame_count": 1,
+      "reference": {
+        "pixel_hash": "sha256:978707f61ed145859055635130ad77eaf716548464c839876fa31bd23f489315"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "typed_reject",
+          "family": "png_filter_unsupported"
+        },
+        "image_data_chunking": {
+          "outcome": "decode",
+          "idat_chunk_count": 1
+        },
+        "chunk_order_validator": {
+          "outcome": "decode"
+        }
+      }
+    },
+    {
+      "fixture_id": "static_ancillary_interleaved",
+      "file_name": "static_ancillary_interleaved.png",
+      "kind": "static",
+      "byte_count": 477,
+      "sha256": "sha256:2343f47aa78f12911b4b645352b14e5b8cdd25864ba975bd872d807889123881",
+      "features": [
+        "rgba8",
+        "filter_0",
+        "gama_before_idat",
+        "phys_before_idat",
+        "text_before_idat",
+        "text_after_idat"
+      ],
+      "width": 8,
+      "height": 8,
+      "frame_count": 1,
+      "reference": {
+        "pixel_hash": "sha256:9903bb28301554826d2c59699b88cac0d0aedc4fa9b87dd9f92763b56ab6373d"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "decode"
+        },
+        "image_data_chunking": {
+          "outcome": "decode",
+          "idat_chunk_count": 1
+        },
+        "chunk_order_validator": {
+          "outcome": "decode"
+        },
+        "textual_metadata_import": {
+          "outcome": "typed_reject",
+          "family": "png_textual_metadata_chunk_missing"
+        }
+      }
+    },
+    {
+      "fixture_id": "adam7_basic",
+      "file_name": "adam7_basic.png",
+      "kind": "static",
+      "byte_count": 447,
+      "sha256": "sha256:88bf87bb45d993f681ee4615be7d8a9f0822c1e68b51e6c58a09f99e9b0bd522",
+      "features": [
+        "rgba8",
+        "adam7_interlace",
+        "filter_0",
+        "non_power_of_two_dimensions"
+      ],
+      "width": 10,
+      "height": 9,
+      "frame_count": 1,
+      "reference": {
+        "pixel_hash": "sha256:ec0c97f2c33d39b9be7c901f63a0bc4d21d0c8609f5d1eadd7c48b5d9b43a734"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "typed_reject",
+          "family": "png_method_unsupported"
+        },
+        "adam7_decode_png_adam7_rgba": {
+          "outcome": "decode"
+        },
+        "image_data_chunking": {
+          "outcome": "typed_reject",
+          "family": "png_interlace_unsupported"
+        },
+        "chunk_order_validator": {
+          "outcome": "decode"
+        }
+      }
+    },
+    {
+      "fixture_id": "adam7_mixed_filters_multi_idat",
+      "file_name": "adam7_mixed_filters_multi_idat.png",
+      "kind": "static",
+      "byte_count": 319,
+      "sha256": "sha256:c2539f57388256fcc83c8c10db3b6c1a58865fd72a2403ffc0a6823ca29d21ee",
+      "features": [
+        "rgba8",
+        "adam7_interlace",
+        "filters_mixed_per_reduced_row",
+        "multi_idat"
+      ],
+      "width": 8,
+      "height": 8,
+      "frame_count": 1,
+      "reference": {
+        "pixel_hash": "sha256:c9da077c08ccd12303150aee310200dab693e8b8b316396334ad330d6fd53b01"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "typed_reject",
+          "family": "png_method_unsupported"
+        },
+        "adam7_decode_png_adam7_rgba": {
+          "outcome": "decode"
+        },
+        "chunk_order_validator": {
+          "outcome": "decode",
+          "idat_chunk_count": 3
+        }
+      }
+    },
+    {
+      "fixture_id": "apng_basic_split_fdat",
+      "file_name": "apng_basic_split_fdat.png",
+      "kind": "apng",
+      "byte_count": 818,
+      "sha256": "sha256:7273a3e1d240ce0acbc21d853c1e2de7148832c190a554e87d8784856263f794",
+      "features": [
+        "apng",
+        "two_full_canvas_frames",
+        "default_image_in_animation",
+        "idat_split",
+        "fdat_split_across_chunks",
+        "text_between_actl_and_fctl"
+      ],
+      "width": 8,
+      "height": 8,
+      "frame_count": 2,
+      "reference": {
+        "default_image_pixel_hash": "sha256:146b2b61d786ea95bf7297f78eeed1974bcf6f2bc2b5d06094bc82d388d591f0",
+        "frame_pixel_hashes": [
+          "sha256:146b2b61d786ea95bf7297f78eeed1974bcf6f2bc2b5d06094bc82d388d591f0",
+          "sha256:522334e454cf0b63a86a7f8c57e56f093de84f325802419246b336fa50b3043c"
+        ],
+        "display_hashes": [
+          "sha256:146b2b61d786ea95bf7297f78eeed1974bcf6f2bc2b5d06094bc82d388d591f0",
+          "sha256:522334e454cf0b63a86a7f8c57e56f093de84f325802419246b336fa50b3043c"
+        ],
+        "after_dispose_hashes": [
+          "sha256:146b2b61d786ea95bf7297f78eeed1974bcf6f2bc2b5d06094bc82d388d591f0",
+          "sha256:522334e454cf0b63a86a7f8c57e56f093de84f325802419246b336fa50b3043c"
+        ],
+        "final_output_hash": "sha256:522334e454cf0b63a86a7f8c57e56f093de84f325802419246b336fa50b3043c"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "decode"
+        },
+        "apng_decode_apng_frames": {
+          "outcome": "decode"
+        },
+        "apng_filtered_frame_data": {
+          "outcome": "decode"
+        },
+        "apng_partial_frame_playback": {
+          "outcome": "decode"
+        },
+        "image_data_chunking": {
+          "outcome": "decode",
+          "idat_chunk_count": 2,
+          "fdat_chunk_count": 3
+        },
+        "chunk_order_validator": {
+          "outcome": "decode"
+        }
+      }
+    },
+    {
+      "fixture_id": "apng_default_image_not_animated",
+      "file_name": "apng_default_image_not_animated.png",
+      "kind": "apng",
+      "byte_count": 813,
+      "sha256": "sha256:87ac3f8bb63f95ab8f46e02c9a9d0fd5ecd2fa6a532586a1be3b0396ebe4c2ff",
+      "features": [
+        "apng",
+        "default_image_not_in_animation",
+        "all_frames_in_fdat",
+        "sub_canvas_frame_region",
+        "fdat_split_across_chunks"
+      ],
+      "width": 8,
+      "height": 8,
+      "frame_count": 2,
+      "reference": {
+        "default_image_pixel_hash": "sha256:d51611a4251f46d25cf0156f9aa8e3794f4a949a8a25a00cd26bc5de66727467",
+        "frame_pixel_hashes": [
+          "sha256:673f87c5fe83b59c45bb2b5ce5030d1534f1c6b5d623034c3478bfa2d2e1d8a8",
+          "sha256:9b16ec634cea75b05a9f6c731a118e479da0daf0442925f07a31af39b2b3962a"
+        ],
+        "display_hashes": [
+          "sha256:673f87c5fe83b59c45bb2b5ce5030d1534f1c6b5d623034c3478bfa2d2e1d8a8",
+          "sha256:cab03e42d8bd764c51263370aef2b38e615a6b18beb616d7d3c51ab3cedd37c6"
+        ],
+        "after_dispose_hashes": [
+          "sha256:673f87c5fe83b59c45bb2b5ce5030d1534f1c6b5d623034c3478bfa2d2e1d8a8",
+          "sha256:cab03e42d8bd764c51263370aef2b38e615a6b18beb616d7d3c51ab3cedd37c6"
+        ],
+        "final_output_hash": "sha256:cab03e42d8bd764c51263370aef2b38e615a6b18beb616d7d3c51ab3cedd37c6"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "decode"
+        },
+        "apng_decode_apng_frames": {
+          "outcome": "typed_reject",
+          "family": "apng_default_frame_control_missing"
+        },
+        "apng_filtered_frame_data": {
+          "outcome": "typed_reject",
+          "family": "apng_default_frame_unsupported"
+        },
+        "apng_partial_frame_playback": {
+          "outcome": "typed_reject",
+          "family": "apng_default_frame_unsupported"
+        },
+        "image_data_chunking": {
+          "outcome": "typed_reject",
+          "family": "apng_default_frame_unsupported"
+        },
+        "chunk_order_validator": {
+          "outcome": "decode"
+        }
+      }
+    },
+    {
+      "fixture_id": "apng_dispose_background",
+      "file_name": "apng_dispose_background.png",
+      "kind": "apng",
+      "byte_count": 506,
+      "sha256": "sha256:1445a838403f38c9303efd21a6736dc9ff33cef418f60425c1c10accfa404df4",
+      "features": [
+        "apng",
+        "dispose_op_background",
+        "sub_canvas_frame_region"
+      ],
+      "width": 8,
+      "height": 8,
+      "frame_count": 2,
+      "reference": {
+        "default_image_pixel_hash": "sha256:7090cada36d8a32e00543552f4ffff71e5cf56cb575f62ebb300b7009f8bc6a3",
+        "frame_pixel_hashes": [
+          "sha256:7090cada36d8a32e00543552f4ffff71e5cf56cb575f62ebb300b7009f8bc6a3",
+          "sha256:25d2285ad174f764bedbbce37727cf0ce96fe391670400740346494582e51405"
+        ],
+        "display_hashes": [
+          "sha256:7090cada36d8a32e00543552f4ffff71e5cf56cb575f62ebb300b7009f8bc6a3",
+          "sha256:04227193f9fbe702d15ca05e0e5f4ffafc35eed1f3527a3c09932a04974cf54e"
+        ],
+        "after_dispose_hashes": [
+          "sha256:5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+          "sha256:04227193f9fbe702d15ca05e0e5f4ffafc35eed1f3527a3c09932a04974cf54e"
+        ],
+        "final_output_hash": "sha256:04227193f9fbe702d15ca05e0e5f4ffafc35eed1f3527a3c09932a04974cf54e"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "decode"
+        },
+        "apng_decode_apng_frames": {
+          "outcome": "typed_reject",
+          "family": "apng_frame_control_unsupported"
+        },
+        "apng_filtered_frame_data": {
+          "outcome": "typed_reject",
+          "family": "apng_dispose_op_unsupported"
+        },
+        "apng_partial_frame_playback": {
+          "outcome": "decode"
+        },
+        "image_data_chunking": {
+          "outcome": "typed_reject",
+          "family": "apng_dispose_op_unsupported"
+        },
+        "chunk_order_validator": {
+          "outcome": "decode"
+        }
+      }
+    },
+    {
+      "fixture_id": "apng_dispose_previous",
+      "file_name": "apng_dispose_previous.png",
+      "kind": "apng",
+      "byte_count": 593,
+      "sha256": "sha256:0dc0e24295ca4b80341eb2fe6af6edcedf22ccf94ecda6ab49e35af9feef43ef",
+      "features": [
+        "apng",
+        "three_frames",
+        "dispose_op_previous",
+        "sub_canvas_frame_regions"
+      ],
+      "width": 8,
+      "height": 8,
+      "frame_count": 3,
+      "reference": {
+        "default_image_pixel_hash": "sha256:da2109ef477e700ee1a368811913ddee6f948268dfb8ba2f575cea035f873438",
+        "frame_pixel_hashes": [
+          "sha256:da2109ef477e700ee1a368811913ddee6f948268dfb8ba2f575cea035f873438",
+          "sha256:4b7e84907905e25cbe4957237e735eedcd9ce2e17f652766942cb5a4eb6359d1",
+          "sha256:63105e46a03806f66f6a8937471249e4fe1d25fdf0f90c584964c7a46e130039"
+        ],
+        "display_hashes": [
+          "sha256:da2109ef477e700ee1a368811913ddee6f948268dfb8ba2f575cea035f873438",
+          "sha256:2cad69d03c41c1d63cd77fd1d486fd8811dd0402026755167321d93c2b0fec2e",
+          "sha256:ae9f39d3e2d1e1267dd957b4ce16e7b37933d670c4ad12205201dc19ceeb0603"
+        ],
+        "after_dispose_hashes": [
+          "sha256:da2109ef477e700ee1a368811913ddee6f948268dfb8ba2f575cea035f873438",
+          "sha256:da2109ef477e700ee1a368811913ddee6f948268dfb8ba2f575cea035f873438",
+          "sha256:ae9f39d3e2d1e1267dd957b4ce16e7b37933d670c4ad12205201dc19ceeb0603"
+        ],
+        "final_output_hash": "sha256:ae9f39d3e2d1e1267dd957b4ce16e7b37933d670c4ad12205201dc19ceeb0603"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "decode"
+        },
+        "apng_decode_apng_frames": {
+          "outcome": "typed_reject",
+          "family": "apng_frame_count_unsupported"
+        },
+        "apng_filtered_frame_data": {
+          "outcome": "typed_reject",
+          "family": "apng_dispose_op_unsupported"
+        },
+        "apng_partial_frame_playback": {
+          "outcome": "decode"
+        },
+        "image_data_chunking": {
+          "outcome": "typed_reject",
+          "family": "apng_dispose_op_unsupported"
+        },
+        "chunk_order_validator": {
+          "outcome": "decode"
+        }
+      }
+    },
+    {
+      "fixture_id": "apng_blend_over",
+      "file_name": "apng_blend_over.png",
+      "kind": "apng",
+      "byte_count": 619,
+      "sha256": "sha256:b5321277fd9a64aedc1bc1fc80173f8d55f2e647e4606922acaefcc8dadc9e67",
+      "features": [
+        "apng",
+        "blend_op_over",
+        "semi_transparent_frame"
+      ],
+      "width": 8,
+      "height": 8,
+      "frame_count": 2,
+      "reference": {
+        "default_image_pixel_hash": "sha256:cfeee1736e71ac1a4529e7d62e065188026847a911abbc3a73087886f5a74399",
+        "frame_pixel_hashes": [
+          "sha256:cfeee1736e71ac1a4529e7d62e065188026847a911abbc3a73087886f5a74399",
+          "sha256:b2762ac153a5be8aeb366d4e9b68232def16146290dfce02948cfcb1e4b287ec"
+        ],
+        "display_hashes": [
+          "sha256:cfeee1736e71ac1a4529e7d62e065188026847a911abbc3a73087886f5a74399",
+          "sha256:849e97336402830824d59514f79b68f46008c03acd6cd3552e9f05d70940702c"
+        ],
+        "after_dispose_hashes": [
+          "sha256:cfeee1736e71ac1a4529e7d62e065188026847a911abbc3a73087886f5a74399",
+          "sha256:849e97336402830824d59514f79b68f46008c03acd6cd3552e9f05d70940702c"
+        ],
+        "final_output_hash": "sha256:849e97336402830824d59514f79b68f46008c03acd6cd3552e9f05d70940702c"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "decode"
+        },
+        "apng_decode_apng_frames": {
+          "outcome": "typed_reject",
+          "family": "apng_frame_control_unsupported"
+        },
+        "apng_filtered_frame_data": {
+          "outcome": "typed_reject",
+          "family": "apng_blend_op_unsupported"
+        },
+        "apng_partial_frame_playback": {
+          "outcome": "decode"
+        },
+        "image_data_chunking": {
+          "outcome": "typed_reject",
+          "family": "apng_blend_op_unsupported"
+        },
+        "chunk_order_validator": {
+          "outcome": "decode"
+        }
+      }
+    },
+    {
+      "fixture_id": "apng_subcanvas_regions",
+      "file_name": "apng_subcanvas_regions.png",
+      "kind": "apng",
+      "byte_count": 522,
+      "sha256": "sha256:8b982f39d2719a4a0a0c49c28bdf1fd8f70101b738a001a50c5f009f9b03c92f",
+      "features": [
+        "apng",
+        "sub_canvas_frame_region",
+        "fdat_split_across_chunks"
+      ],
+      "width": 8,
+      "height": 8,
+      "frame_count": 2,
+      "reference": {
+        "default_image_pixel_hash": "sha256:c83e03e21c55cbb6a5601575e156b8a3a7857b8a86be90d11b90e0e97b4eb5d8",
+        "frame_pixel_hashes": [
+          "sha256:c83e03e21c55cbb6a5601575e156b8a3a7857b8a86be90d11b90e0e97b4eb5d8",
+          "sha256:4e5a9930ebf1a7d11d0c6110dab4d08b1f4dba774ae79d9e7968f4a625007755"
+        ],
+        "display_hashes": [
+          "sha256:c83e03e21c55cbb6a5601575e156b8a3a7857b8a86be90d11b90e0e97b4eb5d8",
+          "sha256:35e79bed62b32e739a0279eb4533bfe9d3e68661a375d6816b58ef48b6ebc577"
+        ],
+        "after_dispose_hashes": [
+          "sha256:c83e03e21c55cbb6a5601575e156b8a3a7857b8a86be90d11b90e0e97b4eb5d8",
+          "sha256:35e79bed62b32e739a0279eb4533bfe9d3e68661a375d6816b58ef48b6ebc577"
+        ],
+        "final_output_hash": "sha256:35e79bed62b32e739a0279eb4533bfe9d3e68661a375d6816b58ef48b6ebc577"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "decode"
+        },
+        "apng_decode_apng_frames": {
+          "outcome": "typed_reject",
+          "family": "apng_frame_control_unsupported"
+        },
+        "apng_filtered_frame_data": {
+          "outcome": "decode"
+        },
+        "apng_partial_frame_playback": {
+          "outcome": "decode"
+        },
+        "image_data_chunking": {
+          "outcome": "decode",
+          "idat_chunk_count": 1,
+          "fdat_chunk_count": 2
+        },
+        "chunk_order_validator": {
+          "outcome": "decode"
+        }
+      }
+    },
+    {
+      "fixture_id": "apng_filtered_frames_split_fdat",
+      "file_name": "apng_filtered_frames_split_fdat.png",
+      "kind": "apng",
+      "byte_count": 342,
+      "sha256": "sha256:0cc8289524894ce96699fa15fbabda4d3147e5242f4659d07649894d7147a2dc",
+      "features": [
+        "apng",
+        "filters_1_to_4_in_frame_data",
+        "fdat_split_across_chunks"
+      ],
+      "width": 8,
+      "height": 8,
+      "frame_count": 2,
+      "reference": {
+        "default_image_pixel_hash": "sha256:c80a6f5de510a6a291cfcf7d3c3da0f441b9709c8129834e9840547567519699",
+        "frame_pixel_hashes": [
+          "sha256:c80a6f5de510a6a291cfcf7d3c3da0f441b9709c8129834e9840547567519699",
+          "sha256:c338b51bc73d421ff5d3d52269b31beaebce6d2a26a1937adfdd2bd6d58d98ed"
+        ],
+        "display_hashes": [
+          "sha256:c80a6f5de510a6a291cfcf7d3c3da0f441b9709c8129834e9840547567519699",
+          "sha256:c338b51bc73d421ff5d3d52269b31beaebce6d2a26a1937adfdd2bd6d58d98ed"
+        ],
+        "after_dispose_hashes": [
+          "sha256:c80a6f5de510a6a291cfcf7d3c3da0f441b9709c8129834e9840547567519699",
+          "sha256:c338b51bc73d421ff5d3d52269b31beaebce6d2a26a1937adfdd2bd6d58d98ed"
+        ],
+        "final_output_hash": "sha256:c338b51bc73d421ff5d3d52269b31beaebce6d2a26a1937adfdd2bd6d58d98ed"
+      },
+      "expected": {
+        "standard_decode_png_rgba": {
+          "outcome": "typed_reject",
+          "family": "png_filter_unsupported"
+        },
+        "apng_decode_apng_frames": {
+          "outcome": "typed_reject",
+          "family": "apng_filter_unsupported"
+        },
+        "apng_filtered_frame_data": {
+          "outcome": "decode"
+        },
+        "apng_partial_frame_playback": {
+          "outcome": "typed_reject",
+          "family": "apng_filter_unsupported"
+        },
+        "image_data_chunking": {
+          "outcome": "decode",
+          "idat_chunk_count": 1,
+          "fdat_chunk_count": 2
+        },
+        "chunk_order_validator": {
+          "outcome": "decode"
+        }
+      }
+    }
+  ]
+}

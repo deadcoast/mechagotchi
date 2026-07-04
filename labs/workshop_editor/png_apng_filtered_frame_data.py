@@ -398,6 +398,19 @@ def _validate_frame_control(frame: dict, canvas: dict, *, default_frame: bool) -
         raise APNGFilteredFrameDataError("apng_dispose_op_invalid", "APNG dispose_op must be 0, 1, or 2")
     if frame["blend_op"] not in {0, 1}:
         raise APNGFilteredFrameDataError("apng_blend_op_invalid", "APNG blend_op must be 0 or 1")
+    if frame["dispose_op"] != 0:
+        # _simulate_source_playback implements source playback only; letting
+        # dispose background/previous frames through would silently produce
+        # spec-incorrect display hashes instead of a typed rejection.
+        raise APNGFilteredFrameDataError(
+            "apng_dispose_op_unsupported",
+            "Stage 0 filtered frame data plays back dispose_op none only",
+        )
+    if frame["blend_op"] != 0:
+        raise APNGFilteredFrameDataError(
+            "apng_blend_op_unsupported",
+            "Stage 0 filtered frame data plays back blend_op source only",
+        )
     if default_frame and (
         frame["x_offset"] != 0
         or frame["y_offset"] != 0
