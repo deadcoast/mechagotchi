@@ -599,6 +599,10 @@ Post-v0.1 continuation has started:
 - `workshop/tests/test_workshop_server.py`
 - `docs/workshop/mecha-workshop.md` (workshop slice 4b completes slice 4: Aseprite import/export via the user-data-chunk writer lab — self-contained projects — and spritesheet import/export as the external-sidecar pair, codec binding checks verbatim; slice 4 fully shipped)
 
+- `audits/audit-devspec.md`
+- `audits/TODO.md`
+- `.depreciated/og-design.md`, `.depreciated/og-formatted.md`, `.depreciated/og-research.md` (owner DESIGN-CORRECTION 2026-07-05: og-spec audit — no foundational error, workshop subordination intact; one structural correction (T1: workshop creatures must enter the ecosystem simulations) plus og-scope restorations ledgered as tasks)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

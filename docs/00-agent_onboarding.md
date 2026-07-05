@@ -111,8 +111,13 @@ over plans; and executed artifacts win over prose claims.
      pair (sheet PNG + sidecar JSON), and imports of all three formats
      through each codec's own integrity checks. Strict saves under
      data/workshop/. Charter: `docs/workshop/mecha-workshop-design.md`.
-     Next: slice 5 (genome inspector + lineage browser) — owner said
-     wait for the go. Windows note: ports are OS-reserved in shifting ranges —
+     OWNER DESIGN-CORRECTION
+     (2026-07-05): the workshop is part of the ecosystem, NOT the
+     ecosystem — a creature creator whose output must be directly
+     usable in the engine's simulations. Audit: `audits/audit-devspec.md`
+     (verdict: identity intact; the workshop->engine asset wire is the
+     missing piece). Work from `audits/TODO.md` — T1 (the wire) is P0;
+     slice 5 stays owner-held. Windows note: ports are OS-reserved in shifting ranges —
      servers default to port 0 and announce their URL.
   5. mechas CLI roadmap (`docs/cli/mechas-cli.md`) — supportive layer
      only; never outranks engine work.
