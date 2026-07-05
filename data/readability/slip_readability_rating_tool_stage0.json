@@ -22,7 +22,7 @@
   "csv_header": "sample_id,grid_id,source,reviewer_id,silhouette,organ_clarity,palette_contrast,animation_readiness,companion_appeal,notes",
   "ratings_destination": "data/readability/slip_readability_calibration_ratings.csv",
   "tool_file": "data/readability/slip_readability_calibration_rating_tool.html",
-  "tool_bytes": 42922,
+  "tool_bytes": 43912,
   "bias_controls": [
     "no proxy readability scores in the page payload",
     "no role/organ/anchor annotations rendered",

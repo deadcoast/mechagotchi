@@ -85,6 +85,16 @@ class RatingToolBuilderTests(unittest.TestCase):
         # Locks must not survive into the next reviewer's pass.
         self.assertIn("locks: {}", html)
 
+    def test_html_shows_project_progress_and_prefills_reviewer(self):
+        # Served mode: the page asks the mechas server for project-level
+        # progress (rows already saved in the CSV, not just this
+        # browser's passes) and prefills the reviewer name from
+        # ?reviewer= (set by `mechas rate --creatures --reviewer <name>`).
+        html = build_rating_tool_html(self.samples)
+        self.assertIn("/api/status", html)
+        self.assertIn('get("reviewer")', html)
+        self.assertIn("project-progress", html)
+
     def test_report_and_artifacts(self):
         html = build_rating_tool_html(self.samples)
         report = build_rating_tool_report(self.samples, html)

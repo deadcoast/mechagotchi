@@ -256,6 +256,7 @@
     calibration needs. The full set needs <strong>3 reviewers</strong> (63 rows total). Each
     person does one pass; you can hand this page to someone else for the next pass. Progress
     is saved in this browser, so you can close and come back.</p>
+    <p class="notice hidden" id="project-progress"></p>
     <label class="fieldlabel" for="reviewer-id">Your reviewer name or initials</label>
     <input type="text" id="reviewer-id" placeholder="e.g. ryan" maxlength="40" autocomplete="off">
     <p class="notice warn hidden" id="reviewer-error"></p>
@@ -700,7 +701,28 @@ function csvField(value) {
 // Served by the mechas CLI (http/https) -> POST the CSV to /api/export so
 // it lands directly in the project; opened as a plain file -> download.
 const SERVED = location.protocol === "http:" || location.protocol === "https:";
-const AUTO_EXPORT = new URLSearchParams(location.search).get("autoexport") === "1";
+const PAGE_PARAMS = new URLSearchParams(location.search);
+const AUTO_EXPORT = PAGE_PARAMS.get("autoexport") === "1";
+const PREFILL_REVIEWER = PAGE_PARAMS.get("reviewer") || "";
+
+// Project-level progress: what is already SAVED in the workspace CSV,
+// which this browser's localStorage knows nothing about.
+async function refreshProjectProgress() {
+  if (!SERVED) return;
+  try {
+    const response = await fetch("/api/status");
+    if (!response.ok) return;
+    const status = await response.json();
+    const line = $("project-progress");
+    line.classList.remove("hidden");
+    line.textContent =
+      "project so far: " + status.rows + " of " + SAMPLES.length * 3 +
+      " rows saved" +
+      (status.reviewers.length ? " (" + status.reviewers.join(", ") + ")" : "");
+  } catch (error) {
+    /* endpoint unavailable — leave the line hidden */
+  }
+}
 
 function buildCsv() {
   const lines = [CSV_HEADER];
@@ -740,6 +762,7 @@ async function exportCsv(auto) {
         const result = await response.json();
         notice.textContent = (auto ? "Auto-saved" : "Saved") +
           " into the project (" + result.rows + " rows) — " + result.saved_to;
+        refreshProjectProgress();
         return;
       }
     } catch (error) {
@@ -759,6 +782,10 @@ if (SERVED) {
   $("download-btn").textContent = "Save to project";
   $("manual-export-help").classList.add("hidden");
   $("served-export-help").classList.remove("hidden");
+  refreshProjectProgress();
+}
+if (PREFILL_REVIEWER && !$("reviewer-id").value) {
+  $("reviewer-id").value = PREFILL_REVIEWER;
 }
 
 updateRowCount();

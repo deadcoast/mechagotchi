@@ -17,6 +17,7 @@ import subprocess
 import sys
 import threading
 import time
+import urllib.parse
 import webbrowser
 from pathlib import Path
 
@@ -77,6 +78,12 @@ def rate(
         "--browser/--no-browser",
         help="Open the rating page in your browser automatically.",
     ),
+    reviewer: str | None = typer.Option(
+        None,
+        "--reviewer",
+        help="Prefill the reviewer name on the rating page — handy when "
+        "handing a pass to someone.",
+    ),
     status: bool = typer.Option(
         False,
         "--status",
@@ -111,6 +118,7 @@ def rate(
         port=port,
         autoexport=autoexport,
         open_browser=open_browser,
+        reviewer=reviewer,
     )
 
 
@@ -266,6 +274,7 @@ def _run_session(
     port: int,
     autoexport: bool,
     open_browser: bool,
+    reviewer: str | None = None,
 ) -> None:
     console.print(theme.banner("rate --creatures — readability session"))
     _ensure_tool(console, root)
@@ -308,8 +317,13 @@ def _run_session(
 
     actual_port = server.server_address[1]
     url = f"http://127.0.0.1:{actual_port}/{TOOL_FILENAME}"
+    query = []
     if autoexport:
-        url += "?autoexport=1"
+        query.append("autoexport=1")
+    if reviewer:
+        query.append("reviewer=" + urllib.parse.quote(reviewer))
+    if query:
+        url += "?" + "&".join(query)
 
     rows, reviewers = _count_rows(ratings_path)
     console.print(

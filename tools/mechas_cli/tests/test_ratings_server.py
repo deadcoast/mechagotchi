@@ -97,6 +97,24 @@ class RatingsServerTests(unittest.TestCase):
         self.assertEqual(404, status)
         self.assertFalse(payload["ok"])
 
+    def test_status_endpoint_reports_saved_project_progress(self):
+        status_url = f"{self.base}/api/status"
+        with urllib.request.urlopen(status_url) as response:
+            empty = json.loads(response.read())
+        self.assertTrue(empty["ok"])
+        self.assertEqual(0, empty["rows"])
+        self.assertEqual([], empty["reviewers"])
+
+        self.ratings_path.write_text(
+            CSV_HEADER
+            + "\na,b,c,alice,5,4,3,2,1,\na2,b2,c,alice,5,4,3,2,1,\nx,y,c,bob,1,1,1,1,1,\n",
+            "utf-8",
+        )
+        with urllib.request.urlopen(status_url) as response:
+            payload = json.loads(response.read())
+        self.assertEqual(3, payload["rows"])
+        self.assertEqual(["alice", "bob"], payload["reviewers"])
+
     def test_binding_a_busy_port_raises_instead_of_hijacking(self):
         # Windows SO_REUSEADDR would otherwise let this second bind
         # succeed silently and the second session hang forever.

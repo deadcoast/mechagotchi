@@ -13,7 +13,9 @@ user-facing safety copies).
 
 from __future__ import annotations
 
+import csv
 import functools
+import io
 import json
 import socket
 import threading
@@ -72,6 +74,26 @@ class _Handler(SimpleHTTPRequestHandler):
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
+
+    def do_GET(self) -> None:  # noqa: N802 (http.server API)
+        if self.path.split("?")[0] == "/api/status":
+            rows = 0
+            reviewers: list[str] = []
+            ratings_path = self.server.ratings_path
+            if ratings_path.exists():
+                with io.StringIO(
+                    ratings_path.read_text(encoding="utf-8")
+                ) as handle:
+                    parsed = list(csv.DictReader(handle))
+                rows = len(parsed)
+                reviewers = sorted(
+                    {row.get("reviewer_id", "") for row in parsed} - {""}
+                )
+            self._respond_json(
+                200, {"ok": True, "rows": rows, "reviewers": reviewers}
+            )
+            return
+        super().do_GET()
 
     def do_POST(self) -> None:  # noqa: N802 (http.server API)
         if self.path.split("?")[0] != "/api/export":

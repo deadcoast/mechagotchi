@@ -47,7 +47,13 @@ class MechasCliSurfaceTests(unittest.TestCase):
     def test_rate_help_documents_the_flags(self):
         result = self.runner.invoke(self.app, ["rate", "--help"])
         self.assertEqual(0, result.exit_code)
-        for flag in ("--creatures", "--autoexport", "--status", "--ingest"):
+        for flag in (
+            "--creatures",
+            "--autoexport",
+            "--status",
+            "--ingest",
+            "--reviewer",
+        ):
             self.assertIn(flag, result.output)
 
     def test_rate_status_reports_progress(self):
