@@ -145,8 +145,9 @@ class PackagePromotionGateTests(unittest.TestCase):
     def test_run_package_promotion_gate_reports_promoted_module_state(self):
         # All five initial modules carry contract tests and parity evidence
         # (2026-07-04 promotions); the repair target exists since decision
-        # record 0006 (2026-07-05), so lifecycle, archive, provenance, and
-        # repair report promotion_ready. Learning/evaluation targets stay
+        # record 0006, and the runtime target since decision record 0008
+        # (accepted 2026-07-05), so lifecycle, archive, provenance,
+        # repair, and runtime report promotion_ready. Learning/evaluation targets stay
         # absent (deferred or blocked), so their candidates keep
         # target_package_absent.
         report = run_package_promotion_gate(ROOT)
@@ -156,7 +157,7 @@ class PackagePromotionGateTests(unittest.TestCase):
         self.assertGreaterEqual(report["summary"]["criteria_count"], 5)
         self.assertGreaterEqual(report["summary"]["candidate_count"], 4)
         self.assertGreater(report["summary"]["research_ready_count"], 0)
-        self.assertEqual(4, report["summary"]["promotion_ready_count"])
+        self.assertEqual(5, report["summary"]["promotion_ready_count"])
         self.assertEqual(
             "promotion_candidates_available",
             report["decision"]["status"],
@@ -166,6 +167,7 @@ class PackagePromotionGateTests(unittest.TestCase):
             "map_elites_archive",
             "provenance_ci",
             "ca_nca_repair",
+            "runtime_loop",
         }
         for candidate in report["candidates"]:
             self.assertNotIn("package_root_absent", candidate["promotion_blockers"])

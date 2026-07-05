@@ -183,6 +183,41 @@ def build_candidate_registry() -> list[dict]:
             ],
         },
         {
+            "component_id": "runtime_loop",
+            "target_package": "packages/mecha_engine/src/mecha_engine/runtime",
+            "algorithm_card": "research/algorithm_cards/mecha_engine_runtime_loop.md",
+            "experiment_report": "research/experiment_reports/2026-07-05-mecha-engine-evolution-loop.md",
+            "metric_artifact": "data/runtime_integration/mecha_engine_evolution_loop_stage0.json",
+            "thresholds": [
+                {
+                    "metric_path": ["summary", "candidate_valid_rate"],
+                    "operator": ">=",
+                    "value": 1.0,
+                },
+                {
+                    "metric_path": ["summary", "slip_alignment_retention_rate"],
+                    "operator": ">=",
+                    "value": 1.0,
+                },
+                {
+                    "metric_path": ["summary", "mean_position_restoration"],
+                    "operator": ">=",
+                    "value": 1.0,
+                },
+            ],
+            "verification": (
+                "python -B -m unittest discover -s labs/runtime_integration "
+                '-p "test_*.py"'
+            ),
+            "research_notes": (
+                "Composed-engine runtime surface (live_cycle + evolve), "
+                "decision record 0008 accepted 2026-07-05. Evidence: both "
+                "runtime-lab loops green (runtime_loop_composed, "
+                "evolution_loop_composed); elites reproduce across "
+                "generations with SLIP-aware repair throughout."
+            ),
+        },
+        {
             "component_id": "ca_nca_repair",
             "target_package": "packages/mecha_engine/src/mecha_engine/repair",
             "algorithm_card": "research/algorithm_cards/ca_nca_growth_repair.md",

@@ -549,6 +549,11 @@ Post-v0.1 continuation has started:
 - `research/package_specs/mecha_engine_runtime_interface_spec.md`
 - `research/package_specs/mecha_engine_contract_traceability_matrix.md` (proposed runtime row)
 
+- `research/experiment_reports/2026-07-05-mecha-engine-runtime-promotion.md`
+- `packages/mecha_engine/src/mecha_engine/runtime/`
+- `packages/mecha_engine/tests/test_runtime_contract.py`
+- `labs/runtime_integration/test_package_runtime_parity.py` (runtime is the seventh promoted module under DR 0008; promotion gate 5/7 promotion-ready; scaffold gate 9/9 with 7 modules and 217 package tests)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

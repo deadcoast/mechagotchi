@@ -32,8 +32,10 @@ DEFAULT_OUTPUT_DIR = REPO_ROOT / "data/architecture"
 INITIAL_MODULES = ["genome", "generation", "lifecycle", "archive", "provenance"]
 # Modules promoted after the initial five, each authorized by its own
 # decision record: repair by 0006-create-mecha-engine-repair-target.md
-# (2026-07-05, wound-site stability blocker cleared).
-LATER_PROMOTED_MODULES = ["repair"]
+# (wound-site stability blocker cleared); runtime by
+# 0008-propose-mecha-engine-runtime-target.md (accepted 2026-07-05,
+# composed-loop evidence).
+LATER_PROMOTED_MODULES = ["repair", "runtime"]
 PACKAGE_MODULES = INITIAL_MODULES + LATER_PROMOTED_MODULES
 DEFERRED_MODULES = ["learning", "render", "storage", "slip"]
 
@@ -58,6 +60,7 @@ BLOCKED_PYPROJECT_LICENSE_FIELDS = ["license", "license-files"]
 SOURCE_ARTIFACTS = [
     "research/decision_records/0004-mecha-engine-package-scaffold.md",
     "research/decision_records/0006-create-mecha-engine-repair-target.md",
+    "research/decision_records/0008-propose-mecha-engine-runtime-target.md",
     "research/package_specs/mecha_engine_scaffold_verification_gate.md",
     "research/package_specs/mecha_engine_contract_traceability_matrix.md",
     "data/architecture/mecha_engine_package_scaffold_decision_stage0.json",

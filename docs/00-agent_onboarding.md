@@ -54,15 +54,18 @@ over plans; and executed artifacts win over prose claims.
 - **Research phase complete** (v0.1–v0.5), full 2026-07-04 code-review
   remediation complete (v0.6–v0.8: every H/M/L finding resolved —
   `docs/03-code_review/2026-07-04-code_review.md` is the annotated ledger).
-- **Package phase underway** (v0.9): `packages/mecha_engine` exists
-  (src layout, DR 0004). Six modules promoted with contract tests +
+- **Package phase underway** (v0.9+): `packages/mecha_engine` exists
+  (src layout, DR 0004). Seven modules promoted with contract tests +
   lab-parity pins: `genome`, `generation`, `lifecycle`, `archive`,
-  `provenance` (all 2026-07-04), and `repair` (2026-07-05, DR 0006 —
+  `provenance` (all 2026-07-04), `repair` (2026-07-05, DR 0006 —
   wound-site learned repair; observability contract: damage events report
-  destroyed positions, never tokens, never a template). Statuses tracked
-  by `labs/package_promotion/package_promotion_gate.py`.
-- **Tests**: ~539 lab tests across 12 labs + ~193 package tests + ~15 CLI
-  tests, all green. Runnable from any cwd (paths are ROOT-anchored).
+  destroyed positions, never tokens, never a template), and `runtime`
+  (2026-07-05, DR 0008 — `live_cycle` + `evolve`, the composed engine's
+  entry point). Statuses tracked by
+  `labs/package_promotion/package_promotion_gate.py`.
+- **Tests**: ~13 labs + ~217 package tests + ~15 CLI tests, all green
+  (run the sweep for exact counts). Runnable from any cwd (paths are
+  ROOT-anchored).
 - **Supportive layer**: the `mechas` CLI (tools/, DR 0007) standardizes
   user workflows; the rating loop is `mechas rate --creatures
   [--autoexport] [--reviewer <name>]`. It is NOT the application
@@ -77,15 +80,13 @@ over plans; and executed artifacts win over prose claims.
      21 samples × 3 reviewers). It still gates the evaluation module,
      descriptor threshold locks, and profile-weighted evolution claims —
      those stay honestly blocked until real data arrives. Never fabricate.
-  2. **DR 0008 awaiting owner acceptance** — the runtime lab is fully
-     green in both modes (`runtime_loop_composed` 12/12;
-     `evolution_loop_composed` 32/32 over 4 generations, 96 damage
-     events, retention 1.0, elites reproduce, 15 niches / QD 13.92).
-     Decision record 0008 PROPOSES `mecha_engine.runtime` (`live_cycle` +
-     `evolve`; spec written). If the owner accepts, run the DR-0006-style
-     promotion batch. Engine research follow-ups regardless: lineage
+  2. **Runtime promoted (DR 0008 accepted 2026-07-05)** —
+     `mecha_engine.runtime` (`live_cycle` + `evolve`) is the seventh
+     module, contract-tested and evolution-parity-pinned; the runtime lab
+     stays the research harness. Engine research follow-ups: lineage
      counter accumulation through repair (parity-reviewed), longer
-     evolution horizons, harder survival regimes.
+     evolution horizons, harder survival regimes (fitness is currently
+     flat with survival saturated and readability uncalibrated).
   3. Learning module target: candidate is design-ready. An ACTIVE roadmap
      item under standard decision-record governance (propose the DR with a
      recommendation whenever it is the right next step) — NOT owner-

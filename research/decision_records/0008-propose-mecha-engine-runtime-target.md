@@ -1,13 +1,14 @@
-# Decision Record 0008: Propose the Mecha Engine Runtime Package Target
+# Decision Record 0008: Create the Mecha Engine Runtime Package Target
 
 Date: 2026-07-05
 
 ## Status
 
-**Proposed — awaiting owner acceptance.** The owner authorized making
-this proposal (2026-07-05, "GO: … a runtime package target proposal");
-creating `packages/mecha_engine/src/mecha_engine/runtime` and promoting
-code into it happens only after the owner accepts this record.
+**Accepted** (owner: "accept 0008", 2026-07-05). Authorizes creating
+`packages/mecha_engine/src/mecha_engine/runtime` and promoting the
+runtime surface under the same rules as the previous six modules. The
+proposal history: the owner authorized making this proposal earlier the
+same day ("GO: … a runtime package target proposal").
 
 ## Context
 

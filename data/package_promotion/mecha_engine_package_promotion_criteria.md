@@ -20,6 +20,7 @@ It does not promote code by itself.
 - `map_elites_archive` -> `promotion_ready` for `packages/mecha_engine/src/mecha_engine/archive`
 - `provenance_ci` -> `promotion_ready` for `packages/mecha_engine/src/mecha_engine/provenance`
 - `readability_gate` -> `blocked_missing_or_failed_research_evidence` for `packages/mecha_engine/src/mecha_engine/evaluation`
+- `runtime_loop` -> `promotion_ready` for `packages/mecha_engine/src/mecha_engine/runtime`
 - `ca_nca_repair` -> `promotion_ready` for `packages/mecha_engine/src/mecha_engine/repair`
 
 ## Decision

@@ -4,11 +4,10 @@ Date: 2026-07-05
 
 ## Status
 
-Research interface specification for a proposed `mecha_engine.runtime`
-module (decision record 0008, **awaiting owner acceptance** — this
-document designs the surface; it does not create the target). Evidence
-basis: the runtime integration lab's two composed-loop artifacts, both
-green (`runtime_loop_composed`, `evolution_loop_composed`).
+Contract reference for `mecha_engine.runtime` (decision record 0008,
+**accepted 2026-07-05**). Evidence basis: the runtime integration lab's
+two composed-loop artifacts, both green (`runtime_loop_composed`,
+`evolution_loop_composed`).
 
 ## Why a runtime surface
 
@@ -39,23 +38,30 @@ lab discovered executable-first:
   mutated. Injected damage events (a future gameplay source) replace the
   synthesizer via an optional `damage_events` parameter without changing
   cycle semantics.
-- `evolve(slip_profile, generation_model, repair_model, *,
-  generations=4, population=8, damage_cycles=3, ticks=72,
-  dropout_rate=0.2, rng_seed=20260512, readability_by_grid_id) ->
-  (archive, report)`
-  Generation 0 parents from the profile-aligned inputs; later parents
-  from archive elites sorted by niche key; every creature goes through
-  `live_cycle`, then scores and inserts through `mecha_engine.archive`.
-  Readability values are injected (`readability_by_grid_id` or an
-  equivalent metrics hook) — no proxy scorer is ported.
+- `evolve(seed_grids, slip_profile, generation_model, repair_model, *,
+  readability_scorer, generations=4, population=8, damage_cycles=3,
+  ticks=72, dropout_rate=0.2, rng_seed=20260512) -> (archive, report)`
+  Generation 0 parents from the profile-aligned subset of `seed_grids`;
+  later parents from archive elites sorted by niche key; every creature
+  goes through the live-cycle semantics, then scores and inserts through
+  `mecha_engine.archive`. Readability is injected via
+  `readability_scorer` (a deterministic callable, the "equivalent
+  metrics hook" — no proxy scorer is ported; the record's
+  manual-rating status stays visible in every score). Signature
+  amendment vs the proposal draft, documented here: `seed_grids` and the
+  callable form of the readability hook are required for the evolution
+  semantics to be reproducible.
 
-## Hard gates for the port (if DR 0008 is accepted)
+## Hard gates for the port
 
-- Lab-parity pin: reproduce both runtime-lab artifact summaries through
-  the package surface over the same seeds — single loop
-  (12/12, retention 1.0, 10 niches, QD 9.29) and evolution
-  (32/32, 96 damage events, retention 1.0, 15 niches, QD 13.92,
-  fitness-by-generation list equal).
+- Lab-parity pin: reproduce the evolution-loop artifact through the
+  package surface over the same seeds — summary equal (32/32, 96 damage
+  events, retention 1.0, 15 niches, QD 13.92, fitness-by-generation list
+  equal) and per-creature cycle records equal, with the lab's proxy
+  readability injected as the scorer. (Amendment vs the proposal draft:
+  the single-generation artifact keeps the lab as its harness — its
+  pre/post-episode shape is the integration record, not a runtime
+  surface — the evolution artifact subsumes the composition claim.)
 - Deterministic end to end; JSON-serializable reports; no input
   mutation.
 - Stdlib-only; imports only `mecha_engine.*`; no `labs`, no `sys.path`

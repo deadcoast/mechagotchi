@@ -11,7 +11,8 @@
     "lifecycle",
     "archive",
     "provenance",
-    "repair"
+    "repair",
+    "runtime"
   ],
   "unpromoted_modules": [],
   "gate_passed": true,
@@ -27,6 +28,7 @@
     "packages/mecha_engine/src/mecha_engine/archive/__init__.py",
     "packages/mecha_engine/src/mecha_engine/provenance/__init__.py",
     "packages/mecha_engine/src/mecha_engine/repair/__init__.py",
+    "packages/mecha_engine/src/mecha_engine/runtime/__init__.py",
     "packages/mecha_engine/tests/test_package_imports.py"
   ],
   "required_pyproject_fields": [
@@ -47,14 +49,15 @@
     "mecha_engine.lifecycle",
     "mecha_engine.archive",
     "mecha_engine.provenance",
-    "mecha_engine.repair"
+    "mecha_engine.repair",
+    "mecha_engine.runtime"
   ],
   "checks": [
     {
       "check_id": "required_scaffold_paths_present",
       "ok": true,
       "evidence": {
-        "required_path_count": 11,
+        "required_path_count": 12,
         "missing_paths": []
       }
     },
@@ -83,7 +86,8 @@
           "mecha_engine.lifecycle",
           "mecha_engine.archive",
           "mecha_engine.provenance",
-          "mecha_engine.repair"
+          "mecha_engine.repair",
+          "mecha_engine.runtime"
         ],
         "returncode": 0,
         "stderr": "",
@@ -104,7 +108,7 @@
       "ok": true,
       "evidence": {
         "package_root_exists": true,
-        "files_scanned": 44,
+        "files_scanned": 53,
         "lab_import_files": [],
         "sys_path_lab_files": []
       }
@@ -120,7 +124,8 @@
           "lifecycle",
           "archive",
           "provenance",
-          "repair"
+          "repair",
+          "runtime"
         ],
         "promoted_implementation_files": [
           "packages/mecha_engine/src/mecha_engine/archive/_metrics.py",
@@ -144,9 +149,15 @@
           "packages/mecha_engine/src/mecha_engine/repair/_damage.py",
           "packages/mecha_engine/src/mecha_engine/repair/_features.py",
           "packages/mecha_engine/src/mecha_engine/repair/_grids.py",
+          "packages/mecha_engine/src/mecha_engine/repair/_slip.py",
           "packages/mecha_engine/src/mecha_engine/repair/blind.py",
           "packages/mecha_engine/src/mecha_engine/repair/train.py",
-          "packages/mecha_engine/src/mecha_engine/repair/wound.py"
+          "packages/mecha_engine/src/mecha_engine/repair/wound.py",
+          "packages/mecha_engine/src/mecha_engine/runtime/_damage.py",
+          "packages/mecha_engine/src/mecha_engine/runtime/_grids.py",
+          "packages/mecha_engine/src/mecha_engine/runtime/_slip.py",
+          "packages/mecha_engine/src/mecha_engine/runtime/evolve.py",
+          "packages/mecha_engine/src/mecha_engine/runtime/live.py"
         ],
         "implementation_files": []
       }
@@ -169,7 +180,7 @@
       "ok": true,
       "evidence": {
         "returncode": 0,
-        "tests_run": 193
+        "tests_run": 217
       }
     },
     {
@@ -178,22 +189,22 @@
       "evidence": {
         "artifact_exists": true,
         "summary_package_root_exists": true,
-        "promotion_ready_count": 4
+        "promotion_ready_count": 5
       }
     }
   ],
   "metrics": {
     "checks_total": 9,
     "checks_passed": 9,
-    "required_path_count": 11,
+    "required_path_count": 12,
     "missing_required_paths": 0,
-    "import_target_count": 7,
+    "import_target_count": 8,
     "lab_import_files": 0,
     "sys_path_lab_files": 0,
     "implementation_files": 0,
     "deferred_modules_present": 0,
-    "import_suite_tests_run": 193,
-    "promoted_module_count": 6
+    "import_suite_tests_run": 217,
+    "promoted_module_count": 7
   },
   "closed_states": [
     "package_scaffold_created",
@@ -209,6 +220,7 @@
     "module_archive_promoted_with_contract_tests",
     "module_provenance_promoted_with_contract_tests",
     "module_repair_promoted_with_contract_tests",
+    "module_runtime_promoted_with_contract_tests",
     "deferred_modules_absent",
     "package_promotion_gate_rerun_after_scaffold"
   ],
@@ -230,6 +242,7 @@
   "source_artifacts": [
     "research/decision_records/0004-mecha-engine-package-scaffold.md",
     "research/decision_records/0006-create-mecha-engine-repair-target.md",
+    "research/decision_records/0008-propose-mecha-engine-runtime-target.md",
     "research/package_specs/mecha_engine_scaffold_verification_gate.md",
     "research/package_specs/mecha_engine_contract_traceability_matrix.md",
     "data/architecture/mecha_engine_package_scaffold_decision_stage0.json",

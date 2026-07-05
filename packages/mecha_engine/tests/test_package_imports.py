@@ -35,8 +35,10 @@ SRC_DIR = PACKAGE_ROOT / "src"
 INITIAL_MODULES = ["genome", "generation", "lifecycle", "archive", "provenance"]
 # Modules promoted after the initial five, each authorized by its own
 # decision record: repair per decision record 0006
-# (research/decision_records/0006-create-mecha-engine-repair-target.md).
-LATER_PROMOTED_MODULES = ["repair"]
+# (research/decision_records/0006-create-mecha-engine-repair-target.md);
+# runtime per decision record 0008
+# (research/decision_records/0008-propose-mecha-engine-runtime-target.md).
+LATER_PROMOTED_MODULES = ["repair", "runtime"]
 PROMOTED_MODULES = INITIAL_MODULES + LATER_PROMOTED_MODULES
 DEFERRED_MODULES = ["learning", "render", "storage", "slip"]
 IMPORT_TARGETS = ["mecha_engine"] + [

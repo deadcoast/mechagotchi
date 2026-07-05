@@ -20,6 +20,9 @@ pin):
 - `mecha_engine.repair` (2026-07-05, decision record 0006 — wound-site
   learned repair; observability contract: damage events report destroyed
   positions, never destroyed tokens, never a template)
+- `mecha_engine.runtime` (2026-07-05, decision record 0008 — the composed
+  engine's entry point: `live_cycle` + `evolve`; SLIP-aware repair
+  throughout, readability injected and visibly uncalibrated)
 
 Deferred modules (must not exist until their own decision records and gates
 clear): `learning`, `render`, `storage`, `slip`.

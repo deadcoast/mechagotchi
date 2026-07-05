@@ -32,12 +32,16 @@ class MechaEngineScaffoldVerificationGateTests(unittest.TestCase):
         self.assertTrue(report["package_root_exists"])
         self.assertTrue(report["gate_passed"], report["checks"])
         self.assertTrue(report["import_surface_accepted"])
-        # All five initial modules plus repair (decision record 0006,
-        # 2026-07-05) are promoted through their contract gates (in the
-        # traceability matrix's fixed order); the scaffold placeholder rule
-        # keeps covering the deferred-module boundary.
+        # All five initial modules plus repair (decision record 0006) and
+        # runtime (decision record 0008, accepted 2026-07-05) are promoted
+        # through their contract gates (in the traceability matrix's fixed
+        # order); the scaffold placeholder rule keeps covering the
+        # deferred-module boundary.
         self.assertEqual(
-            ["genome", "generation", "lifecycle", "archive", "provenance", "repair"],
+            [
+                "genome", "generation", "lifecycle", "archive",
+                "provenance", "repair", "runtime",
+            ],
             report["promoted_modules"],
         )
         self.assertEqual([], report["unpromoted_modules"])
@@ -52,11 +56,11 @@ class MechaEngineScaffoldVerificationGateTests(unittest.TestCase):
         self.assertEqual(0, report["metrics"]["lab_import_files"])
         self.assertEqual(0, report["metrics"]["sys_path_lab_files"])
         self.assertEqual(0, report["metrics"]["implementation_files"])
-        self.assertEqual(6, report["metrics"]["promoted_module_count"])
+        self.assertEqual(7, report["metrics"]["promoted_module_count"])
         self.assertEqual(0, report["metrics"]["deferred_modules_present"])
         self.assertGreaterEqual(report["metrics"]["import_suite_tests_run"], 6)
-        self.assertEqual(11, len(REQUIRED_SCAFFOLD_PATHS))
-        self.assertEqual(7, len(REQUIRED_IMPORT_TARGETS))
+        self.assertEqual(12, len(REQUIRED_SCAFFOLD_PATHS))
+        self.assertEqual(8, len(REQUIRED_IMPORT_TARGETS))
         # The empty scaffold never unblocks promotion, license metadata, or
         # deferred modules.
         self.assertIn("lab_code_promotion", report["blocked_states"])
