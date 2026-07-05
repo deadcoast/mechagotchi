@@ -189,7 +189,12 @@ def run_mecha_engine_runtime_loop(
             "removed_cells": damaged["metadata"]["removed_cells"],
         }
 
-        repaired = repair_wound_sites(damaged, repair_model)
+        # SLIP-aware guard (the seam fix, 2026-07-05): the runtime hands
+        # the active profile to repair, so a destroyed profile-required
+        # organ is refilled back into an aligned, simulatable creature.
+        repaired = repair_wound_sites(
+            damaged, repair_model, slip_profile=slip_profile
+        )
         repaired_validation = validate_grid(repaired)
         stages["repaired_valid"] = repaired_validation.ok
         restoration = _restoration(candidate, repaired)

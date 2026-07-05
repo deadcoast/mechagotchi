@@ -535,6 +535,11 @@ Post-v0.1 continuation has started:
 - `labs/runtime_integration/mecha_engine_runtime_loop.py`
 - `data/runtime_integration/mecha_engine_runtime_loop_stage0.json` (first full-loop composition of all six promoted modules: 11/12 creatures complete the pipeline; measured seam — SLIP-alignment retention 0.9167 after repair; next: SLIP-aware repair guard)
 
+- `research/experiment_reports/2026-07-05-slip-aware-repair-guard.md`
+- `research/package_specs/mecha_engine_repair_interface_spec.md`
+- `labs/cellular_automata/ca_nca_growth_repair.py`
+- `packages/mecha_engine/src/mecha_engine/repair/` (SLIP-aware validity guard on both surfaces, default-None bit-identical, contract + parity pinned; runtime loop reruns to retention 1.0 and `runtime_loop_composed` — a `runtime` target proposal is now evidence-ready, owner-gated)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

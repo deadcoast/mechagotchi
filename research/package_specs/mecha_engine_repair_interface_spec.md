@@ -85,8 +85,13 @@ Required metadata fields:
 - `train_repair_model(training_grids, ...) -> RepairModel` — deterministic
   full-batch training; identical inputs give identical weights.
 - `repair_wound_sites(damaged_grid, model, *, wound_sites=None,
-  validity_guard=True) -> grid` — wound sites default to the damage event's
-  `removed_cells`; most-confident-first fill; fully deterministic.
+  validity_guard=True, slip_profile=None) -> grid` — wound sites default
+  to the damage event's `removed_cells`; most-confident-first fill; fully
+  deterministic. `slip_profile` (added 2026-07-05 after the runtime
+  integration finding) is the engine-native constraint set active at
+  runtime; with it, the guard also repairs SLIP alignment. Default `None`
+  keeps prior behavior bit-identical (the trained-repair benchmark
+  artifact is unchanged).
 - The blind arm (`repair_with_neighborhood_model`) and the assisted
   template attractor (`repair_with_local_attractor`) remain benchmark
   comparators; if exposed, the assisted surface must be labelled
@@ -94,7 +99,16 @@ Required metadata fields:
 
 ## Validity-guard semantics (part of the contract)
 
-- Signal: the target-free grid validator only. No template, no tokens.
+- Signal: the target-free grid validator — plus, when the active
+  `slip_profile` is supplied, SLIP alignment errors (combined error
+  count). The profile constrains every creature of its kind (palette
+  legality, required organ roles, mass bounds) and carries nothing about
+  the individual's silhouette or destroyed tokens, so the no-template
+  property is preserved. Consequence to state honestly: with a profile,
+  the guard repairs the *constraint* (e.g. "an expression cell exists"),
+  not the individual's exact token placement — the restored organ cell
+  may sit at a different wound site than the destroyed one.
+- Without a profile: no template, no tokens, validator only (unchanged).
 - Moves: substitute an alternative live token at a wound site. Sites are
   never emptied; non-site cells are never touched.
 - Order: sites ascending by fill confidence (least confident first);
@@ -119,6 +133,12 @@ Required metadata fields:
   record of observability-free repair.
 - Deterministic: identical inputs give identical repaired cells, including
   guard substitutions.
+- SLIP-aware guard (2026-07-05): with the active profile, a
+  validator-valid but profile-unaligned refill must be repaired into a
+  creature `mecha_engine.lifecycle.initial_state` accepts (the public
+  cross-module oracle); without a profile, behavior is bit-identical to
+  the pre-extension contract. Both pinned by the contract driver's
+  `slip_aware_guard` probe and the lab-side slip-aware parity test.
 - Stdlib-only, like the five promoted modules.
 
 ## Non-goals

@@ -28,9 +28,9 @@
         "render_packet_serializable": true,
         "episode_pre_completed": true,
         "repaired_valid": true,
-        "slip_aligned_post_repair": false,
-        "episode_post_completed": false,
-        "scored": false
+        "slip_aligned_post_repair": true,
+        "episode_post_completed": true,
+        "scored": true
       },
       "episode_pre": {
         "survival_ticks": 72,
@@ -62,13 +62,41 @@
       },
       "repair": {
         "position_restoration": 1.0,
-        "token_restoration": 0.909091,
-        "validity_guard_substitutions": 0
+        "token_restoration": 0.818182,
+        "validity_guard_substitutions": 1
       },
-      "episode_post": null,
-      "score": null,
-      "descriptor": null,
-      "archive_decision": "skipped_unaligned"
+      "episode_post": {
+        "survival_ticks": 72,
+        "alive": true,
+        "death_cause": null,
+        "survival_ratio": 1.0,
+        "need_balance": 0.789129
+      },
+      "score": {
+        "fitness": 0.937756,
+        "components": {
+          "survival": 1.0,
+          "readability": 0.862205,
+          "validity": 1.0,
+          "bond": 0.993,
+          "mutation_stability": 0.716667,
+          "slip_alignment": 1.0
+        },
+        "readability": {
+          "proxy_readability_score": 0.862205,
+          "manual_rating_status": "not_collected"
+        }
+      },
+      "descriptor": [
+        1,
+        0,
+        1,
+        4,
+        4,
+        3,
+        1
+      ],
+      "archive_decision": "inserted"
     },
     {
       "parent_grid_id": "mg_seed_006",
@@ -879,20 +907,20 @@
     "run_count": 12,
     "candidate_valid_rate": 1.0,
     "repaired_valid_rate": 1.0,
-    "slip_alignment_retention_rate": 0.916667,
+    "slip_alignment_retention_rate": 1.0,
     "mean_removed_cells": 2.416667,
     "mean_position_restoration": 1.0,
-    "mean_token_restoration": 0.972944,
-    "guard_substitution_total": 0,
+    "mean_token_restoration": 0.965368,
+    "guard_substitution_total": 1,
     "mean_survival_ratio_pre": 1.0,
     "mean_survival_ratio_post": 1.0,
-    "mean_fitness": 0.928392,
-    "archived_run_count": 11,
+    "mean_fitness": 0.929172,
+    "archived_run_count": 12,
     "archive": {
-      "filled_niches": 9,
-      "coverage": 0.000115,
-      "qd_score": 8.353004,
-      "insertions": 9
+      "filled_niches": 10,
+      "coverage": 0.000128,
+      "qd_score": 9.29076,
+      "insertions": 10
     }
   },
   "provenance": {
@@ -909,9 +937,9 @@
     "readability_proxy_uncalibrated_manual_calibration_deferred"
   ],
   "decision": {
-    "status": "runtime_loop_gaps_measured",
+    "status": "runtime_loop_composed",
     "adoption": "lab_only_runtime_evidence",
-    "reason": "At least one stage fell short of its module contract inside the composed loop; the per-run stage flags record exactly where. The gap list, not this consolidated flag, is the actionable surface."
+    "reason": "All six promoted modules compose into one deterministic loop: every generated creature validates, survives an episode, takes a reported damage event, is repaired to its exact live-cell silhouette without a template, survives post-repair, scores into the archive, and the provenance gate passes over the real ledger. Evidence exists for a runtime surface design; creating that target stays decision-record-gated."
   },
   "next_research_step": "Extend the loop to multi-generation evolution (offspring of archive elites) and repeated damage/repair cycles before any runtime package design is proposed (decision record required)."
 }

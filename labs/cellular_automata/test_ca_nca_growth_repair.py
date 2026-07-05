@@ -345,6 +345,79 @@ class CaNcaGrowthRepairTests(unittest.TestCase):
         again = repair_with_wound_sites(damaged, biased_model)
         self.assertEqual(guarded["cells"], again["cells"])
 
+    def test_wound_site_guard_can_restore_slip_alignment(self):
+        # Runtime integration finding (2026-07-05): a destroyed
+        # profile-required organ cell (mg_seed_001's only expression cell,
+        # at (5,3)) refilled as another organ leaves a validator-valid but
+        # SLIP-unaligned creature that lifecycle refuses to simulate. With
+        # the active profile supplied, the guard must also repair
+        # alignment. The profile is an engine-native constraint set — it
+        # carries nothing about this creature's silhouette or destroyed
+        # tokens, so the no-template property is preserved.
+        import json as json_module
+
+        from ca_nca_growth_repair import (
+            CLASS_TOKENS,
+            NEIGHBORHOOD_FEATURE_COUNT,
+            grid_from_matrix,
+            matrix_from_grid,
+        )
+        from slip import is_grid_aligned
+
+        slip_profile = json_module.loads(
+            (ROOT / "data" / "slips" / "valid" / "slip_lcd_seed.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        target = build_seed_grids()[0]  # mg_seed_001, lcd_green
+        self.assertTrue(is_grid_aligned(target, slip_profile).ok)
+        matrix = matrix_from_grid(target)
+        self.assertEqual("M", matrix[3][5])
+        wound_sites = [[5, 3]]
+        matrix[3][5] = "."
+        damaged = grid_from_matrix(
+            grid_id="mg_seed_001_slip_guard_case",
+            matrix=matrix,
+            palette=target["palette"],
+            parent_grid_id=target["grid_id"],
+            source="ca_stochastic_damage",
+            mutation_events=["ca_stochastic_damage_01"],
+            generation_delta=1,
+        )
+        damaged["metadata"]["removed_cells"] = wound_sites
+        # Adversarial model: bias weights force every fill toward "B".
+        bias_index = NEIGHBORHOOD_FEATURE_COUNT - 1
+        weights = [
+            [0.0] * NEIGHBORHOOD_FEATURE_COUNT for _ in CLASS_TOKENS
+        ]
+        weights[0][bias_index] = -10.0
+        weights[CLASS_TOKENS.index("B")][bias_index] = 10.0
+        biased_model = {"model_id": "biased_probe_model", "weights": weights}
+
+        # Without the profile the guard has nothing to object to: the
+        # wrong-organ refill is validator-valid but unaligned.
+        unaware = repair_with_wound_sites(damaged, biased_model)
+        self.assertTrue(validate_grid(unaware).ok)
+        self.assertFalse(is_grid_aligned(unaware, slip_profile).ok)
+
+        # With the profile the guard restores alignment too.
+        aware = repair_with_wound_sites(
+            damaged, biased_model, slip_profile=slip_profile
+        )
+        self.assertTrue(validate_grid(aware).ok, validate_grid(aware).errors)
+        self.assertTrue(
+            is_grid_aligned(aware, slip_profile).ok,
+            is_grid_aligned(aware, slip_profile).errors,
+        )
+        self.assertGreaterEqual(
+            aware["metadata"]["validity_guard_substitutions"], 1
+        )
+        # Deterministic, and the wound site is still filled.
+        again = repair_with_wound_sites(
+            damaged, biased_model, slip_profile=slip_profile
+        )
+        self.assertEqual(aware["cells"], again["cells"])
+
     def test_structural_agreement_penalises_spurious_fills(self):
         target = build_seed_grids()[0]
         damaged = apply_damage(target, pattern="center_cut")

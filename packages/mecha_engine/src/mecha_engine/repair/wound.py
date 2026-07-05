@@ -9,8 +9,10 @@ Contract sources:
   (verbatim lab semantics — fill order, guard substitutions, metadata,
   grid-id suffix — pinned by the lab-side parity test)
 
-The validity guard consults ``mecha_engine.genome.validate_grid`` only —
-the target-free grid validator. No template, no destroyed tokens.
+The validity guard consults ``mecha_engine.genome.validate_grid`` — the
+target-free grid validator — plus, when the active ``slip_profile`` is
+supplied, the private SLIP alignment port (an engine-native constraint
+set, not a template). No template, no destroyed tokens.
 """
 
 from __future__ import annotations
@@ -19,6 +21,7 @@ from mecha_engine.genome import validate_grid
 
 from ._features import CLASS_TOKENS, neighborhood_features, softmax_probs
 from ._grids import grid_from_matrix, matrix_from_grid
+from ._slip import is_grid_aligned
 
 
 def repair_wound_sites(
@@ -27,6 +30,7 @@ def repair_wound_sites(
     *,
     wound_sites: list[list[int]] | None = None,
     validity_guard: bool = True,
+    slip_profile: dict | None = None,
 ) -> dict:
     """Refill exactly the cells the damage event reports as destroyed.
 
@@ -43,6 +47,13 @@ def repair_wound_sites(
     probability — accepting only substitutions that strictly reduce the
     validation error count. The guard consults the target-free validator
     only; it never empties a site and never sees a template.
+
+    With ``slip_profile`` supplied (the engine-native constraint set active
+    at runtime), the guard additionally counts SLIP alignment errors, so a
+    destroyed profile-required organ is refilled back into an aligned
+    creature (runtime integration finding, 2026-07-05). The profile
+    constrains every creature of its kind and carries nothing about this
+    creature's silhouette or destroyed tokens — no template enters.
     """
     weights = model["weights"]
     matrix = matrix_from_grid(damaged_grid)
@@ -70,6 +81,7 @@ def repair_wound_sites(
             fill_confidence,
             weights,
             damaged_grid,
+            slip_profile=slip_profile,
         )
 
     repaired = grid_from_matrix(
@@ -96,15 +108,19 @@ def _wound_fill_validity_guard(
     fill_confidence: dict[tuple[int, int], float],
     weights: list[list[float]],
     source_grid: dict,
+    *,
+    slip_profile: dict | None = None,
 ) -> tuple[list[list[str]], int]:
     """Substitute wound-site tokens until the grid validates, or give up.
 
-    Greedy hill-climb on the validation error count: sites in ascending
-    fill-confidence order (the least confident fill is the most likely to
-    be wrong), alternative live tokens in descending model probability with
-    class-index tie-break. Only strict error reductions are accepted, and
-    each pass is bounded, so the guard terminates deterministically. Wound
-    sites are never emptied, and non-site cells are never touched.
+    Greedy hill-climb on the combined error count — hard validator errors
+    plus, when the active ``slip_profile`` is supplied, SLIP alignment
+    errors: sites in ascending fill-confidence order (the least confident
+    fill is the most likely to be wrong), alternative live tokens in
+    descending model probability with class-index tie-break. Only strict
+    error reductions are accepted, and each pass is bounded, so the guard
+    terminates deterministically. Wound sites are never emptied, and
+    non-site cells are never touched.
     """
 
     def probe_errors(candidate: list[list[str]]) -> list[str]:
@@ -117,7 +133,10 @@ def _wound_fill_validity_guard(
             mutation_events=["wound_guard_probe"],
             generation_delta=1,
         )
-        return validate_grid(probe).errors
+        errors = list(validate_grid(probe).errors)
+        if slip_profile is not None:
+            errors.extend(is_grid_aligned(probe, slip_profile).errors)
+        return errors
 
     errors = probe_errors(matrix)
     if not errors:

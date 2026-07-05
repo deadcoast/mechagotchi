@@ -344,6 +344,66 @@ def probe_validity_guard(seed_001: dict, trained_model: dict) -> dict:
     }
 
 
+def probe_slip_aware_guard(
+    seed_001: dict, trained_model: dict, slip_profile: dict
+) -> dict:
+    """The runtime integration seam (2026-07-05): SLIP-aware guarding.
+
+    Wound ``(5, 3)`` on ``mg_seed_001`` destroys its only expression cell;
+    a model biased to refill every site as body ("B") leaves a
+    validator-valid but SLIP-unaligned creature that
+    ``mecha_engine.lifecycle.initial_state`` refuses (the PUBLIC
+    cross-module oracle for alignment). With the active profile supplied,
+    the guard must refill back into an aligned, simulatable creature. The
+    profile is an engine-native constraint set, not a template.
+    """
+    from mecha_engine.lifecycle import initial_state
+
+    wound_sites = [[5, 3]]
+    fixture_cell_is_expression = any(
+        cell["x"] == 5 and cell["y"] == 3 and cell.get("organ") == "expression"
+        for cell in seed_001["cells"]
+    )
+    damaged = _construct_damaged(
+        seed_001, wound_sites, "mg_seed_001_slip_guard_case"
+    )
+
+    feature_count = trained_model["feature_count"]
+    class_tokens = trained_model["class_tokens"]
+    bias_index = feature_count - 1
+    weights = [[0.0] * feature_count for _ in class_tokens]
+    weights[0][bias_index] = -10.0
+    weights[class_tokens.index("B")][bias_index] = 10.0
+    biased_model = {"model_id": "biased_probe_model", "weights": weights}
+
+    unaware = repair_wound_sites(damaged, biased_model)
+    aware = repair_wound_sites(damaged, biased_model, slip_profile=slip_profile)
+    aware_again = repair_wound_sites(
+        damaged, biased_model, slip_profile=slip_profile
+    )
+
+    return {
+        "fixture_cell_is_expression": fixture_cell_is_expression,
+        "unaware_valid": validate_grid(unaware).ok,
+        "unaware_rejected_by_lifecycle": _raised(
+            lambda: initial_state(unaware, slip_profile)
+        )
+        is not None,
+        "aware_valid": validate_grid(aware).ok,
+        "aware_accepted_by_lifecycle": _raised(
+            lambda: initial_state(aware, slip_profile)
+        )
+        is None,
+        "aware_substitutions": aware["metadata"]["validity_guard_substitutions"],
+        "live_sets_equal": _live_set(unaware) == _live_set(aware),
+        "aware_deterministic": aware == aware_again,
+        "aware_target_template_used_false": aware["metadata"][
+            "target_template_used"
+        ]
+        is False,
+    }
+
+
 def probe_blind(model: dict, target: dict) -> dict:
     sites = _probe_sites(target)
     damaged = _construct_damaged(target, sites, f"{target['grid_id']}_blind_damage")
@@ -387,7 +447,10 @@ def main() -> None:
     ]
     seed_001 = _load(seed_dir / "mg_seed_001.json")
     heldout = _load(seed_dir / "mg_seed_046.json")
-    fixtures_pristine = deepcopy([seed_grids, seed_001, heldout])
+    slip_profile = _load(
+        repo_root / "data" / "slips" / "valid" / "slip_lcd_seed.json"
+    )
+    fixtures_pristine = deepcopy([seed_grids, seed_001, heldout, slip_profile])
 
     # One trained model for the repair probes (frozen files in, epochs kept
     # small; the full 150-epoch benchmark pin lives in the lab-side parity
@@ -405,8 +468,11 @@ def main() -> None:
         "wound_repair": probe_wound_repair(model, heldout),
         "validity_guard": probe_validity_guard(seed_001, model),
         "blind": probe_blind(model, heldout),
+        "slip_aware_guard": probe_slip_aware_guard(
+            seed_001, model, slip_profile
+        ),
         "fixtures_mutated": fixtures_pristine
-        != [seed_grids, seed_001, heldout],
+        != [seed_grids, seed_001, heldout, slip_profile],
         "lab_modules_loaded": probe_loaded_lab_modules(),
     }
     json.dump(report, sys.stdout)

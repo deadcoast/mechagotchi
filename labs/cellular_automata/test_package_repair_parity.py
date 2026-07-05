@@ -144,6 +144,29 @@ class PackageRepairParityTests(unittest.TestCase):
                     )
                     self.assertEqual(lab_repaired, package_repaired)
 
+    def test_slip_aware_guard_parity_over_heldout_grids(self):
+        # The SLIP-aware guard extension (runtime integration finding,
+        # 2026-07-05): with the active profile supplied, lab and package
+        # must still be bit-for-bit identical — including on the
+        # adversarial destroyed-expression fixture where the profile
+        # actually changes the outcome.
+        import json
+
+        slip_profile = json.loads(
+            (
+                REPO_ROOT / "data" / "slips" / "valid" / "slip_lcd_seed.json"
+            ).read_text(encoding="utf-8")
+        )
+        for target, damaged in self._benchmark_damaged_grids():
+            with self.subTest(target=target["grid_id"]):
+                lab_repaired = repair_with_wound_sites(
+                    damaged, self.lab_model, slip_profile=slip_profile
+                )
+                package_repaired = package_repair_wound_sites(
+                    damaged, self.package_model, slip_profile=slip_profile
+                )
+                self.assertEqual(lab_repaired, package_repaired)
+
     def test_blind_arm_parity_over_heldout_grids(self):
         for target, damaged in self._benchmark_damaged_grids():
             with self.subTest(target=target["grid_id"]):

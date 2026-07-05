@@ -65,7 +65,9 @@ class MechaEngineRuntimeLoopTests(unittest.TestCase):
         summary = self.report["summary"]
         self.assertEqual(1.0, summary["candidate_valid_rate"])
         self.assertEqual(1.0, summary["repaired_valid_rate"])
-        self.assertIn("slip_alignment_retention_rate", summary)
+        # With the SLIP-aware guard the runtime hands the active profile
+        # to repair, so alignment survives damage/repair.
+        self.assertEqual(1.0, summary["slip_alignment_retention_rate"])
         self.assertGreaterEqual(summary["archived_run_count"], 1)
         self.assertGreaterEqual(summary["archive"]["filled_niches"], 1)
         self.assertTrue(self.report["provenance"]["ledger_ok"])

@@ -104,3 +104,19 @@ after (a) turns the retention rate green.
 - `research/package_specs/mecha_engine_repair_interface_spec.md`
 - `data/asset_provenance/ledger.json`
 - `research/reports/mechagotchi_research_report_v0_10.md`
+
+## Addendum (same day): the seam is closed
+
+The SLIP-aware repair guard batch
+(`research/experiment_reports/2026-07-05-slip-aware-repair-guard.md`)
+shipped, and the runtime now hands the active profile to
+`repair_wound_sites`. Full-size rerun: alignment retention 0.9167 →
+**1.0**, all 12 runs archived (10 niches, QD 9.29), exactly one guard
+substitution — on precisely the creature that previously became
+unsimulatable. Decision: `runtime_loop_gaps_measured` →
+**`runtime_loop_composed`**. Honest nuance retained in the artifact:
+token restoration dipped 0.9729 → 0.9654 because the guard restores the
+profile constraint, not the individual's exact token placement. The
+go/no-go gate for a `runtime` package target proposal is now satisfied on
+the evidence side; creating the target remains owner-gated (decision
+record required).

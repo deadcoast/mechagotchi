@@ -77,6 +77,10 @@ REQUIRED_WOUND_DEFAULTS = {
     "model": "REQUIRED",
     "wound_sites": "None",
     "validity_guard": "True",
+    # SLIP-aware guard extension (runtime integration finding,
+    # 2026-07-05): the active profile is an engine-native constraint set,
+    # not a template; default None keeps prior behavior bit-identical.
+    "slip_profile": "None",
 }
 
 
@@ -222,6 +226,27 @@ class MechaEngineRepairContractTests(unittest.TestCase):
         self.assertFalse(wound["damaged_grid_mutated"])
         self.assertFalse(wound["model_mutated"])
         self.assertFalse(self.report["fixtures_mutated"])
+
+    # -- SLIP-aware guard -------------------------------------------------------
+
+    def test_slip_fixture_wounds_the_only_expression_cell(self):
+        self.assertTrue(
+            self.report["slip_aware_guard"]["fixture_cell_is_expression"]
+        )
+
+    def test_profile_unaware_repair_is_valid_but_unsimulatable(self):
+        probe = self.report["slip_aware_guard"]
+        self.assertTrue(probe["unaware_valid"])
+        self.assertTrue(probe["unaware_rejected_by_lifecycle"])
+
+    def test_profile_aware_guard_restores_a_simulatable_creature(self):
+        probe = self.report["slip_aware_guard"]
+        self.assertTrue(probe["aware_valid"])
+        self.assertTrue(probe["aware_accepted_by_lifecycle"])
+        self.assertGreaterEqual(probe["aware_substitutions"], 1)
+        self.assertTrue(probe["live_sets_equal"])
+        self.assertTrue(probe["aware_deterministic"])
+        self.assertTrue(probe["aware_target_template_used_false"])
 
     # -- Validity guard ---------------------------------------------------------
 
