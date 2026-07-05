@@ -594,6 +594,11 @@ Post-v0.1 continuation has started:
 - `workshop/tests/test_workshop_server.py`
 - `docs/workshop/mecha-workshop.md` (workshop slice 4a shipped: PNG import/export over the proven embedded-sidecar codec — self-contained pixels+semantics files, engine-strict export, integrity-checked import with failure families verbatim — plus the lab's animated APNG export; Aseprite/spritesheet honestly queued as 4b)
 
+- `workshop/grid_editor/grid_editor.html`
+- `workshop/server/workshop_server.py`
+- `workshop/tests/test_workshop_server.py`
+- `docs/workshop/mecha-workshop.md` (workshop slice 4b completes slice 4: Aseprite import/export via the user-data-chunk writer lab — self-contained projects — and spritesheet import/export as the external-sidecar pair, codec binding checks verbatim; slice 4 fully shipped)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

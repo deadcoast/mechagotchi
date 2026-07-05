@@ -45,11 +45,22 @@ Endpoints:
                             (base + pulse frames); visual artifact
 - POST /api/import/png      raw PNG bytes -> restored editable matrix,
                             or the codec's own failure families
+- POST /api/export/aseprite same input -> a self-contained LibreSprite/
+                            Aseprite project (semantics in user-data
+                            chunks); strict like every export
+- POST /api/import/aseprite raw project bytes -> restored matrix
+- POST /api/export/spritesheet  same input -> the lab pair as JSON:
+                            {png_base64, sidecar} (external-sidecar
+                            strategy: the sheet and its sidecar travel
+                            together)
+- POST /api/import/spritesheet  {png_base64, sidecar} -> restored
+                            matrix through the codec's binding checks
 
 Launched by `mechas workshop --editor` with the workspace interpreter.
 """
 
 import argparse
+import base64
 import functools
 import json
 import re
@@ -88,7 +99,15 @@ from mecha_engine.genome import (  # noqa: E402
     validate_grid,
 )
 from mecha_engine.repair import train_repair_model  # noqa: E402
+from aseprite_user_data_chunk_writer import (  # noqa: E402
+    export_aseprite_user_data_project,
+    import_aseprite_user_data_project,
+)
 from png_apng_sidecar_decoder import export_apng_with_sidecar  # noqa: E402
+from spritesheet_sidecar_decoder import (  # noqa: E402
+    export_spritesheet_with_sidecar,
+    import_spritesheet_with_sidecar,
+)
 from png_embedded_sidecar_writer import (  # noqa: E402
     export_png_with_embedded_sidecar,
     import_png_with_embedded_sidecar,
@@ -265,6 +284,16 @@ class _Handler(SimpleHTTPRequestHandler):
         length = int(self.headers.get("Content-Length", "0"))
         return self.rfile.read(length)
 
+    def _file(self, data: bytes, filename: str, media_type: str) -> None:
+        self.send_response(200)
+        self.send_header("Content-Type", media_type)
+        self.send_header(
+            "Content-Disposition", 'attachment; filename="' + filename + '"'
+        )
+        self.send_header("Content-Length", str(len(data)))
+        self.end_headers()
+        self.wfile.write(data)
+
     def _png(self, data: bytes, filename: str) -> None:
         self.send_response(200)
         self.send_header("Content-Type", "image/png")
@@ -388,11 +417,20 @@ class _Handler(SimpleHTTPRequestHandler):
             "/api/export/png",
             "/api/export/apng",
             "/api/import/png",
+            "/api/export/aseprite",
+            "/api/import/aseprite",
+            "/api/export/spritesheet",
+            "/api/import/spritesheet",
         ):
             self._json(404, {"ok": False, "error": "unknown endpoint"})
             return
         if path == "/api/import/png":
             self._import_png(self._read_bytes())
+            return
+        if path == "/api/import/aseprite":
+            self._import_result(
+                import_aseprite_user_data_project(self._read_bytes())
+            )
             return
         try:
             payload = self._read_json()
@@ -408,6 +446,9 @@ class _Handler(SimpleHTTPRequestHandler):
             return
         if path.startswith("/api/preview/"):
             self._preview(path.rsplit("/", 1)[-1], payload)
+            return
+        if path == "/api/import/spritesheet":
+            self._import_spritesheet(payload)
             return
         if path.startswith("/api/export/"):
             self._export(path.rsplit("/", 1)[-1], payload)
@@ -694,15 +735,62 @@ class _Handler(SimpleHTTPRequestHandler):
             exported = export_apng_with_sidecar(grid, profile)
             self._png(exported["png_bytes"], grid_id + ".apng.png")
             return
+        if kind == "aseprite":
+            exported = export_aseprite_user_data_project(grid, profile)
+            self._file(
+                exported["project_bytes"],
+                grid_id + ".aseprite",
+                "application/octet-stream",
+            )
+            return
+        if kind == "spritesheet":
+            exported = export_spritesheet_with_sidecar(grid, profile)
+            self._json(
+                200,
+                {
+                    "ok": True,
+                    "png_base64": base64.b64encode(
+                        exported["png_bytes"]
+                    ).decode("ascii"),
+                    "sidecar": exported["sidecar"],
+                    "filename": grid_id + ".spritesheet.png",
+                    "sidecar_filename": grid_id + ".spritesheet.sidecar.json",
+                },
+            )
+            return
         self._json(404, {"ok": False, "errors": ["unknown export"]})
 
     def _import_png(self, data: bytes) -> None:
+        self._import_result(import_png_with_embedded_sidecar(data))
+
+    def _import_spritesheet(self, payload: dict) -> None:
+        sidecar = payload.get("sidecar")
+        try:
+            png_bytes = base64.b64decode(str(payload.get("png_base64", "")))
+        except Exception:
+            png_bytes = b""
+        if not png_bytes or not isinstance(sidecar, dict):
+            self._json(
+                400,
+                {
+                    "ok": False,
+                    "errors": [
+                        "a spritesheet travels as a pair: the sheet PNG "
+                        "and its sidecar JSON are both required"
+                    ],
+                },
+            )
+            return
+        self._import_result(
+            import_spritesheet_with_sidecar(png_bytes, sidecar)
+        )
+
+    def _import_result(self, result: dict) -> None:
         """Permissive on import: the codec's own failure families come
         back verbatim; nothing is written."""
-        result = import_png_with_embedded_sidecar(data)
         if not result.get("ok"):
             errors = result.get("errors") or [
-                str(result.get("error", "the PNG codec rejected this file"))
+                str(result.get("error", "the codec rejected this file"))
             ]
             self._json(
                 400,

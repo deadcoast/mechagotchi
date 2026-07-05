@@ -479,3 +479,102 @@ class ImportExportEndpointTests(unittest.TestCase):
         self.assertTrue(png.startswith(b"\x89PNG\r\n\x1a\n"))
         self.assertIn(b"acTL", png)  # the APNG animation control chunk
         self.assertIn(b"fcTL", png)
+
+
+class AsepriteSpritesheetEndpointTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.temp = tempfile.TemporaryDirectory()
+        base = Path(cls.temp.name)
+        cls.server = start_workshop_server(
+            port=0, grids_dir=base / "grids", slips_dir=base / "slips"
+        )
+        cls.base = f"http://127.0.0.1:{cls.server.server_address[1]}"
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.server.shutdown()
+        cls.temp.cleanup()
+
+    def _export(self, kind):
+        payload = json.dumps(
+            {
+                "matrix": VALID_MATRIX,
+                "palette_id": "lcd_green",
+                "profile_id": "slip_lcd_seed",
+                "name": "fourbee",
+            }
+        ).encode("utf-8")
+        return _post_raw(f"{self.base}/api/export/{kind}", payload)
+
+    def test_aseprite_roundtrip_restores_the_creature(self):
+        status, project, content_type = self._export("aseprite")
+        self.assertEqual(200, status)
+        self.assertEqual("application/octet-stream", content_type)
+        self.assertGreater(len(project), 1000)  # embedded semantics aboard
+
+        status, body, _ = _post_raw(
+            f"{self.base}/api/import/aseprite", project
+        )
+        self.assertEqual(200, status)
+        result = json.loads(body)
+        self.assertTrue(result["ok"])
+        self.assertEqual(VALID_MATRIX, result["matrix"])
+        self.assertEqual("lcd_green", result["palette_id"])
+
+    def test_aseprite_import_rejects_foreign_bytes_with_families(self):
+        status, body, _ = _post_raw(
+            f"{self.base}/api/import/aseprite", b"not an aseprite project"
+        )
+        self.assertEqual(400, status)
+        result = json.loads(body)
+        self.assertFalse(result["ok"])
+        self.assertGreater(len(result["errors"]), 0)
+
+    def test_spritesheet_export_returns_the_lab_pair(self):
+        status, body, content_type = self._export("spritesheet")
+        self.assertEqual(200, status)
+        self.assertIn("application/json", content_type)
+        payload = json.loads(body)
+        import base64
+
+        png = base64.b64decode(payload["png_base64"])
+        self.assertTrue(png.startswith(b"\x89PNG\r\n\x1a\n"))
+        sidecar = payload["sidecar"]
+        self.assertEqual(3, sidecar["asset_binding"]["frame_count"])
+        self.assertIn("animation_binding", sidecar)
+
+    def test_spritesheet_roundtrip_restores_the_creature(self):
+        status, body, _ = self._export("spritesheet")
+        exported = json.loads(body)
+        status, body, _ = _post_raw(
+            f"{self.base}/api/import/spritesheet",
+            json.dumps(
+                {
+                    "png_base64": exported["png_base64"],
+                    "sidecar": exported["sidecar"],
+                }
+            ).encode("utf-8"),
+        )
+        self.assertEqual(200, status)
+        result = json.loads(body)
+        self.assertTrue(result["ok"])
+        self.assertEqual(VALID_MATRIX, result["matrix"])
+
+    def test_spritesheet_import_needs_its_sidecar(self):
+        status, body, _ = self._export("spritesheet")
+        exported = json.loads(body)
+        # Tampered sidecar binding: the codec recomputes the sheet's hash
+        # and its own validation speaks.
+        sidecar = exported["sidecar"]
+        sidecar["asset_binding"]["content_hash"] = "sha256:" + "0" * 64
+        status, body, _ = _post_raw(
+            f"{self.base}/api/import/spritesheet",
+            json.dumps(
+                {"png_base64": exported["png_base64"], "sidecar": sidecar}
+            ).encode("utf-8"),
+        )
+        self.assertEqual(400, status)
+        result = json.loads(body)
+        self.assertFalse(result["ok"])
+        self.assertGreater(len(result["errors"]), 0)

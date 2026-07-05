@@ -84,9 +84,11 @@ The creative authoring layer (charter:
 editor; `--slip` launches the SLIP profile creator; `--preview` launches
 the preview (render packets, a `live_cycle` day in the life, and
 engine-generated offspring — read-only, the engine's answers throughout).
-The grid editor's SHARE panel exports self-contained PNGs (pixels +
-embedded semantic sidecar, profile-bound, engine-strict) and animated
-APNGs, and imports sidecar PNGs back onto the grid. The workshop server
+The grid editor's SHARE panel exports self-contained PNGs and Aseprite
+projects (pixels + embedded semantic sidecar, profile-bound,
+engine-strict), animated APNGs, and spritesheet pairs (sheet PNG +
+sidecar JSON), and imports all three formats back onto the grid through
+each codec's own integrity checks. The workshop server
 runs in the workspace interpreter (it imports the engine for live
 validation), saves validated work only — engine-valid grids to
 `data/workshop/grids/`, authority-clean profiles to

@@ -63,8 +63,18 @@ permissive in UX, honest in verdicts, nothing written. **Export APNG**
 produces the lab's animated share artifact (base + pulse frames).
 Verified: server-side roundtrip tests plus a live-browser UI roundtrip
 (export -> wipe -> import -> all 13 cells restored, anchor included).
-Remaining slice 4 work, honestly queued: Aseprite and spritesheet
-import/export over their proven labs.
+**Slice 4b shipped (2026-07-05), completing slice 4:** Aseprite
+import/export via the user-data-chunk writer lab — a self-contained
+LibreSprite/Aseprite project whose user-data chunks carry the full
+semantic sidecar — and spritesheet import/export via the sidecar
+decoder lab, traveling as the pair the external-sidecar strategy
+defines (sheet PNG + sidecar JSON; import requires both, and the
+codec's binding checks — recomputed content hash, frame rects, frame
+pixel hashes, restored-grid validity and alignment — judge the pair).
+All exports remain engine-strict and profile-bound; all imports
+return codec failure families verbatim. Verified: 27 workshop tests
+plus live-browser UI roundtrips through the real handlers for both
+formats (all 13 cells restored, anchor included).
 
 ## The research the workshop stands on
 
@@ -91,7 +101,7 @@ Every planned surface maps to proven lab work (all ledgered in
 - [x] 2. SLIP profile creator (2026-07-05)
 - [x] 3. Preview (render packets, live_cycle day-in-the-life, engine-bred offspring) (2026-07-05)
 - [x] 4a. Import/export PNG (self-contained embedded-sidecar roundtrip) + APNG export (2026-07-05)
-- [ ] 4b. Import/export Aseprite + spritesheet (proven labs ready; not yet wired)
+- [x] 4b. Import/export Aseprite (self-contained user-data project) + spritesheet (sheet+sidecar pair) (2026-07-05)
 - [ ] 5. Genome inspector + lineage browser
 - [ ] 6. Community asset/profile system (deferred: needs `storage` DR +
       licensing/provenance policy)

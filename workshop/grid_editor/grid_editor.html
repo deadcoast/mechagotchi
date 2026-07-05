@@ -177,8 +177,17 @@
           <button class="action" id="import-png-btn">Import PNG</button>
           <input type="file" id="import-file" accept=".png" style="display:none">
         </div>
-        <p class="notice" id="io-notice">PNG exports are self-contained: pixels plus the creature's
-        semantics in one file, bound to a profile. APNG is the animated share version.</p>
+        <div class="filebar" style="margin-top:8px;">
+          <button class="action" id="export-ase-btn" disabled>Export Aseprite</button>
+          <button class="action" id="import-ase-btn">Import Aseprite</button>
+          <button class="action" id="export-sheet-btn" disabled>Export Spritesheet</button>
+          <button class="action" id="import-sheet-btn">Import Spritesheet</button>
+          <input type="file" id="import-ase-file" accept=".aseprite,.ase" style="display:none">
+          <input type="file" id="import-sheet-files" accept=".png,.json" multiple style="display:none">
+        </div>
+        <p class="notice" id="io-notice">PNG and Aseprite exports are self-contained: pixels plus the creature's
+        semantics in one file, bound to a profile. APNG is the animated share version.
+        A spritesheet travels as a pair — the sheet PNG and its sidecar JSON; import needs both.</p>
       </div>
     </div>
   </div>
@@ -481,8 +490,9 @@ $("clear-btn").addEventListener("click", () => {
 /* ---------------- import / export ---------------- */
 function ioReady() {
   const bindable = lastVerdict && lastVerdict.valid && $("export-profile").value;
-  $("export-png-btn").disabled = !bindable;
-  $("export-apng-btn").disabled = !bindable;
+  for (const id of ["export-png-btn", "export-apng-btn", "export-ase-btn", "export-sheet-btn"]) {
+    $(id).disabled = !bindable;
+  }
 }
 $("export-profile").addEventListener("change", ioReady);
 
@@ -508,7 +518,7 @@ async function exportCreature(kind) {
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
   const name = ($("grid-name").value.trim() || "workshop_export").replace(/[^a-z0-9]+/gi, "_");
-  link.download = name + (kind === "apng" ? ".apng.png" : ".png");
+  link.download = name + (kind === "apng" ? ".apng.png" : kind === "aseprite" ? ".aseprite" : ".png");
   link.click();
   URL.revokeObjectURL(link.href);
   notice.textContent = "exported " + link.download + (kind === "apng" ? " (animated)" : " (self-contained: pixels + semantics)");
@@ -516,6 +526,97 @@ async function exportCreature(kind) {
 }
 $("export-png-btn").addEventListener("click", () => exportCreature("png"));
 $("export-apng-btn").addEventListener("click", () => exportCreature("apng"));
+$("export-ase-btn").addEventListener("click", () => exportCreature("aseprite"));
+
+function downloadBlob(blob, filename) {
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(link.href);
+}
+
+$("export-sheet-btn").addEventListener("click", async () => {
+  const notice = $("io-notice");
+  const response = await fetch("/api/export/spritesheet", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      matrix, palette_id: paletteId,
+      profile_id: $("export-profile").value,
+      name: $("grid-name").value.trim() || "workshop_export",
+    }),
+  });
+  const result = await response.json();
+  if (!response.ok || !result.ok) {
+    notice.textContent = "the engine blocked the export: " + (result.errors || []).join("; ");
+    notice.className = "notice err";
+    return;
+  }
+  const bytes = Uint8Array.from(atob(result.png_base64), (ch) => ch.charCodeAt(0));
+  downloadBlob(new Blob([bytes], { type: "image/png" }), result.filename);
+  downloadBlob(
+    new Blob([JSON.stringify(result.sidecar, null, 2)], { type: "application/json" }),
+    result.sidecar_filename,
+  );
+  notice.textContent = "exported the pair: " + result.filename + " + " + result.sidecar_filename + " — keep them together";
+  notice.className = "notice ok";
+});
+
+$("import-ase-btn").addEventListener("click", () => $("import-ase-file").click());
+$("import-ase-file").addEventListener("change", async () => {
+  const file = $("import-ase-file").files[0];
+  if (!file) return;
+  $("import-ase-file").value = "";
+  const response = await fetch("/api/import/aseprite", {
+    method: "POST",
+    headers: { "Content-Type": "application/octet-stream" },
+    body: await file.arrayBuffer(),
+  });
+  applyImport(await response.json(), file.name);
+});
+
+$("import-sheet-btn").addEventListener("click", () => $("import-sheet-files").click());
+$("import-sheet-files").addEventListener("change", async () => {
+  const files = [...$("import-sheet-files").files];
+  $("import-sheet-files").value = "";
+  const notice = $("io-notice");
+  const pngFile = files.find((f) => f.name.toLowerCase().endsWith(".png"));
+  const jsonFile = files.find((f) => f.name.toLowerCase().endsWith(".json"));
+  if (!pngFile || !jsonFile) {
+    notice.textContent = "a spritesheet travels as a pair — select the sheet PNG and its sidecar JSON together";
+    notice.className = "notice err";
+    return;
+  }
+  const bytes = new Uint8Array(await pngFile.arrayBuffer());
+  let binary = "";
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  const response = await fetch("/api/import/spritesheet", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      png_base64: btoa(binary),
+      sidecar: JSON.parse(await jsonFile.text()),
+    }),
+  });
+  applyImport(await response.json(), pngFile.name + " + " + jsonFile.name);
+});
+
+function applyImport(result, label) {
+  const notice = $("io-notice");
+  if (!result.ok) {
+    notice.textContent = "the codec rejected " + label + ": " + (result.errors || []).join("; ");
+    notice.className = "notice err";
+    return;
+  }
+  matrix = result.matrix;
+  if (result.palette_id && palettes[result.palette_id]) paletteId = result.palette_id;
+  $("grid-name").value = (result.grid_id || "").replace(/^workshop_/, "");
+  renderPalettes(); renderTools(); draw(); scheduleValidate();
+  notice.textContent = "imported " + label + " — the creature is on the grid" +
+    (result.engine_valid ? "" : " (the engine flags problems; see the verdict)");
+  notice.className = "notice ok";
+}
 
 $("import-png-btn").addEventListener("click", () => $("import-file").click());
 $("import-file").addEventListener("change", async () => {
