@@ -168,6 +168,18 @@
         </div>
         <p class="notice" id="save-notice">the engine must accept the grid before it can be saved</p>
       </div>
+      <div class="panel">
+        <h2>share — import / export</h2>
+        <div class="filebar">
+          <select id="export-profile"><option value="">bind to profile…</option></select>
+          <button class="action" id="export-png-btn" disabled>Export PNG</button>
+          <button class="action" id="export-apng-btn" disabled>Export APNG</button>
+          <button class="action" id="import-png-btn">Import PNG</button>
+          <input type="file" id="import-file" accept=".png" style="display:none">
+        </div>
+        <p class="notice" id="io-notice">PNG exports are self-contained: pixels plus the creature's
+        semantics in one file, bound to a profile. APNG is the animated share version.</p>
+      </div>
     </div>
   </div>
 </div>
@@ -403,6 +415,7 @@ function renderVerdict(verdict) {
     : (Object.keys(verdict.alignment || {}).length ? "a grid can be valid yet suit only some profiles" : "");
 
   $("save-btn").disabled = !verdict.valid || !$("grid-name").value.trim();
+  ioReady();
   $("save-notice").textContent = verdict.valid
     ? ($("grid-name").value.trim() ? "ready to save" : "name your creature to save it")
     : "the engine must accept the grid before it can be saved";
@@ -465,6 +478,71 @@ $("clear-btn").addEventListener("click", () => {
   draw(); scheduleValidate();
 });
 
+/* ---------------- import / export ---------------- */
+function ioReady() {
+  const bindable = lastVerdict && lastVerdict.valid && $("export-profile").value;
+  $("export-png-btn").disabled = !bindable;
+  $("export-apng-btn").disabled = !bindable;
+}
+$("export-profile").addEventListener("change", ioReady);
+
+async function exportCreature(kind) {
+  const notice = $("io-notice");
+  const response = await fetch("/api/export/" + kind, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      matrix,
+      palette_id: paletteId,
+      profile_id: $("export-profile").value,
+      name: $("grid-name").value.trim() || "workshop_export",
+    }),
+  });
+  if (!response.ok) {
+    const result = await response.json();
+    notice.textContent = "the engine blocked the export: " + (result.errors || []).join("; ");
+    notice.className = "notice err";
+    return;
+  }
+  const blob = await response.blob();
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  const name = ($("grid-name").value.trim() || "workshop_export").replace(/[^a-z0-9]+/gi, "_");
+  link.download = name + (kind === "apng" ? ".apng.png" : ".png");
+  link.click();
+  URL.revokeObjectURL(link.href);
+  notice.textContent = "exported " + link.download + (kind === "apng" ? " (animated)" : " (self-contained: pixels + semantics)");
+  notice.className = "notice ok";
+}
+$("export-png-btn").addEventListener("click", () => exportCreature("png"));
+$("export-apng-btn").addEventListener("click", () => exportCreature("apng"));
+
+$("import-png-btn").addEventListener("click", () => $("import-file").click());
+$("import-file").addEventListener("change", async () => {
+  const file = $("import-file").files[0];
+  if (!file) return;
+  $("import-file").value = "";
+  const notice = $("io-notice");
+  const response = await fetch("/api/import/png", {
+    method: "POST",
+    headers: { "Content-Type": "application/octet-stream" },
+    body: await file.arrayBuffer(),
+  });
+  const result = await response.json();
+  if (!result.ok) {
+    notice.textContent = "the codec rejected " + file.name + ": " + (result.errors || []).join("; ");
+    notice.className = "notice err";
+    return;
+  }
+  matrix = result.matrix;
+  if (result.palette_id && palettes[result.palette_id]) paletteId = result.palette_id;
+  $("grid-name").value = (result.grid_id || "").replace(/^workshop_/, "");
+  renderPalettes(); renderTools(); draw(); scheduleValidate();
+  notice.textContent = "imported " + file.name + " — the creature is on the grid" +
+    (result.engine_valid ? "" : " (the engine flags problems; see the verdict)");
+  notice.className = "notice ok";
+});
+
 /* ---------------- boot ---------------- */
 (async function boot() {
   const response = await fetch("/api/palettes");
@@ -473,6 +551,14 @@ $("clear-btn").addEventListener("click", () => {
   renderTools();
   draw();
   refreshGridList();
+  const slips = (await (await fetch("/api/slips")).json()).slips;
+  const profileSelect = $("export-profile");
+  for (const entry of slips) {
+    const option = document.createElement("option");
+    option.value = entry.profile_id;
+    option.textContent = entry.profile_id + " \u00b7 " + entry.source;
+    profileSelect.appendChild(option);
+  }
   scheduleValidate();
 })();
 </script>

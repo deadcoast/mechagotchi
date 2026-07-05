@@ -98,16 +98,19 @@ over plans; and executed artifacts win over prose claims.
      through the stress learning benchmark harness. (The owner's only
      standing deferral remains the manual readability survey data; never
      extend it to anything else — owner correction, 2026-07-05.)
-  4. The `mecha_workshop` build track: SLICES 1-3 SHIPPED (2026-07-05,
+  4. The `mecha_workshop` build track: SLICES 1-3 + 4a SHIPPED (2026-07-05,
      DR 0010; build order owner-approved). `mechas workshop --editor` =
      grid editor (live engine validation); `--slip` = SLIP profile
      creator (Stage 0 authority live, authored profiles join the
      editor's chips); `--preview` = engine-truth preview (render
      packets verbatim, runtime.live_cycle day-in-the-life,
      generation-module offspring; alignment errors ARE the preview on
-     mismatch; read-only). Strict saves under data/workshop/. Charter:
-     `docs/workshop/mecha-workshop-design.md`. Next slice: 4
-     (import/export over the proven PNG/APNG/Aseprite codecs). Windows note: ports are OS-reserved in shifting ranges —
+     mismatch; read-only). 4a: the editor's SHARE panel — self-contained PNG
+     export (embedded sidecar, engine-strict, profile-bound), integrity-
+     checked PNG import, animated APNG export. Strict saves under
+     data/workshop/. Charter: `docs/workshop/mecha-workshop-design.md`.
+     Next: 4b (Aseprite/spritesheet wiring) or slice 5
+     (genome inspector + lineage browser). Windows note: ports are OS-reserved in shifting ranges —
      servers default to port 0 and announce their URL.
   5. mechas CLI roadmap (`docs/cli/mechas-cli.md`) — supportive layer
      only; never outranks engine work.

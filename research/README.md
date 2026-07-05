@@ -589,6 +589,11 @@ Post-v0.1 continuation has started:
 - `workshop/tests/test_workshop_server.py`
 - `docs/workshop/mecha-workshop.md` (workshop slice 3 shipped: preview panels drawing render packets verbatim, running runtime.live_cycle for real, and breeding offspring via the generation module; engine alignment errors ARE the preview on mismatch; served by `mechas workshop --preview`)
 
+- `workshop/grid_editor/grid_editor.html`
+- `workshop/server/workshop_server.py`
+- `workshop/tests/test_workshop_server.py`
+- `docs/workshop/mecha-workshop.md` (workshop slice 4a shipped: PNG import/export over the proven embedded-sidecar codec — self-contained pixels+semantics files, engine-strict export, integrity-checked import with failure families verbatim — plus the lab's animated APNG export; Aseprite/spritesheet honestly queued as 4b)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

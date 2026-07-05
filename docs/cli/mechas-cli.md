@@ -83,7 +83,10 @@ The creative authoring layer (charter:
 `docs/workshop/mecha-workshop-design.md`). `--editor` launches the grid
 editor; `--slip` launches the SLIP profile creator; `--preview` launches
 the preview (render packets, a `live_cycle` day in the life, and
-engine-generated offspring — read-only, the engine's answers throughout). The workshop server
+engine-generated offspring — read-only, the engine's answers throughout).
+The grid editor's SHARE panel exports self-contained PNGs (pixels +
+embedded semantic sidecar, profile-bound, engine-strict) and animated
+APNGs, and imports sidecar PNGs back onto the grid. The workshop server
 runs in the workspace interpreter (it imports the engine for live
 validation), saves validated work only — engine-valid grids to
 `data/workshop/grids/`, authority-clean profiles to

@@ -47,8 +47,24 @@ validated and alignment-checked. When a creature does not belong to
 the chosen profile the engine's own alignment errors ARE the preview
 (verified live: lcd creature x amber profile). Creatures come from
 the seed corpus and saved workshop grids; profiles include authored
-ones. Read-only — preview writes nothing. Slice 4 (import/export) is
-next.
+ones. Read-only — preview writes nothing.
+
+**Slice 4, PNG/APNG portion shipped (2026-07-05).** The grid editor's
+SHARE panel exports the drawn creature as a **self-contained PNG** via
+the proven embedded-sidecar codec (`labs/workshop_editor
+/png_embedded_sidecar_writer`): pixels plus the full semantic sidecar
+(grid contract, SLIP profile snapshot, semantic overlay, integrity
+hashes) in one tEXt chunk. Export is strict per 4-W: the engine's
+validity AND profile-alignment verdicts gate it, with a profile picker
+for the binding. **Import PNG** restores the creature onto the grid
+through the codec's own integrity checks (hash binding, pixel
+canonical match), with its failure families verbatim on rejection —
+permissive in UX, honest in verdicts, nothing written. **Export APNG**
+produces the lab's animated share artifact (base + pulse frames).
+Verified: server-side roundtrip tests plus a live-browser UI roundtrip
+(export -> wipe -> import -> all 13 cells restored, anchor included).
+Remaining slice 4 work, honestly queued: Aseprite and spritesheet
+import/export over their proven labs.
 
 ## The research the workshop stands on
 
@@ -74,7 +90,8 @@ Every planned surface maps to proven lab work (all ledgered in
 - [x] 1. Grid editor + live validation (2026-07-05)
 - [x] 2. SLIP profile creator (2026-07-05)
 - [x] 3. Preview (render packets, live_cycle day-in-the-life, engine-bred offspring) (2026-07-05)
-- [ ] 4. Import/export (PNG/APNG/Aseprite/spritesheet; strict on export)
+- [x] 4a. Import/export PNG (self-contained embedded-sidecar roundtrip) + APNG export (2026-07-05)
+- [ ] 4b. Import/export Aseprite + spritesheet (proven labs ready; not yet wired)
 - [ ] 5. Genome inspector + lineage browser
 - [ ] 6. Community asset/profile system (deferred: needs `storage` DR +
       licensing/provenance policy)

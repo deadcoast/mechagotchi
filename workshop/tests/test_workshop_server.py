@@ -388,3 +388,94 @@ class PreviewEndpointTests(unittest.TestCase):
         self.assertFalse(payload["ok"])
         self.assertGreater(len(payload["errors"]), 0)
         self.assertNotIn("children", payload)
+
+
+def _post_raw(url: str, data: bytes) -> tuple[int, bytes, str]:
+    request = urllib.request.Request(
+        url,
+        data=data,
+        headers={"Content-Type": "application/octet-stream"},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request) as response:
+            return (
+                response.status,
+                response.read(),
+                response.headers.get("Content-Type", ""),
+            )
+    except urllib.error.HTTPError as error:
+        return error.code, error.read(), error.headers.get("Content-Type", "")
+
+
+class ImportExportEndpointTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.temp = tempfile.TemporaryDirectory()
+        base = Path(cls.temp.name)
+        cls.server = start_workshop_server(
+            port=0, grids_dir=base / "grids", slips_dir=base / "slips"
+        )
+        cls.base = f"http://127.0.0.1:{cls.server.server_address[1]}"
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.server.shutdown()
+        cls.temp.cleanup()
+
+    def _export_png(self, matrix, palette_id, profile_id):
+        payload = json.dumps(
+            {"matrix": matrix, "palette_id": palette_id, "profile_id": profile_id}
+        ).encode("utf-8")
+        return _post_raw(f"{self.base}/api/export/png", payload)
+
+    def test_png_export_is_strict_on_validity_and_alignment(self):
+        status, body, _ = self._export_png(BROKEN_MATRIX, "lcd_green", "slip_lcd_seed")
+        self.assertEqual(400, status)
+        self.assertGreater(len(json.loads(body)["errors"]), 0)
+        # Valid grid, wrong profile: the engine's alignment errors block it.
+        status, body, _ = self._export_png(VALID_MATRIX, "lcd_green", "slip_amber_social")
+        self.assertEqual(400, status)
+        self.assertGreater(len(json.loads(body)["errors"]), 0)
+
+    def test_png_roundtrip_restores_the_creature(self):
+        status, png, content_type = self._export_png(
+            VALID_MATRIX, "lcd_green", "slip_lcd_seed"
+        )
+        self.assertEqual(200, status)
+        self.assertEqual("image/png", content_type)
+        self.assertTrue(png.startswith(b"\x89PNG\r\n\x1a\n"))
+
+        status, body, _ = _post_raw(f"{self.base}/api/import/png", png)
+        self.assertEqual(200, status)
+        result = json.loads(body)
+        self.assertTrue(result["ok"])
+        self.assertEqual(VALID_MATRIX, result["matrix"])
+        self.assertEqual("lcd_green", result["palette_id"])
+        self.assertTrue(result["engine_valid"])
+
+    def test_png_import_rejects_foreign_bytes_with_reasons(self):
+        status, body, _ = _post_raw(
+            f"{self.base}/api/import/png", b"not a png at all"
+        )
+        self.assertEqual(400, status)
+        result = json.loads(body)
+        self.assertFalse(result["ok"])
+        self.assertGreater(len(result["errors"]), 0)
+
+    def test_apng_export_is_animated(self):
+        payload = json.dumps(
+            {
+                "matrix": VALID_MATRIX,
+                "palette_id": "lcd_green",
+                "profile_id": "slip_lcd_seed",
+            }
+        ).encode("utf-8")
+        status, png, content_type = _post_raw(
+            f"{self.base}/api/export/apng", payload
+        )
+        self.assertEqual(200, status)
+        self.assertEqual("image/png", content_type)
+        self.assertTrue(png.startswith(b"\x89PNG\r\n\x1a\n"))
+        self.assertIn(b"acTL", png)  # the APNG animation control chunk
+        self.assertIn(b"fcTL", png)

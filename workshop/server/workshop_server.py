@@ -37,6 +37,14 @@ Endpoints:
                             engine-generated children (or the engine's
                             alignment errors when the parent cannot
                             breed under the profile)
+- POST /api/export/png      {matrix, palette_id, profile_id} -> a
+                            self-contained PNG (embedded sidecar) via
+                            the proven lab codec; strict on validity
+                            and profile alignment
+- POST /api/export/apng     same input -> the lab's animated APNG
+                            (base + pulse frames); visual artifact
+- POST /api/import/png      raw PNG bytes -> restored editable matrix,
+                            or the codec's own failure families
 
 Launched by `mechas workshop --editor` with the workspace interpreter.
 """
@@ -59,6 +67,7 @@ for path in [
     ROOT / "packages" / "mecha_engine" / "src",
     ROOT / "labs" / "grid_genome",
     ROOT / "labs" / "cellular_automata",
+    ROOT / "labs" / "workshop_editor",
 ]:
     if str(path) not in sys.path:
         sys.path.insert(0, str(path))
@@ -79,6 +88,11 @@ from mecha_engine.genome import (  # noqa: E402
     validate_grid,
 )
 from mecha_engine.repair import train_repair_model  # noqa: E402
+from png_apng_sidecar_decoder import export_apng_with_sidecar  # noqa: E402
+from png_embedded_sidecar_writer import (  # noqa: E402
+    export_png_with_embedded_sidecar,
+    import_png_with_embedded_sidecar,
+)
 from mecha_engine.runtime import live_cycle  # noqa: E402
 
 
@@ -247,6 +261,20 @@ class _Handler(SimpleHTTPRequestHandler):
         length = int(self.headers.get("Content-Length", "0"))
         return json.loads(self.rfile.read(length).decode("utf-8"))
 
+    def _read_bytes(self) -> bytes:
+        length = int(self.headers.get("Content-Length", "0"))
+        return self.rfile.read(length)
+
+    def _png(self, data: bytes, filename: str) -> None:
+        self.send_response(200)
+        self.send_header("Content-Type", "image/png")
+        self.send_header(
+            "Content-Disposition", 'attachment; filename="' + filename + '"'
+        )
+        self.send_header("Content-Length", str(len(data)))
+        self.end_headers()
+        self.wfile.write(data)
+
     # ------------------------------------------------------------- GET
     def do_GET(self) -> None:  # noqa: N802
         path = self.path.split("?")[0]
@@ -357,8 +385,14 @@ class _Handler(SimpleHTTPRequestHandler):
             "/api/preview/render",
             "/api/preview/live",
             "/api/preview/offspring",
+            "/api/export/png",
+            "/api/export/apng",
+            "/api/import/png",
         ):
             self._json(404, {"ok": False, "error": "unknown endpoint"})
+            return
+        if path == "/api/import/png":
+            self._import_png(self._read_bytes())
             return
         try:
             payload = self._read_json()
@@ -374,6 +408,9 @@ class _Handler(SimpleHTTPRequestHandler):
             return
         if path.startswith("/api/preview/"):
             self._preview(path.rsplit("/", 1)[-1], payload)
+            return
+        if path.startswith("/api/export/"):
+            self._export(path.rsplit("/", 1)[-1], payload)
             return
         matrix = payload.get("matrix")
         problem = _check_matrix(matrix)
@@ -621,6 +658,72 @@ class _Handler(SimpleHTTPRequestHandler):
             return
 
         self._json(404, {"ok": False, "error": "unknown preview"})
+
+    def _export(self, kind: str, payload: dict) -> None:
+        """Strict per the 4-W pillar: exports carry the engine's word."""
+        matrix = payload.get("matrix")
+        problem = _check_matrix(matrix)
+        if problem:
+            self._json(400, {"ok": False, "errors": [problem]})
+            return
+        palette_id = payload.get("palette_id", "lcd_green")
+        if palette_id not in PALETTES:
+            self._json(400, {"ok": False, "errors": ["unknown palette"]})
+            return
+        profile = self.server.all_profiles().get(
+            str(payload.get("profile_id", ""))
+        )
+        if profile is None:
+            self._json(400, {"ok": False, "errors": ["no such profile"]})
+            return
+        grid_id = _safe_name(payload.get("name") or "workshop_export")
+        grid = _build_grid(matrix, palette_id, "workshop_" + grid_id)
+        validation = validate_grid(grid)
+        if not validation.ok:
+            self._json(400, {"ok": False, "errors": list(validation.errors)})
+            return
+        alignment = is_grid_aligned(grid, profile)
+        if not alignment.ok:
+            self._json(400, {"ok": False, "errors": list(alignment.errors)})
+            return
+        if kind == "png":
+            exported = export_png_with_embedded_sidecar(grid, profile)
+            self._png(exported["embedded_png_bytes"], grid_id + ".png")
+            return
+        if kind == "apng":
+            exported = export_apng_with_sidecar(grid, profile)
+            self._png(exported["png_bytes"], grid_id + ".apng.png")
+            return
+        self._json(404, {"ok": False, "errors": ["unknown export"]})
+
+    def _import_png(self, data: bytes) -> None:
+        """Permissive on import: the codec's own failure families come
+        back verbatim; nothing is written."""
+        result = import_png_with_embedded_sidecar(data)
+        if not result.get("ok"):
+            errors = result.get("errors") or [
+                str(result.get("error", "the PNG codec rejected this file"))
+            ]
+            self._json(
+                400,
+                {
+                    "ok": False,
+                    "errors": [str(error) for error in errors],
+                    "families": result.get("error_families", []),
+                },
+            )
+            return
+        restored = result["restored_grid"]
+        self._json(
+            200,
+            {
+                "ok": True,
+                "matrix": matrix_from_grid(restored),
+                "palette_id": restored.get("palette", {}).get("palette_id"),
+                "grid_id": restored.get("grid_id"),
+                "engine_valid": validate_grid(restored).ok,
+            },
+        )
 
 
 def _authoring_review(profile: dict) -> dict:
