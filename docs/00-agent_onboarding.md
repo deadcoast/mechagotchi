@@ -86,11 +86,16 @@ over plans; and executed artifacts win over prose claims.
      repeated damage/repair cycles inside the loop. A `runtime` package
      target proposal is evidence-ready but owner-gated (decision record
      0008 candidate — ask before creating it).
-  3. Learning module target: candidate is design-ready; creating the
-     deferred `learning` package target is a scope decision — write a
-     decision record (0008) first and get the owner's go.
-  4. The `mecha_workshop` build track (research done, no build; owner
-     must explicitly start it).
+  3. Learning module target: candidate is design-ready. An ACTIVE roadmap
+     item under standard decision-record governance (propose the DR with a
+     recommendation whenever it is the right next step) — NOT owner-
+     deferred. The owner's only standing deferral is the manual
+     readability survey data (item 1); do not extend that deferral to
+     anything else (owner correction, 2026-07-05).
+  4. The `mecha_workshop` build track: research done, build not started.
+     Likewise an ACTIVE roadmap item under standard governance — a
+     separate feature and tool, never covered by the survey-data deferral
+     (owner correction, 2026-07-05).
   5. mechas CLI roadmap (`docs/cli/mechas-cli.md`) — supportive layer
      only; never outranks engine work.
 
