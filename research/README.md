@@ -570,6 +570,10 @@ Post-v0.1 continuation has started:
 - `packages/mecha_engine/src/mecha_engine/learning/`
 - `labs/grid_genome/test_package_learning_parity.py` (learning is the eighth promoted module, bounded wellbeing claim; promotion gate 7/8 promotion-ready — learning carries two evidence candidates, sheltered and stress; scaffold gate 9/9 with 8 modules and 235 package tests)
 
+- `research/decision_records/0010-start-mecha-workshop-build-track.md`
+- `docs/workshop/mecha-workshop-design.md` (binding charter)
+- `docs/workshop/mecha-workshop.md` (living reference: research-to-surface map, build slices) — the workshop build track opens charter-first; implementation slice 1 awaits owner approval of the build order
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

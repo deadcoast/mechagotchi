@@ -37,7 +37,7 @@ change:
 | --- | --- |
 | Research | `research/` — experiment reports, algorithm cards, decision records, the master ledger (`research/README.md`) |
 | Documents | `docs/` — the research plan (`docs/02-research_plan.md`, governing), onboarding, reports |
-| Features / Designs / SPEC | `research/package_specs/`, `docs/cli/` design charters |
+| Features / Designs / SPEC | `research/package_specs/`, `docs/cli/` and `docs/workshop/` design charters |
 | TODO | `research/questions.md`, per-doc roadmaps, artifact `next_research_step` fields |
 | Modules | `packages/mecha_engine/` — promoted engine modules, each gated by contract tests and lab parity |
 | Labs | `labs/` — executable research prototypes, stdlib-first |

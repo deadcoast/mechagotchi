@@ -101,8 +101,9 @@ order, each to be built to the charter's three pillars (1-A UI design,
       `GET /api/status` endpoint.
 - [ ] Shell completion once the command set stabilizes
       (`add_completion` is off until then, to keep help output clean).
-- [ ] `mechas workshop ...` — reserved for the mecha_workshop build track
-      when the user starts it.
+- [ ] `mechas workshop ...` — the workshop build track is open (DR 0010,
+      charter at `docs/workshop/mecha-workshop-design.md`); this command
+      becomes the workshop's serving surface when slice 1 lands.
 
 ## Sources
 
