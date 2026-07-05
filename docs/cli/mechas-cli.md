@@ -40,6 +40,10 @@ mechas                          the main command (help + version)
 │   │   └── --no-browser        don't auto-open the browser
 │   ├── --status                collection progress, then exit
 │   └── --ingest <csv>          bring a downloaded ratings CSV into the project
+├── workshop                    the creative authoring layer
+│   ├── --editor                launch the grid editor (live engine validation)
+│   ├── --port <n>              local port (default: pick a free one)
+│   └── --no-browser            don't auto-open the browser
 └── status                      workspace at a glance (modules, gates, open tasks)
 ```
 
@@ -54,7 +58,7 @@ rating targets with copyable examples (never an error).
 | --- | --- |
 | `--creatures` | Launches the creature readability rating session: serves the visual rating tool locally, opens your browser, receives finished ratings back over `POST /api/export`, writes them to `data/readability/slip_readability_calibration_ratings.csv` (backing up any existing file first), and runs the calibration gate when the session ends. |
 | `--autoexport` | With `--creatures`: each completed reviewer pass saves itself into the project — no export click, no file moving. |
-| `--port <n>` | Serve on a specific port (default 8423; `0` picks a free one). |
+| `--port <n>` | Serve on a specific port (default: pick a free one — Windows reserves shifting port ranges, so fixed defaults are fragile). |
 | `--browser/--no-browser` | Auto-open the rating page (default on). |
 | `--status` | Show rows collected (of 63), reviewer names, and calibration readiness. |
 | `--ingest <path>` | Validate and copy a manually downloaded ratings CSV into place, then run the gate. |
@@ -70,6 +74,15 @@ all five questions in one click and can itself be locked, and **keyboard
 rating** (`1–5` rate, `Enter` next, arrows move). Locks fill unset values
 only, respect each other (question lock beats rate-all), and reset per
 reviewer pass.
+
+### `mechas workshop`
+
+The creative authoring layer (charter:
+`docs/workshop/mecha-workshop-design.md`). `--editor` launches the grid
+editor: the workshop server runs in the workspace interpreter (it
+imports the engine for live validation), saves engine-valid grids to
+`data/workshop/grids/` with backup-before-overwrite, and the page
+explains every engine constraint in place.
 
 ### `mechas status`
 
@@ -101,9 +114,8 @@ order, each to be built to the charter's three pillars (1-A UI design,
       `GET /api/status` endpoint.
 - [ ] Shell completion once the command set stabilizes
       (`add_completion` is off until then, to keep help output clean).
-- [ ] `mechas workshop ...` — the workshop build track is open (DR 0010,
-      charter at `docs/workshop/mecha-workshop-design.md`); this command
-      becomes the workshop's serving surface when slice 1 lands.
+- [x] `mechas workshop --editor` — shipped with workshop slice 1
+      (2026-07-05); grows with each workshop slice.
 
 ## Sources
 

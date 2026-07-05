@@ -98,13 +98,14 @@ over plans; and executed artifacts win over prose claims.
      through the stress learning benchmark harness. (The owner's only
      standing deferral remains the manual readability survey data; never
      extend it to anything else — owner correction, 2026-07-05.)
-  4. The `mecha_workshop` build track: STARTED, design phase (DR 0010,
-     owner: "start the mecha_workshop design charter", 2026-07-05). The
-     binding charter is `docs/workshop/mecha-workshop-design.md`; the
-     reference + build slices live in `docs/workshop/mecha-workshop.md`.
-     Slice 1 (grid editor + live validation) begins on owner approval of
-     the build order. Delivery: dependency-free web surfaces served by
-     `mechas workshop` (rating-tool pattern); TS+React only by future DR.
+  4. The `mecha_workshop` build track: SLICE 1 SHIPPED (2026-07-05,
+     DR 0010; build order owner-approved). `mechas workshop --editor` =
+     grid editor with live engine validation (the engine's own verdict,
+     per-profile SLIP compatibility, structural-load teaching, strict
+     saves to data/workshop/grids/). Charter binding:
+     `docs/workshop/mecha-workshop-design.md`. Next slice: SLIP profile
+     creator. Windows note: ports are OS-reserved in shifting ranges —
+     servers default to port 0 and announce their URL.
   5. mechas CLI roadmap (`docs/cli/mechas-cli.md`) — supportive layer
      only; never outranks engine work.
 

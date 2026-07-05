@@ -7,9 +7,17 @@ surface stands on. Update both in the same change as any workshop work.
 
 ## Status
 
-**Design phase.** The charter is written; no implementation slice has
-started. The first slice (grid editor + live validation) begins on owner
-approval of the charter's build order.
+**Slice 1 shipped (2026-07-05).** The grid editor is live:
+`mechas workshop --editor` serves `workshop/grid_editor/` with the
+workshop server (`workshop/server/workshop_server.py`, 7 tests). Live
+validation is the engine's own verdict (`mecha_engine.genome
+.validate_grid`), SLIP compatibility per profile is the Stage 0
+authority, morphology stats include the contracted structural load
+with the 0.95 collapse boundary explained, and saving is strict
+(engine-valid grids only, backup-before-overwrite) into
+`data/workshop/grids/`. Verified end-to-end in a live browser: draw ->
+verdict flips valid -> profile chips teach -> save lands. Slice 2
+(SLIP profile creator) is next.
 
 ## The research the workshop stands on
 
@@ -32,7 +40,7 @@ Every planned surface maps to proven lab work (all ledgered in
 
 ## Build slices (charter section 6)
 
-- [ ] 1. Grid editor + live validation
+- [x] 1. Grid editor + live validation (2026-07-05)
 - [ ] 2. SLIP profile creator
 - [ ] 3. Preview (render packets, behavior/mutation, live_cycle)
 - [ ] 4. Import/export (PNG/APNG/Aseprite/spritesheet; strict on export)

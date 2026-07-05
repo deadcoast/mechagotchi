@@ -574,6 +574,11 @@ Post-v0.1 continuation has started:
 - `docs/workshop/mecha-workshop-design.md` (binding charter)
 - `docs/workshop/mecha-workshop.md` (living reference: research-to-surface map, build slices) — the workshop build track opens charter-first; implementation slice 1 awaits owner approval of the build order
 
+- `workshop/grid_editor/grid_editor.html`
+- `workshop/server/workshop_server.py`
+- `workshop/tests/test_workshop_server.py`
+- `docs/workshop/mecha-workshop.md` (workshop slice 1 shipped: grid editor with live engine validation, strict saves, structural-load teaching; served by `mechas workshop --editor`)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

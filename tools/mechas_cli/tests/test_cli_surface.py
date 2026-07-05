@@ -61,6 +61,17 @@ class MechasCliSurfaceTests(unittest.TestCase):
         self.assertEqual(0, result.exit_code)
         self.assertIn("63", result.output)
 
+    def test_workshop_without_flags_shows_the_targets(self):
+        result = self.runner.invoke(self.app, ["workshop"])
+        self.assertEqual(0, result.exit_code)
+        self.assertIn("--editor", result.output)
+
+    def test_workshop_help_documents_the_flags(self):
+        result = self.runner.invoke(self.app, ["workshop", "--help"])
+        self.assertEqual(0, result.exit_code)
+        for flag in ("--editor", "--port", "--no-browser"):
+            self.assertIn(flag, result.output)
+
     def test_status_shows_workspace_overview(self):
         result = self.runner.invoke(self.app, ["status"])
         self.assertEqual(0, result.exit_code)

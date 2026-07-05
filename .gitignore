@@ -9,3 +9,6 @@ __pycache__/
 
 # Backups the mechas rating server writes before overwriting ratings
 data/readability/*.bak.csv
+
+# Workshop grid backups (backup-before-overwrite safety copies)
+data/workshop/grids/*.bak.json

@@ -69,9 +69,11 @@ def rate(
         "completed reviewer pass — no export click needed.",
     ),
     port: int = typer.Option(
-        8423,
+        0,
         "--port",
-        help="Local port for the rating session (0 picks a free one).",
+        help="Local port for the rating session (default: pick a free "
+        "one — Windows reserves shifting port ranges, so fixed defaults "
+        "are fragile).",
     ),
     open_browser: bool = typer.Option(
         True,

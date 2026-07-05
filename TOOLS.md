@@ -27,10 +27,13 @@ mechas status                                # workspace at a glance (modules, g
 mechas rate                                  # list rating targets + examples
 mechas rate --creatures                      # full rating session: serve + browser + save + gate
 mechas rate --creatures --autoexport         # same, finished passes save themselves
-mechas rate --creatures --port 0             # pick a free port (default 8423)
+mechas rate --creatures --port <n>           # fixed port (default: auto-pick a free one)
 mechas rate --creatures --no-browser         # don't auto-open the browser
 mechas rate --status                         # rows collected (of 63), reviewers, readiness
 mechas rate --ingest <file.csv>              # bring a downloaded ratings CSV in + run gate
+
+mechas workshop                              # list workshop targets
+mechas workshop --editor                     # grid editor: draw, live engine validation, save
 ```
 
 ### Notes
