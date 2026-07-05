@@ -1,0 +1,11 @@
+# Python bytecode. Note: some labs' __pycache__ files are already tracked
+# (pre-existing hazard, see docs/00-agent_onboarding.md) — an ignore rule
+# does not untrack them, but it stops NEW bytecode from being committed.
+__pycache__/
+*.pyc
+
+# Local environments
+.venv/
+
+# Backups the mechas rating server writes before overwriting ratings
+data/readability/*.bak.csv
