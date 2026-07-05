@@ -16,8 +16,22 @@ authority, morphology stats include the contracted structural load
 with the 0.95 collapse boundary explained, and saving is strict
 (engine-valid grids only, backup-before-overwrite) into
 `data/workshop/grids/`. Verified end-to-end in a live browser: draw ->
-verdict flips valid -> profile chips teach -> save lands. Slice 2
-(SLIP profile creator) is next.
+verdict flips valid -> profile chips teach -> save lands.
+
+**Slice 2 shipped (2026-07-05).** The SLIP profile creator is live at
+`mechas workshop --slip` (`workshop/slip_creator/`, same server, 12
+tests total). Authoring is form-first (palette/organ toggles, mass
+bounds, mutation/behavior/survival sliders with plain-language hints);
+validation is the Stage 0 authority (`labs/grid_genome/slip
+.validate_slip`) live, with the lab authoring panel (pydantic +
+migration review) layered on when its dependencies exist (recorded
+per-run, H-01 style). The compatibility panel answers the authoring
+question directly: how many of the 50 seed creatures fit this profile,
+and each saved workshop creature judged with reasons. Saves are strict
+(authority-clean only, curated profile_ids protected, backup before
+overwrite) into `data/workshop/slips/`; authored profiles immediately
+join the grid editor's live alignment chips — verified live both ways
+in the browser. Slice 3 (preview) is next.
 
 ## The research the workshop stands on
 
@@ -41,7 +55,7 @@ Every planned surface maps to proven lab work (all ledgered in
 ## Build slices (charter section 6)
 
 - [x] 1. Grid editor + live validation (2026-07-05)
-- [ ] 2. SLIP profile creator
+- [x] 2. SLIP profile creator (2026-07-05)
 - [ ] 3. Preview (render packets, behavior/mutation, live_cycle)
 - [ ] 4. Import/export (PNG/APNG/Aseprite/spritesheet; strict on export)
 - [ ] 5. Genome inspector + lineage browser

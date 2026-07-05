@@ -21,6 +21,12 @@ Endpoints:
                             written (backup-before-overwrite)
 - GET  /api/grids           saved workshop grids
 - GET  /api/grids/<name>    one saved grid as an editable matrix
+- GET  /slip                the SLIP profile creator page
+- POST /api/slip/validate   {profile} -> Stage 0 authority verdict,
+                            optional authoring review, live grid compat
+- POST /api/slip/save       strict: only validate_slip-clean profiles
+- GET  /api/slips           curated + workshop-authored profiles
+- GET  /api/slips/<id>      one profile for editing
 
 Launched by `mechas workshop --editor` with the workspace interpreter.
 """
@@ -51,14 +57,15 @@ from ca_nca_growth_repair import (  # noqa: E402
     grid_from_matrix,
     matrix_from_grid,
 )
-from corpus_builder import PALETTES  # noqa: E402
-from slip import is_grid_aligned  # noqa: E402
+from corpus_builder import PALETTES, build_seed_grids  # noqa: E402
+from slip import is_grid_aligned, validate_slip  # noqa: E402
 
 from mecha_engine.genome import validate_grid  # noqa: E402
 
 
-EDITOR_DIR = ROOT / "workshop" / "grid_editor"
+WORKSHOP_DIR = ROOT / "workshop"
 DEFAULT_GRIDS_DIR = ROOT / "data" / "workshop" / "grids"
+DEFAULT_SLIPS_DIR = ROOT / "data" / "workshop" / "slips"
 SLIP_VALID_DIR = ROOT / "data" / "slips" / "valid"
 TOKENS = {".", "B", "A", "E", "M"}
 GRID_SIZE = 8
@@ -157,11 +164,29 @@ class WorkshopServer(ThreadingHTTPServer):
     daemon_threads = True
     allow_reuse_address = False
 
-    def __init__(self, address: tuple[str, int], grids_dir: Path) -> None:
+    def __init__(
+        self,
+        address: tuple[str, int],
+        grids_dir: Path,
+        slips_dir: Path,
+    ) -> None:
         self.grids_dir = grids_dir
-        self.profiles = _load_profiles()
-        handler = functools.partial(_Handler, directory=str(EDITOR_DIR))
+        self.slips_dir = slips_dir
+        self.curated_profiles = _load_profiles()
+        self.seed_grids = build_seed_grids()
+        handler = functools.partial(_Handler, directory=str(WORKSHOP_DIR))
         super().__init__(address, handler)
+
+    def all_profiles(self) -> dict[str, dict]:
+        """Curated fixtures plus workshop-authored profiles (read fresh)."""
+        profiles = dict(self.curated_profiles)
+        if self.slips_dir.exists():
+            for path in sorted(self.slips_dir.glob("*.json")):
+                if path.name.endswith(".bak.json"):
+                    continue
+                payload = json.loads(path.read_text(encoding="utf-8"))
+                profiles[payload.get("profile_id", path.stem)] = payload
+        return profiles
 
     def server_bind(self) -> None:
         if hasattr(socket, "SO_EXCLUSIVEADDRUSE"):
@@ -193,7 +218,10 @@ class _Handler(SimpleHTTPRequestHandler):
     def do_GET(self) -> None:  # noqa: N802
         path = self.path.split("?")[0]
         if path == "/":
-            self.path = "/grid_editor.html"
+            self.path = "/grid_editor/grid_editor.html"
+            return super().do_GET()
+        if path == "/slip":
+            self.path = "/slip_creator/slip_creator.html"
             return super().do_GET()
         if path == "/api/palettes":
             self._json(200, {"palettes": PALETTES})
@@ -214,6 +242,40 @@ class _Handler(SimpleHTTPRequestHandler):
                     }
                 )
             self._json(200, {"grids": grids})
+            return
+        if path == "/api/slips":
+            slips = []
+            for profile_id, profile in sorted(
+                self.server.curated_profiles.items()
+            ):
+                slips.append(
+                    {
+                        "profile_id": profile_id,
+                        "name": profile.get("name"),
+                        "source": "curated",
+                    }
+                )
+            if self.server.slips_dir.exists():
+                for file in sorted(self.server.slips_dir.glob("*.json")):
+                    if file.name.endswith(".bak.json"):
+                        continue
+                    payload = json.loads(file.read_text(encoding="utf-8"))
+                    slips.append(
+                        {
+                            "profile_id": payload.get("profile_id", file.stem),
+                            "name": payload.get("name"),
+                            "source": "workshop",
+                        }
+                    )
+            self._json(200, {"slips": slips})
+            return
+        if path.startswith("/api/slips/"):
+            wanted = path.rsplit("/", 1)[-1]
+            profiles = self.server.all_profiles()
+            if wanted not in profiles:
+                self._json(404, {"ok": False, "error": "no such profile"})
+                return
+            self._json(200, {"ok": True, "profile": profiles[wanted]})
             return
         if path.startswith("/api/grids/"):
             name = _safe_name(path.rsplit("/", 1)[-1])
@@ -238,13 +300,25 @@ class _Handler(SimpleHTTPRequestHandler):
     # ------------------------------------------------------------ POST
     def do_POST(self) -> None:  # noqa: N802
         path = self.path.split("?")[0]
-        if path not in ("/api/validate", "/api/save"):
+        if path not in (
+            "/api/validate",
+            "/api/save",
+            "/api/slip/validate",
+            "/api/slip/save",
+        ):
             self._json(404, {"ok": False, "error": "unknown endpoint"})
             return
         try:
             payload = self._read_json()
         except json.JSONDecodeError:
             self._json(400, {"ok": False, "error": "invalid JSON"})
+            return
+
+        if path == "/api/slip/validate":
+            self._slip_validate(payload)
+            return
+        if path == "/api/slip/save":
+            self._slip_save(payload)
             return
         matrix = payload.get("matrix")
         problem = _check_matrix(matrix)
@@ -266,7 +340,7 @@ class _Handler(SimpleHTTPRequestHandler):
                     "ok": (result := is_grid_aligned(grid, profile)).ok,
                     "errors": list(result.errors),
                 }
-                for profile_id, profile in self.server.profiles.items()
+                for profile_id, profile in self.server.all_profiles().items()
             }
             self._json(
                 200,
@@ -314,11 +388,136 @@ class _Handler(SimpleHTTPRequestHandler):
             },
         )
 
+    def _slip_validate(self, payload: dict) -> None:
+        profile = payload.get("profile")
+        if not isinstance(profile, dict):
+            self._json(400, {"ok": False, "error": "profile must be an object"})
+            return
+        verdict = validate_slip(profile)
+        aligned = 0
+        if verdict.ok:
+            for seed in self.server.seed_grids:
+                if is_grid_aligned(seed, profile).ok:
+                    aligned += 1
+        workshop_grids = []
+        if verdict.ok and self.server.grids_dir.exists():
+            for file in sorted(self.server.grids_dir.glob("*.json")):
+                if file.name.endswith(".bak.json"):
+                    continue
+                grid = json.loads(file.read_text(encoding="utf-8"))
+                result = is_grid_aligned(grid, profile)
+                workshop_grids.append(
+                    {
+                        "name": file.stem,
+                        "ok": result.ok,
+                        "errors": list(result.errors),
+                    }
+                )
+        self._json(
+            200,
+            {
+                "ok": True,
+                "valid": verdict.ok,
+                "errors": list(verdict.errors),
+                "authoring_review": _authoring_review(profile)
+                if verdict.ok
+                else {
+                    "available": False,
+                    "reason": "fix authority errors first",
+                },
+                "grid_compat": {
+                    "seed_corpus": {
+                        "aligned": aligned,
+                        "total": len(self.server.seed_grids),
+                    },
+                    "workshop_grids": workshop_grids,
+                },
+            },
+        )
+
+    def _slip_save(self, payload: dict) -> None:
+        profile = payload.get("profile")
+        if not isinstance(profile, dict):
+            self._json(400, {"ok": False, "error": "profile must be an object"})
+            return
+        verdict = validate_slip(profile)
+        if not verdict.ok:
+            self._json(
+                400,
+                {
+                    "ok": False,
+                    "error": "the Stage 0 authority rejects this profile; "
+                    "fix it first",
+                    "errors": list(verdict.errors),
+                },
+            )
+            return
+        profile_id = profile["profile_id"]
+        if profile_id in self.server.curated_profiles:
+            self._json(
+                400,
+                {
+                    "ok": False,
+                    "error": "profile_id " + repr(profile_id) + " belongs "
+                    "to a curated fixture profile - choose your own id",
+                },
+            )
+            return
+        self.server.slips_dir.mkdir(parents=True, exist_ok=True)
+        target = self.server.slips_dir / (_safe_name(profile_id) + ".json")
+        backup = None
+        if target.exists():
+            stamp = time.strftime("%Y%m%d-%H%M%S")
+            backup = target.with_name(target.stem + "." + stamp + ".bak.json")
+            backup.write_bytes(target.read_bytes())
+        target.write_text(
+            json.dumps(profile, indent=2) + "\n", encoding="utf-8"
+        )
+        self._json(
+            200,
+            {
+                "ok": True,
+                "file": target.name,
+                "backup": backup.name if backup else None,
+            },
+        )
+
+
+def _authoring_review(profile: dict) -> dict:
+    """The workshop_editor authoring panel, when its dependencies exist.
+
+    The panel adds pydantic/migration review on top of the Stage 0
+    authority. Availability is recorded per-run (H-01 style), never
+    assumed: environments without the lab dependency group simply report
+    it unavailable.
+    """
+    try:
+        panel_dir = ROOT / "labs" / "workshop_editor"
+        if str(panel_dir) not in sys.path:
+            sys.path.insert(0, str(panel_dir))
+        from slip_authoring_panel import validate_authoring_draft
+
+        review = validate_authoring_draft(profile)
+        errors = review["errors"]
+        if errors and isinstance(errors[0], dict):
+            errors = [error.get("message", str(error)) for error in errors]
+        return {
+            "available": True,
+            "ok": review["ok"],
+            "error_families": review["error_families"],
+            "errors": errors,
+        }
+    except Exception as error:  # dependency or import shape drift
+        return {"available": False, "reason": str(error)[:200]}
+
 
 def start_workshop_server(
-    *, port: int = 0, grids_dir: Path = DEFAULT_GRIDS_DIR
+    *,
+    port: int = 0,
+    grids_dir: Path = DEFAULT_GRIDS_DIR,
+    slips_dir: Path = DEFAULT_SLIPS_DIR,
 ) -> WorkshopServer:
-    server = WorkshopServer(("127.0.0.1", port), grids_dir)
+    server = WorkshopServer(("127.0.0.1", port), grids_dir, slips_dir)
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
     return server

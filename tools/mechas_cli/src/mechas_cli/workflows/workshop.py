@@ -37,6 +37,12 @@ def workshop(
         "--editor",
         help="Launch the grid editor with live engine validation.",
     ),
+    slip: bool = typer.Option(
+        False,
+        "--slip",
+        help="Launch the SLIP profile creator with live authority "
+        "validation.",
+    ),
     port: int = typer.Option(
         DEFAULT_PORT,
         "--port",
@@ -52,7 +58,7 @@ def workshop(
     console = theme.console()
     root = find_workspace_root()
 
-    if not editor:
+    if not editor and not slip:
         console.print(theme.banner("workshop — what would you like to open?"))
         console.print(
             theme.kv_table(
@@ -64,10 +70,17 @@ def workshop(
                         "live and explains every constraint",
                         "mechas.value",
                     ),
+                    ("target", "--slip", "mechas.accent"),
+                    (
+                        "what",
+                        "author a SLIP profile; the Stage 0 authority "
+                        "validates live and shows which creatures fit",
+                        "mechas.value",
+                    ),
                     (
                         "saves to",
-                        "data/workshop/grids/ (engine-valid grids only, "
-                        "backup before overwrite)",
+                        "data/workshop/ (validated work only, backup "
+                        "before overwrite)",
                         "mechas.path",
                     ),
                 ]
@@ -76,10 +89,12 @@ def workshop(
         console.print()
         console.print(
             "  [mechas.dim]try:[/]  [mechas.accent]mechas workshop --editor[/]"
+            "  [mechas.dim]or[/]  [mechas.accent]mechas workshop --slip[/]"
         )
         return
 
-    console.print(theme.banner("workshop --editor — grid editor"))
+    target_name = "slip creator" if slip else "grid editor"
+    console.print(theme.banner(f"workshop — {target_name}"))
     server_path = root / SERVER_SCRIPT
     if not server_path.exists():
         console.print(
@@ -131,10 +146,11 @@ def workshop(
             )
         raise typer.Exit(code=1)
 
+    page_url = url + "slip" if slip else url
     console.print(
         theme.kv_table(
             [
-                ("grid editor", url, "mechas.path"),
+                (target_name, page_url, "mechas.path"),
                 (
                     "validation",
                     "live, from the engine itself — errors are the "
@@ -143,7 +159,8 @@ def workshop(
                 ),
                 (
                     "saving",
-                    "engine-valid grids only → data/workshop/grids/",
+                    "validated work only → data/workshop/ "
+                    "(backup before overwrite)",
                     "mechas.value",
                 ),
             ]
@@ -155,7 +172,7 @@ def workshop(
         "Ctrl+C when you're done.[/]"
     )
     if open_browser:
-        webbrowser.open(url)
+        webbrowser.open(page_url)
 
     try:
         while process.poll() is None:

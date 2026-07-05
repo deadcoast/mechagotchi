@@ -42,6 +42,7 @@ mechas                          the main command (help + version)
 │   └── --ingest <csv>          bring a downloaded ratings CSV into the project
 ├── workshop                    the creative authoring layer
 │   ├── --editor                launch the grid editor (live engine validation)
+│   ├── --slip                  launch the SLIP profile creator (live authority validation)
 │   ├── --port <n>              local port (default: pick a free one)
 │   └── --no-browser            don't auto-open the browser
 └── status                      workspace at a glance (modules, gates, open tasks)
@@ -79,10 +80,13 @@ reviewer pass.
 
 The creative authoring layer (charter:
 `docs/workshop/mecha-workshop-design.md`). `--editor` launches the grid
-editor: the workshop server runs in the workspace interpreter (it
-imports the engine for live validation), saves engine-valid grids to
-`data/workshop/grids/` with backup-before-overwrite, and the page
-explains every engine constraint in place.
+editor; `--slip` launches the SLIP profile creator. The workshop server
+runs in the workspace interpreter (it imports the engine for live
+validation), saves validated work only — engine-valid grids to
+`data/workshop/grids/`, authority-clean profiles to
+`data/workshop/slips/` — with backup-before-overwrite, and both pages
+explain every constraint in place. Authored profiles immediately join
+the grid editor's live compatibility chips.
 
 ### `mechas status`
 
