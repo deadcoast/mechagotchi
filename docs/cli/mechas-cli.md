@@ -4,6 +4,10 @@ Date: 2026-07-05. The living overview of the `mechas` command surface.
 Design rules live in `mechas-cli-design.md`; this file tracks what exists
 and what is planned. Update both in the same change as any CLI code.
 
+`mechas` is a **supportive layer, not the application** — the application
+is the Mechagotchi Computational Life Engine (standing constraint, root
+`README.md`).
+
 ## Install
 
 One-time, from the repository root:

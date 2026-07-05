@@ -18,6 +18,17 @@ The defining property of this repo: **the documentation is the deliverable
 and the governance.** Nothing is claimed without executable evidence;
 nothing is promoted without passing a documented gate.
 
+**Standing identity constraint (2026-07-05, anti-drift — root `README.md`):
+this repository is NOT a CLI application.** The `mechas` CLI (`tools/`) is
+a supportive layer only. The application is, and remains, the researched
+grid-based artificial-life companion engine — the Mechagotchi
+Computational Life Engine — inspired by the CuBFF study and source code
+behind *Computational Life* (arXiv:2406.19108, local copy at
+`assets/pdf/2406.19108v2.pdf`). No supporting surface (CLI, tooling, docs,
+UI) may quietly become the project; researched, mathematical, provable
+practices govern every addition. MIVIM.dev flagship — the developer's name
+is attached; hold every change to the established standards.
+
 ## 2. The prime directive
 
 **Seek knowledge locally first, from the documents, for every request.**

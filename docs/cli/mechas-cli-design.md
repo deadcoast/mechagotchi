@@ -5,6 +5,14 @@ This document is the durable record of the design direction set by the
 project owner; every `mechas` command is measured against it. Decision
 record 0007 makes it binding.
 
+**Subordination (standing constraint, root `README.md`): this repository
+is NOT a CLI application.** `mechas` is a supportive layer for the actual
+application — the Mechagotchi Computational Life Engine, the researched
+grid-based artificial-life companion engine inspired by *Computational
+Life* (arXiv:2406.19108). The CLI serves the engine's workflows; it never
+becomes the project, and no CLI ambition may pull development away from
+the engine's research-first end goal.
+
 ## 1. Mission
 
 The CLI exists to **counteract the frustration and hopelessness a person
@@ -103,6 +111,8 @@ grow by addition, not rework.
 
 ## 7. What this is not
 
+- Not the application: the repository is not a CLI application; `mechas`
+  is its supportive layer. The engine is the project.
 - Not a research lab: no `_stage0.json` evidence obligations for UI code
   (the tools it *invokes* keep theirs).
 - Not an optimizer: no flag exists to shave a step at the cost of

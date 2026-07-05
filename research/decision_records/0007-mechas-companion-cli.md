@@ -53,6 +53,10 @@ standardized task.
 
 ## Consequences
 
+- **Subordination (owner directive, 2026-07-05, recorded in the root
+  `README.md`)**: this repository is NOT a CLI application. `mechas` is a
+  supportive layer for the Mechagotchi Computational Life Engine and must
+  never pull development away from the engine's research-first end goal.
 - The repository gains a third code surface with its own conventions:
   `labs/` (research, stdlib), `packages/` (promoted engine, stdlib),
   `tools/` (user-facing operations, curated dependencies).

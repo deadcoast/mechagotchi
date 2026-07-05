@@ -2,7 +2,8 @@
 
 `mechas` — the Mechagotchi companion CLI (Typer + Rich). The standard,
 human-first surface for operating the workspace; created by decision
-record 0007.
+record 0007. A **supportive layer, not the application** — the application
+is the Mechagotchi Computational Life Engine (root `README.md`).
 
 - Command reference: `docs/cli/mechas-cli.md`
 - Design charter (binding): `docs/cli/mechas-cli-design.md`
