@@ -126,3 +126,33 @@ failed, then the full suite passed, `Ran 21 tests ... OK`):
 
 Additional sources: `research/decision_records/0007-mechas-companion-cli.md`,
 `tools/mechas_cli/`, `docs/cli/mechas-cli.md`, `docs/cli/mechas-cli-design.md`.
+
+## Addendum 2 (same day): batch-rating locks and keyboard rating (MIVIM QoL)
+
+Owner-designed additions for large similar batches, plus one suggested
+addition, all TDD'd (`test_html_supports_batch_rating_locks_and_keyboard`
+RED first, then `Ran 22 tests ... OK`) and verified live in a browser:
+
+- **Per-question lock**: each question carries a `lock` toggle; a locked
+  rating (e.g. `palette_contrast 4` across a same-palette batch)
+  auto-fills that question on every creature until unlocked. Changing a
+  locked question's value moves the lock with it.
+- **Rate-all row with lock**: one click rates all five questions at the
+  same value ("this batch is a 2 across the board"); its own lock carries
+  that across creatures. Rule discovered during live verification:
+  rate-all fills *around* per-question locks rather than stomping them —
+  a lock is a held judgment, and the same precedence applies when locks
+  auto-fill the next creature.
+- **Keyboard rating** (suggested addition): keys `1–5` rate the next
+  unanswered question, `Enter` advances, arrows move between creatures —
+  never active while typing notes.
+- Integrity properties, pinned by tests: locks fill unset values only
+  (individual overrides always win), and lock state lives in the pass
+  (`locks: {}` reset per reviewer) so nothing leaks between independent
+  reviewers.
+
+Also recorded this session: the first real reviewer pass exists —
+21 rows from reviewer `mivim.dev` in
+`data/readability/slip_readability_calibration_ratings.csv` (varied
+distribution, human-entered via `mechas rate --creatures --autoexport`).
+Calibration progress: 21 of 63 rows; two reviewer passes remain.

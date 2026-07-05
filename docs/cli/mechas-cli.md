@@ -64,6 +64,13 @@ Under the hood: the rating page itself is a generated artifact
 regenerates it if missing. The page detects being served and switches its
 export button from "Download CSV" to "Save to project".
 
+Rating-page QoL (2026-07-05 additions): per-question **locks** carry a
+rating across creatures (same-palette batches), a **rate all** row rates
+all five questions in one click and can itself be locked, and **keyboard
+rating** (`1–5` rate, `Enter` next, arrows move). Locks fill unset values
+only, respect each other (question lock beats rate-all), and reset per
+reviewer pass.
+
 ### `mechas status`
 
 Workspace overview: engine module promotion state and the readability
@@ -89,6 +96,9 @@ order, each to be built to the charter's three pillars (1-A UI design,
       diff summary of what changed.
 - [ ] `mechas doctor` — environment check (interpreter, dependency
       groups, tool freshness) with fix-it commands.
+- [ ] Served rating page shows project-level progress (rows already
+      saved in the CSV, not just this browser's passes) via a
+      `GET /api/status` endpoint.
 - [ ] Shell completion once the command set stabilizes
       (`add_completion` is off until then, to keep help output clean).
 - [ ] `mechas workshop ...` — reserved for the mecha_workshop build track

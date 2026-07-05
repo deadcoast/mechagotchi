@@ -71,6 +71,20 @@ class RatingToolBuilderTests(unittest.TestCase):
         self.assertIn("URL.createObjectURL", html)
         self.assertIn("slip_readability_calibration_ratings.csv", html)
 
+    def test_html_supports_batch_rating_locks_and_keyboard(self):
+        # MIVIM QoL additions (2026-07-05): per-question locks carry a
+        # rating across creatures; a "rate all" row sets all five
+        # questions at once and can itself be locked; keys 1-5 rate the
+        # next unanswered question. Locks are per-pass state and reset
+        # when a reviewer pass completes (independence between reviewers).
+        html = build_rating_tool_html(self.samples)
+        self.assertIn("rate all", html)
+        self.assertIn("lockAll", html)
+        self.assertIn("applyLocks", html)
+        self.assertIn("keydown", html)
+        # Locks must not survive into the next reviewer's pass.
+        self.assertIn("locks: {}", html)
+
     def test_report_and_artifacts(self):
         html = build_rating_tool_html(self.samples)
         report = build_rating_tool_report(self.samples, html)
