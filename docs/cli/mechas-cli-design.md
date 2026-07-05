@@ -51,6 +51,12 @@ smart, not like babies.
 
 ## 3. The explicit trade
 
+This trade is MIVIM doctrine, not a one-off choice: MIVIM (Modular
+Innovations, Versatile Integration Methods) builds for design philosophy,
+user experience, and quality of life at every development stage —
+creative implementations and unique integrations over raw optimization
+(root `README.md`, "Provenance and standards").
+
 **This CLI does not optimize for maximum speed or minimal keystrokes.**
 It deliberately sacrifices small speed margins for maximum developed
 quality of life and UI design. Standardized use that minimizes user error

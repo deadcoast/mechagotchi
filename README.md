@@ -51,12 +51,25 @@ Executed artifacts win over prose claims.
 
 ## Provenance and standards
 
-Mechagotchi is the flagship and first project of **MIVIM.dev**. The
+Mechagotchi is the flagship and first project of **MIVIM.dev** —
+**M I V I M · Modular Innovations, Versatile Integration Methods**. The
 developer's name is attached to it: everything created here represents
 its author and is held to the strict, thorough development standards the
 repository has established — research-first, evidence-gated,
 honestly-reported (negative results are first-class), and documented as
 living files.
+
+MIVIM prides itself on design philosophy, user experience, and quality of
+life throughout every aspect and stage of development. No matter the
+detail, the ideology and execution always provide the best user
+experience — not necessarily the most optimized or the fastest. MIVIM
+products are known for finding creative implementations and developing
+unique integrations for a one-of-a-kind user experience, built
+foundationally from the ground up. In this repository that doctrine is
+visible everywhere: the research-first engine foundations, the evidence
+ecosystem around every surface, and the `mechas` supportive layer whose
+design charter (`docs/cli/mechas-cli-design.md`) trades speed margins for
+developed quality of life by explicit policy.
 
 ## Sources
 
