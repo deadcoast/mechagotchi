@@ -584,6 +584,11 @@ Post-v0.1 continuation has started:
 - `workshop/tests/test_workshop_server.py`
 - `docs/workshop/mecha-workshop.md` (workshop slice 2 shipped: SLIP profile creator with live Stage 0 authority validation, optional lab authoring review, seed-corpus fit counts, and authored profiles joining the grid editor's alignment chips; served by `mechas workshop --slip`)
 
+- `workshop/preview/preview.html`
+- `workshop/server/workshop_server.py`
+- `workshop/tests/test_workshop_server.py`
+- `docs/workshop/mecha-workshop.md` (workshop slice 3 shipped: preview panels drawing render packets verbatim, running runtime.live_cycle for real, and breeding offspring via the generation module; engine alignment errors ARE the preview on mismatch; served by `mechas workshop --preview`)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

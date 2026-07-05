@@ -279,3 +279,112 @@ class SlipCreatorEndpointTests(unittest.TestCase):
         self.assertEqual(200, status)
         self.assertIn("workshop_test_profile", payload["alignment"])
         self.assertTrue(payload["alignment"]["workshop_test_profile"]["ok"])
+
+
+class PreviewEndpointTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.temp = tempfile.TemporaryDirectory()
+        base = Path(cls.temp.name)
+        cls.grids_dir = base / "grids"
+        cls.slips_dir = base / "slips"
+        cls.server = start_workshop_server(
+            port=0, grids_dir=cls.grids_dir, slips_dir=cls.slips_dir
+        )
+        cls.base = f"http://127.0.0.1:{cls.server.server_address[1]}"
+        # A saved workshop creature to preview.
+        _post(
+            f"{cls.base}/api/save",
+            {
+                "name": "preview subject",
+                "matrix": VALID_MATRIX,
+                "palette_id": "lcd_green",
+            },
+        )
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.server.shutdown()
+        cls.temp.cleanup()
+
+    def test_serves_the_preview_page(self):
+        with urllib.request.urlopen(f"{self.base}/preview") as response:
+            body = response.read().decode("utf-8")
+        self.assertEqual(200, response.status)
+        self.assertIn("preview", body)
+        self.assertIn("/api/preview/live", body)
+
+    def test_creature_listing_offers_seeds_and_workshop_grids(self):
+        status, listing = _get(f"{self.base}/api/preview/creatures")
+        self.assertEqual(200, status)
+        sources = {(e["source"], e["name"]) for e in listing["creatures"]}
+        self.assertIn(("workshop", "preview_subject"), sources)
+        self.assertIn(("seed", "mg_seed_001"), sources)
+
+    def test_render_returns_the_engine_packet(self):
+        status, payload = _post(
+            f"{self.base}/api/preview/render",
+            {"source": "workshop", "name": "preview_subject"},
+        )
+        self.assertEqual(200, status)
+        packet = payload["packet"]
+        self.assertEqual([8, 8], packet["grid_size"])
+        # The packet carries its own colors — the page never guesses.
+        self.assertTrue(all("visual" in cell for cell in packet["cells"]))
+
+    def test_live_preview_is_the_engine_running_the_creature(self):
+        status, payload = _post(
+            f"{self.base}/api/preview/live",
+            {
+                "source": "seed",
+                "name": "mg_seed_001",
+                "profile_id": "slip_lcd_seed",
+                "cycles": 2,
+                "ticks": 24,
+            },
+        )
+        self.assertEqual(200, status)
+        self.assertTrue(payload["ok"])
+        report = payload["report"]
+        self.assertEqual(2, len(report["cycles"]))
+        for cycle in report["cycles"]:
+            self.assertIn("removed_cell_count", cycle)
+            self.assertIn("episode", cycle)
+        self.assertIn("packet", payload["before"])
+        self.assertIn("packet", payload["after"])
+
+    def test_offspring_preview_generates_engine_children(self):
+        status, payload = _post(
+            f"{self.base}/api/preview/offspring",
+            {
+                "source": "seed",
+                "name": "mg_seed_001",
+                "profile_id": "slip_lcd_seed",
+                "count": 3,
+                "rng_seed": 20260512,
+            },
+        )
+        self.assertEqual(200, status)
+        self.assertTrue(payload["ok"])
+        self.assertEqual(3, len(payload["children"]))
+        for child in payload["children"]:
+            self.assertIn("packet", child)
+            self.assertTrue(child["valid"])
+            self.assertTrue(child["aligned"])
+
+    def test_offspring_preview_explains_parent_profile_mismatch(self):
+        # mg_seed_001 is lcd_green; slip_amber_social forbids that palette:
+        # the engine's own alignment errors come back instead of children.
+        status, payload = _post(
+            f"{self.base}/api/preview/offspring",
+            {
+                "source": "seed",
+                "name": "mg_seed_001",
+                "profile_id": "slip_amber_social",
+                "count": 3,
+            },
+        )
+        self.assertEqual(200, status)
+        self.assertFalse(payload["ok"])
+        self.assertGreater(len(payload["errors"]), 0)
+        self.assertNotIn("children", payload)

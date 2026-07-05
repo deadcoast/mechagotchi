@@ -27,6 +27,16 @@ Endpoints:
 - POST /api/slip/save       strict: only validate_slip-clean profiles
 - GET  /api/slips           curated + workshop-authored profiles
 - GET  /api/slips/<id>      one profile for editing
+- GET  /preview             the preview page
+- GET  /api/preview/creatures  seed + workshop creatures to preview
+- POST /api/preview/render  {source, name} -> the engine's render packet
+- POST /api/preview/live    {source, name, profile_id, cycles, ticks} ->
+                            runtime.live_cycle: damage/repair/episode
+                            truth plus before/after packets
+- POST /api/preview/offspring  {source, name, profile_id, count} ->
+                            engine-generated children (or the engine's
+                            alignment errors when the parent cannot
+                            breed under the profile)
 
 Launched by `mechas workshop --editor` with the workspace interpreter.
 """
@@ -60,7 +70,16 @@ from ca_nca_growth_repair import (  # noqa: E402
 from corpus_builder import PALETTES, build_seed_grids  # noqa: E402
 from slip import is_grid_aligned, validate_slip  # noqa: E402
 
-from mecha_engine.genome import validate_grid  # noqa: E402
+from mecha_engine.generation import (  # noqa: E402
+    generate_candidate,
+    train_generation_model,
+)
+from mecha_engine.genome import (  # noqa: E402
+    render_packet_from_grid,
+    validate_grid,
+)
+from mecha_engine.repair import train_repair_model  # noqa: E402
+from mecha_engine.runtime import live_cycle  # noqa: E402
 
 
 WORKSHOP_DIR = ROOT / "workshop"
@@ -174,8 +193,22 @@ class WorkshopServer(ThreadingHTTPServer):
         self.slips_dir = slips_dir
         self.curated_profiles = _load_profiles()
         self.seed_grids = build_seed_grids()
+        self.repair_model = train_repair_model(self.seed_grids)
+        self.generation_model = train_generation_model(self.seed_grids)
         handler = functools.partial(_Handler, directory=str(WORKSHOP_DIR))
         super().__init__(address, handler)
+
+    def resolve_creature(self, source: str, name: str) -> dict | None:
+        if source == "seed":
+            for seed in self.seed_grids:
+                if seed.get("grid_id") == name:
+                    return json.loads(json.dumps(seed))
+            return None
+        if source == "workshop":
+            file = self.grids_dir / (_safe_name(name) + ".json")
+            if file.exists():
+                return json.loads(file.read_text(encoding="utf-8"))
+        return None
 
     def all_profiles(self) -> dict[str, dict]:
         """Curated fixtures plus workshop-authored profiles (read fresh)."""
@@ -220,6 +253,22 @@ class _Handler(SimpleHTTPRequestHandler):
         if path == "/":
             self.path = "/grid_editor/grid_editor.html"
             return super().do_GET()
+        if path == "/preview":
+            self.path = "/preview/preview.html"
+            return super().do_GET()
+        if path == "/api/preview/creatures":
+            creatures = []
+            if self.server.grids_dir.exists():
+                for file in sorted(self.server.grids_dir.glob("*.json")):
+                    if file.name.endswith(".bak.json"):
+                        continue
+                    creatures.append(
+                        {"source": "workshop", "name": file.stem}
+                    )
+            for seed in self.server.seed_grids[:12]:
+                creatures.append({"source": "seed", "name": seed["grid_id"]})
+            self._json(200, {"creatures": creatures})
+            return
         if path == "/slip":
             self.path = "/slip_creator/slip_creator.html"
             return super().do_GET()
@@ -305,6 +354,9 @@ class _Handler(SimpleHTTPRequestHandler):
             "/api/save",
             "/api/slip/validate",
             "/api/slip/save",
+            "/api/preview/render",
+            "/api/preview/live",
+            "/api/preview/offspring",
         ):
             self._json(404, {"ok": False, "error": "unknown endpoint"})
             return
@@ -319,6 +371,9 @@ class _Handler(SimpleHTTPRequestHandler):
             return
         if path == "/api/slip/save":
             self._slip_save(payload)
+            return
+        if path.startswith("/api/preview/"):
+            self._preview(path.rsplit("/", 1)[-1], payload)
             return
         matrix = payload.get("matrix")
         problem = _check_matrix(matrix)
@@ -481,6 +536,91 @@ class _Handler(SimpleHTTPRequestHandler):
                 "backup": backup.name if backup else None,
             },
         )
+
+    def _preview(self, kind: str, payload: dict) -> None:
+        grid = self.server.resolve_creature(
+            str(payload.get("source", "")), str(payload.get("name", ""))
+        )
+        if grid is None:
+            self._json(404, {"ok": False, "error": "no such creature"})
+            return
+
+        if kind == "render":
+            self._json(
+                200, {"ok": True, "packet": render_packet_from_grid(grid)}
+            )
+            return
+
+        profiles = self.server.all_profiles()
+        profile = profiles.get(str(payload.get("profile_id", "")))
+        if profile is None:
+            self._json(404, {"ok": False, "error": "no such profile"})
+            return
+        # Previews are the engine's answers: when the creature cannot
+        # live/breed under the profile, the engine's own alignment errors
+        # ARE the preview.
+        alignment = is_grid_aligned(grid, profile)
+        if not alignment.ok:
+            self._json(
+                200,
+                {
+                    "ok": False,
+                    "errors": list(alignment.errors),
+                    "reason": "this creature does not belong to that "
+                    "profile, so the engine will not run it there",
+                },
+            )
+            return
+
+        if kind == "live":
+            cycles = max(1, min(5, int(payload.get("cycles", 3))))
+            ticks = max(8, min(96, int(payload.get("ticks", 48))))
+            report = live_cycle(
+                grid,
+                profile,
+                self.server.repair_model,
+                damage_cycles=cycles,
+                ticks=ticks,
+                rng_seed=int(payload.get("rng_seed", 20260512)),
+            )
+            self._json(
+                200,
+                {
+                    "ok": True,
+                    "report": report,
+                    "before": {"packet": render_packet_from_grid(grid)},
+                    "after": {
+                        "packet": render_packet_from_grid(
+                            report["final_grid"]
+                        )
+                    },
+                },
+            )
+            return
+
+        if kind == "offspring":
+            count = max(1, min(8, int(payload.get("count", 4))))
+            rng_seed = int(payload.get("rng_seed", 20260512))
+            children = []
+            for index in range(count):
+                child = generate_candidate(
+                    grid,
+                    self.server.generation_model,
+                    profile,
+                    rng_seed=rng_seed + index,
+                )
+                children.append(
+                    {
+                        "grid_id": child["grid_id"],
+                        "valid": validate_grid(child).ok,
+                        "aligned": is_grid_aligned(child, profile).ok,
+                        "packet": render_packet_from_grid(child),
+                    }
+                )
+            self._json(200, {"ok": True, "children": children})
+            return
+
+        self._json(404, {"ok": False, "error": "unknown preview"})
 
 
 def _authoring_review(profile: dict) -> dict:

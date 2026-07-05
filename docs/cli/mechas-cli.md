@@ -43,6 +43,7 @@ mechas                          the main command (help + version)
 ├── workshop                    the creative authoring layer
 │   ├── --editor                launch the grid editor (live engine validation)
 │   ├── --slip                  launch the SLIP profile creator (live authority validation)
+│   ├── --preview               watch a creature live: packets, damage/repair, offspring
 │   ├── --port <n>              local port (default: pick a free one)
 │   └── --no-browser            don't auto-open the browser
 └── status                      workspace at a glance (modules, gates, open tasks)
@@ -80,7 +81,9 @@ reviewer pass.
 
 The creative authoring layer (charter:
 `docs/workshop/mecha-workshop-design.md`). `--editor` launches the grid
-editor; `--slip` launches the SLIP profile creator. The workshop server
+editor; `--slip` launches the SLIP profile creator; `--preview` launches
+the preview (render packets, a `live_cycle` day in the life, and
+engine-generated offspring — read-only, the engine's answers throughout). The workshop server
 runs in the workspace interpreter (it imports the engine for live
 validation), saves validated work only — engine-valid grids to
 `data/workshop/grids/`, authority-clean profiles to

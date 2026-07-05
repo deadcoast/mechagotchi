@@ -35,6 +35,7 @@ mechas rate --ingest <file.csv>              # bring a downloaded ratings CSV in
 mechas workshop                              # list workshop targets
 mechas workshop --editor                     # grid editor: draw, live engine validation, save
 mechas workshop --slip                       # SLIP creator: author profiles, live authority checks
+mechas workshop --preview                    # preview: packets, live_cycle day, engine offspring
 ```
 
 ### Notes

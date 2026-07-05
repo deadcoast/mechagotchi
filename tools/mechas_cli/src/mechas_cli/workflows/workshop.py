@@ -43,6 +43,12 @@ def workshop(
         help="Launch the SLIP profile creator with live authority "
         "validation.",
     ),
+    preview: bool = typer.Option(
+        False,
+        "--preview",
+        help="Launch the preview: render packets, a live_cycle day in "
+        "the life, and engine-generated offspring.",
+    ),
     port: int = typer.Option(
         DEFAULT_PORT,
         "--port",
@@ -58,7 +64,7 @@ def workshop(
     console = theme.console()
     root = find_workspace_root()
 
-    if not editor and not slip:
+    if not editor and not slip and not preview:
         console.print(theme.banner("workshop — what would you like to open?"))
         console.print(
             theme.kv_table(
@@ -77,6 +83,13 @@ def workshop(
                         "validates live and shows which creatures fit",
                         "mechas.value",
                     ),
+                    ("target", "--preview", "mechas.accent"),
+                    (
+                        "what",
+                        "watch a creature live: render packets, "
+                        "damage/repair cycles, engine-bred offspring",
+                        "mechas.value",
+                    ),
                     (
                         "saves to",
                         "data/workshop/ (validated work only, backup "
@@ -93,7 +106,9 @@ def workshop(
         )
         return
 
-    target_name = "slip creator" if slip else "grid editor"
+    target_name = (
+        "preview" if preview else "slip creator" if slip else "grid editor"
+    )
     console.print(theme.banner(f"workshop — {target_name}"))
     server_path = root / SERVER_SCRIPT
     if not server_path.exists():
@@ -146,7 +161,7 @@ def workshop(
             )
         raise typer.Exit(code=1)
 
-    page_url = url + "slip" if slip else url
+    page_url = url + "preview" if preview else url + "slip" if slip else url
     console.print(
         theme.kv_table(
             [

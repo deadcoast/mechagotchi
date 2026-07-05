@@ -31,7 +31,24 @@ and each saved workshop creature judged with reasons. Saves are strict
 (authority-clean only, curated profile_ids protected, backup before
 overwrite) into `data/workshop/slips/`; authored profiles immediately
 join the grid editor's live alignment chips — verified live both ways
-in the browser. Slice 3 (preview) is next.
+in the browser.
+
+**Slice 3 shipped (2026-07-05).** Preview is live at `mechas workshop
+--preview` (`workshop/preview/`, same server, 18 tests total) — three
+engine-truth panels, per the charter's section 4 (previews are the
+engine's answers): the PORTRAIT draws every pixel from
+`mecha_engine.genome.render_packet_from_grid` (the packet's own
+colors, never a workshop guess); A DAY IN THE LIFE runs
+`mecha_engine.runtime.live_cycle` for real (before/after packets,
+per-cycle damage size, restoration rate, guard fixes, episode
+survival, contract statuses); POSSIBLE CHILDREN breeds via
+`mecha_engine.generation` under the chosen profile, each child
+validated and alignment-checked. When a creature does not belong to
+the chosen profile the engine's own alignment errors ARE the preview
+(verified live: lcd creature x amber profile). Creatures come from
+the seed corpus and saved workshop grids; profiles include authored
+ones. Read-only — preview writes nothing. Slice 4 (import/export) is
+next.
 
 ## The research the workshop stands on
 
@@ -56,7 +73,7 @@ Every planned surface maps to proven lab work (all ledgered in
 
 - [x] 1. Grid editor + live validation (2026-07-05)
 - [x] 2. SLIP profile creator (2026-07-05)
-- [ ] 3. Preview (render packets, behavior/mutation, live_cycle)
+- [x] 3. Preview (render packets, live_cycle day-in-the-life, engine-bred offspring) (2026-07-05)
 - [ ] 4. Import/export (PNG/APNG/Aseprite/spritesheet; strict on export)
 - [ ] 5. Genome inspector + lineage browser
 - [ ] 6. Community asset/profile system (deferred: needs `storage` DR +
