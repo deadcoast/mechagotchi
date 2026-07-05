@@ -295,6 +295,7 @@
     "source": "learned_wound_site_softmax_repair",
     "learned_model_id": "neighborhood_softmax_repair_model_stage0",
     "target_template_used": false,
-    "wound_site_count": 2
+    "wound_site_count": 2,
+    "validity_guard_substitutions": 0
   }
 }

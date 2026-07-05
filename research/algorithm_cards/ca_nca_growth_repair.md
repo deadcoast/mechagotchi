@@ -153,12 +153,19 @@ dropout 0.2):
   measured basis)
 - Site-aware (wound-signal) arm — same trained model, additionally observing
   the damage event's destroyed positions, never the destroyed tokens, never a
-  template: final overlap 0.930769, structural agreement 0.930769, validity
-  0.9 — `site_aware_meets_assisted_stability_bar = true`. The single validity
-  failure is `mg_seed_046` ("required body core is disconnected" after a
-  wrong-token refill).
+  template: final overlap 0.938462, structural agreement 0.938462, validity
+  1.0 — `site_aware_meets_assisted_stability_bar = true`.
 - Restricting refill to reported damage sites removes overgrowth by
   construction; the residual error is pure token prediction.
+- Validity guard (2026-07-04 follow-up): a refill that breaks a hard grid
+  invariant is repaired by substituting alternative live tokens at wound
+  sites (least-confident first, descending model probability), accepting
+  only strict validation-error reductions against the target-free
+  validator. This closed the arm's one failure (`mg_seed_046`, cycle 2:
+  "required body core is disconnected") and the validator signal alone
+  recovered the correct token, lifting the arm from 0.930769/0.9 to
+  0.938462/1.0. Without the guard the pre-guard numbers stand
+  (0.930769 overlap/agreement, 0.9 validity).
 
 Context-conditioning ablation (2026-07-04, negative result, identical
 protocol):

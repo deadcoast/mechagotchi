@@ -288,6 +288,63 @@ class CaNcaGrowthRepairTests(unittest.TestCase):
         again = repair_with_wound_sites(damaged, model)
         self.assertEqual(repaired["cells"], again["cells"])
 
+    def test_wound_site_validity_guard_recovers_from_invalid_refill(self):
+        from ca_nca_growth_repair import (
+            CLASS_TOKENS,
+            NEIGHBORHOOD_FEATURE_COUNT,
+            grid_from_matrix,
+            matrix_from_grid,
+        )
+
+        target = build_seed_grids()[0]  # mg_seed_001
+        matrix = matrix_from_grid(target)
+        # Wound (2,3)+(3,3): probed fixture — refilling both as expression
+        # cells disconnects the required body core, mirroring the
+        # mg_seed_046 benchmark failure mode.
+        wound_sites = [[2, 3], [3, 3]]
+        for x, y in wound_sites:
+            self.assertEqual("B", matrix[y][x])
+            matrix[y][x] = "."
+        damaged = grid_from_matrix(
+            grid_id="mg_seed_001_guard_case",
+            matrix=matrix,
+            palette=target["palette"],
+            parent_grid_id=target["grid_id"],
+            source="ca_stochastic_damage",
+            mutation_events=["ca_stochastic_damage_01"],
+            generation_delta=1,
+        )
+        damaged["metadata"]["removed_cells"] = wound_sites
+        # Adversarial model: bias weights force every fill toward "M".
+        bias_index = NEIGHBORHOOD_FEATURE_COUNT - 1
+        weights = [
+            [0.0] * NEIGHBORHOOD_FEATURE_COUNT for _ in CLASS_TOKENS
+        ]
+        weights[0][bias_index] = -10.0
+        weights[CLASS_TOKENS.index("M")][bias_index] = 10.0
+        biased_model = {
+            "model_id": "biased_probe_model",
+            "weights": weights,
+        }
+
+        naive = repair_with_wound_sites(
+            damaged, biased_model, validity_guard=False
+        )
+        self.assertFalse(validate_grid(naive).ok)
+
+        guarded = repair_with_wound_sites(damaged, biased_model)
+        self.assertTrue(validate_grid(guarded).ok, validate_grid(guarded).errors)
+        self.assertGreaterEqual(
+            guarded["metadata"]["validity_guard_substitutions"], 1
+        )
+        # The guard substitutes tokens only; it never abandons a wound site.
+        naive_live = {(cell["x"], cell["y"]) for cell in naive["cells"]}
+        guarded_live = {(cell["x"], cell["y"]) for cell in guarded["cells"]}
+        self.assertEqual(naive_live, guarded_live)
+        # Deterministic: same inputs give identical cells.
+        again = repair_with_wound_sites(damaged, biased_model)
+        self.assertEqual(guarded["cells"], again["cells"])
+
     def test_structural_agreement_penalises_spurious_fills(self):
         target = build_seed_grids()[0]
         damaged = apply_damage(target, pattern="center_cut")

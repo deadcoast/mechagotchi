@@ -140,12 +140,12 @@
     {
       "x": 3,
       "y": 4,
-      "visual": "#d8ffd6",
-      "role": "mouth",
-      "material": "soft",
+      "visual": "#5dbb63",
+      "role": "body",
+      "material": "hard",
       "mutation_weight": 0.1,
       "animation_anchor": false,
-      "organ": "expression",
+      "organ": "core",
       "stress": 0,
       "damage": 0,
       "locked": false
@@ -215,6 +215,10 @@
         ],
         [
           3,
+          4
+        ],
+        [
+          3,
           5
         ]
       ],
@@ -237,10 +241,6 @@
     "expression": {
       "role": "expression",
       "cells": [
-        [
-          3,
-          4
-        ],
         [
           4,
           4
@@ -278,6 +278,7 @@
     "source": "learned_wound_site_softmax_repair",
     "learned_model_id": "neighborhood_softmax_repair_model_stage0",
     "target_template_used": false,
-    "wound_site_count": 1
+    "wound_site_count": 1,
+    "validity_guard_substitutions": 0
   }
 }

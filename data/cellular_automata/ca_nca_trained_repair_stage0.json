@@ -946,12 +946,12 @@
         "mean_first_cycle_repair_overlap": 0.939011
       },
       "site_aware": {
-        "mean_final_overlap": 0.930769,
-        "mean_final_structural_agreement": 0.930769,
-        "final_validity_rate": 0.9,
-        "mean_final_readability": 0.83289,
-        "mean_final_lifecycle_survival": 0.9,
-        "mean_repair_gain_per_event": 0.189707,
+        "mean_final_overlap": 0.938462,
+        "mean_final_structural_agreement": 0.938462,
+        "final_validity_rate": 1.0,
+        "mean_final_readability": 0.850691,
+        "mean_final_lifecycle_survival": 1.0,
+        "mean_repair_gain_per_event": 0.191245,
         "mean_first_cycle_repair_overlap": 0.962088
       },
       "assisted": {
@@ -969,8 +969,8 @@
     "trained_vs_role_prior_final_agreement_delta": 0.099855,
     "trained_vs_no_repair_final_agreement_delta": 0.400095,
     "trained_vs_assisted_final_overlap_delta": -0.137454,
-    "site_aware_vs_trained_final_agreement_delta": 0.298898,
-    "site_aware_vs_assisted_final_overlap_delta": -0.069231,
+    "site_aware_vs_trained_final_agreement_delta": 0.306591,
+    "site_aware_vs_assisted_final_overlap_delta": -0.061538,
     "target_template_used_by_trained": false,
     "target_template_used_by_site_aware": false
   },
@@ -2185,7 +2185,8 @@
             "source": "learned_wound_site_softmax_repair",
             "learned_model_id": "neighborhood_softmax_repair_model_stage0",
             "target_template_used": false,
-            "wound_site_count": 4
+            "wound_site_count": 4,
+            "validity_guard_substitutions": 0
           }
         },
         "assisted": {
@@ -3908,7 +3909,8 @@
             "source": "learned_wound_site_softmax_repair",
             "learned_model_id": "neighborhood_softmax_repair_model_stage0",
             "target_template_used": false,
-            "wound_site_count": 3
+            "wound_site_count": 3,
+            "validity_guard_substitutions": 0
           }
         },
         "assisted": {
@@ -5617,7 +5619,8 @@
             "source": "learned_wound_site_softmax_repair",
             "learned_model_id": "neighborhood_softmax_repair_model_stage0",
             "target_template_used": false,
-            "wound_site_count": 0
+            "wound_site_count": 0,
+            "validity_guard_substitutions": 0
           }
         },
         "assisted": {
@@ -7347,7 +7350,8 @@
             "source": "learned_wound_site_softmax_repair",
             "learned_model_id": "neighborhood_softmax_repair_model_stage0",
             "target_template_used": false,
-            "wound_site_count": 2
+            "wound_site_count": 2,
+            "validity_guard_substitutions": 0
           }
         },
         "assisted": {
@@ -9104,7 +9108,8 @@
             "source": "learned_wound_site_softmax_repair",
             "learned_model_id": "neighborhood_softmax_repair_model_stage0",
             "target_template_used": false,
-            "wound_site_count": 2
+            "wound_site_count": 2,
+            "validity_guard_substitutions": 0
           }
         },
         "assisted": {
@@ -10691,12 +10696,12 @@
             {
               "x": 3,
               "y": 4,
-              "visual": "#d8ffd6",
-              "role": "mouth",
-              "material": "soft",
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
               "mutation_weight": 0.1,
               "animation_anchor": false,
-              "organ": "expression",
+              "organ": "core",
               "stress": 0,
               "damage": 0,
               "locked": false
@@ -10766,6 +10771,10 @@
                 ],
                 [
                   3,
+                  4
+                ],
+                [
+                  3,
                   5
                 ]
               ],
@@ -10788,10 +10797,6 @@
             "expression": {
               "role": "expression",
               "cells": [
-                [
-                  3,
-                  4
-                ],
                 [
                   4,
                   4
@@ -10829,7 +10834,8 @@
             "source": "learned_wound_site_softmax_repair",
             "learned_model_id": "neighborhood_softmax_repair_model_stage0",
             "target_template_used": false,
-            "wound_site_count": 1
+            "wound_site_count": 1,
+            "validity_guard_substitutions": 0
           }
         },
         "assisted": {
@@ -11180,10 +11186,10 @@
             },
             "site_aware": {
               "damaged_overlap": 0.769231,
-              "repair_overlap": 0.923077,
-              "repair_gain": 0.153846,
-              "structural_agreement": 0.923077,
-              "valid": false
+              "repair_overlap": 1.0,
+              "repair_gain": 0.230769,
+              "structural_agreement": 1.0,
+              "valid": true
             },
             "assisted": {
               "damaged_overlap": 0.769231,
@@ -11219,11 +11225,11 @@
               "valid": true
             },
             "site_aware": {
-              "damaged_overlap": 0.846154,
-              "repair_overlap": 0.923077,
+              "damaged_overlap": 0.923077,
+              "repair_overlap": 1.0,
               "repair_gain": 0.076923,
-              "structural_agreement": 0.923077,
-              "valid": false
+              "structural_agreement": 1.0,
+              "valid": true
             },
             "assisted": {
               "damaged_overlap": 0.923077,
@@ -11259,11 +11265,11 @@
               "valid": true
             },
             "site_aware": {
-              "damaged_overlap": 0.769231,
-              "repair_overlap": 0.923077,
+              "damaged_overlap": 0.846154,
+              "repair_overlap": 1.0,
               "repair_gain": 0.153846,
-              "structural_agreement": 0.923077,
-              "valid": false
+              "structural_agreement": 1.0,
+              "valid": true
             },
             "assisted": {
               "damaged_overlap": 0.846154,
@@ -11299,11 +11305,11 @@
               "valid": true
             },
             "site_aware": {
-              "damaged_overlap": 0.846154,
-              "repair_overlap": 0.923077,
+              "damaged_overlap": 0.923077,
+              "repair_overlap": 1.0,
               "repair_gain": 0.076923,
-              "structural_agreement": 0.923077,
-              "valid": false
+              "structural_agreement": 1.0,
+              "valid": true
             },
             "assisted": {
               "damaged_overlap": 0.923077,
@@ -11341,14 +11347,12 @@
           "final_lifecycle_survival": 1.0
         },
         "site_aware": {
-          "final_overlap": 0.923077,
-          "final_structural_agreement": 0.923077,
-          "final_valid": false,
-          "final_errors": [
-            "required body core is disconnected"
-          ],
-          "final_readability": 0.713305,
-          "final_lifecycle_survival": 0.0
+          "final_overlap": 1.0,
+          "final_structural_agreement": 1.0,
+          "final_valid": true,
+          "final_errors": [],
+          "final_readability": 0.891313,
+          "final_lifecycle_survival": 1.0
         },
         "assisted": {
           "final_overlap": 1.0,
@@ -12508,7 +12512,8 @@
             "source": "learned_wound_site_softmax_repair",
             "learned_model_id": "neighborhood_softmax_repair_model_stage0",
             "target_template_used": false,
-            "wound_site_count": 3
+            "wound_site_count": 3,
+            "validity_guard_substitutions": 0
           }
         },
         "assisted": {
@@ -14282,7 +14287,8 @@
             "source": "learned_wound_site_softmax_repair",
             "learned_model_id": "neighborhood_softmax_repair_model_stage0",
             "target_template_used": false,
-            "wound_site_count": 4
+            "wound_site_count": 4,
+            "validity_guard_substitutions": 0
           }
         },
         "assisted": {
@@ -15973,7 +15979,8 @@
             "source": "learned_wound_site_softmax_repair",
             "learned_model_id": "neighborhood_softmax_repair_model_stage0",
             "target_template_used": false,
-            "wound_site_count": 2
+            "wound_site_count": 2,
+            "validity_guard_substitutions": 0
           }
         },
         "assisted": {
@@ -17704,7 +17711,8 @@
             "source": "learned_wound_site_softmax_repair",
             "learned_model_id": "neighborhood_softmax_repair_model_stage0",
             "target_template_used": false,
-            "wound_site_count": 1
+            "wound_site_count": 1,
+            "validity_guard_substitutions": 0
           }
         },
         "assisted": {

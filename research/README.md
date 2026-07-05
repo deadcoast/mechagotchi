@@ -503,6 +503,14 @@ Post-v0.1 continuation has started:
 - `labs/cellular_automata/ca_nca_growth_repair.py`
 - `data/cellular_automata/ca_nca_trained_repair_stage0.json` (wound-site arm meets the assisted stability bar without a template; blind-arm verdict unchanged; `ca_nca_repair` gate candidate now `ready_for_package_design`)
 
+- `research/experiment_reports/2026-07-04-ca-nca-wound-site-validity-guard.md`
+- `research/algorithm_cards/ca_nca_growth_repair.md`
+- `labs/cellular_automata/ca_nca_growth_repair.py`
+- `data/cellular_automata/ca_nca_trained_repair_stage0.json` (validator-guarded token choice closes the mg_seed_046 failure; site-aware arm now 0.938462 overlap = agreement, validity 1.0)
+
+- `research/package_specs/mecha_engine_repair_interface_spec.md`
+- `research/package_specs/mecha_engine_contract_traceability_matrix.md` (repair row added, design-only; target creation stays decision-record-gated)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

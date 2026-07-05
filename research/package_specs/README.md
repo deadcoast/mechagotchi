@@ -33,3 +33,9 @@ Published specs:
   research-only until package imports and manual readability calibration exist.
 - `mecha_engine_property_negative_test_strategy.md` - future property-style,
   metamorphic, and single-fault negative test strategy for package gates.
+- `mecha_engine_repair_interface_spec.md` - interface spec for the future
+  `mecha_engine.repair` module: wound-site observability contract (damage
+  events report destroyed positions, never tokens, never a template),
+  validity-guard semantics, and hard gates from the trained-repair
+  benchmark. Design-only; the repair package target stays
+  decision-record-gated.
