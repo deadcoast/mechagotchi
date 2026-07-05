@@ -156,3 +156,20 @@ Also recorded this session: the first real reviewer pass exists —
 `data/readability/slip_readability_calibration_ratings.csv` (varied
 distribution, human-entered via `mechas rate --creatures --autoexport`).
 Calibration progress: 21 of 63 rows; two reviewer passes remain.
+
+## Addendum 3 (same day): the 21-row pass reclassified as a system test
+
+The owner confirmed the `mivim.dev` pass recorded in Addendum 2 was a
+test of the readability system and the standardized CLI, not calibration
+evidence, and that no survey data will be provided until development is
+further along ("it might not be the same later in development" — the
+sample set may change as the tool and engine evolve). The CSV has been
+removed from `data/readability/`; calibration state is honestly back to
+0 of 63 rows.
+
+Policy recorded: **manual readability calibration is deferred by owner
+decision** — it is not a hard constraint to chase during active
+development. The rating tool and `mechas rate` pipeline stay ready
+(verified end-to-end, twice, with real passes); the calibration gate
+keeps deriving its verdict from whatever evidence exists and currently
+reports not-ready, which is correct.

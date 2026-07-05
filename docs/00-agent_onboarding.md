@@ -64,16 +64,15 @@ over plans; and executed artifacts win over prose claims.
 - **Tests**: ~520 lab tests across 12 labs + ~163 package tests, all green.
   Runnable from any cwd (paths are ROOT-anchored).
 - **Deliberately open** (v0.9 manifest `next_sequence`):
-  1. **Manual readability calibration — HUMAN ONLY.** 63 reviewer rows
-     (21 samples × 3 reviewers). The standard path since 2026-07-05 is the
-     mechas CLI: `mechas rate --creatures --autoexport` runs the whole
-     loop (serves the visual tool, collects ratings in the browser, saves
-     the CSV into the project with backup, runs the calibration gate).
-     Fallback surfaces: the tool HTML at
-     `data/readability/slip_readability_calibration_rating_tool.html` and
-     `mechas rate --ingest <csv>` for a hand-downloaded export. Blocks the
-     evaluation module, final descriptor threshold locks, and any
-     profile-weighted evolution claim. Ask the user; do not fabricate.
+  1. **Manual readability calibration — HUMAN ONLY, and DEFERRED by owner
+     decision (2026-07-05).** The owner will not provide survey data until
+     development is further along (the 21-sample set may change), so this
+     is NOT a blocker to chase — do not treat it as the highest-value
+     unblock. The pipeline stays ready and verified:
+     `mechas rate --creatures --autoexport` runs the whole loop (63 rows =
+     21 samples × 3 reviewers). It still gates the evaluation module,
+     descriptor threshold locks, and profile-weighted evolution claims —
+     those stay honestly blocked until real data arrives. Never fabricate.
   2. Learned NCA repair — CLOSED. The wound-site arm (damage-event
      positions observed, tokens predicted, no template) meets all three
      0.9 bars (0.938462/0.938462/1.0 with the validity guard); the blind
