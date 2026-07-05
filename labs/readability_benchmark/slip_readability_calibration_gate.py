@@ -40,7 +40,14 @@ def build_slip_long_horizon_readability_benchmark(
     long_horizon_path: Path = DEFAULT_LONG_HORIZON_PATH,
     *,
     generated_root: Path = DEFAULT_GENERATED_ROOT,
+    grid_collector: dict | None = None,
 ) -> dict:
+    """Build the calibration benchmark over the frozen 21-sample set.
+
+    ``grid_collector``, when given, receives each sample's full grid dict
+    keyed by ``sample_id`` (the report itself stays unchanged) — used by
+    the rating-tool builder to render the same grids reviewers must rate.
+    """
     long_horizon = _read_json(long_horizon_path)
     parameters = long_horizon["parameters"]
     rng_seed = parameters["rng_seed"]
@@ -62,40 +69,42 @@ def build_slip_long_horizon_readability_benchmark(
             result["selected_offspring_grid_id"],
             rng_seed=rng_seed + profile_index,
         )
-        samples.append(
-            _sample_entry(
-                "selected_offspring",
-                selected_grid,
-                profile_id=profile_id,
-                source_path=None,
-                provenance={
-                    "long_horizon_probe_id": result["probe_id"],
-                    "runtime_parent_grid_id": parent_grid_id,
-                    "selection_source": "slip_long_horizon_behavior_gate_stage0",
-                },
-            )
+        entry = _sample_entry(
+            "selected_offspring",
+            selected_grid,
+            profile_id=profile_id,
+            source_path=None,
+            provenance={
+                "long_horizon_probe_id": result["probe_id"],
+                "runtime_parent_grid_id": parent_grid_id,
+                "selection_source": "slip_long_horizon_behavior_gate_stage0",
+            },
         )
+        if grid_collector is not None:
+            grid_collector[entry["sample_id"]] = selected_grid
+        samples.append(entry)
 
         for record in result.get("held_out_candidates", []):
             if not record.get("validation", {}).get("ok"):
                 continue
             source_path = ROOT / record["path"]
             grid = _read_json(source_path)
-            samples.append(
-                _sample_entry(
-                    "held_out_long_horizon",
-                    grid,
-                    profile_id=profile_id,
-                    source_path=source_path,
-                    provenance={
-                        "long_horizon_probe_id": result["probe_id"],
-                        "switchboard_survival_ratio": record["switchboard"][
-                            "survival_ratio"
-                        ],
-                        "idle_survival_ratio": record["idle"]["survival_ratio"],
-                    },
-                )
+            entry = _sample_entry(
+                "held_out_long_horizon",
+                grid,
+                profile_id=profile_id,
+                source_path=source_path,
+                provenance={
+                    "long_horizon_probe_id": result["probe_id"],
+                    "switchboard_survival_ratio": record["switchboard"][
+                        "survival_ratio"
+                    ],
+                    "idle_survival_ratio": record["idle"]["survival_ratio"],
+                },
             )
+            if grid_collector is not None:
+                grid_collector[entry["sample_id"]] = grid
+            samples.append(entry)
 
     return {
         "lab_id": ARTIFACT_ID,
@@ -417,9 +426,13 @@ def _reviewer_packet_text(report: dict) -> str:
     summary = report["benchmark"]["summary"]
     return (
         "# SLIP Readability Calibration Reviewer Packet\n\n"
-        "Rate every row in `slip_readability_calibration_template.csv` before "
-        "looking at proxy readability values. Use independent reviewer IDs and "
-        "one row per sample per reviewer.\n\n"
+        "Open `slip_readability_calibration_rating_tool.html` (this folder) in "
+        "a browser — it renders every sample as pixel art, collects the five "
+        "ratings per sample per reviewer, and exports the filled CSV. Rate "
+        "before looking at proxy readability values; use independent reviewer "
+        "IDs, one row per sample per reviewer. (The raw "
+        "`slip_readability_calibration_template.csv` remains the canonical "
+        "column contract if you prefer to fill it by hand.)\n\n"
         "Protocol:\n\n"
         f"- Protocol ID: `{protocol['protocol_id']}`\n"
         f"- Rating scale: {protocol['rating_scale']}\n"
@@ -451,9 +464,11 @@ def _readme_text(report: dict) -> str:
         f"- Ratings collected: {report['ratings_collected']}\n"
         f"- Manual readability calibration ready: {report['manual_readability_calibration_ready']}\n"
         f"- Decision: {report['decision']}\n\n"
-        "No human ratings are fabricated. Fill "
-        "`slip_readability_calibration_ratings.csv` from the template and rerun "
-        "the gate before changing proxy readability thresholds.\n"
+        "No human ratings are fabricated. Collect ratings with "
+        "`slip_readability_calibration_rating_tool.html` (or fill the template "
+        "by hand), save the result as "
+        "`slip_readability_calibration_ratings.csv`, and rerun the gate before "
+        "changing proxy readability thresholds.\n"
     )
 
 

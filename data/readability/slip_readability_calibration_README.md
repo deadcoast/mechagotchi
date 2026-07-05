@@ -12,4 +12,4 @@ Key results:
 - Manual readability calibration ready: False
 - Decision: prototype_slip_readability_packet_only
 
-No human ratings are fabricated. Fill `slip_readability_calibration_ratings.csv` from the template and rerun the gate before changing proxy readability thresholds.
+No human ratings are fabricated. Collect ratings with `slip_readability_calibration_rating_tool.html` (or fill the template by hand), save the result as `slip_readability_calibration_ratings.csv`, and rerun the gate before changing proxy readability thresholds.

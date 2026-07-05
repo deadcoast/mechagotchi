@@ -54,11 +54,14 @@ over plans; and executed artifacts win over prose claims.
   Runnable from any cwd (paths are ROOT-anchored).
 - **Deliberately open** (v0.9 manifest `next_sequence`):
   1. **Manual readability calibration — HUMAN ONLY.** 63 reviewer rows
-     (21 samples × 3 reviewers), packet at
-     `data/readability/slip_readability_calibration_reviewer_packet.md`,
-     filled CSV goes to `data/readability/manual_ratings.csv`. Blocks the
-     evaluation module, final descriptor threshold locks, and any
-     profile-weighted evolution claim. Ask the user; do not fabricate.
+     (21 samples × 3 reviewers). A visual rating tool exists since
+     2026-07-05: `data/readability/slip_readability_calibration_rating_tool.html`
+     (open in a browser; regenerate with
+     `labs/readability_benchmark/rating_tool_builder.py`). Filled CSV goes
+     to `data/readability/slip_readability_calibration_ratings.csv`, then
+     rerun `labs/readability_benchmark/slip_readability_calibration_gate.py`.
+     Blocks the evaluation module, final descriptor threshold locks, and
+     any profile-weighted evolution claim. Ask the user; do not fabricate.
   2. Learned NCA repair — CLOSED. The wound-site arm (damage-event
      positions observed, tokens predicted, no template) meets all three
      0.9 bars (0.938462/0.938462/1.0 with the validity guard); the blind

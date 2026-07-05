@@ -1,0 +1,48 @@
+{
+  "lab_id": "slip_readability_rating_tool_stage0",
+  "date": "2026-07-05",
+  "purpose": "Render the frozen 21-sample calibration set as a self-contained visual rating page so human reviewers can produce the 63-row manual ratings CSV the calibration gate requires.",
+  "sample_count": 21,
+  "reviewers_required": 3,
+  "expected_completed_rows": 63,
+  "rating_scale": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "questions": [
+    "silhouette",
+    "organ_clarity",
+    "palette_contrast",
+    "animation_readiness",
+    "companion_appeal"
+  ],
+  "csv_header": "sample_id,grid_id,source,reviewer_id,silhouette,organ_clarity,palette_contrast,animation_readiness,companion_appeal,notes",
+  "ratings_destination": "data/readability/slip_readability_calibration_ratings.csv",
+  "tool_file": "data/readability/slip_readability_calibration_rating_tool.html",
+  "tool_bytes": 34919,
+  "bias_controls": [
+    "no proxy readability scores in the page payload",
+    "no role/organ/anchor annotations rendered",
+    "sample order fixed to the reviewer template CSV",
+    "duplicate reviewer ids rejected for independent passes"
+  ],
+  "source_artifacts": [
+    "data/readability/slip_readability_calibration_template.csv",
+    "data/readability/slip_readability_calibration_reviewer_packet.md",
+    "labs/readability_benchmark/slip_readability_calibration_gate.py"
+  ],
+  "closed_states": [
+    "reviewer_samples_viewable_as_pixel_art"
+  ],
+  "blocked_states": [
+    "manual_readability_calibration_absent_until_63_rows_collected"
+  ],
+  "decision": {
+    "status": "rating_tool_available",
+    "reason": "Reviewers previously had only grid-genome JSON to look at; the calibration protocol is now executable by a human. Calibration itself stays blocked until the filled CSV exists and passes the gate."
+  },
+  "next_research_step": "Collect 3 independent reviewer passes with the tool, save the exported CSV to data/readability/slip_readability_calibration_ratings.csv, and rerun slip_readability_calibration_gate.py."
+}

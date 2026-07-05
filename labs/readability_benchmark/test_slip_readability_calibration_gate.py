@@ -162,6 +162,11 @@ class SLIPReadabilityCalibrationGateTests(unittest.TestCase):
             self.assertTrue(summary_path.exists())
             self.assertTrue(template_path.exists())
             self.assertTrue(packet_path.exists())
+            # Reviewers must be pointed at the visual rating tool.
+            self.assertIn(
+                "slip_readability_calibration_rating_tool.html",
+                packet_path.read_text(encoding="utf-8"),
+            )
             loaded = json.loads(summary_path.read_text(encoding="utf-8"))
             self.assertEqual(report["metrics"], loaded["metrics"])
             template_lines = template_path.read_text(encoding="utf-8").splitlines()

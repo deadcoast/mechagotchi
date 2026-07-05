@@ -517,6 +517,11 @@ Post-v0.1 continuation has started:
 - `packages/mecha_engine/tests/test_repair_contract.py`
 - `labs/cellular_automata/test_package_repair_parity.py` (bit-for-bit lab parity; repair is the sixth promoted module; promotion gate `promotion_ready_count` 4, scaffold gate 9/9 with 6 promoted modules)
 
+- `research/experiment_reports/2026-07-05-slip-readability-rating-tool.md`
+- `labs/readability_benchmark/rating_tool_builder.py`
+- `data/readability/slip_readability_calibration_rating_tool.html`
+- `data/readability/slip_readability_rating_tool_stage0.json` (visual reviewer tool for the manual calibration; protocol now human-executable — calibration itself honestly still blocked at 0 of 63 rows)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

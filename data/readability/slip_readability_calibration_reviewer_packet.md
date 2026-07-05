@@ -1,6 +1,6 @@
 # SLIP Readability Calibration Reviewer Packet
 
-Rate every row in `slip_readability_calibration_template.csv` before looking at proxy readability values. Use independent reviewer IDs and one row per sample per reviewer.
+Open `slip_readability_calibration_rating_tool.html` (this folder) in a browser — it renders every sample as pixel art, collects the five ratings per sample per reviewer, and exports the filled CSV. Rate before looking at proxy readability values; use independent reviewer IDs, one row per sample per reviewer. (The raw `slip_readability_calibration_template.csv` remains the canonical column contract if you prefer to fill it by hand.)
 
 Protocol:
 
