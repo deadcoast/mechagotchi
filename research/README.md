@@ -527,6 +527,9 @@ Post-v0.1 continuation has started:
 - `docs/cli/mechas-cli-design.md`
 - `tools/mechas_cli/` (the `mechas` companion CLI, Typer + Rich; first standardized workflow `mechas rate --creatures [--autoexport]` runs the whole rating loop — serve, collect, save with backup, gate)
 
+- `research/reports/mechagotchi_research_report_v0_10.md`
+- `research/reports/research_report_v0_10_manifest.json`
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

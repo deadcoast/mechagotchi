@@ -49,7 +49,7 @@ Authoritative chain, in order:
 When docs conflict, the more specific gate/spec wins; decision records win
 over plans; and executed artifacts win over prose claims.
 
-## 3. State snapshot (2026-07-04, report v0.9, commit `104cc67`)
+## 3. State snapshot (2026-07-05, report v0.10)
 
 - **Research phase complete** (v0.1–v0.5), full 2026-07-04 code-review
   remediation complete (v0.6–v0.8: every H/M/L finding resolved —
@@ -61,9 +61,13 @@ over plans; and executed artifacts win over prose claims.
   wound-site learned repair; observability contract: damage events report
   destroyed positions, never tokens, never a template). Statuses tracked
   by `labs/package_promotion/package_promotion_gate.py`.
-- **Tests**: ~520 lab tests across 12 labs + ~163 package tests, all green.
-  Runnable from any cwd (paths are ROOT-anchored).
-- **Deliberately open** (v0.9 manifest `next_sequence`):
+- **Tests**: ~539 lab tests across 12 labs + ~193 package tests + ~15 CLI
+  tests, all green. Runnable from any cwd (paths are ROOT-anchored).
+- **Supportive layer**: the `mechas` CLI (tools/, DR 0007) standardizes
+  user workflows; the rating loop is `mechas rate --creatures
+  [--autoexport] [--reviewer <name>]`. It is NOT the application
+  (identity constraint, root README).
+- **Deliberately open** (v0.10 manifest `next_sequence`):
   1. **Manual readability calibration — HUMAN ONLY, and DEFERRED by owner
      decision (2026-07-05).** The owner will not provide survey data until
      development is further along (the 21-sample set may change), so this
@@ -73,18 +77,20 @@ over plans; and executed artifacts win over prose claims.
      21 samples × 3 reviewers). It still gates the evaluation module,
      descriptor threshold locks, and profile-weighted evolution claims —
      those stay honestly blocked until real data arrives. Never fabricate.
-  2. Learned NCA repair — CLOSED. The wound-site arm (damage-event
-     positions observed, tokens predicted, no template) meets all three
-     0.9 bars (0.938462/0.938462/1.0 with the validity guard); the blind
-     arm stays below the bar (0.8625, recorded honestly);
-     retrieval-context conditioning was ablated and rejected. The user
-     authorized DR 0006 (2026-07-05) and `repair` is now the sixth
-     promoted package module with contract tests + a lab parity pin. See
-     `research/experiment_reports/2026-07-05-mecha-engine-repair-promotion.md`.
+  2. **Runtime integration lab** — the recommended next engine step, no
+     owner gate needed: compose the six promoted modules through the
+     spec's cross-module MVP flow (validate → generate → simulate →
+     damage → repair → archive → provenance) as a research lab,
+     exercising the repair module's damage-event observability contract
+     in a full loop. (Learned repair itself is CLOSED: wound-site arm
+     0.938462/0.938462/1.0 guarded; `repair` promoted under DR 0006.)
   3. Learning module target: candidate is design-ready; creating the
      deferred `learning` package target is a scope decision — write a
-     decision record first.
-  4. The `mecha_workshop` build track (research done, no build).
+     decision record (0008) first and get the owner's go.
+  4. The `mecha_workshop` build track (research done, no build; owner
+     must explicitly start it).
+  5. mechas CLI roadmap (`docs/cli/mechas-cli.md`) — supportive layer
+     only; never outranks engine work.
 
 ## 4. The document development format (non-negotiable)
 
@@ -189,8 +195,11 @@ python -m json.tool data/<path>.json
    and its manifest's `next_sequence`.
 3. `python -B labs/package_promotion/package_promotion_gate.py` — current
    candidate statuses are the truth, not this file.
-4. Check whether `data/readability/manual_ratings.csv` exists — if the user
-   supplied the 63 rows, running the intake lab
-   (`labs/readability_benchmark/manual_rating_intake.py`) is almost
-   certainly the highest-value next step.
-5. Then continue whatever `next_sequence` names, batch-by-batch, docs first.
+4. Check whether
+   `data/readability/slip_readability_calibration_ratings.csv` exists —
+   calibration is deferred by owner decision, so its absence is expected;
+   if it EXISTS with real rows, the owner resumed calibration: run
+   `mechas rate --status` and the calibration gate.
+5. Then continue whatever `next_sequence` names, batch-by-batch, docs
+   first. Engine work outranks supportive-layer work (identity
+   constraint).

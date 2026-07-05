@@ -40,3 +40,10 @@ must not replace the underlying lab reports.
   and the promotion-gate rerun producing the first promotion-ready
   candidates.
 - `research_report_v0_9_manifest.json`
+- `mechagotchi_research_report_v0_10.md` - the repair-and-tooling wave:
+  wound-site learned repair clears the stability blocker (with the
+  retrieval-conditioning negative result and validity guard), DR 0006
+  promotes repair as the sixth module, DR 0007 creates the mechas
+  companion CLI (supportive layer; identity constraint recorded), and
+  manual calibration is deferred by owner decision.
+- `research_report_v0_10_manifest.json`
