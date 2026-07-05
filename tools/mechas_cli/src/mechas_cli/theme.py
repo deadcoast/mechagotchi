@@ -84,7 +84,9 @@ def kv_table(rows: list[tuple[str, str, str]]) -> Table:
     """Two-column status table: (key, value, style-name-for-value)."""
     table = Table(show_header=False, box=None, padding=(0, 1, 0, 0))
     table.add_column(style="mechas.key", justify="right", no_wrap=True)
-    table.add_column()
+    # Values fold instead of truncating — a clipped URL is a dead end for
+    # the user (audit finding, 2026-07-05).
+    table.add_column(overflow="fold")
     for key, value, style in rows:
         table.add_row(key, Text.from_markup(value, style=style))
     return table

@@ -97,6 +97,16 @@ class RatingsServerTests(unittest.TestCase):
         self.assertEqual(404, status)
         self.assertFalse(payload["ok"])
 
+    def test_binding_a_busy_port_raises_instead_of_hijacking(self):
+        # Windows SO_REUSEADDR would otherwise let this second bind
+        # succeed silently and the second session hang forever.
+        busy_port = self.server.server_address[1]
+        with self.assertRaises(OSError):
+            second = start_server(
+                self.directory, self.ratings_path, port=busy_port
+            )
+            second.shutdown()  # unreachable; cleans up if the bind wrongly works
+
 
 if __name__ == "__main__":
     unittest.main()

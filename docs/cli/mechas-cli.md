@@ -19,9 +19,12 @@ uv tool install --editable .\tools\mechas_cli
 That puts `mechas` on your PATH everywhere. Alternatives:
 
 ```powershell
-uv sync --group cli                                  # dev environment
+uv sync --group lab --group cli                      # dev venv (both groups — uv sync is exact)
 .venv\Scripts\python -m mechas_cli --help            # run without installing
 ```
+
+Quick cheat sheet: root `TOOLS.md`. Current tested status:
+`mechas-cli-audit.md`.
 
 The CLI finds the workspace automatically (it is installed editable from
 inside the repo); `MECHAGOTCHI_ROOT` overrides if ever needed.

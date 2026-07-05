@@ -38,6 +38,23 @@ GATE_SCRIPT = Path("labs/readability_benchmark/slip_readability_calibration_gate
 TOOL_BUILDER = Path("labs/readability_benchmark/rating_tool_builder.py")
 
 
+def _workspace_python(root: Path) -> str:
+    """The workspace's interpreter, not the CLI's own.
+
+    The installed `mechas` runs inside uv's isolated tool environment,
+    which has the CLI dependencies but not the lab ones (pydantic etc.).
+    Workspace scripts must run with the workspace's provisioned venv when
+    it exists; the CLI's interpreter is only a fallback.
+    """
+    for candidate in (
+        root / ".venv" / "Scripts" / "python.exe",
+        root / ".venv" / "bin" / "python",
+    ):
+        if candidate.exists():
+            return str(candidate)
+    return sys.executable
+
+
 def rate(
     creatures: bool = typer.Option(
         False,
@@ -226,7 +243,7 @@ def _ensure_tool(console, root: Path) -> Path:
         "building it now."
     )
     result = subprocess.run(
-        [sys.executable, "-B", str(root / TOOL_BUILDER)],
+        [_workspace_python(root), "-B", str(root / TOOL_BUILDER)],
         cwd=root,
         capture_output=True,
         text=True,
@@ -350,7 +367,7 @@ def _run_gate(console, root: Path) -> None:
         "[mechas.dim]running the calibration gate...[/]", spinner="dots"
     ):
         result = subprocess.run(
-            [sys.executable, "-B", str(root / GATE_SCRIPT)],
+            [_workspace_python(root), "-B", str(root / GATE_SCRIPT)],
             cwd=root,
             capture_output=True,
             text=True,
@@ -367,19 +384,28 @@ def _run_gate(console, root: Path) -> None:
     except json.JSONDecodeError:
         pass
 
-    collected = summary.get("ratings_collected")
-    ready = summary.get("manual_readability_calibration_ready")
-    rows_found = summary.get("rating_row_count", summary.get("completed_rating_rows"))
-    entries: list[tuple[str, str, str]] = []
-    if rows_found is not None:
-        entries.append(("rows accepted", str(rows_found), "mechas.value"))
-    entries.append(
+    # Keys from the gate's printed summary (verified against
+    # slip_readability_calibration_gate.py output).
+    valid_rows = summary.get("valid_rating_row_count", 0)
+    reviewer_count = summary.get("reviewer_count", 0)
+    row_errors = summary.get("row_error_count", 0)
+    ready = bool(summary.get("manual_readability_calibration_ready"))
+    entries: list[tuple[str, str, str]] = [
         (
-            "all ratings in",
-            "yes" if collected else "not yet",
-            "mechas.ok" if collected else "mechas.warn",
+            "rows accepted",
+            f"{valid_rows} of {EXPECTED_ROWS}",
+            "mechas.ok" if valid_rows >= EXPECTED_ROWS else "mechas.warn",
+        ),
+        (
+            "reviewers",
+            f"{reviewer_count} of 3",
+            "mechas.ok" if reviewer_count >= 3 else "mechas.warn",
+        ),
+    ]
+    if row_errors:
+        entries.append(
+            ("row errors", f"{row_errors} — fix and re-save", "mechas.err")
         )
-    )
     entries.append(
         (
             "calibration",

@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import functools
 import json
+import socket
 import threading
 import time
 from collections.abc import Callable
@@ -31,6 +32,18 @@ RATINGS_FILENAME = "slip_readability_calibration_ratings.csv"
 
 class RatingsServer(ThreadingHTTPServer):
     daemon_threads = True
+    # On Windows SO_REUSEADDR lets a second server bind an in-use port
+    # silently, so a "port busy" session would just hang alongside the
+    # first (audit finding, 2026-07-05). Exclusive binding makes the
+    # conflict a real OSError the CLI can explain.
+    allow_reuse_address = False
+
+    def server_bind(self) -> None:
+        if hasattr(socket, "SO_EXCLUSIVEADDRUSE"):
+            self.socket.setsockopt(
+                socket.SOL_SOCKET, socket.SO_EXCLUSIVEADDRUSE, 1
+            )
+        super().server_bind()
 
     def __init__(
         self,

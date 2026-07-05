@@ -20,6 +20,6 @@ dependency group is provisioned):
 
 ```powershell
 python -B -m unittest discover -s tools/mechas_cli/tests -p "test_*.py"
-uv sync --group cli
+uv sync --group lab --group cli   # BOTH groups — uv sync is exact (audit A2)
 .venv\Scripts\python -B -m unittest discover -s tools/mechas_cli/tests -p "test_*.py"
 ```

@@ -59,6 +59,19 @@ class MechasCliSurfaceTests(unittest.TestCase):
         result = self.runner.invoke(self.app, ["status"])
         self.assertEqual(0, result.exit_code)
 
+    def test_workspace_scripts_use_the_workspace_interpreter(self):
+        # The installed CLI runs in uv's isolated tool environment, which
+        # lacks the lab dependencies; gate/builder subprocesses must use
+        # the workspace venv when it exists (audit finding, 2026-07-05).
+        from mechas_cli.workflows.rate import _workspace_python
+        from mechas_cli.workspace import find_workspace_root
+
+        root = find_workspace_root()
+        interpreter = Path(_workspace_python(root))
+        if (root / ".venv").exists():
+            self.assertIn(".venv", str(interpreter))
+        self.assertTrue(interpreter.exists())
+
 
 class WorkspaceResolutionTests(unittest.TestCase):
     def test_finds_repo_root_from_source_anchor(self):
