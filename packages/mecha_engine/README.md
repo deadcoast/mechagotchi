@@ -23,9 +23,12 @@ pin):
 - `mecha_engine.runtime` (2026-07-05, decision record 0008 — the composed
   engine's entry point: `live_cycle` + `evolve`; SLIP-aware repair
   throughout, readability injected and visibly uncalibrated)
+- `mecha_engine.learning` (2026-07-05, decision record 0009 — the feedback
+  micro-switchboard; bounded claim: need-balance improvement at zero
+  survival cost — survival is morphology-decided, no survival claim)
 
 Deferred modules (must not exist until their own decision records and gates
-clear): `learning`, `render`, `storage`, `slip`.
+clear): `render`, `storage`, `slip`.
 
 Release license metadata is deliberately unset in `pyproject.toml` until the
 repository/package license decision is explicit. The package is stdlib-only;

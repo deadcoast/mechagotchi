@@ -37,10 +37,12 @@ INITIAL_MODULES = ["genome", "generation", "lifecycle", "archive", "provenance"]
 # decision record: repair per decision record 0006
 # (research/decision_records/0006-create-mecha-engine-repair-target.md);
 # runtime per decision record 0008
-# (research/decision_records/0008-propose-mecha-engine-runtime-target.md).
-LATER_PROMOTED_MODULES = ["repair", "runtime"]
+# (research/decision_records/0008-propose-mecha-engine-runtime-target.md);
+# learning per decision record 0009
+# (research/decision_records/0009-create-mecha-engine-learning-target.md).
+LATER_PROMOTED_MODULES = ["repair", "runtime", "learning"]
 PROMOTED_MODULES = INITIAL_MODULES + LATER_PROMOTED_MODULES
-DEFERRED_MODULES = ["learning", "render", "storage", "slip"]
+DEFERRED_MODULES = ["render", "storage", "slip"]
 IMPORT_TARGETS = ["mecha_engine"] + [
     f"mecha_engine.{module}" for module in PROMOTED_MODULES
 ]

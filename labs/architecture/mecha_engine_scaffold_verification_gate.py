@@ -34,10 +34,12 @@ INITIAL_MODULES = ["genome", "generation", "lifecycle", "archive", "provenance"]
 # decision record: repair by 0006-create-mecha-engine-repair-target.md
 # (wound-site stability blocker cleared); runtime by
 # 0008-propose-mecha-engine-runtime-target.md (accepted 2026-07-05,
-# composed-loop evidence).
-LATER_PROMOTED_MODULES = ["repair", "runtime"]
+# composed-loop evidence); learning by
+# 0009-create-mecha-engine-learning-target.md (accepted 2026-07-05,
+# stress learning benchmark: wellbeing claim only).
+LATER_PROMOTED_MODULES = ["repair", "runtime", "learning"]
 PACKAGE_MODULES = INITIAL_MODULES + LATER_PROMOTED_MODULES
-DEFERRED_MODULES = ["learning", "render", "storage", "slip"]
+DEFERRED_MODULES = ["render", "storage", "slip"]
 
 REQUIRED_SCAFFOLD_PATHS = [
     "packages/mecha_engine/pyproject.toml",
@@ -61,6 +63,7 @@ SOURCE_ARTIFACTS = [
     "research/decision_records/0004-mecha-engine-package-scaffold.md",
     "research/decision_records/0006-create-mecha-engine-repair-target.md",
     "research/decision_records/0008-propose-mecha-engine-runtime-target.md",
+    "research/decision_records/0009-create-mecha-engine-learning-target.md",
     "research/package_specs/mecha_engine_scaffold_verification_gate.md",
     "research/package_specs/mecha_engine_contract_traceability_matrix.md",
     "data/architecture/mecha_engine_package_scaffold_decision_stage0.json",
@@ -467,7 +470,7 @@ def build_scaffold_verification_report(root: Path | None = None) -> dict:
                 if promoted
                 else "package_module_implementations"
             ),
-            "deferred_modules_learning_render_storage_slip",
+            "deferred_modules_render_storage_slip",
             "lab_code_promotion",
             "package_dependency_policy",
         ],

@@ -44,3 +44,8 @@ Published specs:
   0008): live_cycle + evolve over the composed engine, enforced by
   `tests/test_runtime_contract.py` and the lab-side evolution parity
   pin.
+- `mecha_engine_learning_interface_spec.md` - contract reference for
+  `mecha_engine.learning` (promoted 2026-07-05 under decision record
+  0009): the feedback micro-switchboard with the bounded wellbeing
+  claim (need-balance improvement at zero survival cost; survival is
+  morphology-decided and no survival claim is permitted).

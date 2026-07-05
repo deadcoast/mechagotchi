@@ -157,17 +157,22 @@ class PackagePromotionGateTests(unittest.TestCase):
         self.assertGreaterEqual(report["summary"]["criteria_count"], 5)
         self.assertGreaterEqual(report["summary"]["candidate_count"], 4)
         self.assertGreater(report["summary"]["research_ready_count"], 0)
-        self.assertEqual(5, report["summary"]["promotion_ready_count"])
+        self.assertEqual(7, report["summary"]["promotion_ready_count"])
         self.assertEqual(
             "promotion_candidates_available",
             report["decision"]["status"],
         )
+        # learning has TWO evidence candidates by design: the sheltered
+        # reward-shaping gate (switchboard_feedback, cleared pre-v0.9) and
+        # the stress benchmark gate (learning_switchboard, DR 0009).
         promoted = {
             "lifecycle_simulator",
             "map_elites_archive",
             "provenance_ci",
             "ca_nca_repair",
             "runtime_loop",
+            "learning_switchboard",
+            "switchboard_feedback",
         }
         for candidate in report["candidates"]:
             self.assertNotIn("package_root_absent", candidate["promotion_blockers"])

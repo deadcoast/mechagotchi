@@ -183,6 +183,41 @@ def build_candidate_registry() -> list[dict]:
             ],
         },
         {
+            "component_id": "learning_switchboard",
+            "target_package": "packages/mecha_engine/src/mecha_engine/learning",
+            "algorithm_card": "research/algorithm_cards/micro_learning_switchboard.md",
+            "experiment_report": "research/experiment_reports/2026-07-05-stress-learning-benchmark.md",
+            "metric_artifact": "data/runtime_integration/stress_learning_benchmark_stage0.json",
+            "thresholds": [
+                {
+                    "metric_path": [
+                        "decision",
+                        "thresholds",
+                        "feedback_beats_frozen_need_balance",
+                    ],
+                    "operator": "==",
+                    "value": True,
+                },
+                {
+                    "metric_path": ["summary", "lost_by_feedback_count"],
+                    "operator": "==",
+                    "value": 0,
+                },
+            ],
+            "verification": (
+                "python -B -m unittest discover -s labs/runtime_integration "
+                '-p "test_stress_learning_benchmark.py"'
+            ),
+            "research_notes": (
+                "Learning surface (feedback micro-switchboard), decision "
+                "record 0009 accepted 2026-07-05. Bounded claim: wellbeing "
+                "(need-balance +0.080069 under stress, +0.03964 sheltered) "
+                "at zero survival cost. Survival is morphology-decided "
+                "(feedback_beats_frozen_survival = false, recorded); no "
+                "survival claim is permitted."
+            ),
+        },
+        {
             "component_id": "runtime_loop",
             "target_package": "packages/mecha_engine/src/mecha_engine/runtime",
             "algorithm_card": "research/algorithm_cards/mecha_engine_runtime_loop.md",

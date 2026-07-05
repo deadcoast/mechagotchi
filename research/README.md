@@ -559,6 +559,17 @@ Post-v0.1 continuation has started:
 - `labs/runtime_integration/mecha_engine_runtime_loop.py`
 - `data/runtime_integration/mecha_engine_evolution_hard_regime_stage0.json` (survival saturation broken via the contracted stress probe: 10/48 deaths, archive 25 niches / QD 21.27, mean load falls 0.855 -> 0.761; the learning module's evaluation environment now exists)
 
+- `research/experiment_reports/2026-07-05-stress-learning-benchmark.md`
+- `research/algorithm_cards/micro_learning_switchboard.md`
+- `labs/runtime_integration/stress_learning_benchmark.py`
+- `data/runtime_integration/stress_learning_benchmark_stage0.json` (the learning candidate's falsifiable bar: survival is policy-independent under stress — morphology decides; need-balance +0.080069 at zero survival cost)
+
+- `research/decision_records/0009-create-mecha-engine-learning-target.md`
+- `research/experiment_reports/2026-07-05-mecha-engine-learning-promotion.md`
+- `research/package_specs/mecha_engine_learning_interface_spec.md`
+- `packages/mecha_engine/src/mecha_engine/learning/`
+- `labs/grid_genome/test_package_learning_parity.py` (learning is the eighth promoted module, bounded wellbeing claim; promotion gate 7/8 promotion-ready — learning carries two evidence candidates, sheltered and stress; scaffold gate 9/9 with 8 modules and 235 package tests)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

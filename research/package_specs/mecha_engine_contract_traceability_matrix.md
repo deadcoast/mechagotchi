@@ -68,6 +68,8 @@ the package genome contract being real enough to validate candidates.
 
 | Runtime (promoted 2026-07-05, decision record 0008 accepted) | `mecha_engine_runtime_interface_spec.md` | `tests/test_runtime_contract.py` | Lab-parity pin reproducing both runtime-lab artifact summaries (single loop 12/12 retention 1.0; evolution 32/32, 96 damage events, retention 1.0, 15 niches, QD 13.92); SLIP-aware repair throughout; readability injected and visibly uncalibrated; deterministic, no input mutation, no labs imports |
 
+| Learning (promoted 2026-07-05, decision record 0009) | `mecha_engine_learning_interface_spec.md` | `tests/test_learning_contract.py` | Bounded claim only (need-balance +0.080069 stress / +0.03964 sheltered at zero survival cost; NO survival claim); decide parity with the lab switchboard over episode trajectories; feedback/frozen episode parity incl. the need-balance delta pins; lifecycle driven through its public surface only; deterministic, no input mutation, no labs imports |
+
 ## Cross-Cut Negative Tests
 
 Every package test slice must enforce:

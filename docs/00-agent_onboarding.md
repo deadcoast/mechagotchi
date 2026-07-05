@@ -59,9 +59,11 @@ over plans; and executed artifacts win over prose claims.
   lab-parity pins: `genome`, `generation`, `lifecycle`, `archive`,
   `provenance` (all 2026-07-04), `repair` (2026-07-05, DR 0006 —
   wound-site learned repair; observability contract: damage events report
-  destroyed positions, never tokens, never a template), and `runtime`
-  (2026-07-05, DR 0008 — `live_cycle` + `evolve`, the composed engine's
-  entry point). Statuses tracked by
+  destroyed positions, never tokens, never a template), `runtime`
+  (2026-07-05, DR 0008 — `live_cycle` + `evolve`), and `learning`
+  (2026-07-05, DR 0009 — feedback micro-switchboard; bounded claim:
+  wellbeing at zero survival cost, NO survival claim — survival is
+  morphology-decided). Statuses tracked by
   `labs/package_promotion/package_promotion_gate.py`.
 - **Tests**: ~13 labs + ~217 package tests + ~15 CLI tests, all green
   (run the sweep for exact counts). Runnable from any cwd (paths are
@@ -91,12 +93,11 @@ over plans; and executed artifacts win over prose claims.
      explicit comparison), lineage counter accumulation through repair
      (parity-reviewed), package `runtime.evolve` regime parameter once
      lab evidence settles.
-  3. Learning module target: candidate is design-ready. An ACTIVE roadmap
-     item under standard decision-record governance (propose the DR with a
-     recommendation whenever it is the right next step) — NOT owner-
-     deferred. The owner's only standing deferral is the manual
-     readability survey data (item 1); do not extend that deferral to
-     anything else (owner correction, 2026-07-05).
+  3. Learning module — PROMOTED (DR 0009, 2026-07-05) with the bounded
+     wellbeing claim. Future survival-relevant learners need new evidence
+     through the stress learning benchmark harness. (The owner's only
+     standing deferral remains the manual readability survey data; never
+     extend it to anything else — owner correction, 2026-07-05.)
   4. The `mecha_workshop` build track: research done, build not started.
      Likewise an ACTIVE roadmap item under standard governance — a
      separate feature and tool, never covered by the survey-data deferral

@@ -1,0 +1,629 @@
+{
+  "lab_id": "stress_learning_benchmark_stage0",
+  "date": "2026-07-05",
+  "rng_seed": 20260512,
+  "count": 24,
+  "ticks": 72,
+  "survival_regime": "stress_probe",
+  "purpose": "Measure the learning candidate (feedback-enabled micro-switchboard) against the frozen switchboard where survival is morphology-dependent \u2014 the falsifiable bar for decision record 0009.",
+  "source_artifacts": [
+    "data/micro_learners/switchboard_lifecycle_feedback_stage0.json",
+    "data/runtime_integration/mecha_engine_evolution_hard_regime_stage0.json"
+  ],
+  "candidates": [
+    {
+      "candidate_grid_id": "gen_badac15b4e8a9760",
+      "stress_load": 0.871818,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_18144f0e109f8e32",
+      "stress_load": 0.611136,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_00200dad0fc059b2",
+      "stress_load": 0.815,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_5e259cf1032f4a9a",
+      "stress_load": 0.898929,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_97aa9df77f4da5ec",
+      "stress_load": 0.715,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_9957e1be594ceefe",
+      "stress_load": 0.715455,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_e9be74c498754ab7",
+      "stress_load": 0.948571,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_692d58600cf71189",
+      "stress_load": 0.871818,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_ea4c22c3c7aff74a",
+      "stress_load": 0.663571,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_9cda38a027f2bed8",
+      "stress_load": 0.756429,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_62adf9f44076195e",
+      "stress_load": 0.835833,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_48036c22638017d5",
+      "stress_load": 0.7275,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_185033ff7832a5ff",
+      "stress_load": 0.756429,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_0bed30f210836f48",
+      "stress_load": 0.718611,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_0dae3719b64f2846",
+      "stress_load": 0.916618,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_92051dea6f8df825",
+      "stress_load": 0.7275,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_be993995bb015fb7",
+      "stress_load": 0.915,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_68cd0a500d67acf1",
+      "stress_load": 0.835833,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_e2492bedef5367d6",
+      "stress_load": 0.777955,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_c8fad473673292af",
+      "stress_load": 0.898929,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_1e2a5b738fc3fa50",
+      "stress_load": 0.944167,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_93edce280f1df9dc",
+      "stress_load": 0.6725,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_7f14330ff52644c6",
+      "stress_load": 0.978929,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    },
+    {
+      "candidate_grid_id": "gen_39e7661a6dbbd628",
+      "stress_load": 0.8575,
+      "feedback": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.787301,
+        "recovery_events": 19,
+        "reward_update_count": 72
+      },
+      "frozen": {
+        "survival_ticks": 72,
+        "survival_ratio": 1.0,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.707232,
+        "recovery_events": 18,
+        "reward_update_count": 0
+      },
+      "survival_delta_ticks": 0,
+      "need_balance_delta": 0.080069
+    }
+  ],
+  "summary": {
+    "count": 24,
+    "mean_stress_load": 0.809626,
+    "feedback_survival_rate": 1.0,
+    "frozen_survival_rate": 1.0,
+    "mean_survival_ratio_feedback": 1.0,
+    "mean_survival_ratio_frozen": 1.0,
+    "mean_survival_ratio_delta": 0.0,
+    "mean_need_balance_delta": 0.080069,
+    "saved_by_feedback_count": 0,
+    "lost_by_feedback_count": 0
+  },
+  "decision": {
+    "status": "learning_matches_frozen_under_stress",
+    "adoption": "evidence_for_decision_record_0009",
+    "reason": "Feedback neither saves nor loses morphologies relative to the frozen switchboard under stress; survival is decided by the morphology load, not the policy. Need-balance remains the only measured learning benefit (delta 0.080069). A learning module promotion cannot claim survival improvement on this evidence.",
+    "thresholds": {
+      "feedback_beats_frozen_survival": false,
+      "feedback_beats_frozen_need_balance": true
+    }
+  },
+  "limitations": [
+    "The learner is the Stage 0 reward-mean switchboard, not a contextual bandit or deeper learner; this benchmark bounds THIS candidate, not learning in general.",
+    "Both arms start from the original lab's deliberate reward miscalibration, preserving the learnable-gap premise for comparability.",
+    "Single-episode evaluation per morphology; no cross-episode transfer is claimed."
+  ],
+  "source_refs": [
+    {
+      "name": "A Contextual-Bandit Approach to Personalized News Article Recommendation",
+      "url": "https://arxiv.org/abs/1003.0146",
+      "use": "Reference for updating action preferences from observed contextual rewards."
+    },
+    {
+      "name": "Reinforcement Learning: An Introduction",
+      "url": "http://incompleteideas.net/book/the-book-2nd.html",
+      "use": "Reference for reward signals and action-value style learning."
+    }
+  ]
+}

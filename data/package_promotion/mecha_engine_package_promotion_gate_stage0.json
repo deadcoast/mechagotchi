@@ -5,10 +5,10 @@
   "summary": {
     "package_root_exists": true,
     "criteria_count": 7,
-    "candidate_count": 7,
-    "research_ready_count": 6,
-    "package_design_ready_count": 1,
-    "promotion_ready_count": 5,
+    "candidate_count": 8,
+    "research_ready_count": 7,
+    "package_design_ready_count": 0,
+    "promotion_ready_count": 7,
     "blocked_count": 1,
     "hold_research_only_count": 0
   },
@@ -88,7 +88,7 @@
     {
       "component_id": "switchboard_feedback",
       "target_package": "packages/mecha_engine/src/mecha_engine/learning",
-      "gate_status": "ready_for_package_design",
+      "gate_status": "promotion_ready",
       "research_evidence_complete": true,
       "missing_evidence": [],
       "thresholds_met": true,
@@ -115,9 +115,7 @@
         }
       ],
       "verification": "python -B labs/grid_genome/test_switchboard_feedback.py",
-      "promotion_blockers": [
-        "target_package_absent"
-      ],
+      "promotion_blockers": [],
       "research_blocker_details": [
         {
           "blocker_id": "reward_shaping_not_superior_to_frozen_baseline",
@@ -244,6 +242,41 @@
         }
       ],
       "research_notes": "Proxy calibration is blocked until real human ratings exist."
+    },
+    {
+      "component_id": "learning_switchboard",
+      "target_package": "packages/mecha_engine/src/mecha_engine/learning",
+      "gate_status": "promotion_ready",
+      "research_evidence_complete": true,
+      "missing_evidence": [],
+      "thresholds_met": true,
+      "threshold_results": [
+        {
+          "metric_path": [
+            "decision",
+            "thresholds",
+            "feedback_beats_frozen_need_balance"
+          ],
+          "operator": "==",
+          "expected": true,
+          "actual": true,
+          "ok": true
+        },
+        {
+          "metric_path": [
+            "summary",
+            "lost_by_feedback_count"
+          ],
+          "operator": "==",
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        }
+      ],
+      "verification": "python -B -m unittest discover -s labs/runtime_integration -p \"test_stress_learning_benchmark.py\"",
+      "promotion_blockers": [],
+      "research_blocker_details": [],
+      "research_notes": "Learning surface (feedback micro-switchboard), decision record 0009 accepted 2026-07-05. Bounded claim: wellbeing (need-balance +0.080069 under stress, +0.03964 sheltered) at zero survival cost. Survival is morphology-decided (feedback_beats_frozen_survival = false, recorded); no survival claim is permitted."
     },
     {
       "component_id": "runtime_loop",

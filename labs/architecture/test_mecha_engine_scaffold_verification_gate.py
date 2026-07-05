@@ -40,7 +40,7 @@ class MechaEngineScaffoldVerificationGateTests(unittest.TestCase):
         self.assertEqual(
             [
                 "genome", "generation", "lifecycle", "archive",
-                "provenance", "repair", "runtime",
+                "provenance", "repair", "runtime", "learning",
             ],
             report["promoted_modules"],
         )
@@ -56,11 +56,11 @@ class MechaEngineScaffoldVerificationGateTests(unittest.TestCase):
         self.assertEqual(0, report["metrics"]["lab_import_files"])
         self.assertEqual(0, report["metrics"]["sys_path_lab_files"])
         self.assertEqual(0, report["metrics"]["implementation_files"])
-        self.assertEqual(7, report["metrics"]["promoted_module_count"])
+        self.assertEqual(8, report["metrics"]["promoted_module_count"])
         self.assertEqual(0, report["metrics"]["deferred_modules_present"])
         self.assertGreaterEqual(report["metrics"]["import_suite_tests_run"], 6)
-        self.assertEqual(12, len(REQUIRED_SCAFFOLD_PATHS))
-        self.assertEqual(8, len(REQUIRED_IMPORT_TARGETS))
+        self.assertEqual(13, len(REQUIRED_SCAFFOLD_PATHS))
+        self.assertEqual(9, len(REQUIRED_IMPORT_TARGETS))
         # The empty scaffold never unblocks promotion, license metadata, or
         # deferred modules.
         self.assertIn("lab_code_promotion", report["blocked_states"])
@@ -148,14 +148,14 @@ class MechaEngineScaffoldVerificationGateTests(unittest.TestCase):
     def test_deferred_module_check_rejects_premature_modules(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
-            (root / "packages/mecha_engine/src/mecha_engine/learning").mkdir(
+            (root / "packages/mecha_engine/src/mecha_engine/render").mkdir(
                 parents=True
             )
             result = check_deferred_modules_absent(root)
 
         self.assertFalse(result["ok"])
         self.assertEqual(
-            ["learning"], result["evidence"]["present_deferred_modules"]
+            ["render"], result["evidence"]["present_deferred_modules"]
         )
 
     def test_promotion_rerun_check_requires_updated_artifact(self):

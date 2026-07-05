@@ -150,3 +150,19 @@ stress before any online learner is promoted into packages.
 
 Each learner must report input, output, confidence, explanation, and measurable
 effect on action or survival.
+
+## Stress Benchmark Result (2026-07-05)
+
+24 generated morphologies on the contracted stress probe, 72-tick
+episodes, feedback vs frozen switchboard (only difference: online reward
+updates):
+
+- Survival: policy-independent — both arms 1.0; zero saved/lost
+  (`feedback_beats_frozen_survival = false`, recorded). Survival is
+  decided by morphology load (lifecycle bistability).
+- Wellbeing: mean need-balance delta **+0.080069** under stress
+  (vs +0.03964 sheltered) at zero survival cost.
+
+Decision update: promoted as `mecha_engine.learning` under decision
+record 0009 with the bounded claim — need-balance improvement only, no
+survival claim permitted without new evidence.
