@@ -21,3 +21,11 @@ lab = [
     "pydantic>=2.12",
     "jsonschema>=4.26",
 ]
+# The mechas companion CLI (decision record 0007). Runtime home is
+# tools/mechas_cli (its own installable package with a `mechas` entry
+# point); this group provisions the same dependencies for in-repo
+# development and test runs: uv sync --group cli
+cli = [
+    "typer>=0.15",
+    "rich>=13.9",
+]

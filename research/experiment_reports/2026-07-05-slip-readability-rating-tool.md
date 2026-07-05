@@ -103,3 +103,26 @@ the calibration gate accepts it.
 - `data/readability/slip_readability_calibration_reviewer_packet.md`
 - `data/readability/slip_readability_calibration_template.csv`
 - `data/readability/slip_readability_calibration_README.md`
+
+## Addendum (same day): served-mode export for the mechas CLI
+
+Decision record 0007 created the `mechas` companion CLI, whose
+`mechas rate --creatures` serves this tool locally. The template gained a
+served-mode export path (RED first — `test_html_supports_served_export_and_autoexport`
+failed, then the full suite passed, `Ran 21 tests ... OK`):
+
+- Served over http, the export button becomes "Save to project" and POSTs
+  the CSV to `/api/export`; the CLI's local server writes it to
+  `data/readability/slip_readability_calibration_ratings.csv`, backing up
+  any existing file first. On `file://` (or if the endpoint is missing)
+  the plain browser download remains the fallback.
+- `?autoexport=1` (set by `mechas rate --creatures --autoexport`)
+  auto-saves after each completed reviewer pass.
+- Verified end-to-end in a live browser session driven through the
+  installed `mechas` command: a staged reviewer pass completed on the
+  real UI auto-saved 21 rows into the project, the CLI narrated the save,
+  and the fabricated test rows were deleted immediately afterward — the
+  calibration evidence state remains honestly at 0 of 63 rows.
+
+Additional sources: `research/decision_records/0007-mechas-companion-cli.md`,
+`tools/mechas_cli/`, `docs/cli/mechas-cli.md`, `docs/cli/mechas-cli-design.md`.

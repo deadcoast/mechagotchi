@@ -1,0 +1,73 @@
+import sys
+import unittest
+from pathlib import Path
+
+
+SRC = Path(__file__).resolve().parents[1] / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
+
+try:
+    import typer  # noqa: F401
+    from typer.testing import CliRunner
+
+    _CLI_DEPS = True
+except ModuleNotFoundError:
+    _CLI_DEPS = False
+
+
+@unittest.skipUnless(_CLI_DEPS, "typer/rich not installed (uv sync --group cli)")
+class MechasCliSurfaceTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        from mechas_cli.app import app
+
+        cls.app = app
+        cls.runner = CliRunner()
+
+    def test_root_help_lists_the_commands(self):
+        result = self.runner.invoke(self.app, ["--help"])
+        self.assertEqual(0, result.exit_code)
+        self.assertIn("rate", result.output)
+        self.assertIn("status", result.output)
+        self.assertIn("mechas", result.output)
+
+    def test_version_flag(self):
+        from mechas_cli import __version__
+
+        result = self.runner.invoke(self.app, ["--version"])
+        self.assertEqual(0, result.exit_code)
+        self.assertIn(__version__, result.output)
+
+    def test_rate_without_flags_shows_the_targets(self):
+        result = self.runner.invoke(self.app, ["rate"])
+        self.assertEqual(0, result.exit_code)
+        self.assertIn("--creatures", result.output)
+
+    def test_rate_help_documents_the_flags(self):
+        result = self.runner.invoke(self.app, ["rate", "--help"])
+        self.assertEqual(0, result.exit_code)
+        for flag in ("--creatures", "--autoexport", "--status", "--ingest"):
+            self.assertIn(flag, result.output)
+
+    def test_rate_status_reports_progress(self):
+        result = self.runner.invoke(self.app, ["rate", "--status"])
+        self.assertEqual(0, result.exit_code)
+        self.assertIn("63", result.output)
+
+    def test_status_shows_workspace_overview(self):
+        result = self.runner.invoke(self.app, ["status"])
+        self.assertEqual(0, result.exit_code)
+
+
+class WorkspaceResolutionTests(unittest.TestCase):
+    def test_finds_repo_root_from_source_anchor(self):
+        from mechas_cli.workspace import find_workspace_root
+
+        root = find_workspace_root()
+        self.assertTrue((root / "data" / "readability").exists())
+        self.assertTrue((root / "labs").exists())
+
+
+if __name__ == "__main__":
+    unittest.main()

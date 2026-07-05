@@ -1,0 +1,26 @@
+# mechas — the Mechagotchi companion CLI (decision record 0007).
+#
+# Deliberately a separate installable package under tools/: it is a user
+# tool, not a research lab (labs/ stays stdlib-only) and not engine code
+# (packages/mecha_engine stays dependency-free). Typer + Rich are chosen
+# over argparse on purpose — see docs/cli/mechas-cli-design.md.
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mechas-cli"
+version = "0.1.0"
+description = "mechas — the Mechagotchi companion CLI (Typer + Rich)"
+requires-python = ">=3.13"
+dependencies = [
+    "typer>=0.15",
+    "rich>=13.9",
+]
+
+[project.scripts]
+mechas = "mechas_cli.app:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mechas_cli"]

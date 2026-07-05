@@ -59,6 +59,18 @@ class RatingToolBuilderTests(unittest.TestCase):
         # Deterministic: same samples give identical bytes.
         self.assertEqual(html, build_rating_tool_html(self.samples))
 
+    def test_html_supports_served_export_and_autoexport(self):
+        # When served by the mechas CLI, the page POSTs the CSV to
+        # /api/export (writing it into the project); on file:// or when the
+        # endpoint is absent it falls back to a plain browser download.
+        # ?autoexport=1 auto-submits after each completed reviewer pass.
+        html = build_rating_tool_html(self.samples)
+        self.assertIn("/api/export", html)
+        self.assertIn("autoexport", html)
+        # The download fallback must survive the refactor.
+        self.assertIn("URL.createObjectURL", html)
+        self.assertIn("slip_readability_calibration_ratings.csv", html)
+
     def test_report_and_artifacts(self):
         html = build_rating_tool_html(self.samples)
         report = build_rating_tool_report(self.samples, html)

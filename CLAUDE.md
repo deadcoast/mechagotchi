@@ -14,6 +14,8 @@ Lab modules and tests anchor all `data/`/`research/` paths on the repo root via 
 
 Always run Python with `-B` — `__pycache__` directories are tracked in git (pre-existing hazard), and `-B` keeps them from churning.
 
+User-facing workflows go through the **`mechas` companion CLI** (`tools/mechas_cli/`, Typer + Rich, decision record 0007; design contract in `docs/cli/mechas-cli-design.md`). `mechas rate --creatures [--autoexport]` runs the whole readability-rating loop (serve tool, collect in browser, save CSV with backup, run the calibration gate); `mechas status` summarizes gates. Install once with `uv tool install --editable .\tools\mechas_cli`; CLI tests live in `tools/mechas_cli/tests` (Typer-surface tests skip unless `uv sync --group cli`). New operational workflows should become `mechas` commands, not ad-hoc instructions.
+
 ```powershell
 # Run one lab's test suite (stdlib unittest — no pytest, no config files)
 python -B -m unittest discover -s labs/grid_genome -p "test_*.py"

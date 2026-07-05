@@ -424,11 +424,16 @@ _TOOL_TEMPLATE = r"""<!doctype html>
       <span class="spacer"></span>
       <button class="primary" id="download-btn">Download CSV</button>
     </div>
-    <p style="max-width:62ch;">When all three passes are done, download the CSV and save it into the
-    project as:</p>
-    <pre class="path mono">data\readability\slip_readability_calibration_ratings.csv</pre>
-    <p style="max-width:62ch;">then tell Claude the ratings are in — the calibration gate takes it
-    from there.</p>
+    <div id="manual-export-help">
+      <p style="max-width:62ch;">When all three passes are done, download the CSV and save it into the
+      project as:</p>
+      <pre class="path mono">data\readability\slip_readability_calibration_ratings.csv</pre>
+      <p style="max-width:62ch;">then tell Claude the ratings are in — the calibration gate takes it
+      from there.</p>
+    </div>
+    <p id="served-export-help" class="hidden" style="max-width:62ch;">Saving puts the CSV straight
+    into the project — nothing to move by hand. When all three passes are saved, the calibration
+    gate can run.</p>
   </section>
 </div>
 
@@ -601,6 +606,7 @@ $("next-btn").addEventListener("click", () => {
     save();
     renderFinish();
     show("finish");
+    if (AUTO_EXPORT) { exportCsv(true); }
   }
 });
 
@@ -666,7 +672,12 @@ function csvField(value) {
   return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
 }
 
-$("download-btn").addEventListener("click", () => {
+// Served by the mechas CLI (http/https) -> POST the CSV to /api/export so
+// it lands directly in the project; opened as a plain file -> download.
+const SERVED = location.protocol === "http:" || location.protocol === "https:";
+const AUTO_EXPORT = new URLSearchParams(location.search).get("autoexport") === "1";
+
+function buildCsv() {
   const lines = [CSV_HEADER];
   for (const pass of state.completed) {
     SAMPLES.forEach((sample, i) => {
@@ -678,13 +689,52 @@ $("download-btn").addEventListener("click", () => {
       ].map(csvField).join(","));
     });
   }
-  const blob = new Blob([lines.join("\n") + "\n"], { type: "text/csv" });
+  return lines.join("\n") + "\n";
+}
+
+function downloadCsv(csv) {
+  const blob = new Blob([csv], { type: "text/csv" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = "slip_readability_calibration_ratings.csv";
   a.click();
   URL.revokeObjectURL(a.href);
-});
+}
+
+async function exportCsv(auto) {
+  const csv = buildCsv();
+  const notice = $("finish-notice");
+  if (SERVED) {
+    try {
+      const response = await fetch("/api/export", {
+        method: "POST",
+        headers: { "Content-Type": "text/csv" },
+        body: csv,
+      });
+      if (response.ok) {
+        const result = await response.json();
+        notice.textContent = (auto ? "Auto-saved" : "Saved") +
+          " into the project (" + result.rows + " rows) — " + result.saved_to;
+        return;
+      }
+    } catch (error) {
+      /* endpoint unavailable — fall through to download */
+    }
+    if (auto) {
+      notice.textContent = "Auto-save failed — use the Export button to download instead.";
+      return;
+    }
+  }
+  downloadCsv(csv);
+}
+
+$("download-btn").addEventListener("click", () => { exportCsv(false); });
+
+if (SERVED) {
+  $("download-btn").textContent = "Save to project";
+  $("manual-export-help").classList.add("hidden");
+  $("served-export-help").classList.remove("hidden");
+}
 
 updateRowCount();
 if (state.current) {

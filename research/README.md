@@ -522,6 +522,11 @@ Post-v0.1 continuation has started:
 - `data/readability/slip_readability_calibration_rating_tool.html`
 - `data/readability/slip_readability_rating_tool_stage0.json` (visual reviewer tool for the manual calibration; protocol now human-executable — calibration itself honestly still blocked at 0 of 63 rows)
 
+- `research/decision_records/0007-mechas-companion-cli.md`
+- `docs/cli/mechas-cli.md`
+- `docs/cli/mechas-cli-design.md`
+- `tools/mechas_cli/` (the `mechas` companion CLI, Typer + Rich; first standardized workflow `mechas rate --creatures [--autoexport]` runs the whole rating loop — serve, collect, save with backup, gate)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.
