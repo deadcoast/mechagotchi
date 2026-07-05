@@ -33,9 +33,14 @@ REPO_ROOT = PACKAGE_ROOT.parents[1]
 SRC_DIR = PACKAGE_ROOT / "src"
 
 INITIAL_MODULES = ["genome", "generation", "lifecycle", "archive", "provenance"]
-DEFERRED_MODULES = ["learning", "repair", "render", "storage", "slip"]
+# Modules promoted after the initial five, each authorized by its own
+# decision record: repair per decision record 0006
+# (research/decision_records/0006-create-mecha-engine-repair-target.md).
+LATER_PROMOTED_MODULES = ["repair"]
+PROMOTED_MODULES = INITIAL_MODULES + LATER_PROMOTED_MODULES
+DEFERRED_MODULES = ["learning", "render", "storage", "slip"]
 IMPORT_TARGETS = ["mecha_engine"] + [
-    f"mecha_engine.{module}" for module in INITIAL_MODULES
+    f"mecha_engine.{module}" for module in PROMOTED_MODULES
 ]
 
 _TOP_LEVEL_IMPLEMENTATION = re.compile(r"^(?:def |class )", re.MULTILINE)
@@ -74,7 +79,7 @@ class MechaEngineScaffoldImportTests(unittest.TestCase):
             SRC_DIR / "mecha_engine" / "py.typed",
         ] + [
             SRC_DIR / "mecha_engine" / module / "__init__.py"
-            for module in INITIAL_MODULES
+            for module in PROMOTED_MODULES
         ]
         for path in required:
             self.assertTrue(path.exists(), f"missing scaffold path: {path}")
@@ -83,7 +88,16 @@ class MechaEngineScaffoldImportTests(unittest.TestCase):
         for module in DEFERRED_MODULES:
             self.assertFalse(
                 (SRC_DIR / "mecha_engine" / module).exists(),
-                f"deferred module must not exist in the first scaffold: {module}",
+                f"deferred module must not exist without a decision record: {module}",
+            )
+
+    def test_later_promoted_modules_have_contract_tests(self):
+        # A module may leave the deferred list only once its decision record
+        # authorizes the target and its package contract test exists.
+        for module in LATER_PROMOTED_MODULES:
+            self.assertTrue(
+                (PACKAGE_ROOT / "tests" / f"test_{module}_contract.py").exists(),
+                f"promoted module lacks its contract test: {module}",
             )
 
     def test_pyproject_metadata_boundary(self):
@@ -152,7 +166,7 @@ class MechaEngineScaffoldImportTests(unittest.TestCase):
         # with no top-level function or class definitions.
         promoted = {
             module
-            for module in INITIAL_MODULES
+            for module in PROMOTED_MODULES
             if (PACKAGE_ROOT / "tests" / f"test_{module}_contract.py").exists()
         }
         for path in sorted((SRC_DIR / "mecha_engine").rglob("*.py")):

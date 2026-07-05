@@ -30,7 +30,12 @@ ARTIFACT_ID = "mecha_engine_scaffold_verification_gate_stage0"
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "data/architecture"
 
 INITIAL_MODULES = ["genome", "generation", "lifecycle", "archive", "provenance"]
-DEFERRED_MODULES = ["learning", "repair", "render", "storage", "slip"]
+# Modules promoted after the initial five, each authorized by its own
+# decision record: repair by 0006-create-mecha-engine-repair-target.md
+# (2026-07-05, wound-site stability blocker cleared).
+LATER_PROMOTED_MODULES = ["repair"]
+PACKAGE_MODULES = INITIAL_MODULES + LATER_PROMOTED_MODULES
+DEFERRED_MODULES = ["learning", "render", "storage", "slip"]
 
 REQUIRED_SCAFFOLD_PATHS = [
     "packages/mecha_engine/pyproject.toml",
@@ -39,19 +44,20 @@ REQUIRED_SCAFFOLD_PATHS = [
     "packages/mecha_engine/src/mecha_engine/py.typed",
     *[
         f"packages/mecha_engine/src/mecha_engine/{module}/__init__.py"
-        for module in INITIAL_MODULES
+        for module in PACKAGE_MODULES
     ],
     "packages/mecha_engine/tests/test_package_imports.py",
 ]
 
 REQUIRED_IMPORT_TARGETS = ["mecha_engine"] + [
-    f"mecha_engine.{module}" for module in INITIAL_MODULES
+    f"mecha_engine.{module}" for module in PACKAGE_MODULES
 ]
 
 BLOCKED_PYPROJECT_LICENSE_FIELDS = ["license", "license-files"]
 
 SOURCE_ARTIFACTS = [
     "research/decision_records/0004-mecha-engine-package-scaffold.md",
+    "research/decision_records/0006-create-mecha-engine-repair-target.md",
     "research/package_specs/mecha_engine_scaffold_verification_gate.md",
     "research/package_specs/mecha_engine_contract_traceability_matrix.md",
     "data/architecture/mecha_engine_package_scaffold_decision_stage0.json",
@@ -228,7 +234,7 @@ def promoted_modules(root: Path) -> list[str]:
     tests_dir = root / "packages/mecha_engine/tests"
     return [
         module
-        for module in INITIAL_MODULES
+        for module in PACKAGE_MODULES
         if (tests_dir / f"test_{module}_contract.py").exists()
     ]
 
@@ -349,7 +355,7 @@ def build_scaffold_verification_report(root: Path | None = None) -> dict:
     checks_by_id = {check["check_id"]: check for check in checks}
     gate_passed = all(check["ok"] for check in checks)
     promoted = promoted_modules(root)
-    unpromoted = [module for module in INITIAL_MODULES if module not in promoted]
+    unpromoted = [module for module in PACKAGE_MODULES if module not in promoted]
     import_surface_accepted = (
         checks_by_id["package_import_surface"]["ok"]
         and checks_by_id["package_import_test_suite_passes"]["ok"]
@@ -391,7 +397,7 @@ def build_scaffold_verification_report(root: Path | None = None) -> dict:
     }
     return {
         "artifact_id": ARTIFACT_ID,
-        "date": "2026-07-04",
+        "date": "2026-07-05",
         "status": (
             "package_scaffold_verification_failed"
             if not gate_passed
@@ -458,7 +464,7 @@ def build_scaffold_verification_report(root: Path | None = None) -> dict:
                 if promoted
                 else "package_module_implementations"
             ),
-            "deferred_modules_learning_repair_render_storage_slip",
+            "deferred_modules_learning_render_storage_slip",
             "lab_code_promotion",
             "package_dependency_policy",
         ],

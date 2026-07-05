@@ -44,10 +44,12 @@ over plans; and executed artifacts win over prose claims.
   remediation complete (v0.6–v0.8: every H/M/L finding resolved —
   `docs/03-code_review/2026-07-04-code_review.md` is the annotated ledger).
 - **Package phase underway** (v0.9): `packages/mecha_engine` exists
-  (src layout, DR 0004). All five initial modules promoted with contract
-  tests + lab-parity pins: `genome`, `generation`, `lifecycle`, `archive`,
-  `provenance`. First `promotion_ready` candidates recognized by
-  `labs/package_promotion/package_promotion_gate.py`.
+  (src layout, DR 0004). Six modules promoted with contract tests +
+  lab-parity pins: `genome`, `generation`, `lifecycle`, `archive`,
+  `provenance` (all 2026-07-04), and `repair` (2026-07-05, DR 0006 —
+  wound-site learned repair; observability contract: damage events report
+  destroyed positions, never tokens, never a template). Statuses tracked
+  by `labs/package_promotion/package_promotion_gate.py`.
 - **Tests**: ~520 lab tests across 12 labs + ~163 package tests, all green.
   Runnable from any cwd (paths are ROOT-anchored).
 - **Deliberately open** (v0.9 manifest `next_sequence`):
@@ -57,14 +59,14 @@ over plans; and executed artifacts win over prose claims.
      filled CSV goes to `data/readability/manual_ratings.csv`. Blocks the
      evaluation module, final descriptor threshold locks, and any
      profile-weighted evolution claim. Ask the user; do not fabricate.
-  2. Learned NCA repair — resolved 2026-07-04 with nuance: the blind
-     trained arm stays below the bar (0.8625, recorded honestly), but the
-     wound-site arm (damage-event positions observed, tokens predicted, no
-     template) meets all three 0.9 bars; retrieval-context conditioning was
-     ablated and rejected (negative result). The repair gate candidate is
-     now `ready_for_package_design`; creating a repair package target
-     remains a decision-record-gated scope step. See
-     `research/experiment_reports/2026-07-04-ca-nca-wound-site-repair.md`.
+  2. Learned NCA repair — CLOSED. The wound-site arm (damage-event
+     positions observed, tokens predicted, no template) meets all three
+     0.9 bars (0.938462/0.938462/1.0 with the validity guard); the blind
+     arm stays below the bar (0.8625, recorded honestly);
+     retrieval-context conditioning was ablated and rejected. The user
+     authorized DR 0006 (2026-07-05) and `repair` is now the sixth
+     promoted package module with contract tests + a lab parity pin. See
+     `research/experiment_reports/2026-07-05-mecha-engine-repair-promotion.md`.
   3. Learning module target: candidate is design-ready; creating the
      deferred `learning` package target is a scope decision — write a
      decision record first.

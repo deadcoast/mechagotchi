@@ -79,8 +79,11 @@ The scaffold is rejected if any of these are true:
 - Package code imports `labs`.
 - Package tests import `labs`.
 - Package code contains non-placeholder implementation copied from `labs/`.
-- The scaffold creates `learning`, `repair`, `render`, `storage`, or `slip`
-  modules before the first package boundary is verified.
+- The scaffold creates `learning`, `render`, `storage`, or `slip` modules
+  before the first package boundary is verified. (`repair` left this list
+  on 2026-07-05: decision record 0006 authorized its target after the
+  wound-site stability blocker cleared; the executable gate tracks the
+  current deferred set.)
 - The package metadata declares release license fields before a license
   decision exists.
 - The package-promotion gate is not rerun after scaffold creation.

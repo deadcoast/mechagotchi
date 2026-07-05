@@ -7,8 +7,8 @@
     "criteria_count": 7,
     "candidate_count": 6,
     "research_ready_count": 5,
-    "package_design_ready_count": 2,
-    "promotion_ready_count": 3,
+    "package_design_ready_count": 1,
+    "promotion_ready_count": 4,
     "blocked_count": 1,
     "hold_research_only_count": 0
   },
@@ -248,7 +248,7 @@
     {
       "component_id": "ca_nca_repair",
       "target_package": "packages/mecha_engine/src/mecha_engine/repair",
-      "gate_status": "ready_for_package_design",
+      "gate_status": "promotion_ready",
       "research_evidence_complete": true,
       "missing_evidence": [],
       "thresholds_met": true,
@@ -275,9 +275,7 @@
         }
       ],
       "verification": "python -B labs/cellular_automata/test_ca_nca_growth_repair.py",
-      "promotion_blockers": [
-        "target_package_absent"
-      ],
+      "promotion_blockers": [],
       "research_blocker_details": [
         {
           "blocker_id": "lab_only_target_template_assisted",

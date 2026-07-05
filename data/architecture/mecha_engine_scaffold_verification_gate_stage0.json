@@ -1,6 +1,6 @@
 {
   "artifact_id": "mecha_engine_scaffold_verification_gate_stage0",
-  "date": "2026-07-04",
+  "date": "2026-07-05",
   "status": "package_scaffold_verification_executed_promoted_modules_present",
   "purpose": "Execute the scaffold verification checklist against the real packages/mecha_engine scaffold: verify the package boundary without unpromoted implementation, license metadata, or deferred modules; modules that passed their own contract gate are recorded as promoted instead of failing the scaffold rule.",
   "target_package_root": "packages/mecha_engine",
@@ -10,7 +10,8 @@
     "generation",
     "lifecycle",
     "archive",
-    "provenance"
+    "provenance",
+    "repair"
   ],
   "unpromoted_modules": [],
   "gate_passed": true,
@@ -25,6 +26,7 @@
     "packages/mecha_engine/src/mecha_engine/lifecycle/__init__.py",
     "packages/mecha_engine/src/mecha_engine/archive/__init__.py",
     "packages/mecha_engine/src/mecha_engine/provenance/__init__.py",
+    "packages/mecha_engine/src/mecha_engine/repair/__init__.py",
     "packages/mecha_engine/tests/test_package_imports.py"
   ],
   "required_pyproject_fields": [
@@ -44,14 +46,15 @@
     "mecha_engine.generation",
     "mecha_engine.lifecycle",
     "mecha_engine.archive",
-    "mecha_engine.provenance"
+    "mecha_engine.provenance",
+    "mecha_engine.repair"
   ],
   "checks": [
     {
       "check_id": "required_scaffold_paths_present",
       "ok": true,
       "evidence": {
-        "required_path_count": 10,
+        "required_path_count": 11,
         "missing_paths": []
       }
     },
@@ -79,7 +82,8 @@
           "mecha_engine.generation",
           "mecha_engine.lifecycle",
           "mecha_engine.archive",
-          "mecha_engine.provenance"
+          "mecha_engine.provenance",
+          "mecha_engine.repair"
         ],
         "returncode": 0,
         "stderr": "",
@@ -100,7 +104,7 @@
       "ok": true,
       "evidence": {
         "package_root_exists": true,
-        "files_scanned": 35,
+        "files_scanned": 44,
         "lab_import_files": [],
         "sys_path_lab_files": []
       }
@@ -115,7 +119,8 @@
           "generation",
           "lifecycle",
           "archive",
-          "provenance"
+          "provenance",
+          "repair"
         ],
         "promoted_implementation_files": [
           "packages/mecha_engine/src/mecha_engine/archive/_metrics.py",
@@ -135,7 +140,13 @@
           "packages/mecha_engine/src/mecha_engine/provenance/hashing.py",
           "packages/mecha_engine/src/mecha_engine/provenance/ledger.py",
           "packages/mecha_engine/src/mecha_engine/provenance/report.py",
-          "packages/mecha_engine/src/mecha_engine/provenance/spdx.py"
+          "packages/mecha_engine/src/mecha_engine/provenance/spdx.py",
+          "packages/mecha_engine/src/mecha_engine/repair/_damage.py",
+          "packages/mecha_engine/src/mecha_engine/repair/_features.py",
+          "packages/mecha_engine/src/mecha_engine/repair/_grids.py",
+          "packages/mecha_engine/src/mecha_engine/repair/blind.py",
+          "packages/mecha_engine/src/mecha_engine/repair/train.py",
+          "packages/mecha_engine/src/mecha_engine/repair/wound.py"
         ],
         "implementation_files": []
       }
@@ -146,7 +157,6 @@
       "evidence": {
         "deferred_modules": [
           "learning",
-          "repair",
           "render",
           "storage",
           "slip"
@@ -159,7 +169,7 @@
       "ok": true,
       "evidence": {
         "returncode": 0,
-        "tests_run": 163
+        "tests_run": 193
       }
     },
     {
@@ -168,22 +178,22 @@
       "evidence": {
         "artifact_exists": true,
         "summary_package_root_exists": true,
-        "promotion_ready_count": 0
+        "promotion_ready_count": 4
       }
     }
   ],
   "metrics": {
     "checks_total": 9,
     "checks_passed": 9,
-    "required_path_count": 10,
+    "required_path_count": 11,
     "missing_required_paths": 0,
-    "import_target_count": 6,
+    "import_target_count": 7,
     "lab_import_files": 0,
     "sys_path_lab_files": 0,
     "implementation_files": 0,
     "deferred_modules_present": 0,
-    "import_suite_tests_run": 163,
-    "promoted_module_count": 5
+    "import_suite_tests_run": 193,
+    "promoted_module_count": 6
   },
   "closed_states": [
     "package_scaffold_created",
@@ -198,13 +208,14 @@
     "module_lifecycle_promoted_with_contract_tests",
     "module_archive_promoted_with_contract_tests",
     "module_provenance_promoted_with_contract_tests",
+    "module_repair_promoted_with_contract_tests",
     "deferred_modules_absent",
     "package_promotion_gate_rerun_after_scaffold"
   ],
   "blocked_states": [
     "release_license_metadata",
     "unpromoted_package_module_implementations",
-    "deferred_modules_learning_repair_render_storage_slip",
+    "deferred_modules_learning_render_storage_slip",
     "lab_code_promotion",
     "package_dependency_policy"
   ],
@@ -218,6 +229,7 @@
   ],
   "source_artifacts": [
     "research/decision_records/0004-mecha-engine-package-scaffold.md",
+    "research/decision_records/0006-create-mecha-engine-repair-target.md",
     "research/package_specs/mecha_engine_scaffold_verification_gate.md",
     "research/package_specs/mecha_engine_contract_traceability_matrix.md",
     "data/architecture/mecha_engine_package_scaffold_decision_stage0.json",

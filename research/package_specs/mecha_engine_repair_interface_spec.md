@@ -4,12 +4,15 @@ Date: 2026-07-04
 
 ## Status
 
-Research interface specification for a future `mecha_engine.repair` module.
-This document does not create `packages/mecha_engine/src/mecha_engine/repair`
-and does not promote lab code. The promotion gate lists the repair candidate
-as `ready_for_package_design` with `target_package_absent`; creating the
-package target requires a decision record first (same rule as every other
-scope expansion).
+Research interface specification for `mecha_engine.repair`. Originally
+written 2026-07-04 as a design-only spec while the package target was
+decision-record-gated; decision record 0006 (2026-07-05) authorized the
+target, and the module was promoted the same day with package contract
+tests (`packages/mecha_engine/tests/test_repair_contract.py`) and a
+lab-side parity pin
+(`labs/cellular_automata/test_package_repair_parity.py`). This document is
+now the module's contract reference; the hard gates below are enforced by
+those tests.
 
 ## Why this module can be specified now
 

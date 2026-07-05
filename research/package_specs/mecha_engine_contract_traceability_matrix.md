@@ -31,10 +31,10 @@ Excluded from this matrix:
 - package implementation
 - migration of lab modules
 - online reward-shaping promotion
-- CA/NCA repair *promotion* (the repair interface row below is design-only;
-  since 2026-07-04 the wound-site arm cleared the stability blocker and the
-  candidate is `ready_for_package_design`, but creating the repair package
-  target still requires a decision record)
+- ~~CA/NCA repair promotion~~ — no longer excluded: the wound-site arm
+  cleared the stability blocker (2026-07-04), decision record 0006
+  authorized the target (2026-07-05), and the repair row below is now an
+  enforced contract like the initial five
 - readability calibration without human ratings
 - release license metadata
 - full REUSE/legal-review/SBOM compliance
@@ -64,7 +64,7 @@ the package genome contract being real enough to validate candidates.
 | Lifecycle | `mecha_engine_lifecycle_contract_gate.md` | `tests/test_lifecycle_contract.py` | Reject invalid grids; clamp state variables; preserve deterministic episodes; reproduce switchboard/idle/random comparator; keep reward shaping out of package state |
 | Archive | `mecha_engine_archive_contract_gate.md` | `tests/test_archive_contract.py` | Validate candidate grids; compute deterministic descriptors; insert/replace only by niche fitness; keep scalar top-k comparator-only; report coverage, QD score, and calibration status |
 | Provenance | `mecha_engine_provenance_contract_gate.md` | `tests/test_provenance_contract.py` | Parse supported SPDX expressions; reject unknown IDs and lowercase operators under Stage 0 policy; verify file/tree hashes; enforce decision-record gate; generate attribution manifest |
-| Repair (design-ready; target creation decision-record-gated) | `mecha_engine_repair_interface_spec.md` | `tests/test_repair_contract.py` (future) | Honor the observability contract (damage events report `removed_cells`, never destroyed tokens, never a template); fill exactly the reported sites; assert overlap == structural agreement for the site-aware surface; reproduce the lab benchmark via a lab-parity pin (guarded 0.938462/0.938462/1.0; guard-off 0.930769/0.930769/0.9; blind arm recorded below bar); deterministic including validity-guard substitutions; `target_template_used == false` on every result |
+| Repair (promoted 2026-07-05, decision record 0006) | `mecha_engine_repair_interface_spec.md` | `tests/test_repair_contract.py` | Honor the observability contract (damage events report `removed_cells`, never destroyed tokens, never a template); fill exactly the reported sites; assert overlap == structural agreement for the site-aware surface; reproduce the lab benchmark via a lab-parity pin (guarded 0.938462/0.938462/1.0; guard-off 0.930769/0.930769/0.9; blind arm recorded below bar); deterministic including validity-guard substitutions; `target_template_used == false` on every result |
 
 ## Cross-Cut Negative Tests
 

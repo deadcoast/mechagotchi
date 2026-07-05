@@ -511,6 +511,12 @@ Post-v0.1 continuation has started:
 - `research/package_specs/mecha_engine_repair_interface_spec.md`
 - `research/package_specs/mecha_engine_contract_traceability_matrix.md` (repair row added, design-only; target creation stays decision-record-gated)
 
+- `research/decision_records/0006-create-mecha-engine-repair-target.md`
+- `research/experiment_reports/2026-07-05-mecha-engine-repair-promotion.md`
+- `packages/mecha_engine/src/mecha_engine/repair/`
+- `packages/mecha_engine/tests/test_repair_contract.py`
+- `labs/cellular_automata/test_package_repair_parity.py` (bit-for-bit lab parity; repair is the sixth promoted module; promotion gate `promotion_ready_count` 4, scaffold gate 9/9 with 6 promoted modules)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

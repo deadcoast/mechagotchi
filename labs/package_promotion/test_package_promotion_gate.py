@@ -144,9 +144,10 @@ class PackagePromotionGateTests(unittest.TestCase):
 
     def test_run_package_promotion_gate_reports_promoted_module_state(self):
         # All five initial modules carry contract tests and parity evidence
-        # (2026-07-04 promotions), so lifecycle, archive, and provenance are
-        # the first promotion-ready candidates. Learning/repair/evaluation
-        # targets stay absent (deferred or blocked), so their candidates keep
+        # (2026-07-04 promotions); the repair target exists since decision
+        # record 0006 (2026-07-05), so lifecycle, archive, provenance, and
+        # repair report promotion_ready. Learning/evaluation targets stay
+        # absent (deferred or blocked), so their candidates keep
         # target_package_absent.
         report = run_package_promotion_gate(ROOT)
 
@@ -155,12 +156,17 @@ class PackagePromotionGateTests(unittest.TestCase):
         self.assertGreaterEqual(report["summary"]["criteria_count"], 5)
         self.assertGreaterEqual(report["summary"]["candidate_count"], 4)
         self.assertGreater(report["summary"]["research_ready_count"], 0)
-        self.assertEqual(3, report["summary"]["promotion_ready_count"])
+        self.assertEqual(4, report["summary"]["promotion_ready_count"])
         self.assertEqual(
             "promotion_candidates_available",
             report["decision"]["status"],
         )
-        promoted = {"lifecycle_simulator", "map_elites_archive", "provenance_ci"}
+        promoted = {
+            "lifecycle_simulator",
+            "map_elites_archive",
+            "provenance_ci",
+            "ca_nca_repair",
+        }
         for candidate in report["candidates"]:
             self.assertNotIn("package_root_absent", candidate["promotion_blockers"])
             if candidate["component_id"] in promoted:
@@ -177,8 +183,8 @@ class PackagePromotionGateTests(unittest.TestCase):
         # the assisted stability bar without a target template
         # (site_aware_meets_assisted_stability_bar), so the
         # lab_only_target_template_assisted blocker must derive from that
-        # key and clear. The repair candidate stays unpromoted only because
-        # its target package does not exist yet.
+        # key and clear. With decision record 0006 the repair package
+        # target exists, so the candidate reports promotion_ready.
         report = run_package_promotion_gate(ROOT)
         repair = next(
             candidate
@@ -197,8 +203,8 @@ class PackagePromotionGateTests(unittest.TestCase):
             "lab_only_target_template_assisted",
             repair["promotion_blockers"],
         )
-        self.assertEqual("ready_for_package_design", repair["gate_status"])
-        self.assertIn("target_package_absent", repair["promotion_blockers"])
+        self.assertNotIn("target_package_absent", repair["promotion_blockers"])
+        self.assertEqual("promotion_ready", repair["gate_status"])
 
     def test_write_package_promotion_artifacts_creates_report_and_criteria_doc(self):
         report = run_package_promotion_gate(ROOT)
