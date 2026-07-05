@@ -77,15 +77,15 @@ over plans; and executed artifacts win over prose claims.
      21 samples × 3 reviewers). It still gates the evaluation module,
      descriptor threshold locks, and profile-weighted evolution claims —
      those stay honestly blocked until real data arrives. Never fabricate.
-  2. **Multi-generation evolution in the runtime loop** — the composed
-     engine is green: the runtime integration lab
-     (`labs/runtime_integration/`) runs all six modules end-to-end at
-     `runtime_loop_composed` (12/12 creatures, alignment retention 1.0
-     after the SLIP-aware repair guard, 2026-07-05). Next engine step:
-     evolve offspring from archive elites across generations with
-     repeated damage/repair cycles inside the loop. A `runtime` package
-     target proposal is evidence-ready but owner-gated (decision record
-     0008 candidate — ask before creating it).
+  2. **DR 0008 awaiting owner acceptance** — the runtime lab is fully
+     green in both modes (`runtime_loop_composed` 12/12;
+     `evolution_loop_composed` 32/32 over 4 generations, 96 damage
+     events, retention 1.0, elites reproduce, 15 niches / QD 13.92).
+     Decision record 0008 PROPOSES `mecha_engine.runtime` (`live_cycle` +
+     `evolve`; spec written). If the owner accepts, run the DR-0006-style
+     promotion batch. Engine research follow-ups regardless: lineage
+     counter accumulation through repair (parity-reviewed), longer
+     evolution horizons, harder survival regimes.
   3. Learning module target: candidate is design-ready. An ACTIVE roadmap
      item under standard decision-record governance (propose the DR with a
      recommendation whenever it is the right next step) — NOT owner-

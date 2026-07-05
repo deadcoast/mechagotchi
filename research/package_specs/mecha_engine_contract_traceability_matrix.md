@@ -66,6 +66,8 @@ the package genome contract being real enough to validate candidates.
 | Provenance | `mecha_engine_provenance_contract_gate.md` | `tests/test_provenance_contract.py` | Parse supported SPDX expressions; reject unknown IDs and lowercase operators under Stage 0 policy; verify file/tree hashes; enforce decision-record gate; generate attribution manifest |
 | Repair (promoted 2026-07-05, decision record 0006) | `mecha_engine_repair_interface_spec.md` | `tests/test_repair_contract.py` | Honor the observability contract (damage events report `removed_cells`, never destroyed tokens, never a template); fill exactly the reported sites; assert overlap == structural agreement for the site-aware surface; reproduce the lab benchmark via a lab-parity pin (guarded 0.938462/0.938462/1.0; guard-off 0.930769/0.930769/0.9; blind arm recorded below bar); deterministic including validity-guard substitutions; `target_template_used == false` on every result; SLIP-aware guard: with the active profile a valid-but-unaligned refill becomes lifecycle-acceptable, without it behavior is bit-identical (driver `slip_aware_guard` probe + slip-aware parity case) |
 
+| Runtime (PROPOSED, decision record 0008 awaiting owner acceptance) | `mecha_engine_runtime_interface_spec.md` | `tests/test_runtime_contract.py` (future) | Lab-parity pin reproducing both runtime-lab artifact summaries (single loop 12/12 retention 1.0; evolution 32/32, 96 damage events, retention 1.0, 15 niches, QD 13.92); SLIP-aware repair throughout; readability injected and visibly uncalibrated; deterministic, no input mutation, no labs imports |
+
 ## Cross-Cut Negative Tests
 
 Every package test slice must enforce:

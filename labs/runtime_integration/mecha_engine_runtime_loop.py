@@ -437,6 +437,382 @@ def _loop_decision(summary: dict, ledger_result: dict, ci_report: dict) -> dict:
     }
 
 
+def run_mecha_engine_evolution_loop(
+    *,
+    generations: int = 4,
+    population: int = 8,
+    damage_cycles: int = 3,
+    ticks: int = 72,
+    dropout_rate: float = 0.2,
+    repair_epochs: int = 150,
+    rng_seed: int = 20260512,
+) -> dict:
+    """Multi-generation evolution through the composed engine.
+
+    Generation 0 draws parents from the profile-aligned seed pool; every
+    later generation draws parents from the archive's elites (sorted by
+    niche key for determinism), so selection pressure is the archive's
+    niche-fitness rule and ancestry deepens generation over generation.
+    Each creature lives through `damage_cycles` repeated damage events,
+    each repaired by the SLIP-aware wound-site guard and followed by a
+    full lifecycle episode — the creature must keep earning its survival
+    after every regeneration.
+    """
+    slip_profile = json.loads(SLIP_PROFILE_PATH.read_text(encoding="utf-8"))
+    seeds = build_seed_grids()
+    generation_model = train_generation_model(seeds)
+    repair_model = train_repair_model(
+        seeds[:REPAIR_TRAINING_COUNT],
+        epochs=repair_epochs,
+        rng_seed=rng_seed,
+    )
+    seed_pool = [
+        seed for seed in seeds if is_grid_aligned(seed, slip_profile).ok
+    ]
+    if not seed_pool:
+        raise ValueError("no seed grid satisfies the SLIP profile")
+
+    archive = build_archive([], {})
+    generation_reports = []
+    max_lineage_generation = 0
+
+    for generation_index in range(generations):
+        if generation_index == 0:
+            parents = seed_pool
+            parent_source = "seed_pool"
+        else:
+            elites = archive["elites"]
+            parents = [
+                elites[niche]["grid"] for niche in sorted(elites)
+            ]
+            parent_source = "archive_elites"
+            if not parents:
+                break  # measured, not asserted: an empty archive ends evolution
+
+        creatures = []
+        for index in range(population):
+            parent = parents[index % len(parents)]
+            run_seed = rng_seed + generation_index * 100000 + index
+            stages: dict[str, bool] = {}
+
+            candidate = generate_candidate(
+                parent, generation_model, slip_profile, rng_seed=run_seed
+            )
+            stages["candidate_valid"] = validate_grid(candidate).ok
+            max_lineage_generation = max(
+                max_lineage_generation,
+                candidate.get("lineage", {}).get("generation", 0),
+            )
+
+            current = candidate
+            cycles = []
+            all_valid = True
+            all_aligned = True
+            for cycle in range(1, damage_cycles + 1):
+                damage_seed = run_seed * 10 + cycle
+                damaged = apply_stochastic_damage(
+                    current,
+                    dropout_rate=dropout_rate,
+                    rng_seed=damage_seed,
+                    event_index=cycle,
+                )
+                removed = damaged["metadata"]["removed_cell_count"]
+                repaired = repair_wound_sites(
+                    damaged, repair_model, slip_profile=slip_profile
+                )
+                # Reassign the id every cycle: suffix accumulation would
+                # overflow the schema's 64-char grid_id cap (known trap).
+                repaired["grid_id"] = f"{candidate['grid_id']}_c{cycle:02d}"
+                restoration = _restoration(current, repaired)
+                valid = validate_grid(repaired).ok
+                aligned = is_grid_aligned(repaired, slip_profile).ok
+                all_valid = all_valid and valid
+                all_aligned = all_aligned and aligned
+                episode = (
+                    run_episode(
+                        repaired,
+                        slip_profile,
+                        policy="switchboard",
+                        ticks=ticks,
+                        rng_seed=run_seed,
+                    )
+                    if aligned
+                    else None
+                )
+                cycles.append(
+                    {
+                        "cycle": cycle,
+                        "removed_cell_count": removed,
+                        "position_restoration": restoration[
+                            "position_restoration"
+                        ],
+                        "token_restoration": restoration["token_restoration"],
+                        "guard_substitutions": repaired["metadata"][
+                            "validity_guard_substitutions"
+                        ],
+                        "valid": valid,
+                        "aligned": aligned,
+                        "episode": _episode_digest(episode, ticks)
+                        if episode is not None
+                        else None,
+                    }
+                )
+                if not aligned:
+                    break
+                current = repaired
+
+            stages["all_cycles_valid"] = all_valid
+            stages["all_cycles_aligned"] = all_aligned
+
+            score_digest = None
+            decision = "skipped_unaligned"
+            stages["scored"] = False
+            if all_aligned and cycles and cycles[-1]["episode"] is not None:
+                final_episode = run_episode(
+                    current,
+                    slip_profile,
+                    policy="switchboard",
+                    ticks=ticks,
+                    rng_seed=run_seed,
+                )
+                alignment = is_grid_aligned(current, slip_profile)
+                metrics = {
+                    "readability": score_readability(current),
+                    "slip_profile": slip_profile,
+                    "slip_alignment": {"ok": alignment.ok},
+                    "lifecycle": final_episode,
+                    "rng_seed": run_seed,
+                }
+                archive_candidate = {"grid": current}
+                score = score_candidate(archive_candidate, metrics)
+                descriptor = descriptor_for_candidate(archive_candidate, metrics)
+                stages["scored"] = isinstance(score.get("fitness"), float)
+                score_digest = {
+                    "fitness": score["fitness"],
+                    "components": score["components"],
+                }
+                before_log = len(archive["insertion_log"])
+                archive = insert_candidate(
+                    archive, archive_candidate, score, descriptor
+                )
+                event = (
+                    archive["insertion_log"][before_log]["event"]
+                    if len(archive["insertion_log"]) > before_log
+                    else "unlogged"
+                )
+                if event.startswith("inserted"):
+                    decision = "inserted"
+                elif event.startswith("replaced"):
+                    decision = "replaced"
+                elif event.startswith("blocked"):
+                    decision = "blocked_invalid"
+                else:
+                    decision = "kept_incumbent"
+
+            creatures.append(
+                {
+                    "parent_grid_id": parent["grid_id"],
+                    "candidate_grid_id": candidate["grid_id"],
+                    "lineage_generation": candidate.get("lineage", {}).get(
+                        "generation", 0
+                    ),
+                    "stages": stages,
+                    "cycles": cycles,
+                    "score": score_digest,
+                    "archive_decision": decision,
+                }
+            )
+
+        summary_after = archive_summary(archive)
+        generation_reports.append(
+            {
+                "generation": generation_index,
+                "parent_source": parent_source,
+                "parent_pool_size": len(parents),
+                "creatures": creatures,
+                "mean_fitness": round(
+                    sum(
+                        creature["score"]["fitness"]
+                        for creature in creatures
+                        if creature["score"] is not None
+                    )
+                    / max(
+                        1,
+                        sum(
+                            1
+                            for creature in creatures
+                            if creature["score"] is not None
+                        ),
+                    ),
+                    6,
+                ),
+                "archive_niches_after": summary_after["occupied_niches"],
+                "archive_qd_after": summary_after["qd_score"],
+            }
+        )
+
+    summary = _evolution_summary(
+        generation_reports, archive, max_lineage_generation
+    )
+    return {
+        "lab_id": "mecha_engine_evolution_loop_stage0",
+        "date": "2026-07-05",
+        "rng_seed": rng_seed,
+        "generations_requested": generations,
+        "population": population,
+        "damage_cycles": damage_cycles,
+        "ticks": ticks,
+        "dropout_rate": dropout_rate,
+        "repair_epochs": repair_epochs,
+        "purpose": (
+            "Multi-generation evolution through the composed engine: "
+            "archive elites become parents, and every creature survives "
+            "repeated damage/repair cycles with full lifecycle episodes "
+            "between regenerations."
+        ),
+        "source_artifacts": [
+            "data/runtime_integration/mecha_engine_runtime_loop_stage0.json",
+            "research/package_specs/mecha_engine_module_interfaces.md",
+            "research/package_specs/mecha_engine_repair_interface_spec.md",
+        ],
+        "generations": generation_reports,
+        "summary": summary,
+        "closed_states": [
+            "archive_elites_become_parents_across_generations",
+            "repeated_damage_repair_cycles_with_episodes_between",
+        ],
+        "blocked_states": [
+            "runtime_package_target_absent_decision_record_gated",
+            "readability_proxy_uncalibrated_manual_calibration_deferred",
+        ],
+        "decision": _evolution_decision(summary),
+        "next_research_step": (
+            "Design the mecha_engine.runtime surface from this loop's "
+            "evidence (decision record 0008) and study longer-horizon "
+            "evolution: more generations, mutation-profile variation, and "
+            "fitness trajectories under the calibrated readability score "
+            "once human ratings exist."
+        ),
+    }
+
+
+def _evolution_summary(
+    generation_reports: list[dict], archive: dict, max_lineage_generation: int
+) -> dict:
+    creatures = [
+        creature
+        for generation in generation_reports
+        for creature in generation["creatures"]
+    ]
+    count = len(creatures)
+    cycles = [
+        cycle for creature in creatures for cycle in creature["cycles"]
+    ]
+    archived = [
+        creature for creature in creatures if creature["score"] is not None
+    ]
+    summary = archive_summary(archive)
+    return {
+        "generation_count": len(generation_reports),
+        "creature_count": count,
+        "total_damage_events": len(cycles),
+        "candidate_valid_rate": round(
+            sum(1 for c in creatures if c["stages"]["candidate_valid"]) / count,
+            6,
+        ),
+        "slip_alignment_retention_rate": round(
+            sum(1 for c in creatures if c["stages"]["all_cycles_aligned"])
+            / count,
+            6,
+        ),
+        "mean_position_restoration": round(
+            sum(cycle["position_restoration"] for cycle in cycles)
+            / len(cycles),
+            6,
+        ),
+        "mean_token_restoration": round(
+            sum(cycle["token_restoration"] for cycle in cycles) / len(cycles),
+            6,
+        ),
+        "guard_substitution_total": sum(
+            cycle["guard_substitutions"] for cycle in cycles
+        ),
+        "archived_creature_count": len(archived),
+        "mean_fitness_by_generation": [
+            generation["mean_fitness"] for generation in generation_reports
+        ],
+        "max_lineage_generation": max_lineage_generation,
+        "archive": {
+            "filled_niches": summary["occupied_niches"],
+            "coverage": summary["coverage"],
+            "qd_score": summary["qd_score"],
+        },
+    }
+
+
+def _evolution_decision(summary: dict) -> dict:
+    elites_became_parents = summary["generation_count"] >= 2
+    all_green = (
+        summary["candidate_valid_rate"] == 1.0
+        and summary["slip_alignment_retention_rate"] == 1.0
+        and summary["mean_position_restoration"] == 1.0
+        and summary["archived_creature_count"] == summary["creature_count"]
+        and elites_became_parents
+        and summary["max_lineage_generation"] >= 2
+    )
+    if all_green:
+        status = "evolution_loop_composed"
+        reason = (
+            "Archive elites reproduce: every creature in every generation "
+            "validates, survives repeated damage/repair cycles with full "
+            "episodes between regenerations, stays SLIP-aligned, and "
+            "scores back into the archive; ancestry deepens generation "
+            "over generation. Fitness and archive trajectories are "
+            "reported as measurements, not gates."
+        )
+    else:
+        status = "evolution_loop_gaps_measured"
+        reason = (
+            "At least one creature fell short of a module contract inside "
+            "the evolution loop; the per-creature stage flags and cycle "
+            "records name exactly where."
+        )
+    return {
+        "status": status,
+        "adoption": "lab_only_runtime_evidence",
+        "reason": reason,
+    }
+
+
+def write_evolution_loop_artifacts(output_dir: Path, report: dict) -> None:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    (output_dir / "mecha_engine_evolution_loop_stage0.json").write_text(
+        json.dumps(report, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    summary = report["summary"]
+    (output_dir / "evolution_loop_README.md").write_text(
+        "# Mecha Engine Evolution Loop Stage 0\n\n"
+        "Multi-generation evolution through the composed engine: archive "
+        "elites become parents; every creature survives repeated "
+        "damage/repair cycles with episodes between regenerations.\n\n"
+        "Key results:\n\n"
+        f"- Generations: {summary['generation_count']} × "
+        f"{report['population']} creatures × {report['damage_cycles']} "
+        f"damage cycles ({summary['total_damage_events']} damage events)\n"
+        f"- Candidate validity: {summary['candidate_valid_rate']}\n"
+        f"- SLIP alignment retention: {summary['slip_alignment_retention_rate']}\n"
+        f"- Position restoration: {summary['mean_position_restoration']} "
+        f"(token {summary['mean_token_restoration']})\n"
+        f"- Mean fitness by generation: {summary['mean_fitness_by_generation']}\n"
+        f"- Max lineage generation: {summary['max_lineage_generation']}\n"
+        f"- Archive: {summary['archive']['filled_niches']} niches, "
+        f"QD {summary['archive']['qd_score']}\n"
+        f"- Decision: {report['decision']['status']}\n",
+        encoding="utf-8",
+    )
+
+
 def write_runtime_loop_artifacts(output_dir: Path, report: dict) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
     (output_dir / f"{ARTIFACT_ID}.json").write_text(
@@ -477,21 +853,38 @@ def _readme_text(report: dict) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Run the mecha_engine runtime integration loop."
+        description="Run the mecha_engine runtime integration loops."
+    )
+    parser.add_argument(
+        "--mode", choices=["single", "evolution"], default="single"
     )
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--count", type=int, default=12)
+    parser.add_argument("--generations", type=int, default=4)
+    parser.add_argument("--population", type=int, default=8)
+    parser.add_argument("--damage-cycles", type=int, default=3)
     parser.add_argument("--ticks", type=int, default=72)
     parser.add_argument("--dropout-rate", type=float, default=0.2)
     parser.add_argument("--rng-seed", type=int, default=20260512)
     args = parser.parse_args()
-    report = run_mecha_engine_runtime_loop(
-        count=args.count,
-        ticks=args.ticks,
-        dropout_rate=args.dropout_rate,
-        rng_seed=args.rng_seed,
-    )
-    write_runtime_loop_artifacts(args.output_dir, report)
+    if args.mode == "evolution":
+        report = run_mecha_engine_evolution_loop(
+            generations=args.generations,
+            population=args.population,
+            damage_cycles=args.damage_cycles,
+            ticks=args.ticks,
+            dropout_rate=args.dropout_rate,
+            rng_seed=args.rng_seed,
+        )
+        write_evolution_loop_artifacts(args.output_dir, report)
+    else:
+        report = run_mecha_engine_runtime_loop(
+            count=args.count,
+            ticks=args.ticks,
+            dropout_rate=args.dropout_rate,
+            rng_seed=args.rng_seed,
+        )
+        write_runtime_loop_artifacts(args.output_dir, report)
     print(json.dumps(report["summary"], indent=2))
     print(json.dumps(report["decision"], indent=2))
 

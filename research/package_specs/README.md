@@ -39,3 +39,7 @@ Published specs:
   positions, never tokens, never a template), validity-guard semantics,
   and hard gates from the trained-repair benchmark, enforced by
   `tests/test_repair_contract.py` and the lab-side parity pin.
+- `mecha_engine_runtime_interface_spec.md` - PROPOSED surface for
+  `mecha_engine.runtime` (decision record 0008, awaiting owner
+  acceptance): live_cycle + evolve over the composed engine, designed
+  from the runtime integration lab's two green artifacts.

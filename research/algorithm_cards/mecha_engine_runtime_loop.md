@@ -75,6 +75,14 @@ retention 1.0, all 12 runs archived, exactly 1 guard substitution
 documented constraint-not-template consequence), archive 10 niches
 (QD 9.29), decision `runtime_loop_composed`.
 
+Evolution mode (same day): 4 generations × 8 creatures × 3 damage
+cycles — 32/32 creatures complete everything (96 damage events,
+retention 1.0, 12 guard substitutions), archive elites reproduce,
+archive grows to 15 niches (QD 13.92), fitness flat at ~0.92-0.93
+(honest: survival saturated, readability uncalibrated). Decision
+`evolution_loop_composed`. Lineage-counter reset through repair
+recorded as parity-reviewed future work.
+
 ## Decision
 
 Prototype (adopt as the standing integration harness). Status is now
