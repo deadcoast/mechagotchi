@@ -83,6 +83,16 @@ archive grows to 15 niches (QD 13.92), fitness flat at ~0.92-0.93
 `evolution_loop_composed`. Lineage-counter reset through repair
 recorded as parity-reviewed future work.
 
+Stress regime (same day): episodes on the archive's contracted
+morphology stress probe (regime-conditional; sheltered default
+byte-identical). 6 generations x 8 x 3 cycles: saturation broken
+(10/48 deaths, survival 0.79-0.90 by generation), archive 25 niches
+(QD 21.27), mean structural load falls 0.855 -> 0.761 (a selection
+signal, stated conservatively — not monotonic, short horizon), mean
+survival flat (bistability + MAP-Elites uniform-niche parenting,
+recorded as a system property). Decision
+`evolution_under_stress_composed`.
+
 ## Decision
 
 Prototype (adopt as the standing integration harness). Status is now

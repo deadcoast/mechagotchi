@@ -554,6 +554,11 @@ Post-v0.1 continuation has started:
 - `packages/mecha_engine/tests/test_runtime_contract.py`
 - `labs/runtime_integration/test_package_runtime_parity.py` (runtime is the seventh promoted module under DR 0008; promotion gate 5/7 promotion-ready; scaffold gate 9/9 with 7 modules and 217 package tests)
 
+- `research/experiment_reports/2026-07-05-stress-regime-evolution.md`
+- `research/algorithm_cards/mecha_engine_runtime_loop.md`
+- `labs/runtime_integration/mecha_engine_runtime_loop.py`
+- `data/runtime_integration/mecha_engine_evolution_hard_regime_stage0.json` (survival saturation broken via the contracted stress probe: 10/48 deaths, archive 25 niches / QD 21.27, mean load falls 0.855 -> 0.761; the learning module's evaluation environment now exists)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

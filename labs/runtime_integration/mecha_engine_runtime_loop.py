@@ -79,6 +79,55 @@ LEDGER_PATH = ROOT / "data" / "asset_provenance" / "ledger.json"
 REPAIR_TRAINING_COUNT = 40  # the trained-repair benchmark's split
 
 
+def _probe_clamp(value: float) -> float:
+    return max(0.0, min(1.0, value))
+
+
+def _probe_body_mass(grid: dict) -> int:
+    return sum(1 for cell in grid.get("cells", []) if cell.get("organ") == "core")
+
+
+def _probe_sensor_count(grid: dict) -> int:
+    sensors = grid.get("organs", {}).get("sensors", {})
+    cells = sensors.get("cells") if isinstance(sensors, dict) else None
+    return len(cells) if isinstance(cells, list) else 0
+
+
+def _probe_symmetry(grid: dict) -> float:
+    width = grid.get("grid_size", [0, 0])[0]
+    occupied = {
+        (cell["x"], cell["y"], cell.get("role"))
+        for cell in grid.get("cells", [])
+    }
+    if not occupied:
+        return 0.0
+    mirrored = sum(
+        1 for x, y, role in occupied if (width - 1 - x, y, role) in occupied
+    )
+    return mirrored / len(occupied)
+
+
+def _stress_probe(grid: dict) -> tuple[dict, float]:
+    """The archive's contracted morphology stress probe, mirrored verbatim.
+
+    Source of truth: ``mecha_engine.archive._metrics.lifecycle_probe_grid``
+    (load = clamp(body_mass/16 + (1 - symmetry) * 0.65 - sensors * 0.08),
+    written to every cell's ``stress`` field on a copy). The hard survival
+    regime runs episodes on this probed copy, so whether the switchboard
+    can stabilize the morphology-derived load decides survival — the
+    gradient selection and (later) learning need.
+    """
+    load = _probe_clamp(
+        _probe_body_mass(grid) / 16
+        + (1 - _probe_symmetry(grid)) * 0.65
+        - _probe_sensor_count(grid) * 0.08
+    )
+    probe = json.loads(json.dumps(grid))
+    for cell in probe.get("cells", []):
+        cell["stress"] = round(load, 6)
+    return probe, round(load, 6)
+
+
 def _live_tokens(grid: dict) -> dict[tuple[int, int], str]:
     return {
         (cell["x"], cell["y"]): f"{cell['role']}/{cell.get('organ')}"
@@ -446,6 +495,7 @@ def run_mecha_engine_evolution_loop(
     dropout_rate: float = 0.2,
     repair_epochs: int = 150,
     rng_seed: int = 20260512,
+    survival_regime: str = "sheltered",
 ) -> dict:
     """Multi-generation evolution through the composed engine.
 
@@ -457,7 +507,23 @@ def run_mecha_engine_evolution_loop(
     each repaired by the SLIP-aware wound-site guard and followed by a
     full lifecycle episode — the creature must keep earning its survival
     after every regeneration.
+
+    `survival_regime`: "sheltered" (default, byte-identical to the
+    original loop — the package parity pins depend on it) runs episodes
+    on the pristine creature; "stress_probe" runs every episode on the
+    archive's contracted morphology stress probe, making survival
+    morphology-dependent so selection has a gradient. Stress-only report
+    keys are added exclusively under the stress regime.
     """
+    if survival_regime not in ("sheltered", "stress_probe"):
+        raise ValueError(f"unknown survival_regime: {survival_regime}")
+    stress = survival_regime == "stress_probe"
+
+    def episode_grid(grid: dict) -> tuple[dict, float | None]:
+        if not stress:
+            return grid, None
+        return _stress_probe(grid)
+
     slip_profile = json.loads(SLIP_PROFILE_PATH.read_text(encoding="utf-8"))
     seeds = build_seed_grids()
     generation_model = train_generation_model(seeds)
@@ -528,17 +594,16 @@ def run_mecha_engine_evolution_loop(
                 aligned = is_grid_aligned(repaired, slip_profile).ok
                 all_valid = all_valid and valid
                 all_aligned = all_aligned and aligned
-                episode = (
-                    run_episode(
-                        repaired,
+                episode = None
+                if aligned:
+                    cycle_episode_grid, _ = episode_grid(repaired)
+                    episode = run_episode(
+                        cycle_episode_grid,
                         slip_profile,
                         policy="switchboard",
                         ticks=ticks,
                         rng_seed=run_seed,
                     )
-                    if aligned
-                    else None
-                )
                 cycles.append(
                     {
                         "cycle": cycle,
@@ -567,9 +632,11 @@ def run_mecha_engine_evolution_loop(
             score_digest = None
             decision = "skipped_unaligned"
             stages["scored"] = False
+            final_load = None
             if all_aligned and cycles and cycles[-1]["episode"] is not None:
+                final_episode_grid, final_load = episode_grid(current)
                 final_episode = run_episode(
-                    current,
+                    final_episode_grid,
                     slip_profile,
                     policy="switchboard",
                     ticks=ticks,
@@ -591,6 +658,10 @@ def run_mecha_engine_evolution_loop(
                     "fitness": score["fitness"],
                     "components": score["components"],
                 }
+                if stress:
+                    score_digest["final_episode"] = _episode_digest(
+                        final_episode, ticks
+                    )
                 before_log = len(archive["insertion_log"])
                 archive = insert_candidate(
                     archive, archive_candidate, score, descriptor
@@ -609,19 +680,22 @@ def run_mecha_engine_evolution_loop(
                 else:
                     decision = "kept_incumbent"
 
-            creatures.append(
-                {
-                    "parent_grid_id": parent["grid_id"],
-                    "candidate_grid_id": candidate["grid_id"],
-                    "lineage_generation": candidate.get("lineage", {}).get(
-                        "generation", 0
-                    ),
-                    "stages": stages,
-                    "cycles": cycles,
-                    "score": score_digest,
-                    "archive_decision": decision,
-                }
-            )
+            creature_record = {
+                "parent_grid_id": parent["grid_id"],
+                "candidate_grid_id": candidate["grid_id"],
+                "lineage_generation": candidate.get("lineage", {}).get(
+                    "generation", 0
+                ),
+                "stages": stages,
+                "cycles": cycles,
+                "score": score_digest,
+                "archive_decision": decision,
+            }
+            if stress:
+                if final_load is None:
+                    _, final_load = _stress_probe(current)
+                creature_record["stress_load"] = final_load
+            creatures.append(creature_record)
 
         summary_after = archive_summary(archive)
         generation_reports.append(
@@ -654,8 +728,45 @@ def run_mecha_engine_evolution_loop(
     summary = _evolution_summary(
         generation_reports, archive, max_lineage_generation
     )
-    return {
-        "lab_id": "mecha_engine_evolution_loop_stage0",
+    if stress:
+        summary["survival_regime"] = "stress_probe"
+        summary["mean_stress_load_by_generation"] = [
+            round(
+                sum(c["stress_load"] for c in generation["creatures"])
+                / len(generation["creatures"]),
+                6,
+            )
+            for generation in generation_reports
+        ]
+        final_episodes_by_generation = [
+            [
+                c["score"]["final_episode"]
+                for c in generation["creatures"]
+                if c["score"] is not None
+            ]
+            for generation in generation_reports
+        ]
+        summary["mean_survival_ratio_by_generation"] = [
+            round(
+                sum(e["survival_ratio"] for e in episodes) / len(episodes), 6
+            )
+            if episodes
+            else 0.0
+            for episodes in final_episodes_by_generation
+        ]
+        summary["death_count"] = sum(
+            1
+            for episodes in final_episodes_by_generation
+            for e in episodes
+            if not e["alive"]
+        )
+    report_lab_id = (
+        "mecha_engine_evolution_hard_regime_stage0"
+        if stress
+        else "mecha_engine_evolution_loop_stage0"
+    )
+    result = {
+        "lab_id": report_lab_id,
         "date": "2026-07-05",
         "rng_seed": rng_seed,
         "generations_requested": generations,
@@ -694,6 +805,16 @@ def run_mecha_engine_evolution_loop(
             "once human ratings exist."
         ),
     }
+    if stress:
+        result["survival_regime"] = "stress_probe"
+        result["next_research_step"] = (
+            "With survival now morphology-dependent, study whether "
+            "selection climbs (mean stress load / survival by generation) "
+            "over longer horizons, then give the learning module this "
+            "regime as its evaluation environment (decision record 0009 "
+            "candidate)."
+        )
+    return result
 
 
 def _evolution_summary(
@@ -760,8 +881,13 @@ def _evolution_decision(summary: dict) -> dict:
         and elites_became_parents
         and summary["max_lineage_generation"] >= 2
     )
+    stress = summary.get("survival_regime") == "stress_probe"
     if all_green:
-        status = "evolution_loop_composed"
+        status = (
+            "evolution_under_stress_composed"
+            if stress
+            else "evolution_loop_composed"
+        )
         reason = (
             "Archive elites reproduce: every creature in every generation "
             "validates, survives repeated damage/repair cycles with full "
@@ -770,28 +896,64 @@ def _evolution_decision(summary: dict) -> dict:
             "over generation. Fitness and archive trajectories are "
             "reported as measurements, not gates."
         )
+        if stress:
+            reason += (
+                " Under the stress regime, episode death is a legitimate "
+                "measured outcome (see death_count and the per-generation "
+                "load/survival trajectories), never a contract failure."
+            )
     else:
-        status = "evolution_loop_gaps_measured"
+        status = (
+            "evolution_under_stress_gaps_measured"
+            if stress
+            else "evolution_loop_gaps_measured"
+        )
         reason = (
             "At least one creature fell short of a module contract inside "
             "the evolution loop; the per-creature stage flags and cycle "
             "records name exactly where."
         )
-    return {
+    decision = {
         "status": status,
         "adoption": "lab_only_runtime_evidence",
         "reason": reason,
     }
+    if stress:
+        loads = summary["mean_stress_load_by_generation"]
+        survival = summary["mean_survival_ratio_by_generation"]
+        decision["observations"] = {
+            "mean_load_last_vs_first": round(loads[-1] - loads[0], 6),
+            "mean_survival_last_vs_first": round(
+                survival[-1] - survival[0], 6
+            ),
+            "deaths_observed": summary["death_count"] > 0,
+        }
+    return decision
 
 
 def write_evolution_loop_artifacts(output_dir: Path, report: dict) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
-    (output_dir / "mecha_engine_evolution_loop_stage0.json").write_text(
+    stress = report.get("survival_regime") == "stress_probe"
+    (output_dir / f"{report['lab_id']}.json").write_text(
         json.dumps(report, indent=2) + "\n",
         encoding="utf-8",
     )
     summary = report["summary"]
-    (output_dir / "evolution_loop_README.md").write_text(
+    readme_name = (
+        "evolution_hard_regime_README.md" if stress else "evolution_loop_README.md"
+    )
+    regime_lines = ""
+    if stress:
+        regime_lines = (
+            f"- Survival regime: stress_probe (episodes on the contracted "
+            f"morphology stress probe)\n"
+            f"- Mean stress load by generation: "
+            f"{summary['mean_stress_load_by_generation']}\n"
+            f"- Mean survival by generation: "
+            f"{summary['mean_survival_ratio_by_generation']}\n"
+            f"- Deaths: {summary['death_count']}\n"
+        )
+    (output_dir / readme_name).write_text(
         "# Mecha Engine Evolution Loop Stage 0\n\n"
         "Multi-generation evolution through the composed engine: archive "
         "elites become parents; every creature survives repeated "
@@ -808,7 +970,8 @@ def write_evolution_loop_artifacts(output_dir: Path, report: dict) -> None:
         f"- Max lineage generation: {summary['max_lineage_generation']}\n"
         f"- Archive: {summary['archive']['filled_niches']} niches, "
         f"QD {summary['archive']['qd_score']}\n"
-        f"- Decision: {report['decision']['status']}\n",
+        + regime_lines
+        + f"- Decision: {report['decision']['status']}\n",
         encoding="utf-8",
     )
 
@@ -858,6 +1021,9 @@ def main() -> None:
     parser.add_argument(
         "--mode", choices=["single", "evolution"], default="single"
     )
+    parser.add_argument(
+        "--regime", choices=["sheltered", "stress_probe"], default="sheltered"
+    )
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--count", type=int, default=12)
     parser.add_argument("--generations", type=int, default=4)
@@ -875,6 +1041,7 @@ def main() -> None:
             ticks=args.ticks,
             dropout_rate=args.dropout_rate,
             rng_seed=args.rng_seed,
+            survival_regime=args.regime,
         )
         write_evolution_loop_artifacts(args.output_dir, report)
     else:

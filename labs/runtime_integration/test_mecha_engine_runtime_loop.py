@@ -183,5 +183,82 @@ class MechaEngineEvolutionLoopTests(unittest.TestCase):
             self.assertEqual("mecha_engine_evolution_loop_stage0", loaded["lab_id"])
 
 
+class StressRegimeEvolutionTests(unittest.TestCase):
+    """The hard survival regime: episodes on the stress-probed morphology.
+
+    The archive's own contracted probe (mecha_engine.archive._metrics
+    .lifecycle_probe_grid) makes survival morphology-dependent; the
+    sheltered default must stay byte-identical (package parity depends on
+    it), so every stress key is regime-conditional.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.report = run_mecha_engine_evolution_loop(
+            survival_regime="stress_probe",
+            generations=2,
+            population=4,
+            damage_cycles=1,
+            ticks=24,
+            repair_epochs=150,
+            rng_seed=20260512,
+        )
+
+    def test_regime_is_recorded_with_its_own_artifact_id(self):
+        self.assertEqual(
+            "mecha_engine_evolution_hard_regime_stage0", self.report["lab_id"]
+        )
+        self.assertEqual("stress_probe", self.report["survival_regime"])
+
+    def test_every_creature_carries_its_stress_load(self):
+        loads = []
+        for generation in self.report["generations"]:
+            for creature in generation["creatures"]:
+                self.assertIn("stress_load", creature)
+                self.assertGreaterEqual(creature["stress_load"], 0.0)
+                self.assertLessEqual(creature["stress_load"], 1.0)
+                loads.append(creature["stress_load"])
+        # Morphology-dependent: the loads are not one shared value.
+        self.assertGreater(len(set(loads)), 1)
+
+    def test_summary_tracks_the_selection_signal(self):
+        summary = self.report["summary"]
+        self.assertEqual("stress_probe", summary["survival_regime"])
+        self.assertEqual(2, len(summary["mean_stress_load_by_generation"]))
+        self.assertEqual(2, len(summary["mean_survival_ratio_by_generation"]))
+        self.assertIn("death_count", summary)
+        # Contract gates still hold under stress: dying is a legitimate
+        # outcome, invalid/unaligned creatures are not.
+        self.assertEqual(1.0, summary["candidate_valid_rate"])
+        self.assertEqual(1.0, summary["slip_alignment_retention_rate"])
+
+    def test_sheltered_default_reports_its_regime_without_stress_keys(self):
+        sheltered = run_mecha_engine_evolution_loop(
+            generations=1,
+            population=2,
+            damage_cycles=1,
+            ticks=12,
+            repair_epochs=150,
+            rng_seed=20260512,
+        )
+        self.assertEqual("mecha_engine_evolution_loop_stage0", sheltered["lab_id"])
+        self.assertNotIn("survival_regime", sheltered["summary"])
+        self.assertNotIn(
+            "stress_load",
+            sheltered["generations"][0]["creatures"][0],
+        )
+
+    def test_write_artifacts_uses_the_regime_artifact_names(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output_dir = Path(temp_dir)
+            write_evolution_loop_artifacts(output_dir, self.report)
+            self.assertTrue(
+                (output_dir / "mecha_engine_evolution_hard_regime_stage0.json").exists()
+            )
+            self.assertTrue(
+                (output_dir / "evolution_hard_regime_README.md").exists()
+            )
+
+
 if __name__ == "__main__":
     unittest.main()

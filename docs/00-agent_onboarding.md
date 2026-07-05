@@ -80,13 +80,17 @@ over plans; and executed artifacts win over prose claims.
      21 samples × 3 reviewers). It still gates the evaluation module,
      descriptor threshold locks, and profile-weighted evolution claims —
      those stay honestly blocked until real data arrives. Never fabricate.
-  2. **Runtime promoted (DR 0008 accepted 2026-07-05)** —
-     `mecha_engine.runtime` (`live_cycle` + `evolve`) is the seventh
-     module, contract-tested and evolution-parity-pinned; the runtime lab
-     stays the research harness. Engine research follow-ups: lineage
-     counter accumulation through repair (parity-reviewed), longer
-     evolution horizons, harder survival regimes (fitness is currently
-     flat with survival saturated and readability uncalibrated).
+  2. **Learning module DR (0009 candidate) is now proposable** — the
+     stress survival regime (2026-07-05) broke the saturation:
+     `--mode evolution --regime stress_probe` runs episodes on the
+     archive's contracted morphology probe (10/48 deaths, survival
+     0.79-0.90, archive 25 niches). The learning claim to beat is the
+     frozen switchboard's measured survival under this regime — a
+     falsifiable bar at last. Other engine follow-ups: longer-horizon
+     selection studies (incl. fitness-weighted vs uniform parenting as an
+     explicit comparison), lineage counter accumulation through repair
+     (parity-reviewed), package `runtime.evolve` regime parameter once
+     lab evidence settles.
   3. Learning module target: candidate is design-ready. An ACTIVE roadmap
      item under standard decision-record governance (propose the DR with a
      recommendation whenever it is the right next step) — NOT owner-
