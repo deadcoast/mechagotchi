@@ -530,6 +530,11 @@ Post-v0.1 continuation has started:
 - `research/reports/mechagotchi_research_report_v0_10.md`
 - `research/reports/research_report_v0_10_manifest.json`
 
+- `research/experiment_reports/2026-07-05-mecha-engine-runtime-loop.md`
+- `research/algorithm_cards/mecha_engine_runtime_loop.md`
+- `labs/runtime_integration/mecha_engine_runtime_loop.py`
+- `data/runtime_integration/mecha_engine_runtime_loop_stage0.json` (first full-loop composition of all six promoted modules: 11/12 creatures complete the pipeline; measured seam — SLIP-alignment retention 0.9167 after repair; next: SLIP-aware repair guard)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

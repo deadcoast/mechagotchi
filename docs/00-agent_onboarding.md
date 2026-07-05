@@ -77,13 +77,17 @@ over plans; and executed artifacts win over prose claims.
      21 samples × 3 reviewers). It still gates the evaluation module,
      descriptor threshold locks, and profile-weighted evolution claims —
      those stay honestly blocked until real data arrives. Never fabricate.
-  2. **Runtime integration lab** — the recommended next engine step, no
-     owner gate needed: compose the six promoted modules through the
-     spec's cross-module MVP flow (validate → generate → simulate →
-     damage → repair → archive → provenance) as a research lab,
-     exercising the repair module's damage-event observability contract
-     in a full loop. (Learned repair itself is CLOSED: wound-site arm
-     0.938462/0.938462/1.0 guarded; `repair` promoted under DR 0006.)
+  2. **Runtime seam: SLIP-aware repair guard** — the runtime integration
+     lab (`labs/runtime_integration/`, 2026-07-05) composed all six
+     modules: 11/12 creatures complete the full pipeline, but repair's
+     validity guard is validator-aware, not SLIP-aware, so a destroyed
+     profile-required organ can be refilled as the wrong organ and the
+     creature becomes un-simulatable (alignment retention 0.9167). Fix
+     direction: the guard accepts the active SLIP profile (engine-native
+     constraint, not a template) — touches the promoted repair module +
+     its interface spec, so document the contract change carefully. Then
+     multi-generation evolution over archive elites. A `runtime` package
+     target stays no-go until retention is 1.0.
   3. Learning module target: candidate is design-ready; creating the
      deferred `learning` package target is a scope decision — write a
      decision record (0008) first and get the owner's go.
