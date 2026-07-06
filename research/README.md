@@ -641,6 +641,8 @@ Post-v0.1 continuation has started:
 - `research/decision_records/0013-port-slip-v2-and-packet-v2.md`
 - `research/experiment_reports/2026-07-05-slip-v2-packet-v2-port.md` (owner-authorized port: SLIP v0.2 + packet v2 live in the package — 266 contract tests, zero existing pins touched, v0.2 profiles drive simulations natively)
 
+- `research/decision_records/0014-grid-size-commitment.md` (audit T6: 8x8 committed for the current phase on probe evidence — validator is size-generic but every calibrated constant/corpus/gate is 8x8-denominated; T17's multi-size bake-off is the designated re-opener)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

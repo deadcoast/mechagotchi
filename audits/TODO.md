@@ -61,7 +61,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
   Missing threads get og's required proof shape (input, output,
   confidence, explanation, effect on action, effect on survival) and the
   go/no-go: improve one measurable outcome without destabilizing.
-- [ ] **T6 · Grid-size decision record.** Answer og research question 2
+- [x] **T6 · Grid-size decision record.** (DR 0014, 2026-07-05: 8x8 committed on probe evidence; T17 re-opens) Answer og research question 2
   (8×8 vs 16×16 vs 24×24 vs 32×32) with evidence: generator validity,
   readability proxies, invariant scaling, render/edit ergonomics at each
   size. og's own sketch was 16×16; today's 8×8 is undecided policy, not
