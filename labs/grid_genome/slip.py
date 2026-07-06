@@ -27,7 +27,8 @@ TOP_LEVEL_KEYS = {
 # frozen baseline the promoted modules consume; ladder fields are legal
 # only under "0.2.0" and are all optional.
 VALID_SLIP_VERSIONS = {"0.1.0", "0.2.0"}
-LADDER_KEYS = {"forbidden_traits"}
+LADDER_KEYS = {"forbidden_traits", "risk_tolerances"}
+RISK_TOLERANCES_KEYS = {"mutation"}
 FORBIDDEN_TRAITS_KEYS = {"roles", "materials"}
 # Mirrors of the grid genome schema's cell enums minus the empty values
 # (empty/void cannot be forbidden); pinned against
@@ -96,6 +97,8 @@ def validate_slip(profile: dict) -> SlipResult:
             errors.append(f"profile {key} requires slip_version 0.2.0")
     if "forbidden_traits" in profile:
         _validate_forbidden_traits(profile, errors)
+    if "risk_tolerances" in profile:
+        _validate_risk_tolerances(profile, errors)
     _require_string(profile, "profile_id", errors)
     _require_string(profile, "name", errors)
     profile_id = profile.get("profile_id")
@@ -225,6 +228,20 @@ def is_grid_aligned(grid: dict, profile: dict) -> SlipResult:
             errors.append(f"forbidden material present in grid: {material}")
 
     return SlipResult(not errors, errors)
+
+
+def _validate_risk_tolerances(profile: dict, errors: list[str]) -> None:
+    tolerances = profile.get("risk_tolerances")
+    if not isinstance(tolerances, dict):
+        errors.append("risk_tolerances must be an object")
+        return
+    _require_exact_keys(
+        tolerances, RISK_TOLERANCES_KEYS, "risk_tolerances", errors
+    )
+    if "mutation" in tolerances:
+        _validate_unit_interval(
+            tolerances["mutation"], "risk_tolerances mutation", errors
+        )
 
 
 def _validate_forbidden_traits(profile: dict, errors: list[str]) -> None:

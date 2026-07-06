@@ -193,6 +193,21 @@
           ]
         }
       ]
+    },
+    "risk_tolerances": {
+      "type": "object",
+      "description": "SLIP schema extension ladder rung T3.2 (decision record 0012): how much risk the species tolerates. `mutation` is the risk level at which mutation utility flips negative in the switchboard (baseline 0.35 when absent). 0.2.0-only.",
+      "properties": {
+        "mutation": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        }
+      },
+      "required": [
+        "mutation"
+      ],
+      "additionalProperties": false
     }
   },
   "$defs": {
@@ -213,8 +228,17 @@
       },
       "then": {
         "not": {
-          "required": [
-            "forbidden_traits"
+          "anyOf": [
+            {
+              "required": [
+                "forbidden_traits"
+              ]
+            },
+            {
+              "required": [
+                "risk_tolerances"
+              ]
+            }
           ]
         }
       }

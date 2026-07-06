@@ -89,6 +89,17 @@ class ForbiddenTraitsContract(BaseModel):
         return self
 
 
+class RiskTolerancesContract(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    mutation: Annotated[float, Field(ge=0.0, le=1.0)]
+
+    @field_validator("mutation", mode="before")
+    @classmethod
+    def reject_bool_for_mutation_tolerance(cls, value: object) -> object:
+        return _reject_numeric_bool(value)
+
+
 class GridContract(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -190,6 +201,7 @@ class SLIPProfile(BaseModel):
     survival_weights: SurvivalWeightsContract
     # SLIP schema extension ladder (decision record 0012), 0.2.0-only.
     forbidden_traits: ForbiddenTraitsContract | None = None
+    risk_tolerances: RiskTolerancesContract | None = None
 
     _CELL_ROLE_FOR_ORGAN_ROLE = {
         "sensor": ForbiddableRole.eye,
@@ -199,6 +211,8 @@ class SLIPProfile(BaseModel):
 
     @model_validator(mode="after")
     def ladder_fields_require_v2(self) -> "SLIPProfile":
+        if self.risk_tolerances is not None and self.slip_version != "0.2.0":
+            raise ValueError("risk_tolerances requires slip_version 0.2.0")
         if self.forbidden_traits is not None:
             if self.slip_version != "0.2.0":
                 raise ValueError(

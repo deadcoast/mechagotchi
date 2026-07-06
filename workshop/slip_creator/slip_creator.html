@@ -178,6 +178,15 @@
         <div class="toggle-group" id="forbidden-role-toggles"></div>
         <label class="field">forbidden materials</label>
         <div class="toggle-group" id="forbidden-material-toggles"></div>
+        <label class="field">mutation risk tolerance</label>
+        <div class="slider-row" style="grid-template-columns: 150px 1fr 52px;">
+          <span class="name">off / tolerance</span>
+          <input type="range" id="risk-tolerance" min="-0.01" max="1" step="0.01" value="-0.01">
+          <output id="risk-tolerance-out">off</output>
+        </div>
+        <p class="hint">the risk level at which mutation utility flips negative
+        (engine baseline 0.35 when off); risk-tolerant species keep mutating
+        under stress, risk-averse species freeze</p>
         <p class="hint">selecting any writes the profile as slip_version 0.2.0
         (the schema ladder); leaving all clear keeps 0.1.0 for maximum
         compatibility with the engine's promoted modules</p>
@@ -255,6 +264,7 @@ const FORBIDDABLE_ROLES = ["body", "shell", "sensor", "eye", "mouth", "joint", "
 const FORBIDDABLE_MATERIALS = ["soft", "hard", "glass", "joint", "light", "signal"];
 let forbiddenRoles = new Set();
 let forbiddenMaterials = new Set();
+let riskTolerance = null;
 let lastVerdict = null;
 
 const $ = (id) => document.getElementById(id);
@@ -265,7 +275,7 @@ function buildProfile() {
     values[section] = {};
     for (const [key] of defs) values[section][key] = parseFloat($("s-" + key).value);
   }
-  const usesLadder = forbiddenRoles.size || forbiddenMaterials.size;
+  const usesLadder = forbiddenRoles.size || forbiddenMaterials.size || riskTolerance !== null;
   const profile = {
     slip_version: usesLadder ? "0.2.0" : "0.1.0",
     profile_id: $("profile-id").value.trim(),
@@ -280,10 +290,13 @@ function buildProfile() {
     behavior: values.behavior,
     survival_weights: values.survival_weights,
   };
-  if (usesLadder) {
+  if (forbiddenRoles.size || forbiddenMaterials.size) {
     profile.forbidden_traits = {};
     if (forbiddenRoles.size) profile.forbidden_traits.roles = [...forbiddenRoles];
     if (forbiddenMaterials.size) profile.forbidden_traits.materials = [...forbiddenMaterials];
+  }
+  if (riskTolerance !== null) {
+    profile.risk_tolerances = { mutation: riskTolerance };
   }
   return profile;
 }
@@ -392,6 +405,13 @@ function updateSurvivalHint() {
   $("survival-sum-hint").style.color =
     Math.abs(total - 1) < 0.005 ? "var(--accent)" : "var(--amber)";
 }
+
+$("risk-tolerance").addEventListener("input", () => {
+  const raw = parseFloat($("risk-tolerance").value);
+  riskTolerance = raw < 0 ? null : Math.round(raw * 100) / 100;
+  $("risk-tolerance-out").textContent = riskTolerance === null ? "off" : riskTolerance.toFixed(2);
+  scheduleValidate();
+});
 
 /* ---------------- live authority verdict ---------------- */
 let validateTimer = null;
@@ -512,6 +532,9 @@ $("load-select").addEventListener("change", async () => {
   selectedRoles = new Set(profile.grid?.required_organ_roles || []);
   forbiddenRoles = new Set(profile.forbidden_traits?.roles || []);
   forbiddenMaterials = new Set(profile.forbidden_traits?.materials || []);
+  riskTolerance = profile.risk_tolerances?.mutation ?? null;
+  $("risk-tolerance").value = riskTolerance === null ? "-0.01" : String(riskTolerance);
+  $("risk-tolerance-out").textContent = riskTolerance === null ? "off" : riskTolerance.toFixed(2);
   renderForbiddenToggles();
   $("mass-min").value = profile.grid?.body_mass_min ?? 4;
   $("mass-max").value = profile.grid?.body_mass_max ?? 24;
@@ -537,6 +560,9 @@ $("new-btn").addEventListener("click", () => {
   selectedRoles = new Set(["sensor", "expression"]);
   forbiddenRoles = new Set();
   forbiddenMaterials = new Set();
+  riskTolerance = null;
+  $("risk-tolerance").value = "-0.01";
+  $("risk-tolerance-out").textContent = "off";
   renderPaletteToggles(); renderRoleToggles(); renderForbiddenToggles(); renderSliders();
   scheduleValidate();
 });

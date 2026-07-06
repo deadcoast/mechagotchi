@@ -83,18 +83,38 @@ def estimate_mutation_risk(state: dict) -> dict:
     stress = _clamp(state.get("stress", 0.0))
     stability = _clamp(state.get("grid_stability", 0.5))
     risk = _clamp(stress * 0.65 + (1 - stability) * 0.35)
+    # SLIP ladder rung T3.2 (decision record 0012): the profile's mutation
+    # risk tolerance is the risk level at which mutation utility flips
+    # negative. Absent (every v0.1 flow) the historical constant 0.35 is
+    # the baseline tolerance, bit-for-bit.
+    tolerance = state.get("risk_tolerance_mutation")
+    inputs = {"stress": stress, "grid_stability": stability}
+    if tolerance is None:
+        tolerance = 0.35
+        explanation = "High stress or low grid stability suppresses mutation."
+    else:
+        tolerance = _clamp(tolerance)
+        inputs["risk_tolerance_mutation"] = tolerance
+        explanation = (
+            "High stress or low grid stability suppresses mutation; the "
+            f"SLIP risk tolerance {tolerance} sets the flip point."
+        )
     effects = {
-        "mutate": round((0.35 - risk) * 0.6, 6),
+        "mutate": round((tolerance - risk) * 0.6, 6),
         "idle": round(risk * 0.2, 6),
     }
     return _thread(
         "mutation_risk_scorer",
-        {"stress": stress, "grid_stability": stability},
+        inputs,
         round(risk, 6),
         0.8,
-        "High stress or low grid stability suppresses mutation.",
+        explanation,
         effects,
     )
+
+
+# Census-facing alias (research/micro_learners/thread_census.md).
+mutation_risk_scorer = estimate_mutation_risk
 
 
 def run_switchboard(state: dict) -> dict:

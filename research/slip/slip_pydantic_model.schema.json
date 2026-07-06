@@ -198,6 +198,22 @@
       "title": "PaletteId",
       "type": "string"
     },
+    "RiskTolerancesContract": {
+      "additionalProperties": false,
+      "properties": {
+        "mutation": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Mutation",
+          "type": "number"
+        }
+      },
+      "required": [
+        "mutation"
+      ],
+      "title": "RiskTolerancesContract",
+      "type": "object"
+    },
     "SurvivalWeightsContract": {
       "additionalProperties": false,
       "properties": {
@@ -266,6 +282,17 @@
       "anyOf": [
         {
           "$ref": "#/$defs/ForbiddenTraitsContract"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "risk_tolerances": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RiskTolerancesContract"
         },
         {
           "type": "null"

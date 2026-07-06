@@ -620,6 +620,10 @@ Post-v0.1 continuation has started:
 - `labs/grid_genome/test_slip_forbidden_traits.py`
 - `data/slips/valid/slip_v2_no_shell.json` (T3.1: the SLIP ladder's first rung — dual-version authority, forbidden_traits enforced across all four validation surfaces + the workshop creator; package v0.1 boundary intact)
 
+- `research/micro_learners/thread_census.md` (audit T5: 11 og predictors mapped — 3 implemented, 3 partial, 3 missing, 2 covered by stronger mechanisms; consumer designs for ladder rungs T3.2/T3.3)
+- `research/experiment_reports/2026-07-05-slip-ladder-risk-tolerances.md`
+- `labs/grid_genome/test_slip_risk_tolerances.py` (T3.2: mutation risk tolerance consumed by the switchboard through lifecycle state — monotone effect pinned, frozen baseline bit-for-bit)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

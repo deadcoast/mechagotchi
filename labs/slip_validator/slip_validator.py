@@ -42,7 +42,8 @@ SURVIVAL_KEYS = {"stability", "novelty", "bond"}
 # SLIP schema extension ladder (decision record 0012): ladder fields are
 # optional and legal only under slip_version 0.2.0.
 VALID_SLIP_VERSIONS = {"0.1.0", "0.2.0"}
-LADDER_KEYS = {"forbidden_traits"}
+LADDER_KEYS = {"forbidden_traits", "risk_tolerances"}
+RISK_TOLERANCES_KEYS = {"mutation"}
 FORBIDDEN_TRAITS_KEYS = {"roles", "materials"}
 FORBIDDABLE_ROLES = {
     "body",
@@ -98,6 +99,19 @@ def validate_profile(profile: dict, source_path: Path | None = None) -> dict:
             )
     if "forbidden_traits" in profile:
         _validate_forbidden_traits(profile, errors)
+    if "risk_tolerances" in profile:
+        tolerances = profile["risk_tolerances"]
+        _validate_object(
+            tolerances,
+            ["risk_tolerances"],
+            RISK_TOLERANCES_KEYS,
+            RISK_TOLERANCES_KEYS,
+            errors,
+        )
+        if isinstance(tolerances, dict) and "mutation" in tolerances:
+            _validate_unit_interval(
+                tolerances.get("mutation"), ["risk_tolerances", "mutation"], errors
+            )
     _validate_string(profile.get("profile_id"), ["profile_id"], errors, pattern="profile_id")
     _validate_string(profile.get("name"), ["name"], errors)
 

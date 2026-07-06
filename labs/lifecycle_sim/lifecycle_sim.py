@@ -87,6 +87,7 @@ def initial_lifecycle_state(grid: dict, slip_profile: dict | None = None) -> dic
     cell_damage = mean([float(cell.get("damage", 0)) for cell in cells]) if cells else 0.0
     body_mass = sum(1 for cell in cells if cell.get("organ") == "core")
 
+    risk_tolerances = (slip_profile or {}).get("risk_tolerances")
     behavior = (slip_profile or {}).get("behavior", {})
     survival_weights = (slip_profile or {}).get("survival_weights", {})
     neediness = _clamp(behavior.get("neediness", 0.45))
@@ -95,7 +96,7 @@ def initial_lifecycle_state(grid: dict, slip_profile: dict | None = None) -> dic
     stability_weight = _clamp(survival_weights.get("stability", 0.5))
     bond_weight = _clamp(survival_weights.get("bond", 0.25))
 
-    return {
+    state = {
         "grid_id": grid.get("grid_id", "unknown_grid"),
         "slip_profile_id": (slip_profile or {}).get("profile_id"),
         "alive": True,
@@ -125,6 +126,14 @@ def initial_lifecycle_state(grid: dict, slip_profile: dict | None = None) -> dic
         "death_cause": None,
         "history": [],
     }
+    # SLIP ladder rung T3.2 (decision record 0012): v0.2 profiles carry a
+    # mutation risk tolerance the switchboard consumes; absent (every
+    # v0.1 profile) the state is byte-identical to the frozen baseline.
+    if isinstance(risk_tolerances, dict) and "mutation" in risk_tolerances:
+        state["risk_tolerance_mutation"] = _clamp(
+            float(risk_tolerances["mutation"])
+        )
+    return state
 
 
 def advance_tick(state: dict, action: str) -> dict:

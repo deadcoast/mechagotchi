@@ -39,7 +39,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
   extension sequence, then per-field triads (schema + both validators +
   pydantic mirror + fixtures + workshop slip-creator controls):
   - [x] T3.1 `forbidden_traits` (shipped 2026-07-05, DR 0012 rung 1)
-  - [ ] T3.2 `risk_tolerances` (consumed by lifecycle/switchboard)
+  - [x] T3.2 `risk_tolerances` (shipped 2026-07-05; census-designed switchboard consumer)
   - [ ] T3.3 `learning_switches` (consumed by `mecha_engine.learning` —
         og's "learning toggles"; the bounded-claim evidence gives these
         real semantics)
@@ -55,7 +55,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
   (extends the single-anchor invariant), then schema, then render-packet
   animation selection, then workshop preview/editing. Feeds T3.5, T7,
   and slice-3 preview's "animation/state previewer" og responsibility.
-- [ ] **T5 · Micro-learner thread census + gap plan.** Document mapping
+- [x] **T5 · Micro-learner thread census + gap plan.** (research/micro_learners/thread_census.md, 2026-07-05) Document mapping
   each og predictor (hunger, sleep, boredom, attention, animation
   preference, interaction timing, mood transition, mutation stability,
   visual readability, SLIP compatibility, lineage survival) →
