@@ -180,6 +180,14 @@
         <div class="toggle-group" id="forbidden-material-toggles"></div>
         <label class="field">learning switches — which intelligence threads run</label>
         <div class="toggle-group" id="switch-toggles"></div>
+        <label class="field">parent selection — how the species breeds from the archive</label>
+        <div class="filebar">
+          <select id="parent-selection">
+            <option value="">engine default (uniform)</option>
+            <option value="uniform">uniform · every elite niche breeds</option>
+            <option value="fitness_weighted">fitness weighted · the fittest breed first</option>
+          </select>
+        </div>
         <label class="field">mutation risk tolerance</label>
         <div class="slider-row" style="grid-template-columns: 150px 1fr 52px;">
           <span class="name">off / tolerance</span>
@@ -269,6 +277,7 @@ let forbiddenMaterials = new Set();
 let riskTolerance = null;
 const SWITCHBOARD_THREADS = ["recent_interaction_ewma", "hidden_mood_estimator", "action_preference_bandit", "mutation_risk_scorer"];
 let disabledThreads = new Set();
+let parentSelection = "";
 let lastVerdict = null;
 
 const $ = (id) => document.getElementById(id);
@@ -279,7 +288,7 @@ function buildProfile() {
     values[section] = {};
     for (const [key] of defs) values[section][key] = parseFloat($("s-" + key).value);
   }
-  const usesLadder = forbiddenRoles.size || forbiddenMaterials.size || riskTolerance !== null || disabledThreads.size;
+  const usesLadder = forbiddenRoles.size || forbiddenMaterials.size || riskTolerance !== null || disabledThreads.size || parentSelection !== "";
   const profile = {
     slip_version: usesLadder ? "0.2.0" : "0.1.0",
     profile_id: $("profile-id").value.trim(),
@@ -305,6 +314,9 @@ function buildProfile() {
   if (disabledThreads.size) {
     profile.learning_switches = {};
     for (const name of disabledThreads) profile.learning_switches[name] = false;
+  }
+  if (parentSelection !== "") {
+    profile.lineage_preferences = { parent_selection: parentSelection };
   }
   return profile;
 }
@@ -433,6 +445,11 @@ function updateSurvivalHint() {
     Math.abs(total - 1) < 0.005 ? "var(--accent)" : "var(--amber)";
 }
 
+$("parent-selection").addEventListener("change", () => {
+  parentSelection = $("parent-selection").value;
+  scheduleValidate();
+});
+
 $("risk-tolerance").addEventListener("input", () => {
   const raw = parseFloat($("risk-tolerance").value);
   riskTolerance = raw < 0 ? null : Math.round(raw * 100) / 100;
@@ -559,6 +576,8 @@ $("load-select").addEventListener("change", async () => {
   selectedRoles = new Set(profile.grid?.required_organ_roles || []);
   forbiddenRoles = new Set(profile.forbidden_traits?.roles || []);
   forbiddenMaterials = new Set(profile.forbidden_traits?.materials || []);
+  parentSelection = profile.lineage_preferences?.parent_selection || "";
+  $("parent-selection").value = parentSelection;
   riskTolerance = profile.risk_tolerances?.mutation ?? null;
   disabledThreads = new Set(
     Object.entries(profile.learning_switches || {})
@@ -595,6 +614,8 @@ $("new-btn").addEventListener("click", () => {
   forbiddenMaterials = new Set();
   riskTolerance = null;
   disabledThreads = new Set();
+  parentSelection = "";
+  $("parent-selection").value = "";
   $("risk-tolerance").value = "-0.01";
   $("risk-tolerance-out").textContent = "off";
   renderPaletteToggles(); renderRoleToggles(); renderForbiddenToggles(); renderSwitchToggles(); renderSliders();

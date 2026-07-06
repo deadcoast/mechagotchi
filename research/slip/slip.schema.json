@@ -228,6 +228,22 @@
         }
       },
       "additionalProperties": false
+    },
+    "lineage_preferences": {
+      "type": "object",
+      "description": "SLIP schema extension ladder rung T3.4 (decision record 0012): how the species selects parents from the archive. fitness_weighted breeds from the fittest elites first; uniform is the frozen baseline (round-robin over sorted niches). 0.2.0-only.",
+      "properties": {
+        "parent_selection": {
+          "enum": [
+            "uniform",
+            "fitness_weighted"
+          ]
+        }
+      },
+      "required": [
+        "parent_selection"
+      ],
+      "additionalProperties": false
     }
   },
   "$defs": {
@@ -262,6 +278,11 @@
             {
               "required": [
                 "learning_switches"
+              ]
+            },
+            {
+              "required": [
+                "lineage_preferences"
               ]
             }
           ]

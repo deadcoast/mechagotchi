@@ -42,5 +42,8 @@
   },
   "learning_switches": {
     "mutation_risk_scorer": true
+  },
+  "lineage_preferences": {
+    "parent_selection": "fitness_weighted"
   }
 }

@@ -141,6 +141,24 @@
       "title": "GridContract",
       "type": "object"
     },
+    "LineagePreferencesContract": {
+      "additionalProperties": false,
+      "properties": {
+        "parent_selection": {
+          "enum": [
+            "uniform",
+            "fitness_weighted"
+          ],
+          "title": "Parent Selection",
+          "type": "string"
+        }
+      },
+      "required": [
+        "parent_selection"
+      ],
+      "title": "LineagePreferencesContract",
+      "type": "object"
+    },
     "MutationContract": {
       "additionalProperties": false,
       "properties": {
@@ -303,6 +321,17 @@
       "anyOf": [
         {
           "$ref": "#/$defs/RiskTolerancesContract"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "lineage_preferences": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LineagePreferencesContract"
         },
         {
           "type": "null"

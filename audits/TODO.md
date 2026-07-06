@@ -41,7 +41,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
   - [x] T3.1 `forbidden_traits` (shipped 2026-07-05, DR 0012 rung 1)
   - [x] T3.2 `risk_tolerances` (shipped 2026-07-05; census-designed switchboard consumer)
   - [x] T3.3 `learning_switches` (shipped 2026-07-05; switchboard thread gates — also T19's profile-authored ablation harness)
-  - [ ] T3.4 `lineage_preferences` (consumed by archive/evolve parenting)
+  - [x] T3.4 `lineage_preferences` (shipped 2026-07-05; fitness_weighted parenting + the v01_projection package-boundary adapter)
   - [ ] T3.5 `species_class` + allowed `materials` + `visual_grammar`
         (blocked on T4 for animation vocabulary)
   - [ ] T3.6 og gates: 20-archetype expressiveness test, invalid-profile

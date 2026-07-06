@@ -43,7 +43,7 @@ for path in [PACKAGE_SRC, GRID_GENOME, READABILITY, CELLULAR]:
 from ca_nca_growth_repair import apply_stochastic_damage  # noqa: E402
 from corpus_builder import build_seed_grids  # noqa: E402
 from readability_benchmark import score_readability  # noqa: E402
-from slip import is_grid_aligned  # noqa: E402
+from slip import is_grid_aligned, v01_projection  # noqa: E402
 
 from mecha_engine.archive import (  # noqa: E402
     archive_summary,
@@ -497,6 +497,7 @@ def run_mecha_engine_evolution_loop(
     rng_seed: int = 20260512,
     survival_regime: str = "sheltered",
     workshop_grids_dir: str | Path | None = None,
+    slip_profile: dict | None = None,
 ) -> dict:
     """Multi-generation evolution through the composed engine.
 
@@ -515,6 +516,14 @@ def run_mecha_engine_evolution_loop(
     archive's contracted morphology stress probe, making survival
     morphology-dependent so selection has a gradient. Stress-only report
     keys are added exclusively under the stress regime.
+
+    `slip_profile` (T3.4): an explicit profile — a v0.2 profile's
+    `lineage_preferences.parent_selection` steers elite parenting
+    (fitness_weighted breeds from the fittest elites first; uniform is
+    the frozen niche-key round-robin). Package surfaces receive the
+    v0.1 projection (`slip.v01_projection`, DR 0012 rule 4); ladder
+    fields are consumed lab-side. Default None loads the standard
+    fixture — byte-identical to the frozen loop.
 
     `workshop_grids_dir` (T1, the workshop->engine asset wire — owner
     DESIGN-CORRECTION 2026-07-05): a directory of RELEASED workshop
@@ -536,7 +545,17 @@ def run_mecha_engine_evolution_loop(
             return grid, None
         return _stress_probe(grid)
 
-    slip_profile = json.loads(SLIP_PROFILE_PATH.read_text(encoding="utf-8"))
+    if slip_profile is None:
+        slip_profile = json.loads(
+            SLIP_PROFILE_PATH.read_text(encoding="utf-8")
+        )
+    parent_selection = (
+        slip_profile.get("lineage_preferences", {}).get("parent_selection")
+        if slip_profile.get("slip_version") != "0.1.0"
+        else None
+    )
+    # Package surfaces pin the frozen v0.1 baseline (DR 0012 rule 4).
+    package_profile = v01_projection(slip_profile)
     seeds = build_seed_grids()
     generation_model = train_generation_model(seeds)
     repair_model = train_repair_model(
@@ -591,10 +610,24 @@ def run_mecha_engine_evolution_loop(
                 parent_source = "seed_pool"
         else:
             elites = archive["elites"]
-            parents = [
-                elites[niche]["grid"] for niche in sorted(elites)
-            ]
-            parent_source = "archive_elites"
+            if parent_selection == "fitness_weighted":
+                # T3.4: breed from the fittest elites first (deterministic
+                # truncation bias — with population <= elite count only
+                # the fittest reproduce).
+                ordered = sorted(
+                    elites,
+                    key=lambda niche: (
+                        -elites[niche]["fitness"],
+                        niche,
+                    ),
+                )
+                parents = [elites[niche]["grid"] for niche in ordered]
+                parent_source = "archive_elites_fitness_weighted"
+            else:
+                parents = [
+                    elites[niche]["grid"] for niche in sorted(elites)
+                ]
+                parent_source = "archive_elites"
             if not parents:
                 break  # measured, not asserted: an empty archive ends evolution
 
@@ -605,7 +638,7 @@ def run_mecha_engine_evolution_loop(
             stages: dict[str, bool] = {}
 
             candidate = generate_candidate(
-                parent, generation_model, slip_profile, rng_seed=run_seed
+                parent, generation_model, package_profile, rng_seed=run_seed
             )
             stages["candidate_valid"] = validate_grid(candidate).ok
             max_lineage_generation = max(
@@ -627,7 +660,7 @@ def run_mecha_engine_evolution_loop(
                 )
                 removed = damaged["metadata"]["removed_cell_count"]
                 repaired = repair_wound_sites(
-                    damaged, repair_model, slip_profile=slip_profile
+                    damaged, repair_model, slip_profile=package_profile
                 )
                 # Reassign the id every cycle: suffix accumulation would
                 # overflow the schema's 64-char grid_id cap (known trap).
@@ -642,7 +675,7 @@ def run_mecha_engine_evolution_loop(
                     cycle_episode_grid, _ = episode_grid(repaired)
                     episode = run_episode(
                         cycle_episode_grid,
-                        slip_profile,
+                        package_profile,
                         policy="switchboard",
                         ticks=ticks,
                         rng_seed=run_seed,
@@ -690,7 +723,7 @@ def run_mecha_engine_evolution_loop(
                 final_episode_grid, final_load = episode_grid(current)
                 final_episode = run_episode(
                     final_episode_grid,
-                    slip_profile,
+                    package_profile,
                     policy="switchboard",
                     ticks=ticks,
                     rng_seed=run_seed,
@@ -698,7 +731,7 @@ def run_mecha_engine_evolution_loop(
                 alignment = is_grid_aligned(current, slip_profile)
                 metrics = {
                     "readability": score_readability(current),
-                    "slip_profile": slip_profile,
+                    "slip_profile": package_profile,
                     "slip_alignment": {"ok": alignment.ok},
                     "lifecycle": final_episode,
                     "rng_seed": run_seed,
@@ -915,6 +948,8 @@ def run_mecha_engine_evolution_loop(
             "once human ratings exist."
         ),
     }
+    if parent_selection is not None:
+        result["parent_selection"] = parent_selection
     if workshop:
         result["workshop_grids_dir"] = (
             Path(workshop_grids_dir).resolve().relative_to(ROOT).as_posix()

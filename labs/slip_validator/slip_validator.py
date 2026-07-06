@@ -42,7 +42,14 @@ SURVIVAL_KEYS = {"stability", "novelty", "bond"}
 # SLIP schema extension ladder (decision record 0012): ladder fields are
 # optional and legal only under slip_version 0.2.0.
 VALID_SLIP_VERSIONS = {"0.1.0", "0.2.0"}
-LADDER_KEYS = {"forbidden_traits", "risk_tolerances", "learning_switches"}
+LADDER_KEYS = {
+    "forbidden_traits",
+    "risk_tolerances",
+    "learning_switches",
+    "lineage_preferences",
+}
+PARENT_SELECTION_MODES = {"uniform", "fitness_weighted"}
+LINEAGE_PREFERENCES_KEYS = {"parent_selection"}
 SWITCHBOARD_THREAD_NAMES = {
     "recent_interaction_ewma",
     "hidden_mood_estimator",
@@ -117,6 +124,26 @@ def validate_profile(profile: dict, source_path: Path | None = None) -> dict:
         if isinstance(tolerances, dict) and "mutation" in tolerances:
             _validate_unit_interval(
                 tolerances.get("mutation"), ["risk_tolerances", "mutation"], errors
+            )
+    if "lineage_preferences" in profile:
+        preferences = profile["lineage_preferences"]
+        _validate_object(
+            preferences,
+            ["lineage_preferences"],
+            LINEAGE_PREFERENCES_KEYS,
+            LINEAGE_PREFERENCES_KEYS,
+            errors,
+        )
+        if (
+            isinstance(preferences, dict)
+            and preferences.get("parent_selection") not in PARENT_SELECTION_MODES
+        ):
+            _add(
+                errors,
+                "semantic_lineage_preferences",
+                ["lineage_preferences", "parent_selection"],
+                "lineage_preferences.parent_selection must be one of "
+                "fitness_weighted, uniform",
             )
     if "learning_switches" in profile:
         switches = profile["learning_switches"]

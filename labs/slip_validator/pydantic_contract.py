@@ -96,6 +96,12 @@ class SwitchboardThread(str, Enum):
     mutation_risk_scorer = "mutation_risk_scorer"
 
 
+class LineagePreferencesContract(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    parent_selection: Literal["uniform", "fitness_weighted"]
+
+
 class RiskTolerancesContract(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -209,6 +215,7 @@ class SLIPProfile(BaseModel):
     # SLIP schema extension ladder (decision record 0012), 0.2.0-only.
     forbidden_traits: ForbiddenTraitsContract | None = None
     risk_tolerances: RiskTolerancesContract | None = None
+    lineage_preferences: LineagePreferencesContract | None = None
     learning_switches: (
         Annotated[dict[SwitchboardThread, bool], Field(min_length=1)] | None
     ) = None
@@ -225,6 +232,8 @@ class SLIPProfile(BaseModel):
             raise ValueError("risk_tolerances requires slip_version 0.2.0")
         if self.learning_switches is not None and self.slip_version != "0.2.0":
             raise ValueError("learning_switches requires slip_version 0.2.0")
+        if self.lineage_preferences is not None and self.slip_version != "0.2.0":
+            raise ValueError("lineage_preferences requires slip_version 0.2.0")
         if self.forbidden_traits is not None:
             if self.slip_version != "0.2.0":
                 raise ValueError(

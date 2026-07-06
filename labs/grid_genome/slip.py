@@ -27,7 +27,14 @@ TOP_LEVEL_KEYS = {
 # frozen baseline the promoted modules consume; ladder fields are legal
 # only under "0.2.0" and are all optional.
 VALID_SLIP_VERSIONS = {"0.1.0", "0.2.0"}
-LADDER_KEYS = {"forbidden_traits", "risk_tolerances", "learning_switches"}
+LADDER_KEYS = {
+    "forbidden_traits",
+    "risk_tolerances",
+    "learning_switches",
+    "lineage_preferences",
+}
+PARENT_SELECTION_MODES = {"uniform", "fitness_weighted"}
+LINEAGE_PREFERENCES_KEYS = {"parent_selection"}
 RISK_TOLERANCES_KEYS = {"mutation"}
 # Mirrors micro_switchboard.SWITCHBOARD_THREAD_NAMES (pinned by test).
 SWITCHBOARD_THREAD_NAMES = {
@@ -108,6 +115,8 @@ def validate_slip(profile: dict) -> SlipResult:
         _validate_risk_tolerances(profile, errors)
     if "learning_switches" in profile:
         _validate_learning_switches(profile, errors)
+    if "lineage_preferences" in profile:
+        _validate_lineage_preferences(profile, errors)
     _require_string(profile, "profile_id", errors)
     _require_string(profile, "name", errors)
     profile_id = profile.get("profile_id")
@@ -237,6 +246,41 @@ def is_grid_aligned(grid: dict, profile: dict) -> SlipResult:
             errors.append(f"forbidden material present in grid: {material}")
 
     return SlipResult(not errors, errors)
+
+
+def v01_projection(profile: dict) -> dict:
+    """Project a v0.2 profile onto the frozen v0.1 baseline.
+
+    The package-boundary adapter (decision record 0012 rule 4): promoted
+    modules pin slip_version 0.1.0 and exact keys, so lab experiments
+    driving package surfaces with a v0.2 profile pass this projection —
+    ladder fields stay lab-side, the baseline subset flows through.
+    v0.1 profiles pass through unchanged (same object), keeping frozen
+    flows bit-for-bit.
+    """
+    if profile.get("slip_version") == "0.1.0":
+        return profile
+    projected = {
+        key: value for key, value in profile.items() if key not in LADDER_KEYS
+    }
+    projected["slip_version"] = "0.1.0"
+    return projected
+
+
+def _validate_lineage_preferences(profile: dict, errors: list[str]) -> None:
+    preferences = profile.get("lineage_preferences")
+    if not isinstance(preferences, dict):
+        errors.append("lineage_preferences must be an object")
+        return
+    _require_exact_keys(
+        preferences, LINEAGE_PREFERENCES_KEYS, "lineage_preferences", errors
+    )
+    mode = preferences.get("parent_selection")
+    if "parent_selection" in preferences and mode not in PARENT_SELECTION_MODES:
+        errors.append(
+            "lineage_preferences parent_selection must be one of "
+            + ", ".join(sorted(PARENT_SELECTION_MODES))
+        )
 
 
 def _validate_learning_switches(profile: dict, errors: list[str]) -> None:
