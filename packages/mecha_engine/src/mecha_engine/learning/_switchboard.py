@@ -23,6 +23,15 @@ observations it consults are the bounded, episode-scoped ``action_rewards``
 ring buffers inside that state. It never writes them and holds no memory of
 its own — reward-feedback mechanics live in ``mecha_engine.learning.episode``,
 never here and never inside ``mecha_engine.lifecycle``.
+
+Parity note (decision record 0013): the port stays in sync with the lab
+switchboard's current semantics — the ``SWITCHBOARD_THREADS`` registry
+with profile-authored ``learning_switches`` gating (absent key or True =
+on) and the ``risk_tolerance_mutation`` flip point in the mutation-risk
+thread (absent key = the historical 0.35 constant). No v0.1 flow ever
+sets either state key, so the frozen baseline runs all four threads
+bit-for-bit. The lab-side v0.2 parity pin is
+``labs/grid_genome/test_package_switchboard_v2_parity.py``.
 """
 
 from __future__ import annotations
@@ -38,15 +47,19 @@ def decide(state: dict) -> dict:
 
     Verbatim port of the research lab's ``run_switchboard``: the decision
     dict carries the chosen ``action``, a margin-derived ``confidence``, the
-    per-action ``utilities``, the four per-learner signal ``threads``, and
-    the ``explanation`` string, all rounded exactly as the lab rounds them.
+    per-learner signal ``threads``, the per-action ``utilities``, and the
+    ``explanation`` string, all rounded exactly as the lab rounds them.
     The input state is never mutated.
     """
+    # SLIP ladder rung T3.3 (decision records 0012/0013): profile-authored
+    # learning switches gate which threads run (absent key or True = on).
+    # No v0.1 flow ever sets the key, so the frozen baseline runs all four
+    # threads bit-for-bit. Identical to the lab micro-switchboard.
+    switches = state.get("learning_switches") or {}
     threads = [
-        _recent_interaction_ewma(state),
-        _estimate_hidden_mood(state),
-        _action_preference_bandit(state),
-        _estimate_mutation_risk(state),
+        run(state)
+        for name, run in SWITCHBOARD_THREADS
+        if switches.get(name, True)
     ]
     utilities = {action: 0.0 for action in ACTIONS}
     utilities["idle"] = 0.05
@@ -141,18 +154,46 @@ def _estimate_mutation_risk(state: dict) -> dict:
     stress = _clamp(state.get("stress", 0.0))
     stability = _clamp(state.get("grid_stability", 0.5))
     risk = _clamp(stress * 0.65 + (1 - stability) * 0.35)
+    # SLIP ladder rung T3.2 (decision records 0012/0013): the profile's
+    # mutation risk tolerance is the risk level at which mutation utility
+    # flips negative. Absent (every v0.1 flow) the historical constant
+    # 0.35 is the baseline tolerance, bit-for-bit.
+    tolerance = state.get("risk_tolerance_mutation")
+    inputs = {"stress": stress, "grid_stability": stability}
+    if tolerance is None:
+        tolerance = 0.35
+        explanation = "High stress or low grid stability suppresses mutation."
+    else:
+        tolerance = _clamp(tolerance)
+        inputs["risk_tolerance_mutation"] = tolerance
+        explanation = (
+            "High stress or low grid stability suppresses mutation; the "
+            f"SLIP risk tolerance {tolerance} sets the flip point."
+        )
     effects = {
-        "mutate": round((0.35 - risk) * 0.6, 6),
+        "mutate": round((tolerance - risk) * 0.6, 6),
         "idle": round(risk * 0.2, 6),
     }
     return _thread(
         "mutation_risk_scorer",
-        {"stress": stress, "grid_stability": stability},
+        inputs,
         round(risk, 6),
         0.8,
-        "High stress or low grid stability suppresses mutation.",
+        explanation,
         effects,
     )
+
+
+# SLIP ladder rung T3.3 (decision record 0012): the og learning toggles.
+# Order matters — it is the frozen execution order of ``decide``; names
+# match the lab registry (and the SLIP ``learning_switches`` schema).
+SWITCHBOARD_THREADS = [
+    ("recent_interaction_ewma", _recent_interaction_ewma),
+    ("hidden_mood_estimator", _estimate_hidden_mood),
+    ("action_preference_bandit", _action_preference_bandit),
+    ("mutation_risk_scorer", _estimate_mutation_risk),
+]
+SWITCHBOARD_THREAD_NAMES = [name for name, _ in SWITCHBOARD_THREADS]
 
 
 def _thread(

@@ -13,7 +13,12 @@ Verbatim lab semantics: generation 0 draws parents from the
 profile-aligned subset of ``seed_grids`` round-robin; every later
 generation draws parents from the archive's elites sorted by niche key
 round-robin, so selection pressure is the archive's niche-fitness rule and
-ancestry deepens generation over generation. Per-creature seed arithmetic
+ancestry deepens generation over generation. A v0.2 SLIP profile carrying
+``lineage_preferences.parent_selection == "fitness_weighted"`` (decision
+record 0013, ladder rung T3.4) orders elite parents by ``(-fitness,
+niche)`` instead — the lab's deterministic truncation bias — and the
+report records the carried ``parent_selection``; default flows (every
+v0.1 profile, and v0.2 profiles without the field) stay byte-identical. Per-creature seed arithmetic
 is ``run_seed = rng_seed + generation_index * 100000 + index``; every
 creature lives through ``live_cycle`` (damage seed ``run_seed * 10 +
 cycle``), then — if every cycle stayed aligned — runs a final episode,
@@ -84,6 +89,15 @@ def evolve(
     if isinstance(population, bool) or not isinstance(population, int) or population < 1:
         raise ValueError(f"population must be a positive integer: {population}")
 
+    # T3.4 (decision record 0013): a v0.2 profile's lineage preference
+    # steers elite parenting; v0.1 profiles never carry the field. The
+    # version guard mirrors the lab loop's own reading of the profile.
+    parent_selection = (
+        slip_profile.get("lineage_preferences", {}).get("parent_selection")
+        if isinstance(slip_profile, dict)
+        and slip_profile.get("slip_version") != "0.1.0"
+        else None
+    )
     seed_pool = [
         seed for seed in seed_grids if is_grid_aligned(seed, slip_profile).ok
     ]
@@ -101,10 +115,24 @@ def evolve(
             parent_source = "seed_pool"
         else:
             elites = archive["elites"]
-            parents = [
-                elites[niche]["grid"] for niche in sorted(elites)
-            ]
-            parent_source = "archive_elites"
+            if parent_selection == "fitness_weighted":
+                # T3.4: breed from the fittest elites first (deterministic
+                # truncation bias — with population <= elite count only
+                # the fittest reproduce). Lab-verbatim ordering.
+                ordered = sorted(
+                    elites,
+                    key=lambda niche: (
+                        -elites[niche]["fitness"],
+                        niche,
+                    ),
+                )
+                parents = [elites[niche]["grid"] for niche in ordered]
+                parent_source = "archive_elites_fitness_weighted"
+            else:
+                parents = [
+                    elites[niche]["grid"] for niche in sorted(elites)
+                ]
+                parent_source = "archive_elites"
             if not parents:
                 break  # measured, not asserted: an empty archive ends evolution
 
@@ -256,6 +284,10 @@ def evolve(
         "summary": summary,
         "decision": _evolution_decision(summary),
     }
+    # Conditional exactly like the lab report: default flows carry no
+    # rung key, so v0.1 reports stay byte-identical.
+    if parent_selection is not None:
+        report["parent_selection"] = parent_selection
     return archive, report
 
 

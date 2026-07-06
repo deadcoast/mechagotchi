@@ -638,6 +638,9 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-07-05-render-packet-v2.md`
 - `labs/grid_genome/animation_states.py` (T16 lab-side: packets carry animation + mood selected from lifecycle state over the T4 projections; the workshop previewer plays the five-state cycle from engine truth; promoted-module port stays DR-gated)
 
+- `research/decision_records/0013-port-slip-v2-and-packet-v2.md`
+- `research/experiment_reports/2026-07-05-slip-v2-packet-v2-port.md` (owner-authorized port: SLIP v0.2 + packet v2 live in the package — 266 contract tests, zero existing pins touched, v0.2 profiles drive simulations natively)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

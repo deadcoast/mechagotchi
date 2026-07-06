@@ -201,6 +201,127 @@ def probe_evolve(
     }
 
 
+def probe_evolve_v2(
+    seed_grids: list[dict],
+    slip_profile: dict,
+    generation_model,
+    repair_model: dict,
+) -> dict:
+    """SLIP v0.2 lineage preferences (decision record 0013, rung T3.4):
+    fitness_weighted elite parenting vs the frozen niche-key round-robin.
+
+    The lab's own rung test configuration (two generations, population 4)
+    is used, with a deterministic grid-dependent readability scorer: a
+    constant scorer ties every elite fitness, which makes the two
+    orderings coincide and would mask the rung.
+    """
+
+    def scorer(grid: dict) -> float:
+        return round((sum(ord(c) for c in grid["grid_id"]) % 97) / 96, 6)
+
+    def v2_profile(parent_selection: str) -> dict:
+        profile = deepcopy(slip_profile)
+        profile["slip_version"] = "0.2.0"
+        profile["lineage_preferences"] = {"parent_selection": parent_selection}
+        return profile
+
+    config = dict(EVOLVE_CONFIG, population=4, damage_cycles=1, ticks=8)
+
+    # A generations=1 pre-run reproduces the archive exactly as it stands
+    # when generation 1 selects parents, so both orderings are pinned
+    # against the lab's own selection expressions.
+    generation_0_archive, _ = evolve(
+        seed_grids,
+        slip_profile,
+        generation_model,
+        repair_model,
+        readability_scorer=scorer,
+        **dict(config, generations=1),
+    )
+    elites = generation_0_archive["elites"]
+    niche_order = sorted(elites)
+    fitness_order = sorted(
+        elites, key=lambda niche: (-elites[niche]["fitness"], niche)
+    )
+    population = config["population"]
+    expected_uniform = [
+        elites[niche_order[index % len(niche_order)]]["grid"]["grid_id"]
+        for index in range(population)
+    ]
+    expected_weighted = [
+        elites[fitness_order[index % len(fitness_order)]]["grid"]["grid_id"]
+        for index in range(population)
+    ]
+
+    _, default_report = evolve(
+        seed_grids,
+        slip_profile,
+        generation_model,
+        repair_model,
+        readability_scorer=scorer,
+        **config,
+    )
+    weighted_profile = v2_profile("fitness_weighted")
+    weighted_pristine = deepcopy(weighted_profile)
+    _, weighted_report = evolve(
+        seed_grids,
+        weighted_profile,
+        generation_model,
+        repair_model,
+        readability_scorer=scorer,
+        **config,
+    )
+    _, uniform_report = evolve(
+        seed_grids,
+        v2_profile("uniform"),
+        generation_model,
+        repair_model,
+        readability_scorer=scorer,
+        **config,
+    )
+
+    def generation_1_parents(report: dict) -> list[str]:
+        return [
+            creature["parent_grid_id"]
+            for creature in report["generations"][1]["creatures"]
+        ]
+
+    invalid_mode_raised = _raised(
+        lambda: evolve(
+            seed_grids,
+            v2_profile("strongest"),
+            generation_model,
+            repair_model,
+            readability_scorer=scorer,
+            **config,
+        )
+    )
+
+    return {
+        "orderings_genuinely_differ": expected_uniform != expected_weighted,
+        "expected_uniform_parents": expected_uniform,
+        "expected_weighted_parents": expected_weighted,
+        "default_generation_1_parents": generation_1_parents(default_report),
+        "weighted_generation_1_parents": generation_1_parents(weighted_report),
+        "uniform_generation_1_parents": generation_1_parents(uniform_report),
+        "default_report_has_parent_selection": "parent_selection"
+        in default_report,
+        "weighted_parent_selection": weighted_report.get("parent_selection"),
+        "uniform_parent_selection": uniform_report.get("parent_selection"),
+        "default_generation_1_source": default_report["generations"][1][
+            "parent_source"
+        ],
+        "weighted_generation_1_source": weighted_report["generations"][1][
+            "parent_source"
+        ],
+        "uniform_generation_1_source": uniform_report["generations"][1][
+            "parent_source"
+        ],
+        "weighted_profile_mutated": weighted_profile != weighted_pristine,
+        "invalid_mode_raised": invalid_mode_raised,
+    }
+
+
 def probe_live_cycle(seed_grid: dict, slip_profile: dict, repair_model: dict) -> dict:
     first = live_cycle(
         seed_grid,
@@ -358,6 +479,9 @@ def main() -> None:
     report = {
         "surface": probe_surface(),
         "evolve": probe_evolve(
+            seed_grids, slip_profile, generation_model, repair_model
+        ),
+        "evolve_v2": probe_evolve_v2(
             seed_grids, slip_profile, generation_model, repair_model
         ),
         "live_cycle": probe_live_cycle(live_subject, slip_profile, repair_model),

@@ -338,6 +338,57 @@ class MechaEngineLifecycleContractTests(unittest.TestCase):
             self.assertIsNotNone(raised, key)
             self.assertNotIn("UNEXPECTED", raised)
 
+    # -- SLIP v0.2 acceptance (decision record 0013) ---------------------------
+
+    def test_v2_profile_stashes_ladder_state_and_v1_omits_it(self):
+        probe = self.report["slip_v2"]
+        self.assertEqual(0.8, probe["v2_state_risk_tolerance"])
+        self.assertEqual(
+            {"mutation_risk_scorer": False}, probe["v2_state_learning_switches"]
+        )
+        self.assertTrue(probe["v1_state_has_no_ladder_keys"])
+
+    def test_ladder_fields_are_version_gated_with_the_exact_error(self):
+        raised = self.report["slip_v2"]["version_gate_raised"]
+        self.assertIsNotNone(raised)
+        self.assertNotIn("UNEXPECTED", raised)
+        self.assertIn(
+            "profile risk_tolerances requires slip_version 0.2.0", raised
+        )
+
+    def test_unknown_slip_version_is_rejected_with_the_exact_error(self):
+        raised = self.report["slip_v2"]["unknown_version_raised"]
+        self.assertIsNotNone(raised)
+        self.assertNotIn("UNEXPECTED", raised)
+        self.assertIn("slip_version must be one of 0.1.0, 0.2.0", raised)
+
+    def test_forbidden_traits_alignment_errors_are_verbatim(self):
+        probe = self.report["slip_v2"]
+        role_raised = probe["forbidden_role_raised"]
+        self.assertIsNotNone(role_raised)
+        self.assertNotIn("UNEXPECTED", role_raised)
+        self.assertIn("forbidden role present in grid: body", role_raised)
+        material_raised = probe["forbidden_material_raised"]
+        self.assertIsNotNone(material_raised)
+        self.assertNotIn("UNEXPECTED", material_raised)
+        self.assertIn(
+            "forbidden material present in grid: hard", material_raised
+        )
+
+    def test_forbidding_a_required_organs_cell_role_is_a_contradiction(self):
+        raised = self.report["slip_v2"]["contradiction_raised"]
+        self.assertIsNotNone(raised)
+        self.assertNotIn("UNEXPECTED", raised)
+        self.assertIn(
+            "forbidden role eye contradicts required organ role sensor", raised
+        )
+
+    def test_v2_episodes_run_deterministically_without_mutating_the_profile(self):
+        probe = self.report["slip_v2"]
+        self.assertEqual(24, probe["v2_episode_survival_ticks"])
+        self.assertTrue(probe["v2_episode_deterministic"])
+        self.assertFalse(probe["v2_profile_mutated"])
+
     # -- Negative checks ---------------------------------------------------------
 
     def test_no_online_learner_memory_across_episodes(self):

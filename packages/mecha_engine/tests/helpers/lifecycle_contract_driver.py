@@ -435,6 +435,74 @@ def probe_rewards(grid: dict, profile: dict) -> dict:
     }
 
 
+def _v2_profile(profile: dict, **ladder_fields) -> dict:
+    """A v0.2 extension of the frozen fixture profile (DR 0012/0013)."""
+    v2 = deepcopy(profile)
+    v2["slip_version"] = "0.2.0"
+    v2.update(ladder_fields)
+    return v2
+
+
+def probe_slip_v2(grid: dict, profile: dict) -> dict:
+    """SLIP v0.2 acceptance (decision record 0013): dual-version validation,
+    ladder-field state stashing, and forbidden-traits alignment errors."""
+    v2 = _v2_profile(
+        profile,
+        risk_tolerances={"mutation": 0.8},
+        learning_switches={"mutation_risk_scorer": False},
+        forbidden_traits={"roles": ["shell"], "materials": ["light"]},
+    )
+    v2_pristine = deepcopy(v2)
+    v2_state = initial_state(grid, v2)
+    v1_state = initial_state(grid, profile)
+
+    v1_with_ladder = deepcopy(profile)
+    v1_with_ladder["risk_tolerances"] = {"mutation": 0.8}
+    version_gate_raised = _raised_message(
+        lambda: initial_state(grid, v1_with_ladder)
+    )
+
+    unknown_version = _v2_profile(profile)
+    unknown_version["slip_version"] = "0.3.0"
+    unknown_version_raised = _raised_message(
+        lambda: initial_state(grid, unknown_version)
+    )
+
+    forbidden_role_raised = _raised_message(
+        lambda: initial_state(
+            grid, _v2_profile(profile, forbidden_traits={"roles": ["body"]})
+        )
+    )
+    forbidden_material_raised = _raised_message(
+        lambda: initial_state(
+            grid, _v2_profile(profile, forbidden_traits={"materials": ["hard"]})
+        )
+    )
+    contradiction_raised = _raised_message(
+        lambda: initial_state(
+            grid, _v2_profile(profile, forbidden_traits={"roles": ["eye"]})
+        )
+    )
+
+    episode = run_episode(grid, v2, policy="switchboard", ticks=24, rng_seed=20260512)
+    episode_again = run_episode(grid, v2, policy="switchboard", ticks=24, rng_seed=20260512)
+
+    return {
+        "v2_state_risk_tolerance": v2_state.get("risk_tolerance_mutation"),
+        "v2_state_learning_switches": v2_state.get("learning_switches"),
+        "v1_state_has_no_ladder_keys": "risk_tolerance_mutation" not in v1_state
+        and "learning_switches" not in v1_state,
+        "version_gate_raised": version_gate_raised,
+        "unknown_version_raised": unknown_version_raised,
+        "forbidden_role_raised": forbidden_role_raised,
+        "forbidden_material_raised": forbidden_material_raised,
+        "contradiction_raised": contradiction_raised,
+        "v2_episode_survival_ticks": episode["survival_ticks"],
+        "v2_episode_deterministic": episode == episode_again,
+        "v2_profile_mutated": v2 != v2_pristine,
+    }
+
+
 def probe_no_learner_memory(grid: dict, profile: dict) -> dict:
     """Assert lifecycle keeps no online learner memory (contract gate).
 
@@ -493,6 +561,7 @@ def main() -> None:
         "transitions": probe_transitions(grid, profile),
         "episodes": probe_episodes(grid, profile, invalid_grid),
         "rewards": probe_rewards(grid, profile),
+        "slip_v2": probe_slip_v2(grid, profile),
         "no_learner_memory": probe_no_learner_memory(grid, profile),
         "fixtures_mutated": grid != grid_pristine or profile != profile_pristine,
         "lab_modules_loaded": probe_loaded_lab_modules(),

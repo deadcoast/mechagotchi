@@ -247,6 +247,43 @@ class MechaEngineGenerationContractTests(unittest.TestCase):
         self.assertFalse(self.report["slip_candidate"]["profile_mutated"])
         self.assertFalse(self.report["slip_batch"]["profile_mutated"])
 
+    # -- SLIP v0.2 acceptance (decision record 0013) ---------------------------
+
+    def test_v2_profile_with_the_full_ladder_generates_an_aligned_candidate(self):
+        probe = self.report["slip_v2"]
+        self.assertTrue(probe["v2_candidate_valid"])
+        self.assertTrue(probe["v2_candidate_aligned"])
+        self.assertFalse(probe["v2_profile_mutated"])
+
+    def test_ladder_fields_are_version_gated_with_the_exact_error(self):
+        raised = self.report["slip_v2"]["version_gate_raised"]
+        self.assertIsNotNone(raised)
+        self.assertNotIn("UNEXPECTED", raised)
+        self.assertIn(
+            "profile learning_switches requires slip_version 0.2.0", raised
+        )
+
+    def test_unknown_slip_version_is_rejected_with_the_exact_error(self):
+        raised = self.report["slip_v2"]["unknown_version_raised"]
+        self.assertIsNotNone(raised)
+        self.assertNotIn("UNEXPECTED", raised)
+        self.assertIn("slip_version must be one of 0.1.0, 0.2.0", raised)
+
+    def test_forbidden_traits_reject_a_carrying_parent_with_verbatim_error(self):
+        raised = self.report["slip_v2"]["forbidden_binding_raised"]
+        self.assertIsNotNone(raised)
+        self.assertNotIn("UNEXPECTED", raised)
+        self.assertIn("forbidden role present in grid: body", raised)
+
+    def test_forbidding_a_required_organs_cell_role_is_a_contradiction(self):
+        raised = self.report["slip_v2"]["contradiction_raised"]
+        self.assertIsNotNone(raised)
+        self.assertNotIn("UNEXPECTED", raised)
+        self.assertIn(
+            "forbidden role mouth contradicts required organ role expression",
+            raised,
+        )
+
     # -- Explanation acceptance ----------------------------------------------
 
     def test_explanation_contains_required_fields(self):

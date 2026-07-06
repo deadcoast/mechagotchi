@@ -22,6 +22,16 @@ itself maintains inside the state it returns. There is no module-level
 learner memory, no persistence across episodes, and no reward-shaping
 update path (that remains the grid_genome switchboard-feedback research
 lab).
+
+Parity note (decision record 0013): the switchboard here stays in sync
+with the lab micro-switchboard's current semantics — the thread registry
+with profile-authored ``learning_switches`` gating (absent key or True =
+on) and the ``risk_tolerance_mutation`` flip point in the mutation-risk
+thread (absent key = the historical 0.35 constant). No v0.1 flow ever
+sets either state key, so the frozen baseline runs all four threads
+bit-for-bit; ``initial_state`` stashes both keys only for v0.2 SLIP
+profiles, exactly as the lab lifecycle does. The lab-side parity pin is
+``labs/lifecycle_sim/test_package_lifecycle_v2_parity.py``.
 """
 
 from __future__ import annotations
@@ -56,11 +66,15 @@ def choose_action(policy: str, state: dict, rng: random.Random) -> str:
 
 def run_switchboard(state: dict) -> dict:
     """Frozen micro-switchboard decision over additive thread utilities."""
+    # SLIP ladder rung T3.3 (decision records 0012/0013): profile-authored
+    # learning switches gate which threads run (absent key or True = on).
+    # No v0.1 flow ever sets the key, so the frozen baseline runs all four
+    # threads bit-for-bit. Identical to the lab micro-switchboard.
+    switches = state.get("learning_switches") or {}
     threads = [
-        _recent_interaction_ewma(state),
-        _estimate_hidden_mood(state),
-        _action_preference_thread(state),
-        _estimate_mutation_risk(state),
+        run(state)
+        for name, run in SWITCHBOARD_THREADS
+        if switches.get(name, True)
     ]
     utilities = {action: 0.0 for action in ACTIONS}
     utilities["idle"] = 0.05
@@ -162,18 +176,44 @@ def _estimate_mutation_risk(state: dict) -> dict:
     stress = _clamp(state.get("stress", 0.0))
     stability = _clamp(state.get("grid_stability", 0.5))
     risk = _clamp(stress * 0.65 + (1 - stability) * 0.35)
+    # SLIP ladder rung T3.2 (decision records 0012/0013): the profile's
+    # mutation risk tolerance is the risk level at which mutation utility
+    # flips negative. Absent (every v0.1 flow) the historical constant
+    # 0.35 is the baseline tolerance, bit-for-bit.
+    tolerance = state.get("risk_tolerance_mutation")
+    inputs = {"stress": stress, "grid_stability": stability}
+    if tolerance is None:
+        tolerance = 0.35
+        explanation = "High stress or low grid stability suppresses mutation."
+    else:
+        tolerance = _clamp(tolerance)
+        inputs["risk_tolerance_mutation"] = tolerance
+        explanation = (
+            "High stress or low grid stability suppresses mutation; the "
+            f"SLIP risk tolerance {tolerance} sets the flip point."
+        )
     effects = {
-        "mutate": round((0.35 - risk) * 0.6, 6),
+        "mutate": round((tolerance - risk) * 0.6, 6),
         "idle": round(risk * 0.2, 6),
     }
     return _thread(
         "mutation_risk_scorer",
-        {"stress": stress, "grid_stability": stability},
+        inputs,
         round(risk, 6),
         0.8,
-        "High stress or low grid stability suppresses mutation.",
+        explanation,
         effects,
     )
+
+
+# The frozen execution order of run_switchboard; names match the lab
+# micro-switchboard registry (and the SLIP ``learning_switches`` schema).
+SWITCHBOARD_THREADS = [
+    ("recent_interaction_ewma", _recent_interaction_ewma),
+    ("hidden_mood_estimator", _estimate_hidden_mood),
+    ("action_preference_bandit", _action_preference_thread),
+    ("mutation_risk_scorer", _estimate_mutation_risk),
+]
 
 
 def _thread(

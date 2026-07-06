@@ -148,6 +148,86 @@ def probe_episodes(grid: dict, slip_profile: dict) -> dict:
     }
 
 
+def probe_decide_v2(grid: dict, slip_profile: dict) -> dict:
+    """SLIP v0.2 switchboard consumers (decision record 0013): learning-switch
+    gating and the risk-tolerance flip point, over a stressed state."""
+    stressed = {
+        "hunger": 0.4,
+        "energy": 0.6,
+        "stress": 0.7,
+        "grid_stability": 0.4,
+        "recent_interactions": [1, 1],
+        "action_rewards": {},
+    }
+    thread_names = [
+        "recent_interaction_ewma",
+        "hidden_mood_estimator",
+        "action_preference_bandit",
+        "mutation_risk_scorer",
+    ]
+
+    baseline = decide(dict(stressed))
+    all_on = decide(
+        dict(stressed, learning_switches={name: True for name in thread_names})
+    )
+    one_off = decide(
+        dict(stressed, learning_switches={"mutation_risk_scorer": False})
+    )
+    all_off = decide(
+        dict(stressed, learning_switches={name: False for name in thread_names})
+    )
+
+    neutral = decide(dict(stressed, risk_tolerance_mutation=0.35))
+    mutate_utilities = [
+        decide(dict(stressed, risk_tolerance_mutation=tolerance))["utilities"][
+            "mutate"
+        ]
+        for tolerance in (0.1, 0.35, 0.9)
+    ]
+    tolerant = decide(dict(stressed, risk_tolerance_mutation=0.9))
+    tolerant_thread = next(
+        thread
+        for thread in tolerant["threads"]
+        if thread["name"] == "mutation_risk_scorer"
+    )
+    baseline_thread = next(
+        thread
+        for thread in baseline["threads"]
+        if thread["name"] == "mutation_risk_scorer"
+    )
+
+    # The ladder keys also ride real v0.2 initial states end to end.
+    v2_profile = deepcopy(slip_profile)
+    v2_profile["slip_version"] = "0.2.0"
+    v2_profile["risk_tolerances"] = {"mutation": 0.9}
+    v2_profile["learning_switches"] = {"hidden_mood_estimator": False}
+    v2_state = initial_state(grid, v2_profile)
+    v2_decision = decide(v2_state)
+
+    return {
+        "baseline_thread_count": len(baseline["threads"]),
+        "absent_switches_equal_all_on": baseline == all_on,
+        "one_off_thread_names": [t["name"] for t in one_off["threads"]],
+        "one_off_utilities_differ": one_off["utilities"] != baseline["utilities"],
+        "all_off_thread_count": len(all_off["threads"]),
+        "all_off_action": all_off["action"],
+        "neutral_tolerance_utilities_equal_baseline": neutral["utilities"]
+        == baseline["utilities"],
+        "mutate_utilities_by_tolerance": mutate_utilities,
+        "tolerance_in_thread_input": "risk_tolerance_mutation"
+        in tolerant_thread["input"],
+        "tolerance_explained": "risk tolerance" in tolerant_thread["explanation"],
+        "baseline_input_has_no_tolerance": "risk_tolerance_mutation"
+        not in baseline_thread["input"],
+        "v2_state_thread_names": [t["name"] for t in v2_decision["threads"]],
+        "v2_state_tolerance_visible": any(
+            thread["input"].get("risk_tolerance_mutation") == 0.9
+            for thread in v2_decision["threads"]
+            if thread["name"] == "mutation_risk_scorer"
+        ),
+    }
+
+
 def probe_miscalibrate_off(grid: dict, slip_profile: dict) -> dict:
     first = run_feedback_episode(
         grid, slip_profile, ticks=EPISODE_TICKS, miscalibrate=False
@@ -222,6 +302,7 @@ def main() -> None:
     report = {
         "surface": probe_surface(),
         "decide": probe_decide(grid, slip_profile),
+        "decide_v2": probe_decide_v2(grid, slip_profile),
         "episodes": probe_episodes(grid, slip_profile),
         "miscalibrate_off": probe_miscalibrate_off(grid, slip_profile),
         "keyword_only": probe_keyword_only_enforced(grid, slip_profile),

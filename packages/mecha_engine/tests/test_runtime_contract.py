@@ -188,6 +188,56 @@ class MechaEngineRuntimeContractTests(unittest.TestCase):
         self.assertIn("ValueError", raised)
         self.assertIn("seed_grids", raised)
 
+    # -- SLIP v0.2 lineage preferences (decision record 0013, T3.4) ------------
+
+    def test_default_flows_carry_no_parent_selection_key(self):
+        probe = self.report["evolve_v2"]
+        self.assertFalse(probe["default_report_has_parent_selection"])
+        self.assertEqual("archive_elites", probe["default_generation_1_source"])
+
+    def test_fitness_weighted_orders_elite_parents_by_fitness(self):
+        probe = self.report["evolve_v2"]
+        self.assertEqual(
+            "fitness_weighted", probe["weighted_parent_selection"]
+        )
+        self.assertEqual(
+            "archive_elites_fitness_weighted",
+            probe["weighted_generation_1_source"],
+        )
+        # The two selection expressions genuinely disagree under the
+        # grid-dependent scorer, and the weighted run follows the
+        # (-fitness, niche) ordering exactly.
+        self.assertTrue(probe["orderings_genuinely_differ"])
+        self.assertEqual(
+            probe["expected_weighted_parents"],
+            probe["weighted_generation_1_parents"],
+        )
+        self.assertNotEqual(
+            probe["default_generation_1_parents"],
+            probe["weighted_generation_1_parents"],
+        )
+        self.assertFalse(probe["weighted_profile_mutated"])
+
+    def test_uniform_mode_is_the_frozen_niche_key_round_robin(self):
+        probe = self.report["evolve_v2"]
+        self.assertEqual("uniform", probe["uniform_parent_selection"])
+        self.assertEqual(
+            "archive_elites", probe["uniform_generation_1_source"]
+        )
+        self.assertEqual(
+            probe["expected_uniform_parents"],
+            probe["uniform_generation_1_parents"],
+        )
+        self.assertEqual(
+            probe["default_generation_1_parents"],
+            probe["uniform_generation_1_parents"],
+        )
+
+    def test_unknown_parent_selection_mode_is_rejected(self):
+        raised = self.report["evolve_v2"]["invalid_mode_raised"]
+        self.assertIsNotNone(raised)
+        self.assertIn("ValueError", raised)
+
     def test_evolve_never_mutates_caller_inputs(self):
         self.assertFalse(self.report["fixtures_mutated"])
         self.assertFalse(self.report["generation_model_mutated"])

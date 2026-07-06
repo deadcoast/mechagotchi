@@ -404,6 +404,47 @@ def probe_slip_aware_guard(
     }
 
 
+def probe_slip_v2_guard(
+    seed_001: dict, trained_model: dict, slip_profile: dict
+) -> dict:
+    """SLIP v0.2 acceptance for the guard (decision record 0013): the
+    dual-version ``_slip`` mirror accepts v0.2 profiles, and a v0.2
+    extension whose ladder fields do not bind on the creature repairs
+    byte-identically to the frozen v0.1 baseline."""
+    v2_profile = deepcopy(slip_profile)
+    v2_profile["slip_version"] = "0.2.0"
+    v2_profile["forbidden_traits"] = {"roles": ["shell"], "materials": ["light"]}
+    v2_profile["risk_tolerances"] = {"mutation": 0.6}
+    v2_pristine = deepcopy(v2_profile)
+
+    wound_sites = [[5, 3]]
+    damaged = _construct_damaged(
+        seed_001, wound_sites, "mg_seed_001_slip_v2_guard_case"
+    )
+
+    feature_count = trained_model["feature_count"]
+    class_tokens = trained_model["class_tokens"]
+    bias_index = feature_count - 1
+    weights = [[0.0] * feature_count for _ in class_tokens]
+    weights[0][bias_index] = -10.0
+    weights[class_tokens.index("B")][bias_index] = 10.0
+    biased_model = {"model_id": "biased_probe_model", "weights": weights}
+
+    v1_repaired = repair_wound_sites(
+        damaged, biased_model, slip_profile=slip_profile
+    )
+    v2_repaired = repair_wound_sites(damaged, biased_model, slip_profile=v2_profile)
+
+    return {
+        "v2_repaired_valid": validate_grid(v2_repaired).ok,
+        "v2_equals_v1_baseline_repair": v2_repaired == v1_repaired,
+        "v2_substitutions": v2_repaired["metadata"][
+            "validity_guard_substitutions"
+        ],
+        "v2_profile_mutated": v2_profile != v2_pristine,
+    }
+
+
 def probe_blind(model: dict, target: dict) -> dict:
     sites = _probe_sites(target)
     damaged = _construct_damaged(target, sites, f"{target['grid_id']}_blind_damage")
@@ -471,6 +512,7 @@ def main() -> None:
         "slip_aware_guard": probe_slip_aware_guard(
             seed_001, model, slip_profile
         ),
+        "slip_v2_guard": probe_slip_v2_guard(seed_001, model, slip_profile),
         "fixtures_mutated": fixtures_pristine
         != [seed_grids, seed_001, heldout, slip_profile],
         "lab_modules_loaded": probe_loaded_lab_modules(),

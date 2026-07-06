@@ -228,6 +228,78 @@ def probe_slip_candidate(
     }
 
 
+def probe_slip_v2(
+    seed_grids: list[dict], model: GenerationModel, profile: dict
+) -> dict:
+    """SLIP v0.2 acceptance (decision record 0013): dual-version validation
+    and forbidden-traits enforcement through the generation surface."""
+    aligned_parent = next(
+        grid
+        for grid in seed_grids
+        if grid["palette"]["palette_id"] in profile["grid"]["allowed_palettes"]
+    )
+
+    def v2_profile(**ladder_fields) -> dict:
+        v2 = deepcopy(profile)
+        v2["slip_version"] = "0.2.0"
+        v2.update(ladder_fields)
+        return v2
+
+    full_ladder = v2_profile(
+        forbidden_traits={"roles": ["shell"], "materials": ["light"]},
+        risk_tolerances={"mutation": 0.6},
+        learning_switches={"mutation_risk_scorer": True},
+        lineage_preferences={"parent_selection": "fitness_weighted"},
+    )
+    full_ladder_pristine = deepcopy(full_ladder)
+    candidate = generate_candidate(
+        aligned_parent, model, slip_profile=full_ladder, rng_seed=404
+    )
+
+    v1_with_ladder = deepcopy(profile)
+    v1_with_ladder["learning_switches"] = {"mutation_risk_scorer": True}
+    version_gate_raised = _raised_message(
+        lambda: generate_candidate(
+            aligned_parent, model, slip_profile=v1_with_ladder, rng_seed=404
+        )
+    )
+
+    unknown_version = deepcopy(profile)
+    unknown_version["slip_version"] = "1.0.0"
+    unknown_version_raised = _raised_message(
+        lambda: generate_candidate(
+            aligned_parent, model, slip_profile=unknown_version, rng_seed=404
+        )
+    )
+
+    forbidden_binding_raised = _raised_message(
+        lambda: generate_candidate(
+            aligned_parent,
+            model,
+            slip_profile=v2_profile(forbidden_traits={"roles": ["body"]}),
+            rng_seed=404,
+        )
+    )
+    contradiction_raised = _raised_message(
+        lambda: generate_candidate(
+            aligned_parent,
+            model,
+            slip_profile=v2_profile(forbidden_traits={"roles": ["mouth"]}),
+            rng_seed=404,
+        )
+    )
+
+    return {
+        "v2_candidate_valid": validate_grid(candidate).ok,
+        "v2_candidate_aligned": _grid_slip_aligned(candidate, full_ladder_pristine),
+        "version_gate_raised": version_gate_raised,
+        "unknown_version_raised": unknown_version_raised,
+        "forbidden_binding_raised": forbidden_binding_raised,
+        "contradiction_raised": contradiction_raised,
+        "v2_profile_mutated": full_ladder != full_ladder_pristine,
+    }
+
+
 def probe_batch(seed_grids: list[dict], baseline_valid_per_100: int) -> dict:
     seed_ids = {grid["grid_id"] for grid in seed_grids}
     batch = generate_batch(seed_grids, 100, rng_seed=77)
@@ -403,6 +475,7 @@ def main() -> None:
         "model": model_report,
         "candidate": probe_candidate(seed_grids, model),
         "slip_candidate": probe_slip_candidate(seed_grids, model, profile),
+        "slip_v2": probe_slip_v2(seed_grids, model, profile),
         "batch": batch_report,
         "slip_batch": probe_slip_batch(seed_grids, profile),
         "explanation": probe_explanation(seed_grids, model, profile),

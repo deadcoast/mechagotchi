@@ -35,7 +35,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
 
 ## P1 — og-scope restorations
 
-- [ ] **T3 · SLIP schema ladder v0.1.0 → og scope.** (DR 0012 accepted; ladder law + rung 1 shipped 2026-07-05) One DR proposing the
+- [ ] **T3 · SLIP schema ladder v0.1.0 → og scope.** (DR 0012 accepted; rungs 1-4 shipped + DR 0013 package port 2026-07-05 — v0.2 profiles drive package simulations natively) One DR proposing the
   extension sequence, then per-field triads (schema + both validators +
   pydantic mirror + fixtures + workshop slip-creator controls):
   - [x] T3.1 `forbidden_traits` (shipped 2026-07-05, DR 0012 rung 1)
@@ -117,7 +117,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
   exemplars + invariants + rendering + workshop affordance) or trim it
   from the schema with a migration note. Couples to T6 (size) and T9
   (trait editor).
-- [ ] **T16 · Render packet contract v2.** (LAB-SIDE SHIPPED 2026-07-05: animation+mood selection over T4 projections, previewer state buttons; remaining: DR-gated promoted-module port; effects wait on the SLIP render-block rung) Both og runs specify the
+- [ ] **T16 · Render packet contract v2.** (SHIPPED 2026-07-05 incl. the DR 0013 package port — genome.render_packet_v2 additive publics; effects wait on the SLIP render-block rung) Both og runs specify the
   packet carries animation, mood, and effects (RUN TWO adds frame_id +
   ui_hints like needs_attention). Today `state` is an opaque
   passthrough. Spec-first: packet v2 contract (animation from T4's

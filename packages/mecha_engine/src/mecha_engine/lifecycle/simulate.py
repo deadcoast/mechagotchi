@@ -111,6 +111,11 @@ def initial_state(grid: dict, slip_profile: dict | None = None) -> dict:
     any simulation state exists; a supplied SLIP profile is validated and
     the grid must be aligned with it before profile-weighted state creation.
     Neither input is mutated.
+
+    SLIP v0.2 profiles (decision record 0013) additionally stash
+    ``risk_tolerance_mutation`` and ``learning_switches`` into the state,
+    exactly as the lab lifecycle simulator does; v0.1 states stay
+    byte-identical to the frozen baseline.
     """
     validation = validate_grid(grid) if isinstance(grid, dict) else None
     if validation is None or not validation.ok:
@@ -135,6 +140,8 @@ def initial_state(grid: dict, slip_profile: dict | None = None) -> dict:
     cell_damage = mean([float(cell.get("damage", 0)) for cell in cells]) if cells else 0.0
     body_mass = sum(1 for cell in cells if cell.get("organ") == "core")
 
+    risk_tolerances = (slip_profile or {}).get("risk_tolerances")
+    learning_switches = (slip_profile or {}).get("learning_switches")
     behavior = (slip_profile or {}).get("behavior", {})
     survival_weights = (slip_profile or {}).get("survival_weights", {})
     neediness = _clamp(behavior.get("neediness", 0.45))
@@ -143,7 +150,7 @@ def initial_state(grid: dict, slip_profile: dict | None = None) -> dict:
     stability_weight = _clamp(survival_weights.get("stability", 0.5))
     bond_weight = _clamp(survival_weights.get("bond", 0.25))
 
-    return {
+    state = {
         "grid_id": grid.get("grid_id", "unknown_grid"),
         "slip_profile_id": (slip_profile or {}).get("profile_id"),
         "alive": True,
@@ -173,6 +180,18 @@ def initial_state(grid: dict, slip_profile: dict | None = None) -> dict:
         "death_cause": None,
         "history": [],
     }
+    # SLIP ladder rung T3.2 (decision records 0012/0013): v0.2 profiles
+    # carry a mutation risk tolerance the switchboard consumes; absent
+    # (every v0.1 profile) the state is byte-identical to the frozen
+    # baseline. Identical stashing to the lab lifecycle simulator.
+    if isinstance(risk_tolerances, dict) and "mutation" in risk_tolerances:
+        state["risk_tolerance_mutation"] = _clamp(
+            float(risk_tolerances["mutation"])
+        )
+    # Rung T3.3: profile-authored thread gates for the switchboard.
+    if isinstance(learning_switches, dict) and learning_switches:
+        state["learning_switches"] = dict(learning_switches)
+    return state
 
 
 def advance_tick(state: dict, action: str) -> dict:

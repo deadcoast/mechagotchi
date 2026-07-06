@@ -5,6 +5,8 @@ Contract sources:
 - research/package_specs/mecha_engine_generation_contract_gate.md
   ("SLIP Acceptance")
 - research/slip/slip.schema.json (profile shape, palette enum, 0..1 caps)
+- research/decision_records/0013-port-slip-v2-and-packet-v2.md (the SLIP
+  v0.2 ladder port)
 
 Scope note (documented factoring): a full ``mecha_engine.slip`` module is a
 deferred module per the scaffold verification gate, so generation carries
@@ -13,6 +15,18 @@ constrained generation and grid/profile alignment evidence. This is a
 self-contained semantic port of the Stage 0 research SLIP checks used by the
 constrained generator lab (identical rule set and error strings); it is
 private to ``mecha_engine.generation`` and is not a package SLIP surface.
+
+Parity note (decision record 0013): this mirror carries the lab
+authority's dual-version ``validate_slip`` — ``slip_version`` "0.1.0" is
+the frozen baseline (exactly the original key set), "0.2.0" adds the four
+optional ladder fields (``forbidden_traits``, ``risk_tolerances``,
+``learning_switches``, ``lineage_preferences``) with the lab's exact
+validation semantics — and the forbidden-traits enforcement in
+``is_grid_aligned``, verbatim (error strings included). Source of truth:
+``labs/grid_genome/slip.py``; the lab-side parity pin is
+``labs/grid_genome/test_package_slip_parity.py``. The lab's
+``v01_projection`` adapter is deliberately not ported: the package now
+accepts v0.2 profiles directly.
 """
 
 from __future__ import annotations
@@ -20,46 +34,84 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 # Mirrors the palette enum in research/slip/slip.schema.json.
-VALID_PALETTES: frozenset[str] = frozenset(
-    {
-        "lcd_green",
-        "gameboy_gray",
-        "amber_terminal",
-        "crt_blue",
-        "pocket_plum",
-    }
-)
+VALID_PALETTES = {
+    "lcd_green",
+    "gameboy_gray",
+    "amber_terminal",
+    "crt_blue",
+    "pocket_plum",
+}
 
-TOP_LEVEL_KEYS: frozenset[str] = frozenset(
-    {
-        "slip_version",
-        "profile_id",
-        "name",
-        "grid",
-        "mutation",
-        "behavior",
-        "survival_weights",
-    }
-)
-GRID_KEYS: frozenset[str] = frozenset(
-    {
-        "allowed_palettes",
-        "body_mass_min",
-        "body_mass_max",
-        "required_organ_roles",
-    }
-)
-MUTATION_KEYS: frozenset[str] = frozenset(
-    {
-        "cell_mutation_rate_max",
-        "organ_shift_rate_max",
-        "palette_shift_rate_max",
-        "symmetry_break_rate_max",
-    }
-)
-BEHAVIOR_KEYS: frozenset[str] = frozenset({"curiosity", "neediness", "sleepiness"})
-SURVIVAL_KEYS: frozenset[str] = frozenset({"stability", "novelty", "bond"})
-ORGAN_ROLES: frozenset[str] = frozenset({"sensor", "expression", "body_core"})
+TOP_LEVEL_KEYS = {
+    "slip_version",
+    "profile_id",
+    "name",
+    "grid",
+    "mutation",
+    "behavior",
+    "survival_weights",
+}
+# The SLIP schema extension ladder (decision record 0012): "0.1.0" is the
+# frozen baseline the promoted modules consume; ladder fields are legal
+# only under "0.2.0" and are all optional.
+VALID_SLIP_VERSIONS = {"0.1.0", "0.2.0"}
+LADDER_KEYS = {
+    "forbidden_traits",
+    "risk_tolerances",
+    "learning_switches",
+    "lineage_preferences",
+}
+PARENT_SELECTION_MODES = {"uniform", "fitness_weighted"}
+LINEAGE_PREFERENCES_KEYS = {"parent_selection"}
+RISK_TOLERANCES_KEYS = {"mutation"}
+# Mirrors the switchboard thread registry (the lab authority's
+# micro_switchboard.SWITCHBOARD_THREAD_NAMES; identical to the package's
+# learning ``_switchboard`` registry), pinned by the lab-side parity test.
+SWITCHBOARD_THREAD_NAMES = {
+    "recent_interaction_ewma",
+    "hidden_mood_estimator",
+    "action_preference_bandit",
+    "mutation_risk_scorer",
+}
+FORBIDDEN_TRAITS_KEYS = {"roles", "materials"}
+# Mirrors of the grid genome schema's cell enums minus the empty values
+# (empty/void cannot be forbidden); pinned against
+# research/grid_genome/grid_genome.schema.json by the lab authority's test.
+FORBIDDABLE_ROLES = {
+    "body",
+    "shell",
+    "sensor",
+    "eye",
+    "mouth",
+    "joint",
+    "limb",
+    "antenna",
+    "decoration",
+    "effect",
+    "anchor",
+}
+FORBIDDABLE_MATERIALS = {"soft", "hard", "glass", "joint", "light", "signal"}
+# A profile may not require an organ whose cell role it forbids.
+CELL_ROLE_FOR_ORGAN_ROLE = {
+    "sensor": "eye",
+    "expression": "mouth",
+    "body_core": "body",
+}
+GRID_KEYS = {
+    "allowed_palettes",
+    "body_mass_min",
+    "body_mass_max",
+    "required_organ_roles",
+}
+MUTATION_KEYS = {
+    "cell_mutation_rate_max",
+    "organ_shift_rate_max",
+    "palette_shift_rate_max",
+    "symmetry_break_rate_max",
+}
+BEHAVIOR_KEYS = {"curiosity", "neediness", "sleepiness"}
+SURVIVAL_KEYS = {"stability", "novelty", "bond"}
+ORGAN_ROLES = {"sensor", "expression", "body_core"}
 
 
 @dataclass(frozen=True)
@@ -75,10 +127,29 @@ def validate_slip(profile: dict) -> SlipResult:
     errors: list[str] = []
     if not isinstance(profile, dict):
         return SlipResult(False, ["profile must be an object"])
-    _require_exact_keys(profile, TOP_LEVEL_KEYS, "profile", errors)
+    version = profile.get("slip_version")
+    ladder_present = sorted(set(profile) & LADDER_KEYS)
+    base_keys = {
+        key: value for key, value in profile.items() if key not in LADDER_KEYS
+    }
+    _require_exact_keys(base_keys, TOP_LEVEL_KEYS, "profile", errors)
 
-    if profile.get("slip_version") != "0.1.0":
-        errors.append("slip_version must be 0.1.0")
+    if version not in VALID_SLIP_VERSIONS:
+        errors.append(
+            "slip_version must be one of "
+            + ", ".join(sorted(VALID_SLIP_VERSIONS))
+        )
+    elif ladder_present and version != "0.2.0":
+        for key in ladder_present:
+            errors.append(f"profile {key} requires slip_version 0.2.0")
+    if "forbidden_traits" in profile:
+        _validate_forbidden_traits(profile, errors)
+    if "risk_tolerances" in profile:
+        _validate_risk_tolerances(profile, errors)
+    if "learning_switches" in profile:
+        _validate_learning_switches(profile, errors)
+    if "lineage_preferences" in profile:
+        _validate_lineage_preferences(profile, errors)
     _require_string(profile, "profile_id", errors)
     _require_string(profile, "name", errors)
     profile_id = profile.get("profile_id")
@@ -169,9 +240,7 @@ def is_grid_aligned(grid: dict, profile: dict) -> SlipResult:
         )
 
     present_roles = {
-        organ.get("role")
-        for organ in grid.get("organs", {}).values()
-        if isinstance(organ, dict)
+        organ.get("role") for organ in grid.get("organs", {}).values() if isinstance(organ, dict)
     }
     for role in grid_rules["required_organ_roles"]:
         if role not in present_roles:
@@ -196,12 +265,112 @@ def is_grid_aligned(grid: dict, profile: dict) -> SlipResult:
         elif value > limit:
             errors.append(f"mutation {grid_key} exceeds SLIP max {limit}: {value}")
 
+    forbidden = profile.get("forbidden_traits") or {}
+    forbidden_roles = set(forbidden.get("roles", []))
+    forbidden_materials = set(forbidden.get("materials", []))
+    if forbidden_roles or forbidden_materials:
+        cells = grid.get("cells", [])
+        for role in sorted(
+            {cell.get("role") for cell in cells} & forbidden_roles
+        ):
+            errors.append(f"forbidden role present in grid: {role}")
+        for material in sorted(
+            {cell.get("material") for cell in cells} & forbidden_materials
+        ):
+            errors.append(f"forbidden material present in grid: {material}")
+
     return SlipResult(not errors, errors)
+
+
+def _validate_lineage_preferences(profile: dict, errors: list[str]) -> None:
+    preferences = profile.get("lineage_preferences")
+    if not isinstance(preferences, dict):
+        errors.append("lineage_preferences must be an object")
+        return
+    _require_exact_keys(
+        preferences, LINEAGE_PREFERENCES_KEYS, "lineage_preferences", errors
+    )
+    mode = preferences.get("parent_selection")
+    if "parent_selection" in preferences and mode not in PARENT_SELECTION_MODES:
+        errors.append(
+            "lineage_preferences parent_selection must be one of "
+            + ", ".join(sorted(PARENT_SELECTION_MODES))
+        )
+
+
+def _validate_learning_switches(profile: dict, errors: list[str]) -> None:
+    switches = profile.get("learning_switches")
+    if not isinstance(switches, dict) or not switches:
+        errors.append(
+            "learning_switches must be a non-empty object of thread switches"
+        )
+        return
+    for name in sorted(set(switches) - SWITCHBOARD_THREAD_NAMES):
+        errors.append(f"learning switch names an unknown thread: {name}")
+    for name, value in sorted(switches.items()):
+        if not isinstance(value, bool):
+            errors.append(f"learning switch {name} must be a boolean")
+
+
+def _validate_risk_tolerances(profile: dict, errors: list[str]) -> None:
+    tolerances = profile.get("risk_tolerances")
+    if not isinstance(tolerances, dict):
+        errors.append("risk_tolerances must be an object")
+        return
+    _require_exact_keys(
+        tolerances, RISK_TOLERANCES_KEYS, "risk_tolerances", errors
+    )
+    if "mutation" in tolerances:
+        _validate_unit_interval(
+            tolerances["mutation"], "risk_tolerances mutation", errors
+        )
+
+
+def _validate_forbidden_traits(profile: dict, errors: list[str]) -> None:
+    traits = profile.get("forbidden_traits")
+    if not isinstance(traits, dict):
+        errors.append("forbidden_traits must be an object")
+        return
+    for key in sorted(set(traits) - FORBIDDEN_TRAITS_KEYS):
+        errors.append(f"forbidden_traits {key} is not allowed")
+    if not set(traits) & FORBIDDEN_TRAITS_KEYS:
+        errors.append("forbidden_traits must name roles and/or materials")
+    for key, vocabulary, label in [
+        ("roles", FORBIDDABLE_ROLES, "forbidden role"),
+        ("materials", FORBIDDABLE_MATERIALS, "forbidden material"),
+    ]:
+        if key not in traits:
+            continue
+        values = traits[key]
+        if not isinstance(values, list) or not values:
+            errors.append(f"forbidden_traits {key} must be a non-empty array")
+            continue
+        for value in values:
+            if value not in vocabulary:
+                errors.append(f"{label} not in vocabulary: {value}")
+        if len(set(values)) != len(values):
+            errors.append(f"forbidden_traits {key} must not repeat values")
+    grid_rules = profile.get("grid")
+    required_roles = (
+        grid_rules.get("required_organ_roles", [])
+        if isinstance(grid_rules, dict)
+        else []
+    )
+    forbidden_roles = set(
+        traits.get("roles", []) if isinstance(traits.get("roles"), list) else []
+    )
+    for organ_role in required_roles:
+        cell_role = CELL_ROLE_FOR_ORGAN_ROLE.get(organ_role)
+        if cell_role in forbidden_roles:
+            errors.append(
+                f"forbidden role {cell_role} contradicts required organ "
+                f"role {organ_role}"
+            )
 
 
 def _require_exact_keys(
     value: dict,
-    required: frozenset[str],
+    required: set[str],
     name: str,
     errors: list[str],
 ) -> None:
@@ -218,7 +387,7 @@ def _require_string(profile: dict, key: str, errors: list[str]) -> None:
 
 def _validate_enum_array(
     value: object,
-    allowed_values: frozenset[str],
+    allowed_values: set[str],
     array_name: str,
     item_name: str,
     errors: list[str],

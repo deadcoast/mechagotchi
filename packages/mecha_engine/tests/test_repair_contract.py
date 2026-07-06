@@ -248,6 +248,19 @@ class MechaEngineRepairContractTests(unittest.TestCase):
         self.assertTrue(probe["aware_deterministic"])
         self.assertTrue(probe["aware_target_template_used_false"])
 
+    # -- SLIP v0.2 guard acceptance (decision record 0013) ----------------------
+
+    def test_v2_profiles_are_accepted_by_the_slip_aware_guard(self):
+        probe = self.report["slip_v2_guard"]
+        self.assertTrue(probe["v2_repaired_valid"])
+        self.assertGreaterEqual(probe["v2_substitutions"], 1)
+        self.assertFalse(probe["v2_profile_mutated"])
+
+    def test_non_binding_ladder_fields_repair_byte_identically_to_v1(self):
+        self.assertTrue(
+            self.report["slip_v2_guard"]["v2_equals_v1_baseline_repair"]
+        )
+
     # -- Validity guard ---------------------------------------------------------
 
     def test_guard_fixture_wounds_body_core_cells(self):

@@ -24,9 +24,12 @@ from copy import deepcopy
 from pathlib import Path
 
 from mecha_engine.genome import (
+    ANIMATION_STATES,
     REQUIRED_TOP_LEVEL_FIELDS,
     grid_signature,
+    project_animation_state,
     render_packet_from_grid,
+    render_packet_v2,
     validate_grid,
     validate_grid_file,
 )
@@ -434,6 +437,118 @@ def probe_render_packet(seed_grid: dict, invalid_grid: dict) -> dict:
     }
 
 
+def probe_render_packet_v2(seed_grid: dict, invalid_grid: dict) -> dict:
+    """Render packet v2 acceptance (decision record 0013, T4/T16 semantics)."""
+    grid = deepcopy(seed_grid)
+    pristine = deepcopy(grid)
+    palette = grid["palette"]
+    background = palette["colors"][palette["background_index"]]
+    accent = palette["colors"][-1]
+
+    v1_packet = render_packet_from_grid(grid)
+    idle_packet = render_packet_v2(grid)
+
+    # Projection acceptance: every state preserves positions/roles/organs
+    # and validator validity; idle is the identity.
+    base_positions = [
+        (cell["x"], cell["y"], cell["role"], cell["organ"])
+        for cell in grid["cells"]
+    ]
+    projections_visual_only = True
+    projections_valid = True
+    for state in ANIMATION_STATES:
+        projected = project_animation_state(grid, state)
+        if not validate_grid(projected).ok:
+            projections_valid = False
+        if base_positions != [
+            (c["x"], c["y"], c["role"], c["organ"]) for c in projected["cells"]
+        ]:
+            projections_visual_only = False
+
+    # Selection thresholds (mirroring the lab mood estimator: energy 0.2 /
+    # hunger 0.65 / stress 0.65; blink every fifth tick in the curious band).
+    selection_cases = [
+        ({"alive": True, "energy": 0.1, "hunger": 0.3, "stress": 0.2, "age_ticks": 1}, "sleep", "tired"),
+        ({"alive": True, "energy": 0.6, "hunger": 0.8, "stress": 0.2, "age_ticks": 1}, "beg", "hungry"),
+        ({"alive": True, "energy": 0.6, "hunger": 0.3, "stress": 0.8, "age_ticks": 1}, "ill", "stressed"),
+        ({"alive": True, "energy": 0.6, "hunger": 0.3, "stress": 0.2, "age_ticks": 5}, "blink", "curious"),
+        ({"alive": True, "energy": 0.6, "hunger": 0.3, "stress": 0.2, "age_ticks": 3}, "idle", "curious"),
+    ]
+    selection = []
+    for lifecycle_state, expected_animation, expected_mood in selection_cases:
+        packet = render_packet_v2(grid, lifecycle_state)
+        selection.append(
+            {
+                "expected": [expected_animation, expected_mood],
+                "actual": [packet["animation"], packet["mood"]],
+                "state_passthrough": packet["state"] == lifecycle_state,
+            }
+        )
+
+    tired_state = {"alive": True, "energy": 0.1, "hunger": 0.3, "stress": 0.2, "age_ticks": 2}
+    sleep_packet = render_packet_v2(grid, tired_state)
+    face_visuals = {
+        cell["visual"]
+        for cell in sleep_packet["cells"]
+        if cell["role"] in ("eye", "mouth")
+    }
+
+    override_packet = render_packet_v2(grid, tired_state, animation="beg")
+    mouth_visuals = {
+        cell["visual"]
+        for cell in override_packet["cells"]
+        if cell["role"] == "mouth"
+    }
+
+    unknown_state_error = None
+    try:
+        render_packet_v2(grid, animation="dance")
+    except ValueError as error:
+        unknown_state_error = str(error)
+
+    invalid_grid_error = None
+    try:
+        render_packet_v2(deepcopy(invalid_grid))
+    except ValueError as error:
+        invalid_grid_error = str(error)
+
+    repeat_packet = render_packet_v2(grid, tired_state)
+    try:
+        serialized = json.dumps(sleep_packet)
+        json_serializable = True
+    except (TypeError, ValueError):
+        serialized = ""
+        json_serializable = False
+
+    return {
+        "idle_keys": sorted(idle_packet),
+        "vocabulary": idle_packet["animation_vocabulary"],
+        "idle_animation": idle_packet["animation"],
+        "idle_mood_is_none": idle_packet["mood"] is None,
+        "idle_cells_equal_v1": idle_packet["cells"] == v1_packet["cells"],
+        "idle_state_is_null": idle_packet["state"] is None,
+        "v1_packet_has_no_v2_keys": not (
+            {"animation", "mood", "animation_vocabulary"} & set(v1_packet)
+        ),
+        "projections_visual_only": projections_visual_only,
+        "projections_valid": projections_valid,
+        "selection": selection,
+        "sleep_face_visuals": sorted(face_visuals),
+        "background": background,
+        "accent": accent,
+        "override_animation": override_packet["animation"],
+        "override_mood": override_packet["mood"],
+        "override_mouth_visuals": sorted(mouth_visuals),
+        "unknown_state_error": unknown_state_error,
+        "invalid_grid_error": invalid_grid_error,
+        "deterministic_repeat_identical": repeat_packet == sleep_packet,
+        "json_serializable": json_serializable,
+        "json_roundtrip_equal": json_serializable
+        and json.loads(serialized) == sleep_packet,
+        "grid_not_mutated": grid == pristine,
+    }
+
+
 def probe_loaded_lab_modules() -> list[str]:
     lab_root = "la" "bs"
     return sorted(
@@ -463,6 +578,7 @@ def main() -> None:
         "single_faults": probe_single_faults(seed_grid),
         "signature": probe_signature(seed_grid),
         "render_packet": probe_render_packet(seed_grid, invalid_grid),
+        "render_packet_v2": probe_render_packet_v2(seed_grid, invalid_grid),
         "lab_modules_loaded": probe_loaded_lab_modules(),
     }
     json.dump(report, sys.stdout)

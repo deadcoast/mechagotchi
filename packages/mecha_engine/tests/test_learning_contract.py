@@ -179,6 +179,58 @@ class MechaEngineLearningContractTests(unittest.TestCase):
     def test_decide_never_mutates_the_state(self):
         self.assertFalse(self.report["decide"]["state_mutated"])
 
+    # -- SLIP v0.2 switchboard consumers (decision record 0013) ----------------
+
+    def test_absent_learning_switches_run_every_thread_bit_for_bit(self):
+        probe = self.report["decide_v2"]
+        self.assertEqual(4, probe["baseline_thread_count"])
+        self.assertTrue(probe["absent_switches_equal_all_on"])
+
+    def test_a_disabled_thread_does_not_run_or_contribute(self):
+        probe = self.report["decide_v2"]
+        self.assertEqual(
+            [
+                "recent_interaction_ewma",
+                "hidden_mood_estimator",
+                "action_preference_bandit",
+            ],
+            probe["one_off_thread_names"],
+        )
+        self.assertTrue(probe["one_off_utilities_differ"])
+
+    def test_all_switches_off_is_the_rules_only_idle_baseline(self):
+        probe = self.report["decide_v2"]
+        self.assertEqual(0, probe["all_off_thread_count"])
+        self.assertEqual("idle", probe["all_off_action"])
+
+    def test_risk_tolerance_raises_mutation_utility_monotonically(self):
+        probe = self.report["decide_v2"]
+        low, neutral, high = probe["mutate_utilities_by_tolerance"]
+        self.assertLess(low, neutral)
+        self.assertLess(neutral, high)
+        # Explicit tolerance 0.35 is the neutral point: identical utilities
+        # to the frozen baseline (the annotated thread fields differ by
+        # design — they surface the tolerance).
+        self.assertTrue(probe["neutral_tolerance_utilities_equal_baseline"])
+
+    def test_risk_tolerance_is_surfaced_in_the_thread_record(self):
+        probe = self.report["decide_v2"]
+        self.assertTrue(probe["tolerance_in_thread_input"])
+        self.assertTrue(probe["tolerance_explained"])
+        self.assertTrue(probe["baseline_input_has_no_tolerance"])
+
+    def test_v2_initial_states_gate_and_tolerate_end_to_end(self):
+        probe = self.report["decide_v2"]
+        self.assertEqual(
+            [
+                "recent_interaction_ewma",
+                "action_preference_bandit",
+                "mutation_risk_scorer",
+            ],
+            probe["v2_state_thread_names"],
+        )
+        self.assertTrue(probe["v2_state_tolerance_visible"])
+
     # -- Episode acceptance -----------------------------------------------------
 
     def test_both_arms_are_deterministic_and_json_serializable(self):

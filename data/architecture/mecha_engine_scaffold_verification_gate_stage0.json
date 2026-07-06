@@ -112,7 +112,7 @@
       "ok": true,
       "evidence": {
         "package_root_exists": true,
-        "files_scanned": 58,
+        "files_scanned": 59,
         "lab_import_files": [],
         "sys_path_lab_files": []
       }
@@ -141,6 +141,7 @@
           "packages/mecha_engine/src/mecha_engine/generation/explain.py",
           "packages/mecha_engine/src/mecha_engine/generation/generate.py",
           "packages/mecha_engine/src/mecha_engine/generation/model.py",
+          "packages/mecha_engine/src/mecha_engine/genome/animation.py",
           "packages/mecha_engine/src/mecha_engine/genome/render.py",
           "packages/mecha_engine/src/mecha_engine/genome/signature.py",
           "packages/mecha_engine/src/mecha_engine/genome/validation.py",
@@ -186,7 +187,7 @@
       "ok": true,
       "evidence": {
         "returncode": 0,
-        "tests_run": 235
+        "tests_run": 266
       }
     },
     {
@@ -209,7 +210,7 @@
     "sys_path_lab_files": 0,
     "implementation_files": 0,
     "deferred_modules_present": 0,
-    "import_suite_tests_run": 235,
+    "import_suite_tests_run": 266,
     "promoted_module_count": 8
   },
   "closed_states": [

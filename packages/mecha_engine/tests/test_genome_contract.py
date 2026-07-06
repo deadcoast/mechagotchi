@@ -44,6 +44,8 @@ REQUIRED_TOP_LEVEL_FIELDS = [
     "mutation",
 ]
 REQUIRED_PACKET_FIELDS = {"grid_id", "grid_size", "palette", "cells", "state"}
+# The og five-state vocabulary, order load-bearing (decision record 0013).
+REQUIRED_ANIMATION_STATES = ["idle", "blink", "sleep", "beg", "ill"]
 REQUIRED_SINGLE_FAULTS = {
     "coordinate_out_of_bounds",
     "duplicate_occupied_coordinate",
@@ -193,6 +195,61 @@ class MechaEngineGenomeContractTests(unittest.TestCase):
 
     def test_genome_surface_loads_no_lab_modules(self):
         self.assertEqual([], self.report["lab_modules_loaded"])
+
+    # -- Render packet v2 (decision record 0013) ------------------------------
+
+    def test_render_packet_v2_idle_is_base_and_carries_the_vocabulary(self):
+        packet = self.report["render_packet_v2"]
+        self.assertEqual(REQUIRED_ANIMATION_STATES, packet["vocabulary"])
+        self.assertEqual("idle", packet["idle_animation"])
+        self.assertTrue(packet["idle_mood_is_none"])
+        self.assertTrue(packet["idle_cells_equal_v1"])
+        self.assertTrue(packet["idle_state_is_null"])
+        self.assertTrue(
+            set(REQUIRED_PACKET_FIELDS | {"animation", "mood", "animation_vocabulary"}).issubset(
+                set(packet["idle_keys"])
+            )
+        )
+
+    def test_render_packet_from_grid_stays_exactly_v1(self):
+        self.assertTrue(self.report["render_packet_v2"]["v1_packet_has_no_v2_keys"])
+
+    def test_render_packet_v2_projections_are_visual_only_and_valid(self):
+        packet = self.report["render_packet_v2"]
+        self.assertTrue(packet["projections_visual_only"])
+        self.assertTrue(packet["projections_valid"])
+
+    def test_render_packet_v2_selection_mirrors_the_mood_thresholds(self):
+        for case in self.report["render_packet_v2"]["selection"]:
+            with self.subTest(expected=case["expected"]):
+                self.assertEqual(case["expected"], case["actual"])
+                self.assertTrue(case["state_passthrough"])
+
+    def test_render_packet_v2_projected_visuals_ride_the_cells(self):
+        packet = self.report["render_packet_v2"]
+        # sleep: eye AND mouth cells take the background color.
+        self.assertEqual([packet["background"]], packet["sleep_face_visuals"])
+
+    def test_render_packet_v2_explicit_animation_override_wins(self):
+        packet = self.report["render_packet_v2"]
+        self.assertEqual("beg", packet["override_animation"])
+        # The override keeps the lifecycle-selected mood visible.
+        self.assertEqual("tired", packet["override_mood"])
+        self.assertEqual([packet["accent"]], packet["override_mouth_visuals"])
+
+    def test_render_packet_v2_rejects_unknown_states_and_invalid_grids(self):
+        packet = self.report["render_packet_v2"]
+        self.assertIsNotNone(packet["unknown_state_error"])
+        self.assertIn("unknown animation state", packet["unknown_state_error"])
+        self.assertIsNotNone(packet["invalid_grid_error"])
+        self.assertIn("valid grid", packet["invalid_grid_error"])
+
+    def test_render_packet_v2_is_deterministic_serializable_and_pure(self):
+        packet = self.report["render_packet_v2"]
+        self.assertTrue(packet["deterministic_repeat_identical"])
+        self.assertTrue(packet["json_serializable"])
+        self.assertTrue(packet["json_roundtrip_equal"])
+        self.assertTrue(packet["grid_not_mutated"])
 
 
 if __name__ == "__main__":
