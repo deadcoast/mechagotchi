@@ -178,6 +178,8 @@
         <div class="toggle-group" id="forbidden-role-toggles"></div>
         <label class="field">forbidden materials</label>
         <div class="toggle-group" id="forbidden-material-toggles"></div>
+        <label class="field">learning switches — which intelligence threads run</label>
+        <div class="toggle-group" id="switch-toggles"></div>
         <label class="field">mutation risk tolerance</label>
         <div class="slider-row" style="grid-template-columns: 150px 1fr 52px;">
           <span class="name">off / tolerance</span>
@@ -265,6 +267,8 @@ const FORBIDDABLE_MATERIALS = ["soft", "hard", "glass", "joint", "light", "signa
 let forbiddenRoles = new Set();
 let forbiddenMaterials = new Set();
 let riskTolerance = null;
+const SWITCHBOARD_THREADS = ["recent_interaction_ewma", "hidden_mood_estimator", "action_preference_bandit", "mutation_risk_scorer"];
+let disabledThreads = new Set();
 let lastVerdict = null;
 
 const $ = (id) => document.getElementById(id);
@@ -275,7 +279,7 @@ function buildProfile() {
     values[section] = {};
     for (const [key] of defs) values[section][key] = parseFloat($("s-" + key).value);
   }
-  const usesLadder = forbiddenRoles.size || forbiddenMaterials.size || riskTolerance !== null;
+  const usesLadder = forbiddenRoles.size || forbiddenMaterials.size || riskTolerance !== null || disabledThreads.size;
   const profile = {
     slip_version: usesLadder ? "0.2.0" : "0.1.0",
     profile_id: $("profile-id").value.trim(),
@@ -298,7 +302,30 @@ function buildProfile() {
   if (riskTolerance !== null) {
     profile.risk_tolerances = { mutation: riskTolerance };
   }
+  if (disabledThreads.size) {
+    profile.learning_switches = {};
+    for (const name of disabledThreads) profile.learning_switches[name] = false;
+  }
   return profile;
+}
+
+function renderSwitchToggles() {
+  const wrap = $("switch-toggles");
+  wrap.innerHTML = "";
+  for (const name of SWITCHBOARD_THREADS) {
+    const btn = document.createElement("button");
+    btn.className = "toggle";
+    btn.type = "button";
+    btn.setAttribute("aria-pressed", disabledThreads.has(name) ? "false" : "true");
+    btn.textContent = name.replace(/_/g, " ");
+    btn.title = disabledThreads.has(name) ? "off — thread will not run" : "on";
+    btn.addEventListener("click", () => {
+      disabledThreads.has(name) ? disabledThreads.delete(name) : disabledThreads.add(name);
+      renderSwitchToggles();
+      scheduleValidate();
+    });
+    wrap.appendChild(btn);
+  }
 }
 
 function renderForbiddenToggles() {
@@ -533,6 +560,12 @@ $("load-select").addEventListener("change", async () => {
   forbiddenRoles = new Set(profile.forbidden_traits?.roles || []);
   forbiddenMaterials = new Set(profile.forbidden_traits?.materials || []);
   riskTolerance = profile.risk_tolerances?.mutation ?? null;
+  disabledThreads = new Set(
+    Object.entries(profile.learning_switches || {})
+      .filter(([, on]) => on === false)
+      .map(([name]) => name)
+  );
+  renderSwitchToggles();
   $("risk-tolerance").value = riskTolerance === null ? "-0.01" : String(riskTolerance);
   $("risk-tolerance-out").textContent = riskTolerance === null ? "off" : riskTolerance.toFixed(2);
   renderForbiddenToggles();
@@ -561,9 +594,10 @@ $("new-btn").addEventListener("click", () => {
   forbiddenRoles = new Set();
   forbiddenMaterials = new Set();
   riskTolerance = null;
+  disabledThreads = new Set();
   $("risk-tolerance").value = "-0.01";
   $("risk-tolerance-out").textContent = "off";
-  renderPaletteToggles(); renderRoleToggles(); renderForbiddenToggles(); renderSliders();
+  renderPaletteToggles(); renderRoleToggles(); renderForbiddenToggles(); renderSwitchToggles(); renderSliders();
   scheduleValidate();
 });
 
@@ -584,6 +618,7 @@ for (const id of ["mass-min", "mass-max"]) {
   renderPaletteToggles();
   renderRoleToggles();
   renderForbiddenToggles();
+  renderSwitchToggles();
   renderSliders();
   refreshSlipList();
   scheduleValidate();

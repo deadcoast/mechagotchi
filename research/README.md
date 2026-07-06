@@ -624,6 +624,9 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-07-05-slip-ladder-risk-tolerances.md`
 - `labs/grid_genome/test_slip_risk_tolerances.py` (T3.2: mutation risk tolerance consumed by the switchboard through lifecycle state — monotone effect pinned, frozen baseline bit-for-bit)
 
+- `research/experiment_reports/2026-07-05-slip-ladder-learning-switches.md`
+- `labs/grid_genome/test_slip_learning_switches.py` (T3.3: og learning toggles gate switchboard threads through lifecycle state; all-off = the rules-only baseline, giving T19 its ablation harness; frozen flows bit-for-bit)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

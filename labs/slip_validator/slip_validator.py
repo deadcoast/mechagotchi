@@ -42,7 +42,13 @@ SURVIVAL_KEYS = {"stability", "novelty", "bond"}
 # SLIP schema extension ladder (decision record 0012): ladder fields are
 # optional and legal only under slip_version 0.2.0.
 VALID_SLIP_VERSIONS = {"0.1.0", "0.2.0"}
-LADDER_KEYS = {"forbidden_traits", "risk_tolerances"}
+LADDER_KEYS = {"forbidden_traits", "risk_tolerances", "learning_switches"}
+SWITCHBOARD_THREAD_NAMES = {
+    "recent_interaction_ewma",
+    "hidden_mood_estimator",
+    "action_preference_bandit",
+    "mutation_risk_scorer",
+}
 RISK_TOLERANCES_KEYS = {"mutation"}
 FORBIDDEN_TRAITS_KEYS = {"roles", "materials"}
 FORBIDDABLE_ROLES = {
@@ -112,6 +118,31 @@ def validate_profile(profile: dict, source_path: Path | None = None) -> dict:
             _validate_unit_interval(
                 tolerances.get("mutation"), ["risk_tolerances", "mutation"], errors
             )
+    if "learning_switches" in profile:
+        switches = profile["learning_switches"]
+        if not isinstance(switches, dict) or not switches:
+            _add(
+                errors,
+                "semantic_learning_switches",
+                ["learning_switches"],
+                "learning_switches must be a non-empty object of thread switches",
+            )
+        else:
+            for name in sorted(set(switches) - SWITCHBOARD_THREAD_NAMES):
+                _add(
+                    errors,
+                    "semantic_learning_switches",
+                    ["learning_switches", name],
+                    f"learning switch names an unknown thread: {name}",
+                )
+            for name, value in sorted(switches.items()):
+                if not isinstance(value, bool):
+                    _add(
+                        errors,
+                        "semantic_learning_switches",
+                        ["learning_switches", name],
+                        f"learning switch {name} must be a boolean",
+                    )
     _validate_string(profile.get("profile_id"), ["profile_id"], errors, pattern="profile_id")
     _validate_string(profile.get("name"), ["name"], errors)
 

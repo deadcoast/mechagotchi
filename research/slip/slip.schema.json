@@ -208,6 +208,26 @@
         "mutation"
       ],
       "additionalProperties": false
+    },
+    "learning_switches": {
+      "type": "object",
+      "description": "SLIP schema extension ladder rung T3.3 (decision record 0012): the og learning toggles \u2014 per-thread switchboard gates (absent or true = on). 0.2.0-only.",
+      "minProperties": 1,
+      "properties": {
+        "recent_interaction_ewma": {
+          "type": "boolean"
+        },
+        "hidden_mood_estimator": {
+          "type": "boolean"
+        },
+        "action_preference_bandit": {
+          "type": "boolean"
+        },
+        "mutation_risk_scorer": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
     }
   },
   "$defs": {
@@ -237,6 +257,11 @@
             {
               "required": [
                 "risk_tolerances"
+              ]
+            },
+            {
+              "required": [
+                "learning_switches"
               ]
             }
           ]

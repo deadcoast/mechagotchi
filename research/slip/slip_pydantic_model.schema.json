@@ -243,6 +243,16 @@
       ],
       "title": "SurvivalWeightsContract",
       "type": "object"
+    },
+    "SwitchboardThread": {
+      "enum": [
+        "recent_interaction_ewma",
+        "hidden_mood_estimator",
+        "action_preference_bandit",
+        "mutation_risk_scorer"
+      ],
+      "title": "SwitchboardThread",
+      "type": "string"
     }
   },
   "additionalProperties": false,
@@ -299,6 +309,25 @@
         }
       ],
       "default": null
+    },
+    "learning_switches": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "type": "boolean"
+          },
+          "minProperties": 1,
+          "propertyNames": {
+            "$ref": "#/$defs/SwitchboardThread"
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Learning Switches"
     }
   },
   "required": [

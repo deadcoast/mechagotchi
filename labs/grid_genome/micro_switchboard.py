@@ -116,13 +116,26 @@ def estimate_mutation_risk(state: dict) -> dict:
 # Census-facing alias (research/micro_learners/thread_census.md).
 mutation_risk_scorer = estimate_mutation_risk
 
+# SLIP ladder rung T3.3 (decision record 0012): the og learning toggles.
+# Order matters — it is the frozen execution order of run_switchboard.
+SWITCHBOARD_THREADS = [
+    ("recent_interaction_ewma", recent_interaction_ewma),
+    ("hidden_mood_estimator", estimate_hidden_mood),
+    ("action_preference_bandit", action_preference_bandit),
+    ("mutation_risk_scorer", estimate_mutation_risk),
+]
+SWITCHBOARD_THREAD_NAMES = [name for name, _ in SWITCHBOARD_THREADS]
+
 
 def run_switchboard(state: dict) -> dict:
+    # SLIP ladder rung T3.3: profile-authored learning switches gate which
+    # threads run (absent key or True = on). No v0.1 flow ever sets the
+    # key, so the frozen baseline runs all four threads bit-for-bit.
+    switches = state.get("learning_switches") or {}
     threads = [
-        recent_interaction_ewma(state),
-        estimate_hidden_mood(state),
-        action_preference_bandit(state),
-        estimate_mutation_risk(state),
+        run(state)
+        for name, run in SWITCHBOARD_THREADS
+        if switches.get(name, True)
     ]
     utilities = {action: 0.0 for action in ACTIONS}
     utilities["idle"] = 0.05

@@ -40,9 +40,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
   pydantic mirror + fixtures + workshop slip-creator controls):
   - [x] T3.1 `forbidden_traits` (shipped 2026-07-05, DR 0012 rung 1)
   - [x] T3.2 `risk_tolerances` (shipped 2026-07-05; census-designed switchboard consumer)
-  - [ ] T3.3 `learning_switches` (consumed by `mecha_engine.learning` —
-        og's "learning toggles"; the bounded-claim evidence gives these
-        real semantics)
+  - [x] T3.3 `learning_switches` (shipped 2026-07-05; switchboard thread gates — also T19's profile-authored ablation harness)
   - [ ] T3.4 `lineage_preferences` (consumed by archive/evolve parenting)
   - [ ] T3.5 `species_class` + allowed `materials` + `visual_grammar`
         (blocked on T4 for animation vocabulary)
@@ -146,7 +144,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
   best-fitness gap, lineage depth, extinction frequency. Either the
   og-claimed superiority becomes measured fact or the archive design
   gets revisited — first-class result either way.
-- [ ] **T19 · Micro-learner remove-one ablation.** RUN TWO's design: 5
+- [ ] **T19 · Micro-learner remove-one ablation.** (harness ready: T3.3 switches author the conditions) RUN TWO's design: 5
   synthetic user models (attentive/neglectful/erratic/punitive/
   exploratory) x lifecycles x remove-one conditions over the switchboard
   threads; keep-gate: removal costs >=5% on a target metric without

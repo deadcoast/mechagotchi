@@ -27,8 +27,15 @@ TOP_LEVEL_KEYS = {
 # frozen baseline the promoted modules consume; ladder fields are legal
 # only under "0.2.0" and are all optional.
 VALID_SLIP_VERSIONS = {"0.1.0", "0.2.0"}
-LADDER_KEYS = {"forbidden_traits", "risk_tolerances"}
+LADDER_KEYS = {"forbidden_traits", "risk_tolerances", "learning_switches"}
 RISK_TOLERANCES_KEYS = {"mutation"}
+# Mirrors micro_switchboard.SWITCHBOARD_THREAD_NAMES (pinned by test).
+SWITCHBOARD_THREAD_NAMES = {
+    "recent_interaction_ewma",
+    "hidden_mood_estimator",
+    "action_preference_bandit",
+    "mutation_risk_scorer",
+}
 FORBIDDEN_TRAITS_KEYS = {"roles", "materials"}
 # Mirrors of the grid genome schema's cell enums minus the empty values
 # (empty/void cannot be forbidden); pinned against
@@ -99,6 +106,8 @@ def validate_slip(profile: dict) -> SlipResult:
         _validate_forbidden_traits(profile, errors)
     if "risk_tolerances" in profile:
         _validate_risk_tolerances(profile, errors)
+    if "learning_switches" in profile:
+        _validate_learning_switches(profile, errors)
     _require_string(profile, "profile_id", errors)
     _require_string(profile, "name", errors)
     profile_id = profile.get("profile_id")
@@ -228,6 +237,20 @@ def is_grid_aligned(grid: dict, profile: dict) -> SlipResult:
             errors.append(f"forbidden material present in grid: {material}")
 
     return SlipResult(not errors, errors)
+
+
+def _validate_learning_switches(profile: dict, errors: list[str]) -> None:
+    switches = profile.get("learning_switches")
+    if not isinstance(switches, dict) or not switches:
+        errors.append(
+            "learning_switches must be a non-empty object of thread switches"
+        )
+        return
+    for name in sorted(set(switches) - SWITCHBOARD_THREAD_NAMES):
+        errors.append(f"learning switch names an unknown thread: {name}")
+    for name, value in sorted(switches.items()):
+        if not isinstance(value, bool):
+            errors.append(f"learning switch {name} must be a boolean")
 
 
 def _validate_risk_tolerances(profile: dict, errors: list[str]) -> None:

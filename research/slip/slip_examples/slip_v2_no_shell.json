@@ -39,5 +39,8 @@
   },
   "risk_tolerances": {
     "mutation": 0.6
+  },
+  "learning_switches": {
+    "mutation_risk_scorer": true
   }
 }

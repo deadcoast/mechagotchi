@@ -88,6 +88,7 @@ def initial_lifecycle_state(grid: dict, slip_profile: dict | None = None) -> dic
     body_mass = sum(1 for cell in cells if cell.get("organ") == "core")
 
     risk_tolerances = (slip_profile or {}).get("risk_tolerances")
+    learning_switches = (slip_profile or {}).get("learning_switches")
     behavior = (slip_profile or {}).get("behavior", {})
     survival_weights = (slip_profile or {}).get("survival_weights", {})
     neediness = _clamp(behavior.get("neediness", 0.45))
@@ -133,6 +134,9 @@ def initial_lifecycle_state(grid: dict, slip_profile: dict | None = None) -> dic
         state["risk_tolerance_mutation"] = _clamp(
             float(risk_tolerances["mutation"])
         )
+    # Rung T3.3: profile-authored thread gates for the switchboard.
+    if isinstance(learning_switches, dict) and learning_switches:
+        state["learning_switches"] = dict(learning_switches)
     return state
 
 
