@@ -643,6 +643,10 @@ Post-v0.1 continuation has started:
 
 - `research/decision_records/0014-grid-size-commitment.md` (audit T6: 8x8 committed for the current phase on probe evidence — validator is size-generic but every calibrated constant/corpus/gate is 8x8-denominated; T17's multi-size bake-off is the designated re-opener)
 
+- `research/experiment_reports/2026-07-05-switchboard-ablation.md`
+- `labs/grid_genome/switchboard_ablation.py`
+- `data/micro_learners/switchboard_ablation_stage0.json` (T19 Stage 0: full switchboard beats rules-only by ~336% need balance — measured; keep-gate keeps only hidden_mood_estimator at this scale, others queued for the scaled rerun)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

@@ -166,3 +166,14 @@ updates):
 Decision update: promoted as `mecha_engine.learning` under decision
 record 0009 with the bounded claim — need-balance improvement only, no
 survival claim permitted without new evidence.
+
+## Ablation Result (2026-07-05, audit T19 Stage 0)
+
+SLIP-authored remove-one ablation (T3.3 switches), five synthetic
+user models: full switchboard beats rules-only by ~336% need balance
+(the og claim, measured). Keep-gate (>=5% decline, no survival gain):
+hidden_mood_estimator KEEP (28-30% decline when removed); EWMA,
+bandit, mutation-risk scorer dead_weight at single-episode scale —
+queued for the scaled rerun, not removed. The flat deltas across
+user models confirm the census gap: interaction signals barely reach
+decisions until boredom/timing threads exist.
