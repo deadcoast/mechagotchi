@@ -630,6 +630,11 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-07-05-slip-ladder-lineage-preferences.md`
 - `labs/runtime_integration/test_lineage_preferences.py` (T3.4: profile-authored parent selection — fitness_weighted vs uniform pinned different; plus the v01_projection package-boundary adapter that lets v0.2 profiles drive full engine experiments)
 
+- `research/experiment_reports/2026-07-05-animation-states.md`
+- `research/algorithm_cards/animation_states.md`
+- `labs/grid_genome/animation_states.py`
+- `data/grid_genome/animation_states_stage0.json` (T4 first slice: the og five animation states as deterministic visual-only genome projections — 300/300 valid; animstate_300 dataset delivered)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

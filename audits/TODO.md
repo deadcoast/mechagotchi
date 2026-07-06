@@ -47,7 +47,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
   - [ ] T3.6 og gates: 20-archetype expressiveness test, invalid-profile
         fuzz pack (false pass ≤ 1%), profile zoo growth 15 → 100
         (`slip_zoo_100`)
-- [ ] **T4 · Animation-state vocabulary.** og: idle/blink/sleep/beg/ill
+- [ ] **T4 · Animation-state vocabulary.** (SEMANTICS + animstate_300 SHIPPED 2026-07-05 — states are deterministic genome projections, 300/300 valid; remaining: T16 packet selection, workshop previewer, T3.5 field) og: idle/blink/sleep/beg/ill
   states, animation anchors per state, `animstate_300` dataset.
   Research-first: lab defining state semantics on the grid genome
   (extends the single-anchor invariant), then schema, then render-packet
@@ -87,8 +87,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
 - [ ] **T11 · og dataset program completion**: `mechaseed_200` (curated
   variants of the 50), `mutationbench_5000` (generated offspring under
   fixed configs — the labs' mutation machinery makes this cheap),
-  `replay_100k_ticks` (runtime episode logs; also feeds T12), and
-  `animstate_300` (after T4). Each with a README + ledger entry.
+  `replay_100k_ticks` (runtime episode logs; also feeds T12); `animstate_300` DONE (2026-07-05, with T4). Each with a README + ledger entry.
 - [ ] **T12 · Recorded replay consumer for the render bridge.** og named
   three packet consumers; replay is missing. Lab: record per-tick render
   packets from a `live_cycle`/episode run into a replay artifact; the

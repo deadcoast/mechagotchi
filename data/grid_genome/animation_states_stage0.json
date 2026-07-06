@@ -1,0 +1,210 @@
+{
+  "artifact_id": "animation_states_stage0",
+  "status": "stage0_complete",
+  "date": "2026-07-05",
+  "purpose": "Prove the og animation-state vocabulary as deterministic visual-only genome projections and emit the animstate_300 dataset (audit T4).",
+  "source_artifacts": [
+    "data/seed_grids",
+    "data/generated_grids/markov_local",
+    "research/grid_genome/grid_invariants.md"
+  ],
+  "summary": {
+    "creature_count": 60,
+    "state_vocabulary": [
+      "idle",
+      "blink",
+      "sleep",
+      "beg",
+      "ill"
+    ],
+    "sequence_count": 300,
+    "projection_valid_rate": 1.0
+  },
+  "sequences_preview": [
+    {
+      "grid_id": "mg_seed_001",
+      "state": "idle",
+      "valid": true,
+      "cells": [
+        {
+          "x": 1,
+          "y": 0,
+          "visual": "#d8ffd6",
+          "role": "eye"
+        },
+        {
+          "x": 4,
+          "y": 0,
+          "visual": "#d8ffd6",
+          "role": "eye"
+        },
+        {
+          "x": 2,
+          "y": 1,
+          "visual": "#5dbb63",
+          "role": "body"
+        },
+        {
+          "x": 3,
+          "y": 1,
+          "visual": "#5dbb63",
+          "role": "body"
+        },
+        {
+          "x": 1,
+          "y": 2,
+          "visual": "#5dbb63",
+          "role": "body"
+        },
+        {
+          "x": 2,
+          "y": 2,
+          "visual": "#5dbb63",
+          "role": "body"
+        },
+        {
+          "x": 3,
+          "y": 2,
+          "visual": "#5dbb63",
+          "role": "body"
+        },
+        {
+          "x": 4,
+          "y": 2,
+          "visual": "#5dbb63",
+          "role": "body"
+        },
+        {
+          "x": 2,
+          "y": 3,
+          "visual": "#5dbb63",
+          "role": "body"
+        },
+        {
+          "x": 3,
+          "y": 3,
+          "visual": "#5dbb63",
+          "role": "body"
+        },
+        {
+          "x": 5,
+          "y": 3,
+          "visual": "#d8ffd6",
+          "role": "mouth"
+        },
+        {
+          "x": 3,
+          "y": 4,
+          "visual": "#5dbb63",
+          "role": "body"
+        },
+        {
+          "x": 4,
+          "y": 4,
+          "visual": "#5dbb63",
+          "role": "body"
+        }
+      ]
+    },
+    {
+      "grid_id": "mg_seed_001",
+      "state": "blink",
+      "valid": true,
+      "cells": [
+        {
+          "x": 1,
+          "y": 0,
+          "visual": "#07140d",
+          "role": "eye"
+        },
+        {
+          "x": 4,
+          "y": 0,
+          "visual": "#07140d",
+          "role": "eye"
+        },
+        {
+          "x": 2,
+          "y": 1,
+          "visual": "#5dbb63",
+          "role": "body"
+        },
+        {
+          "x": 3,
+          "y": 1,
+          "visual": "#5dbb63",
+          "role": "body"
+        },
+        {
+          "x": 1,
+          "y": 2,
+          "visual": "#5dbb63",
+          "role": "body"
+        },
+        {
+          "x": 2,
+          "y": 2,
+          "visual": "#5dbb63",
+          "role": "body"
+        },
+        {
+          "x": 3,
+          "y": 2,
+          "visual": "#5dbb63",
+          "role": "body"
+        },
+        {
+          "x": 4,
+          "y": 2,
+          "visual": "#5dbb63",
+          "role": "body"
+        },
+        {
+          "x": 2,
+          "y": 3,
+          "visual": "#5dbb63",
+          "role": "body"
+        },
+        {
+          "x": 3,
+          "y": 3,
+          "visual": "#5dbb63",
+          "role": "body"
+        },
+        {
+          "x": 5,
+          "y": 3,
+          "visual": "#d8ffd6",
+          "role": "mouth"
+        },
+        {
+          "x": 3,
+          "y": 4,
+          "visual": "#5dbb63",
+          "role": "body"
+        },
+        {
+          "x": 4,
+          "y": 4,
+          "visual": "#5dbb63",
+          "role": "body"
+        }
+      ]
+    }
+  ],
+  "closed_states": [
+    "animation_vocabulary_defined_as_genome_projections",
+    "projections_visual_only_and_validator_clean",
+    "animstate_300_dataset_emitted"
+  ],
+  "blocked_states": [
+    "render_packet_animation_selection_pending_t16",
+    "workshop_state_previewer_pending",
+    "slip_animation_vocab_field_pending_t3_5"
+  ],
+  "decision": {
+    "status": "adopt_projection_semantics",
+    "reason": "All 300 projections across 60 creatures preserve positions/roles/organs and validator validity; idle is the identity; states derive from palette + role with zero authored data."
+  },
+  "next_research_step": "Render packet contract v2 (T16): packets carry the selected animation state; the workshop previewer plays the five-state cycle from engine truth."
+}
