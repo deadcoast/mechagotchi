@@ -660,6 +660,10 @@ Post-v0.1 continuation has started:
 
 - `workshop/grid_editor/grid_editor.html` + `workshop/server/workshop_server.py` (T9 trait editor: per-cell role/material/mutation-weight overrides across the DR 0015 vocabulary, organ remap server-side, engine-judged; 5 endpoint tests)
 
+- `research/experiment_reports/2026-07-06-archive-comparators.md`
+- `labs/map_elites_archive/archive_comparators.py`
+- `data/archives/archive_comparators_stage0.json` (T18, map_elites_confirmed: at matched budgets on identical streams the archive preserves 3.9x GA's niches and 2.5x novelty search's with ZERO best-fitness sacrifice — the og adoption claim is now measured fact)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

@@ -1,0 +1,133 @@
+{
+  "artifact_id": "archive_comparators_stage0",
+  "status": "stage0_complete",
+  "date": "2026-07-06",
+  "purpose": "RUN TWO's unrun MAP-Elites keep-gate (audit T18): GA truncation and novelty search vs the shipped archive at matched budgets over identical candidate streams.",
+  "protocol": {
+    "budget_per_comparator_per_seed": 150,
+    "rng_seeds": [
+      20260512,
+      20260612,
+      20260712
+    ],
+    "population": 32,
+    "novelty_k": 5,
+    "ticks": 24,
+    "scale_up": "RUN TWO full protocol: population 256, 50k evaluations, 10 seeds (recorded, not run at Stage 0)."
+  },
+  "runs": [
+    {
+      "rng_seed": 20260512,
+      "ga_truncation": {
+        "coverage": 21,
+        "qd_score": 19.96997,
+        "best_fitness": 0.96399,
+        "mean_fitness": 0.949649,
+        "descriptor_dispersion": 1.205051,
+        "survivor_count": 32
+      },
+      "novelty_search": {
+        "coverage": 31,
+        "qd_score": 28.395672,
+        "best_fitness": 0.957533,
+        "mean_fitness": 0.917024,
+        "descriptor_dispersion": 2.102825,
+        "survivor_count": 32
+      },
+      "map_elites": {
+        "coverage": 78,
+        "qd_score": 71.409616,
+        "best_fitness": 0.96399,
+        "mean_fitness": 0.915508,
+        "descriptor_dispersion": 1.761969,
+        "survivor_count": 78
+      }
+    },
+    {
+      "rng_seed": 20260612,
+      "ga_truncation": {
+        "coverage": 18,
+        "qd_score": 17.103345,
+        "best_fitness": 0.96399,
+        "mean_fitness": 0.948797,
+        "descriptor_dispersion": 1.192014,
+        "survivor_count": 32
+      },
+      "novelty_search": {
+        "coverage": 31,
+        "qd_score": 28.264477,
+        "best_fitness": 0.957574,
+        "mean_fitness": 0.910523,
+        "descriptor_dispersion": 1.819759,
+        "survivor_count": 32
+      },
+      "map_elites": {
+        "coverage": 79,
+        "qd_score": 72.072484,
+        "best_fitness": 0.96399,
+        "mean_fitness": 0.91231,
+        "descriptor_dispersion": 1.78656,
+        "survivor_count": 79
+      }
+    },
+    {
+      "rng_seed": 20260712,
+      "ga_truncation": {
+        "coverage": 20,
+        "qd_score": 19.010387,
+        "best_fitness": 0.965293,
+        "mean_fitness": 0.948322,
+        "descriptor_dispersion": 1.185442,
+        "survivor_count": 32
+      },
+      "novelty_search": {
+        "coverage": 30,
+        "qd_score": 27.527885,
+        "best_fitness": 0.965293,
+        "mean_fitness": 0.915908,
+        "descriptor_dispersion": 1.870568,
+        "survivor_count": 32
+      },
+      "map_elites": {
+        "coverage": 71,
+        "qd_score": 64.901063,
+        "best_fitness": 0.965293,
+        "mean_fitness": 0.914099,
+        "descriptor_dispersion": 1.828926,
+        "survivor_count": 71
+      }
+    }
+  ],
+  "summary": {
+    "ga_truncation": {
+      "coverage": 19.666667,
+      "qd_score": 18.694567,
+      "best_fitness": 0.964424,
+      "mean_fitness": 0.948923
+    },
+    "novelty_search": {
+      "coverage": 30.666667,
+      "qd_score": 28.062678,
+      "best_fitness": 0.960133,
+      "mean_fitness": 0.914485
+    },
+    "map_elites": {
+      "coverage": 76,
+      "qd_score": 69.461054,
+      "best_fitness": 0.964424,
+      "mean_fitness": 0.913972
+    }
+  },
+  "gate": {
+    "coverage_advantage_over_ga": 2.864407,
+    "og_coverage_bar": 0.25,
+    "best_fitness_gap_to_strongest": 0.0,
+    "og_best_gap_bar": 0.1,
+    "map_elites_confirmed": true
+  },
+  "decision": {
+    "status": "map_elites_confirmed",
+    "reason": "Mean coverage 76 vs GA 19.666667 (advantage 2.864407, bar 0.25); best-fitness gap to strongest 0.0 (bar 0.10). Measured over 3 seeds x 150 evaluations on identical streams."
+  },
+  "next_research_step": "Scale toward the RUN TWO protocol (population, budget, seeds) and add the zoo profiles as additional streams; a challenged verdict at scale reopens the archive design."
+}

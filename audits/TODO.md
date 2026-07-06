@@ -133,7 +133,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
   The human-panel arm is owner-gated (T10/T20); all machine metrics can
   run now. Confirms or revises the shipped generator choice with
   RUN-TWO rigor.
-- [ ] **T18 · MAP-Elites comparator study.** The unrun keep-gate: GA
+- [x] **T18 · MAP-Elites comparator study.** (2026-07-06, map_elites_confirmed: coverage advantage 2.86 vs bar 0.25, best-fitness gap 0.0; RUN TWO full scale recorded as scale-up) The unrun keep-gate: GA
   baseline (population 256) and novelty-search baseline vs the shipped
   archive at matched evaluation budgets, >=3 seeds first pass (RUN TWO
   says 10; scale as compute allows). Measures coverage advantage,
