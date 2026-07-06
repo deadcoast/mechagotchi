@@ -603,6 +603,10 @@ Post-v0.1 continuation has started:
 - `audits/TODO.md`
 - `.depreciated/og-design.md`, `.depreciated/og-formatted.md`, `.depreciated/og-research.md` (owner DESIGN-CORRECTION 2026-07-05: og-spec audit — no foundational error, workshop subordination intact; one structural correction (T1: workshop creatures must enter the ecosystem simulations) plus og-scope restorations ledgered as tasks)
 
+- `audits/audit-devspec.md` (RUN TWO addendum)
+- `audits/TODO.md` (tasks T14-T21)
+- `.depreciated/02-design.md`, `.depreciated/02-research.md` (second-pass audit: the 02 files are byte-identical; the RUN ONE/RUN TWO SLIP fork was resolved silently in RUN ONE's favor; grid schema adopted RUN TWO's vocabulary but it lies dormant; RUN TWO's statistical protocols — holdout bake-off, MAP-Elites comparators, learner ablation, pairwise studies — were downscaled or skipped without records; all now tasked)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

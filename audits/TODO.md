@@ -99,6 +99,73 @@ completions, **P3** = owner-gated human studies (queued, never chased).
   already owner-held; on go, design against og's inspector/browser
   responsibilities and T1's workshop-lineage traceability.
 
+## P1 addition — RUN TWO reconciliation (from the audit addendum)
+
+- [ ] **T14 · RUN ONE / RUN TWO reconciliation decision record.** One DR
+  that walks every RUN TWO delta and issues an explicit
+  adopt/defer/reject verdict, ending the silent fork: SLIP shape (RUN
+  ONE's won implicitly — ratify or revise), RUN TWO SLIP additions
+  (render block with effects enum + animation_vocab -> feeds T3/T4/T16;
+  mischief/sociability behaviors; limb_growth/max_edit_fraction
+  mutation knobs; species_class required), grid-cell `value` byte vs
+  shipped `visual` hex, RUN TWO material vocabulary vs shipped, z3/SMT
+  constraint-solver track (open or formally reject), Jupyter notebooks
+  (record as superseded by executable labs). No future session should
+  rediscover this fork.
+- [ ] **T15 · Dormant grid-schema vocabulary: cover or trim.** The
+  schema legally admits roles shell/joint/limb/antenna/decoration/
+  effect, open organ ids, materials light/signal, and grid sizes to
+  64x64 — none exercised by any corpus, invariant, generator, renderer,
+  or workshop tool. Decide per vocabulary item: give it coverage (seed
+  exemplars + invariants + rendering + workshop affordance) or trim it
+  from the schema with a migration note. Couples to T6 (size) and T9
+  (trait editor).
+- [ ] **T16 · Render packet contract v2.** Both og runs specify the
+  packet carries animation, mood, and effects (RUN TWO adds frame_id +
+  ui_hints like needs_attention). Today `state` is an opaque
+  passthrough. Spec-first: packet v2 contract (animation from T4's
+  vocabulary, mood from lifecycle state, effects from SLIP render
+  block per T14/T3), then promoted-module change with parity notes,
+  then the workshop preview consumes the new fields. Depends on T4;
+  feeds T12 (replay).
+
+## P2 additions — RUN TWO protocol completions
+
+- [ ] **T17 · Formal generator bake-off at RUN TWO protocol.** After T6
+  (sizes) and the seed-corpus growth (T11): holdout-split corpus
+  (train/dev/holdout discipline enters the repo here), multi-size arms,
+  large candidate volumes, bootstrap CIs, and the published thresholds
+  (>=95% validity, readability bar, novelty-loss cap, latency budget).
+  The human-panel arm is owner-gated (T10/T20); all machine metrics can
+  run now. Confirms or revises the shipped generator choice with
+  RUN-TWO rigor.
+- [ ] **T18 · MAP-Elites comparator study.** The unrun keep-gate: GA
+  baseline (population 256) and novelty-search baseline vs the shipped
+  archive at matched evaluation budgets, >=3 seeds first pass (RUN TWO
+  says 10; scale as compute allows). Measures coverage advantage,
+  best-fitness gap, lineage depth, extinction frequency. Either the
+  og-claimed superiority becomes measured fact or the archive design
+  gets revisited — first-class result either way.
+- [ ] **T19 · Micro-learner remove-one ablation.** RUN TWO's design: 5
+  synthetic user models (attentive/neglectful/erratic/punitive/
+  exploratory) x lifecycles x remove-one conditions over the switchboard
+  threads; keep-gate: removal costs >=5% on a target metric without
+  buying more elsewhere. Also delivers the og "full switchboard beats
+  rules-only" claim as a measured number. Builds on the T5 census.
+- [ ] **T21 · REUSE repository structure.** SPDX ids exist in the
+  provenance ledger; adopt the REUSE convention RUN TWO specifies
+  (LICENSES/ directory keyed by SPDX id, file-level notices where
+  practical) and add the check to the provenance CI gate.
+
+## P3 addition
+
+- [ ] **T20 · Pairwise-preference study protocol.** RUN TWO prefers
+  blind pairwise forced-choice with Bradley-Terry/Elo analysis over
+  rubric scoring for human judgments. Build the protocol + a pairwise
+  mode for the rating tool (tooling may ship; data stays owner-gated
+  like all human studies). Serves T17's human panel and the CUBFF
+  transducer's preference gate.
+
 ## P3 — Owner-gated human studies (queued; never chased as blockers)
 
 - [ ] **T10 · Workshop evaluation instrumentation** (og metrics:
@@ -121,4 +188,5 @@ DESIGN-CORRECTION and the og documents.
 ## Sources
 
 - `audits/audit-devspec.md`
-- `.depreciated/og-design.md`, `.depreciated/og-formatted.md`, `.depreciated/og-research.md`
+- `.depreciated/01-design.md`, `.depreciated/01-formatted.md`, `.depreciated/01-research.md`
+- `.depreciated/02-design.md`, `.depreciated/02-research.md` (RUN TWO addendum)

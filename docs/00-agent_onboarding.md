@@ -117,7 +117,11 @@ over plans; and executed artifacts win over prose claims.
      usable in the engine's simulations. Audit: `audits/audit-devspec.md`
      (verdict: identity intact; the workshop->engine asset wire is the
      missing piece). Work from `audits/TODO.md` — T1 (the wire) is P0;
-     slice 5 stays owner-held. Windows note: ports are OS-reserved in shifting ranges —
+     slice 5 stays owner-held. A second-pass addendum (RUN TWO docs)
+     added T14-T21: reconcile the RUN ONE/RUN TWO design fork by DR,
+     wake or trim the dormant grid-schema vocabulary, render packet v2,
+     and the unrun RUN TWO protocols (formal bake-off, MAP-Elites
+     comparators, learner ablation, REUSE structure, pairwise studies). Windows note: ports are OS-reserved in shifting ranges —
      servers default to port 0 and announce their URL.
   5. mechas CLI roadmap (`docs/cli/mechas-cli.md`) — supportive layer
      only; never outranks engine work.
