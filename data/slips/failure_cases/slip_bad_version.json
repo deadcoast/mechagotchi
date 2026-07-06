@@ -1,12 +1,17 @@
 {
-  "slip_version": "0.2.0",
+  "slip_version": "9.9.9",
   "profile_id": "slip_bad_version",
   "name": "Bad Version",
   "grid": {
-    "allowed_palettes": ["lcd_green"],
+    "allowed_palettes": [
+      "lcd_green"
+    ],
     "body_mass_min": 4,
     "body_mass_max": 24,
-    "required_organ_roles": ["sensor", "expression"]
+    "required_organ_roles": [
+      "sensor",
+      "expression"
+    ]
   },
   "mutation": {
     "cell_mutation_rate_max": 0.15,

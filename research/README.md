@@ -615,6 +615,11 @@ Post-v0.1 continuation has started:
 
 - `research/decision_records/0011-run-one-run-two-reconciliation.md` (audit T14: the RUN ONE/RUN TWO fork closed — RUN ONE's SLIP shape ratified; every RUN TWO delta adopted/watched-with-task/rejected with reasons; value-byte and Jupyter rejected, statistical protocols adopted as the T17-T20 program)
 
+- `research/decision_records/0012-slip-schema-extension-ladder.md`
+- `research/experiment_reports/2026-07-05-slip-ladder-forbidden-traits.md`
+- `labs/grid_genome/test_slip_forbidden_traits.py`
+- `data/slips/valid/slip_v2_no_shell.json` (T3.1: the SLIP ladder's first rung — dual-version authority, forbidden_traits enforced across all four validation surfaces + the workshop creator; package v0.1 boundary intact)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

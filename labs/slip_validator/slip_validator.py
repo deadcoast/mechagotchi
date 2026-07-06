@@ -39,6 +39,30 @@ MUTATION_KEYS = {
 }
 BEHAVIOR_KEYS = {"curiosity", "neediness", "sleepiness"}
 SURVIVAL_KEYS = {"stability", "novelty", "bond"}
+# SLIP schema extension ladder (decision record 0012): ladder fields are
+# optional and legal only under slip_version 0.2.0.
+VALID_SLIP_VERSIONS = {"0.1.0", "0.2.0"}
+LADDER_KEYS = {"forbidden_traits"}
+FORBIDDEN_TRAITS_KEYS = {"roles", "materials"}
+FORBIDDABLE_ROLES = {
+    "body",
+    "shell",
+    "sensor",
+    "eye",
+    "mouth",
+    "joint",
+    "limb",
+    "antenna",
+    "decoration",
+    "effect",
+    "anchor",
+}
+FORBIDDABLE_MATERIALS = {"soft", "hard", "glass", "joint", "light", "signal"}
+CELL_ROLE_FOR_ORGAN_ROLE = {
+    "sensor": "eye",
+    "expression": "mouth",
+    "body_core": "body",
+}
 
 
 def validate_profile_file(path: Path) -> dict:
@@ -47,11 +71,33 @@ def validate_profile_file(path: Path) -> dict:
 
 def validate_profile(profile: dict, source_path: Path | None = None) -> dict:
     errors: list[dict] = []
-    _validate_object(profile, [], TOP_LEVEL_KEYS, TOP_LEVEL_KEYS, errors)
+    base_profile = (
+        {k: v for k, v in profile.items() if k not in LADDER_KEYS}
+        if isinstance(profile, dict)
+        else profile
+    )
+    _validate_object(base_profile, [], TOP_LEVEL_KEYS, TOP_LEVEL_KEYS, errors)
     if not isinstance(profile, dict):
         return _result(source_path, errors)
 
-    _validate_const(profile.get("slip_version"), "0.1.0", ["slip_version"], errors)
+    version = profile.get("slip_version")
+    if version not in VALID_SLIP_VERSIONS:
+        _add(
+            errors,
+            "schema_enum",
+            ["slip_version"],
+            "slip_version must be one of 0.1.0, 0.2.0",
+        )
+    elif version != "0.2.0" and set(profile) & LADDER_KEYS:
+        for key in sorted(set(profile) & LADDER_KEYS):
+            _add(
+                errors,
+                "semantic_version_gate",
+                [key],
+                f"{key} requires slip_version 0.2.0",
+            )
+    if "forbidden_traits" in profile:
+        _validate_forbidden_traits(profile, errors)
     _validate_string(profile.get("profile_id"), ["profile_id"], errors, pattern="profile_id")
     _validate_string(profile.get("name"), ["name"], errors)
 
@@ -105,6 +151,79 @@ def validate_profile(profile: dict, source_path: Path | None = None) -> dict:
             _validate_unit_interval(survival.get(key), ["survival_weights", key], errors)
 
     return _result(source_path, errors)
+
+
+def _validate_forbidden_traits(profile: dict, errors: list[dict]) -> None:
+    traits = profile.get("forbidden_traits")
+    if not isinstance(traits, dict):
+        _add(
+            errors,
+            "schema_type",
+            ["forbidden_traits"],
+            "forbidden_traits must be an object",
+        )
+        return
+    for key in sorted(set(traits) - FORBIDDEN_TRAITS_KEYS):
+        _add(
+            errors,
+            "schema_additional_property",
+            ["forbidden_traits", key],
+            f"forbidden_traits.{key} is not allowed",
+        )
+    if not set(traits) & FORBIDDEN_TRAITS_KEYS:
+        _add(
+            errors,
+            "semantic_forbidden_traits",
+            ["forbidden_traits"],
+            "forbidden_traits must name roles and/or materials",
+        )
+    for key, vocabulary in [
+        ("roles", FORBIDDABLE_ROLES),
+        ("materials", FORBIDDABLE_MATERIALS),
+    ]:
+        if key not in traits:
+            continue
+        values = traits[key]
+        if not isinstance(values, list) or not values:
+            _add(
+                errors,
+                "semantic_forbidden_traits",
+                ["forbidden_traits", key],
+                f"forbidden_traits.{key} must be a non-empty array",
+            )
+            continue
+        for index, value in enumerate(values):
+            if value not in vocabulary:
+                _add(
+                    errors,
+                    "semantic_forbidden_traits",
+                    ["forbidden_traits", key, str(index)],
+                    f"forbidden_traits.{key} value not in vocabulary: {value}",
+                )
+        if len(set(values)) != len(values):
+            _add(
+                errors,
+                "semantic_forbidden_traits",
+                ["forbidden_traits", key],
+                f"forbidden_traits.{key} must not repeat values",
+            )
+    grid = profile.get("grid")
+    required_roles = (
+        grid.get("required_organ_roles", []) if isinstance(grid, dict) else []
+    )
+    roles = traits.get("roles")
+    forbidden_roles = set(roles) if isinstance(roles, list) else set()
+    if isinstance(required_roles, list):
+        for organ_role in required_roles:
+            cell_role = CELL_ROLE_FOR_ORGAN_ROLE.get(organ_role)
+            if cell_role in forbidden_roles:
+                _add(
+                    errors,
+                    "semantic_forbidden_traits",
+                    ["forbidden_traits", "roles"],
+                    f"forbidden role {cell_role} contradicts required "
+                    f"organ role {organ_role}",
+                )
 
 
 def validate_profile_corpus(

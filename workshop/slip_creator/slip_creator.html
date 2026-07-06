@@ -173,6 +173,17 @@
       </div>
 
       <div class="panel">
+        <h2>forbidden traits <span style="text-transform:none;letter-spacing:0;">— what this species may never contain</span></h2>
+        <label class="field">forbidden roles</label>
+        <div class="toggle-group" id="forbidden-role-toggles"></div>
+        <label class="field">forbidden materials</label>
+        <div class="toggle-group" id="forbidden-material-toggles"></div>
+        <p class="hint">selecting any writes the profile as slip_version 0.2.0
+        (the schema ladder); leaving all clear keeps 0.1.0 for maximum
+        compatibility with the engine's promoted modules</p>
+      </div>
+
+      <div class="panel">
         <h2>mutation caps <span style="text-transform:none;letter-spacing:0;">— how far offspring may drift</span></h2>
         <div id="mutation-sliders"></div>
       </div>
@@ -240,6 +251,10 @@ const SLIDERS = {
 let palettesData = {};
 let selectedPalettes = new Set(["lcd_green"]);
 let selectedRoles = new Set(["sensor", "expression"]);
+const FORBIDDABLE_ROLES = ["body", "shell", "sensor", "eye", "mouth", "joint", "limb", "antenna", "decoration", "effect", "anchor"];
+const FORBIDDABLE_MATERIALS = ["soft", "hard", "glass", "joint", "light", "signal"];
+let forbiddenRoles = new Set();
+let forbiddenMaterials = new Set();
 let lastVerdict = null;
 
 const $ = (id) => document.getElementById(id);
@@ -250,8 +265,9 @@ function buildProfile() {
     values[section] = {};
     for (const [key] of defs) values[section][key] = parseFloat($("s-" + key).value);
   }
-  return {
-    slip_version: "0.1.0",
+  const usesLadder = forbiddenRoles.size || forbiddenMaterials.size;
+  const profile = {
+    slip_version: usesLadder ? "0.2.0" : "0.1.0",
     profile_id: $("profile-id").value.trim(),
     name: $("profile-name").value.trim(),
     grid: {
@@ -264,6 +280,35 @@ function buildProfile() {
     behavior: values.behavior,
     survival_weights: values.survival_weights,
   };
+  if (usesLadder) {
+    profile.forbidden_traits = {};
+    if (forbiddenRoles.size) profile.forbidden_traits.roles = [...forbiddenRoles];
+    if (forbiddenMaterials.size) profile.forbidden_traits.materials = [...forbiddenMaterials];
+  }
+  return profile;
+}
+
+function renderForbiddenToggles() {
+  for (const [wrapId, vocab, selected] of [
+    ["forbidden-role-toggles", FORBIDDABLE_ROLES, forbiddenRoles],
+    ["forbidden-material-toggles", FORBIDDABLE_MATERIALS, forbiddenMaterials],
+  ]) {
+    const wrap = $(wrapId);
+    wrap.innerHTML = "";
+    for (const value of vocab) {
+      const btn = document.createElement("button");
+      btn.className = "toggle";
+      btn.type = "button";
+      btn.setAttribute("aria-pressed", selected.has(value) ? "true" : "false");
+      btn.textContent = value;
+      btn.addEventListener("click", () => {
+        selected.has(value) ? selected.delete(value) : selected.add(value);
+        renderForbiddenToggles();
+        scheduleValidate();
+      });
+      wrap.appendChild(btn);
+    }
+  }
 }
 
 /* ---------------- form construction ---------------- */
@@ -465,6 +510,9 @@ $("load-select").addEventListener("change", async () => {
   $("profile-name").value = profile.name || "";
   selectedPalettes = new Set(profile.grid?.allowed_palettes || []);
   selectedRoles = new Set(profile.grid?.required_organ_roles || []);
+  forbiddenRoles = new Set(profile.forbidden_traits?.roles || []);
+  forbiddenMaterials = new Set(profile.forbidden_traits?.materials || []);
+  renderForbiddenToggles();
   $("mass-min").value = profile.grid?.body_mass_min ?? 4;
   $("mass-max").value = profile.grid?.body_mass_max ?? 24;
   $("mass-min-out").textContent = $("mass-min").value;
@@ -487,7 +535,9 @@ $("new-btn").addEventListener("click", () => {
   $("load-select").value = "";
   selectedPalettes = new Set(["lcd_green"]);
   selectedRoles = new Set(["sensor", "expression"]);
-  renderPaletteToggles(); renderRoleToggles(); renderSliders();
+  forbiddenRoles = new Set();
+  forbiddenMaterials = new Set();
+  renderPaletteToggles(); renderRoleToggles(); renderForbiddenToggles(); renderSliders();
   scheduleValidate();
 });
 
@@ -507,6 +557,7 @@ for (const id of ["mass-min", "mass-max"]) {
   palettesData = (await response.json()).palettes;
   renderPaletteToggles();
   renderRoleToggles();
+  renderForbiddenToggles();
   renderSliders();
   refreshSlipList();
   scheduleValidate();

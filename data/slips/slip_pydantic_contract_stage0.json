@@ -4,7 +4,7 @@
   "authored_schema_path": "research/slip/slip.schema.json",
   "generated_schema_path": "research/slip/slip_pydantic_model.schema.json",
   "pydantic_available": true,
-  "pydantic_version": "2.12.5",
+  "pydantic_version": "2.13.4",
   "jsonschema_available": true,
   "jsonschema_version": "4.26.0",
   "dependency_policy": "Pydantic and jsonschema are declared in the pyproject lab dependency group (decision record 0005); the package dependency policy remains blocked until a packages/ import-surface gate exists.",
@@ -15,12 +15,12 @@
     "ConfigDict(extra='forbid')",
     "Field bounds and patterns"
   ],
-  "valid_profile_count": 3,
-  "failure_case_count": 12,
-  "example_profile_count": 3,
-  "accepted_valid_profiles": 3,
-  "rejected_failure_cases": 12,
-  "accepted_example_profiles": 3,
+  "valid_profile_count": 4,
+  "failure_case_count": 14,
+  "example_profile_count": 4,
+  "accepted_valid_profiles": 4,
+  "rejected_failure_cases": 14,
+  "accepted_example_profiles": 4,
   "unexpected_valid_rejections": [],
   "unexpected_example_rejections": [],
   "unexpected_failure_acceptances": [],
@@ -32,7 +32,8 @@
     "schema_required",
     "schema_type",
     "semantic_body_mass_bounds",
-    "semantic_numeric_bool"
+    "semantic_numeric_bool",
+    "semantic_validation"
   ],
   "generated_schema_summary": {
     "top_level_required": [
@@ -95,6 +96,13 @@
       "profile_id": "slip_lcd_seed",
       "errors": [],
       "error_families": []
+    },
+    {
+      "source_path": "data/slips/valid/slip_v2_no_shell.json",
+      "ok": true,
+      "profile_id": "slip_v2_no_shell",
+      "errors": [],
+      "error_families": []
     }
   ],
   "failure_results": [
@@ -106,7 +114,7 @@
           "family": "schema_enum",
           "path": "slip_version",
           "type": "literal_error",
-          "message": "Input should be '0.1.0'"
+          "message": "Input should be '0.1.0' or '0.2.0'"
         }
       ],
       "error_families": [
@@ -277,6 +285,36 @@
       "error_families": [
         "schema_enum"
       ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_v1_with_forbidden_traits.json",
+      "ok": false,
+      "errors": [
+        {
+          "family": "semantic_validation",
+          "path": "$",
+          "type": "value_error",
+          "message": "Value error, forbidden_traits requires slip_version 0.2.0"
+        }
+      ],
+      "error_families": [
+        "semantic_validation"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_v2_forbids_required.json",
+      "ok": false,
+      "errors": [
+        {
+          "family": "semantic_validation",
+          "path": "$",
+          "type": "value_error",
+          "message": "Value error, forbidden role eye contradicts required organ role sensor"
+        }
+      ],
+      "error_families": [
+        "semantic_validation"
+      ]
     }
   ],
   "example_results": [
@@ -298,6 +336,13 @@
       "source_path": "research/slip/slip_examples/slip_lcd_seed.json",
       "ok": true,
       "profile_id": "slip_lcd_seed",
+      "errors": [],
+      "error_families": []
+    },
+    {
+      "source_path": "research/slip/slip_examples/slip_v2_no_shell.json",
+      "ok": true,
+      "profile_id": "slip_v2_no_shell",
       "errors": [],
       "error_families": []
     }

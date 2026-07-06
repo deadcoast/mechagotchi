@@ -35,10 +35,10 @@ completions, **P3** = owner-gated human studies (queued, never chased).
 
 ## P1 — og-scope restorations
 
-- [ ] **T3 · SLIP schema ladder v0.1.0 → og scope.** One DR proposing the
+- [ ] **T3 · SLIP schema ladder v0.1.0 → og scope.** (DR 0012 accepted; ladder law + rung 1 shipped 2026-07-05) One DR proposing the
   extension sequence, then per-field triads (schema + both validators +
   pydantic mirror + fixtures + workshop slip-creator controls):
-  - [ ] T3.1 `forbidden_traits` (validator-enforceable now)
+  - [x] T3.1 `forbidden_traits` (shipped 2026-07-05, DR 0012 rung 1)
   - [ ] T3.2 `risk_tolerances` (consumed by lifecycle/switchboard)
   - [ ] T3.3 `learning_switches` (consumed by `mecha_engine.learning` —
         og's "learning toggles"; the bounded-claim evidence gives these

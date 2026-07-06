@@ -647,3 +647,46 @@ class ReleaseEndpointTests(unittest.TestCase):
         self.assertEqual(200, status)
         self.assertTrue(payload["backup"])
         self.assertTrue(any(self.released_dir.glob("*.bak.json")))
+
+
+class SlipLadderEndpointTests(unittest.TestCase):
+    """DR 0012 rung T3.1 through the workshop surfaces."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.temp = tempfile.TemporaryDirectory()
+        base = Path(cls.temp.name)
+        cls.server = start_workshop_server(
+            port=0, grids_dir=base / "grids", slips_dir=base / "slips"
+        )
+        cls.base = f"http://127.0.0.1:{cls.server.server_address[1]}"
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.server.shutdown()
+        cls.temp.cleanup()
+
+    def test_v2_profile_with_forbidden_traits_validates_and_binds(self):
+        profile = json.loads(json.dumps(VALID_PROFILE))
+        profile["profile_id"] = "workshop_v2_guard"
+        profile["slip_version"] = "0.2.0"
+        profile["forbidden_traits"] = {"roles": ["shell"]}
+        status, payload = _post(
+            f"{self.base}/api/slip/validate", {"profile": profile}
+        )
+        self.assertEqual(200, status)
+        self.assertTrue(payload["valid"], payload["errors"])
+        # Seed corpus fitting still computes under the ladder field.
+        self.assertEqual(50, payload["grid_compat"]["seed_corpus"]["total"])
+
+    def test_v1_profile_with_ladder_field_is_version_gated(self):
+        profile = json.loads(json.dumps(VALID_PROFILE))
+        profile["forbidden_traits"] = {"roles": ["shell"]}
+        status, payload = _post(
+            f"{self.base}/api/slip/validate", {"profile": profile}
+        )
+        self.assertEqual(200, status)
+        self.assertFalse(payload["valid"])
+        self.assertTrue(
+            any("0.2.0" in error for error in payload["errors"])
+        )

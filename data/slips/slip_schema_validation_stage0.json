@@ -6,12 +6,12 @@
   "schema_engine": "dependency_free_stage0_structural_validator",
   "jsonschema_dependency_available": true,
   "related_runtime_parity_report": "data/slips/slip_jsonschema_runtime_parity_stage0.json",
-  "valid_profile_count": 3,
-  "failure_case_count": 12,
-  "example_profile_count": 3,
-  "accepted_valid_profiles": 3,
-  "rejected_failure_cases": 12,
-  "accepted_example_profiles": 3,
+  "valid_profile_count": 4,
+  "failure_case_count": 14,
+  "example_profile_count": 4,
+  "accepted_valid_profiles": 4,
+  "rejected_failure_cases": 14,
+  "accepted_example_profiles": 4,
   "unexpected_rejections": [],
   "unexpected_acceptances": [],
   "unexpected_example_rejections": [],
@@ -23,7 +23,9 @@
     "schema_required",
     "schema_type",
     "semantic_body_mass_bounds",
-    "semantic_numeric_bool"
+    "semantic_forbidden_traits",
+    "semantic_numeric_bool",
+    "semantic_version_gate"
   ],
   "valid_results": [
     {
@@ -43,6 +45,12 @@
       "ok": true,
       "errors": [],
       "error_families": []
+    },
+    {
+      "source_path": "data/slips/valid/slip_v2_no_shell.json",
+      "ok": true,
+      "errors": [],
+      "error_families": []
     }
   ],
   "failure_results": [
@@ -53,7 +61,7 @@
         {
           "family": "schema_enum",
           "path": "slip_version",
-          "message": "slip_version must equal '0.1.0'"
+          "message": "slip_version must be one of 0.1.0, 0.2.0"
         }
       ],
       "error_families": [
@@ -162,7 +170,7 @@
         {
           "family": "schema_enum",
           "path": "slip_version",
-          "message": "slip_version must equal '0.1.0'"
+          "message": "slip_version must be one of 0.1.0, 0.2.0"
         }
       ],
       "error_families": [
@@ -225,6 +233,34 @@
       "error_families": [
         "schema_enum"
       ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_v1_with_forbidden_traits.json",
+      "ok": false,
+      "errors": [
+        {
+          "family": "semantic_version_gate",
+          "path": "forbidden_traits",
+          "message": "forbidden_traits requires slip_version 0.2.0"
+        }
+      ],
+      "error_families": [
+        "semantic_version_gate"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_v2_forbids_required.json",
+      "ok": false,
+      "errors": [
+        {
+          "family": "semantic_forbidden_traits",
+          "path": "forbidden_traits.roles",
+          "message": "forbidden role eye contradicts required organ role sensor"
+        }
+      ],
+      "error_families": [
+        "semantic_forbidden_traits"
+      ]
     }
   ],
   "example_results": [
@@ -242,6 +278,12 @@
     },
     {
       "source_path": "research/slip/slip_examples/slip_lcd_seed.json",
+      "ok": true,
+      "errors": [],
+      "error_families": []
+    },
+    {
+      "source_path": "research/slip/slip_examples/slip_v2_no_shell.json",
       "ok": true,
       "errors": [],
       "error_families": []

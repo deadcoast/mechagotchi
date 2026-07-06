@@ -30,6 +30,76 @@
       "title": "BehaviorContract",
       "type": "object"
     },
+    "ForbiddableMaterial": {
+      "enum": [
+        "soft",
+        "hard",
+        "glass",
+        "joint",
+        "light",
+        "signal"
+      ],
+      "title": "ForbiddableMaterial",
+      "type": "string"
+    },
+    "ForbiddableRole": {
+      "enum": [
+        "body",
+        "shell",
+        "sensor",
+        "eye",
+        "mouth",
+        "joint",
+        "limb",
+        "antenna",
+        "decoration",
+        "effect",
+        "anchor"
+      ],
+      "title": "ForbiddableRole",
+      "type": "string"
+    },
+    "ForbiddenTraitsContract": {
+      "additionalProperties": false,
+      "properties": {
+        "roles": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/ForbiddableRole"
+              },
+              "minItems": 1,
+              "type": "array",
+              "uniqueItems": true
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Roles"
+        },
+        "materials": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/ForbiddableMaterial"
+              },
+              "minItems": 1,
+              "type": "array",
+              "uniqueItems": true
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Materials"
+        }
+      },
+      "title": "ForbiddenTraitsContract",
+      "type": "object"
+    },
     "GridContract": {
       "additionalProperties": false,
       "properties": {
@@ -162,7 +232,10 @@
   "additionalProperties": false,
   "properties": {
     "slip_version": {
-      "const": "0.1.0",
+      "enum": [
+        "0.1.0",
+        "0.2.0"
+      ],
       "title": "Slip Version",
       "type": "string"
     },
@@ -188,6 +261,17 @@
     },
     "survival_weights": {
       "$ref": "#/$defs/SurvivalWeightsContract"
+    },
+    "forbidden_traits": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ForbiddenTraitsContract"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
     }
   },
   "required": [

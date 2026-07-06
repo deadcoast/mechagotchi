@@ -28,7 +28,13 @@ STATUS = "research_slip_jsonschema_runtime_parity_no_package_code"
 # Failure cases that the dependency-free validator rejects through a
 # *semantic* check the authored JSON Schema cannot express. jsonschema alone
 # is expected to accept these; the layered semantic checks reject them.
-KNOWN_SEMANTIC_GAP_STEMS = {"slip_body_mass_bounds_reversed"}
+KNOWN_SEMANTIC_GAP_STEMS = {
+    "slip_body_mass_bounds_reversed",
+    # DR 0012 rung T3.1: the required-organ/forbidden-role
+    # contradiction is a cross-field semantic check JSON Schema
+    # cannot express.
+    "slip_v2_forbids_required",
+}
 
 
 def build_parity_report(

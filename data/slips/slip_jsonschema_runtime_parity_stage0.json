@@ -7,23 +7,24 @@
   "jsonschema_version": "4.26.0",
   "schema_check": "Draft202012Validator.check_schema passed",
   "corpus_counts": {
-    "valid": 3,
-    "failure": 12,
-    "example": 3
+    "valid": 4,
+    "failure": 14,
+    "example": 4
   },
   "parity": {
-    "agreements": 17,
-    "total": 18,
+    "agreements": 20,
+    "total": 22,
     "unexplained_disagreements": [],
     "known_semantic_gap_cases": [
-      "data/slips/failure_cases/slip_body_mass_bounds_reversed.json"
+      "data/slips/failure_cases/slip_body_mass_bounds_reversed.json",
+      "data/slips/failure_cases/slip_v2_forbids_required.json"
     ],
     "semantic_gap_policy": "Schema validation is the first layer only; the structural validator's semantic checks (body-mass ordering) remain layered on top. layered_ok is the decision surface."
   },
   "layered_outcomes": {
-    "valid_accepted": 3,
-    "examples_accepted": 3,
-    "failures_rejected": 12
+    "valid_accepted": 4,
+    "examples_accepted": 4,
+    "failures_rejected": 14
   },
   "results": [
     {
@@ -46,6 +47,15 @@
     },
     {
       "source_path": "data/slips/valid/slip_lcd_seed.json",
+      "group": "valid",
+      "jsonschema_ok": true,
+      "structural_ok": true,
+      "layered_ok": true,
+      "jsonschema_error_paths": [],
+      "structural_error_families": []
+    },
+    {
+      "source_path": "data/slips/valid/slip_v2_no_shell.json",
       "group": "valid",
       "jsonschema_ok": true,
       "structural_ok": true,
@@ -210,6 +220,30 @@
       ]
     },
     {
+      "source_path": "data/slips/failure_cases/slip_v1_with_forbidden_traits.json",
+      "group": "failure",
+      "jsonschema_ok": false,
+      "structural_ok": false,
+      "layered_ok": false,
+      "jsonschema_error_paths": [
+        "$"
+      ],
+      "structural_error_families": [
+        "semantic_version_gate"
+      ]
+    },
+    {
+      "source_path": "data/slips/failure_cases/slip_v2_forbids_required.json",
+      "group": "failure",
+      "jsonschema_ok": true,
+      "structural_ok": false,
+      "layered_ok": false,
+      "jsonschema_error_paths": [],
+      "structural_error_families": [
+        "semantic_forbidden_traits"
+      ]
+    },
+    {
       "source_path": "research/slip/slip_examples/slip_amber_social.json",
       "group": "example",
       "jsonschema_ok": true,
@@ -229,6 +263,15 @@
     },
     {
       "source_path": "research/slip/slip_examples/slip_lcd_seed.json",
+      "group": "example",
+      "jsonschema_ok": true,
+      "structural_ok": true,
+      "layered_ok": true,
+      "jsonschema_error_paths": [],
+      "structural_error_families": []
+    },
+    {
+      "source_path": "research/slip/slip_examples/slip_v2_no_shell.json",
       "group": "example",
       "jsonschema_ok": true,
       "structural_ok": true,

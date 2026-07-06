@@ -36,6 +36,59 @@ class OrganRole(str, Enum):
     body_core = "body_core"
 
 
+class ForbiddableRole(str, Enum):
+    body = "body"
+    shell = "shell"
+    sensor = "sensor"
+    eye = "eye"
+    mouth = "mouth"
+    joint = "joint"
+    limb = "limb"
+    antenna = "antenna"
+    decoration = "decoration"
+    effect = "effect"
+    anchor = "anchor"
+
+
+class ForbiddableMaterial(str, Enum):
+    soft = "soft"
+    hard = "hard"
+    glass = "glass"
+    joint = "joint"
+    light = "light"
+    signal = "signal"
+
+
+class ForbiddenTraitsContract(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    roles: (
+        Annotated[
+            list[ForbiddableRole],
+            Field(min_length=1, json_schema_extra={"uniqueItems": True}),
+        ]
+        | None
+    ) = None
+    materials: (
+        Annotated[
+            list[ForbiddableMaterial],
+            Field(min_length=1, json_schema_extra={"uniqueItems": True}),
+        ]
+        | None
+    ) = None
+
+    @model_validator(mode="after")
+    def require_at_least_one_trait(self) -> "ForbiddenTraitsContract":
+        if self.roles is None and self.materials is None:
+            raise ValueError(
+                "forbidden_traits must name roles and/or materials"
+            )
+        for name, values in [("roles", self.roles), ("materials", self.materials)]:
+            if values is not None and len(set(values)) != len(values):
+                raise ValueError(f"forbidden_traits.{name} must not repeat values")
+        return self
+
+
 class GridContract(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -128,13 +181,40 @@ class SLIPProfile(BaseModel):
         title="Mechagotchi SLIP Pydantic Contract",
     )
 
-    slip_version: Literal["0.1.0"]
+    slip_version: Literal["0.1.0", "0.2.0"]
     profile_id: ProfileId
     name: NonEmptyString
     grid: GridContract
     mutation: MutationContract
     behavior: BehaviorContract
     survival_weights: SurvivalWeightsContract
+    # SLIP schema extension ladder (decision record 0012), 0.2.0-only.
+    forbidden_traits: ForbiddenTraitsContract | None = None
+
+    _CELL_ROLE_FOR_ORGAN_ROLE = {
+        "sensor": ForbiddableRole.eye,
+        "expression": ForbiddableRole.mouth,
+        "body_core": ForbiddableRole.body,
+    }
+
+    @model_validator(mode="after")
+    def ladder_fields_require_v2(self) -> "SLIPProfile":
+        if self.forbidden_traits is not None:
+            if self.slip_version != "0.2.0":
+                raise ValueError(
+                    "forbidden_traits requires slip_version 0.2.0"
+                )
+            forbidden_roles = set(self.forbidden_traits.roles or [])
+            for organ_role in self.grid.required_organ_roles:
+                cell_role = self._CELL_ROLE_FOR_ORGAN_ROLE.get(
+                    organ_role.value
+                )
+                if cell_role in forbidden_roles:
+                    raise ValueError(
+                        f"forbidden role {cell_role.value} contradicts "
+                        f"required organ role {organ_role.value}"
+                    )
+        return self
 
 
 def build_pydantic_contract_report(

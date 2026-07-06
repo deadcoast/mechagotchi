@@ -29,9 +29,9 @@ class JsonschemaRuntimeParityTests(unittest.TestCase):
             VALID_PROFILE_PATHS, FAILURE_CASE_PATHS, EXAMPLE_PROFILE_PATHS
         )
 
-        self.assertEqual(3, report["layered_outcomes"]["valid_accepted"])
-        self.assertEqual(3, report["layered_outcomes"]["examples_accepted"])
-        self.assertEqual(12, report["layered_outcomes"]["failures_rejected"])
+        self.assertEqual(4, report["layered_outcomes"]["valid_accepted"])
+        self.assertEqual(4, report["layered_outcomes"]["examples_accepted"])
+        self.assertEqual(14, report["layered_outcomes"]["failures_rejected"])
 
     def test_only_the_documented_semantic_gap_separates_the_validators(self):
         report = build_parity_report(
@@ -40,11 +40,14 @@ class JsonschemaRuntimeParityTests(unittest.TestCase):
 
         self.assertEqual([], report["parity"]["unexplained_disagreements"])
         self.assertEqual(
-            ["data/slips/failure_cases/slip_body_mass_bounds_reversed.json"],
+            [
+                "data/slips/failure_cases/slip_body_mass_bounds_reversed.json",
+                "data/slips/failure_cases/slip_v2_forbids_required.json",
+            ],
             report["parity"]["known_semantic_gap_cases"],
         )
         self.assertEqual(
-            report["parity"]["total"] - 1,
+            report["parity"]["total"] - 2,
             report["parity"]["agreements"],
         )
 

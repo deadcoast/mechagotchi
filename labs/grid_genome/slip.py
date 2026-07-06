@@ -23,6 +23,35 @@ TOP_LEVEL_KEYS = {
     "behavior",
     "survival_weights",
 }
+# The SLIP schema extension ladder (decision record 0012): "0.1.0" is the
+# frozen baseline the promoted modules consume; ladder fields are legal
+# only under "0.2.0" and are all optional.
+VALID_SLIP_VERSIONS = {"0.1.0", "0.2.0"}
+LADDER_KEYS = {"forbidden_traits"}
+FORBIDDEN_TRAITS_KEYS = {"roles", "materials"}
+# Mirrors of the grid genome schema's cell enums minus the empty values
+# (empty/void cannot be forbidden); pinned against
+# research/grid_genome/grid_genome.schema.json by test.
+FORBIDDABLE_ROLES = {
+    "body",
+    "shell",
+    "sensor",
+    "eye",
+    "mouth",
+    "joint",
+    "limb",
+    "antenna",
+    "decoration",
+    "effect",
+    "anchor",
+}
+FORBIDDABLE_MATERIALS = {"soft", "hard", "glass", "joint", "light", "signal"}
+# A profile may not require an organ whose cell role it forbids.
+CELL_ROLE_FOR_ORGAN_ROLE = {
+    "sensor": "eye",
+    "expression": "mouth",
+    "body_core": "body",
+}
 GRID_KEYS = {
     "allowed_palettes",
     "body_mass_min",
@@ -50,10 +79,23 @@ def validate_slip(profile: dict) -> SlipResult:
     errors: list[str] = []
     if not isinstance(profile, dict):
         return SlipResult(False, ["profile must be an object"])
-    _require_exact_keys(profile, TOP_LEVEL_KEYS, "profile", errors)
+    version = profile.get("slip_version")
+    ladder_present = sorted(set(profile) & LADDER_KEYS)
+    base_keys = {
+        key: value for key, value in profile.items() if key not in LADDER_KEYS
+    }
+    _require_exact_keys(base_keys, TOP_LEVEL_KEYS, "profile", errors)
 
-    if profile.get("slip_version") != "0.1.0":
-        errors.append("slip_version must be 0.1.0")
+    if version not in VALID_SLIP_VERSIONS:
+        errors.append(
+            "slip_version must be one of "
+            + ", ".join(sorted(VALID_SLIP_VERSIONS))
+        )
+    elif ladder_present and version != "0.2.0":
+        for key in ladder_present:
+            errors.append(f"profile {key} requires slip_version 0.2.0")
+    if "forbidden_traits" in profile:
+        _validate_forbidden_traits(profile, errors)
     _require_string(profile, "profile_id", errors)
     _require_string(profile, "name", errors)
     profile_id = profile.get("profile_id")
@@ -168,7 +210,63 @@ def is_grid_aligned(grid: dict, profile: dict) -> SlipResult:
         elif value > limit:
             errors.append(f"mutation {grid_key} exceeds SLIP max {limit}: {value}")
 
+    forbidden = profile.get("forbidden_traits") or {}
+    forbidden_roles = set(forbidden.get("roles", []))
+    forbidden_materials = set(forbidden.get("materials", []))
+    if forbidden_roles or forbidden_materials:
+        cells = grid.get("cells", [])
+        for role in sorted(
+            {cell.get("role") for cell in cells} & forbidden_roles
+        ):
+            errors.append(f"forbidden role present in grid: {role}")
+        for material in sorted(
+            {cell.get("material") for cell in cells} & forbidden_materials
+        ):
+            errors.append(f"forbidden material present in grid: {material}")
+
     return SlipResult(not errors, errors)
+
+
+def _validate_forbidden_traits(profile: dict, errors: list[str]) -> None:
+    traits = profile.get("forbidden_traits")
+    if not isinstance(traits, dict):
+        errors.append("forbidden_traits must be an object")
+        return
+    for key in sorted(set(traits) - FORBIDDEN_TRAITS_KEYS):
+        errors.append(f"forbidden_traits {key} is not allowed")
+    if not set(traits) & FORBIDDEN_TRAITS_KEYS:
+        errors.append("forbidden_traits must name roles and/or materials")
+    for key, vocabulary, label in [
+        ("roles", FORBIDDABLE_ROLES, "forbidden role"),
+        ("materials", FORBIDDABLE_MATERIALS, "forbidden material"),
+    ]:
+        if key not in traits:
+            continue
+        values = traits[key]
+        if not isinstance(values, list) or not values:
+            errors.append(f"forbidden_traits {key} must be a non-empty array")
+            continue
+        for value in values:
+            if value not in vocabulary:
+                errors.append(f"{label} not in vocabulary: {value}")
+        if len(set(values)) != len(values):
+            errors.append(f"forbidden_traits {key} must not repeat values")
+    grid_rules = profile.get("grid")
+    required_roles = (
+        grid_rules.get("required_organ_roles", [])
+        if isinstance(grid_rules, dict)
+        else []
+    )
+    forbidden_roles = set(
+        traits.get("roles", []) if isinstance(traits.get("roles"), list) else []
+    )
+    for organ_role in required_roles:
+        cell_role = CELL_ROLE_FOR_ORGAN_ROLE.get(organ_role)
+        if cell_role in forbidden_roles:
+            errors.append(
+                f"forbidden role {cell_role} contradicts required organ "
+                f"role {organ_role}"
+            )
 
 
 def _require_exact_keys(
