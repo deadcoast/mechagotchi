@@ -128,6 +128,7 @@
       <div class="device">
         <canvas id="portrait" width="256" height="256"></canvas>
         <div class="tag" id="portrait-tag">…</div>
+        <div style="display:flex;gap:6px;justify-content:center;margin-top:8px;" id="state-buttons"></div>
       </div>
       <p class="notice" style="margin:0;">every pixel comes from
       <span style="font-family:ui-monospace,Consolas,monospace;">render_packet_from_grid</span> —
@@ -205,12 +206,28 @@ async function post(url, body) {
 }
 
 /* ---------------- portrait ---------------- */
+let portraitAnimation = "idle";
 async function refreshPortrait() {
   const pick = currentPick();
-  const payload = await post("/api/preview/render", pick);
+  const payload = await post("/api/preview/render", { ...pick, animation: portraitAnimation });
   if (payload.ok) {
     drawPacket($("portrait"), payload.packet);
-    $("portrait-tag").textContent = payload.packet.grid_id + " · " + payload.packet.palette.palette_id;
+    $("portrait-tag").textContent = payload.packet.grid_id + " · " + payload.packet.palette.palette_id + " · " + payload.packet.animation;
+    const wrap = $("state-buttons");
+    wrap.innerHTML = "";
+    for (const state of payload.packet.animation_vocabulary || ["idle"]) {
+      const btn = document.createElement("button");
+      btn.className = "action";
+      btn.style.fontSize = "0.72rem";
+      btn.style.padding = "3px 10px";
+      if (state === payload.packet.animation) {
+        btn.style.borderColor = "var(--accent)";
+        btn.style.fontWeight = "600";
+      }
+      btn.textContent = state;
+      btn.addEventListener("click", () => { portraitAnimation = state; refreshPortrait(); });
+      wrap.appendChild(btn);
+    }
   }
   $("live-body").innerHTML = '<p class="notice">Run to see this creature live under ' + pick.profile_id + '.</p>';
   $("kids-body").innerHTML = '<p class="notice">Generate to meet possible children under ' + pick.profile_id + '.</p>';

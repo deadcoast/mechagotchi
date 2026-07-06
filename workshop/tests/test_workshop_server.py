@@ -690,3 +690,47 @@ class SlipLadderEndpointTests(unittest.TestCase):
         self.assertTrue(
             any("0.2.0" in error for error in payload["errors"])
         )
+
+
+class RenderPacketV2EndpointTests(unittest.TestCase):
+    """T16: the previewer plays the five-state vocabulary."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.temp = tempfile.TemporaryDirectory()
+        base = Path(cls.temp.name)
+        cls.server = start_workshop_server(
+            port=0, grids_dir=base / "grids", slips_dir=base / "slips"
+        )
+        cls.base = f"http://127.0.0.1:{cls.server.server_address[1]}"
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.server.shutdown()
+        cls.temp.cleanup()
+
+    def test_packet_carries_the_selected_state_and_projected_visuals(self):
+        status, payload = _post(
+            f"{self.base}/api/preview/render",
+            {"source": "seed", "name": "mg_seed_001", "animation": "blink"},
+        )
+        self.assertEqual(200, status)
+        packet = payload["packet"]
+        self.assertEqual("blink", packet["animation"])
+        self.assertEqual(
+            ["idle", "blink", "sleep", "beg", "ill"],
+            packet["animation_vocabulary"],
+        )
+        background = packet["palette"]["colors"][
+            packet["palette"]["background_index"]
+        ]
+        eyes = {c["visual"] for c in packet["cells"] if c["role"] == "eye"}
+        self.assertEqual({background}, eyes)
+
+    def test_unknown_state_fails_loudly(self):
+        status, payload = _post(
+            f"{self.base}/api/preview/render",
+            {"source": "seed", "name": "mg_seed_001", "animation": "dance"},
+        )
+        self.assertEqual(400, status)
+        self.assertFalse(payload["ok"])

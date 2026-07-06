@@ -35,8 +35,14 @@ DEFAULT_OUTPUT_DIR = ROOT / "data" / "grid_genome"
 if str(Path(__file__).resolve().parent) not in sys.path:
     sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+PACKAGE_SRC = ROOT / "packages" / "mecha_engine" / "src"
+if str(PACKAGE_SRC) not in sys.path:
+    sys.path.insert(0, str(PACKAGE_SRC))
+
 from corpus_builder import build_seed_grids  # noqa: E402
 from validator import validate_grid  # noqa: E402
+
+from mecha_engine.genome import render_packet_from_grid  # noqa: E402
 
 
 ANIMATION_STATES = ["idle", "blink", "sleep", "beg", "ill"]
@@ -67,6 +73,61 @@ def project_animation_state(grid: dict, state: str) -> dict:
         ):
             cell["visual"] = accent
     return projected
+
+
+def select_animation_state(lifecycle_state: dict) -> tuple[str, str]:
+    """(animation, mood) from lifecycle state — T16 packet selection.
+
+    Thresholds mirror `micro_switchboard.estimate_hidden_mood` (energy
+    0.2 / hunger 0.65 / stress 0.65) so mood and animation always agree;
+    blink is a deterministic periodic tic (every fifth tick) in the
+    curious band.
+    """
+    energy = lifecycle_state.get("energy", 0.5)
+    hunger = lifecycle_state.get("hunger", 0.5)
+    stress = lifecycle_state.get("stress", 0.0)
+    if energy < 0.2:
+        return "sleep", "tired"
+    if hunger > 0.65:
+        return "beg", "hungry"
+    if stress > 0.65:
+        return "ill", "stressed"
+    if lifecycle_state.get("age_ticks", 0) % 5 == 0 and lifecycle_state.get(
+        "age_ticks", 0
+    ) > 0:
+        return "blink", "curious"
+    return "idle", "curious"
+
+
+def build_render_packet_v2(
+    grid: dict,
+    lifecycle_state: dict | None = None,
+    *,
+    animation: str | None = None,
+) -> dict:
+    """Render packet v2 (audit T16): the og contract restored lab-side.
+
+    animation + mood ride the packet; cells carry the SELECTED state's
+    projected visuals (T4 semantics). Explicit `animation` overrides the
+    lifecycle selection (previewer use). The promoted
+    `mecha_engine.genome.render_packet_from_grid` stays v1 until its
+    port decision record (DR 0012 rule 4 spirit); this builder wraps it,
+    so packet structure and validation stay the engine's.
+    """
+    if animation is not None:
+        selected, mood = animation, None
+        if lifecycle_state is not None:
+            _, mood = select_animation_state(lifecycle_state)
+    elif lifecycle_state is not None:
+        selected, mood = select_animation_state(lifecycle_state)
+    else:
+        selected, mood = "idle", None
+    projected = project_animation_state(grid, selected)
+    packet = render_packet_from_grid(projected, lifecycle_state)
+    packet["animation"] = selected
+    packet["mood"] = mood
+    packet["animation_vocabulary"] = list(ANIMATION_STATES)
+    return packet
 
 
 def _corpus() -> list[dict]:

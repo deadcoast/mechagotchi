@@ -635,6 +635,9 @@ Post-v0.1 continuation has started:
 - `labs/grid_genome/animation_states.py`
 - `data/grid_genome/animation_states_stage0.json` (T4 first slice: the og five animation states as deterministic visual-only genome projections — 300/300 valid; animstate_300 dataset delivered)
 
+- `research/experiment_reports/2026-07-05-render-packet-v2.md`
+- `labs/grid_genome/animation_states.py` (T16 lab-side: packets carry animation + mood selected from lifecycle state over the T4 projections; the workshop previewer plays the five-state cycle from engine truth; promoted-module port stays DR-gated)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

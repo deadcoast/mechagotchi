@@ -93,6 +93,7 @@ from ca_nca_growth_repair import (  # noqa: E402
     matrix_from_grid,
 )
 from corpus_builder import PALETTES, build_seed_grids  # noqa: E402
+from animation_states import build_render_packet_v2  # noqa: E402
 from slip import is_grid_aligned, validate_slip  # noqa: E402
 
 from mecha_engine.generation import (  # noqa: E402
@@ -659,9 +660,15 @@ class _Handler(SimpleHTTPRequestHandler):
             return
 
         if kind == "render":
-            self._json(
-                200, {"ok": True, "packet": render_packet_from_grid(grid)}
-            )
+            # T16: packet v2 — the requested animation state's projected
+            # visuals ride the packet (lab builder; engine validation).
+            animation = payload.get("animation")
+            try:
+                packet = build_render_packet_v2(grid, None, animation=animation)
+            except ValueError as error:
+                self._json(400, {"ok": False, "error": str(error)})
+                return
+            self._json(200, {"ok": True, "packet": packet})
             return
 
         profiles = self.server.all_profiles()

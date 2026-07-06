@@ -108,3 +108,49 @@ class AnimstateDatasetTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class RenderPacketV2Tests(unittest.TestCase):
+    """T16: packets carry animation + mood selected from lifecycle state."""
+
+    @classmethod
+    def setUpClass(cls):
+        from animation_states import build_render_packet_v2, select_animation_state
+        cls.build = staticmethod(build_render_packet_v2)
+        cls.select = staticmethod(select_animation_state)
+        cls.grid = build_seed_grids()[0]
+
+    def test_selection_mirrors_the_mood_estimator_thresholds(self):
+        cases = [
+            ({"alive": True, "energy": 0.1, "hunger": 0.3, "stress": 0.2, "age_ticks": 1}, "sleep", "tired"),
+            ({"alive": True, "energy": 0.6, "hunger": 0.8, "stress": 0.2, "age_ticks": 1}, "beg", "hungry"),
+            ({"alive": True, "energy": 0.6, "hunger": 0.3, "stress": 0.8, "age_ticks": 1}, "ill", "stressed"),
+            ({"alive": True, "energy": 0.6, "hunger": 0.3, "stress": 0.2, "age_ticks": 5}, "blink", "curious"),
+            ({"alive": True, "energy": 0.6, "hunger": 0.3, "stress": 0.2, "age_ticks": 3}, "idle", "curious"),
+        ]
+        for state, expected_animation, expected_mood in cases:
+            animation, mood = self.select(state)
+            self.assertEqual((expected_animation, expected_mood), (animation, mood), state)
+
+    def test_v2_packet_carries_animation_mood_and_projected_visuals(self):
+        lifecycle_state = {"alive": True, "energy": 0.1, "hunger": 0.3, "stress": 0.2, "age_ticks": 2}
+        packet = self.build(self.grid, lifecycle_state)
+        self.assertEqual("sleep", packet["animation"])
+        self.assertEqual("tired", packet["mood"])
+        background = self.grid["palette"]["colors"][self.grid["palette"]["background_index"]]
+        eye_visuals = {c["visual"] for c in packet["cells"] if c["role"] == "eye"}
+        self.assertEqual({background}, eye_visuals)
+
+    def test_without_lifecycle_state_the_packet_is_idle_and_base(self):
+        packet = self.build(self.grid, None)
+        self.assertEqual("idle", packet["animation"])
+        self.assertIsNone(packet["mood"])
+        from mecha_engine.genome import render_packet_from_grid
+        self.assertEqual(render_packet_from_grid(self.grid)["cells"], packet["cells"])
+
+    def test_explicit_animation_override_wins(self):
+        packet = self.build(self.grid, None, animation="beg")
+        self.assertEqual("beg", packet["animation"])
+        accent = self.grid["palette"]["colors"][-1]
+        mouths = {c["visual"] for c in packet["cells"] if c["role"] == "mouth"}
+        self.assertEqual({accent}, mouths)

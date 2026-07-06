@@ -117,7 +117,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
   exemplars + invariants + rendering + workshop affordance) or trim it
   from the schema with a migration note. Couples to T6 (size) and T9
   (trait editor).
-- [ ] **T16 · Render packet contract v2.** Both og runs specify the
+- [ ] **T16 · Render packet contract v2.** (LAB-SIDE SHIPPED 2026-07-05: animation+mood selection over T4 projections, previewer state buttons; remaining: DR-gated promoted-module port; effects wait on the SLIP render-block rung) Both og runs specify the
   packet carries animation, mood, and effects (RUN TWO adds frame_id +
   ui_hints like needs_attention). Today `state` is an opaque
   passthrough. Spec-first: packet v2 contract (animation from T4's
