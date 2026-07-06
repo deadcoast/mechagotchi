@@ -77,7 +77,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
   not, run the integration experiment (og research question: does
   internal deliberation make behavior feel more alive / improve
   decisions measurably?) and record adopt/watch/reject.
-- [ ] **T9 · Workshop trait editor (og responsibility).** Expose
+- [x] **T9 · Workshop trait editor (og responsibility).** (shipped 2026-07-06: Traits tool, full vocabulary, engine-judged overrides) Expose
   per-cell material and mutation-weight editing in the grid editor
   (semantic overlay already carries both), with live engine validation
   as always. Small slice; charter pillars apply.

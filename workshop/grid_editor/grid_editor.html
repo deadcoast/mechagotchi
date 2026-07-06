@@ -142,6 +142,19 @@
         <div class="tools" id="tools"></div>
         <p class="notice" id="tool-notice"></p>
       </div>
+      <div class="panel" style="margin-top:14px;" id="trait-panel" hidden>
+        <h2>cell traits <span style="text-transform:none;letter-spacing:0;" id="trait-coord"></span></h2>
+        <div class="filebar">
+          <select id="trait-role"></select>
+          <select id="trait-material"></select>
+        </div>
+        <div class="slider-row" style="display:grid;grid-template-columns:120px 1fr 44px;gap:10px;align-items:center;margin-top:8px;">
+          <span style="font-family:ui-monospace,Consolas,monospace;font-size:0.8rem;color:var(--ink-soft);text-align:right;">mutation weight</span>
+          <input type="range" id="trait-weight" min="0" max="1" step="0.05" value="0.1" style="accent-color:var(--accent);">
+          <output id="trait-weight-out">0.10</output>
+        </div>
+        <p class="notice">traits ride the creature into validation, saving, release, and evolution — the engine judges the result live</p>
+      </div>
     </div>
 
     <div>
@@ -202,7 +215,12 @@ const TOOLS = [
   { token: "E", label: "Eye",    key: "3", hint: "sensor cells" },
   { token: "M", label: "Mouth",  key: "4", hint: "expression cell" },
   { token: ".", label: "Erase",  key: "5", hint: "clear a cell" },
+  { token: "?", label: "Traits", key: "6", hint: "inspect a cell: role, material, mutation weight (DR 0015 vocabulary)" },
 ];
+const TRAIT_ROLES = ["body", "anchor", "shell", "joint", "limb", "eye", "sensor", "antenna", "mouth", "decoration", "effect"];
+const TRAIT_MATERIALS = ["soft", "hard", "glass", "joint", "light", "signal"];
+let cellOverrides = {};
+let inspected = null;
 
 let palettes = {};
 let paletteId = "lcd_green";
@@ -248,6 +266,19 @@ function draw() {
       }
     }
   }
+  const cellSize = canvas.width / SIZE;
+  for (const key of Object.keys(cellOverrides)) {
+    const [ox, oy] = key.split(",").map(Number);
+    ctx.strokeStyle = "rgba(217,160,74,0.95)";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(ox * cellSize + 1.5, oy * cellSize + 1.5, cellSize - 3, cellSize - 3);
+  }
+  if (inspected) {
+    const [ix, iy] = inspected.split(",").map(Number);
+    ctx.strokeStyle = "rgba(255,255,255,0.8)";
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(ix * cellSize + 3.5, iy * cellSize + 3.5, cellSize - 7, cellSize - 7);
+  }
   ctx.strokeStyle = "rgba(0,0,0,0.18)";
   ctx.lineWidth = 1;
   for (let i = 1; i < SIZE; i++) {
@@ -261,6 +292,13 @@ function paintAt(event) {
   const x = Math.floor(((event.clientX - rect.left) / rect.width) * SIZE);
   const y = Math.floor(((event.clientY - rect.top) / rect.height) * SIZE);
   if (x < 0 || y < 0 || x >= SIZE || y >= SIZE) return;
+  if (tool === "?") {
+    if (matrix[y][x] === ".") { hideTraitPanel(); return; }
+    inspected = `${x},${y}`;
+    showTraitPanel(x, y);
+    return;
+  }
+  delete cellOverrides[`${x},${y}`];
   if (tool === "A") {
     // Authoring convenience, not validation: the previous anchor becomes
     // body so the creature keeps exactly one anchor while you rehome it.
@@ -327,6 +365,67 @@ function renderPalettes() {
   }
 }
 
+/* ---------------- trait editor (T9) ---------------- */
+function hideTraitPanel() {
+  inspected = null;
+  $("trait-panel").hidden = true;
+  draw();
+}
+
+function showTraitPanel(x, y) {
+  const panel = $("trait-panel");
+  panel.hidden = false;
+  $("trait-coord").textContent = "— cell " + x + "," + y;
+  const override = cellOverrides[inspected] || {};
+  const roleSel = $("trait-role");
+  roleSel.innerHTML = "";
+  const baseRole = { B: "body", A: "anchor", E: "eye", M: "mouth" }[matrix[y][x]];
+  for (const role of TRAIT_ROLES) {
+    const option = document.createElement("option");
+    option.value = role;
+    option.textContent = "role: " + role + (role === baseRole ? " (drawn)" : "");
+    roleSel.appendChild(option);
+  }
+  roleSel.value = override.role || baseRole;
+  const matSel = $("trait-material");
+  matSel.innerHTML = "";
+  for (const material of TRAIT_MATERIALS) {
+    const option = document.createElement("option");
+    option.value = material;
+    option.textContent = "material: " + material;
+    matSel.appendChild(option);
+  }
+  const baseMaterial = { B: "hard", A: "hard", E: "glass", M: "soft" }[matrix[y][x]];
+  matSel.value = override.material || baseMaterial;
+  const weight = override.mutation_weight ?? 0.1;
+  $("trait-weight").value = String(weight);
+  $("trait-weight-out").textContent = Number(weight).toFixed(2);
+  draw();
+}
+
+function setTrait(field, value) {
+  if (!inspected) return;
+  const [x, y] = inspected.split(",").map(Number);
+  const baseRole = { B: "body", A: "anchor", E: "eye", M: "mouth" }[matrix[y][x]];
+  const baseMaterial = { B: "hard", A: "hard", E: "glass", M: "soft" }[matrix[y][x]];
+  const override = cellOverrides[inspected] || {};
+  const defaults = { role: baseRole, material: baseMaterial, mutation_weight: 0.1 };
+  if (value === defaults[field]) delete override[field];
+  else override[field] = value;
+  if (Object.keys(override).length) cellOverrides[inspected] = override;
+  else delete cellOverrides[inspected];
+  draw();
+  scheduleValidate();
+}
+
+$("trait-role").addEventListener("change", () => setTrait("role", $("trait-role").value));
+$("trait-material").addEventListener("change", () => setTrait("material", $("trait-material").value));
+$("trait-weight").addEventListener("input", () => {
+  const value = Math.round(parseFloat($("trait-weight").value) * 100) / 100;
+  $("trait-weight-out").textContent = value.toFixed(2);
+  setTrait("mutation_weight", value);
+});
+
 /* ---------------- live engine verdict ---------------- */
 let validateTimer = null;
 function scheduleValidate() {
@@ -341,7 +440,7 @@ async function validateNow() {
     const response = await fetch("/api/validate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ matrix, palette_id: paletteId }),
+      body: JSON.stringify({ matrix, palette_id: paletteId, cell_overrides: cellOverrides }),
     });
     const verdict = await response.json();
     if (!response.ok) {
@@ -464,7 +563,7 @@ $("save-btn").addEventListener("click", async () => {
   const response = await fetch("/api/save", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name: $("grid-name").value.trim(), matrix, palette_id: paletteId }),
+    body: JSON.stringify({ name: $("grid-name").value.trim(), matrix, palette_id: paletteId, cell_overrides: cellOverrides }),
   });
   const result = await response.json();
   const notice = $("save-notice");
@@ -499,6 +598,8 @@ $("load-select").addEventListener("change", async () => {
   const response = await fetch("/api/grids/" + name);
   const grid = await response.json();
   if (grid.ok) {
+    cellOverrides = {};
+    hideTraitPanel();
     matrix = grid.matrix;
     paletteId = grid.palette_id || paletteId;
     $("grid-name").value = name;
@@ -508,6 +609,8 @@ $("load-select").addEventListener("change", async () => {
 
 $("clear-btn").addEventListener("click", () => {
   matrix = Array.from({ length: SIZE }, () => Array(SIZE).fill("."));
+  cellOverrides = {};
+  hideTraitPanel();
   $("grid-name").value = "";
   $("load-select").value = "";
   draw(); scheduleValidate();

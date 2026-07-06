@@ -15,8 +15,12 @@ Endpoints:
 
 - GET  /                    the grid editor page
 - GET  /api/palettes        engine palettes
-- POST /api/validate        {matrix, palette_id, grid_id?} -> verdict,
-                            per-profile alignment, morphology stats
+- POST /api/validate        {matrix, palette_id, grid_id?,
+                            cell_overrides?} -> verdict, per-profile
+                            alignment, morphology stats, grid_cells
+                            (T9 trait editor: per-cell material /
+                            mutation_weight / full-vocabulary role
+                            overrides, engine-validated)
 - POST /api/save            strict: only validator-valid grids are
                             written (backup-before-overwrite)
 - GET  /api/grids           saved workshop grids
@@ -212,6 +216,91 @@ def _build_grid(matrix: list[list[str]], palette_id: str, grid_id: str) -> dict:
         mutation_events=["workshop_grid_editor_draft"],
         generation_delta=0,
     )
+
+
+# T9 trait editor (DR 0015 vocabulary): role -> (organ_id, organ_role).
+ROLE_ORGANS = {
+    "body": ("core", "body_core"),
+    "anchor": ("core", "body_core"),
+    "shell": ("carapace", "body_core"),
+    "joint": ("joints", "locomotion"),
+    "limb": ("limbs", "locomotion"),
+    "eye": ("sensors", "sensor"),
+    "sensor": ("antennae", "sensor"),
+    "antenna": ("antennae", "sensor"),
+    "mouth": ("expression", "expression"),
+    "decoration": ("trim", "ornament"),
+    "effect": ("aura", "effect"),
+}
+TRAIT_MATERIALS = {"soft", "hard", "glass", "joint", "light", "signal"}
+
+
+def _apply_cell_overrides(grid: dict, overrides: dict) -> list[str]:
+    """Apply per-cell trait overrides; returns problems (empty = ok).
+
+    Presentation-side plumbing only: the ENGINE'S validator and
+    alignment remain the judges of the resulting grid.
+    """
+    problems: list[str] = []
+    cells = {(cell["x"], cell["y"]): cell for cell in grid.get("cells", [])}
+    for key, patch in overrides.items():
+        try:
+            x, y = (int(part) for part in str(key).split(","))
+        except ValueError:
+            problems.append(f"bad cell key: {key}")
+            continue
+        cell = cells.get((x, y))
+        if cell is None:
+            problems.append(f"no creature cell at {x},{y}")
+            continue
+        if not isinstance(patch, dict):
+            problems.append(f"override for {x},{y} must be an object")
+            continue
+        for field, value in patch.items():
+            if field == "material":
+                if value not in TRAIT_MATERIALS:
+                    problems.append(f"unknown material at {x},{y}: {value}")
+                else:
+                    cell["material"] = value
+            elif field == "mutation_weight":
+                if (
+                    isinstance(value, bool)
+                    or not isinstance(value, int | float)
+                    or not 0.0 <= value <= 1.0
+                ):
+                    problems.append(
+                        f"mutation_weight at {x},{y} must be 0..1: {value}"
+                    )
+                else:
+                    cell["mutation_weight"] = value
+            elif field == "role":
+                if value not in ROLE_ORGANS:
+                    problems.append(f"unknown role at {x},{y}: {value}")
+                else:
+                    cell["role"] = value
+                    cell["organ"] = ROLE_ORGANS[value][0]
+                    if value != "anchor":
+                        cell["animation_anchor"] = False
+            else:
+                problems.append(f"unknown trait field at {x},{y}: {field}")
+    if problems:
+        return problems
+    # Rebuild the organ map from the (possibly re-roled) cells.
+    organs: dict[str, dict] = {}
+    for cell in grid.get("cells", []):
+        organ_id = cell.get("organ")
+        role = cell.get("role")
+        organ_role = ROLE_ORGANS.get(role, ("core", "body_core"))[1]
+        entry = organs.setdefault(
+            organ_id, {"role": organ_role, "cells": [], "required": False}
+        )
+        entry["cells"].append([cell["x"], cell["y"]])
+    if "core" in organs:
+        organs["core"]["required"] = True
+    if "sensors" in organs:
+        organs["sensors"]["required"] = True
+    grid["organs"] = organs
+    return []
 
 
 def _safe_name(name: str) -> str:
@@ -503,6 +592,12 @@ class _Handler(SimpleHTTPRequestHandler):
             grid = _build_grid(
                 matrix, palette_id, payload.get("grid_id") or "workshop_draft"
             )
+            overrides = payload.get("cell_overrides") or {}
+            if overrides:
+                problems = _apply_cell_overrides(grid, overrides)
+                if problems:
+                    self._json(400, {"ok": False, "errors": problems})
+                    return
             validation = validate_grid(grid)
             alignment = {
                 profile_id: {
@@ -519,6 +614,7 @@ class _Handler(SimpleHTTPRequestHandler):
                     "errors": list(validation.errors),
                     "alignment": alignment,
                     "stats": _morphology_stats(grid),
+                    "grid_cells": grid.get("cells", []),
                 },
             )
             return
@@ -527,6 +623,12 @@ class _Handler(SimpleHTTPRequestHandler):
         # never writes a grid the engine would reject.
         name = _safe_name(payload.get("name", ""))
         grid = _build_grid(matrix, palette_id, f"workshop_{name}")
+        overrides = payload.get("cell_overrides") or {}
+        if overrides:
+            problems = _apply_cell_overrides(grid, overrides)
+            if problems:
+                self._json(400, {"ok": False, "errors": problems})
+                return
         validation = validate_grid(grid)
         if not validation.ok:
             self._json(

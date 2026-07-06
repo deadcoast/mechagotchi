@@ -90,6 +90,15 @@ corpus — the ecosystem does not grant favors, and the editor's
 structural-load meter is the tool for authoring fitter founders
 (`research/experiment_reports/2026-07-05-workshop-engine-wire.md`).
 
+**Trait editor shipped (2026-07-06, audit T9).** The grid editor's
+Traits tool (key 6) inspects any cell: role across the FULL DR 0015
+vocabulary (shell/joint/limb/antenna/sensor/decoration/effect + the
+drawn four), material (all six), and mutation weight — overrides ride
+validation, saving, release, and evolution, with organ maps rebuilt
+server-side and the engine still the only judge (turning the sole
+mouth into decoration fails alignment with the engine's own words —
+pinned). Overridden cells wear an amber outline.
+
 ## The research the workshop stands on
 
 Every planned surface maps to proven lab work (all ledgered in

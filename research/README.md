@@ -658,6 +658,8 @@ Post-v0.1 continuation has started:
 - `labs/slip_validator/slip_zoo_gates.py`
 - `data/slips/zoo/` + `data/slips/slip_zoo_gates_stage0.json` (T3.6, ladder_gates_met: 18/20 archetypes with zero UNPLANNED gaps; fuzz false-pass 0.0 over 161 cases, validators in perfect agreement; slip_zoo_100 delivered — THE SLIP LADDER IS COMPLETE)
 
+- `workshop/grid_editor/grid_editor.html` + `workshop/server/workshop_server.py` (T9 trait editor: per-cell role/material/mutation-weight overrides across the DR 0015 vocabulary, organ remap server-side, engine-judged; 5 endpoint tests)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

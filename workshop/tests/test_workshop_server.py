@@ -734,3 +734,99 @@ class RenderPacketV2EndpointTests(unittest.TestCase):
         )
         self.assertEqual(400, status)
         self.assertFalse(payload["ok"])
+
+
+class TraitEditorEndpointTests(unittest.TestCase):
+    """T9: per-cell traits + the full role vocabulary (DR 0015)."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.temp = tempfile.TemporaryDirectory()
+        base = Path(cls.temp.name)
+        cls.grids_dir = base / "grids"
+        cls.server = start_workshop_server(
+            port=0, grids_dir=cls.grids_dir, slips_dir=base / "slips"
+        )
+        cls.base = f"http://127.0.0.1:{cls.server.server_address[1]}"
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.server.shutdown()
+        cls.temp.cleanup()
+
+    def _validate(self, overrides):
+        return _post(
+            f"{self.base}/api/validate",
+            {
+                "matrix": VALID_MATRIX,
+                "palette_id": "lcd_green",
+                "cell_overrides": overrides,
+            },
+        )
+
+    def test_material_and_weight_overrides_apply(self):
+        status, payload = self._validate(
+            {"2,2": {"material": "light", "mutation_weight": 0.7}}
+        )
+        self.assertEqual(200, status)
+        self.assertTrue(payload["valid"], payload["errors"])
+        cell = next(
+            c for c in payload["grid_cells"] if (c["x"], c["y"]) == (2, 2)
+        )
+        self.assertEqual("light", cell["material"])
+        self.assertEqual(0.7, cell["mutation_weight"])
+
+    def test_role_overrides_remap_organs_across_the_vocabulary(self):
+        # Body cell at (1,2) becomes a shell; eye at (1,0) becomes antenna.
+        status, payload = self._validate(
+            {"1,2": {"role": "shell"}, "1,0": {"role": "antenna"}}
+        )
+        self.assertEqual(200, status)
+        self.assertTrue(payload["valid"], payload["errors"])
+        cells = {(c["x"], c["y"]): c for c in payload["grid_cells"]}
+        self.assertEqual("shell", cells[(1, 2)]["role"])
+        self.assertEqual("carapace", cells[(1, 2)]["organ"])
+        self.assertEqual("antenna", cells[(1, 0)]["role"])
+        self.assertEqual("antennae", cells[(1, 0)]["organ"])
+
+    def test_bad_overrides_fail_loudly(self):
+        for overrides in (
+            {"2,2": {"material": "plasma"}},
+            {"2,2": {"mutation_weight": 1.5}},
+            {"2,2": {"role": "wings"}},
+            {"9,9": {"material": "hard"}},
+            {"0,0": {"material": "hard"}},  # empty cell
+        ):
+            status, payload = self._validate(overrides)
+            self.assertEqual(400, status, overrides)
+            self.assertFalse(payload["ok"], overrides)
+
+    def test_engine_verdict_still_governs(self):
+        # Turning the only mouth into decoration removes the expression
+        # organ: the ENGINE's alignment/validation must speak, not us.
+        status, payload = self._validate({"5,3": {"role": "decoration"}})
+        self.assertEqual(200, status)
+        alignment = payload["alignment"]["slip_lcd_seed"]
+        self.assertFalse(alignment["ok"])
+        self.assertTrue(
+            any("expression" in error for error in alignment["errors"])
+        )
+
+    def test_save_persists_overrides(self):
+        status, payload = _post(
+            f"{self.base}/api/save",
+            {
+                "name": "trait creature",
+                "matrix": VALID_MATRIX,
+                "palette_id": "lcd_green",
+                "cell_overrides": {"2,2": {"material": "glass"}},
+            },
+        )
+        self.assertEqual(200, status)
+        grid = json.loads(
+            (self.grids_dir / payload["file"]).read_text(encoding="utf-8")
+        )
+        cell = next(
+            c for c in grid["cells"] if (c["x"], c["y"]) == (2, 2)
+        )
+        self.assertEqual("glass", cell["material"])
