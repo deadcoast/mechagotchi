@@ -1,0 +1,738 @@
+{
+  "grid_id": "vocab_argus",
+  "schema_version": "0.1.0",
+  "parent_grid_id": null,
+  "grid_size": [
+    8,
+    8
+  ],
+  "cells": [
+    {
+      "x": 1,
+      "y": 0,
+      "visual": "#d8ffd6",
+      "role": "antenna",
+      "material": "signal",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "antennae",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "visual": "#d8ffd6",
+      "role": "eye",
+      "material": "glass",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "sensors",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "visual": "#d8ffd6",
+      "role": "eye",
+      "material": "glass",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "sensors",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "visual": "#d8ffd6",
+      "role": "sensor",
+      "material": "signal",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "antennae",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "visual": "#5dbb63",
+      "role": "shell",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "carapace",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "visual": "#5dbb63",
+      "role": "shell",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "carapace",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "visual": "#5dbb63",
+      "role": "shell",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "carapace",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "visual": "#5dbb63",
+      "role": "shell",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "carapace",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "visual": "#5dbb63",
+      "role": "shell",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "carapace",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "visual": "#5dbb63",
+      "role": "shell",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "carapace",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "visual": "#5dbb63",
+      "role": "shell",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "carapace",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "visual": "#5dbb63",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "visual": "#5dbb63",
+      "role": "anchor",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": true,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "visual": "#5dbb63",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 5,
+      "y": 2,
+      "visual": "#5dbb63",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "visual": "#5dbb63",
+      "role": "shell",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "carapace",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "visual": "#5dbb63",
+      "role": "shell",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "carapace",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "visual": "#5dbb63",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "visual": "#5dbb63",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "visual": "#d8ffd6",
+      "role": "mouth",
+      "material": "soft",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "expression",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 5,
+      "y": 3,
+      "visual": "#5dbb63",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 6,
+      "y": 3,
+      "visual": "#5dbb63",
+      "role": "shell",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "carapace",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "visual": "#5dbb63",
+      "role": "shell",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "carapace",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "visual": "#5dbb63",
+      "role": "joint",
+      "material": "joint",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "joints",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "visual": "#5dbb63",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 4,
+      "y": 4,
+      "visual": "#5dbb63",
+      "role": "body",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "core",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 5,
+      "y": 4,
+      "visual": "#5dbb63",
+      "role": "joint",
+      "material": "joint",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "joints",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 6,
+      "y": 4,
+      "visual": "#5dbb63",
+      "role": "shell",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "carapace",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 1,
+      "y": 5,
+      "visual": "#5dbb63",
+      "role": "limb",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "limbs",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "visual": "#5dbb63",
+      "role": "shell",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "carapace",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 3,
+      "y": 5,
+      "visual": "#5dbb63",
+      "role": "shell",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "carapace",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 4,
+      "y": 5,
+      "visual": "#5dbb63",
+      "role": "shell",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "carapace",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 5,
+      "y": 5,
+      "visual": "#5dbb63",
+      "role": "shell",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "carapace",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 6,
+      "y": 5,
+      "visual": "#5dbb63",
+      "role": "limb",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "limbs",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "visual": "#5dbb63",
+      "role": "limb",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "limbs",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "visual": "#d8ffd6",
+      "role": "decoration",
+      "material": "light",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "trim",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 4,
+      "y": 6,
+      "visual": "#d8ffd6",
+      "role": "effect",
+      "material": "signal",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "aura",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    },
+    {
+      "x": 6,
+      "y": 6,
+      "visual": "#5dbb63",
+      "role": "limb",
+      "material": "hard",
+      "mutation_weight": 0.1,
+      "animation_anchor": false,
+      "organ": "limbs",
+      "stress": 0,
+      "damage": 0,
+      "locked": false
+    }
+  ],
+  "organs": {
+    "antennae": {
+      "role": "sensor",
+      "cells": [
+        [
+          1,
+          0
+        ],
+        [
+          6,
+          0
+        ]
+      ],
+      "required": false
+    },
+    "sensors": {
+      "role": "sensor",
+      "cells": [
+        [
+          3,
+          0
+        ],
+        [
+          4,
+          0
+        ]
+      ],
+      "required": true
+    },
+    "carapace": {
+      "role": "body_core",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          5
+        ]
+      ],
+      "required": false
+    },
+    "core": {
+      "role": "body_core",
+      "cells": [
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "required": true
+    },
+    "expression": {
+      "role": "expression",
+      "cells": [
+        [
+          4,
+          3
+        ]
+      ],
+      "required": false
+    },
+    "joints": {
+      "role": "locomotion",
+      "cells": [
+        [
+          2,
+          4
+        ],
+        [
+          5,
+          4
+        ]
+      ],
+      "required": false
+    },
+    "limbs": {
+      "role": "locomotion",
+      "cells": [
+        [
+          1,
+          5
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          6,
+          6
+        ]
+      ],
+      "required": false
+    },
+    "trim": {
+      "role": "ornament",
+      "cells": [
+        [
+          3,
+          6
+        ]
+      ],
+      "required": false
+    },
+    "aura": {
+      "role": "effect",
+      "cells": [
+        [
+          4,
+          6
+        ]
+      ],
+      "required": false
+    }
+  },
+  "palette": {
+    "palette_id": "lcd_green",
+    "colors": [
+      "#07140d",
+      "#5dbb63",
+      "#d8ffd6"
+    ],
+    "background_index": 0
+  },
+  "mutation": {
+    "cell_mutation_rate": 0.05,
+    "organ_shift_rate": 0.02,
+    "palette_shift_rate": 0.01,
+    "symmetry_break_rate": 0.01
+  },
+  "lineage": {
+    "generation": 0,
+    "ancestor_ids": [],
+    "mutation_events": [
+      "vocabulary_exemplar_authored"
+    ]
+  },
+  "metadata": {
+    "source": "vocabulary_exemplar_lab"
+  }
+}

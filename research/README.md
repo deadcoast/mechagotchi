@@ -647,6 +647,10 @@ Post-v0.1 continuation has started:
 - `labs/grid_genome/switchboard_ablation.py`
 - `data/micro_learners/switchboard_ablation_stage0.json` (T19 Stage 0: full switchboard beats rules-only by ~336% need balance — measured; keep-gate keeps only hidden_mood_estimator at this scale, others queued for the scaled rerun)
 
+- `research/decision_records/0015-dormant-vocabulary-coverage.md`
+- `labs/grid_genome/vocabulary_exemplars.py`
+- `data/vocabulary_exemplars/` (T15: cover-not-trim — the vocab_argus exemplar exercises every dormant cell role, material, and organ role; coverage pinned by test so the vocabulary can never silently go dormant again)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

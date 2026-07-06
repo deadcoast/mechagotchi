@@ -109,7 +109,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
   constraint-solver track (open or formally reject), Jupyter notebooks
   (record as superseded by executable labs). No future session should
   rediscover this fork.
-- [ ] **T15 · Dormant grid-schema vocabulary: cover or trim.** The
+- [x] **T15 · Dormant grid-schema vocabulary: cover or trim.** (DR 0015, 2026-07-05: COVER — exemplar corpus + drift-guard test; editor affordances -> T9; per-role animation -> future T4 increment) The
   schema legally admits roles shell/joint/limb/antenna/decoration/
   effect, open organ ids, materials light/signal, and grid sizes to
   64x64 — none exercised by any corpus, invariant, generator, renderer,
