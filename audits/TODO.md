@@ -101,7 +101,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
 
 ## P1 addition — RUN TWO reconciliation (from the audit addendum)
 
-- [ ] **T14 · RUN ONE / RUN TWO reconciliation decision record.** One DR
+- [x] **T14 · RUN ONE / RUN TWO reconciliation decision record.** (DR 0011, 2026-07-05) One DR
   that walks every RUN TWO delta and issues an explicit
   adopt/defer/reject verdict, ending the silent fork: SLIP shape (RUN
   ONE's won implicitly — ratify or revise), RUN TWO SLIP additions

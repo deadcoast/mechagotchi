@@ -613,6 +613,8 @@ Post-v0.1 continuation has started:
 - `data/runtime_integration/mecha_engine_evolution_workshop_wire_stage0.json`
 - `data/workshop/released/` (T1, the workshop->engine asset wire: released creatures become evolution founders through the engine's gates, lineage-traced; first result — both founding lineages extinct at generation 0 vs the corpus, fitness 0.762 vs 0.868; latent episode-gate gap hardened to valid+aligned)
 
+- `research/decision_records/0011-run-one-run-two-reconciliation.md` (audit T14: the RUN ONE/RUN TWO fork closed — RUN ONE's SLIP shape ratified; every RUN TWO delta adopted/watched-with-task/rejected with reasons; value-byte and Jupyter rejected, statistical protocols adopted as the T17-T20 program)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.
