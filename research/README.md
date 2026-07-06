@@ -654,6 +654,10 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-07-05-slip-ladder-species-grammar.md`
 - `labs/grid_genome/test_slip_visual_grammar.py` (T3.5, the ladder's final field rung: species_class consumed by evolution identity; visual_grammar's allowed_materials alignment-enforced and animation_vocab packet-consumed with honest mood on fallback; all four package mirrors synced — DR 0013's parity pins caught the lag as designed)
 
+- `research/experiment_reports/2026-07-06-slip-ladder-gates.md`
+- `labs/slip_validator/slip_zoo_gates.py`
+- `data/slips/zoo/` + `data/slips/slip_zoo_gates_stage0.json` (T3.6, ladder_gates_met: 18/20 archetypes with zero UNPLANNED gaps; fuzz false-pass 0.0 over 161 cases, validators in perfect agreement; slip_zoo_100 delivered — THE SLIP LADDER IS COMPLETE)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

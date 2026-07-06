@@ -1,0 +1,36 @@
+{
+  "slip_version": "0.2.0",
+  "profile_id": "diversity_gardener_v00",
+  "name": "Diversity Gardener V00",
+  "grid": {
+    "allowed_palettes": [
+      "lcd_green"
+    ],
+    "body_mass_min": 4,
+    "body_mass_max": 24,
+    "required_organ_roles": [
+      "sensor",
+      "expression"
+    ]
+  },
+  "mutation": {
+    "cell_mutation_rate_max": 0.15,
+    "organ_shift_rate_max": 0.05,
+    "palette_shift_rate_max": 0.05,
+    "symmetry_break_rate_max": 0.05
+  },
+  "behavior": {
+    "curiosity": 0.5,
+    "neediness": 0.5,
+    "sleepiness": 0.5
+  },
+  "survival_weights": {
+    "stability": 0.5,
+    "novelty": 0.25,
+    "bond": 0.25
+  },
+  "lineage_preferences": {
+    "parent_selection": "uniform"
+  },
+  "species_class": "gardener"
+}

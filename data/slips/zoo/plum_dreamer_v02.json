@@ -1,0 +1,39 @@
+{
+  "slip_version": "0.2.0",
+  "profile_id": "plum_dreamer_v02",
+  "name": "Plum Dreamer V02",
+  "grid": {
+    "allowed_palettes": [
+      "pocket_plum"
+    ],
+    "body_mass_min": 4,
+    "body_mass_max": 24,
+    "required_organ_roles": [
+      "sensor",
+      "expression"
+    ]
+  },
+  "mutation": {
+    "cell_mutation_rate_max": 0.19,
+    "organ_shift_rate_max": 0.05,
+    "palette_shift_rate_max": 0.05,
+    "symmetry_break_rate_max": 0.05
+  },
+  "behavior": {
+    "curiosity": 0.54,
+    "neediness": 0.2,
+    "sleepiness": 0.9
+  },
+  "survival_weights": {
+    "stability": 0.5,
+    "novelty": 0.25,
+    "bond": 0.25
+  },
+  "visual_grammar": {
+    "animation_vocab": [
+      "idle",
+      "sleep",
+      "blink"
+    ]
+  }
+}

@@ -35,7 +35,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
 
 ## P1 — og-scope restorations
 
-- [ ] **T3 · SLIP schema ladder v0.1.0 → og scope.** (DR 0012 accepted; rungs 1-4 shipped + DR 0013 package port 2026-07-05 — v0.2 profiles drive package simulations natively) One DR proposing the
+- [x] **T3 · SLIP schema ladder v0.1.0 → og scope.** COMPLETE (DR 0012 rungs 1-5 + DR 0013 package port + T3.6 gates met, 2026-07-06; remaining og fields sociability/render-effects stay deliberately queued per DR 0011) One DR proposing the
   extension sequence, then per-field triads (schema + both validators +
   pydantic mirror + fixtures + workshop slip-creator controls):
   - [x] T3.1 `forbidden_traits` (shipped 2026-07-05, DR 0012 rung 1)
@@ -43,9 +43,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
   - [x] T3.3 `learning_switches` (shipped 2026-07-05; switchboard thread gates — also T19's profile-authored ablation harness)
   - [x] T3.4 `lineage_preferences` (shipped 2026-07-05; fitness_weighted parenting + the v01_projection package-boundary adapter)
   - [x] T3.5 `species_class` + `visual_grammar` (allowed_materials + animation_vocab) (shipped 2026-07-05; mirrors synced; full grammar UI rides T9)
-  - [ ] T3.6 og gates: 20-archetype expressiveness test, invalid-profile
-        fuzz pack (false pass ≤ 1%), profile zoo growth 15 → 100
-        (`slip_zoo_100`)
+  - [x] T3.6 og gates (2026-07-06, ladder_gates_met: 18/20 with zero unplanned gaps; fuzz 0.0 false-pass over 161 cases; slip_zoo_100 delivered)
 - [ ] **T4 · Animation-state vocabulary.** (SEMANTICS + animstate_300 SHIPPED 2026-07-05 — states are deterministic genome projections, 300/300 valid; remaining: T16 packet selection, workshop previewer, T3.5 field) og: idle/blink/sleep/beg/ill
   states, animation anchors per state, `animstate_300` dataset.
   Research-first: lab defining state semantics on the grid genome

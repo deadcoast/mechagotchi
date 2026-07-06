@@ -1,0 +1,32 @@
+{
+  "slip_version": "0.1.0",
+  "profile_id": "frozen_lineage_v03",
+  "name": "Frozen Lineage V03",
+  "grid": {
+    "allowed_palettes": [
+      "gameboy_gray"
+    ],
+    "body_mass_min": 4,
+    "body_mass_max": 24,
+    "required_organ_roles": [
+      "sensor",
+      "expression"
+    ]
+  },
+  "mutation": {
+    "cell_mutation_rate_max": 0.07,
+    "organ_shift_rate_max": 0.0,
+    "palette_shift_rate_max": 0.0,
+    "symmetry_break_rate_max": 0.0
+  },
+  "behavior": {
+    "curiosity": 0.56,
+    "neediness": 0.5,
+    "sleepiness": 0.5
+  },
+  "survival_weights": {
+    "stability": 0.5,
+    "novelty": 0.25,
+    "bond": 0.25
+  }
+}

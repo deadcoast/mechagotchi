@@ -1,0 +1,191 @@
+{
+  "artifact_id": "slip_zoo_gates_stage0",
+  "status": "stage0_complete",
+  "date": "2026-07-06",
+  "purpose": "The og gates for the completed SLIP ladder (audit T3.6): 20-archetype expressiveness, invalid-profile fuzz pack, and the profile zoo grown to 100.",
+  "archetype_results": [
+    {
+      "archetype_id": "lcd_classic",
+      "intent": "the baseline LCD companion",
+      "representable": true,
+      "errors": [],
+      "missing_capability": null,
+      "queued_in": null
+    },
+    {
+      "archetype_id": "amber_sentinel",
+      "intent": "warm watcher, body-core required",
+      "representable": true,
+      "errors": [],
+      "missing_capability": null,
+      "queued_in": null
+    },
+    {
+      "archetype_id": "gray_stalwart",
+      "intent": "stability-weighted survivor",
+      "representable": true,
+      "errors": [],
+      "missing_capability": null,
+      "queued_in": null
+    },
+    {
+      "archetype_id": "heavy_tank",
+      "intent": "massive risk-averse bulwark",
+      "representable": true,
+      "errors": [],
+      "missing_capability": null,
+      "queued_in": null
+    },
+    {
+      "archetype_id": "featherlight",
+      "intent": "tiny nimble sprite",
+      "representable": true,
+      "errors": [],
+      "missing_capability": null,
+      "queued_in": null
+    },
+    {
+      "archetype_id": "no_shell_purist",
+      "intent": "smooth-bodied, shells forbidden",
+      "representable": true,
+      "errors": [],
+      "missing_capability": null,
+      "queued_in": null
+    },
+    {
+      "archetype_id": "glass_being",
+      "intent": "translucent glass-and-void body",
+      "representable": true,
+      "errors": [],
+      "missing_capability": null,
+      "queued_in": null
+    },
+    {
+      "archetype_id": "signal_wraith",
+      "intent": "pure signal-matter apparition",
+      "representable": true,
+      "errors": [],
+      "missing_capability": null,
+      "queued_in": null
+    },
+    {
+      "archetype_id": "plum_dreamer",
+      "intent": "sleepy dreamer, no begging",
+      "representable": true,
+      "errors": [],
+      "missing_capability": null,
+      "queued_in": null
+    },
+    {
+      "archetype_id": "stoic_monk",
+      "intent": "never begs, minimal needs",
+      "representable": true,
+      "errors": [],
+      "missing_capability": null,
+      "queued_in": null
+    },
+    {
+      "archetype_id": "risk_junkie",
+      "intent": "mutates joyfully under stress",
+      "representable": true,
+      "errors": [],
+      "missing_capability": null,
+      "queued_in": null
+    },
+    {
+      "archetype_id": "frozen_lineage",
+      "intent": "living fossil, near-zero drift",
+      "representable": true,
+      "errors": [],
+      "missing_capability": null,
+      "queued_in": null
+    },
+    {
+      "archetype_id": "fitness_dynast",
+      "intent": "breeds only from the fittest",
+      "representable": true,
+      "errors": [],
+      "missing_capability": null,
+      "queued_in": null
+    },
+    {
+      "archetype_id": "diversity_gardener",
+      "intent": "every niche gets offspring",
+      "representable": true,
+      "errors": [],
+      "missing_capability": null,
+      "queued_in": null
+    },
+    {
+      "archetype_id": "rules_only_golem",
+      "intent": "no learning threads at all",
+      "representable": true,
+      "errors": [],
+      "missing_capability": null,
+      "queued_in": null
+    },
+    {
+      "archetype_id": "mood_pure",
+      "intent": "mood estimation only",
+      "representable": true,
+      "errors": [],
+      "missing_capability": null,
+      "queued_in": null
+    },
+    {
+      "archetype_id": "curious_scout",
+      "intent": "exploration-driven watcher",
+      "representable": true,
+      "errors": [],
+      "missing_capability": null,
+      "queued_in": null
+    },
+    {
+      "archetype_id": "nocturne",
+      "intent": "night creature, sleep-first",
+      "representable": true,
+      "errors": [],
+      "missing_capability": null,
+      "queued_in": null
+    },
+    {
+      "archetype_id": "pack_socialite",
+      "intent": "thrives on companionship with other creatures",
+      "representable": false,
+      "missing_capability": "behavior.sociability (multi-creature social weight)",
+      "queued_in": "DR 0011 verdict 3 (mischief/sociability -> T3 ladder watch)"
+    },
+    {
+      "archetype_id": "glitch_showman",
+      "intent": "performs with CRT bloom and glitch effects",
+      "representable": false,
+      "missing_capability": "render effects block (lcd_ghosting/scanline/crt_bloom/glitch)",
+      "queued_in": "DR 0011 verdict 2 (SLIP render block -> T3/T16 watch)"
+    }
+  ],
+  "gates": {
+    "expressiveness": {
+      "archetype_count": 20,
+      "representable_count": 18,
+      "unplanned_gap_count": 0,
+      "no_unplanned_gaps": true
+    },
+    "fuzz": {
+      "case_count": 161,
+      "false_pass_count": 0,
+      "false_passes": [],
+      "false_pass_rate": 0.0,
+      "og_bar": 0.01,
+      "validator_disagreements": 0
+    },
+    "zoo": {
+      "profile_count": 100,
+      "valid_count": 100,
+      "unique_profile_ids": 100
+    }
+  },
+  "decision": {
+    "status": "ladder_gates_met",
+    "reason": "18/20 archetypes representable with every gap mapped to an already-queued decision; fuzz false-pass rate 0.0 vs og bar 0.01; zoo 100/100 valid."
+  }
+}

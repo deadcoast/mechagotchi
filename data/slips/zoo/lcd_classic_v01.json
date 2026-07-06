@@ -1,0 +1,32 @@
+{
+  "slip_version": "0.1.0",
+  "profile_id": "lcd_classic_v01",
+  "name": "Lcd Classic V01",
+  "grid": {
+    "allowed_palettes": [
+      "lcd_green"
+    ],
+    "body_mass_min": 4,
+    "body_mass_max": 24,
+    "required_organ_roles": [
+      "sensor",
+      "expression"
+    ]
+  },
+  "mutation": {
+    "cell_mutation_rate_max": 0.17,
+    "organ_shift_rate_max": 0.05,
+    "palette_shift_rate_max": 0.05,
+    "symmetry_break_rate_max": 0.05
+  },
+  "behavior": {
+    "curiosity": 0.52,
+    "neediness": 0.5,
+    "sleepiness": 0.5
+  },
+  "survival_weights": {
+    "stability": 0.5,
+    "novelty": 0.25,
+    "bond": 0.25
+  }
+}
