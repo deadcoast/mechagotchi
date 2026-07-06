@@ -950,6 +950,11 @@ def run_mecha_engine_evolution_loop(
     }
     if parent_selection is not None:
         result["parent_selection"] = parent_selection
+    if (
+        slip_profile.get("slip_version") != "0.1.0"
+        and "species_class" in slip_profile
+    ):
+        result["species_class"] = slip_profile["species_class"]
     if workshop:
         result["workshop_grids_dir"] = (
             Path(workshop_grids_dir).resolve().relative_to(ROOT).as_posix()

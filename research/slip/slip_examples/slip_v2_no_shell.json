@@ -45,5 +45,23 @@
   },
   "lineage_preferences": {
     "parent_selection": "fitness_weighted"
+  },
+  "species_class": "no_shell_guard",
+  "visual_grammar": {
+    "allowed_materials": [
+      "void",
+      "soft",
+      "hard",
+      "glass",
+      "joint",
+      "signal"
+    ],
+    "animation_vocab": [
+      "idle",
+      "blink",
+      "sleep",
+      "beg",
+      "ill"
+    ]
   }
 }

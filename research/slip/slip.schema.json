@@ -244,6 +244,53 @@
         "parent_selection"
       ],
       "additionalProperties": false
+    },
+    "species_class": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$",
+      "minLength": 1,
+      "description": "Ladder rung T3.5 (DR 0012): species taxonomy label. 0.2.0-only."
+    },
+    "visual_grammar": {
+      "type": "object",
+      "description": "Ladder rung T3.5 (DR 0012): the species' visual language \u2014 allowed cell materials (alignment-enforced) and its animation vocabulary (packet-v2 selection honors it; idle mandatory). 0.2.0-only.",
+      "minProperties": 1,
+      "properties": {
+        "allowed_materials": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "void",
+              "soft",
+              "hard",
+              "glass",
+              "joint",
+              "light",
+              "signal"
+            ]
+          }
+        },
+        "animation_vocab": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "contains": {
+            "const": "idle"
+          },
+          "items": {
+            "enum": [
+              "idle",
+              "blink",
+              "sleep",
+              "beg",
+              "ill"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
     }
   },
   "$defs": {
@@ -283,6 +330,16 @@
             {
               "required": [
                 "lineage_preferences"
+              ]
+            },
+            {
+              "required": [
+                "species_class"
+              ]
+            },
+            {
+              "required": [
+                "visual_grammar"
               ]
             }
           ]

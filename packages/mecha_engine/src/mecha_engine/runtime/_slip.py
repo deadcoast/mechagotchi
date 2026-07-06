@@ -66,7 +66,11 @@ LADDER_KEYS = {
     "risk_tolerances",
     "learning_switches",
     "lineage_preferences",
+    "species_class",
+    "visual_grammar",
 }
+VISUAL_GRAMMAR_KEYS = {"allowed_materials", "animation_vocab"}
+ANIMATION_VOCAB = ["idle", "blink", "sleep", "beg", "ill"]
 PARENT_SELECTION_MODES = {"uniform", "fitness_weighted"}
 LINEAGE_PREFERENCES_KEYS = {"parent_selection"}
 RISK_TOLERANCES_KEYS = {"mutation"}
@@ -98,6 +102,7 @@ FORBIDDABLE_ROLES = {
 }
 FORBIDDABLE_MATERIALS = {"soft", "hard", "glass", "joint", "light", "signal"}
 # A profile may not require an organ whose cell role it forbids.
+ALLOWABLE_MATERIALS = {"void"} | set(FORBIDDABLE_MATERIALS)
 CELL_ROLE_FOR_ORGAN_ROLE = {
     "sensor": "eye",
     "expression": "mouth",
@@ -156,6 +161,16 @@ def validate_slip(profile: dict) -> SlipResult:
         _validate_learning_switches(profile, errors)
     if "lineage_preferences" in profile:
         _validate_lineage_preferences(profile, errors)
+    if "species_class" in profile:
+        species = profile.get("species_class")
+        if not isinstance(species, str) or not species or not all(
+            ch.islower() or ch.isdigit() or ch == "_" for ch in species
+        ):
+            errors.append(
+                "species_class must be a non-empty lowercase identifier"
+            )
+    if "visual_grammar" in profile:
+        _validate_visual_grammar(profile, errors)
     _require_string(profile, "profile_id", errors)
     _require_string(profile, "name", errors)
     profile_id = profile.get("profile_id")
@@ -271,6 +286,15 @@ def is_grid_aligned(grid: dict, profile: dict) -> SlipResult:
         elif value > limit:
             errors.append(f"mutation {grid_key} exceeds SLIP max {limit}: {value}")
 
+    grammar = profile.get("visual_grammar") or {}
+    allowed_materials = grammar.get("allowed_materials")
+    if isinstance(allowed_materials, list) and allowed_materials:
+        present = {cell.get("material") for cell in grid.get("cells", [])}
+        for material in sorted(present - set(allowed_materials)):
+            errors.append(
+                f"material not allowed by SLIP visual grammar: {material}"
+            )
+
     forbidden = profile.get("forbidden_traits") or {}
     forbidden_roles = set(forbidden.get("roles", []))
     forbidden_materials = set(forbidden.get("materials", []))
@@ -286,6 +310,50 @@ def is_grid_aligned(grid: dict, profile: dict) -> SlipResult:
             errors.append(f"forbidden material present in grid: {material}")
 
     return SlipResult(not errors, errors)
+
+
+def _validate_visual_grammar(profile: dict, errors: list[str]) -> None:
+    grammar = profile.get("visual_grammar")
+    if not isinstance(grammar, dict):
+        errors.append("visual_grammar must be an object")
+        return
+    for key in sorted(set(grammar) - VISUAL_GRAMMAR_KEYS):
+        errors.append(f"visual_grammar {key} is not allowed")
+    if not set(grammar) & VISUAL_GRAMMAR_KEYS:
+        errors.append(
+            "visual_grammar must name allowed_materials and/or "
+            "animation_vocab"
+        )
+    materials = grammar.get("allowed_materials")
+    if "allowed_materials" in grammar:
+        if not isinstance(materials, list) or not materials:
+            errors.append(
+                "visual_grammar allowed_materials must be a non-empty array"
+            )
+        else:
+            for value in materials:
+                if value not in ALLOWABLE_MATERIALS:
+                    errors.append(
+                        f"visual_grammar allowed material not in "
+                        f"vocabulary: {value}"
+                    )
+    vocab = grammar.get("animation_vocab")
+    if "animation_vocab" in grammar:
+        if not isinstance(vocab, list) or not vocab:
+            errors.append(
+                "visual_grammar animation_vocab must be a non-empty array"
+            )
+        else:
+            for value in vocab:
+                if value not in ANIMATION_VOCAB:
+                    errors.append(
+                        f"visual_grammar animation state not in "
+                        f"vocabulary: {value}"
+                    )
+            if "idle" not in vocab:
+                errors.append(
+                    "visual_grammar animation_vocab must include idle"
+                )
 
 
 def _validate_lineage_preferences(profile: dict, errors: list[str]) -> None:

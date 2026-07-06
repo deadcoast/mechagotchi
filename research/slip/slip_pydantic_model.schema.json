@@ -1,5 +1,29 @@
 {
   "$defs": {
+    "AllowableMaterial": {
+      "enum": [
+        "void",
+        "soft",
+        "hard",
+        "glass",
+        "joint",
+        "light",
+        "signal"
+      ],
+      "title": "AllowableMaterial",
+      "type": "string"
+    },
+    "AnimationState": {
+      "enum": [
+        "idle",
+        "blink",
+        "sleep",
+        "beg",
+        "ill"
+      ],
+      "title": "AnimationState",
+      "type": "string"
+    },
     "BehaviorContract": {
       "additionalProperties": false,
       "properties": {
@@ -271,6 +295,45 @@
       ],
       "title": "SwitchboardThread",
       "type": "string"
+    },
+    "VisualGrammarContract": {
+      "additionalProperties": false,
+      "properties": {
+        "allowed_materials": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/AllowableMaterial"
+              },
+              "minItems": 1,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Allowed Materials"
+        },
+        "animation_vocab": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/AnimationState"
+              },
+              "minItems": 1,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Animation Vocab"
+        }
+      },
+      "title": "VisualGrammarContract",
+      "type": "object"
     }
   },
   "additionalProperties": false,
@@ -332,6 +395,31 @@
       "anyOf": [
         {
           "$ref": "#/$defs/LineagePreferencesContract"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "species_class": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "pattern": "^[a-z0-9_]+$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Species Class"
+    },
+    "visual_grammar": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/VisualGrammarContract"
         },
         {
           "type": "null"

@@ -651,6 +651,9 @@ Post-v0.1 continuation has started:
 - `labs/grid_genome/vocabulary_exemplars.py`
 - `data/vocabulary_exemplars/` (T15: cover-not-trim — the vocab_argus exemplar exercises every dormant cell role, material, and organ role; coverage pinned by test so the vocabulary can never silently go dormant again)
 
+- `research/experiment_reports/2026-07-05-slip-ladder-species-grammar.md`
+- `labs/grid_genome/test_slip_visual_grammar.py` (T3.5, the ladder's final field rung: species_class consumed by evolution identity; visual_grammar's allowed_materials alignment-enforced and animation_vocab packet-consumed with honest mood on fallback; all four package mirrors synced — DR 0013's parity pins caught the lag as designed)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

@@ -96,6 +96,49 @@ class SwitchboardThread(str, Enum):
     mutation_risk_scorer = "mutation_risk_scorer"
 
 
+class AnimationState(str, Enum):
+    idle = "idle"
+    blink = "blink"
+    sleep = "sleep"
+    beg = "beg"
+    ill = "ill"
+
+
+class AllowableMaterial(str, Enum):
+    void = "void"
+    soft = "soft"
+    hard = "hard"
+    glass = "glass"
+    joint = "joint"
+    light = "light"
+    signal = "signal"
+
+
+class VisualGrammarContract(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    allowed_materials: (
+        Annotated[list[AllowableMaterial], Field(min_length=1)] | None
+    ) = None
+    animation_vocab: (
+        Annotated[list[AnimationState], Field(min_length=1)] | None
+    ) = None
+
+    @model_validator(mode="after")
+    def require_content_and_idle(self) -> "VisualGrammarContract":
+        if self.allowed_materials is None and self.animation_vocab is None:
+            raise ValueError(
+                "visual_grammar must name allowed_materials and/or "
+                "animation_vocab"
+            )
+        if (
+            self.animation_vocab is not None
+            and AnimationState.idle not in self.animation_vocab
+        ):
+            raise ValueError("animation_vocab must include idle")
+        return self
+
+
 class LineagePreferencesContract(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -216,6 +259,10 @@ class SLIPProfile(BaseModel):
     forbidden_traits: ForbiddenTraitsContract | None = None
     risk_tolerances: RiskTolerancesContract | None = None
     lineage_preferences: LineagePreferencesContract | None = None
+    species_class: (
+        Annotated[str, Field(min_length=1, pattern="^[a-z0-9_]+$")] | None
+    ) = None
+    visual_grammar: VisualGrammarContract | None = None
     learning_switches: (
         Annotated[dict[SwitchboardThread, bool], Field(min_length=1)] | None
     ) = None
@@ -234,6 +281,10 @@ class SLIPProfile(BaseModel):
             raise ValueError("learning_switches requires slip_version 0.2.0")
         if self.lineage_preferences is not None and self.slip_version != "0.2.0":
             raise ValueError("lineage_preferences requires slip_version 0.2.0")
+        if self.species_class is not None and self.slip_version != "0.2.0":
+            raise ValueError("species_class requires slip_version 0.2.0")
+        if self.visual_grammar is not None and self.slip_version != "0.2.0":
+            raise ValueError("visual_grammar requires slip_version 0.2.0")
         if self.forbidden_traits is not None:
             if self.slip_version != "0.2.0":
                 raise ValueError(

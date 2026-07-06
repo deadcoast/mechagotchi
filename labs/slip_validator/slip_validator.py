@@ -47,7 +47,11 @@ LADDER_KEYS = {
     "risk_tolerances",
     "learning_switches",
     "lineage_preferences",
+    "species_class",
+    "visual_grammar",
 }
+VISUAL_GRAMMAR_KEYS = {"allowed_materials", "animation_vocab"}
+ANIMATION_VOCAB = {"idle", "blink", "sleep", "beg", "ill"}
 PARENT_SELECTION_MODES = {"uniform", "fitness_weighted"}
 LINEAGE_PREFERENCES_KEYS = {"parent_selection"}
 SWITCHBOARD_THREAD_NAMES = {
@@ -72,6 +76,8 @@ FORBIDDABLE_ROLES = {
     "anchor",
 }
 FORBIDDABLE_MATERIALS = {"soft", "hard", "glass", "joint", "light", "signal"}
+# All schema materials incl. void (empty cells always legal to allow).
+ALLOWABLE_MATERIALS = {"void"} | FORBIDDABLE_MATERIALS
 CELL_ROLE_FOR_ORGAN_ROLE = {
     "sensor": "eye",
     "expression": "mouth",
@@ -125,6 +131,61 @@ def validate_profile(profile: dict, source_path: Path | None = None) -> dict:
             _validate_unit_interval(
                 tolerances.get("mutation"), ["risk_tolerances", "mutation"], errors
             )
+    if "species_class" in profile:
+        species = profile.get("species_class")
+        if not isinstance(species, str) or not species or not all(
+            ch.islower() or ch.isdigit() or ch == "_" for ch in species
+        ):
+            _add(
+                errors,
+                "semantic_species_class",
+                ["species_class"],
+                "species_class must be a non-empty lowercase identifier",
+            )
+    if "visual_grammar" in profile:
+        grammar = profile["visual_grammar"]
+        if not isinstance(grammar, dict) or not set(grammar) & VISUAL_GRAMMAR_KEYS:
+            _add(
+                errors,
+                "semantic_visual_grammar",
+                ["visual_grammar"],
+                "visual_grammar must name allowed_materials and/or animation_vocab",
+            )
+        elif isinstance(grammar, dict):
+            for key in sorted(set(grammar) - VISUAL_GRAMMAR_KEYS):
+                _add(
+                    errors,
+                    "schema_additional_property",
+                    ["visual_grammar", key],
+                    f"visual_grammar.{key} is not allowed",
+                )
+            materials = grammar.get("allowed_materials")
+            if "allowed_materials" in grammar and (
+                not isinstance(materials, list)
+                or not materials
+                or any(m not in ALLOWABLE_MATERIALS for m in materials)
+            ):
+                _add(
+                    errors,
+                    "semantic_visual_grammar",
+                    ["visual_grammar", "allowed_materials"],
+                    "visual_grammar.allowed_materials must be a non-empty "
+                    "array of schema materials",
+                )
+            vocab = grammar.get("animation_vocab")
+            if "animation_vocab" in grammar and (
+                not isinstance(vocab, list)
+                or not vocab
+                or any(v not in ANIMATION_VOCAB for v in vocab)
+                or "idle" not in vocab
+            ):
+                _add(
+                    errors,
+                    "semantic_visual_grammar",
+                    ["visual_grammar", "animation_vocab"],
+                    "visual_grammar.animation_vocab must be a non-empty "
+                    "subset of the five states including idle",
+                )
     if "lineage_preferences" in profile:
         preferences = profile["lineage_preferences"]
         _validate_object(
