@@ -578,3 +578,72 @@ class AsepriteSpritesheetEndpointTests(unittest.TestCase):
         result = json.loads(body)
         self.assertFalse(result["ok"])
         self.assertGreater(len(result["errors"]), 0)
+
+
+class ReleaseEndpointTests(unittest.TestCase):
+    """T1.3: releasing a creature into the ecosystem is strict and traced."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.temp = tempfile.TemporaryDirectory()
+        base = Path(cls.temp.name)
+        cls.grids_dir = base / "grids"
+        cls.released_dir = base / "released"
+        cls.server = start_workshop_server(
+            port=0,
+            grids_dir=cls.grids_dir,
+            slips_dir=base / "slips",
+            released_dir=cls.released_dir,
+        )
+        cls.base = f"http://127.0.0.1:{cls.server.server_address[1]}"
+        _post(
+            f"{cls.base}/api/save",
+            {
+                "name": "release candidate",
+                "matrix": VALID_MATRIX,
+                "palette_id": "lcd_green",
+            },
+        )
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.server.shutdown()
+        cls.temp.cleanup()
+
+    def test_release_requires_a_saved_engine_valid_creature(self):
+        status, payload = _post(
+            f"{self.base}/api/release", {"name": "never saved"}
+        )
+        self.assertEqual(404, status)
+        self.assertFalse(payload["ok"])
+
+    def test_release_copies_into_the_ecosystem_with_lineage_mark(self):
+        status, payload = _post(
+            f"{self.base}/api/release", {"name": "release candidate"}
+        )
+        self.assertEqual(200, status)
+        self.assertTrue(payload["ok"])
+        released = self.released_dir / payload["file"]
+        self.assertTrue(released.exists())
+        grid = json.loads(released.read_text(encoding="utf-8"))
+        self.assertEqual("workshop_grid_editor", grid["metadata"]["source"])
+        self.assertIn(
+            "released_into_ecosystem",
+            grid["lineage"]["mutation_events"],
+        )
+        # The draft stays; release is a copy, not a move.
+        self.assertTrue((self.grids_dir / "release_candidate.json").exists())
+
+        status, listing = _get(f"{self.base}/api/released")
+        self.assertEqual(200, status)
+        names = [entry["name"] for entry in listing["released"]]
+        self.assertIn("release_candidate", names)
+
+    def test_release_backs_up_on_re_release(self):
+        _post(f"{self.base}/api/release", {"name": "release candidate"})
+        status, payload = _post(
+            f"{self.base}/api/release", {"name": "release candidate"}
+        )
+        self.assertEqual(200, status)
+        self.assertTrue(payload["backup"])
+        self.assertTrue(any(self.released_dir.glob("*.bak.json")))

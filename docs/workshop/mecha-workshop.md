@@ -76,6 +76,20 @@ return codec failure families verbatim. Verified: 27 workshop tests
 plus live-browser UI roundtrips through the real handlers for both
 formats (all 13 cells restored, anchor included).
 
+## The ecosystem wire (T1, owner DESIGN-CORRECTION)
+
+**Released creatures live in the engine's world.** The grid editor's
+Release button, `POST /api/release`, and `mechas workshop --release
+<name>` copy a saved, engine-valid creature (lineage-marked
+`released_into_ecosystem`) into `data/workshop/released/`; evolution
+runs admit that directory as generation-0 founders through the
+engine's own gates and trace every descendant
+(`--workshop-dir data/workshop/released`). First measured result:
+both founding fixtures went extinct at generation 0 against the seed
+corpus — the ecosystem does not grant favors, and the editor's
+structural-load meter is the tool for authoring fitter founders
+(`research/experiment_reports/2026-07-05-workshop-engine-wire.md`).
+
 ## The research the workshop stands on
 
 Every planned surface maps to proven lab work (all ledgered in

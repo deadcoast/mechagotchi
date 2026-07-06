@@ -20,6 +20,18 @@ engine remains autonomous.** The workshop guides, constrains, remixes,
 and authors; it never simulates, never decides survival, never learns.
 Everything alive stays the engine's.
 
+The og triangle is load-bearing and now fully wired:
+
+```text
+mecha: engine <-> SLIP <-> workshop
+  workshop --(release)--> data/workshop/released --(engine gates)--> evolution founders
+  engine --(render packets / verdicts / lineages)--> workshop surfaces
+```
+
+The workshop authors assets FOR the ecosystem; released creatures
+compete in the engine's simulations on the engine's terms (T1 wire,
+owner DESIGN-CORRECTION 2026-07-05).
+
 ## 2. Who it is for
 
 **Creators first** — pixel artists and companion-keepers, not engine

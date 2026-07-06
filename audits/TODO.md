@@ -11,25 +11,25 @@ completions, **P3** = owner-gated human studies (queued, never chased).
 
 ## P0 — The [00] correction: workshop creatures enter the ecosystem
 
-- [ ] **T1 · Workshop→engine asset wire.** Workshop-authored creatures
+- [x] **T1 · Workshop→engine asset wire.** (shipped 2026-07-05; T1.5 owner-gated) Workshop-authored creatures
   (`data/workshop/grids/`) become first-class simulation assets:
-  - [ ] T1.1 Lab experiment (`labs/runtime_integration`): evolution run
+  - [x] T1.1 Lab experiment (`labs/runtime_integration`): evolution run
         whose parent pool = corpus seeds + SLIP-aligned workshop grids;
         measure the workshop lineage's survival/archive entry vs corpus
         lineages (the og promise: user assets influence evolution).
         Regime-conditional keys; sheltered parity untouched.
-  - [ ] T1.2 Provenance: workshop creatures already carry
+  - [x] T1.2 Provenance: workshop creatures already carry
         `metadata.source = workshop_grid_editor`; assert lineage
         traceability of workshop ancestry through generations
         (`ancestor_ids` chain) in the lab's tests.
-  - [ ] T1.3 Surface: `mechas workshop` gains the release flow (e.g.
+  - [x] T1.3 Surface: `mechas workshop` gains the release flow (e.g.
         `--release <creature>` or an editor "release into the ecosystem"
         action) that validates strictly, then registers the creature as
         simulation seed input. UX per the CLI charter.
-  - [ ] T1.4 Docs: experiment report + runtime card update + workshop
+  - [x] T1.4 Docs: experiment report + runtime card update + workshop
         reference ("the creature you draw can live and breed in the
         engine's world") + og-triangle diagram restored in the charter.
-  - [ ] T1.5 If the lab proves value and the owner accepts: DR for the
+  - [ ] T1.5 (OWNER-GATED, evidence-ready) If the owner accepts and the owner accepts: DR for the
         `runtime.evolve` seed-source contract extension (promoted-module
         change; parity implications documented).
 

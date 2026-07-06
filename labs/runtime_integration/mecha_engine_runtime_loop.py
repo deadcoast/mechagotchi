@@ -496,6 +496,7 @@ def run_mecha_engine_evolution_loop(
     repair_epochs: int = 150,
     rng_seed: int = 20260512,
     survival_regime: str = "sheltered",
+    workshop_grids_dir: str | Path | None = None,
 ) -> dict:
     """Multi-generation evolution through the composed engine.
 
@@ -514,6 +515,17 @@ def run_mecha_engine_evolution_loop(
     archive's contracted morphology stress probe, making survival
     morphology-dependent so selection has a gradient. Stress-only report
     keys are added exclusively under the stress regime.
+
+    `workshop_grids_dir` (T1, the workshop->engine asset wire — owner
+    DESIGN-CORRECTION 2026-07-05): a directory of RELEASED workshop
+    creatures. Each is admitted through the engine's own gates
+    (validate_grid + SLIP alignment); admitted founders LEAD the
+    generation-0 parent pool so the wire is always exercised, and their
+    grid_ids remain traceable through every descendant's
+    `lineage.ancestor_ids` chain (renames per damage cycle touch only
+    `grid_id`, never the ancestor list). All wire keys are conditional:
+    the default `None` path stays byte-identical — the package parity
+    pins depend on it.
     """
     if survival_regime not in ("sheltered", "stress_probe"):
         raise ValueError(f"unknown survival_regime: {survival_regime}")
@@ -538,14 +550,45 @@ def run_mecha_engine_evolution_loop(
     if not seed_pool:
         raise ValueError("no seed grid satisfies the SLIP profile")
 
+    workshop = workshop_grids_dir is not None
+    workshop_founders: list[dict] = []
+    workshop_rejected: list[dict] = []
+    founder_ids: set[str] = set()
+    released_count = 0
+    if workshop:
+        released_dir = Path(workshop_grids_dir)
+        for file in sorted(released_dir.glob("*.json")):
+            if file.name.endswith(".bak.json"):
+                continue
+            released_count += 1
+            grid = json.loads(file.read_text(encoding="utf-8"))
+            errors: list[str] = []
+            validation = validate_grid(grid)
+            errors.extend(validation.errors)
+            alignment = is_grid_aligned(grid, slip_profile)
+            errors.extend(alignment.errors)
+            if errors:
+                workshop_rejected.append(
+                    {"grid_id": grid.get("grid_id"), "errors": errors}
+                )
+            else:
+                workshop_founders.append(grid)
+                founder_ids.add(grid["grid_id"])
+
     archive = build_archive([], {})
     generation_reports = []
     max_lineage_generation = 0
 
     for generation_index in range(generations):
         if generation_index == 0:
-            parents = seed_pool
-            parent_source = "seed_pool"
+            if workshop and workshop_founders:
+                # Founders lead the pool so the round-robin always
+                # exercises the wire deterministically.
+                parents = workshop_founders + seed_pool
+                parent_source = "workshop_founders_plus_seed_pool"
+            else:
+                parents = seed_pool
+                parent_source = "seed_pool"
         else:
             elites = archive["elites"]
             parents = [
@@ -595,7 +638,7 @@ def run_mecha_engine_evolution_loop(
                 all_valid = all_valid and valid
                 all_aligned = all_aligned and aligned
                 episode = None
-                if aligned:
+                if valid and aligned:
                     cycle_episode_grid, _ = episode_grid(repaired)
                     episode = run_episode(
                         cycle_episode_grid,
@@ -630,10 +673,20 @@ def run_mecha_engine_evolution_loop(
             stages["all_cycles_aligned"] = all_aligned
 
             score_digest = None
-            decision = "skipped_unaligned"
+            # Overwritten by the archive outcome when scoring runs.
+            decision = (
+                "skipped_invalid"
+                if all_aligned and not all_valid
+                else "skipped_unaligned"
+            )
             stages["scored"] = False
             final_load = None
-            if all_aligned and cycles and cycles[-1]["episode"] is not None:
+            if (
+                all_valid
+                and all_aligned
+                and cycles
+                and cycles[-1]["episode"] is not None
+            ):
                 final_episode_grid, final_load = episode_grid(current)
                 final_episode = run_episode(
                     final_episode_grid,
@@ -680,6 +733,9 @@ def run_mecha_engine_evolution_loop(
                 else:
                     decision = "kept_incumbent"
 
+            ancestor_ids = list(
+                candidate.get("lineage", {}).get("ancestor_ids", [])
+            )
             creature_record = {
                 "parent_grid_id": parent["grid_id"],
                 "candidate_grid_id": candidate["grid_id"],
@@ -695,6 +751,14 @@ def run_mecha_engine_evolution_loop(
                 if final_load is None:
                     _, final_load = _stress_probe(current)
                 creature_record["stress_load"] = final_load
+            if workshop:
+                descended = parent["grid_id"] in founder_ids or any(
+                    founder in ancestor_ids for founder in founder_ids
+                )
+                creature_record["founder_source"] = (
+                    "workshop" if descended else "corpus"
+                )
+                creature_record["ancestor_ids"] = ancestor_ids
             creatures.append(creature_record)
 
         summary_after = archive_summary(archive)
@@ -760,11 +824,57 @@ def run_mecha_engine_evolution_loop(
             for e in episodes
             if not e["alive"]
         )
-    report_lab_id = (
-        "mecha_engine_evolution_hard_regime_stage0"
-        if stress
-        else "mecha_engine_evolution_loop_stage0"
-    )
+    if workshop:
+        def _is_workshop(creature: dict) -> bool:
+            return creature.get("founder_source") == "workshop"
+
+        def _mean_fitness(records: list[dict]) -> float | None:
+            scored = [
+                r["score"]["fitness"] for r in records if r["score"] is not None
+            ]
+            return round(sum(scored) / len(scored), 6) if scored else None
+
+        all_creatures = [
+            creature
+            for generation in generation_reports
+            for creature in generation["creatures"]
+        ]
+        workshop_creatures = [c for c in all_creatures if _is_workshop(c)]
+        corpus_creatures = [c for c in all_creatures if not _is_workshop(c)]
+        elite_ids_with_workshop_ancestry = sum(
+            1
+            for niche in sorted(archive["elites"])
+            if any(
+                founder
+                in archive["elites"][niche]["grid"]
+                .get("lineage", {})
+                .get("ancestor_ids", [])
+                for founder in founder_ids
+            )
+        )
+        summary["workshop"] = {
+            "released_count": released_count,
+            "founder_ids": sorted(founder_ids),
+            "rejected": workshop_rejected,
+            "creature_count_by_generation": [
+                sum(1 for c in generation["creatures"] if _is_workshop(c))
+                for generation in generation_reports
+            ],
+            "archive_elite_count": elite_ids_with_workshop_ancestry,
+            "mean_fitness": _mean_fitness(workshop_creatures),
+            "corpus_mean_fitness": _mean_fitness(corpus_creatures),
+            "lineage_survived_beyond_founding": any(
+                _is_workshop(c)
+                for generation in generation_reports[1:]
+                for c in generation["creatures"]
+            ),
+        }
+    if workshop:
+        report_lab_id = "mecha_engine_evolution_workshop_wire_stage0"
+    elif stress:
+        report_lab_id = "mecha_engine_evolution_hard_regime_stage0"
+    else:
+        report_lab_id = "mecha_engine_evolution_loop_stage0"
     result = {
         "lab_id": report_lab_id,
         "date": "2026-07-05",
@@ -805,6 +915,25 @@ def run_mecha_engine_evolution_loop(
             "once human ratings exist."
         ),
     }
+    if workshop:
+        result["workshop_grids_dir"] = (
+            Path(workshop_grids_dir).resolve().relative_to(ROOT).as_posix()
+            if Path(workshop_grids_dir).resolve().is_relative_to(ROOT)
+            else str(workshop_grids_dir)
+        )
+        result["purpose"] = (
+            "T1, the workshop->engine asset wire: released workshop "
+            "creatures join the evolution founder pool through the "
+            "engine's own gates, and their lineages are traced through "
+            "every generation — the og promise that user-authored assets "
+            "influence evolution, measured."
+        )
+        result["next_research_step"] = (
+            "With workshop lineages measurably competing in the "
+            "ecosystem, propose the runtime.evolve seed-source contract "
+            "extension by decision record (T1.5, owner-gated) and grow "
+            "the released corpus."
+        )
     if stress:
         result["survival_regime"] = "stress_probe"
         result["next_research_step"] = (
@@ -939,10 +1068,28 @@ def write_evolution_loop_artifacts(output_dir: Path, report: dict) -> None:
         encoding="utf-8",
     )
     summary = report["summary"]
-    readme_name = (
-        "evolution_hard_regime_README.md" if stress else "evolution_loop_README.md"
-    )
+    wire = "workshop" in report["summary"]
+    if wire:
+        readme_name = "evolution_workshop_wire_README.md"
+    elif stress:
+        readme_name = "evolution_hard_regime_README.md"
+    else:
+        readme_name = "evolution_loop_README.md"
     regime_lines = ""
+    if wire:
+        workshop_summary = report["summary"]["workshop"]
+        regime_lines += (
+            f"- Workshop wire: {len(workshop_summary['founder_ids'])} founder(s) "
+            f"admitted of {workshop_summary['released_count']} released "
+            f"({len(workshop_summary['rejected'])} rejected by the engine's gates)\n"
+            f"- Workshop-lineage creatures by generation: "
+            f"{workshop_summary['creature_count_by_generation']}\n"
+            f"- Workshop-ancestry elites in the archive: "
+            f"{workshop_summary['archive_elite_count']}\n"
+            f"- Mean fitness workshop vs corpus lineages: "
+            f"{workshop_summary['mean_fitness']} vs "
+            f"{workshop_summary['corpus_mean_fitness']}\n"
+        )
     if stress:
         regime_lines = (
             f"- Survival regime: stress_probe (episodes on the contracted "
@@ -1032,6 +1179,13 @@ def main() -> None:
     parser.add_argument("--ticks", type=int, default=72)
     parser.add_argument("--dropout-rate", type=float, default=0.2)
     parser.add_argument("--rng-seed", type=int, default=20260512)
+    parser.add_argument(
+        "--workshop-dir",
+        type=Path,
+        default=None,
+        help="Directory of RELEASED workshop creatures to admit as "
+        "evolution founders (T1 wire); e.g. data/workshop/released.",
+    )
     args = parser.parse_args()
     if args.mode == "evolution":
         report = run_mecha_engine_evolution_loop(
@@ -1042,6 +1196,7 @@ def main() -> None:
             dropout_rate=args.dropout_rate,
             rng_seed=args.rng_seed,
             survival_regime=args.regime,
+            workshop_grids_dir=args.workshop_dir,
         )
         write_evolution_loop_artifacts(args.output_dir, report)
     else:

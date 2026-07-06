@@ -106,3 +106,15 @@ evolution over archive elites.
 The SLIP-aware guard batch shipped and `slip_alignment_retention_rate ==
 1.0` at full size — the evidence gate is satisfied. Go for a `runtime`
 package target proposal only with an owner-approved decision record.
+
+## Workshop Wire Result (2026-07-05, audit T1)
+
+`workshop_grids_dir` admits released workshop creatures as
+generation-0 founders through the engine's own gates; lineages are
+traced via `ancestor_ids` (founder ids survive per-cycle renames).
+First run (2 founders, stress regime, 6 generations): both lineages
+went extinct at founding (fitness 0.762 vs corpus 0.868, zero
+archive entries) — user assets compete, they are not granted
+survival. The wire also exposed a latent gate gap (episodes gated on
+alignment only) now hardened to `valid and aligned` with the
+`skipped_invalid` outcome; pinned artifacts unchanged.

@@ -163,6 +163,7 @@
         <div class="filebar">
           <input type="text" id="grid-name" placeholder="creature name" maxlength="48">
           <button class="action primary" id="save-btn" disabled>Save</button>
+          <button class="action" id="release-btn">Release</button>
           <select id="load-select"><option value="">load…</option></select>
           <button class="action" id="clear-btn">Clear</button>
         </div>
@@ -433,6 +434,31 @@ function renderVerdict(verdict) {
 
 /* ---------------- save / load ---------------- */
 $("grid-name").addEventListener("input", () => { if (lastVerdict) renderVerdict(lastVerdict); });
+
+$("release-btn").addEventListener("click", async () => {
+  const name = $("grid-name").value.trim();
+  const notice = $("save-notice");
+  if (!name) {
+    notice.textContent = "name and save your creature before releasing it";
+    notice.className = "notice err";
+    return;
+  }
+  const response = await fetch("/api/release", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name }),
+  });
+  const result = await response.json();
+  if (response.ok && result.ok) {
+    notice.textContent = "released into the ecosystem as " + result.file +
+      " — evolution runs can now breed from it" +
+      (result.backup ? " (previous release backed up)" : "");
+    notice.className = "notice ok";
+  } else {
+    notice.textContent = result.error || "release failed";
+    notice.className = "notice err";
+  }
+});
 
 $("save-btn").addEventListener("click", async () => {
   const response = await fetch("/api/save", {

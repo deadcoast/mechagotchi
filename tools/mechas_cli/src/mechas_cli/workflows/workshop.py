@@ -49,6 +49,13 @@ def workshop(
         help="Launch the preview: render packets, a live_cycle day in "
         "the life, and engine-generated offspring.",
     ),
+    release: str | None = typer.Option(
+        None,
+        "--release",
+        help="Release a saved creature into the ecosystem: evolution "
+        "runs can breed from it (strictly validated; lineage-marked "
+        "copy under data/workshop/released/).",
+    ),
     port: int = typer.Option(
         DEFAULT_PORT,
         "--port",
@@ -63,6 +70,10 @@ def workshop(
     """The creative authoring layer. Start with [bold]--editor[/bold]."""
     console = theme.console()
     root = find_workspace_root()
+
+    if release is not None:
+        _release(console, root, release)
+        return
 
     if not editor and not slip and not preview:
         console.print(theme.banner("workshop — what would you like to open?"))
@@ -88,6 +99,13 @@ def workshop(
                         "what",
                         "watch a creature live: render packets, "
                         "damage/repair cycles, engine-bred offspring",
+                        "mechas.value",
+                    ),
+                    ("target", "--release <name>", "mechas.accent"),
+                    (
+                        "what",
+                        "release a saved creature into the ecosystem — "
+                        "evolution runs breed from it",
                         "mechas.value",
                     ),
                     (
@@ -197,3 +215,58 @@ def workshop(
         process.terminate()
     console.print()
     console.print("  [mechas.dim]workshop closed.[/]")
+
+
+def _release(console, root, name: str) -> None:
+    """One-shot release via the workshop server's CLI mode (workspace
+    interpreter — the validation is the engine's own)."""
+    import json as _json
+
+    console.print(theme.banner("workshop — release into the ecosystem"))
+    completed = subprocess.run(
+        [
+            _workspace_python(root),
+            "-B",
+            str(root / SERVER_SCRIPT),
+            "--release",
+            name,
+        ],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    try:
+        result = _json.loads(completed.stdout.strip().splitlines()[-1])
+    except (ValueError, IndexError):
+        console.print(
+            "[mechas.err]The release couldn't run.[/] Details:\n"
+            + (completed.stderr or completed.stdout or "(no output)")
+        )
+        raise typer.Exit(code=1)
+    if result.get("ok"):
+        console.print(
+            theme.kv_table(
+                [
+                    ("released", result["file"], "mechas.ok"),
+                    (
+                        "lives in",
+                        "data/workshop/released/ — evolution runs breed "
+                        "from this directory",
+                        "mechas.path",
+                    ),
+                ]
+            )
+        )
+        console.print()
+        console.print(
+            "  [mechas.dim]try:[/]  [mechas.accent]python -B "
+            "labs/runtime_integration/mecha_engine_runtime_loop.py "
+            "--mode evolution --workshop-dir data/workshop/released[/]"
+        )
+    else:
+        console.print(
+            "[mechas.err]" + str(result.get("error", "release failed")) + "[/]"
+        )
+        for error in result.get("errors", []):
+            console.print(f"  [mechas.warn]{error}[/]")
+        raise typer.Exit(code=1)

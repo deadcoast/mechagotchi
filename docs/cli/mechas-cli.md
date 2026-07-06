@@ -44,6 +44,7 @@ mechas                          the main command (help + version)
 │   ├── --editor                launch the grid editor (live engine validation)
 │   ├── --slip                  launch the SLIP profile creator (live authority validation)
 │   ├── --preview               watch a creature live: packets, damage/repair, offspring
+│   ├── --release <name>        release a saved creature into the ecosystem
 │   ├── --port <n>              local port (default: pick a free one)
 │   └── --no-browser            don't auto-open the browser
 └── status                      workspace at a glance (modules, gates, open tasks)

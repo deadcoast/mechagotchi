@@ -55,6 +55,11 @@ Endpoints:
                             together)
 - POST /api/import/spritesheet  {png_base64, sidecar} -> restored
                             matrix through the codec's binding checks
+- POST /api/release         {name} -> release a SAVED, engine-valid
+                            creature into the ecosystem (T1 wire): a
+                            lineage-marked copy lands in the released
+                            directory that evolution runs consume
+- GET  /api/released        creatures currently released
 
 Launched by `mechas workshop --editor` with the workspace interpreter.
 """
@@ -118,6 +123,7 @@ from mecha_engine.runtime import live_cycle  # noqa: E402
 WORKSHOP_DIR = ROOT / "workshop"
 DEFAULT_GRIDS_DIR = ROOT / "data" / "workshop" / "grids"
 DEFAULT_SLIPS_DIR = ROOT / "data" / "workshop" / "slips"
+DEFAULT_RELEASED_DIR = ROOT / "data" / "workshop" / "released"
 SLIP_VALID_DIR = ROOT / "data" / "slips" / "valid"
 TOKENS = {".", "B", "A", "E", "M"}
 GRID_SIZE = 8
@@ -221,9 +227,11 @@ class WorkshopServer(ThreadingHTTPServer):
         address: tuple[str, int],
         grids_dir: Path,
         slips_dir: Path,
+        released_dir: Path,
     ) -> None:
         self.grids_dir = grids_dir
         self.slips_dir = slips_dir
+        self.released_dir = released_dir
         self.curated_profiles = _load_profiles()
         self.seed_grids = build_seed_grids()
         self.repair_model = train_repair_model(self.seed_grids)
@@ -349,6 +357,24 @@ class _Handler(SimpleHTTPRequestHandler):
                 )
             self._json(200, {"grids": grids})
             return
+        if path == "/api/released":
+            released = []
+            if self.server.released_dir.exists():
+                for file in sorted(self.server.released_dir.glob("*.json")):
+                    if file.name.endswith(".bak.json"):
+                        continue
+                    payload = json.loads(file.read_text(encoding="utf-8"))
+                    released.append(
+                        {
+                            "name": file.stem,
+                            "grid_id": payload.get("grid_id"),
+                            "palette_id": payload.get("palette", {}).get(
+                                "palette_id"
+                            ),
+                        }
+                    )
+            self._json(200, {"released": released})
+            return
         if path == "/api/slips":
             slips = []
             for profile_id, profile in sorted(
@@ -421,6 +447,7 @@ class _Handler(SimpleHTTPRequestHandler):
             "/api/import/aseprite",
             "/api/export/spritesheet",
             "/api/import/spritesheet",
+            "/api/release",
         ):
             self._json(404, {"ok": False, "error": "unknown endpoint"})
             return
@@ -449,6 +476,14 @@ class _Handler(SimpleHTTPRequestHandler):
             return
         if path == "/api/import/spritesheet":
             self._import_spritesheet(payload)
+            return
+        if path == "/api/release":
+            status, result = release_creature(
+                self.server.grids_dir,
+                self.server.released_dir,
+                str(payload.get("name", "")),
+            )
+            self._json(status, result)
             return
         if path.startswith("/api/export/"):
             self._export(path.rsplit("/", 1)[-1], payload)
@@ -814,6 +849,51 @@ class _Handler(SimpleHTTPRequestHandler):
         )
 
 
+def release_creature(
+    grids_dir: Path, released_dir: Path, name: str
+) -> tuple[int, dict]:
+    """Release a saved creature into the ecosystem (T1 wire).
+
+    Strict per the 4-W pillar: the creature must exist as a saved draft
+    and pass the engine's validator again at release time. The release
+    is a lineage-marked COPY (`released_into_ecosystem` mutation event) —
+    the draft stays editable; the released copy is what evolution runs
+    consume. Backup-before-overwrite on re-release.
+    """
+    source = grids_dir / (_safe_name(name) + ".json")
+    if not source.exists():
+        return 404, {
+            "ok": False,
+            "error": "no saved creature by that name — save it first",
+        }
+    grid = json.loads(source.read_text(encoding="utf-8"))
+    validation = validate_grid(grid)
+    if not validation.ok:
+        return 400, {
+            "ok": False,
+            "error": "the engine rejects this creature; fix it first",
+            "errors": list(validation.errors),
+        }
+    events = grid.setdefault("lineage", {}).setdefault(
+        "mutation_events", []
+    )
+    if "released_into_ecosystem" not in events:
+        events.append("released_into_ecosystem")
+    released_dir.mkdir(parents=True, exist_ok=True)
+    target = released_dir / source.name
+    backup = None
+    if target.exists():
+        stamp = time.strftime("%Y%m%d-%H%M%S")
+        backup = target.with_name(f"{target.stem}.{stamp}.bak.json")
+        backup.write_bytes(target.read_bytes())
+    target.write_text(json.dumps(grid, indent=2) + "\n", encoding="utf-8")
+    return 200, {
+        "ok": True,
+        "file": target.name,
+        "backup": backup.name if backup else None,
+    }
+
+
 def _authoring_review(profile: dict) -> dict:
     """The workshop_editor authoring panel, when its dependencies exist.
 
@@ -847,8 +927,11 @@ def start_workshop_server(
     port: int = 0,
     grids_dir: Path = DEFAULT_GRIDS_DIR,
     slips_dir: Path = DEFAULT_SLIPS_DIR,
+    released_dir: Path = DEFAULT_RELEASED_DIR,
 ) -> WorkshopServer:
-    server = WorkshopServer(("127.0.0.1", port), grids_dir, slips_dir)
+    server = WorkshopServer(
+        ("127.0.0.1", port), grids_dir, slips_dir, released_dir
+    )
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
     return server
@@ -858,7 +941,20 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="mecha_workshop server")
     parser.add_argument("--port", type=int, default=0)
     parser.add_argument("--grids-dir", type=Path, default=DEFAULT_GRIDS_DIR)
+    parser.add_argument(
+        "--release",
+        type=str,
+        default=None,
+        help="One-shot: release a saved creature into the ecosystem, "
+        "print the JSON result, exit.",
+    )
     args = parser.parse_args()
+    if args.release is not None:
+        status, result = release_creature(
+            args.grids_dir, DEFAULT_RELEASED_DIR, args.release
+        )
+        print(json.dumps(result))
+        raise SystemExit(0 if status == 200 else 1)
     server = start_workshop_server(port=args.port, grids_dir=args.grids_dir)
     print(
         f"workshop serving on http://127.0.0.1:{server.server_address[1]}/",

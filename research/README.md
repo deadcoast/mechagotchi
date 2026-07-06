@@ -607,6 +607,12 @@ Post-v0.1 continuation has started:
 - `audits/TODO.md` (tasks T14-T21)
 - `.depreciated/02-design.md`, `.depreciated/02-research.md` (second-pass audit: the 02 files are byte-identical; the RUN ONE/RUN TWO SLIP fork was resolved silently in RUN ONE's favor; grid schema adopted RUN TWO's vocabulary but it lies dormant; RUN TWO's statistical protocols — holdout bake-off, MAP-Elites comparators, learner ablation, pairwise studies — were downscaled or skipped without records; all now tasked)
 
+- `research/experiment_reports/2026-07-05-workshop-engine-wire.md`
+- `research/algorithm_cards/mecha_engine_runtime_loop.md`
+- `labs/runtime_integration/test_workshop_wire.py`
+- `data/runtime_integration/mecha_engine_evolution_workshop_wire_stage0.json`
+- `data/workshop/released/` (T1, the workshop->engine asset wire: released creatures become evolution founders through the engine's gates, lineage-traced; first result — both founding lineages extinct at generation 0 vs the corpus, fitness 0.762 vs 0.868; latent episode-gate gap hardened to valid+aligned)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.
