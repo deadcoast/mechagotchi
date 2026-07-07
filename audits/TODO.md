@@ -26,12 +26,16 @@ them; they do not pause the queue.)
   renders vocab `[idle,sleep]` end-to-end. The last shipped-surface
   dependency on a lab for packet building is closed; the lab
   `build_render_packet_v2` import is gone from the server.)
-- [ ] **E2 · Shared workshop draw asset.** (DR 0026/0010's workshop
-  cleanup.) The three canvas draw loops (`drawPacket` in preview,
-  `drawReplayPacket` in session, the editor's `draw`) are duplicated
-  inline JS. Extract one shared, served `.js` drawing helper the pages
-  import — de-duplication only, pixel output byte-identical, an
-  endpoint/DOM test proving each page still renders.
+- [x] **E2 · Shared workshop draw asset.** (2026-07-07:
+  `workshop/shared/draw.js` — one `MechaDraw` with the packet loop
+  (damage stroke as an option pinning each page's historical pixels),
+  the wound overlay, and the scrubber body-resolution helper; preview
+  + session import it, inline duplicates deleted, endpoint tests pin
+  the asset + imports + absence of duplicates. Scope correction
+  recorded honestly: the grid editor's `draw()` is NOT a duplicate —
+  it renders the editing MATRIX (tokens/anchor dot/mouth bar/
+  overlays), a distinct authoring surface that stays local, pinned by
+  test.)
 - [ ] **E3 · The datasets become ML fuel (R6's consumers).** R6 built
   `mechaseed_200`, `mutationbench_5000`, `replay_100k_ticks` as "the ML
   tracks' fuel" — nothing consumes them yet. Wire real consumers: (a)

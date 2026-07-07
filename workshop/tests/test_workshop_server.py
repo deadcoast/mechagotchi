@@ -49,6 +49,57 @@ def _get(url: str) -> tuple[int, dict]:
         return response.status, json.loads(response.read())
 
 
+class SharedDrawAssetTests(unittest.TestCase):
+    """E2 (DR 0026's recorded cleanup): one shared packet drawer, served;
+    the pages import it and no longer carry inline duplicates. The grid
+    editor's draw() is a distinct authoring surface and stays local."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.temp = tempfile.TemporaryDirectory()
+        base = Path(cls.temp.name)
+        cls.server = start_workshop_server(
+            port=0,
+            grids_dir=base / "grids",
+            slips_dir=base / "slips",
+            session_dir=base / "game_loop",
+        )
+        cls.base = f"http://127.0.0.1:{cls.server.server_address[1]}"
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.server.shutdown()
+        cls.temp.cleanup()
+
+    def _page(self, path: str) -> str:
+        with urllib.request.urlopen(f"{self.base}{path}") as response:
+            self.assertEqual(200, response.status)
+            return response.read().decode("utf-8")
+
+    def test_the_shared_asset_serves_with_the_three_helpers(self):
+        asset = self._page("/shared/draw.js")
+        for name in ("MechaDraw", "drawPacket", "woundOverlay", "bodyPacketAt"):
+            self.assertIn(name, asset)
+
+    def test_preview_and_session_import_it_and_carry_no_duplicates(self):
+        for path in ("/preview", "/session"):
+            page = self._page(path)
+            self.assertIn('src="/shared/draw.js"', page, path)
+            self.assertIn("MechaDraw.", page, path)
+            # The inline duplicates are gone.
+            self.assertNotIn("function drawReplayPacket(", page, path)
+            self.assertNotIn("function replayBodyPacket(", page, path)
+        # Preview keeps only the thin wrapper pinning its historical
+        # damage-stroke behavior — the loop itself lives in the asset.
+        preview = self._page("/preview")
+        self.assertIn("MechaDraw.drawPacket(canvas, packet, { showDamage: true })", preview)
+
+    def test_the_editor_draw_stays_a_distinct_local_surface(self):
+        editor = self._page("/")
+        self.assertIn("function draw()", editor)  # matrix drawer, local
+        self.assertNotIn('src="/shared/draw.js"', editor)
+
+
 class KeeperSessionEndpointTests(unittest.TestCase):
     """G4 (DR 0021): the Keeper's session — persistent, engine-run.
 

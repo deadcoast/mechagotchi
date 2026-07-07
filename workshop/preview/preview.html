@@ -171,24 +171,14 @@
   </div>
 </div>
 
+<script src="/shared/draw.js"></script>
 <script>
 const $ = (id) => document.getElementById(id);
 
+/* E2: the packet drawer is the shared MechaDraw asset; the preview has
+   always outlined damaged cells, so it opts the stroke on. */
 function drawPacket(canvas, packet) {
-  const [w, h] = packet.grid_size;
-  const ctx = canvas.getContext("2d");
-  const cell = canvas.width / w;
-  ctx.fillStyle = packet.palette.colors[packet.palette.background_index] || "#000";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  for (const c of packet.cells) {
-    ctx.fillStyle = c.visual;
-    ctx.fillRect(c.x * cell, c.y * cell, cell, cell);
-    if (c.damage > 0) {
-      ctx.strokeStyle = "rgba(200,60,40,0.9)";
-      ctx.lineWidth = 2;
-      ctx.strokeRect(c.x * cell + 1, c.y * cell + 1, cell - 2, cell - 2);
-    }
-  }
+  MechaDraw.drawPacket(canvas, packet, { showDamage: true });
 }
 
 function deviceWithPacket(packet, tag, size) {
@@ -300,28 +290,15 @@ $("live-btn").addEventListener("click", async () => {
 /* ---------------- replay: the player's window ---------------- */
 let replayState = null; // { frames, index, timer, canvas, readout, slider, label }
 
-function replayBodyPacket(frames, index) {
-  for (let i = index; i >= 0; i--) {
-    if (frames[i].packet) return frames[i].packet;
-  }
-  return null;
-}
-
 function drawReplayFrame() {
   const r = replayState;
   const frame = r.frames[r.index];
-  const packet = replayBodyPacket(r.frames, r.index);
+  const packet = MechaDraw.bodyPacketAt(r.frames, r.index);
   if (packet) {
     drawPacket(r.canvas, packet);
   }
-  if (frame.phase === "wound") {
-    const [w] = packet ? packet.grid_size : [8];
-    const cell = r.canvas.width / w;
-    const ctx = r.canvas.getContext("2d");
-    ctx.fillStyle = "rgba(200,60,40,0.75)";
-    for (const [x, y] of frame.removed_cells) {
-      ctx.fillRect(x * cell, y * cell, cell, cell);
-    }
+  if (frame.phase === "wound" && packet) {
+    MechaDraw.woundOverlay(r.canvas, packet, frame.removed_cells);
   }
   let text = "frame " + frame.frame + " · cycle " + frame.cycle + " · " + frame.phase;
   if (frame.phase === "repair") {

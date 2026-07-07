@@ -133,6 +133,7 @@
   </div>
 </div>
 
+<script src="/shared/draw.js"></script>
 <script>
 const $ = (id) => document.getElementById(id);
 const WEATHER_DESCRIPTIONS = {
@@ -319,36 +320,17 @@ function renderEras() {
 }
 
 /* ---------------- the Review step: stored era replays ---------------- */
+/* E2: the packet drawer and scrubber helpers are the shared MechaDraw
+   asset (the session drawer never stroked damage, so no opt). */
 let replayState = null;
-
-function drawReplayPacket(canvas, packet) {
-  const [w] = packet.grid_size;
-  const ctx = canvas.getContext("2d");
-  const cell = canvas.width / w;
-  ctx.fillStyle = packet.palette.colors[packet.palette.background_index] || "#000";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  for (const c of packet.cells) {
-    ctx.fillStyle = c.visual;
-    ctx.fillRect(c.x * cell, c.y * cell, cell, cell);
-  }
-}
-
-function replayBodyPacket(frames, index) {
-  for (let i = index; i >= 0; i--) if (frames[i].packet) return frames[i].packet;
-  return null;
-}
 
 function drawReplayFrame() {
   const r = replayState;
   const frame = r.frames[r.index];
-  const packet = replayBodyPacket(r.frames, r.index);
-  if (packet) drawReplayPacket(r.canvas, packet);
+  const packet = MechaDraw.bodyPacketAt(r.frames, r.index);
+  if (packet) MechaDraw.drawPacket(r.canvas, packet);
   if (frame.phase === "wound" && packet) {
-    const [w] = packet.grid_size;
-    const cell = r.canvas.width / w;
-    const ctx = r.canvas.getContext("2d");
-    ctx.fillStyle = "rgba(200,60,40,0.75)";
-    for (const [x, y] of frame.removed_cells) ctx.fillRect(x * cell, y * cell, cell, cell);
+    MechaDraw.woundOverlay(r.canvas, packet, frame.removed_cells);
   }
   let text = "frame " + frame.frame + " · cycle " + frame.cycle + " · " + frame.phase;
   if (frame.phase === "wound") text += " · " + frame.removed_cell_count + " cells destroyed";

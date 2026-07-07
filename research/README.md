@@ -766,6 +766,9 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-07-07-render-packet-v2-slip-gate-promotion.md`
 - `packages/mecha_engine/src/mecha_engine/genome/animation.py` + `labs/grid_genome/test_package_animation_parity.py` (E1: the T3.5 SLIP `visual_grammar.animation_vocab` gate promoted verbatim into `genome.render_packet_v2` — the species' vocabulary bounds the packet and unsupported states fall back to a DISPLAYED idle with honest mood; `slip_profile=None` byte-identical, parity carve-out closed, contract probe added; the workshop `/api/preview/render` switched to the promoted surface (nocturne renders vocab `[idle,sleep]` end-to-end) — the last shipped-surface dependency on a lab for packet building, closed)
 
+- `research/experiment_reports/2026-07-07-shared-workshop-draw-asset.md`
+- `workshop/shared/draw.js` (E2: DR 0026's recorded cleanup — one shared `MechaDraw` packet drawer (damage stroke as an option pinning each page's historical pixels) + wound overlay + scrubber body-resolution; preview + session import it, inline duplicates deleted, endpoint tests pin asset/imports/no-duplicates; scope correction recorded — the grid editor's `draw()` is a distinct MATRIX-authoring surface, not a duplicate, and stays local by test)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.
