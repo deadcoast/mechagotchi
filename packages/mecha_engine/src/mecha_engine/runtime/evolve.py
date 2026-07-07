@@ -21,7 +21,8 @@ report records the carried ``parent_selection``; default flows (every
 v0.1 profile, and v0.2 profiles without the field) stay byte-identical. Per-creature seed arithmetic
 is ``run_seed = rng_seed + generation_index * 100000 + index``; every
 creature lives through ``live_cycle`` (damage seed ``run_seed * 10 +
-cycle``), then — if every cycle stayed aligned — runs a final episode,
+cycle``), then — if every cycle stayed valid AND aligned — runs a final
+episode,
 scores through ``mecha_engine.archive`` with the injected
 ``readability_scorer`` supplying the readability record (no proxy scorer
 is ported; the record's manual-rating status stays visible in every score
@@ -249,10 +250,20 @@ def evolve(
             stages["all_cycles_aligned"] = lived["all_cycles_aligned"]
 
             score_digest = None
-            decision = "skipped_unaligned"
+            # Verbatim lab semantics (T1, commit d382805; promotion-drift
+            # fix 2026-07-07): an aligned-but-invalid creature is
+            # "skipped_invalid", and scoring requires every cycle valid
+            # AND aligned with a final-cycle episode.
+            decision = (
+                "skipped_invalid"
+                if stages["all_cycles_aligned"]
+                and not stages["all_cycles_valid"]
+                else "skipped_unaligned"
+            )
             stages["scored"] = False
             if (
-                stages["all_cycles_aligned"]
+                stages["all_cycles_valid"]
+                and stages["all_cycles_aligned"]
                 and cycles
                 and cycles[-1]["episode"] is not None
             ):

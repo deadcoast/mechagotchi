@@ -708,6 +708,12 @@ Post-v0.1 continuation has started:
 
 - `research/decision_records/0022-storage-module.md` (G1: the `storage` module target authorized — SQLite campaign ledger via stdlib `sqlite3` per DR 0011's ratified pointer; blob-authoritative schema v1 for campaigns/eras/elites/founders/unlocks/replays, succession without copying, deterministic-replay and unlock-falsifiability gates; lab-first in `labs/game_loop/campaign_store.py` before any promotion, G2's JSON interim guaranteed a lossless migration)
 
+- `research/experiment_reports/2026-07-07-game-loop-session-runner.md`
+- `research/algorithm_cards/game_loop_session_runner.md`
+- `labs/game_loop/session_runner.py` (+ `test_session_runner.py`)
+- `data/game_loop/session_runner_stage0.json` + `data/game_loop/campaign_ledger.json` (G2: one full Keeper session over promoted surfaces — era-chaining admits 10/10 and 9/9 prior elites through the engine's own gates, stable soup measurably shields (58 vs calm 65 removed cells) while the storm's 1.17x earns the storm record, 6 unlock facts each citing a resolvable metric path, succession fixture-proven, DR 0022 JSON-interim ledger. FOUND+FIXED the aligned-but-invalid promotion drift: the lab's T1 validity gate on episodes had never reached `runtime.live_cycle`/`evolve` — RED-first sync, spec amended, all frozen pins byte-identical)
+- `labs/runtime_integration/test_invalid_repair_semantics.py` + the `invalid_repair_boundary` contract probe (the drift fix's lab-package boundary parity pin and package-side contract pin)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

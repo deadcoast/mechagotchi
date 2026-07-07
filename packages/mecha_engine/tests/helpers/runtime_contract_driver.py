@@ -201,6 +201,98 @@ def probe_evolve(
     }
 
 
+def probe_invalid_repair_boundary(
+    seed_grids: list[dict],
+    slip_profile: dict,
+    generation_model,
+) -> dict:
+    """The aligned-but-invalid boundary (promotion-drift fix, 2026-07-07).
+
+    Under damage heavy enough that wound-site repair returns a grid that
+    is SLIP-aligned yet lifecycle-invalid, the lab loop had gated
+    episodes on ``valid and aligned`` since T1 (commit d382805); the
+    first port pre-dated that gate and crashed inside the episode run.
+    Boundary configuration measured over THIS frozen corpus (probe
+    2026-07-07): rng_seed 20260703, dropout 0.95, 4 cycles produce at
+    least one invalid repair. The probe pins: no crash, invalid cycles
+    carry no episode, aligned-but-invalid creatures record
+    ``skipped_invalid`` and never score.
+    """
+
+    def scorer(grid: dict) -> float:
+        return CONSTANT_READABILITY
+
+    boundary_seed = 20260703
+    repair_model = train_repair_model(
+        seed_grids[:40], epochs=20, rng_seed=boundary_seed
+    )
+    crash = _raised(
+        lambda: evolve(
+            seed_grids,
+            slip_profile,
+            generation_model,
+            repair_model,
+            readability_scorer=scorer,
+            generations=2,
+            population=2,
+            damage_cycles=4,
+            ticks=8,
+            dropout_rate=0.95,
+            rng_seed=boundary_seed,
+        )
+    )
+    if crash is not None:
+        return {"crashed": crash}
+    _, report = evolve(
+        seed_grids,
+        slip_profile,
+        generation_model,
+        repair_model,
+        readability_scorer=scorer,
+        generations=2,
+        population=2,
+        damage_cycles=4,
+        ticks=8,
+        dropout_rate=0.95,
+        rng_seed=boundary_seed,
+    )
+    creatures = [
+        creature
+        for generation in report["generations"]
+        for creature in generation["creatures"]
+    ]
+    aligned_but_invalid = [
+        creature
+        for creature in creatures
+        if creature["stages"]["all_cycles_aligned"]
+        and not creature["stages"]["all_cycles_valid"]
+    ]
+    return {
+        "crashed": None,
+        "invalid_repair_observed": any(
+            not creature["stages"]["all_cycles_valid"]
+            for creature in creatures
+        ),
+        "invalid_cycles_carry_no_episode": all(
+            cycle["episode"] is None
+            for creature in creatures
+            for cycle in creature["cycles"]
+            if not cycle["valid"]
+        ),
+        "aligned_but_invalid_decisions": sorted(
+            {
+                creature["archive_decision"]
+                for creature in aligned_but_invalid
+            }
+        ),
+        "aligned_but_invalid_never_scored": all(
+            creature["score"] is None
+            and creature["stages"]["scored"] is False
+            for creature in aligned_but_invalid
+        ),
+    }
+
+
 def probe_evolve_v2(
     seed_grids: list[dict],
     slip_profile: dict,
@@ -483,6 +575,9 @@ def main() -> None:
         ),
         "evolve_v2": probe_evolve_v2(
             seed_grids, slip_profile, generation_model, repair_model
+        ),
+        "invalid_repair_boundary": probe_invalid_repair_boundary(
+            seed_grids, slip_profile, generation_model
         ),
         "live_cycle": probe_live_cycle(live_subject, slip_profile, repair_model),
         "injected_events": probe_injected_events(

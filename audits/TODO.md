@@ -52,11 +52,20 @@ documentation for tasks that need them; they do not pause the queue.)
   unlock falsifiability. Lab-first: proven in
   `labs/game_loop/campaign_store.py` before promotion; G2's JSON
   interim gets a guaranteed `ingest_session_artifacts` migration.)
-- [ ] **G2 · Session-runner lab (`labs/game_loop/`).** One full
-  session over promoted surfaces: era-chaining via founders, weather
-  selection, unlock evaluation from report metrics, extinction and
-  succession. Deterministic, triad convention. JSON-artifact
-  persistence interim until G1 lands.
+- [x] **G2 · Session-runner lab (`labs/game_loop/`).** (2026-07-07:
+  one full Keeper session over promoted surfaces — era-chaining
+  admits 10/10 and 9/9 prior elites via the engine's own gates,
+  weather measurably moves damage (stable 0.90x shields at 58 cells
+  vs calm 65; storm 1.17x earns the storm record), 6 unlock facts
+  with resolvable metric paths, extinction contract-detected +
+  succession fixture-proven, DR 0022 JSON-interim ledger; 19 tests.
+  FOUND+FIXED a promotion drift: the lab's T1 validity gate on
+  episodes never reached `runtime.live_cycle`/`evolve` — aligned-but-
+  invalid repairs crashed lifecycle simulation; RED-first verbatim
+  sync, spec amended, contract probe + boundary parity pin added,
+  all frozen pins byte-identical. Identified seam: promoting R3
+  readability-selection into `runtime.evolve` would activate the
+  legibility currency live.)
 - [ ] **G4 · The Keeper's surface.** Session UI on the workshop
   server pattern; `mechas` gains session commands (DR 0007 charter).
   After G2/G3.

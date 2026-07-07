@@ -18,7 +18,9 @@ exactly), SLIP-aware wound-site repair through
 (``{grid_id}_c{cycle:02d}`` — suffix accumulation would overflow the
 schema's 64-char grid_id cap, a known trap), restoration fidelity against
 the pre-damage truth held by the loop, validity and SLIP-alignment checks,
-and a full lifecycle episode for aligned states. An unaligned repair ends
+and a full lifecycle episode for states that are both valid and aligned
+(an aligned-but-invalid repair carries no episode — the lab's T1 validity
+gate, restored 2026-07-07 after a promotion drift). An unaligned repair ends
 the cycle loop honestly; the creature's last accepted state stays the one
 before the failed cycle. Zero-cell damage events are no-op repairs
 (measured lab behavior). Deterministic; inputs are never mutated.
@@ -110,6 +112,12 @@ def live_cycle(
         aligned = is_grid_aligned(repaired, slip_profile).ok
         all_valid = all_valid and valid
         all_aligned = all_aligned and aligned
+        # Verbatim lab semantics (T1, commit d382805): an episode runs
+        # only for a repair that is BOTH valid and aligned — an
+        # aligned-but-invalid repair (e.g. a disconnected body core
+        # under heavy damage) carries no episode instead of crashing
+        # lifecycle simulation. Promotion-drift fix, 2026-07-07: the
+        # first port pre-dated the lab's validity gate.
         episode = (
             run_episode(
                 repaired,
@@ -118,7 +126,7 @@ def live_cycle(
                 ticks=ticks,
                 rng_seed=rng_seed,
             )
-            if aligned
+            if valid and aligned
             else None
         )
         cycles.append(

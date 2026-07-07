@@ -100,3 +100,20 @@ None`: released creatures admitted through the engine's own gates
 `founders` block); admitted founders LEAD the generation-0 pool
 (`parent_source: founders_plus_seed_pool`). `None` is byte-identical
 to the pre-0016 contract (parity pins unmodified).
+
+## Validity gate on episodes (promotion-drift fix, 2026-07-07)
+
+The lab loop has gated cycle episodes on `valid AND aligned` since T1
+(commit d382805): an aligned-but-invalid repair (e.g. a disconnected
+body core under heavy damage) carries no episode, the creature records
+`archive_decision: skipped_invalid`, and scoring requires
+`all_cycles_valid AND all_cycles_aligned` with a final-cycle episode.
+The first port pre-dated that gate — `live_cycle` ran episodes for any
+aligned repair and crashed lifecycle simulation at the measured
+boundary (probe 2026-07-07: rng_seed 20260703, dropout 0.95, 4 cycles;
+found while building the G2 session runner). The package is synced to
+the lab's verbatim semantics; pinned-seed parity artifacts are
+byte-identical (no pinned seed produces an invalid repair). Pins:
+`labs/runtime_integration/test_invalid_repair_semantics.py` (lab-package
+boundary parity) and the `invalid_repair_boundary` probe in
+`tests/helpers/runtime_contract_driver.py`.

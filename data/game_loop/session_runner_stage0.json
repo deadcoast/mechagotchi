@@ -1,0 +1,210 @@
+{
+  "artifact_id": "game_loop_session_runner_stage0",
+  "status": "stage0_complete",
+  "date": "2026-07-07",
+  "purpose": "Run one full Keeper session (DR 0021, gate G2) over the promoted engine surfaces: era-chaining via founder_grids, weather selection via cubff_pressure_source, unlock facts from era-record metrics, extinction detection with succession, and the DR 0022 JSON-interim campaign ledger.",
+  "source_artifacts": [
+    "research/decision_records/0021-game-loop.md",
+    "research/decision_records/0022-storage-module.md",
+    "packages/mecha_engine/src/mecha_engine/runtime/evolve.py",
+    "data/slips/valid/slip_lcd_seed.json"
+  ],
+  "session_parameters": {
+    "campaign_id": "campaign_stage0",
+    "base_seed": 20260707,
+    "weather_schedule": [
+      "calm",
+      "stable_soup",
+      "storm"
+    ]
+  },
+  "metrics": {
+    "campaign_count": 1,
+    "era_count": 3,
+    "eras": [
+      {
+        "era_index": 0,
+        "forecast": "calm",
+        "snapshot_ids": [],
+        "generations_ran": 3,
+        "went_extinct": false,
+        "total_removed_cells": 65,
+        "max_dropout_multiplier_survived": null,
+        "elite_mean_learned_readability": 0.244302,
+        "founders_submitted": 0,
+        "founders_admitted": 0,
+        "founders_rejected": 0,
+        "parent_source_generation_0": "seed_pool",
+        "filled_niches": 10,
+        "qd_score": 9.193864,
+        "max_lineage_generation": 2,
+        "decision_status": "evolution_loop_composed"
+      },
+      {
+        "era_index": 1,
+        "forecast": "stable_soup",
+        "snapshot_ids": [
+          "weather_stable_000",
+          "weather_stable_001",
+          "weather_stable_002"
+        ],
+        "generations_ran": 3,
+        "went_extinct": false,
+        "total_removed_cells": 58,
+        "max_dropout_multiplier_survived": 0.899848,
+        "elite_mean_learned_readability": 0.176988,
+        "founders_submitted": 10,
+        "founders_admitted": 10,
+        "founders_rejected": 0,
+        "parent_source_generation_0": "founders_plus_seed_pool",
+        "filled_niches": 9,
+        "qd_score": 8.180581,
+        "max_lineage_generation": 2,
+        "decision_status": "evolution_loop_gaps_measured"
+      },
+      {
+        "era_index": 2,
+        "forecast": "storm",
+        "snapshot_ids": [
+          "weather_storm_000",
+          "weather_storm_001",
+          "weather_storm_002"
+        ],
+        "generations_ran": 3,
+        "went_extinct": false,
+        "total_removed_cells": 65,
+        "max_dropout_multiplier_survived": 1.170205,
+        "elite_mean_learned_readability": 0.16459,
+        "founders_submitted": 9,
+        "founders_admitted": 9,
+        "founders_rejected": 0,
+        "parent_source_generation_0": "founders_plus_seed_pool",
+        "filled_niches": 10,
+        "qd_score": 9.030451,
+        "max_lineage_generation": 2,
+        "decision_status": "evolution_loop_composed"
+      }
+    ],
+    "chained_era_count": 2,
+    "founder_admission_all_or_nothing": true,
+    "total_removed_cells_by_forecast": {
+      "calm": 65,
+      "stable_soup": 58,
+      "storm": 65
+    },
+    "unlock_facts": [
+      {
+        "axis": "niche_mastery",
+        "tier": 1,
+        "earned_era_index": 0,
+        "metric_path": "report.summary.archive.filled_niches",
+        "metric_value": 10,
+        "threshold": 4
+      },
+      {
+        "axis": "niche_mastery",
+        "tier": 2,
+        "earned_era_index": 0,
+        "metric_path": "report.summary.archive.filled_niches",
+        "metric_value": 10,
+        "threshold": 8
+      },
+      {
+        "axis": "bloodline_depth",
+        "tier": 1,
+        "earned_era_index": 0,
+        "metric_path": "report.summary.max_lineage_generation",
+        "metric_value": 2,
+        "threshold": 2
+      },
+      {
+        "axis": "quality_diversity",
+        "tier": 1,
+        "earned_era_index": 0,
+        "metric_path": "report.summary.archive.qd_score",
+        "metric_value": 9.193864,
+        "threshold": 3.0
+      },
+      {
+        "axis": "quality_diversity",
+        "tier": 2,
+        "earned_era_index": 0,
+        "metric_path": "report.summary.archive.qd_score",
+        "metric_value": 9.193864,
+        "threshold": 6.0
+      },
+      {
+        "axis": "storm_record",
+        "tier": 1,
+        "earned_era_index": 2,
+        "metric_path": "derived.max_dropout_multiplier_survived",
+        "metric_value": 1.170205,
+        "threshold": 1.1
+      }
+    ],
+    "unlock_fact_count": 6,
+    "final_status_by_campaign": {
+      "campaign_stage0": "active"
+    }
+  },
+  "unlock_thresholds": {
+    "niche_mastery": {
+      "metric_path": "report.summary.archive.filled_niches",
+      "tiers": [
+        4,
+        8,
+        13
+      ]
+    },
+    "bloodline_depth": {
+      "metric_path": "report.summary.max_lineage_generation",
+      "tiers": [
+        2,
+        3,
+        4
+      ]
+    },
+    "quality_diversity": {
+      "metric_path": "report.summary.archive.qd_score",
+      "tiers": [
+        3.0,
+        6.0,
+        12.0
+      ]
+    },
+    "storm_record": {
+      "metric_path": "derived.max_dropout_multiplier_survived",
+      "tiers": [
+        1.1,
+        1.4
+      ]
+    },
+    "legibility": {
+      "metric_path": "derived.elite_mean_learned_readability",
+      "tiers": [
+        0.25,
+        0.35
+      ]
+    }
+  },
+  "closed_states": [
+    "session_loop_runs_over_promoted_surfaces_only",
+    "era_chaining_admits_prior_elites_through_engine_gates",
+    "weather_selection_reaches_the_engine_with_snapshot_provenance",
+    "unlock_facts_cite_resolvable_metric_paths",
+    "succession_carries_only_unlock_facts_via_predecessor_pointer",
+    "ledger_matches_dr0022_schema_v1_vocabulary"
+  ],
+  "blocked_states": [
+    "awaiting_real_cubff_snapshots",
+    "extinction_not_observed_at_stage0_scale",
+    "aligned_but_lifecycle_invalid_boundary_at_extreme_dropout",
+    "sqlite_ledger_pending_storage_module_promotion"
+  ],
+  "decision": {
+    "status": "session_loop_composed",
+    "adoption": "lab_only_game_loop_evidence",
+    "reason": "One full Keeper session runs deterministically over the promoted engine: every post-founder era re-admits the previous era's elites through the engine's own gates, the chosen forecast measurably scales that era's damage with snapshot provenance recorded by the engine itself, and every unlock fact cites a metric path that resolves in its era record. Extinction and succession are contract-detected and fixture-proven; live extinction and real CuBFF weather remain honestly blocked."
+  },
+  "next_research_step": "G4 (the Keeper's surface: session UI + mechas session commands) and R5 (the replay recorder this loop's Review step consumes); the storage lab (campaign_store, DR 0022) replaces the JSON interim when its gates pass."
+}

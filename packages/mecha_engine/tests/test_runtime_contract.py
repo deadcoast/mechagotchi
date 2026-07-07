@@ -186,6 +186,21 @@ class MechaEngineRuntimeContractTests(unittest.TestCase):
         self.assertGreaterEqual(probe["elite_count"], 1)
         self.assertEqual("evolution_loop_composed", probe["decision_status"])
 
+    def test_aligned_but_invalid_repairs_skip_instead_of_crashing(self):
+        # Promotion-drift fix (2026-07-07): the lab loop gates episodes
+        # on ``valid and aligned`` since T1 (commit d382805) — an
+        # aligned-but-invalid repair carries no episode, the creature
+        # records ``skipped_invalid``, and it never scores. The first
+        # port pre-dated that gate and crashed inside the episode run.
+        probe = self.report["invalid_repair_boundary"]
+        self.assertIsNone(probe["crashed"])
+        self.assertTrue(probe["invalid_repair_observed"])
+        self.assertTrue(probe["invalid_cycles_carry_no_episode"])
+        self.assertEqual(
+            ["skipped_invalid"], probe["aligned_but_invalid_decisions"]
+        )
+        self.assertTrue(probe["aligned_but_invalid_never_scored"])
+
     def test_evolve_rejects_missing_scorer_and_empty_seed_corpus(self):
         probe = self.report["evolve"]
         raised = probe["readability_scorer_required_keyword"]
