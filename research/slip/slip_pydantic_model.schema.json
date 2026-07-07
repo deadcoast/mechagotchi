@@ -54,6 +54,29 @@
       "title": "BehaviorContract",
       "type": "object"
     },
+    "DeliberationContract": {
+      "additionalProperties": false,
+      "properties": {
+        "max_ticks": {
+          "maximum": 8,
+          "minimum": 2,
+          "title": "Max Ticks",
+          "type": "integer"
+        },
+        "confidence_threshold": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence Threshold",
+          "type": "number"
+        }
+      },
+      "required": [
+        "max_ticks",
+        "confidence_threshold"
+      ],
+      "title": "DeliberationContract",
+      "type": "object"
+    },
     "ForbiddableMaterial": {
       "enum": [
         "soft",
@@ -420,6 +443,17 @@
       "anyOf": [
         {
           "$ref": "#/$defs/VisualGrammarContract"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "deliberation": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DeliberationContract"
         },
         {
           "type": "null"

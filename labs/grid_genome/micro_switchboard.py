@@ -113,6 +113,43 @@ def estimate_mutation_risk(state: dict) -> dict:
     )
 
 
+def _ctm_state_pressure(state: dict) -> dict[str, float]:
+    """Mirrored verbatim from labs/ctm_ticks/ctm_inspired_ticks.py
+    (_state_pressure) — pinned by the R1 live-vs-lab parity test."""
+    hunger = _clamp(state.get("hunger", 0.5))
+    energy = _clamp(state.get("energy", 0.5))
+    bond = _clamp(state.get("bond", 0.5))
+    stress = _clamp(state.get("stress", 0.0))
+    stability = _clamp(state.get("grid_stability", 0.5))
+    interaction = 0.0
+    for event in state.get("recent_interactions", []):
+        interaction = 0.45 * _clamp(event) + 0.55 * interaction
+    interaction = round(interaction, 6)
+    return {
+        "feed": round(hunger * 0.22, 6),
+        "sleep": round((1 - energy) * 0.22, 6),
+        "play": round(bond * 0.12 + interaction * 0.18 + (1 - stress) * 0.05, 6),
+        "idle": round(stress * 0.14 + (1 - interaction) * 0.05, 6),
+        "mutate": round((stability - stress) * 0.12, 6),
+    }
+
+
+def _ctm_decision_from_utilities(utilities: dict[str, float], tick: int) -> dict:
+    """Mirrored verbatim from labs/ctm_ticks (_decision_from_utilities)."""
+    sorted_actions = sorted(utilities.items(), key=lambda item: item[1], reverse=True)
+    action, top_score = sorted_actions[0]
+    next_score = sorted_actions[1][1] if len(sorted_actions) > 1 else 0.0
+    margin = top_score - next_score
+    return {
+        "action": action,
+        "confidence": round(_clamp(0.5 + margin), 6),
+        "utilities": {key: round(value, 6) for key, value in sorted(utilities.items())},
+        "explanation": (
+            f"Selected {action} after {tick} confidence-gated internal ticks."
+        ),
+    }
+
+
 # Census-facing alias (research/micro_learners/thread_census.md).
 mutation_risk_scorer = estimate_mutation_risk
 
@@ -147,12 +184,47 @@ def run_switchboard(state: dict) -> dict:
     sorted_scores = sorted(utilities.values(), reverse=True)
     margin = sorted_scores[0] - sorted_scores[1] if len(sorted_scores) > 1 else sorted_scores[0]
     confidence = _clamp(0.5 + margin)
-    return {
+    decision = {
         "action": action,
         "confidence": round(confidence, 6),
         "utilities": {key: round(value, 6) for key, value in sorted(utilities.items())},
         "threads": threads,
         "explanation": f"Selected {action} from additive micro-learner utilities.",
+    }
+
+    # R1 (DR 0017): CTM-inspired confidence-gated deliberation — the og
+    # "thinking over ticks". Opt-in via SLIP-stashed state keys; no v0.1
+    # flow ever sets them, so the frozen path is bit-for-bit. Semantics
+    # mirror labs/ctm_ticks exactly (pinned by parity test).
+    max_ticks = state.get("deliberation_max_ticks")
+    if not max_ticks:
+        return decision
+    threshold = _clamp(state.get("deliberation_confidence_threshold", 0.72))
+    aggregate = {name: float(decision["utilities"].get(name, 0.0)) for name in ACTIONS}
+    final_decision = decision
+    tick_count = 1
+    for tick in range(2, max(1, int(max_ticks)) + 1):
+        if final_decision["confidence"] >= threshold:
+            break
+        pressure = _ctm_state_pressure(state)
+        gain = round(0.55 / tick, 6)
+        for name, value in pressure.items():
+            aggregate[name] = aggregate.get(name, 0.0) + value * gain
+        final_decision = _ctm_decision_from_utilities(aggregate, tick)
+        tick_count = tick
+    return {
+        "action": final_decision["action"],
+        "confidence": final_decision["confidence"],
+        "utilities": final_decision["utilities"],
+        "threads": threads,
+        "explanation": final_decision.get(
+            "explanation", decision["explanation"]
+        ),
+        "deliberation": {
+            "tick_count": tick_count,
+            "max_ticks": int(max_ticks),
+            "confidence_threshold": threshold,
+        },
     }
 
 

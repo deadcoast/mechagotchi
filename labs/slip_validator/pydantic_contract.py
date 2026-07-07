@@ -139,6 +139,18 @@ class VisualGrammarContract(BaseModel):
         return self
 
 
+class DeliberationContract(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    max_ticks: Annotated[int, Field(ge=2, le=8, strict=True)]
+    confidence_threshold: Annotated[float, Field(ge=0.0, le=1.0)]
+
+    @field_validator("confidence_threshold", mode="before")
+    @classmethod
+    def reject_bool_for_threshold(cls, value: object) -> object:
+        return _reject_numeric_bool(value)
+
+
 class LineagePreferencesContract(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -263,6 +275,7 @@ class SLIPProfile(BaseModel):
         Annotated[str, Field(min_length=1, pattern="^[a-z0-9_]+$")] | None
     ) = None
     visual_grammar: VisualGrammarContract | None = None
+    deliberation: DeliberationContract | None = None
     learning_switches: (
         Annotated[dict[SwitchboardThread, bool], Field(min_length=1)] | None
     ) = None
@@ -285,6 +298,8 @@ class SLIPProfile(BaseModel):
             raise ValueError("species_class requires slip_version 0.2.0")
         if self.visual_grammar is not None and self.slip_version != "0.2.0":
             raise ValueError("visual_grammar requires slip_version 0.2.0")
+        if self.deliberation is not None and self.slip_version != "0.2.0":
+            raise ValueError("deliberation requires slip_version 0.2.0")
         if self.forbidden_traits is not None:
             if self.slip_version != "0.2.0":
                 raise ValueError(

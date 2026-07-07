@@ -4,7 +4,7 @@
   "authored_schema_path": "research/slip/slip.schema.json",
   "generated_schema_path": "research/slip/slip_pydantic_model.schema.json",
   "pydantic_available": true,
-  "pydantic_version": "2.12.5",
+  "pydantic_version": "2.13.4",
   "jsonschema_available": true,
   "jsonschema_version": "4.26.0",
   "dependency_policy": "Pydantic and jsonschema are declared in the pyproject lab dependency group (decision record 0005); the package dependency policy remains blocked until a packages/ import-surface gate exists.",

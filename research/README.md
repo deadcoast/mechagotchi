@@ -686,6 +686,9 @@ Post-v0.1 continuation has started:
 - `research/human_studies_protocol.md`
 - `workshop/server/workshop_server.py` (/api/metrics) + `labs/readability_benchmark/bradley_terry.py` (T10 + T20 pipelines: og workshop metrics instrumented per-session with provenance-marked records; blind-pairwise protocol + stdlib Bradley-Terry MM scorer tooling-validated on synthetic data — human DATA remains human, per the standing rule)
 
+- `research/experiment_reports/2026-07-06-ctm-deliberation-live.md`
+- `labs/grid_genome/test_slip_deliberation.py` (R1: CTM deliberation LIVE — the creature visibly thinks, 64 events/8 episodes with a renderable trace; wellbeing delta 0.0 sheltered, honestly recorded; adopt-as-expressiveness/watch-for-utility)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

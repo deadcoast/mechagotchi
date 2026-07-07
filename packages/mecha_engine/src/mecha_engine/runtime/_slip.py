@@ -68,7 +68,9 @@ LADDER_KEYS = {
     "lineage_preferences",
     "species_class",
     "visual_grammar",
+    "deliberation",
 }
+DELIBERATION_KEYS = {"max_ticks", "confidence_threshold"}
 VISUAL_GRAMMAR_KEYS = {"allowed_materials", "animation_vocab"}
 ANIMATION_VOCAB = ["idle", "blink", "sleep", "beg", "ill"]
 PARENT_SELECTION_MODES = {"uniform", "fitness_weighted"}
@@ -171,6 +173,8 @@ def validate_slip(profile: dict) -> SlipResult:
             )
     if "visual_grammar" in profile:
         _validate_visual_grammar(profile, errors)
+    if "deliberation" in profile:
+        _validate_deliberation(profile, errors)
     _require_string(profile, "profile_id", errors)
     _require_string(profile, "name", errors)
     profile_id = profile.get("profile_id")
@@ -310,6 +314,29 @@ def is_grid_aligned(grid: dict, profile: dict) -> SlipResult:
             errors.append(f"forbidden material present in grid: {material}")
 
     return SlipResult(not errors, errors)
+
+
+def _validate_deliberation(profile: dict, errors: list[str]) -> None:
+    deliberation = profile.get("deliberation")
+    if not isinstance(deliberation, dict):
+        errors.append("deliberation must be an object")
+        return
+    _require_exact_keys(
+        deliberation, DELIBERATION_KEYS, "deliberation", errors
+    )
+    ticks = deliberation.get("max_ticks")
+    if "max_ticks" in deliberation and (
+        isinstance(ticks, bool)
+        or not isinstance(ticks, int)
+        or not 2 <= ticks <= 8
+    ):
+        errors.append("deliberation max_ticks must be an integer in 2..8")
+    if "confidence_threshold" in deliberation:
+        _validate_unit_interval(
+            deliberation["confidence_threshold"],
+            "deliberation confidence_threshold",
+            errors,
+        )
 
 
 def _validate_visual_grammar(profile: dict, errors: list[str]) -> None:

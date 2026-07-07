@@ -142,6 +142,7 @@ def initial_state(grid: dict, slip_profile: dict | None = None) -> dict:
 
     risk_tolerances = (slip_profile or {}).get("risk_tolerances")
     learning_switches = (slip_profile or {}).get("learning_switches")
+    deliberation = (slip_profile or {}).get("deliberation")
     behavior = (slip_profile or {}).get("behavior", {})
     survival_weights = (slip_profile or {}).get("survival_weights", {})
     neediness = _clamp(behavior.get("neediness", 0.45))
@@ -191,6 +192,12 @@ def initial_state(grid: dict, slip_profile: dict | None = None) -> dict:
     # Rung T3.3: profile-authored thread gates for the switchboard.
     if isinstance(learning_switches, dict) and learning_switches:
         state["learning_switches"] = dict(learning_switches)
+    # R1 (DR 0017): CTM deliberation depth per species.
+    if isinstance(deliberation, dict) and "max_ticks" in deliberation:
+        state["deliberation_max_ticks"] = int(deliberation["max_ticks"])
+        state["deliberation_confidence_threshold"] = float(
+            deliberation.get("confidence_threshold", 0.72)
+        )
     return state
 
 

@@ -63,5 +63,9 @@
       "beg",
       "ill"
     ]
+  },
+  "deliberation": {
+    "max_ticks": 4,
+    "confidence_threshold": 0.72
   }
 }

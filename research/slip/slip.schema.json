@@ -291,6 +291,27 @@
         }
       },
       "additionalProperties": false
+    },
+    "deliberation": {
+      "type": "object",
+      "description": "R1 / DR 0017: CTM-inspired confidence-gated deliberation depth per species \u2014 the creature thinks extra internal ticks when unsure (labs/ctm_ticks semantics). 0.2.0-only.",
+      "properties": {
+        "max_ticks": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 8
+        },
+        "confidence_threshold": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        }
+      },
+      "required": [
+        "max_ticks",
+        "confidence_threshold"
+      ],
+      "additionalProperties": false
     }
   },
   "$defs": {
@@ -340,6 +361,11 @@
             {
               "required": [
                 "visual_grammar"
+              ]
+            },
+            {
+              "required": [
+                "deliberation"
               ]
             }
           ]

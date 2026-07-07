@@ -49,7 +49,9 @@ LADDER_KEYS = {
     "lineage_preferences",
     "species_class",
     "visual_grammar",
+    "deliberation",
 }
+DELIBERATION_KEYS = {"max_ticks", "confidence_threshold"}
 VISUAL_GRAMMAR_KEYS = {"allowed_materials", "animation_vocab"}
 ANIMATION_VOCAB = {"idle", "blink", "sleep", "beg", "ill"}
 PARENT_SELECTION_MODES = {"uniform", "fitness_weighted"}
@@ -185,6 +187,34 @@ def validate_profile(profile: dict, source_path: Path | None = None) -> dict:
                     ["visual_grammar", "animation_vocab"],
                     "visual_grammar.animation_vocab must be a non-empty "
                     "subset of the five states including idle",
+                )
+    if "deliberation" in profile:
+        deliberation = profile["deliberation"]
+        _validate_object(
+            deliberation,
+            ["deliberation"],
+            DELIBERATION_KEYS,
+            DELIBERATION_KEYS,
+            errors,
+        )
+        if isinstance(deliberation, dict):
+            ticks = deliberation.get("max_ticks")
+            if "max_ticks" in deliberation and (
+                isinstance(ticks, bool)
+                or not isinstance(ticks, int)
+                or not 2 <= ticks <= 8
+            ):
+                _add(
+                    errors,
+                    "semantic_deliberation",
+                    ["deliberation", "max_ticks"],
+                    "deliberation.max_ticks must be an integer in 2..8",
+                )
+            if "confidence_threshold" in deliberation:
+                _validate_unit_interval(
+                    deliberation.get("confidence_threshold"),
+                    ["deliberation", "confidence_threshold"],
+                    errors,
                 )
     if "lineage_preferences" in profile:
         preferences = profile["lineage_preferences"]
