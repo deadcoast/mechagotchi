@@ -9,6 +9,7 @@ import typer
 from mechas_cli import __version__, theme
 from mechas_cli.workspace import WorkspaceNotFoundError, find_workspace_root
 from mechas_cli.workflows.rate import rate
+from mechas_cli.workflows.session import session
 from mechas_cli.workflows.workshop import workshop
 
 
@@ -31,6 +32,7 @@ app = typer.Typer(
 )
 
 app.command(name="rate")(rate)
+app.command(name="session")(session)
 app.command(name="workshop")(workshop)
 
 

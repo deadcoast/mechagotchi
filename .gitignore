@@ -12,3 +12,7 @@ data/readability/*.bak.csv
 
 # Workshop grid backups (backup-before-overwrite safety copies)
 data/workshop/grids/*.bak.json
+
+# Keeper session play state (a live game, not evidence — the stage-0
+# artifacts one level up stay committed)
+data/game_loop/keeper/

@@ -1,3 +1,4 @@
+import os
 import sys
 import unittest
 from pathlib import Path
@@ -6,6 +7,12 @@ from pathlib import Path
 SRC = Path(__file__).resolve().parents[1] / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
+
+# Ambient FORCE_COLOR/NO_COLOR (CI shells, wrappers) would toggle ANSI
+# codes into captured help output and break the plain-substring
+# assertions; pin the capture environment to plain text.
+os.environ.pop("FORCE_COLOR", None)
+os.environ["NO_COLOR"] = "1"
 
 try:
     import typer  # noqa: F401
@@ -78,6 +85,24 @@ class MechasCliSurfaceTests(unittest.TestCase):
         self.assertIn("--slip", result.output)
         self.assertIn("--preview", result.output)
         self.assertIn("--release", result.output)
+
+    def test_session_without_flags_shows_the_targets(self):
+        result = self.runner.invoke(self.app, ["session"])
+        self.assertEqual(0, result.exit_code)
+        self.assertIn("--open", result.output)
+        self.assertIn("--era", result.output)
+        self.assertIn("--status", result.output)
+
+    def test_session_help_documents_the_flags(self):
+        result = self.runner.invoke(self.app, ["session", "--help"])
+        self.assertEqual(0, result.exit_code)
+        for flag in ("--open", "--era", "--status", "--new", "--port"):
+            self.assertIn(flag, result.output)
+
+    def test_root_help_lists_session(self):
+        result = self.runner.invoke(self.app, ["--help"])
+        self.assertEqual(0, result.exit_code)
+        self.assertIn("session", result.output)
 
     def test_status_shows_workspace_overview(self):
         result = self.runner.invoke(self.app, ["status"])

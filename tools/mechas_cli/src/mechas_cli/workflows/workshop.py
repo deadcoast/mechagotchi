@@ -142,6 +142,55 @@ def workshop(
         else "preview" if preview else "slip creator" if slip else "grid editor"
     )
     console.print(theme.banner(f"workshop — {target_name}"))
+    page = (
+        "inspect"
+        if inspect
+        else "preview" if preview else "slip" if slip else ""
+    )
+    process, page_url = launch_workshop_server(console, root, port, page)
+    console.print(
+        theme.kv_table(
+            [
+                (target_name, page_url, "mechas.path"),
+                (
+                    "validation",
+                    "live, from the engine itself — errors are the "
+                    "engine's own words",
+                    "mechas.ok",
+                ),
+                (
+                    "saving",
+                    "validated work only → data/workshop/ "
+                    "(backup before overwrite)",
+                    "mechas.value",
+                ),
+            ]
+        )
+    )
+    console.print()
+    console.print(
+        "  [mechas.dim]draw in the browser — this window waits. Press "
+        "Ctrl+C when you're done.[/]"
+    )
+    if open_browser:
+        webbrowser.open(page_url)
+
+    try:
+        while process.poll() is None:
+            time.sleep(0.5)
+        console.print("  [mechas.warn]the workshop server exited.[/]")
+    except KeyboardInterrupt:
+        process.terminate()
+    console.print()
+    console.print("  [mechas.dim]workshop closed.[/]")
+
+
+def launch_workshop_server(
+    console, root: Path, port: int, page: str
+) -> tuple[subprocess.Popen, str]:
+    """Start the workshop server in the workspace interpreter and wait
+    for it to answer; returns (process, page_url). Shared by
+    `mechas workshop` and `mechas session --open`."""
     server_path = root / SERVER_SCRIPT
     if not server_path.exists():
         console.print(
@@ -182,9 +231,8 @@ def workshop(
         if "10048" in stderr or "10013" in stderr:
             console.print(
                 f"[mechas.err]Port {port} is unavailable[/] (busy, or in a "
-                "Windows-reserved range). Try "
-                "[mechas.accent]mechas workshop --editor[/] without --port "
-                "to pick a free one automatically."
+                "Windows-reserved range). Try again without --port to pick "
+                "a free one automatically."
             )
         else:
             console.print(
@@ -192,47 +240,7 @@ def workshop(
                 + (stderr or "(no output)")
             )
         raise typer.Exit(code=1)
-
-    page_url = (
-        url + "inspect"
-        if inspect
-        else url + "preview" if preview else url + "slip" if slip else url
-    )
-    console.print(
-        theme.kv_table(
-            [
-                (target_name, page_url, "mechas.path"),
-                (
-                    "validation",
-                    "live, from the engine itself — errors are the "
-                    "engine's own words",
-                    "mechas.ok",
-                ),
-                (
-                    "saving",
-                    "validated work only → data/workshop/ "
-                    "(backup before overwrite)",
-                    "mechas.value",
-                ),
-            ]
-        )
-    )
-    console.print()
-    console.print(
-        "  [mechas.dim]draw in the browser — this window waits. Press "
-        "Ctrl+C when you're done.[/]"
-    )
-    if open_browser:
-        webbrowser.open(page_url)
-
-    try:
-        while process.poll() is None:
-            time.sleep(0.5)
-        console.print("  [mechas.warn]the workshop server exited.[/]")
-    except KeyboardInterrupt:
-        process.terminate()
-    console.print()
-    console.print("  [mechas.dim]workshop closed.[/]")
+    return process, url + page
 
 
 def _release(console, root, name: str) -> None:

@@ -43,11 +43,17 @@ mechas                          the main command (help + version)
 ├── workshop                    the creative authoring layer
 │   ├── --editor                launch the grid editor (live engine validation)
 │   ├── --slip                  launch the SLIP profile creator (live authority validation)
-│   ├── --preview               watch a creature live: packets, damage/repair, offspring
+│   ├── --preview               watch a creature live: packets, damage/repair, offspring, replays
 │   ├── --inspect               genome inspector + lineage browser
 │   ├── --release <name>        release a saved creature into the ecosystem
 │   ├── --port <n>              local port (default: pick a free one)
 │   └── --no-browser            don't auto-open the browser
+├── session                     the Keeper's session (G4, DR 0021)
+│   ├── --open                  serve the Keeper page (campaign, weather, eras, unlocks)
+│   ├── --era <forecast>        run one era from the terminal (calm, stable_soup, storm)
+│   ├── --status                where the bloodline stands
+│   ├── --new                   start the keeper session
+│   └── --port <n>              local port for --open (default: pick a free one)
 └── status                      workspace at a glance (modules, gates, open tasks)
 ```
 
@@ -97,6 +103,20 @@ validation), saves validated work only — engine-valid grids to
 `data/workshop/slips/` — with backup-before-overwrite, and both pages
 explain every constraint in place. Authored profiles immediately join
 the grid editor's live compatibility chips.
+
+### `mechas session`
+
+The Keeper's surface (DR 0021 gate G4). The session lab
+(`labs/game_loop/session_runner.py`) owns every rule — eras are real
+`runtime.evolve` runs, unlocks are facts citing report metrics,
+extinction and succession are engine contracts — and this command is its
+supportive layer: `--open` serves the Keeper page on the workshop
+server (campaign cards, weather picker, era history, unlock chips —
+every number a report field); `--era <forecast>` runs one era from the
+terminal via the lab's CLI mode in the workspace interpreter; `--status`
+and `--new` read and start the session. Play state persists under
+`data/game_loop/keeper/` (state + the DR 0022 schema-v1 ledger,
+backup-before-overwrite; gitignored — a live game is not evidence).
 
 ### `mechas status`
 

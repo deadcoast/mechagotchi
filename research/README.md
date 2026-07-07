@@ -720,6 +720,10 @@ Post-v0.1 continuation has started:
 - `labs/game_loop/replay_recorder.py` (+ `test_replay_recorder.py`)
 - `data/game_loop/replay_recorder_stage0.json` + `data/game_loop/replay_sample.json` (R5: the player's window — `live_cycle(record_frames=True)` engine seam (byte-identical off, contract-probed), the `mechagotchi_replay_v1` recorder (birth/wound/repair/tick frames, all engine truth verbatim, invalid repairs carry validator errors never fake bodies), and the preview scrubber over `POST /api/preview/replay`; sample life 151 frames/144 ticks, deterministic end to end)
 
+- `research/experiment_reports/2026-07-07-keeper-session-surface.md`
+- `workshop/session/session.html` + the `/api/session/*` endpoints
+- `tools/mechas_cli/src/mechas_cli/workflows/session.py` (G4: the Keeper's surface — persistent `keeper_session_v1` state with incremental play PINNED equal to batch play, succession seating the successor bloodline automatically, the Keeper page on the workshop server pattern, and `mechas session --open/--era/--status/--new` per the DR 0007 charter; play state gitignored under `data/game_loop/keeper/` so a live game never overwrites evidence)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

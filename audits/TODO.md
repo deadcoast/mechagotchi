@@ -66,9 +66,17 @@ documentation for tasks that need them; they do not pause the queue.)
   all frozen pins byte-identical. Identified seam: promoting R3
   readability-selection into `runtime.evolve` would activate the
   legibility currency live.)
-- [ ] **G4 · The Keeper's surface.** Session UI on the workshop
-  server pattern; `mechas` gains session commands (DR 0007 charter).
-  After G2/G3.
+- [x] **G4 · The Keeper's surface.** (2026-07-07: persistent
+  `keeper_session_v1` state — covenant + engine params fixed at
+  creation, incremental play pinned EQUAL to batch play, extinction
+  auto-seats the successor carrying only unlock facts; the Keeper page
+  (`/session` + `/api/session/*`) on the workshop server pattern with
+  weather picker, era history, and unlock chips citing their metrics;
+  `mechas session --open/--era/--status/--new` per the DR 0007
+  charter. Play state gitignored under `data/game_loop/keeper/` — a
+  live game never overwrites evidence. 36 lab + 48 workshop + 21 CLI
+  tests green. Identified next slice: the Covenant step — unlock facts
+  are displayed but nothing SPENDS them yet.)
 - [x] **R5 (=T12) · Replay recorder + workshop scrubber.** (DR 0023,
   2026-07-07: `live_cycle(record_frames=True)` engine seam — additive,
   byte-identical off, contract-probed; `labs/game_loop/replay_recorder`

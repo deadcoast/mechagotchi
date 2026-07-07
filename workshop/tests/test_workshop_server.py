@@ -49,6 +49,117 @@ def _get(url: str) -> tuple[int, dict]:
         return response.status, json.loads(response.read())
 
 
+class KeeperSessionEndpointTests(unittest.TestCase):
+    """G4 (DR 0021): the Keeper's session — persistent, engine-run.
+
+    A tiny-parameter session keeps the era run fast; the numbers the
+    endpoints return are read straight from the session lab's read model
+    over verbatim engine reports."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.temp = tempfile.TemporaryDirectory()
+        base = Path(cls.temp.name)
+        cls.session_dir = base / "game_loop"
+        cls.server = start_workshop_server(
+            port=0,
+            grids_dir=base / "grids",
+            slips_dir=base / "slips",
+            session_dir=cls.session_dir,
+        )
+        cls.base = f"http://127.0.0.1:{cls.server.server_address[1]}"
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.server.shutdown()
+        cls.temp.cleanup()
+
+    def test_the_keeper_session_plays_end_to_end(self):
+        # 1. No session yet.
+        status, payload = _get(f"{self.base}/api/session/state")
+        self.assertEqual(200, status)
+        self.assertFalse(payload["exists"])
+        self.assertIn("storm", payload["weather_names"])
+
+        # 2. Running an era without a session is refused honestly.
+        status, refused = _post(
+            f"{self.base}/api/session/era", {"weather": "calm"}
+        )
+        self.assertEqual(409, status)
+        self.assertFalse(refused["ok"])
+
+        # 3. Start the bloodline (fast engine parameters via the state
+        #    file are the lab's concern; the endpoint uses defaults, so
+        #    shrink them directly in the state for test speed).
+        status, created = _post(f"{self.base}/api/session/new", {})
+        self.assertEqual(200, status)
+        self.assertTrue(created["ok"])
+        self.assertEqual(
+            "keeper_campaign_001", created["active_campaign_id"]
+        )
+        state_path = self.session_dir / "keeper_session.json"
+        state = json.loads(state_path.read_text(encoding="utf-8"))
+        state["engine_parameters"].update(
+            generations=2,
+            population=3,
+            damage_cycles=1,
+            ticks=8,
+            repair_epochs=20,
+        )
+        state_path.write_text(
+            json.dumps(state, indent=2) + "\n", encoding="utf-8"
+        )
+
+        # 4. A second start is refused while the session exists.
+        status, duplicate = _post(f"{self.base}/api/session/new", {})
+        self.assertEqual(409, status)
+        self.assertFalse(duplicate["ok"])
+
+        # 5. Run one storm era: the turn is a real evolve run's digest.
+        status, turn_payload = _post(
+            f"{self.base}/api/session/era", {"weather": "storm"}
+        )
+        self.assertEqual(200, status)
+        self.assertTrue(turn_payload["ok"])
+        turn = turn_payload["turn"]
+        self.assertEqual("storm", turn["era"]["forecast"])
+        self.assertTrue(
+            all(
+                sid.startswith("weather_storm_")
+                for sid in turn["era"]["snapshot_ids"]
+            )
+        )
+        self.assertEqual("active", turn["status"])
+
+        # 6. The persisted state and the DR 0022 ledger both updated.
+        status, refreshed = _get(f"{self.base}/api/session/state")
+        self.assertEqual(1, refreshed["campaigns"][0]["era_count"])
+        ledger = json.loads(
+            (self.session_dir / "campaign_ledger.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual("dr0022_v1_json_interim", ledger["schema"])
+        self.assertEqual(1, len(ledger["eras"]))
+        self.assertEqual(
+            "storm", ledger["eras"][0]["weather"]["forecast"]
+        )
+
+        # 7. Unknown forecasts are rejected.
+        status, bad = _post(
+            f"{self.base}/api/session/era", {"weather": "hurricane"}
+        )
+        self.assertEqual(400, status)
+        self.assertFalse(bad["ok"])
+
+    def test_serves_the_session_page(self):
+        with urllib.request.urlopen(f"{self.base}/session") as response:
+            body = response.read().decode("utf-8")
+        self.assertEqual(200, response.status)
+        self.assertIn("/api/session/era", body)
+        self.assertIn("keeper session", body)
+
+
 class WorkshopServerTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):

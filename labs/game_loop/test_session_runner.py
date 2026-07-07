@@ -13,16 +13,23 @@ if str(LAB_DIR) not in sys.path:
     sys.path.insert(0, str(LAB_DIR))
 
 from session_runner import (  # noqa: E402
+    SESSION_FORMAT,
     UNLOCK_THRESHOLDS,
+    advance_keeper_state,
+    apply_succession,
     build_campaign_ledger,
     build_session_report,
     build_seed_grids,
     build_weather_source,
     evaluate_unlocks,
+    keeper_state_summary,
+    load_keeper_state,
+    new_keeper_state,
     plan_succession,
     resolve_unlock_state,
     run_campaign,
     run_keeper_session,
+    save_keeper_state,
     train_legibility_model,
     train_session_models,
     write_session_artifacts,
@@ -357,6 +364,115 @@ class SessionRunnerTests(unittest.TestCase):
         self.assertEqual(
             [], [row for row in rows if not row["admitted"]]
         )
+
+    # -- the Keeper's persistent session (G4) --------------------------------
+
+    def _fresh_state(self) -> dict:
+        return new_keeper_state(
+            campaign_id="keeper_test",
+            base_seed=BASE_SEED,
+            engine_parameters=dict(
+                generations=2,
+                population=3,
+                damage_cycles=1,
+                ticks=8,
+                dropout_rate=0.2,
+                repair_epochs=20,
+            ),
+        )
+
+    def test_incremental_advances_equal_the_batch_campaign(self):
+        state = self._fresh_state()
+        for weather in ("calm", "storm"):
+            advance_keeper_state(state, weather, **self.models)
+        batch = run_campaign(
+            campaign_id="keeper_test",
+            keeper_label="keeper",
+            base_seed=BASE_SEED,
+            weather_schedule=("calm", "storm"),
+            generations=2,
+            population=3,
+            damage_cycles=1,
+            ticks=8,
+            **self.models,
+        )
+        self.assertEqual(batch, state["campaigns"][0])
+
+    def test_advance_returns_the_turn_summary(self):
+        state = self._fresh_state()
+        turn = advance_keeper_state(state, "storm", **self.models)
+        self.assertEqual("keeper_test", turn["campaign_id"])
+        self.assertEqual("active", turn["status"])
+        self.assertEqual("storm", turn["era"]["forecast"])
+        self.assertIsNone(turn["succession"])
+        self.assertEqual(
+            len(turn["unlocks_earned"]), turn["unlock_state_count"]
+        )
+
+    def test_state_save_load_round_trips_with_backup_and_ledger(self):
+        state = self._fresh_state()
+        advance_keeper_state(state, "calm", **self.models)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "keeper_session.json"
+            ledger_path = Path(tmp) / "campaign_ledger.json"
+            save_keeper_state(state, path, ledger_path)
+            self.assertEqual(state, load_keeper_state(path))
+            ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
+            self.assertEqual("dr0022_v1_json_interim", ledger["schema"])
+            self.assertEqual(1, len(ledger["eras"]))
+            save_keeper_state(state, path, ledger_path)
+            self.assertTrue(
+                (Path(tmp) / "keeper_session.bak.json").exists()
+            )
+
+    def test_summary_is_a_digest_read_model(self):
+        state = self._fresh_state()
+        advance_keeper_state(state, "calm", **self.models)
+        summary = keeper_state_summary(state)
+        self.assertEqual(SESSION_FORMAT, summary["session_format"])
+        self.assertEqual(1, summary["campaigns"][0]["era_count"])
+        # Digests only — the verbatim reports stay in the state file.
+        self.assertNotIn("report", summary["campaigns"][0]["eras"][0])
+        json.dumps(summary)
+
+    def test_extinction_hands_the_session_to_the_successor(self):
+        state = self._fresh_state()
+        campaign = state["campaigns"][0]
+        campaign["status"] = "extinct"
+        campaign["unlocks"].append(
+            {
+                "axis": "niche_mastery",
+                "tier": 1,
+                "earned_era_index": 0,
+                "metric_path": "report.summary.archive.filled_niches",
+                "metric_value": 5,
+                "threshold": 4,
+            }
+        )
+        succession = apply_succession(state, campaign)
+        self.assertEqual(
+            "keeper_test_successor", succession["successor_campaign_id"]
+        )
+        self.assertEqual(1, succession["carried_unlock_count"])
+        self.assertEqual(
+            "keeper_test_successor", state["active_campaign_id"]
+        )
+        # The successor plays from seeds, carrying only the unlocks.
+        turn = advance_keeper_state(state, "calm", **self.models)
+        self.assertEqual("keeper_test_successor", turn["campaign_id"])
+        self.assertEqual("seed_pool", turn["era"]["parent_source_generation_0"])
+        self.assertGreaterEqual(turn["unlock_state_count"], 1)
+
+    def test_advancing_an_extinct_campaign_is_refused(self):
+        state = self._fresh_state()
+        state["campaigns"][0]["status"] = "extinct"
+        with self.assertRaises(ValueError):
+            advance_keeper_state(state, "calm", **self.models)
+
+    def test_succession_is_refused_for_living_campaigns(self):
+        state = self._fresh_state()
+        with self.assertRaises(ValueError):
+            apply_succession(state, state["campaigns"][0])
 
     # -- artifacts -----------------------------------------------------------
 

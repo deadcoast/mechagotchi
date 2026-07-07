@@ -385,44 +385,92 @@ def run_campaign(
     if legibility_model is None:
         legibility_model = train_legibility_model()
 
-    eras: list[dict] = []
-    unlocks: list[dict] = []
-    status = "active"
-    founder_grids: list[dict] | None = None
-    for era_index, weather in enumerate(weather_schedule):
-        era_record = run_era(
-            era_index=era_index,
-            weather=weather,
+    campaign = {
+        "campaign_id": campaign_id,
+        "keeper_label": keeper_label,
+        "created_date": created_date,
+        "predecessor_campaign_id": predecessor_campaign_id,
+        "status": "active",
+        "slip_profile": slip_profile,
+        "base_seed": base_seed,
+        "eras": [],
+        "unlocks": [],
+    }
+    for weather in weather_schedule:
+        if campaign["status"] != "active":
+            break
+        advance_campaign(
+            campaign,
+            weather,
             seed_grids=seed_grids,
-            slip_profile=slip_profile,
             generation_model=generation_model,
             repair_model=repair_model,
             legibility_model=legibility_model,
-            founder_grids=founder_grids,
-            rng_seed=base_seed + era_index * ERA_SEED_STRIDE,
             generations=generations,
             population=population,
             damage_cycles=damage_cycles,
             ticks=ticks,
             dropout_rate=dropout_rate,
         )
-        eras.append(era_record)
-        unlocks.extend(evaluate_unlocks(era_record, unlocks))
-        if era_record["derived"]["went_extinct"]:
-            status = "extinct"
-            break
-        founder_grids = [elite["grid"] for elite in era_record["elites"]]
-    return {
-        "campaign_id": campaign_id,
-        "keeper_label": keeper_label,
-        "created_date": created_date,
-        "predecessor_campaign_id": predecessor_campaign_id,
-        "status": status,
-        "slip_profile": slip_profile,
-        "base_seed": base_seed,
-        "eras": eras,
-        "unlocks": unlocks,
-    }
+    return campaign
+
+
+def advance_campaign(
+    campaign: dict,
+    weather: str,
+    *,
+    seed_grids: list[dict],
+    generation_model: dict,
+    repair_model: dict,
+    legibility_model: dict,
+    generations: int,
+    population: int,
+    damage_cycles: int,
+    ticks: int,
+    dropout_rate: float,
+) -> dict:
+    """Advance a living campaign by exactly one era (G4's play surface).
+
+    Mutates ``campaign`` in place: appends the era record, accumulates
+    the unlock facts it earns, and marks the campaign extinct when the
+    engine ends the bloodline. The next era's founder pool is always the
+    previous era's elites — the DR 0021 spine — so incremental play and
+    ``run_campaign``'s batch play are the same code path."""
+    if campaign["status"] != "active":
+        raise ValueError(
+            f"campaign {campaign['campaign_id']!r} is {campaign['status']} — "
+            "an ended bloodline cannot run another era (plan_succession "
+            "starts the successor)"
+        )
+    era_index = len(campaign["eras"])
+    founder_grids = (
+        [elite["grid"] for elite in campaign["eras"][-1]["elites"]]
+        if campaign["eras"]
+        else None
+    )
+    era_record = run_era(
+        era_index=era_index,
+        weather=weather,
+        seed_grids=seed_grids,
+        slip_profile=campaign["slip_profile"],
+        generation_model=generation_model,
+        repair_model=repair_model,
+        legibility_model=legibility_model,
+        founder_grids=founder_grids,
+        rng_seed=campaign["base_seed"] + era_index * ERA_SEED_STRIDE,
+        generations=generations,
+        population=population,
+        damage_cycles=damage_cycles,
+        ticks=ticks,
+        dropout_rate=dropout_rate,
+    )
+    campaign["eras"].append(era_record)
+    campaign["unlocks"].extend(
+        evaluate_unlocks(era_record, campaign["unlocks"])
+    )
+    if era_record["derived"]["went_extinct"]:
+        campaign["status"] = "extinct"
+    return era_record
 
 
 def resolve_unlock_state(campaigns: list[dict], campaign_id: str) -> list[dict]:
@@ -765,33 +813,333 @@ def write_session_artifacts(
     )
 
 
+# ---------------------------------------------------------------- G4:
+# the Keeper's persistent session (DR 0021 gate G4). The state file is
+# the JSON interim (DR 0022); every save also refreshes the derived
+# schema-v1 campaign ledger. Backup-before-overwrite like the workshop.
+
+SESSION_FORMAT = "keeper_session_v1"
+# Play state lives in its own subdirectory so a live session never
+# overwrites the committed stage-0 evidence artifacts one level up.
+KEEPER_DIR = DEFAULT_OUTPUT_DIR / "keeper"
+SESSION_STATE_PATH = KEEPER_DIR / "keeper_session.json"
+LEDGER_PATH = KEEPER_DIR / "campaign_ledger.json"
+DEFAULT_ENGINE_PARAMETERS = {
+    "generations": 3,
+    "population": 4,
+    "damage_cycles": 2,
+    "ticks": 16,
+    "dropout_rate": 0.2,
+    "repair_epochs": 40,
+}
+
+
+def _campaign_shell(
+    *,
+    campaign_id: str,
+    keeper_label: str,
+    created_date: str,
+    predecessor_campaign_id: str | None,
+    base_seed: int,
+    slip_profile: dict,
+) -> dict:
+    return {
+        "campaign_id": campaign_id,
+        "keeper_label": keeper_label,
+        "created_date": created_date,
+        "predecessor_campaign_id": predecessor_campaign_id,
+        "status": "active",
+        "slip_profile": slip_profile,
+        "base_seed": base_seed,
+        "eras": [],
+        "unlocks": [],
+    }
+
+
+def new_keeper_state(
+    *,
+    campaign_id: str = "keeper_campaign_001",
+    keeper_label: str = "keeper",
+    created_date: str = REPORT_DATE,
+    base_seed: int = 20260707,
+    slip_profile: dict | None = None,
+    engine_parameters: dict | None = None,
+) -> dict:
+    """A fresh Keeper session: one active campaign, zero eras. The
+    covenant and engine parameters are fixed at creation so every later
+    era is reproducible from the state file alone."""
+    if slip_profile is None:
+        slip_profile = json.loads(
+            SLIP_PROFILE_PATH.read_text(encoding="utf-8")
+        )
+    return {
+        "session_format": SESSION_FORMAT,
+        "active_campaign_id": campaign_id,
+        "engine_parameters": dict(
+            DEFAULT_ENGINE_PARAMETERS, **(engine_parameters or {})
+        ),
+        "campaigns": [
+            _campaign_shell(
+                campaign_id=campaign_id,
+                keeper_label=keeper_label,
+                created_date=created_date,
+                predecessor_campaign_id=None,
+                base_seed=base_seed,
+                slip_profile=slip_profile,
+            )
+        ],
+    }
+
+
+def advance_keeper_state(
+    state: dict,
+    weather: str,
+    *,
+    seed_grids: list[dict] | None = None,
+    generation_model: dict | None = None,
+    repair_model: dict | None = None,
+    legibility_model: dict | None = None,
+) -> dict:
+    """Run one era of the active campaign and return the turn summary.
+
+    On extinction the successor bloodline is created immediately
+    (carrying only the Keeper's unlocks, via the predecessor pointer —
+    DR 0022) and becomes the active campaign; the NEXT advance runs the
+    successor's first era from seeds."""
+    if state.get("session_format") != SESSION_FORMAT:
+        raise ValueError("not a keeper_session_v1 state")
+    params = state["engine_parameters"]
+    by_id = {c["campaign_id"]: c for c in state["campaigns"]}
+    campaign = by_id[state["active_campaign_id"]]
+    if seed_grids is None:
+        seed_grids = build_seed_grids()
+    if generation_model is None or repair_model is None:
+        generation_model, repair_model = train_session_models(
+            seed_grids,
+            repair_epochs=params["repair_epochs"],
+            rng_seed=campaign["base_seed"],
+        )
+    if legibility_model is None:
+        legibility_model = train_legibility_model()
+
+    unlocks_before = len(campaign["unlocks"])
+    era_record = advance_campaign(
+        campaign,
+        weather,
+        seed_grids=seed_grids,
+        generation_model=generation_model,
+        repair_model=repair_model,
+        legibility_model=legibility_model,
+        generations=params["generations"],
+        population=params["population"],
+        damage_cycles=params["damage_cycles"],
+        ticks=params["ticks"],
+        dropout_rate=params["dropout_rate"],
+    )
+    succession = (
+        apply_succession(state, campaign)
+        if campaign["status"] == "extinct"
+        else None
+    )
+    return {
+        "campaign_id": campaign["campaign_id"],
+        "status": campaign["status"],
+        "era": _era_digest(era_record),
+        "unlocks_earned": campaign["unlocks"][unlocks_before:],
+        "unlock_state_count": len(
+            resolve_unlock_state(
+                state["campaigns"], state["active_campaign_id"]
+            )
+        ),
+        "active_campaign_id": state["active_campaign_id"],
+        "succession": succession,
+    }
+
+
+def apply_succession(state: dict, campaign: dict) -> dict:
+    """An extinct campaign's successor becomes the active bloodline:
+    fresh from seeds, carrying ONLY the Keeper's unlocks through the
+    predecessor pointer (DR 0022 — never copied)."""
+    plan = plan_succession(campaign)
+    if plan is None:
+        raise ValueError(
+            f"campaign {campaign['campaign_id']!r} is not extinct — "
+            "succession is for ended bloodlines"
+        )
+    successor = _campaign_shell(
+        campaign_id=plan["campaign_id"],
+        keeper_label=plan["keeper_label"],
+        created_date=plan["created_date"],
+        predecessor_campaign_id=plan["predecessor_campaign_id"],
+        base_seed=plan["base_seed"],
+        slip_profile=campaign["slip_profile"],
+    )
+    state["campaigns"].append(successor)
+    state["active_campaign_id"] = successor["campaign_id"]
+    return {
+        "successor_campaign_id": successor["campaign_id"],
+        "carried_unlock_count": len(
+            resolve_unlock_state(
+                state["campaigns"], successor["campaign_id"]
+            )
+        ),
+    }
+
+
+def keeper_state_summary(state: dict) -> dict:
+    """The Keeper page's read model — digests only, blobs stay on disk."""
+    campaigns = []
+    for campaign in state["campaigns"]:
+        campaigns.append(
+            {
+                "campaign_id": campaign["campaign_id"],
+                "keeper_label": campaign["keeper_label"],
+                "status": campaign["status"],
+                "predecessor_campaign_id": campaign[
+                    "predecessor_campaign_id"
+                ],
+                "base_seed": campaign["base_seed"],
+                "profile_id": campaign["slip_profile"].get("profile_id"),
+                "era_count": len(campaign["eras"]),
+                "eras": [_era_digest(era) for era in campaign["eras"]],
+                "unlocks": campaign["unlocks"],
+            }
+        )
+    return {
+        "session_format": state["session_format"],
+        "active_campaign_id": state["active_campaign_id"],
+        "engine_parameters": state["engine_parameters"],
+        "campaigns": campaigns,
+        "unlock_state": resolve_unlock_state(
+            state["campaigns"], state["active_campaign_id"]
+        ),
+        "weather_names": list(WEATHER_NAMES),
+        "unlock_thresholds": UNLOCK_THRESHOLDS,
+    }
+
+
+def load_keeper_state(path: str | Path = SESSION_STATE_PATH) -> dict | None:
+    path = Path(path)
+    if not path.exists():
+        return None
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def save_keeper_state(
+    state: dict,
+    path: str | Path = SESSION_STATE_PATH,
+    ledger_path: str | Path | None = None,
+) -> None:
+    """Backup-before-overwrite (the workshop's save discipline); every
+    save refreshes the derived DR 0022 schema-v1 ledger, which lives
+    next to the state file by default."""
+    path = Path(path)
+    if ledger_path is None:
+        ledger_path = path.parent / "campaign_ledger.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists():
+        path.with_suffix(".bak.json").write_text(
+            path.read_text(encoding="utf-8"), encoding="utf-8"
+        )
+    path.write_text(json.dumps(state, indent=2) + "\n", encoding="utf-8")
+    if ledger_path is not None:
+        Path(ledger_path).write_text(
+            json.dumps(
+                build_campaign_ledger({"campaigns": state["campaigns"]}),
+                indent=2,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Run one full Keeper session (G2) and write artifacts."
+        description=(
+            "The Keeper session lab: --mode demo writes the G2 stage-0 "
+            "artifacts; new/advance/status drive the persistent session "
+            "(G4). Machine-readable JSON on stdout."
+        )
+    )
+    parser.add_argument(
+        "--mode",
+        choices=("demo", "new", "advance", "status"),
+        default="demo",
     )
     parser.add_argument(
         "--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR
     )
+    parser.add_argument("--state-path", type=Path, default=SESSION_STATE_PATH)
     parser.add_argument("--base-seed", type=int, default=20260707)
     parser.add_argument("--repair-epochs", type=int, default=40)
+    parser.add_argument("--campaign-id", default="keeper_campaign_001")
+    parser.add_argument(
+        "--weather", choices=WEATHER_NAMES, default="calm"
+    )
     args = parser.parse_args()
-    session = run_keeper_session(
-        base_seed=args.base_seed, repair_epochs=args.repair_epochs
-    )
-    report = build_session_report(session)
-    write_session_artifacts(args.output_dir, report, session)
-    print(
-        json.dumps(
-            {
-                "artifact_id": report["artifact_id"],
-                "decision": report["decision"]["status"],
-                "era_count": report["metrics"]["era_count"],
-                "unlock_fact_count": report["metrics"]["unlock_fact_count"],
-                "output_dir": str(args.output_dir),
-            },
-            indent=2,
+
+    if args.mode == "demo":
+        session = run_keeper_session(
+            base_seed=args.base_seed, repair_epochs=args.repair_epochs
         )
-    )
+        report = build_session_report(session)
+        write_session_artifacts(args.output_dir, report, session)
+        print(
+            json.dumps(
+                {
+                    "artifact_id": report["artifact_id"],
+                    "decision": report["decision"]["status"],
+                    "era_count": report["metrics"]["era_count"],
+                    "unlock_fact_count": report["metrics"][
+                        "unlock_fact_count"
+                    ],
+                    "output_dir": str(args.output_dir),
+                },
+                indent=2,
+            )
+        )
+        return
+
+    if args.mode == "new":
+        if Path(args.state_path).exists():
+            print(
+                json.dumps(
+                    {
+                        "ok": False,
+                        "error": "a keeper session already exists — "
+                        "advance it, or move the state file aside to "
+                        "start over",
+                    }
+                )
+            )
+            raise SystemExit(1)
+        state = new_keeper_state(
+            campaign_id=args.campaign_id,
+            base_seed=args.base_seed,
+            engine_parameters={"repair_epochs": args.repair_epochs},
+        )
+        save_keeper_state(state, args.state_path)
+        print(json.dumps({"ok": True, **keeper_state_summary(state)}))
+        return
+
+    state = load_keeper_state(args.state_path)
+    if args.mode == "status":
+        if state is None:
+            print(json.dumps({"ok": False, "error": "no keeper session yet"}))
+            raise SystemExit(1)
+        print(json.dumps({"ok": True, **keeper_state_summary(state)}))
+        return
+
+    # advance
+    if state is None:
+        state = new_keeper_state(
+            campaign_id=args.campaign_id,
+            base_seed=args.base_seed,
+            engine_parameters={"repair_epochs": args.repair_epochs},
+        )
+    turn = advance_keeper_state(state, args.weather)
+    save_keeper_state(state, args.state_path)
+    print(json.dumps({"ok": True, **turn}))
 
 
 if __name__ == "__main__":

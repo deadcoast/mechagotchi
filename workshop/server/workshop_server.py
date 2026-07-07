@@ -70,6 +70,14 @@ Endpoints:
                             lineage-marked copy lands in the released
                             directory that evolution runs consume
 - GET  /api/released        creatures currently released
+- GET  /session             the Keeper's session page (G4, DR 0021)
+- GET  /api/session/state   the persistent keeper session's read model
+                            (campaign digests, unlock state, forecasts)
+- POST /api/session/new     {campaign_id?, base_seed?} -> start a
+                            keeper session (409 if one exists)
+- POST /api/session/era     {weather} -> advance the active campaign by
+                            one era (the promoted evolve run), persist
+                            state + DR 0022 ledger, return the turn
 - GET  /inspect             the genome inspector + lineage browser
 - GET  /api/inspect?source=&name=  the engine-judged genome record
 - GET  /api/lineage         released ancestry + evolution-run traces
@@ -141,6 +149,15 @@ from png_embedded_sidecar_writer import (  # noqa: E402
 )
 from mecha_engine.runtime import live_cycle  # noqa: E402
 from replay_recorder import build_replay  # noqa: E402
+from session_runner import (  # noqa: E402
+    WEATHER_NAMES,
+    advance_keeper_state,
+    keeper_state_summary,
+    load_keeper_state,
+    new_keeper_state,
+    save_keeper_state,
+    train_legibility_model,
+)
 
 
 WORKSHOP_DIR = ROOT / "workshop"
@@ -148,6 +165,9 @@ DEFAULT_GRIDS_DIR = ROOT / "data" / "workshop" / "grids"
 DEFAULT_SLIPS_DIR = ROOT / "data" / "workshop" / "slips"
 DEFAULT_RELEASED_DIR = ROOT / "data" / "workshop" / "released"
 DEFAULT_METRICS_DIR = ROOT / "data" / "workshop" / "metrics"
+# Keeper play state lives in its own subdirectory so a live session
+# never overwrites the committed game_loop stage-0 evidence artifacts.
+DEFAULT_SESSION_DIR = ROOT / "data" / "game_loop" / "keeper"
 SLIP_VALID_DIR = ROOT / "data" / "slips" / "valid"
 TOKENS = {".", "B", "A", "E", "M"}
 GRID_SIZE = 8
@@ -338,11 +358,18 @@ class WorkshopServer(ThreadingHTTPServer):
         slips_dir: Path,
         released_dir: Path,
         metrics_dir: Path,
+        session_dir: Path | None = None,
     ) -> None:
         self.grids_dir = grids_dir
         self.slips_dir = slips_dir
         self.released_dir = released_dir
         self.metrics_dir = metrics_dir
+        # G4 (DR 0021): the Keeper's persistent session (JSON interim).
+        session_dir = session_dir or DEFAULT_SESSION_DIR
+        self.session_state_path = session_dir / "keeper_session.json"
+        self.session_ledger_path = session_dir / "campaign_ledger.json"
+        self._legibility_model: dict | None = None
+        self._session_repair_models: dict[tuple[int, int], dict] = {}
         self.session_metrics = {
             "started_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
             "validations": 0,
@@ -360,6 +387,19 @@ class WorkshopServer(ThreadingHTTPServer):
         self.generation_model = train_generation_model(self.seed_grids)
         handler = functools.partial(_Handler, directory=str(WORKSHOP_DIR))
         super().__init__(address, handler)
+
+    def legibility_model(self) -> dict:
+        if self._legibility_model is None:
+            self._legibility_model = train_legibility_model()
+        return self._legibility_model
+
+    def session_repair_model(self, epochs: int, rng_seed: int) -> dict:
+        key = (epochs, rng_seed)
+        if key not in self._session_repair_models:
+            self._session_repair_models[key] = train_repair_model(
+                self.seed_grids[:40], epochs=epochs, rng_seed=rng_seed
+            )
+        return self._session_repair_models[key]
 
     def resolve_creature(self, source: str, name: str) -> dict | None:
         if source == "seed":
@@ -554,6 +594,26 @@ class _Handler(SimpleHTTPRequestHandler):
         if path == "/slip":
             self.path = "/slip_creator/slip_creator.html"
             return super().do_GET()
+        if path == "/session":
+            self.path = "/session/session.html"
+            return super().do_GET()
+        if path == "/api/session/state":
+            state = load_keeper_state(self.server.session_state_path)
+            if state is None:
+                self._json(
+                    200,
+                    {
+                        "ok": True,
+                        "exists": False,
+                        "weather_names": list(WEATHER_NAMES),
+                    },
+                )
+                return
+            self._json(
+                200,
+                {"ok": True, "exists": True, **keeper_state_summary(state)},
+            )
+            return
         if path == "/api/palettes":
             self._json(200, {"palettes": PALETTES})
             return
@@ -667,6 +727,8 @@ class _Handler(SimpleHTTPRequestHandler):
             "/api/import/spritesheet",
             "/api/release",
             "/api/metrics/flush",
+            "/api/session/new",
+            "/api/session/era",
         ):
             self._json(404, {"ok": False, "error": "unknown endpoint"})
             return
@@ -693,6 +755,9 @@ class _Handler(SimpleHTTPRequestHandler):
             return
         if path.startswith("/api/preview/"):
             self._preview(path.rsplit("/", 1)[-1], payload)
+            return
+        if path.startswith("/api/session/"):
+            self._session(path.rsplit("/", 1)[-1], payload)
             return
         if path == "/api/import/spritesheet":
             self._import_spritesheet(payload)
@@ -1015,6 +1080,91 @@ class _Handler(SimpleHTTPRequestHandler):
 
         self._json(404, {"ok": False, "error": "unknown preview"})
 
+    def _session(self, kind: str, payload: dict) -> None:
+        """G4 (DR 0021): the Keeper's session — persistent, engine-run.
+
+        Every number the page shows comes from the session lab's own
+        read model over verbatim engine reports; the server never
+        recomputes game logic."""
+        if kind == "new":
+            if self.server.session_state_path.exists():
+                self._json(
+                    409,
+                    {
+                        "ok": False,
+                        "error": "a keeper session already exists — "
+                        "advance it, or move the state file aside to "
+                        "start over",
+                    },
+                )
+                return
+            state = new_keeper_state(
+                campaign_id=str(
+                    payload.get("campaign_id", "keeper_campaign_001")
+                ),
+                base_seed=int(payload.get("base_seed", 20260707)),
+            )
+            save_keeper_state(
+                state,
+                self.server.session_state_path,
+                self.server.session_ledger_path,
+            )
+            self._json(
+                200,
+                {"ok": True, "exists": True, **keeper_state_summary(state)},
+            )
+            return
+
+        if kind == "era":
+            weather = str(payload.get("weather", "calm"))
+            if weather not in WEATHER_NAMES:
+                self._json(
+                    400, {"ok": False, "error": f"unknown forecast: {weather}"}
+                )
+                return
+            state = load_keeper_state(self.server.session_state_path)
+            if state is None:
+                self._json(
+                    409,
+                    {
+                        "ok": False,
+                        "error": "no keeper session yet — start one first",
+                    },
+                )
+                return
+            params = state["engine_parameters"]
+            active = next(
+                campaign
+                for campaign in state["campaigns"]
+                if campaign["campaign_id"] == state["active_campaign_id"]
+            )
+            turn = advance_keeper_state(
+                state,
+                weather,
+                seed_grids=self.server.seed_grids,
+                generation_model=self.server.generation_model,
+                repair_model=self.server.session_repair_model(
+                    params["repair_epochs"], active["base_seed"]
+                ),
+                legibility_model=self.server.legibility_model(),
+            )
+            save_keeper_state(
+                state,
+                self.server.session_state_path,
+                self.server.session_ledger_path,
+            )
+            self._json(
+                200,
+                {
+                    "ok": True,
+                    "turn": turn,
+                    **keeper_state_summary(state),
+                },
+            )
+            return
+
+        self._json(404, {"ok": False, "error": "unknown session endpoint"})
+
     def _export(self, kind: str, payload: dict) -> None:
         """Strict per the 4-W pillar: exports carry the engine's word."""
         matrix = payload.get("matrix")
@@ -1209,9 +1359,15 @@ def start_workshop_server(
     slips_dir: Path = DEFAULT_SLIPS_DIR,
     released_dir: Path = DEFAULT_RELEASED_DIR,
     metrics_dir: Path = DEFAULT_METRICS_DIR,
+    session_dir: Path | None = None,
 ) -> WorkshopServer:
     server = WorkshopServer(
-        ("127.0.0.1", port), grids_dir, slips_dir, released_dir, metrics_dir
+        ("127.0.0.1", port),
+        grids_dir,
+        slips_dir,
+        released_dir,
+        metrics_dir,
+        session_dir=session_dir,
     )
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
