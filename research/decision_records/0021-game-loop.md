@@ -7,8 +7,8 @@ Date: 2026-07-07
 **Accepted** (DR 0017 R4 — "the game loop decision record"; owner
 purpose a.2: an incremental progression, survival and simulation game
 as the showcase of the CuBFF engine). This record is R4's deliverable
-AND the governing design for the game-loop build track. Its completion
-is a checkpoint; each build gate below gets its own plan.
+AND the governing design for the game-loop build track. Its build gates
+are tasks in the active TODO, developed continuously like every task.
 
 ## The duality this record serves
 
@@ -131,7 +131,7 @@ storage DR is build gate G1 below and must be proposed before any
 persistence code. JSON-artifact persistence (the existing pattern)
 remains the interim so the session lab (G2) does not wait on G1.
 
-## Build gates (each gets its own plan/checkpoint)
+## Build gates (tasks in the active TODO)
 
 - **G1 · `storage` module decision record** — schema for campaigns,
   eras, unlocks, lineage; SQLite per DR 0011's pointer; stdlib

@@ -4,8 +4,9 @@ Date: 2026-07-06
 
 ## Status
 
-**Accepted as the R3 plan** (DR 0017 R-queue). This record is the
-checkpoint plan; on its completion a fresh plan is required.
+**Accepted as the R3 plan** (DR 0017 R-queue). R3 is one task of the
+cycle-02 TODO; development continues through that TODO's tasks until it
+is exhausted and confirmed complete.
 
 ## The purpose (TRUE ML as the primary path)
 
@@ -94,9 +95,9 @@ discipline as R2).
 
 - Readability becomes a learned engine capability; the manual system is
   demoted to its true role (fallback + calibration) permanently.
-- Queued next after this checkpoint: the `runtime.evolve` promotion of
-  the R2 CuBFF seam (DR 0018's recorded next step) — logged in the TODO
-  as R2.5 so it is developed, not forgotten.
+- The `runtime.evolve` promotion of the R2 CuBFF seam (DR 0018's
+  recorded next step) is logged in the cycle-02 TODO as R2.5 so it is
+  developed, not forgotten.
 
 ## Sources
 

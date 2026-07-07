@@ -4,9 +4,10 @@ Date: 2026-07-07
 
 ## Status
 
-**Accepted as the R2.5 plan** (queued by DR 0018/DR 0019; the DR 0018
-checkpoint's recorded next step). This record is the checkpoint plan;
-on its completion a fresh plan is required.
+**Accepted as the R2.5 plan** (queued by DR 0018/DR 0019 as the
+promotion's own record). R2.5 is one task of the cycle-02 TODO;
+development continues through that TODO's tasks until it is exhausted
+and confirmed complete.
 
 ## The purpose
 

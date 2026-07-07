@@ -5,7 +5,11 @@ Source: `research/decision_records/0017-recalibration-engine-game-duality.md`
 `audits/complete/01/` (T7/T8/T11/T12 carried here as R7/R1/R6/R5).
 Governing rule: deep integrations over breadth — the ENGINE+GAME duality;
 hard/unique features win over easy/generic ones, said aloud. A task is
-complete when developed to its description, then marked.
+complete when developed to its description, then marked. Development
+proceeds continuously through this TODO's tasks; planning is triggered
+ONLY when the TODO is exhausted of its tasks and confirmed COMPLETE —
+then the next cycle is planned. (Decision records remain the design
+documentation for tasks that need them; they do not pause the queue.)
 
 - [x] **R1 (=T8) · CTM deliberation into the runtime switchboard.**
   (DR 0017 R1, shipped 2026-07-06 commit 837ca3d: `deliberation` SLIP
@@ -14,7 +18,7 @@ complete when developed to its description, then marked.
   wellbeing delta 0.0 in sheltered episodes — verdict recorded:
   adopt-as-expressiveness / watch-for-utility. The creature visibly
   thinks.)
-- [x] **R2 · CuBFF live lineage pressure.** (DR 0018, 2026-07-06: Pipeline C wired into the evolution loop — chaotic soup 1.17x damage/111 cells vs stable 0.90x/88 at the same seed, provenance per generation, semantic-compiler rule held; runtime.evolve promotion is the next plan.)
+- [x] **R2 · CuBFF live lineage pressure.** (DR 0018, 2026-07-06: Pipeline C wired into the evolution loop — chaotic soup 1.17x damage/111 cells vs stable 0.90x/88 at the same seed, provenance per generation, semantic-compiler rule held; runtime.evolve promotion queued as R2.5.)
 - [x] **R2.5 · Promote the CuBFF pressure seam into `runtime.evolve`.**
   (DR 0020, 2026-07-07: `cubff_pressure_source` keyword on the
   promoted `evolve`; verbatim `_cubff.py` mirror + lab-side parity
@@ -42,7 +46,7 @@ complete when developed to its description, then marked.
 - [ ] **G1 · `storage` module decision record.** (Unblocked by DR
   0021.) Schema for campaigns, eras, unlocks, lineage; SQLite per DR
   0011's ratified pointer; stdlib `sqlite3` keeps the package
-  dependency policy intact. Plan before code.
+  dependency policy intact.
 - [ ] **G2 · Session-runner lab (`labs/game_loop/`).** One full
   session over promoted surfaces: era-chaining via founders, weather
   selection, unlock evaluation from report metrics, extinction and

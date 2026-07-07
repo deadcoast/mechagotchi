@@ -5,8 +5,9 @@ Date: 2026-07-06
 ## Status
 
 **Accepted as the R2 plan** (DR 0017 R-queue; owner directive to plan
-before developing, 2026-07-06). This record IS the checkpoint plan; on
-its completion a fresh plan is required for the next step.
+before developing, 2026-07-06). R2 is one task of the cycle-02 TODO;
+development continues through that TODO's tasks until it is exhausted
+and confirmed complete.
 
 ## The purpose (why this is the identity-critical task)
 
@@ -88,8 +89,8 @@ constrains; the validator still gates. CuBFF pressures, it never dictates.
 
 - CuBFF becomes the engine's bloodstream: the identity claim is now
   demonstrated in the running loop, not just a lab.
-- The `runtime.evolve` promotion of this seam becomes the natural next
-  plan after this checkpoint.
+- The `runtime.evolve` promotion of this seam is queued as its own
+  task (R2.5) in the cycle-02 TODO.
 
 ## Sources
 
