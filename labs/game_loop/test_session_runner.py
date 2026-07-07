@@ -410,16 +410,27 @@ class SessionRunnerTests(unittest.TestCase):
         )
 
     def test_state_save_load_round_trips_with_backup_and_ledger(self):
+        # C3 (DR 0022): the derived ledger is the promoted storage
+        # module's SQLite file, rebuilt through the migration path.
+        from mecha_engine.storage import campaign_history, open_ledger
+
         state = self._fresh_state()
         advance_keeper_state(state, "calm", **self.models)
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "keeper_session.json"
-            ledger_path = Path(tmp) / "campaign_ledger.json"
+            ledger_path = Path(tmp) / "campaign_ledger.sqlite"
             save_keeper_state(state, path, ledger_path)
             self.assertEqual(state, load_keeper_state(path))
-            ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
-            self.assertEqual("dr0022_v1_json_interim", ledger["schema"])
-            self.assertEqual(1, len(ledger["eras"]))
+            conn = open_ledger(ledger_path)
+            try:
+                history = campaign_history(conn, "keeper_test")
+                self.assertEqual(1, len(history["eras"]))
+                self.assertEqual(
+                    state["campaigns"][0]["eras"][0]["report"],
+                    history["eras"][0]["report"],
+                )
+            finally:
+                conn.close()
             save_keeper_state(state, path, ledger_path)
             self.assertTrue(
                 (Path(tmp) / "keeper_session.bak.json").exists()

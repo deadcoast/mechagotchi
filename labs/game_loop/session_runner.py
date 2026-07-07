@@ -840,7 +840,10 @@ SESSION_FORMAT = "keeper_session_v1"
 # overwrites the committed stage-0 evidence artifacts one level up.
 KEEPER_DIR = DEFAULT_OUTPUT_DIR / "keeper"
 SESSION_STATE_PATH = KEEPER_DIR / "keeper_session.json"
-LEDGER_PATH = KEEPER_DIR / "campaign_ledger.json"
+# C3 (DR 0022): the derived ledger IS the promoted storage module's
+# SQLite file — the JSON interim is the in-memory shape the migration
+# ingests on every save (the exercised path).
+LEDGER_PATH = KEEPER_DIR / "campaign_ledger.sqlite"
 DEFAULT_ENGINE_PARAMETERS = {
     "generations": 3,
     "population": 4,
@@ -1048,26 +1051,31 @@ def save_keeper_state(
     ledger_path: str | Path | None = None,
 ) -> None:
     """Backup-before-overwrite (the workshop's save discipline); every
-    save refreshes the derived DR 0022 schema-v1 ledger, which lives
-    next to the state file by default."""
+    save refreshes the derived DR 0022 ledger — since C3, the promoted
+    `mecha_engine.storage` SQLite file next to the state file, rebuilt
+    through `ingest_session_artifacts` (the migration path, exercised
+    on every save)."""
+    from mecha_engine.storage import ingest_session_artifacts, open_ledger
+
     path = Path(path)
     if ledger_path is None:
-        ledger_path = path.parent / "campaign_ledger.json"
+        ledger_path = path.parent / "campaign_ledger.sqlite"
     path.parent.mkdir(parents=True, exist_ok=True)
     if path.exists():
         path.with_suffix(".bak.json").write_text(
             path.read_text(encoding="utf-8"), encoding="utf-8"
         )
     path.write_text(json.dumps(state, indent=2) + "\n", encoding="utf-8")
-    if ledger_path is not None:
-        Path(ledger_path).write_text(
-            json.dumps(
-                build_campaign_ledger({"campaigns": state["campaigns"]}),
-                indent=2,
-            )
-            + "\n",
-            encoding="utf-8",
+    ledger_path = Path(ledger_path)
+    if ledger_path.exists():
+        ledger_path.unlink()
+    conn = open_ledger(ledger_path)
+    try:
+        ingest_session_artifacts(
+            conn, build_campaign_ledger({"campaigns": state["campaigns"]})
         )
+    finally:
+        conn.close()
 
 
 def main() -> None:

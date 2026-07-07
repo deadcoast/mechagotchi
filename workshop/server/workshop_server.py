@@ -367,7 +367,9 @@ class WorkshopServer(ThreadingHTTPServer):
         # G4 (DR 0021): the Keeper's persistent session (JSON interim).
         session_dir = session_dir or DEFAULT_SESSION_DIR
         self.session_state_path = session_dir / "keeper_session.json"
-        self.session_ledger_path = session_dir / "campaign_ledger.json"
+        # C3 (DR 0022): the derived ledger is the promoted storage
+        # module's SQLite file.
+        self.session_ledger_path = session_dir / "campaign_ledger.sqlite"
         self._legibility_model: dict | None = None
         self._session_repair_models: dict[tuple[int, int], dict] = {}
         self.session_metrics = {

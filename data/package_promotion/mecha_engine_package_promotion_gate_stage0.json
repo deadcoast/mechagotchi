@@ -7,8 +7,8 @@
     "criteria_count": 7,
     "candidate_count": 9,
     "research_ready_count": 8,
-    "package_design_ready_count": 1,
-    "promotion_ready_count": 7,
+    "package_design_ready_count": 0,
+    "promotion_ready_count": 8,
     "blocked_count": 1,
     "hold_research_only_count": 0
   },
@@ -325,7 +325,7 @@
     {
       "component_id": "campaign_store",
       "target_package": "packages/mecha_engine/src/mecha_engine/storage",
-      "gate_status": "ready_for_package_design",
+      "gate_status": "promotion_ready",
       "research_evidence_complete": true,
       "missing_evidence": [],
       "thresholds_met": true,
@@ -363,9 +363,7 @@
         }
       ],
       "verification": "python -B -m unittest discover -s labs/game_loop -p \"test_campaign_store.py\"",
-      "promotion_blockers": [
-        "target_package_absent"
-      ],
+      "promotion_blockers": [],
       "research_blocker_details": [],
       "research_notes": "Storage surface (the DR 0022 SQLite campaign ledger), cycle 03 C2. All eight DR 0022 gates run as the lab suite: byte-identical blob round-trips, derived-column pins, one-transaction eras, founder-chain integrity, deterministic replay of stored eras, pointer-chain succession, lossless JSON-interim migration, and the determinism scan. Stdlib sqlite3 only \u2014 the package dependency policy stays intact. C3 ports it when this gate says promotion_ready."
     },

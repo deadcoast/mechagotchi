@@ -70,6 +70,8 @@ the package genome contract being real enough to validate candidates.
 
 | Learning (promoted 2026-07-05, decision record 0009) | `mecha_engine_learning_interface_spec.md` | `tests/test_learning_contract.py` | Bounded claim only (need-balance +0.080069 stress / +0.03964 sheltered at zero survival cost; NO survival claim); decide parity with the lab switchboard over episode trajectories; feedback/frozen episode parity incl. the need-balance delta pins; lifecycle driven through its public surface only; deterministic, no input mutation, no labs imports |
 
+| Storage (promoted 2026-07-07, decision record 0022, cycle 03 C3) | `research/decision_records/0022-storage-module.md` (the schema and the eight gates ARE the contract) | `tests/test_storage_contract.py` | Schema v1 (`user_version`, foreign keys); blob-authoritative byte-identical round-trips; derived columns pinned to their blobs; founder pool in niche-key order; unlock state via the predecessor pointer (never copied); replay-sufficient history; atomic one-transaction eras (rollback observed); bad versions and foreign schemas refused; no labs imports, no `sys.path`; lab-side pins: source-verbatim + row-for-row behavior parity over the real interim (`labs/game_loop/test_package_storage_parity.py`), the eight-gate suite over real engine output (`labs/game_loop/test_campaign_store.py`) |
+
 ## Cross-Cut Negative Tests
 
 Every package test slice must enforce:

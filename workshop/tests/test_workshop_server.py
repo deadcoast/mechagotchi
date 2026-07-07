@@ -131,19 +131,25 @@ class KeeperSessionEndpointTests(unittest.TestCase):
         )
         self.assertEqual("active", turn["status"])
 
-        # 6. The persisted state and the DR 0022 ledger both updated.
+        # 6. The persisted state and the DR 0022 ledger both updated —
+        #    since C3 the ledger is the promoted storage module's
+        #    SQLite file, rebuilt through the migration path.
         status, refreshed = _get(f"{self.base}/api/session/state")
         self.assertEqual(1, refreshed["campaigns"][0]["era_count"])
-        ledger = json.loads(
-            (self.session_dir / "campaign_ledger.json").read_text(
-                encoding="utf-8"
+        sys.path.insert(
+            0, str(ROOT / "packages" / "mecha_engine" / "src")
+        )
+        from mecha_engine.storage import campaign_history, open_ledger
+
+        conn = open_ledger(self.session_dir / "campaign_ledger.sqlite")
+        try:
+            history = campaign_history(conn, "keeper_campaign_001")
+            self.assertEqual(1, len(history["eras"]))
+            self.assertEqual(
+                "storm", history["eras"][0]["weather"]["forecast"]
             )
-        )
-        self.assertEqual("dr0022_v1_json_interim", ledger["schema"])
-        self.assertEqual(1, len(ledger["eras"]))
-        self.assertEqual(
-            "storm", ledger["eras"][0]["weather"]["forecast"]
-        )
+        finally:
+            conn.close()
 
         # 7. Unknown forecasts are rejected.
         status, bad = _post(

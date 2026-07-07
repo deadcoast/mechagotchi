@@ -37,12 +37,19 @@ that need them; they do not pause the queue.)
   `ready_for_package_design` — the status that precedes every port
   (the gate flips to promotion_ready when C3's package tests exist,
   per the seven prior modules' history).)
-- [ ] **C3 · Promote `mecha_engine.storage` (the ninth module).** Only
-  when C2's gate says `promotion_ready`: verbatim port under the
-  standing rules (stdlib-only, no `labs` imports, contract tests
-  through the package surface, lab-side parity pins); the session
-  lab and server switch from the JSON interim to the ledger with the
-  migration path exercised. DR 0022 governs.
+- [x] **C3 · Promote `mecha_engine.storage` (the ninth module).**
+  (2026-07-07: verbatim byte-level port of the lab surface (the lab
+  file was package-clean by construction); contract suite via the
+  documented subprocess driver (10 tests incl. observed atomic
+  rollback + boundary scan); lab-side parity pins BOTH directions
+  (source byte-identity + row-for-row behavior over the real
+  interim); the Keeper session and workshop server now derive
+  `campaign_ledger.sqlite` through `ingest_session_artifacts` on
+  every save — the migration path exercised every time. `storage`
+  left the deferred set (imports test, scaffold gate note, matrix
+  row); the promotion gate says PROMOTION_READY — 8 of 9 candidates,
+  the ninth being the honestly-blocked manual-ratings gate. Deferred
+  set is now `render` + `slip`.)
 - [ ] **C4 · The Covenant step — unlocks SPEND.** (DR 0021 core-loop
   step 2; G4's recorded next slice: "unlock facts are displayed but
   nothing SPENDS them yet.") The unlock budget applies: earned tiers

@@ -741,6 +741,10 @@ Post-v0.1 continuation has started:
 - `labs/game_loop/campaign_store.py` (+ `test_campaign_store.py`)
 - `data/game_loop/campaign_store_stage0.json` + `data/game_loop/campaign_store.sqlite` (C2: DR 0022's SQLite campaign ledger, lab-proven — all eight gates green as tests over a REAL chained campaign incl. byte-identical blob round-trips, derived-column pins, atomic eras, deterministic replay of stored eras, pointer-chain succession with zero copied rows, and the lossless `dr0022_v1_json_interim` migration; `founders.grid_json` divergence documented (nullable — single-source rule); promotion-gate candidate registered, verdict `ready_for_package_design`)
 
+- `research/experiment_reports/2026-07-07-storage-module-promotion.md`
+- `packages/mecha_engine/src/mecha_engine/storage/` + `packages/mecha_engine/tests/test_storage_contract.py`
+- `labs/game_loop/test_package_storage_parity.py` (C3: `mecha_engine.storage` promoted — the NINTH module; verbatim byte-level port with dual parity pins (source byte-identity + row-for-row behavior over the real interim), contract suite with observed atomic rollback, the Keeper session/server deriving `campaign_ledger.sqlite` through the exercised migration on every save; promotion gate verdict PROMOTION_READY, deferred set now `render` + `slip`)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.
