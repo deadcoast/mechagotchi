@@ -1,0 +1,101 @@
+{
+  "artifact_id": "learned_readability_stage0",
+  "blocked_states": [
+    "manual_calibration_check",
+    "nonlinear_model_ceiling_study"
+  ],
+  "closed_states": [
+    "physics_verified_pair_factory",
+    "pairwise_ranker_trained_from_zero_init",
+    "heldout_evaluation",
+    "leave_one_family_out_generalization",
+    "deterministic_training"
+  ],
+  "corpus": {
+    "grid_count": 50,
+    "heldout_pair_count": 120,
+    "pair_count": 600,
+    "pairs_per_family_requested": 3,
+    "per_family_pair_counts": {
+      "anchor_erosion": 150,
+      "contrast_collapse": 150,
+      "organ_scatter": 150,
+      "silhouette_noise": 150
+    },
+    "train_pair_count": 480
+  },
+  "date": "2026-07-06",
+  "decision": "Adopt the learned model as the primary readability signal. manual_calibration_check is the FALLBACK path's job when the owner schedules the human study (human DATA comes only from humans) \u2014 a quality check on this model, never a development blocker. A nonlinear model is warranted only if the linear ceiling is measured and found wanting.",
+  "metrics": {
+    "heldout_accuracy": 1.0,
+    "heuristic_rank_agreement": 0.762878,
+    "learned_score_mean": 0.533854,
+    "leave_one_family_out": {
+      "anchor_erosion": {
+        "training_pair_count": 450,
+        "unseen_family_accuracy": 1.0,
+        "unseen_family_pair_count": 150
+      },
+      "contrast_collapse": {
+        "training_pair_count": 450,
+        "unseen_family_accuracy": 1.0,
+        "unseen_family_pair_count": 150
+      },
+      "organ_scatter": {
+        "training_pair_count": 450,
+        "unseen_family_accuracy": 1.0,
+        "unseen_family_pair_count": 150
+      },
+      "silhouette_noise": {
+        "training_pair_count": 450,
+        "unseen_family_accuracy": 1.0,
+        "unseen_family_pair_count": 150
+      }
+    }
+  },
+  "model": {
+    "epochs": 300,
+    "feature_names": [
+      "inverse_component_count",
+      "body_mass_ratio",
+      "silhouette_entropy",
+      "symmetry_score",
+      "organ_detectability",
+      "palette_contrast",
+      "animation_anchor_coverage"
+    ],
+    "l2": 0.0001,
+    "learning_rate": 0.5,
+    "objective": "bradley_terry_logistic_pairwise",
+    "reference_features": {
+      "animation_anchor_coverage": 1.0,
+      "body_mass_ratio": 0.162812,
+      "inverse_component_count": 0.95,
+      "organ_detectability": 0.931,
+      "palette_contrast": 0.969307,
+      "silhouette_entropy": 0.788612,
+      "symmetry_score": 0.487552
+    },
+    "train_accuracy": 1.0,
+    "train_pair_count": 480,
+    "weights": {
+      "animation_anchor_coverage": 5.88525624,
+      "body_mass_ratio": 0.0,
+      "inverse_component_count": 9.282145765,
+      "organ_detectability": 10.862444984,
+      "palette_contrast": 6.972509666,
+      "silhouette_entropy": -1.379413742,
+      "symmetry_score": 2.821675548
+    }
+  },
+  "next_research_step": "Wire learned readability into the evolution loop's parent selection (the DR 0019 live consumer) and measure the A/B at a fixed seed; later, promote the scorer by its own record.",
+  "purpose": "R3 (decision record 0019): TRUE ML as the primary readability path \u2014 a linear pairwise ranker trained on physics-verified degradation comparisons (no human labels in the loop). The manual rating pipeline stays exactly as built as the FALLBACK and calibration check.",
+  "readability_authority": "learned_model_primary_manual_rating_fallback",
+  "rng_seed": 20260706,
+  "source_artifacts": [
+    "labs/grid_genome/corpus_builder.py",
+    "labs/readability_benchmark/readability_benchmark.py",
+    "research/decision_records/0019-learned-readability.md"
+  ],
+  "status": "learned_model_trained_and_validated"
+}

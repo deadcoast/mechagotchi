@@ -43,12 +43,16 @@ for path in [PACKAGE_SRC, GRID_GENOME, READABILITY, CELLULAR]:
 ROOT_CUBFF = ROOT / "labs" / "cubff_transducer"
 if str(ROOT_CUBFF) not in sys.path:
     sys.path.insert(0, str(ROOT_CUBFF))
+ROOT_READABILITY = ROOT / "labs" / "readability_benchmark"
+if str(ROOT_READABILITY) not in sys.path:
+    sys.path.insert(0, str(ROOT_READABILITY))
 
 from ca_nca_growth_repair import apply_stochastic_damage  # noqa: E402
 from cubff_transducer import (  # noqa: E402
     extract_cubff_features,
     features_to_traits,
 )
+from learned_readability import learned_readability_score  # noqa: E402
 from corpus_builder import build_seed_grids  # noqa: E402
 from readability_benchmark import score_readability  # noqa: E402
 from slip import is_grid_aligned  # noqa: E402
@@ -526,6 +530,7 @@ def run_mecha_engine_evolution_loop(
     workshop_grids_dir: str | Path | None = None,
     slip_profile: dict | None = None,
     cubff_pressure_source: list[dict] | None = None,
+    readability_selection: dict | None = None,
 ) -> dict:
     """Multi-generation evolution through the composed engine.
 
@@ -627,6 +632,21 @@ def run_mecha_engine_evolution_loop(
 
     cubff = cubff_pressure_source is not None
     cubff_by_generation: list[dict] = []
+    readability = readability_selection is not None
+    readability_blend = (
+        float(readability_selection.get("blend", 0.5)) if readability else 0.0
+    )
+    readability_model = (
+        {
+            "weights": dict(readability_selection["weights"]),
+            "reference_features": dict(
+                readability_selection.get("reference_features", {})
+            ),
+        }
+        if readability
+        else None
+    )
+    readability_means: list[float] = []
 
     archive = build_archive([], {})
     generation_reports = []
@@ -658,7 +678,30 @@ def run_mecha_engine_evolution_loop(
                 parent_source = "seed_pool"
         else:
             elites = archive["elites"]
-            if parent_selection == "fitness_weighted":
+            if readability and elites:
+                # R3 (decision record 0019): the LEARNED model steers
+                # parenting. Fitness is min-max normalized across the
+                # current elites so the blend weighs comparable scales.
+                fitnesses = [elites[niche]["fitness"] for niche in elites]
+                low, high = min(fitnesses), max(fitnesses)
+                span = (high - low) or 1.0
+
+                def _blended(niche: str) -> float:
+                    fitness_norm = (elites[niche]["fitness"] - low) / span
+                    learned = learned_readability_score(
+                        elites[niche]["grid"], readability_model
+                    )
+                    return (
+                        readability_blend * learned
+                        + (1.0 - readability_blend) * fitness_norm
+                    )
+
+                ordered = sorted(
+                    elites, key=lambda niche: (-_blended(niche), niche)
+                )
+                parents = [elites[niche]["grid"] for niche in ordered]
+                parent_source = "archive_elites_readability_blend"
+            elif parent_selection == "fitness_weighted":
                 # T3.4: breed from the fittest elites first (deterministic
                 # truncation bias — with population <= elite count only
                 # the fittest reproduce).
@@ -680,6 +723,7 @@ def run_mecha_engine_evolution_loop(
                 break  # measured, not asserted: an empty archive ends evolution
 
         creatures = []
+        generation_readability: list[float] = []
         for index in range(population):
             parent = parents[index % len(parents)]
             run_seed = rng_seed + generation_index * 100000 + index
@@ -688,6 +732,10 @@ def run_mecha_engine_evolution_loop(
             candidate = generate_candidate(
                 parent, generation_model, package_profile, rng_seed=run_seed
             )
+            if readability:
+                generation_readability.append(
+                    learned_readability_score(candidate, readability_model)
+                )
             stages["candidate_valid"] = validate_grid(candidate).ok
             max_lineage_generation = max(
                 max_lineage_generation,
@@ -843,6 +891,15 @@ def run_mecha_engine_evolution_loop(
             creatures.append(creature_record)
 
         summary_after = archive_summary(archive)
+        if readability:
+            readability_means.append(
+                round(
+                    sum(generation_readability) / len(generation_readability),
+                    6,
+                )
+                if generation_readability
+                else 0.0
+            )
         generation_reports.append(
             {
                 "generation": generation_index,
@@ -952,6 +1009,8 @@ def run_mecha_engine_evolution_loop(
         }
     if cubff:
         report_lab_id = "mecha_engine_evolution_cubff_pressure_stage0"
+    elif readability:
+        report_lab_id = "mecha_engine_evolution_readability_selection_stage0"
     elif workshop:
         report_lab_id = "mecha_engine_evolution_workshop_wire_stage0"
     elif stress:
@@ -1000,6 +1059,29 @@ def run_mecha_engine_evolution_loop(
     }
     if parent_selection is not None:
         result["parent_selection"] = parent_selection
+    if readability:
+        result["readability_selection"] = {
+            "readability_authority": (
+                "learned_model_primary_manual_rating_fallback"
+            ),
+            "blend": readability_blend,
+            "weights": dict(readability_model["weights"]),
+            "reference_features": dict(
+                readability_model["reference_features"]
+            ),
+            "mean_learned_readability_by_generation": readability_means,
+        }
+        result["purpose"] = (
+            "R3 (decision record 0019): the LEARNED readability model "
+            "steers evolution's parent selection — elite parents ranked "
+            "by blend * learned_readability + (1 - blend) * normalized "
+            "fitness. TRUE ML in the live loop; the manual rating system "
+            "remains the fallback and calibration check."
+        )
+        result["next_research_step"] = (
+            "Study blend sensitivity and fitness trade-off at scale; "
+            "promote the learned scorer by its own decision record."
+        )
     if cubff:
         result["cubff_pressure"] = {
             "semantic_rule": "lineage_dynamics_to_mutation_weights_pipeline_c",
@@ -1179,9 +1261,12 @@ def write_evolution_loop_artifacts(output_dir: Path, report: dict) -> None:
     )
     summary = report["summary"]
     cubff = "cubff_pressure" in report
+    readability = "readability_selection" in report
     wire = "workshop" in report["summary"]
     if cubff:
         readme_name = "evolution_cubff_pressure_README.md"
+    elif readability:
+        readme_name = "evolution_readability_selection_README.md"
     elif wire:
         readme_name = "evolution_workshop_wire_README.md"
     elif stress:
@@ -1189,6 +1274,14 @@ def write_evolution_loop_artifacts(output_dir: Path, report: dict) -> None:
     else:
         readme_name = "evolution_loop_README.md"
     regime_lines = ""
+    if readability:
+        rs = report["readability_selection"]
+        means = rs["mean_learned_readability_by_generation"]
+        regime_lines += (
+            "- LEARNED readability parent selection (R3): blend "
+            f"{rs['blend']}\n"
+            f"- Mean learned readability by generation: {means}\n"
+        )
     if cubff:
         cp = report["cubff_pressure"]
         regime_lines += (

@@ -694,6 +694,12 @@ Post-v0.1 continuation has started:
 - `labs/runtime_integration/test_cubff_pressure.py`
 - `data/runtime_integration/mecha_engine_evolution_cubff_pressure_stage0.json` (R2: CuBFF Pipeline C LIVE in the evolution loop — chaotic soup 1.17x damage/111 cells vs stable 0.90x/88 at the same seed; the Google experiment's dynamics are now the engine's bloodstream, not a lab exhibit; semantic-compiler rule held, absent source byte-identical)
 
+- `research/decision_records/0019-learned-readability.md`
+- `research/experiment_reports/2026-07-06-learned-readability.md`
+- `research/algorithm_cards/learned_readability.md`
+- `labs/readability_benchmark/learned_readability.py` / `data/readability_benchmark/learned_readability_stage0.json` (R3: TRUE ML primary readability path — physics-supervised pairwise ranker, heldout 1.0, leave-one-family-out 1.0 on all four degradation families, auditable learned weights)
+- `data/runtime_integration/mecha_engine_evolution_readability_selection_stage0.json` (R3 live consumer: the LEARNED model steers evolution's parent selection — A/B at the same seed, post-founder mean candidate readability 0.361 vs 0.270 control, gen-3 0.498 vs 0.199; manual rating system unchanged as the fallback/calibration check)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.
