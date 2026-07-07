@@ -111,3 +111,13 @@ and 111 cells destroyed vs a stable soup's 0.90x and 88 — real
 computational-life dynamics visibly moving the ecosystem. Only
 scalars cross the boundary (never tape->tokens). Absent source
 byte-identical; the runtime.evolve promotion is the next plan.
+
+## Promotion Result (2026-07-07, R2.5 / DR 0020)
+
+The Pipeline C seam is promoted into `mecha_engine.runtime.evolve`
+(`cubff_pressure_source`, keyword-only, default None byte-identical).
+`runtime/_cubff.py` mirrors the lab authority verbatim; drift is
+caught by `labs/cubff_transducer/test_package_cubff_parity.py`.
+Promoted-surface measurement matches R2 (chaotic 1.17x vs stable
+0.90x at the same seed). Real-snapshot exercise remains honestly
+blocked: the ingest gate still reports awaiting_real_cubff_snapshots.

@@ -700,6 +700,10 @@ Post-v0.1 continuation has started:
 - `labs/readability_benchmark/learned_readability.py` / `data/readability_benchmark/learned_readability_stage0.json` (R3: TRUE ML primary readability path — physics-supervised pairwise ranker, heldout 1.0, leave-one-family-out 1.0 on all four degradation families, auditable learned weights)
 - `data/runtime_integration/mecha_engine_evolution_readability_selection_stage0.json` (R3 live consumer: the LEARNED model steers evolution's parent selection — A/B at the same seed, post-founder mean candidate readability 0.361 vs 0.270 control, gen-3 0.498 vs 0.199; manual rating system unchanged as the fallback/calibration check)
 
+- `research/decision_records/0020-cubff-pressure-runtime-promotion.md`
+- `research/experiment_reports/2026-07-07-cubff-pressure-runtime-promotion.md`
+- `packages/mecha_engine/src/mecha_engine/runtime/_cubff.py` / `packages/mecha_engine/tests/test_runtime_cubff_contract.py` / `labs/cubff_transducer/test_package_cubff_parity.py` (R2.5: CuBFF lineage pressure promoted into `runtime.evolve` — verbatim mirror + contract + drift guard; promoted-surface directional effect 1.17x vs 0.90x; real-snapshot clause honestly blocked on `awaiting_real_cubff_snapshots`)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

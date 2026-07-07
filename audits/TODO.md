@@ -15,10 +15,13 @@ complete when developed to its description, then marked.
   adopt-as-expressiveness / watch-for-utility. The creature visibly
   thinks.)
 - [x] **R2 · CuBFF live lineage pressure.** (DR 0018, 2026-07-06: Pipeline C wired into the evolution loop — chaotic soup 1.17x damage/111 cells vs stable 0.90x/88 at the same seed, provenance per generation, semantic-compiler rule held; runtime.evolve promotion is the next plan.)
-- [ ] **R2.5 · Promote the CuBFF pressure seam into `runtime.evolve`.**
-  DR 0018's recorded next step: `cubff_pressure_source` ported into the
-  promoted package by its own decision record, lab parity pins, real
-  ingested snapshots exercised. Queued so it is developed, not dropped.
+- [x] **R2.5 · Promote the CuBFF pressure seam into `runtime.evolve`.**
+  (DR 0020, 2026-07-07: `cubff_pressure_source` keyword on the
+  promoted `evolve`; verbatim `_cubff.py` mirror + lab-side parity
+  drift guard; contract green, promoted-surface directional effect
+  1.17x vs 0.90x. Real-snapshot clause NOT claimed — recorded blocked
+  on the ingest gate's `awaiting_real_cubff_snapshots`; unblocks with
+  no code change when real exports are ingested.)
 - [x] **R3 · Learned readability — TRUE ML as the primary path.**
   (DR 0019, 2026-07-06: physics-supervised pairwise ranker — heldout
   1.0, leave-one-family-out 1.0 on all four degradation families,

@@ -63,6 +63,8 @@ REQUIRED_EVOLVE_DEFAULTS = {
     "rng_seed": "20260512",
     # DR 0016 (T1.5): founder grids default to None (contract untouched).
     "founder_grids": "None",
+    # DR 0020 (R2.5): CuBFF lineage pressure defaults to None (frozen).
+    "cubff_pressure_source": "None",
 }
 REQUIRED_CYCLE_FIELDS = [
     "aligned",
@@ -141,6 +143,8 @@ class MechaEngineRuntimeContractTests(unittest.TestCase):
                 "rng_seed",
                 # DR 0016 (T1.5): the T1 wire's founder contract.
                 "founder_grids",
+                # DR 0020 (R2.5): the promoted CuBFF pressure seam.
+                "cubff_pressure_source",
             ],
             keyword_only["evolve"],
         )

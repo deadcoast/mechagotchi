@@ -46,10 +46,30 @@ from mecha_engine.generation import GenerationModel, generate_candidate
 from mecha_engine.genome import validate_grid
 from mecha_engine.lifecycle import run_episode
 
+from ._cubff import extract_cubff_features, features_to_traits
 from ._slip import is_grid_aligned
 from .live import live_cycle
 
 REPORT_ID = "mecha_engine_runtime_evolve"
+
+
+# R2.5 (decision record 0020): CuBFF Pipeline C promoted from the lab
+# loop verbatim — lineage dynamics -> mutation weights. mutation_pressure
+# in [0,1] scales per-generation damage severity by 1 + GAIN*(pressure-0.5),
+# clamped so the ecosystem never trivially collapses. Only scalars cross
+# the boundary (never tape tokens — the semantic-compiler rule).
+CUBFF_PRESSURE_GAIN = 1.1
+CUBFF_MULTIPLIER_BAND = (0.5, 1.6)
+
+
+def _cubff_generation_pressure(snapshot: dict) -> tuple[float, float]:
+    """(mutation_pressure, dropout_multiplier) for one generation."""
+    pressure = features_to_traits(extract_cubff_features(snapshot))[
+        "mutation_pressure"
+    ]
+    raw = 1.0 + CUBFF_PRESSURE_GAIN * (pressure - 0.5)
+    low, high = CUBFF_MULTIPLIER_BAND
+    return round(pressure, 6), round(max(low, min(high, raw)), 6)
 
 
 def evolve(
@@ -66,6 +86,7 @@ def evolve(
     dropout_rate: float = 0.2,
     rng_seed: int = 20260512,
     founder_grids: list[dict] | None = None,
+    cubff_pressure_source: list[dict] | None = None,
 ) -> tuple[dict, dict]:
     """Run multi-generation evolution through the composed engine.
 
@@ -84,6 +105,14 @@ def evolve(
     (``validate_grid`` + SLIP alignment; rejections recorded verbatim);
     admitted founders LEAD the generation-0 parent pool. ``None`` is
     byte-identical to the pre-0016 contract.
+
+    ``cubff_pressure_source`` (decision record 0020, promoting the R2
+    seam): an ordered list of CuBFF snapshots, one consumed per
+    generation (cycled if fewer). Each generation's
+    ``extract_cubff_features -> mutation_pressure`` scales that
+    generation's damage severity — real computational-life dynamics
+    shaping the ecosystem (Pipeline C). Only pressure scalars cross the
+    boundary; CuBFF never sets cell tokens. ``None`` is byte-identical.
     """
     if not isinstance(seed_grids, list) or not seed_grids:
         raise ValueError("seed_grids must be a non-empty list of grid genomes")
@@ -95,6 +124,12 @@ def evolve(
         raise ValueError(f"generations must be a positive integer: {generations}")
     if isinstance(population, bool) or not isinstance(population, int) or population < 1:
         raise ValueError(f"population must be a positive integer: {population}")
+    if cubff_pressure_source is not None and (
+        not isinstance(cubff_pressure_source, list) or not cubff_pressure_source
+    ):
+        raise ValueError(
+            "cubff_pressure_source must be a non-empty list of CuBFF snapshots"
+        )
 
     # T3.4 (decision record 0013): a v0.2 profile's lineage preference
     # steers elite parenting; v0.1 profiles never carry the field. The
@@ -134,7 +169,24 @@ def evolve(
     manual_rating_statuses: set[str] = set()
     max_lineage_generation = 0
 
+    cubff = cubff_pressure_source is not None
+    cubff_by_generation: list[dict] = []
+
     for generation_index in range(generations):
+        generation_dropout = dropout_rate
+        if cubff:
+            snapshot = cubff_pressure_source[
+                generation_index % len(cubff_pressure_source)
+            ]
+            pressure, multiplier = _cubff_generation_pressure(snapshot)
+            generation_dropout = round(dropout_rate * multiplier, 6)
+            cubff_by_generation.append(
+                {
+                    "snapshot_id": str(snapshot.get("snapshot_id", "cubff")),
+                    "mutation_pressure": pressure,
+                    "dropout_multiplier": multiplier,
+                }
+            )
         if generation_index == 0:
             if admitted_founders:
                 # Founders lead so the round-robin always exercises the
@@ -188,7 +240,7 @@ def evolve(
                 repair_model,
                 damage_cycles=damage_cycles,
                 ticks=ticks,
-                dropout_rate=dropout_rate,
+                dropout_rate=generation_dropout,
                 rng_seed=run_seed,
             )
             cycles = lived["cycles"]
@@ -331,6 +383,14 @@ def evolve(
     # rung key, so v0.1 reports stay byte-identical.
     if parent_selection is not None:
         report["parent_selection"] = parent_selection
+    if cubff:
+        report["cubff_pressure"] = {
+            "semantic_rule": "lineage_dynamics_to_mutation_weights_pipeline_c",
+            "pressure_gain": CUBFF_PRESSURE_GAIN,
+            "multiplier_band": list(CUBFF_MULTIPLIER_BAND),
+            "source_snapshot_count": len(cubff_pressure_source),
+            "by_generation": cubff_by_generation,
+        }
     return archive, report
 
 
