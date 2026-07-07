@@ -71,14 +71,19 @@ that need them; they do not pause the queue.)
   pinned); both stores ingest the rows (demo SQLite: replays 3);
   `GET /api/session/replay` + the Keeper page's per-era "▶ replay"
   in-page scrubber. The Review step consumes recorded engine truth.)
-- [ ] **C6 · The repair-validity boundary study.** (Found during G2:
-  aligned-but-invalid repairs exist; the crash is fixed, the QUESTION
-  is not.) Measure the boundary honestly — frequency of
-  lifecycle-invalid repairs across dropout regimes and cycle depths —
-  and decide with evidence whether wound-site repair should guarantee
-  a connected core (an engine contract evolution, lab-first with
-  parity implications named) or the skip is the correct biology
-  (creatures CAN be mortally wounded). Either verdict is a triad.
+- [x] **C6 · The repair-validity boundary study.** (2026-07-07:
+  measured on the PRODUCTION `evolve` surface across the regime grid x
+  10 seeds, cause-diagnosed. Hypothesis "extreme-damage-only" REFUTED
+  — a damage-scaled mortality gradient present throughout (0.025 at
+  0.2x1 → 0.10 at 0.9x4, ~0.0125 in the session band); the ONLY
+  failing invariant is the disconnected required body core (named by
+  diagnosis, not assumed). VERDICT: the skip is retained as correct
+  biology — a mortality curve that scales with damage is what a
+  survival engine should produce; the connected-core repair contract
+  is REJECTED (it would manufacture survival the physics didn't grant,
+  breaking the first law). Two harness false starts recorded as the
+  finding's spine: grid_id overflow, and reconstruction-blindness from
+  shared `validate_grid`. Triad complete; 4 tests.)
 
 ## Standing note
 

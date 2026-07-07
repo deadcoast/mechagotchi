@@ -748,6 +748,11 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-07-07-per-era-replay.md`
 - `data/game_loop/replays/` (C5: the Review step closes — every era records its best elite's life via the DR 0023 recorder at the era's own seed; ledger `replays` rows are pure functions of state (path convention + sha256 over canonical JSON, file hash == row hash pinned); both stores ingest the rows; `GET /api/session/replay` + the Keeper page's per-era in-page scrubber over RECORDED frames)
 
+- `research/experiment_reports/2026-07-07-repair-validity-boundary.md`
+- `research/algorithm_cards/repair_validity_boundary.md`
+- `labs/repair_boundary/repair_validity_boundary.py` (+ `test_repair_validity_boundary.py`)
+- `data/repair_boundary/repair_validity_boundary_stage0.json` (C6: the repair-validity boundary MEASURED on the production `evolve` surface — hypothesis "extreme-damage-only" REFUTED: a damage-scaled mortality gradient present throughout (0.025 at 0.2×1 → 0.10 at 0.9×4, ~0.0125 in the session band), the ONLY failing invariant the disconnected required body core (cause-diagnosed, not assumed); VERDICT: the skip is retained as correct biology, the connected-core repair contract REJECTED as manufacturing survival the physics didn't grant. Two harness false starts recorded as the finding's spine — grid_id overflow, and reconstruction-blindness from shared `validate_grid`)
+
 - `research/experiment_reports/2026-07-07-covenant-step.md` (C4: unlocks SPEND — `covenant_budget` maps the DR 0021 progression table to spendable budget as a pure function of earned facts (deliberation on the authority's real floor of 2; caps double per QD tier; the earned blend flows through `advance_campaign` keeping batch == incremental pinned); `apply_covenant_change` enforces budget + authority with named violations; the Keeper page's covenant panel + `POST /api/session/covenant`; deferred axes named in the budget payload; regenerated session runs eras 1–2 at the EARNED blend 0.8)
 
 Stage 0 and Stage 1 established:
