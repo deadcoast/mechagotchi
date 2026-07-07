@@ -12,11 +12,7 @@ complete when developed to its description, then marked.
   wired into the LIVE decision path; measured for decision quality and
   felt aliveness; adopt/watch/reject recorded. The creature visibly
   thinks.
-- [ ] **R2 · CuBFF live lineage pressure.** The transducer's Pipeline C
-  (lineage dynamics -> mutation weights) wired into the ACTUAL evolution
-  loop: real computational-life dynamics from the CuBFF substrate
-  shaping every generation. CuBFF stops being a lab exhibit and becomes
-  the engine's bloodstream.
+- [x] **R2 · CuBFF live lineage pressure.** (DR 0018, 2026-07-06: Pipeline C wired into the evolution loop — chaotic soup 1.17x damage/111 cells vs stable 0.90x/88 at the same seed, provenance per generation, semantic-compiler rule held; runtime.evolve promotion is the next plan.)
 - [ ] **R3 · Learned readability — TRUE ML as the primary path.** A
   model trained from engine-derived signals (structural features,
   survival outcomes, palette contrast physics); the manual rating system

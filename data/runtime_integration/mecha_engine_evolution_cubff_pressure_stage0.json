@@ -1,0 +1,1463 @@
+{
+  "lab_id": "mecha_engine_evolution_cubff_pressure_stage0",
+  "date": "2026-07-05",
+  "rng_seed": 20260512,
+  "generations_requested": 4,
+  "population": 6,
+  "damage_cycles": 2,
+  "ticks": 24,
+  "dropout_rate": 0.2,
+  "repair_epochs": 40,
+  "purpose": "R2 (decision record 0018): CuBFF computational-life dynamics shape every generation \u2014 extract_cubff_features -> mutation_pressure scales per-generation damage severity (Pipeline C: lineage dynamics -> mutation weights). Only pressure scalars cross the boundary; CuBFF never sets tokens.",
+  "source_artifacts": [
+    "data/runtime_integration/mecha_engine_runtime_loop_stage0.json",
+    "research/package_specs/mecha_engine_module_interfaces.md",
+    "research/package_specs/mecha_engine_repair_interface_spec.md"
+  ],
+  "generations": [
+    {
+      "generation": 0,
+      "parent_source": "seed_pool",
+      "parent_pool_size": 10,
+      "creatures": [
+        {
+          "parent_grid_id": "mg_seed_001",
+          "candidate_grid_id": "gen_badac15b4e8a9760",
+          "lineage_generation": 1,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 3,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 0,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.931018,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.83063,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "inserted"
+        },
+        {
+          "parent_grid_id": "mg_seed_006",
+          "candidate_grid_id": "gen_18144f0e109f8e32",
+          "lineage_generation": 1,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 4,
+              "position_restoration": 1.0,
+              "token_restoration": 0.818182,
+              "guard_substitutions": 1,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 3,
+              "position_restoration": 1.0,
+              "token_restoration": 0.909091,
+              "guard_substitutions": 1,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.939982,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.867981,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "inserted"
+        },
+        {
+          "parent_grid_id": "mg_seed_011",
+          "candidate_grid_id": "gen_00200dad0fc059b2",
+          "lineage_generation": 1,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 2,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 3,
+              "position_restoration": 1.0,
+              "token_restoration": 0.846154,
+              "guard_substitutions": 1,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.922829,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.79651,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "inserted"
+        },
+        {
+          "parent_grid_id": "mg_seed_016",
+          "candidate_grid_id": "gen_5e259cf1032f4a9a",
+          "lineage_generation": 1,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 3,
+              "position_restoration": 1.0,
+              "token_restoration": 0.857143,
+              "guard_substitutions": 1,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 2,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.941944,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.876156,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "inserted"
+        },
+        {
+          "parent_grid_id": "mg_seed_021",
+          "candidate_grid_id": "gen_97aa9df77f4da5ec",
+          "lineage_generation": 1,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 3,
+              "position_restoration": 1.0,
+              "token_restoration": 0.846154,
+              "guard_substitutions": 1,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 0,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.943022,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.880646,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "inserted"
+        },
+        {
+          "parent_grid_id": "mg_seed_026",
+          "candidate_grid_id": "gen_9957e1be594ceefe",
+          "lineage_generation": 1,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 0,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 1,
+              "position_restoration": 1.0,
+              "token_restoration": 0.909091,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.914005,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.759741,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "inserted"
+        }
+      ],
+      "mean_fitness": 0.932133,
+      "archive_niches_after": 6,
+      "archive_qd_after": 5.5928
+    },
+    {
+      "generation": 1,
+      "parent_source": "archive_elites",
+      "parent_pool_size": 6,
+      "creatures": [
+        {
+          "parent_grid_id": "gen_18144f0e109f8e32_c02",
+          "candidate_grid_id": "gen_def0d9d6ba7c190d",
+          "lineage_generation": 2,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 3,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 4,
+              "position_restoration": 1.0,
+              "token_restoration": 0.909091,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.927718,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.816879,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "inserted"
+        },
+        {
+          "parent_grid_id": "gen_9957e1be594ceefe_c02",
+          "candidate_grid_id": "gen_d36b19fdfecfc050",
+          "lineage_generation": 2,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 2,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 0,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.913663,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.758317,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "inserted"
+        },
+        {
+          "parent_grid_id": "gen_badac15b4e8a9760_c02",
+          "candidate_grid_id": "gen_2953af14c055be7c",
+          "lineage_generation": 2,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 1,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 0,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.917901,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.775978,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "kept_incumbent"
+        },
+        {
+          "parent_grid_id": "gen_97aa9df77f4da5ec_c02",
+          "candidate_grid_id": "gen_6391597a4e7d2db3",
+          "lineage_generation": 2,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 2,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 2,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.913887,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.759253,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "replaced"
+        },
+        {
+          "parent_grid_id": "gen_00200dad0fc059b2_c02",
+          "candidate_grid_id": "gen_aca737e006189c4f",
+          "lineage_generation": 2,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 3,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 2,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.907847,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.734086,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "inserted"
+        },
+        {
+          "parent_grid_id": "gen_5e259cf1032f4a9a_c02",
+          "candidate_grid_id": "gen_9c1675b87de24f65",
+          "lineage_generation": 2,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 1,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 1,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.934959,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.847053,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "replaced"
+        }
+      ],
+      "mean_fitness": 0.919329,
+      "archive_niches_after": 9,
+      "archive_qd_after": 8.349493
+    },
+    {
+      "generation": 2,
+      "parent_source": "archive_elites",
+      "parent_pool_size": 9,
+      "creatures": [
+        {
+          "parent_grid_id": "gen_18144f0e109f8e32_c02",
+          "candidate_grid_id": "gen_4e6bb2e885b57cd6",
+          "lineage_generation": 2,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 3,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 3,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.931041,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.830726,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "inserted"
+        },
+        {
+          "parent_grid_id": "gen_9957e1be594ceefe_c02",
+          "candidate_grid_id": "gen_5498acf03b9beef1",
+          "lineage_generation": 2,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 3,
+              "position_restoration": 1.0,
+              "token_restoration": 0.777778,
+              "guard_substitutions": 1,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 0,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.909907,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.742667,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "kept_incumbent"
+        },
+        {
+          "parent_grid_id": "gen_badac15b4e8a9760_c02",
+          "candidate_grid_id": "gen_f3981319e27e72c8",
+          "lineage_generation": 2,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 3,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 1,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 2,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.917899,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.775969,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "inserted"
+        },
+        {
+          "parent_grid_id": "gen_aca737e006189c4f_c02",
+          "candidate_grid_id": "gen_25776931ab58a21a",
+          "lineage_generation": 2,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 1,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 1,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 2,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 1,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.891317,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.66521,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "inserted"
+        },
+        {
+          "parent_grid_id": "gen_9c1675b87de24f65_c02",
+          "candidate_grid_id": "gen_e8be526e0f5597d7",
+          "lineage_generation": 2,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 0,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 1,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.941197,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.873041,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "replaced"
+        },
+        {
+          "parent_grid_id": "gen_6391597a4e7d2db3_c02",
+          "candidate_grid_id": "gen_3437b4395bf2139c",
+          "lineage_generation": 2,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 3,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 2,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.918471,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.778353,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "replaced"
+        }
+      ],
+      "mean_fitness": 0.918305,
+      "archive_niches_after": 12,
+      "archive_qd_after": 11.095549
+    },
+    {
+      "generation": 3,
+      "parent_source": "archive_elites",
+      "parent_pool_size": 12,
+      "creatures": [
+        {
+          "parent_grid_id": "gen_f3981319e27e72c8_c02",
+          "candidate_grid_id": "gen_82032511a9cdbe25",
+          "lineage_generation": 2,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 2,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 1,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.918694,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.77928,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "replaced"
+        },
+        {
+          "parent_grid_id": "gen_4e6bb2e885b57cd6_c02",
+          "candidate_grid_id": "gen_b31dbcf2ef42e3e4",
+          "lineage_generation": 2,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": false,
+            "scored": false
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 1,
+              "position_restoration": 1.0,
+              "token_restoration": 0.875,
+              "guard_substitutions": 1,
+              "valid": true,
+              "aligned": false,
+              "episode": null
+            }
+          ],
+          "score": null,
+          "archive_decision": "skipped_unaligned"
+        },
+        {
+          "parent_grid_id": "gen_e8be526e0f5597d7_c02",
+          "candidate_grid_id": "gen_8d9839596f41e8a0",
+          "lineage_generation": 2,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 3,
+              "position_restoration": 1.0,
+              "token_restoration": 0.833333,
+              "guard_substitutions": 1,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 2,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.93032,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.827724,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "replaced"
+        },
+        {
+          "parent_grid_id": "gen_9957e1be594ceefe_c02",
+          "candidate_grid_id": "gen_8b4d8f3dbe1523bf",
+          "lineage_generation": 2,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 1,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 0,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.901439,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.707386,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "kept_incumbent"
+        },
+        {
+          "parent_grid_id": "gen_badac15b4e8a9760_c02",
+          "candidate_grid_id": "gen_d9eb588ba4e919ed",
+          "lineage_generation": 2,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 3,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 3,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.913,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.755557,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "inserted"
+        },
+        {
+          "parent_grid_id": "gen_aca737e006189c4f_c02",
+          "candidate_grid_id": "gen_c765617146bc9505",
+          "lineage_generation": 2,
+          "stages": {
+            "candidate_valid": true,
+            "all_cycles_valid": true,
+            "all_cycles_aligned": true,
+            "scored": true
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "removed_cell_count": 0,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 0,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            },
+            {
+              "cycle": 2,
+              "removed_cell_count": 2,
+              "position_restoration": 1.0,
+              "token_restoration": 1.0,
+              "guard_substitutions": 1,
+              "valid": true,
+              "aligned": true,
+              "episode": {
+                "survival_ticks": 24,
+                "alive": true,
+                "death_cause": null,
+                "survival_ratio": 1.0,
+                "need_balance": 0.802552
+              }
+            }
+          ],
+          "score": {
+            "fitness": 0.906268,
+            "components": {
+              "survival": 1.0,
+              "readability": 0.727507,
+              "validity": 1.0,
+              "bond": 1.0,
+              "mutation_stability": 0.716667,
+              "slip_alignment": 1.0
+            }
+          },
+          "archive_decision": "kept_incumbent"
+        }
+      ],
+      "mean_fitness": 0.913944,
+      "archive_niches_after": 13,
+      "archive_qd_after": 12.031817
+    }
+  ],
+  "summary": {
+    "generation_count": 4,
+    "creature_count": 24,
+    "total_damage_events": 47,
+    "candidate_valid_rate": 1.0,
+    "slip_alignment_retention_rate": 0.958333,
+    "mean_position_restoration": 1.0,
+    "mean_token_restoration": 0.969809,
+    "guard_substitution_total": 12,
+    "archived_creature_count": 23,
+    "mean_fitness_by_generation": [
+      0.932133,
+      0.919329,
+      0.918305,
+      0.913944
+    ],
+    "max_lineage_generation": 2,
+    "archive": {
+      "filled_niches": 13,
+      "coverage": 0.000166,
+      "qd_score": 12.031817
+    }
+  },
+  "closed_states": [
+    "archive_elites_become_parents_across_generations",
+    "repeated_damage_repair_cycles_with_episodes_between"
+  ],
+  "blocked_states": [
+    "runtime_package_target_absent_decision_record_gated",
+    "readability_proxy_uncalibrated_manual_calibration_deferred"
+  ],
+  "decision": {
+    "status": "evolution_loop_gaps_measured",
+    "adoption": "lab_only_runtime_evidence",
+    "reason": "At least one creature fell short of a module contract inside the evolution loop; the per-creature stage flags and cycle records name exactly where."
+  },
+  "next_research_step": "Promote the cubff_pressure_source seam into runtime.evolve by its own decision record; add real ingested snapshots and study lineage continuity across pressure regimes.",
+  "cubff_pressure": {
+    "semantic_rule": "lineage_dynamics_to_mutation_weights_pipeline_c",
+    "pressure_gain": 1.1,
+    "multiplier_band": [
+      0.5,
+      1.6
+    ],
+    "source_snapshot_count": 4,
+    "by_generation": [
+      {
+        "snapshot_id": "cubff_synth_000",
+        "mutation_pressure": 0.429877,
+        "dropout_multiplier": 0.922865
+      },
+      {
+        "snapshot_id": "cubff_synth_001",
+        "mutation_pressure": 0.389132,
+        "dropout_multiplier": 0.878045
+      },
+      {
+        "snapshot_id": "cubff_synth_002",
+        "mutation_pressure": 0.416559,
+        "dropout_multiplier": 0.908215
+      },
+      {
+        "snapshot_id": "cubff_synth_003",
+        "mutation_pressure": 0.348926,
+        "dropout_multiplier": 0.833819
+      }
+    ]
+  }
+}

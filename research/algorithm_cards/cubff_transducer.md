@@ -101,3 +101,13 @@ baselines on readability plus either novelty, survival, or lineage value.
 
 Adopt only if semantic transduction beats direct visual mapping and baseline
 procedural mutation on readability plus either novelty or survival.
+
+## Live Integration Result (2026-07-06, R2 / DR 0018)
+
+Pipeline C is wired into the running evolution loop: per generation,
+`extract_cubff_features -> mutation_pressure` scales damage severity.
+Measured (same seed): a chaotic CuBFF soup drives a 1.17x multiplier
+and 111 cells destroyed vs a stable soup's 0.90x and 88 — real
+computational-life dynamics visibly moving the ecosystem. Only
+scalars cross the boundary (never tape->tokens). Absent source
+byte-identical; the runtime.evolve promotion is the next plan.

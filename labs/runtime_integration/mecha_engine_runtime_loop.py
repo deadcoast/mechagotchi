@@ -40,7 +40,15 @@ for path in [PACKAGE_SRC, GRID_GENOME, READABILITY, CELLULAR]:
     if str(path) not in sys.path:
         sys.path.insert(0, str(path))
 
+ROOT_CUBFF = ROOT / "labs" / "cubff_transducer"
+if str(ROOT_CUBFF) not in sys.path:
+    sys.path.insert(0, str(ROOT_CUBFF))
+
 from ca_nca_growth_repair import apply_stochastic_damage  # noqa: E402
+from cubff_transducer import (  # noqa: E402
+    extract_cubff_features,
+    features_to_traits,
+)
 from corpus_builder import build_seed_grids  # noqa: E402
 from readability_benchmark import score_readability  # noqa: E402
 from slip import is_grid_aligned  # noqa: E402
@@ -70,6 +78,25 @@ from mecha_engine.repair import (  # noqa: E402
     repair_wound_sites,
     train_repair_model,
 )
+
+
+# R2 (decision record 0018): CuBFF Pipeline C — lineage dynamics ->
+# mutation weights. mutation_pressure in [0,1] scales per-generation
+# damage severity by 1 + GAIN*(pressure-0.5), clamped so the ecosystem
+# never trivially collapses. Only scalars cross the boundary (never tape
+# tokens — the semantic-compiler rule).
+CUBFF_PRESSURE_GAIN = 1.1
+CUBFF_MULTIPLIER_BAND = (0.5, 1.6)
+
+
+def _cubff_generation_pressure(snapshot: dict) -> tuple[float, float]:
+    """(mutation_pressure, dropout_multiplier) for one generation."""
+    pressure = features_to_traits(extract_cubff_features(snapshot))[
+        "mutation_pressure"
+    ]
+    raw = 1.0 + CUBFF_PRESSURE_GAIN * (pressure - 0.5)
+    low, high = CUBFF_MULTIPLIER_BAND
+    return round(pressure, 6), round(max(low, min(high, raw)), 6)
 
 
 ARTIFACT_ID = "mecha_engine_runtime_loop_stage0"
@@ -498,6 +525,7 @@ def run_mecha_engine_evolution_loop(
     survival_regime: str = "sheltered",
     workshop_grids_dir: str | Path | None = None,
     slip_profile: dict | None = None,
+    cubff_pressure_source: list[dict] | None = None,
 ) -> dict:
     """Multi-generation evolution through the composed engine.
 
@@ -597,11 +625,28 @@ def run_mecha_engine_evolution_loop(
                 workshop_founders.append(grid)
                 founder_ids.add(grid["grid_id"])
 
+    cubff = cubff_pressure_source is not None
+    cubff_by_generation: list[dict] = []
+
     archive = build_archive([], {})
     generation_reports = []
     max_lineage_generation = 0
 
     for generation_index in range(generations):
+        generation_dropout = dropout_rate
+        if cubff:
+            snapshot = cubff_pressure_source[
+                generation_index % len(cubff_pressure_source)
+            ]
+            pressure, multiplier = _cubff_generation_pressure(snapshot)
+            generation_dropout = round(dropout_rate * multiplier, 6)
+            cubff_by_generation.append(
+                {
+                    "snapshot_id": str(snapshot.get("snapshot_id", "cubff")),
+                    "mutation_pressure": pressure,
+                    "dropout_multiplier": multiplier,
+                }
+            )
         if generation_index == 0:
             if workshop and workshop_founders:
                 # Founders lead the pool so the round-robin always
@@ -657,7 +702,7 @@ def run_mecha_engine_evolution_loop(
                 damage_seed = run_seed * 10 + cycle
                 damaged = apply_stochastic_damage(
                     current,
-                    dropout_rate=dropout_rate,
+                    dropout_rate=generation_dropout,
                     rng_seed=damage_seed,
                     event_index=cycle,
                 )
@@ -905,7 +950,9 @@ def run_mecha_engine_evolution_loop(
                 for c in generation["creatures"]
             ),
         }
-    if workshop:
+    if cubff:
+        report_lab_id = "mecha_engine_evolution_cubff_pressure_stage0"
+    elif workshop:
         report_lab_id = "mecha_engine_evolution_workshop_wire_stage0"
     elif stress:
         report_lab_id = "mecha_engine_evolution_hard_regime_stage0"
@@ -953,6 +1000,26 @@ def run_mecha_engine_evolution_loop(
     }
     if parent_selection is not None:
         result["parent_selection"] = parent_selection
+    if cubff:
+        result["cubff_pressure"] = {
+            "semantic_rule": "lineage_dynamics_to_mutation_weights_pipeline_c",
+            "pressure_gain": CUBFF_PRESSURE_GAIN,
+            "multiplier_band": list(CUBFF_MULTIPLIER_BAND),
+            "source_snapshot_count": len(cubff_pressure_source),
+            "by_generation": cubff_by_generation,
+        }
+        result["purpose"] = (
+            "R2 (decision record 0018): CuBFF computational-life dynamics "
+            "shape every generation — extract_cubff_features -> "
+            "mutation_pressure scales per-generation damage severity "
+            "(Pipeline C: lineage dynamics -> mutation weights). Only "
+            "pressure scalars cross the boundary; CuBFF never sets tokens."
+        )
+        result["next_research_step"] = (
+            "Promote the cubff_pressure_source seam into runtime.evolve "
+            "by its own decision record; add real ingested snapshots and "
+            "study lineage continuity across pressure regimes."
+        )
     if (
         slip_profile.get("slip_version") != "0.1.0"
         and "species_class" in slip_profile
@@ -1111,14 +1178,27 @@ def write_evolution_loop_artifacts(output_dir: Path, report: dict) -> None:
         encoding="utf-8",
     )
     summary = report["summary"]
+    cubff = "cubff_pressure" in report
     wire = "workshop" in report["summary"]
-    if wire:
+    if cubff:
+        readme_name = "evolution_cubff_pressure_README.md"
+    elif wire:
         readme_name = "evolution_workshop_wire_README.md"
     elif stress:
         readme_name = "evolution_hard_regime_README.md"
     else:
         readme_name = "evolution_loop_README.md"
     regime_lines = ""
+    if cubff:
+        cp = report["cubff_pressure"]
+        regime_lines += (
+            f"- CuBFF pressure (Pipeline C): {cp['source_snapshot_count']} "
+            f"snapshots, gain {cp['pressure_gain']}\n"
+            "- Per-generation dropout multipliers: "
+            f"{[g['dropout_multiplier'] for g in cp['by_generation']]}\n"
+            "- Mutation pressures: "
+            f"{[g['mutation_pressure'] for g in cp['by_generation']]}\n"
+        )
     if wire:
         workshop_summary = report["summary"]["workshop"]
         regime_lines += (
@@ -1229,8 +1309,22 @@ def main() -> None:
         help="Directory of RELEASED workshop creatures to admit as "
         "evolution founders (T1 wire); e.g. data/workshop/released.",
     )
+    parser.add_argument(
+        "--cubff-snapshots",
+        type=int,
+        default=0,
+        help="R2: generate N synthetic CuBFF snapshots as the "
+        "per-generation lineage-pressure source (0 = off).",
+    )
     args = parser.parse_args()
     if args.mode == "evolution":
+        cubff_source = None
+        if args.cubff_snapshots > 0:
+            from cubff_transducer import build_synthetic_snapshots
+
+            cubff_source = build_synthetic_snapshots(
+                args.cubff_snapshots, rng_seed=args.rng_seed
+            )
         report = run_mecha_engine_evolution_loop(
             generations=args.generations,
             population=args.population,
@@ -1240,6 +1334,7 @@ def main() -> None:
             rng_seed=args.rng_seed,
             survival_regime=args.regime,
             workshop_grids_dir=args.workshop_dir,
+            cubff_pressure_source=cubff_source,
         )
         write_evolution_loop_artifacts(args.output_dir, report)
     else:

@@ -689,6 +689,11 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-07-06-ctm-deliberation-live.md`
 - `labs/grid_genome/test_slip_deliberation.py` (R1: CTM deliberation LIVE — the creature visibly thinks, 64 events/8 episodes with a renderable trace; wellbeing delta 0.0 sheltered, honestly recorded; adopt-as-expressiveness/watch-for-utility)
 
+- `research/decision_records/0018-cubff-live-lineage-pressure.md`
+- `research/experiment_reports/2026-07-06-cubff-live-lineage-pressure.md`
+- `labs/runtime_integration/test_cubff_pressure.py`
+- `data/runtime_integration/mecha_engine_evolution_cubff_pressure_stage0.json` (R2: CuBFF Pipeline C LIVE in the evolution loop — chaotic soup 1.17x damage/111 cells vs stable 0.90x/88 at the same seed; the Google experiment's dynamics are now the engine's bloodstream, not a lab exhibit; semantic-compiler rule held, absent source byte-identical)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.
