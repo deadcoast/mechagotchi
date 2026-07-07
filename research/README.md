@@ -757,6 +757,12 @@ Post-v0.1 continuation has started:
 
 - `research/experiment_reports/2026-07-07-mortal-wound-signal.md` (D2: C6's shattered-core mortality gradient surfaced as a Keeper-visible event at every surface — `_mortal_wounds` reads the report's existing per-creature `archive_decision` (no new engine number), rides the era digest + session `mortal_wound_toll`, and shows as "the toll" in `mechas session` and on the Keeper page; honest at zero (demo toll 0, the ~1.25% in-band rate), test-proven to fire non-zero under heavy damage and always pinned to a recomputation of engine truth; stale `sqlite_ledger_pending_storage_module_promotion` blocked-state removed post-C3)
 
+- `research/decision_records/0026-render-module-disposition.md` (D3: the `render` module dispositioned by the DR 0024 method — the renderer-neutral packet contract (`render_packet_from_grid` + `render_packet_v2`) already SHIPS in `mecha_engine.genome`; a `mecha_engine.render` DRAWING module is REJECTED-until-consumer (the only pixel code is non-portable browser JS, no Python rasterizer consumer exists), with a named re-opener (a non-workshop Python consumer needs to rasterize — server-side PNG export, headless renderer, or a `mechas` image command). Identified: a `genome` follow-up (the `slip_profile` animation-vocab gate into `render_packet_v2`) and a workshop-track cleanup (the three duplicated canvas draw loops into a shared asset). `render` + `slip` remain the deferred targets)
+
+- `research/experiment_reports/2026-07-07-campaign-scale-soak.md`
+- `labs/game_loop/session_soak.py` (+ `test_session_soak.py`)
+- `data/game_loop/session_soak_stage0.json` (D5: the C2/C3/C5 persistence spine load-verified over a 12-era chain through the promoted storage module — determinism at scale, ledger blob round-trips, deterministic replay of EVERY stored era, replay-file hashes matching rows, founder-chain continuity, unlock-chain monotonicity; `soak_spine_holds_at_campaign_scale`. Two harness-faithfulness bugs found and fixed (the C4 earned blend must be replayed not defaulted; `founder_grids=None` ≠ `[]` — the DR 0016 distinction is intentional); live extinction honestly unreachable at Stage-0 scale, so succession stays fixture-proven)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

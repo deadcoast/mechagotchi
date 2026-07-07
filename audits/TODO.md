@@ -33,24 +33,35 @@ pause the queue.)
   Honest at zero (demo toll 0, the ~1.25% in-band rate), test-proven
   to fire non-zero under heavy damage and ALWAYS pinned to a
   recomputation of engine truth. Stale post-C3 blocked-state removed.)
-- [ ] **D3 · `render` module decision record + target.** (One of the
-  two remaining deferred module targets; DR 0004's list.) The render
-  packet + packet-v2 selection + the workshop draw path have shipped
-  as lab/workshop code for cycles; propose whether a promoted
-  `mecha_engine.render` earns its target now (a real consumer beyond
-  the workshop, verbatim-portable) or stays deferred with the reason
-  recorded — the DR 0024 disposition method, applied to render.
+- [x] **D3 · `render` module decision record + target.** (DR 0026,
+  2026-07-07: dispositioned by the DR 0024 method — the renderer-
+  neutral packet contract (`render_packet_from_grid` +
+  `render_packet_v2`) already SHIPS in `mecha_engine.genome`; a
+  `mecha_engine.render` DRAWING module is REJECTED-until-consumer (the
+  only pixel code is non-portable browser JS, no Python rasterizer
+  consumer exists), with a named re-opener (a non-workshop Python
+  consumer needs to rasterize — server-side PNG export / headless
+  renderer / `mechas` image command). Identified a `genome` follow-up
+  (`slip_profile` animation-vocab gate into `render_packet_v2`) and a
+  workshop-track cleanup (three duplicated canvas draw loops → shared
+  asset). `render` + `slip` remain the deferred targets.)
 - [ ] **D4 · Storm-record & harsher-forecast budget (C4's deferred
   axis).** (C4 named it deferred: `harsher_forecasts` await weather
   sources beyond the three shipped.) Once D1 lands (or its stand-in),
   the storm-record unlock axis gains real forecasts to unlock —
   harsher CuBFF sources with provenance display — closing the one
   progression axis C4 left inert. Depends on D1.
-- [ ] **D5 · Campaign-scale session soak.** A longer campaign
-  (many eras, real succession on measured extinction) run as a
-  deterministic soak test over the promoted surfaces + storage module,
-  proving the ledger, replay directory, and unlock chain hold at
-  campaign scale — the C2/C3/C5 spine under sustained load. Triad.
+- [x] **D5 · Campaign-scale session soak.** (2026-07-07: a 12-era
+  chained campaign load-verifies the C2/C3/C5 spine through the
+  promoted storage module — determinism at scale, ledger blob
+  round-trips, deterministic replay of EVERY stored era, replay-file
+  hashes matching rows, founder-chain continuity, unlock-chain
+  monotonicity; `soak_spine_holds_at_campaign_scale`, 5 tests. Two
+  harness-faithfulness bugs found+fixed (the C4 earned blend must be
+  replayed not defaulted; `founder_grids=None` ≠ `[]` is an
+  intentional DR 0016 distinction — engine unchanged). Live extinction
+  honestly unreachable at Stage-0 scale, so succession stays
+  fixture-proven — recorded as a blocked state, not faked.)
 
 ## Standing note
 

@@ -1,0 +1,84 @@
+{
+  "artifact_id": "game_loop_session_soak_stage0",
+  "status": "stage0_complete",
+  "date": "2026-07-07",
+  "purpose": "D5: a campaign-scale soak \u2014 a long chained campaign run deterministically over the promoted surfaces and persisted through the promoted mecha_engine.storage module, with the C2/C3/C5 spine (ledger integrity, deterministic replay of every stored era, replay-hash matching, founder-chain continuity, unlock-chain monotonicity) verified whole at scale.",
+  "source_artifacts": [
+    "research/decision_records/0022-storage-module.md",
+    "research/experiment_reports/2026-07-07-storage-module-promotion.md",
+    "research/experiment_reports/2026-07-07-per-era-replay.md"
+  ],
+  "soak_parameters": {
+    "schedule": [
+      "calm",
+      "stable_soup",
+      "storm",
+      "calm",
+      "stable_soup",
+      "storm",
+      "calm",
+      "stable_soup",
+      "storm",
+      "calm",
+      "stable_soup",
+      "storm"
+    ],
+    "base_seed": 20260707,
+    "generations": 2,
+    "population": 4,
+    "damage_cycles": 2,
+    "ticks": 8
+  },
+  "metrics": {
+    "era_count": 12,
+    "ingest_counts": {
+      "campaigns": 1,
+      "slip_profiles": 12,
+      "eras": 12,
+      "elites": 67,
+      "founders": 62,
+      "unlocks": 8,
+      "replays": 12
+    },
+    "ledger_round_trips_byte_identical": true,
+    "every_stored_era_replays_deterministically": true,
+    "founder_chain_continuous": true,
+    "replay_files_written": 12,
+    "replay_hashes_match_rows": true,
+    "unlock_counts_by_era": [
+      6,
+      6,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      8,
+      8,
+      8
+    ],
+    "unlock_chain_monotonic": true,
+    "final_unlock_count": 8,
+    "campaign_survived_full_chain": true,
+    "sqlite_path": "data/game_loop/soak/soak_campaign.sqlite",
+    "total_mortal_wounds_over_campaign": 3,
+    "spine_all_green": true
+  },
+  "closed_states": [
+    "campaign_scale_ledger_integrity_verified",
+    "every_stored_era_replays_deterministically_at_scale",
+    "replay_directory_hashes_match_rows_at_scale",
+    "founder_and_unlock_chains_hold_at_scale"
+  ],
+  "blocked_states": [
+    "live_extinction_not_reachable_at_stage0_scale"
+  ],
+  "decision": {
+    "status": "soak_spine_holds_at_campaign_scale",
+    "adoption": "lab_only_game_loop_evidence",
+    "reason": "A 12-era chained campaign persists through the promoted storage module with every DR 0022/0023 contract holding over the FULL chain: blobs round-trip byte-identical, every stored era replays deterministically into its own report, replay-file hashes match their ledger rows, and the founder and unlock chains stay continuous and monotonic. Live extinction is honestly unreachable at this scale (the archive never empties), so succession stays fixture-proven; the surviving spine is proven at load."
+  },
+  "next_research_step": "If a future difficulty regime makes extinction reachable live, re-run this soak to exercise succession at scale; otherwise the spine is load-verified for the shipped game."
+}
