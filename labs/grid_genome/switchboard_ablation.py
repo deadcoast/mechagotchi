@@ -38,6 +38,7 @@ if str(LIFECYCLE) not in sys.path:
 
 from corpus_builder import build_seed_grids  # noqa: E402
 from lifecycle_sim import advance_tick, initial_lifecycle_state  # noqa: E402
+from slip import is_grid_aligned  # noqa: E402
 from micro_switchboard import (  # noqa: E402
     SWITCHBOARD_THREAD_NAMES,
     run_switchboard,
@@ -92,8 +93,7 @@ ABLATION_CONDITIONS = [
 ]
 
 
-def _episode(profile: dict, user_model, ticks: int) -> dict:
-    grid = build_seed_grids()[0]
+def _episode(profile: dict, user_model, ticks: int, grid: dict) -> dict:
     state = initial_lifecycle_state(grid, profile)
     balances = []
     action_counts = {action: 0 for action in ("feed", "play", "sleep", "idle", "mutate")}
@@ -120,39 +120,72 @@ def _episode(profile: dict, user_model, ticks: int) -> dict:
     }
 
 
-def build_switchboard_ablation_report(*, ticks: int = 48) -> dict:
+def build_switchboard_ablation_report(
+    *, ticks: int = 48, creature_count: int = 1
+) -> dict:
+    """creature_count > 1 is the T19 scaled rerun: episodes run per seed
+    creature and the keep-gate uses per-user MEAN declines with variance
+    reported — the honest step toward RUN TWO's 500-lifecycle protocol.
+    """
+    base = _base_profile()
+    creatures = [
+        seed
+        for seed in build_seed_grids()
+        if is_grid_aligned(seed, base).ok
+    ][:creature_count]
     episodes = []
-    table: dict[str, dict[str, dict]] = {}
+    # table[user][condition] -> list of per-creature episodes
+    table: dict[str, dict[str, list[dict]]] = {}
     for user_name, user_model in USER_MODELS.items():
         for condition in ABLATION_CONDITIONS:
-            episode = _episode(
-                deepcopy(condition["profile"]), user_model, ticks
-            )
-            episode.update(
-                {"user_model": user_name, "condition": condition["condition"]}
-            )
-            episodes.append(episode)
-            table.setdefault(user_name, {})[condition["condition"]] = episode
+            for grid in creatures:
+                episode = _episode(
+                    deepcopy(condition["profile"]), user_model, ticks, grid
+                )
+                episode.update(
+                    {
+                        "user_model": user_name,
+                        "condition": condition["condition"],
+                        "creature": grid["grid_id"],
+                    }
+                )
+                episodes.append(episode)
+                table.setdefault(user_name, {}).setdefault(
+                    condition["condition"], []
+                ).append(episode)
+
+    from statistics import pstdev
 
     keep_gate = {}
     for thread in SWITCHBOARD_THREAD_NAMES:
-        declines = []
+        mean_declines = []
+        all_declines = []
         survival_improved = False
         for user_name in USER_MODELS:
-            full = table[user_name]["full"]
-            removed = table[user_name][f"minus_{thread}"]
-            base = full["need_balance"] or 1e-9
-            declines.append(
-                round((full["need_balance"] - removed["need_balance"]) / base * 100, 3)
-            )
-            if removed["survival_ticks"] > full["survival_ticks"]:
-                survival_improved = True
-        worst = max(declines)
+            pair_declines = []
+            for full, removed in zip(
+                table[user_name]["full"],
+                table[user_name]["minus_" + thread],
+            ):
+                base = full["need_balance"] or 1e-9
+                pair_declines.append(
+                    (full["need_balance"] - removed["need_balance"])
+                    / base
+                    * 100
+                )
+                if removed["survival_ticks"] > full["survival_ticks"]:
+                    survival_improved = True
+            mean_declines.append(round(mean(pair_declines), 3))
+            all_declines.extend(pair_declines)
+        worst = max(mean_declines)
         keep_gate[thread] = {
-            "need_balance_decline_pct_by_user": dict(
-                zip(USER_MODELS, declines)
+            "mean_need_balance_decline_pct_by_user": dict(
+                zip(USER_MODELS, mean_declines)
             ),
-            "worst_need_balance_decline_pct": worst,
+            "worst_mean_decline_pct": worst,
+            "decline_stdev_pct": round(pstdev(all_declines), 3)
+            if len(all_declines) > 1
+            else 0.0,
             "survival_improved_when_removed": survival_improved,
             "decision": (
                 "keep"
@@ -163,12 +196,19 @@ def build_switchboard_ablation_report(*, ticks: int = 48) -> dict:
 
     headline_deltas = {}
     for user_name in USER_MODELS:
-        full = table[user_name]["full"]["need_balance"]
-        rules = table[user_name]["rules_only"]["need_balance"] or 1e-9
+        full = mean(e["need_balance"] for e in table[user_name]["full"])
+        rules = mean(
+            e["need_balance"] for e in table[user_name]["rules_only"]
+        ) or 1e-9
         headline_deltas[user_name] = round((full - rules) / rules * 100, 3)
 
+    scaled = creature_count > 1
     return {
-        "artifact_id": "switchboard_ablation_stage0",
+        "artifact_id": (
+            "switchboard_ablation_scaled_stage0"
+            if scaled
+            else "switchboard_ablation_stage0"
+        ),
         "status": "stage0_complete",
         "date": "2026-07-05",
         "purpose": (
@@ -178,6 +218,7 @@ def build_switchboard_ablation_report(*, ticks: int = 48) -> dict:
             "full-vs-rules-only headline (audit T19)."
         ),
         "ticks": ticks,
+        "creature_count": creature_count,
         "source_artifacts": [
             "research/micro_learners/thread_census.md",
             "research/decision_records/0012-slip-schema-extension-ladder.md",
@@ -212,7 +253,7 @@ def build_switchboard_ablation_report(*, ticks: int = 48) -> dict:
 
 def write_switchboard_ablation_artifacts(output_dir: Path, report: dict) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
-    (output_dir / "switchboard_ablation_stage0.json").write_text(
+    (output_dir / (report["artifact_id"] + ".json")).write_text(
         json.dumps(report, indent=2) + "\n", encoding="utf-8"
     )
 
@@ -221,8 +262,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Run the switchboard ablation.")
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--ticks", type=int, default=48)
+    parser.add_argument("--creatures", type=int, default=1)
     args = parser.parse_args()
-    report = build_switchboard_ablation_report(ticks=args.ticks)
+    report = build_switchboard_ablation_report(
+        ticks=args.ticks, creature_count=args.creatures
+    )
     write_switchboard_ablation_artifacts(args.output_dir, report)
     print(json.dumps(report["summary"], indent=2))
     print(json.dumps(report["keep_gate"], indent=2))

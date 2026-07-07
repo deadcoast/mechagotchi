@@ -670,6 +670,9 @@ Post-v0.1 continuation has started:
 
 - `LICENSES/` (T21: the REUSE convention — LicenseRef texts for included assets + the reference-only marker; provenance CI gains reuse_licenses_ok in BOTH the lab and the promoted mirror, contract extended; the repo-wide license grant remains the owner's pending decision, honestly recorded)
 
+- `research/experiment_reports/2026-07-06-switchboard-ablation-scaled.md`
+- `data/micro_learners/switchboard_ablation_scaled_stage0.json` (T19 scaled rerun: 240 episodes across all 8 aligned creatures — Stage 0 verdicts REPLICATE; mood estimator removal costs 77-85% at scale; others stay dead_weight, still queued on the 500-lifecycle arbiter)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

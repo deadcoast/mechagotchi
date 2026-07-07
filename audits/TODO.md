@@ -140,7 +140,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
   best-fitness gap, lineage depth, extinction frequency. Either the
   og-claimed superiority becomes measured fact or the archive design
   gets revisited — first-class result either way.
-- [ ] **T19 · Micro-learner remove-one ablation.** (STAGE 0 SHIPPED 2026-07-05: full beats rules-only ~336%; only hidden_mood_estimator clears the keep-gate at single-episode scale; remaining: the 500-lifecycle scaled rerun with variance before acting on dead_weight verdicts) RUN TWO's design: 5
+- [x] **T19 · Micro-learner remove-one ablation.** (Stage 0 2026-07-05 + scaled rerun 2026-07-06: verdicts replicate across all 8 creatures/240 episodes; mood estimator keep at 77-85% decline; dead_weight threads still not removed — RUN TWO's 500-lifecycle protocol recorded as the final arbiter) RUN TWO's design: 5
   synthetic user models (attentive/neglectful/erratic/punitive/
   exploratory) x lifecycles x remove-one conditions over the switchboard
   threads; keep-gate: removal costs >=5% on a target metric without

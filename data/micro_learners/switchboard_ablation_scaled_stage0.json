@@ -1,0 +1,3933 @@
+{
+  "artifact_id": "switchboard_ablation_scaled_stage0",
+  "status": "stage0_complete",
+  "date": "2026-07-05",
+  "purpose": "RUN TWO's remove-one switchboard ablation at Stage 0 scale: SLIP-authored conditions (T3.3 learning_switches), five synthetic user models, measured keep-gate per thread and the full-vs-rules-only headline (audit T19).",
+  "ticks": 48,
+  "creature_count": 8,
+  "source_artifacts": [
+    "research/micro_learners/thread_census.md",
+    "research/decision_records/0012-slip-schema-extension-ladder.md"
+  ],
+  "episodes": [
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "full",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "full",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "full",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "full",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "full",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "full",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "full",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "full",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 7,
+      "alive": false,
+      "need_balance": 0.115625,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 7,
+        "sleep": 0,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 7,
+      "alive": false,
+      "need_balance": 0.115625,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 7,
+        "sleep": 0,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 7,
+      "alive": false,
+      "need_balance": 0.115625,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 7,
+        "sleep": 0,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 7,
+      "alive": false,
+      "need_balance": 0.115625,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 7,
+        "sleep": 0,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 7,
+      "alive": false,
+      "need_balance": 0.115625,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 7,
+        "sleep": 0,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 7,
+      "alive": false,
+      "need_balance": 0.115625,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 7,
+        "sleep": 0,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 7,
+      "alive": false,
+      "need_balance": 0.115625,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 7,
+        "sleep": 0,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 7,
+      "alive": false,
+      "need_balance": 0.115625,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 7,
+        "sleep": 0,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "rules_only",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "rules_only",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "rules_only",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "rules_only",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "rules_only",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "rules_only",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "rules_only",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "attentive",
+      "condition": "rules_only",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "full",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "full",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "full",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "full",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "full",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "full",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "full",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "full",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.789841,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 27,
+        "sleep": 8,
+        "idle": 4,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.789841,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 27,
+        "sleep": 8,
+        "idle": 4,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.789841,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 27,
+        "sleep": 8,
+        "idle": 4,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.789841,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 27,
+        "sleep": 8,
+        "idle": 4,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.789841,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 27,
+        "sleep": 8,
+        "idle": 4,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.789841,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 27,
+        "sleep": 8,
+        "idle": 4,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.789841,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 27,
+        "sleep": 8,
+        "idle": 4,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.789841,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 27,
+        "sleep": 8,
+        "idle": 4,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "rules_only",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "rules_only",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "rules_only",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "rules_only",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "rules_only",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "rules_only",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "rules_only",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "neglectful",
+      "condition": "rules_only",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "full",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "full",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "full",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "full",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "full",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "full",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "full",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "full",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.797772,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 28,
+        "sleep": 8,
+        "idle": 3,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.797772,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 28,
+        "sleep": 8,
+        "idle": 3,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.797772,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 28,
+        "sleep": 8,
+        "idle": 3,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.797772,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 28,
+        "sleep": 8,
+        "idle": 3,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.797772,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 28,
+        "sleep": 8,
+        "idle": 3,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.797772,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 28,
+        "sleep": 8,
+        "idle": 3,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.797772,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 28,
+        "sleep": 8,
+        "idle": 3,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.797772,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 28,
+        "sleep": 8,
+        "idle": 3,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "rules_only",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "rules_only",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "rules_only",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "rules_only",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "rules_only",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "rules_only",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "rules_only",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "erratic",
+      "condition": "rules_only",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "full",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "full",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "full",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "full",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "full",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "full",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "full",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "full",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.177506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.177506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.177506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.177506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.177506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.177506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.177506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.177506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.804733,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 28,
+        "sleep": 8,
+        "idle": 3,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.804733,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 28,
+        "sleep": 8,
+        "idle": 3,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.804733,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 28,
+        "sleep": 8,
+        "idle": 3,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.804733,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 28,
+        "sleep": 8,
+        "idle": 3,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.804733,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 28,
+        "sleep": 8,
+        "idle": 3,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.804733,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 28,
+        "sleep": 8,
+        "idle": 3,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.804733,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 28,
+        "sleep": 8,
+        "idle": 3,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.804733,
+      "recovery_events": 8,
+      "action_counts": {
+        "feed": 9,
+        "play": 28,
+        "sleep": 8,
+        "idle": 3,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.794792,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.177506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "rules_only",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.177506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "rules_only",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.177506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "rules_only",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.177506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "rules_only",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.177506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "rules_only",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.177506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "rules_only",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.177506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "rules_only",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.177506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "punitive",
+      "condition": "rules_only",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "full",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "full",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "full",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "full",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "full",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "full",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "full",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "full",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 7,
+      "alive": false,
+      "need_balance": 0.115625,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 7,
+        "sleep": 0,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 7,
+      "alive": false,
+      "need_balance": 0.115625,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 7,
+        "sleep": 0,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 7,
+      "alive": false,
+      "need_balance": 0.115625,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 7,
+        "sleep": 0,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 7,
+      "alive": false,
+      "need_balance": 0.115625,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 7,
+        "sleep": 0,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 7,
+      "alive": false,
+      "need_balance": 0.115625,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 7,
+        "sleep": 0,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 7,
+      "alive": false,
+      "need_balance": 0.115625,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 7,
+        "sleep": 0,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 7,
+      "alive": false,
+      "need_balance": 0.115625,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 7,
+        "sleep": 0,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 7,
+      "alive": false,
+      "need_balance": 0.115625,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 7,
+        "sleep": 0,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 48,
+      "alive": true,
+      "need_balance": 0.791142,
+      "recovery_events": 9,
+      "action_counts": {
+        "feed": 9,
+        "play": 30,
+        "sleep": 9,
+        "idle": 0,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_036"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "rules_only",
+      "creature": "mg_seed_001"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "rules_only",
+      "creature": "mg_seed_006"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "rules_only",
+      "creature": "mg_seed_011"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "rules_only",
+      "creature": "mg_seed_016"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "rules_only",
+      "creature": "mg_seed_021"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "rules_only",
+      "creature": "mg_seed_026"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "rules_only",
+      "creature": "mg_seed_031"
+    },
+    {
+      "survival_ticks": 11,
+      "alive": false,
+      "need_balance": 0.181506,
+      "recovery_events": 0,
+      "action_counts": {
+        "feed": 0,
+        "play": 0,
+        "sleep": 0,
+        "idle": 11,
+        "mutate": 0
+      },
+      "user_model": "exploratory",
+      "condition": "rules_only",
+      "creature": "mg_seed_036"
+    }
+  ],
+  "keep_gate": {
+    "recent_interaction_ewma": {
+      "mean_need_balance_decline_pct_by_user": {
+        "attentive": 0.0,
+        "neglectful": 0.0,
+        "erratic": 0.0,
+        "punitive": 0.0,
+        "exploratory": 0.0
+      },
+      "worst_mean_decline_pct": 0.0,
+      "decline_stdev_pct": 0.0,
+      "survival_improved_when_removed": false,
+      "decision": "dead_weight"
+    },
+    "hidden_mood_estimator": {
+      "mean_need_balance_decline_pct_by_user": {
+        "attentive": 85.385,
+        "neglectful": 77.058,
+        "erratic": 77.058,
+        "punitive": 77.666,
+        "exploratory": 85.385
+      },
+      "worst_mean_decline_pct": 85.385,
+      "decline_stdev_pct": 3.986,
+      "survival_improved_when_removed": false,
+      "decision": "keep"
+    },
+    "action_preference_bandit": {
+      "mean_need_balance_decline_pct_by_user": {
+        "attentive": 0.0,
+        "neglectful": 0.164,
+        "erratic": -0.838,
+        "punitive": -1.251,
+        "exploratory": 0.0
+      },
+      "worst_mean_decline_pct": 0.164,
+      "decline_stdev_pct": 0.557,
+      "survival_improved_when_removed": false,
+      "decision": "dead_weight"
+    },
+    "mutation_risk_scorer": {
+      "mean_need_balance_decline_pct_by_user": {
+        "attentive": 0.0,
+        "neglectful": 0.0,
+        "erratic": 0.0,
+        "punitive": 0.0,
+        "exploratory": 0.0
+      },
+      "worst_mean_decline_pct": 0.0,
+      "decline_stdev_pct": 0.0,
+      "survival_improved_when_removed": false,
+      "decision": "dead_weight"
+    }
+  },
+  "summary": {
+    "episode_count": 240,
+    "full_vs_rules_only": {
+      "need_balance_delta_pct_by_user": {
+        "attentive": 335.876,
+        "neglectful": 335.876,
+        "erratic": 335.876,
+        "punitive": 347.755,
+        "exploratory": 335.876
+      },
+      "full_beats_rules_only": true
+    },
+    "keep_decisions": {
+      "recent_interaction_ewma": "dead_weight",
+      "hidden_mood_estimator": "keep",
+      "action_preference_bandit": "dead_weight",
+      "mutation_risk_scorer": "dead_weight"
+    }
+  },
+  "limitations": [
+    "Stage 0 scale: one seed creature, one deterministic episode per cell (RUN TWO's 500-lifecycle protocol with variance analysis is the scale-up).",
+    "Synthetic user models are deterministic tick patterns, not learned user behavior.",
+    "A dead_weight verdict at this scale queues the thread for the scaled rerun before any removal."
+  ],
+  "next_research_step": "Scale the grid (creatures x lifecycles) and add variance before acting on dead_weight verdicts; wire the boredom predictor (census gap 1) into the same harness."
+}

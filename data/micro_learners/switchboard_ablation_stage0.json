@@ -4,6 +4,7 @@
   "date": "2026-07-05",
   "purpose": "RUN TWO's remove-one switchboard ablation at Stage 0 scale: SLIP-authored conditions (T3.3 learning_switches), five synthetic user models, measured keep-gate per thread and the full-vs-rules-only headline (audit T19).",
   "ticks": 48,
+  "creature_count": 1,
   "source_artifacts": [
     "research/micro_learners/thread_census.md",
     "research/decision_records/0012-slip-schema-extension-ladder.md"
@@ -22,7 +23,8 @@
         "mutate": 0
       },
       "user_model": "attentive",
-      "condition": "full"
+      "condition": "full",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 48,
@@ -37,7 +39,8 @@
         "mutate": 0
       },
       "user_model": "attentive",
-      "condition": "minus_recent_interaction_ewma"
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 7,
@@ -52,7 +55,8 @@
         "mutate": 0
       },
       "user_model": "attentive",
-      "condition": "minus_hidden_mood_estimator"
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 48,
@@ -67,7 +71,8 @@
         "mutate": 0
       },
       "user_model": "attentive",
-      "condition": "minus_action_preference_bandit"
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 48,
@@ -82,7 +87,8 @@
         "mutate": 0
       },
       "user_model": "attentive",
-      "condition": "minus_mutation_risk_scorer"
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 11,
@@ -97,7 +103,8 @@
         "mutate": 0
       },
       "user_model": "attentive",
-      "condition": "rules_only"
+      "condition": "rules_only",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 48,
@@ -112,7 +119,8 @@
         "mutate": 0
       },
       "user_model": "neglectful",
-      "condition": "full"
+      "condition": "full",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 48,
@@ -127,7 +135,8 @@
         "mutate": 0
       },
       "user_model": "neglectful",
-      "condition": "minus_recent_interaction_ewma"
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 11,
@@ -142,7 +151,8 @@
         "mutate": 0
       },
       "user_model": "neglectful",
-      "condition": "minus_hidden_mood_estimator"
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 48,
@@ -157,7 +167,8 @@
         "mutate": 0
       },
       "user_model": "neglectful",
-      "condition": "minus_action_preference_bandit"
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 48,
@@ -172,7 +183,8 @@
         "mutate": 0
       },
       "user_model": "neglectful",
-      "condition": "minus_mutation_risk_scorer"
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 11,
@@ -187,7 +199,8 @@
         "mutate": 0
       },
       "user_model": "neglectful",
-      "condition": "rules_only"
+      "condition": "rules_only",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 48,
@@ -202,7 +215,8 @@
         "mutate": 0
       },
       "user_model": "erratic",
-      "condition": "full"
+      "condition": "full",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 48,
@@ -217,7 +231,8 @@
         "mutate": 0
       },
       "user_model": "erratic",
-      "condition": "minus_recent_interaction_ewma"
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 11,
@@ -232,7 +247,8 @@
         "mutate": 0
       },
       "user_model": "erratic",
-      "condition": "minus_hidden_mood_estimator"
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 48,
@@ -247,7 +263,8 @@
         "mutate": 0
       },
       "user_model": "erratic",
-      "condition": "minus_action_preference_bandit"
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 48,
@@ -262,7 +279,8 @@
         "mutate": 0
       },
       "user_model": "erratic",
-      "condition": "minus_mutation_risk_scorer"
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 11,
@@ -277,7 +295,8 @@
         "mutate": 0
       },
       "user_model": "erratic",
-      "condition": "rules_only"
+      "condition": "rules_only",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 48,
@@ -292,7 +311,8 @@
         "mutate": 0
       },
       "user_model": "punitive",
-      "condition": "full"
+      "condition": "full",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 48,
@@ -307,7 +327,8 @@
         "mutate": 0
       },
       "user_model": "punitive",
-      "condition": "minus_recent_interaction_ewma"
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 11,
@@ -322,7 +343,8 @@
         "mutate": 0
       },
       "user_model": "punitive",
-      "condition": "minus_hidden_mood_estimator"
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 48,
@@ -337,7 +359,8 @@
         "mutate": 0
       },
       "user_model": "punitive",
-      "condition": "minus_action_preference_bandit"
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 48,
@@ -352,7 +375,8 @@
         "mutate": 0
       },
       "user_model": "punitive",
-      "condition": "minus_mutation_risk_scorer"
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 11,
@@ -367,7 +391,8 @@
         "mutate": 0
       },
       "user_model": "punitive",
-      "condition": "rules_only"
+      "condition": "rules_only",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 48,
@@ -382,7 +407,8 @@
         "mutate": 0
       },
       "user_model": "exploratory",
-      "condition": "full"
+      "condition": "full",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 48,
@@ -397,7 +423,8 @@
         "mutate": 0
       },
       "user_model": "exploratory",
-      "condition": "minus_recent_interaction_ewma"
+      "condition": "minus_recent_interaction_ewma",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 7,
@@ -412,7 +439,8 @@
         "mutate": 0
       },
       "user_model": "exploratory",
-      "condition": "minus_hidden_mood_estimator"
+      "condition": "minus_hidden_mood_estimator",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 48,
@@ -427,7 +455,8 @@
         "mutate": 0
       },
       "user_model": "exploratory",
-      "condition": "minus_action_preference_bandit"
+      "condition": "minus_action_preference_bandit",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 48,
@@ -442,7 +471,8 @@
         "mutate": 0
       },
       "user_model": "exploratory",
-      "condition": "minus_mutation_risk_scorer"
+      "condition": "minus_mutation_risk_scorer",
+      "creature": "mg_seed_001"
     },
     {
       "survival_ticks": 11,
@@ -457,55 +487,60 @@
         "mutate": 0
       },
       "user_model": "exploratory",
-      "condition": "rules_only"
+      "condition": "rules_only",
+      "creature": "mg_seed_001"
     }
   ],
   "keep_gate": {
     "recent_interaction_ewma": {
-      "need_balance_decline_pct_by_user": {
+      "mean_need_balance_decline_pct_by_user": {
         "attentive": 0.0,
         "neglectful": 0.0,
         "erratic": 0.0,
         "punitive": 0.0,
         "exploratory": 0.0
       },
-      "worst_need_balance_decline_pct": 0.0,
+      "worst_mean_decline_pct": 0.0,
+      "decline_stdev_pct": 0.0,
       "survival_improved_when_removed": false,
       "decision": "dead_weight"
     },
     "hidden_mood_estimator": {
-      "need_balance_decline_pct_by_user": {
+      "mean_need_balance_decline_pct_by_user": {
         "attentive": 85.385,
         "neglectful": 77.058,
         "erratic": 77.058,
         "punitive": 77.666,
         "exploratory": 85.385
       },
-      "worst_need_balance_decline_pct": 85.385,
+      "worst_mean_decline_pct": 85.385,
+      "decline_stdev_pct": 3.986,
       "survival_improved_when_removed": false,
       "decision": "keep"
     },
     "action_preference_bandit": {
-      "need_balance_decline_pct_by_user": {
+      "mean_need_balance_decline_pct_by_user": {
         "attentive": 0.0,
         "neglectful": 0.164,
         "erratic": -0.838,
         "punitive": -1.251,
         "exploratory": 0.0
       },
-      "worst_need_balance_decline_pct": 0.164,
+      "worst_mean_decline_pct": 0.164,
+      "decline_stdev_pct": 0.557,
       "survival_improved_when_removed": false,
       "decision": "dead_weight"
     },
     "mutation_risk_scorer": {
-      "need_balance_decline_pct_by_user": {
+      "mean_need_balance_decline_pct_by_user": {
         "attentive": 0.0,
         "neglectful": 0.0,
         "erratic": 0.0,
         "punitive": 0.0,
         "exploratory": 0.0
       },
-      "worst_need_balance_decline_pct": 0.0,
+      "worst_mean_decline_pct": 0.0,
+      "decline_stdev_pct": 0.0,
       "survival_improved_when_removed": false,
       "decision": "dead_weight"
     }

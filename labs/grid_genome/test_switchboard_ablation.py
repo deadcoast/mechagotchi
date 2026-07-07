@@ -57,10 +57,10 @@ class SwitchboardAblationTests(unittest.TestCase):
         gate = self.report["keep_gate"]
         for thread, verdict in gate.items():
             self.assertIn(verdict["decision"], ("keep", "dead_weight"))
-            self.assertIsInstance(verdict["worst_need_balance_decline_pct"], float)
+            self.assertIsInstance(verdict["worst_mean_decline_pct"], float)
             expected = (
                 "keep"
-                if verdict["worst_need_balance_decline_pct"] >= 5.0
+                if verdict["worst_mean_decline_pct"] >= 5.0
                 and not verdict["survival_improved_when_removed"]
                 else "dead_weight"
             )
@@ -71,6 +71,17 @@ class SwitchboardAblationTests(unittest.TestCase):
         self.assertIn("need_balance_delta_pct_by_user", headline)
         self.assertEqual(5, len(headline["need_balance_delta_pct_by_user"]))
         self.assertIsInstance(headline["full_beats_rules_only"], bool)
+
+    def test_scaled_rerun_reports_variance_across_creatures(self):
+        scaled = build_switchboard_ablation_report(
+            ticks=24, creature_count=3
+        )
+        self.assertEqual(
+            "switchboard_ablation_scaled_stage0", scaled["artifact_id"]
+        )
+        self.assertEqual(90, len(scaled["episodes"]))  # 5 users x 6 x 3
+        for verdict in scaled["keep_gate"].values():
+            self.assertIn("decline_stdev_pct", verdict)
 
     def test_deterministic(self):
         self.assertEqual(
