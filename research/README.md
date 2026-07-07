@@ -755,6 +755,8 @@ Post-v0.1 continuation has started:
 
 - `research/experiment_reports/2026-07-07-covenant-step.md` (C4: unlocks SPEND — `covenant_budget` maps the DR 0021 progression table to spendable budget as a pure function of earned facts (deliberation on the authority's real floor of 2; caps double per QD tier; the earned blend flows through `advance_campaign` keeping batch == incremental pinned); `apply_covenant_change` enforces budget + authority with named violations; the Keeper page's covenant panel + `POST /api/session/covenant`; deferred axes named in the budget payload; regenerated session runs eras 1–2 at the EARNED blend 0.8)
 
+- `research/experiment_reports/2026-07-07-mortal-wound-signal.md` (D2: C6's shattered-core mortality gradient surfaced as a Keeper-visible event at every surface — `_mortal_wounds` reads the report's existing per-creature `archive_decision` (no new engine number), rides the era digest + session `mortal_wound_toll`, and shows as "the toll" in `mechas session` and on the Keeper page; honest at zero (demo toll 0, the ~1.25% in-band rate), test-proven to fire non-zero under heavy damage and always pinned to a recomputation of engine truth; stale `sqlite_ledger_pending_storage_module_promotion` blocked-state removed post-C3)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

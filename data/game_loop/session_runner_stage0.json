@@ -41,6 +41,13 @@
           0.206808,
           0.584121
         ],
+        "mortal_wounds": {
+          "mortal_wounds": 0,
+          "normal_deaths": 0,
+          "creature_count": 12,
+          "mortal_wound_rate": 0.0,
+          "cause": null
+        },
         "founders_submitted": 0,
         "founders_admitted": 0,
         "founders_rejected": 0,
@@ -73,6 +80,13 @@
           0.002097,
           0.189093
         ],
+        "mortal_wounds": {
+          "mortal_wounds": 0,
+          "normal_deaths": 0,
+          "creature_count": 12,
+          "mortal_wound_rate": 0.0,
+          "cause": null
+        },
         "founders_submitted": 8,
         "founders_admitted": 8,
         "founders_rejected": 0,
@@ -105,6 +119,13 @@
           0.002537,
           0.010727
         ],
+        "mortal_wounds": {
+          "mortal_wounds": 0,
+          "normal_deaths": 0,
+          "creature_count": 12,
+          "mortal_wound_rate": 0.0,
+          "cause": null
+        },
         "founders_submitted": 9,
         "founders_admitted": 9,
         "founders_rejected": 0,
@@ -122,6 +143,12 @@
       "stable_soup": 53,
       "storm": 62
     },
+    "mortal_wound_toll": 0,
+    "mortal_wounds_by_era": [
+      0,
+      0,
+      0
+    ],
     "unlock_facts": [
       {
         "axis": "niche_mastery",
@@ -244,8 +271,7 @@
   "blocked_states": [
     "awaiting_real_cubff_snapshots",
     "extinction_not_observed_at_stage0_scale",
-    "aligned_but_lifecycle_invalid_boundary_at_extreme_dropout",
-    "sqlite_ledger_pending_storage_module_promotion"
+    "aligned_but_lifecycle_invalid_boundary_at_extreme_dropout"
   ],
   "decision": {
     "status": "session_loop_composed",

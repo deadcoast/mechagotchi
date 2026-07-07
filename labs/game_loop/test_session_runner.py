@@ -500,6 +500,87 @@ class SessionRunnerTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             apply_succession(state, state["campaigns"][0])
 
+    # -- the mortal-wound signal (D2) -----------------------------------------
+
+    def test_every_era_reports_a_mortal_wound_tally_from_engine_truth(self):
+        for campaign in self.session["campaigns"]:
+            for era in campaign["eras"]:
+                wounds = era["derived"]["mortal_wounds"]
+                report = era["report"]
+                # The tally IS a reading of archive_decision — recompute
+                # it independently and require exact agreement.
+                skipped_invalid = sum(
+                    1
+                    for generation in report["generations"]
+                    for creature in generation["creatures"]
+                    if creature["archive_decision"] == "skipped_invalid"
+                )
+                self.assertEqual(skipped_invalid, wounds["mortal_wounds"])
+                self.assertEqual(
+                    wounds["creature_count"],
+                    sum(
+                        len(g["creatures"]) for g in report["generations"]
+                    ),
+                )
+                self.assertEqual(
+                    "shattered_body_core" if skipped_invalid else None,
+                    wounds["cause"],
+                )
+
+    def test_mortal_wounds_ride_the_era_digest_and_session_toll(self):
+        report = build_session_report(self.session)
+        by_era = report["metrics"]["mortal_wounds_by_era"]
+        self.assertEqual(len(report["metrics"]["eras"]), len(by_era))
+        for digest, tally in zip(report["metrics"]["eras"], by_era):
+            self.assertEqual(digest["mortal_wounds"]["mortal_wounds"], tally)
+        self.assertEqual(sum(by_era), report["metrics"]["mortal_wound_toll"])
+
+    def test_the_advance_turn_surfaces_the_toll(self):
+        state = self._fresh_state()
+        turn = advance_keeper_state(state, "storm", **self.models)
+        self.assertIn("mortal_wounds", turn["era"])
+        self.assertIn("mortal_wound_rate", turn["era"]["mortal_wounds"])
+
+    def test_the_signal_actually_fires_under_heavy_damage(self):
+        # The C6 gradient: harsh damage produces shattered-core losses.
+        # Prove the tally goes non-zero AND still equals engine truth.
+        from session_runner import run_era
+
+        era = run_era(
+            era_index=0,
+            weather="calm",
+            seed_grids=self.seeds,
+            slip_profile=json.loads(
+                (
+                    LAB_DIR.parents[1]
+                    / "data"
+                    / "slips"
+                    / "valid"
+                    / "slip_lcd_seed.json"
+                ).read_text(encoding="utf-8")
+            ),
+            generation_model=self.generation_model,
+            repair_model=self.repair_model,
+            legibility_model=self.legibility_model,
+            founder_grids=None,
+            rng_seed=20260703,  # a C6 boundary-hitting seed
+            generations=2,
+            population=4,
+            damage_cycles=4,
+            ticks=8,
+            dropout_rate=0.95,
+        )
+        wounds = era["derived"]["mortal_wounds"]
+        recomputed = sum(
+            1
+            for generation in era["report"]["generations"]
+            for creature in generation["creatures"]
+            if creature["archive_decision"] == "skipped_invalid"
+        )
+        self.assertEqual(recomputed, wounds["mortal_wounds"])
+        self.assertGreater(wounds["mortal_wounds"], 0)
+        self.assertEqual("shattered_body_core", wounds["cause"])
+
     # -- the Covenant step (C4): unlocks SPEND --------------------------------
 
     def _fact(self, axis, tier):

@@ -24,13 +24,15 @@ pause the queue.)
   seam UNCHANGED — the weather system was designed for exactly this.
   If real exports remain unavailable, record precisely what blocks
   them and what a faithful stand-in would require (honest, not faked).
-- [ ] **D2 · The mortal-wound signal (C6's follow-up).** (C6 named it:
-  "if gameplay wants the mortal wound surfaced.") Surface
-  `skipped_invalid` as a first-class Keeper-visible event — the
-  measured damage-scaled mortality gradient becomes a felt phenomenon
-  (a bloodline sees its shattered-core losses per era), sourced
-  entirely from the report's existing `archive_decision`. No new
-  engine number; a reading of one already there.
+- [x] **D2 · The mortal-wound signal (C6's follow-up).** (2026-07-07:
+  `_mortal_wounds` reads each report's per-creature `archive_decision`
+  — no new engine number — tallying shattered-core mortal wounds
+  (`skipped_invalid`) vs normal deaths, riding the era digest + the
+  session `mortal_wound_toll`. Felt as "the toll" in `mechas session`
+  and on the Keeper page (amber/red when the bloodline takes losses).
+  Honest at zero (demo toll 0, the ~1.25% in-band rate), test-proven
+  to fire non-zero under heavy damage and ALWAYS pinned to a
+  recomputation of engine truth. Stale post-C3 blocked-state removed.)
 - [ ] **D3 · `render` module decision record + target.** (One of the
   two remaining deferred module targets; DR 0004's list.) The render
   packet + packet-v2 selection + the workshop draw path have shipped

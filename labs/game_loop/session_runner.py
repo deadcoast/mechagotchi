@@ -436,6 +436,33 @@ def _total_removed_cells(report: dict) -> int:
     )
 
 
+def _mortal_wounds(report: dict) -> dict:
+    """D2 (C6's follow-up): the mortal-wound tally, read entirely from
+    the report's existing per-creature ``archive_decision`` — no new
+    engine number. A ``skipped_invalid`` creature is one whose repair
+    left it SLIP-aligned but lifecycle-invalid (the measured
+    shattered-core mortality, C6); ``skipped_unaligned`` is a normal
+    death (the creature drifted out of its species). Both are losses the
+    bloodline felt this era."""
+    decisions: dict[str, int] = {}
+    creature_count = 0
+    for generation in report["generations"]:
+        for creature in generation["creatures"]:
+            creature_count += 1
+            decision = creature["archive_decision"]
+            decisions[decision] = decisions.get(decision, 0) + 1
+    mortal = decisions.get("skipped_invalid", 0)
+    return {
+        "mortal_wounds": mortal,
+        "normal_deaths": decisions.get("skipped_unaligned", 0),
+        "creature_count": creature_count,
+        "mortal_wound_rate": round(mortal / creature_count, 6)
+        if creature_count
+        else 0.0,
+        "cause": "shattered_body_core" if mortal else None,
+    }
+
+
 def run_era(
     *,
     era_index: int,
@@ -549,6 +576,8 @@ def run_era(
             "total_removed_cells": _total_removed_cells(report),
             "max_dropout_multiplier_survived": max_multiplier_survived,
             "elite_mean_learned_readability": legibility,
+            # D2: the bloodline's mortal-wound tally, from engine truth.
+            "mortal_wounds": _mortal_wounds(report),
         },
     }
 
@@ -928,6 +957,8 @@ def _era_digest(era: dict) -> dict:
         "mean_learned_readability_by_generation": _era_readability_means(
             report
         ),
+        # D2: the mortal-wound signal (C6's shattered-core mortality).
+        "mortal_wounds": era["derived"]["mortal_wounds"],
         "founders_submitted": len(era["founders_submitted"]),
         "founders_admitted": len(
             report.get("founders", {}).get("admitted_ids", [])
@@ -985,9 +1016,6 @@ def build_session_report(session: dict) -> dict:
         # falsifiable on fixture era records instead.
         "extinction_not_observed_at_stage0_scale",
         "aligned_but_lifecycle_invalid_boundary_at_extreme_dropout",
-        # DR 0022: the SQLite ledger waits on the storage module's own
-        # lab and promotion; this lab persists the JSON interim.
-        "sqlite_ledger_pending_storage_module_promotion",
     ]
     return {
         "artifact_id": ARTIFACT_ID,
@@ -1022,6 +1050,16 @@ def build_session_report(session: dict) -> dict:
                 digest["founders_rejected"] == 0 for digest in chained
             ),
             "total_removed_cells_by_forecast": removed_by_forecast,
+            # D2: the campaign's mortal-wound toll — shattered-core
+            # losses summed across eras, from engine truth.
+            "mortal_wound_toll": sum(
+                digest["mortal_wounds"]["mortal_wounds"]
+                for digest in era_digests
+            ),
+            "mortal_wounds_by_era": [
+                digest["mortal_wounds"]["mortal_wounds"]
+                for digest in era_digests
+            ],
             "unlock_facts": session["unlock_state"],
             "unlock_fact_count": len(session["unlock_state"]),
             "final_status_by_campaign": {

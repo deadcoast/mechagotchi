@@ -297,6 +297,12 @@ function renderEras() {
       (era.elite_mean_learned_readability !== null
         ? " · legibility " + era.elite_mean_learned_readability.toFixed(3)
         : "") + "</span>" +
+      '<span class="k">the toll</span><span>' +
+      (era.mortal_wounds.mortal_wounds
+        ? '<span class="bad-text">' + era.mortal_wounds.mortal_wounds +
+          " lost to shattered cores</span>" +
+          (era.mortal_wounds.normal_deaths ? " · " + era.mortal_wounds.normal_deaths + " drifted from the species" : "")
+        : "no losses — the whole brood held") + "</span>" +
       '<span class="k">verdict</span><span>' + era.decision_status + "</span>";
     if (era.replay) {
       const btn = document.createElement("button");

@@ -244,6 +244,25 @@ def _print_turn(console, result: dict) -> None:
             "mechas.value",
         ),
         (
+            "the toll",
+            (
+                f"{era['mortal_wounds']['mortal_wounds']} creature(s) lost to "
+                "shattered cores (mortal wounds)"
+                + (
+                    f" · {era['mortal_wounds']['normal_deaths']} drifted from "
+                    "the species"
+                    if era["mortal_wounds"]["normal_deaths"]
+                    else ""
+                )
+                if era["mortal_wounds"]["mortal_wounds"]
+                or era["mortal_wounds"]["normal_deaths"]
+                else "no losses — the whole brood held"
+            ),
+            "mechas.warn"
+            if era["mortal_wounds"]["mortal_wounds"]
+            else "mechas.value",
+        ),
+        (
             "unlocks earned",
             ", ".join(
                 f"{fact['axis']} tier {fact['tier']}"
