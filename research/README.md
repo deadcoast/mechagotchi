@@ -704,6 +704,8 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-07-07-cubff-pressure-runtime-promotion.md`
 - `packages/mecha_engine/src/mecha_engine/runtime/_cubff.py` / `packages/mecha_engine/tests/test_runtime_cubff_contract.py` / `labs/cubff_transducer/test_package_cubff_parity.py` (R2.5: CuBFF lineage pressure promoted into `runtime.evolve` — verbatim mirror + contract + drift guard; promoted-surface directional effect 1.17x vs 0.90x; real-snapshot clause honestly blocked on `awaiting_real_cubff_snapshots`)
 
+- `research/decision_records/0021-game-loop.md` (R4: the game loop — "Eras of the Soup": Keeper fantasy, era-chaining via `founder_grids` as the persistence spine, CuBFF weather, engine-truth progression currencies, extinction stakes from measured archive behavior; unblocks the `storage` module DR (G1) and defines build gates G1–G4)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

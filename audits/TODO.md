@@ -30,10 +30,27 @@ complete when developed to its description, then marked.
   0.270 post-founder mean, gen-3 0.498 vs 0.199. The manual rating
   system stays exactly as built as the FALLBACK and calibration
   check — never a blocker.)
-- [ ] **R4 · The game loop decision record.** Incremental progression,
-  survival sessions, persistence (unlocks the deferred `storage` module
-  DR), what the player does and NOTICES per session — the showcase the
-  engine needs to be discovered.
+- [x] **R4 · The game loop decision record.** (DR 0021, 2026-07-07:
+  "Eras of the Soup" — Keeper fantasy; era = one `runtime.evolve`
+  run, campaign = era chain persisted via `founder_grids` (the DR
+  0016 spine); CuBFF pressure sources as weather; progression
+  currencies verbatim from report metrics; extinction stakes from
+  the measured empty-archive behavior; five player-NOTICES each
+  mapped to a shipped mechanism (R1/R2/R3/T1/persistence). Unblocks
+  the `storage` module DR. First law: everything shown is engine
+  truth.)
+- [ ] **G1 · `storage` module decision record.** (Unblocked by DR
+  0021.) Schema for campaigns, eras, unlocks, lineage; SQLite per DR
+  0011's ratified pointer; stdlib `sqlite3` keeps the package
+  dependency policy intact. Plan before code.
+- [ ] **G2 · Session-runner lab (`labs/game_loop/`).** One full
+  session over promoted surfaces: era-chaining via founders, weather
+  selection, unlock evaluation from report metrics, extinction and
+  succession. Deterministic, triad convention. JSON-artifact
+  persistence interim until G1 lands.
+- [ ] **G4 · The Keeper's surface.** Session UI on the workshop
+  server pattern; `mechas` gains session commands (DR 0007 charter).
+  After G2/G3.
 - [ ] **R5 (=T12) · Replay recorder + workshop scrubber.** Per-tick
   render packets from live_cycle/episodes into a replay artifact; the
   preview gains a scrubber (engine truth, recorded). The player's window.
