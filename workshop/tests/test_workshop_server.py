@@ -915,3 +915,60 @@ class InspectorEndpointTests(unittest.TestCase):
             wire["founder_ids"],
         )
         self.assertIn("creature_count_by_generation", wire)
+
+
+class MetricsInstrumentationTests(unittest.TestCase):
+    """T10 pipeline: og workshop metrics, instrumented (data from humans)."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.temp = tempfile.TemporaryDirectory()
+        base = Path(cls.temp.name)
+        cls.metrics_dir = base / "metrics"
+        cls.server = start_workshop_server(
+            port=0,
+            grids_dir=base / "grids",
+            slips_dir=base / "slips",
+            metrics_dir=cls.metrics_dir,
+        )
+        cls.base = f"http://127.0.0.1:{cls.server.server_address[1]}"
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.server.shutdown()
+        cls.temp.cleanup()
+
+    def test_session_counters_track_the_og_metrics(self):
+        _post(
+            f"{self.base}/api/validate",
+            {"matrix": BROKEN_MATRIX, "palette_id": "lcd_green"},
+        )
+        _post(
+            f"{self.base}/api/validate",
+            {"matrix": VALID_MATRIX, "palette_id": "lcd_green"},
+        )
+        _post(
+            f"{self.base}/api/save",
+            {"name": "metric creature", "matrix": VALID_MATRIX, "palette_id": "lcd_green"},
+        )
+        status, metrics = _get(f"{self.base}/api/metrics")
+        self.assertEqual(200, status)
+        session = metrics["session"]
+        self.assertGreaterEqual(session["validations"], 2)
+        self.assertGreaterEqual(session["invalid_verdicts"], 1)
+        self.assertGreaterEqual(session["saves"], 1)
+        self.assertIn("validator_error_counts", session)
+        self.assertIn("started_at", session)
+
+    def test_flush_persists_the_session_artifact(self):
+        status, payload = _post(f"{self.base}/api/metrics/flush", {})
+        self.assertEqual(200, status)
+        self.assertTrue(payload["ok"])
+        files = list(self.metrics_dir.glob("session_*.json"))
+        self.assertEqual(1, len(files))
+        record = json.loads(files[0].read_text(encoding="utf-8"))
+        self.assertIn("validations", record)
+        self.assertEqual(
+            "instrumented_pipeline_no_human_study_data",
+            record["provenance"],
+        )

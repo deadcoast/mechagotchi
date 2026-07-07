@@ -151,7 +151,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
 
 ## P3 addition
 
-- [ ] **T20 · Pairwise-preference study protocol.** RUN TWO prefers
+- [x] **T20 · Pairwise-preference study protocol.** (PIPELINE 2026-07-06: protocol doc + stdlib Bradley-Terry MM lab + CSV intake, tooling-validated on synthetic data; rating-tool pairwise collection mode lands with the first scheduled study) RUN TWO prefers
   blind pairwise forced-choice with Bradley-Terry/Elo analysis over
   rubric scoring for human judgments. Build the protocol + a pairwise
   mode for the rating tool (tooling may ship; data stays owner-gated
@@ -160,7 +160,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
 
 ## P3 — Owner-gated human studies (queued; never chased as blockers)
 
-- [ ] **T10 · Workshop evaluation instrumentation** (og metrics:
+- [x] **T10 · Workshop evaluation instrumentation** (PIPELINE 2026-07-06: /api/metrics session instrumentation + flush artifacts + research/human_studies_protocol.md; the STUDIES still require humans — owner schedules) (og metrics:
   authoring time, validator clarity, schema error rate, import/export
   fidelity, custom-profile survival rate) and og's human studies:
   semantic-vs-plain editor test, first-session usability (≤ 45 min),

@@ -683,6 +683,9 @@ Post-v0.1 continuation has started:
 
 - `workshop/inspector/inspector.html` + `/api/inspect` + `/api/lineage` (workshop slice 5: genome inspector + lineage browser over engine-judged records and the committed wire evidence; 4 endpoint tests)
 
+- `research/human_studies_protocol.md`
+- `workshop/server/workshop_server.py` (/api/metrics) + `labs/readability_benchmark/bradley_terry.py` (T10 + T20 pipelines: og workshop metrics instrumented per-session with provenance-marked records; blind-pairwise protocol + stdlib Bradley-Terry MM scorer tooling-validated on synthetic data — human DATA remains human, per the standing rule)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

@@ -67,6 +67,13 @@ Endpoints:
 - GET  /inspect             the genome inspector + lineage browser
 - GET  /api/inspect?source=&name=  the engine-judged genome record
 - GET  /api/lineage         released ancestry + evolution-run traces
+- GET  /api/metrics         T10 session instrumentation (og workshop
+                            metrics: validations, invalid verdicts,
+                            per-error counts, saves/releases/exports/
+                            imports; authoring-time proxy via
+                            timestamps). Instrumented pipeline only —
+                            human-study DATA comes from humans.
+- POST /api/metrics/flush   persist the session record
 
 Launched by `mechas workshop --editor` with the workspace interpreter.
 """
@@ -132,6 +139,7 @@ WORKSHOP_DIR = ROOT / "workshop"
 DEFAULT_GRIDS_DIR = ROOT / "data" / "workshop" / "grids"
 DEFAULT_SLIPS_DIR = ROOT / "data" / "workshop" / "slips"
 DEFAULT_RELEASED_DIR = ROOT / "data" / "workshop" / "released"
+DEFAULT_METRICS_DIR = ROOT / "data" / "workshop" / "metrics"
 SLIP_VALID_DIR = ROOT / "data" / "slips" / "valid"
 TOKENS = {".", "B", "A", "E", "M"}
 GRID_SIZE = 8
@@ -321,10 +329,23 @@ class WorkshopServer(ThreadingHTTPServer):
         grids_dir: Path,
         slips_dir: Path,
         released_dir: Path,
+        metrics_dir: Path,
     ) -> None:
         self.grids_dir = grids_dir
         self.slips_dir = slips_dir
         self.released_dir = released_dir
+        self.metrics_dir = metrics_dir
+        self.session_metrics = {
+            "started_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
+            "validations": 0,
+            "invalid_verdicts": 0,
+            "validator_error_counts": {},
+            "saves": 0,
+            "releases": 0,
+            "exports": 0,
+            "imports": 0,
+            "first_valid_at": None,
+        }
         self.curated_profiles = _load_profiles()
         self.seed_grids = build_seed_grids()
         self.repair_model = train_repair_model(self.seed_grids)
@@ -455,6 +476,9 @@ class _Handler(SimpleHTTPRequestHandler):
                     "cells": grid.get("cells", []),
                 },
             )
+            return
+        if path == "/api/metrics":
+            self._json(200, {"session": self.server.session_metrics})
             return
         if path == "/api/lineage":
             released = []
@@ -633,10 +657,12 @@ class _Handler(SimpleHTTPRequestHandler):
             "/api/export/spritesheet",
             "/api/import/spritesheet",
             "/api/release",
+            "/api/metrics/flush",
         ):
             self._json(404, {"ok": False, "error": "unknown endpoint"})
             return
         if path == "/api/import/png":
+            self.server.session_metrics["imports"] += 1
             self._import_png(self._read_bytes())
             return
         if path == "/api/import/aseprite":
@@ -662,7 +688,19 @@ class _Handler(SimpleHTTPRequestHandler):
         if path == "/api/import/spritesheet":
             self._import_spritesheet(payload)
             return
+        if path == "/api/metrics/flush":
+            self.server.metrics_dir.mkdir(parents=True, exist_ok=True)
+            stamp = time.strftime("%Y%m%d-%H%M%S")
+            record = dict(self.server.session_metrics)
+            record["provenance"] = "instrumented_pipeline_no_human_study_data"
+            target = self.server.metrics_dir / f"session_{stamp}.json"
+            target.write_text(
+                json.dumps(record, indent=2) + "\n", encoding="utf-8"
+            )
+            self._json(200, {"ok": True, "file": target.name})
+            return
         if path == "/api/release":
+            self.server.session_metrics["releases"] += 1
             status, result = release_creature(
                 self.server.grids_dir,
                 self.server.released_dir,
@@ -671,6 +709,7 @@ class _Handler(SimpleHTTPRequestHandler):
             self._json(status, result)
             return
         if path.startswith("/api/export/"):
+            self.server.session_metrics["exports"] += 1
             self._export(path.rsplit("/", 1)[-1], payload)
             return
         matrix = payload.get("matrix")
@@ -694,6 +733,18 @@ class _Handler(SimpleHTTPRequestHandler):
                     self._json(400, {"ok": False, "errors": problems})
                     return
             validation = validate_grid(grid)
+            metrics = self.server.session_metrics
+            metrics["validations"] += 1
+            if not validation.ok:
+                metrics["invalid_verdicts"] += 1
+                for error in validation.errors:
+                    metrics["validator_error_counts"][error] = (
+                        metrics["validator_error_counts"].get(error, 0) + 1
+                    )
+            elif metrics["first_valid_at"] is None:
+                metrics["first_valid_at"] = time.strftime(
+                    "%Y-%m-%dT%H:%M:%S"
+                )
             alignment = {
                 profile_id: {
                     "ok": (result := is_grid_aligned(grid, profile)).ok,
@@ -735,6 +786,7 @@ class _Handler(SimpleHTTPRequestHandler):
                 },
             )
             return
+        self.server.session_metrics["saves"] += 1
         self.server.grids_dir.mkdir(parents=True, exist_ok=True)
         target = self.server.grids_dir / f"{name}.json"
         backup = None
@@ -1132,9 +1184,10 @@ def start_workshop_server(
     grids_dir: Path = DEFAULT_GRIDS_DIR,
     slips_dir: Path = DEFAULT_SLIPS_DIR,
     released_dir: Path = DEFAULT_RELEASED_DIR,
+    metrics_dir: Path = DEFAULT_METRICS_DIR,
 ) -> WorkshopServer:
     server = WorkshopServer(
-        ("127.0.0.1", port), grids_dir, slips_dir, released_dir
+        ("127.0.0.1", port), grids_dir, slips_dir, released_dir, metrics_dir
     )
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
