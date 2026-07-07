@@ -353,6 +353,55 @@ class PreviewEndpointTests(unittest.TestCase):
         self.assertIn("packet", payload["before"])
         self.assertIn("packet", payload["after"])
 
+    def test_replay_is_a_recorded_life_for_the_scrubber(self):
+        # R5 (DR 0023): the player's window — birth/wound/repair frames
+        # plus every episode tick, all engine truth verbatim.
+        status, payload = _post(
+            f"{self.base}/api/preview/replay",
+            {
+                "source": "seed",
+                "name": "mg_seed_001",
+                "profile_id": "slip_lcd_seed",
+                "cycles": 2,
+                "ticks": 16,
+                "rng_seed": 20260512,
+            },
+        )
+        self.assertEqual(200, status)
+        self.assertTrue(payload["ok"])
+        replay = payload["replay"]
+        self.assertEqual("mechagotchi_replay_v1", replay["replay_format"])
+        frames = replay["frames"]
+        self.assertEqual("birth", frames[0]["phase"])
+        self.assertIsNotNone(frames[0]["packet"])
+        phases = {frame["phase"] for frame in frames}
+        self.assertEqual(
+            {"birth", "wound", "repair", "episode_tick"}, phases
+        )
+        wounds = [f for f in frames if f["phase"] == "wound"]
+        self.assertEqual(2, len(wounds))
+        for wound in wounds:
+            self.assertEqual(
+                wound["removed_cell_count"], len(wound["removed_cells"])
+            )
+        self.assertEqual(
+            replay["tick_frame_count"],
+            sum(1 for f in frames if f["phase"] == "episode_tick"),
+        )
+        # Deterministic: the same request replays the same life.
+        _, again = _post(
+            f"{self.base}/api/preview/replay",
+            {
+                "source": "seed",
+                "name": "mg_seed_001",
+                "profile_id": "slip_lcd_seed",
+                "cycles": 2,
+                "ticks": 16,
+                "rng_seed": 20260512,
+            },
+        )
+        self.assertEqual(replay, again["replay"])
+
     def test_offspring_preview_generates_engine_children(self):
         status, payload = _post(
             f"{self.base}/api/preview/offspring",

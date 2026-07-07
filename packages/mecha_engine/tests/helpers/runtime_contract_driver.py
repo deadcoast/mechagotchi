@@ -449,11 +449,65 @@ def probe_live_cycle(seed_grid: dict, slip_profile: dict, repair_model: dict) ->
         "final_state_aligned": first["final_state"]["aligned"],
         "final_grid_id_reassigned": first["final_grid"]["grid_id"]
         == f"{seed_grid['grid_id']}_c{len(first['cycles']):02d}",
-        "aligned_cycles_have_episodes": all(
+        # Validity gate (promotion-drift fix 2026-07-07): episodes run
+        # for cycles that are BOTH valid and aligned.
+        "valid_aligned_cycles_have_episodes": all(
             cycle["episode"] is not None
             for cycle in first["cycles"]
-            if cycle["aligned"]
+            if cycle["valid"] and cycle["aligned"]
         ),
+        **_probe_record_frames(first, seed_grid, slip_profile, repair_model),
+    }
+
+
+def _probe_record_frames(
+    plain: dict, seed_grid: dict, slip_profile: dict, repair_model: dict
+) -> dict:
+    """DR 0023 (R5): the replay seam — ``record_frames=True`` adds a
+    ``frames`` block per cycle; the default is byte-identical."""
+    recorded = live_cycle(
+        seed_grid,
+        slip_profile,
+        repair_model,
+        damage_cycles=2,
+        ticks=12,
+        dropout_rate=0.2,
+        rng_seed=20260512,
+        record_frames=True,
+    )
+    stripped = {
+        key: (
+            [
+                {k: v for k, v in cycle.items() if k != "frames"}
+                for cycle in value
+            ]
+            if key == "cycles"
+            else value
+        )
+        for key, value in recorded.items()
+    }
+    return {
+        "record_frames_default_has_no_frames_key": all(
+            "frames" not in cycle for cycle in plain["cycles"]
+        ),
+        "record_frames_off_equals_stripped_on": plain == stripped,
+        "record_frames_blocks_complete": all(
+            set(cycle["frames"])
+            == {"removed_cells", "repaired_grid", "episode_history"}
+            for cycle in recorded["cycles"]
+        ),
+        "record_frames_wound_counts_match": all(
+            len(cycle["frames"]["removed_cells"])
+            == cycle["removed_cell_count"]
+            for cycle in recorded["cycles"]
+        ),
+        "record_frames_histories_match_survival": all(
+            cycle["episode"]["survival_ticks"]
+            == len(cycle["frames"]["episode_history"])
+            for cycle in recorded["cycles"]
+            if cycle["episode"] is not None
+        ),
+        "record_frames_json_roundtrip": _json_roundtrip(recorded),
     }
 
 

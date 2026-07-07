@@ -41,6 +41,12 @@ Endpoints:
                             engine-generated children (or the engine's
                             alignment errors when the parent cannot
                             breed under the profile)
+- POST /api/preview/replay  {source, name, profile_id, cycles, ticks,
+                            rng_seed?} -> a replay artifact (R5, DR
+                            0023): the creature's whole live_cycle as
+                            recorded engine truth — birth/wound/repair
+                            packets plus every episode tick — for the
+                            scrubber. Engine truth, recorded.
 - POST /api/export/png      {matrix, palette_id, profile_id} -> a
                             self-contained PNG (embedded sidecar) via
                             the proven lab codec; strict on validity
@@ -98,6 +104,7 @@ for path in [
     ROOT / "labs" / "grid_genome",
     ROOT / "labs" / "cellular_automata",
     ROOT / "labs" / "workshop_editor",
+    ROOT / "labs" / "game_loop",
 ]:
     if str(path) not in sys.path:
         sys.path.insert(0, str(path))
@@ -133,6 +140,7 @@ from png_embedded_sidecar_writer import (  # noqa: E402
     import_png_with_embedded_sidecar,
 )
 from mecha_engine.runtime import live_cycle  # noqa: E402
+from replay_recorder import build_replay  # noqa: E402
 
 
 WORKSHOP_DIR = ROOT / "workshop"
@@ -649,6 +657,7 @@ class _Handler(SimpleHTTPRequestHandler):
             "/api/preview/render",
             "/api/preview/live",
             "/api/preview/offspring",
+            "/api/preview/replay",
             "/api/export/png",
             "/api/export/apng",
             "/api/import/png",
@@ -965,6 +974,21 @@ class _Handler(SimpleHTTPRequestHandler):
                     },
                 },
             )
+            return
+
+        if kind == "replay":
+            # R5 (DR 0023): the player's window — a recorded life.
+            cycles = max(1, min(5, int(payload.get("cycles", 3))))
+            ticks = max(8, min(96, int(payload.get("ticks", 48))))
+            replay = build_replay(
+                grid,
+                profile,
+                self.server.repair_model,
+                damage_cycles=cycles,
+                ticks=ticks,
+                rng_seed=int(payload.get("rng_seed", 20260512)),
+            )
+            self._json(200, {"ok": True, "replay": replay})
             return
 
         if kind == "offspring":

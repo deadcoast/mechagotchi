@@ -746,14 +746,21 @@ def write_session_artifacts(
         encoding="utf-8",
     )
     (output_dir / "README.md").write_text(
-        "# Game loop session runner (Stage 0)\n\n"
+        "# Game loop artifacts (Stage 0)\n\n"
         "G2 (decision record 0021): one full Keeper session over the\n"
         "promoted engine surfaces. `session_runner_stage0.json` is the\n"
-        "lab report; `campaign_ledger.json` is the DR 0022 schema-v1\n"
-        "JSON-interim campaign ledger (campaigns/eras/elites/founders/\n"
-        "unlocks/replays with engine reports stored verbatim), the\n"
-        "future `storage` module's lossless migration source.\n\n"
-        "Regenerate: `python -B labs/game_loop/session_runner.py`\n",
+        "session lab report; `campaign_ledger.json` is the DR 0022\n"
+        "schema-v1 JSON-interim campaign ledger (campaigns/eras/elites/\n"
+        "founders/unlocks/replays with engine reports stored verbatim),\n"
+        "the future `storage` module's lossless migration source.\n\n"
+        "R5 (decision record 0023): `replay_recorder_stage0.json` is the\n"
+        "replay recorder lab report; `replay_sample.json` is one recorded\n"
+        "life in the `mechagotchi_replay_v1` format — birth/wound/repair\n"
+        "frames plus every episode tick, all engine truth verbatim — the\n"
+        "workshop preview scrubber's artifact.\n\n"
+        "Regenerate:\n\n"
+        "- `python -B labs/game_loop/session_runner.py`\n"
+        "- `python -B labs/game_loop/replay_recorder.py`\n",
         encoding="utf-8",
     )
 

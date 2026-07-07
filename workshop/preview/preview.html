@@ -148,6 +148,19 @@
   </div>
 
   <div class="panel">
+    <h2>replay — <span style="text-transform:none;letter-spacing:0;">the player's window: a recorded life, scrubbed</span>
+      <span>
+        <label>cycles <input type="number" id="replay-cycles" min="1" max="5" value="3"></label>
+        <label>ticks <input type="number" id="replay-ticks" min="8" max="96" value="48"></label>
+        <button class="action primary" id="replay-btn">Record</button>
+      </span>
+    </h2>
+    <div id="replay-body"><p class="notice">Record runs the engine once and captures every frame —
+    wounds are the damage events' own records, bodies are validator-passed packets, ticks are the
+    lifecycle's own history. The scrubber replays what happened; it never re-simulates.</p></div>
+  </div>
+
+  <div class="panel">
     <h2>possible children — <span style="text-transform:none;letter-spacing:0;">the generation module breeding under the profile</span>
       <span>
         <label>count <input type="number" id="kids-count" min="1" max="8" value="4"></label>
@@ -230,6 +243,8 @@ async function refreshPortrait() {
     }
   }
   $("live-body").innerHTML = '<p class="notice">Run to see this creature live under ' + pick.profile_id + '.</p>';
+  if (typeof stopReplayTimer === "function") stopReplayTimer();
+  $("replay-body").innerHTML = '<p class="notice">Record to replay this creature\'s life under ' + pick.profile_id + '.</p>';
   $("kids-body").innerHTML = '<p class="notice">Generate to meet possible children under ' + pick.profile_id + '.</p>';
 }
 
@@ -280,6 +295,121 @@ $("live-btn").addEventListener("click", async () => {
   }
   row.append(sides, cycles);
   body.appendChild(row);
+});
+
+/* ---------------- replay: the player's window ---------------- */
+let replayState = null; // { frames, index, timer, canvas, readout, slider, label }
+
+function replayBodyPacket(frames, index) {
+  for (let i = index; i >= 0; i--) {
+    if (frames[i].packet) return frames[i].packet;
+  }
+  return null;
+}
+
+function drawReplayFrame() {
+  const r = replayState;
+  const frame = r.frames[r.index];
+  const packet = replayBodyPacket(r.frames, r.index);
+  if (packet) {
+    drawPacket(r.canvas, packet);
+  }
+  if (frame.phase === "wound") {
+    const [w] = packet ? packet.grid_size : [8];
+    const cell = r.canvas.width / w;
+    const ctx = r.canvas.getContext("2d");
+    ctx.fillStyle = "rgba(200,60,40,0.75)";
+    for (const [x, y] of frame.removed_cells) {
+      ctx.fillRect(x * cell, y * cell, cell, cell);
+    }
+  }
+  let text = "frame " + frame.frame + " · cycle " + frame.cycle + " · " + frame.phase;
+  if (frame.phase === "repair") {
+    text += frame.valid ? " · valid" : " · INVALID (" + frame.validation_errors.length + " errors)";
+    text += " · " + Math.round(frame.position_restoration * 100) + "% restored";
+  }
+  if (frame.phase === "wound") {
+    text += " · " + frame.removed_cell_count + " cells destroyed";
+  }
+  if (frame.phase === "episode_tick") {
+    const e = frame.entry;
+    text += " · tick " + e.tick + " · " + e.action + " · balance " + e.balance.toFixed(3) +
+      (e.alive ? "" : " · DIED" + (e.death_cause ? " (" + e.death_cause + ")" : ""));
+  }
+  r.label.textContent = text;
+  r.slider.value = r.index;
+}
+
+function stopReplayTimer() {
+  if (replayState && replayState.timer) {
+    clearInterval(replayState.timer);
+    replayState.timer = null;
+    replayState.playBtn.textContent = "Play";
+  }
+}
+
+$("replay-btn").addEventListener("click", async () => {
+  const pick = currentPick();
+  $("replay-btn").disabled = true;
+  $("replay-body").innerHTML = '<p class="notice">the engine is living this creature, recorded…</p>';
+  const payload = await post("/api/preview/replay", {
+    ...pick,
+    cycles: parseInt($("replay-cycles").value, 10),
+    ticks: parseInt($("replay-ticks").value, 10),
+  });
+  $("replay-btn").disabled = false;
+  const body = $("replay-body");
+  body.innerHTML = "";
+  if (!payload.ok) {
+    renderEngineErrors(body, payload);
+    return;
+  }
+  stopReplayTimer();
+  const replay = payload.replay;
+  const row = document.createElement("div");
+  row.className = "stage3";
+  const device = document.createElement("div");
+  device.className = "device";
+  const canvas = document.createElement("canvas");
+  canvas.width = 224; canvas.height = 224;
+  const label = document.createElement("div");
+  label.className = "tag";
+  device.append(canvas, label);
+  const controls = document.createElement("div");
+  const slider = document.createElement("input");
+  slider.type = "range";
+  slider.min = 0;
+  slider.max = replay.frames.length - 1;
+  slider.value = 0;
+  slider.style.width = "100%";
+  const playBtn = document.createElement("button");
+  playBtn.className = "action";
+  playBtn.textContent = "Play";
+  const meta = document.createElement("p");
+  meta.className = "notice";
+  meta.textContent = replay.replay_id + " · " + replay.frame_count + " frames (" +
+    replay.tick_frame_count + " ticks) · seed " + replay.parameters.rng_seed +
+    " · " + replay.engine_surface;
+  controls.append(slider, playBtn, meta);
+  row.append(device, controls);
+  body.appendChild(row);
+
+  replayState = { frames: replay.frames, index: 0, timer: null, canvas, slider, label, playBtn };
+  slider.addEventListener("input", () => {
+    stopReplayTimer();
+    replayState.index = parseInt(slider.value, 10);
+    drawReplayFrame();
+  });
+  playBtn.addEventListener("click", () => {
+    if (replayState.timer) { stopReplayTimer(); return; }
+    playBtn.textContent = "Pause";
+    replayState.timer = setInterval(() => {
+      if (replayState.index >= replayState.frames.length - 1) { stopReplayTimer(); return; }
+      replayState.index += 1;
+      drawReplayFrame();
+    }, 125);
+  });
+  drawReplayFrame();
 });
 
 /* ---------------- offspring ---------------- */

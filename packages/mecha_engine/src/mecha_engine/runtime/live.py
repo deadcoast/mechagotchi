@@ -48,6 +48,7 @@ def live_cycle(
     dropout_rate: float = 0.2,
     rng_seed: int = 20260512,
     damage_events: list[dict] | None = None,
+    record_frames: bool = False,
 ) -> dict:
     """Run one creature through repeated damage/repair/episode cycles.
 
@@ -68,6 +69,14 @@ def live_cycle(
     (``final_grid``), and a ``final_state`` digest. Deterministic; never
     mutates ``grid``, ``slip_profile``, ``repair_model``, or
     ``damage_events``.
+
+    ``record_frames`` (R5, decision record 0023 — the replay recorder's
+    engine seam): when true, each cycle dict additionally carries a
+    ``frames`` block with the wound's ``removed_cells`` (verbatim from
+    the damage event's observability contract), the ``repaired_grid``,
+    and the full per-tick ``episode_history`` (``None`` when the cycle
+    ran no episode) — the per-tick truth a replay artifact records.
+    Default ``False`` is byte-identical to the pre-0023 contract.
     """
     if not isinstance(grid, dict) or not isinstance(grid.get("grid_id"), str):
         raise ValueError("grid must be a grid-genome mapping with a grid_id")
@@ -129,24 +138,36 @@ def live_cycle(
             if valid and aligned
             else None
         )
-        cycles.append(
-            {
-                "cycle": cycle,
-                "removed_cell_count": removed,
-                "position_restoration": restoration[
-                    "position_restoration"
-                ],
-                "token_restoration": restoration["token_restoration"],
-                "guard_substitutions": repaired["metadata"][
-                    "validity_guard_substitutions"
-                ],
-                "valid": valid,
-                "aligned": aligned,
-                "episode": _episode_digest(episode, ticks)
+        cycle_entry = {
+            "cycle": cycle,
+            "removed_cell_count": removed,
+            "position_restoration": restoration[
+                "position_restoration"
+            ],
+            "token_restoration": restoration["token_restoration"],
+            "guard_substitutions": repaired["metadata"][
+                "validity_guard_substitutions"
+            ],
+            "valid": valid,
+            "aligned": aligned,
+            "episode": _episode_digest(episode, ticks)
+            if episode is not None
+            else None,
+        }
+        if record_frames:
+            # R5 (decision record 0023): the replay seam — engine truth
+            # only (the wound's observability record, the repaired body,
+            # the episode's own per-tick history).
+            cycle_entry["frames"] = {
+                "removed_cells": deepcopy(
+                    damaged["metadata"]["removed_cells"]
+                ),
+                "repaired_grid": deepcopy(repaired),
+                "episode_history": deepcopy(episode["history"])
                 if episode is not None
                 else None,
             }
-        )
+        cycles.append(cycle_entry)
         if not aligned:
             break
         current = repaired

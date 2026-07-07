@@ -1,0 +1,41 @@
+{
+  "artifact_id": "game_loop_replay_recorder_stage0",
+  "status": "stage0_complete",
+  "date": "2026-07-07",
+  "purpose": "R5 (DR 0017 / DR 0021 Review step): record a creature's live_cycle as a replay artifact of per-tick engine truth \u2014 birth/wound/repair packets plus every episode tick \u2014 for the workshop preview's scrubber.",
+  "source_artifacts": [
+    "research/decision_records/0023-replay-recording.md",
+    "packages/mecha_engine/src/mecha_engine/runtime/live.py",
+    "data/seed_grids/mg_seed_001.json",
+    "data/slips/valid/slip_lcd_seed.json"
+  ],
+  "metrics": {
+    "replay_id": "mg_seed_001_seed20260707",
+    "frame_count": 151,
+    "tick_frame_count": 144,
+    "frames_by_phase": {
+      "birth": 1,
+      "wound": 3,
+      "repair": 3,
+      "episode_tick": 144
+    },
+    "all_cycles_valid": true,
+    "all_cycles_aligned": true,
+    "removed_cells_total": 8
+  },
+  "closed_states": [
+    "record_frames_default_off_byte_identical",
+    "every_frame_is_engine_truth_verbatim",
+    "invalid_repairs_carry_validator_errors_never_fake_bodies",
+    "replay_reproducible_from_recorded_parameters"
+  ],
+  "blocked_states": [
+    "replay_100k_ticks_dataset_pending_r6"
+  ],
+  "decision": {
+    "status": "replay_recorder_composed",
+    "adoption": "lab_only_game_loop_evidence",
+    "reason": "A creature's whole life scrubs as recorded engine truth: the wound frames are the damage events' own observability records, the bodies are validator-passed render packets, and every episode tick is the lifecycle's own history entry. Nothing is synthesized for display."
+  },
+  "next_research_step": "The preview scrubber consumes this artifact live (/api/preview/replay); R6's replay_100k_ticks dataset batches this recorder over the corpus."
+}

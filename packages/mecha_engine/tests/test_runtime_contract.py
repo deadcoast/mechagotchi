@@ -48,6 +48,8 @@ REQUIRED_LIVE_CYCLE_DEFAULTS = {
     "dropout_rate": "0.2",
     "rng_seed": "20260512",
     "damage_events": "None",
+    # DR 0023 (R5): the replay seam defaults off (byte-identical).
+    "record_frames": "False",
 }
 REQUIRED_EVOLVE_DEFAULTS = {
     "seed_grids": "REQUIRED",
@@ -129,7 +131,15 @@ class MechaEngineRuntimeContractTests(unittest.TestCase):
     def test_tuning_parameters_are_keyword_only(self):
         keyword_only = self.report["surface"]["keyword_only_parameters"]
         self.assertEqual(
-            ["damage_cycles", "ticks", "dropout_rate", "rng_seed", "damage_events"],
+            [
+                "damage_cycles",
+                "ticks",
+                "dropout_rate",
+                "rng_seed",
+                "damage_events",
+                # DR 0023 (R5): the replay seam.
+                "record_frames",
+            ],
             keyword_only["live_cycle"],
         )
         self.assertEqual(
@@ -291,8 +301,22 @@ class MechaEngineRuntimeContractTests(unittest.TestCase):
         # cumulatively.
         self.assertTrue(self.report["live_cycle"]["final_grid_id_reassigned"])
 
-    def test_aligned_cycles_carry_full_episodes(self):
-        self.assertTrue(self.report["live_cycle"]["aligned_cycles_have_episodes"])
+    def test_valid_aligned_cycles_carry_full_episodes(self):
+        # Validity gate (promotion-drift fix 2026-07-07): episodes run
+        # for cycles that are BOTH valid and aligned.
+        self.assertTrue(
+            self.report["live_cycle"]["valid_aligned_cycles_have_episodes"]
+        )
+
+    def test_record_frames_is_an_opt_in_byte_identical_seam(self):
+        # DR 0023 (R5): the replay recorder's engine seam.
+        probe = self.report["live_cycle"]
+        self.assertTrue(probe["record_frames_default_has_no_frames_key"])
+        self.assertTrue(probe["record_frames_off_equals_stripped_on"])
+        self.assertTrue(probe["record_frames_blocks_complete"])
+        self.assertTrue(probe["record_frames_wound_counts_match"])
+        self.assertTrue(probe["record_frames_histories_match_survival"])
+        self.assertTrue(probe["record_frames_json_roundtrip"])
 
     # -- Injected damage events ---------------------------------------------------
 

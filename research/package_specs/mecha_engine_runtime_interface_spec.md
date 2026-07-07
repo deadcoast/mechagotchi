@@ -117,3 +117,14 @@ byte-identical (no pinned seed produces an invalid repair). Pins:
 `labs/runtime_integration/test_invalid_repair_semantics.py` (lab-package
 boundary parity) and the `invalid_repair_boundary` probe in
 `tests/helpers/runtime_contract_driver.py`.
+
+## record_frames (decision record 0023, 2026-07-07)
+
+`live_cycle` accepts keyword-only `record_frames: bool = False` — the
+replay recorder's engine seam (R5). When true, each cycle dict
+additionally carries a `frames` block: the wound's `removed_cells`
+(verbatim from the damage event's observability contract), the
+`repaired_grid`, and the full per-tick `episode_history` (`None` when
+the cycle ran no episode). Default `False` is byte-identical to the
+pre-0023 contract (contract probe `record_frames_off_equals_stripped_on`
+plus the frozen parity pins, unmodified).

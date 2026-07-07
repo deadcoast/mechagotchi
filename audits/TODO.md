@@ -69,9 +69,15 @@ documentation for tasks that need them; they do not pause the queue.)
 - [ ] **G4 · The Keeper's surface.** Session UI on the workshop
   server pattern; `mechas` gains session commands (DR 0007 charter).
   After G2/G3.
-- [ ] **R5 (=T12) · Replay recorder + workshop scrubber.** Per-tick
-  render packets from live_cycle/episodes into a replay artifact; the
-  preview gains a scrubber (engine truth, recorded). The player's window.
+- [x] **R5 (=T12) · Replay recorder + workshop scrubber.** (DR 0023,
+  2026-07-07: `live_cycle(record_frames=True)` engine seam — additive,
+  byte-identical off, contract-probed; `labs/game_loop/replay_recorder`
+  lays the life out as `mechagotchi_replay_v1` (birth/wound/repair/
+  tick frames, every frame engine truth verbatim, invalid repairs
+  carry validator errors never fake bodies); the preview gains the
+  scrubber panel over `POST /api/preview/replay`. Sample life 151
+  frames/144 ticks, deterministic end to end; 10 lab + 269 package +
+  46 workshop tests green.)
 - [ ] **R6 (=T11) · Dataset program completion.** `mechaseed_200`,
   `mutationbench_5000`, `replay_100k_ticks` (feeds R5) — each with a
   README + ledger entry. The ML tracks' fuel.
