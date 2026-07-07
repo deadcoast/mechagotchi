@@ -99,6 +99,16 @@ server-side and the engine still the only judge (turning the sole
 mouth into decoration fails alignment with the engine's own words —
 pinned). Overridden cells wear an amber outline.
 
+**Slice 5 shipped (2026-07-06, owner-authorized).** `mechas workshop
+--inspect` serves the genome inspector + lineage browser: identity &
+lineage (generation, ancestor chain, mutation events, source), the
+organ map, the full per-cell genome table (role/organ/material/
+weight/visual/anchor), the engine's validation verdict — and the
+lineage browser reading REAL evidence: released creatures' ancestry
+plus the evolution runs' workshop-lineage traces (founders, per-
+generation counts, survival-beyond-founding, fitness vs corpus) from
+the committed wire artifacts. Read-only, engine-judged.
+
 ## The research the workshop stands on
 
 Every planned surface maps to proven lab work (all ledgered in
@@ -125,7 +135,7 @@ Every planned surface maps to proven lab work (all ledgered in
 - [x] 3. Preview (render packets, live_cycle day-in-the-life, engine-bred offspring) (2026-07-05)
 - [x] 4a. Import/export PNG (self-contained embedded-sidecar roundtrip) + APNG export (2026-07-05)
 - [x] 4b. Import/export Aseprite (self-contained user-data project) + spritesheet (sheet+sidecar pair) (2026-07-05)
-- [ ] 5. Genome inspector + lineage browser
+- [x] 5. Genome inspector + lineage browser (2026-07-06)
 - [ ] 6. Community asset/profile system (deferred: needs `storage` DR +
       licensing/provenance policy)
 

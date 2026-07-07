@@ -69,7 +69,7 @@ class MechasCliSurfaceTests(unittest.TestCase):
     def test_workshop_help_documents_the_flags(self):
         result = self.runner.invoke(self.app, ["workshop", "--help"])
         self.assertEqual(0, result.exit_code)
-        for flag in ("--editor", "--slip", "--preview", "--release", "--port", "--no-browser"):
+        for flag in ("--editor", "--slip", "--preview", "--inspect", "--release", "--port", "--no-browser"):
             self.assertIn(flag, result.output)
 
     def test_workshop_targets_include_the_slip_creator(self):

@@ -119,8 +119,7 @@ over plans; and executed artifacts win over prose claims.
      missing piece). Work from `audits/TODO.md` — T1 (the wire) SHIPPED
      2026-07-05 (release flow + founder admission + lineage tracing;
      first lineages went extinct honestly — see the wire report); T1.5
-     (runtime.evolve seed-source DR) stays owner-gated; slice 5 stays
-     owner-held. A second-pass addendum (RUN TWO docs)
+     (runtime.evolve seed-source DR) stays owner-gated; slice 5 SHIPPED 2026-07-06 (--inspect). A second-pass addendum (RUN TWO docs)
      added T14-T21: reconcile the RUN ONE/RUN TWO design fork by DR,
      wake or trim the dormant grid-schema vocabulary, render packet v2,
      and the unrun RUN TWO protocols (formal bake-off, MAP-Elites

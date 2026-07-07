@@ -64,6 +64,9 @@ Endpoints:
                             lineage-marked copy lands in the released
                             directory that evolution runs consume
 - GET  /api/released        creatures currently released
+- GET  /inspect             the genome inspector + lineage browser
+- GET  /api/inspect?source=&name=  the engine-judged genome record
+- GET  /api/lineage         released ancestry + evolution-run traces
 
 Launched by `mechas workshop --editor` with the workspace interpreter.
 """
@@ -408,6 +411,98 @@ class _Handler(SimpleHTTPRequestHandler):
         if path == "/":
             self.path = "/grid_editor/grid_editor.html"
             return super().do_GET()
+        if path == "/inspect":
+            self.path = "/inspector/inspector.html"
+            return super().do_GET()
+        if path.startswith("/api/inspect"):
+            from urllib.parse import parse_qs, urlparse
+
+            query = parse_qs(urlparse(self.path).query)
+            source = (query.get("source") or [""])[0]
+            name = (query.get("name") or [""])[0]
+            grid = self.server.resolve_creature(source, name)
+            if grid is None and source == "released":
+                file = self.server.released_dir / (_safe_name(name) + ".json")
+                if file.exists():
+                    grid = json.loads(file.read_text(encoding="utf-8"))
+            if grid is None:
+                self._json(404, {"ok": False, "error": "no such creature"})
+                return
+            validation = validate_grid(grid)
+            organs = {
+                organ_id: {
+                    "role": organ.get("role"),
+                    "cell_count": len(organ.get("cells", [])),
+                    "required": organ.get("required", False),
+                }
+                for organ_id, organ in grid.get("organs", {}).items()
+            }
+            self._json(
+                200,
+                {
+                    "ok": True,
+                    "grid_id": grid.get("grid_id"),
+                    "palette": grid.get("palette"),
+                    "validation": {
+                        "ok": validation.ok,
+                        "errors": list(validation.errors),
+                    },
+                    "stats": _morphology_stats(grid),
+                    "organs": organs,
+                    "lineage": grid.get("lineage", {}),
+                    "mutation": grid.get("mutation", {}),
+                    "metadata": grid.get("metadata", {}),
+                    "cells": grid.get("cells", []),
+                },
+            )
+            return
+        if path == "/api/lineage":
+            released = []
+            if self.server.released_dir.exists():
+                for file in sorted(self.server.released_dir.glob("*.json")):
+                    if file.name.endswith(".bak.json"):
+                        continue
+                    grid = json.loads(file.read_text(encoding="utf-8"))
+                    released.append(
+                        {
+                            "name": file.stem,
+                            "grid_id": grid.get("grid_id"),
+                            "lineage": grid.get("lineage", {}),
+                        }
+                    )
+            evolution_runs = []
+            runs_dir = ROOT / "data" / "runtime_integration"
+            if runs_dir.exists():
+                for file in sorted(runs_dir.glob("mecha_engine_evolution_*_stage0.json")):
+                    payload = json.loads(file.read_text(encoding="utf-8"))
+                    workshop = payload.get("summary", {}).get("workshop")
+                    entry = {
+                        "lab_id": payload.get("lab_id"),
+                        "generations": payload.get("generations_requested"),
+                        "archive": payload.get("summary", {}).get("archive", {}),
+                    }
+                    if workshop:
+                        entry.update(
+                            {
+                                "founder_ids": workshop.get("founder_ids", []),
+                                "creature_count_by_generation": workshop.get(
+                                    "creature_count_by_generation", []
+                                ),
+                                "lineage_survived_beyond_founding": workshop.get(
+                                    "lineage_survived_beyond_founding"
+                                ),
+                                "mean_fitness": workshop.get("mean_fitness"),
+                                "corpus_mean_fitness": workshop.get(
+                                    "corpus_mean_fitness"
+                                ),
+                            }
+                        )
+                    evolution_runs.append(entry)
+            self._json(
+                200,
+                {"released": released, "evolution_runs": evolution_runs},
+            )
+            return
         if path == "/preview":
             self.path = "/preview/preview.html"
             return super().do_GET()

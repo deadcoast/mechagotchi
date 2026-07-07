@@ -37,6 +37,7 @@ mechas workshop --editor                     # grid editor: draw, live engine va
 mechas workshop --slip                       # SLIP creator: author profiles, live authority checks
 mechas workshop --preview                    # preview: packets, live_cycle day, engine offspring
 mechas workshop --release <name>             # release a saved creature into the ecosystem
+mechas workshop --inspect                    # genome inspector + lineage browser
 ```
 
 ### Notes

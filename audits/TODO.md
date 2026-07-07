@@ -89,9 +89,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
   three packet consumers; replay is missing. Lab: record per-tick render
   packets from a `live_cycle`/episode run into a replay artifact; the
   workshop preview gains a replay scrubber (engine truth, recorded).
-- [ ] **T13 · Workshop slice 5 (genome inspector + lineage browser)** —
-  already owner-held; on go, design against og's inspector/browser
-  responsibilities and T1's workshop-lineage traceability.
+- [x] **T13 · Workshop slice 5 (genome inspector + lineage browser)** (2026-07-06, owner-authorized: mechas workshop --inspect — genome tables + lineage browser over released ancestry and the wire artifacts' workshop-lineage traces)
 
 ## P1 addition — RUN TWO reconciliation (from the audit addendum)
 

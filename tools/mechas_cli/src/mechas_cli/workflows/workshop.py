@@ -49,6 +49,11 @@ def workshop(
         help="Launch the preview: render packets, a live_cycle day in "
         "the life, and engine-generated offspring.",
     ),
+    inspect: bool = typer.Option(
+        False,
+        "--inspect",
+        help="Launch the genome inspector + lineage browser.",
+    ),
     release: str | None = typer.Option(
         None,
         "--release",
@@ -75,7 +80,7 @@ def workshop(
         _release(console, root, release)
         return
 
-    if not editor and not slip and not preview:
+    if not editor and not slip and not preview and not inspect:
         console.print(theme.banner("workshop — what would you like to open?"))
         console.print(
             theme.kv_table(
@@ -99,6 +104,13 @@ def workshop(
                         "what",
                         "watch a creature live: render packets, "
                         "damage/repair cycles, engine-bred offspring",
+                        "mechas.value",
+                    ),
+                    ("target", "--inspect", "mechas.accent"),
+                    (
+                        "what",
+                        "read a creature's genome (organs, cells, lineage) "
+                        "and browse ecosystem lineages",
                         "mechas.value",
                     ),
                     ("target", "--release <name>", "mechas.accent"),
@@ -125,7 +137,9 @@ def workshop(
         return
 
     target_name = (
-        "preview" if preview else "slip creator" if slip else "grid editor"
+        "inspector"
+        if inspect
+        else "preview" if preview else "slip creator" if slip else "grid editor"
     )
     console.print(theme.banner(f"workshop — {target_name}"))
     server_path = root / SERVER_SCRIPT
@@ -179,7 +193,11 @@ def workshop(
             )
         raise typer.Exit(code=1)
 
-    page_url = url + "preview" if preview else url + "slip" if slip else url
+    page_url = (
+        url + "inspect"
+        if inspect
+        else url + "preview" if preview else url + "slip" if slip else url
+    )
     console.print(
         theme.kv_table(
             [

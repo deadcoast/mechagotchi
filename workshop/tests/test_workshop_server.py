@@ -830,3 +830,88 @@ class TraitEditorEndpointTests(unittest.TestCase):
             c for c in grid["cells"] if (c["x"], c["y"]) == (2, 2)
         )
         self.assertEqual("glass", cell["material"])
+
+
+class InspectorEndpointTests(unittest.TestCase):
+    """Slice 5: genome inspector + lineage browser (og responsibilities)."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.temp = tempfile.TemporaryDirectory()
+        base = Path(cls.temp.name)
+        cls.server = start_workshop_server(
+            port=0, grids_dir=base / "grids", slips_dir=base / "slips"
+        )
+        cls.base = f"http://127.0.0.1:{cls.server.server_address[1]}"
+        _post(
+            f"{cls.base}/api/save",
+            {
+                "name": "inspect me",
+                "matrix": VALID_MATRIX,
+                "palette_id": "lcd_green",
+            },
+        )
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.server.shutdown()
+        cls.temp.cleanup()
+
+    def test_serves_the_inspector_page(self):
+        with urllib.request.urlopen(f"{self.base}/inspect") as response:
+            body = response.read().decode("utf-8")
+        self.assertEqual(200, response.status)
+        self.assertIn("inspector", body)
+        self.assertIn("/api/inspect", body)
+
+    def test_inspect_returns_the_engine_judged_genome(self):
+        status, payload = _get(
+            f"{self.base}/api/inspect?source=workshop&name=inspect_me"
+        )
+        self.assertEqual(200, status)
+        self.assertTrue(payload["ok"])
+        self.assertTrue(payload["validation"]["ok"])
+        self.assertIn("stats", payload)
+        organs = payload["organs"]
+        self.assertEqual(
+            {"core", "sensors", "expression"}, set(organs)
+        )
+        self.assertEqual(10, organs["core"]["cell_count"])
+        lineage = payload["lineage"]
+        self.assertEqual(0, lineage["generation"])
+        self.assertIn("mutation_events", lineage)
+        self.assertEqual(13, len(payload["cells"]))
+
+    def test_inspect_seed_and_missing(self):
+        status, payload = _get(
+            f"{self.base}/api/inspect?source=seed&name=mg_seed_001"
+        )
+        self.assertEqual(200, status)
+        self.assertTrue(payload["ok"])
+        try:
+            _get(f"{self.base}/api/inspect?source=workshop&name=ghost")
+            self.fail("expected 404")
+        except urllib.error.HTTPError as error:
+            self.assertEqual(404, error.code)
+
+    def test_lineage_browser_reads_the_wire_evidence(self):
+        status, payload = _get(f"{self.base}/api/lineage")
+        self.assertEqual(200, status)
+        self.assertIn("released", payload)
+        # The committed wire artifact traces workshop ancestry.
+        self.assertIn("evolution_runs", payload)
+        wire = next(
+            (
+                run
+                for run in payload["evolution_runs"]
+                if run["lab_id"]
+                == "mecha_engine_evolution_workshop_wire_stage0"
+            ),
+            None,
+        )
+        self.assertIsNotNone(wire)
+        self.assertEqual(
+            ["released_tall_wisp", "released_wide_sentinel"],
+            wire["founder_ids"],
+        )
+        self.assertIn("creature_count_by_generation", wire)
