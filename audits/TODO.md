@@ -7,11 +7,13 @@ Governing rule: deep integrations over breadth — the ENGINE+GAME duality;
 hard/unique features win over easy/generic ones, said aloud. A task is
 complete when developed to its description, then marked.
 
-- [ ] **R1 (=T8) · CTM deliberation into the runtime switchboard.**
-  Confidence-gated extra thinking cycles (`labs/ctm_ticks` semantics)
-  wired into the LIVE decision path; measured for decision quality and
-  felt aliveness; adopt/watch/reject recorded. The creature visibly
-  thinks.
+- [x] **R1 (=T8) · CTM deliberation into the runtime switchboard.**
+  (DR 0017 R1, shipped 2026-07-06 commit 837ca3d: `deliberation` SLIP
+  field, ctm_ticks semantics pinned verbatim, both package mirrors
+  synced; measured 64 observable thinking events across 8 episodes,
+  wellbeing delta 0.0 in sheltered episodes — verdict recorded:
+  adopt-as-expressiveness / watch-for-utility. The creature visibly
+  thinks.)
 - [x] **R2 · CuBFF live lineage pressure.** (DR 0018, 2026-07-06: Pipeline C wired into the evolution loop — chaotic soup 1.17x damage/111 cells vs stable 0.90x/88 at the same seed, provenance per generation, semantic-compiler rule held; runtime.evolve promotion is the next plan.)
 - [ ] **R2.5 · Promote the CuBFF pressure seam into `runtime.evolve`.**
   DR 0018's recorded next step: `cubff_pressure_source` ported into the
