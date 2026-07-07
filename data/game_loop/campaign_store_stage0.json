@@ -1,0 +1,47 @@
+{
+  "artifact_id": "game_loop_campaign_store_stage0",
+  "status": "stage0_complete",
+  "date": "2026-07-07",
+  "purpose": "C2 (DR 0022): prove the storage module's SQLite campaign ledger lab-first \u2014 schema v1, the blob-authoritative rule, one-transaction eras, succession without copying, and the lossless JSON-interim migration; the eight DR 0022 gates run as the lab's test suite.",
+  "source_artifacts": [
+    "research/decision_records/0022-storage-module.md",
+    "data/game_loop/campaign_ledger.json"
+  ],
+  "metrics": {
+    "schema_version": 1,
+    "row_counts": {
+      "campaigns": 1,
+      "slip_profiles": 3,
+      "eras": 3,
+      "elites": 22,
+      "founders": 17,
+      "unlocks": 8,
+      "replays": 0
+    },
+    "sqlite_payload": {
+      "path": "data/game_loop/campaign_store.sqlite",
+      "bytes": 196608,
+      "sha256": "6960f22a1d162cc9093fbb4abf97d70b5ae68412faa1e4a4ac0071be234ba0e3"
+    }
+  },
+  "closed_states": [
+    "schema_v1_applied_with_foreign_keys_and_user_version",
+    "blob_authoritative_round_trip_byte_identical",
+    "derived_columns_pinned_to_report_blobs",
+    "one_transaction_eras_atomic",
+    "founder_chain_integrity_pinned",
+    "deterministic_replay_reproduces_stored_reports",
+    "unlock_state_resolves_through_predecessor_pointer",
+    "json_interim_migration_lossless"
+  ],
+  "blocked_states": [
+    "mecha_engine_storage_port_pending_promotion_gate"
+  ],
+  "documented_divergence": "founders.grid_json is NULLABLE (DR 0022 draft said NOT NULL): the shipped interim records founder admissions, and an era_elite founder's grid already lives in the predecessor era's elites rows \u2014 duplicating it would violate the single-source rule; workshop_release founders carry grid_json.",
+  "decision": {
+    "status": "campaign_store_gates_green",
+    "adoption": "lab_only_storage_evidence",
+    "reason": "DR 0022's schema is executable fact: engine artifacts round-trip byte-identically, derived columns equal their blobs, era transactions are atomic, the founder chain and unlock succession behave exactly as the session lab's JSON interim, and a stored era replays deterministically into its own report."
+  },
+  "next_research_step": "C3: port to mecha_engine.storage when the promotion gate says promotion_ready; the session lab and workshop server then switch from the JSON interim through the exercised migration path."
+}

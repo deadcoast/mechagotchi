@@ -24,13 +24,19 @@ that need them; they do not pause the queue.)
   chained eras (0.401 → 0.182 → 0.014; bodies fragment 0.875 → 0.567
   inverse-component, symmetry 0.337 → 0.191) — recorded, not tuned
   away; a measured target for C4/C6.)
-- [ ] **C2 · The `campaign_store` lab (DR 0022's schema, proven).**
-  `labs/game_loop/campaign_store.py`: SQLite schema v1 via stdlib
-  `sqlite3`, the blob-authoritative rule, one-transaction eras, and all
-  eight DR 0022 gates as tests — including `ingest_session_artifacts`
-  migrating the shipped JSON interim losslessly and the
-  deterministic-replay gate (re-run a stored era, reproduce its
-  report). Registered as a promotion-gate candidate. Triad convention.
+- [x] **C2 · The `campaign_store` lab (DR 0022's schema, proven).**
+  (2026-07-07: schema v1 executable — all eight DR 0022 gates green as
+  tests over a real chained campaign: byte-identical blob round-trips,
+  derived-column pins, atomic one-transaction eras (rollback observed),
+  founder-chain integrity, DETERMINISTIC REPLAY of a stored era into
+  its own report, pointer-chain succession with zero copied rows,
+  lossless `dr0022_v1_json_interim` migration, determinism scan; 11
+  tests. Documented divergence: `founders.grid_json` nullable (the
+  single-source rule — era_elite grids live in the predecessor's
+  elites). Promotion-gate candidate registered; verdict
+  `ready_for_package_design` — the status that precedes every port
+  (the gate flips to promotion_ready when C3's package tests exist,
+  per the seven prior modules' history).)
 - [ ] **C3 · Promote `mecha_engine.storage` (the ninth module).** Only
   when C2's gate says `promotion_ready`: verbatim port under the
   standing rules (stdlib-only, no `labs` imports, contract tests

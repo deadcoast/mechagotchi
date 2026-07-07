@@ -22,6 +22,7 @@ It does not promote code by itself.
 - `readability_gate` -> `blocked_missing_or_failed_research_evidence` for `packages/mecha_engine/src/mecha_engine/evaluation`
 - `learning_switchboard` -> `promotion_ready` for `packages/mecha_engine/src/mecha_engine/learning`
 - `runtime_loop` -> `promotion_ready` for `packages/mecha_engine/src/mecha_engine/runtime`
+- `campaign_store` -> `ready_for_package_design` for `packages/mecha_engine/src/mecha_engine/storage`
 - `ca_nca_repair` -> `promotion_ready` for `packages/mecha_engine/src/mecha_engine/repair`
 
 ## Decision

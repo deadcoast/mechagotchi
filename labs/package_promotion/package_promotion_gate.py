@@ -253,6 +253,45 @@ def build_candidate_registry() -> list[dict]:
             ),
         },
         {
+            "component_id": "campaign_store",
+            "target_package": "packages/mecha_engine/src/mecha_engine/storage",
+            "algorithm_card": "research/algorithm_cards/campaign_store.md",
+            "experiment_report": "research/experiment_reports/2026-07-07-campaign-store.md",
+            "metric_artifact": "data/game_loop/campaign_store_stage0.json",
+            "thresholds": [
+                {
+                    "metric_path": ["decision", "status"],
+                    "operator": "==",
+                    "value": "campaign_store_gates_green",
+                },
+                {
+                    "metric_path": ["metrics", "row_counts", "eras"],
+                    "operator": ">=",
+                    "value": 1,
+                },
+                {
+                    "metric_path": ["metrics", "schema_version"],
+                    "operator": "==",
+                    "value": 1,
+                },
+            ],
+            "verification": (
+                "python -B -m unittest discover -s labs/game_loop "
+                '-p "test_campaign_store.py"'
+            ),
+            "research_notes": (
+                "Storage surface (the DR 0022 SQLite campaign ledger), "
+                "cycle 03 C2. All eight DR 0022 gates run as the lab "
+                "suite: byte-identical blob round-trips, derived-column "
+                "pins, one-transaction eras, founder-chain integrity, "
+                "deterministic replay of stored eras, pointer-chain "
+                "succession, lossless JSON-interim migration, and the "
+                "determinism scan. Stdlib sqlite3 only — the package "
+                "dependency policy stays intact. C3 ports it when this "
+                "gate says promotion_ready."
+            ),
+        },
+        {
             "component_id": "ca_nca_repair",
             "target_package": "packages/mecha_engine/src/mecha_engine/repair",
             "algorithm_card": "research/algorithm_cards/ca_nca_growth_repair.md",

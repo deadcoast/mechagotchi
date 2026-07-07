@@ -736,6 +736,11 @@ Post-v0.1 continuation has started:
 - `packages/mecha_engine/src/mecha_engine/runtime/_readability.py`
 - `labs/readability_benchmark/test_package_readability_parity.py` + `labs/runtime_integration/test_readability_selection_parity.py` (C1: R3's live consumer promoted into `runtime.evolve` — verbatim scorer mirror + drift guard, record-for-record lab parity, the R3 A/B directional claim holding on the PROMOTED surface, defaults byte-identical; the session steers every era at blend 0.7 and the legibility currency is EARNABLE live (tiers 1+2, elite mean 0.401 vs 0.244) — which immediately measured legibility drifting DOWN across chained eras (0.401 → 0.014; bodies fragment, symmetry falls), a real dynamic queued for C4/C6)
 
+- `research/experiment_reports/2026-07-07-campaign-store.md`
+- `research/algorithm_cards/campaign_store.md`
+- `labs/game_loop/campaign_store.py` (+ `test_campaign_store.py`)
+- `data/game_loop/campaign_store_stage0.json` + `data/game_loop/campaign_store.sqlite` (C2: DR 0022's SQLite campaign ledger, lab-proven — all eight gates green as tests over a REAL chained campaign incl. byte-identical blob round-trips, derived-column pins, atomic eras, deterministic replay of stored eras, pointer-chain succession with zero copied rows, and the lossless `dr0022_v1_json_interim` migration; `founders.grid_json` divergence documented (nullable — single-source rule); promotion-gate candidate registered, verdict `ready_for_package_design`)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

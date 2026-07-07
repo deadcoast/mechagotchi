@@ -5,9 +5,9 @@
   "summary": {
     "package_root_exists": true,
     "criteria_count": 7,
-    "candidate_count": 8,
-    "research_ready_count": 7,
-    "package_design_ready_count": 0,
+    "candidate_count": 9,
+    "research_ready_count": 8,
+    "package_design_ready_count": 1,
     "promotion_ready_count": 7,
     "blocked_count": 1,
     "hold_research_only_count": 0
@@ -321,6 +321,53 @@
       "promotion_blockers": [],
       "research_blocker_details": [],
       "research_notes": "Composed-engine runtime surface (live_cycle + evolve), decision record 0008 accepted 2026-07-05. Evidence: both runtime-lab loops green (runtime_loop_composed, evolution_loop_composed); elites reproduce across generations with SLIP-aware repair throughout."
+    },
+    {
+      "component_id": "campaign_store",
+      "target_package": "packages/mecha_engine/src/mecha_engine/storage",
+      "gate_status": "ready_for_package_design",
+      "research_evidence_complete": true,
+      "missing_evidence": [],
+      "thresholds_met": true,
+      "threshold_results": [
+        {
+          "metric_path": [
+            "decision",
+            "status"
+          ],
+          "operator": "==",
+          "expected": "campaign_store_gates_green",
+          "actual": "campaign_store_gates_green",
+          "ok": true
+        },
+        {
+          "metric_path": [
+            "metrics",
+            "row_counts",
+            "eras"
+          ],
+          "operator": ">=",
+          "expected": 1,
+          "actual": 3,
+          "ok": true
+        },
+        {
+          "metric_path": [
+            "metrics",
+            "schema_version"
+          ],
+          "operator": "==",
+          "expected": 1,
+          "actual": 1,
+          "ok": true
+        }
+      ],
+      "verification": "python -B -m unittest discover -s labs/game_loop -p \"test_campaign_store.py\"",
+      "promotion_blockers": [
+        "target_package_absent"
+      ],
+      "research_blocker_details": [],
+      "research_notes": "Storage surface (the DR 0022 SQLite campaign ledger), cycle 03 C2. All eight DR 0022 gates run as the lab suite: byte-identical blob round-trips, derived-column pins, one-transaction eras, founder-chain integrity, deterministic replay of stored eras, pointer-chain succession, lossless JSON-interim migration, and the determinism scan. Stdlib sqlite3 only \u2014 the package dependency policy stays intact. C3 ports it when this gate says promotion_ready."
     },
     {
       "component_id": "ca_nca_repair",
