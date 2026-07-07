@@ -724,6 +724,11 @@ Post-v0.1 continuation has started:
 - `workshop/session/session.html` + the `/api/session/*` endpoints
 - `tools/mechas_cli/src/mechas_cli/workflows/session.py` (G4: the Keeper's surface — persistent `keeper_session_v1` state with incremental play PINNED equal to batch play, succession seating the successor bloodline automatically, the Keeper page on the workshop server pattern, and `mechas session --open/--era/--status/--new` per the DR 0007 charter; play state gitignored under `data/game_loop/keeper/` so a live game never overwrites evidence)
 
+- `research/experiment_reports/2026-07-07-dataset-program.md`
+- `research/algorithm_cards/dataset_program.md`
+- `labs/datasets/dataset_program.py` (+ `test_dataset_program.py`)
+- `data/datasets/` (R6: the og dataset table completed — `mechaseed_200` (50 seeds + 150 validity-curated, signature-deduped engine variants, each reproducible from its recorded config), `mutationbench_5000` (5,000 signature-verifiable offspring cases — full grids of truth without stored grids), `replay_100k_ticks` (100,004 verbatim lifecycle ticks, byte-deterministic gzip) — all under the shipped `slip_corpus_r6` profile, sha256-manifested; PNG companions honestly deferred, no consumer yet)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

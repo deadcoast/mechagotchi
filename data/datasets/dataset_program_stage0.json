@@ -1,0 +1,83 @@
+{
+  "artifact_id": "dataset_program_stage0",
+  "status": "stage0_complete",
+  "date": "2026-07-07",
+  "purpose": "R6 (=T11): complete the og dataset program \u2014 mechaseed_200, mutationbench_5000, replay_100k_ticks \u2014 deterministically from the engine's own surfaces, each with a README and a checksummed manifest. The ML tracks' fuel.",
+  "source_artifacts": [
+    "data/seed_grids/",
+    "data/slips/valid/slip_lcd_seed.json",
+    "packages/mecha_engine/src/mecha_engine/generation/",
+    "packages/mecha_engine/src/mecha_engine/lifecycle/"
+  ],
+  "metrics": {
+    "mechaseed_200": {
+      "entry_count": 200,
+      "seed_count": 50,
+      "variant_count": 150,
+      "all_valid": true
+    },
+    "mutationbench_5000": {
+      "case_count": 5000,
+      "valid_rate": 1.0,
+      "aligned_rate": 1.0
+    },
+    "replay_100k_ticks": {
+      "tick_count": 100004,
+      "episode_count": 2501,
+      "creature_count": 50,
+      "policies": [
+        "switchboard",
+        "idle",
+        "random"
+      ],
+      "ticks_by_policy": {
+        "switchboard": 60048,
+        "idle": 9174,
+        "random": 30782
+      },
+      "rounds": 17
+    },
+    "manifest": {
+      "slip_corpus_r6": {
+        "path": "data/datasets/slip_corpus_r6.json",
+        "bytes": 759,
+        "sha256": "0f12bc97108cac745ea36327f2e702e4c380cc44e2800e3b21df4e7c6515ff1b"
+      },
+      "mechaseed_200": {
+        "path": "data/datasets/mechaseed_200/mechaseed_200.json",
+        "bytes": 1237621,
+        "sha256": "e5055daf959bbb79d392e79e955687cff3ddc1288957dec199d32b20c61646a9"
+      },
+      "mutationbench_5000": {
+        "path": "data/datasets/mutationbench_5000/mutationbench_5000.jsonl",
+        "bytes": 2557559,
+        "sha256": "1592e5ba0c93b45f79dfce242eaa19365984c93cdb3210ef197db20a9fe57d2e"
+      },
+      "replay_100k_ticks": {
+        "path": "data/datasets/replay_100k_ticks/replay_100k_ticks.jsonl.gz",
+        "bytes": 1840215,
+        "sha256": "be694be5db79e29a53afa1f89b22672efa2b11b2b9442c4af11592aa18d46437"
+      },
+      "replay_sample": {
+        "path": "data/datasets/replay_100k_ticks/replay_sample_first_200.jsonl",
+        "bytes": 70687,
+        "sha256": "111e37a8e36b0bcf402c2e72965e5a8dcec0ad74e3eb06c3d1f9181c57be7737"
+      }
+    }
+  },
+  "closed_states": [
+    "mechaseed_200_delivered_validity_curated",
+    "mutationbench_5000_delivered_signature_verifiable",
+    "replay_100k_ticks_delivered_engine_history_verbatim",
+    "every_dataset_readme_and_checksum_shipped"
+  ],
+  "blocked_states": [
+    "mechaseed_200_png_renders_deferred_no_consumer"
+  ],
+  "decision": {
+    "status": "dataset_program_complete",
+    "adoption": "lab_only_dataset_evidence",
+    "reason": "All three og corpora exist as named, versioned, checksummed datasets built deterministically from promoted engine surfaces: the body-plan corpus is validity-curated and signature-deduped, the mutation bench is reproducible case-by-case and verifiable by signature, and the replay corpus is the lifecycle's own per-tick history at 100k+ ticks."
+  },
+  "next_research_step": "R7 (grid-schema animation/species fields) closes the cycle; the ML tracks consume these corpora (learned readability retraining, switchboard evaluation, replay tooling)."
+}

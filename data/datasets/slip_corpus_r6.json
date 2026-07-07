@@ -1,0 +1,36 @@
+{
+  "slip_version": "0.1.0",
+  "profile_id": "slip_corpus_r6",
+  "name": "R6 dataset-program corpus profile",
+  "grid": {
+    "allowed_palettes": [
+      "amber_terminal",
+      "crt_blue",
+      "gameboy_gray",
+      "lcd_green",
+      "pocket_plum"
+    ],
+    "body_mass_min": 1,
+    "body_mass_max": 64,
+    "required_organ_roles": [
+      "sensor",
+      "expression"
+    ]
+  },
+  "mutation": {
+    "cell_mutation_rate_max": 0.15,
+    "organ_shift_rate_max": 0.05,
+    "palette_shift_rate_max": 0.05,
+    "symmetry_break_rate_max": 0.05
+  },
+  "behavior": {
+    "curiosity": 0.6,
+    "neediness": 0.4,
+    "sleepiness": 0.5
+  },
+  "survival_weights": {
+    "stability": 0.5,
+    "novelty": 0.25,
+    "bond": 0.25
+  }
+}

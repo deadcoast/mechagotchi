@@ -86,9 +86,16 @@ documentation for tasks that need them; they do not pause the queue.)
   scrubber panel over `POST /api/preview/replay`. Sample life 151
   frames/144 ticks, deterministic end to end; 10 lab + 269 package +
   46 workshop tests green.)
-- [ ] **R6 (=T11) · Dataset program completion.** `mechaseed_200`,
-  `mutationbench_5000`, `replay_100k_ticks` (feeds R5) — each with a
-  README + ledger entry. The ML tracks' fuel.
+- [x] **R6 (=T11) · Dataset program completion.** (2026-07-07,
+  `labs/datasets/`: the og dataset table delivered — `mechaseed_200`
+  (50 seeds + 150 validity-curated, signature-deduped engine
+  variants), `mutationbench_5000` (5,000 signature-verifiable
+  offspring cases; grids reproducible from config, no bloat),
+  `replay_100k_ticks` (100,004 verbatim lifecycle ticks,
+  byte-deterministic gzip) — each with a README + ledger entry, all
+  under the shipped corpus-wide `slip_corpus_r6` profile,
+  sha256-manifested; 12 tests. PNG companions deferred with a
+  recorded blocked state — no consumer yet.)
 - [ ] **R7 (=T7) · Grid-schema animation/species fields.** Implement per
   the og starter schema, or record the T4 projection design as the
   superseding decision — either way, developed then marked.
