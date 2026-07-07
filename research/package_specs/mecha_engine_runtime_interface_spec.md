@@ -91,3 +91,12 @@ lab discovered executable-first:
 - `research/experiment_reports/2026-07-05-mecha-engine-evolution-loop.md`
 - `research/package_specs/mecha_engine_module_interfaces.md`
 - `research/package_specs/mecha_engine_repair_interface_spec.md`
+
+## founder_grids (decision record 0016, 2026-07-06)
+
+`evolve` accepts keyword-only `founder_grids: list[dict] | None =
+None`: released creatures admitted through the engine's own gates
+(validate_grid + SLIP alignment, rejections verbatim in the report's
+`founders` block); admitted founders LEAD the generation-0 pool
+(`parent_source: founders_plus_seed_pool`). `None` is byte-identical
+to the pre-0016 contract (parity pins unmodified).

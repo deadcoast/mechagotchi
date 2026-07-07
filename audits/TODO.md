@@ -29,7 +29,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
   - [x] T1.4 Docs: experiment report + runtime card update + workshop
         reference ("the creature you draw can live and breed in the
         engine's world") + og-triangle diagram restored in the charter.
-  - [ ] T1.5 (OWNER-GATED, evidence-ready) If the owner accepts and the owner accepts: DR for the
+  - [x] T1.5 (DR 0016, 2026-07-06 — owner authorized) runtime.evolve founder_grids contract shipped; formerly: If the owner accepts and the owner accepts: DR for the
         `runtime.evolve` seed-source contract extension (promoted-module
         change; parity implications documented).
 

@@ -61,6 +61,8 @@ REQUIRED_EVOLVE_DEFAULTS = {
     "ticks": "72",
     "dropout_rate": "0.2",
     "rng_seed": "20260512",
+    # DR 0016 (T1.5): founder grids default to None (contract untouched).
+    "founder_grids": "None",
 }
 REQUIRED_CYCLE_FIELDS = [
     "aligned",
@@ -137,6 +139,8 @@ class MechaEngineRuntimeContractTests(unittest.TestCase):
                 "ticks",
                 "dropout_rate",
                 "rng_seed",
+                # DR 0016 (T1.5): the T1 wire's founder contract.
+                "founder_grids",
             ],
             keyword_only["evolve"],
         )

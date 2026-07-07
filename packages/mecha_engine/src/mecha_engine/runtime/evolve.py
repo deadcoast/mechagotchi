@@ -65,6 +65,7 @@ def evolve(
     ticks: int = 72,
     dropout_rate: float = 0.2,
     rng_seed: int = 20260512,
+    founder_grids: list[dict] | None = None,
 ) -> tuple[dict, dict]:
     """Run multi-generation evolution through the composed engine.
 
@@ -77,6 +78,12 @@ def evolve(
     metrics hook"; the archive keeps its manual-rating status visible.
     Deterministic end to end; never mutates ``seed_grids``,
     ``slip_profile``, the models, or any caller-owned input.
+
+    ``founder_grids`` (decision record 0016, the T1 wire's contract):
+    released creatures admitted through the engine's own gates
+    (``validate_grid`` + SLIP alignment; rejections recorded verbatim);
+    admitted founders LEAD the generation-0 parent pool. ``None`` is
+    byte-identical to the pre-0016 contract.
     """
     if not isinstance(seed_grids, list) or not seed_grids:
         raise ValueError("seed_grids must be a non-empty list of grid genomes")
@@ -98,6 +105,24 @@ def evolve(
         and slip_profile.get("slip_version") != "0.1.0"
         else None
     )
+    admitted_founders: list[dict] = []
+    rejected_founders: list[dict] = []
+    if founder_grids is not None:
+        if not isinstance(founder_grids, list):
+            raise ValueError("founder_grids must be a list of grid genomes")
+        for founder in founder_grids:
+            errors: list[str] = []
+            validation = validate_grid(founder)
+            errors.extend(validation.errors)
+            alignment = is_grid_aligned(founder, slip_profile)
+            errors.extend(alignment.errors)
+            if errors:
+                rejected_founders.append(
+                    {"grid_id": founder.get("grid_id"), "errors": errors}
+                )
+            else:
+                admitted_founders.append(founder)
+
     seed_pool = [
         seed for seed in seed_grids if is_grid_aligned(seed, slip_profile).ok
     ]
@@ -111,8 +136,14 @@ def evolve(
 
     for generation_index in range(generations):
         if generation_index == 0:
-            parents = seed_pool
-            parent_source = "seed_pool"
+            if admitted_founders:
+                # Founders lead so the round-robin always exercises the
+                # wire deterministically (decision record 0016).
+                parents = admitted_founders + seed_pool
+                parent_source = "founders_plus_seed_pool"
+            else:
+                parents = seed_pool
+                parent_source = "seed_pool"
         else:
             elites = archive["elites"]
             if parent_selection == "fitness_weighted":
@@ -272,6 +303,18 @@ def evolve(
         "dropout_rate": dropout_rate,
         "seed_corpus_size": len(seed_grids),
         "seed_pool_size": len(seed_pool),
+        **(
+            {
+                "founders": {
+                    "admitted_ids": [
+                        grid["grid_id"] for grid in admitted_founders
+                    ],
+                    "rejected": rejected_founders,
+                }
+            }
+            if founder_grids is not None
+            else {}
+        ),
         # The readability hook stays visibly uncalibrated: the statuses seen
         # across every score record produced by this run (interface spec:
         # "the record's manual-rating status stays visible in every score").

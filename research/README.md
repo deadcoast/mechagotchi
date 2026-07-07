@@ -679,6 +679,8 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-07-06-generator-evolution-ab.md`
 - `data/archives/generator_evolution_ab_stage0.json` (T17 follow-up A/B: dead heat — 76 niches both arms, shipped_hybrid_stands; raw generator novelty does not equal archive coverage, the descriptor grid bounds diversity)
 
+- `research/decision_records/0016-evolve-founder-grids.md` (T1.5: the T1 wire's founder semantics enter the promoted runtime.evolve contract — gate-admitted founders lead generation 0; defaults byte-identical, contract pins extended)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

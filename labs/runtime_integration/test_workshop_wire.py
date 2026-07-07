@@ -164,3 +164,78 @@ class WorkshopWireEvolutionTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class EvolveFounderContractTests(unittest.TestCase):
+    """DR 0016 (T1.5): the wire semantics in the promoted evolve."""
+
+    @classmethod
+    def setUpClass(cls):
+        import json as _json
+
+        sys.path.insert(0, str(ROOT / "packages" / "mecha_engine" / "src"))
+        sys.path.insert(0, str(ROOT / "labs" / "readability_benchmark"))
+        from corpus_builder import build_seed_grids
+        from readability_benchmark import score_readability
+        from mecha_engine.generation import train_generation_model
+        from mecha_engine.repair import train_repair_model
+        from mecha_engine.runtime import evolve
+
+        cls.evolve = staticmethod(evolve)
+        cls.scorer = staticmethod(score_readability)
+        cls.seeds = build_seed_grids()
+        cls.slip = _json.loads(
+            (ROOT / "data/slips/valid/slip_lcd_seed.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        cls.generation_model = train_generation_model(cls.seeds)
+        cls.repair_model = train_repair_model(
+            cls.seeds[:6], epochs=20, rng_seed=20260512
+        )
+        cls.founders = [
+            _workshop_grid(
+                "founder_hero", "lcd_green",
+                ["#07140d", "#5dbb63", "#d8ffd6"],
+            ),
+            _workshop_grid(
+                "founder_gray", "gameboy_gray",
+                ["#1a1a1a", "#7a7a7a", "#dedede"],
+            ),
+        ]
+
+    def _run(self, **kwargs):
+        return self.evolve(
+            self.seeds,
+            self.slip,
+            self.generation_model,
+            self.repair_model,
+            readability_scorer=self.scorer,
+            generations=1,
+            population=3,
+            damage_cycles=1,
+            ticks=8,
+            rng_seed=20260512,
+            **kwargs,
+        )
+
+    def test_founders_admitted_through_the_engine_gates_and_lead(self):
+        archive, report = self._run(founder_grids=self.founders)
+        founders = report["founders"]
+        self.assertEqual(["founder_hero"], founders["admitted_ids"])
+        self.assertEqual(1, len(founders["rejected"]))
+        self.assertTrue(
+            any("palette" in e for e in founders["rejected"][0]["errors"])
+        )
+        generation = report["generations"][0]
+        self.assertEqual("founders_plus_seed_pool", generation["parent_source"])
+        self.assertEqual(
+            "founder_hero", generation["creatures"][0]["parent_grid_id"]
+        )
+
+    def test_default_contract_is_untouched(self):
+        archive, report = self._run()
+        self.assertNotIn("founders", report)
+        self.assertEqual(
+            "seed_pool", report["generations"][0]["parent_source"]
+        )
