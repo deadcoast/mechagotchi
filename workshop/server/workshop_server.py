@@ -1246,6 +1246,10 @@ class _Handler(SimpleHTTPRequestHandler):
                     params["repair_epochs"], active["base_seed"]
                 ),
                 legibility_model=self.server.legibility_model(),
+                # E5 (DR 0021's Contribute step): the Keeper's released
+                # creatures enter this era as founders through the
+                # engine's own gates.
+                released_dir=self.server.released_dir,
             )
             save_keeper_state(
                 state,

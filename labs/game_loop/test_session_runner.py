@@ -581,6 +581,74 @@ class SessionRunnerTests(unittest.TestCase):
         self.assertGreater(wounds["mortal_wounds"], 0)
         self.assertEqual("shattered_body_core", wounds["cause"])
 
+    # -- the Contribute step (E5, DR 0021 core loop step 3) --------------------
+
+    def test_released_creatures_found_the_next_era_through_the_gates(self):
+        from session_runner import load_released_grids
+
+        state = self._fresh_state()
+        released = json.loads(json.dumps(self.seeds[0]))
+        released["grid_id"] = "released_e5_lab"
+        broken = {"grid_id": "released_e5_broken", "cells": []}
+        with tempfile.TemporaryDirectory() as tmp:
+            released_dir = Path(tmp)
+            (released_dir / "a_release.json").write_text(
+                json.dumps(released), encoding="utf-8"
+            )
+            (released_dir / "b_broken.json").write_text(
+                json.dumps(broken), encoding="utf-8"
+            )
+            self.assertEqual(
+                ["released_e5_lab", "released_e5_broken"],
+                [g["grid_id"] for g in load_released_grids(released_dir)],
+            )
+            turn = advance_keeper_state(
+                state, "calm", released_dir=released_dir, **self.models
+            )
+        era = state["campaigns"][0]["eras"][0]
+        founders = era["report"]["founders"]
+        # The valid release is ADMITTED and leads; the broken one is
+        # rejected with the engine's errors verbatim — both recorded.
+        self.assertEqual(["released_e5_lab"], founders["admitted_ids"])
+        self.assertEqual(1, len(founders["rejected"]))
+        self.assertEqual(
+            "released_e5_broken", founders["rejected"][0]["grid_id"]
+        )
+        self.assertTrue(founders["rejected"][0]["errors"])
+        self.assertEqual(
+            "founders_plus_seed_pool",
+            turn["era"]["parent_source_generation_0"],
+        )
+
+    def test_releases_lead_the_pool_ahead_of_prior_elites(self):
+        state = self._fresh_state()
+        advance_keeper_state(state, "calm", **self.models)
+        released = json.loads(json.dumps(self.seeds[1]))
+        released["grid_id"] = "released_e5_second_era"
+        with tempfile.TemporaryDirectory() as tmp:
+            (Path(tmp) / "release.json").write_text(
+                json.dumps(released), encoding="utf-8"
+            )
+            advance_keeper_state(
+                state, "storm", released_dir=Path(tmp), **self.models
+            )
+        second = state["campaigns"][0]["eras"][1]
+        submitted = second["founders_submitted"]
+        # Founders-lead rule (T1/DR 0016): the release first, then the
+        # prior era's elites in niche order.
+        self.assertEqual("released_e5_second_era", submitted[0])
+        prior_elites = [
+            e["grid_id"] for e in state["campaigns"][0]["eras"][0]["elites"]
+        ]
+        self.assertEqual(prior_elites, submitted[1:])
+
+    def test_no_released_dir_is_byte_identical(self):
+        first = self._fresh_state()
+        second = self._fresh_state()
+        advance_keeper_state(first, "calm", **self.models)
+        advance_keeper_state(second, "calm", released_dir=None, **self.models)
+        self.assertEqual(first["campaigns"], second["campaigns"])
+
     # -- the Covenant step (C4): unlocks SPEND --------------------------------
 
     def _fact(self, axis, tier):

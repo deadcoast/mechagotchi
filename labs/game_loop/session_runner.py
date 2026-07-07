@@ -668,6 +668,7 @@ def advance_campaign(
     damage_cycles: int,
     ticks: int,
     dropout_rate: float,
+    released_grids: list[dict] | None = None,
 ) -> dict:
     """Advance a living campaign by exactly one era (G4's play surface).
 
@@ -675,7 +676,14 @@ def advance_campaign(
     the unlock facts it earns, and marks the campaign extinct when the
     engine ends the bloodline. The next era's founder pool is always the
     previous era's elites — the DR 0021 spine — so incremental play and
-    ``run_campaign``'s batch play are the same code path."""
+    ``run_campaign``'s batch play are the same code path.
+
+    ``released_grids`` (E5, closing DR 0021's Contribute step): the
+    Keeper's RELEASED workshop creatures enter this era as founders
+    through the engine's own gates — leading the pool, ahead of the
+    prior era's elites (the T1/DR 0016 founders-lead rule), with
+    admissions and verbatim rejections recorded in the era report.
+    ``None`` keeps every pre-E5 flow byte-identical."""
     if campaign["status"] != "active":
         raise ValueError(
             f"campaign {campaign['campaign_id']!r} is {campaign['status']} — "
@@ -683,11 +691,12 @@ def advance_campaign(
             "starts the successor)"
         )
     era_index = len(campaign["eras"])
-    founder_grids = (
+    founder_pool = list(released_grids or []) + (
         [elite["grid"] for elite in campaign["eras"][-1]["elites"]]
         if campaign["eras"]
-        else None
+        else []
     )
+    founder_grids = founder_pool or None
     era_record = run_era(
         era_index=era_index,
         weather=weather,
@@ -1214,6 +1223,23 @@ def new_keeper_state(
     }
 
 
+def load_released_grids(released_dir: str | Path | None) -> list[dict]:
+    """The Keeper's RELEASED workshop creatures (the T1 wire's
+    directory), in deterministic file order — the Contribute step's
+    founder candidates. A missing/None directory is simply no releases."""
+    if released_dir is None:
+        return []
+    released_dir = Path(released_dir)
+    if not released_dir.exists():
+        return []
+    grids = []
+    for file in sorted(released_dir.glob("*.json")):
+        if file.name.endswith(".bak.json"):
+            continue
+        grids.append(json.loads(file.read_text(encoding="utf-8")))
+    return grids
+
+
 def advance_keeper_state(
     state: dict,
     weather: str,
@@ -1222,13 +1248,21 @@ def advance_keeper_state(
     generation_model: dict | None = None,
     repair_model: dict | None = None,
     legibility_model: dict | None = None,
+    released_dir: str | Path | None = None,
 ) -> dict:
     """Run one era of the active campaign and return the turn summary.
 
     On extinction the successor bloodline is created immediately
     (carrying only the Keeper's unlocks, via the predecessor pointer —
     DR 0022) and becomes the active campaign; the NEXT advance runs the
-    successor's first era from seeds."""
+    successor's first era from seeds.
+
+    ``released_dir`` (E5, the Contribute step): released workshop
+    creatures in this directory enter the era as founders through the
+    engine's own gates — the DR 0021 core loop's step 3, live in the
+    Keeper session. Default ``None`` (no releases) keeps deterministic
+    flows byte-identical; the workshop server passes its real released
+    directory."""
     if state.get("session_format") != SESSION_FORMAT:
         raise ValueError("not a keeper_session_v1 state")
     params = state["engine_parameters"]
@@ -1258,6 +1292,7 @@ def advance_keeper_state(
         damage_cycles=params["damage_cycles"],
         ticks=params["ticks"],
         dropout_rate=params["dropout_rate"],
+        released_grids=load_released_grids(released_dir),
     )
     succession = (
         apply_succession(state, campaign)
@@ -1423,6 +1458,14 @@ def main() -> None:
     parser.add_argument(
         "--weather", choices=WEATHER_NAMES, default="calm"
     )
+    parser.add_argument(
+        "--released-dir",
+        type=Path,
+        default=ROOT / "data" / "workshop" / "released",
+        help="Released workshop creatures entering the era as founders "
+        "(the DR 0021 Contribute step); point elsewhere or at an empty "
+        "directory for a release-free era.",
+    )
     args = parser.parse_args()
 
     if args.mode == "demo":
@@ -1484,7 +1527,9 @@ def main() -> None:
             base_seed=args.base_seed,
             engine_parameters={"repair_epochs": args.repair_epochs},
         )
-    turn = advance_keeper_state(state, args.weather)
+    turn = advance_keeper_state(
+        state, args.weather, released_dir=args.released_dir
+    )
     save_keeper_state(state, args.state_path)
     print(json.dumps({"ok": True, **turn}))
 

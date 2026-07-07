@@ -59,14 +59,23 @@ them; they do not pause the queue.)
   identity over the zoo + fuzz corpora before collapsing). The
   pydantic/jsonschema cross-check stays lab-side by design —
   independence is its value. The deferred-target list is now EMPTY.)
-- [ ] **E5 · The five player-NOTICES audit (DR 0021 a.4).** DR 0021
-  named five felt phenomena, each mapped to a shipped mechanism
-  (weather changes the world; creatures visibly think; the species
-  becomes easier to read; your creature's blood persists; absence
-  hurts). Audit each against what actually ships NOW after cycles
-  02–04 — is every notice reachable and player-visible at a real
-  surface? Close any gap found, or record it honestly as the next
-  cycle's seed. The living-ecosystem claim, verified end to end.
+- [x] **E5 · The five player-NOTICES audit (DR 0021 a.4).**
+  (2026-07-07: every notice audited at its real surface. (1) weather —
+  SHIPPED+VISIBLE, provenance display closed here (snapshot count +
+  tooltip on era cards). (2) creatures think — MECHANISM SHIPPED,
+  trace NOT visible: `choose_action` discards the deliberation record
+  before episode history; seeded for next cycle with the exact path
+  named. (3) legibility — SHIPPED+VISIBLE, direction corrected by C1's
+  measurement (drifts DOWN across chained eras — real, watched). (4)
+  blood persists — GAP FOUND AND CLOSED: the Contribute step wired
+  into the Keeper session (releases LEAD the founder pool, admissions/
+  rejections verbatim, server passes its real released dir, CLI
+  --released-dir; pinned incl. rejection + byte-identical-when-absent;
+  the flow test founds a storm era with a released creature). (5)
+  absence hurts — SHIPPED with the honest reading (persistence +
+  replays; "simmering" is framing, no background sim exists or
+  should). Four of five fully live; the fifth thinks but can't yet be
+  seen thinking.)
 
 ## Standing note
 

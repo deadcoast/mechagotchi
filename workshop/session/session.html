@@ -286,10 +286,14 @@ function renderEras() {
       '<div class="head">era ' + era.era_index + " · " + era.forecast +
       (era.went_extinct ? ' <span class="bad-text">· the bloodline ended here</span>' : "") +
       ' <span style="color:var(--ink-soft);font-weight:400">(' + era.campaign_id + ")</span></div>" +
-      '<span class="k">soup</span><span>' + era.total_removed_cells + " cells wrecked" +
+      '<span class="k">soup</span><span title="' +
+      (era.snapshot_ids.length ? "CuBFF provenance: " + era.snapshot_ids.join(", ") : "calm soup — no pressure source") +
+      '">' + era.total_removed_cells + " cells wrecked" +
       (era.max_dropout_multiplier_survived
         ? " · survived " + era.max_dropout_multiplier_survived.toFixed(2) + "x weather"
-        : "") + "</span>" +
+        : "") +
+      (era.snapshot_ids.length ? ' · <span style="color:var(--ink-soft)">' + era.snapshot_ids.length + " snapshots</span>" : "") +
+      "</span>" +
       '<span class="k">bloodline</span><span>' +
       (era.founders_admitted ? era.founders_admitted + " founders admitted through the gates · " : "seeded from the corpus · ") +
       "lineage depth " + era.max_lineage_generation + "</span>" +

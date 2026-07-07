@@ -112,11 +112,16 @@ class KeeperSessionEndpointTests(unittest.TestCase):
         cls.temp = tempfile.TemporaryDirectory()
         base = Path(cls.temp.name)
         cls.session_dir = base / "game_loop"
+        # Isolated released dir: the Contribute step must be exercised
+        # against test fixtures, never the repo's live releases.
+        cls.released_dir = base / "released"
+        cls.released_dir.mkdir(parents=True)
         cls.server = start_workshop_server(
             port=0,
             grids_dir=base / "grids",
             slips_dir=base / "slips",
             session_dir=cls.session_dir,
+            released_dir=cls.released_dir,
         )
         cls.base = f"http://127.0.0.1:{cls.server.server_address[1]}"
 
@@ -166,7 +171,22 @@ class KeeperSessionEndpointTests(unittest.TestCase):
         self.assertEqual(409, status)
         self.assertFalse(duplicate["ok"])
 
-        # 5. Run one storm era: the turn is a real evolve run's digest.
+        # 4b. The Contribute step (E5, DR 0021 core loop step 3): a
+        #     RELEASED creature enters the next era as a founder through
+        #     the engine's own gates. Fixture: an lcd seed copy under a
+        #     released id (engine-valid, profile-aligned -> admitted).
+        released = json.loads(
+            (ROOT / "data" / "seed_grids" / "mg_seed_001.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        released["grid_id"] = "released_e5_contribute"
+        (self.released_dir / "released_e5_contribute.json").write_text(
+            json.dumps(released), encoding="utf-8"
+        )
+
+        # 5. Run one storm era: the turn is a real evolve run's digest,
+        #    and the released creature founded it.
         status, turn_payload = _post(
             f"{self.base}/api/session/era", {"weather": "storm"}
         )
@@ -181,6 +201,11 @@ class KeeperSessionEndpointTests(unittest.TestCase):
             )
         )
         self.assertEqual("active", turn["status"])
+        self.assertEqual(1, turn["era"]["founders_admitted"])
+        self.assertEqual(
+            "founders_plus_seed_pool",
+            turn["era"]["parent_source_generation_0"],
+        )
 
         # 6. The persisted state and the DR 0022 ledger both updated —
         #    since C3 the ledger is the promoted storage module's

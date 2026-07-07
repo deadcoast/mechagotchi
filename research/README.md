@@ -775,6 +775,8 @@ Post-v0.1 continuation has started:
 
 - `research/decision_records/0027-slip-module-disposition.md` (E4: the last deferred target dispositioned — and unlike render, `slip` EARNS it: four package-internal `_slip.py` mirrors (~80 KB quadruplicated, held in sync only by the DR 0013 parity pins) plus the workshop server's docstring-promised switch. `mecha_engine.slip` authorized as the tenth target under the DR 0022 authorize-then-gate pattern; port gates fixed (mirror reconciliation over zoo+fuzz first, contract + parity, byte-identical module behavior after the collapse, workshop switch, promotion_ready before merge); the pydantic cross-check stays lab-side — independence is its value. The og deferred-target list is now empty)
 
+- `research/experiment_reports/2026-07-07-five-notices-audit.md` (E5: DR 0021's five player-notices audited end to end — weather SHIPPED+VISIBLE with provenance display closed here; "creatures think" MECHANISM SHIPPED but the deliberation record is discarded before episode history (trace invisible — seeded with its exact engineering path); legibility SHIPPED+VISIBLE with the direction corrected by measurement; "blood persists" GAP CLOSED — the Contribute step wired into the Keeper session (releases lead the founder pool through the engine's gates, server + CLI + tests); "absence hurts" SHIPPED with the honest reading. Four of five fully live)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.
