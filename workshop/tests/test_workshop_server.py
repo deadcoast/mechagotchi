@@ -158,6 +158,25 @@ class KeeperSessionEndpointTests(unittest.TestCase):
         self.assertEqual(400, status)
         self.assertFalse(bad["ok"])
 
+        # 7b. The Covenant step (C4): over-budget spends are rejected
+        #     with named violations; within-budget spends persist and
+        #     the summary reflects the new covenant.
+        status, rejected = _post(
+            f"{self.base}/api/session/covenant", {"population": 99}
+        )
+        self.assertEqual(400, status)
+        self.assertFalse(rejected["ok"])
+        self.assertTrue(
+            any("cap" in v for v in rejected["violations"])
+        )
+        status, accepted = _post(
+            f"{self.base}/api/session/covenant", {"population": 4}
+        )
+        self.assertEqual(200, status)
+        self.assertTrue(accepted["ok"])
+        self.assertEqual(4, accepted["engine_parameters"]["population"])
+        self.assertIn("covenant_budget", accepted)
+
         # 8. The era's stored replay serves from the ledger (C5): the
         #    best elite's recorded life at the era's own seed.
         status, replay_payload = _get(

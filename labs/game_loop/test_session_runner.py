@@ -13,10 +13,15 @@ if str(LAB_DIR) not in sys.path:
     sys.path.insert(0, str(LAB_DIR))
 
 from session_runner import (  # noqa: E402
+    LEGIBILITY_BLEND,
+    PALETTE_UNLOCK_ORDER,
     SESSION_FORMAT,
     UNLOCK_THRESHOLDS,
     advance_keeper_state,
+    apply_covenant_change,
     apply_succession,
+    covenant_budget,
+    legibility_blend_for,
     build_campaign_ledger,
     build_session_report,
     build_seed_grids,
@@ -494,6 +499,125 @@ class SessionRunnerTests(unittest.TestCase):
         state = self._fresh_state()
         with self.assertRaises(ValueError):
             apply_succession(state, state["campaigns"][0])
+
+    # -- the Covenant step (C4): unlocks SPEND --------------------------------
+
+    def _fact(self, axis, tier):
+        return {
+            "axis": axis,
+            "tier": tier,
+            "earned_era_index": 0,
+            "metric_path": "report.summary.archive.filled_niches",
+            "metric_value": 99,
+            "threshold": 1,
+        }
+
+    def test_covenant_budget_is_the_base_when_nothing_is_earned(self):
+        state = self._fresh_state()
+        base_profile = state["base_profile"]
+        budget = covenant_budget(
+            base_profile, state["base_engine_parameters"], []
+        )
+        self.assertEqual(
+            base_profile["grid"]["allowed_palettes"],
+            budget["allowed_palettes"],
+        )
+        self.assertEqual(0, budget["deliberation_max_ticks"])
+        self.assertEqual(3, budget["population_cap"])
+        self.assertEqual(2, budget["generation_cap"])
+        self.assertEqual(LEGIBILITY_BLEND, budget["legibility_blend"])
+
+    def test_covenant_budget_grows_per_the_dr0021_table(self):
+        state = self._fresh_state()
+        facts = [
+            self._fact("niche_mastery", 1),
+            self._fact("niche_mastery", 2),
+            self._fact("bloodline_depth", 1),
+            self._fact("quality_diversity", 1),
+            self._fact("quality_diversity", 2),
+            self._fact("legibility", 1),
+        ]
+        budget = covenant_budget(
+            state["base_profile"], state["base_engine_parameters"], facts
+        )
+        base_palettes = state["base_profile"]["grid"]["allowed_palettes"]
+        self.assertEqual(
+            base_palettes + list(PALETTE_UNLOCK_ORDER[:2]),
+            budget["allowed_palettes"],
+        )
+        # Tier 1 unlocks the authority's floor (2 ticks of thinking).
+        self.assertEqual(2, budget["deliberation_max_ticks"])
+        self.assertEqual(3 * 4, budget["population_cap"])  # x2 per tier
+        self.assertEqual(2 * 4, budget["generation_cap"])
+        self.assertEqual(
+            round(LEGIBILITY_BLEND + 0.05, 6), budget["legibility_blend"]
+        )
+        self.assertEqual(
+            round(LEGIBILITY_BLEND + 0.05, 6), legibility_blend_for(facts)
+        )
+
+    def test_covenant_spend_within_budget_reaches_the_next_era(self):
+        state = self._fresh_state()
+        campaign = state["campaigns"][0]
+        campaign["unlocks"].extend(
+            [
+                self._fact("niche_mastery", 1),
+                self._fact("bloodline_depth", 1),
+                self._fact("quality_diversity", 1),
+            ]
+        )
+        base_palettes = state["base_profile"]["grid"]["allowed_palettes"]
+        verdict = apply_covenant_change(
+            state,
+            allowed_palettes=base_palettes + [PALETTE_UNLOCK_ORDER[0]],
+            deliberation_max_ticks=2,
+            population=4,
+            generations=3,
+        )
+        self.assertTrue(verdict["ok"], verdict)
+        covenant = campaign["slip_profile"]
+        self.assertIn(
+            PALETTE_UNLOCK_ORDER[0], covenant["grid"]["allowed_palettes"]
+        )
+        self.assertEqual("0.2.0", covenant["slip_version"])
+        self.assertEqual(2, covenant["deliberation"]["max_ticks"])
+        self.assertEqual(4, state["engine_parameters"]["population"])
+        turn = advance_keeper_state(state, "calm", **self.models)
+        report_population = state["campaigns"][0]["eras"][0]["report"][
+            "population"
+        ]
+        self.assertEqual(4, report_population)
+        self.assertEqual("calm", turn["era"]["forecast"])
+
+    def test_covenant_overspend_is_rejected_with_named_violations(self):
+        state = self._fresh_state()
+        before = json.dumps(state["campaigns"][0]["slip_profile"])
+        verdict = apply_covenant_change(
+            state,
+            allowed_palettes=[PALETTE_UNLOCK_ORDER[0]],  # unearned
+            deliberation_max_ticks=3,  # unearned
+            population=99,  # over cap
+        )
+        self.assertFalse(verdict["ok"])
+        self.assertEqual(3, len(verdict["violations"]))
+        for violation in verdict["violations"]:
+            self.assertRegex(violation, "budget|cap")
+        # Nothing was applied.
+        self.assertEqual(
+            before, json.dumps(state["campaigns"][0]["slip_profile"])
+        )
+        empty = apply_covenant_change(state, allowed_palettes=[])
+        self.assertFalse(empty["ok"])
+
+    def test_earned_legibility_steps_the_blend_for_later_eras(self):
+        state = self._fresh_state()
+        state["campaigns"][0]["unlocks"].append(self._fact("legibility", 1))
+        advance_keeper_state(state, "calm", **self.models)
+        era = state["campaigns"][0]["eras"][0]
+        self.assertEqual(
+            round(LEGIBILITY_BLEND + 0.05, 6),
+            era["report"]["readability_selection"]["blend"],
+        )
 
     # -- artifacts -----------------------------------------------------------
 

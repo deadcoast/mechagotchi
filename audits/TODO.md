@@ -50,14 +50,18 @@ that need them; they do not pause the queue.)
   row); the promotion gate says PROMOTION_READY — 8 of 9 candidates,
   the ninth being the honestly-blocked manual-ratings gate. Deferred
   set is now `render` + `slip`.)
-- [ ] **C4 · The Covenant step — unlocks SPEND.** (DR 0021 core-loop
-  step 2; G4's recorded next slice: "unlock facts are displayed but
-  nothing SPENDS them yet.") The unlock budget applies: earned tiers
-  open palettes/organ roles, deepen `deliberation.max_ticks`, and grow
-  population/generation caps per the DR 0021 progression table —
-  evaluated in the session lab as data (falsifiable both ways), edited
-  on the Keeper page within the earned budget, enforced by the same
-  authority validators as every covenant.
+- [x] **C4 · The Covenant step — unlocks SPEND.** (2026-07-07:
+  `covenant_budget` maps the DR 0021 table to spendable budget as a
+  pure function of earned facts (palettes per niche tier; deliberation
+  on the authority's REAL floor of 2 — found by the validator, not
+  imagined; caps double per QD tier against the snapshotted base;
+  blend +0.05/legibility tier, and the earned blend flows through
+  `advance_campaign` so batch == incremental stays pinned);
+  `apply_covenant_change` enforces budget + authority with named
+  violations and atomicity; `POST /api/session/covenant` + the Keeper
+  page's covenant panel. Deferred axes NAMED in the budget payload.
+  Regenerated session: eras 1–2 run at the EARNED blend 0.8 —
+  progression mechanically changes engine behavior mid-bloodline.)
 - [x] **C5 · Per-era replay into the ledger.** (2026-07-07: every era
   records its best elite's life via the DR 0023 recorder at the era's
   own seed (honest label: a real recorded life, replayed post-era —

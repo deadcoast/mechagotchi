@@ -1691,7 +1691,7 @@
         },
         "readability_selection": {
           "readability_authority": "learned_model_primary_manual_rating_fallback",
-          "blend": 0.7,
+          "blend": 0.8,
           "weights": {
             "inverse_component_count": 9.282145765,
             "body_mass_ratio": 0.0,
@@ -2570,7 +2570,7 @@
         },
         "readability_selection": {
           "readability_authority": "learned_model_primary_manual_rating_fallback",
-          "blend": 0.7,
+          "blend": 0.8,
           "weights": {
             "inverse_component_count": 9.282145765,
             "body_mass_ratio": 0.0,

@@ -21,7 +21,7 @@
     "sqlite_payload": {
       "path": "data/game_loop/campaign_store.sqlite",
       "bytes": 196608,
-      "sha256": "c9f4d7b6db31e91bfaeddaccf8260f278e1d2b6ec4631c7e25ddffb090a29bd1"
+      "sha256": "d27d08204f23fe69502de29ab0c2e7593ffe1173ce22b3858c35dd78856594a2"
     }
   },
   "closed_states": [

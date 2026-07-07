@@ -78,6 +78,11 @@ Endpoints:
 - POST /api/session/era     {weather} -> advance the active campaign by
                             one era (the promoted evolve run), persist
                             state + DR 0022 ledger, return the turn
+- POST /api/session/covenant  {allowed_palettes?, deliberation_max_
+                            ticks?, population?, generations?} ->
+                            the Covenant step (C4): adjust within the
+                            EARNED budget, authority-validated;
+                            over-budget = named violations (400)
 - GET  /api/session/replay?campaign=&era=  a stored era replay (C5):
                             the era's best elite's RECORDED life, served
                             from the ledger's replays directory
@@ -155,6 +160,7 @@ from replay_recorder import build_replay  # noqa: E402
 from session_runner import (  # noqa: E402
     WEATHER_NAMES,
     advance_keeper_state,
+    apply_covenant_change,
     keeper_state_summary,
     load_keeper_state,
     new_keeper_state,
@@ -763,6 +769,7 @@ class _Handler(SimpleHTTPRequestHandler):
             "/api/metrics/flush",
             "/api/session/new",
             "/api/session/era",
+            "/api/session/covenant",
         ):
             self._json(404, {"ok": False, "error": "unknown endpoint"})
             return
@@ -1138,6 +1145,55 @@ class _Handler(SimpleHTTPRequestHandler):
                 ),
                 base_seed=int(payload.get("base_seed", 20260707)),
             )
+            save_keeper_state(
+                state,
+                self.server.session_state_path,
+                self.server.session_ledger_path,
+            )
+            self._json(
+                200,
+                {"ok": True, "exists": True, **keeper_state_summary(state)},
+            )
+            return
+
+        if kind == "covenant":
+            # C4 (DR 0021's Covenant step): adjust the covenant within
+            # the EARNED budget; the authority validates, over-budget
+            # requests come back with named violations.
+            state = load_keeper_state(self.server.session_state_path)
+            if state is None:
+                self._json(
+                    409,
+                    {
+                        "ok": False,
+                        "error": "no keeper session yet — start one first",
+                    },
+                )
+                return
+            changes = {}
+            if "allowed_palettes" in payload:
+                changes["allowed_palettes"] = [
+                    str(p) for p in payload["allowed_palettes"]
+                ]
+            if "deliberation_max_ticks" in payload:
+                changes["deliberation_max_ticks"] = int(
+                    payload["deliberation_max_ticks"]
+                )
+            if "population" in payload:
+                changes["population"] = int(payload["population"])
+            if "generations" in payload:
+                changes["generations"] = int(payload["generations"])
+            verdict = apply_covenant_change(state, **changes)
+            if not verdict["ok"]:
+                self._json(
+                    400,
+                    {
+                        "ok": False,
+                        "violations": verdict["violations"],
+                        "budget": verdict["budget"],
+                    },
+                )
+                return
             save_keeper_state(
                 state,
                 self.server.session_state_path,

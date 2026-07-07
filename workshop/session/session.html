@@ -102,6 +102,14 @@
   </div>
 
   <div class="panel">
+    <h2>the covenant — <span style="text-transform:none;letter-spacing:0;">spend your unlocks: every budget line cites the facts that earned it</span>
+      <span><button class="action primary" id="covenant-btn" disabled>Apply covenant</button></span>
+    </h2>
+    <div id="covenant-body"><p class="notice">start a campaign to see the earned budget.</p></div>
+    <p class="notice" id="covenant-note"></p>
+  </div>
+
+  <div class="panel">
     <h2>choose the era's weather — <span style="text-transform:none;letter-spacing:0;">CuBFF pressure sources; provenance recorded by the engine</span>
       <span><button class="action primary" id="era-btn" disabled>Run the era</button></span>
     </h2>
@@ -197,9 +205,70 @@ function renderSummary() {
     cards.appendChild(card);
   }
   body.appendChild(cards);
+  renderCovenant();
   renderEras();
   renderUnlocks();
 }
+
+/* ---------------- the Covenant step (C4): spending unlocks ---------------- */
+function renderCovenant() {
+  const body = $("covenant-body");
+  if (!summary || !summary.exists || !summary.covenant_budget) {
+    body.innerHTML = '<p class="notice">start a campaign to see the earned budget.</p>';
+    $("covenant-btn").disabled = true;
+    return;
+  }
+  const budget = summary.covenant_budget;
+  const covenant = summary.covenant;
+  const params = summary.engine_parameters;
+  body.innerHTML = "";
+  const grid = document.createElement("div");
+  grid.className = "cards";
+  const card = document.createElement("div");
+  card.className = "card";
+  const currentPalettes = covenant.grid.allowed_palettes;
+  const paletteBoxes = budget.allowed_palettes.map((p) =>
+    '<label style="margin-right:10px;font-size:0.82rem;"><input type="checkbox" class="cov-palette" value="' + p + '"' +
+    (currentPalettes.includes(p) ? " checked" : "") + "> " + p + "</label>").join("");
+  const delib = (covenant.deliberation && covenant.deliberation.max_ticks) || 0;
+  card.innerHTML =
+    '<div class="head">' + covenant.profile_id + " — the earned budget</div>" +
+    '<span class="k">palettes</span><span>' + paletteBoxes + "</span>" +
+    '<span class="k">deliberation</span><span><input type="number" id="cov-delib" min="0" max="' +
+    budget.deliberation_max_ticks + '" value="' + delib + '" style="width:60px"> of ' +
+    budget.deliberation_max_ticks + " earned ticks (bloodline depth)</span>" +
+    '<span class="k">population</span><span><input type="number" id="cov-pop" min="1" max="' +
+    budget.population_cap + '" value="' + params.population + '" style="width:60px"> cap ' +
+    budget.population_cap + " (quality-diversity doubles it)</span>" +
+    '<span class="k">generations</span><span><input type="number" id="cov-gens" min="1" max="' +
+    budget.generation_cap + '" value="' + params.generations + '" style="width:60px"> cap ' +
+    budget.generation_cap + "</span>" +
+    '<span class="k">parenting blend</span><span>' + budget.legibility_blend +
+    " (earned — legibility tiers step it up automatically)</span>";
+  grid.appendChild(card);
+  body.appendChild(grid);
+  $("covenant-btn").disabled = false;
+}
+
+$("covenant-btn").addEventListener("click", async () => {
+  const palettes = Array.from(document.querySelectorAll(".cov-palette:checked")).map((el) => el.value);
+  $("covenant-btn").disabled = true;
+  $("covenant-note").textContent = "the authority is judging the covenant…";
+  const payload = await post("/api/session/covenant", {
+    allowed_palettes: palettes,
+    deliberation_max_ticks: parseInt($("cov-delib").value, 10),
+    population: parseInt($("cov-pop").value, 10),
+    generations: parseInt($("cov-gens").value, 10),
+  });
+  $("covenant-btn").disabled = false;
+  if (!payload.ok) {
+    $("covenant-note").textContent = (payload.violations || [payload.error]).join(" · ");
+    return;
+  }
+  summary = payload;
+  $("covenant-note").textContent = "covenant accepted — the next era lives under it.";
+  renderSummary();
+});
 
 function renderEras() {
   const body = $("eras-body");

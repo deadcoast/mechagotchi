@@ -61,6 +61,7 @@ for path in [GRID_GENOME, READABILITY, PACKAGE_SRC]:
         sys.path.insert(0, str(path))
 
 from corpus_builder import build_seed_grids  # noqa: E402
+from slip import validate_slip  # noqa: E402
 from learned_readability import (  # noqa: E402
     build_learned_readability_report,
     learned_readability_score,
@@ -91,6 +92,18 @@ WEATHER_NAMES = ("calm", "stable_soup", "storm")
 # parenting at the R3 live-consumer blend — the legibility currency runs
 # on the engine's own recorded means. Tuning data, like the thresholds.
 LEGIBILITY_BLEND = 0.7
+
+# C4 (DR 0021's Covenant step): what the unlock facts SPEND into.
+# All values are tuning data (falsifiable by the budget tests); the
+# STRUCTURE is the DR 0021 progression table, verbatim.
+PALETTE_UNLOCK_ORDER = (
+    "amber_terminal",
+    "crt_blue",
+    "pocket_plum",
+)  # one new covenant palette per niche_mastery tier
+LEGIBILITY_BLEND_STEP = 0.05
+LEGIBILITY_BLEND_CAP = 0.9
+DELIBERATION_CONFIDENCE_DEFAULT = 0.72
 
 # DR 0021: "threshold VALUES are tuning, not architecture: they live in
 # the session lab as data, proven falsifiable by tests." Tier values are
@@ -243,6 +256,167 @@ def evaluate_unlocks(
     return facts
 
 
+def _max_tier(unlock_state: list[dict], axis: str) -> int:
+    return max(
+        (fact["tier"] for fact in unlock_state if fact["axis"] == axis),
+        default=0,
+    )
+
+
+def legibility_blend_for(unlock_state: list[dict]) -> float:
+    """The earned parenting blend (DR 0021's legibility axis): the base
+    R3 blend plus one step per earned legibility tier, capped."""
+    return round(
+        min(
+            LEGIBILITY_BLEND_CAP,
+            LEGIBILITY_BLEND
+            + LEGIBILITY_BLEND_STEP * _max_tier(unlock_state, "legibility"),
+        ),
+        6,
+    )
+
+
+def covenant_budget(
+    base_profile: dict,
+    base_engine_parameters: dict,
+    unlock_state: list[dict],
+) -> dict:
+    """The Keeper's spendable budget (DR 0021's progression table) — a
+    PURE function of the campaign's base covenant, its base engine
+    parameters, and the earned unlock facts. Deferred axes are named,
+    never silently dropped."""
+    niche_tier = _max_tier(unlock_state, "niche_mastery")
+    bloodline_tier = _max_tier(unlock_state, "bloodline_depth")
+    qd_tier = _max_tier(unlock_state, "quality_diversity")
+    base_palettes = list(base_profile["grid"]["allowed_palettes"])
+    unlocked = [
+        palette
+        for palette in PALETTE_UNLOCK_ORDER[:niche_tier]
+        if palette not in base_palettes
+    ]
+    return {
+        "allowed_palettes": base_palettes + unlocked,
+        # The authority's deliberation floor is 2 ticks (R1's schema):
+        # tier 1 unlocks the minimum thinking depth, each further tier
+        # deepens it by one — DR 0021's "+1 per tier" on the real floor.
+        "deliberation_max_ticks": (
+            bloodline_tier + 1 if bloodline_tier >= 1 else 0
+        ),
+        "population_cap": base_engine_parameters["population"] * 2**qd_tier,
+        "generation_cap": base_engine_parameters["generations"] * 2**qd_tier,
+        "legibility_blend": legibility_blend_for(unlock_state),
+        "deferred": {
+            "organ_role_budget": (
+                "awaiting an allowed_roles SLIP field (DR 0011 ladder "
+                "candidate) — the axis unlocks palettes only for now"
+            ),
+            "harsher_forecasts": (
+                "storm_record tiers await weather sources beyond the "
+                "three shipped forecasts (real CuBFF exports included)"
+            ),
+        },
+    }
+
+
+def apply_covenant_change(
+    state: dict,
+    *,
+    allowed_palettes: list[str] | None = None,
+    deliberation_max_ticks: int | None = None,
+    population: int | None = None,
+    generations: int | None = None,
+) -> dict:
+    """The Covenant step (DR 0021 core loop, step 2): adjust the ACTIVE
+    campaign's covenant within the EARNED budget. Enforced by the same
+    authority validator as every covenant; over-budget requests are
+    rejected with named violations and NOTHING is applied. Past eras
+    stay reproducible — the ledger stores each era's profile verbatim."""
+    budget = covenant_budget(
+        state.get("base_profile")
+        or next(
+            c
+            for c in state["campaigns"]
+            if c["campaign_id"] == state["active_campaign_id"]
+        )["slip_profile"],
+        state.get("base_engine_parameters") or state["engine_parameters"],
+        resolve_unlock_state(state["campaigns"], state["active_campaign_id"]),
+    )
+    violations: list[str] = []
+    if allowed_palettes is not None:
+        for palette in allowed_palettes:
+            if palette not in budget["allowed_palettes"]:
+                violations.append(
+                    f"palette {palette} is not in the earned budget"
+                )
+        if not allowed_palettes:
+            violations.append("the covenant needs at least one palette")
+    if deliberation_max_ticks is not None and (
+        deliberation_max_ticks > budget["deliberation_max_ticks"]
+        or deliberation_max_ticks < 0
+        or deliberation_max_ticks == 1  # below the authority's floor of 2
+    ):
+        violations.append(
+            f"deliberation_max_ticks {deliberation_max_ticks} exceeds the "
+            f"earned budget {budget['deliberation_max_ticks']} (0 = none; "
+            "the authority's floor is 2)"
+        )
+    if population is not None and not (
+        1 <= population <= budget["population_cap"]
+    ):
+        violations.append(
+            f"population {population} exceeds the earned cap "
+            f"{budget['population_cap']}"
+        )
+    if generations is not None and not (
+        1 <= generations <= budget["generation_cap"]
+    ):
+        violations.append(
+            f"generations {generations} exceeds the earned cap "
+            f"{budget['generation_cap']}"
+        )
+    if violations:
+        return {"ok": False, "violations": violations, "budget": budget}
+
+    campaign = next(
+        c
+        for c in state["campaigns"]
+        if c["campaign_id"] == state["active_campaign_id"]
+    )
+    profile = json.loads(json.dumps(campaign["slip_profile"]))
+    if allowed_palettes is not None:
+        profile["grid"]["allowed_palettes"] = list(allowed_palettes)
+    if deliberation_max_ticks is not None:
+        if deliberation_max_ticks == 0:
+            profile.pop("deliberation", None)
+        else:
+            profile["slip_version"] = "0.2.0"
+            profile["deliberation"] = {
+                "max_ticks": deliberation_max_ticks,
+                "confidence_threshold": DELIBERATION_CONFIDENCE_DEFAULT,
+            }
+    verdict = validate_slip(profile)
+    if not verdict.ok:
+        return {
+            "ok": False,
+            "violations": [
+                f"the authority rejects the covenant: {error}"
+                for error in verdict.errors
+            ],
+            "budget": budget,
+        }
+    campaign["slip_profile"] = profile
+    if population is not None:
+        state["engine_parameters"]["population"] = population
+    if generations is not None:
+        state["engine_parameters"]["generations"] = generations
+    return {
+        "ok": True,
+        "covenant": profile,
+        "engine_parameters": dict(state["engine_parameters"]),
+        "budget": budget,
+    }
+
+
 def _era_elites(archive: dict) -> list[dict]:
     """The archive's elites in niche-key order — the same deterministic
     ordering evolve itself uses for elite parents (DR 0022's
@@ -278,6 +452,7 @@ def run_era(
     damage_cycles: int,
     ticks: int,
     dropout_rate: float,
+    legibility_blend: float = LEGIBILITY_BLEND,
 ) -> dict:
     """One era = one promoted `runtime.evolve` run (DR 0021's core loop).
 
@@ -303,7 +478,8 @@ def run_era(
         cubff_pressure_source=build_weather_source(weather),
         # C1 (DR 0025): the LEARNED model steers parenting live; the
         # engine's own per-generation means are the legibility record.
-        readability_selection={**legibility_model, "blend": LEGIBILITY_BLEND},
+        # C4: the blend itself is EARNED (legibility tiers step it up).
+        readability_selection={**legibility_model, "blend": legibility_blend},
     )
     elites = _era_elites(archive)
     went_extinct = (
@@ -498,6 +674,9 @@ def advance_campaign(
         damage_cycles=damage_cycles,
         ticks=ticks,
         dropout_rate=dropout_rate,
+        # C4: the earned blend — a pure function of the campaign's own
+        # facts, so batch and incremental play stay the same code path.
+        legibility_blend=legibility_blend_for(campaign["unlocks"]),
     )
     campaign["eras"].append(era_record)
     campaign["unlocks"].extend(
@@ -972,12 +1151,18 @@ def new_keeper_state(
         slip_profile = json.loads(
             SLIP_PROFILE_PATH.read_text(encoding="utf-8")
         )
+    resolved_parameters = dict(
+        DEFAULT_ENGINE_PARAMETERS, **(engine_parameters or {})
+    )
     return {
         "session_format": SESSION_FORMAT,
         "active_campaign_id": campaign_id,
-        "engine_parameters": dict(
-            DEFAULT_ENGINE_PARAMETERS, **(engine_parameters or {})
-        ),
+        "engine_parameters": resolved_parameters,
+        # C4: the budget's fixed baseline — covenant growth is measured
+        # against what the campaign STARTED with, so re-spending never
+        # compounds.
+        "base_profile": json.loads(json.dumps(slip_profile)),
+        "base_engine_parameters": dict(resolved_parameters),
         "campaigns": [
             _campaign_shell(
                 campaign_id=campaign_id,
@@ -1105,16 +1290,30 @@ def keeper_state_summary(state: dict) -> dict:
                 "unlocks": campaign["unlocks"],
             }
         )
+    unlock_state = resolve_unlock_state(
+        state["campaigns"], state["active_campaign_id"]
+    )
+    active = next(
+        c
+        for c in state["campaigns"]
+        if c["campaign_id"] == state["active_campaign_id"]
+    )
     return {
         "session_format": state["session_format"],
         "active_campaign_id": state["active_campaign_id"],
         "engine_parameters": state["engine_parameters"],
         "campaigns": campaigns,
-        "unlock_state": resolve_unlock_state(
-            state["campaigns"], state["active_campaign_id"]
-        ),
+        "unlock_state": unlock_state,
         "weather_names": list(WEATHER_NAMES),
         "unlock_thresholds": UNLOCK_THRESHOLDS,
+        # C4: the Covenant step's read model — what the Keeper may spend.
+        "covenant": active["slip_profile"],
+        "covenant_budget": covenant_budget(
+            state.get("base_profile") or active["slip_profile"],
+            state.get("base_engine_parameters")
+            or state["engine_parameters"],
+            unlock_state,
+        ),
     }
 
 

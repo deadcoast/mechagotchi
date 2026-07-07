@@ -748,6 +748,8 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-07-07-per-era-replay.md`
 - `data/game_loop/replays/` (C5: the Review step closes — every era records its best elite's life via the DR 0023 recorder at the era's own seed; ledger `replays` rows are pure functions of state (path convention + sha256 over canonical JSON, file hash == row hash pinned); both stores ingest the rows; `GET /api/session/replay` + the Keeper page's per-era in-page scrubber over RECORDED frames)
 
+- `research/experiment_reports/2026-07-07-covenant-step.md` (C4: unlocks SPEND — `covenant_budget` maps the DR 0021 progression table to spendable budget as a pure function of earned facts (deliberation on the authority's real floor of 2; caps double per QD tier; the earned blend flows through `advance_campaign` keeping batch == incremental pinned); `apply_covenant_change` enforces budget + authority with named violations; the Keeper page's covenant panel + `POST /api/session/covenant`; deferred axes named in the budget payload; regenerated session runs eras 1–2 at the EARNED blend 0.8)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.
