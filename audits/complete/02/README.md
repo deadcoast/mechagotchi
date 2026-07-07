@@ -43,7 +43,7 @@ Documentation/traceability system — excellent, one structural debt. 251/252 le
 
 grid_genome — solid core, but the two SLIP validators have drifted. labs/grid_genome/slip.py (which gates seed selection in constrained_generator) accepts profiles the authoritative labs/slip_validator/slip_validator.py and slip.schema.json reject: extra/missing behavior/survival_weights keys, bool body-mass bounds, duplicate palettes, unpatterned profile_id. Separately, validator.py enforces less than grid_genome.schema.json promises (no role/material enums, no grid_size 8–64 range, no palette validation) while also enforcing more (body-core ≥ 4 cells — a magic number absent from the schema and untested).
 
-workshop_editor — disciplined design, systemic copy-paste decay. The sidecar/hash-binding architecture is sound and the reports' blocked_states/closed_states honestly match what the code proves. But the same binary-format helpers are reimplemented per module with exactly the divergences where robustness breaks: _read_png_chunks exists in ~5 variants (one accepts trailing bytes after IEND and crashes untyped on non-ASCII chunk types — and the APNG sidecar decoder imports that one); six aseprite decoders dropped the try/except around json.loads that their siblings kept, so malformed-but-prefixed user-data chunks crash importers with untyped errors; no zlib.decompress anywhere is size-capped despite the expected output size being known up front. Test coverage is broad (249) but almost entirely self-referential round-trips against the modules' own encoders — real-world format conformance is effectively unverified.
+workshop_editor — disciplined design, systemic copy-paste decay. The sidecar/hash-binding architecture is sound and the reports' blocked_states/closed_states honestly match what the code proves. But the same binary-format helpers are reimplemented per module with exactly the divergences where robustness breaks:_read_png_chunks exists in ~5 variants (one accepts trailing bytes after IEND and crashes untyped on non-ASCII chunk types — and the APNG sidecar decoder imports that one); six aseprite decoders dropped the try/except around json.loads that their siblings kept, so malformed-but-prefixed user-data chunks crash importers with untyped errors; no zlib.decompress anywhere is size-capped despite the expected output size being known up front. Test coverage is broad (249) but almost entirely self-referential round-trips against the modules' own encoders — real-world format conformance is effectively unverified.
 
 Small labs — mostly healthy, two metric-validity problems. The MAP-Elites extended archive's headline claim ("3 → 7 descriptors") is inflated: behavior_neediness is constant whenever a SLIP is supplied (always bin 1 for the default run) and mutation_stability is constant on the shipped corpus, while coverage divides by the full 5⁷ denominator — coverage is understated ~5× and only ~5–6 axes actually vary. The runtime-boundary gate's negative-probe count includes two hardcoded constants that can never fail. On the positive side: readability weights, QD-score, Spearman math, and division-by-zero guards were explicitly checked and are correct; package_promotion_gate genuinely reads artifacts (not self-satisfying).
 
@@ -58,7 +58,7 @@ ID: H-01
 Sev: H
 Area: slip_validator
 Location: test_pydantic_contract.py:49, test_schema_migration_gate.py:24
-Issue: Tests assert jsonschema_available == False; jsonschema 4.26.0 in user site → 2 failures in every env. Uncommitted data/slips/*_stage0.json already flipped to true
+Issue: Tests assert jsonschema_available == False; jsonschema 4.26.0 in user site → 2 failures in every env. Uncommitted data/slips/**stage0.json already flipped to true
 Fix direction: Assert report shape (key present, bool), not env snapshot; record env state in artifact only. Reconcile the 2 uncommitted stage0 JSONs + compatibility-matrix blocked-state
   wording in same commit
 ────────────────────────────────────────
@@ -67,7 +67,7 @@ Sev: H
 Area: grid_genome
 Location: slip.py:47-53
 Issue: validate_slip never checks required/extra keys in behavior/survival_weights — accepts profiles slip_validator.py + slip.schema.json reject (e.g. slip_survival_extra_key.json);
-  gates seed selection via constrained_generator._filter_seed_pool
+  gates seed selection via constrained_generator.*filter_seed_pool
 Fix direction: Enforce exact key sets from schema; add failure-corpus cross-check test asserting both validators agree on all data/slips/failure_cases/
 ────────────────────────────────────────
 ID: H-03
@@ -81,8 +81,8 @@ Fix direction: Derive neediness from grid+slip interaction or drop axis; fix den
 ID: H-04
 Sev: H
 Area: workshop_editor
-Location: aseprite_{tags_layers:161, tilemap_tileset:224, palette_slice:203, linked_cel:217, nested_timeline:177, external_properties:197, document_variant_resolution:262}
-Issue: Unguarded json.loads after prefix check — malformed user-data chunk crashes import_* with untyped JSONDecodeError (siblings third_party_project_decoder.py:243,
+Location: aseprite*{tags_layers:161, tilemap_tileset:224, palette_slice:203, linked_cel:217, nested_timeline:177, external_properties:197, document_variant_resolution:262}
+Issue: Unguarded json.loads after prefix check — malformed user-data chunk crashes import** with untyped JSONDecodeError (siblings third_party_project_decoder.py:243,
   aseprite_user_data_chunk_writer.py:770 kept the guard)
 Fix direction: Wrap in typed AsepriteUserDataError; add malformed-JSON negative probe to each module's _invalid_probe_results
 ────────────────────────────────────────
@@ -90,7 +90,7 @@ ID: H-05
 Sev: H
 Area: workshop_editor
 Location: png_embedded_sidecar_writer.py:388,398 vs standard_image_sidecar_decoder.py:380, png_adam7_interlace_decoder.py:589, png_deep_color_sidecar_decoder.py:767
-Issue: _read_png_chunks ×5 divergent variants: different dict keys, CRC conventions, trailing-byte policy; embedded-writer variant silently accepts post-IEND bytes + raw
+Issue:_read_png_chunks ×5 divergent variants: different dict keys, CRC conventions, trailing-byte policy; embedded-writer variant silently accepts post-IEND bytes + raw
   UnicodeDecodeError on non-ASCII chunk type — and png_apng_sidecar_decoder.py imports that one
 Fix direction: Factor one shared typed, trailing-byte-strict chunk reader; migrate all decoders
 ────────────────────────────────────────
@@ -120,7 +120,7 @@ ID: M-03
 Sev: M
 Area: workshop_editor
 Location: slip_preview_gates.py:426-431 (CLI at :529)
-Issue: _profile_weight_effects_observed hard-indexes the 3 default profile ids — any custom --profile run crashes with raw KeyError
+Issue: *profile_weight_effects_observed hard-indexes the 3 default profile ids — any custom --profile run crashes with raw KeyError
 Fix direction: Iterate over actual by_profile keys
 ────────────────────────────────────────
 ID: M-04
@@ -134,7 +134,7 @@ ID: M-05
 Sev: M
 Area: grid_genome
 Location: slip.py:34, 24-30, 39-45
-Issue: vs authoritative validator: bool accepted as int for body-mass bounds; profile_id pattern ^[a-z0-9_]+$ unenforced; uniqueItems unenforced for allowed_palettes/required_organ_roles
+Issue: vs authoritative validator: bool accepted as int for body-mass bounds; profile_id pattern ^[a-z0-9*]+$ unenforced; uniqueItems unenforced for allowed_palettes/required_organ_roles
 Fix direction: Port the four checks from slip_validator.py; long-term: single shared validator (see L-04)
 ────────────────────────────────────────
 ID: M-06
@@ -170,8 +170,8 @@ Fix direction: Implement real repo inspection (grep for lab imports under future
 ID: M-10
 Sev: M
 Area: readability
-Location: slip_readability_calibration_gate.py:224-229 (vs _benchmark_summary:315-348)
-Issue: Unconditional by_source["selected_offspring"]["count"] — empty source group → KeyError crash instead of zero-count report
+Location: slip_readability_calibration_gate.py:224-229 (vs_benchmark_summary:315-348)
+Issue: `Unconditional by_source["selected_offspring"]["count"]` — empty source group → KeyError crash instead of zero-count report
 Fix direction: .get(key, {}).get("count", 0)
 ────────────────────────────────────────
 ID: M-11
@@ -234,7 +234,7 @@ Fix direction: Remove param or wire it
 ID: L-04
 Sev: L
 Area: grid_genome
-Location: _cell/_grid_from_matrix ×3 (corpus_builder:194, markov_grid:102,194, constrained_generator:186,283); run_baseline ×3; _signature ×2
+Location:_cell/_grid_from_matrix ×3 (corpus_builder:194, markov_grid:102,194, constrained_generator:186,283); run_baseline ×3;_signature ×2
 Issue: Triplicated helpers, drift risk; also SLIP validation logic exists in 3 places (slip.py / slip_validator.py / pydantic_contract.py)
 Fix direction: Factor shared helpers module within lab
 ────────────────────────────────────────

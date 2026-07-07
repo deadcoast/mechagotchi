@@ -231,7 +231,7 @@ native; support standard formats — is exactly what shipped.
 
 ---
 
-# Addendum (2026-07-05): RUN TWO documents — `.depreciated/02-design.md`, `.depreciated/02-research.md`
+## Addendum (2026-07-05): RUN TWO documents — `.depreciated/02-design.md`, `.depreciated/02-research.md`
 
 Second pass of the same audit workflow, per the owner's follow-up. The
 02 files are the "Deep Research Program — RUN TWO": a second-generation
