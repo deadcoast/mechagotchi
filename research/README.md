@@ -664,6 +664,10 @@ Post-v0.1 continuation has started:
 - `labs/map_elites_archive/archive_comparators.py`
 - `data/archives/archive_comparators_stage0.json` (T18, map_elites_confirmed: at matched budgets on identical streams the archive preserves 3.9x GA's niches and 2.5x novelty search's with ZERO best-fitness sacrifice — the og adoption claim is now measured fact)
 
+- `research/experiment_reports/2026-07-06-generation-bakeoff-formal.md`
+- `labs/grid_genome/generation_bakeoff_formal.py`
+- `data/generated_grids/generation_bakeoff_formal_stage0.json` (T17, bakeoff_gate_met: holdout discipline enters the repo; shipped hybrid CONFIRMED at 1.0/1.0 on unseen creatures; raw markov unusable at 0.12 — validator gating IS the generator; the constrained arm matches perfection with 2.4x novelty, recorded as the A/B follow-up)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

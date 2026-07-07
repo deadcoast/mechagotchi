@@ -1,0 +1,109 @@
+{
+  "artifact_id": "generation_bakeoff_formal_stage0",
+  "status": "stage0_complete",
+  "date": "2026-07-06",
+  "purpose": "RUN TWO's formal generator bake-off at the 8x8 slice DR 0014 allows: holdout-disciplined, CI-bounded arm comparison (audit T17).",
+  "protocol": {
+    "split": {
+      "train": 30,
+      "dev": 10,
+      "holdout": 10,
+      "split_seed": 20260706
+    },
+    "outputs_per_seed": 10,
+    "candidates_per_arm": 100,
+    "bootstrap_resamples": 1000,
+    "validity_bar": 0.95
+  },
+  "arms": [
+    {
+      "arm": "random_mutation",
+      "candidate_count": 100,
+      "validity_rate": 0.37,
+      "validity_ci95": [
+        0.27,
+        0.46
+      ],
+      "alignment_rate": 0.08,
+      "alignment_ci95": [
+        0.03,
+        0.13
+      ],
+      "mean_symmetry": 0.502449,
+      "mean_novelty": 0.055604,
+      "generation_seconds": 0.009
+    },
+    {
+      "arm": "markov_raw",
+      "candidate_count": 100,
+      "validity_rate": 0.12,
+      "validity_ci95": [
+        0.06,
+        0.19
+      ],
+      "alignment_rate": 0,
+      "alignment_ci95": [
+        0.0,
+        0.0
+      ],
+      "mean_symmetry": 0.126675,
+      "mean_novelty": 0.88691,
+      "generation_seconds": 0.008
+    },
+    {
+      "arm": "constrained_wfc",
+      "candidate_count": 100,
+      "validity_rate": 1,
+      "validity_ci95": [
+        1.0,
+        1.0
+      ],
+      "alignment_rate": 1,
+      "alignment_ci95": [
+        1.0,
+        1.0
+      ],
+      "mean_symmetry": 0.408351,
+      "mean_novelty": 0.361294,
+      "generation_seconds": 0.115
+    },
+    {
+      "arm": "package_hybrid",
+      "candidate_count": 100,
+      "validity_rate": 1,
+      "validity_ci95": [
+        1.0,
+        1.0
+      ],
+      "alignment_rate": 1,
+      "alignment_ci95": [
+        1.0,
+        1.0
+      ],
+      "mean_symmetry": 0.47902,
+      "mean_novelty": 0.151401,
+      "generation_seconds": 0.086
+    }
+  ],
+  "gate": {
+    "selected_arm": "constrained_wfc",
+    "qualifying_arms": [
+      "constrained_wfc",
+      "package_hybrid"
+    ],
+    "shipped_choice_verdict": "confirmed"
+  },
+  "closed_states": [
+    "holdout_discipline_established",
+    "four_arms_measured_with_bootstrap_cis"
+  ],
+  "blocked_states": [
+    "human_readability_panel_owner_gated_t10_t20",
+    "multi_size_arms_16x16_24x24_blocked_on_per_size_corpora_dr0014"
+  ],
+  "decision": {
+    "status": "bakeoff_gate_met",
+    "reason": "Qualifying arms (>=0.95 holdout validity): ['constrained_wfc', 'package_hybrid']; simplest selected: constrained_wfc; shipped package hybrid verdict: confirmed (validity 1, alignment 1)."
+  },
+  "next_research_step": "Scale toward the full RUN TWO protocol: per-size corpora (the DR 0014 re-opener), the zoo profiles as additional constraint sets, and the owner-gated human panel."
+}
