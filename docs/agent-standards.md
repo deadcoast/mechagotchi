@@ -73,15 +73,14 @@ over plans; and executed artifacts win over prose claims.
   [--autoexport] [--reviewer <name>]`. It is NOT the application
   (identity constraint, root README).
 - **Deliberately open** (v0.10 manifest `next_sequence`):
-  1. **Manual readability calibration — HUMAN ONLY, and DEFERRED by owner
-     decision (2026-07-05).** The owner will not provide survey data until
-     development is further along (the 21-sample set may change), so this
-     is NOT a blocker to chase — do not treat it as the highest-value
-     unblock. The pipeline stays ready and verified:
+  1. **The manual readability rating system is the FALLBACK, never the
+     assignment (owner corrections x3; DR 0017 + memory).** The primary
+     path is a LEARNED readability mechanism (cycle-02 R3); the rating
+     pipeline stays exactly as built as its fallback/calibration check:
      `mechas rate --creatures --autoexport` runs the whole loop (63 rows =
-     21 samples × 3 reviewers). It still gates the evaluation module,
-     descriptor threshold locks, and profile-weighted evolution claims —
-     those stay honestly blocked until real data arrives. Never fabricate.
+     21 samples × 3 reviewers). Calibration CLAIMS still require real human data when made — never
+     fabricate — but nothing is 'blocked on manual calibration': the
+     learned path (R3) is the design. See DR 0017's R-queue.
   2. **Learning module DR (0009 candidate) is now proposable** — the
      stress survival regime (2026-07-05) broke the saturation:
      `--mode evolution --regime stress_probe` runs episodes on the

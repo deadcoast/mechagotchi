@@ -44,7 +44,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
   - [x] T3.4 `lineage_preferences` (shipped 2026-07-05; fitness_weighted parenting + the v01_projection package-boundary adapter)
   - [x] T3.5 `species_class` + `visual_grammar` (allowed_materials + animation_vocab) (shipped 2026-07-05; mirrors synced; full grammar UI rides T9)
   - [x] T3.6 og gates (2026-07-06, ladder_gates_met: 18/20 with zero unplanned gaps; fuzz 0.0 false-pass over 161 cases; slip_zoo_100 delivered)
-- [ ] **T4 · Animation-state vocabulary.** (SEMANTICS + animstate_300 SHIPPED 2026-07-05 — states are deterministic genome projections, 300/300 valid; remaining: T16 packet selection, workshop previewer, T3.5 field) og: idle/blink/sleep/beg/ill
+- [x] **T4 · Animation-state vocabulary.** COMPLETE (semantics + animstate_300 2026-07-05; packet selection + five-state workshop previewer shipped with T16; T3.5 animation_vocab field shipped — every description item developed) og: idle/blink/sleep/beg/ill
   states, animation anchors per state, `animstate_300` dataset.
   Research-first: lab defining state semantics on the grid genome
   (extends the single-anchor invariant), then schema, then render-packet
@@ -67,11 +67,11 @@ completions, **P3** = owner-gated human studies (queued, never chased).
 
 ## P2 — og program completions
 
-- [ ] **T7 · Grid schema fields from the og starter schema**:
+- [ ] **T7 · Grid schema fields from the og starter schema** (CARRIED to cycle 02 as R7):
   `species_class` (with T3.5), animation-state fields (with T4).
   Schema version bump + validator + invariants doc + migration note for
   existing corpora.
-- [ ] **T8 · CTM gating integration decision.** Verify whether
+- [ ] **T8 · CTM gating integration decision.** (CARRIED to cycle 02 as R1) Verify whether
   `labs/ctm_ticks`' confidence-gated deliberation ("act if confident,
   else extra switchboard cycles") reached the runtime switchboard; if
   not, run the integration experiment (og research question: does
@@ -81,11 +81,11 @@ completions, **P3** = owner-gated human studies (queued, never chased).
   per-cell material and mutation-weight editing in the grid editor
   (semantic overlay already carries both), with live engine validation
   as always. Small slice; charter pillars apply.
-- [ ] **T11 · og dataset program completion**: `mechaseed_200` (curated
+- [ ] **T11 · og dataset program completion** (CARRIED to cycle 02 as R6): `mechaseed_200` (curated
   variants of the 50), `mutationbench_5000` (generated offspring under
   fixed configs — the labs' mutation machinery makes this cheap),
   `replay_100k_ticks` (runtime episode logs; also feeds T12); `animstate_300` DONE (2026-07-05, with T4). Each with a README + ledger entry.
-- [ ] **T12 · Recorded replay consumer for the render bridge.** og named
+- [ ] **T12 · Recorded replay consumer for the render bridge.** (CARRIED to cycle 02 as R5) og named
   three packet consumers; replay is missing. Lab: record per-tick render
   packets from a `live_cycle`/episode run into a replay artifact; the
   workshop preview gains a replay scrubber (engine truth, recorded).
@@ -112,7 +112,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
   exemplars + invariants + rendering + workshop affordance) or trim it
   from the schema with a migration note. Couples to T6 (size) and T9
   (trait editor).
-- [ ] **T16 · Render packet contract v2.** (SHIPPED 2026-07-05 incl. the DR 0013 package port — genome.render_packet_v2 additive publics; effects wait on the SLIP render-block rung) Both og runs specify the
+- [x] **T16 · Render packet contract v2.** COMPLETE (2026-07-05 incl. the DR 0013 package port; the effects field enters with the SLIP render-block rung per DR 0011 verdict 2 — a deliberate queue, not a gap) Both og runs specify the
   packet carries animation, mood, and effects (RUN TWO adds frame_id +
   ui_hints like needs_attention). Today `state` is an opaque
   passthrough. Spec-first: packet v2 contract (animation from T4's

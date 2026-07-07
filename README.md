@@ -36,8 +36,8 @@ change:
 | Surface | Where |
 | --- | --- |
 | Research | `research/` — experiment reports, algorithm cards, decision records, the master ledger (`research/README.md`) |
-| Documents | `docs/` — the research plan (`docs/02-research_plan.md`, governing), onboarding, reports |
-| Features / Designs / SPEC | `research/package_specs/`, `docs/cli/` and `docs/workshop/` design charters |
+| Documents | `docs/` — the research plan (`docs/project-research/research.md`, governing), agent standards, reports |
+| Features / Designs / SPEC | `research/package_specs/`, `docs/cli/` and `docs/mecha-workshop/` design charters |
 | TODO | `research/questions.md`, per-doc roadmaps, artifact `next_research_step` fields |
 | Modules | `packages/mecha_engine/` — promoted engine modules, each gated by contract tests and lab parity |
 | Labs | `labs/` — executable research prototypes, stdlib-first |
@@ -74,8 +74,8 @@ developed quality of life by explicit policy.
 ## Sources
 
 - `assets/pdf/2406.19108v2.pdf` (Computational Life, arXiv:2406.19108)
-- `docs/02-research_plan.md`
-- `docs/00-agent_onboarding.md`
+- `docs/project-research/research.md`
+- `docs/agent-standards.md`
 - `research/README.md`
 - `research/literature_map.md`
 - `docs/cli/mechas-cli-design.md`
