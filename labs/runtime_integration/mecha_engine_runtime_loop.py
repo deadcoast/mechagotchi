@@ -43,7 +43,7 @@ for path in [PACKAGE_SRC, GRID_GENOME, READABILITY, CELLULAR]:
 from ca_nca_growth_repair import apply_stochastic_damage  # noqa: E402
 from corpus_builder import build_seed_grids  # noqa: E402
 from readability_benchmark import score_readability  # noqa: E402
-from slip import is_grid_aligned, v01_projection  # noqa: E402
+from slip import is_grid_aligned  # noqa: E402
 
 from mecha_engine.archive import (  # noqa: E402
     archive_summary,
@@ -520,10 +520,11 @@ def run_mecha_engine_evolution_loop(
     `slip_profile` (T3.4): an explicit profile — a v0.2 profile's
     `lineage_preferences.parent_selection` steers elite parenting
     (fitness_weighted breeds from the fittest elites first; uniform is
-    the frozen niche-key round-robin). Package surfaces receive the
-    v0.1 projection (`slip.v01_projection`, DR 0012 rule 4); ladder
-    fields are consumed lab-side. Default None loads the standard
-    fixture — byte-identical to the frozen loop.
+    the frozen niche-key round-robin). Since DR 0013 the package
+    consumes v0.2 natively, so the FULL profile flows through every
+    surface (risk tolerances and learning switches reach package
+    episodes). Default None loads the standard fixture — byte-identical
+    to the frozen loop.
 
     `workshop_grids_dir` (T1, the workshop->engine asset wire — owner
     DESIGN-CORRECTION 2026-07-05): a directory of RELEASED workshop
@@ -554,8 +555,10 @@ def run_mecha_engine_evolution_loop(
         if slip_profile.get("slip_version") != "0.1.0"
         else None
     )
-    # Package surfaces pin the frozen v0.1 baseline (DR 0012 rule 4).
-    package_profile = v01_projection(slip_profile)
+    # DR 0013 ported SLIP v0.2 into the package: full profiles flow
+    # natively (the v01_projection adapter is retired from this loop —
+    # it remains in the authority for consumers that need it).
+    package_profile = slip_profile
     seeds = build_seed_grids()
     generation_model = train_generation_model(seeds)
     repair_model = train_repair_model(

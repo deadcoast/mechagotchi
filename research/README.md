@@ -673,6 +673,9 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-07-06-switchboard-ablation-scaled.md`
 - `data/micro_learners/switchboard_ablation_scaled_stage0.json` (T19 scaled rerun: 240 episodes across all 8 aligned creatures — Stage 0 verdicts REPLICATE; mood estimator removal costs 77-85% at scale; others stay dead_weight, still queued on the 500-lifecycle arbiter)
 
+- `research/experiment_reports/2026-07-06-v01-projection-retirement.md`
+- `labs/runtime_integration/test_v01_projection_retirement.py` (DR 0013 follow-up closed: the loop consumes v0.2 natively — all-off switches measurably change package episodes, proven RED-first both directions; the adapter stays in the authority, documented)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.
