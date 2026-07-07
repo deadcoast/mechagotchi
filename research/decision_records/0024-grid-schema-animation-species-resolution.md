@@ -10,6 +10,17 @@ species surfaces; this record resolves both against what actually
 shipped, closing R7 by its own terms ("implement per the og starter
 schema, or record the T4 projection design as the superseding decision").
 
+## The og starter grid schema, field by field
+
+| og grid field | Disposition | Where it lives now |
+| --- | --- | --- |
+| per-cell `animation_anchor` | **SHIPPED verbatim** | `grid_genome.schema.json` (required; the "required animation anchor" hard invariant) |
+| animation states/clips stored on the creature | **SUPERSEDED by T4 projections** (Decision 1) | deterministic genome projections + packet-v2 selection + covenant `animation_vocab` |
+| `species_class` on the grid | **REJECTED-until-consumer** (Decision 2) | covenant-side SLIP `species_class` (T3.5) — the species is the covenant, the grid is an individual |
+| `symmetry {mode, bias}` on the grid | superseded | symmetry is measured morphology (archive descriptors / stress probe), not stored state; SLIP caps `symmetry_break_rate_max` |
+| inline `invariants {...}` on the grid | superseded | the numbered hard/soft invariants (`grid_invariants.md`) are the ecosystem's law, validator-enforced — not per-creature declarations |
+| `value` byte channel; 16x16 size | already decided | DR 0011 verdict #6 (rejected); DR 0014 (8x8 committed) |
+
 ## Decision 1 — Animation: the T4 projection design SUPERSEDES stored fields
 
 No animation-state fields enter the grid schema. The og intent is fully
