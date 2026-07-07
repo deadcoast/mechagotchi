@@ -36,15 +36,18 @@ them; they do not pause the queue.)
   it renders the editing MATRIX (tokens/anchor dot/mouth bar/
   overlays), a distinct authoring surface that stays local, pinned by
   test.)
-- [ ] **E3 · The datasets become ML fuel (R6's consumers).** R6 built
-  `mechaseed_200`, `mutationbench_5000`, `replay_100k_ticks` as "the ML
-  tracks' fuel" — nothing consumes them yet. Wire real consumers: (a)
-  evaluate the R3 learned-readability model on `mutationbench_5000`'s
-  REAL generated offspring (does a model trained on synthetic
-  degradation pairs rank real mutation outcomes? measured, honest
-  either way); (b) a behaviour/switchboard evaluation over
-  `replay_100k_ticks`. Deep integration — the fuel finally burns.
-  Triad; verdict recorded, not asserted.
+- [x] **E3 · The datasets become ML fuel (R6's consumers).**
+  (2026-07-07, two findings: (a) R3's synthetic-trained model
+  GENERALIZES to real mutations — 0.9406 pairwise accuracy on 2,880
+  physics-labeled real pairs (0.983 degraded / 0.849 improved; 57.6%
+  coverage with the unlabeled remainder reported; all 5,000 signatures
+  re-verified in passing). (b) A survivorship-bias catch: the naive
+  per-lived-tick mean ranked switchboard LAST; the engine-faithful
+  full-horizon statistic (run_episode's own padding rule) flips it —
+  switchboard 0.789 at survival 1.00 vs idle 0.121 at survival 0.00,
+  all idle creatures starving by tick ~11; both statistics reported,
+  the padding math pinned by a hand-computed crafted-corpus test. 10
+  new tests; verdicts are the numbers.)
 - [ ] **E4 · `slip` module disposition.** (The last deferred module
   target; DR 0004's list, now that `render` is dispositioned by DR
   0026.) Apply the DR 0024/0026 method: the SLIP validators, the

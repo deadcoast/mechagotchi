@@ -769,6 +769,10 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-07-07-shared-workshop-draw-asset.md`
 - `workshop/shared/draw.js` (E2: DR 0026's recorded cleanup — one shared `MechaDraw` packet drawer (damage stroke as an option pinning each page's historical pixels) + wound overlay + scrubber body-resolution; preview + session import it, inline duplicates deleted, endpoint tests pin asset/imports/no-duplicates; scope correction recorded — the grid editor's `draw()` is a distinct MATRIX-authoring surface, not a duplicate, and stays local by test)
 
+- `research/experiment_reports/2026-07-07-dataset-consumers.md`
+- `labs/datasets/dataset_consumers.py` (+ `test_dataset_consumers.py`)
+- `data/datasets/dataset_consumers_stage0.json` (E3: the R6 fuel burns — TWO findings. (1) R3's synthetic-trained model generalizes to REAL mutations: 0.9406 pairwise accuracy on 2,880 physics-labeled real pairs (0.983 degraded / 0.849 improved; 57.6% coverage, unlabeled reported not hidden; all 5,000 signatures re-verified). (2) A survivorship-bias catch: the naive per-lived-tick mean ranked switchboard LAST; the engine-faithful full-horizon statistic flips it — switchboard 0.789 at survival 1.00 vs idle 0.121 at survival 0.00 (all idle creatures starve by tick ~11); the padding math pinned by a hand-computed crafted-corpus test)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

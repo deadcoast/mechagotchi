@@ -1,0 +1,93 @@
+{
+  "artifact_id": "dataset_consumers_stage0",
+  "status": "stage0_complete",
+  "date": "2026-07-07",
+  "purpose": "E3: the R6 corpora gain their first real consumers \u2014 the R3 learned-readability model evaluated on mutationbench_5000's REAL mutation outcomes via R3's own physics-verification method, and a per-policy behaviour evaluation streamed from replay_100k_ticks with no simulation.",
+  "source_artifacts": [
+    "data/datasets/mutationbench_5000/mutationbench_5000.jsonl",
+    "data/datasets/replay_100k_ticks/replay_100k_ticks.jsonl.gz",
+    "data/datasets/slip_corpus_r6.json",
+    "research/decision_records/0019-learned-readability.md"
+  ],
+  "metrics": {
+    "mutationbench_evaluation": {
+      "case_count": 5000,
+      "signature_mismatches": 0,
+      "labels": {
+        "physics_degraded": 1973,
+        "physics_improved": 907,
+        "unlabeled": 2120
+      },
+      "labeled_count": 2880,
+      "coverage": 0.576,
+      "score_ties": 0,
+      "agreements": {
+        "physics_degraded": 1939,
+        "physics_improved": 770
+      },
+      "pairwise_accuracy": 0.940625,
+      "accuracy_by_label": {
+        "physics_degraded": 0.982767,
+        "physics_improved": 0.848953
+      }
+    },
+    "replay_corpus_evaluation": {
+      "tick_count": 100004,
+      "episode_count": 2501,
+      "by_policy": {
+        "idle": {
+          "ticks": 9174,
+          "episodes": 834,
+          "mean_balance_per_lived_tick": 0.792025,
+          "mean_episode_need_balance": 0.121004,
+          "survival_rate": 0.0,
+          "mean_survival_ticks": 11.0,
+          "death_causes": {
+            "starvation": 834
+          }
+        },
+        "random": {
+          "ticks": 30782,
+          "episodes": 833,
+          "mean_balance_per_lived_tick": 0.811244,
+          "mean_episode_need_balance": 0.416362,
+          "survival_rate": 0.162065,
+          "mean_survival_ticks": 36.953181,
+          "death_causes": {
+            "energy_collapse": 232,
+            "grid_collapse": 17,
+            "starvation": 449
+          }
+        },
+        "switchboard": {
+          "ticks": 60048,
+          "episodes": 834,
+          "mean_balance_per_lived_tick": 0.789129,
+          "mean_episode_need_balance": 0.789129,
+          "survival_rate": 1.0,
+          "mean_survival_ticks": 72.0,
+          "death_causes": {}
+        }
+      },
+      "need_balance_ranking": [
+        "switchboard",
+        "random",
+        "idle"
+      ],
+      "switchboard_beats_all_on_need_balance": true,
+      "statistic_note": "the ranking uses the engine-faithful episode need_balance (full-horizon, post-death ticks as 0.0 \u2014 run_episode's own rule); the raw per-lived-tick mean is reported alongside because the two can DISAGREE when survival differs"
+    }
+  },
+  "closed_states": [
+    "mutationbench_consumed_with_signature_verification",
+    "real_mutation_pairs_physics_labeled_by_the_r3_rule",
+    "replay_corpus_consumed_as_stored_data_no_simulation"
+  ],
+  "blocked_states": [],
+  "decision": {
+    "status": "datasets_are_live_fuel",
+    "adoption": "lab_only_dataset_consumer_evidence",
+    "reason": "Both corpora are consumed by real evaluations: the learned model scores 0.940625 pairwise accuracy on 2880 physics-labeled REAL mutation pairs (coverage 0.576 of 5000 \u2014 real mutations are rarely monotone, reported not hidden), and the stored replay corpus yields the per-policy behaviour comparison with zero simulation (switchboard ranks first on mean need balance). Verdicts are the numbers; both honest either way."
+  },
+  "next_research_step": "E4 (the slip module disposition) and E5 (the five player-notices audit); if the real-mutation accuracy is judged low, the bench's physics-labeled pairs are a ready fine-tuning corpus for the R3 trainer."
+}
