@@ -58,12 +58,15 @@ that need them; they do not pause the queue.)
   evaluated in the session lab as data (falsifiable both ways), edited
   on the Keeper page within the earned budget, enforced by the same
   authority validators as every covenant.
-- [ ] **C5 · Per-era replay into the ledger.** (R5 x G2 wiring, named
-  by both reports.) The session runner records a replay artifact per
-  era (the DR 0023 recorder over an era representative — e.g. the
-  era's best elite), rows land in the ledger's `replays` table
-  (path + sha256, DR 0022), and the Keeper page's era cards link the
-  scrubber — the Review step consumes recorded engine truth.
+- [x] **C5 · Per-era replay into the ledger.** (2026-07-07: every era
+  records its best elite's life via the DR 0023 recorder at the era's
+  own seed (honest label: a real recorded life, replayed post-era —
+  threading record_frames through evolve is a noted future seam);
+  ledger `replays` rows are pure functions of state (fixed path
+  convention + sha256 over canonical JSON, file hash == row hash
+  pinned); both stores ingest the rows (demo SQLite: replays 3);
+  `GET /api/session/replay` + the Keeper page's per-era "▶ replay"
+  in-page scrubber. The Review step consumes recorded engine truth.)
 - [ ] **C6 · The repair-validity boundary study.** (Found during G2:
   aligned-but-invalid repairs exist; the crash is fixed, the QUESTION
   is not.) Measure the boundary honestly — frequency of

@@ -292,7 +292,8 @@ class CampaignStoreGateTests(unittest.TestCase):
                     ]
                 ),
                 "unlocks": len(self.campaign["unlocks"]),
-                "replays": 0,
+                # C5: one replay row per era.
+                "replays": len(self.campaign["eras"]),
             },
             self.counts,
         )

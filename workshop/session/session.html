@@ -118,6 +118,11 @@
     <h2>unlocks — <span style="text-transform:none;letter-spacing:0;">facts earned from era metrics, thresholds are tuning data</span></h2>
     <div id="unlocks-body"><p class="notice">nothing earned yet.</p></div>
   </div>
+
+  <div class="panel">
+    <h2>replay — <span style="text-transform:none;letter-spacing:0;">the Review step: an era's best elite, recorded (engine truth)</span></h2>
+    <div id="replay-body"><p class="notice">pick "▶ replay" on an era card — the scrubber replays what was recorded; it never re-simulates.</p></div>
+  </div>
 </div>
 
 <script>
@@ -224,9 +229,123 @@ function renderEras() {
         ? " · legibility " + era.elite_mean_learned_readability.toFixed(3)
         : "") + "</span>" +
       '<span class="k">verdict</span><span>' + era.decision_status + "</span>";
+    if (era.replay) {
+      const btn = document.createElement("button");
+      btn.className = "action";
+      btn.style.gridColumn = "1 / -1";
+      btn.style.justifySelf = "start";
+      btn.textContent = "▶ replay (" + era.replay.frame_count + " frames)";
+      btn.addEventListener("click", () => loadEraReplay(era.campaign_id, era.era_index));
+      card.appendChild(btn);
+    }
     cards.appendChild(card);
   }
   body.appendChild(cards);
+}
+
+/* ---------------- the Review step: stored era replays ---------------- */
+let replayState = null;
+
+function drawReplayPacket(canvas, packet) {
+  const [w] = packet.grid_size;
+  const ctx = canvas.getContext("2d");
+  const cell = canvas.width / w;
+  ctx.fillStyle = packet.palette.colors[packet.palette.background_index] || "#000";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  for (const c of packet.cells) {
+    ctx.fillStyle = c.visual;
+    ctx.fillRect(c.x * cell, c.y * cell, cell, cell);
+  }
+}
+
+function replayBodyPacket(frames, index) {
+  for (let i = index; i >= 0; i--) if (frames[i].packet) return frames[i].packet;
+  return null;
+}
+
+function drawReplayFrame() {
+  const r = replayState;
+  const frame = r.frames[r.index];
+  const packet = replayBodyPacket(r.frames, r.index);
+  if (packet) drawReplayPacket(r.canvas, packet);
+  if (frame.phase === "wound" && packet) {
+    const [w] = packet.grid_size;
+    const cell = r.canvas.width / w;
+    const ctx = r.canvas.getContext("2d");
+    ctx.fillStyle = "rgba(200,60,40,0.75)";
+    for (const [x, y] of frame.removed_cells) ctx.fillRect(x * cell, y * cell, cell, cell);
+  }
+  let text = "frame " + frame.frame + " · cycle " + frame.cycle + " · " + frame.phase;
+  if (frame.phase === "wound") text += " · " + frame.removed_cell_count + " cells destroyed";
+  if (frame.phase === "repair") text += " · " + Math.round(frame.position_restoration * 100) + "% restored";
+  if (frame.phase === "episode_tick") {
+    const e = frame.entry;
+    text += " · tick " + e.tick + " · " + e.action + " · balance " + e.balance.toFixed(3) +
+      (e.alive ? "" : " · DIED");
+  }
+  r.label.textContent = text;
+  r.slider.value = r.index;
+}
+
+function stopReplayTimer() {
+  if (replayState && replayState.timer) {
+    clearInterval(replayState.timer);
+    replayState.timer = null;
+    replayState.playBtn.textContent = "Play";
+  }
+}
+
+async function loadEraReplay(campaignId, eraIndex) {
+  stopReplayTimer();
+  const body = $("replay-body");
+  body.innerHTML = '<p class="notice">loading the recorded life…</p>';
+  const payload = await (await fetch(
+    "/api/session/replay?campaign=" + encodeURIComponent(campaignId) + "&era=" + eraIndex
+  )).json();
+  if (!payload.ok) { body.innerHTML = '<p class="notice bad-text">' + payload.error + "</p>"; return; }
+  const replay = payload.replay;
+  body.innerHTML = "";
+  const row = document.createElement("div");
+  row.style.display = "grid"; row.style.gridTemplateColumns = "auto 1fr"; row.style.gap = "22px";
+  const device = document.createElement("div");
+  device.style.background = "var(--bezel)"; device.style.borderRadius = "12px";
+  device.style.padding = "12px"; device.style.display = "inline-block";
+  const canvas = document.createElement("canvas");
+  canvas.width = 224; canvas.height = 224;
+  canvas.style.display = "block"; canvas.style.imageRendering = "pixelated";
+  const label = document.createElement("div");
+  label.style.font = "0.68rem ui-monospace, Consolas, monospace";
+  label.style.color = "#b9bfae"; label.style.marginTop = "6px";
+  device.append(canvas, label);
+  const controls = document.createElement("div");
+  const slider = document.createElement("input");
+  slider.type = "range"; slider.min = 0; slider.max = replay.frames.length - 1;
+  slider.value = 0; slider.style.width = "100%";
+  const playBtn = document.createElement("button");
+  playBtn.className = "action"; playBtn.textContent = "Play";
+  const meta = document.createElement("p");
+  meta.className = "notice";
+  meta.textContent = replay.replay_id + " · era " + eraIndex + " · " + replay.frame_count +
+    " frames (" + replay.tick_frame_count + " ticks) · seed " + replay.parameters.rng_seed;
+  controls.append(slider, playBtn, meta);
+  row.append(device, controls);
+  body.appendChild(row);
+  replayState = { frames: replay.frames, index: 0, timer: null, canvas, slider, label, playBtn };
+  slider.addEventListener("input", () => {
+    stopReplayTimer();
+    replayState.index = parseInt(slider.value, 10);
+    drawReplayFrame();
+  });
+  playBtn.addEventListener("click", () => {
+    if (replayState.timer) { stopReplayTimer(); return; }
+    playBtn.textContent = "Pause";
+    replayState.timer = setInterval(() => {
+      if (replayState.index >= replayState.frames.length - 1) { stopReplayTimer(); return; }
+      replayState.index += 1;
+      drawReplayFrame();
+    }, 125);
+  });
+  drawReplayFrame();
 }
 
 function renderUnlocks() {

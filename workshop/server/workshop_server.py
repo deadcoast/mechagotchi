@@ -78,6 +78,9 @@ Endpoints:
 - POST /api/session/era     {weather} -> advance the active campaign by
                             one era (the promoted evolve run), persist
                             state + DR 0022 ledger, return the turn
+- GET  /api/session/replay?campaign=&era=  a stored era replay (C5):
+                            the era's best elite's RECORDED life, served
+                            from the ledger's replays directory
 - GET  /inspect             the genome inspector + lineage browser
 - GET  /api/inspect?source=&name=  the engine-judged genome record
 - GET  /api/lineage         released ancestry + evolution-run traces
@@ -599,6 +602,35 @@ class _Handler(SimpleHTTPRequestHandler):
         if path == "/session":
             self.path = "/session/session.html"
             return super().do_GET()
+        if path == "/api/session/replay":
+            # C5: serve a stored era replay (recorded engine truth) from
+            # the ledger's replays directory.
+            from urllib.parse import parse_qs, urlparse
+
+            query = parse_qs(urlparse(self.path).query)
+            campaign = _safe_name(str(query.get("campaign", [""])[0]))
+            try:
+                era_index = int(query.get("era", ["-1"])[0])
+            except ValueError:
+                era_index = -1
+            replay_path = (
+                self.server.session_ledger_path.parent
+                / "replays"
+                / f"{campaign}_era{era_index:03d}.json"
+            )
+            if era_index < 0 or not replay_path.exists():
+                self._json(404, {"ok": False, "error": "no such replay"})
+                return
+            self._json(
+                200,
+                {
+                    "ok": True,
+                    "replay": json.loads(
+                        replay_path.read_text(encoding="utf-8")
+                    ),
+                },
+            )
+            return
         if path == "/api/session/state":
             state = load_keeper_state(self.server.session_state_path)
             if state is None:

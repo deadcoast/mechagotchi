@@ -28,10 +28,12 @@ from mecha_engine.storage.store import (
     canonical_json,
     ingest_session_artifacts,
     load_founder_pool,
+    load_replay_rows,
     load_unlock_state,
     open_ledger,
     record_campaign,
     record_era,
+    record_replay,
 )
 
 __all__ = [
@@ -41,8 +43,10 @@ __all__ = [
     "canonical_json",
     "ingest_session_artifacts",
     "load_founder_pool",
+    "load_replay_rows",
     "load_unlock_state",
     "open_ledger",
     "record_campaign",
     "record_era",
+    "record_replay",
 ]

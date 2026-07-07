@@ -9636,5 +9636,24 @@
       "threshold": 1.1
     }
   ],
-  "replays": []
+  "replays": [
+    {
+      "campaign_id": "campaign_stage0",
+      "era_index": 0,
+      "artifact_path": "replays/campaign_stage0_era000.json",
+      "artifact_sha256": "bfd2481b816c02129b9bab25e6370575f270b8c454fd35a85fbc76a4af291722"
+    },
+    {
+      "campaign_id": "campaign_stage0",
+      "era_index": 1,
+      "artifact_path": "replays/campaign_stage0_era001.json",
+      "artifact_sha256": "9981949463663a601359d766673b21d4291abb873b93c340b8223b356dac3d79"
+    },
+    {
+      "campaign_id": "campaign_stage0",
+      "era_index": 2,
+      "artifact_path": "replays/campaign_stage0_era002.json",
+      "artifact_sha256": "57152ef98f9363c0c571ff786179843088590ad2f61d1203b1eaedc78fe5ec61"
+    }
+  ]
 }

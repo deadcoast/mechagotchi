@@ -24,6 +24,11 @@
     "eras": [
       {
         "era_index": 0,
+        "replay": {
+          "artifact_name": "gen_621e8058fe54ef86_c02_seed20260707",
+          "frame_count": 37,
+          "tick_frame_count": 32
+        },
         "forecast": "calm",
         "snapshot_ids": [],
         "generations_ran": 3,
@@ -47,6 +52,11 @@
       },
       {
         "era_index": 1,
+        "replay": {
+          "artifact_name": "gen_7d3cc407f67d75c5_c02_seed21260707",
+          "frame_count": 37,
+          "tick_frame_count": 32
+        },
         "forecast": "stable_soup",
         "snapshot_ids": [
           "weather_stable_000",
@@ -74,6 +84,11 @@
       },
       {
         "era_index": 2,
+        "replay": {
+          "artifact_name": "gen_810d1e91cd611dc2_c02_seed22260707",
+          "frame_count": 37,
+          "tick_frame_count": 32
+        },
         "forecast": "storm",
         "snapshot_ids": [
           "weather_storm_000",

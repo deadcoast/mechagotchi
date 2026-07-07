@@ -158,6 +158,22 @@ class KeeperSessionEndpointTests(unittest.TestCase):
         self.assertEqual(400, status)
         self.assertFalse(bad["ok"])
 
+        # 8. The era's stored replay serves from the ledger (C5): the
+        #    best elite's recorded life at the era's own seed.
+        status, replay_payload = _get(
+            f"{self.base}/api/session/replay?campaign=keeper_campaign_001&era=0"
+        )
+        self.assertEqual(200, status)
+        replay = replay_payload["replay"]
+        self.assertEqual("mechagotchi_replay_v1", replay["replay_format"])
+        self.assertGreater(replay["frame_count"], 0)
+        self.assertEqual("birth", replay["frames"][0]["phase"])
+        with self.assertRaises(urllib.error.HTTPError) as caught:
+            urllib.request.urlopen(
+                f"{self.base}/api/session/replay?campaign=nope&era=7"
+            )
+        self.assertEqual(404, caught.exception.code)
+
     def test_serves_the_session_page(self):
         with urllib.request.urlopen(f"{self.base}/session") as response:
             body = response.read().decode("utf-8")

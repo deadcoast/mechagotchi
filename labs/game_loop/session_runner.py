@@ -47,6 +47,7 @@ no wall clock, no os randomness.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -65,6 +66,7 @@ from learned_readability import (  # noqa: E402
     learned_readability_score,
 )
 from readability_benchmark import score_readability  # noqa: E402
+from replay_recorder import build_replay  # noqa: E402
 
 from mecha_engine.generation import train_generation_model  # noqa: E402
 from mecha_engine.repair import train_repair_model  # noqa: E402
@@ -327,6 +329,24 @@ def run_era(
         if elites
         else None
     )
+    # C5 (DR 0023 x DR 0022): the Review step's window — the era's best
+    # elite lives one RECORDED life at the era's own seed. Honest label:
+    # this is a real recorded life of a real era creature, replayed
+    # post-era (the in-era per-creature lives ran without frame
+    # recording; threading record_frames through evolve is a noted
+    # future seam, not silently skipped).
+    replay = None
+    if elites:
+        best = max(elites, key=lambda e: (e["fitness"], e["niche_key"]))
+        replay = build_replay(
+            best["grid"],
+            slip_profile,
+            repair_model,
+            damage_cycles=damage_cycles,
+            ticks=ticks,
+            dropout_rate=dropout_rate,
+            rng_seed=rng_seed,
+        )
     return {
         "era_index": era_index,
         "rng_seed": rng_seed,
@@ -346,6 +366,7 @@ def run_era(
         ),
         "report": report,
         "elites": elites,
+        "replay": replay,
         "derived": {
             "went_extinct": went_extinct,
             "generations_ran": len(report["generations"]),
@@ -551,6 +572,18 @@ def run_keeper_session(
     }
 
 
+def replay_artifact_name(campaign_id: str, era_index: int) -> str:
+    return f"replays/{campaign_id}_era{era_index:03d}.json"
+
+
+def _canonical(value) -> str:
+    return json.dumps(value, sort_keys=True, separators=(",", ":"))
+
+
+def _replay_sha256(replay: dict) -> str:
+    return hashlib.sha256(_canonical(replay).encode("utf-8")).hexdigest()
+
+
 def build_campaign_ledger(session: dict) -> dict:
     """The DR 0022 schema-v1 vocabulary as the JSON interim: one row set
     per table, engine artifacts verbatim, derived columns alongside their
@@ -561,6 +594,7 @@ def build_campaign_ledger(session: dict) -> dict:
     elites = []
     founders = []
     unlocks = []
+    replays = []
     for campaign in session["campaigns"]:
         campaigns.append(
             {
@@ -612,6 +646,20 @@ def build_campaign_ledger(session: dict) -> dict:
                         },
                     }
                 )
+            if era.get("replay") is not None:
+                # C5: rows are pure functions of state — the path is a
+                # fixed convention, the hash is over the replay's
+                # canonical JSON; the save layer writes files to match.
+                replays.append(
+                    {
+                        "campaign_id": campaign["campaign_id"],
+                        "era_index": era["era_index"],
+                        "artifact_path": replay_artifact_name(
+                            campaign["campaign_id"], era["era_index"]
+                        ),
+                        "artifact_sha256": _replay_sha256(era["replay"]),
+                    }
+                )
             founder_block = report.get("founders")
             if founder_block is not None:
                 for grid_id in founder_block["admitted_ids"]:
@@ -648,14 +696,45 @@ def build_campaign_ledger(session: dict) -> dict:
         "elites": elites,
         "founders": founders,
         "unlocks": unlocks,
-        "replays": [],  # R5's table; the recorder is its own task
+        "replays": replays,
     }
+
+
+def write_replay_files(session: dict, base_dir: str | Path) -> int:
+    """Write each era's replay artifact under ``base_dir`` following the
+    ledger rows' path convention; the file content is the canonical JSON
+    the rows' sha256 was computed over (the gate: file hash == row
+    hash). Returns the number of files written."""
+    base_dir = Path(base_dir)
+    written = 0
+    for campaign in session["campaigns"]:
+        for era in campaign["eras"]:
+            if era.get("replay") is None:
+                continue
+            target = base_dir / replay_artifact_name(
+                campaign["campaign_id"], era["era_index"]
+            )
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(
+                _canonical(era["replay"]), encoding="utf-8"
+            )
+            written += 1
+    return written
 
 
 def _era_digest(era: dict) -> dict:
     report = era["report"]
     return {
         "era_index": era["era_index"],
+        "replay": (
+            {
+                "artifact_name": era["replay"]["replay_id"],
+                "frame_count": era["replay"]["frame_count"],
+                "tick_frame_count": era["replay"]["tick_frame_count"],
+            }
+            if era.get("replay") is not None
+            else None
+        ),
         "forecast": era["weather"]["forecast"],
         "snapshot_ids": era["weather"]["snapshot_ids"],
         "generations_ran": era["derived"]["generations_ran"],
@@ -810,6 +889,7 @@ def write_session_artifacts(
         json.dumps(build_campaign_ledger(session), indent=2) + "\n",
         encoding="utf-8",
     )
+    write_replay_files(session, output_dir)
     (output_dir / "README.md").write_text(
         "# Game loop artifacts (Stage 0)\n\n"
         "G2 (decision record 0021): one full Keeper session over the\n"
@@ -1076,6 +1156,11 @@ def save_keeper_state(
         )
     finally:
         conn.close()
+    # C5: the replay artifacts live next to the ledger, at exactly the
+    # paths (and hashes) the replays rows recorded.
+    write_replay_files(
+        {"campaigns": state["campaigns"]}, ledger_path.parent
+    )
 
 
 def main() -> None:

@@ -16,12 +16,12 @@
       "elites": 22,
       "founders": 17,
       "unlocks": 8,
-      "replays": 0
+      "replays": 3
     },
     "sqlite_payload": {
       "path": "data/game_loop/campaign_store.sqlite",
       "bytes": 196608,
-      "sha256": "6960f22a1d162cc9093fbb4abf97d70b5ae68412faa1e4a4ac0071be234ba0e3"
+      "sha256": "c9f4d7b6db31e91bfaeddaccf8260f278e1d2b6ec4631c7e25ddffb090a29bd1"
     }
   },
   "closed_states": [

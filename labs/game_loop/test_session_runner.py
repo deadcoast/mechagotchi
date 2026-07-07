@@ -300,7 +300,17 @@ class SessionRunnerTests(unittest.TestCase):
             },
             set(ledger),
         )
-        self.assertEqual([], ledger["replays"])  # R5's table, honestly empty
+        # C5: one replay row per era, path by convention, hash over the
+        # replay's canonical JSON (pure functions of state).
+        era_count = sum(
+            len(campaign["eras"]) for campaign in self.session["campaigns"]
+        )
+        self.assertEqual(era_count, len(ledger["replays"]))
+        for row in ledger["replays"]:
+            self.assertRegex(
+                row["artifact_path"], r"^replays/.+_era\d{3}\.json$"
+            )
+            self.assertEqual(64, len(row["artifact_sha256"]))
 
     def test_ledger_era_rows_pin_derived_columns_to_the_verbatim_report(self):
         ledger = build_campaign_ledger(self.session)
@@ -486,6 +496,41 @@ class SessionRunnerTests(unittest.TestCase):
             apply_succession(state, state["campaigns"][0])
 
     # -- artifacts -----------------------------------------------------------
+
+    def test_era_replays_are_recorded_engine_truth(self):
+        # C5: every era carries its best elite's recorded life at the
+        # era's own seed — the DR 0023 recorder, per era.
+        for campaign in self.session["campaigns"]:
+            for era in campaign["eras"]:
+                replay = era["replay"]
+                self.assertIsNotNone(replay)
+                self.assertEqual("mechagotchi_replay_v1", replay["replay_format"])
+                self.assertEqual(era["rng_seed"], replay["parameters"]["rng_seed"])
+                best = max(
+                    era["elites"], key=lambda e: (e["fitness"], e["niche_key"])
+                )
+                self.assertEqual(
+                    best["grid_id"], replay["creature"]["grid_id"]
+                )
+                self.assertGreater(replay["frame_count"], 0)
+
+    def test_replay_files_match_their_ledger_rows(self):
+        import hashlib
+
+        from session_runner import write_replay_files
+
+        ledger = build_campaign_ledger(self.session)
+        self.assertTrue(ledger["replays"])
+        with tempfile.TemporaryDirectory() as tmp:
+            written = write_replay_files(self.session, tmp)
+            self.assertEqual(len(ledger["replays"]), written)
+            for row in ledger["replays"]:
+                payload = (Path(tmp) / row["artifact_path"]).read_bytes()
+                self.assertEqual(
+                    row["artifact_sha256"],
+                    hashlib.sha256(payload).hexdigest(),
+                )
+                json.loads(payload)  # a valid replay artifact
 
     def test_write_session_artifacts_round_trips(self):
         report = build_session_report(self.session)

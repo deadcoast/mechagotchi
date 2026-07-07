@@ -745,6 +745,9 @@ Post-v0.1 continuation has started:
 - `packages/mecha_engine/src/mecha_engine/storage/` + `packages/mecha_engine/tests/test_storage_contract.py`
 - `labs/game_loop/test_package_storage_parity.py` (C3: `mecha_engine.storage` promoted — the NINTH module; verbatim byte-level port with dual parity pins (source byte-identity + row-for-row behavior over the real interim), contract suite with observed atomic rollback, the Keeper session/server deriving `campaign_ledger.sqlite` through the exercised migration on every save; promotion gate verdict PROMOTION_READY, deferred set now `render` + `slip`)
 
+- `research/experiment_reports/2026-07-07-per-era-replay.md`
+- `data/game_loop/replays/` (C5: the Review step closes — every era records its best elite's life via the DR 0023 recorder at the era's own seed; ledger `replays` rows are pure functions of state (path convention + sha256 over canonical JSON, file hash == row hash pinned); both stores ingest the rows; `GET /api/session/replay` + the Keeper page's per-era in-page scrubber over RECORDED frames)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

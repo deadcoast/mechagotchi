@@ -243,6 +243,41 @@ def record_era(
             )
 
 
+def record_replay(
+    conn: sqlite3.Connection,
+    campaign_id: str,
+    era_index: int,
+    artifact_path: str,
+    artifact_sha256: str,
+) -> None:
+    """One replays-table row (C5): the artifact stays a file; the
+    ledger stores the pointer and the content hash (DR 0022)."""
+    with conn:
+        conn.execute(
+            "INSERT INTO replays (campaign_id, era_index, artifact_path,"
+            " artifact_sha256) VALUES (?, ?, ?, ?)",
+            (campaign_id, era_index, artifact_path, artifact_sha256),
+        )
+
+
+def load_replay_rows(
+    conn: sqlite3.Connection, campaign_id: str
+) -> list[dict]:
+    return [
+        {
+            "campaign_id": campaign_id,
+            "era_index": row[0],
+            "artifact_path": row[1],
+            "artifact_sha256": row[2],
+        }
+        for row in conn.execute(
+            "SELECT era_index, artifact_path, artifact_sha256 FROM replays"
+            " WHERE campaign_id = ? ORDER BY era_index, artifact_path",
+            (campaign_id,),
+        )
+    ]
+
+
 def load_founder_pool(
     conn: sqlite3.Connection,
     campaign_id: str,
@@ -412,6 +447,14 @@ def ingest_session_artifacts(
             era_row["slip_profile"],
             founders=founders,
             unlocks=era_unlocks,
+        )
+    for replay_row in interim.get("replays", []):
+        record_replay(
+            conn,
+            replay_row["campaign_id"],
+            replay_row["era_index"],
+            replay_row["artifact_path"],
+            replay_row["artifact_sha256"],
         )
     counts = {}
     for table in (
