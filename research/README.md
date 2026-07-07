@@ -729,6 +729,8 @@ Post-v0.1 continuation has started:
 - `labs/datasets/dataset_program.py` (+ `test_dataset_program.py`)
 - `data/datasets/` (R6: the og dataset table completed — `mechaseed_200` (50 seeds + 150 validity-curated, signature-deduped engine variants, each reproducible from its recorded config), `mutationbench_5000` (5,000 signature-verifiable offspring cases — full grids of truth without stored grids), `replay_100k_ticks` (100,004 verbatim lifecycle ticks, byte-deterministic gzip) — all under the shipped `slip_corpus_r6` profile, sha256-manifested; PNG companions honestly deferred, no consumer yet)
 
+- `research/decision_records/0024-grid-schema-animation-species-resolution.md` (R7: og grid-level animation/species fields resolved by superseding decision — animation is T4's projections + packet-v2 selection + covenant vocabulary (the og itself put animation on the packet; `animation_anchor` already shipped); species is covenant identity (T3.5), the grid-level copy rejected as decorative duplication with mixed-species soups as the designated re-opener; DR 0011 verdict #5 fully resolved)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

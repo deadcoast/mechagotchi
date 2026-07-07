@@ -96,9 +96,16 @@ documentation for tasks that need them; they do not pause the queue.)
   under the shipped corpus-wide `slip_corpus_r6` profile,
   sha256-manifested; 12 tests. PNG companions deferred with a
   recorded blocked state — no consumer yet.)
-- [ ] **R7 (=T7) · Grid-schema animation/species fields.** Implement per
-  the og starter schema, or record the T4 projection design as the
-  superseding decision — either way, developed then marked.
+- [x] **R7 (=T7) · Grid-schema animation/species fields.** (DR 0024,
+  2026-07-07: the superseding-decision path, taken with a full
+  resolution — animation: T4's deterministic projections + packet-v2
+  selection + covenant `animation_vocab` supersede stored grid fields
+  (the og starter schema itself put animation on the packet;
+  `animation_anchor` already shipped); species: covenant identity
+  (T3.5 `species_class`, consumed by evolution report identity) —
+  the grid-level copy REJECTED as decorative duplication per the DR
+  0011 doctrine, with mixed-species soups as the designated
+  re-opener. DR 0011 verdict #5 now fully resolved.)
 
 ## Standing note
 
