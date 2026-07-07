@@ -706,6 +706,8 @@ Post-v0.1 continuation has started:
 
 - `research/decision_records/0021-game-loop.md` (R4: the game loop — "Eras of the Soup": Keeper fantasy, era-chaining via `founder_grids` as the persistence spine, CuBFF weather, engine-truth progression currencies, extinction stakes from measured archive behavior; unblocks the `storage` module DR (G1) and defines build gates G1–G4)
 
+- `research/decision_records/0022-storage-module.md` (G1: the `storage` module target authorized — SQLite campaign ledger via stdlib `sqlite3` per DR 0011's ratified pointer; blob-authoritative schema v1 for campaigns/eras/elites/founders/unlocks/replays, succession without copying, deterministic-replay and unlock-falsifiability gates; lab-first in `labs/game_loop/campaign_store.py` before any promotion, G2's JSON interim guaranteed a lossless migration)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

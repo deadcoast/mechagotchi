@@ -43,10 +43,15 @@ documentation for tasks that need them; they do not pause the queue.)
   mapped to a shipped mechanism (R1/R2/R3/T1/persistence). Unblocks
   the `storage` module DR. First law: everything shown is engine
   truth.)
-- [ ] **G1 · `storage` module decision record.** (Unblocked by DR
-  0021.) Schema for campaigns, eras, unlocks, lineage; SQLite per DR
-  0011's ratified pointer; stdlib `sqlite3` keeps the package
-  dependency policy intact.
+- [x] **G1 · `storage` module decision record.** (DR 0022, 2026-07-07:
+  `mecha_engine.storage` target authorized — SQLite campaign ledger,
+  stdlib `sqlite3`, dependency policy intact; blob-authoritative
+  schema v1 for campaigns/eras/elites/founders/unlocks/replays with
+  derived-column pins, one-transaction eras, succession-without-
+  copying, and eight promotion gates incl. deterministic replay and
+  unlock falsifiability. Lab-first: proven in
+  `labs/game_loop/campaign_store.py` before promotion; G2's JSON
+  interim gets a guaranteed `ingest_session_artifacts` migration.)
 - [ ] **G2 · Session-runner lab (`labs/game_loop/`).** One full
   session over promoted surfaces: era-chaining via founders, weather
   selection, unlock evaluation from report metrics, extinction and

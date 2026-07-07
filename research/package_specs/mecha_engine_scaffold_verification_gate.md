@@ -83,7 +83,9 @@ The scaffold is rejected if any of these are true:
   before the first package boundary is verified. (`repair` left this list
   on 2026-07-05: decision record 0006 authorized its target after the
   wound-site stability blocker cleared; the executable gate tracks the
-  current deferred set.)
+  current deferred set. `storage`'s target was authorized 2026-07-07 by
+  decision record 0022 — module creation still waits on its lab evidence
+  and a `promotion_ready` verdict, per that record.)
 - The package metadata declares release license fields before a license
   decision exists.
 - The package-promotion gate is not rerun after scaffold creation.
