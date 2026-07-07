@@ -1,0 +1,92 @@
+{
+  "artifact_id": "generator_evolution_ab_stage0",
+  "status": "stage0_complete",
+  "date": "2026-07-06",
+  "purpose": "T17 follow-up: constrained-vs-hybrid generator A/B through the MAP-Elites archive at matched budgets.",
+  "protocol": {
+    "budget_per_arm_per_seed": 150,
+    "rng_seeds": [
+      20260512,
+      20260612,
+      20260712
+    ],
+    "ticks": 24
+  },
+  "runs": [
+    {
+      "rng_seed": 20260512,
+      "package_hybrid": {
+        "coverage": 78,
+        "qd_score": 71.409616,
+        "best_fitness": 0.96399,
+        "mean_fitness": 0.915508,
+        "descriptor_dispersion": 1.761969,
+        "survivor_count": 78
+      },
+      "constrained_wfc": {
+        "coverage": 72,
+        "qd_score": 65.720655,
+        "best_fitness": 0.96506,
+        "mean_fitness": 0.912787,
+        "descriptor_dispersion": 1.904956,
+        "survivor_count": 72
+      }
+    },
+    {
+      "rng_seed": 20260612,
+      "package_hybrid": {
+        "coverage": 79,
+        "qd_score": 72.072484,
+        "best_fitness": 0.96399,
+        "mean_fitness": 0.91231,
+        "descriptor_dispersion": 1.78656,
+        "survivor_count": 79
+      },
+      "constrained_wfc": {
+        "coverage": 85,
+        "qd_score": 77.225885,
+        "best_fitness": 0.966855,
+        "mean_fitness": 0.90854,
+        "descriptor_dispersion": 1.869219,
+        "survivor_count": 85
+      }
+    },
+    {
+      "rng_seed": 20260712,
+      "package_hybrid": {
+        "coverage": 71,
+        "qd_score": 64.901063,
+        "best_fitness": 0.965293,
+        "mean_fitness": 0.914099,
+        "descriptor_dispersion": 1.828926,
+        "survivor_count": 71
+      },
+      "constrained_wfc": {
+        "coverage": 71,
+        "qd_score": 64.917929,
+        "best_fitness": 0.963843,
+        "mean_fitness": 0.914337,
+        "descriptor_dispersion": 2.155528,
+        "survivor_count": 71
+      }
+    }
+  ],
+  "summary": {
+    "package_hybrid": {
+      "coverage": 76,
+      "qd_score": 69.461054,
+      "best_fitness": 0.964424,
+      "mean_fitness": 0.913972
+    },
+    "constrained_wfc": {
+      "coverage": 76,
+      "qd_score": 69.288156,
+      "best_fitness": 0.965253,
+      "mean_fitness": 0.911888
+    }
+  },
+  "decision": {
+    "status": "shipped_hybrid_stands",
+    "reason": "coverage 76 vs 76; QD 69.288156 vs 69.461054; best fitness 0.965253 vs 0.964424. A generator switch requires its own decision record."
+  }
+}

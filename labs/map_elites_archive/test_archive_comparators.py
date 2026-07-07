@@ -60,3 +60,35 @@ class ArchiveComparatorTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class GeneratorABTests(unittest.TestCase):
+    """T17 follow-up: the constrained-vs-hybrid A/B through the archive."""
+
+    @classmethod
+    def setUpClass(cls):
+        from archive_comparators import build_generator_ab_report
+        cls.report = build_generator_ab_report(
+            budget=30, ticks=8, rng_seeds=(20260512,)
+        )
+
+    def test_two_arms_matched_budgets(self):
+        self.assertEqual(1, len(self.report["runs"]))
+        run = self.report["runs"][0]
+        self.assertIn("package_hybrid", run)
+        self.assertIn("constrained_wfc", run)
+
+    def test_decision_derives_from_measurements(self):
+        summary = self.report["summary"]
+        hybrid, wfc = summary["package_hybrid"], summary["constrained_wfc"]
+        wins = (
+            wfc["coverage"] > hybrid["coverage"]
+            and wfc["qd_score"] > hybrid["qd_score"]
+            and wfc["best_fitness"] >= hybrid["best_fitness"] * 0.95
+        )
+        self.assertEqual(
+            "constrained_arm_wins_dr_gated_switch_proposed"
+            if wins
+            else "shipped_hybrid_stands",
+            self.report["decision"]["status"],
+        )

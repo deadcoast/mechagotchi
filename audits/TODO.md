@@ -125,7 +125,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
 
 ## P2 additions — RUN TWO protocol completions
 
-- [x] **T17 · Formal generator bake-off at RUN TWO protocol.** (8x8 slice 2026-07-06, bakeoff_gate_met: shipped hybrid confirmed 1.0/1.0 on holdout; constrained arm noted as 2.4x-novelty challenger for an evolution A/B; multi-size arms + human panel stay blocked per DR 0014/T10) After T6
+- [x] **T17 · Formal generator bake-off at RUN TWO protocol.** (8x8 slice 2026-07-06, bakeoff_gate_met: shipped hybrid confirmed 1.0/1.0 on holdout; constrained arm's evolution A/B RUN 2026-07-06: dead heat, shipped_hybrid_stands; multi-size arms + human panel stay blocked per DR 0014/T10) After T6
   (sizes) and the seed-corpus growth (T11): holdout-split corpus
   (train/dev/holdout discipline enters the repo here), multi-size arms,
   large candidate volumes, bootstrap CIs, and the published thresholds
