@@ -146,7 +146,7 @@ completions, **P3** = owner-gated human studies (queued, never chased).
   threads; keep-gate: removal costs >=5% on a target metric without
   buying more elsewhere. Also delivers the og "full switchboard beats
   rules-only" claim as a measured number. Builds on the T5 census.
-- [ ] **T21 · REUSE repository structure.** SPDX ids exist in the
+- [x] **T21 · REUSE repository structure.** (2026-07-06: LICENSES/ + reuse_licenses_ok CI check in lab + promoted mirror; repo-wide license grant recorded as the owner's pending decision) SPDX ids exist in the
   provenance ledger; adopt the REUSE convention RUN TWO specifies
   (LICENSES/ directory keyed by SPDX id, file-level notices where
   practical) and add the check to the provenance CI gate.

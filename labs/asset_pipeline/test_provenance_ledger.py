@@ -175,3 +175,37 @@ class ProvenanceLedgerTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ReuseLicensesCheckTests(unittest.TestCase):
+    """T21: the REUSE LICENSES/ convention, CI-gated."""
+
+    def test_ci_report_carries_the_reuse_check_and_it_passes(self):
+        ledger = json.loads(
+            (ROOT / "data/asset_provenance/ledger.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        report = build_provenance_ci_report(ledger, ROOT)
+        self.assertIn("reuse_licenses_ok", report["checks"])
+        self.assertTrue(report["checks"]["reuse_licenses_ok"], report["errors"])
+        self.assertTrue(
+            (ROOT / "LICENSES" / "LicenseRef-Mechagotchi-Internal-Research.txt").exists()
+        )
+
+    def test_missing_license_text_fails_the_gate(self):
+        ledger = json.loads(
+            (ROOT / "data/asset_provenance/ledger.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        for asset in ledger["assets"]:
+            if asset.get("included_in_repo"):
+                asset["spdx_id"] = "LicenseRef-Missing-Text"
+                asset["spdx_expression"] = "LicenseRef-Missing-Text"
+        report = build_provenance_ci_report(ledger, ROOT)
+        self.assertFalse(report["checks"]["reuse_licenses_ok"])
+        self.assertTrue(
+            any("LICENSES/LicenseRef-Missing-Text.txt" in error for error in report["errors"]),
+            report["errors"],
+        )

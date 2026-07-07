@@ -74,6 +74,9 @@ REQUIRED_CHECKS = [
     "decision_record_gate_ok",
     "included_hashes_ok",
     "ledger_validation_ok",
+    # T21 (audit): the REUSE convention check — every license id covering
+    # an included asset resolves to LICENSES/<id>.txt.
+    "reuse_licenses_ok",
     "spdx_expressions_ok",
 ]
 REQUIRED_SPDX_SUMMARY_FIELDS = [
@@ -433,6 +436,7 @@ class MechaEngineProvenanceContractTests(unittest.TestCase):
             {
                 "ledger_validation_ok": True,
                 "spdx_expressions_ok": True,
+                "reuse_licenses_ok": True,
                 "included_hashes_ok": True,
                 "decision_record_gate_ok": True,
             },
@@ -465,6 +469,7 @@ class MechaEngineProvenanceContractTests(unittest.TestCase):
             {
                 "ledger_validation_ok": False,
                 "spdx_expressions_ok": True,
+                "reuse_licenses_ok": True,
                 "included_hashes_ok": False,
                 "decision_record_gate_ok": True,
             },
@@ -478,6 +483,9 @@ class MechaEngineProvenanceContractTests(unittest.TestCase):
             {
                 "ledger_validation_ok": False,
                 "spdx_expressions_ok": True,
+                # The probe includes a copyleft asset whose license text
+                # is not in LICENSES/ — the T21 REUSE gate fires too.
+                "reuse_licenses_ok": False,
                 "included_hashes_ok": True,
                 "decision_record_gate_ok": False,
             },

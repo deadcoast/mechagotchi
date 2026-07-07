@@ -5,6 +5,7 @@
   "checks": {
     "ledger_validation_ok": true,
     "spdx_expressions_ok": true,
+    "reuse_licenses_ok": true,
     "included_hashes_ok": true,
     "decision_record_gate_ok": true
   },

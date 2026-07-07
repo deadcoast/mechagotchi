@@ -1,0 +1,12 @@
+LicenseRef-Mechagotchi-Internal-Research
+
+These assets were authored inside the Mechagotchi research repository
+(seed palettes, generated corpora, and other internal research
+artifacts). No public license grant has been selected for them yet:
+the repository-wide license choice is the owner's pending decision, and
+until it is made these assets are all rights reserved by the repository
+owner, usable within this repository's research program.
+
+This file exists to satisfy the REUSE convention (audit T21 /
+decision record 0011 verdict 12): every license identifier referenced
+by an included asset resolves to a text file under LICENSES/.

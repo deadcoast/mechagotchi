@@ -668,6 +668,8 @@ Post-v0.1 continuation has started:
 - `labs/grid_genome/generation_bakeoff_formal.py`
 - `data/generated_grids/generation_bakeoff_formal_stage0.json` (T17, bakeoff_gate_met: holdout discipline enters the repo; shipped hybrid CONFIRMED at 1.0/1.0 on unseen creatures; raw markov unusable at 0.12 — validator gating IS the generator; the constrained arm matches perfection with 2.4x novelty, recorded as the A/B follow-up)
 
+- `LICENSES/` (T21: the REUSE convention — LicenseRef texts for included assets + the reference-only marker; provenance CI gains reuse_licenses_ok in BOTH the lab and the promoted mirror, contract extended; the repo-wide license grant remains the owner's pending decision, honestly recorded)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

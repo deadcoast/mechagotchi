@@ -1,0 +1,8 @@
+LicenseRef-Reference-Only
+
+Marker identifier for EXTERNAL works the research documents study by
+reference (papers, repositories, UX studies). No bytes from these works
+are included in this repository; their own upstream licenses (recorded
+per-asset in the provenance ledger, e.g. Apache-2.0, MIT, GPL-2.0-only)
+govern the originals. This identifier asserts only "referenced, never
+embedded".

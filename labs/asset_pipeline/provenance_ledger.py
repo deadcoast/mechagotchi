@@ -258,7 +258,22 @@ def build_provenance_ci_report(ledger: dict, repo_root: Path) -> dict:
         exception_ids.update(parsed["exception_ids"])
         operators.update(parsed["operators"])
 
-    errors = list(validation["errors"]) + expression_errors
+    # REUSE convention (audit T21): every license id covering an
+    # INCLUDED asset must resolve to LICENSES/<id>.txt.
+    included_license_ids: set[str] = set()
+    for entry in ledger.get("assets", []):
+        if isinstance(entry, dict) and entry.get("included_in_repo"):
+            expression = entry.get("spdx_expression", entry.get("spdx_id", ""))
+            included_license_ids.update(
+                parse_spdx_expression(expression)["license_ids"]
+            )
+    reuse_errors = [
+        f"REUSE: missing LICENSES/{license_id}.txt"
+        for license_id in sorted(included_license_ids)
+        if not (repo_root / "LICENSES" / f"{license_id}.txt").is_file()
+    ]
+
+    errors = list(validation["errors"]) + expression_errors + reuse_errors
     report = {
         "report_version": "0.1.0",
         "generated_date": ledger.get("generated_date", "2026-05-12"),
@@ -266,6 +281,7 @@ def build_provenance_ci_report(ledger: dict, repo_root: Path) -> dict:
         "checks": {
             "ledger_validation_ok": validation["ok"],
             "spdx_expressions_ok": not expression_errors,
+            "reuse_licenses_ok": not reuse_errors,
             "included_hashes_ok": not any("hash" in error for error in validation["errors"]),
             "decision_record_gate_ok": not any(
                 "requires decision_record" in error for error in validation["errors"]
