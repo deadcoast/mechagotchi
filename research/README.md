@@ -773,6 +773,8 @@ Post-v0.1 continuation has started:
 - `labs/datasets/dataset_consumers.py` (+ `test_dataset_consumers.py`)
 - `data/datasets/dataset_consumers_stage0.json` (E3: the R6 fuel burns — TWO findings. (1) R3's synthetic-trained model generalizes to REAL mutations: 0.9406 pairwise accuracy on 2,880 physics-labeled real pairs (0.983 degraded / 0.849 improved; 57.6% coverage, unlabeled reported not hidden; all 5,000 signatures re-verified). (2) A survivorship-bias catch: the naive per-lived-tick mean ranked switchboard LAST; the engine-faithful full-horizon statistic flips it — switchboard 0.789 at survival 1.00 vs idle 0.121 at survival 0.00 (all idle creatures starve by tick ~11); the padding math pinned by a hand-computed crafted-corpus test)
 
+- `research/decision_records/0027-slip-module-disposition.md` (E4: the last deferred target dispositioned — and unlike render, `slip` EARNS it: four package-internal `_slip.py` mirrors (~80 KB quadruplicated, held in sync only by the DR 0013 parity pins) plus the workshop server's docstring-promised switch. `mecha_engine.slip` authorized as the tenth target under the DR 0022 authorize-then-gate pattern; port gates fixed (mirror reconciliation over zoo+fuzz first, contract + parity, byte-identical module behavior after the collapse, workshop switch, promotion_ready before merge); the pydantic cross-check stays lab-side — independence is its value. The og deferred-target list is now empty)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

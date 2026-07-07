@@ -48,13 +48,17 @@ them; they do not pause the queue.)
   all idle creatures starving by tick ~11; both statistics reported,
   the padding math pinned by a hand-computed crafted-corpus test. 10
   new tests; verdicts are the numbers.)
-- [ ] **E4 · `slip` module disposition.** (The last deferred module
-  target; DR 0004's list, now that `render` is dispositioned by DR
-  0026.) Apply the DR 0024/0026 method: the SLIP validators, the
-  schema ladder, and `visual_grammar` ship as lab + package `_slip`
-  mirrors across four surfaces — decide whether a promoted
-  `mecha_engine.slip` earns its target now (a real consumer, verbatim-
-  portable) or stays deferred with a named re-opener.
+- [x] **E4 · `slip` module disposition.** (DR 0027, 2026-07-07: the
+  DR 0024/0026 method applied — and unlike render, slip EARNS its
+  target: four package-internal `_slip.py` mirrors (~80 KB
+  quadruplicated, sync held only by parity pins) plus the workshop
+  server whose docstring already promises the switch. The tenth module
+  target is AUTHORIZED; the port is its own queued task under the
+  DR 0022 authorize-then-gate pattern, with mirror reconciliation as
+  gate 1 (the four mirrors hash differently — prove behavioral
+  identity over the zoo + fuzz corpora before collapsing). The
+  pydantic/jsonschema cross-check stays lab-side by design —
+  independence is its value. The deferred-target list is now EMPTY.)
 - [ ] **E5 · The five player-NOTICES audit (DR 0021 a.4).** DR 0021
   named five felt phenomena, each mapped to a shipped mechanism
   (weather changes the world; creatures visibly think; the species
