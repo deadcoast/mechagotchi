@@ -40,6 +40,8 @@ study is scheduled (recorded remaining tooling).
 
 ## Sources
 
-- `workshop/server/workshop_server.py` (instrumentation), `audits/TODO.md` (T10, T20)
-- `.depreciated/01-formatted.md` (Stage 6/7 metrics), `.depreciated/02-design.md` (statistical standards)
-- `labs/readability_benchmark/bradley_terry.py`
++ `workshop/server/workshop_server.py` (instrumentation), `audits/TODO.md` (T10, T20)
++ `.depreciated/01-formatted.md` (Stage 6/7 metrics), `.depreciated/02-design.md` (statistical standards)
++ `labs/readability_benchmark/bradley_terry.py`
+
+---

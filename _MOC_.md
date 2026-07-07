@@ -17,17 +17,17 @@
 > *NUMERIC MEANING/CATEGORY IN THE INDEX*
 
 * [0] = "Orientation and onboarding"
-  * [AGENT-ONBOARDING](docs/00-agent_onboarding.md)
+  * [AGENT-ONBOARDING](docs/agent-standards.md)
 * [1] = "Unformatted notes or rough ideas"
-  * [BRAINSTORMING](docs\01-brainstorming.md)
+  * [BRAINSTORMING](docs/project-research/validity-research.md)
   * [FUTURE-IDEAS](docs/01-shelved/01-future_ideas.md)
 * [2] = "Research Plans"
-  * [RESEARCH_PLANS](docs\02-research_plan.md)
+  * [RESEARCH_PLANS](docs/project-research/research.md)
 * [3] = "Formatted Reports created from [2]"
-  * [REPORTS](docs/01-shelved/03-reports/03-deep_research_report.md)
+  * [REPORTS](docs/project-research/deep-research/01/deep-research.md)
   * [REPORTS](docs/01-shelved/03-reports/03-deep_research_report.pdf)
-  * [CODE-REVIEW](docs/03-code_review/2026-07-04-code_review.md)
+  * [CODE-REVIEW](audits/complete/02/2026-07-04-code_review.md)
 * [4] = "Sources and Citations"
-  * [SOURCES](docs/01-shelved/03-reports/04-sources.md)
+  * [SOURCES](docs/project-research/deep-research/01/sources.md)
 
 ---
