@@ -763,6 +763,9 @@ Post-v0.1 continuation has started:
 - `labs/game_loop/session_soak.py` (+ `test_session_soak.py`)
 - `data/game_loop/session_soak_stage0.json` (D5: the C2/C3/C5 persistence spine load-verified over a 12-era chain through the promoted storage module — determinism at scale, ledger blob round-trips, deterministic replay of EVERY stored era, replay-file hashes matching rows, founder-chain continuity, unlock-chain monotonicity; `soak_spine_holds_at_campaign_scale`. Two harness-faithfulness bugs found and fixed (the C4 earned blend must be replayed not defaulted; `founder_grids=None` ≠ `[]` — the DR 0016 distinction is intentional); live extinction honestly unreachable at Stage-0 scale, so succession stays fixture-proven)
 
+- `research/experiment_reports/2026-07-07-render-packet-v2-slip-gate-promotion.md`
+- `packages/mecha_engine/src/mecha_engine/genome/animation.py` + `labs/grid_genome/test_package_animation_parity.py` (E1: the T3.5 SLIP `visual_grammar.animation_vocab` gate promoted verbatim into `genome.render_packet_v2` — the species' vocabulary bounds the packet and unsupported states fall back to a DISPLAYED idle with honest mood; `slip_profile=None` byte-identical, parity carve-out closed, contract probe added; the workshop `/api/preview/render` switched to the promoted surface (nocturne renders vocab `[idle,sleep]` end-to-end) — the last shipped-surface dependency on a lab for packet building, closed)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

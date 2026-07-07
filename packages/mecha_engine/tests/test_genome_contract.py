@@ -251,6 +251,18 @@ class MechaEngineGenomeContractTests(unittest.TestCase):
         self.assertTrue(packet["json_roundtrip_equal"])
         self.assertTrue(packet["grid_not_mutated"])
 
+    def test_render_packet_v2_slip_vocab_gate_bounds_and_falls_back(self):
+        # E1 (cycle 05): the T3.5 visual-grammar gate promoted verbatim.
+        # A species without beg bounds the vocabulary and shows a
+        # DISPLAYED idle for a hunger-driven beg while mood stays honest;
+        # slip_profile=None is byte-identical to the plain call.
+        packet = self.report["render_packet_v2"]
+        self.assertEqual(["idle", "blink"], packet["gated_vocabulary"])
+        self.assertTrue(packet["gated_animation_falls_back_to_idle"])
+        self.assertTrue(packet["gated_mood_stays_honest"])
+        self.assertTrue(packet["ungated_hungry_shows_beg"])
+        self.assertTrue(packet["none_profile_is_byte_identical"])
+
 
 if __name__ == "__main__":
     unittest.main()

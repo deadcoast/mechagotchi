@@ -97,6 +97,7 @@ def render_packet_v2(
     lifecycle_state: dict | None = None,
     *,
     animation: str | None = None,
+    slip_profile: dict | None = None,
 ) -> dict:
     """Render packet v2 (audit T16): the og contract as a package surface.
 
@@ -105,8 +106,26 @@ def render_packet_v2(
     lifecycle selection (previewer use). ``render_packet_from_grid`` stays
     exactly v1; this builder wraps it, so packet structure and validation
     stay the engine's — invalid grids raise through the v1 gate.
+
+    ``slip_profile`` (cycle 05 E1 — the T3.5 visual-grammar gate promoted
+    verbatim from ``labs/grid_genome/animation_states.build_render_packet_v2``,
+    pinned by ``labs/grid_genome/test_package_animation_parity.py``): the
+    species' ``visual_grammar.animation_vocab`` bounds the vocabulary, and
+    a selected state outside it falls back to a DISPLAYED ``idle`` while
+    ``mood`` stays honest (a hunger-driven ``beg`` on a species with no
+    beg shows idle + mood hungry). ``None`` is byte-identical to the
+    pre-E1 package contract (full vocabulary, no fallback).
     """
+    # Rung T3.5: the species' visual grammar bounds the vocabulary.
+    vocabulary = list(ANIMATION_STATES)
+    if slip_profile is not None:
+        grammar = slip_profile.get("visual_grammar") or {}
+        vocab = grammar.get("animation_vocab")
+        if isinstance(vocab, list) and vocab:
+            vocabulary = [s for s in ANIMATION_STATES if s in vocab]
     if animation is not None:
+        if animation not in ANIMATION_STATES:
+            raise ValueError(f"unknown animation state: {animation}")
         selected, mood = animation, None
         if lifecycle_state is not None:
             _, mood = select_animation_state(lifecycle_state)
@@ -114,9 +133,12 @@ def render_packet_v2(
         selected, mood = select_animation_state(lifecycle_state)
     else:
         selected, mood = "idle", None
+    if selected not in vocabulary:
+        # Mood stays honest; the DISPLAYED state falls back to idle.
+        selected = "idle"
     projected = project_animation_state(grid, selected)
     packet = render_packet_from_grid(projected, lifecycle_state)
     packet["animation"] = selected
     packet["mood"] = mood
-    packet["animation_vocabulary"] = list(ANIMATION_STATES)
+    packet["animation_vocabulary"] = vocabulary
     return packet

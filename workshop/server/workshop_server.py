@@ -130,7 +130,6 @@ from ca_nca_growth_repair import (  # noqa: E402
     matrix_from_grid,
 )
 from corpus_builder import PALETTES, build_seed_grids  # noqa: E402
-from animation_states import build_render_packet_v2  # noqa: E402
 from slip import is_grid_aligned, validate_slip  # noqa: E402
 
 from mecha_engine.generation import (  # noqa: E402
@@ -139,6 +138,7 @@ from mecha_engine.generation import (  # noqa: E402
 )
 from mecha_engine.genome import (  # noqa: E402
     render_packet_from_grid,
+    render_packet_v2,
     validate_grid,
 )
 from mecha_engine.repair import train_repair_model  # noqa: E402
@@ -1025,10 +1025,19 @@ class _Handler(SimpleHTTPRequestHandler):
 
         if kind == "render":
             # T16: packet v2 — the requested animation state's projected
-            # visuals ride the packet (lab builder; engine validation).
+            # visuals ride the packet. E1 (cycle 05): the PROMOTED
+            # mecha_engine.genome.render_packet_v2 now carries the SLIP
+            # visual-grammar gate, so the workshop no longer depends on
+            # the lab builder here. The species' profile bounds the
+            # portrait vocabulary and honestly idles unsupported states.
             animation = payload.get("animation")
+            profile = self.server.all_profiles().get(
+                str(payload.get("profile_id", ""))
+            )
             try:
-                packet = build_render_packet_v2(grid, None, animation=animation)
+                packet = render_packet_v2(
+                    grid, None, animation=animation, slip_profile=profile
+                )
             except ValueError as error:
                 self._json(400, {"ok": False, "error": str(error)})
                 return

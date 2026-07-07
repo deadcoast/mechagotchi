@@ -483,6 +483,39 @@ class PreviewEndpointTests(unittest.TestCase):
         self.assertEqual([8, 8], packet["grid_size"])
         # The packet carries its own colors — the page never guesses.
         self.assertTrue(all("visual" in cell for cell in packet["cells"]))
+        # No profile → the full vocabulary (byte-identical to pre-E1).
+        self.assertEqual(
+            ["idle", "blink", "sleep", "beg", "ill"],
+            packet["animation_vocabulary"],
+        )
+
+    def test_render_uses_the_promoted_slip_vocab_gate(self):
+        # E1 (cycle 05): the render endpoint now calls the PROMOTED
+        # mecha_engine.genome.render_packet_v2, which bounds the portrait
+        # vocabulary to the species' visual_grammar. Save a nocturne
+        # profile (vocab idle+sleep) and confirm the packet reflects it.
+        nocturne = json.loads(
+            (
+                ROOT / "data" / "slips" / "zoo" / "nocturne_v00.json"
+            ).read_text(encoding="utf-8")
+        )
+        status, saved = _post(
+            f"{self.base}/api/slip/save", {"profile": nocturne}
+        )
+        self.assertEqual(200, status)
+        self.assertTrue(saved["ok"], saved)
+        status, payload = _post(
+            f"{self.base}/api/preview/render",
+            {
+                "source": "workshop",
+                "name": "preview_subject",
+                "profile_id": "nocturne_v00",
+            },
+        )
+        self.assertEqual(200, status)
+        self.assertEqual(
+            ["idle", "sleep"], payload["packet"]["animation_vocabulary"]
+        )
 
     def test_live_preview_is_the_engine_running_the_creature(self):
         status, payload = _post(

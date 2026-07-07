@@ -110,6 +110,20 @@ It must fail or return an invalid result for grids that do not pass
 `validate_grid`. It must not own frontend rendering, animation playback, or UI
 layout.
 
+`render_packet_v2(grid, lifecycle_state=None, *, animation=None,
+slip_profile=None)` (T16; the `slip_profile` gate promoted cycle 05 E1)
+wraps `render_packet_from_grid` and adds `animation`, `mood`, and
+`animation_vocabulary`. With `slip_profile`, the species'
+`visual_grammar.animation_vocab` bounds the vocabulary and a selected
+state outside it falls back to a DISPLAYED `idle` while `mood` stays
+honest; `slip_profile=None` is byte-identical to the pre-E1 contract
+(full vocabulary, no fallback). Verbatim port of the lab authority
+`labs/grid_genome/animation_states.build_render_packet_v2`, pinned by
+`labs/grid_genome/test_package_animation_parity.py` (the parity scope
+note's last carve-out, now closed). The workshop server's
+`/api/preview/render` consumes this promoted surface instead of the lab
+builder (E1's goal: no shipped surface depends on a lab for packet v2).
+
 ## Negative Checks
 
 The genome package gate fails if:

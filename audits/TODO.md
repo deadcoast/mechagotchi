@@ -15,17 +15,17 @@ its tasks and confirmed COMPLETE — then the next cycle is planned.
 (Decision records remain the design documentation for tasks that need
 them; they do not pause the queue.)
 
-- [ ] **E1 · Port the SLIP animation-vocab gate into
-  `genome.render_packet_v2`.** (DR 0026's identified `genome`
-  follow-up.) The workshop's live preview still calls the LAB
-  `build_render_packet_v2` because only it carries the
-  `visual_grammar.animation_vocab` gate (packet selection outside the
-  species' vocabulary falls back to a displayed idle while mood stays
-  honest). Port that `slip_profile` gate into the promoted
-  `mecha_engine.genome.render_packet_v2` verbatim (additive keyword,
-  default byte-identical), add the contract test + lab-side parity
-  pin/drift guard, then switch the workshop server to the package
-  version — closing the last place a shipped surface depends on a lab.
+- [x] **E1 · Port the SLIP animation-vocab gate into
+  `genome.render_packet_v2`.** (2026-07-07: the T3.5
+  `visual_grammar.animation_vocab` gate promoted verbatim as a
+  keyword-only `slip_profile` on `genome.render_packet_v2` (species
+  vocab bounds the packet; unsupported states fall to a DISPLAYED idle
+  with honest mood; `None` byte-identical). Parity carve-out closed
+  (`SlipVocabGateParityTests`), contract probe added; the workshop
+  `/api/preview/render` switched to the promoted surface — nocturne
+  renders vocab `[idle,sleep]` end-to-end. The last shipped-surface
+  dependency on a lab for packet building is closed; the lab
+  `build_render_packet_v2` import is gone from the server.)
 - [ ] **E2 · Shared workshop draw asset.** (DR 0026/0010's workshop
   cleanup.) The three canvas draw loops (`drawPacket` in preview,
   `drawReplayPacket` in session, the editor's `draw`) are duplicated

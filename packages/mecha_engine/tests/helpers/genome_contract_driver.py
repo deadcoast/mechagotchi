@@ -513,6 +513,25 @@ def probe_render_packet_v2(seed_grid: dict, invalid_grid: dict) -> dict:
         invalid_grid_error = str(error)
 
     repeat_packet = render_packet_v2(grid, tired_state)
+
+    # E1 (cycle 05): the SLIP visual-grammar vocab gate. A species with
+    # no beg/ill bounds the vocabulary and falls a hunger-driven beg back
+    # to a DISPLAYED idle while mood stays honest. slip_profile=None must
+    # be byte-identical to the plain call.
+    limited_profile = {"visual_grammar": {"animation_vocab": ["idle", "blink"]}}
+    hungry_state = {
+        "alive": True,
+        "energy": 0.6,
+        "hunger": 0.8,
+        "stress": 0.2,
+        "age_ticks": 1,
+    }
+    gated_packet = render_packet_v2(
+        grid, hungry_state, slip_profile=limited_profile
+    )
+    ungated_hungry = render_packet_v2(grid, hungry_state)
+    none_profile_packet = render_packet_v2(grid, tired_state, slip_profile=None)
+
     try:
         serialized = json.dumps(sleep_packet)
         json_serializable = True
@@ -542,6 +561,13 @@ def probe_render_packet_v2(seed_grid: dict, invalid_grid: dict) -> dict:
         "unknown_state_error": unknown_state_error,
         "invalid_grid_error": invalid_grid_error,
         "deterministic_repeat_identical": repeat_packet == sleep_packet,
+        # E1: the SLIP vocab gate.
+        "gated_vocabulary": gated_packet["animation_vocabulary"],
+        "gated_animation_falls_back_to_idle": gated_packet["animation"]
+        == "idle",
+        "gated_mood_stays_honest": gated_packet["mood"] == "hungry",
+        "ungated_hungry_shows_beg": ungated_hungry["animation"] == "beg",
+        "none_profile_is_byte_identical": none_profile_packet == repeat_packet,
         "json_serializable": json_serializable,
         "json_roundtrip_equal": json_serializable
         and json.loads(serialized) == sleep_packet,

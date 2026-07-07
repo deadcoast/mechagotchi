@@ -148,5 +148,74 @@ class RenderPacketV2ParityTests(unittest.TestCase):
                 )
 
 
+class SlipVocabGateParityTests(unittest.TestCase):
+    """E1 (cycle 05): the SLIP visual-grammar gate promoted into the
+    package — the last place the parity scope note carved out. Both
+    builders must agree WITH a slip_profile, including the honest-idle
+    fallback for a state outside the species' vocabulary."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.grids = build_seed_grids()[:PARITY_SEED_COUNT]
+
+    def _profile(self, vocab):
+        return {"visual_grammar": {"animation_vocab": vocab}}
+
+    def test_bounded_vocabulary_packets_identical(self):
+        # A species with no beg/ill: the vocabulary and every packet must
+        # match, and a hunger-driven beg falls back to a DISPLAYED idle
+        # with honest mood on both sides.
+        profile = self._profile(["idle", "blink", "sleep"])
+        hungry = {
+            "alive": True,
+            "energy": 0.6,
+            "hunger": 0.8,
+            "stress": 0.2,
+            "age_ticks": 1,
+        }
+        for grid in self.grids:
+            for snapshot in LIFECYCLE_SNAPSHOTS + [hungry]:
+                with self.subTest(grid=grid["grid_id"], snapshot=snapshot):
+                    lab = build_render_packet_v2(
+                        grid, snapshot, slip_profile=profile
+                    )
+                    pkg = render_packet_v2(
+                        grid, snapshot, slip_profile=profile
+                    )
+                    self.assertEqual(lab, pkg)
+                    self.assertEqual(
+                        ["idle", "blink", "sleep"],
+                        pkg["animation_vocabulary"],
+                    )
+
+    def test_out_of_vocab_override_falls_back_to_idle_on_both_sides(self):
+        profile = self._profile(["idle"])
+        hungry = {
+            "alive": True,
+            "energy": 0.6,
+            "hunger": 0.8,
+            "stress": 0.2,
+            "age_ticks": 1,
+        }
+        lab = build_render_packet_v2(
+            self.grids[0], hungry, animation="beg", slip_profile=profile
+        )
+        pkg = render_packet_v2(
+            self.grids[0], hungry, animation="beg", slip_profile=profile
+        )
+        self.assertEqual(lab, pkg)
+        self.assertEqual("idle", pkg["animation"])  # displayed fallback
+        self.assertEqual("hungry", pkg["mood"])  # mood stays honest
+
+    def test_absent_profile_is_byte_identical_to_the_no_slip_packet(self):
+        # slip_profile=None must equal the plain call (the byte-identical
+        # default that keeps every pre-E1 pin valid).
+        for grid in self.grids:
+            self.assertEqual(
+                render_packet_v2(grid),
+                render_packet_v2(grid, slip_profile=None),
+            )
+
+
 if __name__ == "__main__":
     unittest.main()
