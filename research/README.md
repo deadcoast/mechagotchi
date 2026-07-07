@@ -731,6 +731,11 @@ Post-v0.1 continuation has started:
 
 - `research/decision_records/0024-grid-schema-animation-species-resolution.md` (R7: og grid-level animation/species fields resolved by superseding decision — animation is T4's projections + packet-v2 selection + covenant vocabulary (the og itself put animation on the packet; `animation_anchor` already shipped); species is covenant identity (T3.5), the grid-level copy rejected as decorative duplication with mixed-species soups as the designated re-opener; DR 0011 verdict #5 fully resolved)
 
+- `research/decision_records/0025-readability-selection-runtime-promotion.md`
+- `research/experiment_reports/2026-07-07-readability-selection-promotion.md`
+- `packages/mecha_engine/src/mecha_engine/runtime/_readability.py`
+- `labs/readability_benchmark/test_package_readability_parity.py` + `labs/runtime_integration/test_readability_selection_parity.py` (C1: R3's live consumer promoted into `runtime.evolve` — verbatim scorer mirror + drift guard, record-for-record lab parity, the R3 A/B directional claim holding on the PROMOTED surface, defaults byte-identical; the session steers every era at blend 0.7 and the legibility currency is EARNABLE live (tiers 1+2, elite mean 0.401 vs 0.244) — which immediately measured legibility drifting DOWN across chained eras (0.401 → 0.014; bodies fragment, symmetry falls), a real dynamic queued for C4/C6)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

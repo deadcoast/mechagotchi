@@ -67,6 +67,8 @@ REQUIRED_EVOLVE_DEFAULTS = {
     "founder_grids": "None",
     # DR 0020 (R2.5): CuBFF lineage pressure defaults to None (frozen).
     "cubff_pressure_source": "None",
+    # DR 0025 (C1): the R3 readability arm defaults to None (frozen).
+    "readability_selection": "None",
 }
 REQUIRED_CYCLE_FIELDS = [
     "aligned",
@@ -155,6 +157,8 @@ class MechaEngineRuntimeContractTests(unittest.TestCase):
                 "founder_grids",
                 # DR 0020 (R2.5): the promoted CuBFF pressure seam.
                 "cubff_pressure_source",
+                # DR 0025 (C1): the promoted R3 readability arm.
+                "readability_selection",
             ],
             keyword_only["evolve"],
         )
@@ -195,6 +199,27 @@ class MechaEngineRuntimeContractTests(unittest.TestCase):
         self.assertTrue(probe["every_creature_scored"])
         self.assertGreaterEqual(probe["elite_count"], 1)
         self.assertEqual("evolution_loop_composed", probe["decision_status"])
+
+    def test_readability_selection_is_an_opt_in_byte_identical_seam(self):
+        # DR 0025 (C1): the R3 learned model steers elite parenting.
+        probe = self.report["readability_selection"]
+        self.assertTrue(probe["default_carries_no_block"])
+        self.assertTrue(probe["deterministic_reports_equal"])
+        self.assertEqual(
+            "archive_elites_readability_blend",
+            probe["generation_1_parent_source"],
+        )
+        self.assertEqual(0.7, probe["block_blend"])
+        self.assertEqual(
+            "learned_model_primary_manual_rating_fallback",
+            probe["block_authority"],
+        )
+        self.assertTrue(probe["means_per_generation"])
+        self.assertTrue(probe["means_bounded"])
+        raised = probe["weightless_arm_raised"]
+        self.assertIsNotNone(raised)
+        self.assertIn("ValueError", raised)
+        self.assertIn("weights", raised)
 
     def test_aligned_but_invalid_repairs_skip_instead_of_crashing(self):
         # Promotion-drift fix (2026-07-07): the lab loop gates episodes

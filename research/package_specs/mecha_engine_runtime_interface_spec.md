@@ -128,3 +128,25 @@ additionally carries a `frames` block: the wound's `removed_cells`
 the cycle ran no episode). Default `False` is byte-identical to the
 pre-0023 contract (contract probe `record_frames_off_equals_stripped_on`
 plus the frozen parity pins, unmodified).
+
+## readability_selection (decision record 0025, 2026-07-07)
+
+`evolve` accepts keyword-only `readability_selection: dict | None =
+None` — R3's live consumer promoted (DR 0019's learned model as the
+PRIMARY readability signal). The arm carries the learned model
+(`weights`, `reference_features`, `blend`, default 0.5); elite parents
+are ranked by `blend * learned_readability + (1 - blend) *
+min-max-normalized fitness` (lab-verbatim ordering, `parent_source:
+archive_elites_readability_blend`), taking precedence over
+`lineage_preferences` exactly as in the lab loop. The report gains a
+rung-conditional `readability_selection` block (authority string,
+blend, weights, reference features, per-generation mean learned
+readability over candidates). Scoring runs through the verbatim
+`runtime/_readability.py` mirror (the `_cubff`/`_damage` private-copy
+rule; drift guard `labs/readability_benchmark/
+test_package_readability_parity.py`). `None` is byte-identical (frozen
+pins unmodified); a weightless arm raises `ValueError`. The manual
+rating system remains the fallback and calibration check. Pins:
+`labs/runtime_integration/test_readability_selection_parity.py`
+(record-for-record lab parity + the promoted-surface A/B) and the
+`readability_selection` probe in the contract driver.

@@ -85,6 +85,11 @@ SUCCESSOR_SEED_OFFSET = 50_000_000
 
 WEATHER_NAMES = ("calm", "stable_soup", "storm")
 
+# C1 (DR 0025): the promoted readability arm steers every era's elite
+# parenting at the R3 live-consumer blend — the legibility currency runs
+# on the engine's own recorded means. Tuning data, like the thresholds.
+LEGIBILITY_BLEND = 0.7
+
 # DR 0021: "threshold VALUES are tuning, not architecture: they live in
 # the session lab as data, proven falsifiable by tests." Tier values are
 # calibrated to Stage-0 measured magnitudes (R2's evolution artifact:
@@ -294,6 +299,9 @@ def run_era(
         rng_seed=rng_seed,
         founder_grids=founder_grids,
         cubff_pressure_source=build_weather_source(weather),
+        # C1 (DR 0025): the LEARNED model steers parenting live; the
+        # engine's own per-generation means are the legibility record.
+        readability_selection={**legibility_model, "blend": LEGIBILITY_BLEND},
     )
     elites = _era_elites(archive)
     went_extinct = (
@@ -346,6 +354,12 @@ def run_era(
             "elite_mean_learned_readability": legibility,
         },
     }
+
+
+def _era_readability_means(report: dict) -> list[float]:
+    return report.get("readability_selection", {}).get(
+        "mean_learned_readability_by_generation", []
+    )
 
 
 def run_campaign(
@@ -653,6 +667,9 @@ def _era_digest(era: dict) -> dict:
         "elite_mean_learned_readability": era["derived"][
             "elite_mean_learned_readability"
         ],
+        "mean_learned_readability_by_generation": _era_readability_means(
+            report
+        ),
         "founders_submitted": len(era["founders_submitted"]),
         "founders_admitted": len(
             report.get("founders", {}).get("admitted_ids", [])

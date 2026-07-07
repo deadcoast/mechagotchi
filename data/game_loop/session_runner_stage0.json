@@ -28,15 +28,20 @@
         "snapshot_ids": [],
         "generations_ran": 3,
         "went_extinct": false,
-        "total_removed_cells": 65,
+        "total_removed_cells": 64,
         "max_dropout_multiplier_survived": null,
-        "elite_mean_learned_readability": 0.244302,
+        "elite_mean_learned_readability": 0.400622,
+        "mean_learned_readability_by_generation": [
+          0.277955,
+          0.206808,
+          0.584121
+        ],
         "founders_submitted": 0,
         "founders_admitted": 0,
         "founders_rejected": 0,
         "parent_source_generation_0": "seed_pool",
-        "filled_niches": 10,
-        "qd_score": 9.193864,
+        "filled_niches": 8,
+        "qd_score": 7.408972,
         "max_lineage_generation": 2,
         "decision_status": "evolution_loop_composed"
       },
@@ -50,17 +55,22 @@
         ],
         "generations_ran": 3,
         "went_extinct": false,
-        "total_removed_cells": 58,
+        "total_removed_cells": 53,
         "max_dropout_multiplier_survived": 0.899848,
-        "elite_mean_learned_readability": 0.176988,
-        "founders_submitted": 10,
-        "founders_admitted": 10,
+        "elite_mean_learned_readability": 0.181523,
+        "mean_learned_readability_by_generation": [
+          0.527166,
+          0.002097,
+          0.189093
+        ],
+        "founders_submitted": 8,
+        "founders_admitted": 8,
         "founders_rejected": 0,
         "parent_source_generation_0": "founders_plus_seed_pool",
         "filled_niches": 9,
-        "qd_score": 8.180581,
+        "qd_score": 8.210881,
         "max_lineage_generation": 2,
-        "decision_status": "evolution_loop_gaps_measured"
+        "decision_status": "evolution_loop_composed"
       },
       {
         "era_index": 2,
@@ -72,15 +82,20 @@
         ],
         "generations_ran": 3,
         "went_extinct": false,
-        "total_removed_cells": 65,
+        "total_removed_cells": 62,
         "max_dropout_multiplier_survived": 1.170205,
-        "elite_mean_learned_readability": 0.16459,
+        "elite_mean_learned_readability": 0.013802,
+        "mean_learned_readability_by_generation": [
+          0.006746,
+          0.002537,
+          0.010727
+        ],
         "founders_submitted": 9,
         "founders_admitted": 9,
         "founders_rejected": 0,
         "parent_source_generation_0": "founders_plus_seed_pool",
-        "filled_niches": 10,
-        "qd_score": 9.030451,
+        "filled_niches": 5,
+        "qd_score": 4.566906,
         "max_lineage_generation": 2,
         "decision_status": "evolution_loop_composed"
       }
@@ -88,9 +103,9 @@
     "chained_era_count": 2,
     "founder_admission_all_or_nothing": true,
     "total_removed_cells_by_forecast": {
-      "calm": 65,
-      "stable_soup": 58,
-      "storm": 65
+      "calm": 64,
+      "stable_soup": 53,
+      "storm": 62
     },
     "unlock_facts": [
       {
@@ -98,7 +113,7 @@
         "tier": 1,
         "earned_era_index": 0,
         "metric_path": "report.summary.archive.filled_niches",
-        "metric_value": 10,
+        "metric_value": 8,
         "threshold": 4
       },
       {
@@ -106,7 +121,7 @@
         "tier": 2,
         "earned_era_index": 0,
         "metric_path": "report.summary.archive.filled_niches",
-        "metric_value": 10,
+        "metric_value": 8,
         "threshold": 8
       },
       {
@@ -122,7 +137,7 @@
         "tier": 1,
         "earned_era_index": 0,
         "metric_path": "report.summary.archive.qd_score",
-        "metric_value": 9.193864,
+        "metric_value": 7.408972,
         "threshold": 3.0
       },
       {
@@ -130,8 +145,24 @@
         "tier": 2,
         "earned_era_index": 0,
         "metric_path": "report.summary.archive.qd_score",
-        "metric_value": 9.193864,
+        "metric_value": 7.408972,
         "threshold": 6.0
+      },
+      {
+        "axis": "legibility",
+        "tier": 1,
+        "earned_era_index": 0,
+        "metric_path": "derived.elite_mean_learned_readability",
+        "metric_value": 0.400622,
+        "threshold": 0.25
+      },
+      {
+        "axis": "legibility",
+        "tier": 2,
+        "earned_era_index": 0,
+        "metric_path": "derived.elite_mean_learned_readability",
+        "metric_value": 0.400622,
+        "threshold": 0.35
       },
       {
         "axis": "storm_record",
@@ -142,7 +173,7 @@
         "threshold": 1.1
       }
     ],
-    "unlock_fact_count": 6,
+    "unlock_fact_count": 8,
     "final_status_by_campaign": {
       "campaign_stage0": "active"
     }

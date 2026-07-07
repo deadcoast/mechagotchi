@@ -12,14 +12,18 @@ exhausted of its tasks and confirmed COMPLETE — then the next cycle is
 planned. (Decision records remain the design documentation for tasks
 that need them; they do not pause the queue.)
 
-- [ ] **C1 · Promote R3 readability-selection into `runtime.evolve`.**
-  (Named by G2's report: the legibility currency is inert at the
-  promoted surface because readability-aware parenting is a lab-loop
-  consumer.) `readability_selection` keyword on the promoted `evolve`
-  (the DR 0016/0020 additive pattern: default None byte-identical),
-  verbatim lab semantics, contract tests + lab-side parity pin + drift
-  guard; then the session lab's legibility metric measurably moves and
-  the unlock axis becomes earnable live. Needs its own DR.
+- [x] **C1 · Promote R3 readability-selection into `runtime.evolve`.**
+  (DR 0025, 2026-07-07: `readability_selection` keyword on the
+  promoted `evolve` — verbatim `_readability.py` scorer mirror + drift
+  guard, record-for-record lab parity incl. the precedence pin, the
+  R3 A/B directional claim held on the promoted surface, contract
+  probe, defaults byte-identical (every frozen pin unmodified). The
+  session steers every era at blend 0.7: legibility tiers 1+2 earned
+  live (elite mean 0.401 vs 0.244; 8 unlock facts vs 6) — and the
+  live currency immediately measured legibility drifting DOWN across
+  chained eras (0.401 → 0.182 → 0.014; bodies fragment 0.875 → 0.567
+  inverse-component, symmetry 0.337 → 0.191) — recorded, not tuned
+  away; a measured target for C4/C6.)
 - [ ] **C2 · The `campaign_store` lab (DR 0022's schema, proven).**
   `labs/game_loop/campaign_store.py`: SQLite schema v1 via stdlib
   `sqlite3`, the blob-authoritative rule, one-transaction eras, and all

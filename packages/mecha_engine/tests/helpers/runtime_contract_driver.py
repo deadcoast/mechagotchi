@@ -201,6 +201,90 @@ def probe_evolve(
     }
 
 
+def probe_readability_selection(
+    seed_grids: list[dict],
+    slip_profile: dict,
+    generation_model,
+    repair_model: dict,
+) -> dict:
+    """C1 (decision record 0025): the R3 learned-readability arm steers
+    elite parenting; the default is byte-identical. The probe model is a
+    constant-weights stand-in — the contract is the seam's shape and
+    determinism; the trained-model behavior is the lab-side parity pin."""
+
+    def scorer(grid: dict) -> float:
+        return CONSTANT_READABILITY
+
+    arm = {
+        "weights": {
+            "inverse_component_count": 4.0,
+            "body_mass_ratio": 0.0,
+            "silhouette_entropy": 1.0,
+            "symmetry_score": 2.0,
+            "organ_detectability": 5.0,
+            "palette_contrast": 3.0,
+            "animation_anchor_coverage": 2.0,
+        },
+        "reference_features": {},
+        "blend": 0.7,
+    }
+    config = dict(EVOLVE_CONFIG)
+    _, default_report = evolve(
+        seed_grids,
+        slip_profile,
+        generation_model,
+        repair_model,
+        readability_scorer=scorer,
+        **config,
+    )
+    _, first = evolve(
+        seed_grids,
+        slip_profile,
+        generation_model,
+        repair_model,
+        readability_scorer=scorer,
+        readability_selection=arm,
+        **config,
+    )
+    _, second = evolve(
+        seed_grids,
+        slip_profile,
+        generation_model,
+        repair_model,
+        readability_scorer=scorer,
+        readability_selection=arm,
+        **config,
+    )
+    means = first["readability_selection"][
+        "mean_learned_readability_by_generation"
+    ]
+    return {
+        "default_carries_no_block": "readability_selection"
+        not in default_report,
+        "deterministic_reports_equal": first == second,
+        "generation_1_parent_source": first["generations"][1][
+            "parent_source"
+        ],
+        "block_blend": first["readability_selection"]["blend"],
+        "block_authority": first["readability_selection"][
+            "readability_authority"
+        ],
+        "means_per_generation": len(means) == len(first["generations"]),
+        "means_bounded": all(0.0 <= value <= 1.0 for value in means),
+        "weightless_arm_raised": _raised(
+            lambda: evolve(
+                seed_grids,
+                slip_profile,
+                generation_model,
+                repair_model,
+                readability_scorer=scorer,
+                readability_selection={"blend": 0.7},
+                **config,
+            )
+        ),
+    }
+
+
 def probe_invalid_repair_boundary(
     seed_grids: list[dict],
     slip_profile: dict,
@@ -632,6 +716,9 @@ def main() -> None:
         ),
         "invalid_repair_boundary": probe_invalid_repair_boundary(
             seed_grids, slip_profile, generation_model
+        ),
+        "readability_selection": probe_readability_selection(
+            seed_grids, slip_profile, generation_model, repair_model
         ),
         "live_cycle": probe_live_cycle(live_subject, slip_profile, repair_model),
         "injected_events": probe_injected_events(

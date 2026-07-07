@@ -27,11 +27,13 @@
   (DR 0021's first law); deterministic end to end; ledger migration to
   the SQLite storage module is lossless by construction; thresholds
   falsifiable on fixtures both directions.
-- **Weaknesses**: legibility currency is inert at the promoted surface
-  (R3's readability-aware selection is a lab-loop consumer not yet
-  promoted — elite readability 0.16–0.24 vs 0.25 tier floor); one SLIP
-  covenant per campaign (mid-campaign covenant adjustment is G4's
-  surface).
+- **Weaknesses**: one SLIP covenant per campaign (mid-campaign covenant
+  adjustment is the C4 slice). The legibility-currency weakness closed
+  2026-07-07: DR 0025 promoted readability selection into
+  `runtime.evolve`, the session steers every era at blend 0.7, and the
+  axis is earnable live — which immediately measured legibility
+  DRIFTING DOWN across chained eras (0.401 → 0.014), a real dynamic
+  queued for C4/C6.
 - **Failure modes**: live extinction unobserved at Stage-0 scale (the
   repair guard holds alignment through 0.95 probe dropout) — detection
   is contract-based and succession fixture-proven, not live-measured;

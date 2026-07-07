@@ -48,6 +48,7 @@ from mecha_engine.genome import validate_grid
 from mecha_engine.lifecycle import run_episode
 
 from ._cubff import extract_cubff_features, features_to_traits
+from ._readability import learned_readability_score
 from ._slip import is_grid_aligned
 from .live import live_cycle
 
@@ -88,6 +89,7 @@ def evolve(
     rng_seed: int = 20260512,
     founder_grids: list[dict] | None = None,
     cubff_pressure_source: list[dict] | None = None,
+    readability_selection: dict | None = None,
 ) -> tuple[dict, dict]:
     """Run multi-generation evolution through the composed engine.
 
@@ -114,6 +116,17 @@ def evolve(
     generation's damage severity — real computational-life dynamics
     shaping the ecosystem (Pipeline C). Only pressure scalars cross the
     boundary; CuBFF never sets cell tokens. ``None`` is byte-identical.
+
+    ``readability_selection`` (decision record 0025, promoting the R3
+    live consumer): ``{"weights": ..., "reference_features": ...,
+    "blend": 0.5}`` — the LEARNED readability model (DR 0019) steers
+    elite parenting: parents ranked by ``blend * learned_readability +
+    (1 - blend) * min-max-normalized fitness`` (lab-verbatim ordering;
+    takes precedence over ``lineage_preferences`` exactly as in the
+    lab). The report gains a rung-conditional ``readability_selection``
+    block with per-generation mean learned readability over candidates.
+    The manual rating system remains the fallback; ``None`` is
+    byte-identical.
     """
     if not isinstance(seed_grids, list) or not seed_grids:
         raise ValueError("seed_grids must be a non-empty list of grid genomes")
@@ -130,6 +143,14 @@ def evolve(
     ):
         raise ValueError(
             "cubff_pressure_source must be a non-empty list of CuBFF snapshots"
+        )
+    if readability_selection is not None and (
+        not isinstance(readability_selection, dict)
+        or not isinstance(readability_selection.get("weights"), dict)
+    ):
+        raise ValueError(
+            "readability_selection must be a mapping carrying the learned "
+            "model's 'weights' (DR 0019)"
         )
 
     # T3.4 (decision record 0013): a v0.2 profile's lineage preference
@@ -173,6 +194,24 @@ def evolve(
     cubff = cubff_pressure_source is not None
     cubff_by_generation: list[dict] = []
 
+    # C1 (decision record 0025): R3's live consumer promoted verbatim —
+    # the LEARNED model steers parenting; manual rating stays the fallback.
+    readability = readability_selection is not None
+    readability_blend = (
+        float(readability_selection.get("blend", 0.5)) if readability else 0.0
+    )
+    readability_model = (
+        {
+            "weights": dict(readability_selection["weights"]),
+            "reference_features": dict(
+                readability_selection.get("reference_features", {})
+            ),
+        }
+        if readability
+        else None
+    )
+    readability_means: list[float] = []
+
     for generation_index in range(generations):
         generation_dropout = dropout_rate
         if cubff:
@@ -199,7 +238,30 @@ def evolve(
                 parent_source = "seed_pool"
         else:
             elites = archive["elites"]
-            if parent_selection == "fitness_weighted":
+            if readability and elites:
+                # R3 (decision record 0019): the LEARNED model steers
+                # parenting. Fitness is min-max normalized across the
+                # current elites so the blend weighs comparable scales.
+                fitnesses = [elites[niche]["fitness"] for niche in elites]
+                low, high = min(fitnesses), max(fitnesses)
+                span = (high - low) or 1.0
+
+                def _blended(niche: str) -> float:
+                    fitness_norm = (elites[niche]["fitness"] - low) / span
+                    learned = learned_readability_score(
+                        elites[niche]["grid"], readability_model
+                    )
+                    return (
+                        readability_blend * learned
+                        + (1.0 - readability_blend) * fitness_norm
+                    )
+
+                ordered = sorted(
+                    elites, key=lambda niche: (-_blended(niche), niche)
+                )
+                parents = [elites[niche]["grid"] for niche in ordered]
+                parent_source = "archive_elites_readability_blend"
+            elif parent_selection == "fitness_weighted":
                 # T3.4: breed from the fittest elites first (deterministic
                 # truncation bias — with population <= elite count only
                 # the fittest reproduce). Lab-verbatim ordering.
@@ -221,6 +283,7 @@ def evolve(
                 break  # measured, not asserted: an empty archive ends evolution
 
         creatures = []
+        generation_readability: list[float] = []
         for index in range(population):
             parent = parents[index % len(parents)]
             run_seed = rng_seed + generation_index * 100000 + index
@@ -229,6 +292,10 @@ def evolve(
             candidate = generate_candidate(
                 parent, generation_model, slip_profile, rng_seed=run_seed
             )
+            if readability:
+                generation_readability.append(
+                    learned_readability_score(candidate, readability_model)
+                )
             stages["candidate_valid"] = validate_grid(candidate).ok
             max_lineage_generation = max(
                 max_lineage_generation,
@@ -326,6 +393,15 @@ def evolve(
             )
 
         summary_after = archive_summary(archive)
+        if readability:
+            readability_means.append(
+                round(
+                    sum(generation_readability) / len(generation_readability),
+                    6,
+                )
+                if generation_readability
+                else 0.0
+            )
         generation_reports.append(
             {
                 "generation": generation_index,
@@ -401,6 +477,18 @@ def evolve(
             "multiplier_band": list(CUBFF_MULTIPLIER_BAND),
             "source_snapshot_count": len(cubff_pressure_source),
             "by_generation": cubff_by_generation,
+        }
+    if readability:
+        report["readability_selection"] = {
+            "readability_authority": (
+                "learned_model_primary_manual_rating_fallback"
+            ),
+            "blend": readability_blend,
+            "weights": dict(readability_model["weights"]),
+            "reference_features": dict(
+                readability_model["reference_features"]
+            ),
+            "mean_learned_readability_by_generation": readability_means,
         }
     return archive, report
 
