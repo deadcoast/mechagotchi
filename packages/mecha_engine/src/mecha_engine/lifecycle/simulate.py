@@ -39,7 +39,12 @@ from statistics import mean
 
 from mecha_engine.genome import validate_grid
 
-from ._policy import ACTIONS, SUPPORTED_POLICIES, choose_action
+from ._policy import (
+    ACTIONS,
+    SUPPORTED_POLICIES,
+    choose_action,
+    choose_action_detailed,
+)
 from ._slip import is_grid_aligned, validate_slip
 
 # Stage 0 homeostasis targets and danger thresholds (research values).
@@ -201,7 +206,9 @@ def initial_state(grid: dict, slip_profile: dict | None = None) -> dict:
     return state
 
 
-def advance_tick(state: dict, action: str) -> dict:
+def advance_tick(
+    state: dict, action: str, deliberation: dict | None = None
+) -> dict:
     """Apply one supported action to a live state and return a new state.
 
     The prior state is never mutated. Live states age by exactly one tick,
@@ -209,6 +216,12 @@ def advance_tick(state: dict, action: str) -> dict:
     per-tick history entry (with recovered dangerous needs), and receive an
     explicit death cause when a terminal threshold is crossed. Already-dead
     states are returned unchanged.
+
+    ``deliberation`` (F1, the seen thought — verbatim lab semantics): the
+    switchboard decision's R1 record for THIS tick, riding the history
+    entry as a rung-conditional key. ``None`` (every reflex tick, every
+    idle/random tick, every no-covenant flow) appends the frozen entry
+    byte-identically.
     """
     if action not in ACTION_EFFECTS:
         raise ValueError(f"unsupported lifecycle action: {action}")
@@ -260,17 +273,21 @@ def advance_tick(state: dict, action: str) -> dict:
         recoveries
     )
     next_state["alive"], next_state["death_cause"] = _life_status(next_state)
-    next_state["history"].append(
-        {
-            "tick": next_state["age_ticks"],
-            "action": action,
-            "balance": balance,
-            "recoveries": recoveries,
-            "alive": next_state["alive"],
-            "death_cause": next_state["death_cause"],
-            "state": _snapshot(next_state),
-        }
-    )
+    entry = {
+        "tick": next_state["age_ticks"],
+        "action": action,
+        "balance": balance,
+        "recoveries": recoveries,
+        "alive": next_state["alive"],
+        "death_cause": next_state["death_cause"],
+        "state": _snapshot(next_state),
+    }
+    # F1 (the seen thought): rung-conditional — only ticks where the
+    # switchboard actually deliberated carry the record, so every
+    # frozen flow's history stays byte-identical.
+    if deliberation is not None:
+        entry["deliberation"] = deliberation
+    next_state["history"].append(entry)
     return next_state
 
 
@@ -327,10 +344,12 @@ def run_episode(
         if not state["alive"]:
             break
         if action_stream is not None:
-            action = action_stream[index]
+            action, thought = action_stream[index], None
         else:
-            action = choose_action(effective_policy, state, rng)
-        state = advance_tick(state, action)
+            action, thought = choose_action_detailed(
+                effective_policy, state, rng
+            )
+        state = advance_tick(state, action, deliberation=thought)
 
     balances = [entry["balance"] for entry in state["history"]]
     if balances and len(balances) < ticks:

@@ -541,6 +541,50 @@ def probe_loaded_lab_modules() -> list[str]:
     )
 
 
+def probe_deliberation_history(grid: dict, profile: dict) -> dict:
+    """F1 (the seen thought): under a deliberation covenant, switchboard
+    ticks carry the R1 record in their history entries; every frozen
+    flow's entries stay exactly the pinned field set."""
+    thinking = deepcopy(profile)
+    thinking["slip_version"] = "0.2.0"
+    thinking["deliberation"] = {"max_ticks": 4, "confidence_threshold": 0.72}
+    episode = run_episode(
+        grid, thinking, policy="switchboard", ticks=24, rng_seed=20260512
+    )
+    thoughts = [
+        entry["deliberation"]
+        for entry in episode["history"]
+        if "deliberation" in entry
+    ]
+    frozen = run_episode(
+        grid, profile, policy="switchboard", ticks=24, rng_seed=20260512
+    )
+    idle_episode = run_episode(
+        grid, thinking, policy="idle", ticks=24, rng_seed=20260512
+    )
+    repeat = run_episode(
+        grid, thinking, policy="switchboard", ticks=24, rng_seed=20260512
+    )
+    return {
+        "thoughts_recorded": len(thoughts),
+        "thought_counts_bounded": all(
+            1 <= thought["tick_count"] <= 4 for thought in thoughts
+        ),
+        "thought_carries_max_and_threshold": all(
+            thought["max_ticks"] == 4
+            and thought["confidence_threshold"] == 0.72
+            for thought in thoughts
+        ),
+        "frozen_flow_has_no_key": all(
+            "deliberation" not in entry for entry in frozen["history"]
+        ),
+        "idle_policy_never_thinks": all(
+            "deliberation" not in entry for entry in idle_episode["history"]
+        ),
+        "deterministic_repeat_identical": episode == repeat,
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo-root", type=Path, required=True)
@@ -562,6 +606,7 @@ def main() -> None:
         "episodes": probe_episodes(grid, profile, invalid_grid),
         "rewards": probe_rewards(grid, profile),
         "slip_v2": probe_slip_v2(grid, profile),
+        "deliberation_history": probe_deliberation_history(grid, profile),
         "no_learner_memory": probe_no_learner_memory(grid, profile),
         "fixtures_mutated": grid != grid_pristine or profile != profile_pristine,
         "lab_modules_loaded": probe_loaded_lab_modules(),

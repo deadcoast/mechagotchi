@@ -311,6 +311,7 @@ function drawReplayFrame() {
   if (frame.phase === "episode_tick") {
     const e = frame.entry;
     text += " · tick " + e.tick + " · " + e.action + " · balance " + e.balance.toFixed(3) +
+      (e.deliberation ? " · thought " + e.deliberation.tick_count + (e.deliberation.tick_count === 1 ? " tick" : " ticks") : "") +
       (e.alive ? "" : " · DIED" + (e.death_cause ? " (" + e.death_cause + ")" : ""));
   }
   r.label.textContent = text;

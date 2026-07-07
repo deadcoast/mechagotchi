@@ -198,6 +198,35 @@ class ReplayRecorderTests(unittest.TestCase):
         self.assertIsNone(packet)
         self.assertTrue(errors)
 
+    def test_a_thinking_covenant_shows_its_thoughts_in_the_replay(self):
+        # F1 end-to-end: under a deliberation covenant, the recorded
+        # tick frames carry the R1 record — the scrubber renders
+        # "thought N ticks" from exactly this field.
+        profile = json.loads(json.dumps(self.slip_profile))
+        profile["slip_version"] = "0.2.0"
+        profile["deliberation"] = {
+            "max_ticks": 4,
+            "confidence_threshold": 0.72,
+        }
+        replay = build_replay(
+            self.grid, profile, self.repair_model, **REPLAY_KW
+        )
+        thoughts = [
+            frame["entry"]["deliberation"]
+            for frame in replay["frames"]
+            if frame["phase"] == "episode_tick"
+            and "deliberation" in frame["entry"]
+        ]
+        self.assertTrue(thoughts)
+        for thought in thoughts:
+            self.assertGreaterEqual(thought["tick_count"], 1)
+            self.assertLessEqual(thought["tick_count"], 4)
+        # The v0.1 replay (setUpClass) stays thought-free — the
+        # rung-conditional key keeps frozen replays byte-identical.
+        for frame in self.replay["frames"]:
+            if frame["phase"] == "episode_tick":
+                self.assertNotIn("deliberation", frame["entry"])
+
     def test_artifacts_round_trip(self):
         report = build_recorder_report(self.replay)
         self.assertEqual(

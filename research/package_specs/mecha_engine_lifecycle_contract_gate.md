@@ -231,3 +231,21 @@ Expected implementation-stage result:
   https://mitpress.mit.edu/9780262039246/reinforcement-learning/
 - Contextual-bandit paper used by switchboard feedback research:
   https://arxiv.org/abs/1003.0146
+
+## Deliberation in history (F1, 2026-07-07 — the seen thought)
+
+`advance_tick` accepts keyword-only `deliberation: dict | None = None`
+and `choose_action` gains a companion `choose_action_detailed(policy,
+state, rng) -> (action, record | None)`. Under a v0.2 covenant carrying
+`deliberation`, ticks that actually reach the switchboard append the R1
+record (`tick_count`, `max_ticks`, `confidence_threshold`) to their
+history entry as a RUNG-CONDITIONAL key; reflex ticks (the quick-path
+guards), the idle/random policies, explicit action streams, and every
+no-covenant flow append the frozen entry byte-identically —
+`choose_action` itself is unchanged. Verbatim across the lab authority
+(`labs/lifecycle_sim/lifecycle_sim.py`) and the package, pinned by
+`labs/lifecycle_sim/test_deliberation_history.py` (identical histories
+on both sides) and the `deliberation_history` driver probe. This is how
+DR 0021's notice 2 ("creatures visibly think") reaches the replay
+scrubber: the tick frames carry the record, and the scrubber renders
+"thought N ticks".

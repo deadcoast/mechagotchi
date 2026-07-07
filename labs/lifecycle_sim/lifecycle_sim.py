@@ -147,7 +147,9 @@ def initial_lifecycle_state(grid: dict, slip_profile: dict | None = None) -> dic
     return state
 
 
-def advance_tick(state: dict, action: str) -> dict:
+def advance_tick(
+    state: dict, action: str, deliberation: dict | None = None
+) -> dict:
     if action not in ACTION_EFFECTS:
         raise ValueError(f"unsupported lifecycle action: {action}")
     next_state = deepcopy(state)
@@ -198,17 +200,21 @@ def advance_tick(state: dict, action: str) -> dict:
         recoveries
     )
     next_state["alive"], next_state["death_cause"] = _life_status(next_state)
-    next_state["history"].append(
-        {
-            "tick": next_state["age_ticks"],
-            "action": action,
-            "balance": balance,
-            "recoveries": recoveries,
-            "alive": next_state["alive"],
-            "death_cause": next_state["death_cause"],
-            "state": _snapshot(next_state),
-        }
-    )
+    entry = {
+        "tick": next_state["age_ticks"],
+        "action": action,
+        "balance": balance,
+        "recoveries": recoveries,
+        "alive": next_state["alive"],
+        "death_cause": next_state["death_cause"],
+        "state": _snapshot(next_state),
+    }
+    # F1 (the seen thought): rung-conditional — only ticks where the
+    # switchboard actually deliberated carry the record, so every
+    # frozen flow's history stays byte-identical.
+    if deliberation is not None:
+        entry["deliberation"] = deliberation
+    next_state["history"].append(entry)
     return next_state
 
 
@@ -225,8 +231,8 @@ def run_lifecycle_simulation(
     for _ in range(ticks):
         if not state["alive"]:
             break
-        action = _choose_action(policy, state, rng)
-        state = advance_tick(state, action)
+        action, thought = _choose_action_detailed(policy, state, rng)
+        state = advance_tick(state, action, deliberation=thought)
 
     balances = [entry["balance"] for entry in state["history"]]
     if balances and len(balances) < ticks:
@@ -337,20 +343,35 @@ def write_lifecycle_artifacts(output_path: Path, report: dict) -> None:
 
 
 def _choose_action(policy: str, state: dict, rng: random.Random) -> str:
+    return _choose_action_detailed(policy, state, rng)[0]
+
+
+def _choose_action_detailed(
+    policy: str, state: dict, rng: random.Random
+) -> tuple[str, dict | None]:
+    """(action, deliberation record | None) — F1, the seen thought.
+
+    The record is the switchboard decision's own R1 ``deliberation``
+    block, present only when the covenant carries the field AND the
+    tick actually reached the switchboard: reflexes (the quick-path
+    guards) and the idle/random policies don't think, and no-covenant
+    flows never produce the key — so every frozen path stays
+    byte-identical."""
     if policy == "idle":
-        return "idle"
+        return "idle", None
     if policy == "random":
-        return rng.choice(ACTIONS)
+        return rng.choice(ACTIONS), None
     if policy != "switchboard":
         raise ValueError(f"unsupported lifecycle policy: {policy}")
 
     if state["energy"] < 0.18:
-        return "sleep"
+        return "sleep", None
     if state["hunger"] > 0.7:
-        return "feed"
+        return "feed", None
     if state["stress"] > 0.72:
-        return "idle"
-    return run_switchboard(state)["action"]
+        return "idle", None
+    decision = run_switchboard(state)
+    return decision["action"], decision.get("deliberation")
 
 
 def _need_balance(state: dict) -> float:

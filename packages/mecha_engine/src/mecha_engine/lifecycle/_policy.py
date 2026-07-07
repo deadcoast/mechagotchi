@@ -48,20 +48,35 @@ SUPPORTED_POLICIES: tuple[str, ...] = ("switchboard", "idle", "random")
 
 def choose_action(policy: str, state: dict, rng: random.Random) -> str:
     """Choose the next action for a named policy (Stage 0 semantics)."""
+    return choose_action_detailed(policy, state, rng)[0]
+
+
+def choose_action_detailed(
+    policy: str, state: dict, rng: random.Random
+) -> tuple[str, dict | None]:
+    """(action, deliberation record | None) — F1, the seen thought.
+
+    Verbatim lab semantics (labs/lifecycle_sim/_choose_action_detailed):
+    the record is the switchboard decision's own R1 ``deliberation``
+    block, present only when the covenant carries the field AND the tick
+    actually reached the switchboard — reflexes (the quick-path guards)
+    and the idle/random policies don't think, and no-covenant flows
+    never produce the key, so every frozen path stays byte-identical."""
     if policy == "idle":
-        return "idle"
+        return "idle", None
     if policy == "random":
-        return rng.choice(ACTIONS)
+        return rng.choice(ACTIONS), None
     if policy != "switchboard":
         raise ValueError(f"unsupported lifecycle policy: {policy}")
 
     if state["energy"] < 0.18:
-        return "sleep"
+        return "sleep", None
     if state["hunger"] > 0.7:
-        return "feed"
+        return "feed", None
     if state["stress"] > 0.72:
-        return "idle"
-    return run_switchboard(state)["action"]
+        return "idle", None
+    decision = run_switchboard(state)
+    return decision["action"], decision.get("deliberation")
 
 
 def _ctm_state_pressure(state: dict) -> dict[str, float]:

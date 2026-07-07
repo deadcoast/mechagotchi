@@ -14,18 +14,18 @@ ONLY when the TODO is exhausted of its tasks and confirmed COMPLETE —
 then the next cycle is planned. (Decision records remain the design
 documentation for tasks that need them; they do not pause the queue.)
 
-- [ ] **F1 · The seen thought — deliberation into episode history and
-  the scrubber.** (E5's found gap, path named: `choose_action` discards
-  the switchboard decision's `deliberation` record before episode
-  history, so nothing can render a thinking pause.) The engine grows
-  the number first: thread the deliberation record (`tick_count`,
-  bounded by the covenant's `max_ticks`) into `run_episode`'s history
-  entries — a parity-pinned history-shape change, so RED-first with an
-  additive rung-conditional key (v0.1/no-deliberation flows stay
-  byte-identical; every frozen pin unmodified), lab-loop + package
-  synced, contract + parity coverage. Then the replay scrubber's tick
-  readout shows the thought ("· thought 3 ticks") — DR 0021's notice 2
-  becomes fully live: the creature is SEEN thinking.
+- [x] **F1 · The seen thought — deliberation into episode history and
+  the scrubber.** (2026-07-07, RED-first: `choose_action_detailed`
+  returns (action, record|None) — reflexes/idle/random return None,
+  switchboard ticks return the R1 record; `advance_tick` appends it as
+  a RUNG-CONDITIONAL history key. Verbatim across the lab authority
+  and the package, identical histories pinned; contract driver probe;
+  every frozen pin byte-identical. Both scrubbers render "thought N
+  ticks"; end-to-end pin: a thinking-covenant replay carries bounded
+  thoughts, the v0.1 replay stays thought-free. DR 0021's notice 2 is
+  fully live — E5's four-of-five becomes FIVE OF FIVE: earn tiers →
+  spend into deliberation → the species thinks → the replay records →
+  the Keeper reads the thought.)
 - [ ] **F2 · Port `mecha_engine.slip` (the tenth module).** (DR 0027's
   authorized target and fixed gates.) Gate 1 first: reconcile the four
   `_slip.py` mirrors — prove behavioral identity over the SLIP zoo +

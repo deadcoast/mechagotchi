@@ -195,6 +195,18 @@ class MechaEngineLifecycleContractTests(unittest.TestCase):
 
     # -- Transition acceptance ------------------------------------------------
 
+    def test_deliberation_rides_history_under_a_thinking_covenant(self):
+        # F1 (the seen thought): switchboard ticks under a deliberation
+        # covenant carry the R1 record; reflexes/idle/frozen flows never
+        # gain the key (byte-identical histories).
+        probe = self.report["deliberation_history"]
+        self.assertGreater(probe["thoughts_recorded"], 0)
+        self.assertTrue(probe["thought_counts_bounded"])
+        self.assertTrue(probe["thought_carries_max_and_threshold"])
+        self.assertTrue(probe["frozen_flow_has_no_key"])
+        self.assertTrue(probe["idle_policy_never_thinks"])
+        self.assertTrue(probe["deterministic_repeat_identical"])
+
     def test_advance_tick_accepts_only_supported_actions(self):
         raised = self.report["transitions"]["unsupported_action_raised"]
         self.assertIsNotNone(raised)
