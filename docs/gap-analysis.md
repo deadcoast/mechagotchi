@@ -10,6 +10,34 @@ deep-research.md` (the research dossier and staged program),
 workshop/CLI charters. It is the source for every development cycle
 until it is retired.
 
+## 0. The two builds (the frame everything below sits in)
+
+**We are building TWO things** (owner, 2026-07-07; validity-research
+§1.5–1.7 says the same):
+
+1. **THE ENGINE** — the Mechagotchi Computational Life Engine,
+   inspired by CuBFF: genome grids, generation, validation, lifecycle,
+   repair, evolution archives, micro-learning, SLIP interpretation,
+   the render bridge. `packages/mecha_engine` and everything that
+   proves it.
+2. **THE GAME** — a showcase built ON the engine, with its own USER
+   FRONT END: a playable client a person launches and plays. The
+   Keeper/era design (DR 0021) is the game's DESIGN; the dev-served
+   workshop HTML pages are NOT its front end — the playable layer does
+   not exist yet and is a first-class build target, not an
+   afterthought.
+
+They sell each other, so both must be high quality and creative or
+neither matters. **The engine is built before the game.** Every cycle
+plan names which build it serves. The recurring failure mode this
+document guards against: periscoping into one feature or module,
+treating it as the whole application, overdeveloping it, and losing
+the picture below.
+
+The workshop is the third surface — the authoring layer serving both
+(it feeds the engine creatures/profiles and gives the game its
+creator loop) — and the CLI remains supportive tooling only.
+
 ## 1. What the application IS (the documents' own words)
 
 > "Mechagotchi is an open-source digital companion engine where
@@ -75,8 +103,11 @@ datasets program (mechaseed_200, mutationbench_5000, replay_100k_ticks
 
 The dossier's rule: "Formalize first, compare generators second, prove
 diversity third, test exotic ideas fourth, build authoring tooling
-fifth, integrate last." Research formalized; now the application
-climbs the documented ladder — each phase at REAL scale:
+fifth, integrate last." Research formalized; now the two builds climb
+the documented ladder in order — **the ENGINE track completes before
+the GAME track begins in earnest** — each phase at REAL scale:
+
+### ENGINE track (Phases A–E)
 
 - **Phase A — the 16×16 foundation.** Migrate the genome/corpus/
   validator/generator/repair/lifecycle to the documented primary grid
@@ -89,7 +120,8 @@ climbs the documented ladder — each phase at REAL scale:
   dossier thresholds) and adopt the winner into `generation`.
 - **Phase C — the animation system.** Clips, frames, anchors,
   transitions (≥80% transition validity), `animstate_300`, the packet's
-  documented clip/frame_index contract, and the retro effects pipeline.
+  documented clip/frame_index contract, and the retro effects pipeline
+  — the render BRIDGE contract the game's client will consume.
 - **Phase D — the intelligence threads.** The named micro-learner
   fleet streaming confidences into the switchboard; the 5 synthetic
   user models; the 100k-tick × 500-lifecycle harness; the documented
@@ -97,17 +129,30 @@ climbs the documented ladder — each phase at REAL scale:
 - **Phase E — evolution at documented scale.** Hundreds of niches,
   populations in the hundreds, 20k+ evaluations, the coverage/QD/
   family gates (QDax path optional per the dossier).
-- **Phase F — MVP 0.1 as a product.** ONE installable, launchable
-  companion app (the §1.34 target, now at real scale with real
-  animation) — then 0.2, 0.3 up the documented ladder.
+
+### GAME track (Phase F) — the build the engine exists to showcase
+
+- **Phase F — the playable game.** A REAL user front end: a game
+  client a player launches and plays — not dev-served workshop pages.
+  The Keeper/era design (DR 0021) and the companion loop are its
+  DESIGN inputs; the client consumes the engine's render-packet
+  bridge and the retro effects pipeline; the MVP ladder (0.1 → 0.2 →
+  0.3, validity §1.21–1.24) is climbed as PRODUCT releases —
+  installable, launchable, with save files. Front-end technology
+  chosen by decision record when the phase opens (the docs name web /
+  Godot / terminal / Pygame / desktop as bridge targets and TS+React
+  as the documented workshop scale-path).
+
+### Shared / late-stage (Phase G)
+
 - **Phase G — the late-stage requireds.** Real-CuBFF corpus + the
   transducer study (20 runs / 400 states, the documented keep gates);
   community asset/profile system; CI + reproducibility; the M7 public
-  alpha.
+  alpha of BOTH builds.
 
 Each phase decomposes into cycle TODOs; `audits/TODO.md` always names
-its phase. This document is retired only when Phase G's alpha gate is
-green.
+its phase AND its build track. This document is retired only when
+Phase G's alpha gate is green.
 
 ## Sources
 

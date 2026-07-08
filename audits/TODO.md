@@ -1,4 +1,9 @@
-# Development TODO — Cycle 09: Phase A — the 16×16 foundation
+# Development TODO — Cycle 09: ENGINE track · Phase A — the 16×16 foundation
+
+**Build track: THE ENGINE** (of the two builds — engine and game — per
+`docs/gap-analysis.md` §0; the engine completes before the game's
+playable front end is built, and no feature in this cycle is "the
+application").
 
 Source: `docs/gap-analysis.md` (2026-07-07) — the measured gap between
 the documented application and the implementation. The documents name
