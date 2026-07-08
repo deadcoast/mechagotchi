@@ -1,0 +1,153 @@
+{
+  "artifact_id": "stress_probe_scaling_stage0",
+  "status": "complete",
+  "date": "2026-07-08",
+  "purpose": "Re-derive the archive stress probe's 8x8-coupled /16 mass denominator at the ratified 16x16 scale from evidence (DR 0014's requirement): measure the exact engine load statistic and real run_episode survival over both proven corpora under candidate denominator laws that all reproduce /16 at 8x8, gate on the probe's own documented purpose (a non-collapsed survival axis), and adopt by distribution preservation.",
+  "source_artifacts": [
+    "packages/mecha_engine/src/mecha_engine/archive/_metrics.py",
+    "packages/mecha_engine/src/mecha_engine/lifecycle",
+    "data/seed_grids",
+    "data/seed_grids_16x16",
+    "research/decision_records/0014-grid-size-commitment.md",
+    "research/decision_records/0029-16x16-default-grid-scale.md",
+    "data/grid_genome/invariant_scaling_16x16_stage0.json"
+  ],
+  "metrics": {
+    "episode_ticks": 24,
+    "rng_seed": 11,
+    "survival_bin_edges": [
+      0.2,
+      0.4,
+      0.6,
+      0.8
+    ],
+    "baseline_8x8": {
+      "denominator": 16,
+      "population": 50,
+      "load": {
+        "min": 0.615,
+        "p50": 0.815,
+        "p95": 0.982647,
+        "max": 0.991786
+      },
+      "saturated_fraction": 0.0,
+      "survival_ratio": {
+        "min": 0.5,
+        "p50": 1.0,
+        "p95": 1.0,
+        "max": 1.0
+      },
+      "full_survival_fraction": 0.92,
+      "survival_bins": [
+        2,
+        4
+      ],
+      "survival_bins_covered": 2
+    },
+    "candidates_16x16": {
+      "area_over_4": {
+        "denominator": 64,
+        "population": 50,
+        "load": {
+          "min": 0.12125,
+          "p50": 0.693736,
+          "p95": 1.0,
+          "max": 1.0
+        },
+        "saturated_fraction": 0.18,
+        "survival_ratio": {
+          "min": 0.5,
+          "p50": 1.0,
+          "p95": 1.0,
+          "max": 1.0
+        },
+        "full_survival_fraction": 0.72,
+        "survival_bins": [
+          2,
+          4
+        ],
+        "survival_bins_covered": 2,
+        "gates": {
+          "reproduces_16_at_8x8": true,
+          "survival_axis_alive": true,
+          "no_bin_regression_vs_baseline": true,
+          "saturation_not_total": true
+        }
+      },
+      "four_x_floor": {
+        "denominator": 72,
+        "population": 50,
+        "load": {
+          "min": 0.082222,
+          "p50": 0.603889,
+          "p95": 0.978889,
+          "max": 1.0
+        },
+        "saturated_fraction": 0.04,
+        "survival_ratio": {
+          "min": 0.5,
+          "p50": 1.0,
+          "p95": 1.0,
+          "max": 1.0
+        },
+        "full_survival_fraction": 0.88,
+        "survival_bins": [
+          2,
+          4
+        ],
+        "survival_bins_covered": 2,
+        "gates": {
+          "reproduces_16_at_8x8": true,
+          "survival_axis_alive": true,
+          "no_bin_regression_vs_baseline": true,
+          "saturation_not_total": true
+        }
+      },
+      "status_quo_16": {
+        "denominator": 16,
+        "population": 50,
+        "load": {
+          "min": 0.965,
+          "p50": 1.0,
+          "p95": 1.0,
+          "max": 1.0
+        },
+        "saturated_fraction": 0.98,
+        "survival_ratio": {
+          "min": 0.5,
+          "p50": 0.5,
+          "p95": 0.5,
+          "max": 0.5
+        },
+        "full_survival_fraction": 0.0,
+        "survival_bins": [
+          2
+        ],
+        "survival_bins_covered": 1,
+        "gates": {
+          "reproduces_16_at_8x8": true,
+          "survival_axis_alive": false,
+          "no_bin_regression_vs_baseline": false,
+          "saturation_not_total": true
+        }
+      }
+    },
+    "adopted": {
+      "law": "area_over_4",
+      "denominator_16x16": 64,
+      "denominator_8x8": 16
+    }
+  },
+  "closed_states": [
+    "stress_probe_denominator_law_adopted",
+    "all_candidate_laws_reproduce_16_at_8x8",
+    "survival_axis_measured_not_assumed"
+  ],
+  "blocked_states": [
+    "engine_probe_still_ships_the_8x8_constant (adoption lands with this A3 increment across the engine and its verbatim mirrors)",
+    "repair_model_not_retrained_at_16x16 (next A3 increment)",
+    "slip_mass_bounds_still_8x8_denominated (A3, DR 0012 extension ladder)"
+  ],
+  "decision": "Adopt denominator law 'area_over_4' (D = 16 at 8x8, D = 64 at 16x16) into lifecycle_probe_grid and every verbatim mirror; 8x8 behavior byte-identical by the identity gate.",
+  "next_research_step": "Adopt the law in mecha_engine.archive._metrics plus the four verbatim mirrors (runtime lab probe, archive contract oracle, extended-descriptors lab, workshop morphology panel), then retrain repair at 16x16."
+}

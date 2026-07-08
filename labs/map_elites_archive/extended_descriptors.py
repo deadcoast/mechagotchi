@@ -289,11 +289,14 @@ def _lifecycle_probe_grid(grid: dict) -> dict:
     L-12). The archive therefore probes each candidate under a deterministic
     structural stress load derived from its own morphology:
 
-        load = clamp(body_mass / 16 + (1 - symmetry) * 0.65
+        load = clamp(body_mass / (width * height / 4) + (1 - symmetry) * 0.65
                      - sensor_count * 0.08)
 
-    - body_mass / 16: heavier bodies strain the substrate (16 is the top
-      body-mass descriptor bin edge);
+    - body_mass / (w*h/4): heavier bodies strain the substrate. The
+      denominator is size-parametric since cycle 09 A3 (16 at 8x8 — the
+      original calibrated constant — and 64 at the ratified 16x16;
+      measured in stress_probe_scaling.py after DR 0014 flagged the /16
+      as 8x8-coupled);
     - (1 - symmetry) * 0.65: asymmetric silhouettes carry unbalanced load;
     - sensor_count * 0.08: sensor coverage relieves load (needs are noticed
       and regulated sooner).
@@ -306,13 +309,31 @@ def _lifecycle_probe_grid(grid: dict) -> dict:
     """
     probe = deepcopy(grid)
     load = _clamp(
-        _body_mass(grid) / 16
+        _body_mass(grid) / _probe_mass_denominator(grid)
         + (1 - _symmetry_score(grid)) * 0.65
         - _sensor_count(grid) * 0.08
     )
     for cell in probe.get("cells", []):
         cell["stress"] = round(load, 6)
     return probe
+
+
+def _probe_mass_denominator(grid: dict) -> int:
+    # Mirrors mecha_engine.archive._metrics._probe_mass_denominator
+    # (evidence: stress_probe_scaling.py, cycle 09 A3).
+    grid_size = grid.get("grid_size")
+    if (
+        isinstance(grid_size, list)
+        and len(grid_size) == 2
+        and all(
+            isinstance(dimension, int)
+            and not isinstance(dimension, bool)
+            and dimension > 0
+            for dimension in grid_size
+        )
+    ):
+        return max(1, (grid_size[0] * grid_size[1]) // 4)
+    return 16
 
 
 def _lifecycle_or_empty(

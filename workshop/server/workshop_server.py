@@ -226,14 +226,13 @@ def _morphology_stats(grid: dict) -> dict:
 
     Formula mirrored verbatim from
     ``mecha_engine.archive._metrics.lifecycle_probe_grid``:
-    load = clamp(body_mass/16 + (1 - symmetry) * 0.65 - sensors * 0.08).
-    ``collapse_risk`` marks the lifecycle's documented bistability
-    boundary (stress >= 0.95 collapses around tick 12-14).
-
-    Engine truth caveat: the /16 mass constant is the engine's own
-    8x8-calibrated probe, so 16x16 bodies saturate the load — exactly
-    what the engine currently computes. Its renormalization is cycle-09
-    A3/A4 (DR 0029); this mirror follows the engine, never leads it.
+    load = clamp(body_mass/(w*h/4) + (1 - symmetry) * 0.65
+    - sensors * 0.08). The mass denominator is size-parametric since
+    cycle 09 A3 (16 at 8x8, 64 at 16x16 — measured in the
+    stress_probe_scaling lab; the shipped /16 measured as a total
+    survival-axis collapse at 16x16). ``collapse_risk`` marks the
+    lifecycle's documented bistability boundary (stress >= 0.95
+    collapses around tick 12-14).
     """
     cells = grid.get("cells", [])
     body_mass = sum(1 for cell in cells if cell.get("organ") == "core")
@@ -254,9 +253,16 @@ def _morphology_stats(grid: dict) -> dict:
         if occupied
         else 0.0
     )
+    height = grid_size[1] if isinstance(grid_size, list) and len(grid_size) > 1 else 8
+    mass_denominator = max(1, (width * height) // 4)
     load = max(
         0.0,
-        min(1.0, body_mass / 16 + (1 - symmetry) * 0.65 - sensor_count * 0.08),
+        min(
+            1.0,
+            body_mass / mass_denominator
+            + (1 - symmetry) * 0.65
+            - sensor_count * 0.08,
+        ),
     )
     return {
         "body_mass": body_mass,

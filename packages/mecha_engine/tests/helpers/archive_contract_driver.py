@@ -168,16 +168,36 @@ def _oracle_bin(value: float, thresholds: list[float]) -> int:
 
 
 def _oracle_stress_probe(grid: dict) -> dict:
-    """Contracted morphology-derived lifecycle stress probe."""
+    """Contracted morphology-derived lifecycle stress probe.
+
+    Size-parametric mass denominator since cycle 09 A3: w*h/4 (16 at 8x8,
+    byte-identical history; 64 at the ratified 16x16 default).
+    """
     probe = deepcopy(grid)
     load = _oracle_clamp(
-        _oracle_body_mass(grid) / 16
+        _oracle_body_mass(grid) / _oracle_mass_denominator(grid)
         + (1 - _oracle_symmetry(grid)) * 0.65
         - _oracle_sensor_count(grid) * 0.08
     )
     for cell in probe.get("cells", []):
         cell["stress"] = round(load, 6)
     return probe
+
+
+def _oracle_mass_denominator(grid: dict) -> int:
+    grid_size = grid.get("grid_size")
+    if (
+        isinstance(grid_size, list)
+        and len(grid_size) == 2
+        and all(
+            isinstance(dimension, int)
+            and not isinstance(dimension, bool)
+            and dimension > 0
+            for dimension in grid_size
+        )
+    ):
+        return max(1, (grid_size[0] * grid_size[1]) // 4)
+    return 16
 
 
 # -- Probes ------------------------------------------------------------------

@@ -62,6 +62,15 @@ and never size-replacing, RED-first, with every 8×8 pin unbroken.
   A3 increment together with repair retraining, lifecycle re-derivation,
   and size-relative SLIP bounds.
 
+  *Correction (same day, after the measurement ran):* the implied
+  prediction that `mass/64` would fail its gates was **wrong**. The
+  stress_probe_scaling lab measured it: 18% of the corpus saturates,
+  but the survival axis stays alive (bins {2,4}, matching the 8×8
+  baseline) and every gate passes — while the untouched `/16` measured
+  as a TOTAL collapse at 16×16 (98% saturation, one bin). `mass/(w·h/4)`
+  was adopted. See
+  `research/experiment_reports/2026-07-08-stress-probe-scaling.md`.
+
 ## Verification
 
 RED (floor tests before the law existed):

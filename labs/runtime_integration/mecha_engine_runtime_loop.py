@@ -142,14 +142,16 @@ def _stress_probe(grid: dict) -> tuple[dict, float]:
     """The archive's contracted morphology stress probe, mirrored verbatim.
 
     Source of truth: ``mecha_engine.archive._metrics.lifecycle_probe_grid``
-    (load = clamp(body_mass/16 + (1 - symmetry) * 0.65 - sensors * 0.08),
-    written to every cell's ``stress`` field on a copy). The hard survival
-    regime runs episodes on this probed copy, so whether the switchboard
-    can stabilize the morphology-derived load decides survival — the
-    gradient selection and (later) learning need.
+    (load = clamp(body_mass/(w*h/4) + (1 - symmetry) * 0.65
+    - sensors * 0.08), written to every cell's ``stress`` field on a copy;
+    the mass denominator is size-parametric since cycle 09 A3 — 16 at 8x8,
+    64 at 16x16, measured in the stress_probe_scaling lab). The hard
+    survival regime runs episodes on this probed copy, so whether the
+    switchboard can stabilize the morphology-derived load decides survival
+    — the gradient selection and (later) learning need.
     """
     load = _probe_clamp(
-        _probe_body_mass(grid) / 16
+        _probe_body_mass(grid) / _probe_mass_denominator(grid)
         + (1 - _probe_symmetry(grid)) * 0.65
         - _probe_sensor_count(grid) * 0.08
     )
@@ -157,6 +159,24 @@ def _stress_probe(grid: dict) -> tuple[dict, float]:
     for cell in probe.get("cells", []):
         cell["stress"] = round(load, 6)
     return probe, round(load, 6)
+
+
+def _probe_mass_denominator(grid: dict) -> int:
+    # Mirrored verbatim from _metrics._probe_mass_denominator (DR 0014's
+    # evidence-based re-derivation, cycle 09 A3).
+    grid_size = grid.get("grid_size")
+    if (
+        isinstance(grid_size, list)
+        and len(grid_size) == 2
+        and all(
+            isinstance(dimension, int)
+            and not isinstance(dimension, bool)
+            and dimension > 0
+            for dimension in grid_size
+        )
+    ):
+        return max(1, (grid_size[0] * grid_size[1]) // 4)
+    return 16
 
 
 def _live_tokens(grid: dict) -> dict[tuple[int, int], str]:

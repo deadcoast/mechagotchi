@@ -186,8 +186,16 @@ def lifecycle_probe_grid(grid: dict) -> dict:
     archive therefore probes each candidate under a deterministic
     structural load derived from its own morphology:
 
-        load = clamp(body_mass / 16 + (1 - symmetry) * 0.65
-                     - sensor_count * 0.08)
+        load = clamp(body_mass / (width * height / 4)
+                     + (1 - symmetry) * 0.65 - sensor_count * 0.08)
+
+    The mass denominator is size-parametric since cycle 09 A3 (measured in
+    labs/map_elites_archive/stress_probe_scaling.py; DR 0014 required the
+    re-derivation be evidence-based): width*height/4 is 16 at 8x8 — the
+    original calibrated constant, byte-identical history — and 64 at the
+    ratified 16x16 default, where the shipped /16 measured as a total
+    survival-axis collapse (98% saturation, every creature dead at tick
+    12, one bin). Malformed sizes keep the historical 8x8 constant.
 
     The load is written to every cell's ``stress`` field on a deep copy;
     lifecycle initial state translates mean cell stress into the starting
@@ -197,13 +205,29 @@ def lifecycle_probe_grid(grid: dict) -> dict:
     """
     probe = deepcopy(grid)
     load = clamp(
-        body_mass(grid) / 16
+        body_mass(grid) / _probe_mass_denominator(grid)
         + (1 - symmetry_score(grid)) * 0.65
         - sensor_count(grid) * 0.08
     )
     for cell in probe.get("cells", []):
         cell["stress"] = round(load, 6)
     return probe
+
+
+def _probe_mass_denominator(grid: dict) -> int:
+    grid_size = grid.get("grid_size")
+    if (
+        isinstance(grid_size, list)
+        and len(grid_size) == 2
+        and all(
+            isinstance(dimension, int)
+            and not isinstance(dimension, bool)
+            and dimension > 0
+            for dimension in grid_size
+        )
+    ):
+        return max(1, (grid_size[0] * grid_size[1]) // 4)
+    return 16
 
 
 def resolve_lifecycle(grid: dict, metrics: dict, grid_is_valid: bool) -> dict:
