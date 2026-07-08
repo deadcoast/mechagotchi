@@ -844,6 +844,9 @@ Post-v0.1 continuation has started:
 - `packages/mecha_engine/src/mecha_engine/generation/wfc.py`
 - `labs/wfc_grid/test_package_wfc_parity.py` (cycle 10 B3 · ENGINE · Phase B: the bake-off winner ADOPTED — `mecha_engine.generation` gains the WFC surface (`train_wfc_model` / `generate_wfc_grid` / `build_wfc_corpus`) as an additive seam, a verbatim semantic port pinned lab-side over trained models and full corpora (identical dicts, RNG streams, error strings); every existing generation surface byte-identical, the contract's public-surface pin widened deliberately. The hybrid refutation is recorded with its named re-opener (an extended-descriptor bake-off where the jitter/gate stages could show value); the constrained stabilizer remains the 4-token parent-based path and evolve's inner loop stays on it — moving it is a future decision with its own evidence. Stdlib holds at 6.3 ms/candidate measured)
 
+- `research/experiment_reports/2026-07-08-phase-b-gate.md`
+- `data/generated_grids/wfc_16x16/` (50 candidates) (cycle 10 B4 · ENGINE · **Phase B GATE — GREEN**: the generation layer is no longer missing — the WFC lab (B1, with pure collapse's 2% self-refutation recorded), the real five-arm bake-off (B2, WFC wins at validity 1.0 / 6.3 ms, the documented hybrid REFUTED under the pre-registered rule), the engine adoption (B3, DR 0031, additive seam parity-pinned), and the regenerated 16×16 generated corpus. Honest remainders named: evolve's inner loop stays constrained pending its own evidence; the hybrid re-opener is an extended-descriptor bake-off; WFC candidates carry no parent lineage yet; readability remains the 8×8-calibrated proxy. Phase B checked off in `docs/gap-analysis.md`; cycle 10 archives to `audits/complete/10/`; cycle 11 opens Phase C — the animation system)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

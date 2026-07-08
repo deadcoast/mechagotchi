@@ -445,14 +445,34 @@ def _core_mass(grid: dict) -> int:
     )
 
 
+def write_wfc_corpus(generated_dir: Path, generated_grids: list[dict]) -> None:
+    generated_dir.mkdir(parents=True, exist_ok=True)
+    for grid in generated_grids:
+        (generated_dir / f"{grid['grid_id']}.json").write_text(
+            json.dumps(grid, indent=2) + "\n", encoding="utf-8"
+        )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="WFC grid lab (cycle 10 B1).")
     parser.add_argument(
         "--output-dir", type=Path, default=ROOT / "data" / "wfc_grid"
     )
+    parser.add_argument(
+        "--generated-dir",
+        type=Path,
+        default=ROOT / "data" / "generated_grids" / "wfc_16x16",
+    )
     args = parser.parse_args()
     report = build_wfc_report()
     write_wfc_artifacts(args.output_dir, report)
+    from corpus_builder import build_seed_grids_16
+
+    train = split_corpus(build_seed_grids_16())[0]
+    model = train_wfc_model(train)
+    write_wfc_corpus(
+        args.generated_dir, build_wfc_corpus(model, count=50, rng_seed=1030)
+    )
     print(json.dumps(report["metrics"], indent=2))
 
 

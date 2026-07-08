@@ -121,6 +121,12 @@ the GAME track begins in earnest** — each phase at REAL scale:
   (the documented WFC/constraint generator), then run the REAL
   documented bake-off (random vs Markov vs WFC vs hybrid at 16×16,
   dossier thresholds) and adopt the winner into `generation`.
+  **COMPLETE (cycle 10, 2026-07-08)** — gate report
+  `research/experiment_reports/2026-07-08-phase-b-gate.md` (WFC won and
+  ships in the engine, DR 0031; the documented hybrid was REFUTED by
+  the pre-registered rule and the refutation recorded with its named
+  re-opener; evolve's inner loop deliberately stays on the constrained
+  path pending its own evidence).
 - **Phase C — the animation system.** Clips, frames, anchors,
   transitions (≥80% transition validity), `animstate_300`, the packet's
   documented clip/frame_index contract, and the retro effects pipeline
