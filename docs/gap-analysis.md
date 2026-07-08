@@ -131,6 +131,13 @@ the GAME track begins in earnest** — each phase at REAL scale:
   transitions (≥80% transition validity), `animstate_300`, the packet's
   documented clip/frame_index contract, and the retro effects pipeline
   — the render BRIDGE contract the game's client will consume.
+  **COMPLETE (cycle 11, 2026-07-08)** — gate report
+  `research/experiment_reports/2026-07-08-phase-c-gate.md` (clips over
+  the promoted projections; transition validity 0.9877 measured against
+  the 0.80 bar; `animstate_950` supersedes the documented dataset; the
+  packet carries the dossier's animation block and the effects/ui_hints
+  contract; live clip DRIVING through the graph is Phase F's
+  consumption, named in the gate's remainder).
 - **Phase D — the intelligence threads.** The named micro-learner
   fleet streaming confidences into the switchboard; the 5 synthetic
   user models; the 100k-tick × 500-lifecycle harness; the documented
