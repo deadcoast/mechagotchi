@@ -100,10 +100,19 @@ class SharedDrawAssetTests(unittest.TestCase):
             self.assertEqual(200, response.status)
             return response.read().decode("utf-8")
 
-    def test_the_shared_asset_serves_with_the_three_helpers(self):
+    def test_the_shared_asset_serves_with_its_helpers(self):
         asset = self._page("/shared/draw.js")
-        for name in ("MechaDraw", "drawPacket", "woundOverlay", "bodyPacketAt"):
+        for name in (
+            "MechaDraw",
+            "drawPacket",
+            "woundOverlay",
+            "bodyPacketAt",
+            "applyEffects",
+        ):
             self.assertIn(name, asset)
+        # C5: the consumer rasterizes the packet's DECLARED effects.
+        for effect in ("scanline", "glitch", "crt_bloom"):
+            self.assertIn(effect, asset)
 
     def test_preview_and_session_import_it_and_carry_no_duplicates(self):
         for path in ("/preview", "/session"):
@@ -804,6 +813,26 @@ class PreviewEndpointTests(unittest.TestCase):
         self.assertEqual(
             ["idle", "blink", "sleep", "beg", "ill"],
             packet["animation_vocabulary"],
+        )
+
+    def test_render_packet_carries_the_effects_contract(self):
+        # C5: effects in the documented list shape, deterministic
+        # parameters alongside, ui_hints mirroring the engine thresholds.
+        status, payload = _post(
+            f"{self.base}/api/preview/render",
+            {"source": "seed", "name": "mg_seed16_001_beetle"},
+        )
+        self.assertEqual(200, status)
+        packet = payload["packet"]
+        self.assertEqual(["scanline", "lcd_ghosting"], packet["effects"])
+        self.assertIn("scanline", packet["effect_parameters"])
+        self.assertEqual(
+            {
+                "show_hunger_icon": False,
+                "show_sleep_icon": False,
+                "show_attention_ping": False,
+            },
+            packet["ui_hints"],
         )
 
     def test_clip_preview_scrubs_the_documented_contract(self):

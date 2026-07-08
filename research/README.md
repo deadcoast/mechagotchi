@@ -865,6 +865,10 @@ Post-v0.1 continuation has started:
 - `labs/animation_system/test_package_clip_parity.py`
 - `workshop/server/workshop_server.py` (`/api/preview/clip`) (cycle 11 C4 · ENGINE · Phase C: the render packet carries the documented animation contract — the clip model promoted verbatim into `mecha_engine.genome` (frame-for-frame parity pins), `render_packet_v2` gains `clip`/`frame_index` as a DR 0013 additive rung whose `animation` field becomes the dossier's block (clip/frame_index/frame_count/anchors) with the frame's cells as the packet's cells; validation stays on the projected grid, the moved frame is presentation after the v1 gate; SLIP `animation_vocab` bounds clips exactly as states with honest-mood idle fallback; `clip=None` byte-identical — proven by the pre-existing animation parity suite passing unmodified. The workshop scrubs a real clip end-to-end through the promoted rung)
 
+- `research/experiment_reports/2026-07-08-effects-contract.md`
+- `packages/mecha_engine/src/mecha_engine/genome/animation.py` + `labs/grid_genome/animation_states.py` (the twins)
+- `workshop/shared/draw.js` (`applyEffects`) (cycle 11 C5 · ENGINE · Phase C: the retro effects pipeline contract-side — `effects` in the documented list shape + `effect_parameters` with deterministic engine-derived values (glitch amplitude IS the engine's stress number, riding the ill display; crt_bloom rides beg; scanline+lcd_ghosting are the standing LCD identity) + `ui_hints` mirroring the T16 thresholds, on every v2 packet in verbatim lab/package twins (the parity suite failed loudly at 134 when momentarily one-sided — the discipline working). Consumer proof: the shared drawer rasterizes the declared effects (scanline, glitch row-shear, bloom halo; lcd_ghosting honestly skipped as a temporal live-player concern for Phase F). Workshop 60 green)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

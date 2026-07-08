@@ -99,6 +99,41 @@ def select_animation_state(lifecycle_state: dict) -> tuple[str, str]:
     return "idle", "curious"
 
 
+def packet_effects(
+    lifecycle_state: dict | None, selected: str
+) -> tuple[list[str], dict, dict]:
+    """The retro effects declaration + ui_hints (cycle 11 C5).
+
+    Mirrored verbatim with mecha_engine.genome.animation.packet_effects
+    (pinned by labs/animation_system/test_effects_contract.py): the LCD
+    identity always on; glitch rides the ill display with the engine's
+    own stress as amplitude; crt_bloom rides the beg display; ui_hints
+    mirror the T16 selection thresholds.
+    """
+    stress = (lifecycle_state or {}).get("stress", 0.0)
+    hunger = (lifecycle_state or {}).get("hunger", 0.0)
+    energy = (lifecycle_state or {}).get("energy", 1.0)
+    effects = ["scanline", "lcd_ghosting"]
+    parameters: dict[str, dict] = {
+        "scanline": {"period": 2, "opacity": 0.12},
+        "lcd_ghosting": {"alpha": 0.35},
+    }
+    if selected == "beg":
+        effects.append("crt_bloom")
+        parameters["crt_bloom"] = {"radius": 1, "intensity": 0.3}
+    if selected == "ill":
+        effects.append("glitch")
+        parameters["glitch"] = {
+            "amplitude": round(max(0.25, min(1.0, stress)), 6)
+        }
+    ui_hints = {
+        "show_hunger_icon": hunger > 0.65,
+        "show_sleep_icon": energy < 0.2,
+        "show_attention_ping": stress > 0.65 or hunger > 0.65,
+    }
+    return effects, parameters, ui_hints
+
+
 def build_render_packet_v2(
     grid: dict,
     lifecycle_state: dict | None = None,
@@ -140,6 +175,10 @@ def build_render_packet_v2(
     packet["animation"] = selected
     packet["mood"] = mood
     packet["animation_vocabulary"] = vocabulary
+    effects, parameters, ui_hints = packet_effects(lifecycle_state, selected)
+    packet["effects"] = effects
+    packet["effect_parameters"] = parameters
+    packet["ui_hints"] = ui_hints
     return packet
 
 

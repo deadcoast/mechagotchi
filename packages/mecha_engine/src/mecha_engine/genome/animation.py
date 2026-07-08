@@ -190,6 +190,44 @@ def select_animation_state(lifecycle_state: dict) -> tuple[str, str]:
     return "idle", "curious"
 
 
+def packet_effects(
+    lifecycle_state: dict | None, selected: str
+) -> tuple[list[str], dict, dict]:
+    """The retro effects declaration + ui_hints (cycle 11 C5).
+
+    Renderer-neutral (DR 0026: consumers rasterize, the engine never
+    does): the documented list shape rides ``effects``, deterministic
+    parameters ride ``effect_parameters``, and everything derives from
+    engine state. The LCD identity (scanline + lcd_ghosting) is always
+    on; glitch rides the ill display with its amplitude tied to the
+    engine's own stress number; crt_bloom rides the beg display.
+    ``ui_hints`` mirror the T16 selection thresholds (hunger 0.65 /
+    energy 0.2 / stress 0.65) so icons and animation always agree.
+    """
+    stress = (lifecycle_state or {}).get("stress", 0.0)
+    hunger = (lifecycle_state or {}).get("hunger", 0.0)
+    energy = (lifecycle_state or {}).get("energy", 1.0)
+    effects = ["scanline", "lcd_ghosting"]
+    parameters: dict[str, dict] = {
+        "scanline": {"period": 2, "opacity": 0.12},
+        "lcd_ghosting": {"alpha": 0.35},
+    }
+    if selected == "beg":
+        effects.append("crt_bloom")
+        parameters["crt_bloom"] = {"radius": 1, "intensity": 0.3}
+    if selected == "ill":
+        effects.append("glitch")
+        parameters["glitch"] = {
+            "amplitude": round(max(0.25, min(1.0, stress)), 6)
+        }
+    ui_hints = {
+        "show_hunger_icon": hunger > 0.65,
+        "show_sleep_icon": energy < 0.2,
+        "show_attention_ping": stress > 0.65 or hunger > 0.65,
+    }
+    return effects, parameters, ui_hints
+
+
 def render_packet_v2(
     grid: dict,
     lifecycle_state: dict | None = None,
@@ -259,6 +297,12 @@ def render_packet_v2(
         }
         packet["mood"] = mood
         packet["animation_vocabulary"] = vocabulary
+        effects, parameters, ui_hints = packet_effects(
+            lifecycle_state, selected_clip
+        )
+        packet["effects"] = effects
+        packet["effect_parameters"] = parameters
+        packet["ui_hints"] = ui_hints
         return packet
 
     if animation is not None:
@@ -279,4 +323,8 @@ def render_packet_v2(
     packet["animation"] = selected
     packet["mood"] = mood
     packet["animation_vocabulary"] = vocabulary
+    effects, parameters, ui_hints = packet_effects(lifecycle_state, selected)
+    packet["effects"] = effects
+    packet["effect_parameters"] = parameters
+    packet["ui_hints"] = ui_hints
     return packet
