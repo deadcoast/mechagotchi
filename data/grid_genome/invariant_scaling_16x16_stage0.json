@@ -1,0 +1,275 @@
+{
+  "artifact_id": "invariant_scaling_16x16_stage0",
+  "status": "complete",
+  "date": "2026-07-08",
+  "purpose": "Re-derive the grid-genome hard/soft invariants at 16x16 empirically (cycle 09 A1): census the proven 8x8 corpus as dimensionless statistics, anchor area scaling with 2x-upscaled controls, author ten 16x16 pilot exemplars across the DR 0015 vocabulary, measure chance-pass rejection power, and evaluate candidate core-mass floors against the documented dossier value.",
+  "source_artifacts": [
+    "labs/grid_genome/corpus_builder.py",
+    "labs/grid_genome/validator.py",
+    "data/seed_grids",
+    "research/grid_genome/grid_invariants.md",
+    "research/decision_records/0014-grid-size-commitment.md",
+    "research/decision_records/0015-dormant-vocabulary-coverage.md",
+    "docs/project-research/deep-research/01/deep-research.md"
+  ],
+  "metrics": {
+    "populations": {
+      "seed_8x8": {
+        "count": 50,
+        "core_mass": {
+          "min": 9,
+          "p50": 10.0,
+          "max": 14
+        },
+        "occupied_cells": {
+          "min": 12,
+          "p50": 13.0,
+          "max": 17
+        },
+        "occupancy_fraction": {
+          "min": 0.1875,
+          "p50": 0.203125,
+          "max": 0.265625
+        },
+        "eye_cells": {
+          "min": 2,
+          "p50": 2.0,
+          "max": 3
+        },
+        "anchor_cells": {
+          "min": 1,
+          "p50": 1.0,
+          "max": 1
+        },
+        "symmetry": {
+          "min": 0.285714,
+          "p50": 0.461538,
+          "max": 0.857143
+        },
+        "symmetry_bins_covered": 4,
+        "core_4connected_fraction": 0.74,
+        "core_8connected_fraction": 1.0,
+        "organ_role_presence": {
+          "body_core": 1.0,
+          "effect": 0.0,
+          "expression": 1.0,
+          "locomotion": 0.0,
+          "ornament": 0.0,
+          "sensor": 1.0
+        }
+      },
+      "upscaled_16x16_control": {
+        "count": 50,
+        "core_mass": {
+          "min": 36,
+          "p50": 40.0,
+          "max": 56
+        },
+        "occupied_cells": {
+          "min": 48,
+          "p50": 52.0,
+          "max": 68
+        },
+        "occupancy_fraction": {
+          "min": 0.1875,
+          "p50": 0.203125,
+          "max": 0.265625
+        },
+        "eye_cells": {
+          "min": 8,
+          "p50": 8.0,
+          "max": 12
+        },
+        "anchor_cells": {
+          "min": 1,
+          "p50": 1.0,
+          "max": 1
+        },
+        "symmetry": {
+          "min": 0.285714,
+          "p50": 0.461538,
+          "max": 0.857143
+        },
+        "symmetry_bins_covered": 4,
+        "core_4connected_fraction": 0.74,
+        "core_8connected_fraction": 1.0,
+        "organ_role_presence": {
+          "body_core": 1.0,
+          "effect": 0.0,
+          "expression": 1.0,
+          "locomotion": 0.0,
+          "ornament": 0.0,
+          "sensor": 1.0
+        }
+      },
+      "pilot_16x16": {
+        "count": 10,
+        "core_mass": {
+          "min": 18,
+          "p50": 44.0,
+          "max": 60
+        },
+        "occupied_cells": {
+          "min": 28,
+          "p50": 66.0,
+          "max": 112
+        },
+        "occupancy_fraction": {
+          "min": 0.109375,
+          "p50": 0.257812,
+          "max": 0.4375
+        },
+        "eye_cells": {
+          "min": 2,
+          "p50": 2.0,
+          "max": 8
+        },
+        "anchor_cells": {
+          "min": 1,
+          "p50": 1.0,
+          "max": 1
+        },
+        "symmetry": {
+          "min": 0.12766,
+          "p50": 1.0,
+          "max": 1.0
+        },
+        "symmetry_bins_covered": 3,
+        "core_4connected_fraction": 0.8,
+        "core_8connected_fraction": 1.0,
+        "organ_role_presence": {
+          "body_core": 1.0,
+          "effect": 0.2,
+          "expression": 1.0,
+          "locomotion": 0.7,
+          "ornament": 0.6,
+          "sensor": 1.0
+        }
+      }
+    },
+    "chance_connectivity": {
+      "8x8": {
+        "k4": 0.00625,
+        "k8": 0.0,
+        "k16": 0.00025,
+        "k18": 0.0015
+      },
+      "16x16": {
+        "k4": 0.0,
+        "k8": 0.0,
+        "k16": 0.0,
+        "k18": 0.0
+      }
+    },
+    "noise_largest_component": {
+      "8x8": {
+        "scattered_cells": 13,
+        "p50": 5,
+        "p95": 8,
+        "max": 12
+      },
+      "16x16": {
+        "scattered_cells": 52,
+        "p50": 9,
+        "p95": 17,
+        "max": 27
+      },
+      "density": 0.203125
+    },
+    "floor_candidates": [
+      {
+        "floor": 4,
+        "fraction_of_area": 0.015625,
+        "fraction_ratio_vs_8x8": 0.25,
+        "fraction_gate": false,
+        "pilots_pass": true,
+        "controls_pass": true,
+        "chance_pass_rate_16x16": 0.0,
+        "chance_gate": true,
+        "verdict": "reject_fraction_band"
+      },
+      {
+        "floor": 8,
+        "fraction_of_area": 0.03125,
+        "fraction_ratio_vs_8x8": 0.5,
+        "fraction_gate": false,
+        "pilots_pass": true,
+        "controls_pass": true,
+        "chance_pass_rate_16x16": 0.0,
+        "chance_gate": true,
+        "verdict": "reject_fraction_band"
+      },
+      {
+        "floor": 16,
+        "fraction_of_area": 0.0625,
+        "fraction_ratio_vs_8x8": 1.0,
+        "fraction_gate": true,
+        "pilots_pass": true,
+        "controls_pass": true,
+        "chance_pass_rate_16x16": 0.0,
+        "chance_gate": true,
+        "verdict": "viable_alternate"
+      },
+      {
+        "floor": 18,
+        "fraction_of_area": 0.070312,
+        "fraction_ratio_vs_8x8": 1.125,
+        "fraction_gate": true,
+        "pilots_pass": true,
+        "controls_pass": true,
+        "chance_pass_rate_16x16": 0.0,
+        "chance_gate": true,
+        "verdict": "adopt"
+      },
+      {
+        "floor": 24,
+        "fraction_of_area": 0.09375,
+        "fraction_ratio_vs_8x8": 1.5,
+        "fraction_gate": false,
+        "pilots_pass": false,
+        "controls_pass": true,
+        "chance_pass_rate_16x16": 0.0,
+        "chance_gate": true,
+        "verdict": "reject_fraction_band"
+      }
+    ],
+    "ratified": {
+      "floor_16x16": 18,
+      "floor_8x8": 4,
+      "floor_law": "max(4, 18 * width * height // 256)",
+      "floor_law_table": {
+        "8x8": 4,
+        "12x12": 10,
+        "16x16": 18,
+        "24x24": 40,
+        "32x32": 72,
+        "64x64": 288
+      },
+      "connectivity_topology": "8-neighbor (unchanged; one pilot's core is 8- but not 4-connected)",
+      "sensor_pair_16x16": "soft expectation; hard corpus gate in A2; validator status revisited in A3",
+      "symmetry_band_16x16": {
+        "min": 0.12766,
+        "p50": 1.0,
+        "max": 1.0
+      },
+      "occupancy_ceiling_16x16_soft": 0.4375
+    }
+  },
+  "closed_states": [
+    "pilot_16x16_exemplars_validated_lab_and_package",
+    "floor_16x16_ratified_at_documented_18",
+    "floor_law_backward_consistent_with_8x8",
+    "connectivity_topology_reaffirmed_8_neighbor",
+    "chance_pass_rejection_strengthens_with_scale",
+    "upscale_area_law_confirmed_4x"
+  ],
+  "blocked_states": [
+    "engine_validator_floor_still_8x8_constant (A3: RED-first size-parametric port; 8x8 pins unbroken)",
+    "slip_fixture_mass_bounds_still_8x8_denominated (A3: size-relative bounds per DR 0014's ladder)",
+    "generation_model_cannot_emit_16x16 (A3: per-size training on the A2 corpus)",
+    "archive_stress_probe_uses_8x8_constant_mass_div_16 (A3/A4: renormalize from evidence)",
+    "readability_16x16_uncalibrated (learned-model retrain in A3; human survey remains the deferred fallback, never a blocker)"
+  ],
+  "decision": "16x16 is ratified as the proven default target scale (DR 0029). Body-core floor 18 at 16x16 via the size law max(4, 18*w*h//256); 8x8 stays ratified at 4 and remains valid input. 8-neighbor connectivity reaffirmed. Engine adoption is cycle-09 A3, size-parametric, never size-replacing.",
+  "next_research_step": "A2: extend the corpus to >=50 hand-authored-quality 16x16 creatures across the DR 0015 vocabulary (the pilots seed it), plus the invalid corpus and the workshop 16x16 canvas."
+}

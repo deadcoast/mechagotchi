@@ -17,7 +17,7 @@ builds on real ground. Third-party dependencies are permitted where the
 scale needs them (DR 0028). The triad discipline and engine-truth law
 are unchanged.
 
-- [ ] **A1 · 16×16 invariants and schema ratification.** Re-derive the
+- [x] **A1 · 16×16 invariants and schema ratification.** Re-derive the
   hard/soft invariants at 16×16 (body-mass bounds, connectivity,
   organ-count expectations, symmetry ranges — the 8×8 numbers do NOT
   scale linearly; measure, don't assume), ratify in

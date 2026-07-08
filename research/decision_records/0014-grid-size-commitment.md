@@ -8,6 +8,11 @@ Date: 2026-07-05
 research question 2 ("8×8, 16×16, 24×24, 32×32?") — until now an
 undecided default, not a decision.
 
+**Superseded for the default scale by DR 0029 (2026-07-08, cycle 09
+A1):** 16×16 is now the proven default target, adopted through the
+measurement-backed record this DR required. 8×8 remains ratified and
+valid input; this record stays as the evidence of what was 8×8-coupled.
+
 ## Evidence (executable probe, 2026-07-05)
 
 A seed grid scaled 2× to 16×16 (cells → 2×2 blocks, organs remapped,

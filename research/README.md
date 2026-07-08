@@ -793,6 +793,12 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-07-07-living-companion.md`
 - `labs/game_loop/companion.py` + `test_companion.py` (W1: the living companion — the tamagotchi heart on the engine's tick. Adopt through `initial_state`'s gate, tend with `ACTIONS` (one `advance_tick` per button), idle moments played by the frozen switchboard with the deliberation record visible LIVE, frames via packet v2 over the live state, honest refusal-not-noop death. Lifecycle surface widened to six exports (gate doc § Interactive surface); `/companion` + `mechas session --companion`; 12 lab gates + endpoint flow)
 
+- `research/experiment_reports/2026-07-08-16x16-invariant-scaling.md`
+- `research/algorithm_cards/invariant_scaling_16x16.md`
+- `labs/grid_genome/invariant_scaling.py` (+ `test_invariant_scaling.py`)
+- `data/grid_genome/invariant_scaling_16x16_stage0.json` + `data/grid_genome/pilot_16x16/`
+- `research/decision_records/0029-16x16-default-grid-scale.md` (cycle 09 A1 · ENGINE · Phase A: the invariants re-derived EMPIRICALLY at the documented primary scale — 16×16 ratified as the proven default (DR 0014's required size-adoption record); body-core floor 18 via the size law `max(4, 18·w·h//256)` reproducing both ratified scales (8×8 stays 4, pins untouched); candidates {4,8,24} refuted by the canvas-share band, 18 preferred over 16 because it exceeds the p95=17 accidental noise blob; 8-neighbor topology reaffirmed as load-bearing (26% of seed cores diagonal-dependent); chance-pass rejection 0.625% → 0/4,000 at scale; ten pilot exemplars across the DR 0015 vocabulary (core 18–60, symmetry 0.128–1.0, occupancy ≤0.4375, lab+package clean) seed A2's corpus; engine adoption deliberately deferred to A3 RED-first — blocked states honest in the artifact)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

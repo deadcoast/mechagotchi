@@ -28,7 +28,10 @@ CELL_ROLES = {
 CELL_MATERIALS = {"void", "soft", "hard", "glass", "joint", "light", "signal"}
 ORGAN_ROLES = {"body_core", "sensor", "expression", "locomotion", "ornament", "effect"}
 COLOR_PATTERN = re.compile(r"^#[0-9A-Fa-f]{6}$")
-# Hard invariant 5: minimum required body-core mass in cells.
+# Hard invariant 5: minimum required body-core mass in cells. This is the
+# ratified 8x8 value, still applied at every size; DR 0029 ratified the
+# size-parametric law max(4, 18*w*h//256) at 16x16, and cycle-09 A3 ports
+# it here RED-first (labs/grid_genome/invariant_scaling.py is the evidence).
 BODY_CORE_MIN_CELLS = 4
 
 
