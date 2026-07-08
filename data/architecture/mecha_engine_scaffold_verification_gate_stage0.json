@@ -1,8 +1,8 @@
 {
   "artifact_id": "mecha_engine_scaffold_verification_gate_stage0",
-  "date": "2026-07-05",
+  "date": "2026-07-08",
   "status": "package_scaffold_verification_executed_promoted_modules_present",
-  "purpose": "Execute the scaffold verification checklist against the real packages/mecha_engine scaffold: verify the package boundary without unpromoted implementation, license metadata, or deferred modules; modules that passed their own contract gate are recorded as promoted instead of failing the scaffold rule.",
+  "purpose": "Execute the scaffold verification checklist against the real packages/mecha_engine scaffold: verify the package boundary with the DR 0028 license declaration and without unpromoted implementation or deferred modules; modules that passed their own contract gate are recorded as promoted instead of failing the scaffold rule.",
   "target_package_root": "packages/mecha_engine",
   "package_root_exists": true,
   "promoted_modules": [
@@ -13,7 +13,9 @@
     "provenance",
     "repair",
     "runtime",
-    "learning"
+    "learning",
+    "storage",
+    "slip"
   ],
   "unpromoted_modules": [],
   "gate_passed": true,
@@ -31,6 +33,8 @@
     "packages/mecha_engine/src/mecha_engine/repair/__init__.py",
     "packages/mecha_engine/src/mecha_engine/runtime/__init__.py",
     "packages/mecha_engine/src/mecha_engine/learning/__init__.py",
+    "packages/mecha_engine/src/mecha_engine/storage/__init__.py",
+    "packages/mecha_engine/src/mecha_engine/slip/__init__.py",
     "packages/mecha_engine/tests/test_package_imports.py"
   ],
   "required_pyproject_fields": [
@@ -38,11 +42,9 @@
     "project",
     "project.name = mecha-engine",
     "project.version",
-    "project.requires-python"
-  ],
-  "blocked_pyproject_fields_until_license_decision": [
-    "project.license",
-    "project.license-files"
+    "project.requires-python",
+    "project.license = \"Apache-2.0\" (DR 0028)",
+    "project.license-files = [\"../../LICENSE\"] (DR 0028)"
   ],
   "required_import_targets": [
     "mecha_engine",
@@ -53,14 +55,16 @@
     "mecha_engine.provenance",
     "mecha_engine.repair",
     "mecha_engine.runtime",
-    "mecha_engine.learning"
+    "mecha_engine.learning",
+    "mecha_engine.storage",
+    "mecha_engine.slip"
   ],
   "checks": [
     {
       "check_id": "required_scaffold_paths_present",
       "ok": true,
       "evidence": {
-        "required_path_count": 13,
+        "required_path_count": 15,
         "missing_paths": []
       }
     },
@@ -74,7 +78,10 @@
         "name": "mecha-engine",
         "version": "0.0.0",
         "requires_python": ">=3.13",
-        "declared_license_fields": [],
+        "declared_license": "Apache-2.0",
+        "declared_license_files": [
+          "../../LICENSE"
+        ],
         "license_classifiers": []
       }
     },
@@ -91,7 +98,9 @@
           "mecha_engine.provenance",
           "mecha_engine.repair",
           "mecha_engine.runtime",
-          "mecha_engine.learning"
+          "mecha_engine.learning",
+          "mecha_engine.storage",
+          "mecha_engine.slip"
         ],
         "returncode": 0,
         "stderr": "",
@@ -112,7 +121,7 @@
       "ok": true,
       "evidence": {
         "package_root_exists": true,
-        "files_scanned": 59,
+        "files_scanned": 67,
         "lab_import_files": [],
         "sys_path_lab_files": []
       }
@@ -130,14 +139,15 @@
           "provenance",
           "repair",
           "runtime",
-          "learning"
+          "learning",
+          "storage",
+          "slip"
         ],
         "promoted_implementation_files": [
           "packages/mecha_engine/src/mecha_engine/archive/_metrics.py",
           "packages/mecha_engine/src/mecha_engine/archive/descriptors.py",
           "packages/mecha_engine/src/mecha_engine/archive/scoring.py",
           "packages/mecha_engine/src/mecha_engine/archive/store.py",
-          "packages/mecha_engine/src/mecha_engine/generation/_slip.py",
           "packages/mecha_engine/src/mecha_engine/generation/explain.py",
           "packages/mecha_engine/src/mecha_engine/generation/generate.py",
           "packages/mecha_engine/src/mecha_engine/generation/model.py",
@@ -148,7 +158,6 @@
           "packages/mecha_engine/src/mecha_engine/learning/_switchboard.py",
           "packages/mecha_engine/src/mecha_engine/learning/episode.py",
           "packages/mecha_engine/src/mecha_engine/lifecycle/_policy.py",
-          "packages/mecha_engine/src/mecha_engine/lifecycle/_slip.py",
           "packages/mecha_engine/src/mecha_engine/lifecycle/simulate.py",
           "packages/mecha_engine/src/mecha_engine/provenance/hashing.py",
           "packages/mecha_engine/src/mecha_engine/provenance/ledger.py",
@@ -157,15 +166,17 @@
           "packages/mecha_engine/src/mecha_engine/repair/_damage.py",
           "packages/mecha_engine/src/mecha_engine/repair/_features.py",
           "packages/mecha_engine/src/mecha_engine/repair/_grids.py",
-          "packages/mecha_engine/src/mecha_engine/repair/_slip.py",
           "packages/mecha_engine/src/mecha_engine/repair/blind.py",
           "packages/mecha_engine/src/mecha_engine/repair/train.py",
           "packages/mecha_engine/src/mecha_engine/repair/wound.py",
+          "packages/mecha_engine/src/mecha_engine/runtime/_cubff.py",
           "packages/mecha_engine/src/mecha_engine/runtime/_damage.py",
           "packages/mecha_engine/src/mecha_engine/runtime/_grids.py",
-          "packages/mecha_engine/src/mecha_engine/runtime/_slip.py",
+          "packages/mecha_engine/src/mecha_engine/runtime/_readability.py",
           "packages/mecha_engine/src/mecha_engine/runtime/evolve.py",
-          "packages/mecha_engine/src/mecha_engine/runtime/live.py"
+          "packages/mecha_engine/src/mecha_engine/runtime/live.py",
+          "packages/mecha_engine/src/mecha_engine/slip/authority.py",
+          "packages/mecha_engine/src/mecha_engine/storage/store.py"
         ],
         "implementation_files": []
       }
@@ -175,9 +186,7 @@
       "ok": true,
       "evidence": {
         "deferred_modules": [
-          "render",
-          "storage",
-          "slip"
+          "render"
         ],
         "present_deferred_modules": []
       }
@@ -187,7 +196,7 @@
       "ok": true,
       "evidence": {
         "returncode": 0,
-        "tests_run": 266
+        "tests_run": 290
       }
     },
     {
@@ -196,27 +205,28 @@
       "evidence": {
         "artifact_exists": true,
         "summary_package_root_exists": true,
-        "promotion_ready_count": 7
+        "promotion_ready_count": 9
       }
     }
   ],
   "metrics": {
     "checks_total": 9,
     "checks_passed": 9,
-    "required_path_count": 13,
+    "required_path_count": 15,
     "missing_required_paths": 0,
-    "import_target_count": 9,
+    "import_target_count": 11,
     "lab_import_files": 0,
     "sys_path_lab_files": 0,
     "implementation_files": 0,
     "deferred_modules_present": 0,
-    "import_suite_tests_run": 266,
-    "promoted_module_count": 8
+    "import_suite_tests_run": 290,
+    "promoted_module_count": 10
   },
   "closed_states": [
     "package_scaffold_created",
     "scaffold_required_paths_present",
     "package_metadata_boundary_accepted",
+    "license_declared_apache_2_0",
     "package_import_surface_accepted",
     "import_side_effect_free",
     "lab_boundary_negative_checks_rejected",
@@ -229,22 +239,23 @@
     "module_repair_promoted_with_contract_tests",
     "module_runtime_promoted_with_contract_tests",
     "module_learning_promoted_with_contract_tests",
+    "module_storage_promoted_with_contract_tests",
+    "module_slip_promoted_with_contract_tests",
     "deferred_modules_absent",
     "package_promotion_gate_rerun_after_scaffold"
   ],
   "blocked_states": [
-    "release_license_metadata",
     "unpromoted_package_module_implementations",
-    "deferred_modules_render_storage_slip",
+    "deferred_module_render_rejected_until_consumer",
     "lab_code_promotion",
-    "package_dependency_policy"
+    "package_dependencies_empty_until_a_capability_needs_one"
   ],
   "decision": "accept_package_scaffold_with_promoted_modules",
   "next_research_step": "Continue the contract-gate order with the unpromoted modules (), rerunning the package-promotion gate as each surface lands.",
   "limitations": [
     "This gate verifies the scaffold boundary only; module contracts are proven by each module's own package contract tests, which this gate records as promotion evidence without re-proving them.",
     "It does not promote lab code or authorize deferred modules.",
-    "License/release metadata remains blocked until a license decision record exists.",
+    "License metadata is required to match DR 0028 (Apache-2.0 via the root LICENSE); the original prohibition closed with that record.",
     "Import checks run through the src layout via subprocess PYTHONPATH, matching the documented editable-install surface without requiring installation."
   ],
   "source_artifacts": [
@@ -252,6 +263,10 @@
     "research/decision_records/0006-create-mecha-engine-repair-target.md",
     "research/decision_records/0008-propose-mecha-engine-runtime-target.md",
     "research/decision_records/0009-create-mecha-engine-learning-target.md",
+    "research/decision_records/0022-storage-module.md",
+    "research/decision_records/0026-render-module-disposition.md",
+    "research/decision_records/0027-slip-module-disposition.md",
+    "research/decision_records/0028-license-and-dependency-policy.md",
     "research/package_specs/mecha_engine_scaffold_verification_gate.md",
     "research/package_specs/mecha_engine_contract_traceability_matrix.md",
     "data/architecture/mecha_engine_package_scaffold_decision_stage0.json",

@@ -32,15 +32,15 @@ class MechaEngineScaffoldVerificationGateTests(unittest.TestCase):
         self.assertTrue(report["package_root_exists"])
         self.assertTrue(report["gate_passed"], report["checks"])
         self.assertTrue(report["import_surface_accepted"])
-        # All five initial modules plus repair (decision record 0006) and
-        # runtime (decision record 0008, accepted 2026-07-05) are promoted
-        # through their contract gates (in the traceability matrix's fixed
-        # order); the scaffold placeholder rule keeps covering the
-        # deferred-module boundary.
+        # All ten promoted modules, each through its own contract gate (in
+        # the traceability matrix's fixed order; storage by DR 0022, slip
+        # by DR 0027); the scaffold placeholder rule keeps covering the
+        # deferred-module boundary (render alone, DR 0026).
         self.assertEqual(
             [
                 "genome", "generation", "lifecycle", "archive",
                 "provenance", "repair", "runtime", "learning",
+                "storage", "slip",
             ],
             report["promoted_modules"],
         )
@@ -56,15 +56,21 @@ class MechaEngineScaffoldVerificationGateTests(unittest.TestCase):
         self.assertEqual(0, report["metrics"]["lab_import_files"])
         self.assertEqual(0, report["metrics"]["sys_path_lab_files"])
         self.assertEqual(0, report["metrics"]["implementation_files"])
-        self.assertEqual(8, report["metrics"]["promoted_module_count"])
+        self.assertEqual(10, report["metrics"]["promoted_module_count"])
         self.assertEqual(0, report["metrics"]["deferred_modules_present"])
         self.assertGreaterEqual(report["metrics"]["import_suite_tests_run"], 6)
-        self.assertEqual(13, len(REQUIRED_SCAFFOLD_PATHS))
-        self.assertEqual(9, len(REQUIRED_IMPORT_TARGETS))
-        # The empty scaffold never unblocks promotion, license metadata, or
-        # deferred modules.
+        self.assertEqual(15, len(REQUIRED_SCAFFOLD_PATHS))
+        self.assertEqual(11, len(REQUIRED_IMPORT_TARGETS))
+        # The scaffold gate never unblocks lab-code promotion or the
+        # deferred module; the license is DECLARED per DR 0028 (the old
+        # release_license_metadata blocked-state closed with that record).
         self.assertIn("lab_code_promotion", report["blocked_states"])
-        self.assertIn("release_license_metadata", report["blocked_states"])
+        self.assertNotIn("release_license_metadata", report["blocked_states"])
+        self.assertIn(
+            "deferred_module_render_rejected_until_consumer",
+            report["blocked_states"],
+        )
+        self.assertIn("license_declared_apache_2_0", report["closed_states"])
         self.assertIn(
             "package_promotion_gate_rerun_after_scaffold", report["closed_states"]
         )
@@ -79,26 +85,39 @@ class MechaEngineScaffoldVerificationGateTests(unittest.TestCase):
             len(result["evidence"]["missing_paths"]),
         )
 
-    def test_pyproject_check_rejects_release_license_metadata(self):
-        with tempfile.TemporaryDirectory() as temp_dir:
-            root = Path(temp_dir)
-            pyproject = root / "packages/mecha_engine/pyproject.toml"
-            pyproject.parent.mkdir(parents=True)
-            pyproject.write_text(
-                "[build-system]\n"
-                'requires = ["setuptools"]\n'
-                'build-backend = "setuptools.build_meta"\n'
-                "[project]\n"
-                'name = "mecha-engine"\n'
-                'version = "0.0.0"\n'
-                'requires-python = ">=3.13"\n'
-                'license = "MIT"\n',
-                encoding="utf-8",
-            )
-            result = check_pyproject_metadata(root)
+    def test_pyproject_check_requires_the_dr0028_license_declaration(self):
+        # DR 0028 closed the license prohibition: the check now REQUIRES
+        # Apache-2.0 via the root LICENSE. A wrong license fails; a
+        # missing declaration fails; the ratified declaration passes.
+        header = (
+            "[build-system]\n"
+            'requires = ["setuptools"]\n'
+            'build-backend = "setuptools.build_meta"\n'
+            "[project]\n"
+            'name = "mecha-engine"\n'
+            'version = "0.0.0"\n'
+            'requires-python = ">=3.13"\n'
+        )
+        cases = {
+            "wrong": header + 'license = "MIT"\n',
+            "missing": header,
+            "ratified": header
+            + 'license = "Apache-2.0"\nlicense-files = ["../../LICENSE"]\n',
+        }
+        results = {}
+        for label, payload in cases.items():
+            with tempfile.TemporaryDirectory() as temp_dir:
+                root = Path(temp_dir)
+                pyproject = root / "packages/mecha_engine/pyproject.toml"
+                pyproject.parent.mkdir(parents=True)
+                pyproject.write_text(payload, encoding="utf-8")
+                results[label] = check_pyproject_metadata(root)
 
-        self.assertFalse(result["ok"])
-        self.assertEqual(["license"], result["evidence"]["declared_license_fields"])
+        self.assertFalse(results["wrong"]["ok"])
+        self.assertEqual("MIT", results["wrong"]["evidence"]["declared_license"])
+        self.assertFalse(results["missing"]["ok"])
+        self.assertIsNone(results["missing"]["evidence"]["declared_license"])
+        self.assertTrue(results["ratified"]["ok"], results["ratified"])
 
     def test_placeholder_check_rejects_implementation_code(self):
         with tempfile.TemporaryDirectory() as temp_dir:

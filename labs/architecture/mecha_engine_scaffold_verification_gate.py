@@ -3,7 +3,8 @@
 Executes the acceptance checklist defined by
 research/package_specs/mecha_engine_scaffold_verification_gate.md against the
 real repository: required scaffold paths, pyproject metadata rules (including
-the release-license prohibition), the six-target import surface, import-time
+the DR 0028 Apache-2.0 license declaration, which replaced the original
+release-license prohibition), the promoted-module import surface, import-time
 side-effect freedom, lab-boundary negative checks, placeholder-only source,
 deferred-module absence, the package import test suite, and the
 package-promotion-gate rerun requirement. It regenerates
@@ -36,10 +37,15 @@ INITIAL_MODULES = ["genome", "generation", "lifecycle", "archive", "provenance"]
 # 0008-propose-mecha-engine-runtime-target.md (accepted 2026-07-05,
 # composed-loop evidence); learning by
 # 0009-create-mecha-engine-learning-target.md (accepted 2026-07-05,
-# stress learning benchmark: wellbeing claim only).
-LATER_PROMOTED_MODULES = ["repair", "runtime", "learning"]
+# stress learning benchmark: wellbeing claim only); storage by
+# 0022-storage-module.md (C3 port, 2026-07-07); slip by
+# 0027-slip-module-disposition.md (F2 port, 2026-07-07, four private
+# mirrors collapsed after zero-divergence reconciliation).
+LATER_PROMOTED_MODULES = ["repair", "runtime", "learning", "storage", "slip"]
 PACKAGE_MODULES = INITIAL_MODULES + LATER_PROMOTED_MODULES
-DEFERRED_MODULES = ["render", "storage", "slip"]
+# render is the whole deferred set: dispositioned REJECTED-until-consumer
+# by decision record 0026, with its re-opener named there.
+DEFERRED_MODULES = ["render"]
 
 REQUIRED_SCAFFOLD_PATHS = [
     "packages/mecha_engine/pyproject.toml",
@@ -57,13 +63,21 @@ REQUIRED_IMPORT_TARGETS = ["mecha_engine"] + [
     f"mecha_engine.{module}" for module in PACKAGE_MODULES
 ]
 
-BLOCKED_PYPROJECT_LICENSE_FIELDS = ["license", "license-files"]
+# DR 0028 (2026-07-07) closed the original license prohibition: metadata
+# must now DECLARE Apache-2.0, pointing at the repo-root LICENSE (the
+# same pin test_package_imports.test_pyproject_metadata_boundary holds).
+REQUIRED_LICENSE = "Apache-2.0"
+REQUIRED_LICENSE_FILES = ["../../LICENSE"]
 
 SOURCE_ARTIFACTS = [
     "research/decision_records/0004-mecha-engine-package-scaffold.md",
     "research/decision_records/0006-create-mecha-engine-repair-target.md",
     "research/decision_records/0008-propose-mecha-engine-runtime-target.md",
     "research/decision_records/0009-create-mecha-engine-learning-target.md",
+    "research/decision_records/0022-storage-module.md",
+    "research/decision_records/0026-render-module-disposition.md",
+    "research/decision_records/0027-slip-module-disposition.md",
+    "research/decision_records/0028-license-and-dependency-policy.md",
     "research/package_specs/mecha_engine_scaffold_verification_gate.md",
     "research/package_specs/mecha_engine_contract_traceability_matrix.md",
     "data/architecture/mecha_engine_package_scaffold_decision_stage0.json",
@@ -137,9 +151,6 @@ def check_pyproject_metadata(root: Path) -> dict:
         }
     payload = tomllib.loads(pyproject_path.read_text(encoding="utf-8"))
     project = payload.get("project", {})
-    declared_license_fields = [
-        field for field in BLOCKED_PYPROJECT_LICENSE_FIELDS if field in project
-    ]
     license_classifiers = [
         classifier
         for classifier in project.get("classifiers", [])
@@ -153,9 +164,13 @@ def check_pyproject_metadata(root: Path) -> dict:
         "name": project.get("name"),
         "version": version,
         "requires_python": project.get("requires-python"),
-        "declared_license_fields": declared_license_fields,
+        "declared_license": project.get("license"),
+        "declared_license_files": project.get("license-files"),
         "license_classifiers": license_classifiers,
     }
+    # DR 0028: the license must be DECLARED (Apache-2.0 via the root
+    # LICENSE); License classifiers stay out so the license field is the
+    # single source of truth.
     ok = (
         evidence["build_system_present"]
         and evidence["project_present"]
@@ -163,7 +178,8 @@ def check_pyproject_metadata(root: Path) -> dict:
         and isinstance(version, str)
         and version.startswith("0.")
         and bool(project.get("requires-python"))
-        and not declared_license_fields
+        and project.get("license") == REQUIRED_LICENSE
+        and project.get("license-files") == REQUIRED_LICENSE_FILES
         and not license_classifiers
     )
     return {"check_id": "package_metadata_boundary", "ok": ok, "evidence": evidence}
@@ -403,7 +419,7 @@ def build_scaffold_verification_report(root: Path | None = None) -> dict:
     }
     return {
         "artifact_id": ARTIFACT_ID,
-        "date": "2026-07-05",
+        "date": "2026-07-08",
         "status": (
             "package_scaffold_verification_failed"
             if not gate_passed
@@ -416,9 +432,10 @@ def build_scaffold_verification_report(root: Path | None = None) -> dict:
         "purpose": (
             "Execute the scaffold verification checklist against the real "
             "packages/mecha_engine scaffold: verify the package boundary "
-            "without unpromoted implementation, license metadata, or "
-            "deferred modules; modules that passed their own contract gate "
-            "are recorded as promoted instead of failing the scaffold rule."
+            "with the DR 0028 license declaration and without unpromoted "
+            "implementation or deferred modules; modules that passed their "
+            "own contract gate are recorded as promoted instead of failing "
+            "the scaffold rule."
         ),
         "target_package_root": "packages/mecha_engine",
         "package_root_exists": (root / "packages" / "mecha_engine").exists(),
@@ -433,10 +450,8 @@ def build_scaffold_verification_report(root: Path | None = None) -> dict:
             "project.name = mecha-engine",
             "project.version",
             "project.requires-python",
-        ],
-        "blocked_pyproject_fields_until_license_decision": [
-            "project.license",
-            "project.license-files",
+            'project.license = "Apache-2.0" (DR 0028)',
+            'project.license-files = ["../../LICENSE"] (DR 0028)',
         ],
         "required_import_targets": REQUIRED_IMPORT_TARGETS,
         "checks": checks,
@@ -446,6 +461,7 @@ def build_scaffold_verification_report(root: Path | None = None) -> dict:
                 "package_scaffold_created",
                 "scaffold_required_paths_present",
                 "package_metadata_boundary_accepted",
+                "license_declared_apache_2_0",
                 "package_import_surface_accepted",
                 "import_side_effect_free",
                 "lab_boundary_negative_checks_rejected",
@@ -464,15 +480,14 @@ def build_scaffold_verification_report(root: Path | None = None) -> dict:
             else ["scaffold_verification_executed"]
         ),
         "blocked_states": [
-            "release_license_metadata",
             (
                 "unpromoted_package_module_implementations"
                 if promoted
                 else "package_module_implementations"
             ),
-            "deferred_modules_render_storage_slip",
+            "deferred_module_render_rejected_until_consumer",
             "lab_code_promotion",
-            "package_dependency_policy",
+            "package_dependencies_empty_until_a_capability_needs_one",
         ],
         "decision": (
             "reject_package_scaffold"
@@ -500,7 +515,7 @@ def build_scaffold_verification_report(root: Path | None = None) -> dict:
         "limitations": [
             "This gate verifies the scaffold boundary only; module contracts are proven by each module's own package contract tests, which this gate records as promotion evidence without re-proving them.",
             "It does not promote lab code or authorize deferred modules.",
-            "License/release metadata remains blocked until a license decision record exists.",
+            "License metadata is required to match DR 0028 (Apache-2.0 via the root LICENSE); the original prohibition closed with that record.",
             "Import checks run through the src layout via subprocess PYTHONPATH, matching the documented editable-install surface without requiring installation.",
         ],
         "source_artifacts": SOURCE_ARTIFACTS,

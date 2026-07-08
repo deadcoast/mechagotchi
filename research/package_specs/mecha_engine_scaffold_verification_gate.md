@@ -60,8 +60,10 @@ third-party `[project]` dependencies when a capability needs one.)
 - a pre-release/internal version such as `0.0.0`
 - `requires-python`
 
-`pyproject.toml` must not define release license metadata until the
-repository/package license decision is explicit.
+`pyproject.toml` must declare `license = "Apache-2.0"` and
+`license-files = ["../../LICENSE"]` (decision record 0028; before that
+record, this rule was the inverse — no release license metadata until
+the decision was explicit).
 
 ## Import Acceptance
 
@@ -97,8 +99,8 @@ The scaffold is rejected if any of these are true:
   measured zero divergences. The remaining deferred set is `render`
   alone — dispositioned REJECTED-until-consumer by decision record
   0026, with its re-opener named.)
-- The package metadata declares release license fields before a license
-  decision exists.
+- The package metadata's license declaration does not match decision
+  record 0028 (Apache-2.0 via the root `LICENSE`).
 - The package-promotion gate is not rerun after scaffold creation.
 
 ## Future Verification Commands
