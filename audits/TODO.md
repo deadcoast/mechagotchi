@@ -29,12 +29,11 @@ that need them; they do not pause the queue.)
   Rewrite the snapshot to the current truth (ten modules, the Keeper
   session surfaces, the adopted model, the standing owner decisions),
   keeping its honesty norms and re-verification instructions intact.
-- [ ] **V3 · Untrack the `__pycache__` hazard.** The pre-existing
-  hazard CLAUDE.md documents: bytecode directories are TRACKED in git
-  (the ignore rule stops new ones but does not untrack). `git rm
-  --cached` every tracked `__pycache__` path, verify the sweep stays
-  green and `git status` stays clean under the `-B` discipline, and
-  update the hazard's documentation to say it is CLOSED.
+- [x] **V3 · Untrack the `__pycache__` hazard.** (2026-07-07: all 144
+  tracked bytecode files `git rm --cached`-ed (files stay on disk,
+  covered by the ignore rule — verified); CLAUDE.md and `.gitignore`
+  hazard notes updated to CLOSED; zero tracked `__pycache__` paths
+  remain; smoke green. The `-B` discipline stays as tree hygiene.)
 
 ## Standing note
 
