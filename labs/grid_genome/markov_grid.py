@@ -21,6 +21,17 @@ START = "START"
 
 
 def train_model(seed_grids: list[dict]) -> dict:
+    # DR 0029 / cycle 10 B2: dimensions derive from the corpus (an 8x8
+    # corpus trains the identical historical model); mixed sizes fail
+    # loudly instead of silently training wrong-position statistics.
+    sizes = {tuple(grid["grid_size"]) for grid in seed_grids}
+    if len(sizes) != 1:
+        raise ValueError(
+            "seed corpus must share a single grid size, found: "
+            + ", ".join(f"{w}x{h}" for w, h in sorted(sizes))
+        )
+    ((width, height),) = sizes
+
     transitions: dict[tuple[str, str], dict[str, int]] = {}
     global_counts: dict[str, int] = {}
     for grid in seed_grids:
@@ -33,8 +44,8 @@ def train_model(seed_grids: list[dict]) -> dict:
                 _increment(global_counts, token)
 
     return {
-        "width": 8,
-        "height": 8,
+        "width": width,
+        "height": height,
         "transitions": transitions,
         "global_counts": global_counts,
         "global_total": sum(global_counts.values()),

@@ -1,0 +1,191 @@
+{
+  "artifact_id": "generation_bakeoff16_stage0",
+  "status": "complete",
+  "date": "2026-07-08",
+  "purpose": "Run the REAL documented generation bake-off at 16x16 \u2014 all five arms (random/markov/constrained/wfc/hybrid) on the dossier metrics with the adoption rule pre-registered: validity bar >=0.85, rich-alphabet emission required, then descriptor novelty, silhouette entropy, readability proxy.",
+  "source_artifacts": [
+    "labs/wfc_grid/wfc_grid.py",
+    "labs/grid_genome/markov_grid.py",
+    "labs/grid_genome/random_mutation.py",
+    "labs/grid_genome/constrained_generator.py",
+    "data/seed_grids_16x16",
+    "data/wfc_grid/wfc_grid_stage0.json",
+    "docs/project-research/deep-research/01/deep-research.md"
+  ],
+  "metrics": {
+    "protocol": {
+      "split": {
+        "train": 30,
+        "dev": 10,
+        "holdout": 10
+      },
+      "batch_count": 100,
+      "rng_seed": 1030,
+      "validity_bar": 0.85,
+      "time_bar_ms": 250.0,
+      "modal_organ_roles": [
+        "body_core",
+        "expression",
+        "locomotion",
+        "ornament",
+        "sensor"
+      ],
+      "human_pairwise_preference": "not_collected (owner-deferred survey)"
+    },
+    "arms": {
+      "constrained": {
+        "candidate_count": 100,
+        "validity_rate": 1.0,
+        "connectedness_rate": 1.0,
+        "organ_presence_f1_mean": 0.732143,
+        "symmetry_mean": 0.806272,
+        "silhouette_entropy_bits": 6.448758,
+        "unique_silhouettes": 91,
+        "palette_violation_rate": 0.0,
+        "descriptor_novelty": 0.32,
+        "readability_proxy_mean": 0.839753,
+        "readability_proxy_status": "8x8_calibrated_proxy",
+        "rich_roles_emitted": [],
+        "rich_alphabet": false,
+        "training_copy_rate": 0.0,
+        "meets_validity_bar": true
+      },
+      "hybrid": {
+        "candidate_count": 100,
+        "validity_rate": 1.0,
+        "connectedness_rate": 1.0,
+        "organ_presence_f1_mean": 0.966475,
+        "symmetry_mean": 0.395171,
+        "silhouette_entropy_bits": 6.643856,
+        "unique_silhouettes": 100,
+        "palette_violation_rate": 0.0,
+        "descriptor_novelty": 0.22,
+        "readability_proxy_mean": 0.696602,
+        "readability_proxy_status": "8x8_calibrated_proxy",
+        "rich_roles_emitted": [
+          "antenna",
+          "decoration",
+          "effect",
+          "joint",
+          "limb",
+          "sensor",
+          "shell"
+        ],
+        "rich_alphabet": true,
+        "training_copy_rate": 0.0,
+        "meets_validity_bar": true
+      },
+      "markov": {
+        "candidate_count": 100,
+        "validity_rate": 0.02,
+        "connectedness_rate": 0.13,
+        "organ_presence_f1_mean": 0.625,
+        "symmetry_mean": 0.14215,
+        "silhouette_entropy_bits": 6.623856,
+        "unique_silhouettes": 99,
+        "palette_violation_rate": 0.0,
+        "descriptor_novelty": 0.29,
+        "readability_proxy_mean": 0.362593,
+        "readability_proxy_status": "8x8_calibrated_proxy",
+        "rich_roles_emitted": [],
+        "rich_alphabet": false,
+        "training_copy_rate": 0.0,
+        "meets_validity_bar": false
+      },
+      "random": {
+        "candidate_count": 100,
+        "validity_rate": 0.46,
+        "connectedness_rate": 1.0,
+        "organ_presence_f1_mean": 0.900364,
+        "symmetry_mean": 0.825182,
+        "silhouette_entropy_bits": 5.920819,
+        "unique_silhouettes": 68,
+        "palette_violation_rate": 0.0,
+        "descriptor_novelty": 0.14,
+        "readability_proxy_mean": 0.729155,
+        "readability_proxy_status": "8x8_calibrated_proxy",
+        "rich_roles_emitted": [
+          "antenna",
+          "decoration",
+          "effect",
+          "joint",
+          "limb",
+          "sensor",
+          "shell"
+        ],
+        "rich_alphabet": true,
+        "training_copy_rate": 0.53,
+        "meets_validity_bar": false
+      },
+      "wfc": {
+        "candidate_count": 100,
+        "validity_rate": 1.0,
+        "connectedness_rate": 1.0,
+        "organ_presence_f1_mean": 0.961929,
+        "symmetry_mean": 0.3973,
+        "silhouette_entropy_bits": 6.643856,
+        "unique_silhouettes": 100,
+        "palette_violation_rate": 0.0,
+        "descriptor_novelty": 0.25,
+        "readability_proxy_mean": 0.685047,
+        "readability_proxy_status": "8x8_calibrated_proxy",
+        "rich_roles_emitted": [
+          "antenna",
+          "decoration",
+          "effect",
+          "joint",
+          "limb",
+          "shell"
+        ],
+        "rich_alphabet": true,
+        "training_copy_rate": 0.0,
+        "meets_validity_bar": true
+      }
+    },
+    "verdict": {
+      "eligible": [
+        "hybrid",
+        "wfc"
+      ],
+      "winner": "wfc",
+      "hybrid_won": false,
+      "hybrid_refuted": true
+    }
+  },
+  "closed_states": [
+    "documented_bakeoff_ran_with_all_five_arms",
+    "adoption_rule_pre_registered"
+  ],
+  "blocked_states": [
+    "generation_time_gate_judged_on_the_measured_section (machine-dependent; produced by --measure-time, recorded in the report)",
+    "engine_adoption_pending (B3: the winner, by decision record)",
+    "human_pairwise_preference_not_collected (owner-deferred; never a blocker)"
+  ],
+  "decision": "Winner by the pre-registered rule: wfc.",
+  "next_research_step": "B3: adopt the winner into mecha_engine.generation by decision record (additive seam, byte-identical off, RED-first).",
+  "measured": {
+    "context": "stage-0 dev machine; excludes one-time model training",
+    "arms": {
+      "random": {
+        "mean_ms_per_candidate": 0.2,
+        "meets_time_bar": true
+      },
+      "markov": {
+        "mean_ms_per_candidate": 0.21,
+        "meets_time_bar": true
+      },
+      "constrained": {
+        "mean_ms_per_candidate": 2.27,
+        "meets_time_bar": true
+      },
+      "wfc": {
+        "mean_ms_per_candidate": 6.32,
+        "meets_time_bar": true
+      },
+      "hybrid": {
+        "mean_ms_per_candidate": 6.2,
+        "meets_time_bar": true
+      }
+    }
+  }
+}
