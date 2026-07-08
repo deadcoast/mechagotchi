@@ -25,5 +25,10 @@ Cycle 12 (ENGINE - Phase D) artifacts:
   oscillation reduction on 2501 replayed episodes, next-mood Brier
   0.524 vs persistence 1.051, stable-segment agreement 0.954,
   entropy-honest confidence).
+- `evidence_threads_stage0.json` - D4: the four evidence threads
+  (mutation stability, readability via the F3 adopted model, SLIP
+  compatibility, lineage survival) wired from existing artifacts; the
+  wiring pin holds 50/50 byte-equal to the canonical surfaces on all
+  four. The documented fleet is 11 of ~11 named threads.
 
 Produced by `labs/micro_threads/`.

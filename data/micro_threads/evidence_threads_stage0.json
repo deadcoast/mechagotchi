@@ -1,0 +1,47 @@
+{
+  "artifact_id": "evidence_threads_stage0",
+  "status": "complete",
+  "date": "2026-07-08",
+  "purpose": "D4: the four documented evidence threads \u2014 mutation stability, readability (the F3 adopted model, DR 0019 primary), SLIP compatibility, lineage survival \u2014 wired from the engine's existing artifacts through the D1 contract. The bar: for every seed creature each thread's streamed output equals the canonical surface's number byte-for-byte; no new statistics invented.",
+  "source_artifacts": [
+    "labs/micro_threads/thread_fleet.py",
+    "packages/mecha_engine/src/mecha_engine/archive/_metrics.py",
+    "packages/mecha_engine/src/mecha_engine/runtime/_readability.py",
+    "packages/mecha_engine/src/mecha_engine/slip/authority.py",
+    "data/readability_benchmark/adopted_readability_model.json",
+    "data/lineage/lineage_stage0.json",
+    "data/slips/valid/slip_lcd_seed.json",
+    "research/decision_records/0019-learned-readability.md"
+  ],
+  "metrics": {
+    "wiring_pins": {
+      "creatures": 50,
+      "mutation_stability_equal": 50,
+      "readability_equal": 50,
+      "slip_compat_equal": 50,
+      "lineage_records_found": 50,
+      "lineage_equal": 50
+    },
+    "distributions": {
+      "readability_mean": 0.52582,
+      "readability_min": 0.00372,
+      "readability_max": 0.913102,
+      "mutation_stability_mean": 0.716667,
+      "slip_aligned_count": 10
+    }
+  },
+  "closed_states": [
+    "four_evidence_threads_stream_through_the_d1_contract",
+    "every_streamed_number_byte_equal_to_its_canonical_surface",
+    "readability_is_the_adopted_learned_model_survey_stays_fallback",
+    "no_new_statistics_invented",
+    "the_documented_fleet_is_11_of_11_named_threads"
+  ],
+  "blocked_states": [
+    "live_loop_does_not_yet_build_the_evidence_bundle (D5's harness provides it per creature; the runtime loop wires it when a consumer lands)",
+    "synthetic_keepers_and_scale_harness_absent (D5)",
+    "ablation_gates_not_run (D6 \u2014 effect-free evidence threads are judged on their documented metrics, not welfare alone)"
+  ],
+  "decision": "All four evidence threads stream their canonical numbers byte-for-byte with honest provenance confidence.",
+  "next_research_step": "D5: the five documented synthetic user models and the 100k-tick x 500-lifecycle welfare benchmark (wall-clock measured FIRST at pilot scale, DR 0028)."
+}

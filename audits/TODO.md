@@ -39,7 +39,7 @@ wall-clock demands (DR 0028; Phase A/B precedent: measure first — the
   feedback; the hidden-mood HMM thread (states grounded in the T16
   mood vocabulary) with honest uncertainty. Both deterministic under
   seeds.
-- [ ] **D4 · The evidence threads.** Mutation stability, readability
+- [x] **D4 · The evidence threads.** Mutation stability, readability
   (the F3 adopted model wrapped as a thread — primary signal, survey
   stays fallback), SLIP compatibility, and lineage survival — wired
   from the engine's existing artifacts/records through the D1

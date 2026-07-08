@@ -22,7 +22,15 @@ from thread_fleet import (
     hunger_forecast_signal,
     interaction_timing_observe,
     interaction_timing_signal,
+    lineage_survival_observe,
+    lineage_survival_signal,
+    mutation_stability_observe,
+    mutation_stability_signal,
     observe_fleet,
+    readability_observe,
+    readability_signal,
+    slip_compat_observe,
+    slip_compat_signal,
     write_thread_fleet_artifacts,
 )
 
@@ -69,6 +77,10 @@ class FleetContractTests(unittest.TestCase):
                 "interaction_timing",
                 "animation_bandit",
                 "hidden_mood_hmm",
+                "mutation_stability",
+                "readability",
+                "slip_compat",
+                "lineage_survival",
             ],
             FLEET_THREAD_NAMES,
         )
@@ -378,6 +390,75 @@ class HiddenMoodHmmTests(unittest.TestCase):
         belief = thread_state["belief"]
         self.assertEqual(4, len(belief))
         self.assertAlmostEqual(1.0, sum(belief.values()), places=3)
+        json.dumps(thread_state)
+
+
+class EvidenceThreadTests(unittest.TestCase):
+    """The four D4 evidence threads: stream the engine's own numbers
+    from the state's evidence bundle — no new statistics invented."""
+
+    def test_all_four_are_silent_without_an_evidence_bundle(self):
+        for signal_fn in [
+            mutation_stability_signal,
+            readability_signal,
+            slip_compat_signal,
+            lineage_survival_signal,
+        ]:
+            with self.subTest(thread=signal_fn.__name__):
+                signal = signal_fn({}, _state())
+                self.assertEqual(0.0, signal["confidence"])
+                self.assertEqual({}, signal["effects"])
+
+    def test_mutation_stability_streams_the_metric_with_full_confidence(self):
+        state = _state(evidence={"mutation_stability": 0.82})
+        thread_state = mutation_stability_observe({}, state)
+        signal = mutation_stability_signal(thread_state, _state())
+        self.assertEqual(0.82, signal["output"]["mutation_stability"])
+        self.assertEqual(1.0, signal["confidence"])
+        self.assertGreater(signal["effects"].get("mutate", 0.0), 0.0)
+
+    def test_low_stability_suppresses_mutation(self):
+        state = _state(evidence={"mutation_stability": 0.1})
+        thread_state = mutation_stability_observe({}, state)
+        signal = mutation_stability_signal(thread_state, _state())
+        self.assertLess(signal["effects"].get("mutate", 0.0), 0.0)
+
+    def test_readability_streams_the_adopted_models_score(self):
+        state = _state(evidence={"readability_score": 0.9})
+        thread_state = readability_observe({}, state)
+        signal = readability_signal(thread_state, _state())
+        self.assertEqual(0.9, signal["output"]["readability_score"])
+        # Sharpness confidence: |0.9 - 0.5| x 2 = 0.8.
+        self.assertAlmostEqual(0.8, signal["confidence"], places=6)
+        self.assertEqual({}, signal["effects"])
+
+    def test_slip_compat_streams_the_authority_verdict(self):
+        state = _state(evidence={"slip_aligned": True, "slip_error_count": 0})
+        thread_state = slip_compat_observe({}, state)
+        signal = slip_compat_signal(thread_state, _state())
+        self.assertTrue(signal["output"]["slip_aligned"])
+        self.assertEqual(1.0, signal["confidence"])
+        self.assertEqual({}, signal["effects"])
+
+    def test_lineage_survival_streams_the_record(self):
+        state = _state(
+            evidence={
+                "lineage": {"elite": True, "generation": 1, "children": 3}
+            }
+        )
+        thread_state = lineage_survival_observe({}, state)
+        signal = lineage_survival_signal(thread_state, _state())
+        self.assertTrue(signal["output"]["elite"])
+        self.assertEqual(3, signal["output"]["children"])
+        self.assertEqual(1.0, signal["confidence"])
+        self.assertEqual({}, signal["effects"])
+
+    def test_evidence_is_cached_in_thread_state(self):
+        state = _state(evidence={"readability_score": 0.7})
+        thread_state = readability_observe({}, state)
+        # The loop may drop the bundle later; the cached evidence holds.
+        signal = readability_signal(thread_state, _state())
+        self.assertEqual(0.7, signal["output"]["readability_score"])
         json.dumps(thread_state)
 
 

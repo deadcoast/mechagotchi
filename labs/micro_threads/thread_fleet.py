@@ -720,6 +720,154 @@ def hidden_mood_hmm_signal(thread_state: dict, lifecycle_state: dict) -> dict:
     )
 
 
+# -- The D4 evidence threads ---------------------------------------------
+#
+# Each streams an EXISTING engine number through the D1 contract — no
+# new statistics invented. The loop provides the per-creature evidence
+# bundle on ``lifecycle_state["evidence"]`` (computed by the canonical
+# package surfaces: archive metrics, the F3 adopted readability model,
+# the SLIP authority, the lineage records — the archive interface
+# spec's documented input factoring). Observe caches the bundle slice
+# in thread state; without evidence the thread is honestly silent.
+
+
+def _evidence_observe(
+    thread_state: dict, lifecycle_state: dict, keys: list[str]
+) -> dict:
+    bundle = lifecycle_state.get("evidence")
+    if not isinstance(bundle, dict):
+        return dict(thread_state)
+    cached = dict(thread_state.get("evidence") or {})
+    for key in keys:
+        if key in bundle:
+            cached[key] = bundle[key]
+    return {"evidence": cached}
+
+
+def mutation_stability_observe(thread_state: dict, lifecycle_state: dict) -> dict:
+    return _evidence_observe(thread_state, lifecycle_state, ["mutation_stability"])
+
+
+def mutation_stability_signal(thread_state: dict, lifecycle_state: dict) -> dict:
+    evidence = thread_state.get("evidence") or {}
+    score = evidence.get("mutation_stability")
+    if score is None:
+        return _thread(
+            "mutation_stability",
+            {"evidence_present": False},
+            {"mutation_stability": None},
+            0.0,
+            "Cold start: no mutation-stability evidence provided.",
+            {},
+        )
+    score = _clamp(score)
+    # A deterministic measured metric: full confidence in provenance.
+    effects = {"mutate": round((score - 0.5) * 0.2, 6)}
+    if effects["mutate"] == 0.0:
+        effects = {}
+    return _thread(
+        "mutation_stability",
+        {"evidence_present": True},
+        {"mutation_stability": round(score, 6)},
+        1.0,
+        "The archive's cap-normalized mutation-stability metric, streamed.",
+        effects,
+    )
+
+
+def readability_observe(thread_state: dict, lifecycle_state: dict) -> dict:
+    return _evidence_observe(thread_state, lifecycle_state, ["readability_score"])
+
+
+def readability_signal(thread_state: dict, lifecycle_state: dict) -> dict:
+    evidence = thread_state.get("evidence") or {}
+    score = evidence.get("readability_score")
+    if score is None:
+        return _thread(
+            "readability",
+            {"evidence_present": False},
+            {"readability_score": None},
+            0.0,
+            "Cold start: no readability evidence provided.",
+            {},
+        )
+    score = _clamp(score)
+    # A learned model's opinion: sharpness confidence (distance from
+    # indifference), the primary signal per DR 0019 — survey fallback.
+    confidence = round(abs(score - 0.5) * 2.0, 6)
+    return _thread(
+        "readability",
+        {"evidence_present": True},
+        {"readability_score": round(score, 6)},
+        confidence,
+        "The F3 adopted readability model's score, streamed (DR 0019 primary).",
+        # Consumed by generation/selection surfaces, never the action
+        # switchboard — an honestly effect-free thread.
+        {},
+    )
+
+
+def slip_compat_observe(thread_state: dict, lifecycle_state: dict) -> dict:
+    return _evidence_observe(
+        thread_state, lifecycle_state, ["slip_aligned", "slip_error_count"]
+    )
+
+
+def slip_compat_signal(thread_state: dict, lifecycle_state: dict) -> dict:
+    evidence = thread_state.get("evidence") or {}
+    aligned = evidence.get("slip_aligned")
+    if aligned is None:
+        return _thread(
+            "slip_compat",
+            {"evidence_present": False},
+            {"slip_aligned": None},
+            0.0,
+            "Cold start: no SLIP-alignment evidence provided.",
+            {},
+        )
+    return _thread(
+        "slip_compat",
+        {"evidence_present": True},
+        {
+            "slip_aligned": bool(aligned),
+            "slip_error_count": int(evidence.get("slip_error_count", 0)),
+        },
+        1.0,
+        "The SLIP authority's alignment verdict, streamed.",
+        {},
+    )
+
+
+def lineage_survival_observe(thread_state: dict, lifecycle_state: dict) -> dict:
+    return _evidence_observe(thread_state, lifecycle_state, ["lineage"])
+
+
+def lineage_survival_signal(thread_state: dict, lifecycle_state: dict) -> dict:
+    evidence = thread_state.get("evidence") or {}
+    record = evidence.get("lineage")
+    if not isinstance(record, dict):
+        return _thread(
+            "lineage_survival",
+            {"evidence_present": False},
+            {"elite": None, "generation": None, "children": None},
+            0.0,
+            "Cold start: no lineage record provided.",
+            {},
+        )
+    return _thread(
+        "lineage_survival",
+        {"evidence_present": True},
+        {
+            "elite": bool(record.get("elite", False)),
+            "generation": int(record.get("generation", 0)),
+            "children": int(record.get("children", 0)),
+        },
+        1.0,
+        "The lineage record's survival facts (elite, generation, children), streamed.",
+        {},
+    )
+
+
 # The fleet registry: (name, observe, signal), execution order fixed.
 FLEET_THREADS = [
     ("hunger_forecast", hunger_forecast_observe, hunger_forecast_signal),
@@ -729,6 +877,10 @@ FLEET_THREADS = [
     ("interaction_timing", interaction_timing_observe, interaction_timing_signal),
     ("animation_bandit", animation_bandit_observe, animation_bandit_signal),
     ("hidden_mood_hmm", hidden_mood_hmm_observe, hidden_mood_hmm_signal),
+    ("mutation_stability", mutation_stability_observe, mutation_stability_signal),
+    ("readability", readability_observe, readability_signal),
+    ("slip_compat", slip_compat_observe, slip_compat_signal),
+    ("lineage_survival", lineage_survival_observe, lineage_survival_signal),
 ]
 FLEET_THREAD_NAMES = [name for name, _observe, _signal in FLEET_THREADS]
 
