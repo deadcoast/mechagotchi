@@ -35,7 +35,7 @@ from copy import deepcopy
 
 from mecha_engine.genome import validate_grid
 
-from ._slip import is_grid_aligned, validate_slip
+from mecha_engine.slip import is_grid_aligned, validate_slip
 from .model import (
     GENERATOR_STRATEGY,
     PROPOSAL_SOURCE,

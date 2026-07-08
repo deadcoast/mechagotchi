@@ -1,0 +1,44 @@
+{
+  "artifact_id": "slip_authority_reconciliation_stage0",
+  "status": "stage0_complete",
+  "date": "2026-07-07",
+  "purpose": "F2 (DR 0027 gate 1, kept alive): the Stage 0 lab SLIP authority and the promoted mecha_engine.slip must agree exactly \u2014 verdicts and error strings \u2014 over the frozen profile corpus, systematic corruptions, and seed alignment.",
+  "source_artifacts": [
+    "research/decision_records/0027-slip-module-disposition.md",
+    "labs/grid_genome/slip.py",
+    "data/slips/"
+  ],
+  "gate_1_pre_collapse_measurement": {
+    "implementations": [
+      "labs/grid_genome/slip.py",
+      "mecha_engine.generation._slip",
+      "mecha_engine.lifecycle._slip",
+      "mecha_engine.repair._slip",
+      "mecha_engine.runtime._slip"
+    ],
+    "validate_cases": "118 profiles x 5 cases (as-is + 4 corruptions)",
+    "alignment_cases": "104 valid profiles x 20 seeds",
+    "validate_divergences": 0,
+    "alignment_divergences": 0
+  },
+  "metrics": {
+    "profile_count": 118,
+    "valid_profile_count": 104,
+    "validate_cases": 590,
+    "validate_divergences": 0,
+    "alignment_cases": 2080,
+    "alignment_divergences": 0,
+    "authorities_identical": true
+  },
+  "closed_states": [
+    "gate_1_five_way_reconciliation_measured_zero_divergences",
+    "lab_vs_package_pair_sweep_permanent"
+  ],
+  "blocked_states": [],
+  "decision": {
+    "status": "slip_authorities_identical",
+    "adoption": "package_slip_authority_evidence",
+    "reason": "590 validate cases and 2080 alignment cases with 0/0 divergences \u2014 the promoted module IS the authority's behavior."
+  },
+  "next_research_step": "None \u2014 the parity pin (test_package_slip_parity.py) runs this sweep in every suite; rerun this lab after any authority change to refresh the artifact."
+}

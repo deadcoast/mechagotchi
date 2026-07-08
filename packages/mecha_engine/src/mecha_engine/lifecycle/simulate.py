@@ -13,8 +13,9 @@ effects, recovery counting, death causes, per-tick history entries, and the
 pinned survival_ticks arithmetic, so package episodes reproduce the Stage 0
 switchboard/idle/random comparator byte-for-byte. Grids are rejected through
 ``mecha_engine.genome.validate_grid`` before any state exists; supplied SLIP
-profiles are validated and alignment-checked (private ``_slip`` port) before
-profile-weighted state creation.
+profiles are validated and alignment-checked through the promoted
+``mecha_engine.slip`` authority (DR 0027) before profile-weighted state
+creation.
 
 Determinism: only the ``random`` policy consumes RNG, seeded from the
 caller-supplied ``rng_seed``; ``rng_seed=None`` uses the pinned Stage 0 seed
@@ -45,7 +46,7 @@ from ._policy import (
     choose_action,
     choose_action_detailed,
 )
-from ._slip import is_grid_aligned, validate_slip
+from mecha_engine.slip import is_grid_aligned, validate_slip
 
 # Stage 0 homeostasis targets and danger thresholds (research values).
 TARGETS: dict[str, float] = {

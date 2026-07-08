@@ -157,9 +157,9 @@ class PackagePromotionGateTests(unittest.TestCase):
         self.assertGreaterEqual(report["summary"]["criteria_count"], 5)
         self.assertGreaterEqual(report["summary"]["candidate_count"], 4)
         self.assertGreater(report["summary"]["research_ready_count"], 0)
-        # 8 since C3 (2026-07-07): campaign_store's storage target
-        # exists with contract tests (decision record 0022).
-        self.assertEqual(8, report["summary"]["promotion_ready_count"])
+        # 9 since F2 (2026-07-07): the slip authority joined storage
+        # (decision records 0022, 0027).
+        self.assertEqual(9, report["summary"]["promotion_ready_count"])
         self.assertEqual(
             "promotion_candidates_available",
             report["decision"]["status"],
@@ -177,6 +177,8 @@ class PackagePromotionGateTests(unittest.TestCase):
             "switchboard_feedback",
             # C3 (2026-07-07): the storage target (decision record 0022).
             "campaign_store",
+            # F2 (2026-07-07): the slip authority (decision record 0027).
+            "slip_authority",
         }
         for candidate in report["candidates"]:
             self.assertNotIn("package_root_absent", candidate["promotion_blockers"])

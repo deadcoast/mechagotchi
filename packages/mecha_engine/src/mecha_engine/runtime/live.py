@@ -35,7 +35,7 @@ from mecha_engine.lifecycle import run_episode
 from mecha_engine.repair import repair_wound_sites
 
 from ._damage import apply_damage_event, apply_stochastic_damage
-from ._slip import is_grid_aligned
+from mecha_engine.slip import is_grid_aligned
 
 
 def live_cycle(

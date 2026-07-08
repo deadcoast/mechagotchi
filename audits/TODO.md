@@ -26,15 +26,20 @@ documentation for tasks that need them; they do not pause the queue.)
   fully live — E5's four-of-five becomes FIVE OF FIVE: earn tiers →
   spend into deliberation → the species thinks → the replay records →
   the Keeper reads the thought.)
-- [ ] **F2 · Port `mecha_engine.slip` (the tenth module).** (DR 0027's
-  authorized target and fixed gates.) Gate 1 first: reconcile the four
-  `_slip.py` mirrors — prove behavioral identity over the SLIP zoo +
-  fuzz corpora or name divergences. Then the public module (single
-  in-package authority pinned to `labs/grid_genome/slip.py`), the four
-  modules collapse to public imports (their full suites the regression
-  harness, byte-identical), the workshop server switches (fulfilling
-  its docstring's promise), contract tests + lab-side parity, promotion
-  gate `promotion_ready` before merge.
+- [x] **F2 · Port `mecha_engine.slip` (the tenth module).**
+  (2026-07-07: gate 1 first — the five-way reconciliation measured
+  ZERO divergences (118 profiles x 5 cases; 104 x 20 seeds), recorded
+  in `slip_authority_reconciliation_stage0.json` with the pair sweep
+  kept alive (590 + 2,080 cases, still zero). The public module landed
+  (`authority.py`, the fullest mirror verbatim), the five import sites
+  switched, the four `_slip.py` files DELETED (~60 KB of
+  quadruplication gone) with every module suite passing unmodified;
+  the parity pin rewritten as the permanent pair pin (exact
+  verdict-and-error-string equality over corpus + corruptions +
+  alignment); 8-test contract suite; the workshop server's
+  long-promised switch FULFILLED. Promotion gate: `slip_authority`
+  promotion_ready — NINE of ten candidates; every og module target now
+  realized (ten promoted, `render` dispositioned).)
 - [ ] **F3 · Fine-tune the readability model on real mutations.**
   (E3's named follow-up: 0.849 improved-direction accuracy vs 0.983
   degraded — the model trained only on degradations.) Retrain/augment

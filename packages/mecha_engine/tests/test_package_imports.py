@@ -42,10 +42,14 @@ INITIAL_MODULES = ["genome", "generation", "lifecycle", "archive", "provenance"]
 # (research/decision_records/0009-create-mecha-engine-learning-target.md);
 # storage per decision record 0022
 # (research/decision_records/0022-storage-module.md, ported C3 after the
-# campaign_store lab's eight gates went green).
-LATER_PROMOTED_MODULES = ["repair", "runtime", "learning", "storage"]
+# campaign_store lab's eight gates went green);
+# slip per decision record 0027 (the four private _slip mirrors collapsed
+# into the public authority after gate-1 reconciliation measured zero
+# behavioral divergences).
+LATER_PROMOTED_MODULES = ["repair", "runtime", "learning", "storage", "slip"]
 PROMOTED_MODULES = INITIAL_MODULES + LATER_PROMOTED_MODULES
-DEFERRED_MODULES = ["render", "slip"]
+# render stays dispositioned-not-promoted (DR 0026: REJECTED-until-consumer).
+DEFERRED_MODULES = ["render"]
 IMPORT_TARGETS = ["mecha_engine"] + [
     f"mecha_engine.{module}" for module in PROMOTED_MODULES
 ]

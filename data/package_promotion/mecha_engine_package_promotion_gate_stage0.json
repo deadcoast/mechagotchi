@@ -5,10 +5,10 @@
   "summary": {
     "package_root_exists": true,
     "criteria_count": 7,
-    "candidate_count": 9,
-    "research_ready_count": 8,
+    "candidate_count": 10,
+    "research_ready_count": 9,
     "package_design_ready_count": 0,
-    "promotion_ready_count": 8,
+    "promotion_ready_count": 9,
     "blocked_count": 1,
     "hold_research_only_count": 0
   },
@@ -366,6 +366,50 @@
       "promotion_blockers": [],
       "research_blocker_details": [],
       "research_notes": "Storage surface (the DR 0022 SQLite campaign ledger), cycle 03 C2. All eight DR 0022 gates run as the lab suite: byte-identical blob round-trips, derived-column pins, one-transaction eras, founder-chain integrity, deterministic replay of stored eras, pointer-chain succession, lossless JSON-interim migration, and the determinism scan. Stdlib sqlite3 only \u2014 the package dependency policy stays intact. C3 ports it when this gate says promotion_ready."
+    },
+    {
+      "component_id": "slip_authority",
+      "target_package": "packages/mecha_engine/src/mecha_engine/slip",
+      "gate_status": "promotion_ready",
+      "research_evidence_complete": true,
+      "missing_evidence": [],
+      "thresholds_met": true,
+      "threshold_results": [
+        {
+          "metric_path": [
+            "metrics",
+            "authorities_identical"
+          ],
+          "operator": "==",
+          "expected": true,
+          "actual": true,
+          "ok": true
+        },
+        {
+          "metric_path": [
+            "metrics",
+            "validate_divergences"
+          ],
+          "operator": "==",
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        },
+        {
+          "metric_path": [
+            "metrics",
+            "alignment_divergences"
+          ],
+          "operator": "==",
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        }
+      ],
+      "verification": "python -B -m unittest discover -s labs/grid_genome -p \"test_package_slip_parity.py\"",
+      "promotion_blockers": [],
+      "research_blocker_details": [],
+      "research_notes": "SLIP authority (the tenth module), decision record 0027 cycle 06 F2: the four private _slip mirrors collapsed into the public mecha_engine.slip after gate-1 reconciliation measured zero behavioral divergences (five-way pre-collapse; the lab-vs-package pair sweep stays permanent: 590 validate + 2080 alignment cases). The workshop server's long-promised switch is fulfilled."
     },
     {
       "component_id": "ca_nca_repair",

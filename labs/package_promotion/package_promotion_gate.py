@@ -292,6 +292,43 @@ def build_candidate_registry() -> list[dict]:
             ),
         },
         {
+            "component_id": "slip_authority",
+            "target_package": "packages/mecha_engine/src/mecha_engine/slip",
+            "algorithm_card": "research/algorithm_cards/slip_schema_validator.md",
+            "experiment_report": "research/experiment_reports/2026-07-07-slip-module-promotion.md",
+            "metric_artifact": "data/slips/slip_authority_reconciliation_stage0.json",
+            "thresholds": [
+                {
+                    "metric_path": ["metrics", "authorities_identical"],
+                    "operator": "==",
+                    "value": True,
+                },
+                {
+                    "metric_path": ["metrics", "validate_divergences"],
+                    "operator": "==",
+                    "value": 0,
+                },
+                {
+                    "metric_path": ["metrics", "alignment_divergences"],
+                    "operator": "==",
+                    "value": 0,
+                },
+            ],
+            "verification": (
+                "python -B -m unittest discover -s labs/grid_genome "
+                '-p "test_package_slip_parity.py"'
+            ),
+            "research_notes": (
+                "SLIP authority (the tenth module), decision record 0027 "
+                "cycle 06 F2: the four private _slip mirrors collapsed "
+                "into the public mecha_engine.slip after gate-1 "
+                "reconciliation measured zero behavioral divergences "
+                "(five-way pre-collapse; the lab-vs-package pair sweep "
+                "stays permanent: 590 validate + 2080 alignment cases). "
+                "The workshop server's long-promised switch is fulfilled."
+            ),
+        },
+        {
             "component_id": "ca_nca_repair",
             "target_package": "packages/mecha_engine/src/mecha_engine/repair",
             "algorithm_card": "research/algorithm_cards/ca_nca_growth_repair.md",

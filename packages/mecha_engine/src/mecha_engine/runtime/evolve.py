@@ -49,7 +49,7 @@ from mecha_engine.lifecycle import run_episode
 
 from ._cubff import extract_cubff_features, features_to_traits
 from ._readability import learned_readability_score
-from ._slip import is_grid_aligned
+from mecha_engine.slip import is_grid_aligned
 from .live import live_cycle
 
 REPORT_ID = "mecha_engine_runtime_evolve"

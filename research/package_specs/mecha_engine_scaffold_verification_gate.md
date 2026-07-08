@@ -85,9 +85,12 @@ The scaffold is rejected if any of these are true:
   wound-site stability blocker cleared; the executable gate tracks the
   current deferred set. `storage` left the deferred set on 2026-07-07:
   decision record 0022 authorized the target, the `campaign_store` lab's
-  eight gates went green, and the C3 port shipped with contract tests
-  and the lab-side parity pin. The remaining deferred set is `render`
-  and `slip`.)
+  eight gates went green, and the C3 port shipped. `slip` left on
+  2026-07-07: decision record 0027 authorized the target and the F2 port
+  collapsed the four private mirrors after gate-1 reconciliation
+  measured zero divergences. The remaining deferred set is `render`
+  alone — dispositioned REJECTED-until-consumer by decision record
+  0026, with its re-opener named.)
 - The package metadata declares release license fields before a license
   decision exists.
 - The package-promotion gate is not rerun after scaffold creation.

@@ -21,7 +21,7 @@ from mecha_engine.genome import validate_grid
 
 from ._features import CLASS_TOKENS, neighborhood_features, softmax_probs
 from ._grids import grid_from_matrix, matrix_from_grid
-from ._slip import is_grid_aligned
+from mecha_engine.slip import is_grid_aligned
 
 
 def repair_wound_sites(

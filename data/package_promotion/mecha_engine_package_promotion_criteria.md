@@ -23,6 +23,7 @@ It does not promote code by itself.
 - `learning_switchboard` -> `promotion_ready` for `packages/mecha_engine/src/mecha_engine/learning`
 - `runtime_loop` -> `promotion_ready` for `packages/mecha_engine/src/mecha_engine/runtime`
 - `campaign_store` -> `promotion_ready` for `packages/mecha_engine/src/mecha_engine/storage`
+- `slip_authority` -> `promotion_ready` for `packages/mecha_engine/src/mecha_engine/slip`
 - `ca_nca_repair` -> `promotion_ready` for `packages/mecha_engine/src/mecha_engine/repair`
 
 ## Decision

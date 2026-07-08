@@ -780,6 +780,10 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-07-07-seen-thought.md`
 - `labs/lifecycle_sim/test_deliberation_history.py` (F1: the seen thought — `choose_action_detailed` + a rung-conditional `deliberation` key on history entries, verbatim across the lab authority and the package with identical-history pins; reflexes/idle/random/frozen flows byte-identical; contract driver probe; both scrubbers render "thought N ticks" and a thinking-covenant replay carries bounded thoughts end to end. DR 0021's notice 2 fully live — five of five)
 
+- `research/experiment_reports/2026-07-07-slip-module-promotion.md`
+- `packages/mecha_engine/src/mecha_engine/slip/` + `packages/mecha_engine/tests/test_slip_contract.py`
+- `labs/slip_validator/slip_authority_reconciliation.py` + `data/slips/slip_authority_reconciliation_stage0.json` (F2: `mecha_engine.slip` promoted — the TENTH module. Gate-1 reconciliation measured ZERO divergences five-way pre-collapse; the four private `_slip.py` mirrors deleted (~60 KB of quadruplication gone) with every module suite passing unmodified through the public import; the parity pin rewritten as the permanent pair pin (exact verdict-and-error-string equality, 590 validate + 2,080 alignment cases); the workshop server's long-promised switch fulfilled; promotion gate NINE of ten ready. Every og module target is now realized — ten promoted, `render` dispositioned with a named re-opener)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

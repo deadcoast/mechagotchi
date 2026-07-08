@@ -2,9 +2,10 @@
 
 Serves the grid editor and exposes the local API the charter's 4-W pillar
 requires: validation is the ENGINE'S verdict (`mecha_engine.genome
-.validate_grid`), SLIP alignment is the Stage 0 authority
-(`labs/grid_genome/slip.is_grid_aligned` — switches to a promoted
-`mecha_engine.slip` surface when one exists), grid construction is the
+.validate_grid`), SLIP judgment is the PROMOTED authority
+(`mecha_engine.slip.is_grid_aligned`/`validate_slip` — the switch this
+docstring long promised, fulfilled by DR 0027/F2 when the tenth module
+landed), grid construction is the
 canonical matrix->grid builder the research proved, and the structural
 load shown to creators is the archive's contracted stress-probe formula.
 The workshop layer may import both the package and the labs (it is
@@ -130,7 +131,6 @@ from ca_nca_growth_repair import (  # noqa: E402
     matrix_from_grid,
 )
 from corpus_builder import PALETTES, build_seed_grids  # noqa: E402
-from slip import is_grid_aligned, validate_slip  # noqa: E402
 
 from mecha_engine.generation import (  # noqa: E402
     generate_candidate,
@@ -142,6 +142,7 @@ from mecha_engine.genome import (  # noqa: E402
     validate_grid,
 )
 from mecha_engine.repair import train_repair_model  # noqa: E402
+from mecha_engine.slip import is_grid_aligned, validate_slip  # noqa: E402
 from aseprite_user_data_chunk_writer import (  # noqa: E402
     export_aseprite_user_data_project,
     import_aseprite_user_data_project,

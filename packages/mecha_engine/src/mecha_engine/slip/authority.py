@@ -1,34 +1,25 @@
-"""Internal SLIP profile validation and alignment checks for lifecycle.
+"""mecha_engine.slip — the SLIP authority (decision record 0027).
+
+The tenth promoted module: ONE in-package SLIP authority replacing the
+four private ``_slip.py`` mirrors that ``generation``, ``lifecycle``,
+``repair``, and ``runtime`` each carried (DR 0027's gate 1 measured the
+mirrors behaviorally identical over 118 profiles x corruption cases and
+104 profiles x 20 seeds before the collapse — zero divergences).
 
 Contract sources:
 
-- research/package_specs/mecha_engine_lifecycle_contract_gate.md
-  ("Initial State Acceptance": reject grids that fail the supplied SLIP
-  profile; validate supplied profiles before state creation)
-- research/slip/slip.schema.json (profile shape, palette enum, 0..1 caps)
-- research/decision_records/0013-port-slip-v2-and-packet-v2.md (the SLIP
-  v0.2 ladder port)
+- research/decision_records/0027-slip-module-disposition.md
+- labs/grid_genome/slip.py (the Stage 0 lab authority, pinned by
+  ``labs/grid_genome/test_package_slip_parity.py``)
+- research/decision_records/0012/0013 (the schema ladder the fields
+  implement)
 
-Scope note (documented factoring): a full ``mecha_engine.slip`` module is a
-deferred module per the scaffold verification gate, so lifecycle carries
-only the minimal internal port it needs — profile validation and
-grid/profile alignment before profile-weighted state creation. This mirrors
-the factoring already promoted for ``mecha_engine.generation`` (its own
-private ``_slip`` helper) and is the same self-contained semantic port of
-the Stage 0 research SLIP checks (identical rule set and error strings); it
-is private to ``mecha_engine.lifecycle`` and is not a package SLIP surface.
-
-Parity note (decision record 0013): this mirror carries the lab
-authority's dual-version ``validate_slip`` — ``slip_version`` "0.1.0" is
-the frozen baseline (exactly the original key set), "0.2.0" adds the four
-optional ladder fields (``forbidden_traits``, ``risk_tolerances``,
-``learning_switches``, ``lineage_preferences``) with the lab's exact
-validation semantics — and the forbidden-traits enforcement in
-``is_grid_aligned``, verbatim (error strings included). Source of truth:
-``labs/grid_genome/slip.py``; the lab-side parity pin is
-``labs/grid_genome/test_package_slip_parity.py``. The lab's
-``v01_projection`` adapter is deliberately not ported: the package now
-accepts v0.2 profiles directly.
+``validate_slip`` judges a profile against the ratified schema
+(v0.1 baseline + every v0.2 ladder rung: forbidden_traits,
+risk_tolerances, learning_switches, lineage_preferences, species_class,
+visual_grammar, deliberation); ``is_grid_aligned`` judges a grid
+against a profile (palettes, body mass, required organ roles, material
+grammar). Pure stdlib; deterministic; inputs never mutated.
 """
 
 from __future__ import annotations

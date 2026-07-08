@@ -72,6 +72,8 @@ the package genome contract being real enough to validate candidates.
 
 | Storage (promoted 2026-07-07, decision record 0022, cycle 03 C3) | `research/decision_records/0022-storage-module.md` (the schema and the eight gates ARE the contract) | `tests/test_storage_contract.py` | Schema v1 (`user_version`, foreign keys); blob-authoritative byte-identical round-trips; derived columns pinned to their blobs; founder pool in niche-key order; unlock state via the predecessor pointer (never copied); replay-sufficient history; atomic one-transaction eras (rollback observed); bad versions and foreign schemas refused; no labs imports, no `sys.path`; lab-side pins: source-verbatim + row-for-row behavior parity over the real interim (`labs/game_loop/test_package_storage_parity.py`), the eight-gate suite over real engine output (`labs/game_loop/test_campaign_store.py`) |
 
+| Slip (promoted 2026-07-07, decision record 0027, cycle 06 F2) | `research/decision_records/0027-slip-module-disposition.md` (the port gates) | `tests/test_slip_contract.py` | Every valid fixture passes; every failure case rejected; the SLIP zoo judged; ladder rungs version-gated and bounded; alignment accepts/rejects with named errors; deterministic, pure, no labs imports, no `sys.path`; gate-1 reconciliation measured ZERO divergences five-way pre-collapse; lab-side pin: exact verdict-and-error-string parity with the Stage 0 authority over the whole corpus + corruptions + seed alignment (`labs/grid_genome/test_package_slip_parity.py`); the workshop server's promised switch fulfilled |
+
 ## Cross-Cut Negative Tests
 
 Every package test slice must enforce:
