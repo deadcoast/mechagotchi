@@ -49,12 +49,17 @@ REQUIRED_EXPLANATION_FIELDS = [
     "accepted_proposals",
     "rejected_proposals",
 ]
+# The WFC surface joined in cycle 10 B3 (DR 0031, the bake-off winner);
+# the constrained surface is unchanged.
 REQUIRED_PUBLIC_SURFACE = [
     "GenerationModel",
+    "build_wfc_corpus",
     "explain_generation",
     "generate_batch",
     "generate_candidate",
+    "generate_wfc_grid",
     "train_generation_model",
+    "train_wfc_model",
 ]
 
 

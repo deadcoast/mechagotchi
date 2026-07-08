@@ -10,22 +10,33 @@ research/package_specs/mecha_engine_generation_contract_gate.md:
 - ``generate_batch(seed_grids, count, slip_profile=None, rng_seed=None) -> list[dict]``
 - ``explain_generation(candidate) -> dict``
 
+WFC surface (cycle 10 B3, DR 0031 — the bake-off winner, the
+rich-alphabet production generator; an additive seam, the constrained
+stabilizer above is untouched):
+
+- ``train_wfc_model(train_grids) -> dict``
+- ``generate_wfc_grid(model, *, grid_id, rng_seed) -> dict``
+- ``build_wfc_corpus(model, *, count, rng_seed) -> list[dict]``
+
 Raw Markov-style local adjacency statistics are a proposal source only; the
-sole production path is validator-gated constrained stabilization through
-``mecha_engine.genome.validate_grid`` (plus SLIP alignment when a profile is
-supplied), so no raw Markov generator is exposed. The implementation is
-self-contained package code (stdlib only, no research lab imports) and
-performs no Stage 0 artifact writes on import.
+production paths are validator-gated constrained stabilization and the
+constraint-finished WFC collapse — no raw Markov generator is exposed. The
+implementation is self-contained package code (stdlib only, no research lab
+imports) and performs no Stage 0 artifact writes on import.
 """
 
 from .explain import explain_generation
 from .generate import generate_batch, generate_candidate
 from .model import GenerationModel, train_generation_model
+from .wfc import build_wfc_corpus, generate_wfc_grid, train_wfc_model
 
 __all__ = [
     "GenerationModel",
+    "build_wfc_corpus",
     "explain_generation",
     "generate_batch",
     "generate_candidate",
+    "generate_wfc_grid",
     "train_generation_model",
+    "train_wfc_model",
 ]

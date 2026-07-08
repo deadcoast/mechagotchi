@@ -840,6 +840,10 @@ Post-v0.1 continuation has started:
 - `labs/wfc_grid/generation_bakeoff16.py` (+ `test_generation_bakeoff16.py`)
 - `data/wfc_grid/generation_bakeoff16_stage0.json` (cycle 10 B2 · ENGINE · Phase B: the REAL documented bake-off, all five arms at 16×16, adoption rule pre-registered before the run. Verdict: **WFC wins; the documented hybrid is REFUTED** — its added mutation+gate stages buy nothing on the measured axes (the jitter varies only the mutation vector, the gate never fires, and the Markov stage is already inside the collapse's proposal distribution; the promoted evolve applies its own jitter regardless, so the simpler arm loses nothing). Constrained clears validity with the best readability/novelty but is barred by the rich-alphabet requirement; markov measures 2% valid at 16×16 (raw proposals are never a production path); random is 46% valid and 53% training copies — the honest floor. All arms pass the ≤250 ms gate with ~40× headroom (wfc 6.3 ms measured). Human pairwise preference recorded not-collected (owner-deferred). markov_grid gained the size-derivation fix, 8×8 pins intact)
 
+- `research/decision_records/0031-wfc-generation-adoption.md`
+- `packages/mecha_engine/src/mecha_engine/generation/wfc.py`
+- `labs/wfc_grid/test_package_wfc_parity.py` (cycle 10 B3 · ENGINE · Phase B: the bake-off winner ADOPTED — `mecha_engine.generation` gains the WFC surface (`train_wfc_model` / `generate_wfc_grid` / `build_wfc_corpus`) as an additive seam, a verbatim semantic port pinned lab-side over trained models and full corpora (identical dicts, RNG streams, error strings); every existing generation surface byte-identical, the contract's public-surface pin widened deliberately. The hybrid refutation is recorded with its named re-opener (an extended-descriptor bake-off where the jitter/gate stages could show value); the constrained stabilizer remains the 4-token parent-based path and evolve's inner loop stays on it — moving it is a future decision with its own evidence. Stdlib holds at 6.3 ms/candidate measured)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.
