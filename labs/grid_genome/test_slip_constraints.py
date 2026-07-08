@@ -142,6 +142,54 @@ class SlipConstraintTests(unittest.TestCase):
         hot_mutation["mutation"]["cell_mutation_rate"] = 0.99
         self.assertFalse(is_grid_aligned(hot_mutation, profile).ok)
 
+    def test_mass_bounds_scale_by_reference_canvas_at_16x16(self):
+        # DR 0030: bounds are 8x8-reference-denominated and scale by
+        # area — the zoo's 4..24 admits the 16x16 corpus (16..96), and a
+        # violation message reports the EFFECTIVE bounds.
+        from corpus_builder import build_seed_grids_16
+
+        profile = valid_slip()
+        lcd_16 = [
+            grid
+            for grid in build_seed_grids_16()
+            if grid["palette"]["palette_id"] == "lcd_green"
+        ]
+        self.assertEqual(10, len(lcd_16))
+        for grid in lcd_16:
+            with self.subTest(grid_id=grid["grid_id"]):
+                alignment = is_grid_aligned(grid, profile)
+                self.assertTrue(alignment.ok, alignment.errors)
+
+        tight = json.loads(json.dumps(profile))
+        tight["grid"]["body_mass_min"] = 4
+        tight["grid"]["body_mass_max"] = 5
+        heavy = next(
+            grid for grid in lcd_16 if grid["grid_id"].endswith("beetle")
+        )
+        result = is_grid_aligned(heavy, tight)
+        self.assertFalse(result.ok)
+        self.assertIn("body mass 54 outside SLIP bounds 16..20", result.errors)
+
+    def test_mass_bounds_are_the_authored_values_at_8x8(self):
+        # DR 0030 identity gate: at the reference canvas the scaling is
+        # exact, so historical verdicts and error strings are unchanged.
+        profile = valid_slip()
+        aligned = build_constrained_corpus(
+            build_seed_grids(), count=1, rng_seed=313, slip=profile
+        )[0]
+        tight = json.loads(json.dumps(profile))
+        tight["grid"]["body_mass_min"] = 1
+        tight["grid"]["body_mass_max"] = 2
+        result = is_grid_aligned(aligned, tight)
+        self.assertFalse(result.ok)
+        self.assertTrue(
+            any(
+                error.endswith("outside SLIP bounds 1..2")
+                for error in result.errors
+            ),
+            result.errors,
+        )
+
     def test_is_grid_aligned_reports_non_numeric_mutation_instead_of_crashing(self):
         profile = valid_slip()
         aligned = build_constrained_corpus(

@@ -31,7 +31,7 @@ if str(PACKAGE_SRC) not in sys.path:
     sys.path.insert(0, str(PACKAGE_SRC))
 
 import slip as lab_slip  # noqa: E402
-from corpus_builder import build_seed_grids  # noqa: E402
+from corpus_builder import build_seed_grids, build_seed_grids_16  # noqa: E402
 
 from mecha_engine import slip as package_slip  # noqa: E402
 
@@ -94,6 +94,28 @@ class SlipAuthorityParityTests(unittest.TestCase):
                     pkg = package_slip.is_grid_aligned(seed, profile)
                     self.assertEqual(lab.ok, pkg.ok)
                     self.assertEqual(lab.errors, pkg.errors)
+
+    def test_is_grid_aligned_agrees_exactly_at_16x16(self):
+        # DR 0030: the reference-canvas scaling must be verbatim-identical
+        # on both surfaces at the ratified 16x16 default, error strings
+        # included — and the scaled zoo admits aligned 16x16 creatures
+        # (a non-vacuous pin: at least one pair must align).
+        valid_profiles = [
+            (name, profile)
+            for name, profile in self.profiles
+            if lab_slip.validate_slip(profile).ok
+        ]
+        seeds_16 = build_seed_grids_16()
+        aligned_pairs = 0
+        for name, profile in valid_profiles:
+            for seed in seeds_16[:20]:
+                with self.subTest(profile=name, seed=seed["grid_id"]):
+                    lab = lab_slip.is_grid_aligned(seed, profile)
+                    pkg = package_slip.is_grid_aligned(seed, profile)
+                    self.assertEqual(lab.ok, pkg.ok)
+                    self.assertEqual(lab.errors, pkg.errors)
+                    aligned_pairs += int(pkg.ok)
+        self.assertGreater(aligned_pairs, 0)
 
 
 if __name__ == "__main__":

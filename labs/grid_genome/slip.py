@@ -209,6 +209,26 @@ def validate_slip(profile: dict) -> SlipResult:
     return SlipResult(not errors, errors)
 
 
+# DR 0030: SLIP mass bounds are denominated at the 8x8 reference canvas.
+SLIP_MASS_REFERENCE_AREA = 64
+
+
+def _scaled_mass_bound(bound: int, grid: dict) -> int:
+    grid_size = grid.get("grid_size")
+    if (
+        isinstance(grid_size, list)
+        and len(grid_size) == 2
+        and all(
+            isinstance(dimension, int)
+            and not isinstance(dimension, bool)
+            and dimension > 0
+            for dimension in grid_size
+        )
+    ):
+        return (bound * grid_size[0] * grid_size[1]) // SLIP_MASS_REFERENCE_AREA
+    return bound
+
+
 def is_grid_aligned(grid: dict, profile: dict) -> SlipResult:
     errors = validate_slip(profile).errors
     if errors:
@@ -220,11 +240,17 @@ def is_grid_aligned(grid: dict, profile: dict) -> SlipResult:
         errors.append(f"palette {palette_id} not allowed by SLIP")
 
     body_mass = sum(1 for cell in grid.get("cells", []) if cell.get("organ") == "core")
-    if body_mass < grid_rules["body_mass_min"] or body_mass > grid_rules["body_mass_max"]:
+    # DR 0030: mass bounds are denominated at the 8x8 reference canvas
+    # and scale by area (an exact identity at 8x8, so every historical
+    # verdict and error string is unchanged). The message reports the
+    # EFFECTIVE bounds actually applied.
+    min_mass = _scaled_mass_bound(grid_rules["body_mass_min"], grid)
+    max_mass = _scaled_mass_bound(grid_rules["body_mass_max"], grid)
+    if body_mass < min_mass or body_mass > max_mass:
         errors.append(
             "body mass "
             f"{body_mass} outside SLIP bounds "
-            f"{grid_rules['body_mass_min']}..{grid_rules['body_mass_max']}"
+            f"{min_mass}..{max_mass}"
         )
 
     present_roles = {

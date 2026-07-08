@@ -32,7 +32,7 @@ are unchanged.
   limbs, antennae, shells from the DR 0015 vocabulary, not upscaled
   8×8 blobs), plus the invalid corpus at the same scale. Workshop
   editor gains the 16×16 canvas (the grid is the hero surface).
-- [ ] **A3 · Generator, validator, repair, lifecycle at 16×16.**
+- [x] **A3 · Generator, validator, repair, lifecycle at 16×16.**
   Re-prove the promoted pipeline at the new scale: generation trained
   on the 16×16 corpus, validator invariants from A1, repair models
   (wound-site semantics unchanged; retrain + re-gate the stability
