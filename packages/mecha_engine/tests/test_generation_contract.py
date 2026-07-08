@@ -94,6 +94,22 @@ class MechaEngineGenerationContractTests(unittest.TestCase):
         self.assertTrue(model["total_pairs_positive"])
         self.assertEqual(["down", "right"], model["adjacency_directions"])
 
+    def test_generation_holds_at_the_ratified_16x16_scale(self):
+        # DR 0029 / cycle 09 A3: the model derives its dimensions from
+        # the corpus (size-parametric, not size-replacing) and the
+        # constrained stabilizer emits valid 16x16 candidates over the
+        # ratified core floor; mixed-size corpora fail loudly.
+        scale = self.report["scale_16"]
+        self.assertEqual(50, scale["corpus_size"])
+        self.assertEqual(16, scale["model_width"])
+        self.assertEqual(16, scale["model_height"])
+        self.assertEqual(25, scale["batch_count"])
+        self.assertTrue(scale["all_valid"])
+        self.assertTrue(scale["all_16x16"])
+        self.assertTrue(scale["core_floor_met"])
+        self.assertTrue(scale["unique_ids"])
+        self.assertIn("single grid size", scale["mixed_size_corpus_raised"] or "")
+
     def test_model_metadata_identifies_corpus_and_strategy(self):
         model = self.report["model"]
         self.assertEqual("constrained_wfc_style_stabilizer", model["strategy"])

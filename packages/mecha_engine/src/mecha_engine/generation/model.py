@@ -8,8 +8,9 @@ Contract sources:
 
 Self-contained semantic port of the Stage 0 research constrained generator's
 training step (grid_genome lab): the model preserves local right/down
-adjacency pair counts and token frequencies over the fixed 8x8 token
-alphabet, which is exactly the local-pattern evidence the constrained
+adjacency pair counts and token frequencies over the corpus's own grid size
+(size-parametric since cycle 09 A3, DR 0029; the token alphabet is
+unchanged), which is exactly the local-pattern evidence the constrained
 stabilizer needs. Raw Markov-style local statistics are a proposal source
 only; the production path is the validator-gated constrained stabilizer in
 ``generate.py`` (negative check: raw Markov output must never be the sole
@@ -26,6 +27,8 @@ from dataclasses import dataclass
 
 from mecha_engine.genome import validate_grid
 
+# The ratified Stage 0 scale; models now derive their own dimensions from
+# the training corpus (DR 0029), these remain as the historical defaults.
 GRID_WIDTH = 8
 GRID_HEIGHT = 8
 TOKENS: tuple[str, ...] = (".", "B", "A", "E", "M")
@@ -92,6 +95,18 @@ def train_generation_model(seed_grids: list[dict]) -> GenerationModel:
     if invalid:
         raise ValueError("seed corpus contains invalid grids: " + " | ".join(invalid))
 
+    # DR 0029 / cycle 09 A3: the model derives its dimensions from the
+    # corpus (size-parametric, not size-replacing — an 8x8 corpus trains
+    # the identical historical model). Mixed sizes would silently train
+    # wrong-position statistics, so they fail loudly instead.
+    sizes = {tuple(grid["grid_size"]) for grid in seed_grids}
+    if len(sizes) != 1:
+        raise ValueError(
+            "seed corpus must share a single grid size, found: "
+            + ", ".join(f"{w}x{h}" for w, h in sorted(sizes))
+        )
+    ((width, height),) = sizes
+
     adjacency: dict[str, dict[str, dict[str, int]]] = {"right": {}, "down": {}}
     token_counts: dict[str, int] = {token: 0 for token in TOKENS}
     total_pairs = 0
@@ -116,8 +131,8 @@ def train_generation_model(seed_grids: list[dict]) -> GenerationModel:
         "seed_corpus_sha256": _corpus_digest(seed_grid_ids),
     }
     return GenerationModel(
-        width=GRID_WIDTH,
-        height=GRID_HEIGHT,
+        width=width,
+        height=height,
         adjacency=adjacency,
         token_counts=token_counts,
         total_pairs=total_pairs,

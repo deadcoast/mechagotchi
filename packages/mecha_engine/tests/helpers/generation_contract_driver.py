@@ -451,6 +451,41 @@ def probe_loaded_lab_modules() -> list[str]:
     )
 
 
+def probe_scale_16(seed_grids_16: list[dict], seed_grid_8: dict) -> dict:
+    """DR 0029 / cycle 09 A3: generation at the ratified 16x16 default.
+
+    The model must derive its dimensions from the corpus, the constrained
+    stabilizer must emit valid 16x16 candidates whose required core clears
+    the size-parametric floor (18 at 16x16), and a mixed-size corpus must
+    fail loudly instead of silently training 8x8 statistics.
+    """
+    model = train_generation_model(seed_grids_16)
+    batch = generate_batch(seed_grids_16, count=25, rng_seed=9)
+
+    def _core_mass(grid: dict) -> int:
+        return sum(
+            len(organ["cells"])
+            for organ in grid["organs"].values()
+            if organ.get("role") == "body_core" and organ.get("required") is True
+        )
+
+    return {
+        "corpus_size": len(seed_grids_16),
+        "model_width": model.width,
+        "model_height": model.height,
+        "batch_count": len(batch),
+        "all_valid": all(validate_grid(grid).ok for grid in batch),
+        "all_16x16": all(grid["grid_size"] == [16, 16] for grid in batch),
+        "core_floor_met": all(_core_mass(grid) >= 18 for grid in batch),
+        "unique_ids": len({grid["grid_id"] for grid in batch}) == len(batch),
+        "mixed_size_corpus_raised": _raised_message(
+            lambda: train_generation_model(
+                [deepcopy(seed_grid_8), deepcopy(seed_grids_16[0])]
+            )
+        ),
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo-root", type=Path, required=True)
@@ -459,11 +494,13 @@ def main() -> None:
 
     seed_dir = repo_root / "data" / "seed_grids"
     invalid_dir = repo_root / "data" / "invalid_grids"
+    seed16_dir = repo_root / "data" / "seed_grids_16x16"
     profile_path = repo_root / "data" / "slips" / "valid" / "slip_lcd_seed.json"
 
     seed_grids = [_load(path) for path in sorted(seed_dir.glob("*.json"))]
     seeds_pristine = deepcopy(seed_grids)
     invalid_grid = _load(sorted(invalid_dir.glob("*.json"))[0])
+    seed_grids_16 = [_load(path) for path in sorted(seed16_dir.glob("*.json"))]
     profile = _load(profile_path)
 
     model_report = probe_model(seed_grids, invalid_grid)
@@ -480,6 +517,7 @@ def main() -> None:
         "slip_batch": probe_slip_batch(seed_grids, profile),
         "explanation": probe_explanation(seed_grids, model, profile),
         "markov_exposure": probe_markov_exposure(model, batch_report),
+        "scale_16": probe_scale_16(seed_grids_16, seed_grids[0]),
         "seed_corpus_mutated": seed_grids != seeds_pristine,
         "lab_modules_loaded": probe_loaded_lab_modules(),
     }

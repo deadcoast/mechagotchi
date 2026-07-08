@@ -10,7 +10,7 @@ from constrained_generator import (
     run_baseline,
     train_constraints,
 )
-from corpus_builder import build_seed_grids
+from corpus_builder import build_seed_grids, build_seed_grids_16
 from slip import is_grid_aligned
 from validator import validate_grid
 
@@ -54,6 +54,33 @@ class ConstrainedGeneratorTests(unittest.TestCase):
         self.assertEqual(100, report["candidate_count"])
         self.assertGreater(report["valid_count"], 42)
         self.assertEqual(100, len({grid["grid_id"] for grid in generated}))
+
+    def test_generation_holds_at_the_ratified_16x16_scale(self):
+        # DR 0029 / cycle 09 A3: constraints derive their dimensions from
+        # the corpus and the stabilizer emits valid 16x16 candidates over
+        # the ratified core floor. Mixed sizes fail loudly.
+        seeds_16 = build_seed_grids_16()
+        model = train_constraints(seeds_16)
+        self.assertEqual(16, model["width"])
+        self.assertEqual(16, model["height"])
+
+        generated = build_constrained_corpus(seeds_16, count=25, rng_seed=77)
+        report = run_baseline(generated)
+        self.assertEqual(25, report["candidate_count"])
+        self.assertEqual(25, report["valid_count"])
+        for grid in generated:
+            with self.subTest(grid_id=grid["grid_id"]):
+                self.assertEqual([16, 16], grid["grid_size"])
+                core = sum(
+                    len(organ["cells"])
+                    for organ in grid["organs"].values()
+                    if organ.get("role") == "body_core"
+                    and organ.get("required") is True
+                )
+                self.assertGreaterEqual(core, 18)
+
+        with self.assertRaises(ValueError):
+            train_constraints([build_seed_grids()[0], seeds_16[0]])
 
     def test_mutation_rate_jitter_is_deterministic_and_varies_per_candidate(self):
         # Review finding L-12: candidates must not all share one fixed

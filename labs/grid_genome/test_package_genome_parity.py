@@ -32,6 +32,8 @@ from mecha_engine.genome import (  # noqa: E402
 
 SEED_DIR = REPO_ROOT / "data" / "seed_grids"
 INVALID_DIR = REPO_ROOT / "data" / "invalid_grids"
+SEED16_DIR = REPO_ROOT / "data" / "seed_grids_16x16"
+INVALID16_DIR = REPO_ROOT / "data" / "invalid_grids_16x16"
 
 
 def _corpus_outcomes(validate_file, directory: Path) -> dict[str, tuple[bool, list[str]]]:
@@ -54,6 +56,26 @@ class PackageGenomeParityTests(unittest.TestCase):
     def test_invalid_corpus_outcomes_identical(self):
         lab = _corpus_outcomes(lab_validate_grid_file, INVALID_DIR)
         package = _corpus_outcomes(package_validate_grid_file, INVALID_DIR)
+
+        self.assertEqual(200, len(lab))
+        self.assertEqual(lab, package)
+        self.assertTrue(all(not ok for ok, _ in package.values()))
+        self.assertTrue(all(errors for _, errors in package.values()))
+
+    def test_seed16_corpus_outcomes_identical(self):
+        # The 16x16 corpora joined the parity pin with cycle 09 A3
+        # (DR 0029): both validators must agree at the ratified default
+        # scale, and every seed clears the size-parametric floor.
+        lab = _corpus_outcomes(lab_validate_grid_file, SEED16_DIR)
+        package = _corpus_outcomes(package_validate_grid_file, SEED16_DIR)
+
+        self.assertEqual(50, len(lab))
+        self.assertEqual(lab, package)
+        self.assertTrue(all(ok for ok, _ in package.values()))
+
+    def test_invalid16_corpus_outcomes_identical(self):
+        lab = _corpus_outcomes(lab_validate_grid_file, INVALID16_DIR)
+        package = _corpus_outcomes(package_validate_grid_file, INVALID16_DIR)
 
         self.assertEqual(200, len(lab))
         self.assertEqual(lab, package)

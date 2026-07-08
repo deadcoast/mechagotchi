@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from validator import validate_grid, validate_grid_file
+from validator import body_core_min_cells, validate_grid, validate_grid_file
 
 
 def valid_grid():
@@ -158,6 +158,30 @@ class GridValidatorTests(unittest.TestCase):
             "body mass below minimum: required body core has fewer than 4 cells",
             result.errors,
         )
+
+    def test_body_core_floor_is_size_parametric_at_16x16(self):
+        # DR 0029: the ratified floor law max(4, 18*w*h//256) — a 4-cell
+        # core that is legal at 8x8 is below the 16x16 floor of 18.
+        grid = valid_grid()
+        grid["grid_size"] = [16, 16]
+
+        result = validate_grid(grid)
+
+        self.assertFalse(result.ok)
+        self.assertIn(
+            "body mass below minimum: required body core has fewer than 18 cells",
+            result.errors,
+        )
+
+    def test_body_core_min_cells_reproduces_both_ratified_scales(self):
+        self.assertEqual(4, body_core_min_cells(8, 8))
+        self.assertEqual(10, body_core_min_cells(12, 12))
+        self.assertEqual(18, body_core_min_cells(16, 16))
+        self.assertEqual(40, body_core_min_cells(24, 24))
+        self.assertEqual(72, body_core_min_cells(32, 32))
+        # Malformed sizes fall back to the 8x8 floor, preserving the
+        # historical error path for grids with a broken grid_size.
+        self.assertEqual(4, body_core_min_cells(None, None))
 
     def test_rejects_unknown_cell_role_and_material(self):
         grid = valid_grid()

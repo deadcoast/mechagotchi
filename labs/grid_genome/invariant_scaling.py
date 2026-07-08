@@ -49,6 +49,7 @@ from pathlib import Path
 
 from corpus_builder import build_seed_grids
 from grid_helpers import RICH_ORGAN_ROLES, RICH_TOKENS, grid_from_rich_matrix
+from validator import body_core_min_cells as _validator_floor_law
 from validator import validate_grid
 
 
@@ -283,10 +284,11 @@ def body_core_min_cells(width: int, height: int) -> int:
     """The ratified size-parametric core-mass floor (DR 0029).
 
     Anchored at the documented 16x16 floor (18) and backward-consistent
-    with the ratified 8x8 floor: 18*64 // 256 = 4. Sizes without a proven
-    corpus inherit the law until their own ratification.
+    with the ratified 8x8 floor: 18*64 // 256 = 4. Since the A3 port the
+    ENFORCED law lives in validator.body_core_min_cells; this delegates
+    so the lab evidence and the enforcement can never drift.
     """
-    return max(RATIFIED_FLOOR_8, (RATIFIED_FLOOR_16 * width * height) // 256)
+    return _validator_floor_law(width, height)
 
 
 def build_pilot_grids() -> list[dict]:

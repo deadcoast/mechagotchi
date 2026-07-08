@@ -53,8 +53,23 @@ ORGAN_ROLES: frozenset[str] = frozenset(
     {"body_core", "sensor", "expression", "locomotion", "ornament", "effect"}
 )
 COLOR_PATTERN = re.compile(r"^#[0-9A-Fa-f]{6}$")
-# Hard invariant 5: minimum required body-core mass in cells.
+# Hard invariant 5: minimum required body-core mass. BODY_CORE_MIN_CELLS
+# is the ratified 8x8 floor; body_core_min_cells applies the DR 0029
+# size-parametric law (evidence: labs/grid_genome/invariant_scaling.py),
+# which reproduces this constant at 8x8 so every historical outcome and
+# error string is unchanged there.
 BODY_CORE_MIN_CELLS = 4
+
+
+def body_core_min_cells(width: int | None, height: int | None) -> int:
+    """DR 0029 floor law: max(4, 18*w*h // 256) — 4 at 8x8, 18 at 16x16.
+
+    Malformed sizes fall back to the 8x8 floor, preserving the historical
+    error path for grids whose grid_size already failed validation.
+    """
+    if not isinstance(width, int) or not isinstance(height, int):
+        return BODY_CORE_MIN_CELLS
+    return max(BODY_CORE_MIN_CELLS, (18 * width * height) // 256)
 
 # Required top-level schema surface (JSON Schema 2020-12 contract in
 # research/grid_genome/grid_genome.schema.json, "required").
@@ -188,10 +203,11 @@ def validate_grid(grid: dict) -> ValidationResult:
     if not has_required_sensor_or_expression:
         errors.append("missing required sensor or expression organ")
 
-    if len(required_body_core) < BODY_CORE_MIN_CELLS:
+    body_core_floor = body_core_min_cells(width, height)
+    if len(required_body_core) < body_core_floor:
         errors.append(
             "body mass below minimum: required body core has fewer than "
-            f"{BODY_CORE_MIN_CELLS} cells"
+            f"{body_core_floor} cells"
         )
     elif not _is_connected(required_body_core):
         errors.append("required body core is disconnected")

@@ -40,6 +40,17 @@ SLIP_MUTATION_CAP_KEYS = {
 
 
 def train_constraints(seed_grids: list[dict]) -> dict:
+    # DR 0029 / cycle 09 A3: dimensions derive from the corpus (an 8x8
+    # corpus trains the identical historical model); mixed sizes fail
+    # loudly instead of silently training wrong-position statistics.
+    sizes = {tuple(grid["grid_size"]) for grid in seed_grids}
+    if len(sizes) != 1:
+        raise ValueError(
+            "seed corpus must share a single grid size, found: "
+            + ", ".join(f"{w}x{h}" for w, h in sorted(sizes))
+        )
+    ((width, height),) = sizes
+
     adjacency = {"right": {}, "down": {}}
     token_counts = {token: 0 for token in TOKENS}
     total_pairs = 0
@@ -56,8 +67,8 @@ def train_constraints(seed_grids: list[dict]) -> dict:
                     total_pairs += 1
 
     return {
-        "width": 8,
-        "height": 8,
+        "width": width,
+        "height": height,
         "adjacency": adjacency,
         "token_counts": token_counts,
         "total_pairs": total_pairs,
