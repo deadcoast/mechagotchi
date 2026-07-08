@@ -1,61 +1,72 @@
-# Development TODO — Standby: the queue is honestly empty
+# Development TODO — Cycle 08: COHERENCE — from proven mechanisms to one application
 
-Cycle 07 (the v1.0 consolidation) is archived complete at
-`audits/complete/07/`. Seven cycles are archived in full (01–07); the
-realization-wave report (`research/reports/
-mechagotchi_research_report_v1_0.md`) consolidates the state: ten of
-ten og module targets realized, "Eras of the Soup" live end to end with
-all five DR 0021 player-notices, the dataset→consumer→adopted-model
-chain closed, 1,210 tests green.
+Source: the owner's course correction (2026-07-07): the mechanisms are
+proven but the APPLICATION is not coherent — fragmented lab pages, no
+single entry point, no living companion, internal jargon on player
+surfaces, and a codebase the owner cannot yet read as a product. The
+prior "standby" verdict measured against the research designs; this
+cycle measures against "can a person launch this, play it, and
+understand it." Governing rule unchanged (DR 0017: deep integrations
+over breadth; the first law: everything shown is engine truth). A task
+is complete when developed to its description, then marked; development
+proceeds continuously; planning triggers only on exhaustion confirmed
+COMPLETE.
 
-**Per the planning rule, this queue was exhausted and confirmed
-COMPLETE — and the honest plan is that NO agent-actionable task
-remains.** Everything left is either an owner decision or a named
-re-opener waiting on a condition. Manufacturing tasks to fill a queue
-would violate the governing rule (deep integrations over breadth;
-hard/unique features win — and nothing hard or unique is currently
-unbuilt against the ratified designs).
-
-## The owner-decision menu (not tasks; act only on owner direction)
-
-1. **The repo-wide license grant** — pending since T21; SPDX plumbing
-   and the REUSE layout are ready.
-2. **The `[project]` dependencies policy** — deliberately blocked;
-   unblocking is a policy choice, not a need (everything ships
-   stdlib-only).
-3. **Manual readability calibration** — pipeline ready
-   (`mechas rate --creatures --autoexport`, 0/63 rows); resume when
-   the sample set stabilizes. The learned model remains primary; this
-   is its calibration check.
-4. **Real CuBFF export ingest** — the optional drop-in seam (cycle 04
-   decision): drop real simulator exports into
-   `data/cubff_real_ingest/source_snapshots/` and run the ingest lab;
-   zero code changes needed.
-5. **Publishing/pushing** — commits are local; push on direction.
-6. **New game/engine direction** — the next era of the project is a
-   design conversation, not a backlog item.
-
-## Named re-openers (each fires on its condition, citing its record)
-
-- `mecha_engine.render` — when a non-workshop Python consumer needs to
-  rasterize a packet (DR 0026).
-- Repair core-preservation tuning — if the mortal-wound rate is ever
-  judged too high for the difficulty curve (C6's verdict).
-- Grid-level `species_class` — when mixed-species soups make
-  per-creature species load-bearing (DR 0024).
-- Extinction-at-scale soak — if a future regime makes live extinction
-  reachable, re-run the D5 soak to exercise succession under load.
+- [ ] **W1 · The living companion — the heart of the application.**
+  The og fantasy is a COMPANION (a tamagotchi), and no surface shows
+  one: eras are button presses returning numbers; the only motion is
+  recorded replays. Build the interactive pet on the engine's own
+  tick: adopt a creature (workshop save, seed, or the campaign's best
+  elite) → the server holds its lifecycle STATE → the PLAYER acts
+  (feed/play/sleep are literally the engine's actions →
+  `advance_tick`) and between player actions the creature acts on its
+  own (`choose_action_detailed` — the switchboard, thoughts visible
+  live). Every frame is `render_packet_v2(grid, state)` — mood and
+  animation from the lifecycle state, exactly what packet v2 was built
+  for. Needs bars, mood, the thought ("thinking… 3 ticks"), honest
+  death (cause named; adopt again). Persisted under the keeper play
+  state. Endpoints + page + `mechas` reachability + tests. Engine
+  truth end to end — zero new engine numbers, one new lifecycle
+  export.
+- [ ] **W2 · One front door.** A home shell (`/`... the editor owns
+  `/` today — a `/home` landing the other pages link back to, and the
+  server's index becomes the shell) unifying companion / session /
+  editor / slip / preview / inspector with plain-language descriptions
+  of what each does; `mechas play` boots the server and opens it.
+  Startup coherence: freeze the generation + repair models as
+  committed artifacts (the F3 adopted-model pattern) so launch is
+  fast and deterministic instead of retraining every boot.
+- [ ] **W3 · Player-language pass.** Every label a player sees gets
+  player words with the engine term as the tooltip, not the reverse
+  (QD, niches, blend, dropout, parent_source → soup richness, body
+  plans, guidance strength, storm damage, ancestry). Text only —
+  values stay verbatim engine truth; a glossary panel links the
+  research docs for the curious.
+- [ ] **W4 · The owner's map.** `docs/architecture-map.md`: every
+  package module, every lab, every page, every command — one plain
+  paragraph each on what it is, why it exists, and what calls it —
+  written for the OWNER to reconnect with the codebase mid-flight;
+  refresh the root `README.md` to describe the application as it now
+  is (engine + game + workshop + CLI) with a 60-second quickstart.
+- [ ] **W5 · Adopt-from-anywhere and the companion↔era bond.** The
+  companion is not a side toy: adopting the campaign's best elite
+  makes the bloodline personal, releasing a workshop creature and
+  adopting it closes the create→love→evolve loop, and a companion that
+  dies in your care is the same mortality the eras measure. Wire the
+  three adoption sources cleanly and surface the companion's lineage
+  (the inspector already reads ancestry).
 
 ## Standing note
 
-The identity constraint and DR 0017 govern: the engine is the
-application, the game is its showcase. The rating system is the
-fallback; `.depreciated/` is the owner's archive (ignore unless
-linked).
+The identity constraint and DR 0017 govern. The owner-decision menu
+(license, dependencies policy, manual calibration, CuBFF ingest,
+pushing) stays open in `audits/complete/07/TODO.md`'s wording — none
+of it blocks this cycle.
 
 ## Sources
 
-- `audits/complete/01/`–`audits/complete/07/` (every cycle, archived)
-- `research/reports/mechagotchi_research_report_v1_0.md` (+ manifest)
+- the owner's course correction (2026-07-07, this cycle's charter)
 - `research/decision_records/0017-recalibration-engine-game-duality.md`
-- `docs/agent-standards.md` (refreshed to this state, cycle 07 V2)
+- `research/decision_records/0021-game-loop.md` (the game the companion joins)
+- `packages/mecha_engine/src/mecha_engine/lifecycle/` (`advance_tick`, `choose_action_detailed` — W1's engine)
+- `packages/mecha_engine/src/mecha_engine/genome/animation.py` (packet v2 — W1's frames)
