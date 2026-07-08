@@ -16,7 +16,7 @@ from ._damage import apply_stochastic_damage
 from ._features import (
     CLASS_INDEX,
     CLASS_TOKENS,
-    NEIGHBORHOOD_FEATURE_COUNT,
+    feature_count_for,
     neighborhood_features,
     train_softmax,
 )
@@ -44,6 +44,18 @@ def train_repair_model(
     """
     if not training_grids:
         raise ValueError("training_grids must not be empty")
+    # DR 0029 / cycle 09 A3: the feature layout derives from the corpus's
+    # own grid size (an 8x8 corpus trains bit-identical historical
+    # weights); mixed sizes would silently corrupt the position one-hot,
+    # so they fail loudly.
+    sizes = {tuple(grid.get("grid_size", [8, 8])) for grid in training_grids}
+    if len(sizes) != 1:
+        raise ValueError(
+            "training corpus must share a single grid size, found: "
+            + ", ".join(f"{w}x{h}" for w, h in sorted(sizes))
+        )
+    ((width, height),) = sizes
+    feature_count = feature_count_for(width, height)
     examples: list[tuple[list[tuple[int, float]], int, float]] = []
     for grid_index, grid in enumerate(training_grids):
         target = matrix_from_grid(grid)
@@ -57,8 +69,8 @@ def train_repair_model(
                     event_index=1,
                 )
                 damaged_matrix = matrix_from_grid(damaged)
-                for y in range(8):
-                    for x in range(8):
+                for y in range(height):
+                    for x in range(width):
                         if damaged_matrix[y][x] != ".":
                             continue
                         label = CLASS_INDEX[target[y][x]]
@@ -75,14 +87,17 @@ def train_repair_model(
         examples,
         epochs=epochs,
         learning_rate=learning_rate,
+        feature_count=feature_count,
     )
     return {
         "model_id": "neighborhood_softmax_repair_model_stage0",
         "source_mode": "learned_neighborhood_softmax_gradient_descent",
         "training_grid_count": len(training_grids),
         "training_grid_ids": [grid.get("grid_id") for grid in training_grids],
+        "width": width,
+        "height": height,
         "example_count": len(examples),
-        "feature_count": NEIGHBORHOOD_FEATURE_COUNT,
+        "feature_count": feature_count,
         "class_tokens": list(CLASS_TOKENS),
         "dropout_rates": list(dropout_rates),
         "damage_instances": damage_instances,

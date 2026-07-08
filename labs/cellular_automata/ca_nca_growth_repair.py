@@ -58,8 +58,28 @@ NEIGHBORHOOD_OFFSETS = [
     if not (dx == 0 and dy == 0)
 ]
 _POSITION_FEATURE_BASE = len(NEIGHBORHOOD_OFFSETS) * len(LIVE_TOKENS)
+# Historical 8x8 layout constants; the layout is size-parametric since
+# cycle 09 A3 (DR 0029) via _feature_count_for, which reproduces these
+# values exactly at 8x8 so 8x8 weights stay bit-for-bit.
 NEIGHBORHOOD_FEATURE_COUNT = _POSITION_FEATURE_BASE + 64 + 1
 _BIAS_FEATURE_INDEX = NEIGHBORHOOD_FEATURE_COUNT - 1
+
+
+def _feature_count_for(width: int, height: int) -> int:
+    return _POSITION_FEATURE_BASE + width * height + 1
+
+
+def _require_model_scale(model: dict, matrix: list[list[str]]) -> None:
+    # Pre-A3 models carry no scale keys and are treated as 8x8.
+    model_width = model.get("width", 8)
+    model_height = model.get("height", 8)
+    height = len(matrix)
+    width = len(matrix[0]) if height else 0
+    if (model_width, model_height) != (width, height):
+        raise ValueError(
+            f"repair model was trained at {model_width}x{model_height} "
+            f"but the grid is {width}x{height}"
+        )
 
 
 def apply_damage(grid: dict, *, pattern: str = "center_cut") -> dict:
@@ -698,6 +718,18 @@ def train_neighborhood_repair_model(
     """
     if not training_grids:
         raise ValueError("training_grids must not be empty")
+    # DR 0029 / cycle 09 A3: the feature layout derives from the corpus's
+    # own grid size (an 8x8 corpus trains bit-identical historical
+    # weights); mixed sizes would silently corrupt the position one-hot,
+    # so they fail loudly.
+    sizes = {tuple(grid.get("grid_size", [8, 8])) for grid in training_grids}
+    if len(sizes) != 1:
+        raise ValueError(
+            "training corpus must share a single grid size, found: "
+            + ", ".join(f"{w}x{h}" for w, h in sorted(sizes))
+        )
+    ((width, height),) = sizes
+    feature_count = _feature_count_for(width, height)
     examples = []
     for grid_index, grid in enumerate(training_grids):
         target = matrix_from_grid(grid)
@@ -711,8 +743,8 @@ def train_neighborhood_repair_model(
                     event_index=1,
                 )
                 damaged_matrix = matrix_from_grid(damaged)
-                for y in range(8):
-                    for x in range(8):
+                for y in range(height):
+                    for x in range(width):
                         if damaged_matrix[y][x] != ".":
                             continue
                         label = _CLASS_INDEX[target[y][x]]
@@ -729,14 +761,17 @@ def train_neighborhood_repair_model(
         examples,
         epochs=epochs,
         learning_rate=learning_rate,
+        feature_count=feature_count,
     )
     return {
         "model_id": "neighborhood_softmax_repair_model_stage0",
         "source_mode": "learned_neighborhood_softmax_gradient_descent",
         "training_grid_count": len(training_grids),
         "training_grid_ids": [grid.get("grid_id") for grid in training_grids],
+        "width": width,
+        "height": height,
         "example_count": len(examples),
-        "feature_count": NEIGHBORHOOD_FEATURE_COUNT,
+        "feature_count": feature_count,
         "class_tokens": list(CLASS_TOKENS),
         "dropout_rates": list(dropout_rates),
         "damage_instances": damage_instances,
@@ -770,11 +805,14 @@ def repair_with_neighborhood_model(
     """
     weights = model["weights"]
     matrix = matrix_from_grid(damaged_grid)
+    _require_model_scale(model, matrix)
+    height = len(matrix)
+    width = len(matrix[0]) if height else 0
     for _ in range(steps):
         updated = [row[:] for row in matrix]
         changed = False
-        for y in range(8):
-            for x in range(8):
+        for y in range(height):
+            for x in range(width):
                 if matrix[y][x] != ".":
                     continue
                 probs = _softmax_probs(
@@ -840,6 +878,7 @@ def repair_with_wound_sites(
     """
     weights = model["weights"]
     matrix = matrix_from_grid(damaged_grid)
+    _require_model_scale(model, matrix)
     if wound_sites is None:
         wound_sites = damaged_grid["metadata"]["removed_cells"]
     site_count = len(wound_sites)
@@ -1142,18 +1181,22 @@ def write_trained_repair_artifacts(output_dir: Path, report: dict) -> None:
 def _neighborhood_features(
     matrix: list[list[str]], x: int, y: int
 ) -> list[tuple[int, float]]:
+    # The layout derives from the matrix's own dimensions; at 8x8 every
+    # index is identical to the historical fixed layout.
+    height = len(matrix)
+    width = len(matrix[0]) if height else 0
     features = []
     for offset_index, (dx, dy) in enumerate(NEIGHBORHOOD_OFFSETS):
         nx = x + dx
         ny = y + dy
-        if 0 <= nx < 8 and 0 <= ny < 8:
+        if 0 <= nx < width and 0 <= ny < height:
             token = matrix[ny][nx]
             if token != ".":
                 features.append(
                     (offset_index * len(LIVE_TOKENS) + _LIVE_INDEX[token], 1.0)
                 )
-    features.append((_POSITION_FEATURE_BASE + y * 8 + x, 1.0))
-    features.append((_BIAS_FEATURE_INDEX, 1.0))
+    features.append((_POSITION_FEATURE_BASE + y * width + x, 1.0))
+    features.append((_POSITION_FEATURE_BASE + width * height, 1.0))
     return features
 
 
@@ -1162,14 +1205,15 @@ def _train_softmax(
     *,
     epochs: int,
     learning_rate: float,
+    feature_count: int = NEIGHBORHOOD_FEATURE_COUNT,
 ) -> tuple[list[list[float]], float, float]:
     class_count = len(CLASS_TOKENS)
-    weights = [[0.0] * NEIGHBORHOOD_FEATURE_COUNT for _ in range(class_count)]
+    weights = [[0.0] * feature_count for _ in range(class_count)]
     total_weight = sum(weight for _, _, weight in examples)
     initial_loss = final_loss = 0.0
     for epoch in range(epochs):
         gradients = [
-            [0.0] * NEIGHBORHOOD_FEATURE_COUNT for _ in range(class_count)
+            [0.0] * feature_count for _ in range(class_count)
         ]
         loss = 0.0
         for features, label, example_weight in examples:
@@ -1186,7 +1230,7 @@ def _train_softmax(
         for class_index in range(class_count):
             weight_row = weights[class_index]
             gradient_row = gradients[class_index]
-            for feature_index in range(NEIGHBORHOOD_FEATURE_COUNT):
+            for feature_index in range(feature_count):
                 weight_row[feature_index] -= (
                     learning_rate * gradient_row[feature_index] / total_weight
                 )

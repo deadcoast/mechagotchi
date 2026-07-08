@@ -19,7 +19,12 @@ from __future__ import annotations
 
 from mecha_engine.genome import validate_grid
 
-from ._features import CLASS_TOKENS, neighborhood_features, softmax_probs
+from ._features import (
+    CLASS_TOKENS,
+    neighborhood_features,
+    require_model_scale,
+    softmax_probs,
+)
 from ._grids import grid_from_matrix, matrix_from_grid
 from mecha_engine.slip import is_grid_aligned
 
@@ -57,6 +62,7 @@ def repair_wound_sites(
     """
     weights = model["weights"]
     matrix = matrix_from_grid(damaged_grid)
+    require_model_scale(model, matrix)
     if wound_sites is None:
         wound_sites = damaged_grid["metadata"]["removed_cells"]
     site_count = len(wound_sites)

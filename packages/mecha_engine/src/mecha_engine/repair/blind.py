@@ -16,7 +16,12 @@ Verbatim lab semantics, pinned by the lab-side parity test.
 
 from __future__ import annotations
 
-from ._features import CLASS_TOKENS, neighborhood_features, softmax_probs
+from ._features import (
+    CLASS_TOKENS,
+    neighborhood_features,
+    require_model_scale,
+    softmax_probs,
+)
 from ._grids import grid_from_matrix, matrix_from_grid
 
 
@@ -36,11 +41,14 @@ def repair_blind(
     """
     weights = model["weights"]
     matrix = matrix_from_grid(damaged_grid)
+    require_model_scale(model, matrix)
+    height = len(matrix)
+    width = len(matrix[0]) if height else 0
     for _ in range(steps):
         updated = [row[:] for row in matrix]
         changed = False
-        for y in range(8):
-            for x in range(8):
+        for y in range(height):
+            for x in range(width):
                 if matrix[y][x] != ".":
                     continue
                 probs = softmax_probs(

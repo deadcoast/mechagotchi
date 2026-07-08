@@ -34,26 +34,40 @@ NEIGHBORHOOD_OFFSETS: list[tuple[int, int]] = [
     if not (dx == 0 and dy == 0)
 ]
 POSITION_FEATURE_BASE: int = len(NEIGHBORHOOD_OFFSETS) * len(LIVE_TOKENS)
+# The historical 8x8 layout constants. The layout is size-parametric since
+# cycle 09 A3 (DR 0029): feature_count_for(w, h) generalizes the count and
+# reproduces these values exactly at 8x8, so 8x8 weights stay bit-for-bit.
 NEIGHBORHOOD_FEATURE_COUNT: int = POSITION_FEATURE_BASE + 64 + 1
 BIAS_FEATURE_INDEX: int = NEIGHBORHOOD_FEATURE_COUNT - 1
+
+
+def feature_count_for(width: int, height: int) -> int:
+    """Feature-vector width for a grid scale (position one-hot + bias)."""
+    return POSITION_FEATURE_BASE + width * height + 1
 
 
 def neighborhood_features(
     matrix: list[list[str]], x: int, y: int
 ) -> list[tuple[int, float]]:
-    """Sparse one-hot features for the 5x5 neighborhood of a cell."""
+    """Sparse one-hot features for the 5x5 neighborhood of a cell.
+
+    The layout derives from the matrix's own dimensions; at 8x8 every
+    index is identical to the historical fixed layout.
+    """
+    height = len(matrix)
+    width = len(matrix[0]) if height else 0
     features: list[tuple[int, float]] = []
     for offset_index, (dx, dy) in enumerate(NEIGHBORHOOD_OFFSETS):
         nx = x + dx
         ny = y + dy
-        if 0 <= nx < 8 and 0 <= ny < 8:
+        if 0 <= nx < width and 0 <= ny < height:
             token = matrix[ny][nx]
             if token != ".":
                 features.append(
                     (offset_index * len(LIVE_TOKENS) + LIVE_INDEX[token], 1.0)
                 )
-    features.append((POSITION_FEATURE_BASE + y * 8 + x, 1.0))
-    features.append((BIAS_FEATURE_INDEX, 1.0))
+    features.append((POSITION_FEATURE_BASE + y * width + x, 1.0))
+    features.append((POSITION_FEATURE_BASE + width * height, 1.0))
     return features
 
 
@@ -62,15 +76,16 @@ def train_softmax(
     *,
     epochs: int,
     learning_rate: float,
+    feature_count: int = NEIGHBORHOOD_FEATURE_COUNT,
 ) -> tuple[list[list[float]], float, float]:
     """Deterministic full-batch gradient descent from zero-initial weights."""
     class_count = len(CLASS_TOKENS)
-    weights = [[0.0] * NEIGHBORHOOD_FEATURE_COUNT for _ in range(class_count)]
+    weights = [[0.0] * feature_count for _ in range(class_count)]
     total_weight = sum(weight for _, _, weight in examples)
     initial_loss = final_loss = 0.0
     for epoch in range(epochs):
         gradients = [
-            [0.0] * NEIGHBORHOOD_FEATURE_COUNT for _ in range(class_count)
+            [0.0] * feature_count for _ in range(class_count)
         ]
         loss = 0.0
         for features, label, example_weight in examples:
@@ -87,7 +102,7 @@ def train_softmax(
         for class_index in range(class_count):
             weight_row = weights[class_index]
             gradient_row = gradients[class_index]
-            for feature_index in range(NEIGHBORHOOD_FEATURE_COUNT):
+            for feature_index in range(feature_count):
                 weight_row[feature_index] -= (
                     learning_rate * gradient_row[feature_index] / total_weight
                 )
@@ -99,6 +114,23 @@ def train_softmax(
         round(initial_loss, 6),
         round(final_loss, 6),
     )
+
+
+def require_model_scale(model: dict, matrix: list[list[str]]) -> None:
+    """Reject a model/grid scale mismatch loudly (cycle 09 A3).
+
+    Models trained before the size-parametric layout carry no scale keys
+    and are treated as the historical 8x8.
+    """
+    model_width = model.get("width", 8)
+    model_height = model.get("height", 8)
+    height = len(matrix)
+    width = len(matrix[0]) if height else 0
+    if (model_width, model_height) != (width, height):
+        raise ValueError(
+            f"repair model was trained at {model_width}x{model_height} "
+            f"but the grid is {width}x{height}"
+        )
 
 
 def softmax_probs(
