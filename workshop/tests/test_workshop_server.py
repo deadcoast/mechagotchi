@@ -100,6 +100,167 @@ class SharedDrawAssetTests(unittest.TestCase):
         self.assertNotIn('src="/shared/draw.js"', editor)
 
 
+class CompanionEndpointTests(unittest.TestCase):
+    """W1: the living companion over HTTP — adoption through the
+    engine's gate, tending as engine ticks, autonomous life with the
+    switchboard, honest death, persistence across requests."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.temp = tempfile.TemporaryDirectory()
+        base = Path(cls.temp.name)
+        cls.server = start_workshop_server(
+            port=0,
+            grids_dir=base / "grids",
+            slips_dir=base / "slips",
+            session_dir=base / "game_loop",
+            released_dir=base / "released",
+        )
+        cls.base = f"http://127.0.0.1:{cls.server.server_address[1]}"
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.server.shutdown()
+        cls.temp.cleanup()
+
+    def test_the_page_is_served(self):
+        with urllib.request.urlopen(f"{self.base}/companion") as response:
+            self.assertEqual(200, response.status)
+            body = response.read().decode("utf-8")
+        self.assertIn("your companion", body)
+        self.assertIn("/shared/draw.js", body)
+
+    def test_adoption_runs_through_the_engines_gate(self):
+        # A covenant that forbids the creature's palette: the ENGINE
+        # refuses the adoption with its own alignment error.
+        status, refused = _post(
+            f"{self.base}/api/companion/adopt",
+            {
+                "source": "seed",
+                "name": "mg_seed_001",
+                "profile_id": "slip_amber_social",
+            },
+        )
+        self.assertEqual(400, status)
+        self.assertIn("SLIP", refused["error"])
+        # Unknown source and unknown profile are named refusals.
+        status, _ = _post(
+            f"{self.base}/api/companion/adopt",
+            {"source": "nowhere", "name": "x"},
+        )
+        self.assertEqual(400, status)
+        status, _ = _post(
+            f"{self.base}/api/companion/adopt",
+            {"source": "seed", "name": "mg_seed_001", "profile_id": "nope"},
+        )
+        self.assertEqual(404, status)
+        # No campaign to adopt from yet — honestly refused.
+        status, refused = _post(
+            f"{self.base}/api/companion/adopt",
+            {"source": "campaign", "name": "best"},
+        )
+        self.assertEqual(409, status)
+        self.assertIn("session page", refused["error"])
+
+    def test_adopt_tend_live_die_and_adopt_again(self):
+        # 1. No companion yet; tending nothing is refused.
+        status, payload = _get(f"{self.base}/api/companion")
+        self.assertEqual(200, status)
+        self.assertFalse(payload["exists"])
+        status, refused = _post(
+            f"{self.base}/api/companion/act", {"action": "feed"}
+        )
+        self.assertEqual(409, status)
+        self.assertIn("adopt", refused["error"])
+
+        # 2. Adopt: the engine builds the live state.
+        status, snap = _post(
+            f"{self.base}/api/companion/adopt",
+            {
+                "source": "seed",
+                "name": "mg_seed_001",
+                "profile_id": "slip_lcd_seed",
+                "companion_name": "gizmo",
+            },
+        )
+        self.assertEqual(200, status)
+        self.assertTrue(snap["alive"])
+        self.assertEqual("gizmo", snap["name"])
+        self.assertEqual(0, snap["age_ticks"])
+        self.assertIn(snap["animation"], snap["animation_vocabulary"])
+        self.assertIn("cells", snap["packet"])
+
+        # 3. Tend it: one engine tick per button.
+        status, snap = _post(
+            f"{self.base}/api/companion/act", {"action": "feed"}
+        )
+        self.assertEqual(200, status)
+        self.assertEqual(1, snap["age_ticks"])
+        self.assertEqual("keeper", snap["log"][-1]["actor"])
+        status, refused = _post(
+            f"{self.base}/api/companion/act", {"action": "cuddle"}
+        )
+        self.assertEqual(400, status)
+        self.assertIn("unsupported lifecycle action", refused["error"])
+
+        # 4. Let it live: the switchboard chooses.
+        status, snap = _post(f"{self.base}/api/companion/tick", {})
+        self.assertEqual(200, status)
+        self.assertEqual(2, snap["age_ticks"])
+        self.assertEqual("companion", snap["log"][-1]["actor"])
+        self.assertIn(snap["log"][-1]["action"], snap["actions"])
+
+        # 5. Persistence: a fresh GET sees the same life.
+        status, snap = _get(f"{self.base}/api/companion")
+        self.assertEqual(200, status)
+        self.assertTrue(snap["exists"])
+        self.assertEqual(2, snap["age_ticks"])
+
+        # 6. Neglect kills (starvation ~tick 11); death is honest and
+        #    tending the dead is refused with the cause named.
+        for _ in range(20):
+            status, snap = _post(
+                f"{self.base}/api/companion/act", {"action": "idle"}
+            )
+            if status != 200 or not snap.get("alive", False):
+                break
+        if status == 200:
+            self.assertFalse(snap["alive"])
+            self.assertIsNotNone(snap["death_cause"])
+        status, refused = _post(
+            f"{self.base}/api/companion/act", {"action": "feed"}
+        )
+        self.assertEqual(409, status)
+        self.assertIn("died of", refused["error"])
+        self.assertIn("adopt a successor", refused["error"])
+
+        # 7. A successor from the wrong species is REFUSED by the same
+        #    gate (mg_seed_002 is gameboy_gray; the covenant is lcd)...
+        status, refused = _post(
+            f"{self.base}/api/companion/adopt",
+            {
+                "source": "seed",
+                "name": "mg_seed_002",
+                "profile_id": "slip_lcd_seed",
+            },
+        )
+        self.assertEqual(400, status)
+        self.assertIn("SLIP", refused["error"])
+        # ...and a covenant-true successor is the way on (mg_seed_006
+        # is the next lcd_green body in the corpus).
+        status, snap = _post(
+            f"{self.base}/api/companion/adopt",
+            {
+                "source": "seed",
+                "name": "mg_seed_006",
+                "profile_id": "slip_lcd_seed",
+            },
+        )
+        self.assertEqual(200, status)
+        self.assertTrue(snap["alive"])
+        self.assertEqual(0, snap["age_ticks"])
+
+
 class KeeperSessionEndpointTests(unittest.TestCase):
     """G4 (DR 0021): the Keeper's session — persistent, engine-run.
 

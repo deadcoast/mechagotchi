@@ -35,8 +35,14 @@ REPO_ROOT = PACKAGE_ROOT.parents[1]
 SRC_DIR = PACKAGE_ROOT / "src"
 DRIVER = Path(__file__).resolve().parent / "helpers" / "lifecycle_contract_driver.py"
 
+# W1 (the living companion) widened the contracted surface: the F1
+# chooser and the action vocabulary became public so interactive
+# callers can drive `advance_tick` with the switchboard's own choices —
+# see the gate doc's "Interactive surface" amendment.
 REQUIRED_PUBLIC_SURFACE = [
+    "ACTIONS",
     "advance_tick",
+    "choose_action_detailed",
     "initial_state",
     "reward_for_transition",
     "run_episode",
@@ -124,7 +130,7 @@ class MechaEngineLifecycleContractTests(unittest.TestCase):
 
     # -- Public surface -----------------------------------------------------
 
-    def test_public_surface_is_the_contracted_four_functions(self):
+    def test_public_surface_is_exactly_the_contracted_set(self):
         surface = self.report["surface"]
         self.assertEqual(REQUIRED_PUBLIC_SURFACE, surface["public_all"])
 

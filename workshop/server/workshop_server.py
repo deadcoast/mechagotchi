@@ -158,6 +158,14 @@ from png_embedded_sidecar_writer import (  # noqa: E402
 )
 from mecha_engine.runtime import live_cycle  # noqa: E402
 from replay_recorder import build_replay  # noqa: E402
+from companion import (  # noqa: E402
+    adopt_companion,
+    autonomous_tick,
+    companion_snapshot,
+    load_companion,
+    player_act,
+    save_companion,
+)
 from session_runner import (  # noqa: E402
     WEATHER_NAMES,
     advance_keeper_state,
@@ -380,6 +388,8 @@ class WorkshopServer(ThreadingHTTPServer):
         # C3 (DR 0022): the derived ledger is the promoted storage
         # module's SQLite file.
         self.session_ledger_path = session_dir / "campaign_ledger.sqlite"
+        # W1: the living companion's play state.
+        self.companion_path = session_dir / "companion.json"
         self._legibility_model: dict | None = None
         self._session_repair_models: dict[tuple[int, int], dict] = {}
         self.session_metrics = {
@@ -609,6 +619,19 @@ class _Handler(SimpleHTTPRequestHandler):
         if path == "/session":
             self.path = "/session/session.html"
             return super().do_GET()
+        if path == "/companion":
+            self.path = "/companion/companion.html"
+            return super().do_GET()
+        if path == "/api/companion":
+            companion = load_companion(self.server.companion_path)
+            if companion is None:
+                self._json(200, {"ok": True, "exists": False})
+                return
+            self._json(
+                200,
+                {"ok": True, "exists": True, **companion_snapshot(companion)},
+            )
+            return
         if path == "/api/session/replay":
             # C5: serve a stored era replay (recorded engine truth) from
             # the ledger's replays directory.
@@ -771,6 +794,9 @@ class _Handler(SimpleHTTPRequestHandler):
             "/api/session/new",
             "/api/session/era",
             "/api/session/covenant",
+            "/api/companion/adopt",
+            "/api/companion/act",
+            "/api/companion/tick",
         ):
             self._json(404, {"ok": False, "error": "unknown endpoint"})
             return
@@ -800,6 +826,9 @@ class _Handler(SimpleHTTPRequestHandler):
             return
         if path.startswith("/api/session/"):
             self._session(path.rsplit("/", 1)[-1], payload)
+            return
+        if path.startswith("/api/companion/"):
+            self._companion(path.rsplit("/", 1)[-1], payload)
             return
         if path == "/api/import/spritesheet":
             self._import_spritesheet(payload)
@@ -1130,6 +1159,136 @@ class _Handler(SimpleHTTPRequestHandler):
             return
 
         self._json(404, {"ok": False, "error": "unknown preview"})
+
+    def _companion(self, kind: str, payload: dict) -> None:
+        """W1: the living companion. Every beat is the engine's own
+        machinery (adoption = `initial_state`'s gate, tending =
+        `advance_tick`, idle life = the frozen switchboard, frames =
+        packet v2); the server only resolves, persists, and serves."""
+        if kind == "adopt":
+            source = str(payload.get("source", "seed"))
+            name = str(payload.get("name", ""))
+            grid = None
+            if source in ("seed", "workshop"):
+                grid = self.server.resolve_creature(source, name)
+            elif source == "campaign":
+                state = load_keeper_state(self.server.session_state_path)
+                eras = (
+                    state["campaigns"][-1]["eras"]
+                    if state is not None and state["campaigns"]
+                    else []
+                )
+                elites = eras[-1]["elites"] if eras else []
+                if not elites:
+                    self._json(
+                        409,
+                        {
+                            "ok": False,
+                            "error": "nothing to adopt from the campaign "
+                            "yet — run an era on the session page first",
+                        },
+                    )
+                    return
+                if name in ("", "best"):
+                    grid = json.loads(
+                        json.dumps(
+                            max(elites, key=lambda e: e["score"])["grid"]
+                        )
+                    )
+                else:
+                    for elite in elites:
+                        if elite["grid_id"] == name:
+                            grid = json.loads(json.dumps(elite["grid"]))
+                            break
+            else:
+                self._json(
+                    400,
+                    {"ok": False, "error": f"unknown adoption source: {source}"},
+                )
+                return
+            if grid is None:
+                self._json(
+                    404,
+                    {
+                        "ok": False,
+                        "error": f"no creature named {name!r} in "
+                        f"source {source!r}",
+                    },
+                )
+                return
+            profile_id = str(payload.get("profile_id", "slip_lcd_seed"))
+            profile = self.server.all_profiles().get(profile_id)
+            if profile is None:
+                self._json(
+                    404,
+                    {"ok": False, "error": f"unknown SLIP profile: {profile_id}"},
+                )
+                return
+            try:
+                companion = adopt_companion(
+                    grid,
+                    profile,
+                    source={
+                        "kind": source,
+                        "name": name or grid.get("grid_id", ""),
+                    },
+                    name=str(payload["companion_name"])
+                    if payload.get("companion_name")
+                    else None,
+                )
+            except ValueError as error:
+                # The ENGINE's verdict, verbatim: an invalid body or a
+                # covenant mismatch refuses the adoption.
+                self._json(400, {"ok": False, "error": str(error)})
+                return
+            save_companion(companion, self.server.companion_path)
+            self._json(
+                200, {"ok": True, "exists": True, **companion_snapshot(companion)}
+            )
+            return
+
+        companion = load_companion(self.server.companion_path)
+        if companion is None:
+            self._json(
+                409, {"ok": False, "error": "no companion yet — adopt one"}
+            )
+            return
+        if not companion["state"]["alive"]:
+            self._json(
+                409,
+                {
+                    "ok": False,
+                    "error": (
+                        "the companion died of "
+                        f"{companion['state']['death_cause']} at tick "
+                        f"{companion['state']['age_ticks']} — adopt a "
+                        "successor"
+                    ),
+                    "alive": False,
+                    "death_cause": companion["state"]["death_cause"],
+                },
+            )
+            return
+        thought = None
+        try:
+            if kind == "act":
+                player_act(companion, str(payload.get("action", "")))
+            elif kind == "tick":
+                _, _, thought = autonomous_tick(companion)
+            else:
+                self._json(
+                    404,
+                    {"ok": False, "error": f"unknown companion endpoint: {kind}"},
+                )
+                return
+        except ValueError as error:
+            self._json(400, {"ok": False, "error": str(error)})
+            return
+        save_companion(companion, self.server.companion_path)
+        snapshot = companion_snapshot(companion)
+        if thought is not None:
+            snapshot["thought"] = thought
+        self._json(200, {"ok": True, "exists": True, **snapshot})
 
     def _session(self, kind: str, payload: dict) -> None:
         """G4 (DR 0021): the Keeper's session — persistent, engine-run.

@@ -249,3 +249,16 @@ on both sides) and the `deliberation_history` driver probe. This is how
 DR 0021's notice 2 ("creatures visibly think") reaches the replay
 scrubber: the tick frames carry the record, and the scrubber renders
 "thought N ticks".
+
+## Interactive surface (W1, 2026-07-07 - the living companion)
+
+The contracted public surface widens from four names to six:
+`choose_action_detailed` (F1's chooser, previously package-internal) and
+`ACTIONS` (the action vocabulary) are exported so INTERACTIVE callers -
+the living-companion surface first - can drive `advance_tick` one tick
+at a time with either the player's choice (the buttons ARE the action
+vocabulary) or the frozen switchboard's own choice, deliberation record
+included. No behavior changed: both names bind the exact objects the
+module already used internally, `run_episode` remains the episode
+authority, and the no-learner-memory rule is untouched (the chooser is
+stateless). Pinned by the surface probe (exact `__all__` equality).

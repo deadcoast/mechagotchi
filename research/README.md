@@ -790,6 +790,9 @@ Post-v0.1 continuation has started:
 
 - `research/reports/mechagotchi_research_report_v1_0.md` + `research/reports/research_report_v1_0_manifest.json` (V1: the realization-wave consolidation — cycles 02–06 in one document: ten of ten og module targets, "Eras of the Soup" live with five of five notices, the dataset→consumer→adopted-model chain, the mortality-gradient verdict, test base 747 → 1,210; 46 experiment reports + 20 decision records referenced, all 79 manifest paths verified; the underlying lab reports untouched per the convention)
 
+- `research/experiment_reports/2026-07-07-living-companion.md`
+- `labs/game_loop/companion.py` + `test_companion.py` (W1: the living companion — the tamagotchi heart on the engine's tick. Adopt through `initial_state`'s gate, tend with `ACTIONS` (one `advance_tick` per button), idle moments played by the frozen switchboard with the deliberation record visible LIVE, frames via packet v2 over the live state, honest refusal-not-noop death. Lifecycle surface widened to six exports (gate doc § Interactive surface); `/companion` + `mechas session --companion`; 12 lab gates + endpoint flow)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

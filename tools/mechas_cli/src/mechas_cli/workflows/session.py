@@ -45,6 +45,12 @@ def session(
         "--open",
         help="Serve the Keeper page (workshop server) and open it.",
     ),
+    companion: bool = typer.Option(
+        False,
+        "--companion",
+        help="Serve the living companion page and open it — adopt a "
+        "creature and tend it on the engine's own tick (W1).",
+    ),
     port: int = typer.Option(
         0, "--port", help="Local port for --open (default: pick a free one)."
     ),
@@ -53,10 +59,17 @@ def session(
     console = theme.console()
     root = find_workspace_root()
 
-    if open_page:
-        console.print(theme.banner("session — the Keeper's surface"))
+    if open_page or companion:
+        page_name = "companion" if companion else "session"
+        console.print(
+            theme.banner(
+                "companion — the living creature"
+                if companion
+                else "session — the Keeper's surface"
+            )
+        )
         process, page_url = launch_workshop_server(
-            console, root, port, "session"
+            console, root, port, page_name
         )
         console.print(
             theme.kv_table(

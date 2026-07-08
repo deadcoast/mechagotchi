@@ -12,22 +12,18 @@ is complete when developed to its description, then marked; development
 proceeds continuously; planning triggers only on exhaustion confirmed
 COMPLETE.
 
-- [ ] **W1 · The living companion — the heart of the application.**
-  The og fantasy is a COMPANION (a tamagotchi), and no surface shows
-  one: eras are button presses returning numbers; the only motion is
-  recorded replays. Build the interactive pet on the engine's own
-  tick: adopt a creature (workshop save, seed, or the campaign's best
-  elite) → the server holds its lifecycle STATE → the PLAYER acts
-  (feed/play/sleep are literally the engine's actions →
-  `advance_tick`) and between player actions the creature acts on its
-  own (`choose_action_detailed` — the switchboard, thoughts visible
-  live). Every frame is `render_packet_v2(grid, state)` — mood and
-  animation from the lifecycle state, exactly what packet v2 was built
-  for. Needs bars, mood, the thought ("thinking… 3 ticks"), honest
-  death (cause named; adopt again). Persisted under the keeper play
-  state. Endpoints + page + `mechas` reachability + tests. Engine
-  truth end to end — zero new engine numbers, one new lifecycle
-  export.
+- [x] **W1 · The living companion — the heart of the application.**
+  (2026-07-07: `/companion` is live — adopt through the engine's own
+  gate (`initial_state` refuses invalid bodies and covenant mismatches
+  verbatim; the wrong-species successor case caught live in testing),
+  tend with the engine's actions (buttons = `ACTIONS`, one
+  `advance_tick` each), "let it live" hands the moments to the frozen
+  switchboard with thoughts visible live, every frame packet v2 over
+  the live state (the E1 grammar gate bounds expressions, mood stays
+  honest), death honest and refusal-not-noop, persistence with backup.
+  Lifecycle surface widened four → six exports (gate doc amended,
+  exact-`__all__` pin updated). 12 lab gates + endpoint flow tests;
+  nav links; `mechas session --companion`. Zero new engine numbers.)
 - [ ] **W2 · One front door.** A home shell (`/`... the editor owns
   `/` today — a `/home` landing the other pages link back to, and the
   server's index becomes the shell) unifying companion / session /
