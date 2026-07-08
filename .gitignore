@@ -1,6 +1,5 @@
-# Python bytecode. Note: some labs' __pycache__ files are already tracked
-# (pre-existing hazard, see docs/00-agent_onboarding.md) — an ignore rule
-# does not untrack them, but it stops NEW bytecode from being committed.
+# Python bytecode. The old tracked-bytecode hazard was closed in cycle
+# 07 V3 (all 144 tracked .pyc files untracked); this rule keeps it so.
 __pycache__/
 *.pyc
 

@@ -12,7 +12,7 @@ The governing document is `docs/project-research/research.md` (thesis, math/ALif
 
 Lab modules and tests anchor all `data/`/`research/` paths on the repo root via `ROOT = Path(__file__).resolve().parents[2]`, so suites and module `main()`s work from any cwd (review finding L-08). Keep new code on that pattern — and record path *strings* in artifacts repo-relative (`path.relative_to(ROOT).as_posix()`), never absolute.
 
-Always run Python with `-B` — `__pycache__` directories are tracked in git (pre-existing hazard), and `-B` keeps them from churning.
+Always run Python with `-B` to keep `__pycache__` out of the working tree. (The old hazard — bytecode TRACKED in git — was closed in cycle 07 V3: all 144 tracked `.pyc` files were untracked and the ignore rule holds; `-B` remains the discipline that keeps local trees clean.)
 
 User-facing workflows go through the **`mechas` companion CLI** (`tools/mechas_cli/`, Typer + Rich, decision record 0007; design contract in `docs/cli/mechas-cli-design.md`). `mechas rate --creatures [--autoexport]` runs the whole readability-rating loop (serve tool, collect in browser, save CSV with backup, run the calibration gate); `mechas status` summarizes gates. Install once with `uv tool install --editable .\tools\mechas_cli`; CLI tests live in `tools/mechas_cli/tests` (Typer-surface tests skip unless `uv sync --group cli`). New operational workflows should become `mechas` commands, not ad-hoc instructions.
 
