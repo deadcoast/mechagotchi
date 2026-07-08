@@ -856,6 +856,10 @@ Post-v0.1 continuation has started:
 - `labs/animation_system/transition_graph.py` (+ `test_transition_graph.py`)
 - `data/animation_system/transition_graph_stage0.json` (cycle 11 C2 · ENGINE · Phase C: the clip transition graph — hub-and-spoke through idle with self-loops (a clip that cannot loop cannot play) — measured against the dossier's ≥80% bar under a PRE-REGISTERED metric (a cut may not be jerkier than the jerkiest step already inside either clip; near-static clips fall back to the corpus intra-max, never a free pass). **Validity 0.9877 over 650 measured transitions** — eleven of thirteen edges perfect; the only imperfect edges are idle↔ill at 0.92 (illness onset is the jerkiest cut — sensible biology, recorded per edge with the client-side softening option named). Boundary deltas p50 0.029 / p95 0.841)
 
+- `research/experiment_reports/2026-07-08-animstate-950.md`
+- `labs/animation_system/animstate_dataset.py` (+ `test_animstate_dataset.py`)
+- `data/animation_system/animstate_950.json` (+ stage0 + README) (cycle 11 C3 · ENGINE · Phase C: the documented animstate dataset regenerated at clip-frame resolution over the 16×16 corpus — 950 labeled (grid, palette, clip, state, frame) samples, full creature×clip×frame coverage, in-bounds and palette-clean 1.0, deterministic; named by its real size with a `supersedes` block citing the documented `animstate_300` and its minimum (the og 8×8 dataset kept as history). The named consumer is Phase D's animation-preference learner)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

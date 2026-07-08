@@ -1,0 +1,36 @@
+{
+  "artifact_id": "animstate_dataset_stage0",
+  "status": "complete",
+  "date": "2026-07-08",
+  "purpose": "Regenerate the documented animstate dataset at clip-frame resolution over the 16x16 corpus (cycle 11 C3): every (creature, clip, frame) labeled for Phase D's animation-preference learner; named by its real size and recording what it supersedes.",
+  "source_artifacts": [
+    "labs/animation_system/clip_model.py",
+    "data/animation_system/clip_model_stage0.json",
+    "data/seed_grids_16x16",
+    "data/grid_genome/animstate_300.json"
+  ],
+  "metrics": {
+    "sample_count": 950,
+    "documented_minimum": 300,
+    "creatures": 50,
+    "samples_per_clip": {
+      "beg": 200,
+      "blink": 150,
+      "idle": 200,
+      "ill": 200,
+      "sleep": 200
+    },
+    "frames_in_bounds_rate": 1.0,
+    "frames_palette_clean_rate": 1.0
+  },
+  "closed_states": [
+    "animstate_dataset_regenerated_at_clip_frame_resolution",
+    "documented_minimum_exceeded_and_named_honestly"
+  ],
+  "blocked_states": [
+    "packet_clip_contract_not_wired (C4)",
+    "animation_preference_learner_not_built (Phase D consumes this dataset)"
+  ],
+  "decision": "animstate_950 ships: 950 labeled clip frames, all in bounds and palette-clean, full coverage of corpus x clips x frames.",
+  "next_research_step": "C4: render_packet_v2 gains the documented clip/frame_index/anchors block as an additive rung."
+}
