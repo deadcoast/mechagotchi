@@ -1,59 +1,56 @@
-# Development TODO — Cycle 09: ENGINE track · Phase A — the 16×16 foundation
+# Development TODO — Cycle 10: ENGINE track · Phase B — the missing generation layer
 
 **Build track: THE ENGINE** (of the two builds — engine and game — per
 `docs/gap-analysis.md` §0; the engine completes before the game's
 playable front end is built, and no feature in this cycle is "the
 application").
 
-Source: `docs/gap-analysis.md` (2026-07-07) — the measured gap between
-the documented application and the implementation. The documents name
-16×16 as the PRIMARY grid target (validity-research §1.34: the first
-implementation target that "proves the entire thesis"; deep-research:
-16×16 bake-off scale, SLIP ranges 12×12–32×32); everything ever proven
-here was proven at 8×8 with ~13-cell bodies. Phase A moves the
-foundation to documented scale so every downstream phase (WFC bake-off,
-animation system, intelligence threads, evolution at scale, MVP 0.1)
-builds on real ground. Third-party dependencies are permitted where the
-scale needs them (DR 0028). The triad discipline and engine-truth law
-are unchanged.
+Source: `docs/gap-analysis.md` (Phase B), opened by the Phase-A gate
+(`research/experiment_reports/2026-07-08-phase-a-gate.md`, cycle 09).
+The documents specify a hybrid generation architecture — Markov →
+**WFC/constraints** → mutation → validator → MAP-Elites — proven by a
+bake-off against random/Markov/constrained arms at dossier thresholds
+(≥85–95% validity, ≤250 ms per candidate at 16×16). **No WFC lab has
+ever existed** (`labs/wfc_grid/` was never created) and the historical
+"bake-off" ran without the documented field. Phase A left one named
+remainder this phase closes: the generation alphabet is still
+{., B, A, E, M}, so children of rich 16×16 parents lose their
+shell/limb/antenna cells — the WFC/constraint layer runs over the FULL
+DR 0015 vocabulary. Third-party dependencies permitted where the
+capability needs them (DR 0028), justified in the decision record;
+Phase A's measurement precedent: justify from wall-clock, never assume.
 
-- [x] **A1 · 16×16 invariants and schema ratification.** Re-derive the
-  hard/soft invariants at 16×16 (body-mass bounds, connectivity,
-  organ-count expectations, symmetry ranges — the 8×8 numbers do NOT
-  scale linearly; measure, don't assume), ratify in
-  `research/grid_genome/grid_invariants.md` + the schema (which already
-  permits 8–64), and record the scaling decisions in a decision record.
-  The 8×8 corpus remains valid input (SLIP grid ranges span sizes);
-  16×16 becomes the default the engine is PROVEN at.
-- [x] **A2 · The 16×16 seed corpus.** The documented deliverable is
-  hand-authored-quality seeds at the primary scale: extend
-  `corpus_builder` to emit a 16×16 corpus (≥50 creatures across the
-  five palettes with real morphological variety — multi-organ bodies,
-  limbs, antennae, shells from the DR 0015 vocabulary, not upscaled
-  8×8 blobs), plus the invalid corpus at the same scale. Workshop
-  editor gains the 16×16 canvas (the grid is the hero surface).
-- [x] **A3 · Generator, validator, repair, lifecycle at 16×16.**
-  Re-prove the promoted pipeline at the new scale: generation trained
-  on the 16×16 corpus, validator invariants from A1, repair models
-  (wound-site semantics unchanged; retrain + re-gate the stability
-  bar at scale), lifecycle body-mass/stability derivations re-measured.
-  NumPy enters HERE if the scale demands it (repair training and
-  generation stats are the likely spots — justify in the DR either
-  way). Every standing gate reruns green at 16×16 without breaking the
-  8×8 pins (size-parametric, not size-replacing).
-- [x] **A4 · Evolution + game surfaces at 16×16.** `evolve`, the
-  archive descriptors (bins re-derived for the larger trait ranges),
-  the Keeper session, replays, and the companion all run at 16×16
-  defaults; the session's engine parameters step up from the toy
-  config (population and generations meaningfully raised — measure
-  what wall-clock allows and record it; this is the bridge toward
-  Phase E's documented scale, not its endpoint). Demo artifacts
-  regenerated; every suite green.
-- [ ] **A5 · Phase-A gate + report.** One consolidated experiment
-  report: the 16×16 foundation — invariant table, corpus stats,
-  re-run gate results at scale, before/after generation quality, and
-  the honest list of what still runs at 8×8 and why. Gap-analysis
-  Phase A checked off only when this gate is green.
+- [ ] **B1 · `labs/wfc_grid/` — the WFC/constraint generator.**
+  Adjacency/tile extraction over the RICH token alphabet from the
+  16×16 seed corpus (grid_helpers `RICH_TOKENS`); wave-function
+  collapse with entropy-ordered cell selection, constraint propagation,
+  bounded backtracking, and validator gating; deterministic under a
+  seed (string-seeded RNG, no wall clock). Triad: algorithm card,
+  experiment report, tests, `data/wfc_grid/*_stage0.json`. RED-first.
+- [ ] **B2 · The bake-off arms and protocol.** Arms: random baseline,
+  Markov (existing lab), constrained stabilizer (existing), WFC (B1),
+  and the documented hybrid (Markov proposal → WFC constraint pass →
+  mutation → validator). Dossier metrics per arm: validity rate,
+  connectedness, organ-presence F1, symmetry score, silhouette entropy,
+  palette violation rate, generation time, descriptor novelty (archive
+  bins), readability proxy (displayed as 8×8-calibrated/uncalibrated —
+  honest labeling). Corpus split: the dossier's 72/24/24 over 120 seeds
+  is adapted to the real 50-creature corpus (30/10/10 train/dev/
+  holdout) — record the adaptation explicitly as a protocol decision;
+  expanding the corpus toward 120 is a named option, not an implied
+  default.
+- [ ] **B3 · Thresholds, verdict, adoption.** Gate the arms on the
+  dossier thresholds (validity ≥85–95%, ≤250 ms per candidate at
+  16×16, measured wall-clock recorded); adopt the winner into
+  `mecha_engine.generation` by decision record — an additive seam,
+  byte-identical when off, RED-first with parity pins; rich-alphabet
+  emission closes the Phase-A remainder. If the documented hybrid does
+  NOT win, the refutation is a first-class finding and the measured
+  winner is adopted instead.
+- [ ] **B4 · Phase-B gate + report.** One consolidated experiment
+  report: the bake-off table, the adoption decision, regenerated
+  16×16 generated-grid corpora, and the honest remainder list.
+  Gap-analysis Phase B checked off only when this gate is green.
 
 ## Standing note
 
@@ -61,12 +58,13 @@ are unchanged.
 alpha). The engine-truth law (DR 0021), the identity constraint, and
 the triad discipline are unchanged. CuBFF real ingest is REQUIRED
 late-stage (Phase G). Apache-2.0; dependencies permitted with
-justification (DR 0028).
+justification (DR 0028). Size-parametric, never size-replacing: the
+8×8 pins stay unbroken (DR 0029).
 
 ## Sources
 
-- `docs/gap-analysis.md` (Phase A)
-- `docs/project-research/validity-research.md` (§1.34)
-- `docs/project-research/deep-research/01/deep-research.md` (bake-off scale, SLIP ranges)
-- `research/grid_genome/grid_invariants.md`
-- `research/decision_records/0028-license-and-dependency-policy.md`
+- `docs/gap-analysis.md` (Phase B)
+- `research/experiment_reports/2026-07-08-phase-a-gate.md` (the opener)
+- `docs/project-research/deep-research/01/deep-research.md` (the bake-off protocol, metrics, thresholds)
+- `research/decision_records/0015-dormant-vocabulary-coverage.md` (the rich alphabet), `0028`, `0029`, `0030`
+- `labs/grid_genome/grid_helpers.py` (`RICH_TOKENS`), `data/seed_grids_16x16/`

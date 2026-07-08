@@ -113,7 +113,10 @@ the GAME track begins in earnest** — each phase at REAL scale:
   validator/generator/repair/lifecycle to the documented primary grid
   scale (schema already permits it); re-derive invariants and re-run
   the standing gates at 16×16; NumPy enters where the scale demands it
-  (DR 0028).
+  (DR 0028). **COMPLETE (cycle 09, 2026-07-08)** — gate report
+  `research/experiment_reports/2026-07-08-phase-a-gate.md` (DR 0029/
+  0030; NumPy measured NOT demanded at this scale; the honest
+  8×8-remainder list lives in the gate report).
 - **Phase B — the missing generation layer.** Build `labs/wfc_grid/`
   (the documented WFC/constraint generator), then run the REAL
   documented bake-off (random vs Markov vs WFC vs hybrid at 16×16,
