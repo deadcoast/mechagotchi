@@ -1,9 +1,15 @@
 import argparse
 import json
+import sys
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
+MICRO_THREADS = ROOT / "labs" / "micro_threads"
+if str(MICRO_THREADS) not in sys.path:
+    sys.path.insert(0, str(MICRO_THREADS))
+
+from thread_fleet import fleet_signals  # noqa: E402
 
 
 ACTIONS = ["feed", "play", "sleep", "idle", "mutate"]
@@ -174,6 +180,11 @@ def run_switchboard(state: dict) -> dict:
         for name, run in SWITCHBOARD_THREADS
         if switches.get(name, True)
     ]
+    # D1 (cycle 12): opted-in fleet threads ride the same additive
+    # combination. The opt-in rule is inverted from the historical
+    # registry (explicit True required), so every frozen path stays
+    # byte-identical — fleet_signals returns [] unless a profile opts in.
+    threads.extend(fleet_signals(state))
     utilities = {action: 0.0 for action in ACTIONS}
     utilities["idle"] = 0.05
     for thread in threads:

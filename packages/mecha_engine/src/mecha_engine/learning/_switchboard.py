@@ -36,6 +36,8 @@ bit-for-bit. The lab-side v0.2 parity pin is
 
 from __future__ import annotations
 
+from .threads import fleet_signals
+
 # Stage 0 first action set. Order is load-bearing: the switchboard utility
 # table and the bandit-thread means iterate in this order, so deterministic
 # max() tie-breaks depend on it (identical to the research lab constant).
@@ -61,6 +63,11 @@ def decide(state: dict) -> dict:
         for name, run in SWITCHBOARD_THREADS
         if switches.get(name, True)
     ]
+    # D1 (cycle 12): opted-in fleet threads ride the same additive
+    # combination. The opt-in rule is inverted from the historical
+    # registry (explicit True required), so every frozen path stays
+    # byte-identical — fleet_signals returns [] unless a profile opts in.
+    threads.extend(fleet_signals(state))
     utilities = {action: 0.0 for action in ACTIONS}
     utilities["idle"] = 0.05
     for thread in threads:

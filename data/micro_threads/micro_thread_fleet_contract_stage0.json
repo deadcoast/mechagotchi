@@ -1,0 +1,63 @@
+{
+  "artifact_id": "micro_thread_fleet_contract_stage0",
+  "status": "complete",
+  "date": "2026-07-08",
+  "purpose": "The D1 micro-thread fleet contract (observe -> signal -> confidence in [0,1], pure, deterministic, JSON-serializable, bounded memory) plus the switchboard's ADDITIVE confidence seam, proven on a two-arm deterministic lifecycle replay: the frozen arm must be byte-identical lab-and-package with zero fleet appearances; the opted-in arm must move utilities through the seam and speak before the reactive hungry threshold (0.65) trips.",
+  "source_artifacts": [
+    "labs/grid_genome/micro_switchboard.py",
+    "packages/mecha_engine/src/mecha_engine/learning/_switchboard.py",
+    "packages/mecha_engine/src/mecha_engine/learning/threads.py",
+    "labs/lifecycle_sim/lifecycle_sim.py",
+    "data/slips/valid/slip_lcd_seed.json",
+    "data/seed_grids/mg_seed_001.json",
+    "docs/gap-analysis.md",
+    "docs/project-research/deep-research/01/deep-research.md"
+  ],
+  "metrics": {
+    "replay_ticks": 48,
+    "fleet_size": 1,
+    "documented_fleet_target": 11,
+    "reactive_hungry_threshold": 0.65,
+    "feed_anticipation_floor": 0.55,
+    "frozen_replay": {
+      "ticks": 48,
+      "lab_package_decisions_identical": 48,
+      "fleet_thread_appearances": 0,
+      "feed_count": 9,
+      "mean_hunger": 0.541388
+    },
+    "fleet_replay": {
+      "ticks": 48,
+      "lab_package_decisions_identical": 48,
+      "fleet_thread_appearances": 48,
+      "anticipatory_signal_ticks": 17,
+      "first_anticipatory_signal_tick": 2,
+      "first_reactive_hungry_tick": 4,
+      "cold_start_silent_ticks": 1,
+      "utility_moved_ticks": 26,
+      "max_confidence": 0.914286,
+      "feed_count": 9,
+      "mean_hunger": 0.541388,
+      "decision_flips": 0
+    }
+  },
+  "closed_states": [
+    "thread_contract_defined_observe_signal_confidence",
+    "opt_in_rule_keeps_frozen_paths_byte_identical",
+    "switchboard_seam_additive_lab_and_package",
+    "package_twin_parity_pinned_by_lab_tests",
+    "hunger_forecast_speaks_before_the_reactive_threshold",
+    "cold_start_is_honest_zero_confidence_no_effects"
+  ],
+  "blocked_states": [
+    "need_predictors_not_trained_on_replayed_histories (D2)",
+    "confidence_calibration_unmeasured (D2)",
+    "animation_bandit_and_hmm_mood_not_built (D3)",
+    "evidence_threads_not_wired (D4)",
+    "synthetic_keepers_and_scale_harness_absent (D5)",
+    "ablation_gates_not_run (D6)",
+    "anticipatory_signal_moves_utilities_but_never_flips_the_lcd_decision (effect magnitudes are D2's calibration work; recorded, not fudged)"
+  ],
+  "decision": "The contract and the seam hold: 48/48 frozen decisions byte-identical lab-and-package with zero fleet appearances; the opted-in pipe cleaner moved utilities on 26 ticks and first spoke at tick 2 (reactive threshold trips at 4).",
+  "next_research_step": "D2: the need predictors (sleep/energy, boredom/novelty, attention, interaction timing) trained against replayed lifecycle traces, each streaming calibrated confidence."
+}

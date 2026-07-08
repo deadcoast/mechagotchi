@@ -22,7 +22,7 @@ authority, and lineage records. Dependencies permitted where measured
 wall-clock demands (DR 0028; Phase A/B precedent: measure first — the
 100k-tick harness is the likeliest genuine NumPy trigger yet).
 
-- [ ] **D1 · The thread contract + the switchboard confidence seam.**
+- [x] **D1 · The thread contract + the switchboard confidence seam.**
   One common interface for every micro-learner (observe → predict →
   confidence in [0,1], deterministic, per-companion state, JSON-
   serializable); the switchboard gains an ADDITIVE confidence-weighted
