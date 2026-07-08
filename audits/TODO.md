@@ -44,7 +44,7 @@ wall-clock demands (DR 0028; Phase A/B precedent: measure first — the
   stays fallback), SLIP compatibility, and lineage survival — wired
   from the engine's existing artifacts/records through the D1
   contract; no new statistics invented.
-- [ ] **D5 · The synthetic keepers + the scale harness.** The 5
+- [x] **D5 · The synthetic keepers + the scale harness.** The 5
   documented synthetic user models (distinct interaction policies over
   the companion surface); the 100k-tick × 500-lifecycle benchmark
   measuring welfare with/without threads — wall-clock measured FIRST

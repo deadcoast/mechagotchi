@@ -30,5 +30,11 @@ Cycle 12 (ENGINE - Phase D) artifacts:
   compatibility, lineage survival) wired from existing artifacts; the
   wiring pin holds 50/50 byte-equal to the canonical surfaces on all
   four. The documented fleet is 11 of ~11 named threads.
+- `synthetic_keepers_stage0.json` - D5: the five documented user
+  models + the 100k-tick x 500-lifecycle two-arm benchmark. Wall-clock
+  measured first: stdlib holds (17.9 s measured vs the 600 s bound).
+  The honest zero: welfare deltas ~0% because the sheltered
+  environment is saturated (the switchboard self-feeds; balance ~0.79
+  everywhere) - D6 needs a keeper-dependent mode with real headroom.
 
 Produced by `labs/micro_threads/`.
