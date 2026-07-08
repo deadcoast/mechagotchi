@@ -1,131 +1,99 @@
 # Agent Onboarding — Mechagotchi
 
-Written 2026-07-04 for the next Fable 5 session. This file orients you; it
-does not replace the living documents. **State described here may be stale —
-re-verify against `git log` and the gate artifacts before relying on it.**
+Written 2026-07-04; refreshed 2026-07-07 (cycle 07 V2, report v1.0) for
+the next Fable 5 session. This file orients you; it does not replace the
+living documents. **State described here may be stale — re-verify
+against `git log` and the gate artifacts before relying on it.**
 
 ## 1. What this project is
 
-A grid-based artificial-life companion platform, built research-first. Two
-builds (see `docs/01-brainstorming.md`): **mecha_engine** (the creature
-engine: genome grids, generation, lifecycle, MAP-Elites archive, provenance)
-and **mecha_workshop** (the authoring editor: PNG/APNG/Aseprite
-interoperability, SLIP profile authoring). SLIP = Synthetic Learning
-Intelligence Profile, the user-authored constraint profile that governs
+A grid-based artificial-life companion platform, built research-first:
+the **Mechagotchi Computational Life Engine** (`packages/mecha_engine`,
+ten promoted modules) and its showcase game **"Eras of the Soup"**
+(decision record 0021 — the Keeper stewards a bloodline through eras of
+a computational-life soup), plus the **mecha_workshop** authoring layer
+(grid editor, SLIP creator, preview/scrubber, inspector, Keeper session
+page) and the **mechas** companion CLI. SLIP = Synthetic Learning
+Intelligence Profile, the user-authored covenant that governs
 generation and behavior (`research/glossary.md`).
 
-The defining property of this repo: **the documentation is the deliverable
-and the governance.** Nothing is claimed without executable evidence;
-nothing is promoted without passing a documented gate.
+The defining property of this repo: **the documentation is the
+deliverable and the governance.** Nothing is claimed without executable
+evidence; nothing is promoted without passing a documented gate. The
+game's first law (DR 0021): everything shown to the player is engine
+truth — a report field, an artifact, a recorded replay.
 
-**Standing identity constraint (2026-07-05, anti-drift — root `README.md`):
-this repository is NOT a CLI application.** The `mechas` CLI (`tools/`) is
-a supportive layer only. The application is, and remains, the researched
-grid-based artificial-life companion engine — the Mechagotchi
-Computational Life Engine — inspired by the CuBFF study and source code
-behind *Computational Life* (arXiv:2406.19108, local copy at
-`assets/pdf/2406.19108v2.pdf`). No supporting surface (CLI, tooling, docs,
-UI) may quietly become the project; researched, mathematical, provable
-practices govern every addition. MIVIM.dev flagship — the developer's name
-is attached; hold every change to the established standards.
+**Standing identity constraint (anti-drift — root `README.md`): this
+repository is NOT a CLI application.** The `mechas` CLI (`tools/`) is a
+supportive layer only. The application is the engine, inspired by the
+CuBFF study behind *Computational Life* (arXiv:2406.19108, local copy
+`assets/pdf/2406.19108v2.pdf`). No supporting surface may quietly
+become the project. MIVIM.dev flagship — hold every change to the
+established standards.
 
 ## 2. The prime directive
 
-**Seek knowledge locally first, from the documents, for every request.**
-The documentation is extensive and current. Working from memory or general
-knowledge instead of the repo's own documents causes drift — the one failure
-mode this system is designed to prevent.
+**Seek knowledge locally first, from the documents, for every
+request.** Working from memory instead of the repo's own documents
+causes drift — the one failure mode this system is designed to prevent.
 
 Authoritative chain, in order:
-1. `docs/02-research_plan.md` — the plan (stages, evaluation framework)
-2. `research/decision_records/0001-0005+` — ADRs; check for newer ones
+1. `docs/project-research/research.md` — the governing plan; DR 0017
+   (`research/decision_records/0017-...md`) is the North Star: the
+   ENGINE+GAME duality, deep integrations over breadth.
+2. `research/decision_records/0001–0027+` — ADRs; check for newer ones.
 3. `research/package_specs/*` — package contracts, gates, the
-   **contract traceability matrix** (fixes module promotion order)
-4. `research/README.md` — the master traceability ledger (triads)
-5. `data/**/**_stage0.json` — gate artifacts = current machine-readable state
-6. `research/reports/mechagotchi_research_report_v0_N.md` — consolidated
-   waves; read the newest first for "what happened lately"
+   **contract traceability matrix**.
+4. `research/README.md` — the master traceability ledger (triads).
+5. `data/**/**_stage0.json` — gate artifacts = machine-readable truth.
+6. `research/reports/` — consolidated waves; **v1.0 is the newest**
+   (the realization wave); read its manifest's `next_sequence`.
 
-When docs conflict, the more specific gate/spec wins; decision records win
-over plans; and executed artifacts win over prose claims.
+When docs conflict: the more specific gate/spec wins; decision records
+win over plans; executed artifacts win over prose claims.
 
-## 3. State snapshot (2026-07-05, report v0.10)
+## 3. State snapshot (2026-07-07, report v1.0)
 
-- **Research phase complete** (v0.1–v0.5), full 2026-07-04 code-review
-  remediation complete (v0.6–v0.8: every H/M/L finding resolved —
-  `docs/03-code_review/2026-07-04-code_review.md` is the annotated ledger).
-- **Package phase underway** (v0.9+): `packages/mecha_engine` exists
-  (src layout, DR 0004). Seven modules promoted with contract tests +
-  lab-parity pins: `genome`, `generation`, `lifecycle`, `archive`,
-  `provenance` (all 2026-07-04), `repair` (2026-07-05, DR 0006 —
-  wound-site learned repair; observability contract: damage events report
-  destroyed positions, never tokens, never a template), `runtime`
-  (2026-07-05, DR 0008 — `live_cycle` + `evolve`), and `learning`
-  (2026-07-05, DR 0009 — feedback micro-switchboard; bounded claim:
-  wellbeing at zero survival cost, NO survival claim — survival is
-  morphology-decided). Statuses tracked by
-  `labs/package_promotion/package_promotion_gate.py`.
-- **Tests**: ~13 labs + ~217 package tests + ~15 CLI tests, all green
-  (run the sweep for exact counts). Runnable from any cwd (paths are
-  ROOT-anchored).
-- **Supportive layer**: the `mechas` CLI (tools/, DR 0007) standardizes
-  user workflows; the rating loop is `mechas rate --creatures
-  [--autoexport] [--reviewer <name>]`. It is NOT the application
-  (identity constraint, root README).
-- **Deliberately open** (v0.10 manifest `next_sequence`):
-  1. **The manual readability rating system is the FALLBACK, never the
-     assignment (owner corrections x3; DR 0017 + memory).** The primary
-     path is a LEARNED readability mechanism (cycle-02 R3); the rating
-     pipeline stays exactly as built as its fallback/calibration check:
-     `mechas rate --creatures --autoexport` runs the whole loop (63 rows =
-     21 samples × 3 reviewers). Calibration CLAIMS still require real human data when made — never
-     fabricate — but nothing is 'blocked on manual calibration': the
-     learned path (R3) is the design. See DR 0017's R-queue.
-  2. **Learning module DR (0009 candidate) is now proposable** — the
-     stress survival regime (2026-07-05) broke the saturation:
-     `--mode evolution --regime stress_probe` runs episodes on the
-     archive's contracted morphology probe (10/48 deaths, survival
-     0.79-0.90, archive 25 niches). The learning claim to beat is the
-     frozen switchboard's measured survival under this regime — a
-     falsifiable bar at last. Other engine follow-ups: longer-horizon
-     selection studies (incl. fitness-weighted vs uniform parenting as an
-     explicit comparison), lineage counter accumulation through repair
-     (parity-reviewed), package `runtime.evolve` regime parameter once
-     lab evidence settles.
-  3. Learning module — PROMOTED (DR 0009, 2026-07-05) with the bounded
-     wellbeing claim. Future survival-relevant learners need new evidence
-     through the stress learning benchmark harness. (The owner's only
-     standing deferral remains the manual readability survey data; never
-     extend it to anything else — owner correction, 2026-07-05.)
-  4. The `mecha_workshop` build track: SLICES 1-4 SHIPPED (2026-07-05,
-     DR 0010; build order owner-approved). `mechas workshop --editor` =
-     grid editor (live engine validation); `--slip` = SLIP profile
-     creator (Stage 0 authority live, authored profiles join the
-     editor's chips); `--preview` = engine-truth preview (render
-     packets verbatim, runtime.live_cycle day-in-the-life,
-     generation-module offspring; alignment errors ARE the preview on
-     mismatch; read-only). Slice 4 (complete): the editor's SHARE
-     panel — self-contained PNG and Aseprite exports (embedded semantic
-     sidecar, engine-strict, profile-bound), animated APNG, spritesheet
-     pair (sheet PNG + sidecar JSON), and imports of all three formats
-     through each codec's own integrity checks. Strict saves under
-     data/workshop/. Charter: `docs/workshop/mecha-workshop-design.md`.
-     OWNER DESIGN-CORRECTION
-     (2026-07-05): the workshop is part of the ecosystem, NOT the
-     ecosystem — a creature creator whose output must be directly
-     usable in the engine's simulations. Audit: `audits/audit-devspec.md`
-     (verdict: identity intact; the workshop->engine asset wire is the
-     missing piece). Work from `audits/TODO.md` — T1 (the wire) SHIPPED
-     2026-07-05 (release flow + founder admission + lineage tracing;
-     first lineages went extinct honestly — see the wire report); T1.5
-     (runtime.evolve seed-source DR) stays owner-gated; slice 5 SHIPPED 2026-07-06 (--inspect). A second-pass addendum (RUN TWO docs)
-     added T14-T21: reconcile the RUN ONE/RUN TWO design fork by DR,
-     wake or trim the dormant grid-schema vocabulary, render packet v2,
-     and the unrun RUN TWO protocols (formal bake-off, MAP-Elites
-     comparators, learner ablation, REUSE structure, pairwise studies). Windows note: ports are OS-reserved in shifting ranges —
-     servers default to port 0 and announce their URL.
-  5. mechas CLI roadmap (`docs/cli/mechas-cli.md`) — supportive layer
-     only; never outranks engine work.
+- **The module program is FINISHED.** Ten promoted modules with
+  contract tests + lab-parity pins: `genome`, `generation`,
+  `lifecycle`, `archive`, `provenance`, `repair` (DR 0006), `runtime`
+  (DR 0008: `live_cycle` + `evolve`, with `founder_grids`,
+  `cubff_pressure_source`, `readability_selection`, `record_frames`
+  seams), `learning` (DR 0009, bounded wellbeing claim), `storage`
+  (DR 0022: the SQLite campaign ledger), `slip` (DR 0027: the single
+  SLIP authority; four private mirrors collapsed). `render` is
+  DISPOSITIONED, not promoted (DR 0026: REJECTED-until-consumer — the
+  packet contract ships in `genome`; re-opener: a non-workshop Python
+  rasterizer consumer). Gate: 9 promotion-ready of 10 candidates (the
+  manual-ratings gate is honestly blocked by owner deferral).
+- **The game is live end to end.** All five DR 0021 player-notices
+  (E5 audit + F1): weather with provenance, creatures SEEN thinking
+  (deliberation rides episode history to the scrubber), legibility on
+  every era card (honest direction: it drifts DOWN across chained eras
+  at Stage-0 scale), released creatures founding eras (the Contribute
+  step), and persistence + per-era recorded replays. The Covenant step
+  SPENDS unlock facts; extinction seats successors carrying only
+  unlocks; mortal wounds ("the toll") read from `archive_decision`.
+  Play state lives in `data/game_loop/keeper/` (gitignored; a live
+  game is not evidence). Surfaces: `mechas session
+  --open/--era/--status/--new`, the `/session` page, the preview
+  scrubber.
+- **The ML track**: og datasets delivered AND consumed
+  (`data/datasets/`); the ADOPTED readability model is a committed
+  auditable artifact (`data/readability_benchmark/
+  adopted_readability_model.json` — real-mutation-augmented, all F3
+  gates green); the manual rating system stays the FALLBACK, its state
+  honestly 0/63 rows by standing owner decision.
+- **Tests**: **1,210 all green** (847 lab across 16 labs + 290 package
+  + 52 workshop + 21 CLI). Run the sweep for exact current counts.
+- **Cycles**: 01–06 archived complete under `audits/complete/`;
+  `audits/TODO.md` is the active queue (cycle 07: V1 ✓, V2 = this
+  refresh, V3 ✓).
+- **Owner decisions on record (NOT tasks)**: real-CuBFF export ingest
+  is an OPTIONAL drop-in seam (cycle 04 — synthetic weather is the
+  shipped answer; nothing external is required); the `[project]`
+  dependencies policy stays deliberately blocked; the repo-wide
+  license grant stays pending; manual calibration deferred.
 
 ## 4. The document development format (non-negotiable)
 
@@ -134,50 +102,68 @@ documents in the same change.**
 
 - **Triad convention**: each finding = dated experiment report
   (`research/experiment_reports/YYYY-MM-DD-kebab-slug.md`) + algorithm
-  card/spec (`snake_case`, same stem) + lab code + `data/<lab>/<slug>_stage0.json`
-  artifact — all ledgered in `research/README.md`.
+  card (`snake_case`, same stem) + lab code +
+  `data/<lab>/<slug>_stage0.json` — all ledgered in
+  `research/README.md`.
 - Experiment reports carry **RED/GREEN verification blocks** with exact
   commands and pasted output, and a `## Sources` footer of repo paths.
 - Artifacts carry `status` / `closed_states` / `blocked_states` /
   `decision`. Keep blocked states explicit; never silently drop one.
-- Consolidated reports (v0_N + manifest) group waves; they link, never
-  replace. Every manifest path must resolve — verify before writing.
-- Completion checklist (also in CLAUDE.md): run the changed lab's tests →
-  validate changed JSON with `python -m json.tool` → update triad docs →
-  sweep for stale blocker wording.
+- Consolidated reports (v0_N/v1_N + manifest) group waves; they link,
+  never replace. Every manifest path must resolve — verify before
+  writing.
+- Completion checklist (also in CLAUDE.md): run the changed lab's tests
+  → validate changed JSON with `python -m json.tool` → update triad
+  docs → sweep for stale blocker wording.
+- **The cycle rule**: a task is complete when developed to its
+  description, then marked in `audits/TODO.md`. Development proceeds
+  continuously; planning triggers ONLY when the TODO is exhausted and
+  confirmed COMPLETE (full sweep green) — then archive to
+  `audits/complete/NN/` and plan the next cycle from the seams the
+  finished cycle recorded.
 
-## 5. Honesty norms (learned and enforced this session)
+## 5. Honesty norms (learned and enforced across cycles)
 
-- **Gates derive from evidence, never constants.** A probe that cannot fail
-  is a bug (see M-09's history). If a gate would flip on weak evidence,
-  harden its derivation instead.
-- **Record negative results.** "The blocker stands, measured at X vs bar Y"
-  and "the flagged mismatch was latent — numbers unchanged" are first-class
-  outcomes (see the M-12 and repair-bar reports).
-- **Never pin environment observations in tests** (H-01's lesson): assert
-  the policy/decision; record availability (`jsonschema_available` etc.) as
-  per-run observations.
-- **Parity before promotion.** Package ports keep lab semantics verbatim
-  (error strings included) and pin it with a lab-side parity test over the
-  full fixture corpora. Spec wins over raw port only where the gate says so
-  — and then you document the divergence.
-- **Regenerate artifacts you invalidate**, and explain each delta in the
-  commit. Revert pure-noise regenerations (zip timestamps in
-  `third_party_project_decoder` are known-non-deterministic).
+- **Gates derive from evidence, never constants.** A probe that cannot
+  fail is a bug. If a gate would flip on weak evidence, harden its
+  derivation instead.
+- **Record negative results and refuted hypotheses.** C6's
+  "extreme-damage-only" hypothesis was REFUTED by its own measurement
+  (the mortality gradient) — and the refutation is the finding.
+- **Beware the statistic, not just the data.** E3's survivorship-bias
+  catch: the naive per-lived-tick mean ranked the switchboard LAST; the
+  engine's own full-horizon rule flipped it. When comparing outcomes,
+  reconstruct the engine's exact statistic.
+- **A faithful replay reproduces the original INPUTS exactly.** D5's
+  two harness bugs: the C4 earned blend must be replayed (not
+  defaulted), and `founder_grids=None` ≠ `[]` (an intentional DR 0016
+  distinction). The engine's input distinctions are real.
+- **Never pin environment observations in tests** (H-01): assert the
+  policy/decision; record availability as per-run observations. Pin
+  the test harness's capture environment (ambient `FORCE_COLOR` broke
+  plain-substring assertions once).
+- **Parity before promotion; additive seams byte-identical off.**
+  Package ports keep lab semantics verbatim (error strings included),
+  pinned lab-side over full fixture corpora. New engine keywords
+  default to byte-identical (the `founder_grids`/`record_frames`/
+  `readability_selection` pattern). Watch for promotion DRIFT: the
+  aligned-but-invalid crash happened because a lab improvement never
+  reached the promoted mirror — and no pinned seed exercised the path.
+- **Regenerate artifacts you invalidate**, and explain each delta.
+  Never let a live surface overwrite committed evidence (play state is
+  gitignored for exactly this reason).
 
 ## 6. Working cadence that worked
 
-- Work in **batches mapped to finding/gate IDs**; one commit per batch with
-  a message naming the IDs, evidence, and doc updates. Push after each.
-- **Delegate heavy implementation to sub-agents with spec-first briefs**
-  ("read these spec files FIRST; they override this brief"), keep
-  verification, triad docs, gate reruns, and commits in the orchestrator.
-  Give agents disjoint file zones; never let two agents share a lab.
-- Sub-agents must report deviations and honest failures, not paper over
-  them — the best finds this session (a wrong-pixels bug, a regression from
-  a concurrent commit) came from agents empowered to say "this is broken".
-- Rerun the **full 12-lab sweep + package suite** before every commit:
-  suites are fast (<30 s total).
+- Work the active `audits/TODO.md` queue task-by-task; one commit per
+  completed task naming the task ID, evidence, and doc updates.
+- RED-first for engine changes; probe empirically before designing
+  (the boundary scans, the reconciliation sweeps).
+- Delegate wide surveys to read-only sub-agents with spec-first briefs;
+  keep verification, triad docs, gate reruns, and commits in the
+  orchestrator.
+- Rerun the **full sweep** (16 labs + package + workshop + CLI) before
+  claiming a cycle complete; suites are fast.
 
 ## 7. Environment and commands
 
@@ -186,55 +172,57 @@ documents in the same change.**
 python -B -m unittest discover -s labs/grid_genome -p "test_*.py"
 # Package suite
 python -B -m unittest discover -s packages/mecha_engine/tests -p "test_*.py"
-# Regenerate a lab's artifacts (argparse defaults point into data/)
+# Promotion gate (candidate statuses are the machine truth)
 python -B labs/package_promotion/package_promotion_gate.py
 # Validate changed JSON
 python -m json.tool data/<path>.json
+# Play surfaces
+mechas session --open        # the Keeper page
+mechas workshop --preview    # packets, live_cycle, replays
 ```
 
-- `python` resolves to system CPython 3.14; user site-packages leak into it
-  (hence the H-01 rule). Lab extras (`pydantic`, `jsonschema`) are declared
-  in the root `pyproject.toml` `lab` dependency group (DR 0005);
-  `uv sync --group lab` provisions. All five package modules are
-  stdlib-only; the **package** dependency policy is deliberately blocked.
-- Always `python -B` — `__pycache__` dirs are tracked (pre-existing hazard).
-- Git: LF→CRLF warnings on commit are normal noise. Commit messages end
-  with the Claude co-author line. Push after committing (standing user
-  instruction: keep docs committed and pushed).
-- Package tests locate `mecha_engine` via a subprocess with PYTHONPATH at
-  `packages/mecha_engine/src` — no `sys.path` text may appear anywhere in
-  the package tree (the boundary scan greps for it). Package code/tests
-  import `mecha_engine`, never `labs`; labs may import the package (that's
-  how parity tests work).
+- `python` resolves to system CPython 3.14; user site-packages leak in
+  (hence H-01). Lab extras (`pydantic`, `jsonschema`) via
+  `uv sync --group lab` (DR 0005). All package modules stdlib-only;
+  the **package** dependency policy is deliberately blocked.
+- `-B` always — tree hygiene (the old tracked-bytecode hazard was
+  CLOSED in cycle 07 V3; the ignore rule holds).
+- Git: LF→CRLF warnings are normal noise. Commit messages end with the
+  Claude co-author line. Push per the owner's direction.
+- Package tests reach `mecha_engine` via a subprocess with PYTHONPATH
+  at `packages/mecha_engine/src`; no `sys.path` text anywhere in the
+  package tree (the boundary scan greps for it). Package code/tests
+  import `mecha_engine`, never `labs`; labs may import the package
+  (that is how parity pins work). The workshop layer may import both.
 
 ## 8. Traps
 
-- The grid validator enforces the full schema surface (64-char `grid_id`
-  cap included) — generated IDs must stay schema-conformant (a
-  multigeneration offspring-id overflow once broke this; ids are now
-  hash-compressed).
-- `descriptor_bin_spread` must be ≥ 2 before claiming a new archive axis
-  contributes niches.
-- The lifecycle sim is bistable (stress ≤0.94 stabilizes, ≥0.95 collapses
-  ~tick 12–14) — survival variance needs the morphology stress probe, not
-  longer horizons.
-- The user's explicit authorization is required for scope-expanding steps
-  the decision records gate (creating deferred package targets, license
-  decisions, publishing). When a doc says "only when the user explicitly
-  starts X" — ask, with a recommendation.
+- The grid validator enforces the full schema surface — including the
+  64-char `grid_id` cap. Reassign ids per cycle (`live_cycle` does);
+  suffix accumulation overflows (this trap has bitten TWICE, most
+  recently a study harness measuring its own bug as biology).
+- `founder_grids=None` (no wire) ≠ `[]` (wire ran, admitted nobody) —
+  reports differ by a whole block. Same class of trap: rung-conditional
+  keys exist only when their feature ran.
+- The lifecycle sim is bistable (stress ≤0.94 stabilizes, ≥0.95
+  collapses ~tick 12–14); survival variance needs the morphology
+  stress probe. Idle creatures starve by ~tick 11 — mind survivorship
+  bias in any per-tick aggregate.
+- `deliberation.max_ticks` has an authority floor of 2 (a "+1 per
+  tier" design must ride the real schema floor).
+- The user's explicit authorization is required for scope-expanding
+  steps the decision records gate (license decisions, publishing,
+  anything the owner-decision ledger names). When a doc says "only
+  when the user explicitly starts X" — ask, with a recommendation.
 
 ## 9. First moves for a fresh session
 
-1. `git log --oneline -15` — what happened since this file was written.
-2. Read the newest `research/reports/mechagotchi_research_report_v0_N.md`
-   and its manifest's `next_sequence`.
-3. `python -B labs/package_promotion/package_promotion_gate.py` — current
+1. `git log --oneline -15` — what happened since this file was
+   refreshed.
+2. Read `research/reports/mechagotchi_research_report_v1_0.md` (or
+   newer) and its manifest's `next_sequence`.
+3. `audits/TODO.md` — the active cycle queue; work it continuously.
+4. `python -B labs/package_promotion/package_promotion_gate.py` —
    candidate statuses are the truth, not this file.
-4. Check whether
-   `data/readability/slip_readability_calibration_ratings.csv` exists —
-   calibration is deferred by owner decision, so its absence is expected;
-   if it EXISTS with real rows, the owner resumed calibration: run
-   `mechas rate --status` and the calibration gate.
-5. Then continue whatever `next_sequence` names, batch-by-batch, docs
-   first. Engine work outranks supportive-layer work (identity
-   constraint).
+5. Owner-decision items (license, dependencies, calibration, CuBFF
+   ingest) are NOT tasks — leave them unless the owner speaks.

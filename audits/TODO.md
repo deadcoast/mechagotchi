@@ -24,11 +24,16 @@ that need them; they do not pause the queue.)
   the soak; owner decisions and named re-openers ledgered as
   deliberately-open, not queued. The reports index updated; the
   underlying lab reports untouched, per the convention.)
-- [ ] **V2 · Refresh `docs/agent-standards.md`.** Its own charter is to
-  orient a fresh session with a state snapshot — six cycles stale.
-  Rewrite the snapshot to the current truth (ten modules, the Keeper
-  session surfaces, the adopted model, the standing owner decisions),
-  keeping its honesty norms and re-verification instructions intact.
+- [x] **V2 · Refresh `docs/agent-standards.md`.** (2026-07-07:
+  rewritten to the v1.0 state — ten modules + render's disposition,
+  the live game and its surfaces, the adopted model, the 1,210 test
+  base, the cycle rule, and the owner-decision ledger; the honesty
+  norms EXTENDED with the cycle 02–07 lessons (refuted hypotheses are
+  findings; reconstruct the engine's exact statistic; faithful replays
+  reproduce inputs exactly; additive seams byte-identical off;
+  promotion drift watch) and the traps updated (the twice-bitten
+  grid_id overflow, None ≠ [], the deliberation floor, survivorship
+  bias). Charter, chain-of-authority, and first-moves kept.)
 - [x] **V3 · Untrack the `__pycache__` hazard.** (2026-07-07: all 144
   tracked bytecode files `git rm --cached`-ed (files stay on disk,
   covered by the ignore rule — verified); CLAUDE.md and `.gitignore`
