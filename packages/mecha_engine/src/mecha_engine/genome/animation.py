@@ -39,6 +39,104 @@ from .render import render_packet_from_grid
 
 ANIMATION_STATES = ["idle", "blink", "sleep", "beg", "ill"]
 
+# ---------------------------------------------------------------------
+# The clip model (cycle 11 C4): animation CLIPS as bounded frame
+# sequences over the state projections — a verbatim port of
+# labs/animation_system/clip_model.py, pinned by
+# labs/animation_system/test_package_clip_parity.py. A clip frame is a
+# deterministic, VISUAL-ONLY projection (state track -> all-or-nothing
+# whole-body motion -> per-role motion); the genome is never mutated.
+# ---------------------------------------------------------------------
+
+CLIP_STATES: dict[str, list[str]] = {
+    "idle": ["idle", "idle", "idle", "idle"],
+    "blink": ["idle", "blink", "idle"],
+    "sleep": ["sleep", "sleep", "sleep", "sleep"],
+    "beg": ["beg", "beg", "beg", "beg"],
+    "ill": ["ill", "ill", "ill", "ill"],
+}
+
+CLIP_BODY_MOTION: dict[str, list[tuple[int, int]]] = {
+    "idle": [(0, 0), (0, 0), (0, 0), (0, 0)],
+    "blink": [(0, 0), (0, 0), (0, 0)],
+    "sleep": [(0, 0), (0, 1), (0, 1), (0, 0)],
+    "beg": [(0, 0), (0, -1), (0, -1), (0, 0)],
+    "ill": [(0, 0), (-1, 0), (0, 0), (1, 0)],
+}
+
+SWAY_ROLES = {"antenna", "sensor"}
+CLIP_SWAY: dict[str, list[int]] = {
+    "idle": [0, 1, 0, -1],
+    "blink": [0, 0, 0],
+    "sleep": [0, 0, 0, 0],
+    "beg": [0, 1, -1, 0],
+    "ill": [0, -1, 1, -1],
+}
+
+FLICKER_ROLES = {"effect"}
+
+
+def clip_names() -> list[str]:
+    return sorted(CLIP_STATES)
+
+
+def clip_frame_count(clip: str) -> int:
+    if clip not in CLIP_STATES:
+        raise ValueError(f"unknown clip: {clip}")
+    return len(CLIP_STATES[clip])
+
+
+def clip_frame(grid: dict, clip: str, frame_index: int) -> dict:
+    """One deterministic frame packet; the grid is never mutated."""
+    frame_count = clip_frame_count(clip)
+    if not isinstance(frame_index, int) or not 0 <= frame_index < frame_count:
+        raise ValueError(
+            f"frame_index {frame_index} outside clip {clip} (0..{frame_count - 1})"
+        )
+    width, height = grid["grid_size"]
+    projected = project_animation_state(grid, CLIP_STATES[clip][frame_index])
+    cells = deepcopy(projected["cells"])
+
+    dx, dy = CLIP_BODY_MOTION[clip][frame_index]
+    if (dx, dy) != (0, 0) and all(
+        0 <= cell["x"] + dx < width and 0 <= cell["y"] + dy < height
+        for cell in cells
+    ):
+        for cell in cells:
+            cell["x"] += dx
+            cell["y"] += dy
+
+    sway = CLIP_SWAY[clip][frame_index]
+    if sway:
+        occupied = {(cell["x"], cell["y"]) for cell in cells}
+        for cell in cells:
+            if cell["role"] not in SWAY_ROLES:
+                continue
+            target = (cell["x"] + sway, cell["y"])
+            if not 0 <= target[0] < width or target in occupied:
+                continue
+            occupied.discard((cell["x"], cell["y"]))
+            occupied.add(target)
+            cell["x"] = target[0]
+
+    if frame_index % 2 == 1:
+        cells = [cell for cell in cells if cell["role"] not in FLICKER_ROLES]
+
+    return {
+        "grid_id": grid["grid_id"],
+        "clip": clip,
+        "frame_index": frame_index,
+        "frame_count": frame_count,
+        "grid_size": deepcopy(grid["grid_size"]),
+        "palette": deepcopy(grid["palette"]),
+        "cells": cells,
+        "anchors": [
+            [cell["x"], cell["y"]]
+            for cell in cells
+            if cell.get("animation_anchor") is True
+        ],
+    }
+
 
 def project_animation_state(grid: dict, state: str) -> dict:
     """Project the base grid into one animation state (visual-only)."""
@@ -98,6 +196,8 @@ def render_packet_v2(
     *,
     animation: str | None = None,
     slip_profile: dict | None = None,
+    clip: str | None = None,
+    frame_index: int | None = None,
 ) -> dict:
     """Render packet v2 (audit T16): the og contract as a package surface.
 
@@ -115,6 +215,18 @@ def render_packet_v2(
     ``mood`` stays honest (a hunger-driven ``beg`` on a species with no
     beg shows idle + mood hungry). ``None`` is byte-identical to the
     pre-E1 package contract (full vocabulary, no fallback).
+
+    ``clip``/``frame_index`` (cycle 11 C4 — the documented animation
+    contract, a DR 0013 additive rung): when a clip is requested, the
+    packet's ``animation`` field becomes the dossier's BLOCK
+    (``{"clip", "frame_index", "frame_count", "anchors"}``) and the
+    packet's ``cells`` are the clip FRAME's cells (state projection plus
+    motion). Validation stays on the projected grid (positions
+    preserved); the moved frame is presentation applied after the v1
+    gate. Clip names are the state names, so the same vocabulary gate
+    bounds them (an out-of-vocab clip displays the ``idle`` clip; mood
+    stays honest). ``frame_index`` defaults to 0. ``clip=None`` is
+    byte-identical to the pre-C4 contract.
     """
     # Rung T3.5: the species' visual grammar bounds the vocabulary.
     vocabulary = list(ANIMATION_STATES)
@@ -123,6 +235,32 @@ def render_packet_v2(
         vocab = grammar.get("animation_vocab")
         if isinstance(vocab, list) and vocab:
             vocabulary = [s for s in ANIMATION_STATES if s in vocab]
+
+    if clip is not None:
+        # Rung C4: the documented clip contract.
+        if clip not in CLIP_STATES:
+            raise ValueError(f"unknown clip: {clip}")
+        selected_clip = clip if clip in vocabulary else "idle"
+        index = 0 if frame_index is None else frame_index
+        frame = clip_frame(grid, selected_clip, index)
+        mood = None
+        if lifecycle_state is not None:
+            _, mood = select_animation_state(lifecycle_state)
+        projected = project_animation_state(
+            grid, CLIP_STATES[selected_clip][index]
+        )
+        packet = render_packet_from_grid(projected, lifecycle_state)
+        packet["cells"] = deepcopy(frame["cells"])
+        packet["animation"] = {
+            "clip": selected_clip,
+            "frame_index": index,
+            "frame_count": frame["frame_count"],
+            "anchors": frame["anchors"],
+        }
+        packet["mood"] = mood
+        packet["animation_vocabulary"] = vocabulary
+        return packet
+
     if animation is not None:
         if animation not in ANIMATION_STATES:
             raise ValueError(f"unknown animation state: {animation}")

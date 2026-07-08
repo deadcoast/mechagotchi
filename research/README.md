@@ -860,6 +860,11 @@ Post-v0.1 continuation has started:
 - `labs/animation_system/animstate_dataset.py` (+ `test_animstate_dataset.py`)
 - `data/animation_system/animstate_950.json` (+ stage0 + README) (cycle 11 C3 · ENGINE · Phase C: the documented animstate dataset regenerated at clip-frame resolution over the 16×16 corpus — 950 labeled (grid, palette, clip, state, frame) samples, full creature×clip×frame coverage, in-bounds and palette-clean 1.0, deterministic; named by its real size with a `supersedes` block citing the documented `animstate_300` and its minimum (the og 8×8 dataset kept as history). The named consumer is Phase D's animation-preference learner)
 
+- `research/experiment_reports/2026-07-08-packet-clip-contract.md`
+- `packages/mecha_engine/src/mecha_engine/genome/animation.py`
+- `labs/animation_system/test_package_clip_parity.py`
+- `workshop/server/workshop_server.py` (`/api/preview/clip`) (cycle 11 C4 · ENGINE · Phase C: the render packet carries the documented animation contract — the clip model promoted verbatim into `mecha_engine.genome` (frame-for-frame parity pins), `render_packet_v2` gains `clip`/`frame_index` as a DR 0013 additive rung whose `animation` field becomes the dossier's block (clip/frame_index/frame_count/anchors) with the frame's cells as the packet's cells; validation stays on the projected grid, the moved frame is presentation after the v1 gate; SLIP `animation_vocab` bounds clips exactly as states with honest-mood idle fallback; `clip=None` byte-identical — proven by the pre-existing animation parity suite passing unmodified. The workshop scrubs a real clip end-to-end through the promoted rung)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

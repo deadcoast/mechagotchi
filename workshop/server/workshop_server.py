@@ -35,6 +35,10 @@ Endpoints:
 - GET  /preview             the preview page
 - GET  /api/preview/creatures  seed + workshop creatures to preview
 - POST /api/preview/render  {source, name} -> the engine's render packet
+- POST /api/preview/clip    {source, name, clip, profile_id?} -> every
+                            frame of the clip through the promoted
+                            packet rung (C4: the documented animation
+                            block clip/frame_index/frame_count/anchors)
 - POST /api/preview/live    {source, name, profile_id, cycles, ticks} ->
                             runtime.live_cycle: damage/repair/episode
                             truth plus before/after packets
@@ -141,6 +145,8 @@ from mecha_engine.generation import (  # noqa: E402
     train_generation_model,
 )
 from mecha_engine.genome import (  # noqa: E402
+    clip_frame_count,
+    clip_names,
     render_packet_from_grid,
     render_packet_v2,
     validate_grid,
@@ -832,6 +838,7 @@ class _Handler(SimpleHTTPRequestHandler):
             "/api/slip/validate",
             "/api/slip/save",
             "/api/preview/render",
+            "/api/preview/clip",
             "/api/preview/live",
             "/api/preview/offspring",
             "/api/preview/replay",
@@ -1133,6 +1140,42 @@ class _Handler(SimpleHTTPRequestHandler):
                 self._json(400, {"ok": False, "error": str(error)})
                 return
             self._json(200, {"ok": True, "packet": packet})
+            return
+
+        if kind == "clip":
+            # C4 (cycle 11): the documented clip contract, scrubbed
+            # end-to-end through the PROMOTED packet rung — every frame
+            # is a render_packet_v2 whose animation field is the
+            # dossier's block (clip/frame_index/frame_count/anchors).
+            clip = str(payload.get("clip", "idle"))
+            profile = self.server.all_profiles().get(
+                str(payload.get("profile_id", ""))
+            )
+            try:
+                count = clip_frame_count(clip)
+                frames = [
+                    render_packet_v2(
+                        grid,
+                        None,
+                        clip=clip,
+                        frame_index=index,
+                        slip_profile=profile,
+                    )
+                    for index in range(count)
+                ]
+            except ValueError as error:
+                self._json(400, {"ok": False, "error": str(error)})
+                return
+            self._json(
+                200,
+                {
+                    "ok": True,
+                    "clip": clip,
+                    "frame_count": count,
+                    "frames": frames,
+                    "clips": clip_names(),
+                },
+            )
             return
 
         profiles = self.server.all_profiles()

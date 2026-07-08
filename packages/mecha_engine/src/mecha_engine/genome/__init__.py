@@ -26,6 +26,10 @@ lab imports) and performs no Stage 0 artifact writes on import.
 
 from .animation import (
     ANIMATION_STATES,
+    CLIP_STATES,
+    clip_frame,
+    clip_frame_count,
+    clip_names,
     project_animation_state,
     render_packet_v2,
 )
@@ -45,6 +49,10 @@ from .validation import (
 __all__ = [
     "ANIMATION_STATES",
     "BODY_CORE_MIN_CELLS",
+    "CLIP_STATES",
+    "clip_frame",
+    "clip_frame_count",
+    "clip_names",
     "GRID_SIZE_MAX",
     "GRID_SIZE_MIN",
     "REQUIRED_TOP_LEVEL_FIELDS",

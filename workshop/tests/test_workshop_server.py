@@ -806,6 +806,38 @@ class PreviewEndpointTests(unittest.TestCase):
             packet["animation_vocabulary"],
         )
 
+    def test_clip_preview_scrubs_the_documented_contract(self):
+        # C4 (cycle 11): a real clip scrubbed end-to-end through the
+        # PROMOTED packet rung — every frame carries the dossier's
+        # animation block, and the clip actually moves.
+        status, payload = _post(
+            f"{self.base}/api/preview/clip",
+            {"source": "seed", "name": "mg_seed16_001_beetle", "clip": "ill"},
+        )
+        self.assertEqual(200, status)
+        self.assertEqual("ill", payload["clip"])
+        self.assertEqual(4, payload["frame_count"])
+        self.assertEqual(4, len(payload["frames"]))
+        self.assertEqual(
+            ["beg", "blink", "idle", "ill", "sleep"], payload["clips"]
+        )
+        cells_seen = set()
+        for index, frame in enumerate(payload["frames"]):
+            block = frame["animation"]
+            self.assertEqual("ill", block["clip"])
+            self.assertEqual(index, block["frame_index"])
+            self.assertEqual(4, block["frame_count"])
+            self.assertEqual(1, len(block["anchors"]))
+            cells_seen.add(json.dumps(frame["cells"], sort_keys=True))
+        self.assertGreater(len(cells_seen), 1)
+
+        status, refused = _post(
+            f"{self.base}/api/preview/clip",
+            {"source": "seed", "name": "mg_seed16_001_beetle", "clip": "wiggle"},
+        )
+        self.assertEqual(400, status)
+        self.assertFalse(refused["ok"])
+
     def test_render_uses_the_promoted_slip_vocab_gate(self):
         # E1 (cycle 05): the render endpoint now calls the PROMOTED
         # mecha_engine.genome.render_packet_v2, which bounds the portrait
