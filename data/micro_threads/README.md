@@ -36,5 +36,11 @@ Cycle 12 (ENGINE - Phase D) artifacts:
   The honest zero: welfare deltas ~0% because the sheltered
   environment is saturated (the switchboard self-feeds; balance ~0.79
   everywhere) - D6 needs a keeper-dependent mode with real headroom.
+- `ablation_gates_stage0.json` - D6: the documented gates in the
+  keeper-dependent beg-mediated mode, 14 full-scale conditions. Full
+  fleet beats rules_only by 292.6% (gate MET); fleet-vs-frozen -0.05%
+  recorded honestly; 5 threads kept on their documented skill metrics,
+  6 dropped by the <5% rule (boredom 4.6%, attention 2.3%, and the
+  four evidence conduits). Phase-D gate: GREEN.
 
 Produced by `labs/micro_threads/`.

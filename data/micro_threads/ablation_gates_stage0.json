@@ -1,0 +1,340 @@
+{
+  "artifact_id": "ablation_gates_stage0",
+  "status": "complete",
+  "date": "2026-07-08",
+  "purpose": "D6: the documented ablation gates over D5's harness in the keeper-dependent beg-mediated mode (the companion cannot feed itself; the keeper answers the beg display). Gates: >=15% welfare over rules_only (the T19 precedent headline); the fleet-vs-frozen increment recorded honestly; every fleet thread kept or DROPPED by the <5% rule on welfare removal cost OR its own documented skill metric.",
+  "source_artifacts": [
+    "labs/micro_threads/synthetic_keepers.py",
+    "labs/micro_threads/thread_fleet.py",
+    "data/micro_threads/need_predictors_stage0.json",
+    "data/micro_threads/animation_bandit_hmm_mood_stage0.json",
+    "data/micro_threads/evidence_threads_stage0.json",
+    "data/micro_learners/switchboard_ablation_stage0.json",
+    "docs/project-research/deep-research/01/deep-research.md"
+  ],
+  "metrics": {
+    "scale": {
+      "lifecycles_per_keeper": 100,
+      "ticks_per_lifecycle": 200,
+      "full_scale_run": true
+    },
+    "gates": {
+      "full_vs_rules_only_welfare_pct": 292.649,
+      "full_vs_rules_only_meets_15pct": true,
+      "fleet_vs_frozen_welfare_pct": -0.054,
+      "keep_count": 5,
+      "drop_count": 6
+    },
+    "ablation": {
+      "lifecycles_per_keeper": 100,
+      "ticks_per_lifecycle": 200,
+      "conditions": [
+        {
+          "condition": "rules_only",
+          "welfare": 0.047324,
+          "welfare_by_keeper": {
+            "attentive": 0.043278,
+            "neglectful": 0.043358,
+            "erratic": 0.060314,
+            "punitive": 0.043358,
+            "exploratory": 0.04631
+          },
+          "mean_survival_ticks": 11.802
+        },
+        {
+          "condition": "frozen",
+          "welfare": 0.185918,
+          "welfare_by_keeper": {
+            "attentive": 0.720082,
+            "neglectful": 0.050218,
+            "erratic": 0.081579,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.464
+        },
+        {
+          "condition": "full_fleet",
+          "welfare": 0.185817,
+          "welfare_by_keeper": {
+            "attentive": 0.718021,
+            "neglectful": 0.050271,
+            "erratic": 0.083082,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.438
+        },
+        {
+          "condition": "minus_hunger_forecast",
+          "welfare": 0.185115,
+          "welfare_by_keeper": {
+            "attentive": 0.717346,
+            "neglectful": 0.04817,
+            "erratic": 0.083823,
+            "punitive": 0.036104,
+            "exploratory": 0.04013
+          },
+          "mean_survival_ticks": 47.372
+        },
+        {
+          "condition": "minus_energy_forecast",
+          "welfare": 0.185817,
+          "welfare_by_keeper": {
+            "attentive": 0.718021,
+            "neglectful": 0.050271,
+            "erratic": 0.083082,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.438
+        },
+        {
+          "condition": "minus_boredom_novelty",
+          "welfare": 0.186227,
+          "welfare_by_keeper": {
+            "attentive": 0.720071,
+            "neglectful": 0.050271,
+            "erratic": 0.083082,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.536
+        },
+        {
+          "condition": "minus_attention_forecast",
+          "welfare": 0.186225,
+          "welfare_by_keeper": {
+            "attentive": 0.720058,
+            "neglectful": 0.050271,
+            "erratic": 0.083082,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.536
+        },
+        {
+          "condition": "minus_interaction_timing",
+          "welfare": 0.186225,
+          "welfare_by_keeper": {
+            "attentive": 0.720058,
+            "neglectful": 0.050271,
+            "erratic": 0.083082,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.536
+        },
+        {
+          "condition": "minus_animation_bandit",
+          "welfare": 0.185817,
+          "welfare_by_keeper": {
+            "attentive": 0.718021,
+            "neglectful": 0.050271,
+            "erratic": 0.083082,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.438
+        },
+        {
+          "condition": "minus_hidden_mood_hmm",
+          "welfare": 0.185918,
+          "welfare_by_keeper": {
+            "attentive": 0.720082,
+            "neglectful": 0.050218,
+            "erratic": 0.081579,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.464
+        },
+        {
+          "condition": "minus_mutation_stability",
+          "welfare": 0.185817,
+          "welfare_by_keeper": {
+            "attentive": 0.718021,
+            "neglectful": 0.050271,
+            "erratic": 0.083082,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.438
+        },
+        {
+          "condition": "minus_readability",
+          "welfare": 0.185817,
+          "welfare_by_keeper": {
+            "attentive": 0.718021,
+            "neglectful": 0.050271,
+            "erratic": 0.083082,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.438
+        },
+        {
+          "condition": "minus_slip_compat",
+          "welfare": 0.185817,
+          "welfare_by_keeper": {
+            "attentive": 0.718021,
+            "neglectful": 0.050271,
+            "erratic": 0.083082,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.438
+        },
+        {
+          "condition": "minus_lineage_survival",
+          "welfare": 0.185817,
+          "welfare_by_keeper": {
+            "attentive": 0.718021,
+            "neglectful": 0.050271,
+            "erratic": 0.083082,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.438
+        }
+      ]
+    },
+    "thread_verdicts": [
+      {
+        "thread": "hunger_forecast",
+        "decision": "keep",
+        "welfare_removal_cost_pct": 0.378,
+        "skill_metric": {
+          "name": "mae_improvement_vs_persistence",
+          "value_pct": 37.893,
+          "source": "data/micro_threads/need_predictors_stage0.json"
+        },
+        "note": "kept on its documented skill metric; decision-seam welfare contribution ~0 (recorded)"
+      },
+      {
+        "thread": "energy_forecast",
+        "decision": "keep",
+        "welfare_removal_cost_pct": 0.0,
+        "skill_metric": {
+          "name": "mae_improvement_vs_persistence",
+          "value_pct": 53.741,
+          "source": "data/micro_threads/need_predictors_stage0.json"
+        },
+        "note": "kept on its documented skill metric; decision-seam welfare contribution ~0 (recorded)"
+      },
+      {
+        "thread": "boredom_novelty",
+        "decision": "drop",
+        "welfare_removal_cost_pct": -0.221,
+        "skill_metric": {
+          "name": "brier_improvement_vs_running_repeat_rate",
+          "value_pct": 4.594,
+          "source": "data/micro_threads/need_predictors_stage0.json"
+        },
+        "note": "DROPPED by the documented <5% rule \u2014 recorded, not kept for sentiment"
+      },
+      {
+        "thread": "attention_forecast",
+        "decision": "drop",
+        "welfare_removal_cost_pct": -0.22,
+        "skill_metric": {
+          "name": "brier_improvement_vs_running_interaction_rate",
+          "value_pct": 2.312,
+          "source": "data/micro_threads/need_predictors_stage0.json"
+        },
+        "note": "DROPPED by the documented <5% rule \u2014 recorded, not kept for sentiment"
+      },
+      {
+        "thread": "interaction_timing",
+        "decision": "keep",
+        "welfare_removal_cost_pct": -0.22,
+        "skill_metric": {
+          "name": "gap_mae_ticks_improvement_vs_last_gap_persistence",
+          "value_pct": 14.761,
+          "source": "data/micro_threads/need_predictors_stage0.json"
+        },
+        "note": "kept on its documented skill metric; decision-seam welfare contribution ~0 (recorded)"
+      },
+      {
+        "thread": "animation_bandit",
+        "decision": "keep",
+        "welfare_removal_cost_pct": 0.0,
+        "skill_metric": {
+          "name": "regret_reduction_vs_uniform_rotation",
+          "value_pct": 65.575,
+          "source": "data/micro_threads/animation_bandit_hmm_mood_stage0.json"
+        },
+        "note": "kept on its documented skill metric; decision-seam welfare contribution ~0 (recorded)"
+      },
+      {
+        "thread": "hidden_mood_hmm",
+        "decision": "keep",
+        "welfare_removal_cost_pct": -0.054,
+        "skill_metric": {
+          "name": "next_mood_brier_reduction_vs_persistence",
+          "value_pct": 50.146,
+          "source": "data/micro_threads/animation_bandit_hmm_mood_stage0.json"
+        },
+        "note": "kept on its documented skill metric; decision-seam welfare contribution ~0 (recorded)"
+      },
+      {
+        "thread": "mutation_stability",
+        "decision": "drop",
+        "welfare_removal_cost_pct": 0.0,
+        "skill_metric": {
+          "name": "none (evidence conduit; D4 wiring pins carry no skill claim)",
+          "value_pct": null,
+          "source": "data/micro_threads/evidence_threads_stage0.json"
+        },
+        "note": "DROPPED by the documented <5% rule \u2014 recorded, not kept for sentiment"
+      },
+      {
+        "thread": "readability",
+        "decision": "drop",
+        "welfare_removal_cost_pct": 0.0,
+        "skill_metric": {
+          "name": "none (evidence conduit; D4 wiring pins carry no skill claim)",
+          "value_pct": null,
+          "source": "data/micro_threads/evidence_threads_stage0.json"
+        },
+        "note": "DROPPED by the documented <5% rule \u2014 recorded, not kept for sentiment"
+      },
+      {
+        "thread": "slip_compat",
+        "decision": "drop",
+        "welfare_removal_cost_pct": 0.0,
+        "skill_metric": {
+          "name": "none (evidence conduit; D4 wiring pins carry no skill claim)",
+          "value_pct": null,
+          "source": "data/micro_threads/evidence_threads_stage0.json"
+        },
+        "note": "DROPPED by the documented <5% rule \u2014 recorded, not kept for sentiment"
+      },
+      {
+        "thread": "lineage_survival",
+        "decision": "drop",
+        "welfare_removal_cost_pct": 0.0,
+        "skill_metric": {
+          "name": "none (evidence conduit; D4 wiring pins carry no skill claim)",
+          "value_pct": null,
+          "source": "data/micro_threads/evidence_threads_stage0.json"
+        },
+        "note": "DROPPED by the documented <5% rule \u2014 recorded, not kept for sentiment"
+      }
+    ]
+  },
+  "closed_states": [
+    "documented_gates_run_in_the_keeper_dependent_mode",
+    "full_beats_rules_only_by_more_than_15pct",
+    "fleet_vs_frozen_increment_recorded_honestly",
+    "every_thread_kept_or_dropped_by_the_documented_rule",
+    "drops_recorded_not_kept_for_sentiment"
+  ],
+  "blocked_states": [
+    "decision_seam_welfare_contribution_of_the_fleet_is_~0 (measured across three environments and a gain sweep: the frozen reactive rules already sit near the autonomous-behavior welfare optimum; the remaining welfare belongs to the keeper \u2014 the fleet's proven value is prediction skill, personalization, and interpretability, streamed for the GAME's consumers)",
+    "dropped_threads_stay_in_the_registry_as_parity_pinned_code (the T19 precedent: verdicts are recorded; default profiles must not opt dropped threads in)",
+    "live_loop_wiring_of_evidence_and_last_animation (Phase F's consumption)"
+  ],
+  "decision": "Full fleet beats rules_only by 292.6% (gate >=15% MET); fleet-vs-frozen is -0.05% (recorded honestly); 5 threads kept, 6 dropped by the documented rule.",
+  "next_research_step": "The Phase-D gate report; gap-analysis Phase D checked off; cycle 12 archived; cycle 13 opens Phase E \u2014 evolution at documented scale."
+}

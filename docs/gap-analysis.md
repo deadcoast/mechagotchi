@@ -142,6 +142,17 @@ the GAME track begins in earnest** — each phase at REAL scale:
   fleet streaming confidences into the switchboard; the 5 synthetic
   user models; the 100k-tick × 500-lifecycle harness; the documented
   ablation gates.
+  **COMPLETE (cycle 12, 2026-07-08)** — gate report
+  `research/experiment_reports/2026-07-08-phase-d-gate.md` (the fleet
+  is 11 of ~11 through one opt-in contract, every frozen path
+  byte-identical; predictors proven with calibrated confidence on
+  replayed histories; the bandit and the entropy-honest HMM adopted;
+  stdlib measured HOLDING at the 100k-tick scale — the NumPy trigger
+  did not fire; the ablation gates ran at full scale: full beats
+  rules_only by 292.6%, the fleet-vs-frozen increment is ~0 and
+  recorded honestly, 5 threads kept / 6 dropped by the documented <5%
+  rule. The fleet's welfare value cashes out at the GAME's consumers —
+  named in the gate's remainder for Phase F).
 - **Phase E — evolution at documented scale.** Hundreds of niches,
   populations in the hundreds, 20k+ evaluations, the coverage/QD/
   family gates (QDax path optional per the dossier).

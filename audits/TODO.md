@@ -1,60 +1,52 @@
-# Development TODO — Cycle 12: ENGINE track · Phase D — the intelligence threads
+# Development TODO — Cycle 13: ENGINE track · Phase E — evolution at documented scale
 
 **Build track: THE ENGINE** (of the two builds — engine and game — per
 `docs/gap-analysis.md` §0; the engine completes before the game's
 playable front end is built, and no feature in this cycle is "the
 application").
 
-Source: `docs/gap-analysis.md` (Phase D), opened by the Phase-C gate
-(`research/experiment_reports/2026-07-08-phase-c-gate.md`, cycle 11).
-The gap table's micro-learner row is the owner's core ML thesis: ~11
-named threads (hunger/sleep/boredom/attention predictors, the
-animation-preference bandit, interaction timing, HMM mood, mutation
-stability, readability, SLIP compat, lineage survival) each streaming
-confidence into the switchboard; 5 synthetic user models; a
-100k-tick × 500-lifecycle benchmark; ablation gates (≥15% welfare over
-the frozen baseline; drop any learner whose removal costs <5%). What
-exists: the frozen rule switchboard, one feedback learner, and the
-7-weight legibility ranker — ~2 threads of 11. Standing seams this
-cycle consumes: `animstate_950` (C3, the bandit's dataset), the adopted
-readability model (F3), the mutation-stability descriptor, the SLIP
-authority, and lineage records. Dependencies permitted where measured
-wall-clock demands (DR 0028; Phase A/B precedent: measure first — the
-100k-tick harness is the likeliest genuine NumPy trigger yet).
+Source: `docs/gap-analysis.md` (Phase E), opened by the Phase-D gate
+(`research/experiment_reports/2026-07-08-phase-d-gate.md`, cycle 12).
+The gap table's evolution row: the documents specify 8×8×8 ≈ 576
+niches, populations ~256, 20k–50k evaluations, coverage ≥25%, ≥5
+recurrent families, and MAP-Elites ≥25% coverage over a GA baseline —
+what exists ran at population 4, 3 generations, a handful of niches:
+~3 orders of magnitude below the documented regime. Standing seams
+this cycle consumes: the promoted `archive` (calibrated 7D
+descriptors, elite rules), `generation` (WFC adopted, DR 0031),
+`runtime.evolve`, the kept fleet threads (D6 verdicts: hunger/energy
+forecasts, interaction timing, animation bandit, HMM mood), and the
+D5/D6 harness discipline (wall-clock FIRST — 20k+ stress-probed
+lifecycle evaluations are the strongest NumPy trigger yet, DR 0028).
 
-- [x] **D1 · The thread contract + the switchboard confidence seam.**
-  One common interface for every micro-learner (observe → predict →
-  confidence in [0,1], deterministic, per-companion state, JSON-
-  serializable); the switchboard gains an ADDITIVE confidence-weighted
-  arbitration seam (byte-identical when no threads are attached — the
-  frozen switchboard stays the promoted baseline and the ablation
-  control). RED-first; triad.
-- [x] **D2 · The need predictors + interaction timing.** Online
-  per-companion threads: hunger, sleep(energy), boredom(novelty),
-  attention, and interaction-timing predictors — each proven in the
-  lab against replayed lifecycle traces (the engine's own histories,
-  never invented data), each streaming calibrated confidence.
-- [x] **D3 · The animation-preference bandit + HMM mood.** The
-  documented bandit over clips consuming `animstate_950` + interaction
-  feedback; the hidden-mood HMM thread (states grounded in the T16
-  mood vocabulary) with honest uncertainty. Both deterministic under
-  seeds.
-- [x] **D4 · The evidence threads.** Mutation stability, readability
-  (the F3 adopted model wrapped as a thread — primary signal, survey
-  stays fallback), SLIP compatibility, and lineage survival — wired
-  from the engine's existing artifacts/records through the D1
-  contract; no new statistics invented.
-- [x] **D5 · The synthetic keepers + the scale harness.** The 5
-  documented synthetic user models (distinct interaction policies over
-  the companion surface); the 100k-tick × 500-lifecycle benchmark
-  measuring welfare with/without threads — wall-clock measured FIRST
-  at a pilot scale; if stdlib cannot hold, the NumPy decision record
-  cites the measurement (DR 0028).
-- [ ] **D6 · The ablation gates + Phase-D gate.** The documented
-  gates: ≥15% welfare improvement over the frozen baseline; any
-  thread whose removal costs <5% is DROPPED (recorded, not kept for
-  sentiment). One consolidated Phase-D gate report with the honest
-  remainder list. Gap-analysis Phase D checked off only when green.
+- [ ] **E1 · The archive at documented niche scale.** The descriptor
+  binning that yields the documented ~576-niche space from the
+  calibrated descriptors; archive mechanics proven at hundreds of
+  niches (insertion, elite replacement, coverage/QD summaries);
+  wall-clock pilot for the evaluation unit measured FIRST. RED-first;
+  triad.
+- [ ] **E2 · Generation throughput at population scale.** WFC
+  candidate generation at populations in the hundreds per generation
+  (parents from archive elites per the promoted evolve semantics);
+  validity and uniqueness rates recorded at scale; throughput
+  measured against the dossier's ≤250 ms bar.
+- [ ] **E3 · The evaluation loop at 20k+ evaluations.** The full
+  evolve loop at documented scale (20k–50k stress-probed lifecycle
+  evaluations); wall-clock measured FIRST at pilot scale — if stdlib
+  cannot hold, the NumPy decision record cites the measurement
+  (DR 0028); determinism pinned under seeds.
+- [ ] **E4 · The coverage/QD gates + the GA baseline.** The
+  documented gates: coverage ≥25% of the niche space; QD score and
+  per-axis spread recorded; MAP-Elites ≥25% coverage over a plain GA
+  baseline run under identical budgets (the documented comparison).
+- [ ] **E5 · The recurrent families.** ≥5 recurrent morphological
+  families identified across independent seeded runs (lineage/
+  descriptor clustering over the archive's elites); family
+  recurrence recorded, not curated.
+- [ ] **E6 · The Phase-E gate.** One consolidated gate report with
+  the honest remainder list; gap-analysis Phase E checked off only
+  when green; cycle 13 archived; cycle 14 opens Phase F — the
+  playable game (the GAME track begins).
 
 ## Standing note
 
@@ -63,16 +55,19 @@ alpha). The engine-truth law (DR 0021), the identity constraint, and
 the triad discipline are unchanged. CuBFF real ingest is REQUIRED
 late-stage (Phase G). Apache-2.0; dependencies permitted with
 justification (DR 0028). Size-parametric, never size-replacing (DR
-0029). Named remainders from Phases B/C (evolve's inner loop on WFC;
-the hybrid re-opener; limb/joint per-role motion; live clip driving;
-clip-frame exports) wait for their own evidence or their owning phase
-— do not smuggle them into this cycle.
+0029). Named remainders standing: evolve's inner loop on WFC (this
+cycle may finally provide its evidence — E2/E3 measure the constrained
+vs WFC parent path where the loop demands it); the hybrid re-opener;
+limb/joint per-role motion; live clip driving; clip-frame exports;
+the fleet's decision-seam welfare (~0 over frozen rules — its value
+cashes out at the game's consumers, Phase F); dropped threads stay out
+of default profiles (D6).
 
 ## Sources
 
-- `docs/gap-analysis.md` (Phase D)
-- `research/experiment_reports/2026-07-08-phase-c-gate.md` (the opener)
-- `docs/project-research/deep-research/01/deep-research.md` (the thread fleet, user models, benchmark, ablation gates)
-- `data/animation_system/animstate_950.json` (D3's dataset), `data/readability_benchmark/adopted_readability_model.json` (D4's model)
-- `packages/mecha_engine/src/mecha_engine/learning/` (the frozen switchboard + feedback learner)
-- `research/decision_records/0019` (learned readability primary), `0028`, `0029`
+- `docs/gap-analysis.md` (Phase E)
+- `research/experiment_reports/2026-07-08-phase-d-gate.md` (the opener)
+- `docs/project-research/deep-research/01/deep-research.md` (the evolution regime, coverage/QD/family gates)
+- `packages/mecha_engine/src/mecha_engine/{archive,generation,runtime}/` (the promoted surfaces)
+- `data/micro_threads/ablation_gates_stage0.json` (the kept fleet)
+- `research/decision_records/0028`, `0029`, `0031`
