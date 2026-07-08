@@ -34,6 +34,7 @@ mood thread's 0.65 threshold trips — and it is honest at cold start
 
 import argparse
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -76,6 +77,63 @@ SMOOTHING_STRENGTH = 2.0
 # PER BUCKET: 1 - sensitivity x the bucket's own realized-error EWMA
 # (spiky regimes keep honestly low confidence; drift regimes earn high).
 TREND_ERROR_SENSITIVITY = 4.0
+# The documented clip vocabulary — identical to
+# labs/grid_genome/animation_states.ANIMATION_STATES (the package twin
+# cannot import labs; the D3 lab harness pins the two lists equal).
+CLIP_VOCABULARY = ["idle", "blink", "sleep", "beg", "ill"]
+BANDIT_PULLS_FLOOR = 20.0
+# Greedy-leaning UCB for the documented short-lifecycle horizon (the
+# classic 2.0 explores past the companion's lifetime); counts are plain
+# increments capped for bounded state.
+BANDIT_EXPLORATION = 0.3
+BANDIT_TRIALS_CAP = 500.0
+# The T16 mood vocabulary in fixed order (select_animation_state /
+# estimate_hidden_mood ground truth: energy 0.2 / hunger 0.65 /
+# stress 0.65, lexicographic priority tired > hungry > stressed).
+HMM_MOODS = ["curious", "hungry", "stressed", "tired"]
+HMM_STICKINESS = 0.85
+HMM_EVIDENCE_SLOPE = 40.0
+HMM_EVIDENCE_FLOOR = 0.02
+HMM_OBSERVATION_FLOOR = 5
+# Dwell hysteresis on the MAP readout: the reported mood switches only
+# when the challenger's belief beats the incumbent's by this margin
+# (the full distribution is always reported unsmoothed).
+HMM_MAP_MARGIN = 0.15
+# The frozen reactive mood->effects table (estimate_hidden_mood),
+# expectation-weighted by the filtered posterior.
+HMM_MOOD_EFFECTS = {
+    "tired": {"sleep": 0.55, "play": -0.25, "mutate": -0.2},
+    "hungry": {"feed": 0.5, "play": -0.1},
+    "stressed": {"idle": 0.35, "mutate": -0.35},
+    "curious": {"play": 0.25, "idle": 0.05},
+}
+
+
+def _sigmoid(value: float) -> float:
+    return 1.0 / (1.0 + math.exp(-value))
+
+
+def _mood_evidence(lifecycle_state: dict) -> dict[str, float]:
+    """Soft per-mood likelihoods grounded in the frozen T16 thresholds,
+    with the reactive rule's lexicographic priority encoded by masking
+    each mood's evidence with its higher-priority complements."""
+    hunger = _clamp(lifecycle_state.get("hunger", 0.5))
+    energy = _clamp(lifecycle_state.get("energy", 0.5))
+    stress = _clamp(lifecycle_state.get("stress", 0.0))
+    tired = _sigmoid((0.2 - energy) * HMM_EVIDENCE_SLOPE)
+    hungry = _sigmoid((hunger - 0.65) * HMM_EVIDENCE_SLOPE) * (1.0 - tired)
+    stressed = (
+        _sigmoid((stress - 0.65) * HMM_EVIDENCE_SLOPE)
+        * (1.0 - tired)
+        * (1.0 - _sigmoid((hunger - 0.65) * HMM_EVIDENCE_SLOPE))
+    )
+    curious = (1.0 - tired) * (1.0 - hungry) * (1.0 - stressed)
+    return {
+        "curious": max(HMM_EVIDENCE_FLOOR, curious),
+        "hungry": max(HMM_EVIDENCE_FLOOR, hungry),
+        "stressed": max(HMM_EVIDENCE_FLOOR, stressed),
+        "tired": max(HMM_EVIDENCE_FLOOR, tired),
+    }
 
 
 def _median(values: list[float]) -> float:
@@ -486,6 +544,182 @@ def interaction_timing_signal(thread_state: dict, lifecycle_state: dict) -> dict
     )
 
 
+def _threshold_mood(lifecycle_state: dict) -> str:
+    """The frozen T16/estimate_hidden_mood rule, verbatim thresholds
+    (energy 0.2 / hunger 0.65 / stress 0.65, lexicographic priority)."""
+    if _clamp(lifecycle_state.get("energy", 0.5)) < 0.2:
+        return "tired"
+    if _clamp(lifecycle_state.get("hunger", 0.5)) > 0.65:
+        return "hungry"
+    if _clamp(lifecycle_state.get("stress", 0.0)) > 0.65:
+        return "stressed"
+    return "curious"
+
+
+def animation_bandit_observe(thread_state: dict, lifecycle_state: dict) -> dict:
+    """Contextual UCB over clips: reward = the next-tick interaction bit,
+    attributed to the (mood, clip) PENDING from the previous show."""
+    trials = dict(thread_state.get("trials") or {})
+    wins = dict(thread_state.get("wins") or {})
+    pending = thread_state.get("pending")
+    interactions = lifecycle_state.get("recent_interactions") or []
+    if pending is not None and interactions:
+        reward = 1.0 if _clamp(interactions[-1]) > 0 else 0.0
+        key = str(pending)
+        if float(trials.get(key, 0.0)) < BANDIT_TRIALS_CAP:
+            trials[key] = round(float(trials.get(key, 0.0)) + 1.0, 6)
+            wins[key] = round(float(wins.get(key, 0.0)) + reward, 6)
+    shown = lifecycle_state.get("last_animation")
+    updated = {"trials": trials, "wins": wins}
+    if isinstance(shown, str) and shown in CLIP_VOCABULARY:
+        updated["pending"] = f"{_threshold_mood(lifecycle_state)}|{shown}"
+    return updated
+
+
+def animation_bandit_signal(thread_state: dict, lifecycle_state: dict) -> dict:
+    mood = _threshold_mood(lifecycle_state)
+    trials = thread_state.get("trials") or {}
+    wins = thread_state.get("wins") or {}
+    vocabulary = lifecycle_state.get("animation_vocabulary")
+    if not isinstance(vocabulary, list) or not vocabulary:
+        vocabulary = list(CLIP_VOCABULARY)
+    arms = [clip for clip in CLIP_VOCABULARY if clip in vocabulary]
+    context_trials = {clip: float(trials.get(f"{mood}|{clip}", 0.0)) for clip in arms}
+    total = sum(context_trials.values())
+    means = {}
+    recommended = None
+    for clip in arms:
+        if context_trials[clip] < 1.0:
+            # Unplayed arms first, in vocabulary order — deterministic.
+            if recommended is None:
+                recommended = clip
+            means[clip] = None
+            continue
+        means[clip] = round(
+            float(wins.get(f"{mood}|{clip}", 0.0)) / context_trials[clip], 6
+        )
+    if recommended is None:
+        # Every arm played: UCB1 with the decayed counts.
+        recommended = max(
+            arms,
+            key=lambda clip: (
+                means[clip]
+                + math.sqrt(
+                    BANDIT_EXPLORATION
+                    * math.log(max(total, 2.0))
+                    / context_trials[clip]
+                ),
+                -arms.index(clip),
+            ),
+        )
+    played_means = sorted(
+        (value for value in means.values() if value is not None), reverse=True
+    )
+    gap = (
+        played_means[0] - played_means[1] if len(played_means) >= 2 else 0.0
+    )
+    confidence = round(min(1.0, total / BANDIT_PULLS_FLOOR) * _clamp(gap), 6)
+    return _thread(
+        "animation_bandit",
+        {"context_mood": mood, "context_pulls": round(total, 6)},
+        {
+            "recommended_clip": recommended,
+            "context_mood": mood,
+            "clip_means": means,
+        },
+        confidence,
+        "Contextual UCB personalizes clip choice per mood from interaction feedback.",
+        # Clip preference is consumed by the render/packet side, never
+        # the action switchboard — an honestly effect-free thread.
+        {},
+    )
+
+
+def hidden_mood_hmm_observe(thread_state: dict, lifecycle_state: dict) -> dict:
+    """Forward-filter step over the T16 mood vocabulary."""
+    belief = thread_state.get("belief") or {
+        mood: 1.0 / len(HMM_MOODS) for mood in HMM_MOODS
+    }
+    evidence = _mood_evidence(lifecycle_state)
+    posterior = {}
+    for mood in HMM_MOODS:
+        prior = sum(
+            float(belief.get(source, 0.0))
+            * (
+                HMM_STICKINESS
+                if source == mood
+                else (1.0 - HMM_STICKINESS) / (len(HMM_MOODS) - 1)
+            )
+            for source in HMM_MOODS
+        )
+        posterior[mood] = prior * evidence[mood]
+    normalizer = sum(posterior.values()) or 1.0
+    filtered = {
+        mood: round(posterior[mood] / normalizer, 6) for mood in HMM_MOODS
+    }
+    challenger = max(HMM_MOODS, key=lambda mood: (filtered[mood], mood))
+    incumbent = thread_state.get("map_mood")
+    if incumbent is None or filtered[challenger] > (
+        filtered.get(incumbent, 0.0) + HMM_MAP_MARGIN
+    ):
+        incumbent = challenger
+    return {
+        "belief": filtered,
+        "map_mood": incumbent,
+        "observations": min(int(thread_state.get("observations", 0)) + 1, 60),
+    }
+
+
+def hidden_mood_hmm_signal(thread_state: dict, lifecycle_state: dict) -> dict:
+    observations = int(thread_state.get("observations", 0))
+    if observations == 0:
+        return _thread(
+            "hidden_mood_hmm",
+            {"observations": 0},
+            {"map_mood": None, "mood_distribution": None},
+            0.0,
+            "Cold start: no mood evidence filtered yet.",
+            {},
+        )
+    belief = thread_state.get("belief") or {}
+    map_mood = thread_state.get("map_mood") or max(
+        HMM_MOODS, key=lambda mood: (belief.get(mood, 0.0), mood)
+    )
+    entropy = 0.0
+    for mood in HMM_MOODS:
+        probability = float(belief.get(mood, 0.0))
+        if probability > 0:
+            entropy -= probability * math.log(probability)
+    certainty = max(0.0, 1.0 - entropy / math.log(len(HMM_MOODS)))
+    confidence = round(
+        min(1.0, observations / HMM_OBSERVATION_FLOOR) * certainty, 6
+    )
+    effects: dict[str, float] = {}
+    for mood in HMM_MOODS:
+        probability = float(belief.get(mood, 0.0))
+        for action, weight in HMM_MOOD_EFFECTS[mood].items():
+            effects[action] = effects.get(action, 0.0) + probability * weight
+    effects = {
+        action: round(value, 6)
+        for action, value in sorted(effects.items())
+        if round(value, 6) != 0.0
+    }
+    return _thread(
+        "hidden_mood_hmm",
+        {"observations": observations},
+        {
+            "map_mood": map_mood,
+            "mood_distribution": {
+                mood: round(float(belief.get(mood, 0.0)), 6)
+                for mood in HMM_MOODS
+            },
+        },
+        confidence,
+        "Forward-filtered latent mood over the T16 vocabulary; entropy-honest.",
+        effects,
+    )
+
+
 # The fleet registry: (name, observe, signal), execution order fixed.
 FLEET_THREADS = [
     ("hunger_forecast", hunger_forecast_observe, hunger_forecast_signal),
@@ -493,6 +727,8 @@ FLEET_THREADS = [
     ("boredom_novelty", boredom_novelty_observe, boredom_novelty_signal),
     ("attention_forecast", attention_forecast_observe, attention_forecast_signal),
     ("interaction_timing", interaction_timing_observe, interaction_timing_signal),
+    ("animation_bandit", animation_bandit_observe, animation_bandit_signal),
+    ("hidden_mood_hmm", hidden_mood_hmm_observe, hidden_mood_hmm_signal),
 ]
 FLEET_THREAD_NAMES = [name for name, _observe, _signal in FLEET_THREADS]
 

@@ -34,7 +34,7 @@ wall-clock demands (DR 0028; Phase A/B precedent: measure first — the
   attention, and interaction-timing predictors — each proven in the
   lab against replayed lifecycle traces (the engine's own histories,
   never invented data), each streaming calibrated confidence.
-- [ ] **D3 · The animation-preference bandit + HMM mood.** The
+- [x] **D3 · The animation-preference bandit + HMM mood.** The
   documented bandit over clips consuming `animstate_950` + interaction
   feedback; the hidden-mood HMM thread (states grounded in the T16
   mood vocabulary) with honest uncertainty. Both deterministic under

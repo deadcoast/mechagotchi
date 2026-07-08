@@ -7,6 +7,8 @@ from pathlib import Path
 from thread_fleet import (
     FLEET_THREAD_NAMES,
     FLEET_THREADS,
+    animation_bandit_observe,
+    animation_bandit_signal,
     attention_forecast_observe,
     attention_forecast_signal,
     boredom_novelty_observe,
@@ -14,6 +16,8 @@ from thread_fleet import (
     build_thread_fleet_report,
     energy_forecast_observe,
     energy_forecast_signal,
+    hidden_mood_hmm_observe,
+    hidden_mood_hmm_signal,
     hunger_forecast_observe,
     hunger_forecast_signal,
     interaction_timing_observe,
@@ -63,6 +67,8 @@ class FleetContractTests(unittest.TestCase):
                 "boredom_novelty",
                 "attention_forecast",
                 "interaction_timing",
+                "animation_bandit",
+                "hidden_mood_hmm",
             ],
             FLEET_THREAD_NAMES,
         )
@@ -255,6 +261,124 @@ class InteractionTimingTests(unittest.TestCase):
             signal["output"]["predicted_ticks_to_next_interaction"], 1.5
         )
         self.assertGreater(signal["effects"].get("play", 0.0), 0.0)
+
+
+class AnimationBanditTests(unittest.TestCase):
+    def _run_rounds(
+        self, rewards_by_clip: dict, rounds: int, mood_state: dict
+    ) -> dict:
+        """Drive show->reward rounds: the bandit recommends, the harness
+        shows the recommendation, the keeper rewards by clip table."""
+        thread_state: dict = {}
+        for _ in range(rounds):
+            signal = animation_bandit_signal(thread_state, mood_state)
+            shown = signal["output"]["recommended_clip"]
+            reward = rewards_by_clip.get(shown, 0)
+            step = dict(mood_state)
+            step["last_animation"] = shown
+            step["recent_interactions"] = [0, 0, reward]
+            thread_state = animation_bandit_observe(thread_state, step)
+        return thread_state
+
+    def test_cold_start_is_silent_but_recommends_from_the_vocabulary(self):
+        signal = animation_bandit_signal({}, _state())
+        self.assertEqual(0.0, signal["confidence"])
+        self.assertEqual({}, signal["effects"])
+        self.assertIn(
+            signal["output"]["recommended_clip"],
+            ["idle", "blink", "sleep", "beg", "ill"],
+        )
+
+    def test_learns_the_rewarded_clip_for_the_mood(self):
+        hungry = _state(hunger=0.8)
+        thread_state = self._run_rounds({"beg": 1}, 60, hungry)
+        signal = animation_bandit_signal(thread_state, hungry)
+        self.assertEqual("beg", signal["output"]["recommended_clip"])
+        self.assertEqual("hungry", signal["output"]["context_mood"])
+        self.assertGreater(signal["confidence"], 0.3)
+        self.assertEqual({}, signal["effects"])
+
+    def test_reward_attributes_to_the_shown_clip(self):
+        state = _state()
+        first = dict(state)
+        first["last_animation"] = "blink"
+        first["recent_interactions"] = [0, 0, 0]
+        thread_state = animation_bandit_observe({}, first)
+        second = dict(state)
+        second["last_animation"] = "idle"
+        second["recent_interactions"] = [0, 0, 1]  # rewards the PENDING blink
+        thread_state = animation_bandit_observe(thread_state, second)
+        wins = thread_state["wins"]
+        self.assertGreater(wins.get("curious|blink", 0.0), 0.0)
+        self.assertEqual(0.0, wins.get("curious|idle", 0.0))
+
+    def test_memory_is_bounded_and_deterministic(self):
+        hungry = _state(hunger=0.8)
+        first = self._run_rounds({"beg": 1, "idle": 1}, 120, hungry)
+        second = self._run_rounds({"beg": 1, "idle": 1}, 120, hungry)
+        self.assertEqual(first, second)
+        json.dumps(first)
+        self.assertLessEqual(len(first["trials"]), 4 * 5)
+
+
+class HiddenMoodHmmTests(unittest.TestCase):
+    def _observe_many(self, states: list[dict]) -> dict:
+        thread_state: dict = {}
+        for state in states:
+            thread_state = hidden_mood_hmm_observe(thread_state, state)
+        return thread_state
+
+    def test_cold_start_is_silent(self):
+        signal = hidden_mood_hmm_signal({}, _state())
+        self.assertEqual(0.0, signal["confidence"])
+        self.assertEqual({}, signal["effects"])
+
+    def test_clear_hunger_converges_to_the_hungry_mood(self):
+        thread_state = self._observe_many([_state(hunger=0.85)] * 6)
+        signal = hidden_mood_hmm_signal(thread_state, _state(hunger=0.85))
+        self.assertEqual("hungry", signal["output"]["map_mood"])
+        self.assertGreater(signal["confidence"], 0.5)
+        self.assertGreater(signal["effects"].get("feed", 0.0), 0.0)
+
+    def test_smoothing_reduces_threshold_flicker(self):
+        # Hunger oscillating around the 0.65 threshold: the raw T16 label
+        # flickers hungry/curious every tick; the filtered MAP must not.
+        states = [
+            _state(hunger=0.66 if tick % 2 == 0 else 0.64)
+            for tick in range(20)
+        ]
+        thread_state: dict = {}
+        map_sequence = []
+        for state in states:
+            thread_state = hidden_mood_hmm_observe(thread_state, state)
+            signal = hidden_mood_hmm_signal(thread_state, state)
+            map_sequence.append(signal["output"]["map_mood"])
+        map_switches = sum(
+            1 for a, b in zip(map_sequence, map_sequence[1:]) if a != b
+        )
+        self.assertLess(map_switches, 5)  # raw flickers ~19 times
+
+    def test_uncertainty_is_honest_near_thresholds(self):
+        clear = self._observe_many([_state(hunger=0.9, energy=0.9)] * 6)
+        clear_signal = hidden_mood_hmm_signal(
+            clear, _state(hunger=0.9, energy=0.9)
+        )
+        ambiguous = self._observe_many(
+            [_state(hunger=0.64, energy=0.22, stress=0.6)] * 6
+        )
+        ambiguous_signal = hidden_mood_hmm_signal(
+            ambiguous, _state(hunger=0.64, energy=0.22, stress=0.6)
+        )
+        self.assertLess(
+            ambiguous_signal["confidence"], clear_signal["confidence"]
+        )
+
+    def test_belief_is_a_distribution_and_memory_is_bounded(self):
+        thread_state = self._observe_many([_state()] * 40)
+        belief = thread_state["belief"]
+        self.assertEqual(4, len(belief))
+        self.assertAlmostEqual(1.0, sum(belief.values()), places=3)
+        json.dumps(thread_state)
 
 
 class SwitchboardSeamTests(unittest.TestCase):

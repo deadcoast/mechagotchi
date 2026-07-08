@@ -18,5 +18,12 @@ Cycle 12 (ENGINE - Phase D) artifacts:
   (top-confidence quartile no worse than bottom). The first-cut
   heuristics failed both bars and were replaced — recorded in the D2
   report.
+- `animation_bandit_hmm_mood_stage0.json` - D3: the contextual UCB
+  clip bandit (arms from the animstate_950 catalog; beats uniform
+  rotation for all three documented keepers, converges 0.74-0.92
+  best-arm, deterministic under seeds) and the hidden-mood HMM (17x
+  oscillation reduction on 2501 replayed episodes, next-mood Brier
+  0.524 vs persistence 1.051, stable-segment agreement 0.954,
+  entropy-honest confidence).
 
 Produced by `labs/micro_threads/`.
