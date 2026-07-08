@@ -33,13 +33,13 @@
         "snapshot_ids": [],
         "generations_ran": 3,
         "went_extinct": false,
-        "total_removed_cells": 64,
+        "total_removed_cells": 65,
         "max_dropout_multiplier_survived": null,
-        "elite_mean_learned_readability": 0.400622,
+        "elite_mean_learned_readability": 0.421246,
         "mean_learned_readability_by_generation": [
-          0.277955,
-          0.206808,
-          0.584121
+          0.350494,
+          0.254444,
+          0.667174
         ],
         "mortal_wounds": {
           "mortal_wounds": 0,
@@ -52,8 +52,8 @@
         "founders_admitted": 0,
         "founders_rejected": 0,
         "parent_source_generation_0": "seed_pool",
-        "filled_niches": 8,
-        "qd_score": 7.408972,
+        "filled_niches": 9,
+        "qd_score": 8.323987,
         "max_lineage_generation": 2,
         "decision_status": "evolution_loop_composed"
       },
@@ -74,11 +74,11 @@
         "went_extinct": false,
         "total_removed_cells": 53,
         "max_dropout_multiplier_survived": 0.899848,
-        "elite_mean_learned_readability": 0.181523,
+        "elite_mean_learned_readability": 0.200442,
         "mean_learned_readability_by_generation": [
-          0.527166,
-          0.002097,
-          0.189093
+          0.67121,
+          0.003387,
+          0.246724
         ],
         "mortal_wounds": {
           "mortal_wounds": 0,
@@ -87,8 +87,8 @@
           "mortal_wound_rate": 0.0,
           "cause": null
         },
-        "founders_submitted": 8,
-        "founders_admitted": 8,
+        "founders_submitted": 9,
+        "founders_admitted": 9,
         "founders_rejected": 0,
         "parent_source_generation_0": "founders_plus_seed_pool",
         "filled_niches": 9,
@@ -113,11 +113,11 @@
         "went_extinct": false,
         "total_removed_cells": 62,
         "max_dropout_multiplier_survived": 1.170205,
-        "elite_mean_learned_readability": 0.013802,
+        "elite_mean_learned_readability": 0.073362,
         "mean_learned_readability_by_generation": [
-          0.006746,
-          0.002537,
-          0.010727
+          0.021864,
+          0.008658,
+          0.070055
         ],
         "mortal_wounds": {
           "mortal_wounds": 0,
@@ -139,7 +139,7 @@
     "chained_era_count": 2,
     "founder_admission_all_or_nothing": true,
     "total_removed_cells_by_forecast": {
-      "calm": 64,
+      "calm": 65,
       "stable_soup": 53,
       "storm": 62
     },
@@ -155,7 +155,7 @@
         "tier": 1,
         "earned_era_index": 0,
         "metric_path": "report.summary.archive.filled_niches",
-        "metric_value": 8,
+        "metric_value": 9,
         "threshold": 4
       },
       {
@@ -163,7 +163,7 @@
         "tier": 2,
         "earned_era_index": 0,
         "metric_path": "report.summary.archive.filled_niches",
-        "metric_value": 8,
+        "metric_value": 9,
         "threshold": 8
       },
       {
@@ -179,7 +179,7 @@
         "tier": 1,
         "earned_era_index": 0,
         "metric_path": "report.summary.archive.qd_score",
-        "metric_value": 7.408972,
+        "metric_value": 8.323987,
         "threshold": 3.0
       },
       {
@@ -187,7 +187,7 @@
         "tier": 2,
         "earned_era_index": 0,
         "metric_path": "report.summary.archive.qd_score",
-        "metric_value": 7.408972,
+        "metric_value": 8.323987,
         "threshold": 6.0
       },
       {
@@ -195,7 +195,7 @@
         "tier": 1,
         "earned_era_index": 0,
         "metric_path": "derived.elite_mean_learned_readability",
-        "metric_value": 0.400622,
+        "metric_value": 0.421246,
         "threshold": 0.25
       },
       {
@@ -203,7 +203,7 @@
         "tier": 2,
         "earned_era_index": 0,
         "metric_path": "derived.elite_mean_learned_readability",
-        "metric_value": 0.400622,
+        "metric_value": 0.421246,
         "threshold": 0.35
       },
       {

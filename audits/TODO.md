@@ -40,15 +40,16 @@ documentation for tasks that need them; they do not pause the queue.)
   long-promised switch FULFILLED. Promotion gate: `slip_authority`
   promotion_ready — NINE of ten candidates; every og module target now
   realized (ten promoted, `render` dispositioned).)
-- [ ] **F3 · Fine-tune the readability model on real mutations.**
-  (E3's named follow-up: 0.849 improved-direction accuracy vs 0.983
-  degraded — the model trained only on degradations.) Retrain/augment
-  the R3 ranker with `mutationbench_5000`'s physics-labeled REAL pairs
-  (both directions), evaluate against the original on heldout real
-  pairs AND the original synthetic gates (no regression allowed), and
-  A/B the live consumer at the same seed. Adopt only if it wins both;
-  either verdict recorded. The manual rating system remains the
-  fallback throughout.
+- [x] **F3 · Fine-tune the readability model on real mutations.**
+  (2026-07-07, ALL GATES GREEN — ADOPTED: real heldout (cross-parent,
+  parents 41–50 excluded from training) 0.98018 → 1.0; synthetic
+  heldout + all four families no regression; live physics A/B not
+  worse (identical elites at the seed). Follow-through shipped: the
+  adopted weights FROZEN as a committed auditable artifact with
+  provenance + regenerator named; the session's legibility trainer
+  loads it (original recipe stays the honest fallback), artifacts
+  regenerated, every suite green. Manual rating system unchanged as
+  the fallback.)
 
 ## Standing note
 

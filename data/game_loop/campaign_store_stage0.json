@@ -13,15 +13,15 @@
       "campaigns": 1,
       "slip_profiles": 3,
       "eras": 3,
-      "elites": 22,
-      "founders": 17,
+      "elites": 23,
+      "founders": 18,
       "unlocks": 8,
       "replays": 3
     },
     "sqlite_payload": {
       "path": "data/game_loop/campaign_store.sqlite",
-      "bytes": 196608,
-      "sha256": "d27d08204f23fe69502de29ab0c2e7593ffe1173ce22b3858c35dd78856594a2"
+      "bytes": 200704,
+      "sha256": "255518b5df9016ad494eca683344e9eee932f1266d6ea638620e7e7e8d53d833"
     }
   },
   "closed_states": [

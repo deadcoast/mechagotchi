@@ -1,0 +1,87 @@
+{
+  "artifact_id": "real_mutation_finetune_stage0",
+  "status": "stage0_complete",
+  "date": "2026-07-07",
+  "purpose": "F3: augment the R3 ranker with mutationbench_5000's physics-labeled REAL pairs and decide by measurement \u2014 adopt only if the real heldout improves, the synthetic gates hold, and the live physics A/B is not worse.",
+  "source_artifacts": [
+    "research/experiment_reports/2026-07-07-dataset-consumers.md",
+    "data/datasets/mutationbench_5000/mutationbench_5000.jsonl",
+    "research/decision_records/0019-learned-readability.md"
+  ],
+  "corpus": {
+    "real_train_pairs": 2325,
+    "real_heldout_pairs": 555,
+    "heldout_parents": [
+      "mg_seed_041",
+      "mg_seed_042",
+      "mg_seed_043",
+      "mg_seed_044",
+      "mg_seed_045",
+      "mg_seed_046",
+      "mg_seed_047",
+      "mg_seed_048",
+      "mg_seed_049",
+      "mg_seed_050"
+    ],
+    "synthetic_pairs": 600
+  },
+  "evaluation": {
+    "original": {
+      "real_heldout_accuracy": 0.98018,
+      "real_heldout_by_direction": {
+        "real_degraded": 0.982968,
+        "real_improved": 0.972222
+      },
+      "synthetic_heldout_accuracy": 1.0,
+      "synthetic_per_family_accuracy": {
+        "contrast_collapse": 1.0,
+        "organ_scatter": 1.0,
+        "silhouette_noise": 1.0,
+        "anchor_erosion": 1.0
+      }
+    },
+    "augmented": {
+      "real_heldout_accuracy": 1.0,
+      "real_heldout_by_direction": {
+        "real_degraded": 1.0,
+        "real_improved": 1.0
+      },
+      "synthetic_heldout_accuracy": 1.0,
+      "synthetic_per_family_accuracy": {
+        "contrast_collapse": 1.0,
+        "organ_scatter": 1.0,
+        "silhouette_noise": 1.0,
+        "anchor_erosion": 1.0
+      }
+    }
+  },
+  "live_physics_ab": {
+    "original": {
+      "elite_count": 7,
+      "mean_physics_composite": 0.832844
+    },
+    "augmented": {
+      "elite_count": 7,
+      "mean_physics_composite": 0.832844
+    }
+  },
+  "gates": {
+    "real_heldout_improves": true,
+    "synthetic_heldout_no_regression": true,
+    "synthetic_families_no_regression": true,
+    "live_physics_not_worse": true
+  },
+  "closed_states": [
+    "real_pairs_built_by_the_e3_rule_with_signature_verification",
+    "heldout_by_parent_cross_parent_generalization",
+    "same_recipe_same_seed_same_anchor_comparable_models",
+    "verdict_decided_by_the_three_gates_not_asserted"
+  ],
+  "blocked_states": [],
+  "decision": {
+    "status": "adopt_augmented_model",
+    "adoption": "lab_only_readability_evidence",
+    "reason": "Gates: real heldout 0.98018 -> 1.0 (improved); synthetic heldout 1.0 -> 1.0; live physics 0.832844 -> 0.832844. All gates green: the augmented model wins and is adopted."
+  },
+  "next_research_step": "If adopted, the session's legibility trainer switches to the augmented recipe (its own follow-through with artifact regeneration); if kept, nothing changes and the corpus stands ready."
+}

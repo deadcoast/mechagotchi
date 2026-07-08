@@ -722,8 +722,8 @@
                 "archive_decision": "inserted"
               },
               {
-                "parent_grid_id": "gen_aa36f340ff1cb244_c02",
-                "candidate_grid_id": "gen_d3ad8957a9bc4dc8",
+                "parent_grid_id": "gen_01104812ccb1b4cc_c02",
+                "candidate_grid_id": "gen_caebd916f40e5962",
                 "lineage_generation": 2,
                 "stages": {
                   "candidate_valid": true,
@@ -734,9 +734,9 @@
                 "cycles": [
                   {
                     "cycle": 1,
-                    "removed_cell_count": 1,
+                    "removed_cell_count": 2,
                     "position_restoration": 1.0,
-                    "token_restoration": 1.0,
+                    "token_restoration": 0.923077,
                     "guard_substitutions": 0,
                     "valid": true,
                     "aligned": true,
@@ -766,22 +766,22 @@
                   }
                 ],
                 "score": {
-                  "fitness": 0.908397,
+                  "fitness": 0.915015,
                   "components": {
                     "survival": 1.0,
-                    "readability": 0.736376,
+                    "readability": 0.763951,
                     "validity": 1.0,
                     "bond": 1.0,
                     "mutation_stability": 0.716667,
                     "slip_alignment": 1.0
                   }
                 },
-                "archive_decision": "kept_incumbent"
+                "archive_decision": "inserted"
               }
             ],
-            "mean_fitness": 0.929041,
-            "archive_niches_after": 8,
-            "archive_qd_after": 7.408972
+            "mean_fitness": 0.930695,
+            "archive_niches_after": 9,
+            "archive_qd_after": 8.323987
           }
         ],
         "summary": {
@@ -791,19 +791,19 @@
           "candidate_valid_rate": 1.0,
           "slip_alignment_retention_rate": 1.0,
           "mean_position_restoration": 1.0,
-          "mean_token_restoration": 0.980339,
+          "mean_token_restoration": 0.977134,
           "guard_substitution_total": 7,
           "archived_creature_count": 12,
           "mean_fitness_by_generation": [
             0.928007,
             0.920752,
-            0.929041
+            0.930695
           ],
           "max_lineage_generation": 2,
           "archive": {
-            "filled_niches": 8,
-            "coverage": 0.000102,
-            "qd_score": 7.408972
+            "filled_niches": 9,
+            "coverage": 0.000115,
+            "qd_score": 8.323987
           }
         },
         "decision": {
@@ -815,13 +815,13 @@
           "readability_authority": "learned_model_primary_manual_rating_fallback",
           "blend": 0.7,
           "weights": {
-            "inverse_component_count": 9.282145765,
-            "body_mass_ratio": 0.0,
-            "silhouette_entropy": -1.379413742,
-            "symmetry_score": 2.821675548,
-            "organ_detectability": 10.862444984,
-            "palette_contrast": 6.972509666,
-            "animation_anchor_coverage": 5.88525624
+            "inverse_component_count": 8.961534207,
+            "body_mass_ratio": -2.204827231,
+            "silhouette_entropy": -3.452445436,
+            "symmetry_score": -0.632894109,
+            "organ_detectability": 12.854800246,
+            "palette_contrast": 24.977779634,
+            "animation_anchor_coverage": 4.363183834
           },
           "reference_features": {
             "inverse_component_count": 0.95,
@@ -833,16 +833,16 @@
             "animation_anchor_coverage": 1.0
           },
           "mean_learned_readability_by_generation": [
-            0.277955,
-            0.206808,
-            0.584121
+            0.350494,
+            0.254444,
+            0.667174
           ]
         }
       },
       "decision_status": "evolution_loop_composed",
-      "filled_niches": 8,
-      "coverage": 0.000102,
-      "qd_score": 7.408972,
+      "filled_niches": 9,
+      "coverage": 0.000115,
+      "qd_score": 8.323987,
       "max_lineage_generation": 2,
       "went_extinct": false
     },
@@ -907,6 +907,7 @@
             "gen_621e8058fe54ef86_c02",
             "gen_1f37701a44286224_c02",
             "gen_cf0993b9e95ec1ff_c02",
+            "gen_caebd916f40e5962_c02",
             "gen_aa36f340ff1cb244_c02",
             "gen_0753a31ee58f04cf_c02",
             "gen_c606a09771b88116_c02"
@@ -924,7 +925,7 @@
           {
             "generation": 0,
             "parent_source": "founders_plus_seed_pool",
-            "parent_pool_size": 18,
+            "parent_pool_size": 19,
             "creatures": [
               {
                 "parent_grid_id": "gen_ed9bb7064632340a_c02",
@@ -1693,13 +1694,13 @@
           "readability_authority": "learned_model_primary_manual_rating_fallback",
           "blend": 0.8,
           "weights": {
-            "inverse_component_count": 9.282145765,
-            "body_mass_ratio": 0.0,
-            "silhouette_entropy": -1.379413742,
-            "symmetry_score": 2.821675548,
-            "organ_detectability": 10.862444984,
-            "palette_contrast": 6.972509666,
-            "animation_anchor_coverage": 5.88525624
+            "inverse_component_count": 8.961534207,
+            "body_mass_ratio": -2.204827231,
+            "silhouette_entropy": -3.452445436,
+            "symmetry_score": -0.632894109,
+            "organ_detectability": 12.854800246,
+            "palette_contrast": 24.977779634,
+            "animation_anchor_coverage": 4.363183834
           },
           "reference_features": {
             "inverse_component_count": 0.95,
@@ -1711,9 +1712,9 @@
             "animation_anchor_coverage": 1.0
           },
           "mean_learned_readability_by_generation": [
-            0.527166,
-            0.002097,
-            0.189093
+            0.67121,
+            0.003387,
+            0.246724
           ]
         }
       },
@@ -2572,13 +2573,13 @@
           "readability_authority": "learned_model_primary_manual_rating_fallback",
           "blend": 0.8,
           "weights": {
-            "inverse_component_count": 9.282145765,
-            "body_mass_ratio": 0.0,
-            "silhouette_entropy": -1.379413742,
-            "symmetry_score": 2.821675548,
-            "organ_detectability": 10.862444984,
-            "palette_contrast": 6.972509666,
-            "animation_anchor_coverage": 5.88525624
+            "inverse_component_count": 8.961534207,
+            "body_mass_ratio": -2.204827231,
+            "silhouette_entropy": -3.452445436,
+            "symmetry_score": -0.632894109,
+            "organ_detectability": 12.854800246,
+            "palette_contrast": 24.977779634,
+            "animation_anchor_coverage": 4.363183834
           },
           "reference_features": {
             "inverse_component_count": 0.95,
@@ -2590,9 +2591,9 @@
             "animation_anchor_coverage": 1.0
           },
           "mean_learned_readability_by_generation": [
-            0.006746,
-            0.002537,
-            0.010727
+            0.021864,
+            0.008658,
+            0.070055
           ]
         }
       },
@@ -4159,6 +4160,347 @@
         "fitness_components": {
           "survival": 1.0,
           "readability": 0.752805,
+          "validity": 1.0,
+          "bond": 1.0,
+          "mutation_stability": 0.716667,
+          "slip_alignment": 1.0
+        },
+        "validation": {
+          "ok": true,
+          "errors": []
+        },
+        "provenance": {
+          "provided": false,
+          "record": null
+        }
+      }
+    },
+    {
+      "campaign_id": "campaign_stage0",
+      "era_index": 0,
+      "niche_key": "2,0,0,3,4,3,1",
+      "grid_id": "gen_caebd916f40e5962_c02",
+      "fitness": 0.915015,
+      "elite": {
+        "grid_id": "gen_caebd916f40e5962_c02",
+        "grid": {
+          "grid_id": "gen_caebd916f40e5962_c02",
+          "schema_version": "0.1.0",
+          "parent_grid_id": "gen_caebd916f40e5962_c01_stochastic_damage_02",
+          "grid_size": [
+            8,
+            8
+          ],
+          "cells": [
+            {
+              "x": 1,
+              "y": 0,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": true,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 0,
+              "visual": "#d8ffd6",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 1,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 1,
+              "y": 2,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 2,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 2,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 1,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 7,
+              "visual": "#d8ffd6",
+              "role": "mouth",
+              "material": "soft",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "expression",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            }
+          ],
+          "organs": {
+            "core": {
+              "role": "body_core",
+              "cells": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  4,
+                  4
+                ],
+                [
+                  4,
+                  5
+                ]
+              ],
+              "required": true
+            },
+            "sensors": {
+              "role": "sensor",
+              "cells": [
+                [
+                  4,
+                  0
+                ]
+              ],
+              "required": true
+            },
+            "expression": {
+              "role": "expression",
+              "cells": [
+                [
+                  4,
+                  7
+                ]
+              ],
+              "required": false
+            }
+          },
+          "palette": {
+            "palette_id": "lcd_green",
+            "colors": [
+              "#07140d",
+              "#5dbb63",
+              "#d8ffd6"
+            ],
+            "background_index": 0
+          },
+          "mutation": {
+            "cell_mutation_rate": 0.05,
+            "organ_shift_rate": 0.02,
+            "palette_shift_rate": 0.01,
+            "symmetry_break_rate": 0.01
+          },
+          "lineage": {
+            "generation": 1,
+            "ancestor_ids": [
+              "gen_caebd916f40e5962_c01_stochastic_damage_02"
+            ],
+            "mutation_events": [
+              "ca_damage_observed",
+              "learned_wound_site_softmax_repair"
+            ]
+          },
+          "metadata": {
+            "source": "learned_wound_site_softmax_repair",
+            "learned_model_id": "neighborhood_softmax_repair_model_stage0",
+            "target_template_used": false,
+            "wound_site_count": 1,
+            "validity_guard_substitutions": 0
+          }
+        },
+        "descriptor": {
+          "names": [
+            "body_mass",
+            "sensor_count",
+            "symmetry",
+            "readability",
+            "lifecycle_survival",
+            "mutation_stability",
+            "behavior_neediness"
+          ],
+          "values": [
+            2,
+            0,
+            0,
+            3,
+            4,
+            3,
+            1
+          ],
+          "key": "2,0,0,3,4,3,1",
+          "metrics": {
+            "body_mass": 11,
+            "sensor_count": 1,
+            "symmetry": 0.153846,
+            "readability": 0.763951,
+            "lifecycle_survival": 1.0,
+            "mutation_stability": 0.716667,
+            "behavior_neediness": 0.3
+          }
+        },
+        "fitness": 0.915015,
+        "fitness_components": {
+          "survival": 1.0,
+          "readability": 0.763951,
           "validity": 1.0,
           "bond": 1.0,
           "mutation_stability": 0.716667,
@@ -9468,6 +9810,14 @@
     {
       "campaign_id": "campaign_stage0",
       "era_index": 1,
+      "grid_id": "gen_caebd916f40e5962_c02",
+      "source": "era_elite",
+      "admitted": true,
+      "rejection_errors": null
+    },
+    {
+      "campaign_id": "campaign_stage0",
+      "era_index": 1,
       "grid_id": "gen_aa36f340ff1cb244_c02",
       "source": "era_elite",
       "admitted": true,
@@ -9569,7 +9919,7 @@
       "tier": 1,
       "earned_era_index": 0,
       "metric_path": "report.summary.archive.filled_niches",
-      "metric_value": 8,
+      "metric_value": 9,
       "threshold": 4
     },
     {
@@ -9578,7 +9928,7 @@
       "tier": 2,
       "earned_era_index": 0,
       "metric_path": "report.summary.archive.filled_niches",
-      "metric_value": 8,
+      "metric_value": 9,
       "threshold": 8
     },
     {
@@ -9596,7 +9946,7 @@
       "tier": 1,
       "earned_era_index": 0,
       "metric_path": "report.summary.archive.qd_score",
-      "metric_value": 7.408972,
+      "metric_value": 8.323987,
       "threshold": 3.0
     },
     {
@@ -9605,7 +9955,7 @@
       "tier": 2,
       "earned_era_index": 0,
       "metric_path": "report.summary.archive.qd_score",
-      "metric_value": 7.408972,
+      "metric_value": 8.323987,
       "threshold": 6.0
     },
     {
@@ -9614,7 +9964,7 @@
       "tier": 1,
       "earned_era_index": 0,
       "metric_path": "derived.elite_mean_learned_readability",
-      "metric_value": 0.400622,
+      "metric_value": 0.421246,
       "threshold": 0.25
     },
     {
@@ -9623,7 +9973,7 @@
       "tier": 2,
       "earned_era_index": 0,
       "metric_path": "derived.elite_mean_learned_readability",
-      "metric_value": 0.400622,
+      "metric_value": 0.421246,
       "threshold": 0.35
     },
     {

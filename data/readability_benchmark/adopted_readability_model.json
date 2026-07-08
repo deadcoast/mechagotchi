@@ -1,0 +1,27 @@
+{
+  "model_id": "readability_ranker_real_augmented_v1",
+  "date": "2026-07-07",
+  "provenance": {
+    "recipe": "R3 synthetic training pairs (pairs_per_family=3, seed 20260706, 80% split) + mutationbench real pairs (physics-labeled, heldout parents excluded), train_pairwise_ranker at the same seed, corpus-mean anchor",
+    "adopted_by": "data/readability_benchmark/real_mutation_finetune_stage0.json",
+    "regenerator": "labs/readability_benchmark/real_mutation_finetune.py"
+  },
+  "weights": {
+    "inverse_component_count": 8.961534207,
+    "body_mass_ratio": -2.204827231,
+    "silhouette_entropy": -3.452445436,
+    "symmetry_score": -0.632894109,
+    "organ_detectability": 12.854800246,
+    "palette_contrast": 24.977779634,
+    "animation_anchor_coverage": 4.363183834
+  },
+  "reference_features": {
+    "inverse_component_count": 0.95,
+    "body_mass_ratio": 0.162812,
+    "silhouette_entropy": 0.788612,
+    "symmetry_score": 0.487552,
+    "organ_detectability": 0.931,
+    "palette_contrast": 0.969307,
+    "animation_anchor_coverage": 1.0
+  }
+}

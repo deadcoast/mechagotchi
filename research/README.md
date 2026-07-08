@@ -784,6 +784,10 @@ Post-v0.1 continuation has started:
 - `packages/mecha_engine/src/mecha_engine/slip/` + `packages/mecha_engine/tests/test_slip_contract.py`
 - `labs/slip_validator/slip_authority_reconciliation.py` + `data/slips/slip_authority_reconciliation_stage0.json` (F2: `mecha_engine.slip` promoted — the TENTH module. Gate-1 reconciliation measured ZERO divergences five-way pre-collapse; the four private `_slip.py` mirrors deleted (~60 KB of quadruplication gone) with every module suite passing unmodified through the public import; the parity pin rewritten as the permanent pair pin (exact verdict-and-error-string equality, 590 validate + 2,080 alignment cases); the workshop server's long-promised switch fulfilled; promotion gate NINE of ten ready. Every og module target is now realized — ten promoted, `render` dispositioned with a named re-opener)
 
+- `research/experiment_reports/2026-07-07-real-mutation-finetune.md`
+- `labs/readability_benchmark/real_mutation_finetune.py`
+- `data/readability_benchmark/real_mutation_finetune_stage0.json` + `data/readability_benchmark/adopted_readability_model.json` (F3: the ranker augmented with mutationbench's physics-labeled REAL pairs — ALL GATES GREEN and ADOPTED: real heldout (cross-parent) 0.98018 → 1.0, zero synthetic regression, live physics A/B not worse; the adopted weights frozen as a committed auditable artifact and the session's legibility trainer switched to load it. E3's fuel became a better model)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.
