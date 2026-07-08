@@ -1,60 +1,61 @@
-# Development TODO — Cycle 07: consolidation — the v1.0 milestone
+# Development TODO — Standby: the queue is honestly empty
 
-Source: the repo's own conventions now that the build tracks have
-converged. Cycle 06 is archived complete at `audits/complete/06/`
-(F1 the seen thought — five notices of five live; F2 the slip module —
-every og module target realized; F3 the real-mutation fine-tune —
-adopted on a full-gate win). The last consolidated report is v0.9;
-cycles 02–06 shipped the entire ENGINE+GAME duality since. Governing
-rule unchanged: deep integrations over breadth (DR 0017); a task is
-complete when developed to its description, then marked; development
-proceeds continuously; planning triggers ONLY on exhaustion confirmed
-COMPLETE. (Decision records remain the design documentation for tasks
-that need them; they do not pause the queue.)
+Cycle 07 (the v1.0 consolidation) is archived complete at
+`audits/complete/07/`. Seven cycles are archived in full (01–07); the
+realization-wave report (`research/reports/
+mechagotchi_research_report_v1_0.md`) consolidates the state: ten of
+ten og module targets realized, "Eras of the Soup" live end to end with
+all five DR 0021 player-notices, the dataset→consumer→adopted-model
+chain closed, 1,210 tests green.
 
-- [x] **V1 · Research report v1.0 + manifest — the ENGINE+GAME
-  milestone.** (2026-07-07:
-  `research/reports/mechagotchi_research_report_v1_0.md` — "the
-  realization wave" — + `research_report_v1_0_manifest.json`
-  consolidating 46 experiment reports and 20 decision records
-  (0008–0027) across the 2026-07-05→07 window, every one of the 79
-  referenced paths verified to exist; headline metrics incl. ten of
-  ten og module targets, five of five notices, test base 747 → 1,210
-  all green, the adopted model's gates, the mortality gradient, and
-  the soak; owner decisions and named re-openers ledgered as
-  deliberately-open, not queued. The reports index updated; the
-  underlying lab reports untouched, per the convention.)
-- [x] **V2 · Refresh `docs/agent-standards.md`.** (2026-07-07:
-  rewritten to the v1.0 state — ten modules + render's disposition,
-  the live game and its surfaces, the adopted model, the 1,210 test
-  base, the cycle rule, and the owner-decision ledger; the honesty
-  norms EXTENDED with the cycle 02–07 lessons (refuted hypotheses are
-  findings; reconstruct the engine's exact statistic; faithful replays
-  reproduce inputs exactly; additive seams byte-identical off;
-  promotion drift watch) and the traps updated (the twice-bitten
-  grid_id overflow, None ≠ [], the deliberation floor, survivorship
-  bias). Charter, chain-of-authority, and first-moves kept.)
-- [x] **V3 · Untrack the `__pycache__` hazard.** (2026-07-07: all 144
-  tracked bytecode files `git rm --cached`-ed (files stay on disk,
-  covered by the ignore rule — verified); CLAUDE.md and `.gitignore`
-  hazard notes updated to CLOSED; zero tracked `__pycache__` paths
-  remain; smoke green. The `-B` discipline stays as tree hygiene.)
+**Per the planning rule, this queue was exhausted and confirmed
+COMPLETE — and the honest plan is that NO agent-actionable task
+remains.** Everything left is either an owner decision or a named
+re-opener waiting on a condition. Manufacturing tasks to fill a queue
+would violate the governing rule (deep integrations over breadth;
+hard/unique features win — and nothing hard or unique is currently
+unbuilt against the ratified designs).
+
+## The owner-decision menu (not tasks; act only on owner direction)
+
+1. **The repo-wide license grant** — pending since T21; SPDX plumbing
+   and the REUSE layout are ready.
+2. **The `[project]` dependencies policy** — deliberately blocked;
+   unblocking is a policy choice, not a need (everything ships
+   stdlib-only).
+3. **Manual readability calibration** — pipeline ready
+   (`mechas rate --creatures --autoexport`, 0/63 rows); resume when
+   the sample set stabilizes. The learned model remains primary; this
+   is its calibration check.
+4. **Real CuBFF export ingest** — the optional drop-in seam (cycle 04
+   decision): drop real simulator exports into
+   `data/cubff_real_ingest/source_snapshots/` and run the ingest lab;
+   zero code changes needed.
+5. **Publishing/pushing** — commits are local; push on direction.
+6. **New game/engine direction** — the next era of the project is a
+   design conversation, not a backlog item.
+
+## Named re-openers (each fires on its condition, citing its record)
+
+- `mecha_engine.render` — when a non-workshop Python consumer needs to
+  rasterize a packet (DR 0026).
+- Repair core-preservation tuning — if the mortal-wound rate is ever
+  judged too high for the difficulty curve (C6's verdict).
+- Grid-level `species_class` — when mixed-species soups make
+  per-creature species load-bearing (DR 0024).
+- Extinction-at-scale soak — if a future regime makes live extinction
+  reachable, re-run the D5 soak to exercise succession under load.
 
 ## Standing note
 
 The identity constraint and DR 0017 govern: the engine is the
 application, the game is its showcase. The rating system is the
 fallback; `.depreciated/` is the owner's archive (ignore unless
-linked). Owner-decision items are NOT tasks: the `[project]`
-dependencies policy stays deliberately blocked; the repo-wide license
-grant stays the owner's pending decision; real-CuBFF ingest stays the
-optional drop-in seam (cycle 04). `render` stays dispositioned with
-its named re-opener (DR 0026).
+linked).
 
 ## Sources
 
-- `audits/complete/06/TODO.md` (cycle 06, complete)
+- `audits/complete/01/`–`audits/complete/07/` (every cycle, archived)
+- `research/reports/mechagotchi_research_report_v1_0.md` (+ manifest)
 - `research/decision_records/0017-recalibration-engine-game-duality.md`
-- `research/reports/` (the consolidated-report convention, v0.9 the last)
-- `docs/agent-standards.md` (V2's charter)
-- CLAUDE.md (V3's documented hazard)
+- `docs/agent-standards.md` (refreshed to this state, cycle 07 V2)
