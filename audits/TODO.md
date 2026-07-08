@@ -1,71 +1,56 @@
-# Development TODO — Cycle 06: the seen thought, the tenth module, the finer model
+# Development TODO — Cycle 07: consolidation — the v1.0 milestone
 
-Source: the seeds cycle 05 recorded — E5's found gap (the invisible
-deliberation trace), DR 0027's authorized port, and E3's named
-follow-up. Cycle 05 is archived complete at `audits/complete/05/`
-(E1 packet-v2 gate promotion, E2 shared draw asset, E3 dataset
-consumers with two findings, E4 slip disposition, E5 the five-notices
-audit closing the Contribute step). Governing rule unchanged: deep
-integrations over breadth — the ENGINE+GAME duality (DR 0017);
-hard/unique features win over easy/generic ones, said aloud. A task is
-complete when developed to its description, then marked. Development
-proceeds continuously through this TODO's tasks; planning is triggered
-ONLY when the TODO is exhausted of its tasks and confirmed COMPLETE —
-then the next cycle is planned. (Decision records remain the design
-documentation for tasks that need them; they do not pause the queue.)
+Source: the repo's own conventions now that the build tracks have
+converged. Cycle 06 is archived complete at `audits/complete/06/`
+(F1 the seen thought — five notices of five live; F2 the slip module —
+every og module target realized; F3 the real-mutation fine-tune —
+adopted on a full-gate win). The last consolidated report is v0.9;
+cycles 02–06 shipped the entire ENGINE+GAME duality since. Governing
+rule unchanged: deep integrations over breadth (DR 0017); a task is
+complete when developed to its description, then marked; development
+proceeds continuously; planning triggers ONLY on exhaustion confirmed
+COMPLETE. (Decision records remain the design documentation for tasks
+that need them; they do not pause the queue.)
 
-- [x] **F1 · The seen thought — deliberation into episode history and
-  the scrubber.** (2026-07-07, RED-first: `choose_action_detailed`
-  returns (action, record|None) — reflexes/idle/random return None,
-  switchboard ticks return the R1 record; `advance_tick` appends it as
-  a RUNG-CONDITIONAL history key. Verbatim across the lab authority
-  and the package, identical histories pinned; contract driver probe;
-  every frozen pin byte-identical. Both scrubbers render "thought N
-  ticks"; end-to-end pin: a thinking-covenant replay carries bounded
-  thoughts, the v0.1 replay stays thought-free. DR 0021's notice 2 is
-  fully live — E5's four-of-five becomes FIVE OF FIVE: earn tiers →
-  spend into deliberation → the species thinks → the replay records →
-  the Keeper reads the thought.)
-- [x] **F2 · Port `mecha_engine.slip` (the tenth module).**
-  (2026-07-07: gate 1 first — the five-way reconciliation measured
-  ZERO divergences (118 profiles x 5 cases; 104 x 20 seeds), recorded
-  in `slip_authority_reconciliation_stage0.json` with the pair sweep
-  kept alive (590 + 2,080 cases, still zero). The public module landed
-  (`authority.py`, the fullest mirror verbatim), the five import sites
-  switched, the four `_slip.py` files DELETED (~60 KB of
-  quadruplication gone) with every module suite passing unmodified;
-  the parity pin rewritten as the permanent pair pin (exact
-  verdict-and-error-string equality over corpus + corruptions +
-  alignment); 8-test contract suite; the workshop server's
-  long-promised switch FULFILLED. Promotion gate: `slip_authority`
-  promotion_ready — NINE of ten candidates; every og module target now
-  realized (ten promoted, `render` dispositioned).)
-- [x] **F3 · Fine-tune the readability model on real mutations.**
-  (2026-07-07, ALL GATES GREEN — ADOPTED: real heldout (cross-parent,
-  parents 41–50 excluded from training) 0.98018 → 1.0; synthetic
-  heldout + all four families no regression; live physics A/B not
-  worse (identical elites at the seed). Follow-through shipped: the
-  adopted weights FROZEN as a committed auditable artifact with
-  provenance + regenerator named; the session's legibility trainer
-  loads it (original recipe stays the honest fallback), artifacts
-  regenerated, every suite green. Manual rating system unchanged as
-  the fallback.)
+- [ ] **V1 · Research report v1.0 + manifest — the ENGINE+GAME
+  milestone.** The consolidated-report convention
+  (`research/reports/research_report_v1_0.md` +
+  `research_report_v1_0_manifest.json` with `source_plan`,
+  `referenced_artifacts`, `headline_metrics`): consolidate cycles
+  02–06 — the ten promoted modules, the complete game loop (all five
+  DR 0021 notices live; Contribute/Covenant/Run/Collect/Review),
+  the storage spine, the replay window, the mortal-wound gradient, the
+  dataset program and its consumers, the adopted real-hardened
+  readability model, and the honest blocked/closed ledger (real-CuBFF
+  optional by owner decision; render's re-opener; the manual-ratings
+  gate). Consolidation must NOT replace the underlying lab reports.
+- [ ] **V2 · Refresh `docs/agent-standards.md`.** Its own charter is to
+  orient a fresh session with a state snapshot — six cycles stale.
+  Rewrite the snapshot to the current truth (ten modules, the Keeper
+  session surfaces, the adopted model, the standing owner decisions),
+  keeping its honesty norms and re-verification instructions intact.
+- [ ] **V3 · Untrack the `__pycache__` hazard.** The pre-existing
+  hazard CLAUDE.md documents: bytecode directories are TRACKED in git
+  (the ignore rule stops new ones but does not untrack). `git rm
+  --cached` every tracked `__pycache__` path, verify the sweep stays
+  green and `git status` stays clean under the `-B` discipline, and
+  update the hazard's documentation to say it is CLOSED.
 
 ## Standing note
 
 The identity constraint and DR 0017 govern: the engine is the
 application, the game is its showcase. The rating system is the
 fallback; `.depreciated/` is the owner's archive (ignore unless
-linked). Real-CuBFF ingest stays closed by owner decision (cycle 04) —
-synthetic weather is the shipped answer, the real-export seam optional.
-After F2 the og module-target list is fully realized: ten promoted,
-`render` dispositioned (DR 0026).
+linked). Owner-decision items are NOT tasks: the `[project]`
+dependencies policy stays deliberately blocked; the repo-wide license
+grant stays the owner's pending decision; real-CuBFF ingest stays the
+optional drop-in seam (cycle 04). `render` stays dispositioned with
+its named re-opener (DR 0026).
 
 ## Sources
 
-- `audits/complete/05/TODO.md` (cycle 05, complete)
+- `audits/complete/06/TODO.md` (cycle 06, complete)
 - `research/decision_records/0017-recalibration-engine-game-duality.md`
-- `research/experiment_reports/2026-07-07-five-notices-audit.md` (F1's seed)
-- `research/decision_records/0027-slip-module-disposition.md` (F2's gates)
-- `research/experiment_reports/2026-07-07-dataset-consumers.md` (F3's seed)
-- `research/decision_records/0019-learned-readability.md` (F3's model)
+- `research/reports/` (the consolidated-report convention, v0.9 the last)
+- `docs/agent-standards.md` (V2's charter)
+- CLAUDE.md (V3's documented hazard)
