@@ -799,6 +799,11 @@ Post-v0.1 continuation has started:
 - `data/grid_genome/invariant_scaling_16x16_stage0.json` + `data/grid_genome/pilot_16x16/`
 - `research/decision_records/0029-16x16-default-grid-scale.md` (cycle 09 A1 · ENGINE · Phase A: the invariants re-derived EMPIRICALLY at the documented primary scale — 16×16 ratified as the proven default (DR 0014's required size-adoption record); body-core floor 18 via the size law `max(4, 18·w·h//256)` reproducing both ratified scales (8×8 stays 4, pins untouched); candidates {4,8,24} refuted by the canvas-share band, 18 preferred over 16 because it exceeds the p95=17 accidental noise blob; 8-neighbor topology reaffirmed as load-bearing (26% of seed cores diagonal-dependent); chance-pass rejection 0.625% → 0/4,000 at scale; ten pilot exemplars across the DR 0015 vocabulary (core 18–60, symmetry 0.128–1.0, occupancy ≤0.4375, lab+package clean) seed A2's corpus; engine adoption deliberately deferred to A3 RED-first — blocked states honest in the artifact)
 
+- `research/experiment_reports/2026-07-08-16x16-seed-corpus.md`
+- `labs/grid_genome/corpus_builder.py` (`BLUEPRINTS_16`) + `labs/grid_genome/grid_helpers.py` (`grid_from_rich_matrix`)
+- `data/seed_grids_16x16/` (50) + `data/invalid_grids_16x16/` (200)
+- `workshop/grid_editor/grid_editor.html` + `workshop/server/workshop_server.py` (cycle 09 A2 · ENGINE · Phase A: the documented corpus deliverable at the primary scale — 50 hand-authored 16×16 creatures (pilots 001–010 + forty new across all five palettes; core span 18–85, profile-view asymmetrics alongside bilaterals, limbless alongside limbed; every seed sensor-paired, single-anchored, over the ratified 18 floor, validator-clean), 200 counterexamples all rejected, and the workshop's size-parametric canvas (8×8/16×16 buttons, matrix gate on exactly the ratified sizes, symmetry mirrored on the grid's own width); the rich-token alphabet collapsed to one source in grid_helpers (L-04 discipline). Honest blocked states: SLIP mass bounds, the engine's 4-cell floor constant, and the mass/16 stress probe stay 8×8-denominated until A3/A4 — named in the report, mirrored not hidden)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

@@ -28,6 +28,36 @@ PALETTES = {
     "pocket_plum": ["#160e1f", "#7e5aa6", "#f2dcff"],
 }
 
+# Rich authoring alphabet (DR 0015 vocabulary): token ->
+# (role, material, organ_id, palette_index). "A" is a body cell carrying
+# the animation anchor flag (so the symmetry metric sees mirrored body
+# roles). Shared by the 16x16 pilot exemplars (invariant_scaling) and the
+# 16x16 seed corpus (corpus_builder) — one source, per finding L-04.
+RICH_TOKENS = {
+    "B": ("body", "hard", "core", 1),
+    "A": ("body", "hard", "core", 1),
+    "S": ("shell", "hard", "carapace", 1),
+    "J": ("joint", "joint", "joints", 1),
+    "L": ("limb", "hard", "limbs", 1),
+    "E": ("eye", "glass", "sensors", 2),
+    "M": ("mouth", "soft", "expression", 2),
+    "N": ("antenna", "signal", "antennae", 2),
+    "P": ("sensor", "signal", "antennae", 2),
+    "D": ("decoration", "light", "trim", 2),
+    "F": ("effect", "signal", "aura", 2),
+}
+RICH_ORGAN_ROLES = {
+    "core": ("body_core", True),
+    "carapace": ("body_core", False),
+    "sensors": ("sensor", True),
+    "antennae": ("sensor", False),
+    "expression": ("expression", False),
+    "joints": ("locomotion", False),
+    "limbs": ("locomotion", False),
+    "trim": ("ornament", False),
+    "aura": ("effect", False),
+}
+
 
 def _cell(
     x: int,
@@ -161,6 +191,87 @@ def grid_from_matrix(
             "mutation_events": list(mutation_events or []),
         },
         "metadata": metadata,
+    }
+
+
+def grid_from_rich_matrix(
+    grid_id: str,
+    rows: list[str],
+    palette_id: str,
+    *,
+    size: int,
+    source: str,
+    mutation_events: list[str] | None = None,
+) -> dict:
+    """Build a grid from a rich-token blueprint (strict authoring path).
+
+    Rejects unknown tokens, wrong dimensions, and any anchor count other
+    than exactly one — hand-authored blueprints fail loudly.
+    """
+    if len(rows) != size or any(len(row) != size for row in rows):
+        raise ValueError(f"{grid_id} must be a {size}x{size} blueprint")
+    palette = PALETTES[palette_id]
+    cells: list[dict] = []
+    organ_cells: dict[str, list[list[int]]] = {}
+    anchors = 0
+    for y, row in enumerate(rows):
+        for x, token in enumerate(row):
+            if token == ".":
+                continue
+            if token not in RICH_TOKENS:
+                raise ValueError(f"{grid_id} has unsupported token {token!r}")
+            role, material, organ, visual_index = RICH_TOKENS[token]
+            if token == "A":
+                anchors += 1
+            cells.append(
+                {
+                    "x": x,
+                    "y": y,
+                    "visual": palette[visual_index],
+                    "role": role,
+                    "material": material,
+                    "mutation_weight": 0.1,
+                    "animation_anchor": token == "A",
+                    "organ": organ,
+                    "stress": 0,
+                    "damage": 0,
+                    "locked": False,
+                }
+            )
+            organ_cells.setdefault(organ, []).append([x, y])
+    if anchors != 1:
+        raise ValueError(f"{grid_id} must carry exactly one anchor, has {anchors}")
+    return {
+        "grid_id": grid_id,
+        "schema_version": "0.1.0",
+        "parent_grid_id": None,
+        "grid_size": [size, size],
+        "cells": cells,
+        "organs": {
+            organ: {
+                "role": RICH_ORGAN_ROLES[organ][0],
+                "cells": organ_cells[organ],
+                "required": RICH_ORGAN_ROLES[organ][1],
+            }
+            for organ in organ_cells
+        },
+        "palette": {
+            "palette_id": palette_id,
+            "colors": list(palette),
+            "background_index": 0,
+        },
+        "mutation": {
+            "cell_mutation_rate": 0.05,
+            "organ_shift_rate": 0.02,
+            "palette_shift_rate": 0.01,
+            "symmetry_break_rate": 0.01,
+        },
+        "lineage": {
+            "generation": 0,
+            "ancestor_ids": [],
+            "mutation_events": list(mutation_events or []),
+        },
+        "metadata": {"source": source},
     }
 
 

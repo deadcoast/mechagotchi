@@ -188,7 +188,9 @@ DEFAULT_METRICS_DIR = ROOT / "data" / "workshop" / "metrics"
 DEFAULT_SESSION_DIR = ROOT / "data" / "game_loop" / "keeper"
 SLIP_VALID_DIR = ROOT / "data" / "slips" / "valid"
 TOKENS = {".", "B", "A", "E", "M"}
-GRID_SIZE = 8
+# DR 0029 (cycle 09 A2): the canvas is size-parametric across the two
+# ratified scales — 8x8 (Stage 0) and 16x16 (the proven default target).
+ALLOWED_GRID_SIZES = (8, 16)
 
 
 def _load_profiles() -> dict[str, dict]:
@@ -203,13 +205,14 @@ def _load_profiles() -> dict[str, dict]:
 def _check_matrix(matrix: object) -> str | None:
     if (
         not isinstance(matrix, list)
-        or len(matrix) != GRID_SIZE
+        or len(matrix) not in ALLOWED_GRID_SIZES
         or any(
-            not isinstance(row, list) or len(row) != GRID_SIZE
+            not isinstance(row, list) or len(row) != len(matrix)
             for row in matrix
         )
     ):
-        return f"matrix must be {GRID_SIZE}x{GRID_SIZE}"
+        allowed = " or ".join(f"{size}x{size}" for size in ALLOWED_GRID_SIZES)
+        return f"matrix must be {allowed}"
     bad = sorted(
         {token for row in matrix for token in row if token not in TOKENS}
     )
@@ -226,11 +229,18 @@ def _morphology_stats(grid: dict) -> dict:
     load = clamp(body_mass/16 + (1 - symmetry) * 0.65 - sensors * 0.08).
     ``collapse_risk`` marks the lifecycle's documented bistability
     boundary (stress >= 0.95 collapses around tick 12-14).
+
+    Engine truth caveat: the /16 mass constant is the engine's own
+    8x8-calibrated probe, so 16x16 bodies saturate the load — exactly
+    what the engine currently computes. Its renormalization is cycle-09
+    A3/A4 (DR 0029); this mirror follows the engine, never leads it.
     """
     cells = grid.get("cells", [])
     body_mass = sum(1 for cell in cells if cell.get("organ") == "core")
     sensors = grid.get("organs", {}).get("sensors", {}).get("cells", [])
     sensor_count = len(sensors) if isinstance(sensors, list) else 0
+    grid_size = grid.get("grid_size", [8, 8])
+    width = grid_size[0] if isinstance(grid_size, list) and grid_size else 8
     occupied = {
         (cell["x"], cell["y"], cell.get("role")) for cell in cells
     }
@@ -238,7 +248,7 @@ def _morphology_stats(grid: dict) -> dict:
         sum(
             1
             for x, y, role in occupied
-            if (GRID_SIZE - 1 - x, y, role) in occupied
+            if (width - 1 - x, y, role) in occupied
         )
         / len(occupied)
         if occupied

@@ -29,6 +29,30 @@ VALID_MATRIX = [
 BROKEN_MATRIX = [row[:] for row in VALID_MATRIX]
 BROKEN_MATRIX[2][2] = "."  # no anchor anywhere
 
+# The 16x16 canvas (cycle 09 A2, DR 0029): a valid creature at the
+# ratified default scale, in the editor's basic token alphabet.
+VALID_MATRIX_16 = [
+    list(row)
+    for row in [
+        "................",
+        "................",
+        "......EBBE......",
+        ".....BBBBBB.....",
+        ".....BBABBB.....",
+        ".....BBBBBB.....",
+        "......BMMB......",
+        "......BBBB......",
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+    ]
+]
+
 
 def _post(url: str, payload: dict) -> tuple[int, dict]:
     request = urllib.request.Request(
@@ -553,6 +577,45 @@ class WorkshopServerTests(unittest.TestCase):
         )
         self.assertEqual(400, status)
         self.assertFalse(payload["ok"])
+
+    def test_validate_accepts_the_16x16_canvas(self):
+        # DR 0029: 16x16 is the ratified default scale; the canvas is
+        # size-parametric across both ratified sizes.
+        status, payload = _post(
+            f"{self.base}/api/validate",
+            {"matrix": VALID_MATRIX_16, "palette_id": "crt_blue"},
+        )
+        self.assertEqual(200, status)
+        self.assertTrue(payload["valid"], payload.get("errors"))
+        self.assertEqual(2, payload["stats"]["sensor_count"])
+        self.assertGreaterEqual(payload["stats"]["body_mass"], 18)
+
+    def test_unratified_matrix_sizes_are_rejected(self):
+        matrix_12 = [["."] * 12 for _ in range(12)]
+        matrix_12[0][0] = "A"
+        status, payload = _post(
+            f"{self.base}/api/validate",
+            {"matrix": matrix_12, "palette_id": "lcd_green"},
+        )
+        self.assertEqual(400, status)
+        self.assertFalse(payload["ok"])
+        self.assertEqual("matrix must be 8x8 or 16x16", payload["error"])
+
+    def test_save_and_reload_a_16x16_grid(self):
+        status, payload = _post(
+            f"{self.base}/api/save",
+            {
+                "name": "Sixteen Probe",
+                "matrix": VALID_MATRIX_16,
+                "palette_id": "crt_blue",
+            },
+        )
+        self.assertEqual(200, status)
+        self.assertTrue(payload["ok"], payload)
+        status, loaded = _get(f"{self.base}/api/grids/sixteen_probe")
+        self.assertEqual(200, status)
+        self.assertEqual(VALID_MATRIX_16, loaded["matrix"])
+        self.assertEqual(16, len(loaded["matrix"]))
 
 
 if __name__ == "__main__":

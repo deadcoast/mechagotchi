@@ -48,7 +48,7 @@ from copy import deepcopy
 from pathlib import Path
 
 from corpus_builder import build_seed_grids
-from grid_helpers import PALETTES
+from grid_helpers import RICH_ORGAN_ROLES, RICH_TOKENS, grid_from_rich_matrix
 from validator import validate_grid
 
 
@@ -68,34 +68,11 @@ CHANCE_TRIALS = 4000
 NOISE_TRIALS = 1000
 CHANCE_K_VALUES = [4, 8, 16, 18]
 
-# token -> (role, material, organ_id, palette_index); "A" is a body cell
-# carrying the animation anchor flag (grid_helpers convention, so the
-# symmetry metric sees mirrored body roles, unlike the vocab lab's
-# dedicated anchor role).
-PILOT_TOKENS = {
-    "B": ("body", "hard", "core", 1),
-    "A": ("body", "hard", "core", 1),
-    "S": ("shell", "hard", "carapace", 1),
-    "J": ("joint", "joint", "joints", 1),
-    "L": ("limb", "hard", "limbs", 1),
-    "E": ("eye", "glass", "sensors", 2),
-    "M": ("mouth", "soft", "expression", 2),
-    "N": ("antenna", "signal", "antennae", 2),
-    "P": ("sensor", "signal", "antennae", 2),
-    "D": ("decoration", "light", "trim", 2),
-    "F": ("effect", "signal", "aura", 2),
-}
-PILOT_ORGAN_ROLES = {
-    "core": ("body_core", True),
-    "carapace": ("body_core", False),
-    "sensors": ("sensor", True),
-    "antennae": ("sensor", False),
-    "expression": ("expression", False),
-    "joints": ("locomotion", False),
-    "limbs": ("locomotion", False),
-    "trim": ("ornament", False),
-    "aura": ("effect", False),
-}
+# The rich authoring alphabet lives in grid_helpers (RICH_TOKENS /
+# RICH_ORGAN_ROLES) — shared with corpus_builder's 16x16 corpus so the
+# vocabulary has one source (finding L-04). Aliased here for the pilots.
+PILOT_TOKENS = RICH_TOKENS
+PILOT_ORGAN_ROLES = RICH_ORGAN_ROLES
 
 PILOT_BLUEPRINTS = [
     # Domed beetle: shell carapace, six jointed legs, sensor pods on
@@ -626,71 +603,14 @@ def write_invariant_scaling_artifacts(
 
 
 def _grid_from_pilot_blueprint(grid_id: str, palette_id: str, rows: list[str]) -> dict:
-    if len(rows) != 16 or any(len(row) != 16 for row in rows):
-        raise ValueError(f"{grid_id} must be a 16x16 blueprint")
-    palette = PALETTES[palette_id]
-    cells: list[dict] = []
-    organ_cells: dict[str, list[list[int]]] = {}
-    anchors = 0
-    for y, row in enumerate(rows):
-        for x, token in enumerate(row):
-            if token == ".":
-                continue
-            if token not in PILOT_TOKENS:
-                raise ValueError(f"{grid_id} has unsupported token {token!r}")
-            role, material, organ, visual_index = PILOT_TOKENS[token]
-            if token == "A":
-                anchors += 1
-            cells.append(
-                {
-                    "x": x,
-                    "y": y,
-                    "visual": palette[visual_index],
-                    "role": role,
-                    "material": material,
-                    "mutation_weight": 0.1,
-                    "animation_anchor": token == "A",
-                    "organ": organ,
-                    "stress": 0,
-                    "damage": 0,
-                    "locked": False,
-                }
-            )
-            organ_cells.setdefault(organ, []).append([x, y])
-    if anchors != 1:
-        raise ValueError(f"{grid_id} must carry exactly one anchor, has {anchors}")
-    return {
-        "grid_id": grid_id,
-        "schema_version": "0.1.0",
-        "parent_grid_id": None,
-        "grid_size": [16, 16],
-        "cells": cells,
-        "organs": {
-            organ: {
-                "role": PILOT_ORGAN_ROLES[organ][0],
-                "cells": organ_cells[organ],
-                "required": PILOT_ORGAN_ROLES[organ][1],
-            }
-            for organ in organ_cells
-        },
-        "palette": {
-            "palette_id": palette_id,
-            "colors": list(palette),
-            "background_index": 0,
-        },
-        "mutation": {
-            "cell_mutation_rate": 0.05,
-            "organ_shift_rate": 0.02,
-            "palette_shift_rate": 0.01,
-            "symmetry_break_rate": 0.01,
-        },
-        "lineage": {
-            "generation": 0,
-            "ancestor_ids": [],
-            "mutation_events": ["pilot16_hand_authored"],
-        },
-        "metadata": {"source": "invariant_scaling_pilot16"},
-    }
+    return grid_from_rich_matrix(
+        grid_id,
+        rows,
+        palette_id,
+        size=16,
+        source="invariant_scaling_pilot16",
+        mutation_events=["pilot16_hand_authored"],
+    )
 
 
 def _core_mass(grid: dict) -> int:

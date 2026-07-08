@@ -58,6 +58,11 @@
   }
 
   .tools { display: flex; gap: 8px; flex-wrap: wrap; }
+  .size-btn {
+    padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px;
+    background: var(--panel); color: var(--ink); cursor: pointer;
+    font: inherit; font-size: 0.75rem;
+  }
   .tool {
     display: flex; align-items: center; gap: 8px; padding: 7px 12px;
     border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
@@ -137,6 +142,10 @@
         <canvas id="grid" width="512" height="512"></canvas>
         <div class="palettes" id="palettes"></div>
         <div class="tag" id="device-tag">8×8 · draw with the tools, keys 1–5</div>
+        <div class="sizes" id="sizes" style="display:flex;gap:6px;margin-top:6px;">
+          <button type="button" class="size-btn" data-size="8">8×8</button>
+          <button type="button" class="size-btn" data-size="16">16×16</button>
+        </div>
       </div>
       <div class="panel" style="margin-top:14px;">
         <div class="tools" id="tools"></div>
@@ -208,7 +217,10 @@
 </div>
 
 <script>
-const SIZE = 8;
+// The canvas is size-parametric across the two ratified scales (DR 0029):
+// 8×8 (Stage 0) and 16×16 (the proven default target).
+const ALLOWED_SIZES = [8, 16];
+let SIZE = 8;
 const TOOLS = [
   { token: "B", label: "Body",   key: "1", hint: "core cells — the creature's mass" },
   { token: "A", label: "Anchor", key: "2", hint: "the animation anchor (one per creature; placing it moves it)" },
@@ -315,6 +327,45 @@ function paintAt(event) {
 canvas.addEventListener("pointerdown", (e) => { painting = true; canvas.setPointerCapture(e.pointerId); paintAt(e); });
 canvas.addEventListener("pointermove", (e) => { if (painting) paintAt(e); });
 canvas.addEventListener("pointerup", () => { painting = false; });
+
+/* ---------------- canvas size ---------------- */
+function refreshSizeUi() {
+  $("device-tag").textContent = `${SIZE}×${SIZE} · draw with the tools, keys 1–5`;
+  for (const btn of document.querySelectorAll(".size-btn")) {
+    const active = Number(btn.dataset.size) === SIZE;
+    btn.style.opacity = active ? "1" : "0.55";
+    btn.style.fontWeight = active ? "600" : "400";
+  }
+}
+
+function adoptMatrix(next) {
+  // Loads and imports carry their own scale; the canvas follows the grid.
+  matrix = next;
+  SIZE = matrix.length;
+  for (const key of Object.keys(cellOverrides)) {
+    const [ox, oy] = key.split(",").map(Number);
+    if (ox >= SIZE || oy >= SIZE) delete cellOverrides[key];
+  }
+  refreshSizeUi();
+}
+
+function setCanvasSize(next) {
+  if (!ALLOWED_SIZES.includes(next) || next === SIZE) return;
+  // Resizing preserves the drawing's overlapping region (top-left).
+  const resized = Array.from({ length: next }, (_, y) =>
+    Array.from({ length: next }, (_, x) =>
+      y < SIZE && x < SIZE ? matrix[y][x] : "."
+    )
+  );
+  hideTraitPanel();
+  adoptMatrix(resized);
+  draw(); scheduleValidate();
+}
+
+for (const btn of document.querySelectorAll(".size-btn")) {
+  btn.addEventListener("click", () => setCanvasSize(Number(btn.dataset.size)));
+}
+refreshSizeUi();
 
 /* ---------------- tools ---------------- */
 function renderTools() {
@@ -600,7 +651,7 @@ $("load-select").addEventListener("change", async () => {
   if (grid.ok) {
     cellOverrides = {};
     hideTraitPanel();
-    matrix = grid.matrix;
+    adoptMatrix(grid.matrix);
     paletteId = grid.palette_id || paletteId;
     $("grid-name").value = name;
     renderPalettes(); renderTools(); draw(); scheduleValidate();
@@ -738,7 +789,7 @@ function applyImport(result, label) {
     notice.className = "notice err";
     return;
   }
-  matrix = result.matrix;
+  adoptMatrix(result.matrix);
   if (result.palette_id && palettes[result.palette_id]) paletteId = result.palette_id;
   $("grid-name").value = (result.grid_id || "").replace(/^workshop_/, "");
   renderPalettes(); renderTools(); draw(); scheduleValidate();
@@ -764,7 +815,7 @@ $("import-file").addEventListener("change", async () => {
     notice.className = "notice err";
     return;
   }
-  matrix = result.matrix;
+  adoptMatrix(result.matrix);
   if (result.palette_id && palettes[result.palette_id]) paletteId = result.palette_id;
   $("grid-name").value = (result.grid_id || "").replace(/^workshop_/, "");
   renderPalettes(); renderTools(); draw(); scheduleValidate();

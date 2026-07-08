@@ -25,7 +25,7 @@ are unchanged.
   permits 8–64), and record the scaling decisions in a decision record.
   The 8×8 corpus remains valid input (SLIP grid ranges span sizes);
   16×16 becomes the default the engine is PROVEN at.
-- [ ] **A2 · The 16×16 seed corpus.** The documented deliverable is
+- [x] **A2 · The 16×16 seed corpus.** The documented deliverable is
   hand-authored-quality seeds at the primary scale: extend
   `corpus_builder` to emit a 16×16 corpus (≥50 creatures across the
   five palettes with real morphological variety — multi-organ bodies,

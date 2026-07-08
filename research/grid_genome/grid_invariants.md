@@ -61,9 +61,15 @@ The first validator report should measure:
 - `100 generated test grids`
 - `200 invalid counterexample grids`
 
-These corpora exist at 8×8 (see the Stage 0 baseline below). The 16×16
-equivalents are cycle-09 task A2; the ten pilot exemplars in
-`data/grid_genome/pilot_16x16/` are their measured precursor.
+These corpora exist at 8×8 (see the Stage 0 baseline below) and, since
+cycle-09 task A2, at the ratified 16×16 default: 50 hand-authored seeds
+in `data/seed_grids_16x16/` (grown from the pilot exemplars in
+`data/grid_genome/pilot_16x16/`) and 200 counterexamples in
+`data/invalid_grids_16x16/`, gated by
+`labs/grid_genome/test_corpus_builder.py` (`Corpus16Tests`: core floor
+18, sensor pair, one anchor, palette spread, DR 0015 vocabulary,
+distinct silhouettes). The 100-grid *generated* corpus at 16×16 arrives
+with A3's generator work.
 
 ## Stage 0 Baseline Result
 
