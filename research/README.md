@@ -821,6 +821,10 @@ Post-v0.1 continuation has started:
 - `research/decision_records/0030-slip-size-relative-mass-bounds.md`
 - `labs/grid_genome/slip.py` + `packages/mecha_engine/src/mecha_engine/slip/authority.py` (cycle 09 A3 · ENGINE · Phase A — **A3 closes**: SLIP mass bounds ratified as 8×8-reference-denominated, scaling by area (`bound·w·h//64`) in the two alignment surfaces identically — an exact identity at 8×8 so the F2 pair pin's 2,080 cases pass unmodified; the zoo's 4..24 reads 16..96 at 16×16 and the corpus aligns (RED: ten lcd creatures rejected before; parity gained a non-vacuous 16×16 sweep); the error message reports the EFFECTIVE bounds; no schema or fixture change; the A2 workshop export limitation closes for aligned creatures; the dossier's grid_size priors named as a future Phase-B ladder item. A3 complete across its five surfaces: validator floor, size-parametric generation, retrained/re-gated repair, lifecycle via the renormalized probe, and size-relative SLIP — every standing gate green at 16×16, no 8×8 pin moved)
 
+- `labs/map_elites_archive/test_descriptor_scale16.py`
+- `packages/mecha_engine/src/mecha_engine/archive/descriptors.py` + `store.py`
+- `labs/grid_genome/darwin_archive.py` + `labs/map_elites_archive/extended_descriptors.py` (cycle 09 A4 first increment · ENGINE · Phase A: the body-mass descriptor bin edges re-derived for the 16×16 trait ranges by the DR 0029/0030 reference-canvas pattern — `edge·w·h//64`, identity at 8×8 ([6,9,12,16] unchanged, every historical descriptor byte-identical), [24,36,48,64] at 16×16 where the corpus previously collapsed into the top bin; the axis now spreads ≥4 of 5 bins over the corpus (RED: 52 failures before). Applied at all three binning sites in agreement — package descriptors/store, darwin baseline lab, extended-descriptors lab; sensor/symmetry/readability/survival/stability/neediness edges unchanged (dimensionless or discrete, measured to spread already). Consolidated A4 experiment report lands with the A4 gate)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

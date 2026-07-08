@@ -57,6 +57,40 @@ BIN_THRESHOLDS: dict[str, list[float]] = {
 FINAL_DESCRIPTOR_THRESHOLDS_LOCKED = False
 READABILITY_CALIBRATION_STATUS = "proxy_only_manual_ratings_not_collected"
 
+# DR 0029/0030 pattern (cycle 09 A4): the body-mass bin edges are cell
+# counts denominated at the 8x8 reference canvas and scale by area —
+# an exact identity at 8x8, [24, 36, 48, 64] at the ratified 16x16 —
+# so the mass axis keeps discriminating instead of collapsing into the
+# top bin at scale. Every other axis is dimensionless or discrete and
+# keeps its calibrated edges.
+MASS_REFERENCE_AREA = 64
+
+
+def grid_area_of(grid: dict) -> int:
+    """The candidate's canvas area; malformed sizes read as the reference."""
+    grid_size = grid.get("grid_size")
+    if (
+        isinstance(grid_size, list)
+        and len(grid_size) == 2
+        and all(
+            isinstance(dimension, int)
+            and not isinstance(dimension, bool)
+            and dimension > 0
+            for dimension in grid_size
+        )
+    ):
+        return grid_size[0] * grid_size[1]
+    return MASS_REFERENCE_AREA
+
+
+def mass_bin_thresholds(grid_area: int = MASS_REFERENCE_AREA) -> list[float]:
+    if grid_area == MASS_REFERENCE_AREA:
+        return BIN_THRESHOLDS["body_mass"]
+    return [
+        edge * grid_area // MASS_REFERENCE_AREA
+        for edge in BIN_THRESHOLDS["body_mass"]
+    ]
+
 _MODES: dict[str, list[str]] = {
     BASELINE_MODE: BASELINE_DESCRIPTOR_NAMES,
     EXTENDED_MODE: EXTENDED_DESCRIPTOR_NAMES,
@@ -96,8 +130,8 @@ def descriptor_for_candidate(
     """
     if mode not in _MODES:
         raise ValueError(f"unsupported descriptor mode: {mode}")
+    grid = _metrics.require_candidate(candidate)
     if mode == BASELINE_MODE:
-        grid = _metrics.require_candidate(candidate)
         _metrics.require_metrics(metrics)
         values = {
             "body_mass": _metrics.body_mass(grid),
@@ -107,7 +141,7 @@ def descriptor_for_candidate(
     else:
         resolved = _metrics.resolve_candidate_metrics(candidate, metrics)
         values = descriptor_axis_values(resolved)
-    return descriptor_from_axis_values(values, mode)
+    return descriptor_from_axis_values(values, mode, grid_area=grid_area_of(grid))
 
 
 def descriptor_axis_values(resolved: dict) -> dict:
@@ -123,9 +157,17 @@ def descriptor_axis_values(resolved: dict) -> dict:
     }
 
 
-def descriptor_from_axis_values(values: dict, mode: str) -> tuple[int, ...]:
+def descriptor_from_axis_values(
+    values: dict, mode: str, *, grid_area: int = MASS_REFERENCE_AREA
+) -> tuple[int, ...]:
     return tuple(
-        _bin(values[name], BIN_THRESHOLDS[name]) for name in descriptor_names(mode)
+        _bin(
+            values[name],
+            mass_bin_thresholds(grid_area)
+            if name == "body_mass"
+            else BIN_THRESHOLDS[name],
+        )
+        for name in descriptor_names(mode)
     )
 
 

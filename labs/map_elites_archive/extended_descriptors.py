@@ -20,7 +20,11 @@ from constrained_generator import (
     build_constrained_corpus,
 )
 from corpus_builder import build_seed_grids
-from darwin_archive import build_map_elites_archive, descriptor_for_grid
+from darwin_archive import (
+    _mass_bin_thresholds as _darwin_mass_thresholds,
+    build_map_elites_archive,
+    descriptor_for_grid,
+)
 from lifecycle_sim import run_lifecycle_simulation
 from readability_benchmark import score_readability
 from slip import is_grid_aligned
@@ -64,7 +68,9 @@ def extended_descriptor_for_grid(
     neediness = _behavior_neediness(grid, slip_profile)
 
     values = (
-        _bin(_body_mass(grid), [6, 9, 12, 16]),
+        # DR 0029/0030 pattern (cycle 09 A4): the mass edges scale by the
+        # grid's own area from the 8x8 reference (darwin_archive mirror).
+        _bin(_body_mass(grid), _darwin_mass_thresholds(grid)),
         _bin(_sensor_count(grid), [1, 2, 3, 4]),
         _bin(_symmetry_score(grid), [0.25, 0.5, 0.75, 0.9]),
         _bin(readability["proxy_readability_score"], [0.35, 0.55, 0.7, 0.85]),

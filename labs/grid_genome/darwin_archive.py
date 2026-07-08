@@ -17,10 +17,31 @@ def descriptor_for_grid(grid: dict) -> tuple[int, int, int]:
     sensor_count = _sensor_count(grid)
     symmetry = _symmetry_score(grid)
     return (
-        _bin(body_mass, [6, 9, 12, 16]),
+        _bin(body_mass, _mass_bin_thresholds(grid)),
         _bin(sensor_count, [1, 2, 3, 4]),
         _bin(symmetry, [0.25, 0.5, 0.75, 0.9]),
     )
+
+
+def _mass_bin_thresholds(grid: dict) -> list[float]:
+    # DR 0029/0030 pattern (cycle 09 A4): mass edges are 8x8-reference
+    # cell counts scaling by area — identity at 8x8, [24, 36, 48, 64] at
+    # 16x16. Mirrors mecha_engine.archive.descriptors.mass_bin_thresholds.
+    grid_size = grid.get("grid_size")
+    if (
+        isinstance(grid_size, list)
+        and len(grid_size) == 2
+        and all(
+            isinstance(dimension, int)
+            and not isinstance(dimension, bool)
+            and dimension > 0
+            for dimension in grid_size
+        )
+    ):
+        area = grid_size[0] * grid_size[1]
+    else:
+        area = 64
+    return [edge * area // 64 for edge in [6, 9, 12, 16]]
 
 
 def score_grid(grid: dict, slip: dict | None = None) -> float:

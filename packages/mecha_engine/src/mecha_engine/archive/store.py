@@ -78,7 +78,9 @@ def build_archive(
             _record_skip(archive, grid_id, str(error))
             continue
         descriptor = descriptors.descriptor_from_axis_values(
-            descriptors.descriptor_axis_values(resolved), mode
+            descriptors.descriptor_axis_values(resolved),
+            mode,
+            grid_area=descriptors.grid_area_of(grid),
         )
         score = scoring.score_from_resolved(candidate, resolved)
         archive = insert_candidate(archive, candidate, score, descriptor)
