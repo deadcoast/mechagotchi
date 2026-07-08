@@ -847,6 +847,11 @@ Post-v0.1 continuation has started:
 - `research/experiment_reports/2026-07-08-phase-b-gate.md`
 - `data/generated_grids/wfc_16x16/` (50 candidates) (cycle 10 B4 · ENGINE · **Phase B GATE — GREEN**: the generation layer is no longer missing — the WFC lab (B1, with pure collapse's 2% self-refutation recorded), the real five-arm bake-off (B2, WFC wins at validity 1.0 / 6.3 ms, the documented hybrid REFUTED under the pre-registered rule), the engine adoption (B3, DR 0031, additive seam parity-pinned), and the regenerated 16×16 generated corpus. Honest remainders named: evolve's inner loop stays constrained pending its own evidence; the hybrid re-opener is an extended-descriptor bake-off; WFC candidates carry no parent lineage yet; readability remains the 8×8-calibrated proxy. Phase B checked off in `docs/gap-analysis.md`; cycle 10 archives to `audits/complete/10/`; cycle 11 opens Phase C — the animation system)
 
+- `research/experiment_reports/2026-07-08-clip-model.md`
+- `research/algorithm_cards/clip_model.md`
+- `labs/animation_system/clip_model.py` (+ `test_clip_model.py`)
+- `data/animation_system/clip_model_stage0.json` (cycle 11 C1 · ENGINE · Phase C: the animation system's first layer — CLIPS as bounded frame sequences over the promoted state projections, extending the proven visual-only-projection thesis into time. Frame = state track → all-or-nothing whole-body motion → per-role motion (antenna/sensor sway, effect flicker — the DR 0015 WATCH seam recorded per role; limb/joint/decoration named as the next increment, not improvised). Hard rules pinned: frames are valid render surfaces (in-bounds/palette-clean/no invented cells/no overlaps), the genome is never mutated, idle frame 0 is the identity, every clip moves; size-parametric (16×16 + 8×8). 950/950 corpus frames pass every gate; the intra-clip delta table (idle 0.032 → ill 0.768) is C2's transition baseline)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

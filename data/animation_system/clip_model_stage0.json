@@ -1,0 +1,51 @@
+{
+  "artifact_id": "clip_model_stage0",
+  "status": "complete",
+  "date": "2026-07-08",
+  "purpose": "Prove the clip model (cycle 11 C1): animation CLIPS as bounded frame sequences over the promoted state projections \u2014 state track + all-or-nothing whole-body motion + per-role motion (the DR 0015 WATCH seam) \u2014 every frame a deterministic visual-only projection, the genome never touched, measured over the full 16x16 corpus.",
+  "source_artifacts": [
+    "packages/mecha_engine/src/mecha_engine/genome/animation.py",
+    "labs/grid_genome/animation_states.py",
+    "data/seed_grids_16x16",
+    "research/decision_records/0015-dormant-vocabulary-coverage.md",
+    "research/decision_records/0024-grid-schema-animation-species-resolution.md"
+  ],
+  "metrics": {
+    "corpus_size": 50,
+    "clips": {
+      "beg": 4,
+      "blink": 3,
+      "idle": 4,
+      "ill": 4,
+      "sleep": 4
+    },
+    "frames_rendered": 950,
+    "frames_in_bounds_rate": 1.0,
+    "frames_palette_clean_rate": 1.0,
+    "genome_untouched_rate": 1.0,
+    "intra_clip_delta": {
+      "mean_fraction": 0.30468,
+      "max_fraction": 0.966667,
+      "per_clip_mean": {
+        "beg": 0.271854,
+        "blink": 0.044757,
+        "idle": 0.032345,
+        "ill": 0.767678,
+        "sleep": 0.320127
+      }
+    }
+  },
+  "closed_states": [
+    "clip_model_exists_over_the_promoted_projections",
+    "frames_are_visual_only_and_deterministic",
+    "per_role_motion_recorded_for_antenna_sensor_effect"
+  ],
+  "blocked_states": [
+    "transition_graph_not_built (C2: the >=80% dossier bar)",
+    "animstate_300_not_regenerated_as_clip_frames (C3)",
+    "packet_clip_contract_not_wired (C4: the DR 0013 additive rung)",
+    "per_role_motion_for_limb_joint_decoration_unrecorded (a named future increment of the DR 0015 seam, not improvised here)"
+  ],
+  "decision": "The clip model holds over the full corpus: every frame in bounds, palette-clean, genome untouched, and every clip actually moves. The intra-clip delta table is C2's baseline.",
+  "next_research_step": "C2: the transition graph and the measured >=80% transition validity bar."
+}
