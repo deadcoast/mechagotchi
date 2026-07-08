@@ -164,6 +164,7 @@ def evolve(
     )
     admitted_founders: list[dict] = []
     rejected_founders: list[dict] = []
+    era_grid_size = seed_grids[0].get("grid_size") if seed_grids else None
     if founder_grids is not None:
         if not isinstance(founder_grids, list):
             raise ValueError("founder_grids must be a list of grid genomes")
@@ -173,6 +174,29 @@ def evolve(
             errors.extend(validation.errors)
             alignment = is_grid_aligned(founder, slip_profile)
             errors.extend(alignment.errors)
+            # A4 (DR 0029): eras are size-coherent — a founder whose
+            # canvas differs from the era's seed corpus is rejected
+            # through the gate (recorded verbatim), never bred against a
+            # mismatched generation model. 8x8-only flows are untouched
+            # (founders always matched their seeds before multi-scale).
+            founder_grid_size = founder.get("grid_size")
+            if not errors and founder_grid_size != era_grid_size:
+                founder_label = (
+                    f"{founder_grid_size[0]}x{founder_grid_size[1]}"
+                    if isinstance(founder_grid_size, list)
+                    and len(founder_grid_size) == 2
+                    else str(founder_grid_size)
+                )
+                era_label = (
+                    f"{era_grid_size[0]}x{era_grid_size[1]}"
+                    if isinstance(era_grid_size, list)
+                    and len(era_grid_size) == 2
+                    else str(era_grid_size)
+                )
+                errors.append(
+                    f"founder grid is {founder_label} but the era runs at "
+                    f"{era_label}"
+                )
             if errors:
                 rejected_founders.append(
                     {"grid_id": founder.get("grid_id"), "errors": errors}

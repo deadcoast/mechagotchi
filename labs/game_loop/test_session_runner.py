@@ -54,8 +54,8 @@ SESSION_KW = dict(
 def _fixture_era(
     *,
     era_index=2,
-    filled_niches=9,
-    qd_score=6.5,
+    filled_niches=30,
+    qd_score=20.0,
     max_lineage=2,
     storm=1.45,
     legibility=0.31,
@@ -189,9 +189,10 @@ class SessionRunnerTests(unittest.TestCase):
         by_axis = {}
         for fact in met:
             by_axis.setdefault(fact["axis"], []).append(fact["tier"])
-        self.assertEqual([1, 2], by_axis["niche_mastery"])  # 9 >= 4, 8
+        # A4 tiers: niche [16, 26, 36], qd [9.0, 18.0, 33.0].
+        self.assertEqual([1, 2], by_axis["niche_mastery"])  # 30 >= 16, 26
         self.assertEqual([1], by_axis["bloodline_depth"])  # 2 >= 2
-        self.assertEqual([1, 2], by_axis["quality_diversity"])  # 6.5
+        self.assertEqual([1, 2], by_axis["quality_diversity"])  # 20.0
         self.assertEqual([1, 2], by_axis["storm_record"])  # 1.45
         self.assertEqual([1], by_axis["legibility"])  # 0.31 >= 0.25
         unmet = evaluate_unlocks(
@@ -205,6 +206,36 @@ class SessionRunnerTests(unittest.TestCase):
             [],
         )
         self.assertEqual([], unmet)
+
+    def test_defaults_are_the_raised_16x16_configuration(self):
+        # A4 (DR 0029): fresh sessions run the ratified 16x16 corpus at
+        # the raised engine parameters (measured ~1.2s per era at 6x16).
+        from session_runner import DEFAULT_ENGINE_PARAMETERS, campaign_scale
+
+        self.assertEqual(6, DEFAULT_ENGINE_PARAMETERS["generations"])
+        self.assertEqual(16, DEFAULT_ENGINE_PARAMETERS["population"])
+        campaign = run_campaign(
+            campaign_id="a4_default_scale_probe",
+            weather_schedule=("calm",),
+            base_seed=BASE_SEED,
+            generations=1,
+            population=3,
+            damage_cycles=1,
+            ticks=8,
+            repair_epochs=5,
+        )
+        era = campaign["eras"][0]
+        for elite in era["elites"]:
+            self.assertEqual([16, 16], elite["grid"]["grid_size"])
+        self.assertEqual(16, campaign_scale(campaign))
+
+    def test_pre_a4_8x8_campaigns_keep_their_scale(self):
+        # An existing 8x8 bloodline must keep its 8x8 machinery: the
+        # campaign's own recorded bodies name the scale.
+        from session_runner import campaign_scale
+
+        campaign = self.session["campaigns"][0]
+        self.assertEqual(8, campaign_scale(campaign))
 
     def test_earned_unlocks_are_never_re_earned(self):
         first = evaluate_unlocks(_fixture_era(), [])

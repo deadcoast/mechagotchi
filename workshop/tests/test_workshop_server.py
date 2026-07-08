@@ -358,16 +358,32 @@ class KeeperSessionEndpointTests(unittest.TestCase):
 
         # 4b. The Contribute step (E5, DR 0021 core loop step 3): a
         #     RELEASED creature enters the next era as a founder through
-        #     the engine's own gates. Fixture: an lcd seed copy under a
-        #     released id (engine-valid, profile-aligned -> admitted).
+        #     the engine's own gates. Fixture: an lcd 16x16 seed copy
+        #     under a released id — sessions run the ratified 16x16
+        #     default since A4, and eras are size-coherent (a mismatched
+        #     scale is a recorded gate rejection, exercised below).
         released = json.loads(
-            (ROOT / "data" / "seed_grids" / "mg_seed_001.json").read_text(
-                encoding="utf-8"
-            )
+            (
+                ROOT
+                / "data"
+                / "seed_grids_16x16"
+                / "mg_seed16_001_beetle.json"
+            ).read_text(encoding="utf-8")
         )
         released["grid_id"] = "released_e5_contribute"
         (self.released_dir / "released_e5_contribute.json").write_text(
             json.dumps(released), encoding="utf-8"
+        )
+        # A wrong-scale release must be REJECTED through the gate, not
+        # crash the era (A4's size-coherence rule).
+        released_8 = json.loads(
+            (ROOT / "data" / "seed_grids" / "mg_seed_001.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        released_8["grid_id"] = "released_e5_wrong_scale"
+        (self.released_dir / "released_e5_wrong_scale.json").write_text(
+            json.dumps(released_8), encoding="utf-8"
         )
 
         # 5. Run one storm era: the turn is a real evolve run's digest,
@@ -387,6 +403,7 @@ class KeeperSessionEndpointTests(unittest.TestCase):
         )
         self.assertEqual("active", turn["status"])
         self.assertEqual(1, turn["era"]["founders_admitted"])
+        self.assertEqual(1, turn["era"]["founders_rejected"])
         self.assertEqual(
             "founders_plus_seed_pool",
             turn["era"]["parent_source_generation_0"],

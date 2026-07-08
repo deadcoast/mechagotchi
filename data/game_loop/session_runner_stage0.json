@@ -25,26 +25,29 @@
       {
         "era_index": 0,
         "replay": {
-          "artifact_name": "gen_621e8058fe54ef86_c02_seed20260707",
+          "artifact_name": "gen_2ab537e520ec2690_c02_seed20260707",
           "frame_count": 37,
           "tick_frame_count": 32
         },
         "forecast": "calm",
         "snapshot_ids": [],
-        "generations_ran": 3,
+        "generations_ran": 6,
         "went_extinct": false,
-        "total_removed_cells": 65,
+        "total_removed_cells": 1852,
         "max_dropout_multiplier_survived": null,
-        "elite_mean_learned_readability": 0.421246,
+        "elite_mean_learned_readability": 0.419619,
         "mean_learned_readability_by_generation": [
-          0.350494,
-          0.254444,
-          0.667174
+          0.628144,
+          0.490435,
+          0.526756,
+          0.701955,
+          0.654648,
+          0.600264
         ],
         "mortal_wounds": {
           "mortal_wounds": 0,
           "normal_deaths": 0,
-          "creature_count": 12,
+          "creature_count": 96,
           "mortal_wound_rate": 0.0,
           "cause": null
         },
@@ -52,15 +55,15 @@
         "founders_admitted": 0,
         "founders_rejected": 0,
         "parent_source_generation_0": "seed_pool",
-        "filled_niches": 9,
-        "qd_score": 8.323987,
+        "filled_niches": 33,
+        "qd_score": 30.757744,
         "max_lineage_generation": 2,
         "decision_status": "evolution_loop_composed"
       },
       {
         "era_index": 1,
         "replay": {
-          "artifact_name": "gen_7d3cc407f67d75c5_c02_seed21260707",
+          "artifact_name": "gen_8ae6e93851f70c1a_c02_seed21260707",
           "frame_count": 37,
           "tick_frame_count": 32
         },
@@ -68,38 +71,44 @@
         "snapshot_ids": [
           "weather_stable_000",
           "weather_stable_001",
-          "weather_stable_002"
+          "weather_stable_002",
+          "weather_stable_003",
+          "weather_stable_004",
+          "weather_stable_005"
         ],
-        "generations_ran": 3,
+        "generations_ran": 6,
         "went_extinct": false,
-        "total_removed_cells": 53,
+        "total_removed_cells": 1255,
         "max_dropout_multiplier_survived": 0.899848,
-        "elite_mean_learned_readability": 0.200442,
+        "elite_mean_learned_readability": 0.199851,
         "mean_learned_readability_by_generation": [
-          0.67121,
-          0.003387,
-          0.246724
+          0.33106,
+          0.404844,
+          0.239099,
+          0.142688,
+          0.15453,
+          0.246205
         ],
         "mortal_wounds": {
           "mortal_wounds": 0,
           "normal_deaths": 0,
-          "creature_count": 12,
+          "creature_count": 96,
           "mortal_wound_rate": 0.0,
           "cause": null
         },
-        "founders_submitted": 9,
-        "founders_admitted": 9,
+        "founders_submitted": 33,
+        "founders_admitted": 33,
         "founders_rejected": 0,
         "parent_source_generation_0": "founders_plus_seed_pool",
-        "filled_niches": 9,
-        "qd_score": 8.210881,
+        "filled_niches": 25,
+        "qd_score": 23.211698,
         "max_lineage_generation": 2,
         "decision_status": "evolution_loop_composed"
       },
       {
         "era_index": 2,
         "replay": {
-          "artifact_name": "gen_810d1e91cd611dc2_c02_seed22260707",
+          "artifact_name": "gen_e90bba3e3fe72970_c02_seed22260707",
           "frame_count": 37,
           "tick_frame_count": 32
         },
@@ -107,31 +116,37 @@
         "snapshot_ids": [
           "weather_storm_000",
           "weather_storm_001",
-          "weather_storm_002"
+          "weather_storm_002",
+          "weather_storm_003",
+          "weather_storm_004",
+          "weather_storm_005"
         ],
-        "generations_ran": 3,
+        "generations_ran": 6,
         "went_extinct": false,
-        "total_removed_cells": 62,
+        "total_removed_cells": 1461,
         "max_dropout_multiplier_survived": 1.170205,
-        "elite_mean_learned_readability": 0.073362,
+        "elite_mean_learned_readability": 0.197346,
         "mean_learned_readability_by_generation": [
-          0.021864,
-          0.008658,
-          0.070055
+          0.249268,
+          0.259731,
+          0.203539,
+          0.272002,
+          0.278352,
+          0.261062
         ],
         "mortal_wounds": {
           "mortal_wounds": 0,
           "normal_deaths": 0,
-          "creature_count": 12,
+          "creature_count": 96,
           "mortal_wound_rate": 0.0,
           "cause": null
         },
-        "founders_submitted": 9,
-        "founders_admitted": 9,
+        "founders_submitted": 25,
+        "founders_admitted": 25,
         "founders_rejected": 0,
         "parent_source_generation_0": "founders_plus_seed_pool",
-        "filled_niches": 5,
-        "qd_score": 4.566906,
+        "filled_niches": 28,
+        "qd_score": 25.966974,
         "max_lineage_generation": 2,
         "decision_status": "evolution_loop_composed"
       }
@@ -139,9 +154,9 @@
     "chained_era_count": 2,
     "founder_admission_all_or_nothing": true,
     "total_removed_cells_by_forecast": {
-      "calm": 65,
-      "stable_soup": 53,
-      "storm": 62
+      "calm": 1852,
+      "stable_soup": 1255,
+      "storm": 1461
     },
     "mortal_wound_toll": 0,
     "mortal_wounds_by_era": [
@@ -155,16 +170,16 @@
         "tier": 1,
         "earned_era_index": 0,
         "metric_path": "report.summary.archive.filled_niches",
-        "metric_value": 9,
-        "threshold": 4
+        "metric_value": 33,
+        "threshold": 16
       },
       {
         "axis": "niche_mastery",
         "tier": 2,
         "earned_era_index": 0,
         "metric_path": "report.summary.archive.filled_niches",
-        "metric_value": 9,
-        "threshold": 8
+        "metric_value": 33,
+        "threshold": 26
       },
       {
         "axis": "bloodline_depth",
@@ -179,23 +194,23 @@
         "tier": 1,
         "earned_era_index": 0,
         "metric_path": "report.summary.archive.qd_score",
-        "metric_value": 8.323987,
-        "threshold": 3.0
+        "metric_value": 30.757744,
+        "threshold": 9.0
       },
       {
         "axis": "quality_diversity",
         "tier": 2,
         "earned_era_index": 0,
         "metric_path": "report.summary.archive.qd_score",
-        "metric_value": 8.323987,
-        "threshold": 6.0
+        "metric_value": 30.757744,
+        "threshold": 18.0
       },
       {
         "axis": "legibility",
         "tier": 1,
         "earned_era_index": 0,
         "metric_path": "derived.elite_mean_learned_readability",
-        "metric_value": 0.421246,
+        "metric_value": 0.419619,
         "threshold": 0.25
       },
       {
@@ -203,7 +218,7 @@
         "tier": 2,
         "earned_era_index": 0,
         "metric_path": "derived.elite_mean_learned_readability",
-        "metric_value": 0.421246,
+        "metric_value": 0.419619,
         "threshold": 0.35
       },
       {
@@ -224,9 +239,9 @@
     "niche_mastery": {
       "metric_path": "report.summary.archive.filled_niches",
       "tiers": [
-        4,
-        8,
-        13
+        16,
+        26,
+        36
       ]
     },
     "bloodline_depth": {
@@ -240,9 +255,9 @@
     "quality_diversity": {
       "metric_path": "report.summary.archive.qd_score",
       "tiers": [
-        3.0,
-        6.0,
-        12.0
+        9.0,
+        18.0,
+        33.0
       ]
     },
     "storm_record": {

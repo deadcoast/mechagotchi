@@ -130,7 +130,11 @@ from ca_nca_growth_repair import (  # noqa: E402
     grid_from_matrix,
     matrix_from_grid,
 )
-from corpus_builder import PALETTES, build_seed_grids  # noqa: E402
+from corpus_builder import (  # noqa: E402
+    PALETTES,
+    build_seed_grids,
+    build_seed_grids_16,
+)
 
 from mecha_engine.generation import (  # noqa: E402
     generate_candidate,
@@ -174,6 +178,7 @@ from session_runner import (  # noqa: E402
     load_keeper_state,
     new_keeper_state,
     save_keeper_state,
+    session_scale,
     train_legibility_model,
 )
 
@@ -420,28 +425,56 @@ class WorkshopServer(ThreadingHTTPServer):
             "first_valid_at": None,
         }
         self.curated_profiles = _load_profiles()
+        # Both ratified corpora (DR 0029): 8x8 keeps every historical
+        # surface; 16x16 is the default scale for new sessions. Models
+        # are per-scale (generation and repair both derive their layout
+        # from their corpus since A3); the 8x8 pair trains eagerly as it
+        # always did, the 16x16 pair lazily on first use.
         self.seed_grids = build_seed_grids()
+        self.seed_grids_16 = build_seed_grids_16()
         self.repair_model = train_repair_model(self.seed_grids)
         self.generation_model = train_generation_model(self.seed_grids)
+        self._models_by_scale: dict[int, tuple] = {
+            8: (self.generation_model, self.repair_model)
+        }
         handler = functools.partial(_Handler, directory=str(WORKSHOP_DIR))
         super().__init__(address, handler)
+
+    def seeds_for_scale(self, scale: int) -> list[dict]:
+        return self.seed_grids if scale == 8 else self.seed_grids_16
+
+    def models_for(self, grid: dict) -> tuple:
+        """(generation_model, repair_model) matching the grid's scale."""
+        grid_size = grid.get("grid_size", [8, 8])
+        scale = grid_size[0] if isinstance(grid_size, list) and grid_size else 8
+        if scale not in self._models_by_scale:
+            seeds = self.seeds_for_scale(scale)
+            self._models_by_scale[scale] = (
+                train_generation_model(seeds),
+                train_repair_model(seeds[:40]),
+            )
+        return self._models_by_scale[scale]
 
     def legibility_model(self) -> dict:
         if self._legibility_model is None:
             self._legibility_model = train_legibility_model()
         return self._legibility_model
 
-    def session_repair_model(self, epochs: int, rng_seed: int) -> dict:
-        key = (epochs, rng_seed)
+    def session_repair_model(
+        self, epochs: int, rng_seed: int, scale: int = 16
+    ) -> dict:
+        key = (epochs, rng_seed, scale)
         if key not in self._session_repair_models:
             self._session_repair_models[key] = train_repair_model(
-                self.seed_grids[:40], epochs=epochs, rng_seed=rng_seed
+                self.seeds_for_scale(scale)[:40],
+                epochs=epochs,
+                rng_seed=rng_seed,
             )
         return self._session_repair_models[key]
 
     def resolve_creature(self, source: str, name: str) -> dict | None:
         if source == "seed":
-            for seed in self.seed_grids:
+            for seed in [*self.seed_grids_16, *self.seed_grids]:
                 if seed.get("grid_id") == name:
                     return json.loads(json.dumps(seed))
             return None
@@ -625,6 +658,10 @@ class _Handler(SimpleHTTPRequestHandler):
                     creatures.append(
                         {"source": "workshop", "name": file.stem}
                     )
+            # The ratified 16x16 corpus leads (DR 0029); a slice of the
+            # 8x8 Stage 0 seeds stays offered.
+            for seed in self.server.seed_grids_16[:12]:
+                creatures.append({"source": "seed", "name": seed["grid_id"]})
             for seed in self.server.seed_grids[:12]:
                 creatures.append({"source": "seed", "name": seed["grid_id"]})
             self._json(200, {"creatures": creatures})
@@ -974,10 +1011,14 @@ class _Handler(SimpleHTTPRequestHandler):
             return
         verdict = validate_slip(profile)
         aligned = 0
+        aligned_16 = 0
         if verdict.ok:
             for seed in self.server.seed_grids:
                 if is_grid_aligned(seed, profile).ok:
                     aligned += 1
+            for seed in self.server.seed_grids_16:
+                if is_grid_aligned(seed, profile).ok:
+                    aligned_16 += 1
         workshop_grids = []
         if verdict.ok and self.server.grids_dir.exists():
             for file in sorted(self.server.grids_dir.glob("*.json")):
@@ -1008,6 +1049,10 @@ class _Handler(SimpleHTTPRequestHandler):
                     "seed_corpus": {
                         "aligned": aligned,
                         "total": len(self.server.seed_grids),
+                    },
+                    "seed_corpus_16": {
+                        "aligned": aligned_16,
+                        "total": len(self.server.seed_grids_16),
                     },
                     "workshop_grids": workshop_grids,
                 },
@@ -1114,10 +1159,11 @@ class _Handler(SimpleHTTPRequestHandler):
         if kind == "live":
             cycles = max(1, min(5, int(payload.get("cycles", 3))))
             ticks = max(8, min(96, int(payload.get("ticks", 48))))
+            _, live_repair_model = self.server.models_for(grid)
             report = live_cycle(
                 grid,
                 profile,
-                self.server.repair_model,
+                live_repair_model,
                 damage_cycles=cycles,
                 ticks=ticks,
                 rng_seed=int(payload.get("rng_seed", 20260512)),
@@ -1141,10 +1187,11 @@ class _Handler(SimpleHTTPRequestHandler):
             # R5 (DR 0023): the player's window — a recorded life.
             cycles = max(1, min(5, int(payload.get("cycles", 3))))
             ticks = max(8, min(96, int(payload.get("ticks", 48))))
+            _, replay_repair_model = self.server.models_for(grid)
             replay = build_replay(
                 grid,
                 profile,
-                self.server.repair_model,
+                replay_repair_model,
                 damage_cycles=cycles,
                 ticks=ticks,
                 rng_seed=int(payload.get("rng_seed", 20260512)),
@@ -1155,11 +1202,12 @@ class _Handler(SimpleHTTPRequestHandler):
         if kind == "offspring":
             count = max(1, min(8, int(payload.get("count", 4))))
             rng_seed = int(payload.get("rng_seed", 20260512))
+            offspring_generation_model, _ = self.server.models_for(grid)
             children = []
             for index in range(count):
                 child = generate_candidate(
                     grid,
-                    self.server.generation_model,
+                    offspring_generation_model,
                     profile,
                     rng_seed=rng_seed + index,
                 )
@@ -1413,13 +1461,20 @@ class _Handler(SimpleHTTPRequestHandler):
                 for campaign in state["campaigns"]
                 if campaign["campaign_id"] == state["active_campaign_id"]
             )
+            # A4: the corpus and models follow the active campaign's own
+            # recorded scale — pre-A4 8x8 bloodlines keep their machinery;
+            # fresh campaigns run at the ratified 16x16 default.
+            scale = session_scale(state)
+            scale_generation_model, _ = self.server.models_for(
+                {"grid_size": [scale, scale]}
+            )
             turn = advance_keeper_state(
                 state,
                 weather,
-                seed_grids=self.server.seed_grids,
-                generation_model=self.server.generation_model,
+                seed_grids=self.server.seeds_for_scale(scale),
+                generation_model=scale_generation_model,
                 repair_model=self.server.session_repair_model(
-                    params["repair_epochs"], active["base_seed"]
+                    params["repair_epochs"], active["base_seed"], scale
                 ),
                 legibility_model=self.server.legibility_model(),
                 # E5 (DR 0021's Contribute step): the Keeper's released

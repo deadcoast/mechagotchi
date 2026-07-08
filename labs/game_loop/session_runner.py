@@ -60,7 +60,7 @@ for path in [GRID_GENOME, READABILITY, PACKAGE_SRC]:
     if str(path) not in sys.path:
         sys.path.insert(0, str(path))
 
-from corpus_builder import build_seed_grids  # noqa: E402
+from corpus_builder import build_seed_grids, build_seed_grids_16  # noqa: E402
 from slip import validate_slip  # noqa: E402
 from learned_readability import (  # noqa: E402
     build_learned_readability_report,
@@ -107,13 +107,18 @@ DELIBERATION_CONFIDENCE_DEFAULT = 0.72
 
 # DR 0021: "threshold VALUES are tuning, not architecture: they live in
 # the session lab as data, proven falsifiable by tests." Tier values are
-# calibrated to Stage-0 measured magnitudes (R2's evolution artifact:
-# filled_niches 13, qd_score 12.03, max_lineage_generation 2 at
-# 4 generations x 6 population; storm multipliers cluster near 1.17x).
+# calibrated to the measured magnitudes of the shipped default config —
+# re-tuned in cycle 09 A4 for the 16x16 corpus at 6 generations x 16
+# population (measured per-era: filled_niches 38/33/20, qd_score
+# 35.4/30.9/18.4 across calm/stable/storm; max_lineage_generation 2 per
+# era, deepening across eras; storm multipliers still cluster near
+# 1.17x, so bloodline/storm/legibility tiers are unchanged). The
+# pre-A4 8x8 calibration was [4, 8, 13] / [3.0, 6.0, 12.0] against
+# measured maxima of 13 / 12.03 — the same top-tier-near-max design.
 UNLOCK_THRESHOLDS: dict[str, dict] = {
     "niche_mastery": {
         "metric_path": "report.summary.archive.filled_niches",
-        "tiers": [4, 8, 13],
+        "tiers": [16, 26, 36],
     },
     "bloodline_depth": {
         "metric_path": "report.summary.max_lineage_generation",
@@ -121,7 +126,7 @@ UNLOCK_THRESHOLDS: dict[str, dict] = {
     },
     "quality_diversity": {
         "metric_path": "report.summary.archive.qd_score",
-        "tiers": [3.0, 6.0, 12.0],
+        "tiers": [9.0, 18.0, 33.0],
     },
     "storm_record": {
         "metric_path": "derived.max_dropout_multiplier_survived",
@@ -619,19 +624,22 @@ def run_campaign(
     generation_model: dict | None = None,
     repair_model: dict | None = None,
     legibility_model: dict | None = None,
-    generations: int = 3,
-    population: int = 4,
+    generations: int = 6,
+    population: int = 16,
     damage_cycles: int = 2,
     ticks: int = 16,
     dropout_rate: float = 0.2,
-    repair_epochs: int = 20,
+    repair_epochs: int = 40,
 ) -> dict:
     """One campaign: a chain of eras where each era's founder pool is the
     previous era's elites (DR 0021's persistence spine). Extinction ends
     the chain and marks the campaign extinct; unlock facts accumulate
-    per era."""
+    per era.
+
+    Defaults are the cycle 09 A4 raised configuration at the ratified
+    16x16 corpus (measured: ~1.2s per era, ~6s one-time training)."""
     if seed_grids is None:
-        seed_grids = build_seed_grids()
+        seed_grids = build_seed_grids_16()
     if slip_profile is None:
         slip_profile = json.loads(
             SLIP_PROFILE_PATH.read_text(encoding="utf-8")
@@ -1168,9 +1176,14 @@ SESSION_STATE_PATH = KEEPER_DIR / "keeper_session.json"
 # SQLite file — the JSON interim is the in-memory shape the migration
 # ingests on every save (the exercised path).
 LEDGER_PATH = KEEPER_DIR / "campaign_ledger.sqlite"
+# Cycle 09 A4: the session's engine parameters stepped up from the toy
+# config (3 generations x 4 population) at the ratified 16x16 default —
+# measured wall-clock at 6x16: ~1.2s per era (gen8x24: 3.4s, gen10x32:
+# 4.9s — the covenant's earned doublings stay playable). The bridge
+# toward Phase E's documented scale, not its endpoint.
 DEFAULT_ENGINE_PARAMETERS = {
-    "generations": 3,
-    "population": 4,
+    "generations": 6,
+    "population": 16,
     "damage_cycles": 2,
     "ticks": 16,
     "dropout_rate": 0.2,
@@ -1258,6 +1271,29 @@ def load_released_grids(released_dir: str | Path | None) -> list[dict]:
     return grids
 
 
+def campaign_scale(campaign: dict) -> int:
+    """The campaign's grid scale, read from its own recorded bodies.
+
+    A bloodline is size-coherent: its founder pool is always the prior
+    era's elites, so the last recorded elite's grid names the scale. A
+    campaign with no eras yet starts at the ratified 16x16 default
+    (DR 0029); pre-A4 8x8 bloodlines keep reading as 8.
+    """
+    for era in reversed(campaign.get("eras", [])):
+        for elite in era.get("elites", []):
+            grid_size = elite.get("grid", {}).get("grid_size")
+            if isinstance(grid_size, list) and grid_size:
+                return grid_size[0]
+    return 16
+
+
+def session_scale(state: dict) -> int:
+    """The active campaign's grid scale (see ``campaign_scale``)."""
+    by_id = {c["campaign_id"]: c for c in state.get("campaigns", [])}
+    campaign = by_id.get(state.get("active_campaign_id"))
+    return campaign_scale(campaign) if campaign else 16
+
+
 def advance_keeper_state(
     state: dict,
     weather: str,
@@ -1287,7 +1323,14 @@ def advance_keeper_state(
     by_id = {c["campaign_id"]: c for c in state["campaigns"]}
     campaign = by_id[state["active_campaign_id"]]
     if seed_grids is None:
-        seed_grids = build_seed_grids()
+        # A4: the default corpus follows the campaign's own recorded
+        # scale — a pre-A4 8x8 bloodline keeps its 8x8 machinery; fresh
+        # campaigns start at the ratified 16x16 default.
+        seed_grids = (
+            build_seed_grids()
+            if campaign_scale(campaign) == 8
+            else build_seed_grids_16()
+        )
     if generation_model is None or repair_model is None:
         generation_model, repair_model = train_session_models(
             seed_grids,

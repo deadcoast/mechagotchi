@@ -41,7 +41,7 @@ are unchanged.
   generation stats are the likely spots — justify in the DR either
   way). Every standing gate reruns green at 16×16 without breaking the
   8×8 pins (size-parametric, not size-replacing).
-- [ ] **A4 · Evolution + game surfaces at 16×16.** `evolve`, the
+- [x] **A4 · Evolution + game surfaces at 16×16.** `evolve`, the
   archive descriptors (bins re-derived for the larger trait ranges),
   the Keeper session, replays, and the companion all run at 16×16
   defaults; the session's engine parameters step up from the toy
