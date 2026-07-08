@@ -1,0 +1,54 @@
+{
+  "artifact_id": "wfc_grid_stage0",
+  "status": "complete",
+  "date": "2026-07-08",
+  "purpose": "Establish the documented WFC/constraint generator lab over the full DR 0015 alphabet (gap-analysis Phase B: no WFC lab ever existed): position-prior + adjacency wave collapse with deterministic restarts and the promoted generator's anchor semantics, measured over the 16x16 corpus under the adapted 30/10/10 protocol. This arm is honest-local: no validator-gated resampling inside (that is the constrained arm's trick); the bake-off (B2) compares the arms on the dossier metrics.",
+  "source_artifacts": [
+    "labs/grid_genome/grid_helpers.py",
+    "labs/grid_genome/corpus_builder.py",
+    "data/seed_grids_16x16",
+    "docs/project-research/deep-research/01/deep-research.md",
+    "research/decision_records/0015-dormant-vocabulary-coverage.md",
+    "research/decision_records/0029-16x16-default-grid-scale.md"
+  ],
+  "metrics": {
+    "split": {
+      "train": 30,
+      "dev": 10,
+      "holdout": 10
+    },
+    "candidate_count": 50,
+    "valid_count": 50,
+    "validity_rate": 1.0,
+    "unique_signatures": 50,
+    "error_counts": {},
+    "rich_roles_emitted": [
+      "antenna",
+      "decoration",
+      "effect",
+      "joint",
+      "limb",
+      "shell"
+    ],
+    "rich_role_count": 6,
+    "training_copy_count": 0,
+    "training_copy_rate": 0.0,
+    "core_mass": {
+      "min": 31,
+      "p50": 45,
+      "max": 60
+    }
+  },
+  "closed_states": [
+    "wfc_lab_exists_over_the_rich_alphabet",
+    "wave_collapse_deterministic_per_seed",
+    "protocol_split_adapted_and_recorded"
+  ],
+  "blocked_states": [
+    "bakeoff_not_run (B2: random/Markov/constrained/WFC/hybrid on the dossier metrics)",
+    "no_engine_adoption (B3: the measured winner, by decision record)",
+    "human_pairwise_preference_not_collected (owner-deferred survey; recorded, never a blocker)"
+  ],
+  "decision": "The documented WFC arm exists and emits the rich vocabulary at 16x16; its honest-local validity is recorded here and judged in the B2 bake-off, not by this lab alone.",
+  "next_research_step": "B2: the real documented bake-off \u2014 all five arms on the dossier metrics with measured generation time."
+}

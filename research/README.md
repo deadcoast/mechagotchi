@@ -831,6 +831,11 @@ Post-v0.1 continuation has started:
 
 - `research/experiment_reports/2026-07-08-phase-a-gate.md` (cycle 09 A5 · ENGINE · **Phase A GATE — GREEN**: the consolidated gate over A1–A4 — the invariant table, corpus stats, every surface's 16×16 gate result, the measured wall-clock curve, and the honest 8×8-remainder list (the 4-token generation alphabet → Phase B's WFC charter; readability calibration 8×8-derived and displayed as uncalibrated; animation corpora → Phase C; the datasets program → its Phase D/E consumers; the editor's default canvas; the ARGUS exemplar). Phase A checked off in `docs/gap-analysis.md`; cycle 09 archives to `audits/complete/09/`; cycle 10 opens Phase B from the gap analysis)
 
+- `research/experiment_reports/2026-07-08-wfc-grid-lab.md`
+- `research/algorithm_cards/wfc_grid.md`
+- `labs/wfc_grid/wfc_grid.py` (+ `test_wfc_grid.py`)
+- `data/wfc_grid/wfc_grid_stage0.json` (cycle 10 B1 · ENGINE · Phase B: the documented WFC/constraint generator exists at last, over the FULL DR 0015 alphabet — position-channel overlapping WFC, minimum-entropy collapse with arc-consistent propagation, deterministic bounded restarts, and the dossier's own recommended stabilizer usage. First-class negative result recorded: pure local collapse measured 2% valid (49/50 disconnected cores — position priors mix body plans and local adjacency cannot see global connectivity); with largest-core retention + cardinality restarts + the promoted anchor semantics: validity 1.0, 50 unique silhouettes, all six rich roles, copy rate 0.0, cores 31–60. The 72/24/24 dossier protocol adapted to 30/10/10 stratified per palette, recorded. The arm is honest-local — no validator-gated resampling; the B2 bake-off judges it against random/Markov/constrained/hybrid)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.
