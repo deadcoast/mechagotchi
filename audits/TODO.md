@@ -29,7 +29,7 @@ wall-clock demands (DR 0028; Phase A/B precedent: measure first — the
   arbitration seam (byte-identical when no threads are attached — the
   frozen switchboard stays the promoted baseline and the ablation
   control). RED-first; triad.
-- [ ] **D2 · The need predictors + interaction timing.** Online
+- [x] **D2 · The need predictors + interaction timing.** Online
   per-companion threads: hunger, sleep(energy), boredom(novelty),
   attention, and interaction-timing predictors — each proven in the
   lab against replayed lifecycle traces (the engine's own histories,

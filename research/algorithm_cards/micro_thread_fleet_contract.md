@@ -21,11 +21,12 @@ frozen, parity-pinned baseline (the phase's ablation control).
   absent-or-True; fleet threads run only on explicit
   `learning_switches[name] is True` — the identity element of the
   seam, proving byte-identity on every non-opted path.
-- Pipe cleaner (`hunger_forecast`): mean-delta slope over an 8-sample
-  hunger window; `predicted = clamp(last + slope)`; confidence =
-  fill-ratio × (0.4 + 0.6·trend-consistency); anticipatory feed
-  effect `0.5 × max(0, predicted − 0.55)` — fires before the reactive
-  mood thread's 0.65 threshold.
+- Pipe cleaner (`hunger_forecast`): the D2 conditional-delta learner
+  (per need-level bucket, decayed mean delta over the companion's own
+  history; median-delta trend fallback; per-bucket self-assessed error
+  EWMA as confidence); anticipatory feed effect
+  `0.5 × max(0, predicted − 0.55)` — fires before the reactive mood
+  thread's 0.65 threshold.
 
 ## Inputs
 
@@ -49,10 +50,10 @@ frozen, parity-pinned baseline (the phase's ablation control).
 
 ## Weaknesses
 
-- One thread of ~11 — the contract is proven, the fleet is not built
-- Effect magnitudes are uncalibrated: at LCD scale the anticipatory
-  signal moves utilities (26/48 ticks) but never flips the decision —
-  D2's calibration-on-replayed-histories assignment
+- The contract is proven; the fleet grows through D2–D4
+- Effect magnitudes are not welfare-proven: at LCD scale the
+  anticipatory signal moves utilities (24/48 ticks) but never flips
+  the decision — judged by D5's benchmark and D6's ablation gates
 
 ## Failure Modes
 
@@ -72,10 +73,10 @@ Original stdlib-only code, Apache-2.0.
 
 ## Prototype Result
 
-13 tests green. Frozen arm 48/48 identical, 0 fleet appearances;
-opted-in arm first anticipatory signal tick 2 vs reactive threshold
-tick 4, utilities moved 26/48 ticks, max confidence 0.914, 1 honest
-cold-start-silent tick, 0 decision flips (recorded).
+36 tests green (D1+D2). Frozen arm 48/48 identical, 0 fleet
+appearances; opted-in arm first anticipatory signal tick 2 vs reactive
+threshold tick 4, utilities moved 24/48 ticks, max confidence 1.0, 1
+honest cold-start-silent tick, 0 decision flips (recorded).
 
 ## Decision
 

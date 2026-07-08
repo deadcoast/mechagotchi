@@ -7,9 +7,17 @@ from pathlib import Path
 from thread_fleet import (
     FLEET_THREAD_NAMES,
     FLEET_THREADS,
+    attention_forecast_observe,
+    attention_forecast_signal,
+    boredom_novelty_observe,
+    boredom_novelty_signal,
     build_thread_fleet_report,
+    energy_forecast_observe,
+    energy_forecast_signal,
     hunger_forecast_observe,
     hunger_forecast_signal,
+    interaction_timing_observe,
+    interaction_timing_signal,
     observe_fleet,
     write_thread_fleet_artifacts,
 )
@@ -46,6 +54,18 @@ class FleetContractTests(unittest.TestCase):
         for name, observe, signal in FLEET_THREADS:
             self.assertTrue(callable(observe))
             self.assertTrue(callable(signal))
+
+    def test_the_registry_execution_order_is_fixed(self):
+        self.assertEqual(
+            [
+                "hunger_forecast",
+                "energy_forecast",
+                "boredom_novelty",
+                "attention_forecast",
+                "interaction_timing",
+            ],
+            FLEET_THREAD_NAMES,
+        )
 
     def test_observe_fleet_is_pure_and_json_serializable(self):
         state = _state(learning_switches={"hunger_forecast": True})
@@ -97,6 +117,146 @@ class HungerForecastTests(unittest.TestCase):
         self.assertLessEqual(len(thread_state["history"]), 8)
 
 
+class EnergyForecastTests(unittest.TestCase):
+    def test_cold_start_is_silent(self):
+        signal = energy_forecast_signal({}, _state())
+        self.assertEqual(0.0, signal["confidence"])
+        self.assertEqual({}, signal["effects"])
+
+    def test_falling_energy_raises_anticipatory_sleep_utility(self):
+        thread_state: dict = {}
+        for energy in [0.60, 0.52, 0.44, 0.38, 0.32]:
+            thread_state = energy_forecast_observe(
+                thread_state, _state(energy=energy)
+            )
+        signal = energy_forecast_signal(thread_state, _state(energy=0.32))
+        self.assertGreater(signal["confidence"], 0.3)
+        self.assertGreater(signal["effects"].get("sleep", 0.0), 0.0)
+        self.assertLess(signal["output"]["predicted_energy"], 0.32)
+
+    def test_high_flat_energy_stays_quiet(self):
+        thread_state: dict = {}
+        for _ in range(6):
+            thread_state = energy_forecast_observe(
+                thread_state, _state(energy=0.8)
+            )
+        signal = energy_forecast_signal(thread_state, _state(energy=0.8))
+        self.assertEqual(0.0, signal["effects"].get("sleep", 0.0))
+
+    def test_memory_is_bounded(self):
+        thread_state: dict = {}
+        for _ in range(50):
+            thread_state = energy_forecast_observe(
+                thread_state, _state(energy=0.5)
+            )
+        self.assertLessEqual(len(thread_state["history"]), 8)
+
+
+class BoredomNoveltyTests(unittest.TestCase):
+    def _observe_actions(self, actions: list[str]) -> dict:
+        thread_state: dict = {}
+        counts = {a: 0 for a in ["feed", "play", "sleep", "idle", "mutate"]}
+        for action in actions:
+            counts[action] += 1
+            thread_state = boredom_novelty_observe(
+                thread_state, _state(action_counts=dict(counts))
+            )
+        return thread_state
+
+    def test_cold_start_is_silent(self):
+        signal = boredom_novelty_signal({}, _state())
+        self.assertEqual(0.0, signal["confidence"])
+        self.assertEqual({}, signal["effects"])
+
+    def test_repetition_raises_boredom_and_play_utility(self):
+        thread_state = self._observe_actions(["idle"] * 8)
+        signal = boredom_novelty_signal(thread_state, _state())
+        self.assertGreater(signal["output"]["boredom"], 0.6)
+        self.assertGreater(signal["effects"].get("play", 0.0), 0.0)
+        self.assertGreater(signal["output"]["predicted_repeat_probability"], 0.9)
+
+    def test_varied_actions_stay_novel(self):
+        thread_state = self._observe_actions(
+            ["feed", "play", "sleep", "idle", "mutate", "feed", "play", "sleep"]
+        )
+        signal = boredom_novelty_signal(thread_state, _state())
+        self.assertLess(signal["output"]["boredom"], 0.5)
+
+    def test_memory_is_bounded(self):
+        thread_state = self._observe_actions(["idle"] * 50)
+        self.assertLessEqual(len(thread_state["recent_actions"]), 8)
+
+
+class AttentionForecastTests(unittest.TestCase):
+    def test_cold_start_has_low_confidence(self):
+        signal = attention_forecast_signal({}, _state())
+        self.assertEqual(0.0, signal["confidence"])
+        self.assertEqual({}, signal["effects"])
+
+    def test_sustained_interaction_raises_predicted_attention(self):
+        thread_state: dict = {}
+        for _ in range(25):
+            thread_state = attention_forecast_observe(
+                thread_state, _state(recent_interactions=[1, 1, 1, 1, 1])
+            )
+        signal = attention_forecast_signal(thread_state, _state())
+        self.assertGreater(
+            signal["output"]["predicted_interaction_probability"], 0.8
+        )
+        self.assertGreater(signal["confidence"], 0.9)
+        self.assertGreater(signal["effects"].get("play", 0.0), 0.0)
+
+    def test_absence_lowers_predicted_attention(self):
+        thread_state: dict = {}
+        for _ in range(25):
+            thread_state = attention_forecast_observe(
+                thread_state, _state(recent_interactions=[0, 0, 0, 0, 0])
+            )
+        signal = attention_forecast_signal(thread_state, _state())
+        self.assertLess(
+            signal["output"]["predicted_interaction_probability"], 0.2
+        )
+
+
+class InteractionTimingTests(unittest.TestCase):
+    def test_cold_start_is_silent(self):
+        signal = interaction_timing_signal({}, _state())
+        self.assertEqual(0.0, signal["confidence"])
+        self.assertEqual({}, signal["effects"])
+
+    def test_periodic_interactions_predict_the_next_gap(self):
+        thread_state: dict = {}
+        # A strict every-4th-tick interaction rhythm.
+        for tick in range(24):
+            interaction = 1 if tick % 4 == 3 else 0
+            thread_state = interaction_timing_observe(
+                thread_state, _state(recent_interactions=[0, 0, 0, interaction])
+            )
+        signal = interaction_timing_signal(thread_state, _state())
+        self.assertGreater(signal["confidence"], 0.5)
+        self.assertAlmostEqual(
+            4.0, signal["output"]["mean_gap_ticks"], delta=1.0
+        )
+
+    def test_imminent_interaction_raises_play_readiness(self):
+        thread_state: dict = {}
+        for tick in range(24):
+            interaction = 1 if tick % 4 == 3 else 0
+            thread_state = interaction_timing_observe(
+                thread_state, _state(recent_interactions=[0, 0, 0, interaction])
+            )
+        # Three quiet ticks into the rhythm: the next one is due.
+        for _ in range(3):
+            thread_state = interaction_timing_observe(
+                thread_state, _state(recent_interactions=[0, 0, 0, 0])
+            )
+        signal = interaction_timing_signal(thread_state, _state())
+        self.assertLessEqual(
+            signal["output"]["predicted_ticks_to_next_interaction"], 1.5
+        )
+        self.assertGreater(signal["effects"].get("play", 0.0), 0.0)
+
+
 class SwitchboardSeamTests(unittest.TestCase):
     def test_frozen_paths_are_byte_identical_without_opt_in(self):
         # The load-bearing D1 rule: no flow that does not opt in may see
@@ -133,6 +293,18 @@ class SwitchboardSeamTests(unittest.TestCase):
         self.assertGreater(
             lab["utilities"]["feed"], baseline["utilities"]["feed"]
         )
+
+    def test_the_whole_fleet_rides_when_every_thread_opts_in(self):
+        state = _state(
+            learning_switches={name: True for name in FLEET_THREAD_NAMES}
+        )
+        state["thread_states"] = observe_fleet(state)
+        lab = run_switchboard(state)
+        package = decide(state)
+        self.assertEqual(lab, package)
+        thread_names = [t["name"] for t in lab["threads"]]
+        for name in FLEET_THREAD_NAMES:
+            self.assertIn(name, thread_names)
 
 
 class ReportTests(unittest.TestCase):

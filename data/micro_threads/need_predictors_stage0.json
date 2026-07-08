@@ -1,0 +1,199 @@
+{
+  "artifact_id": "need_predictors_stage0",
+  "status": "complete",
+  "date": "2026-07-08",
+  "purpose": "D2: the documented need predictors (hunger, sleep/energy, boredom/novelty, attention) and the interaction-timing predictor, each an online per-companion fleet thread through the D1 contract, proven one-step-ahead against the engine's own replayed histories (replay_100k_ticks, 2501 episodes) with quartile-binned confidence calibration. Bars: every predictor beats its documented online baseline; every predictor's top-confidence quartile errs no worse than its bottom quartile.",
+  "source_artifacts": [
+    "labs/micro_threads/thread_fleet.py",
+    "data/datasets/replay_100k_ticks/replay_100k_ticks.jsonl.gz",
+    "data/micro_threads/micro_thread_fleet_contract_stage0.json",
+    "labs/lifecycle_sim/lifecycle_sim.py",
+    "docs/gap-analysis.md",
+    "docs/project-research/deep-research/01/deep-research.md"
+  ],
+  "metrics": {
+    "episodes": 2501,
+    "rows": 100004,
+    "predictors": {
+      "hunger_forecast": {
+        "predictions": 95002,
+        "error_metric": "mae",
+        "baseline": "persistence",
+        "predictor_error": 0.063805,
+        "baseline_error": 0.102734,
+        "beats_baseline": true,
+        "calibration": {
+          "bins": [
+            {
+              "count": 23750,
+              "mean_confidence": 0.164768,
+              "error": 0.143983
+            },
+            {
+              "count": 23751,
+              "mean_confidence": 0.696373,
+              "error": 0.068151
+            },
+            {
+              "count": 23750,
+              "mean_confidence": 0.976186,
+              "error": 0.015041
+            },
+            {
+              "count": 23751,
+              "mean_confidence": 0.998088,
+              "error": 0.028047
+            }
+          ],
+          "top_bin_no_worse_than_bottom": true
+        }
+      },
+      "energy_forecast": {
+        "predictions": 95002,
+        "error_metric": "mae",
+        "baseline": "persistence",
+        "predictor_error": 0.049198,
+        "baseline_error": 0.106354,
+        "beats_baseline": true,
+        "calibration": {
+          "bins": [
+            {
+              "count": 23750,
+              "mean_confidence": 0.358485,
+              "error": 0.079391
+            },
+            {
+              "count": 23751,
+              "mean_confidence": 0.78437,
+              "error": 0.060366
+            },
+            {
+              "count": 23750,
+              "mean_confidence": 0.877006,
+              "error": 0.041446
+            },
+            {
+              "count": 23751,
+              "mean_confidence": 1.0,
+              "error": 0.015588
+            }
+          ],
+          "top_bin_no_worse_than_bottom": true
+        }
+      },
+      "boredom_novelty": {
+        "predictions": 92501,
+        "error_metric": "brier",
+        "baseline": "running_repeat_rate",
+        "predictor_error": 0.162536,
+        "baseline_error": 0.170362,
+        "beats_baseline": true,
+        "calibration": {
+          "bins": [
+            {
+              "count": 23125,
+              "mean_confidence": 0.031002,
+              "error": 0.229307
+            },
+            {
+              "count": 23125,
+              "mean_confidence": 0.111058,
+              "error": 0.247915
+            },
+            {
+              "count": 23125,
+              "mean_confidence": 0.451543,
+              "error": 0.127705
+            },
+            {
+              "count": 23126,
+              "mean_confidence": 0.828202,
+              "error": 0.04522
+            }
+          ],
+          "top_bin_no_worse_than_bottom": true
+        }
+      },
+      "attention_forecast": {
+        "predictions": 97503,
+        "error_metric": "brier",
+        "baseline": "running_interaction_rate",
+        "predictor_error": 0.181094,
+        "baseline_error": 0.18538,
+        "beats_baseline": true,
+        "calibration": {
+          "bins": [
+            {
+              "count": 24375,
+              "mean_confidence": 0.030818,
+              "error": 0.222253
+            },
+            {
+              "count": 24376,
+              "mean_confidence": 0.209138,
+              "error": 0.129224
+            },
+            {
+              "count": 24376,
+              "mean_confidence": 0.301477,
+              "error": 0.174372
+            },
+            {
+              "count": 24376,
+              "mean_confidence": 0.531932,
+              "error": 0.198529
+            }
+          ],
+          "top_bin_no_worse_than_bottom": true
+        }
+      },
+      "interaction_timing": {
+        "predictions": 57159,
+        "error_metric": "gap_mae_ticks",
+        "baseline": "last_gap_persistence",
+        "predictor_error": 0.587098,
+        "baseline_error": 0.688763,
+        "beats_baseline": true,
+        "calibration": {
+          "bins": [
+            {
+              "count": 14289,
+              "mean_confidence": 0.866919,
+              "error": 0.636629
+            },
+            {
+              "count": 14290,
+              "mean_confidence": 1.0,
+              "error": 0.565643
+            },
+            {
+              "count": 14290,
+              "mean_confidence": 1.0,
+              "error": 0.568992
+            },
+            {
+              "count": 14290,
+              "mean_confidence": 1.0,
+              "error": 0.577132
+            }
+          ],
+          "top_bin_no_worse_than_bottom": true
+        }
+      }
+    }
+  },
+  "closed_states": [
+    "five_need_and_timing_predictors_stream_through_the_d1_contract",
+    "every_predictor_beats_its_online_baseline_on_replayed_traces",
+    "confidence_is_calibrated_top_quartile_no_worse_than_bottom",
+    "no_invented_data_the_traces_are_the_engines_own_histories"
+  ],
+  "blocked_states": [
+    "animation_bandit_and_hmm_mood_not_built (D3)",
+    "evidence_threads_not_wired (D4)",
+    "welfare_impact_of_thread_effects_unmeasured (D5 benchmark; prediction skill is proven here, utility-effect wiring is judged by the ablation gates)",
+    "ablation_gates_not_run (D6)"
+  ],
+  "decision": "All five predictors beat their baselines with calibrated confidence on the engine's own replayed histories.",
+  "next_research_step": "D3: the animation-preference bandit over animstate_950 and the HMM mood thread, both deterministic under seeds."
+}

@@ -35,12 +35,13 @@ contract and the first thread as the end-to-end pipe cleaner:
   additive line: `threads.extend(fleet_signals(state))`. The package
   twin `mecha_engine/learning/threads.py` is pinned by the lab-side
   tests (lab decision == package decision, with and without opt-in).
-- **The pipe cleaner.** `hunger_forecast` — an online trend forecaster
-  over the companion's own hunger history (8-sample window, slope +
-  consistency-scaled confidence). It anticipates: feed utility rises
-  when *predicted* hunger crosses 0.55, before the reactive mood
+- **The pipe cleaner.** `hunger_forecast` — an online forecaster over
+  the companion's own hunger history. It anticipates: feed utility
+  rises when *predicted* hunger crosses 0.55, before the reactive mood
   thread's 0.65 threshold trips. Cold start is honest: confidence 0,
-  no effects, no invented signal.
+  no effects, no invented signal. (D2 upgraded its internals to the
+  bucket-conditional delta learner and re-verified every D1 gate; the
+  numbers below are the re-measured ones — see the D2 report.)
 
 ## FINDINGS (two-arm 48-tick deterministic replay, LCD seed subject)
 
@@ -51,7 +52,7 @@ contract and the first thread as the end-to-end pipe cleaner:
 - **The opted-in arm: the thread rides the decision.** 48/48 lab ==
   package with the fleet attached; the anticipatory signal first
   speaks at **tick 2**, before the reactive hungry threshold trips at
-  **tick 4**; utilities move on 26 of 48 ticks; max confidence 0.914;
+  **tick 4**; utilities move on 24 of 48 ticks; max confidence 1.0;
   exactly 1 cold-start-silent tick.
 - **Honest remainder: 0 decision flips at LCD scale.** The anticipatory
   boost (≤ ~0.05 × confidence) moves the feed utility but never
@@ -71,7 +72,7 @@ OK
 PS> python -B labs/micro_threads/thread_fleet.py
 The contract and the seam hold: 48/48 frozen decisions byte-identical
 lab-and-package with zero fleet appearances; the opted-in pipe cleaner
-moved utilities on 26 ticks and first spoke at tick 2 (reactive
+moved utilities on 24 ticks and first spoke at tick 2 (reactive
 threshold trips at 4).
 PS> python -B -m unittest discover -s labs/grid_genome -p "test_*.py"
 Ran 209 tests in 10.402s
