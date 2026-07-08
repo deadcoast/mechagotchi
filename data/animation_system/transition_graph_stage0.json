@@ -1,0 +1,59 @@
+{
+  "artifact_id": "transition_graph_stage0",
+  "status": "complete",
+  "date": "2026-07-08",
+  "purpose": "Measure the clip transition graph against the dossier's >=80% transition-validity bar under the pre-registered metric: a cut may not be jerkier than the jerkiest step already inside either clip (per creature, with the corpus-wide intra-max as the fallback bound for near-static clips).",
+  "source_artifacts": [
+    "labs/animation_system/clip_model.py",
+    "data/animation_system/clip_model_stage0.json",
+    "data/seed_grids_16x16",
+    "docs/project-research/deep-research/01/deep-research.md"
+  ],
+  "metrics": {
+    "corpus_size": 50,
+    "edge_count": 13,
+    "transitions_measured": 650,
+    "transitions_valid": 642,
+    "transition_validity_rate": 0.987692,
+    "validity_bar": 0.8,
+    "per_edge_validity": {
+      "beg->beg": 1.0,
+      "beg->idle": 1.0,
+      "blink->blink": 1.0,
+      "blink->idle": 1.0,
+      "idle->beg": 1.0,
+      "idle->blink": 1.0,
+      "idle->idle": 1.0,
+      "idle->ill": 0.92,
+      "idle->sleep": 1.0,
+      "ill->idle": 0.92,
+      "ill->ill": 1.0,
+      "sleep->idle": 1.0,
+      "sleep->sleep": 1.0
+    },
+    "boundary_delta": {
+      "p50": 0.028571,
+      "p95": 0.841463,
+      "max": 0.966667
+    },
+    "corpus_intra_max_per_clip": {
+      "beg": 0.684211,
+      "blink": 0.222222,
+      "idle": 0.166667,
+      "ill": 0.966667,
+      "sleep": 0.684211
+    }
+  },
+  "closed_states": [
+    "transition_graph_defined_hub_and_spoke_with_loops",
+    "validity_metric_pre_registered",
+    "dossier_bar_met"
+  ],
+  "blocked_states": [
+    "animstate_300_not_regenerated_as_clip_frames (C3)",
+    "packet_clip_contract_not_wired (C4)",
+    "state_machine_not_driven_by_live_companion_state (the game's client selects clips through this graph; Phase F consumes it)"
+  ],
+  "decision": "Transition validity 0.9877 against the >= 0.8 bar: the graph holds.",
+  "next_research_step": "C3: the animstate_300 dataset over (grid, state, clip, frame)."
+}

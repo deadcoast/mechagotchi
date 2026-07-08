@@ -852,6 +852,10 @@ Post-v0.1 continuation has started:
 - `labs/animation_system/clip_model.py` (+ `test_clip_model.py`)
 - `data/animation_system/clip_model_stage0.json` (cycle 11 C1 · ENGINE · Phase C: the animation system's first layer — CLIPS as bounded frame sequences over the promoted state projections, extending the proven visual-only-projection thesis into time. Frame = state track → all-or-nothing whole-body motion → per-role motion (antenna/sensor sway, effect flicker — the DR 0015 WATCH seam recorded per role; limb/joint/decoration named as the next increment, not improvised). Hard rules pinned: frames are valid render surfaces (in-bounds/palette-clean/no invented cells/no overlaps), the genome is never mutated, idle frame 0 is the identity, every clip moves; size-parametric (16×16 + 8×8). 950/950 corpus frames pass every gate; the intra-clip delta table (idle 0.032 → ill 0.768) is C2's transition baseline)
 
+- `research/experiment_reports/2026-07-08-transition-graph.md`
+- `labs/animation_system/transition_graph.py` (+ `test_transition_graph.py`)
+- `data/animation_system/transition_graph_stage0.json` (cycle 11 C2 · ENGINE · Phase C: the clip transition graph — hub-and-spoke through idle with self-loops (a clip that cannot loop cannot play) — measured against the dossier's ≥80% bar under a PRE-REGISTERED metric (a cut may not be jerkier than the jerkiest step already inside either clip; near-static clips fall back to the corpus intra-max, never a free pass). **Validity 0.9877 over 650 measured transitions** — eleven of thirteen edges perfect; the only imperfect edges are idle↔ill at 0.92 (illness onset is the jerkiest cut — sensible biology, recorded per edge with the client-side softening option named). Boundary deltas p50 0.029 / p95 0.841)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.
