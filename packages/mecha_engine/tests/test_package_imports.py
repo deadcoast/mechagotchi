@@ -120,15 +120,15 @@ class MechaEngineScaffoldImportTests(unittest.TestCase):
         self.assertEqual("mecha-engine", project.get("name"))
         self.assertEqual("0.0.0", project.get("version"))
         self.assertIn("requires-python", project)
-        # Release license metadata stays unset until the license decision
-        # record exists (scaffold verification gate, "Metadata Acceptance").
-        self.assertNotIn("license", project)
-        self.assertNotIn("license-files", project)
-        for classifier in project.get("classifiers", []):
-            self.assertFalse(
-                classifier.startswith("License"),
-                f"license classifier declared before license decision: {classifier}",
-            )
+        # The license decision record exists (0028, 2026-07-07, owner:
+        # Apache-2.0) — metadata must now DECLARE it, pointing at the
+        # repo-root LICENSE.
+        self.assertEqual("Apache-2.0", project.get("license"))
+        self.assertEqual(["../../LICENSE"], project.get("license-files"))
+        self.assertTrue(
+            (PACKAGE_ROOT.parents[1] / "LICENSE").exists(),
+            "root LICENSE missing",
+        )
 
     def test_all_import_targets_import(self):
         code = "import " + ", ".join(IMPORT_TARGETS) + "\nprint('imports-ok')"

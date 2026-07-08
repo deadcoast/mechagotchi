@@ -46,6 +46,12 @@ packages/mecha_engine/
 
 ## Metadata Acceptance
 
+(Amended 2026-07-07, decision record 0028: the license decision now
+EXISTS — Apache-2.0, declared in `pyproject.toml` `license` /
+`license-files` pointing at the root `LICENSE`. The former
+"license metadata stays unset" rule is closed. The same record permits
+third-party `[project]` dependencies when a capability needs one.)
+
 `pyproject.toml` must define:
 
 - `[build-system]`
