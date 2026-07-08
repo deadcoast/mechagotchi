@@ -47,3 +47,12 @@ must not replace the underlying lab reports.
   companion CLI (supportive layer; identity constraint recorded), and
   manual calibration is deferred by owner decision.
 - `research_report_v0_10_manifest.json`
+- `mechagotchi_research_report_v1_0.md` - the realization wave (cycles
+  02-06): the module program finished (ten of ten og targets — runtime,
+  learning, storage, slip promoted; render dispositioned), "Eras of the
+  Soup" live end to end with all five DR 0021 player-notices, the
+  dataset program built/consumed/feeding the adopted real-augmented
+  readability model, the mortality-gradient verdict, and the honest
+  owner-decision ledger. 46 experiment reports + 20 decision records
+  consolidated; test base 747 -> 1,210.
+- `research_report_v1_0_manifest.json`

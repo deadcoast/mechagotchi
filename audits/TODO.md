@@ -12,18 +12,18 @@ proceeds continuously; planning triggers ONLY on exhaustion confirmed
 COMPLETE. (Decision records remain the design documentation for tasks
 that need them; they do not pause the queue.)
 
-- [ ] **V1 · Research report v1.0 + manifest — the ENGINE+GAME
-  milestone.** The consolidated-report convention
-  (`research/reports/research_report_v1_0.md` +
-  `research_report_v1_0_manifest.json` with `source_plan`,
-  `referenced_artifacts`, `headline_metrics`): consolidate cycles
-  02–06 — the ten promoted modules, the complete game loop (all five
-  DR 0021 notices live; Contribute/Covenant/Run/Collect/Review),
-  the storage spine, the replay window, the mortal-wound gradient, the
-  dataset program and its consumers, the adopted real-hardened
-  readability model, and the honest blocked/closed ledger (real-CuBFF
-  optional by owner decision; render's re-opener; the manual-ratings
-  gate). Consolidation must NOT replace the underlying lab reports.
+- [x] **V1 · Research report v1.0 + manifest — the ENGINE+GAME
+  milestone.** (2026-07-07:
+  `research/reports/mechagotchi_research_report_v1_0.md` — "the
+  realization wave" — + `research_report_v1_0_manifest.json`
+  consolidating 46 experiment reports and 20 decision records
+  (0008–0027) across the 2026-07-05→07 window, every one of the 79
+  referenced paths verified to exist; headline metrics incl. ten of
+  ten og module targets, five of five notices, test base 747 → 1,210
+  all green, the adopted model's gates, the mortality gradient, and
+  the soak; owner decisions and named re-openers ledgered as
+  deliberately-open, not queued. The reports index updated; the
+  underlying lab reports untouched, per the convention.)
 - [ ] **V2 · Refresh `docs/agent-standards.md`.** Its own charter is to
   orient a fresh session with a state snapshot — six cycles stale.
   Rewrite the snapshot to the current truth (ten modules, the Keeper

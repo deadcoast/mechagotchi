@@ -788,6 +788,8 @@ Post-v0.1 continuation has started:
 - `labs/readability_benchmark/real_mutation_finetune.py`
 - `data/readability_benchmark/real_mutation_finetune_stage0.json` + `data/readability_benchmark/adopted_readability_model.json` (F3: the ranker augmented with mutationbench's physics-labeled REAL pairs — ALL GATES GREEN and ADOPTED: real heldout (cross-parent) 0.98018 → 1.0, zero synthetic regression, live physics A/B not worse; the adopted weights frozen as a committed auditable artifact and the session's legibility trainer switched to load it. E3's fuel became a better model)
 
+- `research/reports/mechagotchi_research_report_v1_0.md` + `research/reports/research_report_v1_0_manifest.json` (V1: the realization-wave consolidation — cycles 02–06 in one document: ten of ten og module targets, "Eras of the Soup" live with five of five notices, the dataset→consumer→adopted-model chain, the mortality-gradient verdict, test base 747 → 1,210; 46 experiment reports + 20 decision records referenced, all 79 manifest paths verified; the underlying lab reports untouched per the convention)
+
 Stage 0 and Stage 1 established:
 
 - Stage 0: define the research ontology and evaluation vocabulary.

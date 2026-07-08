@@ -50,4 +50,3 @@
   experiments with self-modifying program soups.
 - CTM: Continuous Thought Machine, used here only as inspiration for internal
   time, synchronization, and confidence-gated deliberation.
-
