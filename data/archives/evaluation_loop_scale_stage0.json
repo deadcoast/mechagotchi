@@ -1,0 +1,5470 @@
+{
+  "artifact_id": "evaluation_loop_scale_stage0",
+  "status": "complete",
+  "date": "2026-07-09",
+  "purpose": "Run the full generational evolve loop at the documented evaluation budget (20k+ stress-probed lifecycle evaluations) over the E1 scale geometry with the E2-evidenced WFC parent path; wall-clock measured first against the pre-registered bound; determinism pinned under seeds (cycle 13 E3).",
+  "source_artifacts": [
+    "labs/map_elites_archive/niche_scale_archive.py",
+    "labs/wfc_grid/wfc_population_throughput.py",
+    "data/archives/niche_scale_archive_stage0.json",
+    "data/wfc_grid/wfc_population_throughput_stage0.json",
+    "data/seed_grids_16x16",
+    "packages/mecha_engine/src/mecha_engine/generation",
+    "docs/project-research/deep-research/01/deep-research.md"
+  ],
+  "metrics": {
+    "protocol": {
+      "population": 256,
+      "target_evaluations": 20480,
+      "rng_seed": 20260709,
+      "lifecycle_ticks": 24,
+      "wall_clock_bound_s": 600.0,
+      "parent_path": "wfc",
+      "parent_path_evidence": "E2 (data/wfc_grid/wfc_population_throughput_stage0.json): validity 1.0, unique-signature rate 1.0, 7.04 ms/candidate with retraining, archive growth 171->233 under the WFC parent path",
+      "bootstrap_composition": {
+        "constrained": 128,
+        "wfc": 128
+      },
+      "frozen_edges_source": "data/archives/niche_scale_archive_stage0.json",
+      "slip_alignment": "not enforced in this harness (the standing E2 scope note); alignment gates belong to the ecosystem loop, not the archive evaluation budget"
+    },
+    "evaluations_total": 20480,
+    "generations_run": 79,
+    "trajectory": [
+      {
+        "generation": 1,
+        "evaluations_total": 512,
+        "parent_count": 136,
+        "collapse_failures": 0,
+        "occupied_niches": 185,
+        "coverage": 0.361328,
+        "qd_score": 110.067409,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 65
+      },
+      {
+        "generation": 2,
+        "evaluations_total": 768,
+        "parent_count": 185,
+        "collapse_failures": 0,
+        "occupied_niches": 205,
+        "coverage": 0.400391,
+        "qd_score": 126.480306,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 47
+      },
+      {
+        "generation": 3,
+        "evaluations_total": 1024,
+        "parent_count": 205,
+        "collapse_failures": 0,
+        "occupied_niches": 218,
+        "coverage": 0.425781,
+        "qd_score": 136.983284,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 34
+      },
+      {
+        "generation": 4,
+        "evaluations_total": 1280,
+        "parent_count": 218,
+        "collapse_failures": 0,
+        "occupied_niches": 222,
+        "coverage": 0.433594,
+        "qd_score": 143.161947,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 25
+      },
+      {
+        "generation": 5,
+        "evaluations_total": 1536,
+        "parent_count": 222,
+        "collapse_failures": 0,
+        "occupied_niches": 230,
+        "coverage": 0.449219,
+        "qd_score": 150.569245,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 23
+      },
+      {
+        "generation": 6,
+        "evaluations_total": 1792,
+        "parent_count": 230,
+        "collapse_failures": 0,
+        "occupied_niches": 233,
+        "coverage": 0.455078,
+        "qd_score": 155.700874,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 19
+      },
+      {
+        "generation": 7,
+        "evaluations_total": 2048,
+        "parent_count": 233,
+        "collapse_failures": 0,
+        "occupied_niches": 238,
+        "coverage": 0.464844,
+        "qd_score": 163.804775,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 30
+      },
+      {
+        "generation": 8,
+        "evaluations_total": 2304,
+        "parent_count": 238,
+        "collapse_failures": 0,
+        "occupied_niches": 240,
+        "coverage": 0.46875,
+        "qd_score": 166.410342,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 15
+      },
+      {
+        "generation": 9,
+        "evaluations_total": 2560,
+        "parent_count": 240,
+        "collapse_failures": 0,
+        "occupied_niches": 241,
+        "coverage": 0.470703,
+        "qd_score": 169.410431,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 15
+      },
+      {
+        "generation": 10,
+        "evaluations_total": 2816,
+        "parent_count": 241,
+        "collapse_failures": 0,
+        "occupied_niches": 243,
+        "coverage": 0.474609,
+        "qd_score": 172.421622,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 15
+      },
+      {
+        "generation": 11,
+        "evaluations_total": 3072,
+        "parent_count": 243,
+        "collapse_failures": 0,
+        "occupied_niches": 244,
+        "coverage": 0.476562,
+        "qd_score": 173.169896,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 11
+      },
+      {
+        "generation": 12,
+        "evaluations_total": 3328,
+        "parent_count": 244,
+        "collapse_failures": 0,
+        "occupied_niches": 247,
+        "coverage": 0.482422,
+        "qd_score": 176.530954,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 11
+      },
+      {
+        "generation": 13,
+        "evaluations_total": 3584,
+        "parent_count": 247,
+        "collapse_failures": 0,
+        "occupied_niches": 248,
+        "coverage": 0.484375,
+        "qd_score": 177.544335,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 12
+      },
+      {
+        "generation": 14,
+        "evaluations_total": 3840,
+        "parent_count": 248,
+        "collapse_failures": 0,
+        "occupied_niches": 250,
+        "coverage": 0.488281,
+        "qd_score": 179.303822,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 9
+      },
+      {
+        "generation": 15,
+        "evaluations_total": 4096,
+        "parent_count": 250,
+        "collapse_failures": 0,
+        "occupied_niches": 251,
+        "coverage": 0.490234,
+        "qd_score": 181.060246,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 11
+      },
+      {
+        "generation": 16,
+        "evaluations_total": 4352,
+        "parent_count": 251,
+        "collapse_failures": 0,
+        "occupied_niches": 252,
+        "coverage": 0.492188,
+        "qd_score": 181.589842,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 7
+      },
+      {
+        "generation": 17,
+        "evaluations_total": 4608,
+        "parent_count": 252,
+        "collapse_failures": 0,
+        "occupied_niches": 252,
+        "coverage": 0.492188,
+        "qd_score": 183.021532,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 9
+      },
+      {
+        "generation": 18,
+        "evaluations_total": 4864,
+        "parent_count": 252,
+        "collapse_failures": 0,
+        "occupied_niches": 253,
+        "coverage": 0.494141,
+        "qd_score": 184.669287,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 9
+      },
+      {
+        "generation": 19,
+        "evaluations_total": 5120,
+        "parent_count": 253,
+        "collapse_failures": 0,
+        "occupied_niches": 253,
+        "coverage": 0.494141,
+        "qd_score": 185.190807,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 7
+      },
+      {
+        "generation": 20,
+        "evaluations_total": 5376,
+        "parent_count": 253,
+        "collapse_failures": 0,
+        "occupied_niches": 255,
+        "coverage": 0.498047,
+        "qd_score": 186.862408,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 8
+      },
+      {
+        "generation": 21,
+        "evaluations_total": 5632,
+        "parent_count": 255,
+        "collapse_failures": 0,
+        "occupied_niches": 258,
+        "coverage": 0.503906,
+        "qd_score": 189.94668,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 10
+      },
+      {
+        "generation": 22,
+        "evaluations_total": 5888,
+        "parent_count": 258,
+        "collapse_failures": 0,
+        "occupied_niches": 258,
+        "coverage": 0.503906,
+        "qd_score": 189.985604,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 5
+      },
+      {
+        "generation": 23,
+        "evaluations_total": 6144,
+        "parent_count": 258,
+        "collapse_failures": 0,
+        "occupied_niches": 258,
+        "coverage": 0.503906,
+        "qd_score": 190.03389,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 8
+      },
+      {
+        "generation": 24,
+        "evaluations_total": 6400,
+        "parent_count": 258,
+        "collapse_failures": 0,
+        "occupied_niches": 259,
+        "coverage": 0.505859,
+        "qd_score": 190.834263,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 8
+      },
+      {
+        "generation": 25,
+        "evaluations_total": 6656,
+        "parent_count": 259,
+        "collapse_failures": 0,
+        "occupied_niches": 260,
+        "coverage": 0.507812,
+        "qd_score": 191.771668,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 6
+      },
+      {
+        "generation": 26,
+        "evaluations_total": 6912,
+        "parent_count": 260,
+        "collapse_failures": 0,
+        "occupied_niches": 261,
+        "coverage": 0.509766,
+        "qd_score": 193.037743,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 7
+      },
+      {
+        "generation": 27,
+        "evaluations_total": 7168,
+        "parent_count": 261,
+        "collapse_failures": 0,
+        "occupied_niches": 263,
+        "coverage": 0.513672,
+        "qd_score": 193.928109,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 7
+      },
+      {
+        "generation": 28,
+        "evaluations_total": 7424,
+        "parent_count": 263,
+        "collapse_failures": 0,
+        "occupied_niches": 264,
+        "coverage": 0.515625,
+        "qd_score": 195.447853,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 4
+      },
+      {
+        "generation": 29,
+        "evaluations_total": 7680,
+        "parent_count": 264,
+        "collapse_failures": 0,
+        "occupied_niches": 264,
+        "coverage": 0.515625,
+        "qd_score": 195.975136,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 8
+      },
+      {
+        "generation": 30,
+        "evaluations_total": 7936,
+        "parent_count": 264,
+        "collapse_failures": 0,
+        "occupied_niches": 264,
+        "coverage": 0.515625,
+        "qd_score": 197.615835,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 11
+      },
+      {
+        "generation": 31,
+        "evaluations_total": 8192,
+        "parent_count": 264,
+        "collapse_failures": 0,
+        "occupied_niches": 265,
+        "coverage": 0.517578,
+        "qd_score": 198.085785,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 9
+      },
+      {
+        "generation": 32,
+        "evaluations_total": 8448,
+        "parent_count": 265,
+        "collapse_failures": 0,
+        "occupied_niches": 265,
+        "coverage": 0.517578,
+        "qd_score": 198.300652,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 7
+      },
+      {
+        "generation": 33,
+        "evaluations_total": 8704,
+        "parent_count": 265,
+        "collapse_failures": 0,
+        "occupied_niches": 266,
+        "coverage": 0.519531,
+        "qd_score": 198.809151,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 6
+      },
+      {
+        "generation": 34,
+        "evaluations_total": 8960,
+        "parent_count": 266,
+        "collapse_failures": 0,
+        "occupied_niches": 267,
+        "coverage": 0.521484,
+        "qd_score": 200.262739,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 5
+      },
+      {
+        "generation": 35,
+        "evaluations_total": 9216,
+        "parent_count": 267,
+        "collapse_failures": 0,
+        "occupied_niches": 269,
+        "coverage": 0.525391,
+        "qd_score": 201.787964,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 5
+      },
+      {
+        "generation": 36,
+        "evaluations_total": 9472,
+        "parent_count": 269,
+        "collapse_failures": 0,
+        "occupied_niches": 270,
+        "coverage": 0.527344,
+        "qd_score": 202.207005,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 2
+      },
+      {
+        "generation": 37,
+        "evaluations_total": 9728,
+        "parent_count": 270,
+        "collapse_failures": 0,
+        "occupied_niches": 270,
+        "coverage": 0.527344,
+        "qd_score": 203.378597,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 15
+      },
+      {
+        "generation": 38,
+        "evaluations_total": 9984,
+        "parent_count": 270,
+        "collapse_failures": 0,
+        "occupied_niches": 270,
+        "coverage": 0.527344,
+        "qd_score": 204.817471,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 5
+      },
+      {
+        "generation": 39,
+        "evaluations_total": 10240,
+        "parent_count": 270,
+        "collapse_failures": 0,
+        "occupied_niches": 270,
+        "coverage": 0.527344,
+        "qd_score": 204.838926,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 2
+      },
+      {
+        "generation": 40,
+        "evaluations_total": 10496,
+        "parent_count": 270,
+        "collapse_failures": 0,
+        "occupied_niches": 271,
+        "coverage": 0.529297,
+        "qd_score": 207.224213,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 7
+      },
+      {
+        "generation": 41,
+        "evaluations_total": 10752,
+        "parent_count": 271,
+        "collapse_failures": 0,
+        "occupied_niches": 271,
+        "coverage": 0.529297,
+        "qd_score": 207.770852,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 8
+      },
+      {
+        "generation": 42,
+        "evaluations_total": 11008,
+        "parent_count": 271,
+        "collapse_failures": 0,
+        "occupied_niches": 271,
+        "coverage": 0.529297,
+        "qd_score": 208.437639,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 2
+      },
+      {
+        "generation": 43,
+        "evaluations_total": 11264,
+        "parent_count": 271,
+        "collapse_failures": 0,
+        "occupied_niches": 272,
+        "coverage": 0.53125,
+        "qd_score": 209.346368,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 2
+      },
+      {
+        "generation": 44,
+        "evaluations_total": 11520,
+        "parent_count": 272,
+        "collapse_failures": 0,
+        "occupied_niches": 273,
+        "coverage": 0.533203,
+        "qd_score": 209.803196,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 1
+      },
+      {
+        "generation": 45,
+        "evaluations_total": 11776,
+        "parent_count": 273,
+        "collapse_failures": 0,
+        "occupied_niches": 273,
+        "coverage": 0.533203,
+        "qd_score": 210.284492,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 3
+      },
+      {
+        "generation": 46,
+        "evaluations_total": 12032,
+        "parent_count": 273,
+        "collapse_failures": 0,
+        "occupied_niches": 274,
+        "coverage": 0.535156,
+        "qd_score": 211.796741,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 5
+      },
+      {
+        "generation": 47,
+        "evaluations_total": 12288,
+        "parent_count": 274,
+        "collapse_failures": 0,
+        "occupied_niches": 274,
+        "coverage": 0.535156,
+        "qd_score": 211.799008,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 2
+      },
+      {
+        "generation": 48,
+        "evaluations_total": 12544,
+        "parent_count": 274,
+        "collapse_failures": 0,
+        "occupied_niches": 276,
+        "coverage": 0.539062,
+        "qd_score": 212.660631,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 3
+      },
+      {
+        "generation": 49,
+        "evaluations_total": 12800,
+        "parent_count": 276,
+        "collapse_failures": 0,
+        "occupied_niches": 276,
+        "coverage": 0.539062,
+        "qd_score": 212.671227,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 2
+      },
+      {
+        "generation": 50,
+        "evaluations_total": 13056,
+        "parent_count": 276,
+        "collapse_failures": 0,
+        "occupied_niches": 277,
+        "coverage": 0.541016,
+        "qd_score": 213.118875,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 3
+      },
+      {
+        "generation": 51,
+        "evaluations_total": 13312,
+        "parent_count": 277,
+        "collapse_failures": 0,
+        "occupied_niches": 277,
+        "coverage": 0.541016,
+        "qd_score": 213.61206,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 4
+      },
+      {
+        "generation": 52,
+        "evaluations_total": 13568,
+        "parent_count": 277,
+        "collapse_failures": 0,
+        "occupied_niches": 277,
+        "coverage": 0.541016,
+        "qd_score": 213.625191,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 2
+      },
+      {
+        "generation": 53,
+        "evaluations_total": 13824,
+        "parent_count": 277,
+        "collapse_failures": 0,
+        "occupied_niches": 277,
+        "coverage": 0.541016,
+        "qd_score": 214.611739,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 6
+      },
+      {
+        "generation": 54,
+        "evaluations_total": 14080,
+        "parent_count": 277,
+        "collapse_failures": 0,
+        "occupied_niches": 277,
+        "coverage": 0.541016,
+        "qd_score": 215.659843,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 7
+      },
+      {
+        "generation": 55,
+        "evaluations_total": 14336,
+        "parent_count": 277,
+        "collapse_failures": 0,
+        "occupied_niches": 277,
+        "coverage": 0.541016,
+        "qd_score": 215.67562,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 2
+      },
+      {
+        "generation": 56,
+        "evaluations_total": 14592,
+        "parent_count": 277,
+        "collapse_failures": 0,
+        "occupied_niches": 277,
+        "coverage": 0.541016,
+        "qd_score": 216.24369,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 5
+      },
+      {
+        "generation": 57,
+        "evaluations_total": 14848,
+        "parent_count": 277,
+        "collapse_failures": 0,
+        "occupied_niches": 277,
+        "coverage": 0.541016,
+        "qd_score": 216.258377,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 3
+      },
+      {
+        "generation": 58,
+        "evaluations_total": 15104,
+        "parent_count": 277,
+        "collapse_failures": 0,
+        "occupied_niches": 278,
+        "coverage": 0.542969,
+        "qd_score": 217.404263,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 2
+      },
+      {
+        "generation": 59,
+        "evaluations_total": 15360,
+        "parent_count": 278,
+        "collapse_failures": 0,
+        "occupied_niches": 278,
+        "coverage": 0.542969,
+        "qd_score": 217.908183,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 5
+      },
+      {
+        "generation": 60,
+        "evaluations_total": 15616,
+        "parent_count": 278,
+        "collapse_failures": 0,
+        "occupied_niches": 278,
+        "coverage": 0.542969,
+        "qd_score": 218.375404,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 2
+      },
+      {
+        "generation": 61,
+        "evaluations_total": 15872,
+        "parent_count": 278,
+        "collapse_failures": 0,
+        "occupied_niches": 278,
+        "coverage": 0.542969,
+        "qd_score": 218.377313,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 1
+      },
+      {
+        "generation": 62,
+        "evaluations_total": 16128,
+        "parent_count": 278,
+        "collapse_failures": 0,
+        "occupied_niches": 278,
+        "coverage": 0.542969,
+        "qd_score": 218.378898,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 2
+      },
+      {
+        "generation": 63,
+        "evaluations_total": 16384,
+        "parent_count": 278,
+        "collapse_failures": 0,
+        "occupied_niches": 278,
+        "coverage": 0.542969,
+        "qd_score": 218.387943,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 2
+      },
+      {
+        "generation": 64,
+        "evaluations_total": 16640,
+        "parent_count": 278,
+        "collapse_failures": 0,
+        "occupied_niches": 278,
+        "coverage": 0.542969,
+        "qd_score": 218.407797,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 2
+      },
+      {
+        "generation": 65,
+        "evaluations_total": 16896,
+        "parent_count": 278,
+        "collapse_failures": 0,
+        "occupied_niches": 279,
+        "coverage": 0.544922,
+        "qd_score": 218.841769,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 0
+      },
+      {
+        "generation": 66,
+        "evaluations_total": 17152,
+        "parent_count": 279,
+        "collapse_failures": 0,
+        "occupied_niches": 279,
+        "coverage": 0.544922,
+        "qd_score": 218.896244,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 4
+      },
+      {
+        "generation": 67,
+        "evaluations_total": 17408,
+        "parent_count": 279,
+        "collapse_failures": 0,
+        "occupied_niches": 279,
+        "coverage": 0.544922,
+        "qd_score": 219.400467,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 4
+      },
+      {
+        "generation": 68,
+        "evaluations_total": 17664,
+        "parent_count": 279,
+        "collapse_failures": 0,
+        "occupied_niches": 279,
+        "coverage": 0.544922,
+        "qd_score": 219.419273,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 2
+      },
+      {
+        "generation": 69,
+        "evaluations_total": 17920,
+        "parent_count": 279,
+        "collapse_failures": 0,
+        "occupied_niches": 280,
+        "coverage": 0.546875,
+        "qd_score": 220.629726,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 3
+      },
+      {
+        "generation": 70,
+        "evaluations_total": 18176,
+        "parent_count": 280,
+        "collapse_failures": 0,
+        "occupied_niches": 280,
+        "coverage": 0.546875,
+        "qd_score": 220.691251,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 6
+      },
+      {
+        "generation": 71,
+        "evaluations_total": 18432,
+        "parent_count": 280,
+        "collapse_failures": 0,
+        "occupied_niches": 280,
+        "coverage": 0.546875,
+        "qd_score": 220.693206,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 2
+      },
+      {
+        "generation": 72,
+        "evaluations_total": 18688,
+        "parent_count": 280,
+        "collapse_failures": 0,
+        "occupied_niches": 280,
+        "coverage": 0.546875,
+        "qd_score": 220.715148,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 5
+      },
+      {
+        "generation": 73,
+        "evaluations_total": 18944,
+        "parent_count": 280,
+        "collapse_failures": 0,
+        "occupied_niches": 281,
+        "coverage": 0.548828,
+        "qd_score": 221.175485,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 1
+      },
+      {
+        "generation": 74,
+        "evaluations_total": 19200,
+        "parent_count": 281,
+        "collapse_failures": 0,
+        "occupied_niches": 281,
+        "coverage": 0.548828,
+        "qd_score": 221.177813,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 1
+      },
+      {
+        "generation": 75,
+        "evaluations_total": 19456,
+        "parent_count": 281,
+        "collapse_failures": 0,
+        "occupied_niches": 281,
+        "coverage": 0.548828,
+        "qd_score": 221.381663,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 4
+      },
+      {
+        "generation": 76,
+        "evaluations_total": 19712,
+        "parent_count": 281,
+        "collapse_failures": 0,
+        "occupied_niches": 281,
+        "coverage": 0.548828,
+        "qd_score": 221.383473,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 1
+      },
+      {
+        "generation": 77,
+        "evaluations_total": 19968,
+        "parent_count": 281,
+        "collapse_failures": 0,
+        "occupied_niches": 281,
+        "coverage": 0.548828,
+        "qd_score": 221.576143,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 4
+      },
+      {
+        "generation": 78,
+        "evaluations_total": 20224,
+        "parent_count": 281,
+        "collapse_failures": 0,
+        "occupied_niches": 281,
+        "coverage": 0.548828,
+        "qd_score": 221.576143,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 0
+      },
+      {
+        "generation": 79,
+        "evaluations_total": 20480,
+        "parent_count": 281,
+        "collapse_failures": 0,
+        "occupied_niches": 281,
+        "coverage": 0.548828,
+        "qd_score": 222.079495,
+        "best_fitness": 0.983616,
+        "replacements_this_generation": 5
+      }
+    ],
+    "final_archive": {
+      "archive_kind": "map_elites",
+      "geometry": "scale",
+      "descriptor_names": [
+        "symmetry",
+        "visual_complexity",
+        "behavior_neediness"
+      ],
+      "descriptor_cardinalities": [
+        8,
+        8,
+        8
+      ],
+      "total_possible_niches": 512,
+      "occupied_niches": 281,
+      "coverage": 0.548828,
+      "descriptor_bin_spread": {
+        "symmetry": 8,
+        "visual_complexity": 8,
+        "behavior_neediness": 7
+      },
+      "best_fitness": 0.983616,
+      "mean_elite_fitness": 0.790318,
+      "qd_score": 222.079495,
+      "candidate_count": 20480,
+      "blocked_invalid_count": 0,
+      "event_counts": {
+        "inserted_empty_niche": 281,
+        "kept_incumbent_higher_fitness": 19517,
+        "replaced_elite": 682
+      }
+    },
+    "elite_records": [
+      {
+        "niche": "0,0,6",
+        "grid_id": "mg_e2w_g17_092",
+        "fitness": 0.439096,
+        "descriptor": [
+          0,
+          0,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.275862,
+          "visual_complexity": 0.750028,
+          "behavior_neediness": 0.17
+        },
+        "signature_hash": "8398e2c35b05653b"
+      },
+      {
+        "niche": "0,0,7",
+        "grid_id": "mg_constrained_029",
+        "fitness": 0.933793,
+        "descriptor": [
+          0,
+          0,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.0,
+          "visual_complexity": 0.716055,
+          "behavior_neediness": 0.23
+        },
+        "signature_hash": "0ddbacd305dcb4d4"
+      },
+      {
+        "niche": "0,1,3",
+        "grid_id": "mg_constrained_032",
+        "fitness": 0.736757,
+        "descriptor": [
+          0,
+          1,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.26087,
+          "visual_complexity": 0.800898,
+          "behavior_neediness": 0.06
+        },
+        "signature_hash": "c9ca4c033d60aa76"
+      },
+      {
+        "niche": "0,1,5",
+        "grid_id": "mg_e2w_g67_045",
+        "fitness": 0.923869,
+        "descriptor": [
+          0,
+          1,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.285714,
+          "visual_complexity": 0.808031,
+          "behavior_neediness": 0.1
+        },
+        "signature_hash": "ae67164561aae73e"
+      },
+      {
+        "niche": "0,1,6",
+        "grid_id": "mg_e2w_g11_159",
+        "fitness": 0.901984,
+        "descriptor": [
+          0,
+          1,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.206897,
+          "visual_complexity": 0.787378,
+          "behavior_neediness": 0.21
+        },
+        "signature_hash": "5cd3fb303c41c197"
+      },
+      {
+        "niche": "0,1,7",
+        "grid_id": "mg_e2w_g56_096",
+        "fitness": 0.921343,
+        "descriptor": [
+          0,
+          1,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.162162,
+          "visual_complexity": 0.798951,
+          "behavior_neediness": 0.41
+        },
+        "signature_hash": "6b80e29c54b5551e"
+      },
+      {
+        "niche": "0,2,0",
+        "grid_id": "mg_e2w_g33_152",
+        "fitness": 0.452904,
+        "descriptor": [
+          0,
+          2,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.28,
+          "visual_complexity": 0.843003,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "ebb1c8693caa6bd4"
+      },
+      {
+        "niche": "0,2,2",
+        "grid_id": "mg_e2w_g65_215",
+        "fitness": 0.433972,
+        "descriptor": [
+          0,
+          2,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.285714,
+          "visual_complexity": 0.836206,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "a47a7b20f949de76"
+      },
+      {
+        "niche": "0,2,3",
+        "grid_id": "mg_e2w_g31_125",
+        "fitness": 0.909007,
+        "descriptor": [
+          0,
+          2,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.311111,
+          "visual_complexity": 0.843517,
+          "behavior_neediness": 0.05
+        },
+        "signature_hash": "0641e7e93480fa18"
+      },
+      {
+        "niche": "0,2,4",
+        "grid_id": "mg_e2w_g70_011",
+        "fitness": 0.930436,
+        "descriptor": [
+          0,
+          2,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.3,
+          "visual_complexity": 0.828651,
+          "behavior_neediness": 0.07
+        },
+        "signature_hash": "4c0e63aecd39048c"
+      },
+      {
+        "niche": "0,2,5",
+        "grid_id": "mg_e2w_g77_068",
+        "fitness": 0.926661,
+        "descriptor": [
+          0,
+          2,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.311111,
+          "visual_complexity": 0.832249,
+          "behavior_neediness": 0.13
+        },
+        "signature_hash": "a768c20b8478cf95"
+      },
+      {
+        "niche": "0,2,6",
+        "grid_id": "mg_e2w_g73_040",
+        "fitness": 0.934027,
+        "descriptor": [
+          0,
+          2,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.272727,
+          "visual_complexity": 0.833748,
+          "behavior_neediness": 0.21
+        },
+        "signature_hash": "cc10303724771852"
+      },
+      {
+        "niche": "0,2,7",
+        "grid_id": "mg_e2w_g56_026",
+        "fitness": 0.922886,
+        "descriptor": [
+          0,
+          2,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.311111,
+          "visual_complexity": 0.814456,
+          "behavior_neediness": 0.38
+        },
+        "signature_hash": "eb4678ed8d77bea3"
+      },
+      {
+        "niche": "0,3,0",
+        "grid_id": "mg_e2w_g37_141",
+        "fitness": 0.720835,
+        "descriptor": [
+          0,
+          3,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.301887,
+          "visual_complexity": 0.866709,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "9096f79ee0487012"
+      },
+      {
+        "niche": "0,3,2",
+        "grid_id": "mg_e2w_g1_176",
+        "fitness": 0.722959,
+        "descriptor": [
+          0,
+          3,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.291667,
+          "visual_complexity": 0.846893,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "7277f53b5d28bfc3"
+      },
+      {
+        "niche": "0,3,3",
+        "grid_id": "mg_e2w_g75_215",
+        "fitness": 0.902651,
+        "descriptor": [
+          0,
+          3,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.27451,
+          "visual_complexity": 0.865297,
+          "behavior_neediness": 0.06
+        },
+        "signature_hash": "729e56c8a21ee4a3"
+      },
+      {
+        "niche": "0,3,4",
+        "grid_id": "mg_e2w_g26_056",
+        "fitness": 0.922007,
+        "descriptor": [
+          0,
+          3,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.3,
+          "visual_complexity": 0.847733,
+          "behavior_neediness": 0.09
+        },
+        "signature_hash": "6bbbd0754e68ea58"
+      },
+      {
+        "niche": "0,3,5",
+        "grid_id": "mg_e2w_g77_118",
+        "fitness": 0.927118,
+        "descriptor": [
+          0,
+          3,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.212766,
+          "visual_complexity": 0.855413,
+          "behavior_neediness": 0.14
+        },
+        "signature_hash": "e9cda004503e2037"
+      },
+      {
+        "niche": "0,3,6",
+        "grid_id": "mg_e2w_g24_148",
+        "fitness": 0.935317,
+        "descriptor": [
+          0,
+          3,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.235294,
+          "visual_complexity": 0.847274,
+          "behavior_neediness": 0.17
+        },
+        "signature_hash": "f275470c9d2261d1"
+      },
+      {
+        "niche": "0,3,7",
+        "grid_id": "mg_e2w_g15_089",
+        "fitness": 0.930435,
+        "descriptor": [
+          0,
+          3,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.272727,
+          "visual_complexity": 0.849327,
+          "behavior_neediness": 0.24
+        },
+        "signature_hash": "08af0bbd8ae7fc0c"
+      },
+      {
+        "niche": "0,4,0",
+        "grid_id": "mg_e2w_g24_164",
+        "fitness": 0.695086,
+        "descriptor": [
+          0,
+          4,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.301887,
+          "visual_complexity": 0.873954,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "3609d7e76358eb26"
+      },
+      {
+        "niche": "0,4,2",
+        "grid_id": "mg_e2w_g2_045",
+        "fitness": 0.694745,
+        "descriptor": [
+          0,
+          4,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.264151,
+          "visual_complexity": 0.877951,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "059fdd0871d43f20"
+      },
+      {
+        "niche": "0,4,3",
+        "grid_id": "mg_e2w_g18_034",
+        "fitness": 0.893591,
+        "descriptor": [
+          0,
+          4,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.291667,
+          "visual_complexity": 0.879431,
+          "behavior_neediness": 0.06
+        },
+        "signature_hash": "45ab502725ae43ef"
+      },
+      {
+        "niche": "0,4,4",
+        "grid_id": "mg_e2w_g40_175",
+        "fitness": 0.899229,
+        "descriptor": [
+          0,
+          4,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.255319,
+          "visual_complexity": 0.872563,
+          "behavior_neediness": 0.09
+        },
+        "signature_hash": "3c1136c79df7c4d7"
+      },
+      {
+        "niche": "0,4,5",
+        "grid_id": "mg_e2w_g59_205",
+        "fitness": 0.906832,
+        "descriptor": [
+          0,
+          4,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.25,
+          "visual_complexity": 0.874075,
+          "behavior_neediness": 0.11
+        },
+        "signature_hash": "d4280dc47222cd74"
+      },
+      {
+        "niche": "0,4,6",
+        "grid_id": "mg_e2w_g37_022",
+        "fitness": 0.927062,
+        "descriptor": [
+          0,
+          4,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.296296,
+          "visual_complexity": 0.874436,
+          "behavior_neediness": 0.16
+        },
+        "signature_hash": "9e756868d67dd7a7"
+      },
+      {
+        "niche": "0,4,7",
+        "grid_id": "mg_e2w_g16_213",
+        "fitness": 0.904924,
+        "descriptor": [
+          0,
+          4,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.2,
+          "visual_complexity": 0.872811,
+          "behavior_neediness": 0.28
+        },
+        "signature_hash": "a09e4b7823257f9d"
+      },
+      {
+        "niche": "0,5,0",
+        "grid_id": "mg_e2w_g30_009",
+        "fitness": 0.67578,
+        "descriptor": [
+          0,
+          5,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.264151,
+          "visual_complexity": 0.881602,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "534b96d24234dcec"
+      },
+      {
+        "niche": "0,5,2",
+        "grid_id": "mg_e2w_g72_019",
+        "fitness": 0.417958,
+        "descriptor": [
+          0,
+          5,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.301887,
+          "visual_complexity": 0.885498,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "eb71d96409342fc0"
+      },
+      {
+        "niche": "0,5,3",
+        "grid_id": "mg_e2w_g58_104",
+        "fitness": 0.903076,
+        "descriptor": [
+          0,
+          5,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.313725,
+          "visual_complexity": 0.882701,
+          "behavior_neediness": 0.05
+        },
+        "signature_hash": "47e8159dc2cf54ad"
+      },
+      {
+        "niche": "0,5,4",
+        "grid_id": "mg_e2w_g40_172",
+        "fitness": 0.905873,
+        "descriptor": [
+          0,
+          5,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.310345,
+          "visual_complexity": 0.887146,
+          "behavior_neediness": 0.09
+        },
+        "signature_hash": "7b28ca3c183c13b6"
+      },
+      {
+        "niche": "0,5,5",
+        "grid_id": "mg_wfc_062",
+        "fitness": 0.907362,
+        "descriptor": [
+          0,
+          5,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.275862,
+          "visual_complexity": 0.885879,
+          "behavior_neediness": 0.1
+        },
+        "signature_hash": "b2b0b756772c8520"
+      },
+      {
+        "niche": "0,5,6",
+        "grid_id": "mg_e2w_g30_011",
+        "fitness": 0.896698,
+        "descriptor": [
+          0,
+          5,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.28,
+          "visual_complexity": 0.885242,
+          "behavior_neediness": 0.21
+        },
+        "signature_hash": "21a1c0de0c11fd09"
+      },
+      {
+        "niche": "0,5,7",
+        "grid_id": "mg_e2w_g6_079",
+        "fitness": 0.908689,
+        "descriptor": [
+          0,
+          5,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.285714,
+          "visual_complexity": 0.88208,
+          "behavior_neediness": 0.25
+        },
+        "signature_hash": "79d6b42b76295dd5"
+      },
+      {
+        "niche": "0,6,0",
+        "grid_id": "mg_e2w_g1_154",
+        "fitness": 0.69532,
+        "descriptor": [
+          0,
+          6,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.310345,
+          "visual_complexity": 0.894743,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "9dec7dd35111f763"
+      },
+      {
+        "niche": "0,6,2",
+        "grid_id": "mg_e2w_g15_144",
+        "fitness": 0.412541,
+        "descriptor": [
+          0,
+          6,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.222222,
+          "visual_complexity": 0.890989,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "f686f96b70efe192"
+      },
+      {
+        "niche": "0,6,3",
+        "grid_id": "mg_wfc_041",
+        "fitness": 0.729933,
+        "descriptor": [
+          0,
+          6,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.266667,
+          "visual_complexity": 0.890979,
+          "behavior_neediness": 0.06
+        },
+        "signature_hash": "bb23aebad863e346"
+      },
+      {
+        "niche": "0,6,4",
+        "grid_id": "mg_e2w_g26_084",
+        "fitness": 0.722008,
+        "descriptor": [
+          0,
+          6,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.254545,
+          "visual_complexity": 0.893996,
+          "behavior_neediness": 0.09
+        },
+        "signature_hash": "20cd81904ce5a14e"
+      },
+      {
+        "niche": "0,6,5",
+        "grid_id": "mg_e2w_g13_147",
+        "fitness": 0.89972,
+        "descriptor": [
+          0,
+          6,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.313725,
+          "visual_complexity": 0.887856,
+          "behavior_neediness": 0.1
+        },
+        "signature_hash": "3804eafa845f379b"
+      },
+      {
+        "niche": "0,6,6",
+        "grid_id": "mg_e2w_g34_028",
+        "fitness": 0.89656,
+        "descriptor": [
+          0,
+          6,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.153846,
+          "visual_complexity": 0.893655,
+          "behavior_neediness": 0.19
+        },
+        "signature_hash": "34b479e3f53d6166"
+      },
+      {
+        "niche": "0,6,7",
+        "grid_id": "mg_e2w_g68_162",
+        "fitness": 0.89879,
+        "descriptor": [
+          0,
+          6,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.313725,
+          "visual_complexity": 0.889533,
+          "behavior_neediness": 0.27
+        },
+        "signature_hash": "afedaeacfd618dae"
+      },
+      {
+        "niche": "0,7,0",
+        "grid_id": "mg_wfc_055",
+        "fitness": 0.42126,
+        "descriptor": [
+          0,
+          7,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.285714,
+          "visual_complexity": 0.900131,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "e2d6a466343c1f74"
+      },
+      {
+        "niche": "0,7,3",
+        "grid_id": "mg_e2w_g36_172",
+        "fitness": 0.40855,
+        "descriptor": [
+          0,
+          7,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.295082,
+          "visual_complexity": 0.898653,
+          "behavior_neediness": 0.04
+        },
+        "signature_hash": "66c48933d3490023"
+      },
+      {
+        "niche": "0,7,4",
+        "grid_id": "mg_constrained_105",
+        "fitness": 0.460185,
+        "descriptor": [
+          0,
+          7,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.133333,
+          "visual_complexity": 0.926377,
+          "behavior_neediness": 0.07
+        },
+        "signature_hash": "7c02ee2d69f3b76d"
+      },
+      {
+        "niche": "0,7,5",
+        "grid_id": "mg_e2w_g28_143",
+        "fitness": 0.881359,
+        "descriptor": [
+          0,
+          7,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.285714,
+          "visual_complexity": 0.901033,
+          "behavior_neediness": 0.13
+        },
+        "signature_hash": "79ead6ee8e286430"
+      },
+      {
+        "niche": "0,7,6",
+        "grid_id": "mg_e2w_g11_005",
+        "fitness": 0.900169,
+        "descriptor": [
+          0,
+          7,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.3,
+          "visual_complexity": 0.897943,
+          "behavior_neediness": 0.16
+        },
+        "signature_hash": "170d354d9c3596bb"
+      },
+      {
+        "niche": "0,7,7",
+        "grid_id": "mg_e2w_g54_216",
+        "fitness": 0.422912,
+        "descriptor": [
+          0,
+          7,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.285714,
+          "visual_complexity": 0.897208,
+          "behavior_neediness": 0.27
+        },
+        "signature_hash": "7d99976a6e874355"
+      },
+      {
+        "niche": "1,0,7",
+        "grid_id": "mg_e2w_g38_174",
+        "fitness": 0.919718,
+        "descriptor": [
+          1,
+          0,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.357143,
+          "visual_complexity": 0.768798,
+          "behavior_neediness": 0.29
+        },
+        "signature_hash": "025809bf80f9b958"
+      },
+      {
+        "niche": "1,1,4",
+        "grid_id": "mg_constrained_036",
+        "fitness": 0.450179,
+        "descriptor": [
+          1,
+          1,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.318182,
+          "visual_complexity": 0.803947,
+          "behavior_neediness": 0.08
+        },
+        "signature_hash": "856dcd19f1db91dc"
+      },
+      {
+        "niche": "1,1,5",
+        "grid_id": "mg_e2w_g26_200",
+        "fitness": 0.448866,
+        "descriptor": [
+          1,
+          1,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.358974,
+          "visual_complexity": 0.804425,
+          "behavior_neediness": 0.13
+        },
+        "signature_hash": "b580b1ecea336f6a"
+      },
+      {
+        "niche": "1,1,6",
+        "grid_id": "mg_e2w_g21_115",
+        "fitness": 0.927423,
+        "descriptor": [
+          1,
+          1,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.324324,
+          "visual_complexity": 0.80155,
+          "behavior_neediness": 0.18
+        },
+        "signature_hash": "70846ab298ff910c"
+      },
+      {
+        "niche": "1,1,7",
+        "grid_id": "mg_e2w_g70_241",
+        "fitness": 0.436977,
+        "descriptor": [
+          1,
+          1,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.333333,
+          "visual_complexity": 0.78964,
+          "behavior_neediness": 0.31
+        },
+        "signature_hash": "bedd8cd862a17bec"
+      },
+      {
+        "niche": "1,2,0",
+        "grid_id": "mg_e2w_g15_079",
+        "fitness": 0.723644,
+        "descriptor": [
+          1,
+          2,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.346154,
+          "visual_complexity": 0.843655,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "1be26e5a3e412960"
+      },
+      {
+        "niche": "1,2,2",
+        "grid_id": "mg_e2w_g54_013",
+        "fitness": 0.713286,
+        "descriptor": [
+          1,
+          2,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.352941,
+          "visual_complexity": 0.843188,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "a763b9adc5b4d1f4"
+      },
+      {
+        "niche": "1,2,3",
+        "grid_id": "mg_e2w_g41_237",
+        "fitness": 0.928559,
+        "descriptor": [
+          1,
+          2,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.355556,
+          "visual_complexity": 0.831883,
+          "behavior_neediness": 0.04
+        },
+        "signature_hash": "415509ff4050db8e"
+      },
+      {
+        "niche": "1,2,4",
+        "grid_id": "mg_e2w_g79_239",
+        "fitness": 0.938474,
+        "descriptor": [
+          1,
+          2,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.333333,
+          "visual_complexity": 0.836662,
+          "behavior_neediness": 0.09
+        },
+        "signature_hash": "f6eb27915f8144c4"
+      },
+      {
+        "niche": "1,2,5",
+        "grid_id": "mg_e2w_g23_125",
+        "fitness": 0.930847,
+        "descriptor": [
+          1,
+          2,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.355556,
+          "visual_complexity": 0.840492,
+          "behavior_neediness": 0.11
+        },
+        "signature_hash": "c718b914a9feadce"
+      },
+      {
+        "niche": "1,2,6",
+        "grid_id": "mg_e2w_g75_010",
+        "fitness": 0.932643,
+        "descriptor": [
+          1,
+          2,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.315789,
+          "visual_complexity": 0.833829,
+          "behavior_neediness": 0.16
+        },
+        "signature_hash": "1affc4d7eb998c98"
+      },
+      {
+        "niche": "1,2,7",
+        "grid_id": "mg_e2w_g52_002",
+        "fitness": 0.925099,
+        "descriptor": [
+          1,
+          2,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.325581,
+          "visual_complexity": 0.836242,
+          "behavior_neediness": 0.31
+        },
+        "signature_hash": "36a78193bbec7bdc"
+      },
+      {
+        "niche": "1,3,0",
+        "grid_id": "mg_e2w_g70_151",
+        "fitness": 0.722308,
+        "descriptor": [
+          1,
+          3,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.350877,
+          "visual_complexity": 0.862785,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "3f99f36139bb7401"
+      },
+      {
+        "niche": "1,3,2",
+        "grid_id": "mg_e2w_g72_064",
+        "fitness": 0.706382,
+        "descriptor": [
+          1,
+          3,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.346154,
+          "visual_complexity": 0.861211,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "ef8bfe6beba7ca59"
+      },
+      {
+        "niche": "1,3,3",
+        "grid_id": "mg_e2w_g79_232",
+        "fitness": 0.927048,
+        "descriptor": [
+          1,
+          3,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.346154,
+          "visual_complexity": 0.869207,
+          "behavior_neediness": 0.06
+        },
+        "signature_hash": "4ee2f8004aeb83e4"
+      },
+      {
+        "niche": "1,3,4",
+        "grid_id": "mg_e2w_g36_101",
+        "fitness": 0.922066,
+        "descriptor": [
+          1,
+          3,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.339623,
+          "visual_complexity": 0.858826,
+          "behavior_neediness": 0.09
+        },
+        "signature_hash": "c45853ac99ab96cc"
+      },
+      {
+        "niche": "1,3,5",
+        "grid_id": "mg_e2w_g2_122",
+        "fitness": 0.934174,
+        "descriptor": [
+          1,
+          3,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.340426,
+          "visual_complexity": 0.853238,
+          "behavior_neediness": 0.13
+        },
+        "signature_hash": "370f3357179985d5"
+      },
+      {
+        "niche": "1,3,6",
+        "grid_id": "mg_e2w_g49_237",
+        "fitness": 0.92896,
+        "descriptor": [
+          1,
+          3,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.326531,
+          "visual_complexity": 0.849209,
+          "behavior_neediness": 0.17
+        },
+        "signature_hash": "f8b63e7f8682c128"
+      },
+      {
+        "niche": "1,3,7",
+        "grid_id": "mg_e2w_g38_213",
+        "fitness": 0.929576,
+        "descriptor": [
+          1,
+          3,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.346154,
+          "visual_complexity": 0.857048,
+          "behavior_neediness": 0.24
+        },
+        "signature_hash": "a657b5d1b6e0e86a"
+      },
+      {
+        "niche": "1,4,0",
+        "grid_id": "mg_e2w_g50_080",
+        "fitness": 0.696822,
+        "descriptor": [
+          1,
+          4,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.357143,
+          "visual_complexity": 0.879139,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "c506da3a022a3dd8"
+      },
+      {
+        "niche": "1,4,2",
+        "grid_id": "mg_e2w_g41_089",
+        "fitness": 0.705435,
+        "descriptor": [
+          1,
+          4,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.338983,
+          "visual_complexity": 0.877899,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "19f41702f00817e4"
+      },
+      {
+        "niche": "1,4,3",
+        "grid_id": "mg_e2w_g37_035",
+        "fitness": 0.918348,
+        "descriptor": [
+          1,
+          4,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.344828,
+          "visual_complexity": 0.872747,
+          "behavior_neediness": 0.06
+        },
+        "signature_hash": "c7839bcc27119c25"
+      },
+      {
+        "niche": "1,4,4",
+        "grid_id": "mg_e2w_g17_080",
+        "fitness": 0.918441,
+        "descriptor": [
+          1,
+          4,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.327273,
+          "visual_complexity": 0.876553,
+          "behavior_neediness": 0.07
+        },
+        "signature_hash": "546e89a8e7723f3c"
+      },
+      {
+        "niche": "1,4,5",
+        "grid_id": "mg_e2w_g23_033",
+        "fitness": 0.908246,
+        "descriptor": [
+          1,
+          4,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.32,
+          "visual_complexity": 0.877577,
+          "behavior_neediness": 0.11
+        },
+        "signature_hash": "297315331bf92a95"
+      },
+      {
+        "niche": "1,4,6",
+        "grid_id": "mg_e2w_g31_122",
+        "fitness": 0.921722,
+        "descriptor": [
+          1,
+          4,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.354839,
+          "visual_complexity": 0.878606,
+          "behavior_neediness": 0.16
+        },
+        "signature_hash": "df736471890a0b9a"
+      },
+      {
+        "niche": "1,4,7",
+        "grid_id": "mg_e2w_g23_108",
+        "fitness": 0.910225,
+        "descriptor": [
+          1,
+          4,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.344828,
+          "visual_complexity": 0.879689,
+          "behavior_neediness": 0.23
+        },
+        "signature_hash": "6e96f18e9c53f706"
+      },
+      {
+        "niche": "1,5,0",
+        "grid_id": "mg_e2w_g57_012",
+        "fitness": 0.698153,
+        "descriptor": [
+          1,
+          5,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.354839,
+          "visual_complexity": 0.886864,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "60837358bace8636"
+      },
+      {
+        "niche": "1,5,2",
+        "grid_id": "mg_e2w_g5_186",
+        "fitness": 0.689155,
+        "descriptor": [
+          1,
+          5,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.321429,
+          "visual_complexity": 0.887191,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "fd2887d046d16fb4"
+      },
+      {
+        "niche": "1,5,3",
+        "grid_id": "mg_e2w_g77_225",
+        "fitness": 0.905279,
+        "descriptor": [
+          1,
+          5,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.352941,
+          "visual_complexity": 0.887261,
+          "behavior_neediness": 0.03
+        },
+        "signature_hash": "fdf55505af66dd4a"
+      },
+      {
+        "niche": "1,5,4",
+        "grid_id": "mg_e2w_g31_191",
+        "fitness": 0.910156,
+        "descriptor": [
+          1,
+          5,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.346154,
+          "visual_complexity": 0.881875,
+          "behavior_neediness": 0.09
+        },
+        "signature_hash": "c64731961925b136"
+      },
+      {
+        "niche": "1,5,5",
+        "grid_id": "mg_e2w_g60_214",
+        "fitness": 0.902708,
+        "descriptor": [
+          1,
+          5,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.333333,
+          "visual_complexity": 0.883164,
+          "behavior_neediness": 0.14
+        },
+        "signature_hash": "dadfe609d03f40bd"
+      },
+      {
+        "niche": "1,5,6",
+        "grid_id": "mg_e2w_g21_039",
+        "fitness": 0.902436,
+        "descriptor": [
+          1,
+          5,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.357143,
+          "visual_complexity": 0.886129,
+          "behavior_neediness": 0.16
+        },
+        "signature_hash": "9b0bd9f5c7165664"
+      },
+      {
+        "niche": "1,5,7",
+        "grid_id": "mg_e2w_g5_214",
+        "fitness": 0.898452,
+        "descriptor": [
+          1,
+          5,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.32,
+          "visual_complexity": 0.885861,
+          "behavior_neediness": 0.45
+        },
+        "signature_hash": "c54ca10a15cf6e4c"
+      },
+      {
+        "niche": "1,6,0",
+        "grid_id": "mg_wfc_095",
+        "fitness": 0.714654,
+        "descriptor": [
+          1,
+          6,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.358209,
+          "visual_complexity": 0.891873,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "69dc6742db5ec769"
+      },
+      {
+        "niche": "1,6,2",
+        "grid_id": "mg_e2w_g7_130",
+        "fitness": 0.691425,
+        "descriptor": [
+          1,
+          6,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.338983,
+          "visual_complexity": 0.888458,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "aadce7df1355d8c8"
+      },
+      {
+        "niche": "1,6,3",
+        "grid_id": "mg_e2w_g37_189",
+        "fitness": 0.417047,
+        "descriptor": [
+          1,
+          6,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.338983,
+          "visual_complexity": 0.890383,
+          "behavior_neediness": 0.06
+        },
+        "signature_hash": "72c57d57535bb321"
+      },
+      {
+        "niche": "1,6,4",
+        "grid_id": "mg_e2w_g4_009",
+        "fitness": 0.900376,
+        "descriptor": [
+          1,
+          6,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.333333,
+          "visual_complexity": 0.896013,
+          "behavior_neediness": 0.09
+        },
+        "signature_hash": "19b1756411cf4f78"
+      },
+      {
+        "niche": "1,6,5",
+        "grid_id": "mg_e2w_g54_021",
+        "fitness": 0.899903,
+        "descriptor": [
+          1,
+          6,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.360656,
+          "visual_complexity": 0.888855,
+          "behavior_neediness": 0.13
+        },
+        "signature_hash": "1a0cd0e0c077a277"
+      },
+      {
+        "niche": "1,6,6",
+        "grid_id": "mg_e2w_g48_079",
+        "fitness": 0.898586,
+        "descriptor": [
+          1,
+          6,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.333333,
+          "visual_complexity": 0.887974,
+          "behavior_neediness": 0.17
+        },
+        "signature_hash": "bc075449fbdb9a7e"
+      },
+      {
+        "niche": "1,6,7",
+        "grid_id": "mg_e2w_g43_202",
+        "fitness": 0.898549,
+        "descriptor": [
+          1,
+          6,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.352941,
+          "visual_complexity": 0.894529,
+          "behavior_neediness": 0.28
+        },
+        "signature_hash": "5f041d101903aacb"
+      },
+      {
+        "niche": "1,7,2",
+        "grid_id": "mg_e2w_g48_243",
+        "fitness": 0.407801,
+        "descriptor": [
+          1,
+          7,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.360656,
+          "visual_complexity": 0.897485,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "1b8febcd790a3a35"
+      },
+      {
+        "niche": "1,7,3",
+        "grid_id": "mg_e2w_g50_214",
+        "fitness": 0.422995,
+        "descriptor": [
+          1,
+          7,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.350877,
+          "visual_complexity": 0.900278,
+          "behavior_neediness": 0.02
+        },
+        "signature_hash": "171d6c481de7ac7b"
+      },
+      {
+        "niche": "1,7,4",
+        "grid_id": "mg_e2w_g63_098",
+        "fitness": 0.420518,
+        "descriptor": [
+          1,
+          7,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.346154,
+          "visual_complexity": 0.898202,
+          "behavior_neediness": 0.09
+        },
+        "signature_hash": "635e06224266fe2b"
+      },
+      {
+        "niche": "1,7,5",
+        "grid_id": "mg_e2w_g62_051",
+        "fitness": 0.892946,
+        "descriptor": [
+          1,
+          7,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.339623,
+          "visual_complexity": 0.899935,
+          "behavior_neediness": 0.1
+        },
+        "signature_hash": "be8a99ea5888c782"
+      },
+      {
+        "niche": "1,7,6",
+        "grid_id": "mg_e2w_g35_193",
+        "fitness": 0.899652,
+        "descriptor": [
+          1,
+          7,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.321429,
+          "visual_complexity": 0.901805,
+          "behavior_neediness": 0.17
+        },
+        "signature_hash": "7aaef485493eccd7"
+      },
+      {
+        "niche": "1,7,7",
+        "grid_id": "mg_e2w_g15_072",
+        "fitness": 0.887089,
+        "descriptor": [
+          1,
+          7,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.36,
+          "visual_complexity": 0.898338,
+          "behavior_neediness": 0.28
+        },
+        "signature_hash": "04cace90632873dd"
+      },
+      {
+        "niche": "2,0,7",
+        "grid_id": "mg_e2w_g40_014",
+        "fitness": 0.906307,
+        "descriptor": [
+          2,
+          0,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.4,
+          "visual_complexity": 0.780056,
+          "behavior_neediness": 0.41
+        },
+        "signature_hash": "12a3d5fbc0c7c63a"
+      },
+      {
+        "niche": "2,1,3",
+        "grid_id": "mg_e2w_g69_158",
+        "fitness": 0.459155,
+        "descriptor": [
+          2,
+          1,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.410256,
+          "visual_complexity": 0.804466,
+          "behavior_neediness": 0.05
+        },
+        "signature_hash": "1b5e64238a1a4b42"
+      },
+      {
+        "niche": "2,1,4",
+        "grid_id": "mg_e2w_g79_244",
+        "fitness": 0.449301,
+        "descriptor": [
+          2,
+          1,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.378378,
+          "visual_complexity": 0.798768,
+          "behavior_neediness": 0.08
+        },
+        "signature_hash": "86f1c9a8f165c72d"
+      },
+      {
+        "niche": "2,1,5",
+        "grid_id": "mg_e2w_g16_233",
+        "fitness": 0.446902,
+        "descriptor": [
+          2,
+          1,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.411765,
+          "visual_complexity": 0.794949,
+          "behavior_neediness": 0.11
+        },
+        "signature_hash": "2f756b81f533b4b1"
+      },
+      {
+        "niche": "2,1,6",
+        "grid_id": "mg_e2w_g37_244",
+        "fitness": 0.919271,
+        "descriptor": [
+          2,
+          1,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.410256,
+          "visual_complexity": 0.807915,
+          "behavior_neediness": 0.17
+        },
+        "signature_hash": "01ef13534deab591"
+      },
+      {
+        "niche": "2,1,7",
+        "grid_id": "mg_e2w_g28_217",
+        "fitness": 0.897646,
+        "descriptor": [
+          2,
+          1,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.411765,
+          "visual_complexity": 0.808441,
+          "behavior_neediness": 0.23
+        },
+        "signature_hash": "7d933c2a46e38e96"
+      },
+      {
+        "niche": "2,2,0",
+        "grid_id": "mg_e2w_g3_091",
+        "fitness": 0.742283,
+        "descriptor": [
+          2,
+          2,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.4,
+          "visual_complexity": 0.833016,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "1d37a1a3543227ba"
+      },
+      {
+        "niche": "2,2,2",
+        "grid_id": "mg_e2w_g10_197",
+        "fitness": 0.923015,
+        "descriptor": [
+          2,
+          2,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.4,
+          "visual_complexity": 0.836918,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "f5413dc5b7c55b57"
+      },
+      {
+        "niche": "2,2,3",
+        "grid_id": "mg_e2w_g50_044",
+        "fitness": 0.938391,
+        "descriptor": [
+          2,
+          2,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.4,
+          "visual_complexity": 0.827066,
+          "behavior_neediness": 0.04
+        },
+        "signature_hash": "fdab459b87014b85"
+      },
+      {
+        "niche": "2,2,4",
+        "grid_id": "mg_e2w_g9_198",
+        "fitness": 0.941102,
+        "descriptor": [
+          2,
+          2,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.4,
+          "visual_complexity": 0.82226,
+          "behavior_neediness": 0.07
+        },
+        "signature_hash": "43445e5faed6cfba"
+      },
+      {
+        "niche": "2,2,5",
+        "grid_id": "mg_e2w_g44_226",
+        "fitness": 0.935456,
+        "descriptor": [
+          2,
+          2,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.391304,
+          "visual_complexity": 0.841836,
+          "behavior_neediness": 0.14
+        },
+        "signature_hash": "7cc16c5fa4409bae"
+      },
+      {
+        "niche": "2,2,6",
+        "grid_id": "mg_e2w_g19_213",
+        "fitness": 0.937921,
+        "descriptor": [
+          2,
+          2,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.363636,
+          "visual_complexity": 0.832361,
+          "behavior_neediness": 0.19
+        },
+        "signature_hash": "b9ed69233308c9bd"
+      },
+      {
+        "niche": "2,2,7",
+        "grid_id": "mg_e2w_g59_039",
+        "fitness": 0.93965,
+        "descriptor": [
+          2,
+          2,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.367347,
+          "visual_complexity": 0.831921,
+          "behavior_neediness": 0.25
+        },
+        "signature_hash": "8d2b44bc16c28222"
+      },
+      {
+        "niche": "2,3,0",
+        "grid_id": "mg_e2w_g4_169",
+        "fitness": 0.745033,
+        "descriptor": [
+          2,
+          3,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.407407,
+          "visual_complexity": 0.870015,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "93e5547d81ea21c3"
+      },
+      {
+        "niche": "2,3,2",
+        "grid_id": "mg_e2w_g49_074",
+        "fitness": 0.914235,
+        "descriptor": [
+          2,
+          3,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.408163,
+          "visual_complexity": 0.847688,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "35e1c80202f37273"
+      },
+      {
+        "niche": "2,3,3",
+        "grid_id": "mg_e2w_g55_062",
+        "fitness": 0.936077,
+        "descriptor": [
+          2,
+          3,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.363636,
+          "visual_complexity": 0.866447,
+          "behavior_neediness": 0.06
+        },
+        "signature_hash": "db9f3d577bbed7df"
+      },
+      {
+        "niche": "2,3,4",
+        "grid_id": "mg_e2w_g23_142",
+        "fitness": 0.931105,
+        "descriptor": [
+          2,
+          3,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.392157,
+          "visual_complexity": 0.851442,
+          "behavior_neediness": 0.08
+        },
+        "signature_hash": "828fed914e48c93d"
+      },
+      {
+        "niche": "2,3,5",
+        "grid_id": "mg_e2w_g7_181",
+        "fitness": 0.936677,
+        "descriptor": [
+          2,
+          3,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.392157,
+          "visual_complexity": 0.847203,
+          "behavior_neediness": 0.12
+        },
+        "signature_hash": "b4ebf59131ed3e4a"
+      },
+      {
+        "niche": "2,3,6",
+        "grid_id": "mg_e2w_g57_137",
+        "fitness": 0.932026,
+        "descriptor": [
+          2,
+          3,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.382979,
+          "visual_complexity": 0.844555,
+          "behavior_neediness": 0.22
+        },
+        "signature_hash": "1e6b421866233f3c"
+      },
+      {
+        "niche": "2,3,7",
+        "grid_id": "mg_e2w_g63_030",
+        "fitness": 0.929866,
+        "descriptor": [
+          2,
+          3,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.392157,
+          "visual_complexity": 0.857199,
+          "behavior_neediness": 0.23
+        },
+        "signature_hash": "b54a887a603440f9"
+      },
+      {
+        "niche": "2,4,0",
+        "grid_id": "mg_e2w_g77_115",
+        "fitness": 0.706954,
+        "descriptor": [
+          2,
+          4,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.392157,
+          "visual_complexity": 0.877977,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "7c8626f484f3ab70"
+      },
+      {
+        "niche": "2,4,2",
+        "grid_id": "mg_e2w_g40_139",
+        "fitness": 0.72085,
+        "descriptor": [
+          2,
+          4,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.377358,
+          "visual_complexity": 0.877228,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "fff72923205a4275"
+      },
+      {
+        "niche": "2,4,3",
+        "grid_id": "mg_e2w_g53_130",
+        "fitness": 0.90226,
+        "descriptor": [
+          2,
+          4,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.408163,
+          "visual_complexity": 0.873652,
+          "behavior_neediness": 0.03
+        },
+        "signature_hash": "e5f6af8f74d39454"
+      },
+      {
+        "niche": "2,4,4",
+        "grid_id": "mg_e2w_g59_138",
+        "fitness": 0.917131,
+        "descriptor": [
+          2,
+          4,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.392157,
+          "visual_complexity": 0.875346,
+          "behavior_neediness": 0.09
+        },
+        "signature_hash": "29508b7d886cda5d"
+      },
+      {
+        "niche": "2,4,5",
+        "grid_id": "mg_e2w_g71_154",
+        "fitness": 0.91922,
+        "descriptor": [
+          2,
+          4,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.384615,
+          "visual_complexity": 0.873835,
+          "behavior_neediness": 0.14
+        },
+        "signature_hash": "d1c5ecc517b84ab0"
+      },
+      {
+        "niche": "2,4,6",
+        "grid_id": "mg_e2w_g26_155",
+        "fitness": 0.936088,
+        "descriptor": [
+          2,
+          4,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.4,
+          "visual_complexity": 0.87781,
+          "behavior_neediness": 0.22
+        },
+        "signature_hash": "6667955f16c86048"
+      },
+      {
+        "niche": "2,4,7",
+        "grid_id": "mg_e2w_g16_143",
+        "fitness": 0.925925,
+        "descriptor": [
+          2,
+          4,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.37037,
+          "visual_complexity": 0.872996,
+          "behavior_neediness": 0.24
+        },
+        "signature_hash": "ac5bf673da86a633"
+      },
+      {
+        "niche": "2,5,0",
+        "grid_id": "mg_e2w_g61_193",
+        "fitness": 0.705074,
+        "descriptor": [
+          2,
+          5,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.40678,
+          "visual_complexity": 0.882583,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "4b54de357a4e36ee"
+      },
+      {
+        "niche": "2,5,2",
+        "grid_id": "mg_e2w_g8_011",
+        "fitness": 0.67817,
+        "descriptor": [
+          2,
+          5,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.393443,
+          "visual_complexity": 0.884709,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "456a4407db153a82"
+      },
+      {
+        "niche": "2,5,3",
+        "grid_id": "mg_e2w_g32_011",
+        "fitness": 0.917174,
+        "descriptor": [
+          2,
+          5,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.392857,
+          "visual_complexity": 0.882238,
+          "behavior_neediness": 0.04
+        },
+        "signature_hash": "1413dc93b573fc3e"
+      },
+      {
+        "niche": "2,5,4",
+        "grid_id": "mg_e2w_g34_234",
+        "fitness": 0.908991,
+        "descriptor": [
+          2,
+          5,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.4,
+          "visual_complexity": 0.884143,
+          "behavior_neediness": 0.08
+        },
+        "signature_hash": "2453b87bc85de9e2"
+      },
+      {
+        "niche": "2,5,5",
+        "grid_id": "mg_e2w_g79_229",
+        "fitness": 0.895808,
+        "descriptor": [
+          2,
+          5,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.4,
+          "visual_complexity": 0.884151,
+          "behavior_neediness": 0.1
+        },
+        "signature_hash": "8f539a23c8a907d8"
+      },
+      {
+        "niche": "2,5,6",
+        "grid_id": "mg_e2w_g19_000",
+        "fitness": 0.910592,
+        "descriptor": [
+          2,
+          5,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.393443,
+          "visual_complexity": 0.886453,
+          "behavior_neediness": 0.22
+        },
+        "signature_hash": "53ebc98dc7dc3b71"
+      },
+      {
+        "niche": "2,5,7",
+        "grid_id": "mg_e2w_g6_240",
+        "fitness": 0.895066,
+        "descriptor": [
+          2,
+          5,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.387097,
+          "visual_complexity": 0.885364,
+          "behavior_neediness": 0.39
+        },
+        "signature_hash": "1ce8b066d3bee118"
+      },
+      {
+        "niche": "2,6,0",
+        "grid_id": "mg_e2w_g37_052",
+        "fitness": 0.697316,
+        "descriptor": [
+          2,
+          6,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.377358,
+          "visual_complexity": 0.889632,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "7a9c3334fa6950ad"
+      },
+      {
+        "niche": "2,6,2",
+        "grid_id": "mg_e2w_g7_221",
+        "fitness": 0.696043,
+        "descriptor": [
+          2,
+          6,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.37037,
+          "visual_complexity": 0.89446,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "80d79312ac893605"
+      },
+      {
+        "niche": "2,6,3",
+        "grid_id": "mg_e2w_g54_162",
+        "fitness": 0.725897,
+        "descriptor": [
+          2,
+          6,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.385965,
+          "visual_complexity": 0.89154,
+          "behavior_neediness": 0.04
+        },
+        "signature_hash": "e60e9cbb93b71bfc"
+      },
+      {
+        "niche": "2,6,4",
+        "grid_id": "mg_e2w_g15_096",
+        "fitness": 0.895301,
+        "descriptor": [
+          2,
+          6,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.37931,
+          "visual_complexity": 0.891195,
+          "behavior_neediness": 0.07
+        },
+        "signature_hash": "43d1d3ef8a96bd30"
+      },
+      {
+        "niche": "2,6,5",
+        "grid_id": "mg_e2w_g47_252",
+        "fitness": 0.901371,
+        "descriptor": [
+          2,
+          6,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.385965,
+          "visual_complexity": 0.8881,
+          "behavior_neediness": 0.14
+        },
+        "signature_hash": "476e4f135e23a406"
+      },
+      {
+        "niche": "2,6,6",
+        "grid_id": "mg_e2w_g29_132",
+        "fitness": 0.907736,
+        "descriptor": [
+          2,
+          6,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.40678,
+          "visual_complexity": 0.893096,
+          "behavior_neediness": 0.17
+        },
+        "signature_hash": "cbc4bc5228ad099b"
+      },
+      {
+        "niche": "2,6,7",
+        "grid_id": "mg_e2w_g66_105",
+        "fitness": 0.914925,
+        "descriptor": [
+          2,
+          6,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.4,
+          "visual_complexity": 0.888987,
+          "behavior_neediness": 0.31
+        },
+        "signature_hash": "9a18519c58c28e78"
+      },
+      {
+        "niche": "2,7,0",
+        "grid_id": "mg_wfc_113",
+        "fitness": 0.437002,
+        "descriptor": [
+          2,
+          7,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.394366,
+          "visual_complexity": 0.898848,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "fd6308a353d69cf9"
+      },
+      {
+        "niche": "2,7,2",
+        "grid_id": "mg_e2w_g69_173",
+        "fitness": 0.691057,
+        "descriptor": [
+          2,
+          7,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.372881,
+          "visual_complexity": 0.896577,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "872e2642f9fadcb8"
+      },
+      {
+        "niche": "2,7,3",
+        "grid_id": "mg_e2w_g22_141",
+        "fitness": 0.419495,
+        "descriptor": [
+          2,
+          7,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.393939,
+          "visual_complexity": 0.904785,
+          "behavior_neediness": 0.05
+        },
+        "signature_hash": "9a1eb9cbdcc27eb7"
+      },
+      {
+        "niche": "2,7,4",
+        "grid_id": "mg_e2w_g14_075",
+        "fitness": 0.918657,
+        "descriptor": [
+          2,
+          7,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.37037,
+          "visual_complexity": 0.897954,
+          "behavior_neediness": 0.08
+        },
+        "signature_hash": "59c9f8becdb83b92"
+      },
+      {
+        "niche": "2,7,5",
+        "grid_id": "mg_e2w_g6_061",
+        "fitness": 0.899291,
+        "descriptor": [
+          2,
+          7,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.392157,
+          "visual_complexity": 0.897148,
+          "behavior_neediness": 0.12
+        },
+        "signature_hash": "341c11019f3432d0"
+      },
+      {
+        "niche": "2,7,6",
+        "grid_id": "mg_wfc_052",
+        "fitness": 0.900259,
+        "descriptor": [
+          2,
+          7,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.382353,
+          "visual_complexity": 0.913081,
+          "behavior_neediness": 0.17
+        },
+        "signature_hash": "c2e3383c4f5f854b"
+      },
+      {
+        "niche": "2,7,7",
+        "grid_id": "mg_wfc_090",
+        "fitness": 0.920575,
+        "descriptor": [
+          2,
+          7,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.394737,
+          "visual_complexity": 0.900026,
+          "behavior_neediness": 0.28
+        },
+        "signature_hash": "0c926404db1b9181"
+      },
+      {
+        "niche": "3,1,3",
+        "grid_id": "mg_e2w_g58_062",
+        "fitness": 0.461314,
+        "descriptor": [
+          3,
+          1,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.461538,
+          "visual_complexity": 0.786783,
+          "behavior_neediness": 0.06
+        },
+        "signature_hash": "0cb7322b02c64a99"
+      },
+      {
+        "niche": "3,1,4",
+        "grid_id": "mg_e2w_g67_032",
+        "fitness": 0.455771,
+        "descriptor": [
+          3,
+          1,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.45,
+          "visual_complexity": 0.793047,
+          "behavior_neediness": 0.08
+        },
+        "signature_hash": "d9f53912e80b9c84"
+      },
+      {
+        "niche": "3,1,5",
+        "grid_id": "mg_e2w_g35_066",
+        "fitness": 0.455032,
+        "descriptor": [
+          3,
+          1,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.454545,
+          "visual_complexity": 0.797443,
+          "behavior_neediness": 0.1
+        },
+        "signature_hash": "e51404e954bcfbc9"
+      },
+      {
+        "niche": "3,1,6",
+        "grid_id": "mg_e2w_g70_079",
+        "fitness": 0.930992,
+        "descriptor": [
+          3,
+          1,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.439024,
+          "visual_complexity": 0.794405,
+          "behavior_neediness": 0.15
+        },
+        "signature_hash": "6551b687dd8d194d"
+      },
+      {
+        "niche": "3,1,7",
+        "grid_id": "mg_e2w_g66_227",
+        "fitness": 0.937732,
+        "descriptor": [
+          3,
+          1,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.418605,
+          "visual_complexity": 0.799244,
+          "behavior_neediness": 0.24
+        },
+        "signature_hash": "f0bdaed53564082a"
+      },
+      {
+        "niche": "3,2,0",
+        "grid_id": "mg_e2w_g66_011",
+        "fitness": 0.942148,
+        "descriptor": [
+          3,
+          2,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.434783,
+          "visual_complexity": 0.830069,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "d068f86d248af2f0"
+      },
+      {
+        "niche": "3,2,2",
+        "grid_id": "mg_e2w_g67_251",
+        "fitness": 0.93352,
+        "descriptor": [
+          3,
+          2,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.468085,
+          "visual_complexity": 0.833869,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "8a70210dab0319d5"
+      },
+      {
+        "niche": "3,2,3",
+        "grid_id": "mg_e2w_g59_101",
+        "fitness": 0.939868,
+        "descriptor": [
+          3,
+          2,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.44,
+          "visual_complexity": 0.841448,
+          "behavior_neediness": 0.02
+        },
+        "signature_hash": "df283efd8fa3894a"
+      },
+      {
+        "niche": "3,2,4",
+        "grid_id": "mg_e2w_g71_083",
+        "fitness": 0.933306,
+        "descriptor": [
+          3,
+          2,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.461538,
+          "visual_complexity": 0.833779,
+          "behavior_neediness": 0.07
+        },
+        "signature_hash": "9b4a2073f4399451"
+      },
+      {
+        "niche": "3,2,5",
+        "grid_id": "mg_e2w_g72_162",
+        "fitness": 0.940039,
+        "descriptor": [
+          3,
+          2,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.44,
+          "visual_complexity": 0.838344,
+          "behavior_neediness": 0.14
+        },
+        "signature_hash": "76a79eecc0cd8ccc"
+      },
+      {
+        "niche": "3,2,6",
+        "grid_id": "mg_e2w_g76_039",
+        "fitness": 0.93853,
+        "descriptor": [
+          3,
+          2,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.444444,
+          "visual_complexity": 0.83931,
+          "behavior_neediness": 0.2
+        },
+        "signature_hash": "be8e26308a52fede"
+      },
+      {
+        "niche": "3,2,7",
+        "grid_id": "mg_e2w_g79_001",
+        "fitness": 0.929716,
+        "descriptor": [
+          3,
+          2,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.461538,
+          "visual_complexity": 0.834747,
+          "behavior_neediness": 0.32
+        },
+        "signature_hash": "b0d8b683ef8f1552"
+      },
+      {
+        "niche": "3,3,0",
+        "grid_id": "mg_e2w_g46_045",
+        "fitness": 0.932998,
+        "descriptor": [
+          3,
+          3,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.44898,
+          "visual_complexity": 0.844469,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "5b9a109cbe37a128"
+      },
+      {
+        "niche": "3,3,2",
+        "grid_id": "mg_e2w_g26_212",
+        "fitness": 0.931379,
+        "descriptor": [
+          3,
+          3,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.444444,
+          "visual_complexity": 0.854642,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "82f2459e6d5ee6a3"
+      },
+      {
+        "niche": "3,3,3",
+        "grid_id": "mg_e2w_g25_203",
+        "fitness": 0.939674,
+        "descriptor": [
+          3,
+          3,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.468085,
+          "visual_complexity": 0.852902,
+          "behavior_neediness": 0.02
+        },
+        "signature_hash": "ce4860ef92ad6183"
+      },
+      {
+        "niche": "3,3,4",
+        "grid_id": "mg_e2w_g2_254",
+        "fitness": 0.94061,
+        "descriptor": [
+          3,
+          3,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.461538,
+          "visual_complexity": 0.848233,
+          "behavior_neediness": 0.07
+        },
+        "signature_hash": "61ae0947cba90de1"
+      },
+      {
+        "niche": "3,3,5",
+        "grid_id": "mg_e2w_g37_091",
+        "fitness": 0.930502,
+        "descriptor": [
+          3,
+          3,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.444444,
+          "visual_complexity": 0.854758,
+          "behavior_neediness": 0.14
+        },
+        "signature_hash": "36663ab9c395c46a"
+      },
+      {
+        "niche": "3,3,6",
+        "grid_id": "mg_e2w_g39_137",
+        "fitness": 0.932433,
+        "descriptor": [
+          3,
+          3,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.470588,
+          "visual_complexity": 0.858767,
+          "behavior_neediness": 0.16
+        },
+        "signature_hash": "47cd646e339d126a"
+      },
+      {
+        "niche": "3,3,7",
+        "grid_id": "mg_e2w_g22_012",
+        "fitness": 0.940192,
+        "descriptor": [
+          3,
+          3,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.461538,
+          "visual_complexity": 0.854596,
+          "behavior_neediness": 0.25
+        },
+        "signature_hash": "2582eb4d556662a2"
+      },
+      {
+        "niche": "3,4,0",
+        "grid_id": "mg_e2w_g25_008",
+        "fitness": 0.921357,
+        "descriptor": [
+          3,
+          4,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.470588,
+          "visual_complexity": 0.872859,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "54ac0ce36870c124"
+      },
+      {
+        "niche": "3,4,2",
+        "grid_id": "mg_e2w_g64_172",
+        "fitness": 0.909389,
+        "descriptor": [
+          3,
+          4,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.416667,
+          "visual_complexity": 0.874418,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "d83d1e18b52bc5ae"
+      },
+      {
+        "niche": "3,4,3",
+        "grid_id": "mg_e2w_g21_046",
+        "fitness": 0.921027,
+        "descriptor": [
+          3,
+          4,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.461538,
+          "visual_complexity": 0.875206,
+          "behavior_neediness": 0.02
+        },
+        "signature_hash": "9c23bd1d21b99450"
+      },
+      {
+        "niche": "3,4,4",
+        "grid_id": "mg_e2w_g41_007",
+        "fitness": 0.912904,
+        "descriptor": [
+          3,
+          4,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.444444,
+          "visual_complexity": 0.875882,
+          "behavior_neediness": 0.07
+        },
+        "signature_hash": "0ebbc9b129c0b741"
+      },
+      {
+        "niche": "3,4,5",
+        "grid_id": "mg_e2w_g5_023",
+        "fitness": 0.920122,
+        "descriptor": [
+          3,
+          4,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.428571,
+          "visual_complexity": 0.875854,
+          "behavior_neediness": 0.14
+        },
+        "signature_hash": "0cfac37801ccffa7"
+      },
+      {
+        "niche": "3,4,6",
+        "grid_id": "mg_e2w_g13_114",
+        "fitness": 0.926088,
+        "descriptor": [
+          3,
+          4,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.42623,
+          "visual_complexity": 0.875418,
+          "behavior_neediness": 0.19
+        },
+        "signature_hash": "b03b400ac5aa256b"
+      },
+      {
+        "niche": "3,4,7",
+        "grid_id": "mg_e2w_g1_045",
+        "fitness": 0.916733,
+        "descriptor": [
+          3,
+          4,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.421053,
+          "visual_complexity": 0.875276,
+          "behavior_neediness": 0.24
+        },
+        "signature_hash": "6a98ece086aff2ac"
+      },
+      {
+        "niche": "3,5,0",
+        "grid_id": "mg_e2w_g20_219",
+        "fitness": 0.708441,
+        "descriptor": [
+          3,
+          5,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.419355,
+          "visual_complexity": 0.882381,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "1c4ef128c209f205"
+      },
+      {
+        "niche": "3,5,2",
+        "grid_id": "mg_e2w_g69_044",
+        "fitness": 0.903218,
+        "descriptor": [
+          3,
+          5,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.423077,
+          "visual_complexity": 0.886941,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "a60bf377dd4dac79"
+      },
+      {
+        "niche": "3,5,3",
+        "grid_id": "mg_e2w_g21_233",
+        "fitness": 0.91713,
+        "descriptor": [
+          3,
+          5,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.466667,
+          "visual_complexity": 0.884981,
+          "behavior_neediness": 0.02
+        },
+        "signature_hash": "f7a07b9c234f88b4"
+      },
+      {
+        "niche": "3,5,4",
+        "grid_id": "mg_e2w_g2_093",
+        "fitness": 0.920987,
+        "descriptor": [
+          3,
+          5,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.421053,
+          "visual_complexity": 0.883262,
+          "behavior_neediness": 0.08
+        },
+        "signature_hash": "4eefb3980f920f62"
+      },
+      {
+        "niche": "3,5,5",
+        "grid_id": "mg_e2w_g3_217",
+        "fitness": 0.911554,
+        "descriptor": [
+          3,
+          5,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.45283,
+          "visual_complexity": 0.885749,
+          "behavior_neediness": 0.14
+        },
+        "signature_hash": "4859c297033b688d"
+      },
+      {
+        "niche": "3,5,6",
+        "grid_id": "mg_e2w_g5_103",
+        "fitness": 0.908614,
+        "descriptor": [
+          3,
+          5,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.42623,
+          "visual_complexity": 0.884317,
+          "behavior_neediness": 0.19
+        },
+        "signature_hash": "0c4a397b69c60401"
+      },
+      {
+        "niche": "3,5,7",
+        "grid_id": "mg_e2w_g41_135",
+        "fitness": 0.902462,
+        "descriptor": [
+          3,
+          5,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.423077,
+          "visual_complexity": 0.886316,
+          "behavior_neediness": 0.26
+        },
+        "signature_hash": "bc665e179d6f3d38"
+      },
+      {
+        "niche": "3,6,0",
+        "grid_id": "mg_e2w_g42_065",
+        "fitness": 0.904093,
+        "descriptor": [
+          3,
+          6,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.470588,
+          "visual_complexity": 0.889583,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "eede9e02cc730f1f"
+      },
+      {
+        "niche": "3,6,2",
+        "grid_id": "mg_e2w_g45_087",
+        "fitness": 0.897535,
+        "descriptor": [
+          3,
+          6,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.46875,
+          "visual_complexity": 0.894511,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "4876d38ebcd511e6"
+      },
+      {
+        "niche": "3,6,3",
+        "grid_id": "mg_e2w_g18_195",
+        "fitness": 0.90299,
+        "descriptor": [
+          3,
+          6,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.466667,
+          "visual_complexity": 0.892298,
+          "behavior_neediness": 0.06
+        },
+        "signature_hash": "ae3a5083e629a677"
+      },
+      {
+        "niche": "3,6,4",
+        "grid_id": "mg_e2w_g18_092",
+        "fitness": 0.431748,
+        "descriptor": [
+          3,
+          6,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.466667,
+          "visual_complexity": 0.888615,
+          "behavior_neediness": 0.09
+        },
+        "signature_hash": "1cedd8644183e618"
+      },
+      {
+        "niche": "3,6,5",
+        "grid_id": "mg_e2w_g28_020",
+        "fitness": 0.910101,
+        "descriptor": [
+          3,
+          6,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.451613,
+          "visual_complexity": 0.893934,
+          "behavior_neediness": 0.13
+        },
+        "signature_hash": "9b3b02199d8d457f"
+      },
+      {
+        "niche": "3,6,6",
+        "grid_id": "mg_e2w_g7_140",
+        "fitness": 0.902667,
+        "descriptor": [
+          3,
+          6,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.421053,
+          "visual_complexity": 0.892713,
+          "behavior_neediness": 0.15
+        },
+        "signature_hash": "043982fafe506f30"
+      },
+      {
+        "niche": "3,6,7",
+        "grid_id": "mg_e2w_g32_045",
+        "fitness": 0.904002,
+        "descriptor": [
+          3,
+          6,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.436364,
+          "visual_complexity": 0.890558,
+          "behavior_neediness": 0.24
+        },
+        "signature_hash": "0ccc8d43599c7d5e"
+      },
+      {
+        "niche": "3,7,0",
+        "grid_id": "mg_e2w_g7_094",
+        "fitness": 0.692271,
+        "descriptor": [
+          3,
+          7,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.46875,
+          "visual_complexity": 0.900318,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "20401ca8cdd467be"
+      },
+      {
+        "niche": "3,7,3",
+        "grid_id": "mg_e2w_g36_239",
+        "fitness": 0.41899,
+        "descriptor": [
+          3,
+          7,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.4375,
+          "visual_complexity": 0.897324,
+          "behavior_neediness": 0.04
+        },
+        "signature_hash": "44a170a735ba1dcc"
+      },
+      {
+        "niche": "3,7,4",
+        "grid_id": "mg_e2w_g18_061",
+        "fitness": 0.416387,
+        "descriptor": [
+          3,
+          7,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.42623,
+          "visual_complexity": 0.897712,
+          "behavior_neediness": 0.07
+        },
+        "signature_hash": "5a6c1f7352fea185"
+      },
+      {
+        "niche": "3,7,5",
+        "grid_id": "mg_e2w_g4_036",
+        "fitness": 0.901639,
+        "descriptor": [
+          3,
+          7,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.412698,
+          "visual_complexity": 0.900018,
+          "behavior_neediness": 0.12
+        },
+        "signature_hash": "8c7857b89034bcaf"
+      },
+      {
+        "niche": "3,7,6",
+        "grid_id": "mg_e2w_g58_084",
+        "fitness": 0.897106,
+        "descriptor": [
+          3,
+          7,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.4375,
+          "visual_complexity": 0.910201,
+          "behavior_neediness": 0.21
+        },
+        "signature_hash": "05df41939b9cfb5e"
+      },
+      {
+        "niche": "3,7,7",
+        "grid_id": "mg_e2w_g70_223",
+        "fitness": 0.903395,
+        "descriptor": [
+          3,
+          7,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.444444,
+          "visual_complexity": 0.90112,
+          "behavior_neediness": 0.24
+        },
+        "signature_hash": "d4c4dbfa2787c85e"
+      },
+      {
+        "niche": "4,0,5",
+        "grid_id": "mg_e2w_g24_211",
+        "fitness": 0.460399,
+        "descriptor": [
+          4,
+          0,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.526316,
+          "visual_complexity": 0.776955,
+          "behavior_neediness": 0.1
+        },
+        "signature_hash": "56cd74397f2ad905"
+      },
+      {
+        "niche": "4,0,6",
+        "grid_id": "mg_e2w_g73_047",
+        "fitness": 0.446531,
+        "descriptor": [
+          4,
+          0,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.611111,
+          "visual_complexity": 0.777336,
+          "behavior_neediness": 0.19
+        },
+        "signature_hash": "9ba25e3e2f4f7034"
+      },
+      {
+        "niche": "4,1,3",
+        "grid_id": "mg_e2w_g68_116",
+        "fitness": 0.940877,
+        "descriptor": [
+          4,
+          1,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.5,
+          "visual_complexity": 0.804725,
+          "behavior_neediness": 0.06
+        },
+        "signature_hash": "eb26b53fb72cde77"
+      },
+      {
+        "niche": "4,1,4",
+        "grid_id": "mg_e2w_g43_214",
+        "fitness": 0.443787,
+        "descriptor": [
+          4,
+          1,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.55,
+          "visual_complexity": 0.795411,
+          "behavior_neediness": 0.08
+        },
+        "signature_hash": "cd4a511e21efc212"
+      },
+      {
+        "niche": "4,1,5",
+        "grid_id": "mg_e2w_g75_133",
+        "fitness": 0.944623,
+        "descriptor": [
+          4,
+          1,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.55814,
+          "visual_complexity": 0.805516,
+          "behavior_neediness": 0.11
+        },
+        "signature_hash": "0d365ff3e879aff5"
+      },
+      {
+        "niche": "4,1,6",
+        "grid_id": "mg_e2w_g54_060",
+        "fitness": 0.930122,
+        "descriptor": [
+          4,
+          1,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.52381,
+          "visual_complexity": 0.792834,
+          "behavior_neediness": 0.15
+        },
+        "signature_hash": "c7d3b4adddf8de42"
+      },
+      {
+        "niche": "4,1,7",
+        "grid_id": "mg_e2w_g34_160",
+        "fitness": 0.921189,
+        "descriptor": [
+          4,
+          1,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.486486,
+          "visual_complexity": 0.796145,
+          "behavior_neediness": 0.26
+        },
+        "signature_hash": "14a3cd05c329ddff"
+      },
+      {
+        "niche": "4,2,0",
+        "grid_id": "mg_e2w_g2_221",
+        "fitness": 0.941118,
+        "descriptor": [
+          4,
+          2,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.535714,
+          "visual_complexity": 0.843815,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "2aa03eef821f5642"
+      },
+      {
+        "niche": "4,2,2",
+        "grid_id": "mg_e2w_g62_047",
+        "fitness": 0.936935,
+        "descriptor": [
+          4,
+          2,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.595745,
+          "visual_complexity": 0.829244,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "790a543dd6de5714"
+      },
+      {
+        "niche": "4,2,3",
+        "grid_id": "mg_e2w_g70_236",
+        "fitness": 0.943255,
+        "descriptor": [
+          4,
+          2,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.538462,
+          "visual_complexity": 0.827091,
+          "behavior_neediness": 0.06
+        },
+        "signature_hash": "bfcc6a63268bcb72"
+      },
+      {
+        "niche": "4,2,4",
+        "grid_id": "mg_e2w_g29_220",
+        "fitness": 0.942565,
+        "descriptor": [
+          4,
+          2,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.5,
+          "visual_complexity": 0.835464,
+          "behavior_neediness": 0.09
+        },
+        "signature_hash": "8c8d4552a79ee967"
+      },
+      {
+        "niche": "4,2,5",
+        "grid_id": "mg_constrained_065",
+        "fitness": 0.969891,
+        "descriptor": [
+          4,
+          2,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.65,
+          "visual_complexity": 0.826392,
+          "behavior_neediness": 0.12
+        },
+        "signature_hash": "e1da0542e78923df"
+      },
+      {
+        "niche": "4,2,6",
+        "grid_id": "mg_e2w_g74_173",
+        "fitness": 0.945097,
+        "descriptor": [
+          4,
+          2,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.565217,
+          "visual_complexity": 0.822707,
+          "behavior_neediness": 0.17
+        },
+        "signature_hash": "c551d82e45a68d28"
+      },
+      {
+        "niche": "4,2,7",
+        "grid_id": "mg_e2w_g50_243",
+        "fitness": 0.943027,
+        "descriptor": [
+          4,
+          2,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.538462,
+          "visual_complexity": 0.840702,
+          "behavior_neediness": 0.23
+        },
+        "signature_hash": "09f4d641ca9dd1ff"
+      },
+      {
+        "niche": "4,3,0",
+        "grid_id": "mg_e2w_g67_214",
+        "fitness": 0.940279,
+        "descriptor": [
+          4,
+          3,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.509804,
+          "visual_complexity": 0.857286,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "0067317f120ef396"
+      },
+      {
+        "niche": "4,3,2",
+        "grid_id": "mg_e2w_g11_173",
+        "fitness": 0.939088,
+        "descriptor": [
+          4,
+          3,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.509804,
+          "visual_complexity": 0.844555,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "c9eb27c7c9a26c10"
+      },
+      {
+        "niche": "4,3,3",
+        "grid_id": "mg_e2w_g31_093",
+        "fitness": 0.941929,
+        "descriptor": [
+          4,
+          3,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.576923,
+          "visual_complexity": 0.846161,
+          "behavior_neediness": 0.05
+        },
+        "signature_hash": "173bc33b57aecac8"
+      },
+      {
+        "niche": "4,3,4",
+        "grid_id": "mg_e2w_g33_097",
+        "fitness": 0.933434,
+        "descriptor": [
+          4,
+          3,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.555556,
+          "visual_complexity": 0.861855,
+          "behavior_neediness": 0.07
+        },
+        "signature_hash": "131e9c0f20ac0889"
+      },
+      {
+        "niche": "4,3,5",
+        "grid_id": "mg_e2w_g15_145",
+        "fitness": 0.938629,
+        "descriptor": [
+          4,
+          3,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.528302,
+          "visual_complexity": 0.845006,
+          "behavior_neediness": 0.14
+        },
+        "signature_hash": "79e2028addd33900"
+      },
+      {
+        "niche": "4,3,6",
+        "grid_id": "mg_e2w_g19_173",
+        "fitness": 0.935627,
+        "descriptor": [
+          4,
+          3,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.56,
+          "visual_complexity": 0.844932,
+          "behavior_neediness": 0.16
+        },
+        "signature_hash": "63ffb69948a98bf1"
+      },
+      {
+        "niche": "4,3,7",
+        "grid_id": "mg_e2w_g51_183",
+        "fitness": 0.941584,
+        "descriptor": [
+          4,
+          3,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.489796,
+          "visual_complexity": 0.844331,
+          "behavior_neediness": 0.23
+        },
+        "signature_hash": "edd73e775e0dcc1a"
+      },
+      {
+        "niche": "4,4,0",
+        "grid_id": "mg_e2w_g18_044",
+        "fitness": 0.909019,
+        "descriptor": [
+          4,
+          4,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.517241,
+          "visual_complexity": 0.875989,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "6d2e59b1c7529dd2"
+      },
+      {
+        "niche": "4,4,2",
+        "grid_id": "mg_e2w_g43_051",
+        "fitness": 0.902922,
+        "descriptor": [
+          4,
+          4,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.571429,
+          "visual_complexity": 0.873356,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "7f93b6c288f0422e"
+      },
+      {
+        "niche": "4,4,3",
+        "grid_id": "mg_e2w_g52_245",
+        "fitness": 0.912084,
+        "descriptor": [
+          4,
+          4,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.481481,
+          "visual_complexity": 0.877237,
+          "behavior_neediness": 0.05
+        },
+        "signature_hash": "714332450b5f92ac"
+      },
+      {
+        "niche": "4,4,4",
+        "grid_id": "mg_e2w_g26_167",
+        "fitness": 0.908902,
+        "descriptor": [
+          4,
+          4,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.48,
+          "visual_complexity": 0.880629,
+          "behavior_neediness": 0.09
+        },
+        "signature_hash": "c7f975472998ba17"
+      },
+      {
+        "niche": "4,4,5",
+        "grid_id": "mg_e2w_g20_218",
+        "fitness": 0.925074,
+        "descriptor": [
+          4,
+          4,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.526316,
+          "visual_complexity": 0.874093,
+          "behavior_neediness": 0.12
+        },
+        "signature_hash": "8fad13b586735722"
+      },
+      {
+        "niche": "4,4,6",
+        "grid_id": "mg_e2w_g35_146",
+        "fitness": 0.920822,
+        "descriptor": [
+          4,
+          4,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.48,
+          "visual_complexity": 0.873146,
+          "behavior_neediness": 0.19
+        },
+        "signature_hash": "b197ae96ce893227"
+      },
+      {
+        "niche": "4,4,7",
+        "grid_id": "mg_e2w_g72_115",
+        "fitness": 0.911612,
+        "descriptor": [
+          4,
+          4,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.509804,
+          "visual_complexity": 0.874575,
+          "behavior_neediness": 0.25
+        },
+        "signature_hash": "8e0cca504463ad71"
+      },
+      {
+        "niche": "4,5,0",
+        "grid_id": "mg_e2w_g35_044",
+        "fitness": 0.906525,
+        "descriptor": [
+          4,
+          5,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.53125,
+          "visual_complexity": 0.885309,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "dfaeac46836dd5f2"
+      },
+      {
+        "niche": "4,5,2",
+        "grid_id": "mg_e2w_g41_242",
+        "fitness": 0.926035,
+        "descriptor": [
+          4,
+          5,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.52459,
+          "visual_complexity": 0.886057,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "c47a8e2c8794de1d"
+      },
+      {
+        "niche": "4,5,3",
+        "grid_id": "mg_e2w_g9_017",
+        "fitness": 0.909735,
+        "descriptor": [
+          4,
+          5,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.474576,
+          "visual_complexity": 0.884838,
+          "behavior_neediness": 0.03
+        },
+        "signature_hash": "a18ddc30bdbc3459"
+      },
+      {
+        "niche": "4,5,4",
+        "grid_id": "mg_e2w_g46_074",
+        "fitness": 0.915769,
+        "descriptor": [
+          4,
+          5,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.5,
+          "visual_complexity": 0.881692,
+          "behavior_neediness": 0.07
+        },
+        "signature_hash": "7e67f14c1cdc905e"
+      },
+      {
+        "niche": "4,5,5",
+        "grid_id": "mg_e2w_g41_173",
+        "fitness": 0.90454,
+        "descriptor": [
+          4,
+          5,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.535714,
+          "visual_complexity": 0.883106,
+          "behavior_neediness": 0.13
+        },
+        "signature_hash": "eb1d03c16cfdb92b"
+      },
+      {
+        "niche": "4,5,6",
+        "grid_id": "mg_e2w_g37_169",
+        "fitness": 0.905518,
+        "descriptor": [
+          4,
+          5,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.509091,
+          "visual_complexity": 0.88383,
+          "behavior_neediness": 0.17
+        },
+        "signature_hash": "8312e6f121675c9a"
+      },
+      {
+        "niche": "4,5,7",
+        "grid_id": "mg_e2w_g33_076",
+        "fitness": 0.903998,
+        "descriptor": [
+          4,
+          5,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.472727,
+          "visual_complexity": 0.881761,
+          "behavior_neediness": 0.26
+        },
+        "signature_hash": "5c7655c465337de4"
+      },
+      {
+        "niche": "4,6,0",
+        "grid_id": "mg_e2w_g69_026",
+        "fitness": 0.902865,
+        "descriptor": [
+          4,
+          6,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.551724,
+          "visual_complexity": 0.889076,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "30999649dcce9675"
+      },
+      {
+        "niche": "4,6,2",
+        "grid_id": "mg_e2w_g53_181",
+        "fitness": 0.901498,
+        "descriptor": [
+          4,
+          6,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.481481,
+          "visual_complexity": 0.888228,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "fa34af0ddad76955"
+      },
+      {
+        "niche": "4,6,3",
+        "grid_id": "mg_e2w_g59_036",
+        "fitness": 0.902169,
+        "descriptor": [
+          4,
+          6,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.474576,
+          "visual_complexity": 0.89503,
+          "behavior_neediness": 0.05
+        },
+        "signature_hash": "585ffef8b5d2fa18"
+      },
+      {
+        "niche": "4,6,4",
+        "grid_id": "mg_e2w_g8_175",
+        "fitness": 0.905073,
+        "descriptor": [
+          4,
+          6,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.472727,
+          "visual_complexity": 0.887943,
+          "behavior_neediness": 0.08
+        },
+        "signature_hash": "09cfb58266f17e84"
+      },
+      {
+        "niche": "4,6,5",
+        "grid_id": "mg_e2w_g72_070",
+        "fitness": 0.902044,
+        "descriptor": [
+          4,
+          6,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.481481,
+          "visual_complexity": 0.888271,
+          "behavior_neediness": 0.12
+        },
+        "signature_hash": "f8a205becd6632b6"
+      },
+      {
+        "niche": "4,6,6",
+        "grid_id": "mg_e2w_g56_153",
+        "fitness": 0.900266,
+        "descriptor": [
+          4,
+          6,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.507937,
+          "visual_complexity": 0.888292,
+          "behavior_neediness": 0.17
+        },
+        "signature_hash": "1cf8b76d5c03ee8e"
+      },
+      {
+        "niche": "4,6,7",
+        "grid_id": "mg_e2w_g17_087",
+        "fitness": 0.900961,
+        "descriptor": [
+          4,
+          6,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.517241,
+          "visual_complexity": 0.888687,
+          "behavior_neediness": 0.31
+        },
+        "signature_hash": "ce6d6ae8dabbd860"
+      },
+      {
+        "niche": "4,7,0",
+        "grid_id": "mg_e2w_g21_221",
+        "fitness": 0.679286,
+        "descriptor": [
+          4,
+          7,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.492308,
+          "visual_complexity": 0.905764,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "ed607d3485a6194a"
+      },
+      {
+        "niche": "4,7,3",
+        "grid_id": "mg_e2w_g57_045",
+        "fitness": 0.422209,
+        "descriptor": [
+          4,
+          7,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.481481,
+          "visual_complexity": 0.896688,
+          "behavior_neediness": 0.05
+        },
+        "signature_hash": "5a3974fd4e551b09"
+      },
+      {
+        "niche": "4,7,5",
+        "grid_id": "mg_e2w_g56_213",
+        "fitness": 0.908307,
+        "descriptor": [
+          4,
+          7,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.507463,
+          "visual_complexity": 0.897176,
+          "behavior_neediness": 0.13
+        },
+        "signature_hash": "fc8b664e3c4c73b2"
+      },
+      {
+        "niche": "4,7,6",
+        "grid_id": "mg_e2w_g21_132",
+        "fitness": 0.895748,
+        "descriptor": [
+          4,
+          7,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.52,
+          "visual_complexity": 0.898887,
+          "behavior_neediness": 0.2
+        },
+        "signature_hash": "f4689e315db83962"
+      },
+      {
+        "niche": "4,7,7",
+        "grid_id": "mg_e2w_g20_197",
+        "fitness": 0.896853,
+        "descriptor": [
+          4,
+          7,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.507937,
+          "visual_complexity": 0.897533,
+          "behavior_neediness": 0.43
+        },
+        "signature_hash": "26143bf705b88974"
+      },
+      {
+        "niche": "5,0,3",
+        "grid_id": "mg_constrained_085",
+        "fitness": 0.452451,
+        "descriptor": [
+          5,
+          0,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.930233,
+          "visual_complexity": 0.767863,
+          "behavior_neediness": 0.03
+        },
+        "signature_hash": "0ce9b956df66a0e4"
+      },
+      {
+        "niche": "5,0,5",
+        "grid_id": "mg_constrained_030",
+        "fitness": 0.478966,
+        "descriptor": [
+          5,
+          0,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.909091,
+          "visual_complexity": 0.770582,
+          "behavior_neediness": 0.1
+        },
+        "signature_hash": "eb84228027623ab8"
+      },
+      {
+        "niche": "5,0,6",
+        "grid_id": "mg_constrained_080",
+        "fitness": 0.469698,
+        "descriptor": [
+          5,
+          0,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.909091,
+          "visual_complexity": 0.769563,
+          "behavior_neediness": 0.2
+        },
+        "signature_hash": "3efac210bcb6a238"
+      },
+      {
+        "niche": "5,0,7",
+        "grid_id": "mg_constrained_024",
+        "fitness": 0.493426,
+        "descriptor": [
+          5,
+          0,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.909091,
+          "visual_complexity": 0.671416,
+          "behavior_neediness": 0.31
+        },
+        "signature_hash": "f8b65f81becd1b83"
+      },
+      {
+        "niche": "5,1,0",
+        "grid_id": "mg_constrained_051",
+        "fitness": 0.966902,
+        "descriptor": [
+          5,
+          1,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.928571,
+          "visual_complexity": 0.803826,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "161d905cd39875bb"
+      },
+      {
+        "niche": "5,1,3",
+        "grid_id": "mg_constrained_039",
+        "fitness": 0.972711,
+        "descriptor": [
+          5,
+          1,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.93617,
+          "visual_complexity": 0.791445,
+          "behavior_neediness": 0.06
+        },
+        "signature_hash": "040e933ba8438cad"
+      },
+      {
+        "niche": "5,1,5",
+        "grid_id": "mg_constrained_093",
+        "fitness": 0.488707,
+        "descriptor": [
+          5,
+          1,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.926829,
+          "visual_complexity": 0.795821,
+          "behavior_neediness": 0.12
+        },
+        "signature_hash": "9b81976e019cff66"
+      },
+      {
+        "niche": "5,1,6",
+        "grid_id": "mg_constrained_006",
+        "fitness": 0.462354,
+        "descriptor": [
+          5,
+          1,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.88,
+          "visual_complexity": 0.802502,
+          "behavior_neediness": 0.21
+        },
+        "signature_hash": "e44f2ac638a80145"
+      },
+      {
+        "niche": "5,2,0",
+        "grid_id": "mg_constrained_058",
+        "fitness": 0.481623,
+        "descriptor": [
+          5,
+          2,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.935484,
+          "visual_complexity": 0.840039,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "20b243f39a7ebe8d"
+      },
+      {
+        "niche": "5,2,3",
+        "grid_id": "mg_constrained_114",
+        "fitness": 0.435562,
+        "descriptor": [
+          5,
+          2,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.793103,
+          "visual_complexity": 0.835911,
+          "behavior_neediness": 0.04
+        },
+        "signature_hash": "b4b226c752018b07"
+      },
+      {
+        "niche": "5,3,0",
+        "grid_id": "mg_constrained_070",
+        "fitness": 0.948134,
+        "descriptor": [
+          5,
+          3,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.938272,
+          "visual_complexity": 0.863262,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "86989df5f713f978"
+      },
+      {
+        "niche": "5,4,0",
+        "grid_id": "mg_constrained_016",
+        "fitness": 0.461347,
+        "descriptor": [
+          5,
+          4,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.921053,
+          "visual_complexity": 0.881407,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "0e475d813a85309e"
+      },
+      {
+        "niche": "5,5,0",
+        "grid_id": "mg_constrained_015",
+        "fitness": 0.727548,
+        "descriptor": [
+          5,
+          5,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.925,
+          "visual_complexity": 0.886263,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "b0d1880c635f2e2e"
+      },
+      {
+        "niche": "5,6,0",
+        "grid_id": "mg_constrained_022",
+        "fitness": 0.733917,
+        "descriptor": [
+          5,
+          6,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.847059,
+          "visual_complexity": 0.887946,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "5471a1be945a208a"
+      },
+      {
+        "niche": "6,0,3",
+        "grid_id": "mg_constrained_087",
+        "fitness": 0.95653,
+        "descriptor": [
+          6,
+          0,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.958333,
+          "visual_complexity": 0.779562,
+          "behavior_neediness": 0.05
+        },
+        "signature_hash": "187a5359df8587f3"
+      },
+      {
+        "niche": "6,0,4",
+        "grid_id": "mg_constrained_007",
+        "fitness": 0.983616,
+        "descriptor": [
+          6,
+          0,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.956522,
+          "visual_complexity": 0.780779,
+          "behavior_neediness": 0.07
+        },
+        "signature_hash": "40011cd04f1af0fe"
+      },
+      {
+        "niche": "6,0,5",
+        "grid_id": "mg_constrained_106",
+        "fitness": 0.498544,
+        "descriptor": [
+          6,
+          0,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.952381,
+          "visual_complexity": 0.757196,
+          "behavior_neediness": 0.11
+        },
+        "signature_hash": "f153e0c635576bc1"
+      },
+      {
+        "niche": "6,0,6",
+        "grid_id": "mg_constrained_101",
+        "fitness": 0.497413,
+        "descriptor": [
+          6,
+          0,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.952381,
+          "visual_complexity": 0.759921,
+          "behavior_neediness": 0.22
+        },
+        "signature_hash": "0ed8f7722ffdb46b"
+      },
+      {
+        "niche": "6,0,7",
+        "grid_id": "mg_constrained_125",
+        "fitness": 0.488477,
+        "descriptor": [
+          6,
+          0,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.956522,
+          "visual_complexity": 0.693393,
+          "behavior_neediness": 0.3
+        },
+        "signature_hash": "7445a4dd51a7d045"
+      },
+      {
+        "niche": "6,1,0",
+        "grid_id": "mg_constrained_067",
+        "fitness": 0.947849,
+        "descriptor": [
+          6,
+          1,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.947368,
+          "visual_complexity": 0.808307,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "24ff3b5b56b42d66"
+      },
+      {
+        "niche": "6,1,2",
+        "grid_id": "mg_constrained_037",
+        "fitness": 0.457758,
+        "descriptor": [
+          6,
+          1,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.96,
+          "visual_complexity": 0.787082,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "c0b4451330e5bb14"
+      },
+      {
+        "niche": "6,1,3",
+        "grid_id": "mg_constrained_041",
+        "fitness": 0.975596,
+        "descriptor": [
+          6,
+          1,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.941176,
+          "visual_complexity": 0.805345,
+          "behavior_neediness": 0.02
+        },
+        "signature_hash": "4ee22955ede36284"
+      },
+      {
+        "niche": "6,1,4",
+        "grid_id": "mg_constrained_047",
+        "fitness": 0.443383,
+        "descriptor": [
+          6,
+          1,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.961538,
+          "visual_complexity": 0.796428,
+          "behavior_neediness": 0.08
+        },
+        "signature_hash": "3739db184774bb57"
+      },
+      {
+        "niche": "6,1,5",
+        "grid_id": "mg_constrained_031",
+        "fitness": 0.501209,
+        "descriptor": [
+          6,
+          1,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 0.952381,
+          "visual_complexity": 0.798309,
+          "behavior_neediness": 0.11
+        },
+        "signature_hash": "dd60fd83313fa92a"
+      },
+      {
+        "niche": "6,1,6",
+        "grid_id": "mg_constrained_002",
+        "fitness": 0.46683,
+        "descriptor": [
+          6,
+          1,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.956522,
+          "visual_complexity": 0.786809,
+          "behavior_neediness": 0.16
+        },
+        "signature_hash": "9c490770b7e323ea"
+      },
+      {
+        "niche": "6,2,0",
+        "grid_id": "mg_constrained_001",
+        "fitness": 0.944697,
+        "descriptor": [
+          6,
+          2,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.966667,
+          "visual_complexity": 0.839171,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "772e790309bbc979"
+      },
+      {
+        "niche": "6,2,2",
+        "grid_id": "mg_constrained_124",
+        "fitness": 0.487928,
+        "descriptor": [
+          6,
+          2,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.961538,
+          "visual_complexity": 0.808915,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "193121535f5c7470"
+      },
+      {
+        "niche": "6,2,4",
+        "grid_id": "mg_constrained_117",
+        "fitness": 0.442794,
+        "descriptor": [
+          6,
+          2,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.943396,
+          "visual_complexity": 0.818621,
+          "behavior_neediness": 0.09
+        },
+        "signature_hash": "4a95904dfe287e43"
+      },
+      {
+        "niche": "6,2,6",
+        "grid_id": "mg_constrained_068",
+        "fitness": 0.470411,
+        "descriptor": [
+          6,
+          2,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.947368,
+          "visual_complexity": 0.842509,
+          "behavior_neediness": 0.15
+        },
+        "signature_hash": "ab193add69ca4de5"
+      },
+      {
+        "niche": "6,2,7",
+        "grid_id": "mg_constrained_074",
+        "fitness": 0.461755,
+        "descriptor": [
+          6,
+          2,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.952381,
+          "visual_complexity": 0.822087,
+          "behavior_neediness": 0.55
+        },
+        "signature_hash": "f51ac236d6ee7465"
+      },
+      {
+        "niche": "6,3,0",
+        "grid_id": "mg_constrained_104",
+        "fitness": 0.725475,
+        "descriptor": [
+          6,
+          3,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.947368,
+          "visual_complexity": 0.86884,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "ebca07dbc36c0d2a"
+      },
+      {
+        "niche": "6,3,2",
+        "grid_id": "mg_constrained_043",
+        "fitness": 0.422725,
+        "descriptor": [
+          6,
+          3,
+          2
+        ],
+        "axis_values": {
+          "symmetry": 0.952381,
+          "visual_complexity": 0.856494,
+          "behavior_neediness": 0.01
+        },
+        "signature_hash": "760912d1413eee43"
+      },
+      {
+        "niche": "6,4,0",
+        "grid_id": "mg_constrained_089",
+        "fitness": 0.443624,
+        "descriptor": [
+          6,
+          4,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.962025,
+          "visual_complexity": 0.879257,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "66e5bf6325293462"
+      },
+      {
+        "niche": "6,6,0",
+        "grid_id": "mg_constrained_033",
+        "fitness": 0.727249,
+        "descriptor": [
+          6,
+          6,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.95,
+          "visual_complexity": 0.88926,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "7a5471e978f56d79"
+      },
+      {
+        "niche": "7,0,4",
+        "grid_id": "mg_constrained_110",
+        "fitness": 0.478366,
+        "descriptor": [
+          7,
+          0,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.977778,
+          "visual_complexity": 0.777626,
+          "behavior_neediness": 0.08
+        },
+        "signature_hash": "751e3089d59db07c"
+      },
+      {
+        "niche": "7,0,5",
+        "grid_id": "mg_constrained_115",
+        "fitness": 0.97643,
+        "descriptor": [
+          7,
+          0,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 1.0,
+          "visual_complexity": 0.752825,
+          "behavior_neediness": 0.13
+        },
+        "signature_hash": "527bc2481e401e8a"
+      },
+      {
+        "niche": "7,0,7",
+        "grid_id": "mg_constrained_120",
+        "fitness": 0.478287,
+        "descriptor": [
+          7,
+          0,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.971429,
+          "visual_complexity": 0.738704,
+          "behavior_neediness": 0.27
+        },
+        "signature_hash": "dd8f5501c9be1c85"
+      },
+      {
+        "niche": "7,1,0",
+        "grid_id": "mg_constrained_107",
+        "fitness": 0.957666,
+        "descriptor": [
+          7,
+          1,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.981132,
+          "visual_complexity": 0.804438,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "fb6a086a3614009d"
+      },
+      {
+        "niche": "7,1,3",
+        "grid_id": "mg_constrained_103",
+        "fitness": 0.476167,
+        "descriptor": [
+          7,
+          1,
+          3
+        ],
+        "axis_values": {
+          "symmetry": 0.977778,
+          "visual_complexity": 0.793833,
+          "behavior_neediness": 0.06
+        },
+        "signature_hash": "4659b7d3391fa45b"
+      },
+      {
+        "niche": "7,1,4",
+        "grid_id": "mg_constrained_063",
+        "fitness": 0.485825,
+        "descriptor": [
+          7,
+          1,
+          4
+        ],
+        "axis_values": {
+          "symmetry": 0.976744,
+          "visual_complexity": 0.790503,
+          "behavior_neediness": 0.08
+        },
+        "signature_hash": "9c4757249cdb5e63"
+      },
+      {
+        "niche": "7,1,6",
+        "grid_id": "mg_constrained_053",
+        "fitness": 0.459109,
+        "descriptor": [
+          7,
+          1,
+          6
+        ],
+        "axis_values": {
+          "symmetry": 0.977778,
+          "visual_complexity": 0.794643,
+          "behavior_neediness": 0.15
+        },
+        "signature_hash": "844ee1bb5182fe81"
+      },
+      {
+        "niche": "7,2,0",
+        "grid_id": "mg_constrained_118",
+        "fitness": 0.941176,
+        "descriptor": [
+          7,
+          2,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.967742,
+          "visual_complexity": 0.84302,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "3b2447cb80f0e094"
+      },
+      {
+        "niche": "7,2,7",
+        "grid_id": "mg_constrained_062",
+        "fitness": 0.939896,
+        "descriptor": [
+          7,
+          2,
+          7
+        ],
+        "axis_values": {
+          "symmetry": 0.984127,
+          "visual_complexity": 0.820586,
+          "behavior_neediness": 0.37
+        },
+        "signature_hash": "e7cfe5529c23f899"
+      },
+      {
+        "niche": "7,3,0",
+        "grid_id": "mg_constrained_017",
+        "fitness": 0.46914,
+        "descriptor": [
+          7,
+          3,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.96875,
+          "visual_complexity": 0.849088,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "c7e9d402522f0fd2"
+      },
+      {
+        "niche": "7,3,5",
+        "grid_id": "mg_constrained_076",
+        "fitness": 0.462771,
+        "descriptor": [
+          7,
+          3,
+          5
+        ],
+        "axis_values": {
+          "symmetry": 1.0,
+          "visual_complexity": 0.844453,
+          "behavior_neediness": 0.13
+        },
+        "signature_hash": "a881d34b3795eca1"
+      },
+      {
+        "niche": "7,4,0",
+        "grid_id": "mg_constrained_078",
+        "fitness": 0.459098,
+        "descriptor": [
+          7,
+          4,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.975,
+          "visual_complexity": 0.88133,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "7a5736755103e3f0"
+      },
+      {
+        "niche": "7,5,0",
+        "grid_id": "mg_constrained_056",
+        "fitness": 0.466565,
+        "descriptor": [
+          7,
+          5,
+          0
+        ],
+        "axis_values": {
+          "symmetry": 0.974359,
+          "visual_complexity": 0.882461,
+          "behavior_neediness": 0.0
+        },
+        "signature_hash": "3e96bd34787f914b"
+      }
+    ]
+  },
+  "closed_states": [
+    "documented_evaluation_budget_reached",
+    "determinism_pinned_under_seeds",
+    "wall_clock_bound_pre_registered_before_the_run",
+    "trajectory_recorded_per_generation_for_the_e4_gates",
+    "elite_records_carry_e5_clustering_inputs"
+  ],
+  "blocked_states": [
+    "coverage_qd_gates_not_judged_here (E4 runs the documented gates including the GA baseline under identical budgets)",
+    "package_scale_geometry_seam_not_promoted (still lab-side; named for the Phase-E gate)",
+    "slip_alignment_not_enforced_in_this_harness (the standing E2 scope note)"
+  ],
+  "decision": "The loop ran 20480 stress-probed lifecycle evaluations over 79 generations of population 256: 281 of 512 niches occupied (coverage 0.548828), QD score 222.079495, best fitness 0.983616 \u2014 deterministic under seed 20260709.",
+  "next_research_step": "E4: the documented coverage/QD gates plus the plain-GA baseline under identical budgets (MAP-Elites >=25% coverage over GA).",
+  "measured": {
+    "context": "stage-0 dev machine; the full loop unit (WFC retrain + collapse + stress-probed lifecycle scoring + elite insertion), bootstrap included",
+    "pilot": {
+      "population": 64,
+      "generations": 2,
+      "evaluations": 192,
+      "mean_ms_per_evaluation": 10.2635
+    },
+    "projections": {
+      "evaluations_20k_s": 205.27,
+      "evaluations_50k_s": 513.17,
+      "projection_meets_bound_20k": true,
+      "projection_meets_bound_50k": true
+    },
+    "pre_registered_bound_s": 600.0,
+    "full_run": {
+      "wall_clock_s": 174.12,
+      "meets_bound": true,
+      "bound_s": 600.0
+    }
+  }
+}

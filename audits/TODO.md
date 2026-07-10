@@ -30,7 +30,7 @@ lifecycle evaluations are the strongest NumPy trigger yet, DR 0028).
   (parents from archive elites per the promoted evolve semantics);
   validity and uniqueness rates recorded at scale; throughput
   measured against the dossier's ≤250 ms bar.
-- [ ] **E3 · The evaluation loop at 20k+ evaluations.** The full
+- [x] **E3 · The evaluation loop at 20k+ evaluations.** The full
   evolve loop at documented scale (20k–50k stress-probed lifecycle
   evaluations); wall-clock measured FIRST at pilot scale — if stdlib
   cannot hold, the NumPy decision record cites the measurement

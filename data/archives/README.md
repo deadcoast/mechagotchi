@@ -19,3 +19,10 @@ Measured archive evidence produced by `labs/map_elites_archive/`.
   edges; 274/512 niches occupied over a disjoint 3000-candidate
   evaluation population; the evaluation-unit wall-clock pilot
   (6.29 ms -> 125.8 s @ 20k) in its `measured` section.
+- `evaluation_loop_scale_stage0.json` - cycle 13 E3: the full
+  generational loop at the documented budget - 20,480 stress-probed
+  lifecycle evaluations over 79 generations of population 256 (WFC
+  parent path per E2). 281/512 niches (coverage 0.549), QD 222.1,
+  zero collapse failures; measured 174.12 s vs the pre-registered
+  600 s bound - stdlib holds. The honest saturation observation:
+  occupancy plateaus ~gen 50; late generations refine fitness.

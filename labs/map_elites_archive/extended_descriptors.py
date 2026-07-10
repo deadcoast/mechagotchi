@@ -294,7 +294,14 @@ def write_extended_archive_artifacts(
         "  complexity, behavior neediness) with empirically derived octile\n"
         "  edges; 274/512 niches occupied over a disjoint 3000-candidate\n"
         "  evaluation population; the evaluation-unit wall-clock pilot\n"
-        "  (6.29 ms -> 125.8 s @ 20k) in its `measured` section.\n",
+        "  (6.29 ms -> 125.8 s @ 20k) in its `measured` section.\n"
+        "- `evaluation_loop_scale_stage0.json` - cycle 13 E3: the full\n"
+        "  generational loop at the documented budget - 20,480 stress-probed\n"
+        "  lifecycle evaluations over 79 generations of population 256 (WFC\n"
+        "  parent path per E2). 281/512 niches (coverage 0.549), QD 222.1,\n"
+        "  zero collapse failures; measured 174.12 s vs the pre-registered\n"
+        "  600 s bound - stdlib holds. The honest saturation observation:\n"
+        "  occupancy plateaus ~gen 50; late generations refine fitness.\n",
         encoding="utf-8",
     )
 
