@@ -1,0 +1,208 @@
+{
+  "artifact_id": "wfc_population_throughput_stage0",
+  "status": "complete",
+  "date": "2026-07-09",
+  "purpose": "Measure the engine's promoted generation surfaces at the documented population scale (hundreds per generation), parents drawn from archive elites per the promoted evolve semantics \u2014 the WFC parent path vs the constrained inner-loop path from the SAME parents (cycle 13 E2; the DR 0031 standing remainder's evidence).",
+  "source_artifacts": [
+    "packages/mecha_engine/src/mecha_engine/generation",
+    "packages/mecha_engine/src/mecha_engine/runtime/evolve.py",
+    "labs/map_elites_archive/niche_scale_archive.py",
+    "data/archives/niche_scale_archive_stage0.json",
+    "data/seed_grids_16x16",
+    "docs/project-research/deep-research/01/deep-research.md"
+  ],
+  "metrics": {
+    "protocol": {
+      "initial_count": 400,
+      "population": 256,
+      "generations": 3,
+      "rng_seed": 20260709,
+      "lifecycle_ticks": 24,
+      "archive_refresh_arm": "wfc",
+      "parent_semantics": "runtime.evolve default branch: elites' grids in sorted(niche) order; constrained arm round-robins parents[index % len(parents)]; per-candidate seed rng_seed + generation * 100000 + index",
+      "slip_alignment": "not enforced in this harness \u2014 generation measured without profile constraints; E3's full loop owns the alignment gates",
+      "initial_composition": {
+        "constrained": 200,
+        "wfc": 200
+      },
+      "frozen_edges_source": "data/archives/niche_scale_archive_stage0.json"
+    },
+    "initial_archive": {
+      "archive_kind": "map_elites",
+      "geometry": "scale",
+      "descriptor_names": [
+        "symmetry",
+        "visual_complexity",
+        "behavior_neediness"
+      ],
+      "descriptor_cardinalities": [
+        8,
+        8,
+        8
+      ],
+      "total_possible_niches": 512,
+      "occupied_niches": 171,
+      "coverage": 0.333984,
+      "descriptor_bin_spread": {
+        "symmetry": 8,
+        "visual_complexity": 8,
+        "behavior_neediness": 7
+      },
+      "best_fitness": 0.983616,
+      "mean_elite_fitness": 0.584414,
+      "qd_score": 99.934789,
+      "candidate_count": 400,
+      "blocked_invalid_count": 0,
+      "event_counts": {
+        "inserted_empty_niche": 171,
+        "kept_incumbent_higher_fitness": 139,
+        "replaced_elite": 90
+      }
+    },
+    "generations": [
+      {
+        "generation": 1,
+        "population": 256,
+        "parent_count": 171,
+        "arms": {
+          "wfc": {
+            "produced": 256,
+            "validity_rate": 1.0,
+            "unique_signature_rate": 1.0,
+            "parent_copy_rate": 0.0,
+            "unique_scale_descriptors": 97,
+            "collapse_failures": 0
+          },
+          "constrained": {
+            "produced": 256,
+            "validity_rate": 1.0,
+            "unique_signature_rate": 0.996094,
+            "parent_copy_rate": 0.015625,
+            "unique_scale_descriptors": 91,
+            "generation_failures": 0
+          }
+        }
+      },
+      {
+        "generation": 2,
+        "population": 256,
+        "parent_count": 211,
+        "arms": {
+          "wfc": {
+            "produced": 256,
+            "validity_rate": 1.0,
+            "unique_signature_rate": 1.0,
+            "parent_copy_rate": 0.0,
+            "unique_scale_descriptors": 93,
+            "collapse_failures": 0
+          },
+          "constrained": {
+            "produced": 256,
+            "validity_rate": 1.0,
+            "unique_signature_rate": 1.0,
+            "parent_copy_rate": 0.027344,
+            "unique_scale_descriptors": 102,
+            "generation_failures": 0
+          }
+        }
+      },
+      {
+        "generation": 3,
+        "population": 256,
+        "parent_count": 225,
+        "arms": {
+          "wfc": {
+            "produced": 256,
+            "validity_rate": 1.0,
+            "unique_signature_rate": 1.0,
+            "parent_copy_rate": 0.0,
+            "unique_scale_descriptors": 91,
+            "collapse_failures": 0
+          },
+          "constrained": {
+            "produced": 256,
+            "validity_rate": 1.0,
+            "unique_signature_rate": 0.992188,
+            "parent_copy_rate": 0.015625,
+            "unique_scale_descriptors": 106,
+            "generation_failures": 0
+          }
+        }
+      }
+    ],
+    "aggregate": {
+      "wfc": {
+        "validity_rate_mean": 1.0,
+        "unique_signature_rate_mean": 1.0,
+        "unique_scale_descriptors_total": 281
+      },
+      "constrained": {
+        "validity_rate_mean": 1.0,
+        "unique_signature_rate_mean": 0.996094,
+        "unique_scale_descriptors_total": 299
+      }
+    },
+    "final_archive": {
+      "archive_kind": "map_elites",
+      "geometry": "scale",
+      "descriptor_names": [
+        "symmetry",
+        "visual_complexity",
+        "behavior_neediness"
+      ],
+      "descriptor_cardinalities": [
+        8,
+        8,
+        8
+      ],
+      "total_possible_niches": 512,
+      "occupied_niches": 233,
+      "coverage": 0.455078,
+      "descriptor_bin_spread": {
+        "symmetry": 8,
+        "visual_complexity": 8,
+        "behavior_neediness": 7
+      },
+      "best_fitness": 0.983616,
+      "mean_elite_fitness": 0.65425,
+      "qd_score": 152.440276,
+      "candidate_count": 1168,
+      "blocked_invalid_count": 0,
+      "event_counts": {
+        "inserted_empty_niche": 233,
+        "kept_incumbent_higher_fitness": 701,
+        "replaced_elite": 234
+      }
+    }
+  },
+  "closed_states": [
+    "promoted_surfaces_measured_at_population_scale",
+    "parents_drawn_from_archive_elites_per_evolve_semantics",
+    "both_arms_measured_from_shared_parents",
+    "wfc_collapse_failures_recorded_never_hidden"
+  ],
+  "blocked_states": [
+    "throughput_gate_judged_on_the_measured_section (machine-dependent; produced alongside the artifact)",
+    "slip_alignment_not_enforced_in_this_harness (E3's full loop owns the alignment gates)",
+    "evolve_inner_loop_adoption_pending (the constrained-vs-WFC parent-path evidence recorded here feeds E3/a decision record; the promoted evolve is untouched)"
+  ],
+  "decision": "Measured at population 256 x 3 generations from 171-elite parents: WFC validity 1.0, unique-signature rate 1.0 vs constrained validity 1.0, unique-signature rate 0.996094; the archive grew from 171 to 233 occupied niches under the WFC parent path.",
+  "next_research_step": "E3: the full evolve loop at 20k+ stress-probed lifecycle evaluations, wall-clock first (DR 0028), determinism pinned under seeds.",
+  "measured": {
+    "context": "stage-0 dev machine; parents = the 16x16 train split; the WFC mean includes that generation's model retraining (the parent path's real per-generation cost); the constrained mean excludes the one-time seed-corpus model training",
+    "population": 256,
+    "arms": {
+      "wfc": {
+        "mean_ms_per_candidate": 7.0355,
+        "model_train_ms": 6.32,
+        "produced": 256,
+        "meets_time_bar": true
+      },
+      "constrained": {
+        "mean_ms_per_candidate": 2.507,
+        "meets_time_bar": true
+      }
+    },
+    "time_bar_ms": 250.0
+  }
+}

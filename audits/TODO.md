@@ -25,7 +25,7 @@ lifecycle evaluations are the strongest NumPy trigger yet, DR 0028).
   niches (insertion, elite replacement, coverage/QD summaries);
   wall-clock pilot for the evaluation unit measured FIRST. RED-first;
   triad.
-- [ ] **E2 · Generation throughput at population scale.** WFC
+- [x] **E2 · Generation throughput at population scale.** WFC
   candidate generation at populations in the hundreds per generation
   (parents from archive elites per the promoted evolve semantics);
   validity and uniqueness rates recorded at scale; throughput
