@@ -70,25 +70,28 @@ this, or am I periscoping?
   the co-author line `Co-Authored-By: Claude Fable 5
   <noreply@anthropic.com>`.
 
-## 3. Where we are RIGHT NOW (updated 2026-07-09)
+## 3. Where we are RIGHT NOW (updated 2026-07-09, end of cycle 13)
 
-- **Active queue:** `audits/TODO.md` = **Cycle 13 · ENGINE track ·
-  Phase E — evolution at documented scale.** Nothing in it is
-  started. The next concrete work is **E1** (see §5).
-- **Phases A–D are COMPLETE and GREEN** (cycles 09–12, all on
-  2026-07-08, archived under `audits/complete/09`–`12`): A = the
-  16×16 foundation (gate report `research/experiment_reports/
-  2026-07-08-phase-a-gate.md`, DR 0029/0030); B = the WFC generation
-  layer + the real bake-off (WFC won and ships, DR 0031; the hybrid
-  was REFUTED with a named re-opener); C = the animation system
-  (clips/frames/transitions, validity 0.9877 vs the 0.80 bar,
-  `animstate_950`, packet animation/effects/ui_hints contract); D =
-  the intelligence threads (fleet 11 of ~11 through one opt-in
-  contract, frozen paths byte-identical; ablation gates run at full
-  scale — full beats rules_only 292.6%, fleet-vs-frozen ~0 recorded
-  honestly, 5 threads kept / 6 dropped by the documented <5% rule).
-  Each phase's gate report is in `research/experiment_reports/`
-  named `2026-07-08-phase-<x>-gate.md`.
+- **Active queue:** `audits/TODO.md` = **Cycle 14 · GAME track ·
+  Phase F — the playable game (MVP 0.1).** Nothing in it is started.
+  The next concrete work is **F1** (see §5). THE ENGINE TRACK (A–E)
+  IS COMPLETE — this is the first GAME-track cycle.
+- **Phases A–E are COMPLETE and GREEN** (cycles 09–13, archived under
+  `audits/complete/09`–`13`): A = the 16×16 foundation (DR 0029/0030);
+  B = WFC generation + the real bake-off (WFC ships, DR 0031; the
+  hybrid REFUTED with a named re-opener); C = the animation system
+  (transition validity 0.9877, `animstate_950`, the packet
+  animation/effects/ui_hints contract); D = the intelligence threads
+  (fleet 11 of ~11, ablation gates run — 5 kept / 6 dropped,
+  fleet-vs-frozen ~0 recorded; its value cashes out at the GAME's
+  consumers); E = evolution at documented scale (the 8×8×8 geometry
+  with empirical edges; 20,480 evaluations/run deterministic, stdlib
+  holding 174 s vs the 600 s bound; the documented gates at the
+  documented ten-seed protocol — coverage MET 2.2×, best-fitness MET,
+  **the GA-advantage clause REFUTED at +22.6% vs ≥25% and
+  dispositioned by DR 0032**; 52 recurrent families across all ten
+  runs vs ≥5). Gate reports: `research/experiment_reports/
+  2026-07-0{8,9}-phase-<x>-gate.md`.
 - **Governing roadmap:** `docs/gap-analysis.md` — read it in full
   before planning anything. §0 is the two-builds frame; §3 is the
   measured gap table (documented spec vs implementation); §4 is the
@@ -142,33 +145,34 @@ this, or am I periscoping?
    doctor, reviewer prefill, shell completion).
 7. `research/README.md` — the master traceability ledger.
 
-## 5. WHAT TO DO NEXT — Cycle 13, task E1
+## 5. WHAT TO DO NEXT — Cycle 14, task F1 (THE GAME TRACK)
 
-`audits/TODO.md` holds the full task text. The sequence:
+`audits/TODO.md` holds the full task text. This is the build the
+engine exists to showcase: a client a player LAUNCHES AND PLAYS. The
+workshop pages are NOT it. The sequence:
 
-- **E1 · The archive at documented niche scale.** The descriptor
-  binning that yields the documented ~576-niche space (8×8×8) from
-  the promoted archive's calibrated 7D descriptors; archive
-  mechanics proven at hundreds of niches (insertion, elite
-  replacement, coverage/QD summaries); wall-clock pilot for the
-  evaluation unit measured FIRST (DR 0028). RED-first; triad.
-- **E2** · WFC generation throughput at populations in the hundreds
-  per generation (parents from archive elites per the promoted
-  evolve semantics); validity/uniqueness at scale; the dossier's
-  ≤250 ms bar.
-- **E3** · the full evolve loop at 20k–50k stress-probed lifecycle
-  evaluations; wall-clock FIRST at pilot scale (strongest NumPy
-  trigger yet — if stdlib cannot hold, the decision record cites the
-  measurement); determinism pinned under seeds.
-- **E4** · the coverage/QD gates + the GA baseline (coverage ≥25%;
-  MAP-Elites ≥25% coverage over a plain GA under identical budgets).
-- **E5** · ≥5 recurrent morphological families across independent
-  seeded runs — recorded, not curated.
-- **E6** · the Phase-E gate report; gap-analysis Phase E checked off
-  only when green; cycle 13 archived; cycle 14 opens Phase F — the
-  GAME track begins.
+- **F1 · The front-end technology decision record + the client
+  skeleton.** Evaluate the documented bridge targets (web / Godot /
+  terminal / Pygame / desktop) against the engine's REAL contract
+  (JSON render packets, retro effects, replays, installable releases
+  with saves); choose by decision record; deliver a LAUNCHABLE
+  hello-creature client rendering a real engine packet. Dependencies
+  are permitted and expected here (DR 0028) — justify in the DR.
+- **F2** · the companion loop as a product (MVP 0.1, validity §1.34 —
+  "this proves the entire thesis"). Engine-truth law on every pixel.
+- **F3** · the render bridge consumed in full: live clip driving,
+  retro effects, ui_hints — where the kept fleet's value cashes out.
+- **F4** · the Keeper/era loop (DR 0021 as design input); saves,
+  eras; the evolution repertoire surfaces to the player. The archive
+  scale-geometry seam promotes here IF this consumer demands it.
+- **F5** · the installable release (install, launch, play, quit,
+  resume).
+- **F6** · the Phase-F MVP 0.1 gate; the ladder's 0.2/0.3 rungs
+  decompose into the next cycle FROM THE GAP ANALYSIS.
 
-Then Phase F (the playable game) per the gap analysis.
+Then the MVP ladder continues per the gap analysis (Phase F may span
+cycles); Phase G (CuBFF real ingest, community, CI, public alpha)
+stays late-stage.
 
 ## 6. HOW to work here (the standing discipline)
 
@@ -683,8 +687,10 @@ game.
 ## Sources
 
 - `docs/gap-analysis.md` (the roadmap this file serves)
-- `audits/TODO.md` (cycle 13 · ENGINE · Phase E)
+- `audits/TODO.md` (cycle 14 · GAME · Phase F)
 - `research/experiment_reports/2026-07-08-phase-{a,b,c,d}-gate.md`
+- `research/experiment_reports/2026-07-09-phase-e-gate.md`
+- `research/decision_records/0032-map-elites-ga-gate-disposition.md`
 - `research/decision_records/0017`, `0021`, `0026`–`0028`
 - owner corrections of 2026-07-07 (recorded in session memory:
   two-builds frame; scope-is-the-documentation; rating-fallback;

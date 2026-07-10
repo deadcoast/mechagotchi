@@ -156,6 +156,19 @@ the GAME track begins in earnest** — each phase at REAL scale:
 - **Phase E — evolution at documented scale.** Hundreds of niches,
   populations in the hundreds, 20k+ evaluations, the coverage/QD/
   family gates (QDax path optional per the dossier).
+  **COMPLETE (cycle 13, 2026-07-09)** — gate report
+  `research/experiment_reports/2026-07-09-phase-e-gate.md` (the
+  documented 8×8×8 geometry with empirical edges, package-parity
+  mechanics at hundreds of niches; population-scale generation at
+  validity 1.0 with ~35× time headroom; 20,480 stress-probed
+  evaluations per run, deterministic, stdlib HOLDING at 174 s vs the
+  600 s pre-registered bound; the documented gates judged at the
+  documented ten-seed protocol — coverage MET 2.2×, best-fitness MET,
+  the GA-advantage clause REFUTED at +22.6% vs ≥25% and dispositioned
+  by DR 0032 with named re-openers; 52 recurrent families across all
+  ten independent runs vs the documented ≥5. Honest remainders named
+  in the gate report — occupancy saturation ~55%, the neediness axis,
+  the unpromoted scale-geometry seam, alignment scope).
 
 ### GAME track (Phase F) — the build the engine exists to showcase
 
