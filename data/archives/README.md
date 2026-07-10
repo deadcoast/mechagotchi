@@ -26,3 +26,13 @@ Measured archive evidence produced by `labs/map_elites_archive/`.
   zero collapse failures; measured 174.12 s vs the pre-registered
   600 s bound - stdlib holds. The honest saturation observation:
   occupancy plateaus ~gen 50; late generations refine fitness.
+- `coverage_qd_gates_stage0.json` - cycle 13 E4: the documented gate
+  at the documented ten-seed protocol (20 full-scale runs). Coverage
+  MET 0.549 vs >=0.25; best fitness identical across arms; the
+  GA-advantage gate REFUTED (+22.6% vs >=25%, converged) - recorded,
+  dispositioned by DR 0032 (MAP-Elites stays adopted; named
+  re-openers). Carries per-seed elite rosters for E5.
+- `recurrent_families_stage0.json` - cycle 13 E5: 52 recurrent
+  morphological families across ALL TEN independent seeded runs vs
+  the documented >=5 (strict intersection over 4x4x4 coarse
+  descriptor cells; nothing curated). Species memory, measured.

@@ -301,7 +301,17 @@ def write_extended_archive_artifacts(
         "  parent path per E2). 281/512 niches (coverage 0.549), QD 222.1,\n"
         "  zero collapse failures; measured 174.12 s vs the pre-registered\n"
         "  600 s bound - stdlib holds. The honest saturation observation:\n"
-        "  occupancy plateaus ~gen 50; late generations refine fitness.\n",
+        "  occupancy plateaus ~gen 50; late generations refine fitness.\n"
+        "- `coverage_qd_gates_stage0.json` - cycle 13 E4: the documented gate\n"
+        "  at the documented ten-seed protocol (20 full-scale runs). Coverage\n"
+        "  MET 0.549 vs >=0.25; best fitness identical across arms; the\n"
+        "  GA-advantage gate REFUTED (+22.6% vs >=25%, converged) - recorded,\n"
+        "  dispositioned by DR 0032 (MAP-Elites stays adopted; named\n"
+        "  re-openers). Carries per-seed elite rosters for E5.\n"
+        "- `recurrent_families_stage0.json` - cycle 13 E5: 52 recurrent\n"
+        "  morphological families across ALL TEN independent seeded runs vs\n"
+        "  the documented >=5 (strict intersection over 4x4x4 coarse\n"
+        "  descriptor cells; nothing curated). Species memory, measured.\n",
         encoding="utf-8",
     )
 

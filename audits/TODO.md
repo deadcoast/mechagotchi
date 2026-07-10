@@ -35,11 +35,11 @@ lifecycle evaluations are the strongest NumPy trigger yet, DR 0028).
   evaluations); wall-clock measured FIRST at pilot scale — if stdlib
   cannot hold, the NumPy decision record cites the measurement
   (DR 0028); determinism pinned under seeds.
-- [ ] **E4 · The coverage/QD gates + the GA baseline.** The
+- [x] **E4 · The coverage/QD gates + the GA baseline.** The
   documented gates: coverage ≥25% of the niche space; QD score and
   per-axis spread recorded; MAP-Elites ≥25% coverage over a plain GA
   baseline run under identical budgets (the documented comparison).
-- [ ] **E5 · The recurrent families.** ≥5 recurrent morphological
+- [x] **E5 · The recurrent families.** ≥5 recurrent morphological
   families identified across independent seeded runs (lineage/
   descriptor clustering over the archive's elites); family
   recurrence recorded, not curated.
