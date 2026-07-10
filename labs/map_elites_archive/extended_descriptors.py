@@ -273,14 +273,28 @@ def write_extended_archive_artifacts(
         ],
     }
     output_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    # The folder README covers every archive artifact (it used to describe
+    # only this lab's output and clobbered the fuller listing on regen).
     (output_path.parent / "README.md").write_text(
-        "# Extended MAP-Elites Archive Stage 0\n\n"
-        "Descriptor-expanded MAP-Elites artifact for the post-v0.1 research gate.\n\n"
-        "Primary artifact:\n\n"
-        "- `map_elites_extended_stage0.json`\n\n"
-        "The archive keeps the original body mass, sensor count, and symmetry\n"
-        "dimensions, then adds readability, lifecycle survival, mutation stability,\n"
-        "and behavior neediness.\n",
+        "# MAP-Elites Archive Artifacts\n\n"
+        "Measured archive evidence produced by `labs/map_elites_archive/`.\n\n"
+        "- `map_elites_stage0.json` - the legacy 3-axis baseline archive\n"
+        "  (body mass, sensor count, symmetry).\n"
+        "- `map_elites_extended_stage0.json` - the calibrated 7-axis extended\n"
+        "  archive (adds readability, lifecycle survival, mutation stability,\n"
+        "  behavior neediness); the package parity pins read its numbers.\n"
+        "- `archive_comparators_stage0.json` - scalar/novelty comparators kept\n"
+        "  OUTSIDE the archive (the repertoire is never a leaderboard).\n"
+        "- `stress_probe_scaling_stage0.json` - the size-parametric lifecycle\n"
+        "  stress-probe denominator evidence (cycle 09 A3).\n"
+        "- `generator_evolution_ab_stage0.json` - the generator-vs-evolution\n"
+        "  A/B evidence.\n"
+        "- `niche_scale_archive_stage0.json` - cycle 13 E1: the documented\n"
+        "  first-pass 8x8x8 geometry (symmetry, silhouette-entropy visual\n"
+        "  complexity, behavior neediness) with empirically derived octile\n"
+        "  edges; 274/512 niches occupied over a disjoint 3000-candidate\n"
+        "  evaluation population; the evaluation-unit wall-clock pilot\n"
+        "  (6.29 ms -> 125.8 s @ 20k) in its `measured` section.\n",
         encoding="utf-8",
     )
 

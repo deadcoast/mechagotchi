@@ -19,7 +19,7 @@ forecasts, interaction timing, animation bandit, HMM mood), and the
 D5/D6 harness discipline (wall-clock FIRST — 20k+ stress-probed
 lifecycle evaluations are the strongest NumPy trigger yet, DR 0028).
 
-- [ ] **E1 · The archive at documented niche scale.** The descriptor
+- [x] **E1 · The archive at documented niche scale.** The descriptor
   binning that yields the documented ~576-niche space from the
   calibrated descriptors; archive mechanics proven at hundreds of
   niches (insertion, elite replacement, coverage/QD summaries);
