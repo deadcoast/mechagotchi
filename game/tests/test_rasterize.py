@@ -22,6 +22,8 @@ for _src in (ROOT / "game" / "src", ROOT / "packages" / "mecha_engine" / "src"):
         sys.path.insert(0, str(_src))
 
 from mecha_game.rasterize import (  # noqa: E402
+    apply_bloom,
+    apply_glitch,
     apply_scanline,
     blend_ghosting,
     compose_frame,
@@ -108,6 +110,36 @@ class ScanlineTests(unittest.TestCase):
             self.assertEqual(expected, lined[y][0], f"row {y}")
 
 
+class GlitchTests(unittest.TestCase):
+    def test_odd_cell_rows_shear_by_the_drawers_math(self):
+        # 2x2 cells at cell_px=2 -> 4x4 display; distinct row colors.
+        rows = [(10, 0, 0), (20, 0, 0), (30, 0, 0), (40, 0, 0)]
+        fb = tuple(tuple(rows[y] for _ in range(4)) for y in range(4))
+        # amplitude 1.0, cell_px 2 -> shift = max(1, round(1.0)) = 1.
+        sheared = apply_glitch(fb, amplitude=1.0, cell_px=2)
+        self.assertEqual(fb[0], sheared[0])  # even cell row untouched
+        self.assertEqual(fb[1], sheared[1])
+        # Odd cell row (display rows 2-3): shifted right by 1, the
+        # uncovered left edge keeps its original pixel.
+        self.assertEqual(fb[2][0], sheared[2][0])
+        self.assertEqual(fb[2][0], sheared[2][1])
+        self.assertEqual(fb[2][2], sheared[2][3])
+
+    def test_amplitude_floor_is_one_pixel(self):
+        fb = (((1, 1, 1), (2, 2, 2)), ((3, 3, 3), (4, 4, 4)))
+        sheared = apply_glitch(fb, amplitude=0.01, cell_px=1)
+        self.assertEqual(fb[0], sheared[0])
+        self.assertEqual((3, 3, 3), sheared[1][1])
+
+
+class BloomTests(unittest.TestCase):
+    def test_white_overlay_at_the_drawers_alpha(self):
+        fb = (((100, 100, 100),),)
+        bloomed = apply_bloom(fb, intensity=0.3)
+        # alpha = 0.12 -> round(100 * 0.88 + 255 * 0.12) = 119
+        self.assertEqual((119, 119, 119), bloomed[0][0])
+
+
 class ComposeFrameTests(unittest.TestCase):
     def test_applies_the_declared_lcd_identity(self):
         composed = compose_frame(_packet(), previous_ghost=None, cell_px=2)
@@ -125,13 +157,30 @@ class ComposeFrameTests(unittest.TestCase):
         # The red cell the first frame lit persists as a 35% ghost.
         self.assertEqual((89, 0, 0), second.ghost[2][1])
 
-    def test_unimplemented_declared_effects_are_reported(self):
+    def test_unknown_declared_effects_are_reported(self):
         packet = _packet(
-            effects=["scanline", "lcd_ghosting", "glitch", "crt_bloom"],
+            effects=["scanline", "lcd_ghosting", "vhs_wobble"],
         )
         composed = compose_frame(packet, previous_ghost=None, cell_px=1)
         self.assertEqual(["scanline", "lcd_ghosting"], composed.applied)
-        self.assertEqual(["glitch", "crt_bloom"], composed.skipped)
+        self.assertEqual(["vhs_wobble"], composed.skipped)
+
+    def test_state_driven_effects_complete_the_contract(self):
+        packet = _packet(
+            effects=["scanline", "lcd_ghosting", "crt_bloom", "glitch"],
+            parameters={
+                "scanline": {"period": 2, "opacity": 0.12},
+                "lcd_ghosting": {"alpha": 0.35},
+                "crt_bloom": {"radius": 1, "intensity": 0.3},
+                "glitch": {"amplitude": 0.9},
+            },
+        )
+        composed = compose_frame(packet, previous_ghost=None, cell_px=2)
+        self.assertEqual(
+            ["scanline", "lcd_ghosting", "crt_bloom", "glitch"],
+            composed.applied,
+        )
+        self.assertEqual([], composed.skipped)
 
     def test_composition_is_deterministic(self):
         first = compose_frame(_packet(), previous_ghost=None, cell_px=3)

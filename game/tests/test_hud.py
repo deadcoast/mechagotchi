@@ -83,6 +83,26 @@ class HudTests(unittest.TestCase):
         self.assertLess(partial_count, lit_count)
         self.assertGreater(partial_count, 0)
 
+    def test_attention_ping_pings(self):
+        hints = {
+            "show_hunger_icon": False,
+            "show_sleep_icon": False,
+            "show_attention_ping": True,
+        }
+        state = {"hunger": 0.5, "energy": 1.0}
+        lit_phase = render_hud(
+            state, hints, width=16, palette=PALETTE, frame=0
+        )
+        dark_phase = render_hud(
+            state, hints, width=16, palette=PALETTE, frame=4
+        )
+        self.assertGreater(
+            sum(1 for px in lit_phase[4] if px == ICON), 0
+        )
+        self.assertEqual(
+            0, sum(1 for px in dark_phase[4] if px == ICON)
+        )
+
     def test_deterministic(self):
         self.assertEqual(_hud(), _hud())
 

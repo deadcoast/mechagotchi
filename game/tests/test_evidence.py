@@ -18,9 +18,11 @@ for _src in (
 from evidence import (  # noqa: E402
     build_companion_loop_report,
     build_front_end_skeleton_report,
+    build_render_bridge_report,
     run_composition_session,
     write_companion_loop_artifacts,
     write_front_end_skeleton_artifacts,
+    write_render_bridge_artifacts,
 )
 
 
@@ -62,6 +64,21 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(2, metrics["lineage_document_records"])
         with tempfile.TemporaryDirectory() as tmp:
             path = write_companion_loop_artifacts(tmp, report)
+            self.assertEqual(
+                report, json.loads(path.read_text(encoding="utf-8"))
+            )
+
+    def test_render_bridge_report_proves_the_full_contract(self):
+        report = build_render_bridge_report(cell_px=1)
+        self.assertEqual("complete", report["status"])
+        metrics = report["metrics"]
+        self.assertTrue(metrics["every_cut_is_a_graph_edge"])
+        self.assertTrue(metrics["full_effects_contract_rasterized"])
+        self.assertTrue(metrics["nothing_declared_skipped"])
+        self.assertTrue(metrics["twin_run_byte_equal"])
+        self.assertEqual(0, metrics["session"]["illegal_cuts"])
+        with tempfile.TemporaryDirectory() as tmp:
+            path = write_render_bridge_artifacts(tmp, report)
             self.assertEqual(
                 report, json.loads(path.read_text(encoding="utf-8"))
             )

@@ -1,0 +1,49 @@
+{
+  "artifact_id": "render_bridge_stage0",
+  "status": "complete",
+  "date": "2026-07-12",
+  "purpose": "Cycle 14 F3 (GAME track, Phase F): the render bridge consumed in full on the client side \u2014 live clip DRIVING through the documented C2 hub-and-spoke graph (the named Phase-C remainder #3: every emitted cut a measured graph edge at the loop boundary), and the complete documented effects contract rasterized (scanline + lcd_ghosting + crt_bloom riding beg + glitch riding ill with amplitude = the engine's own stress).",
+  "source_artifacts": [
+    "data/seed_grids_16x16/mg_seed16_001_beetle.json",
+    "data/slips/valid/slip_lcd_seed.json",
+    "game/src/mecha_game/clips.py",
+    "game/src/mecha_game/rasterize.py",
+    "labs/animation_system/transition_graph.py",
+    "workshop/shared/draw.js"
+  ],
+  "metrics": {
+    "session": {
+      "ticks": 44,
+      "cell_px": 2,
+      "clips_driven": [
+        "beg",
+        "idle",
+        "ill",
+        "sleep"
+      ],
+      "effects_applied": [
+        "crt_bloom",
+        "glitch",
+        "lcd_ghosting",
+        "scanline"
+      ],
+      "effects_skipped": [],
+      "illegal_cuts": 0
+    },
+    "twin_run_byte_equal": true,
+    "every_cut_is_a_graph_edge": true,
+    "full_effects_contract_rasterized": true,
+    "nothing_declared_skipped": true
+  },
+  "closed_states": [
+    "live_clip_driving (the C2 graph walked frame by frame \u2014 cuts only at loop boundaries, illegal edges routed through the idle hub; Phase-C remainder #3 consumed)",
+    "retro_effects_pipeline_complete (all four documented effects rasterized by the pure compositor, the shared drawer's exact math; glitch amplitude IS engine stress)",
+    "ui_hints_consumed (need icons + the attention ping PINGING on a deterministic phase)"
+  ],
+  "blocked_states": [
+    "kept_fleet_consumers_await_promotion (beg timing / clip choice / mood display need the five D6-kept threads as package surfaces \u2014 labs/micro_threads is not importable from the game by boundary law; the promotion is its own gated engine change, F3's second half)",
+    "per_role_limb_joint_motion (the standing Phase-C remainder #1, an engine-side increment)"
+  ],
+  "decision": "adopt: the client consumes the bridge contract in full; the fleet's game-side value lands with the promotion",
+  "next_research_step": "F3b \u2014 promote the D6-kept threads into mecha_engine.learning (additive, parity-pinned), then wire beg timing, clip choice, and mood display"
+}

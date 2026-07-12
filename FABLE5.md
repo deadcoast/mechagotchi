@@ -291,11 +291,29 @@ verification; `/keeper/` gitignored). Evidence
 survives 400 ticks with 79 feeds; twin runs byte-equal; succession
 beetle → gen_d42be33dc5a7bfa7. 42 game tests green.
 
-Next: **F3 — the render bridge consumed in full**: live clip DRIVING
-through the transition graph (the named Phase-C remainder), crt_bloom
-+ glitch rasterization in the pure compositor, and the D6-kept
-threads' game-side consumers (beg timing, clip choice, mood display
-through the kept confidences).
+**F3's FIRST HALF also shipped** (same session): `clips.py` (the C2
+graph mirrored; driver cuts ONLY at loop boundaries — the rule
+derives from C2's metric judging only last→first cuts — illegal
+edges route via the idle hub; pinned that nothing else can be
+emitted); glitch + crt_bloom completed in the pure compositor
+(draw.js exact math; order glitch→bloom→scanline after grid-res
+ghosting); attention ping pings (4-frame phases); the window drives
+the graph and succession resets the driver. Evidence
+`render_bridge_stage0.json`: 44-tick state sweep drives
+beg/idle/ill/sleep, ZERO illegal cuts, full contract rasterized,
+twin-equal. 55 game tests green. Report:
+`2026-07-12-render-bridge-client.md`.
+
+Next: **F3b — the SECOND half of F3** (F3 stays UNCHECKED in the TODO
+until this lands): promote the five D6-kept threads
+(hunger_forecast, energy_forecast, interaction_timing,
+animation_bandit, hidden_mood_hmm — `labs/micro_threads/`) into
+`mecha_engine.learning` as an additive surface (spec + verbatim port
++ lab-side parity pins, the established promotion discipline —
+boundary law forbids the game importing labs), then wire the
+game-side consumers: beg timing hint, bandit clip choice
+(packet-side, effects honestly empty per D3), HMM mood display with
+entropy-honest confidence.
 
 ## OLD LOG (2026-07-08 session — cycle 12 Phase D)
 

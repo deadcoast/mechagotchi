@@ -133,20 +133,28 @@ class CompanionSession:
             "log": list(self.log[-24:]),
         }
 
-    def packet(self, frame_tick: int) -> dict:
-        """One display frame: the state-selected clip (the engine's own
-        T16 selection via a probe packet — never a client threshold),
-        beg overriding while the companion begs, frames cycling with
-        the render tick. Vocabulary gating stays the engine's."""
-        clip = "beg" if self.begging else self._selected_animation()
-        frames = clip_frame_count(clip)
+    def desired_clip(self) -> str:
+        """The clip the companion's state asks for: the engine's own
+        T16 selection via a probe packet (never a client threshold),
+        beg overriding while the companion begs. The clip DRIVER walks
+        the transition graph toward this target (F3)."""
+        return "beg" if self.begging else self._selected_animation()
+
+    def packet_for(self, clip: str, frame_index: int) -> dict:
+        """One display frame at an explicit driver position.
+        Vocabulary gating stays the engine's."""
         return render_packet_v2(
             self.grid,
             self.state,
             slip_profile=self.slip_profile,
             clip=clip,
-            frame_index=frame_tick % frames,
+            frame_index=frame_index % clip_frame_count(clip),
         )
+
+    def packet(self, frame_tick: int) -> dict:
+        """One display frame with naive frame cycling (evidence and
+        headless harness use; the window drives the graph instead)."""
+        return self.packet_for(self.desired_clip(), frame_tick)
 
     # -- the loop --------------------------------------------------------
 

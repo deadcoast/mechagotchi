@@ -20,5 +20,12 @@ the playable front end, distinct from the workshop's authoring surfaces.
   is the engine's child (beetle -> gen_d42be33dc5a7bfa7, lineage
   verbatim, 2 records in keeper_lineage_v1). F3 owns the full render
   bridge; F4 eras/saves; F5 the installable release.
+- `render_bridge_stage0.json` - F3 (first half): live clip DRIVING
+  through the documented C2 graph (44-tick state sweep drives
+  beg/idle/ill/sleep with ZERO illegal cuts - every cut a measured
+  edge at a loop boundary) and the FULL effects contract rasterized
+  (scanline, lcd_ghosting, crt_bloom riding beg, glitch riding ill
+  with amplitude = engine stress). Twin runs byte-equal. The kept
+  fleet's consumers await the thread promotion (F3's second half).
 
 Produced by `game/evidence.py`.

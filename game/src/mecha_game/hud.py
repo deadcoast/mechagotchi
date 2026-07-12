@@ -30,11 +30,22 @@ def _bar_row(
     return tuple(bar if x < filled else background for x in range(width))
 
 
+PING_PERIOD = 4  # render frames per attention-ping phase
+
+
 def render_hud(
-    state: dict, ui_hints: dict, *, width: int, palette: dict
+    state: dict,
+    ui_hints: dict,
+    *,
+    width: int,
+    palette: dict,
+    frame: int = 0,
 ) -> Buffer:
     """The strip: hunger bar (rows 0-1), energy bar (rows 2-3), the
-    ui_hints icon row (row 4), a separator (row 5)."""
+    ui_hints icon row (row 4), a separator (row 5). The attention ping
+    PINGS — lit on alternating ``PING_PERIOD``-frame phases (a
+    deterministic function of the render frame, C5's hint consumed as
+    the contract names it)."""
     colors = palette["colors"]
     background = hex_to_rgb(colors[palette["background_index"]])
     bar = hex_to_rgb(colors[1 % len(colors)])
@@ -45,9 +56,13 @@ def render_hud(
     hunger_row = _bar_row(hunger_filled, width, bar, background)
     energy_row = _bar_row(energy_filled, width, bar, background)
 
+    ping_phase = (frame // PING_PERIOD) % 2 == 0
     icon_row = [background] * width
     for hint, cells in ICON_CELLS.items():
-        if ui_hints.get(hint):
+        lit = ui_hints.get(hint) and (
+            hint != "show_attention_ping" or ping_phase
+        )
+        if lit:
             for x in cells:
                 if x < width:
                     icon_row[x] = icon

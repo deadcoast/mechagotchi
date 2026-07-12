@@ -17,6 +17,9 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+from mecha_engine.genome import clip_frame_count
+
+from mecha_game.clips import TRANSITIONS, ClipDriver
 from mecha_game.hud import HUD_HEIGHT, render_hud
 from mecha_game.packets import default_fixture_paths
 from mecha_game.rasterize import (
@@ -169,6 +172,12 @@ def run(argv: list[str] | None = None) -> int:
         pygame.display.set_caption(f"{WINDOW_TITLE} — {session.name}")
         font = pygame.font.Font(None, 22)
         clock = pygame.time.Clock()
+        # Live clip driving through the C2 graph (F3): the driver walks
+        # frame by frame toward the state's desired clip.
+        clip_vocabulary = {clip for edge in TRANSITIONS for clip in edge}
+        driver = ClipDriver(
+            {clip: clip_frame_count(clip) for clip in clip_vocabulary}
+        )
         ghost = None
         frame = 0
         queued: str | None = None
@@ -189,6 +198,7 @@ def run(argv: list[str] | None = None) -> int:
                         session.save_lineage(lineage_path)
                         session.succeed()
                         ghost = None
+                        driver = ClipDriver(driver.frame_counts)
 
             if session.alive and frame % args.tick_frames == 0:
                 session.advance(player_action=queued)
@@ -198,13 +208,15 @@ def run(argv: list[str] | None = None) -> int:
                     if args.auto_succeed:
                         session.succeed()
                         ghost = None
+                        driver = ClipDriver(driver.frame_counts)
                     elif args.ticks is not None:
                         # A bounded, unattended run ends at death.
                         running = False
                 if session.session_tick == args.ticks:
                     running = False
 
-            packet = session.packet(frame)
+            clip, frame_index = driver.step(session.desired_clip())
+            packet = session.packet_for(clip, frame_index)
             composed = compose_frame(
                 packet, previous_ghost=ghost, cell_px=args.scale
             )
@@ -215,6 +227,7 @@ def run(argv: list[str] | None = None) -> int:
                 snapshot["ui_hints"],
                 width=width,
                 palette=packet["palette"],
+                frame=frame,
             )
             hud_scaled = apply_scanline(
                 scale_buffer(hud, args.scale),

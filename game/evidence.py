@@ -33,6 +33,7 @@ from mecha_game.packets import (  # noqa: E402
     hello_packet,
     load_hello_creature,
 )
+from mecha_game.clips import TRANSITIONS, ClipDriver  # noqa: E402
 from mecha_game.rasterize import compose_frame  # noqa: E402
 from mecha_game.session import (  # noqa: E402
     CompanionSession,
@@ -303,6 +304,198 @@ def build_companion_loop_report(
     }
 
 
+BRIDGE_ARTIFACT_ID = "render_bridge_stage0"
+
+
+def _drive_bridge(cell_px: int = 2) -> dict:
+    """One scripted drive of the full bridge over the real creature:
+    the driver walks the C2 graph toward a state-shaped target script,
+    every step becomes a REAL engine packet, and the compositor
+    rasterizes every declared effect. Legality is judged per emitted
+    cut against the documented graph."""
+    from mecha_engine.genome import clip_frame_count
+
+    creature_grid, slip_profile, _model = load_session_inputs(
+        ROOT / HELLO_SEED, ROOT / HELLO_SLIP
+    )
+    session = CompanionSession(
+        creature_grid, slip_profile, model=_model
+    )
+    vocabulary = {clip for edge in TRANSITIONS for clip in edge}
+    driver = ClipDriver(
+        {clip: clip_frame_count(clip) for clip in vocabulary}
+    )
+    # The state script: calm -> hungry (beg + crt_bloom) -> stressed
+    # (ill + glitch) -> exhausted (sleep) -> calm. Values drive the
+    # engine's OWN selection thresholds; nothing is hand-picked.
+    state_script = (
+        [{}] * 6
+        + [{"hunger": 0.9}] * 10
+        + [{"hunger": 0.2, "stress": 0.9}] * 10
+        + [{"stress": 0.2, "energy": 0.05}] * 10
+        + [{"energy": 0.9}] * 8
+    )
+    base_state = dict(session.state)
+    steps: list[dict] = []
+    checksums: list[str] = []
+    applied_union: set[str] = set()
+    skipped_union: set[str] = set()
+    illegal_cuts = 0
+    previous = None
+    ghost = None
+    for overrides in state_script:
+        session.state = {**base_state, **overrides}
+        session.begging = overrides.get("hunger", 0.0) > 0.7
+        clip, frame_index = driver.step(session.desired_clip())
+        if previous is not None:
+            prev_clip, prev_frame = previous
+            intra = clip == prev_clip and frame_index == prev_frame + 1
+            boundary_cut = (
+                prev_frame == driver.frame_counts[prev_clip] - 1
+                and frame_index == 0
+                and (prev_clip, clip) in TRANSITIONS
+            )
+            if not (intra or boundary_cut):
+                illegal_cuts += 1
+        previous = (clip, frame_index)
+        packet = session.packet_for(clip, frame_index)
+        composed = compose_frame(
+            packet, previous_ghost=ghost, cell_px=cell_px
+        )
+        ghost = composed.ghost
+        checksums.append(_frame_checksum(composed.pixels))
+        applied_union.update(composed.applied)
+        skipped_union.update(composed.skipped)
+        steps.append(
+            {
+                "clip": clip,
+                "frame_index": frame_index,
+                "displayed_clip": packet["animation"]["clip"],
+                "effects": packet["effects"],
+            }
+        )
+    clips_driven = sorted({step["clip"] for step in steps})
+    return {
+        "ticks": len(state_script),
+        "cell_px": cell_px,
+        "steps": steps,
+        "frame_checksums": checksums,
+        "clips_driven": clips_driven,
+        "effects_applied": sorted(applied_union),
+        "effects_skipped": sorted(skipped_union),
+        "illegal_cuts": illegal_cuts,
+    }
+
+
+def build_render_bridge_report(cell_px: int = 2) -> dict:
+    first = _drive_bridge(cell_px)
+    second = _drive_bridge(cell_px)
+    deterministic = first == second
+    graph_legal = first["illegal_cuts"] == 0
+    full_contract = first["effects_applied"] == [
+        "crt_bloom",
+        "glitch",
+        "lcd_ghosting",
+        "scanline",
+    ]
+    nothing_skipped = first["effects_skipped"] == []
+    all_clips = first["clips_driven"] == [
+        "beg",
+        "idle",
+        "ill",
+        "sleep",
+    ]
+    status = (
+        "complete"
+        if deterministic
+        and graph_legal
+        and full_contract
+        and nothing_skipped
+        and all_clips
+        else "refuted"
+    )
+    return {
+        "artifact_id": BRIDGE_ARTIFACT_ID,
+        "status": status,
+        "date": REPORT_DATE,
+        "purpose": (
+            "Cycle 14 F3 (GAME track, Phase F): the render bridge "
+            "consumed in full on the client side — live clip DRIVING "
+            "through the documented C2 hub-and-spoke graph (the named "
+            "Phase-C remainder #3: every emitted cut a measured graph "
+            "edge at the loop boundary), and the complete documented "
+            "effects contract rasterized (scanline + lcd_ghosting + "
+            "crt_bloom riding beg + glitch riding ill with amplitude "
+            "= the engine's own stress)."
+        ),
+        "source_artifacts": [
+            HELLO_SEED.as_posix(),
+            HELLO_SLIP.as_posix(),
+            "game/src/mecha_game/clips.py",
+            "game/src/mecha_game/rasterize.py",
+            "labs/animation_system/transition_graph.py",
+            "workshop/shared/draw.js",
+        ],
+        "metrics": {
+            "session": {
+                key: first[key]
+                for key in (
+                    "ticks",
+                    "cell_px",
+                    "clips_driven",
+                    "effects_applied",
+                    "effects_skipped",
+                    "illegal_cuts",
+                )
+            },
+            "twin_run_byte_equal": deterministic,
+            "every_cut_is_a_graph_edge": graph_legal,
+            "full_effects_contract_rasterized": full_contract,
+            "nothing_declared_skipped": nothing_skipped,
+        },
+        "closed_states": [
+            "live_clip_driving (the C2 graph walked frame by frame — "
+            "cuts only at loop boundaries, illegal edges routed "
+            "through the idle hub; Phase-C remainder #3 consumed)",
+            "retro_effects_pipeline_complete (all four documented "
+            "effects rasterized by the pure compositor, the shared "
+            "drawer's exact math; glitch amplitude IS engine stress)",
+            "ui_hints_consumed (need icons + the attention ping "
+            "PINGING on a deterministic phase)",
+        ],
+        "blocked_states": [
+            "kept_fleet_consumers_await_promotion (beg timing / clip "
+            "choice / mood display need the five D6-kept threads as "
+            "package surfaces — labs/micro_threads is not importable "
+            "from the game by boundary law; the promotion is its own "
+            "gated engine change, F3's second half)",
+            "per_role_limb_joint_motion (the standing Phase-C "
+            "remainder #1, an engine-side increment)",
+        ],
+        "decision": (
+            "adopt: the client consumes the bridge contract in full; "
+            "the fleet's game-side value lands with the promotion"
+        ),
+        "next_research_step": (
+            "F3b — promote the D6-kept threads into "
+            "mecha_engine.learning (additive, parity-pinned), then "
+            "wire beg timing, clip choice, and mood display"
+        ),
+    }
+
+
+def write_render_bridge_artifacts(
+    output_dir: str | Path, report: dict
+) -> Path:
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    path = output_dir / f"{BRIDGE_ARTIFACT_ID}.json"
+    path.write_text(
+        json.dumps(report, indent=2) + "\n", encoding="utf-8"
+    )
+    return path
+
+
 def write_companion_loop_artifacts(
     output_dir: str | Path, report: dict
 ) -> Path:
@@ -341,5 +534,9 @@ if __name__ == "__main__":
     print(f"wrote {written}")
     written = write_companion_loop_artifacts(
         args.output_dir, build_companion_loop_report()
+    )
+    print(f"wrote {written}")
+    written = write_render_bridge_artifacts(
+        args.output_dir, build_render_bridge_report()
     )
     print(f"wrote {written}")
