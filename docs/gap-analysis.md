@@ -201,6 +201,15 @@ the GAME track begins in earnest** — each phase at REAL scale:
   §1.22's checklist met element by element; the honest remainder —
   0.2/0.3 rungs, the Review scrubber, the Contribute bridge, covenant
   spending — decomposes into cycle 15).
+  **MVP 0.2 DELIVERED (cycle 15, 2026-07-12; the phase CONTINUES at
+  the 0.3 rung)** — gate report
+  `research/experiment_reports/2026-07-12-phase-f-mvp02-gate.md`
+  (the creator loop closes: covenant spending under the SLIP
+  authority; the hatchery generating trace-legible founders; the
+  Contribute file bridge with the engine's admission verdicts shown;
+  the Review replaying a real recorded life; hardening. §1.23 judged
+  honestly — the visual editor stays the workshop's surface by the
+  docs' own split, consumed through the bridge).
 
 ### Shared / late-stage (Phase G)
 

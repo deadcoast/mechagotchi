@@ -71,16 +71,24 @@ this, or am I periscoping?
   the co-author line `Co-Authored-By: Claude Fable 5
   <noreply@anthropic.com>`.
 
-## 3. Where we are RIGHT NOW (updated 2026-07-12, end of cycle 14)
+## 3. Where we are RIGHT NOW (updated 2026-07-12, end of cycle 15)
 
-- **Active queue:** `audits/TODO.md` = **Cycle 15 · GAME track ·
-  Phase F — MVP 0.2 (the creator loop).** Nothing in it is started;
-  the next concrete work is **F7 · covenant spending**. **CYCLE 14
-  (MVP 0.1) IS COMPLETE AND GATED GREEN** — the six F-tasks below all
-  shipped 2026-07-12 and the gate report is
-  `research/experiment_reports/2026-07-12-phase-f-mvp01-gate.md`.
-  The playable product exists: `uv run python -B game/run_game.py`
-  (dev) or `game/build_release.py` → `dist/Mechagotchi/` (installed).
+- **Active queue:** `audits/TODO.md` = **Cycle 16 · GAME track ·
+  Phase F — MVP 0.3 (the species commons).** Nothing in it is
+  started; the next concrete work is **F13 · the repertoire
+  browser**. **CYCLES 14 AND 15 (MVP 0.1 + 0.2) ARE COMPLETE AND
+  GATED GREEN** — gates:
+  `research/experiment_reports/2026-07-12-phase-f-mvp01-gate.md` and
+  `…-mvp02-gate.md`. The playable product exists and closes the
+  creator loop (spend covenant → hatch → raise → release → era →
+  review the recorded life → adopt the elite): `mechas game --play`,
+  or `uv run python -B game/run_game.py`, or the built
+  `dist/Mechagotchi/`. Cycle 15 shipped F7 covenant spending, F8 the
+  hatchery, F9 the Contribute bridge, F10 the Review replays, F11
+  hardening (model cache pinned byte-equal; `--windowed`; `mechas
+  game`), F12 the gate — ten stage-0 artifacts under
+  `data/game_client/`, all complete; game suite 117, CLI 23,
+  package 295.
 - **Cycle 14's shipped record** (kept for context): **F1 is COMPLETE**
   (2026-07-12): DR 0033 chose **pygame-ce** for the client (engine
   imported in-process — packets verbatim, replay fidelity by
@@ -177,7 +185,18 @@ this, or am I periscoping?
    doctor, reviewer prefill, shell completion).
 7. `research/README.md` — the master traceability ledger.
 
-## 5. WHAT TO DO NEXT — Cycle 15, task F8 (THE GAME TRACK, MVP 0.2)
+## 5. WHAT TO DO NEXT — Cycle 16, task F13 (THE GAME TRACK, MVP 0.3)
+
+`audits/TODO.md` holds cycle 16's full task text: F13 the repertoire
+browser (the archive's elites browsable — the ledger's stored
+records are the past-era source), F14 the lineage browser, F15 SLIP
+import/export through the authority, F16 community packs at the
+FORMAT rung (distribution stays Phase G), F17 the carried remainders
+(replay persistence via the ledger's `record_replay`; spent-covenant
+resume from the ledger; windowed launch-verify), F18 the 0.3 gate —
+after which Phase F's named rungs are EXHAUSTED and the gate
+dispositions Phase F vs Phase G. The cycle-15 record below is kept
+for context:
 
 `audits/TODO.md` holds cycle 15's full task text. **F7 (covenant
 spending) is DONE (2026-07-12)**: `mecha_game/covenant.py` mirrors
