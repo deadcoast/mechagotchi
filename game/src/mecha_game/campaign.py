@@ -241,12 +241,18 @@ def load_campaign_inputs(
     repair_epochs: int = 40,
     rng_seed: int = 20260707,
     seed_limit: int | None = None,
+    cache_dir: str | Path | None = None,
 ) -> dict:
     """Load the corpus, the covenant, and train the promoted models.
 
     The legibility model is the COMMITTED adopted artifact (DR 0019 —
     the learned signal is primary); its absence is a hard error, never
-    a silent fallback."""
+    a silent fallback.
+
+    ``cache_dir`` (F11): the repair model — the slow trainer — caches
+    to a file keyed on the corpus's grid ids + epochs + seed; a cached
+    load is byte-equal to fresh training (the trainer is deterministic
+    in its inputs), PINNED by test. ``None`` always trains."""
     seed_paths = sorted(Path(seed_dir).glob("mg_seed16_*.json"))
     if seed_limit is not None:
         seed_paths = seed_paths[:seed_limit]
@@ -267,11 +273,41 @@ def load_campaign_inputs(
         "reference_features": adopted["reference_features"],
     }
     generation_model = train_generation_model(seed_grids)
-    repair_model = train_repair_model(
-        seed_grids[:REPAIR_TRAINING_COUNT],
-        epochs=repair_epochs,
-        rng_seed=rng_seed,
-    )
+    repair_model = None
+    cache_path = None
+    if cache_dir is not None:
+        import hashlib
+
+        key_material = json.dumps(
+            {
+                "grid_ids": [
+                    grid["grid_id"]
+                    for grid in seed_grids[:REPAIR_TRAINING_COUNT]
+                ],
+                "epochs": repair_epochs,
+                "rng_seed": rng_seed,
+            },
+            sort_keys=True,
+        )
+        key = hashlib.sha256(key_material.encode("utf-8")).hexdigest()[
+            :16
+        ]
+        cache_path = Path(cache_dir) / f"repair_model_{key}.json"
+        if cache_path.is_file():
+            repair_model = json.loads(
+                cache_path.read_text(encoding="utf-8")
+            )
+    if repair_model is None:
+        repair_model = train_repair_model(
+            seed_grids[:REPAIR_TRAINING_COUNT],
+            epochs=repair_epochs,
+            rng_seed=rng_seed,
+        )
+        if cache_path is not None:
+            cache_path.parent.mkdir(parents=True, exist_ok=True)
+            cache_path.write_text(
+                json.dumps(repair_model) + "\n", encoding="utf-8"
+            )
     return {
         "seed_grids": seed_grids,
         "slip_profile": slip_profile,

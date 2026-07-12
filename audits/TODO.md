@@ -41,7 +41,7 @@ to the play loop — plus the cycle-14 gate's named product remainders.
   player: after an era, the best elite's recorded life plays back in
   the client (scrubber-lite: play/pause/step). Honest labeling per
   the lab: a real recorded life of a real era creature.
-- [ ] **F11 · Product hardening.** Era-bench model caching (the ~6 s
+- [x] **F11 · Product hardening.** Era-bench model caching (the ~6 s
   lazy train, cached to the keeper dir); the bandit's warmth surfaced
   once real play feeds it; windowed-mode (non-console) release build;
   `mechas` gains the game's operational commands per DR 0007's

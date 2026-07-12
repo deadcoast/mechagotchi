@@ -33,7 +33,9 @@ BUNDLED_DATA = [
 ]
 
 
-def build(dist_dir: Path, work_dir: Path) -> Path:
+def build(
+    dist_dir: Path, work_dir: Path, *, windowed: bool = False
+) -> Path:
     import PyInstaller.__main__ as pyinstaller
 
     entry = work_dir / "release_entry.py"
@@ -62,7 +64,9 @@ def build(dist_dir: Path, work_dir: Path) -> Path:
             f"--specpath={work_dir}",
             f"--paths={GAME_SRC}",
             f"--paths={ROOT / 'packages' / 'mecha_engine' / 'src'}",
-            "--console",
+            # Console stays the default (diagnostics visible — the F5
+            # report's note); --windowed is the player-facing build.
+            "--windowed" if windowed else "--console",
             *add_data,
         ]
     )
@@ -77,6 +81,11 @@ if __name__ == "__main__":
     parser.add_argument(
         "--work", type=Path, default=ROOT / "game" / "release_work"
     )
+    parser.add_argument(
+        "--windowed",
+        action="store_true",
+        help="build without a console window (the player-facing form)",
+    )
     args = parser.parse_args()
-    bundle = build(args.dist, args.work)
+    bundle = build(args.dist, args.work, windowed=args.windowed)
     print(f"built {bundle}")

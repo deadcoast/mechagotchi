@@ -157,8 +157,11 @@ class _EraBench:
     """The Keeper's evolution bench, lazily trained on first use
     (model training costs seconds — never paid by pure companion play)."""
 
-    def __init__(self, era_scale: str) -> None:
+    def __init__(
+        self, era_scale: str, cache_dir: Path | None = None
+    ) -> None:
         self.era_scale = era_scale
+        self.cache_dir = cache_dir
         self.campaign: KeeperCampaign | None = None
         self.weather_index = 0
         self.message = ""
@@ -177,6 +180,9 @@ class _EraBench:
                 paths["adopted_model_path"],
                 repair_epochs=6 if tiny else 40,
                 seed_limit=12 if tiny else None,
+                # F11: the slow trainer caches to the keeper dir —
+                # byte-equal to fresh training, pinned by test.
+                cache_dir=self.cache_dir,
             )
             self.campaign = KeeperCampaign(
                 inputs,
@@ -327,7 +333,9 @@ def run(argv: list[str] | None = None) -> int:
     keeper_dir = args.keeper_dir or default_keeper_dir()
     lineage_path = keeper_dir / LINEAGE_FILENAME
     companion_path = keeper_dir / COMPANION_FILENAME
-    bench = _EraBench(args.era_scale)
+    bench = _EraBench(
+        args.era_scale, cache_dir=keeper_dir / "model_cache"
+    )
     campaign_ledger = keeper_dir / "campaign.sqlite3"
     # Quit and come back (F5): the save file resumes unless --new.
     if companion_path.is_file() and not args.new:

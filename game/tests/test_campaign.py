@@ -202,6 +202,46 @@ class CampaignTests(unittest.TestCase):
             self.first_era["report"], history["eras"][0]["report"]
         )
 
+    def test_model_cache_is_byte_equal_to_fresh_training(self):
+        # F11: the repair model is the slow trainer; the cache must be
+        # invisible — byte-equal results, keyed on corpus+epochs+seed.
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as tmp:
+            cached_inputs = load_campaign_inputs(
+                SEED_DIR,
+                SLIP_PATH,
+                ADOPTED,
+                repair_epochs=6,
+                seed_limit=12,
+                cache_dir=tmp,
+            )
+            self.assertEqual(
+                json.dumps(self.inputs["repair_model"], sort_keys=True),
+                json.dumps(
+                    cached_inputs["repair_model"], sort_keys=True
+                ),
+            )
+            cache_files = list(Path(tmp).glob("repair_model_*.json"))
+            self.assertEqual(1, len(cache_files))
+            # The second load HITS the cache (mtime untouched).
+            before = cache_files[0].stat().st_mtime_ns
+            reloaded = load_campaign_inputs(
+                SEED_DIR,
+                SLIP_PATH,
+                ADOPTED,
+                repair_epochs=6,
+                seed_limit=12,
+                cache_dir=tmp,
+            )
+            self.assertEqual(
+                before, cache_files[0].stat().st_mtime_ns
+            )
+            self.assertEqual(
+                json.dumps(self.inputs["repair_model"], sort_keys=True),
+                json.dumps(reloaded["repair_model"], sort_keys=True),
+            )
+
     def test_eras_are_deterministic(self):
         twin = KeeperCampaign(
             self.inputs, era_config=TINY_ERA, campaign_id="twin"

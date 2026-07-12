@@ -37,7 +37,20 @@ class MechasCliSurfaceTests(unittest.TestCase):
         self.assertEqual(0, result.exit_code)
         self.assertIn("rate", result.output)
         self.assertIn("status", result.output)
+        self.assertIn("game", result.output)
         self.assertIn("mechas", result.output)
+
+    def test_game_help_lists_the_modes(self):
+        result = self.runner.invoke(self.app, ["game", "--help"])
+        self.assertEqual(0, result.exit_code)
+        self.assertIn("--play", result.output)
+        self.assertIn("--build", result.output)
+        self.assertIn("--evidence", result.output)
+
+    def test_game_without_a_mode_guides(self):
+        result = self.runner.invoke(self.app, ["game"])
+        self.assertEqual(0, result.exit_code)
+        self.assertIn("--play", result.output)
 
     def test_version_flag(self):
         from mechas_cli import __version__
