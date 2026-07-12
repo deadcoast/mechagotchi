@@ -43,7 +43,16 @@ REPO_ROOT = PACKAGE_ROOT.parents[1]
 SRC_DIR = PACKAGE_ROOT / "src"
 DRIVER = Path(__file__).resolve().parent / "helpers" / "learning_contract_driver.py"
 
-REQUIRED_PUBLIC_SURFACE = ["ACTIONS", "decide", "run_feedback_episode"]
+# The contracted three plus the fleet surface (the spec's additive
+# "fleet surface" section, cycle 14 F3b — export only, opt-in silent).
+REQUIRED_PUBLIC_SURFACE = [
+    "ACTIONS",
+    "FLEET_THREAD_NAMES",
+    "decide",
+    "fleet_signals",
+    "observe_fleet",
+    "run_feedback_episode",
+]
 # The lab's action set, order load-bearing (deterministic tie-breaks).
 REQUIRED_ACTIONS = ["feed", "play", "sleep", "idle", "mutate"]
 # Interface-spec signatures (learning interface spec, "Proposed public
@@ -125,7 +134,7 @@ class MechaEngineLearningContractTests(unittest.TestCase):
 
     # -- Public surface -----------------------------------------------------
 
-    def test_public_surface_is_the_contracted_three_names(self):
+    def test_public_surface_is_the_contracted_names(self):
         self.assertEqual(
             REQUIRED_PUBLIC_SURFACE, self.report["surface"]["public_all"]
         )

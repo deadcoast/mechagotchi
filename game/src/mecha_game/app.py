@@ -35,7 +35,7 @@ WINDOW_TITLE = "Mechagotchi"
 DEFAULT_CELL_PX = 24
 DEFAULT_FPS = 8  # the LCD heartbeat (render frames)
 DEFAULT_TICK_FRAMES = 12  # lifecycle tick every N frames (1.5 s at 8 fps)
-FOOTER_PX = 72  # the casing's text area (chrome, not LCD)
+FOOTER_PX = 96  # the casing's text area (chrome, not LCD)
 LINEAGE_FILENAME = "lineage.json"
 
 
@@ -138,7 +138,26 @@ def _footer_lines(snapshot: dict, queued: str | None) -> list[str]:
         if "stress" in needs and "bond" in needs
         else ""
     )
-    return [line, controls, detail]
+    # The kept fleet's read model, verbatim thread outputs (F3b):
+    # the HMM's felt mood with entropy-honest confidence, and the
+    # hunger forecast — "begs soon" exactly when the thread's own
+    # anticipatory feed effect fires (never a client threshold).
+    threads = snapshot.get("threads") or {}
+    felt = ""
+    hmm = threads.get("hidden_mood_hmm")
+    if hmm and hmm["output"].get("map_mood"):
+        felt = (
+            f"felt {hmm['output']['map_mood']} "
+            f"({hmm['confidence']:.2f})"
+        )
+    forecast = threads.get("hunger_forecast")
+    if forecast and forecast["output"].get("predicted_hunger") is not None:
+        felt += (
+            f"   hunger→{forecast['output']['predicted_hunger']:.2f}"
+        )
+        if forecast["effects"].get("feed"):
+            felt += "   begs soon"
+    return [line, controls, detail, felt]
 
 
 def run(argv: list[str] | None = None) -> int:
@@ -181,6 +200,7 @@ def run(argv: list[str] | None = None) -> int:
         ghost = None
         frame = 0
         queued: str | None = None
+        displayed_clip: str | None = None
         running = True
         while running:
             for event in pygame.event.get():
@@ -201,7 +221,11 @@ def run(argv: list[str] | None = None) -> int:
                         driver = ClipDriver(driver.frame_counts)
 
             if session.alive and frame % args.tick_frames == 0:
-                session.advance(player_action=queued)
+                # The bandit's reward attribution sees what the window
+                # actually showed last (the driver's emitted clip).
+                session.advance(
+                    player_action=queued, displayed_clip=displayed_clip
+                )
                 queued = None
                 if not session.alive:
                     session.save_lineage(lineage_path)
@@ -216,6 +240,7 @@ def run(argv: list[str] | None = None) -> int:
                     running = False
 
             clip, frame_index = driver.step(session.desired_clip())
+            displayed_clip = clip
             packet = session.packet_for(clip, frame_index)
             composed = compose_frame(
                 packet, previous_ghost=ghost, cell_px=args.scale

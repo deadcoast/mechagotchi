@@ -37,7 +37,7 @@ species memory surfacing to the player (Phase E).
   (DR 0021 first law): every displayed number is a report field, an
   artifact, or a recorded replay — uncalibrated things shown as
   uncalibrated.
-- [ ] **F3 · The render bridge consumed in full.** Live clip DRIVING
+- [x] **F3 · The render bridge consumed in full.** Live clip DRIVING
   through the animation graph (the named Phase-C remainder); the retro
   effects pipeline (scanline, lcd_ghosting, crt_bloom, glitch);
   ui_hints (need icons, attention ping). The kept fleet cashes out

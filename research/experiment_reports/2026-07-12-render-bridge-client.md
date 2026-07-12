@@ -72,12 +72,13 @@ name, `vhs_wobble`.)
 
 ## HONEST REMAINDER
 
-1. **The kept fleet's consumers are the second half of F3** — beg
-   timing, clip choice, mood display need the five D6-kept threads as
-   PACKAGE surfaces (`labs/micro_threads` is not importable from the
-   game by boundary law). That promotion is its own gated engine
-   change (spec + verbatim port + lab-side parity pins), queued next;
-   F3 stays unchecked in the TODO until it lands.
+1. **The kept fleet's consumers are the second half of F3.**
+   *(CORRECTED same day: this report originally claimed the threads
+   needed PROMOTION — in fact cycle 12 had already ported the fleet
+   verbatim into `mecha_engine.learning.threads` and wired it through
+   `decide`; only the PUBLIC EXPORT and the consumers were missing.
+   Both landed in F3b — see
+   `2026-07-12-fleet-consumers.md`.)*
 2. **`blink` was not exercised by the bridge script** (it needs the
    age tic at a calm moment) — the driver's blink edges are pinned by
    the unit tests instead.

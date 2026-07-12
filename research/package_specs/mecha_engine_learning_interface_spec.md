@@ -34,6 +34,32 @@ may claim survival improvement without new evidence.
   measurements share). Episode report mirrors the lab shape (survival,
   need_balance, recovery events, reward update count, per-tick history).
 
+### The fleet surface (additive, cycle 14 F3b)
+
+The cycle-12 D1 contract's fleet entry points — already promoted into
+`learning.threads` (verbatim port of `labs/micro_threads/
+thread_fleet.py`) and consumed internally by `decide`'s additive
+seam — are exported for the consumer the Phase-D gate names (the
+GAME: beg timing, clip choice, mood display). Export only; zero
+behavior change:
+
+- `observe_fleet(lifecycle_state) -> dict` — one observe step for
+  every opted-in fleet thread; returns the new `thread_states`
+  mapping (the caller stores it back); never mutates its input.
+- `fleet_signals(lifecycle_state) -> list[dict]` — the opted-in
+  threads' `{name, input, output, confidence, explanation, effects}`
+  signals (the D1 shape).
+- `FLEET_THREAD_NAMES` — the eleven documented thread names in the
+  registry's fixed execution order.
+
+THE OPT-IN RULE is unchanged and load-bearing: fleet threads run only
+on an explicit `learning_switches[name] is True`, so both surfaces
+are silent on every frozen path (pinned by
+`tests/test_learning_fleet_surface.py`). The D6 ablation verdicts
+stand: dropped threads stay out of default profiles; a consumer
+enabling threads cites the kept list
+(`data/micro_threads/ablation_gates_stage0.json`).
+
 ## Hard gates for the port
 
 - Lab-side parity pins: `decide` byte-identical to the lab

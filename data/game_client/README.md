@@ -26,6 +26,18 @@ the playable front end, distinct from the workshop's authoring surfaces.
   edge at a loop boundary) and the FULL effects contract rasterized
   (scanline, lcd_ghosting, crt_bloom riding beg, glitch riding ill
   with amplitude = engine stress). Twin runs byte-equal. The kept
-  fleet's consumers await the thread promotion (F3's second half).
+  fleet's consumers landed the same day (F3's second half, below).
+- `fleet_consumers_stage0.json` - F3 (second half): the D6-kept five
+  stream through the learning module's public fleet surface into the
+  product session (dropped threads stay out). Consumers verbatim:
+  "begs soon" = the hunger forecast's own anticipatory effect; idle
+  clip choice = the bandit's recommendation (packet-side); felt mood
+  = the HMM's MAP readout with entropy-honest confidence. Measured:
+  hunger 0.983 / energy 0.869 / HMM 0.763 / timing 1.0 confidence on
+  an 80-tick attentive life, the bandit honestly cold (0.0); twin
+  runs byte-equal; decision divergence vs frozen = 0 (D6's ~0,
+  reconfirmed at the product loop). Correction recorded: the fleet
+  was already package code since cycle 12 - only the export and the
+  consumers were missing.
 
 Produced by `game/evidence.py`.

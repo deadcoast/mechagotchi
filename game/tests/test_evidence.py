@@ -17,10 +17,12 @@ for _src in (
 
 from evidence import (  # noqa: E402
     build_companion_loop_report,
+    build_fleet_consumers_report,
     build_front_end_skeleton_report,
     build_render_bridge_report,
     run_composition_session,
     write_companion_loop_artifacts,
+    write_fleet_consumers_artifacts,
     write_front_end_skeleton_artifacts,
     write_render_bridge_artifacts,
 )
@@ -64,6 +66,23 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(2, metrics["lineage_document_records"])
         with tempfile.TemporaryDirectory() as tmp:
             path = write_companion_loop_artifacts(tmp, report)
+            self.assertEqual(
+                report, json.loads(path.read_text(encoding="utf-8"))
+            )
+
+    def test_fleet_consumers_report_streams_the_kept_five(self):
+        report = build_fleet_consumers_report(ticks=40)
+        self.assertEqual("complete", report["status"])
+        metrics = report["metrics"]
+        self.assertTrue(metrics["twin_run_equal"])
+        self.assertTrue(metrics["exactly_the_kept_five_stream"])
+        self.assertTrue(metrics["hunger_forecast_warms"])
+        self.assertTrue(metrics["hidden_mood_hmm_warms"])
+        self.assertIsInstance(
+            metrics["decisions_diverged_vs_frozen"], int
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            path = write_fleet_consumers_artifacts(tmp, report)
             self.assertEqual(
                 report, json.loads(path.read_text(encoding="utf-8"))
             )

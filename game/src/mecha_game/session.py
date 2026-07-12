@@ -35,6 +35,7 @@ from mecha_engine.generation import (
     train_generation_model,
 )
 from mecha_engine.genome import clip_frame_count, render_packet_v2
+from mecha_engine.learning import fleet_signals, observe_fleet
 from mecha_engine.lifecycle import (
     ACTIONS,
     advance_tick,
@@ -43,6 +44,16 @@ from mecha_engine.lifecycle import (
 )
 
 LINEAGE_FORMAT = "keeper_lineage_v1"
+# The D6 ablation verdicts, applied without sentiment: exactly the five
+# KEPT threads run in the game; dropped threads stay out of default
+# profiles (data/micro_threads/ablation_gates_stage0.json).
+KEPT_THREADS = (
+    "hunger_forecast",
+    "energy_forecast",
+    "interaction_timing",
+    "animation_bandit",
+    "hidden_mood_hmm",
+)
 # Bounded history: advance_tick deepcopies the state each tick (the
 # D5-measured hotspot); decisions never read the trimmed tail, PINNED
 # by test_history_trim_does_not_change_decisions.
@@ -84,10 +95,19 @@ class CompanionSession:
         model: GenerationModel,
         name: str | None = None,
         succession_seed: int = DEFAULT_SUCCESSION_SEED,
+        fleet: bool = True,
     ) -> None:
         # The engine's own gate judges the adoption (refuses with the
         # validator's/covenant's verbatim errors).
         self.state = initial_state(grid, slip_profile)
+        self.fleet = fleet
+        if fleet:
+            # The kept fleet opts in (the load-bearing D1 rule: an
+            # explicit True per name; covenant-carried switches stay).
+            self.state["learning_switches"] = {
+                **(self.state.get("learning_switches") or {}),
+                **{name: True for name in KEPT_THREADS},
+            }
         self.grid = json.loads(json.dumps(grid))
         self.slip_profile = json.loads(json.dumps(slip_profile))
         self.model = model
@@ -131,14 +151,42 @@ class CompanionSession:
             "generation_count": len(self.lineage),
             "actions": list(ACTIONS),
             "log": list(self.log[-24:]),
+            # The kept threads' signals, verbatim (D1 shape) — the
+            # fleet's game-side read model (empty with the fleet off).
+            "threads": {
+                signal["name"]: {
+                    "output": signal["output"],
+                    "confidence": signal["confidence"],
+                    "explanation": signal["explanation"],
+                    "effects": signal["effects"],
+                }
+                for signal in (
+                    fleet_signals(self.state) if self.fleet else []
+                )
+            },
         }
 
     def desired_clip(self) -> str:
         """The clip the companion's state asks for: the engine's own
         T16 selection via a probe packet (never a client threshold),
         beg overriding while the companion begs. The clip DRIVER walks
-        the transition graph toward this target (F3)."""
-        return "beg" if self.begging else self._selected_animation()
+        the transition graph toward this target (F3).
+
+        The bandit consumer (D3: clip preference is PACKET-side,
+        honestly effect-free): when the engine selects plain idle and
+        the kept bandit has a confident learned recommendation, the
+        recommendation is displayed instead — the thread's own output,
+        never a client heuristic."""
+        if self.begging:
+            return "beg"
+        selected = self._selected_animation()
+        if self.fleet and selected == "idle":
+            bandit = self._thread_signal("animation_bandit")
+            if bandit is not None and bandit["confidence"] > 0:
+                recommended = bandit["output"].get("recommended_clip")
+                if isinstance(recommended, str):
+                    return recommended
+        return selected
 
     def packet_for(self, clip: str, frame_index: int) -> dict:
         """One display frame at an explicit driver position.
@@ -158,13 +206,25 @@ class CompanionSession:
 
     # -- the loop --------------------------------------------------------
 
-    def advance(self, player_action: str | None = None) -> dict:
+    def advance(
+        self,
+        player_action: str | None = None,
+        displayed_clip: str | None = None,
+    ) -> dict:
         """One lifecycle tick under the documented interaction model.
 
         The keeper's action (if any) overrides the autonomous choice;
         otherwise the switchboard decides — and a "feed" decision begs
         instead of executing (only the keeper feeds). Refused, never
         no-opped, on a dead companion or an unknown action.
+
+        With the fleet on, the D6 wiring runs first each tick (the
+        lab's exact order): ``last_animation`` is what the display
+        actually showed (``displayed_clip`` from the window's clip
+        driver; the engine's own selection when absent — the bandit's
+        reward attribution input), then ``observe_fleet`` refreshes
+        ``thread_states``, then the switchboard decides with the kept
+        threads' signals riding its additive seam.
         """
         if not self.alive:
             raise ValueError(
@@ -175,6 +235,13 @@ class CompanionSession:
             raise ValueError(
                 f"unsupported lifecycle action: {player_action}"
             )
+        if self.fleet:
+            self.state["last_animation"] = (
+                displayed_clip
+                if displayed_clip is not None
+                else self._selected_animation()
+            )
+            self.state["thread_states"] = observe_fleet(self.state)
         decision, thought = choose_action_detailed(
             "switchboard", self.state, self._rng
         )
@@ -223,6 +290,14 @@ class CompanionSession:
             rng_seed=self.succession_seed + len(self.lineage),
         )
         self.state = initial_state(child, self.slip_profile)
+        if self.fleet:
+            # The Keeper's fleet stays opted in across successions;
+            # thread MEMORY starts fresh — it belonged to the parent
+            # (the D1 threads are per-companion learners).
+            self.state["learning_switches"] = {
+                **(self.state.get("learning_switches") or {}),
+                **{name: True for name in KEPT_THREADS},
+            }
         self.grid = child
         self.begging = False
         self.lineage.append(self._lineage_record(child))
@@ -270,3 +345,9 @@ class CompanionSession:
 
     def _selected_animation(self) -> str:
         return self._probe_packet()["animation"]
+
+    def _thread_signal(self, name: str) -> dict | None:
+        for signal in fleet_signals(self.state):
+            if signal["name"] == name:
+                return signal
+        return None

@@ -40,9 +40,20 @@ import.
 
 from ._switchboard import ACTIONS, decide
 from .episode import run_feedback_episode
+from .threads import FLEET_THREAD_NAMES, fleet_signals, observe_fleet
 
+# The fleet surface (cycle 14 F3b, additive export only — behavior
+# unchanged): the D1 contract's ``observe_fleet``/``fleet_signals``
+# already promoted in cycle 12 and consumed internally by ``decide``,
+# exported for the consumer the Phase-D gate names — the GAME (beg
+# timing, clip choice, mood display). The load-bearing opt-in rule is
+# unchanged: without an explicit ``learning_switches[name] is True``
+# both surfaces are silent and every frozen path stays byte-identical.
 __all__ = [
     "ACTIONS",
+    "FLEET_THREAD_NAMES",
     "decide",
+    "fleet_signals",
+    "observe_fleet",
     "run_feedback_episode",
 ]

@@ -88,9 +88,13 @@ this, or am I periscoping?
   `keeper_lineage_v1` of verbatim engine blocks; stakes measured
   (neglect starves at age 10, attentive keeper survives the 400-tick
   budget with 79 feeds); 42 game tests; evidence
-  `data/game_client/companion_loop_stage0.json`. The next concrete
-  work is **F3** (see §5). THE ENGINE TRACK (A–E) IS COMPLETE — this
-  is the first GAME-track cycle.
+  `data/game_client/companion_loop_stage0.json`. **F3 is COMPLETE**
+  (2026-07-12, two halves): the render bridge consumed — graph-driven
+  clips (zero illegal cuts) + the full effects contract + the kept
+  fleet's consumers (begs-soon, bandit clip choice, HMM felt mood)
+  through the learning module's new public fleet export; 64 game
+  tests, package 294. The next concrete work is **F4** (see §5). THE
+  ENGINE TRACK (A–E) IS COMPLETE — this is the first GAME-track cycle.
 - **Phases A–E are COMPLETE and GREEN** (cycles 09–13, archived under
   `audits/complete/09`–`13`): A = the 16×16 foundation (DR 0029/0030);
   B = WFC generation + the real bake-off (WFC ships, DR 0031; the
@@ -160,7 +164,7 @@ this, or am I periscoping?
    doctor, reviewer prefill, shell completion).
 7. `research/README.md` — the master traceability ledger.
 
-## 5. WHAT TO DO NEXT — Cycle 14, task F3 (THE GAME TRACK)
+## 5. WHAT TO DO NEXT — Cycle 14, task F4 (THE GAME TRACK)
 
 `audits/TODO.md` holds the full task text. This is the build the
 engine exists to showcase: a client a player LAUNCHES AND PLAYS. The
@@ -178,8 +182,11 @@ workshop pages are NOT it. The sequence:
   ui_hints icons), `app.py` (F/P/S queued to the tick, ENTER =
   successor, lineage saves to gitignored `keeper/`). History trim 32
   is PINNED decision-neutral by test.
-- **F3** · the render bridge consumed in full: live clip driving,
-  retro effects, ui_hints — where the kept fleet's value cashes out.
+- **F3 · DONE (2026-07-12, two halves).** F3a: `clips.py` graph
+  driver + glitch/bloom + the pinging ping. F3b: the learning
+  module's public fleet export + the kept-five opt-in + the
+  consumers (begs-soon, bandit clip choice, HMM felt mood). The
+  correction is recorded in both reports.
 - **F4** · the Keeper/era loop (DR 0021 as design input); saves,
   eras; the evolution repertoire surfaces to the player. The archive
   scale-geometry seam promotes here IF this consumer demands it.
@@ -304,16 +311,34 @@ beg/idle/ill/sleep, ZERO illegal cuts, full contract rasterized,
 twin-equal. 55 game tests green. Report:
 `2026-07-12-render-bridge-client.md`.
 
-Next: **F3b — the SECOND half of F3** (F3 stays UNCHECKED in the TODO
-until this lands): promote the five D6-kept threads
-(hunger_forecast, energy_forecast, interaction_timing,
-animation_bandit, hidden_mood_hmm — `labs/micro_threads/`) into
-`mecha_engine.learning` as an additive surface (spec + verbatim port
-+ lab-side parity pins, the established promotion discipline —
-boundary law forbids the game importing labs), then wire the
-game-side consumers: beg timing hint, bandit clip choice
-(packet-side, effects honestly empty per D3), HMM mood display with
-entropy-honest confidence.
+**F3b also shipped — F3 is COMPLETE and checked off.** CORRECTION
+recorded (honesty norm): the fleet did NOT need promotion — cycle 12
+had already ported it verbatim into `mecha_engine.learning.threads`
+and wired it through `decide`; only the PUBLIC EXPORT was missing.
+F3b = the additive export (`observe_fleet`/`fleet_signals`/
+`FLEET_THREAD_NAMES`; interface spec's new "fleet surface" section +
+the contract pin updated TOGETHER — the pin
+`test_public_surface_is_the_contracted_names` now lists six) + the
+session opting in EXACTLY the D6-kept five (`KEPT_THREADS`;
+successors keep the opt-in with fresh memory — a real bug caught
+RED-first) + the D6 wiring order per tick (last_animation = the clip
+the window showed → observe_fleet → decide) + the consumers: "begs
+soon" = the hunger forecast's OWN effect; idle clip choice = the
+bandit's recommendation walked by the graph driver; felt mood = the
+HMM MAP readout with entropy-honest confidence. Evidence
+`fleet_consumers_stage0.json`: five stream (hunger 0.983 / energy
+0.869 / HMM 0.763 / timing 1.0; bandit honestly cold 0.0);
+divergence vs frozen = 0 (D6's ~0 reconfirmed). Package 294 + game
+64 green.
+
+Next: **F4 — the Keeper/era loop** (DR 0021 as the design input):
+save files, sessions, era progression; the evolution repertoire
+surfaces to the player (E5's 52 recurrent families are the proven
+substrate); the archive scale-geometry seam promotes here IF this
+consumer demands it (its own gated package change). The game-side
+`labs/game_loop/` surfaces (session_runner, campaign_store,
+replay_recorder — all proven lab-side) are the design sources; the
+same mirror-never-import discipline applies.
 
 ## OLD LOG (2026-07-08 session — cycle 12 Phase D)
 
@@ -789,6 +814,8 @@ game.
 - `research/experiment_reports/2026-07-09-phase-e-gate.md`
 - `research/experiment_reports/2026-07-12-front-end-client-skeleton.md`
 - `research/experiment_reports/2026-07-12-companion-loop-product.md`
+- `research/experiment_reports/2026-07-12-render-bridge-client.md`
+- `research/experiment_reports/2026-07-12-fleet-consumers.md`
 - `research/decision_records/0033-game-front-end-technology.md` (F1)
 - `research/decision_records/0032-map-elites-ga-gate-disposition.md`
 - `research/decision_records/0017`, `0021`, `0026`–`0028`

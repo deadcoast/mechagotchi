@@ -24,6 +24,7 @@ for _src in (ROOT / "game" / "src", ROOT / "packages" / "mecha_engine" / "src"):
 
 from mecha_game.session import (  # noqa: E402
     HISTORY_WINDOW,
+    KEPT_THREADS,
     CompanionSession,
     load_session_inputs,
 )
@@ -32,9 +33,11 @@ SEED_PATH = ROOT / "data" / "seed_grids_16x16" / "mg_seed16_001_beetle.json"
 SLIP_PATH = ROOT / "data" / "slips" / "valid" / "slip_lcd_seed.json"
 
 
-def _session(name: str = "test") -> CompanionSession:
+def _session(name: str = "test", fleet: bool = True) -> CompanionSession:
     grid, slip_profile, model = load_session_inputs(SEED_PATH, SLIP_PATH)
-    return CompanionSession(grid, slip_profile, model=model, name=name)
+    return CompanionSession(
+        grid, slip_profile, model=model, name=name, fleet=fleet
+    )
 
 
 def _run_to_death(session: CompanionSession, limit: int = 400) -> None:
@@ -155,7 +158,9 @@ class SessionLoopTests(unittest.TestCase):
         # The D5-measured hotspot: advance_tick deepcopies history.
         # The session trims to HISTORY_WINDOW; PIN that trimming never
         # changes an executed decision vs the untrimmed engine loop.
-        session = _session()
+        # (fleet off: the reference loop below carries no fleet wiring;
+        # the pin is about the TRIM, not the threads.)
+        session = _session(fleet=False)
         actions: list[str] = []
         for _ in range(60):
             if not session.alive:
@@ -198,6 +203,102 @@ class SessionLoopTests(unittest.TestCase):
         self.assertIn("mood", snapshot)
         self.assertFalse(snapshot["begging"])
         self.assertEqual(1, snapshot["generation_count"])
+
+
+class FleetConsumerTests(unittest.TestCase):
+    """F3b — the D6-kept fleet cashes out at the game's consumers."""
+
+    def test_exactly_the_kept_five_are_opted_in(self):
+        session = _session()
+        switches = session.state["learning_switches"]
+        for name in KEPT_THREADS:
+            self.assertIs(True, switches.get(name), name)
+        # The D6-dropped threads stay out of default profiles.
+        self.assertNotIn("boredom_novelty", switches)
+        self.assertNotIn("attention_forecast", switches)
+        self.assertNotIn("readability", switches)
+
+    def test_fleet_observes_every_tick(self):
+        session = _session()
+        session.advance()
+        self.assertEqual(
+            sorted(KEPT_THREADS),
+            sorted(session.state["thread_states"]),
+        )
+        self.assertIn("last_animation", session.state)
+
+    def test_fleet_off_is_the_frozen_path(self):
+        session = _session(fleet=False)
+        session.advance()
+        self.assertNotIn("thread_states", session.state)
+
+    def test_snapshot_streams_the_threads_verbatim(self):
+        session = _session()
+        for _ in range(6):
+            session.advance()
+        threads = session.snapshot()["threads"]
+        self.assertEqual(sorted(KEPT_THREADS), sorted(threads))
+        for name, signal in threads.items():
+            self.assertIn("confidence", signal, name)
+            self.assertIn("output", signal, name)
+            self.assertIn("effects", signal, name)
+        self.assertIn(
+            "map_mood", threads["hidden_mood_hmm"]["output"]
+        )
+
+    def test_warm_bandit_recommendation_drives_idle_clip_choice(self):
+        session = _session()
+        session.advance()
+        # Warm the bandit's memory by hand: in the curious context the
+        # blink arm has a clear learned lead and every arm is played.
+        session.state["thread_states"] = {
+            **session.state["thread_states"],
+            "animation_bandit": {
+                "trials": {
+                    "curious|idle": 30.0,
+                    "curious|blink": 30.0,
+                    "curious|sleep": 4.0,
+                    "curious|beg": 4.0,
+                    "curious|ill": 4.0,
+                },
+                "wins": {
+                    "curious|idle": 3.0,
+                    "curious|blink": 25.0,
+                    "curious|sleep": 0.0,
+                    "curious|beg": 0.0,
+                    "curious|ill": 0.0,
+                },
+            },
+        }
+        self.assertEqual("blink", session.desired_clip())
+
+    def test_cold_bandit_leaves_the_engine_selection(self):
+        session = _session()
+        session.advance()
+        self.assertIn(session.desired_clip(), ["idle", "blink"])
+
+    def test_the_successor_keeps_the_fleet_opted_in(self):
+        session = _session()
+        _run_to_death(session)
+        session.succeed()
+        switches = session.state["learning_switches"]
+        for name in KEPT_THREADS:
+            self.assertIs(True, switches.get(name), name)
+        session.advance()
+        self.assertEqual(
+            sorted(KEPT_THREADS),
+            sorted(session.state["thread_states"]),
+        )
+
+    def test_fleet_sessions_stay_deterministic(self):
+        first = _session()
+        second = _session()
+        for _ in range(30):
+            if first.alive:
+                first.advance()
+            if second.alive:
+                second.advance()
+        self.assertEqual(first.state, second.state)
 
 
 class SessionPacketTests(unittest.TestCase):

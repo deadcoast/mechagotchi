@@ -161,11 +161,13 @@ def build_front_end_skeleton_report(
     }
 
 
-def _new_session() -> CompanionSession:
+def _new_session(fleet: bool = True) -> CompanionSession:
     grid, slip_profile, model = load_session_inputs(
         ROOT / HELLO_SEED, ROOT / HELLO_SLIP
     )
-    return CompanionSession(grid, slip_profile, model=model)
+    return CompanionSession(
+        grid, slip_profile, model=model, fleet=fleet
+    )
 
 
 def _run_arm(attentive: bool, budget: int) -> dict:
@@ -464,24 +466,165 @@ def build_render_bridge_report(cell_px: int = 2) -> dict:
             "PINGING on a deterministic phase)",
         ],
         "blocked_states": [
-            "kept_fleet_consumers_await_promotion (beg timing / clip "
-            "choice / mood display need the five D6-kept threads as "
-            "package surfaces — labs/micro_threads is not importable "
-            "from the game by boundary law; the promotion is its own "
-            "gated engine change, F3's second half)",
             "per_role_limb_joint_motion (the standing Phase-C "
             "remainder #1, an engine-side increment)",
         ],
         "decision": (
             "adopt: the client consumes the bridge contract in full; "
-            "the fleet's game-side value lands with the promotion"
+            "the fleet's game-side consumers landed the same day "
+            "(fleet_consumers_stage0 — F3a's 'needs promotion' claim "
+            "was CORRECTED: cycle 12 had already ported the fleet "
+            "into learning.threads; only the public export and the "
+            "consumers were missing)"
         ),
         "next_research_step": (
-            "F3b — promote the D6-kept threads into "
-            "mecha_engine.learning (additive, parity-pinned), then "
-            "wire beg timing, clip choice, and mood display"
+            "F4 — the Keeper/era loop (DR 0021 as design input)"
         ),
     }
+
+
+FLEET_ARTIFACT_ID = "fleet_consumers_stage0"
+
+
+def _run_fleet_session(fleet: bool, ticks: int) -> dict:
+    """One attentive scripted life: the keeper answers every beg, so
+    the companion survives long enough for the threads to warm."""
+    session = _new_session(fleet=fleet)
+    actions: list[str] = []
+    for _ in range(ticks):
+        if not session.alive:
+            break
+        if session.begging:
+            session.advance(player_action="feed")
+        else:
+            session.advance()
+        actions.append(session.log[-1]["action"])
+    threads = session.snapshot()["threads"]
+    return {
+        "fleet": fleet,
+        "survived": session.alive,
+        "executed_actions": actions,
+        "threads": {
+            name: {
+                "confidence": signal["confidence"],
+                "output": signal["output"],
+            }
+            for name, signal in threads.items()
+        },
+        "desired_clip_final": session.desired_clip(),
+    }
+
+
+def build_fleet_consumers_report(ticks: int = 80) -> dict:
+    """F3b's measured claims: exactly the D6-kept five stream through
+    the PUBLIC learning surface into the product session; the
+    forecasters and the HMM warm to nonzero confidence on the
+    companion's own life; the whole loop stays deterministic; and the
+    fleet-on/fleet-off decision divergence is RECORDED (D6 measured
+    the welfare increment ~0 — whatever it is here, it is reported,
+    not assumed)."""
+    on_a = _run_fleet_session(fleet=True, ticks=ticks)
+    on_b = _run_fleet_session(fleet=True, ticks=ticks)
+    off = _run_fleet_session(fleet=False, ticks=ticks)
+    deterministic = on_a == on_b
+    kept = [
+        "animation_bandit",
+        "energy_forecast",
+        "hidden_mood_hmm",
+        "hunger_forecast",
+        "interaction_timing",
+    ]
+    streamed = sorted(on_a["threads"]) == kept
+    hunger_warm = on_a["threads"]["hunger_forecast"]["confidence"] > 0
+    hmm_warm = on_a["threads"]["hidden_mood_hmm"]["confidence"] > 0
+    pairs = zip(on_a["executed_actions"], off["executed_actions"])
+    diverged = sum(1 for a, b in pairs if a != b) + abs(
+        len(on_a["executed_actions"]) - len(off["executed_actions"])
+    )
+    status = (
+        "complete"
+        if deterministic and streamed and hunger_warm and hmm_warm
+        else "refuted"
+    )
+    return {
+        "artifact_id": FLEET_ARTIFACT_ID,
+        "status": status,
+        "date": REPORT_DATE,
+        "purpose": (
+            "Cycle 14 F3b (GAME track, Phase F): the D6-kept fleet "
+            "cashes out at the game's consumers — the five kept "
+            "threads (and ONLY those; dropped threads stay out) "
+            "stream through the learning module's public fleet "
+            "surface into the product session: the hunger forecast's "
+            "own anticipatory effect is the 'begs soon' display, the "
+            "bandit's recommendation is the idle-time clip choice "
+            "(packet-side per D3), the HMM's felt mood shows with "
+            "entropy-honest confidence."
+        ),
+        "source_artifacts": [
+            "packages/mecha_engine/src/mecha_engine/learning/__init__.py",
+            "packages/mecha_engine/tests/test_learning_fleet_surface.py",
+            "research/package_specs/mecha_engine_learning_interface_spec.md",
+            "data/micro_threads/ablation_gates_stage0.json",
+            "game/src/mecha_game/session.py",
+            "game/src/mecha_game/app.py",
+        ],
+        "metrics": {
+            "ticks": ticks,
+            "fleet_on": on_a,
+            "fleet_off_executed_actions": off["executed_actions"],
+            "twin_run_equal": deterministic,
+            "exactly_the_kept_five_stream": streamed,
+            "hunger_forecast_warms": hunger_warm,
+            "hidden_mood_hmm_warms": hmm_warm,
+            "decisions_diverged_vs_frozen": diverged,
+        },
+        "closed_states": [
+            "fleet_public_surface (observe_fleet/fleet_signals/"
+            "FLEET_THREAD_NAMES exported — additive, zero behavior "
+            "change, spec + contract pin updated together)",
+            "kept_five_opted_in (D6 verdicts applied without "
+            "sentiment; dropped threads stay out; successors keep "
+            "the opt-in with fresh per-companion memory)",
+            "consumers_wired (begs-soon = the thread's OWN "
+            "anticipatory effect; clip choice = the bandit's "
+            "recommendation, packet-side; felt mood = the HMM's MAP "
+            "readout with entropy-honest confidence)",
+            "correction_recorded (F3a claimed the fleet needed "
+            "promotion — cycle 12 had already ported it into "
+            "learning.threads; only the export and consumers were "
+            "missing)",
+        ],
+        "blocked_states": [
+            "bandit_learning_needs_real_play (the recommendation "
+            "emerges from interaction feedback over real sessions; "
+            "the scripted harness records whatever warmth the script "
+            "earns, nothing is fabricated)",
+            "keeper_era_loop_is_F4 (eras, saves, the evolution "
+            "repertoire surfacing)",
+        ],
+        "decision": (
+            "adopt: F3 is complete — the render bridge and the kept "
+            "fleet's game-side value both consumed"
+        ),
+        "next_research_step": (
+            "F4 — the Keeper/era loop (DR 0021 as design input; "
+            "the archive scale-geometry seam promotes here IF this "
+            "consumer demands it)"
+        ),
+    }
+
+
+def write_fleet_consumers_artifacts(
+    output_dir: str | Path, report: dict
+) -> Path:
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    path = output_dir / f"{FLEET_ARTIFACT_ID}.json"
+    path.write_text(
+        json.dumps(report, indent=2) + "\n", encoding="utf-8"
+    )
+    return path
 
 
 def write_render_bridge_artifacts(
@@ -538,5 +681,9 @@ if __name__ == "__main__":
     print(f"wrote {written}")
     written = write_render_bridge_artifacts(
         args.output_dir, build_render_bridge_report()
+    )
+    print(f"wrote {written}")
+    written = write_fleet_consumers_artifacts(
+        args.output_dir, build_fleet_consumers_report()
     )
     print(f"wrote {written}")

@@ -1,0 +1,2 @@
+[console_scripts]
+mechagotchi = mecha_game.app:run
