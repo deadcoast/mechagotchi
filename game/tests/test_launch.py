@@ -1,15 +1,16 @@
-"""F1 gates — the client LAUNCHES (DR 0033 decision 5).
+"""F1/F2 gates — the client LAUNCHES and plays the loop end to end.
 
-The end-to-end proof: a real corpus creature through the engine's own
-gates, rendered live in a pygame window. Headless here (SDL dummy
-videodriver) so the suite runs anywhere; the pygame-dependent cases
-skip when the `game` dependency group is not provisioned (`uv sync
---group game`), the CLI suite's own convention.
+Headless (SDL dummy videodriver) so the suite runs anywhere; the
+pygame-dependent cases skip when the `game` dependency group is not
+provisioned (`uv sync --group game`), the CLI suite's own convention.
+Every run isolates its save directory — a live pet is not evidence.
 """
 
+import json
 import os
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -38,21 +39,96 @@ class LaunchTests(unittest.TestCase):
     def test_bounded_headless_run_exits_clean(self):
         from mecha_game.app import run
 
-        self.assertEqual(0, run(["--ticks", "6", "--fps", "240"]))
+        with tempfile.TemporaryDirectory() as tmp:
+            self.assertEqual(
+                0,
+                run(
+                    [
+                        "--ticks",
+                        "6",
+                        "--fps",
+                        "240",
+                        "--tick-frames",
+                        "2",
+                        "--scale",
+                        "4",
+                        "--keeper-dir",
+                        tmp,
+                    ]
+                ),
+            )
+            document = json.loads(
+                (Path(tmp) / "lineage.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual("keeper_lineage_v1", document["lineage_format"])
+            self.assertEqual(1, len(document["records"]))
+
+    def test_full_loop_death_succession_lineage(self):
+        # The MVP 0.1 loop end to end, unattended: the companion begs,
+        # nobody feeds, it dies the engine's death, the successor is
+        # adopted automatically, the lineage file carries both lives.
+        from mecha_game.app import run
+
+        with tempfile.TemporaryDirectory() as tmp:
+            self.assertEqual(
+                0,
+                run(
+                    [
+                        "--ticks",
+                        "400",
+                        "--fps",
+                        "0",
+                        "--tick-frames",
+                        "1",
+                        "--scale",
+                        "2",
+                        "--auto-succeed",
+                        "--keeper-dir",
+                        tmp,
+                    ]
+                ),
+            )
+            document = json.loads(
+                (Path(tmp) / "lineage.json").read_text(encoding="utf-8")
+            )
+            records = document["records"]
+            self.assertGreaterEqual(len(records), 2)
+            self.assertEqual(
+                records[0]["grid_id"], records[1]["parent_grid_id"]
+            )
+            self.assertIn("death_cause", records[0])
 
     def test_module_entrypoint_launches_end_to_end(self):
-        env = dict(os.environ)
-        env["SDL_VIDEODRIVER"] = "dummy"
-        env["PYTHONPATH"] = os.pathsep.join([str(GAME_SRC), str(ENGINE_SRC)])
-        result = subprocess.run(
-            [sys.executable, "-B", "-m", "mecha_game", "--ticks", "3"],
-            capture_output=True,
-            text=True,
-            env=env,
-            cwd=str(ROOT),
-            timeout=120,
-        )
-        self.assertEqual(0, result.returncode, result.stderr)
+        with tempfile.TemporaryDirectory() as tmp:
+            env = dict(os.environ)
+            env["SDL_VIDEODRIVER"] = "dummy"
+            env["PYTHONPATH"] = os.pathsep.join(
+                [str(GAME_SRC), str(ENGINE_SRC)]
+            )
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    "-B",
+                    "-m",
+                    "mecha_game",
+                    "--ticks",
+                    "3",
+                    "--tick-frames",
+                    "1",
+                    "--fps",
+                    "0",
+                    "--scale",
+                    "2",
+                    "--keeper-dir",
+                    tmp,
+                ],
+                capture_output=True,
+                text=True,
+                env=env,
+                cwd=str(ROOT),
+                timeout=120,
+            )
+            self.assertEqual(0, result.returncode, result.stderr)
 
 
 if __name__ == "__main__":

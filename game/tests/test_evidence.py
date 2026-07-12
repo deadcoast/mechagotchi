@@ -16,8 +16,10 @@ for _src in (
         sys.path.insert(0, str(_src))
 
 from evidence import (  # noqa: E402
+    build_companion_loop_report,
     build_front_end_skeleton_report,
     run_composition_session,
+    write_companion_loop_artifacts,
     write_front_end_skeleton_artifacts,
 )
 
@@ -43,6 +45,23 @@ class EvidenceTests(unittest.TestCase):
         report = build_front_end_skeleton_report(ticks=4, cell_px=1)
         with tempfile.TemporaryDirectory() as tmp:
             path = write_front_end_skeleton_artifacts(tmp, report)
+            self.assertEqual(
+                report, json.loads(path.read_text(encoding="utf-8"))
+            )
+
+    def test_companion_loop_report_measures_the_stakes(self):
+        report = build_companion_loop_report(budget=400)
+        self.assertEqual("complete", report["status"])
+        metrics = report["metrics"]
+        self.assertTrue(metrics["twin_run_equal"])
+        self.assertTrue(metrics["neglect_dies_within_budget"])
+        self.assertTrue(metrics["tending_saves"])
+        self.assertTrue(
+            metrics["succession"]["child_parent_link_holds"]
+        )
+        self.assertEqual(2, metrics["lineage_document_records"])
+        with tempfile.TemporaryDirectory() as tmp:
+            path = write_companion_loop_artifacts(tmp, report)
             self.assertEqual(
                 report, json.loads(path.read_text(encoding="utf-8"))
             )

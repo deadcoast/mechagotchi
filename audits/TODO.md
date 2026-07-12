@@ -29,7 +29,7 @@ species memory surfacing to the player (Phase E).
   files); choose by decision record with justification; deliver a
   LAUNCHABLE hello-creature client rendering a real engine packet
   end-to-end. RED-first where testable; triad on the game side too.
-- [ ] **F2 · The companion loop as a product (MVP 0.1).** The
+- [x] **F2 · The companion loop as a product (MVP 0.1).** The
   launchable client runs the documented loop: a 16×16 creature
   generated from a genome; hunger/energy/mood/age VISIBLE; expression
   changes by state; interactions logged; death → mutation → child

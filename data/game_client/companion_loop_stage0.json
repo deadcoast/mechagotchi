@@ -1,0 +1,68 @@
+{
+  "artifact_id": "companion_loop_stage0",
+  "status": "complete",
+  "date": "2026-07-12",
+  "purpose": "Cycle 14 F2 (GAME track, Phase F): prove MVP 0.1's companion loop as a product \u2014 the documented beg-mediated interaction model (the companion cannot feed itself; only the keeper's feed fills hunger) gives the loop real stakes measured through the engine's own dynamics; death -> engine-generated child carrying parent lineage; a lineage file of verbatim engine blocks; deterministic without a player.",
+  "source_artifacts": [
+    "data/seed_grids_16x16/mg_seed16_001_beetle.json",
+    "data/slips/valid/slip_lcd_seed.json",
+    "game/src/mecha_game/session.py",
+    "game/src/mecha_game/hud.py",
+    "game/src/mecha_game/app.py",
+    "labs/micro_threads/ablation_gates.py",
+    "labs/game_loop/companion.py"
+  ],
+  "metrics": {
+    "tick_budget": 400,
+    "neglect_arm": {
+      "attentive": false,
+      "survived_budget": false,
+      "age_ticks": 10,
+      "death_cause": "starvation",
+      "beg_ticks": 4,
+      "keeper_feeds": 0
+    },
+    "attentive_arm": {
+      "attentive": true,
+      "survived_budget": true,
+      "age_ticks": 400,
+      "death_cause": null,
+      "beg_ticks": 79,
+      "keeper_feeds": 79
+    },
+    "twin_run_equal": true,
+    "neglect_dies_within_budget": true,
+    "tending_saves": true,
+    "succession": {
+      "parent_grid_id": "mg_seed16_001_beetle",
+      "child_grid_id": "gen_d42be33dc5a7bfa7",
+      "child_parent_link_holds": true,
+      "parent_death_cause": "starvation",
+      "child_lineage": {
+        "generation": 1,
+        "ancestor_ids": [
+          "mg_seed16_001_beetle"
+        ],
+        "mutation_events": [
+          "parent_grid_supplied",
+          "validator_gated_resample",
+          "anchor_repositioned"
+        ]
+      }
+    },
+    "lineage_document_records": 2
+  },
+  "closed_states": [
+    "companion_loop_is_a_product (adopt/tend/beg/die/succeed in the launchable client \u2014 W1 semantics + the D6 keeper-dependent model, engine surfaces only)",
+    "loop_has_real_stakes (neglect starves the companion; the attentive keeper's feeding measurably extends the life \u2014 the engine's own dynamics, no scripted events)",
+    "succession_is_the_engines_child (generate_candidate from the dead parent, lineage blocks recorded verbatim)",
+    "needs_visible (hunger/energy bars + ui_hints icons pure and engine-truth; mood/age in the footer from the packet and the state)"
+  ],
+  "blocked_states": [
+    "full_render_bridge_consumption_is_F3 (transition-graph clip driving, bloom/glitch rasterization, the kept fleet's beg-timing/clip-choice/mood consumers)",
+    "keeper_era_loop_is_F4 (eras, saves beyond the lineage file, the evolution repertoire surfacing)",
+    "installable_release_is_F5 (install/launch/play/quit/resume as a product)"
+  ],
+  "decision": "adopt: MVP 0.1's documented loop runs as a product on the F1 skeleton; F3 consumes the render bridge in full",
+  "next_research_step": "F3 \u2014 the render bridge consumed in full: live clip driving through the transition graph, the retro effects pipeline completed (crt_bloom, glitch), ui_hints and the D6-kept threads' game-side consumers"
+}

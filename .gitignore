@@ -15,3 +15,7 @@ data/workshop/grids/*.bak.json
 # Keeper session play state (a live game, not evidence — the stage-0
 # artifacts one level up stay committed)
 data/game_loop/keeper/
+
+# The game client's save home (F2, DR 0033): lineage files and play
+# state from real sessions — a live pet is not evidence
+/keeper/

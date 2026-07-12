@@ -110,6 +110,11 @@ def apply_scanline(fb: Buffer, *, period: int, opacity: float) -> Buffer:
     )
 
 
+def stack_buffers(top: Buffer, bottom: Buffer) -> Buffer:
+    """Concatenate two buffers vertically (panel above HUD)."""
+    return tuple(top) + tuple(bottom)
+
+
 def compose_frame(
     packet: dict, *, previous_ghost: Buffer | None, cell_px: int
 ) -> ComposedFrame:

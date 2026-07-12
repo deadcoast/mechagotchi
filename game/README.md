@@ -14,7 +14,12 @@ imported in-process, packets consumed verbatim). The first law
     `lifecycle.initial_state`; frames from `genome.render_packet_v2`)
   - `rasterize.py` — the pure, pygame-free compositor (the packet→pixel
     spec: palette raster, scanline, temporal `lcd_ghosting`)
-  - `app.py` — the window (fixed-timestep pygame-ce loop)
+  - `session.py` — the companion loop (F2, MVP 0.1): W1 semantics +
+    the documented beg-mediated interaction model (the companion begs,
+    only the keeper feeds), death → the engine's child, the
+    `keeper_lineage_v1` file of verbatim engine blocks
+  - `hud.py` — pure engine-truth bars (hunger/energy) + `ui_hints` icons
+  - `app.py` — the playable window (fixed-timestep pygame-ce loop)
 - `tests/` — the F1 gates (headless; pygame cases skip unless the
   `game` group is provisioned)
 - `evidence.py` — the stage-0 evidence harness
@@ -30,6 +35,12 @@ uv sync --group game
 uv run python -B game/run_game.py            # play until ESC/close
 uv run python -B game/run_game.py --ticks 24 # bounded verification run
 ```
+
+Controls: **F** feed · **P** play · **S** sleep (queued for the next
+lifecycle tick) · **ENTER** adopt the successor when the companion
+dies · **ESC**/close quit. The lineage file saves to `keeper/`
+(gitignored) on death and on quit. The companion begs when it wants
+food — only you can feed it; neglect starves it (measured: ~10 ticks).
 
 ## Test it
 

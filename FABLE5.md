@@ -81,8 +81,16 @@ this, or am I periscoping?
   `mecha_game`; pure pygame-free compositor implementing the FIRST
   `lcd_ghosting` — the named Phase-C remainder #2; 21 tests; evidence
   `data/game_client/front_end_skeleton_stage0.json`; a real windowed
-  launch verified). The next concrete work is **F2** (see §5). THE
-  ENGINE TRACK (A–E) IS COMPLETE — this is the first GAME-track cycle.
+  launch verified). **F2 is COMPLETE** (2026-07-12): MVP 0.1's
+  companion loop plays in the client under the documented beg-mediated
+  model (the companion begs, only the keeper feeds — D5/D6/DR 0021);
+  succession = `generate_candidate` from the dead parent, lineage file
+  `keeper_lineage_v1` of verbatim engine blocks; stakes measured
+  (neglect starves at age 10, attentive keeper survives the 400-tick
+  budget with 79 feeds); 42 game tests; evidence
+  `data/game_client/companion_loop_stage0.json`. The next concrete
+  work is **F3** (see §5). THE ENGINE TRACK (A–E) IS COMPLETE — this
+  is the first GAME-track cycle.
 - **Phases A–E are COMPLETE and GREEN** (cycles 09–13, archived under
   `audits/complete/09`–`13`): A = the 16×16 foundation (DR 0029/0030);
   B = WFC generation + the real bake-off (WFC ships, DR 0031; the
@@ -152,7 +160,7 @@ this, or am I periscoping?
    doctor, reviewer prefill, shell completion).
 7. `research/README.md` — the master traceability ledger.
 
-## 5. WHAT TO DO NEXT — Cycle 14, task F2 (THE GAME TRACK)
+## 5. WHAT TO DO NEXT — Cycle 14, task F3 (THE GAME TRACK)
 
 `audits/TODO.md` holds the full task text. This is the build the
 engine exists to showcase: a client a player LAUNCHES AND PLAYS. The
@@ -164,8 +172,12 @@ workshop pages are NOT it. The sequence:
   Launch: `uv sync --group game` then
   `uv run python -B game/run_game.py [--ticks N]`. Game tests:
   `uv run python -B -m unittest discover -s game/tests -p "test_*.py"`.
-- **F2** · the companion loop as a product (MVP 0.1, validity §1.34 —
-  "this proves the entire thesis"). Engine-truth law on every pixel.
+- **F2 · DONE (2026-07-12).** The loop as a product:
+  `game/src/mecha_game/session.py` (beg-mediated D6 semantics —
+  mirror, never import, the labs), `hud.py` (pure engine-truth bars +
+  ui_hints icons), `app.py` (F/P/S queued to the tick, ENTER =
+  successor, lineage saves to gitignored `keeper/`). History trim 32
+  is PINNED decision-neutral by test.
 - **F3** · the render bridge consumed in full: live clip driving,
   retro effects, ui_hints — where the kept fleet's value cashes out.
 - **F4** · the Keeper/era loop (DR 0021 as design input); saves,
@@ -266,12 +278,24 @@ F1 executed end to end and committed:
 5. **Sweep green**: 19 labs (system python) + package 291 + workshop 60
    + CLI 21 + game 21.
 
-Next: **F2 — the companion loop as a product (MVP 0.1)**. The design
-source is `labs/game_loop/companion.py` (W1: adopt/tend/live/die over
-engine surfaces — already proven lab-side); productize it in the
-client: needs visible (hunger/energy/mood/age), expression by state,
-interactions logged, death → mutation → child, lineage file saved.
-Engine-truth law on every displayed number.
+Later the same session, **F2 shipped too** (commit after ed07334):
+`session.py` (the product loop — W1 semantics + D6 beg mediation:
+autonomous "feed" → beg display executed as idle, deliberation still
+riding; succession via `generate_candidate`, seed chain
+`DEFAULT_SUCCESSION_SEED + len(lineage)`; history trim 32 pinned
+decision-neutral), `hud.py` (bars + ui_hints icons, pure),
+`app.py` rewritten as the playable loop (queued keeper actions,
+death screen, `--auto-succeed`/`--tick-frames`/`--keeper-dir` for
+verification; `/keeper/` gitignored). Evidence
+`companion_loop_stage0.json`: neglect starves age 10; attentive arm
+survives 400 ticks with 79 feeds; twin runs byte-equal; succession
+beetle → gen_d42be33dc5a7bfa7. 42 game tests green.
+
+Next: **F3 — the render bridge consumed in full**: live clip DRIVING
+through the transition graph (the named Phase-C remainder), crt_bloom
++ glitch rasterization in the pure compositor, and the D6-kept
+threads' game-side consumers (beg timing, clip choice, mood display
+through the kept confidences).
 
 ## OLD LOG (2026-07-08 session — cycle 12 Phase D)
 
@@ -746,6 +770,7 @@ game.
 - `research/experiment_reports/2026-07-08-phase-{a,b,c,d}-gate.md`
 - `research/experiment_reports/2026-07-09-phase-e-gate.md`
 - `research/experiment_reports/2026-07-12-front-end-client-skeleton.md`
+- `research/experiment_reports/2026-07-12-companion-loop-product.md`
 - `research/decision_records/0033-game-front-end-technology.md` (F1)
 - `research/decision_records/0032-map-elites-ga-gate-disposition.md`
 - `research/decision_records/0017`, `0021`, `0026`–`0028`
