@@ -1,12 +1,14 @@
-# Lab dependency manifest (decision record 0005).
+# Workspace dependency manifest (decision records 0005 and 0028).
 #
-# This repository is a research workspace: there is deliberately no package
-# code and no build system. [project] carries no dependencies — the package
-# dependency policy remains blocked until a packages/ import-surface gate
-# exists (see labs/architecture/mecha_engine_runtime_boundary_gate.py).
+# This root [project] is the research workspace itself and carries no
+# dependencies. Shipped builds declare their own (packages/mecha_engine,
+# tools/mechas_cli, game/) under DR 0028's policy: third-party
+# dependencies are permitted when a capability needs one, declared in
+# the build's pyproject and justified in the feature's decision record.
 #
-# The [dependency-groups] "lab" group declares the interpreter extras some
-# labs require. Everything else is stdlib-only by convention. Provision with:
+# The [dependency-groups] below provision interpreter extras for
+# in-repo development and test runs. Labs stay stdlib-only by
+# convention outside the declared "lab" exceptions. Provision with:
 #
 #     uv sync --group lab
 #
@@ -28,4 +30,11 @@ lab = [
 cli = [
     "typer>=0.15",
     "rich>=13.9",
+]
+# The playable game client (decision record 0033). Runtime home is
+# game/ (its own installable package, product title "Mechagotchi");
+# this group provisions the same dependency for in-repo development
+# and test runs: uv sync --group game
+game = [
+    "pygame-ce>=2.5.7",
 ]

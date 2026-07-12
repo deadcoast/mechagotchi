@@ -1,0 +1,32 @@
+# Mechagotchi — the playable game client (decision record 0033).
+#
+# The second of the two builds (docs/gap-analysis.md §0): a desktop
+# client a player launches and plays. License: Apache-2.0 (DR 0028).
+# Dependencies per DR 0028's policy, justified in DR 0033: pygame-ce
+# (the maintained community fork; upstream pygame lacks Python 3.14
+# support) and the engine itself. Installable-release packaging is
+# F5's rung (PyInstaller named in DR 0033, decided there).
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mechagotchi-game"
+version = "0.1.0.dev0"
+description = "Mechagotchi — a living grid-creature companion, played over the Mechagotchi Computational Life Engine"
+requires-python = ">=3.13"
+license = "Apache-2.0"
+license-files = ["../LICENSE"]
+dependencies = [
+    "pygame-ce>=2.5.7",
+    "mecha-engine",
+]
+
+[project.scripts]
+mechagotchi = "mecha_game.app:run"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.uv.sources]
+mecha-engine = { path = "../packages/mecha_engine" }

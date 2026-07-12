@@ -21,7 +21,7 @@ consumes: the render-packet animation/effects/ui_hints contract
 clip choice, mood display (Phase D), and the evolution repertoire —
 species memory surfacing to the player (Phase E).
 
-- [ ] **F1 · The front-end technology decision record + the client
+- [x] **F1 · The front-end technology decision record + the client
   skeleton.** Evaluate the documented bridge targets (web / Godot /
   terminal / Pygame / desktop; TS+React is the documented workshop
   scale-path) against the engine's REAL contract (JSON render packets,

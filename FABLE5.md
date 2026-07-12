@@ -70,12 +70,19 @@ this, or am I periscoping?
   the co-author line `Co-Authored-By: Claude Fable 5
   <noreply@anthropic.com>`.
 
-## 3. Where we are RIGHT NOW (updated 2026-07-09, end of cycle 13)
+## 3. Where we are RIGHT NOW (updated 2026-07-12, mid cycle 14)
 
 - **Active queue:** `audits/TODO.md` = **Cycle 14 · GAME track ·
-  Phase F — the playable game (MVP 0.1).** Nothing in it is started.
-  The next concrete work is **F1** (see §5). THE ENGINE TRACK (A–E)
-  IS COMPLETE — this is the first GAME-track cycle.
+  Phase F — the playable game (MVP 0.1).** **F1 is COMPLETE**
+  (2026-07-12): DR 0033 chose **pygame-ce** for the client (engine
+  imported in-process — packets verbatim, replay fidelity by
+  construction; upstream pygame lacks Python 3.14 support), and the
+  launchable hello-creature skeleton exists at `game/` (src-layout
+  `mecha_game`; pure pygame-free compositor implementing the FIRST
+  `lcd_ghosting` — the named Phase-C remainder #2; 21 tests; evidence
+  `data/game_client/front_end_skeleton_stage0.json`; a real windowed
+  launch verified). The next concrete work is **F2** (see §5). THE
+  ENGINE TRACK (A–E) IS COMPLETE — this is the first GAME-track cycle.
 - **Phases A–E are COMPLETE and GREEN** (cycles 09–13, archived under
   `audits/complete/09`–`13`): A = the 16×16 foundation (DR 0029/0030);
   B = WFC generation + the real bake-off (WFC ships, DR 0031; the
@@ -145,19 +152,18 @@ this, or am I periscoping?
    doctor, reviewer prefill, shell completion).
 7. `research/README.md` — the master traceability ledger.
 
-## 5. WHAT TO DO NEXT — Cycle 14, task F1 (THE GAME TRACK)
+## 5. WHAT TO DO NEXT — Cycle 14, task F2 (THE GAME TRACK)
 
 `audits/TODO.md` holds the full task text. This is the build the
 engine exists to showcase: a client a player LAUNCHES AND PLAYS. The
 workshop pages are NOT it. The sequence:
 
-- **F1 · The front-end technology decision record + the client
-  skeleton.** Evaluate the documented bridge targets (web / Godot /
-  terminal / Pygame / desktop) against the engine's REAL contract
-  (JSON render packets, retro effects, replays, installable releases
-  with saves); choose by decision record; deliver a LAUNCHABLE
-  hello-creature client rendering a real engine packet. Dependencies
-  are permitted and expected here (DR 0028) — justify in the DR.
+- **F1 · DONE (2026-07-12).** DR 0033 (pygame-ce; `game/` build;
+  boundary law: `src/` has no sys.path text, imports `mecha_engine`
+  never `labs`; the compositor is PURE and pygame-free — keep both).
+  Launch: `uv sync --group game` then
+  `uv run python -B game/run_game.py [--ticks N]`. Game tests:
+  `uv run python -B -m unittest discover -s game/tests -p "test_*.py"`.
 - **F2** · the companion loop as a product (MVP 0.1, validity §1.34 —
   "this proves the entire thesis"). Engine-truth law on every pixel.
 - **F3** · the render bridge consumed in full: live clip driving,
@@ -212,13 +218,62 @@ stays late-stage.
   `deliberation.max_ticks` authority floor is 2; ports are
   OS-reserved in shifting ranges (servers use port 0); complex
   one-liners fail PowerShell parsing — write script files to the job
-  tmp dir.
+  tmp dir; **run labs with the system `python -B`, not `uv run`** —
+  `workshop_editor`'s foreign-fixture byte pins are zlib-BUILD
+  sensitive (system 3.14 = zlib-ng generated them; uv's 3.13 =
+  classic zlib fails 10 of them); the uv venv is for the
+  dependency-group suites (lab/cli/game).
 
 ## AGENT DEVELOPMENT LOG
 
 > This log provides raw chat context on exactly what was developed last so you may pickup and start where they left off.
 
-## LOG
+## LOG (2026-07-12 session — cycle 14 F1)
+
+F1 executed end to end and committed:
+
+1. **DR 0033** (`research/decision_records/0033-game-front-end-technology.md`)
+   — the five documented bridge targets judged against the engine's
+   REAL measured contract (render_packet_v2 with animation/effects/
+   ui_hints; lcd_ghosting's temporal-state requirement; the in-process
+   Python companion loop; DR 0023 replay input-fidelity; F5's
+   installable requirement). **pygame-ce adopted** (2.5.7 verified
+   current, Python 3.10–3.14; upstream pygame has NO 3.14 and this
+   machine runs 3.14.3). Godot = named re-opener at 0.2/0.3 scale;
+   web stays the workshop's; DR 0021 G4's served-page delivery
+   explicitly superseded for the game build.
+2. **The `game/` build**: `src/mecha_game/{packets,rasterize,app,__main__}.py`
+   + `run_game.py` + `evidence.py` + `pyproject.toml`
+   (`mechagotchi-game`, entry point `mechagotchi`, uv path source on
+   `mecha-engine`). RED-first (4 failing gates), then GREEN: 21 tests
+   (packet truth over the real pair `mg_seed16_001_beetle` ×
+   `slip_lcd_seed` — probed empirically, 6 aligned pairs found; pure
+   compositor math incl. ghosting blend `round(c·(1−a)+p·a)`;
+   headless SDL-dummy launches, incl. a subprocess
+   `python -m mecha_game`). Root pyproject: new `game` dependency
+   group; the stale DR-0005-era "policy blocked" header rewritten to
+   DR 0028 truth. NOTE: `uv sync --group game` alone EVICTS the other
+   groups — sync all three: `uv sync --group lab --group cli --group game`.
+3. **Evidence** `data/game_client/front_end_skeleton_stage0.json`:
+   status complete — twin-run frame checksums byte-equal (32 ticks),
+   idle clip cycles tick % 4, LCD identity applied, nothing declared
+   skipped, 10 distinct frames from the 4-frame clip (ghost transient).
+   A REAL window launched 24 ticks, exit 0.
+4. **Docs**: experiment report `2026-07-12-front-end-client-skeleton.md`
+   (RED/GREEN + sweep + the zlib-ng observation), ledger entry in
+   `research/README.md`, `game/README.md`,
+   `data/game_client/README.md`, F1 checked off in `audits/TODO.md`.
+5. **Sweep green**: 19 labs (system python) + package 291 + workshop 60
+   + CLI 21 + game 21.
+
+Next: **F2 — the companion loop as a product (MVP 0.1)**. The design
+source is `labs/game_loop/companion.py` (W1: adopt/tend/live/die over
+engine surfaces — already proven lab-side); productize it in the
+client: needs visible (hunger/energy/mood/age), expression by state,
+interactions logged, death → mutation → child, lineage file saved.
+Engine-truth law on every displayed number.
+
+## OLD LOG (2026-07-08 session — cycle 12 Phase D)
 
 ```text
 All 50/50 wiring pins hold for all four threads. Running the suite and full sweep:
@@ -690,6 +745,8 @@ game.
 - `audits/TODO.md` (cycle 14 · GAME · Phase F)
 - `research/experiment_reports/2026-07-08-phase-{a,b,c,d}-gate.md`
 - `research/experiment_reports/2026-07-09-phase-e-gate.md`
+- `research/experiment_reports/2026-07-12-front-end-client-skeleton.md`
+- `research/decision_records/0033-game-front-end-technology.md` (F1)
 - `research/decision_records/0032-map-elites-ga-gate-disposition.md`
 - `research/decision_records/0017`, `0021`, `0026`–`0028`
 - owner corrections of 2026-07-07 (recorded in session memory:
