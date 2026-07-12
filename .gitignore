@@ -19,3 +19,11 @@ data/game_loop/keeper/
 # The game client's save home (F2, DR 0033): lineage files and play
 # state from real sessions — a live pet is not evidence
 /keeper/
+
+# Build artifacts from uv/setuptools resolving the path-dependency
+# builds (game -> mecha-engine): never evidence, never source
+build/
+*.egg-info/
+# The game's own lock is decided at F5 (packaging rung); the root
+# uv.lock is the workspace lock of record
+game/uv.lock

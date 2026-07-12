@@ -1,9 +1,0 @@
-Metadata-Version: 2.4
-Name: mecha-engine
-Version: 0.0.0
-Summary: Engine core for the Mechagotchi grid-based artificial-life engine
-License-Expression: Apache-2.0
-Classifier: Private :: Do Not Upload
-Requires-Python: >=3.13
-License-File: LICENSE
-Dynamic: license-file
