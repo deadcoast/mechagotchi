@@ -36,7 +36,9 @@ REPO_ROOT = PACKAGE_ROOT.parents[1]
 SRC_DIR = PACKAGE_ROOT / "src"
 DRIVER = Path(__file__).resolve().parent / "helpers" / "runtime_contract_driver.py"
 
-REQUIRED_PUBLIC_SURFACE = ["evolve", "live_cycle"]
+# evolve/live_cycle plus the additive learned-readability scoring
+# surface (the spec's cycle-14 F4 section — export only).
+REQUIRED_PUBLIC_SURFACE = ["evolve", "learned_readability_score", "live_cycle"]
 # Interface-spec signatures (runtime interface spec, "Proposed public
 # surface"; rng_seed is the caller's per-creature run seed).
 REQUIRED_LIVE_CYCLE_DEFAULTS = {

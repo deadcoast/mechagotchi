@@ -1,0 +1,139 @@
+{
+  "artifact_id": "keeper_campaign_stage0",
+  "status": "complete",
+  "date": "2026-07-12",
+  "purpose": "Cycle 14 F4 (GAME track, Phase F): the Keeper/era loop in the client \u2014 DR 0021's core loop as a product surface mirroring the proven session lab over engine publics only: one era = one promoted evolve run (the A4 session scale), founders chain from elites, unlock facts earned from report metrics, the storage ledger persists losslessly, and the era's best elite ADOPTS as the companion through the same engine gate \u2014 species memory the player can hold.",
+  "source_artifacts": [
+    "game/src/mecha_game/campaign.py",
+    "game/src/mecha_game/app.py",
+    "labs/game_loop/session_runner.py",
+    "packages/mecha_engine/src/mecha_engine/runtime/__init__.py",
+    "research/decision_records/0021-game-loop.md",
+    "data/readability_benchmark/adopted_readability_model.json"
+  ],
+  "metrics": {
+    "era_config": {
+      "generations": 6,
+      "population": 16,
+      "damage_cycles": 2,
+      "ticks": 16,
+      "dropout_rate": 0.2
+    },
+    "session_scale": true,
+    "weather_schedule": [
+      "calm",
+      "stable_soup",
+      "storm"
+    ],
+    "eras_run": 3,
+    "campaign_status": "active",
+    "species_memory": {
+      "eras_run": 3,
+      "status": "active",
+      "last_era": {
+        "era_index": 2,
+        "weather": "storm",
+        "filled_niches": 17,
+        "qd_score": 13.343187,
+        "max_lineage_generation": 2,
+        "went_extinct": false,
+        "elite_count": 17,
+        "elite_mean_learned_readability": 0.221778
+      },
+      "unlocks": [
+        {
+          "axis": "niche_mastery",
+          "tier": 1,
+          "earned_era_index": 0,
+          "metric_path": "report.summary.archive.filled_niches",
+          "metric_value": 39,
+          "threshold": 16
+        },
+        {
+          "axis": "niche_mastery",
+          "tier": 2,
+          "earned_era_index": 0,
+          "metric_path": "report.summary.archive.filled_niches",
+          "metric_value": 39,
+          "threshold": 26
+        },
+        {
+          "axis": "niche_mastery",
+          "tier": 3,
+          "earned_era_index": 0,
+          "metric_path": "report.summary.archive.filled_niches",
+          "metric_value": 39,
+          "threshold": 36
+        },
+        {
+          "axis": "bloodline_depth",
+          "tier": 1,
+          "earned_era_index": 0,
+          "metric_path": "report.summary.max_lineage_generation",
+          "metric_value": 2,
+          "threshold": 2
+        },
+        {
+          "axis": "quality_diversity",
+          "tier": 1,
+          "earned_era_index": 0,
+          "metric_path": "report.summary.archive.qd_score",
+          "metric_value": 32.281609,
+          "threshold": 9.0
+        },
+        {
+          "axis": "quality_diversity",
+          "tier": 2,
+          "earned_era_index": 0,
+          "metric_path": "report.summary.archive.qd_score",
+          "metric_value": 32.281609,
+          "threshold": 18.0
+        },
+        {
+          "axis": "legibility",
+          "tier": 1,
+          "earned_era_index": 0,
+          "metric_path": "derived.elite_mean_learned_readability",
+          "metric_value": 0.400279,
+          "threshold": 0.25
+        },
+        {
+          "axis": "legibility",
+          "tier": 2,
+          "earned_era_index": 0,
+          "metric_path": "derived.elite_mean_learned_readability",
+          "metric_value": 0.400279,
+          "threshold": 0.35
+        },
+        {
+          "axis": "storm_record",
+          "tier": 1,
+          "earned_era_index": 2,
+          "metric_path": "derived.max_dropout_multiplier_survived",
+          "metric_value": 1.170205,
+          "threshold": 1.1
+        }
+      ]
+    },
+    "founders_chain_from_elites": true,
+    "first_era_twin_equal": true,
+    "best_elite_adoptable": true,
+    "ledger_round_trip": true,
+    "sqlite_version": "3.50.4"
+  },
+  "closed_states": [
+    "era_loop_is_the_promoted_engine (one evolve run per era; the learned readability scorer injected from the new runtime export \u2014 the client re-implements nothing)",
+    "founder_spine (each era's founders are the previous era's elites, verbatim grids)",
+    "unlocks_are_earned_facts (the lab's A4-calibrated table, falsifiable by test; facts cite path/value/threshold)",
+    "campaign_persists (DR 0022's ledger, blob-authoritative, idempotent re-save)",
+    "species_memory_adoptable (the best elite becomes the companion through the engine's own adoption gate)"
+  ],
+  "blocked_states": [
+    "replay_review_is_the_R5_scrubber (the lab records era replays; the client's Review step shows summary metrics only \u2014 the scrubber consumer is a named F-ladder rung)",
+    "workshop_release_contribute_step (DR 0021's Contribute runs lab-side; the client's release flow waits for the workshop bridge)",
+    "scale_geometry_seam_not_demanded (the client's eras run the A4 toy-scale config; the unpromoted archive scale-geometry seam stays unpromoted \u2014 this consumer did NOT demand it, recorded per the Phase-E remainder)",
+    "real_cubff_weather_awaits_phase_g (synthetic snapshots mirror the lab; real exports drop into the same seam)"
+  ],
+  "decision": "adopt: the Keeper loop plays in the client on engine truth; F5 packages it",
+  "next_research_step": "F5 \u2014 the installable release (PyInstaller named in DR 0033, decided at its own rung)"
+}

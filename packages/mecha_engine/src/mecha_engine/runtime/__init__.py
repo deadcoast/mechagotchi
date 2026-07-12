@@ -38,10 +38,18 @@ promoted mecha_engine modules, no research lab imports) and performs no
 Stage 0 artifact writes on import.
 """
 
+from ._readability import learned_readability_score
 from .evolve import evolve
 from .live import live_cycle
 
+# The learned-readability scoring surface (cycle 14 F4, additive
+# export only — behavior unchanged): the DR 0025 verbatim port already
+# scoring the readability-selection path internally, exported so
+# `evolve`'s injected ``readability_scorer`` hook can be the SAME
+# learned signal in consumers (the game's era loop) — a client must
+# never re-implement an engine number (DR 0021's first law).
 __all__ = [
     "evolve",
+    "learned_readability_score",
     "live_cycle",
 ]

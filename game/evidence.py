@@ -33,6 +33,12 @@ from mecha_game.packets import (  # noqa: E402
     hello_packet,
     load_hello_creature,
 )
+from mecha_game.campaign import (  # noqa: E402
+    ERA_CONFIG,
+    TINY_ERA_CONFIG,
+    KeeperCampaign,
+    load_campaign_inputs,
+)
 from mecha_game.clips import TRANSITIONS, ClipDriver  # noqa: E402
 from mecha_game.rasterize import compose_frame  # noqa: E402
 from mecha_game.session import (  # noqa: E402
@@ -615,6 +621,180 @@ def build_fleet_consumers_report(ticks: int = 80) -> dict:
     }
 
 
+CAMPAIGN_ARTIFACT_ID = "keeper_campaign_stage0"
+
+
+def _campaign_inputs(session_scale: bool) -> dict:
+    return load_campaign_inputs(
+        ROOT / "data" / "seed_grids_16x16",
+        ROOT / HELLO_SLIP,
+        ROOT
+        / "data"
+        / "readability_benchmark"
+        / "adopted_readability_model.json",
+        repair_epochs=40 if session_scale else 6,
+        seed_limit=None if session_scale else 12,
+    )
+
+
+def _run_keeper_campaign(
+    inputs: dict, *, era_config: dict, eras: tuple[str, ...]
+) -> KeeperCampaign:
+    campaign = KeeperCampaign(
+        inputs, era_config=era_config, campaign_id="evidence_campaign"
+    )
+    for weather in eras:
+        if campaign.status != "active":
+            break
+        campaign.advance_era(weather)
+    return campaign
+
+
+def build_keeper_campaign_report(
+    *,
+    session_scale: bool = True,
+    eras: tuple[str, ...] = ("calm", "stable_soup", "storm"),
+) -> dict:
+    """F4's measured claims: the client's era loop is one promoted
+    evolve run per era at the A4 session scale, founders chain from
+    elites, unlock facts are earned from report metrics, the ledger
+    round-trips losslessly, the best elite adopts through the engine
+    gate, and eras are deterministic (twin first eras byte-equal)."""
+    import sqlite3
+    import tempfile
+
+    from mecha_engine.lifecycle import initial_state
+    from mecha_engine.storage import campaign_history, open_ledger
+
+    era_config = ERA_CONFIG if session_scale else TINY_ERA_CONFIG
+    inputs = _campaign_inputs(session_scale)
+    campaign = _run_keeper_campaign(
+        inputs, era_config=era_config, eras=eras
+    )
+    twin = _run_keeper_campaign(
+        inputs, era_config=era_config, eras=eras[:1]
+    )
+    deterministic = json.dumps(
+        campaign.eras[0], sort_keys=True
+    ) == json.dumps(twin.eras[0], sort_keys=True)
+
+    chains = all(
+        campaign.eras[i]["founders_submitted"]
+        == [
+            elite["grid"]["grid_id"]
+            for elite in campaign.eras[i - 1]["elites"]
+        ]
+        for i in range(1, len(campaign.eras))
+    )
+    elite = campaign.best_elite_grid()
+    adoptable = False
+    if elite is not None:
+        adoptable = bool(
+            initial_state(elite, inputs["slip_profile"])["alive"]
+        )
+    with tempfile.TemporaryDirectory() as tmp:
+        ledger_path = Path(tmp) / "campaign.sqlite3"
+        campaign.save(ledger_path)
+        conn = open_ledger(ledger_path)
+        try:
+            history = campaign_history(conn, "evidence_campaign")
+        finally:
+            conn.close()
+    round_trip = len(history["eras"]) == len(campaign.eras) and (
+        history["eras"][0]["report"] == campaign.eras[0]["report"]
+    )
+    memory = campaign.species_memory()
+    status = (
+        "complete"
+        if deterministic and chains and adoptable and round_trip
+        else "refuted"
+    )
+    return {
+        "artifact_id": CAMPAIGN_ARTIFACT_ID,
+        "status": status,
+        "date": REPORT_DATE,
+        "purpose": (
+            "Cycle 14 F4 (GAME track, Phase F): the Keeper/era loop "
+            "in the client — DR 0021's core loop as a product surface "
+            "mirroring the proven session lab over engine publics "
+            "only: one era = one promoted evolve run (the A4 session "
+            "scale), founders chain from elites, unlock facts earned "
+            "from report metrics, the storage ledger persists "
+            "losslessly, and the era's best elite ADOPTS as the "
+            "companion through the same engine gate — species memory "
+            "the player can hold."
+        ),
+        "source_artifacts": [
+            "game/src/mecha_game/campaign.py",
+            "game/src/mecha_game/app.py",
+            "labs/game_loop/session_runner.py",
+            "packages/mecha_engine/src/mecha_engine/runtime/__init__.py",
+            "research/decision_records/0021-game-loop.md",
+            "data/readability_benchmark/adopted_readability_model.json",
+        ],
+        "metrics": {
+            "era_config": era_config,
+            "session_scale": session_scale,
+            "weather_schedule": list(eras),
+            "eras_run": len(campaign.eras),
+            "campaign_status": campaign.status,
+            "species_memory": memory,
+            "founders_chain_from_elites": chains,
+            "first_era_twin_equal": deterministic,
+            "best_elite_adoptable": adoptable,
+            "ledger_round_trip": round_trip,
+            "sqlite_version": sqlite3.sqlite_version,
+        },
+        "closed_states": [
+            "era_loop_is_the_promoted_engine (one evolve run per era; "
+            "the learned readability scorer injected from the new "
+            "runtime export — the client re-implements nothing)",
+            "founder_spine (each era's founders are the previous "
+            "era's elites, verbatim grids)",
+            "unlocks_are_earned_facts (the lab's A4-calibrated table, "
+            "falsifiable by test; facts cite path/value/threshold)",
+            "campaign_persists (DR 0022's ledger, blob-authoritative, "
+            "idempotent re-save)",
+            "species_memory_adoptable (the best elite becomes the "
+            "companion through the engine's own adoption gate)",
+        ],
+        "blocked_states": [
+            "replay_review_is_the_R5_scrubber (the lab records era "
+            "replays; the client's Review step shows summary metrics "
+            "only — the scrubber consumer is a named F-ladder rung)",
+            "workshop_release_contribute_step (DR 0021's Contribute "
+            "runs lab-side; the client's release flow waits for the "
+            "workshop bridge)",
+            "scale_geometry_seam_not_demanded (the client's eras run "
+            "the A4 toy-scale config; the unpromoted archive "
+            "scale-geometry seam stays unpromoted — this consumer "
+            "did NOT demand it, recorded per the Phase-E remainder)",
+            "real_cubff_weather_awaits_phase_g (synthetic snapshots "
+            "mirror the lab; real exports drop into the same seam)",
+        ],
+        "decision": (
+            "adopt: the Keeper loop plays in the client on engine "
+            "truth; F5 packages it"
+        ),
+        "next_research_step": (
+            "F5 — the installable release (PyInstaller named in "
+            "DR 0033, decided at its own rung)"
+        ),
+    }
+
+
+def write_keeper_campaign_artifacts(
+    output_dir: str | Path, report: dict
+) -> Path:
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    path = output_dir / f"{CAMPAIGN_ARTIFACT_ID}.json"
+    path.write_text(
+        json.dumps(report, indent=2) + "\n", encoding="utf-8"
+    )
+    return path
+
+
 def write_fleet_consumers_artifacts(
     output_dir: str | Path, report: dict
 ) -> Path:
@@ -685,5 +865,9 @@ if __name__ == "__main__":
     print(f"wrote {written}")
     written = write_fleet_consumers_artifacts(
         args.output_dir, build_fleet_consumers_report()
+    )
+    print(f"wrote {written}")
+    written = write_keeper_campaign_artifacts(
+        args.output_dir, build_keeper_campaign_report()
     )
     print(f"wrote {written}")

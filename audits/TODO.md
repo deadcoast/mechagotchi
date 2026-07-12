@@ -43,7 +43,7 @@ species memory surfacing to the player (Phase E).
   ui_hints (need icons, attention ping). The kept fleet cashes out
   here: beg timing, clip choice, mood display through the D6-kept
   threads' confidences.
-- [ ] **F4 · The Keeper/era loop.** DR 0021's design as input: save
+- [x] **F4 · The Keeper/era loop.** DR 0021's design as input: save
   files, sessions, era progression; the evolution repertoire surfaces
   to the player (species memory — E5's recurrent families are the
   proven substrate). The engine archive's scale-geometry seam promotes

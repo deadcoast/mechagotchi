@@ -18,6 +18,7 @@ for _src in (
 from evidence import (  # noqa: E402
     build_companion_loop_report,
     build_fleet_consumers_report,
+    build_keeper_campaign_report,
     build_front_end_skeleton_report,
     build_render_bridge_report,
     run_composition_session,
@@ -86,6 +87,17 @@ class EvidenceTests(unittest.TestCase):
             self.assertEqual(
                 report, json.loads(path.read_text(encoding="utf-8"))
             )
+
+    def test_keeper_campaign_report_holds_at_tiny_scale(self):
+        report = build_keeper_campaign_report(
+            session_scale=False, eras=("calm", "stable_soup")
+        )
+        self.assertEqual("complete", report["status"])
+        metrics = report["metrics"]
+        self.assertTrue(metrics["founders_chain_from_elites"])
+        self.assertTrue(metrics["first_era_twin_equal"])
+        self.assertTrue(metrics["best_elite_adoptable"])
+        self.assertTrue(metrics["ledger_round_trip"])
 
     def test_render_bridge_report_proves_the_full_contract(self):
         report = build_render_bridge_report(cell_px=1)

@@ -19,6 +19,14 @@ from pathlib import Path
 
 from mecha_engine.genome import clip_frame_count
 
+from mecha_game.campaign import (
+    ERA_CONFIG,
+    TINY_ERA_CONFIG,
+    WEATHER_NAMES,
+    KeeperCampaign,
+    default_campaign_paths,
+    load_campaign_inputs,
+)
 from mecha_game.clips import TRANSITIONS, ClipDriver
 from mecha_game.hud import HUD_HEIGHT, render_hud
 from mecha_game.packets import default_fixture_paths
@@ -35,7 +43,7 @@ WINDOW_TITLE = "Mechagotchi"
 DEFAULT_CELL_PX = 24
 DEFAULT_FPS = 8  # the LCD heartbeat (render frames)
 DEFAULT_TICK_FRAMES = 12  # lifecycle tick every N frames (1.5 s at 8 fps)
-FOOTER_PX = 96  # the casing's text area (chrome, not LCD)
+FOOTER_PX = 140  # the casing's text area (chrome, not LCD)
 LINEAGE_FILENAME = "lineage.json"
 
 
@@ -108,11 +116,74 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help="save directory (default: repo keeper/ or ~/.mechagotchi)",
     )
+    parser.add_argument(
+        "--eras",
+        type=int,
+        default=None,
+        help="run N eras headless then quit (verification runs)",
+    )
+    parser.add_argument(
+        "--era-scale",
+        choices=["session", "tiny"],
+        default="session",
+        help="era configuration (tiny is for verification runs)",
+    )
     return parser
 
 
 def _frame_bytes(pixels: Buffer) -> bytes:
     return b"".join(bytes(rgb) for row in pixels for rgb in row)
+
+
+class _EraBench:
+    """The Keeper's evolution bench, lazily trained on first use
+    (model training costs seconds — never paid by pure companion play)."""
+
+    def __init__(self, era_scale: str) -> None:
+        self.era_scale = era_scale
+        self.campaign: KeeperCampaign | None = None
+        self.weather_index = 0
+        self.message = ""
+
+    @property
+    def weather(self) -> str:
+        return WEATHER_NAMES[self.weather_index]
+
+    def ensure(self) -> KeeperCampaign:
+        if self.campaign is None:
+            paths = default_campaign_paths()
+            tiny = self.era_scale == "tiny"
+            inputs = load_campaign_inputs(
+                paths["seed_dir"],
+                paths["slip_path"],
+                paths["adopted_model_path"],
+                repair_epochs=6 if tiny else 40,
+                seed_limit=12 if tiny else None,
+            )
+            self.campaign = KeeperCampaign(
+                inputs,
+                era_config=TINY_ERA_CONFIG if tiny else ERA_CONFIG,
+            )
+        return self.campaign
+
+    def run_era(self, ledger_path: Path) -> dict:
+        campaign = self.ensure()
+        if campaign.status != "active":
+            campaign = self.campaign = campaign.successor()
+            self.message = "bloodline extinct — successor founded; "
+        era = campaign.advance_era(self.weather)
+        campaign.save(ledger_path)
+        memory = campaign.species_memory()
+        last = memory["last_era"]
+        self.message = (
+            f"era {last['era_index']} [{last['weather']}]: "
+            f"niches {last['filled_niches']}  qd {last['qd_score']:.1f}  "
+            f"elites {last['elite_count']}  "
+            f"unlocks {len(memory['unlocks'])}"
+            + ("  EXTINCT" if last["went_extinct"] else "")
+            + "   A: adopt best elite"
+        )
+        return era
 
 
 def _footer_lines(snapshot: dict, queued: str | None) -> list[str]:
@@ -173,6 +244,8 @@ def run(argv: list[str] | None = None) -> int:
     session = CompanionSession(grid, slip_profile, model=model)
     keeper_dir = args.keeper_dir or default_keeper_dir()
     lineage_path = keeper_dir / LINEAGE_FILENAME
+    bench = _EraBench(args.era_scale)
+    campaign_ledger = keeper_dir / "campaign.sqlite3"
 
     width, height = session.grid["grid_size"]
     panel_px = height * args.scale
@@ -202,6 +275,10 @@ def run(argv: list[str] | None = None) -> int:
         queued: str | None = None
         displayed_clip: str | None = None
         running = True
+        # Headless verification: run the requested eras up front.
+        if args.eras is not None:
+            for _ in range(args.eras):
+                bench.run_era(campaign_ledger)
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -219,6 +296,31 @@ def run(argv: list[str] | None = None) -> int:
                         session.succeed()
                         ghost = None
                         driver = ClipDriver(driver.frame_counts)
+                    elif event.key == pygame.K_e:
+                        bench.run_era(campaign_ledger)
+                    elif event.key in (
+                        pygame.K_1,
+                        pygame.K_2,
+                        pygame.K_3,
+                    ):
+                        bench.weather_index = (
+                            event.key - pygame.K_1
+                        ) % len(WEATHER_NAMES)
+                    elif event.key == pygame.K_a and bench.campaign:
+                        elite = bench.campaign.best_elite_grid()
+                        if elite is not None:
+                            # The era's best elite becomes the Keeper's
+                            # companion — through the same engine gate.
+                            session.save_lineage(lineage_path)
+                            session = CompanionSession(
+                                elite,
+                                session.slip_profile,
+                                model=session.model,
+                                name=elite["grid_id"],
+                            )
+                            ghost = None
+                            driver = ClipDriver(driver.frame_counts)
+                            bench.message += "   adopted!"
 
             if session.alive and frame % args.tick_frames == 0:
                 # The bandit's reward attribution sees what the window
@@ -267,9 +369,13 @@ def run(argv: list[str] | None = None) -> int:
             )
             window.fill((16, 18, 16))
             window.blit(surface, (0, 0))
-            for index, line in enumerate(
-                _footer_lines(snapshot, queued)
-            ):
+            footer = _footer_lines(snapshot, queued)
+            footer.append(
+                f"E: run era [{bench.weather}]  1/2/3: weather"
+            )
+            if bench.message:
+                footer.append(bench.message)
+            for index, line in enumerate(footer):
                 if line:
                     window.blit(
                         font.render(line, True, (200, 230, 200)),

@@ -52,6 +52,20 @@ lab discovered executable-first:
   callable form of the readability hook are required for the evolution
   semantics to be reproducible.
 
+### The learned-readability scoring surface (additive, cycle 14 F4)
+
+- `learned_readability_score(grid, model) -> float` — the DR 0025
+  verbatim port (`runtime/_readability.py`, already scoring the
+  promoted readability-selection path internally), exported so a
+  consumer can inject the SAME learned signal as `evolve`'s
+  `readability_scorer` hook. The consumer is the GAME's Keeper/era
+  loop (a client must never re-implement an engine number — DR 0021's
+  first law); the model argument is the caller's weights dict (the
+  committed adopted artifact,
+  `data/readability_benchmark/adopted_readability_model.json`, is the
+  primary source per DR 0019). Export only; zero behavior change;
+  pinned by `tests/test_runtime_readability_surface.py`.
+
 ## Hard gates for the port
 
 - Lab-parity pin: reproduce the evolution-loop artifact through the

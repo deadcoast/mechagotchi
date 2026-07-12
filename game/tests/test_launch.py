@@ -98,6 +98,45 @@ class LaunchTests(unittest.TestCase):
             )
             self.assertIn("death_cause", records[0])
 
+    def test_era_bench_runs_headless_and_persists(self):
+        from mecha_game.app import run
+
+        with tempfile.TemporaryDirectory() as tmp:
+            self.assertEqual(
+                0,
+                run(
+                    [
+                        "--ticks",
+                        "2",
+                        "--fps",
+                        "0",
+                        "--tick-frames",
+                        "1",
+                        "--scale",
+                        "2",
+                        "--eras",
+                        "2",
+                        "--era-scale",
+                        "tiny",
+                        "--keeper-dir",
+                        tmp,
+                    ]
+                ),
+            )
+            ledger = Path(tmp) / "campaign.sqlite3"
+            self.assertTrue(ledger.is_file())
+            from mecha_engine.storage import (
+                campaign_history,
+                open_ledger,
+            )
+
+            conn = open_ledger(ledger)
+            try:
+                history = campaign_history(conn, "keeper_campaign")
+            finally:
+                conn.close()
+            self.assertEqual(2, len(history["eras"]))
+
     def test_module_entrypoint_launches_end_to_end(self):
         with tempfile.TemporaryDirectory() as tmp:
             env = dict(os.environ)

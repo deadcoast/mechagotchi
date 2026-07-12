@@ -93,8 +93,13 @@ this, or am I periscoping?
   clips (zero illegal cuts) + the full effects contract + the kept
   fleet's consumers (begs-soon, bandit clip choice, HMM felt mood)
   through the learning module's new public fleet export; 64 game
-  tests, package 294. The next concrete work is **F4** (see §5). THE
-  ENGINE TRACK (A–E) IS COMPLETE — this is the first GAME-track cycle.
+  tests, package 294. **F4 is COMPLETE** (2026-07-12): the Keeper/era
+  loop in the client — the era bench (E / weather 1-2-3 / A adopts
+  the best elite as the companion), `campaign.py` mirroring the
+  session lab at A4 scale, unlock facts, ledger persistence, and the
+  runtime's learned-readability export (package 295, game 79). The
+  next concrete work is **F5** (see §5). THE ENGINE TRACK (A–E) IS
+  COMPLETE — this is the first GAME-track cycle.
 - **Phases A–E are COMPLETE and GREEN** (cycles 09–13, archived under
   `audits/complete/09`–`13`): A = the 16×16 foundation (DR 0029/0030);
   B = WFC generation + the real bake-off (WFC ships, DR 0031; the
@@ -187,9 +192,10 @@ workshop pages are NOT it. The sequence:
   module's public fleet export + the kept-five opt-in + the
   consumers (begs-soon, bandit clip choice, HMM felt mood). The
   correction is recorded in both reports.
-- **F4** · the Keeper/era loop (DR 0021 as design input); saves,
-  eras; the evolution repertoire surfaces to the player. The archive
-  scale-geometry seam promotes here IF this consumer demands it.
+- **F4 · DONE (2026-07-12).** The era bench in the client (E / 1-2-3
+  / A-adopt-elite); `campaign.py` mirrors the session lab; the
+  runtime gained the learned-readability export (RED-first). The
+  scale-geometry seam was NOT demanded — recorded, stays unpromoted.
 - **F5** · the installable release (install, launch, play, quit,
   resume).
 - **F6** · the Phase-F MVP 0.1 gate; the ladder's 0.2/0.3 rungs
@@ -331,14 +337,29 @@ HMM MAP readout with entropy-honest confidence. Evidence
 divergence vs frozen = 0 (D6's ~0 reconfirmed). Package 294 + game
 64 green.
 
-Next: **F4 — the Keeper/era loop** (DR 0021 as the design input):
-save files, sessions, era progression; the evolution repertoire
-surfaces to the player (E5's 52 recurrent families are the proven
-substrate); the archive scale-geometry seam promotes here IF this
-consumer demands it (its own gated package change). The game-side
-`labs/game_loop/` surfaces (session_runner, campaign_store,
-replay_recorder — all proven lab-side) are the design sources; the
-same mirror-never-import discipline applies.
+**F4 also shipped — checked off.** `campaign.py` mirrors the session
+lab over engine publics (one era = one evolve run at A4 scale;
+founder spine; falsifiable unlock facts; successor at the disjoint
+seed band; DR 0022 ledger persistence, idempotent). RED-first
+additive engine export: `runtime.learned_readability_score` (spec
+section + contract pin together; package 295). The client's era
+bench: E runs an era, 1/2/3 weather, **A adopts the era's best elite
+as the companion through the same engine gate** (the two loops
+joined). Evidence `keeper_campaign_stage0.json` at SESSION scale:
+3 eras survived calm→stable→storm, NINE unlock facts across all five
+axes, twin-equal, ledger lossless. 79 game tests. The scale-geometry
+seam was NOT demanded (recorded). Report:
+`2026-07-12-keeper-era-loop.md`.
+
+Next: **F5 — the installable release** (MVP 0.1 as a product: a
+player can install, launch, play, quit, and RESUME FROM A SAVE FILE).
+PyInstaller named in DR 0033, decided at F5 with evidence. Note the
+resume requirement: the companion session currently saves only the
+lineage file — F5 needs save/load of the live companion state
+(the W1 lab's save_companion/load_companion pattern is the proven
+source) plus the campaign ledger already persisting. Then **F6 — the
+Phase-F MVP 0.1 gate** (one consolidated report; the 0.2/0.3 rungs
+decompose into the next cycle FROM THE GAP ANALYSIS).
 
 ## OLD LOG (2026-07-08 session — cycle 12 Phase D)
 

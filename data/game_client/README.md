@@ -40,4 +40,15 @@ the playable front end, distinct from the workshop's authoring surfaces.
   was already package code since cycle 12 - only the export and the
   consumers were missing.
 
+- `keeper_campaign_stage0.json` - F4: the Keeper/era loop in the
+  client at the A4 SESSION scale - calm/stable/storm, 3 eras
+  SURVIVED, nine unlock facts across all five axes, founders chained
+  from elites verbatim, first-era twin byte-equal, the best elite
+  adoptable as the companion through the engine gate, the DR 0022
+  ledger lossless. The learned readability scorer is injected from
+  the new runtime export (the documented divergence from the lab
+  session's proxy). Review-scrubber, Contribute, and covenant
+  SPENDING are named remainders; the scale-geometry seam was NOT
+  demanded by this consumer (recorded).
+
 Produced by `game/evidence.py`.
