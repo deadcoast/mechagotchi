@@ -622,6 +622,178 @@ def build_fleet_consumers_report(ticks: int = 80) -> dict:
     }
 
 
+COVENANT_ARTIFACT_ID = "covenant_spending_stage0"
+
+
+def build_covenant_spending_report() -> dict:
+    """F7's measured claims, at the session scale: real eras EARN the
+    facts; an over-budget request is REFUSED verbatim with nothing
+    applied; the one-key spends apply inside the budget; the SPENT
+    covenant governs the next era; the whole sequence twin-runs equal.
+    (The builder's components are pinned by test_covenant/test_campaign;
+    this artifact is the measured product cycle.)"""
+    from mecha_game.covenant import (
+        apply_covenant_change,
+        spend_deliberation_to_budget,
+        spend_next_palette,
+        spend_population_to_cap,
+    )
+
+    def run_cycle() -> dict:
+        inputs = _campaign_inputs(session_scale=True)
+        campaign = KeeperCampaign(
+            inputs, campaign_id="covenant_evidence"
+        )
+        campaign.advance_era("calm")
+        earned = [
+            (fact["axis"], fact["tier"]) for fact in campaign.unlocks
+        ]
+        budget_before = campaign.budget()
+        covenant_before = json.loads(
+            json.dumps(campaign.campaign["slip_profile"])
+        )
+        over_budget = apply_covenant_change(
+            campaign,
+            deliberation_max_ticks=budget_before[
+                "deliberation_max_ticks"
+            ]
+            + 1,
+        )
+        nothing_applied = (
+            campaign.campaign["slip_profile"] == covenant_before
+        )
+        spends = {
+            "palette": spend_next_palette(campaign),
+            "thinking": spend_deliberation_to_budget(campaign),
+            "population": spend_population_to_cap(campaign),
+        }
+        era_after = campaign.advance_era("stable_soup")
+        return {
+            "facts_earned_era0": earned,
+            "budget_after_era0": {
+                key: budget_before[key]
+                for key in (
+                    "allowed_palettes",
+                    "deliberation_max_ticks",
+                    "population_cap",
+                    "generation_cap",
+                    "legibility_blend",
+                )
+            },
+            "over_budget_refused": not over_budget["ok"],
+            "refusal_violations": over_budget["violations"],
+            "nothing_applied_on_refusal": nothing_applied,
+            "spends": {
+                name: {
+                    "ok": result["ok"],
+                    "violations": result.get("violations", []),
+                }
+                for name, result in spends.items()
+            },
+            "spent_covenant": {
+                "allowed_palettes": campaign.campaign["slip_profile"][
+                    "grid"
+                ]["allowed_palettes"],
+                "deliberation": campaign.campaign["slip_profile"].get(
+                    "deliberation"
+                ),
+                "population": campaign.era_config["population"],
+            },
+            "era_under_spent_covenant": {
+                "elites": len(era_after["elites"]),
+                "went_extinct": era_after["derived"]["went_extinct"],
+                "population_requested": campaign.era_config[
+                    "population"
+                ],
+            },
+        }
+
+    first = run_cycle()
+    second = run_cycle()
+    deterministic = first == second
+    all_spends_ok = all(
+        spend["ok"] for spend in first["spends"].values()
+    )
+    status = (
+        "complete"
+        if deterministic
+        and first["facts_earned_era0"]
+        and first["over_budget_refused"]
+        and first["nothing_applied_on_refusal"]
+        and all_spends_ok
+        and first["era_under_spent_covenant"]["elites"] > 0
+        else "refuted"
+    )
+    return {
+        "artifact_id": COVENANT_ARTIFACT_ID,
+        "status": status,
+        "date": REPORT_DATE,
+        "purpose": (
+            "Cycle 15 F7 (GAME track, Phase F, MVP 0.2): covenant "
+            "spending — the earned unlock facts SPEND into the "
+            "covenant inside a pure budget (DR 0021's progression "
+            "table, the session lab's semantics mirrored); "
+            "over-budget requests are refused with named violations "
+            "and nothing applied; every accepted covenant passes the "
+            "engine's SLIP authority; the SPENT covenant governs the "
+            "next era. The progression is FELT."
+        ),
+        "source_artifacts": [
+            "game/src/mecha_game/covenant.py",
+            "game/src/mecha_game/campaign.py",
+            "labs/game_loop/session_runner.py",
+            "research/decision_records/0021-game-loop.md",
+        ],
+        "metrics": {
+            "cycle": first,
+            "twin_run_equal": deterministic,
+            "all_spends_applied": all_spends_ok,
+        },
+        "closed_states": [
+            "budget_is_pure_and_earned (base covenant + base "
+            "parameters + facts; palettes per niche tier, thinking "
+            "per bloodline tier on the authority's 2-tick floor, "
+            "caps doubling per qd tier, the blend stepping)",
+            "refusal_is_total (named violations, nothing applied, "
+            "the authority's verdicts verbatim)",
+            "spent_covenant_governs (the next era runs under the "
+            "spent profile and caps; past eras stay reproducible in "
+            "the ledger verbatim)",
+            "successor_inherits_unlocks_not_spends (roguelite: the "
+            "budget survives, the covenant and caps reset to base)",
+            "adopted_elites_live_under_the_active_covenant (a spent "
+            "thinking budget makes the companion visibly deliberate)",
+        ],
+        "blocked_states": [
+            "organ_role_budget_deferred (awaiting an allowed_roles "
+            "SLIP field — the lab's named deferral, mirrored)",
+            "harsher_forecasts_deferred (storm_record tiers await "
+            "weather sources beyond the three shipped forecasts)",
+        ],
+        "decision": (
+            "adopt: the Covenant step is a product surface; F8 "
+            "surfaces species generation"
+        ),
+        "next_research_step": (
+            "F8 — species generation in the client (the promoted "
+            "constrained/WFC surfaces produce adoptable/releasable "
+            "founders under the covenant)"
+        ),
+    }
+
+
+def write_covenant_spending_artifacts(
+    output_dir: str | Path, report: dict
+) -> Path:
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    path = output_dir / f"{COVENANT_ARTIFACT_ID}.json"
+    path.write_text(
+        json.dumps(report, indent=2) + "\n", encoding="utf-8"
+    )
+    return path
+
+
 RELEASE_ARTIFACT_ID = "installable_release_stage0"
 
 
@@ -1006,6 +1178,10 @@ if __name__ == "__main__":
     print(f"wrote {written}")
     written = write_keeper_campaign_artifacts(
         args.output_dir, build_keeper_campaign_report()
+    )
+    print(f"wrote {written}")
+    written = write_covenant_spending_artifacts(
+        args.output_dir, build_covenant_spending_report()
     )
     print(f"wrote {written}")
     release_report = build_installable_release_report()

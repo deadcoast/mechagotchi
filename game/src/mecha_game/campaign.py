@@ -294,9 +294,23 @@ class KeeperCampaign:
         base_seed: int = 20260707,
         predecessor_campaign_id: str | None = None,
         era_config: dict | None = None,
+        inherited_unlocks: list[dict] | None = None,
     ) -> None:
         self.inputs = inputs
         self.era_config = {**ERA_CONFIG, **(era_config or {})}
+        # The BASE covenant and base parameters the budget computes
+        # from (spends never compound against themselves — F7).
+        self.base_profile = json.loads(
+            json.dumps(inputs["slip_profile"])
+        )
+        self.base_parameters = {
+            "population": self.era_config["population"],
+            "generations": self.era_config["generations"],
+        }
+        # Roguelite inheritance (DR 0022's succession rule, resolved
+        # in memory): the predecessor chain's facts, never copied into
+        # this campaign's OWN unlocks.
+        self.inherited_unlocks = list(inherited_unlocks or [])
         self.campaign = {
             "campaign_id": campaign_id,
             "keeper_label": keeper_label,
@@ -322,6 +336,20 @@ class KeeperCampaign:
     @property
     def unlocks(self) -> list[dict]:
         return self.campaign["unlocks"]
+
+    def unlock_state(self) -> list[dict]:
+        """The Keeper's full unlock state: inherited facts plus this
+        campaign's own (the in-memory mirror of the ledger's
+        pointer-chain resolution)."""
+        return self.inherited_unlocks + self.campaign["unlocks"]
+
+    def budget(self) -> dict:
+        """The spendable covenant budget (F7 — DR 0021's table)."""
+        from mecha_game.covenant import covenant_budget
+
+        return covenant_budget(
+            self.base_profile, self.base_parameters, self.unlock_state()
+        )
 
     def species_memory(self) -> dict:
         """What the Keeper reviews: the last era's repertoire and the
@@ -400,7 +428,7 @@ class KeeperCampaign:
             cubff_pressure_source=build_weather_source(weather),
             readability_selection={
                 **legibility_model,
-                "blend": legibility_blend_for(self.unlocks),
+                "blend": legibility_blend_for(self.unlock_state()),
             },
             **self.era_config,
         )
@@ -495,7 +523,13 @@ class KeeperCampaign:
                 "the bloodline lives — succession is extinction's door"
             )
         return KeeperCampaign(
-            self.inputs, era_config=self.era_config, **plan
+            self.inputs,
+            # Roguelite: the successor carries ONLY the unlocks — the
+            # spent covenant and caps reset to base; the fresh
+            # bloodline spends again from its inherited budget.
+            era_config={**self.era_config, **self.base_parameters},
+            inherited_unlocks=self.unlock_state(),
+            **plan,
         )
 
     # -- persistence (DR 0022) --------------------------------------------

@@ -28,6 +28,12 @@ from mecha_game.campaign import (
     load_campaign_inputs,
 )
 from mecha_game.clips import TRANSITIONS, ClipDriver
+from mecha_game.covenant import (
+    spend_deliberation_to_budget,
+    spend_generations_to_cap,
+    spend_next_palette,
+    spend_population_to_cap,
+)
 from mecha_game.hud import HUD_HEIGHT, render_hud
 from mecha_game.packets import default_fixture_paths
 from mecha_game.rasterize import (
@@ -172,6 +178,42 @@ class _EraBench:
             )
         return self.campaign
 
+    def budget_lines(self) -> list[str]:
+        """The covenant mode's display — every number the campaign's
+        own budget/covenant, verbatim (F7)."""
+        campaign = self.ensure()
+        budget = campaign.budget()
+        profile = campaign.campaign["slip_profile"]
+        active_palettes = profile["grid"]["allowed_palettes"]
+        thinking = profile.get("deliberation", {}).get("max_ticks", 0)
+        return [
+            (
+                f"COVENANT   palettes {len(active_palettes)}/"
+                f"{len(budget['allowed_palettes'])}   thinking "
+                f"{thinking}/{budget['deliberation_max_ticks']}   pop "
+                f"{campaign.era_config['population']}/"
+                f"{budget['population_cap']}   gens "
+                f"{campaign.era_config['generations']}/"
+                f"{budget['generation_cap']}"
+            ),
+            "1 palette  2 thinking  3 population  4 generations  C close",
+        ]
+
+    def spend(self, key_index: int) -> None:
+        campaign = self.ensure()
+        spends = {
+            0: spend_next_palette,
+            1: spend_deliberation_to_budget,
+            2: spend_population_to_cap,
+            3: spend_generations_to_cap,
+        }
+        result = spends[key_index](campaign)
+        self.message = (
+            "covenant updated"
+            if result["ok"]
+            else "; ".join(result["violations"])
+        )
+
     def run_era(self, ledger_path: Path) -> dict:
         campaign = self.ensure()
         if campaign.status != "active":
@@ -287,6 +329,7 @@ def run(argv: list[str] | None = None) -> int:
         # session_tick continues across launches)
         queued: str | None = None
         displayed_clip: str | None = None
+        covenant_mode = False
         running = True
         # Headless verification: run the requested eras up front.
         if args.eras is not None:
@@ -311,6 +354,15 @@ def run(argv: list[str] | None = None) -> int:
                         driver = ClipDriver(driver.frame_counts)
                     elif event.key == pygame.K_e:
                         bench.run_era(campaign_ledger)
+                    elif event.key == pygame.K_c:
+                        covenant_mode = not covenant_mode
+                    elif covenant_mode and event.key in (
+                        pygame.K_1,
+                        pygame.K_2,
+                        pygame.K_3,
+                        pygame.K_4,
+                    ):
+                        bench.spend(event.key - pygame.K_1)
                     elif event.key in (
                         pygame.K_1,
                         pygame.K_2,
@@ -323,11 +375,13 @@ def run(argv: list[str] | None = None) -> int:
                         elite = bench.campaign.best_elite_grid()
                         if elite is not None:
                             # The era's best elite becomes the Keeper's
-                            # companion — through the same engine gate.
+                            # companion — through the same engine gate,
+                            # under the campaign's ACTIVE covenant (a
+                            # spent deliberation budget makes it THINK).
                             session.save_lineage(lineage_path)
                             session = CompanionSession(
                                 elite,
-                                session.slip_profile,
+                                bench.campaign.campaign["slip_profile"],
                                 model=session.model,
                                 name=elite["grid_id"],
                             )
@@ -384,9 +438,13 @@ def run(argv: list[str] | None = None) -> int:
             window.fill((16, 18, 16))
             window.blit(surface, (0, 0))
             footer = _footer_lines(snapshot, queued)
-            footer.append(
-                f"E: run era [{bench.weather}]  1/2/3: weather"
-            )
+            if covenant_mode:
+                footer.extend(bench.budget_lines())
+            else:
+                footer.append(
+                    f"E: run era [{bench.weather}]  1/2/3: weather  "
+                    "C: covenant"
+                )
             if bench.message:
                 footer.append(bench.message)
             for index, line in enumerate(footer):

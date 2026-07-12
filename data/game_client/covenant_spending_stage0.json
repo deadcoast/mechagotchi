@@ -1,0 +1,112 @@
+{
+  "artifact_id": "covenant_spending_stage0",
+  "status": "complete",
+  "date": "2026-07-12",
+  "purpose": "Cycle 15 F7 (GAME track, Phase F, MVP 0.2): covenant spending \u2014 the earned unlock facts SPEND into the covenant inside a pure budget (DR 0021's progression table, the session lab's semantics mirrored); over-budget requests are refused with named violations and nothing applied; every accepted covenant passes the engine's SLIP authority; the SPENT covenant governs the next era. The progression is FELT.",
+  "source_artifacts": [
+    "game/src/mecha_game/covenant.py",
+    "game/src/mecha_game/campaign.py",
+    "labs/game_loop/session_runner.py",
+    "research/decision_records/0021-game-loop.md"
+  ],
+  "metrics": {
+    "cycle": {
+      "facts_earned_era0": [
+        [
+          "niche_mastery",
+          1
+        ],
+        [
+          "niche_mastery",
+          2
+        ],
+        [
+          "niche_mastery",
+          3
+        ],
+        [
+          "bloodline_depth",
+          1
+        ],
+        [
+          "quality_diversity",
+          1
+        ],
+        [
+          "quality_diversity",
+          2
+        ],
+        [
+          "legibility",
+          1
+        ],
+        [
+          "legibility",
+          2
+        ]
+      ],
+      "budget_after_era0": {
+        "allowed_palettes": [
+          "lcd_green",
+          "amber_terminal",
+          "crt_blue",
+          "pocket_plum"
+        ],
+        "deliberation_max_ticks": 2,
+        "population_cap": 64,
+        "generation_cap": 24,
+        "legibility_blend": 0.8
+      },
+      "over_budget_refused": true,
+      "refusal_violations": [
+        "deliberation_max_ticks 3 exceeds the earned budget 2 (0 = none; the authority's floor is 2)"
+      ],
+      "nothing_applied_on_refusal": true,
+      "spends": {
+        "palette": {
+          "ok": true,
+          "violations": []
+        },
+        "thinking": {
+          "ok": true,
+          "violations": []
+        },
+        "population": {
+          "ok": true,
+          "violations": []
+        }
+      },
+      "spent_covenant": {
+        "allowed_palettes": [
+          "lcd_green",
+          "amber_terminal"
+        ],
+        "deliberation": {
+          "max_ticks": 2,
+          "confidence_threshold": 0.72
+        },
+        "population": 64
+      },
+      "era_under_spent_covenant": {
+        "elites": 93,
+        "went_extinct": false,
+        "population_requested": 64
+      }
+    },
+    "twin_run_equal": true,
+    "all_spends_applied": true
+  },
+  "closed_states": [
+    "budget_is_pure_and_earned (base covenant + base parameters + facts; palettes per niche tier, thinking per bloodline tier on the authority's 2-tick floor, caps doubling per qd tier, the blend stepping)",
+    "refusal_is_total (named violations, nothing applied, the authority's verdicts verbatim)",
+    "spent_covenant_governs (the next era runs under the spent profile and caps; past eras stay reproducible in the ledger verbatim)",
+    "successor_inherits_unlocks_not_spends (roguelite: the budget survives, the covenant and caps reset to base)",
+    "adopted_elites_live_under_the_active_covenant (a spent thinking budget makes the companion visibly deliberate)"
+  ],
+  "blocked_states": [
+    "organ_role_budget_deferred (awaiting an allowed_roles SLIP field \u2014 the lab's named deferral, mirrored)",
+    "harsher_forecasts_deferred (storm_record tiers await weather sources beyond the three shipped forecasts)"
+  ],
+  "decision": "adopt: the Covenant step is a product surface; F8 surfaces species generation",
+  "next_research_step": "F8 \u2014 species generation in the client (the promoted constrained/WFC surfaces produce adoptable/releasable founders under the covenant)"
+}

@@ -59,4 +59,12 @@ the playable front end, distinct from the workshop's authoring surfaces.
   against an existing build (game/build_release.py), never
   fabricated. CI/signing/multi-platform stays Phase G.
 
+- `covenant_spending_stage0.json` - F7 (cycle 15, MVP 0.2): the
+  earned facts SPEND - one calm era earns 8 facts; over-budget
+  refused with nothing applied; palette + thinking + population(64)
+  spent under the engine's SLIP authority; the era under the spent
+  covenant fills 93 niches (the DR 0021 exponential axis observed).
+  Successors inherit the unlock state, never the spends. Deferred
+  axes named (organ roles, harsher forecasts).
+
 Produced by `game/evidence.py`.

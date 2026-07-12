@@ -38,9 +38,13 @@ uv run python -B game/run_game.py --ticks 24 # bounded verification run
 
 Controls: **F** feed · **P** play · **S** sleep (queued for the next
 lifecycle tick) · **ENTER** adopt the successor when the companion
-dies · **ESC**/close quit. The lineage file saves to `keeper/`
-(gitignored) on death and on quit. The companion begs when it wants
-food — only you can feed it; neglect starves it (measured: ~10 ticks).
+dies · **E** run an evolution era (**1/2/3** pick the weather) ·
+**A** adopt the era's best elite as your companion · **C** covenant
+mode (**1/2/3/4** spend earned unlocks: palette / thinking /
+population / generations) · **ESC**/close quit. Saves land in
+`keeper/` (gitignored) — quit and come back, the client resumes. The
+companion begs when it wants food — only you can feed it; neglect
+starves it (measured: ~10 ticks).
 
 ## Install it (F5)
 

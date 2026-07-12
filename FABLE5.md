@@ -177,11 +177,21 @@ this, or am I periscoping?
    doctor, reviewer prefill, shell completion).
 7. `research/README.md` — the master traceability ledger.
 
-## 5. WHAT TO DO NEXT — Cycle 15, task F7 (THE GAME TRACK, MVP 0.2)
+## 5. WHAT TO DO NEXT — Cycle 15, task F8 (THE GAME TRACK, MVP 0.2)
 
-`audits/TODO.md` holds cycle 15's full task text (F7–F12: covenant
-spending, species generation in the client, the Contribute/workshop
-bridge, the Review replays, hardening, the 0.2 gate). The cycle-14
+`audits/TODO.md` holds cycle 15's full task text. **F7 (covenant
+spending) is DONE (2026-07-12)**: `mecha_game/covenant.py` mirrors
+the session lab's budget/spend rule (12 tests RED-first); C key =
+covenant mode with one-key spends; successors inherit the unlock
+STATE never the spends; adopted elites live under the ACTIVE
+covenant (spent thinking makes the companion deliberate). Evidence
+`covenant_spending_stage0.json`: 8 facts earned in one calm era,
+over-budget refused totally, palette+thinking+population(64) spent,
+the spent-covenant era filled 93 niches. Named remainder: the ACTIVE
+spent covenant is process-state — re-earned from persisted facts on
+restart; the campaign-resume rung owns it. Next: **F8 — species
+generation in the client** (F9 Contribute bridge, F10 Review
+replays, F11 hardening, F12 the 0.2 gate follow). The cycle-14
 record below is kept for context:
 
 `audits/TODO.md` holds the full task text. This is the build the

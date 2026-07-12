@@ -15,7 +15,7 @@ cycle 14 F3b (the kept fleet's consumers); the remaining 0.2 surface
 is the CREATOR loop — generation, authoring, and progression joined
 to the play loop — plus the cycle-14 gate's named product remainders.
 
-- [ ] **F7 · Covenant spending — the progression is FELT.** The
+- [x] **F7 · Covenant spending — the progression is FELT.** The
   earned unlock facts SPEND into the covenant (DR 0021's Covenant
   step; the session lab's `covenant_budget`/`apply_covenant_change`
   are the proven source — mirror, never import): palettes unlock per
