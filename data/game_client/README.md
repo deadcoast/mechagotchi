@@ -67,4 +67,12 @@ the playable front end, distinct from the workshop's authoring surfaces.
   Successors inherit the unlock state, never the spends. Deferred
   axes named (organ roles, harsher forecasts).
 
+- `hatchery_stage0.json` - F8 (cycle 15, MVP 0.2): species
+  generation as a product path - three founders hatched under the
+  covenant (engine-filtered, validator-gated, deterministic), every
+  origin legible from the verbatim generation trace, all adoptable
+  through the engine gate; the released founder led the next era's
+  pool and the era survived. The hatchery is the constrained
+  stabilizer (trace-carrying); WFC stays era-side (DR 0031).
+
 Produced by `game/evidence.py`.

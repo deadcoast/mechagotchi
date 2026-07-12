@@ -1,0 +1,145 @@
+{
+  "artifact_id": "hatchery_stage0",
+  "status": "complete",
+  "date": "2026-07-12",
+  "purpose": "Cycle 15 F8 (GAME track, Phase F, MVP 0.2): species generation in the client \u2014 founders GENERATED through the promoted constrained surfaces under the covenant (profile-weighted, validator-gated), every creature's origin LEGIBLE from explain_generation's verbatim trace, and released founders LEADING the next era's pool through the engine's own admission gates (the lab's founders-lead rule). Generation stops being a fixtures-only path.",
+  "source_artifacts": [
+    "game/src/mecha_game/hatchery.py",
+    "game/src/mecha_game/campaign.py",
+    "packages/mecha_engine/src/mecha_engine/generation/__init__.py",
+    "research/decision_records/0031-wfc-generation-adoption.md"
+  ],
+  "metrics": {
+    "count": 3,
+    "hatched_ids": [
+      "mg_constrained_000",
+      "mg_constrained_001",
+      "mg_constrained_002"
+    ],
+    "origins": [
+      "constrained_wfc_style_stabilizer from mg_seed16_017_pupfish \u00b7 proposals 11/12 \u00b7 gen 1",
+      "constrained_wfc_style_stabilizer from mg_seed16_013_sprout \u00b7 proposals 10/12 \u00b7 gen 1",
+      "constrained_wfc_style_stabilizer from mg_seed16_017_pupfish \u00b7 proposals 9/12 \u00b7 gen 1"
+    ],
+    "explanations": [
+      {
+        "grid_id": "mg_constrained_000",
+        "parent_grid_id": "mg_seed16_017_pupfish",
+        "generator_strategy": "constrained_wfc_style_stabilizer",
+        "proposal_source": "markov_local_adjacency_proposals",
+        "rng_seed": 20260713,
+        "lineage_generation": 1,
+        "ancestor_ids": [
+          "mg_seed16_017_pupfish"
+        ],
+        "mutation_events": [
+          "seed_parent_selected",
+          "validator_gated_resample",
+          "anchor_repositioned"
+        ],
+        "validation": {
+          "ok": true,
+          "errors": []
+        },
+        "slip_alignment": {
+          "checked": true,
+          "profile_id": "slip_lcd_seed",
+          "ok": true,
+          "errors": []
+        },
+        "proposal_attempts": 12,
+        "accepted_proposals": 11,
+        "rejected_proposals": 1,
+        "model": {
+          "strategy": "constrained_wfc_style_stabilizer",
+          "seed_count": 50,
+          "seed_corpus_sha256": "68bf1ee4c3f78ebc50838a45e048a8e8bcb8b684021f5e8d11d5af746a4c09e3"
+        }
+      },
+      {
+        "grid_id": "mg_constrained_001",
+        "parent_grid_id": "mg_seed16_013_sprout",
+        "generator_strategy": "constrained_wfc_style_stabilizer",
+        "proposal_source": "markov_local_adjacency_proposals",
+        "rng_seed": 20260713,
+        "lineage_generation": 1,
+        "ancestor_ids": [
+          "mg_seed16_013_sprout"
+        ],
+        "mutation_events": [
+          "seed_parent_selected",
+          "validator_gated_resample",
+          "anchor_repositioned"
+        ],
+        "validation": {
+          "ok": true,
+          "errors": []
+        },
+        "slip_alignment": {
+          "checked": true,
+          "profile_id": "slip_lcd_seed",
+          "ok": true,
+          "errors": []
+        },
+        "proposal_attempts": 12,
+        "accepted_proposals": 10,
+        "rejected_proposals": 2,
+        "model": {
+          "strategy": "constrained_wfc_style_stabilizer",
+          "seed_count": 50,
+          "seed_corpus_sha256": "68bf1ee4c3f78ebc50838a45e048a8e8bcb8b684021f5e8d11d5af746a4c09e3"
+        }
+      },
+      {
+        "grid_id": "mg_constrained_002",
+        "parent_grid_id": "mg_seed16_017_pupfish",
+        "generator_strategy": "constrained_wfc_style_stabilizer",
+        "proposal_source": "markov_local_adjacency_proposals",
+        "rng_seed": 20260713,
+        "lineage_generation": 1,
+        "ancestor_ids": [
+          "mg_seed16_017_pupfish"
+        ],
+        "mutation_events": [
+          "seed_parent_selected",
+          "validator_gated_resample",
+          "anchor_repositioned"
+        ],
+        "validation": {
+          "ok": true,
+          "errors": []
+        },
+        "slip_alignment": {
+          "checked": true,
+          "profile_id": "slip_lcd_seed",
+          "ok": true,
+          "errors": []
+        },
+        "proposal_attempts": 12,
+        "accepted_proposals": 9,
+        "rejected_proposals": 3,
+        "model": {
+          "strategy": "constrained_wfc_style_stabilizer",
+          "seed_count": 50,
+          "seed_corpus_sha256": "68bf1ee4c3f78ebc50838a45e048a8e8bcb8b684021f5e8d11d5af746a4c09e3"
+        }
+      }
+    ],
+    "twin_run_equal": true,
+    "all_adoptable_through_the_gate": true,
+    "all_covenant_aligned": true,
+    "released_founder_leads_the_pool": true,
+    "era_with_release_survived": true
+  },
+  "closed_states": [
+    "generation_is_a_product_path (hatch under the ACTIVE covenant in the client: H adopts the hatchling, R releases a genome into the next era)",
+    "origins_are_legible (the display line is built only from the engine's generation trace fields)",
+    "released_founders_lead (the lab's E5 seam consumed: releases ahead of elites, admission judged by evolve)"
+  ],
+  "blocked_states": [
+    "workshop_releases_are_F9 (this rung releases HATCHED and adopted genomes; the workshop's authored creatures arrive with the F9 bridge)",
+    "wfc_stays_era_side (DR 0031's production generator runs inside the engine; the hatchery is the constrained stabilizer because only its candidates carry the explanation trace \u2014 a WFC hatchery path would need an engine-side trace seam, named not smuggled)"
+  ],
+  "decision": "adopt: the creator loop's generation rung is a product surface; F9 bridges the workshop",
+  "next_research_step": "F9 \u2014 the Contribute step: workshop-released creatures enter the client's eras as founders"
+}

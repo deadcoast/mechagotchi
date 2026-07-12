@@ -189,9 +189,18 @@ covenant (spent thinking makes the companion deliberate). Evidence
 over-budget refused totally, palette+thinking+population(64) spent,
 the spent-covenant era filled 93 niches. Named remainder: the ACTIVE
 spent covenant is process-state — re-earned from persisted facts on
-restart; the campaign-resume rung owns it. Next: **F8 — species
-generation in the client** (F9 Contribute bridge, F10 Review
-replays, F11 hardening, F12 the 0.2 gate follow). The cycle-14
+restart; the campaign-resume rung owns it. **F8 (the hatchery) is
+DONE (2026-07-12)**: `hatchery.py` (generate_batch under the ACTIVE
+covenant + explain_generation verbatim; origin lines from trace
+fields only); the campaign gained the `released_grids` seam
+(releases LEAD the pool); H hatches-and-adopts, R releases the
+companion's genome to the next era — the creator loop closes.
+Evidence `hatchery_stage0.json`: 3 founders, twin-equal, aligned,
+adoptable, released-leads, era survived. 99 game tests. Honest note:
+the hatchery is the CONSTRAINED stabilizer (trace-carrying); a WFC
+hatchery path needs an engine-side trace seam — named. Next: **F9 —
+the Contribute/workshop bridge** (F10 Review replays, F11 hardening,
+F12 the 0.2 gate follow). The cycle-14
 record below is kept for context:
 
 `audits/TODO.md` holds the full task text. This is the build the

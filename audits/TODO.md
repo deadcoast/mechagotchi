@@ -23,7 +23,7 @@ to the play loop — plus the cycle-14 gate's named product remainders.
   tier, the legibility blend steps. The client gains the covenant
   screen; the engine's SLIP authority validates every change (refusal
   verbatim). Engine-truth law on every displayed budget number.
-- [ ] **F8 · Species generation in the client (MVP 0.2's generation
+- [x] **F8 · Species generation in the client (MVP 0.2's generation
   rung).** New founders GENERATED in the product: the promoted
   constrained/WFC surfaces produce a creature under the covenant
   (profile-weighted, validator-gated) that the Keeper can adopt or

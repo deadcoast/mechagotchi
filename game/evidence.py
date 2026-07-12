@@ -622,6 +622,139 @@ def build_fleet_consumers_report(ticks: int = 80) -> dict:
     }
 
 
+HATCHERY_ARTIFACT_ID = "hatchery_stage0"
+
+
+def build_hatchery_report(count: int = 3) -> dict:
+    """F8's measured claims at session scale: founders GENERATED under
+    the covenant (profile-weighted, validator-gated, adoptable through
+    the engine's own gate), every origin legible from the verbatim
+    generation trace, twin runs byte-equal, and a released founder
+    LEADS the next era's pool through the engine's admission gates."""
+    from mecha_engine.lifecycle import initial_state
+    from mecha_engine.slip import is_grid_aligned
+
+    from mecha_game.hatchery import hatch_founders, origin_summary
+
+    inputs = _campaign_inputs(session_scale=True)
+
+    def hatch_run() -> list[dict]:
+        return hatch_founders(
+            inputs["seed_grids"],
+            inputs["slip_profile"],
+            count=count,
+            rng_seed=20260713,
+        )
+
+    first = hatch_run()
+    second = hatch_run()
+    deterministic = json.dumps(first, sort_keys=True) == json.dumps(
+        second, sort_keys=True
+    )
+    ids = [entry["grid"]["grid_id"] for entry in first]
+    all_adoptable = all(
+        initial_state(entry["grid"], inputs["slip_profile"])["alive"]
+        for entry in first
+    )
+    all_aligned = all(
+        is_grid_aligned(entry["grid"], inputs["slip_profile"])
+        for entry in first
+    )
+    origins = [origin_summary(entry["explanation"]) for entry in first]
+
+    campaign = KeeperCampaign(inputs, campaign_id="hatch_evidence")
+    campaign.advance_era("calm")
+    era = campaign.advance_era(
+        "calm", released_grids=[first[0]["grid"]]
+    )
+    released_leads = era["founders_submitted"][0] == ids[0]
+
+    status = (
+        "complete"
+        if deterministic
+        and len(set(ids)) == count
+        and all_adoptable
+        and all_aligned
+        and released_leads
+        and not era["derived"]["went_extinct"]
+        else "refuted"
+    )
+    return {
+        "artifact_id": HATCHERY_ARTIFACT_ID,
+        "status": status,
+        "date": REPORT_DATE,
+        "purpose": (
+            "Cycle 15 F8 (GAME track, Phase F, MVP 0.2): species "
+            "generation in the client — founders GENERATED through "
+            "the promoted constrained surfaces under the covenant "
+            "(profile-weighted, validator-gated), every creature's "
+            "origin LEGIBLE from explain_generation's verbatim trace, "
+            "and released founders LEADING the next era's pool "
+            "through the engine's own admission gates (the lab's "
+            "founders-lead rule). Generation stops being a "
+            "fixtures-only path."
+        ),
+        "source_artifacts": [
+            "game/src/mecha_game/hatchery.py",
+            "game/src/mecha_game/campaign.py",
+            "packages/mecha_engine/src/mecha_engine/generation/__init__.py",
+            "research/decision_records/0031-wfc-generation-adoption.md",
+        ],
+        "metrics": {
+            "count": count,
+            "hatched_ids": ids,
+            "origins": origins,
+            "explanations": [entry["explanation"] for entry in first],
+            "twin_run_equal": deterministic,
+            "all_adoptable_through_the_gate": all_adoptable,
+            "all_covenant_aligned": all_aligned,
+            "released_founder_leads_the_pool": released_leads,
+            "era_with_release_survived": not era["derived"][
+                "went_extinct"
+            ],
+        },
+        "closed_states": [
+            "generation_is_a_product_path (hatch under the ACTIVE "
+            "covenant in the client: H adopts the hatchling, R "
+            "releases a genome into the next era)",
+            "origins_are_legible (the display line is built only "
+            "from the engine's generation trace fields)",
+            "released_founders_lead (the lab's E5 seam consumed: "
+            "releases ahead of elites, admission judged by evolve)",
+        ],
+        "blocked_states": [
+            "workshop_releases_are_F9 (this rung releases HATCHED "
+            "and adopted genomes; the workshop's authored creatures "
+            "arrive with the F9 bridge)",
+            "wfc_stays_era_side (DR 0031's production generator runs "
+            "inside the engine; the hatchery is the constrained "
+            "stabilizer because only its candidates carry the "
+            "explanation trace — a WFC hatchery path would need an "
+            "engine-side trace seam, named not smuggled)",
+        ],
+        "decision": (
+            "adopt: the creator loop's generation rung is a product "
+            "surface; F9 bridges the workshop"
+        ),
+        "next_research_step": (
+            "F9 — the Contribute step: workshop-released creatures "
+            "enter the client's eras as founders"
+        ),
+    }
+
+
+def write_hatchery_artifacts(
+    output_dir: str | Path, report: dict
+) -> Path:
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    path = output_dir / f"{HATCHERY_ARTIFACT_ID}.json"
+    path.write_text(
+        json.dumps(report, indent=2) + "\n", encoding="utf-8"
+    )
+    return path
+
+
 COVENANT_ARTIFACT_ID = "covenant_spending_stage0"
 
 
@@ -1182,6 +1315,10 @@ if __name__ == "__main__":
     print(f"wrote {written}")
     written = write_covenant_spending_artifacts(
         args.output_dir, build_covenant_spending_report()
+    )
+    print(f"wrote {written}")
+    written = write_hatchery_artifacts(
+        args.output_dir, build_hatchery_report()
     )
     print(f"wrote {written}")
     release_report = build_installable_release_report()

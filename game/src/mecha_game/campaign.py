@@ -395,10 +395,18 @@ class KeeperCampaign:
 
     # -- the loop --------------------------------------------------------
 
-    def advance_era(self, weather: str) -> dict:
+    def advance_era(
+        self, weather: str, *, released_grids: list[dict] | None = None
+    ) -> dict:
         """Advance the living bloodline by exactly one era (the lab's
         `advance_campaign` semantics: founders = the previous era's
-        elites; unlock facts accumulate; extinction ends the chain)."""
+        elites; unlock facts accumulate; extinction ends the chain).
+
+        ``released_grids`` (the lab's E5 seam — DR 0021's Contribute):
+        the Keeper's released creatures LEAD the founder pool, ahead
+        of the prior era's elites (the T1/DR 0016 founders-lead rule);
+        admission or verbatim rejection is the engine's own judgment
+        inside ``evolve``. ``None`` keeps every prior flow identical."""
         if self.campaign["status"] != "active":
             raise ValueError(
                 f"campaign {self.campaign['campaign_id']!r} is "
@@ -406,11 +414,12 @@ class KeeperCampaign:
                 "run another era (successor() starts the next)"
             )
         era_index = len(self.eras)
-        founder_grids = (
+        founder_pool = list(released_grids or []) + (
             [elite["grid"] for elite in self.eras[-1]["elites"]]
             if self.eras
-            else None
+            else []
         )
+        founder_grids = founder_pool or None
         legibility_model = self.inputs["legibility_model"]
 
         def scorer(grid: dict) -> float:

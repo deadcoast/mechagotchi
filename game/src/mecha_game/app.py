@@ -15,8 +15,10 @@ close to quit (the lineage file is saved on death and on quit).
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
 
+from mecha_engine.generation import train_generation_model
 from mecha_engine.genome import clip_frame_count
 
 from mecha_game.campaign import (
@@ -28,6 +30,7 @@ from mecha_game.campaign import (
     load_campaign_inputs,
 )
 from mecha_game.clips import TRANSITIONS, ClipDriver
+from mecha_game.hatchery import hatch_founders, origin_summary
 from mecha_game.covenant import (
     spend_deliberation_to_budget,
     spend_generations_to_cap,
@@ -214,12 +217,30 @@ class _EraBench:
             else "; ".join(result["violations"])
         )
 
-    def run_era(self, ledger_path: Path) -> dict:
+    def active_covenant(self) -> dict:
+        return self.ensure().campaign["slip_profile"]
+
+    def hatch(self, rng_seed: int) -> dict:
+        """One founder generated under the ACTIVE covenant, its origin
+        trace riding along (F8)."""
+        campaign = self.ensure()
+        return hatch_founders(
+            campaign.inputs["seed_grids"],
+            self.active_covenant(),
+            count=1,
+            rng_seed=rng_seed,
+        )[0]
+
+    def run_era(
+        self, ledger_path: Path, released_grids: list[dict] | None = None
+    ) -> dict:
         campaign = self.ensure()
         if campaign.status != "active":
             campaign = self.campaign = campaign.successor()
             self.message = "bloodline extinct — successor founded; "
-        era = campaign.advance_era(self.weather)
+        era = campaign.advance_era(
+            self.weather, released_grids=released_grids
+        )
         campaign.save(ledger_path)
         memory = campaign.species_memory()
         last = memory["last_era"]
@@ -330,6 +351,8 @@ def run(argv: list[str] | None = None) -> int:
         queued: str | None = None
         displayed_clip: str | None = None
         covenant_mode = False
+        pending_releases: list[dict] = []
+        hatch_count = 0
         running = True
         # Headless verification: run the requested eras up front.
         if args.eras is not None:
@@ -353,7 +376,43 @@ def run(argv: list[str] | None = None) -> int:
                         ghost = None
                         driver = ClipDriver(driver.frame_counts)
                     elif event.key == pygame.K_e:
-                        bench.run_era(campaign_ledger)
+                        bench.run_era(
+                            campaign_ledger,
+                            released_grids=pending_releases or None,
+                        )
+                        pending_releases = []
+                    elif event.key == pygame.K_h:
+                        # Hatch a founder under the ACTIVE covenant
+                        # and adopt it; its origin is the engine's own
+                        # generation trace (F8).
+                        hatch_count += 1
+                        hatched = bench.hatch(20260713 + hatch_count)
+                        session.save_lineage(lineage_path)
+                        session = CompanionSession(
+                            hatched["grid"],
+                            bench.active_covenant(),
+                            model=train_generation_model(
+                                [hatched["grid"]]
+                            ),
+                            name=hatched["grid"]["grid_id"],
+                        )
+                        ghost = None
+                        driver = ClipDriver(driver.frame_counts)
+                        bench.message = "hatched: " + origin_summary(
+                            hatched["explanation"]
+                        )
+                    elif event.key == pygame.K_r:
+                        # Release the companion's genome as a founder
+                        # for the next era (the engine's own admission
+                        # gates judge it there).
+                        pending_releases.append(
+                            json.loads(json.dumps(session.grid))
+                        )
+                        bench.message = (
+                            f"released {session.grid['grid_id']} to "
+                            f"the next era ({len(pending_releases)} "
+                            "pending)"
+                        )
                     elif event.key == pygame.K_c:
                         covenant_mode = not covenant_mode
                     elif covenant_mode and event.key in (
@@ -443,7 +502,7 @@ def run(argv: list[str] | None = None) -> int:
             else:
                 footer.append(
                     f"E: run era [{bench.weather}]  1/2/3: weather  "
-                    "C: covenant"
+                    "C: covenant  H: hatch  R: release"
                 )
             if bench.message:
                 footer.append(bench.message)
