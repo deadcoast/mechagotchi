@@ -91,6 +91,10 @@ pygame-ce 2.5.7 (SDL 2.32.10, Python 3.13.9)
 # window: creature + bars + footer, 8 ticks played, exit code 0
 ```
 
+The closing sweep (2026-07-12): all 19 lab suites OK under the system
+interpreter (the zlib-ng convention recorded in the F1 report) ·
+package 291 OK · workshop 60 OK · CLI 21 OK · game 42 OK.
+
 ## HONEST REMAINDER
 
 1. **F3 owns the full bridge**: transition-graph clip DRIVING (today:
