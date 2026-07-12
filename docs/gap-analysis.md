@@ -23,9 +23,10 @@ until it is retired.
 2. **THE GAME** — a showcase built ON the engine, with its own USER
    FRONT END: a playable client a person launches and plays. The
    Keeper/era design (DR 0021) is the game's DESIGN; the dev-served
-   workshop HTML pages are NOT its front end — the playable layer does
-   not exist yet and is a first-class build target, not an
-   afterthought.
+   workshop HTML pages are NOT its front end — the playable layer is
+   a first-class build target, not an afterthought (delivered at its
+   MVP 0.1 rung in cycle 14, 2026-07-12 — `game/`, DR 0033; the
+   ladder continues).
 
 They sell each other, so both must be high quality and creative or
 neither matters. **The engine is built before the game.** Every cycle
@@ -72,6 +73,13 @@ Nothing yet reaches even MVP 0.1's own named target (validity §1.34):
 has hunger/energy/mood/age, changes expression by state, logs
 interactions, mutates after death, produces a child using parent
 traits, saves a lineage file. This proves the entire thesis."*
+
+*(Position update, 2026-07-12: the paragraph above was the measured
+2026-07-07 position. MVP 0.1 has since been DELIVERED and gated —
+`research/experiment_reports/2026-07-12-phase-f-mvp01-gate.md` — as
+an installable client at `game/`. The application now exists at its
+FIRST rung; the ladder's 0.2/0.3 rungs and Phase G remain, so the
+scope-is-the-documentation ruling stands unchanged.)*
 
 ## 3. The gap, measured
 
@@ -182,6 +190,17 @@ the GAME track begins in earnest** — each phase at REAL scale:
   chosen by decision record when the phase opens (the docs name web /
   Godot / terminal / Pygame / desktop as bridge targets and TS+React
   as the documented workshop scale-path).
+  **MVP 0.1 DELIVERED (cycle 14, 2026-07-12; the phase CONTINUES at
+  the 0.2 rung)** — gate report
+  `research/experiment_reports/2026-07-12-phase-f-mvp01-gate.md`
+  (DR 0033: a pygame-ce client, engine imported in-process; the
+  documented beg-mediated companion loop with measured stakes;
+  graph-driven clips + the full effects contract + the kept fleet's
+  consumers; the Keeper/era bench with adopt-the-elite; a REAL
+  installable bundle verified install→launch→play→quit→RESUME.
+  §1.22's checklist met element by element; the honest remainder —
+  0.2/0.3 rungs, the Review scrubber, the Contribute bridge, covenant
+  spending — decomposes into cycle 15).
 
 ### Shared / late-stage (Phase G)
 

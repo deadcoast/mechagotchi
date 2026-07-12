@@ -1,87 +1,82 @@
-# Development TODO — Cycle 14: GAME track · Phase F — the playable game (MVP 0.1)
+# Development TODO — Cycle 15: GAME track · Phase F — MVP 0.2 (the creator loop)
 
 **Build track: THE GAME** (of the two builds — engine and game — per
-`docs/gap-analysis.md` §0). The ENGINE track (Phases A–E) is COMPLETE
-with green gates. This cycle begins the build the engine exists to
-showcase: a REAL user front end — a client a player launches and plays.
-The dev-served workshop HTML pages are NOT this front end (standing
-identity constraint). The Keeper/era design (DR 0021) and the companion
-loop are DESIGN INPUTS, not implementations.
+`docs/gap-analysis.md` §0; the ENGINE track A–E is complete). MVP 0.1
+was DELIVERED in cycle 14 (gate:
+`research/experiment_reports/2026-07-12-phase-f-mvp01-gate.md`): a
+player installs, launches, plays, quits, and resumes. This cycle
+climbs the ladder's next rung.
 
-Source: `docs/gap-analysis.md` (Phase F), opened by the Phase-E gate
-(`research/experiment_reports/2026-07-09-phase-e-gate.md`, cycle 13).
-The MVP ladder (validity-research §1.21–1.34) is climbed as PRODUCT
-releases; MVP 0.1 is this cycle's rung: *"A 16×16 monochrome grid
-creature that is generated from a genome, has hunger/energy/mood/age,
-changes expression by state, logs interactions, mutates after death,
-produces a child using parent traits, saves a lineage file. This
-proves the entire thesis."* Named engine seams this cycle finally
-consumes: the render-packet animation/effects/ui_hints contract
-(Phase C), the kept fleet's game-side value — beg timing, ui_hints,
-clip choice, mood display (Phase D), and the evolution repertoire —
-species memory surfacing to the player (Phase E).
+Source: `docs/gap-analysis.md` (Phase F; the MVP ladder) and validity
+§1.23: *"MVP 0.2 — Add Markov grid generation. Add micro-learning
+threads. Add profile-weighted mutation. Add visual editor. Add
+preview simulation."* Micro-learning threads reached the product in
+cycle 14 F3b (the kept fleet's consumers); the remaining 0.2 surface
+is the CREATOR loop — generation, authoring, and progression joined
+to the play loop — plus the cycle-14 gate's named product remainders.
 
-- [x] **F1 · The front-end technology decision record + the client
-  skeleton.** Evaluate the documented bridge targets (web / Godot /
-  terminal / Pygame / desktop; TS+React is the documented workshop
-  scale-path) against the engine's REAL contract (JSON render packets,
-  retro effects, deterministic replays, installable releases with save
-  files); choose by decision record with justification; deliver a
-  LAUNCHABLE hello-creature client rendering a real engine packet
-  end-to-end. RED-first where testable; triad on the game side too.
-- [x] **F2 · The companion loop as a product (MVP 0.1).** The
-  launchable client runs the documented loop: a 16×16 creature
-  generated from a genome; hunger/energy/mood/age VISIBLE; expression
-  changes by state; interactions logged; death → mutation → child
-  carrying parent traits; a lineage file saved. Engine-truth law
-  (DR 0021 first law): every displayed number is a report field, an
-  artifact, or a recorded replay — uncalibrated things shown as
-  uncalibrated.
-- [x] **F3 · The render bridge consumed in full.** Live clip DRIVING
-  through the animation graph (the named Phase-C remainder); the retro
-  effects pipeline (scanline, lcd_ghosting, crt_bloom, glitch);
-  ui_hints (need icons, attention ping). The kept fleet cashes out
-  here: beg timing, clip choice, mood display through the D6-kept
-  threads' confidences.
-- [x] **F4 · The Keeper/era loop.** DR 0021's design as input: save
-  files, sessions, era progression; the evolution repertoire surfaces
-  to the player (species memory — E5's recurrent families are the
-  proven substrate). The engine archive's scale-geometry seam promotes
-  HERE if this consumer demands it (the named Phase-E remainder, its
-  own gated package change).
-- [x] **F5 · The installable release.** MVP 0.1 as a product: a player
-  can install, launch, play, quit, and resume from a save file.
-  Packaging tech justified in F1's decision record (full CI/
-  reproducibility stays Phase G).
-- [ ] **F6 · The Phase-F MVP 0.1 gate.** One consolidated gate report
-  with the honest remainder list (including what of Phase F remains
-  beyond MVP 0.1 — the ladder's 0.2/0.3 rungs decompose into the next
-  cycle FROM THE GAP ANALYSIS if the phase continues); cycle 14
-  archived; the gap analysis governs what opens next.
+- [ ] **F7 · Covenant spending — the progression is FELT.** The
+  earned unlock facts SPEND into the covenant (DR 0021's Covenant
+  step; the session lab's `covenant_budget`/`apply_covenant_change`
+  are the proven source — mirror, never import): palettes unlock per
+  niche-mastery tier, `deliberation.max_ticks` deepens per bloodline
+  tier, the legibility blend steps. The client gains the covenant
+  screen; the engine's SLIP authority validates every change (refusal
+  verbatim). Engine-truth law on every displayed budget number.
+- [ ] **F8 · Species generation in the client (MVP 0.2's generation
+  rung).** New founders GENERATED in the product: the promoted
+  constrained/WFC surfaces produce a creature under the covenant
+  (profile-weighted, validator-gated) that the Keeper can adopt or
+  release into an era — generation stops being a fixtures-only path.
+  The generation explanation (`explain_generation`) surfaces so the
+  creature's origin is legible.
+- [ ] **F9 · The Contribute step — the workshop bridge.** DR 0021's
+  Contribute: workshop-released creatures enter the client's eras as
+  founders through the engine's own gates (`released_grids` — the
+  admission/verbatim-rejection seam the session lab already proves).
+  Scope the BRIDGE (release file handoff), not a workshop rewrite;
+  the workshop keeps its own stack.
+- [ ] **F10 · The Review step — era replays in the client.** The R5
+  recorder's era replay (the named G3/Review remainder) reaches the
+  player: after an era, the best elite's recorded life plays back in
+  the client (scrubber-lite: play/pause/step). Honest labeling per
+  the lab: a real recorded life of a real era creature.
+- [ ] **F11 · Product hardening.** Era-bench model caching (the ~6 s
+  lazy train, cached to the keeper dir); the bandit's warmth surfaced
+  once real play feeds it; windowed-mode (non-console) release build;
+  `mechas` gains the game's operational commands per DR 0007's
+  charter (new workflows become `mechas` commands).
+- [ ] **F12 · The MVP 0.2 gate.** One consolidated report with the
+  honest remainder list (0.3's rungs — archive/niches surfacing,
+  import/export, lineage browser, community packs — decompose FROM
+  THE GAP ANALYSIS); cycle 15 archived; the gap analysis governs what
+  opens next.
 
 ## Standing note
 
 `docs/gap-analysis.md` governs cycle planning until retired (Phase G
-alpha). The engine-truth law (DR 0021), the identity constraint, and
-the triad discipline are unchanged and apply to GAME-side work. CuBFF
-real ingest is REQUIRED late-stage (Phase G). Apache-2.0; dependencies
-permitted with justification (DR 0028) — a game front end will need
-them; justify in F1's decision record. Named remainders standing from
-the engine track: DR 0032's re-openers (GA-advantage direction,
-family collapse); occupancy saturation ~55% under the pure WFC parent
-path (novelty pressure is a candidate with its own evidence);
-behavior_neediness recalibration at 16×16; the unpromoted archive
-scale-geometry seam (F4 may be its consumer); evolve's inner loop on
-WFC (E2's evidence recorded; the package change waits for its
-consumer); SLIP alignment in the scale harnesses; the hybrid
-re-opener; limb/joint per-role motion; clip-frame exports; dropped
-threads stay out of default profiles (D6).
+alpha). The engine-truth law (DR 0021), the identity constraint, the
+triad discipline, and the mirror-never-import boundary apply to all
+GAME-side work. CuBFF real ingest is REQUIRED late-stage (Phase G).
+Apache-2.0; dependencies permitted with justification (DR 0028).
+Named remainders standing from the engine track: DR 0032's re-openers
+(GA-advantage direction, family collapse); occupancy saturation ~55%
+under the pure WFC parent path; behavior_neediness recalibration at
+16×16; the unpromoted archive scale-geometry seam (cycle 14's F4 did
+NOT demand it — recorded); evolve's inner loop on WFC (package change
+waits for its consumer); SLIP alignment in the scale harnesses; the
+hybrid re-opener; limb/joint per-role motion; clip-frame exports;
+dropped threads stay out of default profiles (D6). Game-side named
+remainders: CI/signing/multi-platform packaging (Phase G); the
+fleet's decision-seam divergence is ~0 by design (D6 — its value is
+display/timing/choice).
 
 ## Sources
 
 - `docs/gap-analysis.md` (Phase F; §0 the two builds)
-- `research/experiment_reports/2026-07-09-phase-e-gate.md` (the opener)
-- `research/decision_records/0021-game-loop.md` (the Keeper/era design input)
-- `docs/project-research/validity-research.md` (§1.21–1.34, the MVP ladder)
-- `research/decision_records/0026`, `0031`, `0032` (named re-openers)
-- `data/micro_threads/ablation_gates_stage0.json` (the kept fleet)
+- `research/experiment_reports/2026-07-12-phase-f-mvp01-gate.md` (the opener)
+- `docs/project-research/validity-research.md` (§1.23 — MVP 0.2)
+- `research/decision_records/0021-game-loop.md` (Covenant/Contribute/Review)
+- `labs/game_loop/session_runner.py` (covenant budget + released_grids, proven)
+- `labs/game_loop/replay_recorder.py` (R5, the Review source)
+- `research/decision_records/0007-mechas-companion-cli.md` (F11's charter)

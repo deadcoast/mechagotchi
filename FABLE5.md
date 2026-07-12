@@ -22,10 +22,11 @@ make them say it again.
    `labs/` + `research/` + `data/`.
 2. **THE GAME** — a SEPARATE build that showcases the engine, with its
    own **playable user front end**: a client a player launches and
-   plays. It does NOT exist yet. The Keeper/era design (decision
-   record 0021) is its *design document*, not its implementation. The
-   dev-served workshop HTML pages are NOT the game's front end — a
-   prior session repeatedly made that mistake.
+   plays. (Since 2026-07-12 its MVP 0.1 rung EXISTS at `game/` —
+   pygame-ce, DR 0033, gated green — and the ladder continues.) The
+   Keeper/era design (decision record 0021) is its *design document*.
+   The dev-served workshop HTML pages are NOT the game's front end —
+   a prior session repeatedly made that mistake.
 
 They sell each other, so both must be high quality and creative or
 neither matters. **The engine is built before the game.** The workshop
@@ -70,10 +71,17 @@ this, or am I periscoping?
   the co-author line `Co-Authored-By: Claude Fable 5
   <noreply@anthropic.com>`.
 
-## 3. Where we are RIGHT NOW (updated 2026-07-12, mid cycle 14)
+## 3. Where we are RIGHT NOW (updated 2026-07-12, end of cycle 14)
 
-- **Active queue:** `audits/TODO.md` = **Cycle 14 · GAME track ·
-  Phase F — the playable game (MVP 0.1).** **F1 is COMPLETE**
+- **Active queue:** `audits/TODO.md` = **Cycle 15 · GAME track ·
+  Phase F — MVP 0.2 (the creator loop).** Nothing in it is started;
+  the next concrete work is **F7 · covenant spending**. **CYCLE 14
+  (MVP 0.1) IS COMPLETE AND GATED GREEN** — the six F-tasks below all
+  shipped 2026-07-12 and the gate report is
+  `research/experiment_reports/2026-07-12-phase-f-mvp01-gate.md`.
+  The playable product exists: `uv run python -B game/run_game.py`
+  (dev) or `game/build_release.py` → `dist/Mechagotchi/` (installed).
+- **Cycle 14's shipped record** (kept for context): **F1 is COMPLETE**
   (2026-07-12): DR 0033 chose **pygame-ce** for the client (engine
   imported in-process — packets verbatim, replay fidelity by
   construction; upstream pygame lacks Python 3.14 support), and the
@@ -169,7 +177,12 @@ this, or am I periscoping?
    doctor, reviewer prefill, shell completion).
 7. `research/README.md` — the master traceability ledger.
 
-## 5. WHAT TO DO NEXT — Cycle 14, task F4 (THE GAME TRACK)
+## 5. WHAT TO DO NEXT — Cycle 15, task F7 (THE GAME TRACK, MVP 0.2)
+
+`audits/TODO.md` holds cycle 15's full task text (F7–F12: covenant
+spending, species generation in the client, the Contribute/workshop
+bridge, the Review replays, hardening, the 0.2 gate). The cycle-14
+record below is kept for context:
 
 `audits/TODO.md` holds the full task text. This is the build the
 engine exists to showcase: a client a player LAUNCHES AND PLAYS. The
@@ -201,8 +214,13 @@ workshop pages are NOT it. The sequence:
   PyInstaller 6.21 onedir bundle with the data corpus
   (`game/build_release.py`; dist/ gitignored); the REAL exe verified:
   fresh exit 0 → resume exit 0, age 4→7.
-- **F6** · the Phase-F MVP 0.1 gate; the ladder's 0.2/0.3 rungs
-  decompose into the next cycle FROM THE GAP ANALYSIS.
+- **F6 · DONE (2026-07-12). THE PHASE-F MVP 0.1 GATE IS GREEN** —
+  `research/experiment_reports/2026-07-12-phase-f-mvp01-gate.md`.
+  Cycle 14 archived to `audits/complete/14/`; **cycle 15 opened**
+  (GAME · Phase F · MVP 0.2, the creator loop): F7 covenant
+  spending, F8 species generation in the client, F9 the Contribute/
+  workshop bridge, F10 the Review replays, F11 hardening (model
+  cache, windowed build, `mechas` commands), F12 the 0.2 gate.
 
 Then the MVP ladder continues per the gap analysis (Phase F may span
 cycles); Phase G (CuBFF real ingest, community, CI, public alpha)
