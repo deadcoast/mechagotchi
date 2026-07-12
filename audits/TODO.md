@@ -30,7 +30,7 @@ to the play loop — plus the cycle-14 gate's named product remainders.
   release into an era — generation stops being a fixtures-only path.
   The generation explanation (`explain_generation`) surfaces so the
   creature's origin is legible.
-- [ ] **F9 · The Contribute step — the workshop bridge.** DR 0021's
+- [x] **F9 · The Contribute step — the workshop bridge.** DR 0021's
   Contribute: workshop-released creatures enter the client's eras as
   founders through the engine's own gates (`released_grids` — the
   admission/verbatim-rejection seam the session lab already proves).

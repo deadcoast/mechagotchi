@@ -622,6 +622,140 @@ def build_fleet_consumers_report(ticks: int = 80) -> dict:
     }
 
 
+CONTRIBUTE_ARTIFACT_ID = "contribute_bridge_stage0"
+
+
+def build_contribute_bridge_report() -> dict:
+    """F9's measured claims at session scale: the committed workshop
+    releases enter an era and the ENGINE judges them — the 8×8 pair
+    is rejected VERBATIM on size coherence (recorded, shown), a
+    16×16 covenant-aligned release is ADMITTED and LEADS the pool;
+    the era survives either way; twin runs byte-equal."""
+    from mecha_game.contribute import (
+        founders_verdict,
+        load_released_grids,
+    )
+
+    inputs = _campaign_inputs(session_scale=True)
+    workshop_inbox = ROOT / "data" / "workshop" / "released"
+
+    def run_cycle() -> dict:
+        campaign = KeeperCampaign(
+            inputs, campaign_id="contribute_evidence"
+        )
+        committed = load_released_grids(workshop_inbox)
+        aligned_release = json.loads(
+            json.dumps(inputs["seed_grids"][1])
+        )
+        aligned_release["grid_id"] = "released_workshop_16"
+        era = campaign.advance_era(
+            "calm", released_grids=committed + [aligned_release]
+        )
+        verdict = founders_verdict(era)
+        return {
+            "submitted": era["founders_submitted"],
+            "verdict": verdict,
+            "era_survived": not era["derived"]["went_extinct"],
+            "elites": len(era["elites"]),
+        }
+
+    first = run_cycle()
+    second = run_cycle()
+    deterministic = first == second
+    verdict = first["verdict"]
+    rejected_ids = [r["grid_id"] for r in verdict["rejected"]]
+    size_rejections_verbatim = all(
+        any("8x8" in error and "16x16" in error for error in r["errors"])
+        for r in verdict["rejected"]
+    )
+    admitted_leads = (
+        "released_workshop_16" in verdict["admitted_ids"]
+        and first["submitted"][2] == "released_workshop_16"
+    )
+    status = (
+        "complete"
+        if deterministic
+        and sorted(rejected_ids)
+        == ["released_tall_wisp", "released_wide_sentinel"]
+        and size_rejections_verbatim
+        and admitted_leads
+        and first["era_survived"]
+        else "refuted"
+    )
+    return {
+        "artifact_id": CONTRIBUTE_ARTIFACT_ID,
+        "status": status,
+        "date": REPORT_DATE,
+        "purpose": (
+            "Cycle 15 F9 (GAME track, Phase F, MVP 0.2): the "
+            "Contribute step — workshop-released creatures enter the "
+            "client's eras through the engine's own gates. A FILE "
+            "bridge (the lab's inbox rule: deterministic order, "
+            "backups skipped) into the F8 era seam; admission is the "
+            "ENGINE's verdict — the committed 8×8 releases rejected "
+            "VERBATIM on DR 0029 size coherence, an aligned 16×16 "
+            "release admitted and leading the pool — both shown to "
+            "the Keeper, never smoothed."
+        ),
+        "source_artifacts": [
+            "game/src/mecha_game/contribute.py",
+            "data/workshop/released/released_tall_wisp.json",
+            "data/workshop/released/released_wide_sentinel.json",
+            "labs/game_loop/session_runner.py",
+            "packages/mecha_engine/src/mecha_engine/runtime/evolve.py",
+        ],
+        "metrics": {
+            "cycle": first,
+            "twin_run_equal": deterministic,
+            "committed_releases_rejected_verbatim": (
+                size_rejections_verbatim
+            ),
+            "aligned_release_admitted_and_leads": admitted_leads,
+        },
+        "closed_states": [
+            "contribute_is_a_file_bridge (the workshop keeps its own "
+            "stack; inboxes: data/workshop/released + the player's "
+            "keeper/released)",
+            "admission_is_the_engines_verdict (DR 0016 founders-lead "
+            "+ DR 0029 size coherence + SLIP alignment, recorded in "
+            "the era report's founders block and shown in the era "
+            "message)",
+            "rejections_are_verbatim (the 8×8 committed releases "
+            "reject with the engine's own size error — an honest, "
+            "documented outcome, not a bridge failure)",
+        ],
+        "blocked_states": [
+            "workshop_authoring_at_16x16 (the committed releases are "
+            "8×8-era pieces; a 16×16 authored release will admit the "
+            "day the workshop saves one — the bridge needs no change)",
+            "release_provenance_display (the inspector's released-"
+            "ancestry browsing stays workshop-side; the client shows "
+            "the verdict, not the full ancestry — a 0.3 lineage-"
+            "browser rung)",
+        ],
+        "decision": (
+            "adopt: DR 0021's Contribute step is a product surface; "
+            "F10 brings the Review replays"
+        ),
+        "next_research_step": (
+            "F10 — the Review step: era replays in the client "
+            "(scrubber-lite over the R5 recorder)"
+        ),
+    }
+
+
+def write_contribute_bridge_artifacts(
+    output_dir: str | Path, report: dict
+) -> Path:
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    path = output_dir / f"{CONTRIBUTE_ARTIFACT_ID}.json"
+    path.write_text(
+        json.dumps(report, indent=2) + "\n", encoding="utf-8"
+    )
+    return path
+
+
 HATCHERY_ARTIFACT_ID = "hatchery_stage0"
 
 
@@ -1319,6 +1453,10 @@ if __name__ == "__main__":
     print(f"wrote {written}")
     written = write_hatchery_artifacts(
         args.output_dir, build_hatchery_report()
+    )
+    print(f"wrote {written}")
+    written = write_contribute_bridge_artifacts(
+        args.output_dir, build_contribute_bridge_report()
     )
     print(f"wrote {written}")
     release_report = build_installable_release_report()

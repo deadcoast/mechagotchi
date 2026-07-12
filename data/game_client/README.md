@@ -75,4 +75,11 @@ the playable front end, distinct from the workshop's authoring surfaces.
   pool and the era survived. The hatchery is the constrained
   stabilizer (trace-carrying); WFC stays era-side (DR 0031).
 
+- `contribute_bridge_stage0.json` - F9 (cycle 15, MVP 0.2): the
+  Contribute step as a file bridge - the committed 8x8 workshop
+  releases rejected VERBATIM on DR 0029 size coherence while an
+  LCD-aligned 16x16 release was admitted and led the pool (the
+  engine's own verdict, shown never smoothed); twin-equal; the era
+  survived. Inboxes: data/workshop/released + keeper/released.
+
 Produced by `game/evidence.py`.

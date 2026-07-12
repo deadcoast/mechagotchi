@@ -198,10 +198,15 @@ companion's genome to the next era — the creator loop closes.
 Evidence `hatchery_stage0.json`: 3 founders, twin-equal, aligned,
 adoptable, released-leads, era survived. 99 game tests. Honest note:
 the hatchery is the CONSTRAINED stabilizer (trace-carrying); a WFC
-hatchery path needs an engine-side trace seam — named. Next: **F9 —
-the Contribute/workshop bridge** (F10 Review replays, F11 hardening,
-F12 the 0.2 gate follow). The cycle-14
-record below is kept for context:
+hatchery path needs an engine-side trace seam — named. **F9 (the
+Contribute bridge) is DONE (2026-07-12)**: `contribute.py` (the
+lab's inbox rule verbatim; inboxes = data/workshop/released +
+keeper/released); W gathers releases; admission is the ENGINE's
+verdict shown in the era message (the committed 8×8 releases reject
+verbatim on size — honest; an aligned 16×16 release admits and
+leads). Evidence `contribute_bridge_stage0.json`; 106 game tests.
+Next: **F10 — the Review replays** (F11 hardening, F12 the 0.2 gate
+follow). The cycle-14 record below is kept for context:
 
 `audits/TODO.md` holds the full task text. This is the build the
 engine exists to showcase: a client a player LAUNCHES AND PLAYS. The

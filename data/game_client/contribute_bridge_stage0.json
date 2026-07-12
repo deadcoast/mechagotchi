@@ -1,0 +1,57 @@
+{
+  "artifact_id": "contribute_bridge_stage0",
+  "status": "complete",
+  "date": "2026-07-12",
+  "purpose": "Cycle 15 F9 (GAME track, Phase F, MVP 0.2): the Contribute step \u2014 workshop-released creatures enter the client's eras through the engine's own gates. A FILE bridge (the lab's inbox rule: deterministic order, backups skipped) into the F8 era seam; admission is the ENGINE's verdict \u2014 the committed 8\u00d78 releases rejected VERBATIM on DR 0029 size coherence, an aligned 16\u00d716 release admitted and leading the pool \u2014 both shown to the Keeper, never smoothed.",
+  "source_artifacts": [
+    "game/src/mecha_game/contribute.py",
+    "data/workshop/released/released_tall_wisp.json",
+    "data/workshop/released/released_wide_sentinel.json",
+    "labs/game_loop/session_runner.py",
+    "packages/mecha_engine/src/mecha_engine/runtime/evolve.py"
+  ],
+  "metrics": {
+    "cycle": {
+      "submitted": [
+        "released_tall_wisp",
+        "released_wide_sentinel",
+        "released_workshop_16"
+      ],
+      "verdict": {
+        "admitted_ids": [
+          "released_workshop_16"
+        ],
+        "rejected": [
+          {
+            "grid_id": "released_tall_wisp",
+            "errors": [
+              "founder grid is 8x8 but the era runs at 16x16"
+            ]
+          },
+          {
+            "grid_id": "released_wide_sentinel",
+            "errors": [
+              "founder grid is 8x8 but the era runs at 16x16"
+            ]
+          }
+        ]
+      },
+      "era_survived": true,
+      "elites": 39
+    },
+    "twin_run_equal": true,
+    "committed_releases_rejected_verbatim": true,
+    "aligned_release_admitted_and_leads": true
+  },
+  "closed_states": [
+    "contribute_is_a_file_bridge (the workshop keeps its own stack; inboxes: data/workshop/released + the player's keeper/released)",
+    "admission_is_the_engines_verdict (DR 0016 founders-lead + DR 0029 size coherence + SLIP alignment, recorded in the era report's founders block and shown in the era message)",
+    "rejections_are_verbatim (the 8\u00d78 committed releases reject with the engine's own size error \u2014 an honest, documented outcome, not a bridge failure)"
+  ],
+  "blocked_states": [
+    "workshop_authoring_at_16x16 (the committed releases are 8\u00d78-era pieces; a 16\u00d716 authored release will admit the day the workshop saves one \u2014 the bridge needs no change)",
+    "release_provenance_display (the inspector's released-ancestry browsing stays workshop-side; the client shows the verdict, not the full ancestry \u2014 a 0.3 lineage-browser rung)"
+  ],
+  "decision": "adopt: DR 0021's Contribute step is a product surface; F10 brings the Review replays",
+  "next_research_step": "F10 \u2014 the Review step: era replays in the client (scrubber-lite over the R5 recorder)"
+}

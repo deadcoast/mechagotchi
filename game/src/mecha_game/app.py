@@ -30,6 +30,7 @@ from mecha_game.campaign import (
     load_campaign_inputs,
 )
 from mecha_game.clips import TRANSITIONS, ClipDriver
+from mecha_game.contribute import founders_verdict, gather_releases
 from mecha_game.hatchery import hatch_founders, origin_summary
 from mecha_game.covenant import (
     spend_deliberation_to_budget,
@@ -252,6 +253,18 @@ class _EraBench:
             + ("  EXTINCT" if last["went_extinct"] else "")
             + "   A: adopt best elite"
         )
+        # The engine's own admission verdict, shown never smoothed (F9).
+        verdict = founders_verdict(era)
+        if verdict is not None:
+            self.message += (
+                f"   founders: {len(verdict['admitted_ids'])} admitted"
+                f", {len(verdict['rejected'])} rejected"
+            )
+            if verdict["rejected"]:
+                first = verdict["rejected"][0]
+                self.message += (
+                    f" ({first['grid_id']}: {first['errors'][0]})"
+                )
         return era
 
 
@@ -401,6 +414,17 @@ def run(argv: list[str] | None = None) -> int:
                         bench.message = "hatched: " + origin_summary(
                             hatched["explanation"]
                         )
+                    elif event.key == pygame.K_w:
+                        # Gather the workshop's and the Keeper's
+                        # released creatures for the next era; the
+                        # engine's gates judge them there (F9).
+                        releases = gather_releases(keeper_dir)
+                        pending_releases.extend(releases)
+                        bench.message = (
+                            f"gathered {len(releases)} released "
+                            f"creatures ({len(pending_releases)} "
+                            "pending for the next era)"
+                        )
                     elif event.key == pygame.K_r:
                         # Release the companion's genome as a founder
                         # for the next era (the engine's own admission
@@ -502,7 +526,7 @@ def run(argv: list[str] | None = None) -> int:
             else:
                 footer.append(
                     f"E: run era [{bench.weather}]  1/2/3: weather  "
-                    "C: covenant  H: hatch  R: release"
+                    "C: covenant  H: hatch  R: release  W: workshop"
                 )
             if bench.message:
                 footer.append(bench.message)
