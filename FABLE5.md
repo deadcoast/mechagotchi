@@ -196,8 +196,11 @@ workshop pages are NOT it. The sequence:
   / A-adopt-elite); `campaign.py` mirrors the session lab; the
   runtime gained the learned-readability export (RED-first). The
   scale-geometry seam was NOT demanded — recorded, stays unpromoted.
-- **F5** · the installable release (install, launch, play, quit,
-  resume).
+- **F5 · DONE (2026-07-12).** `keeper_session_v1` save/resume
+  (byte-identical continuation pinned); auto-resume unless `--new`;
+  PyInstaller 6.21 onedir bundle with the data corpus
+  (`game/build_release.py`; dist/ gitignored); the REAL exe verified:
+  fresh exit 0 → resume exit 0, age 4→7.
 - **F6** · the Phase-F MVP 0.1 gate; the ladder's 0.2/0.3 rungs
   decompose into the next cycle FROM THE GAP ANALYSIS.
 
@@ -351,15 +354,21 @@ axes, twin-equal, ledger lossless. 79 game tests. The scale-geometry
 seam was NOT demanded (recorded). Report:
 `2026-07-12-keeper-era-loop.md`.
 
-Next: **F5 — the installable release** (MVP 0.1 as a product: a
-player can install, launch, play, quit, and RESUME FROM A SAVE FILE).
-PyInstaller named in DR 0033, decided at F5 with evidence. Note the
-resume requirement: the companion session currently saves only the
-lineage file — F5 needs save/load of the live companion state
-(the W1 lab's save_companion/load_companion pattern is the proven
-source) plus the campaign ledger already persisting. Then **F6 — the
-Phase-F MVP 0.1 gate** (one consolidated report; the 0.2/0.3 rungs
-decompose into the next cycle FROM THE GAP ANALYSIS).
+**F5 also shipped — checked off** (save/resume RED-first with the
+byte-identical-continuation pin and a real bug caught — bounded runs
+counted session ticks which continue across resume; PyInstaller 6.21
+decided at the rung; the REAL 41 MB bundle verified fresh→resume,
+age 4→7; evidence `installable_release_stage0.json` generates only
+against an existing build). Report:
+`2026-07-12-installable-release.md`.
+
+Next: **F6 — the Phase-F MVP 0.1 gate**: one consolidated gate
+report judging MVP 0.1's own sentence (validity §1.22/§1.34) against
+the five shipped tasks + the honest remainder list (0.2/0.3 rungs,
+Review scrubber, Contribute bridge, covenant spending, CI/Phase G);
+cycle 14 archives to `audits/complete/14/`; cycle 15 plans FROM THE
+GAP ANALYSIS (Phase F continues at the 0.2 rung unless the owner
+redirects).
 
 ## OLD LOG (2026-07-08 session — cycle 12 Phase D)
 

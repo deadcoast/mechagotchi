@@ -301,6 +301,55 @@ class FleetConsumerTests(unittest.TestCase):
         self.assertEqual(first.state, second.state)
 
 
+class SaveResumeTests(unittest.TestCase):
+    """F5 — quit and RESUME: the live companion round-trips through
+    its save file (the W1 lab's save/load pattern, engine state
+    verbatim)."""
+
+    def test_save_load_round_trips_the_living_state(self):
+        session = _session()
+        for _ in range(5):
+            session.advance()
+        session.advance(player_action="feed")
+        with tempfile.TemporaryDirectory() as tmp:
+            path = session.save(Path(tmp) / "companion.json")
+            resumed = CompanionSession.load(path)
+        self.assertEqual(session.state, resumed.state)
+        self.assertEqual(session.log, resumed.log)
+        self.assertEqual(session.lineage, resumed.lineage)
+        self.assertEqual(session.name, resumed.name)
+        self.assertEqual(session.session_tick, resumed.session_tick)
+        self.assertEqual(session.begging, resumed.begging)
+        # The resumed life continues deterministically with the twin.
+        session.advance()
+        resumed.advance()
+        self.assertEqual(session.state, resumed.state)
+
+    def test_save_backs_up_before_overwrite(self):
+        session = _session()
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "companion.json"
+            session.save(path)
+            session.advance()
+            session.save(path)
+            self.assertTrue(
+                path.with_suffix(".bak.json").is_file()
+            )
+
+    def test_a_dead_companion_resumes_dead(self):
+        session = _session()
+        _run_to_death(session)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = session.save(Path(tmp) / "companion.json")
+            resumed = CompanionSession.load(path)
+        self.assertFalse(resumed.alive)
+        self.assertEqual(session.death_cause, resumed.death_cause)
+        with self.assertRaises(ValueError):
+            resumed.advance()
+        resumed.succeed()
+        self.assertTrue(resumed.alive)
+
+
 class SessionPacketTests(unittest.TestCase):
     def test_packet_is_engine_truth_with_state_selected_clip(self):
         session = _session()

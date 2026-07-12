@@ -45,6 +45,7 @@ DEFAULT_FPS = 8  # the LCD heartbeat (render frames)
 DEFAULT_TICK_FRAMES = 12  # lifecycle tick every N frames (1.5 s at 8 fps)
 FOOTER_PX = 140  # the casing's text area (chrome, not LCD)
 LINEAGE_FILENAME = "lineage.json"
+COMPANION_FILENAME = "companion.json"
 
 
 def default_keeper_dir(start: Path | None = None) -> Path:
@@ -127,6 +128,11 @@ def build_parser() -> argparse.ArgumentParser:
         choices=["session", "tiny"],
         default="session",
         help="era configuration (tiny is for verification runs)",
+    )
+    parser.add_argument(
+        "--new",
+        action="store_true",
+        help="start a fresh companion (default: resume the save file)",
     )
     return parser
 
@@ -240,12 +246,17 @@ def run(argv: list[str] | None = None) -> int:
         default_seed, default_slip = default_fixture_paths()
         seed = seed or default_seed
         slip = slip or default_slip
-    grid, slip_profile, model = load_session_inputs(seed, slip)
-    session = CompanionSession(grid, slip_profile, model=model)
     keeper_dir = args.keeper_dir or default_keeper_dir()
     lineage_path = keeper_dir / LINEAGE_FILENAME
+    companion_path = keeper_dir / COMPANION_FILENAME
     bench = _EraBench(args.era_scale)
     campaign_ledger = keeper_dir / "campaign.sqlite3"
+    # Quit and come back (F5): the save file resumes unless --new.
+    if companion_path.is_file() and not args.new:
+        session = CompanionSession.load(companion_path)
+    else:
+        grid, slip_profile, model = load_session_inputs(seed, slip)
+        session = CompanionSession(grid, slip_profile, model=model)
 
     width, height = session.grid["grid_size"]
     panel_px = height * args.scale
@@ -272,6 +283,8 @@ def run(argv: list[str] | None = None) -> int:
         )
         ghost = None
         frame = 0
+        ticks_run = 0  # THIS run's ticks (a resumed session's
+        # session_tick continues across launches)
         queued: str | None = None
         displayed_clip: str | None = None
         running = True
@@ -328,6 +341,7 @@ def run(argv: list[str] | None = None) -> int:
                 session.advance(
                     player_action=queued, displayed_clip=displayed_clip
                 )
+                ticks_run += 1
                 queued = None
                 if not session.alive:
                     session.save_lineage(lineage_path)
@@ -338,7 +352,7 @@ def run(argv: list[str] | None = None) -> int:
                     elif args.ticks is not None:
                         # A bounded, unattended run ends at death.
                         running = False
-                if session.session_tick == args.ticks:
+                if ticks_run == args.ticks:
                     running = False
 
             clip, frame_index = driver.step(session.desired_clip())
@@ -385,6 +399,7 @@ def run(argv: list[str] | None = None) -> int:
             frame += 1
             clock.tick(args.fps)
         session.save_lineage(lineage_path)
+        session.save(companion_path)
         return 0
     finally:
         pygame.quit()

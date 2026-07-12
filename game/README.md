@@ -42,6 +42,17 @@ dies · **ESC**/close quit. The lineage file saves to `keeper/`
 (gitignored) on death and on quit. The companion begs when it wants
 food — only you can feed it; neglect starves it (measured: ~10 ticks).
 
+## Install it (F5)
+
+```powershell
+uv run python -B game/build_release.py
+.\game\dist\Mechagotchi\Mechagotchi.exe        # install-free bundle: launch and play
+```
+
+Quit and come back: the client auto-resumes your companion from the
+save file (`--new` starts a fresh one). Saves live in `keeper/` in a
+checkout, `~/.mechagotchi` for the installed build.
+
 ## Test it
 
 ```powershell

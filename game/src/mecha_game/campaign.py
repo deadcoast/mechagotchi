@@ -200,9 +200,21 @@ TINY_ERA_CONFIG = {
 
 
 def default_campaign_paths(start: Path | None = None) -> dict:
-    """Resolve the campaign inputs from a repo checkout (the same
-    walk-up rule as the hello fixtures)."""
-    origin = (start or Path(__file__)).resolve()
+    """Resolve the campaign inputs from a repo checkout or a frozen
+    bundle (the same walk-up rule as the hello fixtures)."""
+    from mecha_game.packets import data_search_origins
+
+    for origin in data_search_origins(start):
+        found = _campaign_paths_under(origin)
+        if found is not None:
+            return found
+    raise FileNotFoundError(
+        "no campaign fixture corpus near this installation — "
+        "pass explicit paths"
+    )
+
+
+def _campaign_paths_under(origin: Path) -> dict | None:
     for base in (origin, *origin.parents):
         seed_dir = base / "data" / "seed_grids_16x16"
         slip = base / "data" / "slips" / "valid" / "slip_lcd_seed.json"
@@ -218,10 +230,7 @@ def default_campaign_paths(start: Path | None = None) -> dict:
                 "slip_path": slip,
                 "adopted_model_path": adopted,
             }
-    raise FileNotFoundError(
-        f"no campaign fixture corpus above {origin} — "
-        "pass explicit paths"
-    )
+    return None
 
 
 def load_campaign_inputs(

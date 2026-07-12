@@ -25,6 +25,7 @@ companion's life is the player.
 
 from __future__ import annotations
 
+import dataclasses
 import json
 import random
 from pathlib import Path
@@ -44,6 +45,7 @@ from mecha_engine.lifecycle import (
 )
 
 LINEAGE_FORMAT = "keeper_lineage_v1"
+SESSION_FORMAT = "keeper_session_v1"
 # The D6 ablation verdicts, applied without sentiment: exactly the five
 # KEPT threads run in the game; dropped threads stay out of default
 # profiles (data/micro_threads/ablation_gates_stage0.json).
@@ -333,6 +335,64 @@ class CompanionSession:
             encoding="utf-8",
         )
         return path
+
+    # -- save / resume (F5 — quit and come back) ---------------------------
+
+    def save(self, path: str | Path) -> Path:
+        """Persist the LIVE session (state, log, lineage, and the
+        succession model verbatim) with the W1 backup-before-overwrite
+        pattern. A live pet is play state, never evidence."""
+        payload = {
+            "session_format": SESSION_FORMAT,
+            "name": self.name,
+            "grid": self.grid,
+            "slip_profile": self.slip_profile,
+            "state": self.state,
+            "session_tick": self.session_tick,
+            "begging": self.begging,
+            "fleet": self.fleet,
+            "succession_seed": self.succession_seed,
+            "log": self.log,
+            "lineage": self.lineage,
+            "generation_model": dataclasses.asdict(self.model),
+        }
+        path = Path(path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if path.exists():
+            path.with_suffix(".bak.json").write_text(
+                path.read_text(encoding="utf-8"), encoding="utf-8"
+            )
+        path.write_text(
+            json.dumps(payload, indent=2) + "\n", encoding="utf-8"
+        )
+        return path
+
+    @classmethod
+    def load(cls, path: str | Path) -> "CompanionSession":
+        """Resume a saved session exactly where it stopped. The fixed
+        RNG instance is recreated fresh — the switchboard path never
+        draws from it, so a resumed life continues byte-identically
+        (pinned by test against a never-saved twin)."""
+        payload = json.loads(Path(path).read_text(encoding="utf-8"))
+        if payload.get("session_format") != SESSION_FORMAT:
+            raise ValueError(
+                "not a keeper session save: "
+                f"{payload.get('session_format')!r}"
+            )
+        session = cls.__new__(cls)
+        session.state = payload["state"]
+        session.grid = payload["grid"]
+        session.slip_profile = payload["slip_profile"]
+        session.model = GenerationModel(**payload["generation_model"])
+        session.name = payload["name"]
+        session.succession_seed = payload["succession_seed"]
+        session.fleet = payload["fleet"]
+        session._rng = random.Random(0)
+        session.session_tick = payload["session_tick"]
+        session.begging = payload["begging"]
+        session.log = payload["log"]
+        session.lineage = payload["lineage"]
+        return session
 
     # -- internals -------------------------------------------------------
 

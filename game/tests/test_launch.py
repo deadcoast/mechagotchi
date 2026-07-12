@@ -98,6 +98,40 @@ class LaunchTests(unittest.TestCase):
             )
             self.assertIn("death_cause", records[0])
 
+    def test_quit_and_resume_from_the_save_file(self):
+        from mecha_game.app import run
+
+        base = [
+            "--fps",
+            "0",
+            "--tick-frames",
+            "1",
+            "--scale",
+            "2",
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            self.assertEqual(
+                0, run(["--ticks", "4", "--keeper-dir", tmp, *base])
+            )
+            save = json.loads(
+                (Path(tmp) / "companion.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            self.assertEqual("keeper_session_v1", save["session_format"])
+            self.assertEqual(4, save["state"]["age_ticks"])
+            # The second launch RESUMES and continues the same life.
+            self.assertEqual(
+                0, run(["--ticks", "2", "--keeper-dir", tmp, *base])
+            )
+            resumed = json.loads(
+                (Path(tmp) / "companion.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            self.assertEqual(6, resumed["state"]["age_ticks"])
+            self.assertEqual(6, resumed["session_tick"])
+
     def test_era_bench_runs_headless_and_persists(self):
         from mecha_game.app import run
 

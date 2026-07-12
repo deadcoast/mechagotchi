@@ -27,3 +27,8 @@ build/
 # The game's own lock is decided at F5 (packaging rung); the root
 # uv.lock is the workspace lock of record
 game/uv.lock
+
+# F5 release builds (game/build_release.py output): installers are
+# built, never committed
+game/dist/
+game/release_work/

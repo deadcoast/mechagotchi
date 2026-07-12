@@ -19,6 +19,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -621,6 +622,142 @@ def build_fleet_consumers_report(ticks: int = 80) -> dict:
     }
 
 
+RELEASE_ARTIFACT_ID = "installable_release_stage0"
+
+
+def build_installable_release_report(
+    bundle_dir: str | Path | None = None,
+) -> dict | None:
+    """F5's verification, run against an EXISTING build (produce one
+    with ``uv run python -B game/build_release.py``); returns None —
+    never a fabricated artifact — when no build is present.
+
+    The player loop, observed: launch the built executable fresh
+    (play N ticks, quit → save written), launch it again (RESUME →
+    the same life continues). Machine-specific facts (sizes, paths)
+    are recorded as observations, never pinned (the H-01 rule)."""
+    import subprocess
+    import tempfile
+
+    bundle = Path(bundle_dir or ROOT / "game" / "dist" / "Mechagotchi")
+    exe = bundle / (
+        "Mechagotchi.exe" if sys.platform == "win32" else "Mechagotchi"
+    )
+    if not exe.is_file():
+        return None
+    bundled_corpus = (
+        bundle / "_internal" / "data" / "seed_grids_16x16"
+    ).is_dir()
+    with tempfile.TemporaryDirectory() as tmp:
+        env = dict(os.environ)
+        env["SDL_VIDEODRIVER"] = "dummy"
+        base = ["--tick-frames", "1", "--fps", "0", "--scale", "2"]
+        first = subprocess.run(
+            [str(exe), "--ticks", "4", "--keeper-dir", tmp, *base],
+            capture_output=True,
+            text=True,
+            env=env,
+            timeout=300,
+        )
+        save_path = Path(tmp) / "companion.json"
+        fresh_age = (
+            json.loads(save_path.read_text(encoding="utf-8"))["state"][
+                "age_ticks"
+            ]
+            if save_path.is_file()
+            else None
+        )
+        second = subprocess.run(
+            [str(exe), "--ticks", "3", "--keeper-dir", tmp, *base],
+            capture_output=True,
+            text=True,
+            env=env,
+            timeout=300,
+        )
+        resumed_age = (
+            json.loads(save_path.read_text(encoding="utf-8"))["state"][
+                "age_ticks"
+            ]
+            if save_path.is_file()
+            else None
+        )
+    resumed = fresh_age == 4 and resumed_age == 7
+    launches = first.returncode == 0 and second.returncode == 0
+    status = (
+        "complete"
+        if launches and resumed and bundled_corpus
+        else "refuted"
+    )
+    return {
+        "artifact_id": RELEASE_ARTIFACT_ID,
+        "status": status,
+        "date": REPORT_DATE,
+        "purpose": (
+            "Cycle 14 F5 (GAME track, Phase F): MVP 0.1 as a PRODUCT "
+            "— a player can install, launch, play, quit, and RESUME "
+            "from a save file. PyInstaller one-directory build "
+            "(DR 0033 named it; this rung decided it) bundling the "
+            "seed corpus, the LCD covenant, and the adopted "
+            "readability model; the client resolves bundled data via "
+            "the frozen-bundle origins; saves live in the player's "
+            "own home outside a checkout."
+        ),
+        "source_artifacts": [
+            "game/build_release.py",
+            "game/src/mecha_game/session.py",
+            "game/src/mecha_game/app.py",
+            "research/decision_records/0033-game-front-end-technology.md",
+        ],
+        "metrics": {
+            "bundle_present": True,
+            "bundled_data_corpus": bundled_corpus,
+            "fresh_launch_exit": first.returncode,
+            "resume_launch_exit": second.returncode,
+            "fresh_save_age_ticks": fresh_age,
+            "resumed_save_age_ticks": resumed_age,
+            "resume_continues_the_same_life": resumed,
+        },
+        "closed_states": [
+            "install_launch_play_quit_resume (the F5 sentence, "
+            "observed on the built executable end to end)",
+            "session_save_resume (keeper_session_v1: state, log, "
+            "lineage, and the succession model verbatim; resumed "
+            "twins continue byte-identically, pinned in the suite)",
+            "bundled_data_resolution (sys._MEIPASS origins joined "
+            "the walk-up rule; the dev checkout path is unchanged)",
+        ],
+        "blocked_states": [
+            "full_ci_reproducibility_is_phase_g (the build is "
+            "verified on this machine; CI packaging, signing, and "
+            "multi-platform matrices are the documented Phase-G "
+            "delivery scope)",
+            "machine_specific_observations_not_pinned (bundle size "
+            "and timings vary by host; the suite pins behavior, "
+            "never the build environment — H-01)",
+        ],
+        "decision": (
+            "adopt: MVP 0.1 is installable; F6 judges the Phase-F "
+            "MVP 0.1 gate"
+        ),
+        "next_research_step": (
+            "F6 — the consolidated Phase-F MVP 0.1 gate report; the "
+            "0.2/0.3 rungs decompose from the gap analysis"
+        ),
+    }
+
+
+def write_installable_release_artifacts(
+    output_dir: str | Path, report: dict
+) -> Path:
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    path = output_dir / f"{RELEASE_ARTIFACT_ID}.json"
+    path.write_text(
+        json.dumps(report, indent=2) + "\n", encoding="utf-8"
+    )
+    return path
+
+
 CAMPAIGN_ARTIFACT_ID = "keeper_campaign_stage0"
 
 
@@ -871,3 +1008,14 @@ if __name__ == "__main__":
         args.output_dir, build_keeper_campaign_report()
     )
     print(f"wrote {written}")
+    release_report = build_installable_release_report()
+    if release_report is None:
+        print(
+            "no release build found (run game/build_release.py) — "
+            "installable_release_stage0 not regenerated"
+        )
+    else:
+        written = write_installable_release_artifacts(
+            args.output_dir, release_report
+        )
+        print(f"wrote {written}")

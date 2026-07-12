@@ -49,7 +49,7 @@ species memory surfacing to the player (Phase E).
   proven substrate). The engine archive's scale-geometry seam promotes
   HERE if this consumer demands it (the named Phase-E remainder, its
   own gated package change).
-- [ ] **F5 · The installable release.** MVP 0.1 as a product: a player
+- [x] **F5 · The installable release.** MVP 0.1 as a product: a player
   can install, launch, play, quit, and resume from a save file.
   Packaging tech justified in F1's decision record (full CI/
   reproducibility stays Phase G).

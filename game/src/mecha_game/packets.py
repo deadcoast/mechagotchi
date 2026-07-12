@@ -38,20 +38,35 @@ class HelloCreature:
     frame_count: int
 
 
+def data_search_origins(start: Path | None = None) -> list[Path]:
+    """Where a `data/` corpus may live: an explicit start, this file's
+    repo checkout, and — in a frozen release (F5) — the PyInstaller
+    bundle directory and the executable's home."""
+    import sys
+
+    origins = []
+    if start is not None:
+        origins.append(Path(start).resolve())
+    origins.append(Path(__file__).resolve())
+    bundle_dir = getattr(sys, "_MEIPASS", None)
+    if bundle_dir:
+        origins.append(Path(bundle_dir))
+        origins.append(Path(sys.executable).resolve().parent)
+    return origins
+
+
 def default_fixture_paths(start: Path | None = None) -> tuple[Path, Path]:
-    """Resolve the hello fixtures by walking up from ``start`` (default:
-    this file) to the repo root — the dev-checkout launch path. An
-    installed client passes explicit ``--seed``/``--slip`` instead;
-    bundled release fixtures are F5's rung (DR 0033 decision 6).
-    """
-    origin = (start or Path(__file__)).resolve()
-    for base in (origin, *origin.parents):
-        seed = base / HELLO_SEED
-        slip = base / HELLO_SLIP
-        if seed.is_file() and slip.is_file():
-            return seed, slip
+    """Resolve the hello fixtures by walking up from the known origins
+    (the dev checkout, or the frozen bundle's own data). An installed
+    client may still pass explicit ``--seed``/``--slip``."""
+    for origin in data_search_origins(start):
+        for base in (origin, *origin.parents):
+            seed = base / HELLO_SEED
+            slip = base / HELLO_SLIP
+            if seed.is_file() and slip.is_file():
+                return seed, slip
     raise FileNotFoundError(
-        f"no {HELLO_SEED.as_posix()} corpus above {origin} — "
+        f"no {HELLO_SEED.as_posix()} corpus near this installation — "
         "pass explicit seed/slip paths"
     )
 

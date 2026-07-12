@@ -1,0 +1,32 @@
+{
+  "artifact_id": "installable_release_stage0",
+  "status": "complete",
+  "date": "2026-07-12",
+  "purpose": "Cycle 14 F5 (GAME track, Phase F): MVP 0.1 as a PRODUCT \u2014 a player can install, launch, play, quit, and RESUME from a save file. PyInstaller one-directory build (DR 0033 named it; this rung decided it) bundling the seed corpus, the LCD covenant, and the adopted readability model; the client resolves bundled data via the frozen-bundle origins; saves live in the player's own home outside a checkout.",
+  "source_artifacts": [
+    "game/build_release.py",
+    "game/src/mecha_game/session.py",
+    "game/src/mecha_game/app.py",
+    "research/decision_records/0033-game-front-end-technology.md"
+  ],
+  "metrics": {
+    "bundle_present": true,
+    "bundled_data_corpus": true,
+    "fresh_launch_exit": 0,
+    "resume_launch_exit": 0,
+    "fresh_save_age_ticks": 4,
+    "resumed_save_age_ticks": 7,
+    "resume_continues_the_same_life": true
+  },
+  "closed_states": [
+    "install_launch_play_quit_resume (the F5 sentence, observed on the built executable end to end)",
+    "session_save_resume (keeper_session_v1: state, log, lineage, and the succession model verbatim; resumed twins continue byte-identically, pinned in the suite)",
+    "bundled_data_resolution (sys._MEIPASS origins joined the walk-up rule; the dev checkout path is unchanged)"
+  ],
+  "blocked_states": [
+    "full_ci_reproducibility_is_phase_g (the build is verified on this machine; CI packaging, signing, and multi-platform matrices are the documented Phase-G delivery scope)",
+    "machine_specific_observations_not_pinned (bundle size and timings vary by host; the suite pins behavior, never the build environment \u2014 H-01)"
+  ],
+  "decision": "adopt: MVP 0.1 is installable; F6 judges the Phase-F MVP 0.1 gate",
+  "next_research_step": "F6 \u2014 the consolidated Phase-F MVP 0.1 gate report; the 0.2/0.3 rungs decompose from the gap analysis"
+}

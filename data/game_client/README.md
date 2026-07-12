@@ -51,4 +51,12 @@ the playable front end, distinct from the workshop's authoring surfaces.
   SPENDING are named remainders; the scale-geometry seam was NOT
   demanded by this consumer (recorded).
 
+- `installable_release_stage0.json` - F5: MVP 0.1 installable -
+  the REAL PyInstaller bundle launched fresh (exit 0, 4 ticks, save
+  written) then launched again RESUMING the same life (exit 0, age
+  4 -> 7), the data corpus bundled; keeper_session_v1 save/resume
+  pinned byte-identical against a never-saved twin. Generated only
+  against an existing build (game/build_release.py), never
+  fabricated. CI/signing/multi-platform stays Phase G.
+
 Produced by `game/evidence.py`.

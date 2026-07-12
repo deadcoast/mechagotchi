@@ -37,4 +37,7 @@ cli = [
 # and test runs: uv sync --group game
 game = [
     "pygame-ce>=2.5.7",
+    # F5 (DR 0033 named it; the F5 report decides it): the installable
+    # release builder for the game client.
+    "pyinstaller>=6.11",
 ]
