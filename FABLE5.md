@@ -205,8 +205,17 @@ keeper/released); W gathers releases; admission is the ENGINE's
 verdict shown in the era message (the committed 8×8 releases reject
 verbatim on size — honest; an aligned 16×16 release admits and
 leads). Evidence `contribute_bridge_stage0.json`; 106 game tests.
-Next: **F10 — the Review replays** (F11 hardening, F12 the 0.2 gate
-follow). The cycle-14 record below is kept for context:
+**F10 (the Review replays) is DONE (2026-07-12)**: `replay.py` (the
+R5 recorder mirrored verbatim; ReplayPlayer scrubber-lite with the
+drawer's body-at-frame invariant + wound overlay);
+`record_review_replay` = the era's best elite at the ERA'S seed with
+the honest label; V/SPACE/./, in the client, companion time stands
+still. Finding pinned: raw seeds under the weak test-scale repair
+model truncate honestly (the G2 boundary); ELITES record full
+(evidence: wound 2 / repair 2 / episode_tick 32, invariant at every
+frame, twin-equal). 116 game tests. Next: **F11 — hardening** (era
+model caching, windowed build, `mechas` commands), then **F12 — the
+0.2 gate**. The cycle-14 record below is kept for context:
 
 `audits/TODO.md` holds the full task text. This is the build the
 engine exists to showcase: a client a player LAUNCHES AND PLAYS. The

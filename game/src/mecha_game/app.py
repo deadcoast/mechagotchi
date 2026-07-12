@@ -32,6 +32,7 @@ from mecha_game.campaign import (
 from mecha_game.clips import TRANSITIONS, ClipDriver
 from mecha_game.contribute import founders_verdict, gather_releases
 from mecha_game.hatchery import hatch_founders, origin_summary
+from mecha_game.replay import ReplayPlayer, overlay_wounds
 from mecha_game.covenant import (
     spend_deliberation_to_budget,
     spend_generations_to_cap,
@@ -44,6 +45,7 @@ from mecha_game.rasterize import (
     Buffer,
     apply_scanline,
     compose_frame,
+    rasterize_cells,
     scale_buffer,
     stack_buffers,
 )
@@ -366,6 +368,8 @@ def run(argv: list[str] | None = None) -> int:
         covenant_mode = False
         pending_releases: list[dict] = []
         hatch_count = 0
+        review: ReplayPlayer | None = None
+        review_playing = False
         running = True
         # Headless verification: run the requested eras up front.
         if args.eras is not None:
@@ -414,6 +418,32 @@ def run(argv: list[str] | None = None) -> int:
                         bench.message = "hatched: " + origin_summary(
                             hatched["explanation"]
                         )
+                    elif event.key == pygame.K_v:
+                        # The Review step (F10): the last era's best
+                        # elite lives one RECORDED life — replayed at
+                        # the era's own seed; V again returns to the
+                        # companion (whose time stands still while
+                        # the Keeper reviews).
+                        if review is not None:
+                            review = None
+                        elif bench.campaign and bench.campaign.eras:
+                            try:
+                                review = ReplayPlayer(
+                                    bench.ensure().record_review_replay()
+                                )
+                                review_playing = True
+                            except ValueError as error:
+                                bench.message = str(error)
+                        else:
+                            bench.message = "no era to review yet (E)"
+                    elif review is not None and event.key == pygame.K_SPACE:
+                        review_playing = not review_playing
+                    elif review is not None and event.key == pygame.K_PERIOD:
+                        review_playing = False
+                        review.step()
+                    elif review is not None and event.key == pygame.K_COMMA:
+                        review_playing = False
+                        review.back()
                     elif event.key == pygame.K_w:
                         # Gather the workshop's and the Keeper's
                         # released creatures for the next era; the
@@ -472,7 +502,11 @@ def run(argv: list[str] | None = None) -> int:
                             driver = ClipDriver(driver.frame_counts)
                             bench.message += "   adopted!"
 
-            if session.alive and frame % args.tick_frames == 0:
+            if (
+                review is None
+                and session.alive
+                and frame % args.tick_frames == 0
+            ):
                 # The bandit's reward attribution sees what the window
                 # actually showed last (the driver's emitted clip).
                 session.advance(
@@ -492,27 +526,53 @@ def run(argv: list[str] | None = None) -> int:
                 if ticks_run == args.ticks:
                     running = False
 
-            clip, frame_index = driver.step(session.desired_clip())
-            displayed_clip = clip
-            packet = session.packet_for(clip, frame_index)
-            composed = compose_frame(
-                packet, previous_ghost=ghost, cell_px=args.scale
-            )
-            ghost = composed.ghost
-            snapshot = session.snapshot()
-            hud = render_hud(
-                session.state,
-                snapshot["ui_hints"],
-                width=width,
-                palette=packet["palette"],
-                frame=frame,
-            )
-            hud_scaled = apply_scanline(
-                scale_buffer(hud, args.scale),
-                period=2,
-                opacity=0.12,
-            )
-            lcd = stack_buffers(composed.pixels, hud_scaled)
+            if review is not None:
+                # The Review window: recorded body states, raw and
+                # honestly effect-free (v1 packets declare none); the
+                # wound frames wear the damage event's own cells.
+                if review_playing and frame % 2 == 0:
+                    review.step()
+                body = review.body_packet()
+                raster = (
+                    rasterize_cells(body)
+                    if body is not None
+                    else tuple(
+                        tuple((0, 0, 0) for _ in range(width))
+                        for _ in range(height)
+                    )
+                )
+                wounds = review.wound_cells()
+                if wounds:
+                    raster = overlay_wounds(raster, wounds)
+                panel = scale_buffer(raster, args.scale)
+                blank_hud = tuple(
+                    tuple((16, 18, 16) for _ in range(width * args.scale))
+                    for _ in range(HUD_HEIGHT * args.scale)
+                )
+                lcd = stack_buffers(panel, blank_hud)
+                snapshot = session.snapshot()
+            else:
+                clip, frame_index = driver.step(session.desired_clip())
+                displayed_clip = clip
+                packet = session.packet_for(clip, frame_index)
+                composed = compose_frame(
+                    packet, previous_ghost=ghost, cell_px=args.scale
+                )
+                ghost = composed.ghost
+                snapshot = session.snapshot()
+                hud = render_hud(
+                    session.state,
+                    snapshot["ui_hints"],
+                    width=width,
+                    palette=packet["palette"],
+                    frame=frame,
+                )
+                hud_scaled = apply_scanline(
+                    scale_buffer(hud, args.scale),
+                    period=2,
+                    opacity=0.12,
+                )
+                lcd = stack_buffers(composed.pixels, hud_scaled)
             surface = pygame.image.frombytes(
                 _frame_bytes(lcd),
                 (width * args.scale, panel_px + hud_px),
@@ -521,12 +581,20 @@ def run(argv: list[str] | None = None) -> int:
             window.fill((16, 18, 16))
             window.blit(surface, (0, 0))
             footer = _footer_lines(snapshot, queued)
-            if covenant_mode:
+            if review is not None:
+                footer = [
+                    f"REVIEW  {review.replay['creature']['grid_id']}",
+                    review.caption(),
+                    "SPACE play/pause  . step  , back  V close",
+                    review.replay.get("honest_label", ""),
+                ]
+            elif covenant_mode:
                 footer.extend(bench.budget_lines())
             else:
                 footer.append(
                     f"E: run era [{bench.weather}]  1/2/3: weather  "
-                    "C: covenant  H: hatch  R: release  W: workshop"
+                    "C: covenant  H: hatch  R: release  W: workshop  "
+                    "V: review"
                 )
             if bench.message:
                 footer.append(bench.message)

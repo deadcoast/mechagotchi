@@ -622,6 +622,129 @@ def build_fleet_consumers_report(ticks: int = 80) -> dict:
     }
 
 
+REVIEW_ARTIFACT_ID = "review_replay_stage0"
+
+
+def build_review_replay_report() -> dict:
+    """F10's measured claims at session scale: the Review replays the
+    era's best elite at the era's own seed — a REAL recorded life
+    (live_cycle record_frames, DR 0023) with the full phase
+    vocabulary, the scrubber invariant holding at every frame, twin
+    runs byte-equal, and the honest label riding the artifact."""
+    from mecha_game.replay import ReplayPlayer
+
+    inputs = _campaign_inputs(session_scale=True)
+    campaign = KeeperCampaign(inputs, campaign_id="review_evidence")
+    era = campaign.advance_era("calm")
+    replay = campaign.record_review_replay()
+    twin = campaign.record_review_replay()
+    deterministic = json.dumps(replay, sort_keys=True) == json.dumps(
+        twin, sort_keys=True
+    )
+    phases: dict[str, int] = {}
+    for frame in replay["frames"]:
+        phases[frame["phase"]] = phases.get(frame["phase"], 0) + 1
+    player = ReplayPlayer(replay)
+    invariant_holds = all(
+        player.body_packet_at(i) is not None
+        for i in range(replay["frame_count"])
+    )
+    best_id = max(
+        era["elites"], key=lambda e: (e["fitness"], e["niche_key"])
+    )["grid"]["grid_id"]
+    status = (
+        "complete"
+        if deterministic
+        and replay["creature"]["grid_id"] == best_id
+        and replay["parameters"]["rng_seed"] == era["rng_seed"]
+        and replay["tick_frame_count"] > 0
+        and invariant_holds
+        else "refuted"
+    )
+    return {
+        "artifact_id": REVIEW_ARTIFACT_ID,
+        "status": status,
+        "date": REPORT_DATE,
+        "purpose": (
+            "Cycle 15 F10 (GAME track, Phase F, MVP 0.2): the Review "
+            "step — the era's best elite lives one RECORDED life "
+            "(live_cycle record_frames, DR 0023) replayed in the "
+            "client at the era's own seed, scrubber-lite "
+            "(play/pause/step) over birth/wound/repair/episode "
+            "frames, the wound overlay from the damage event's own "
+            "removed_cells, the honest label shown."
+        ),
+        "source_artifacts": [
+            "game/src/mecha_game/replay.py",
+            "game/src/mecha_game/campaign.py",
+            "labs/game_loop/replay_recorder.py",
+            "research/decision_records/0023-replay-recording.md",
+        ],
+        "metrics": {
+            "creature": replay["creature"],
+            "parameters": replay["parameters"],
+            "honest_label": replay["honest_label"],
+            "frame_count": replay["frame_count"],
+            "phase_counts": phases,
+            "tick_frame_count": replay["tick_frame_count"],
+            "all_cycles_valid": replay["live"]["all_cycles_valid"],
+            "all_cycles_aligned": replay["live"]["all_cycles_aligned"],
+            "twin_run_byte_equal": deterministic,
+            "replays_the_best_elite_at_the_era_seed": (
+                replay["creature"]["grid_id"] == best_id
+                and replay["parameters"]["rng_seed"] == era["rng_seed"]
+            ),
+            "scrubber_invariant_holds_at_every_frame": invariant_holds,
+        },
+        "closed_states": [
+            "review_is_a_recorded_life (the R5 contract mirrored "
+            "over engine publics; the replay never invents a "
+            "displayable body — packets only for validator-passing "
+            "states, errors verbatim)",
+            "scrubber_lite (V opens the review; SPACE/./, drive it; "
+            "the body at frame i is the latest packet-bearing frame "
+            "<= i — the shared drawer's invariant, pinned per frame)",
+            "wounds_are_engine_observability (the overlay marks the "
+            "damage event's own removed_cells, the drawer's fill as "
+            "arithmetic)",
+            "honest_labeling (a real recorded life of a real era "
+            "creature, replayed post-era at the era's own seed — "
+            "shown in the review footer)",
+        ],
+        "blocked_states": [
+            "in_era_lives_not_frame_recorded (threading "
+            "record_frames through evolve is the engine's named "
+            "future seam — the lab's honest note, unchanged)",
+            "replay_persistence (the ledger's record_replay surface "
+            "exists; the client records on demand and does not "
+            "persist replays yet — a 0.3 saves rung)",
+            "truncated_lives_display_honestly (an unaligned repair "
+            "ends the recording early — pinned by test; the review "
+            "shows exactly what the engine lived)",
+        ],
+        "decision": (
+            "adopt: DR 0021's Review step is a product surface; F11 "
+            "hardens, F12 gates MVP 0.2"
+        ),
+        "next_research_step": (
+            "F11 — product hardening (era model caching, windowed "
+            "build, mechas commands)"
+        ),
+    }
+
+
+def write_review_replay_artifacts(
+    output_dir: str | Path, report: dict
+) -> Path:
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    path = output_dir / f"{REVIEW_ARTIFACT_ID}.json"
+    path.write_text(
+        json.dumps(report, indent=2) + "\n", encoding="utf-8"
+    )
+    return path
+
+
 CONTRIBUTE_ARTIFACT_ID = "contribute_bridge_stage0"
 
 
@@ -1457,6 +1580,10 @@ if __name__ == "__main__":
     print(f"wrote {written}")
     written = write_contribute_bridge_artifacts(
         args.output_dir, build_contribute_bridge_report()
+    )
+    print(f"wrote {written}")
+    written = write_review_replay_artifacts(
+        args.output_dir, build_review_replay_report()
     )
     print(f"wrote {written}")
     release_report = build_installable_release_report()

@@ -511,6 +511,41 @@ class KeeperCampaign:
             self.campaign["status"] = "extinct"
         return era_record
 
+    def record_review_replay(self, era_index: int = -1) -> dict:
+        """The Review step's window (F10): the era's best elite lives
+        one RECORDED life at the era's own seed and parameters —
+        honest label per the lab: a real recorded life of a real era
+        creature, replayed post-era (the in-era lives ran without
+        frame recording; threading record_frames through evolve
+        remains the engine's named future seam)."""
+        from mecha_game.replay import build_replay
+
+        if not self.eras:
+            raise ValueError("no era to review yet")
+        era = self.eras[era_index]
+        if not era["elites"]:
+            raise ValueError(
+                f"era {era['era_index']} ended with no elites to replay"
+            )
+        best = max(
+            era["elites"],
+            key=lambda elite: (elite["fitness"], elite["niche_key"]),
+        )
+        replay = build_replay(
+            best["grid"],
+            self.campaign["slip_profile"],
+            self.inputs["repair_model"],
+            damage_cycles=self.era_config["damage_cycles"],
+            ticks=self.era_config["ticks"],
+            dropout_rate=self.era_config["dropout_rate"],
+            rng_seed=era["rng_seed"],
+        )
+        replay["honest_label"] = (
+            "a real recorded life of a real era creature, replayed "
+            f"post-era at era {era['era_index']}'s own seed"
+        )
+        return replay
+
     def plan_succession(self) -> dict | None:
         """Roguelite stakes: the successor's parameters once the
         bloodline is extinct; None while it lives."""

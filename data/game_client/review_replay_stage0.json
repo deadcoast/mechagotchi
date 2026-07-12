@@ -1,0 +1,51 @@
+{
+  "artifact_id": "review_replay_stage0",
+  "status": "complete",
+  "date": "2026-07-12",
+  "purpose": "Cycle 15 F10 (GAME track, Phase F, MVP 0.2): the Review step \u2014 the era's best elite lives one RECORDED life (live_cycle record_frames, DR 0023) replayed in the client at the era's own seed, scrubber-lite (play/pause/step) over birth/wound/repair/episode frames, the wound overlay from the damage event's own removed_cells, the honest label shown.",
+  "source_artifacts": [
+    "game/src/mecha_game/replay.py",
+    "game/src/mecha_game/campaign.py",
+    "labs/game_loop/replay_recorder.py",
+    "research/decision_records/0023-replay-recording.md"
+  ],
+  "metrics": {
+    "creature": {
+      "grid_id": "gen_7dbc86df9c114975_c02",
+      "profile_id": "slip_lcd_seed"
+    },
+    "parameters": {
+      "damage_cycles": 2,
+      "ticks": 16,
+      "dropout_rate": 0.2,
+      "rng_seed": 20260707
+    },
+    "honest_label": "a real recorded life of a real era creature, replayed post-era at era 0's own seed",
+    "frame_count": 37,
+    "phase_counts": {
+      "birth": 1,
+      "wound": 2,
+      "repair": 2,
+      "episode_tick": 32
+    },
+    "tick_frame_count": 32,
+    "all_cycles_valid": true,
+    "all_cycles_aligned": true,
+    "twin_run_byte_equal": true,
+    "replays_the_best_elite_at_the_era_seed": true,
+    "scrubber_invariant_holds_at_every_frame": true
+  },
+  "closed_states": [
+    "review_is_a_recorded_life (the R5 contract mirrored over engine publics; the replay never invents a displayable body \u2014 packets only for validator-passing states, errors verbatim)",
+    "scrubber_lite (V opens the review; SPACE/./, drive it; the body at frame i is the latest packet-bearing frame <= i \u2014 the shared drawer's invariant, pinned per frame)",
+    "wounds_are_engine_observability (the overlay marks the damage event's own removed_cells, the drawer's fill as arithmetic)",
+    "honest_labeling (a real recorded life of a real era creature, replayed post-era at the era's own seed \u2014 shown in the review footer)"
+  ],
+  "blocked_states": [
+    "in_era_lives_not_frame_recorded (threading record_frames through evolve is the engine's named future seam \u2014 the lab's honest note, unchanged)",
+    "replay_persistence (the ledger's record_replay surface exists; the client records on demand and does not persist replays yet \u2014 a 0.3 saves rung)",
+    "truncated_lives_display_honestly (an unaligned repair ends the recording early \u2014 pinned by test; the review shows exactly what the engine lived)"
+  ],
+  "decision": "adopt: DR 0021's Review step is a product surface; F11 hardens, F12 gates MVP 0.2",
+  "next_research_step": "F11 \u2014 product hardening (era model caching, windowed build, mechas commands)"
+}

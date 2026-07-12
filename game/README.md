@@ -45,7 +45,9 @@ population / generations) · **H** hatch a new founder under your
 covenant and adopt it (its origin trace shows) · **R** release your
 companion's genome as a founder for the next era · **W** gather the
 workshop's released creatures for the next era (the engine admits or
-rejects them — the verdict shows) · **ESC**/close quit. Saves land in
+rejects them — the verdict shows) · **V** review the last era's best
+elite living one recorded life (SPACE play/pause, **.** step, **,**
+back) · **ESC**/close quit. Saves land in
 `keeper/` (gitignored) — quit and come back, the client resumes. The
 companion begs when it wants food — only you can feed it; neglect
 starves it (measured: ~10 ticks).

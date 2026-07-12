@@ -36,7 +36,7 @@ to the play loop — plus the cycle-14 gate's named product remainders.
   admission/verbatim-rejection seam the session lab already proves).
   Scope the BRIDGE (release file handoff), not a workshop rewrite;
   the workshop keeps its own stack.
-- [ ] **F10 · The Review step — era replays in the client.** The R5
+- [x] **F10 · The Review step — era replays in the client.** The R5
   recorder's era replay (the named G3/Review remainder) reaches the
   player: after an era, the best elite's recorded life plays back in
   the client (scrubber-lite: play/pause/step). Honest labeling per

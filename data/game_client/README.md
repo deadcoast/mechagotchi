@@ -82,4 +82,12 @@ the playable front end, distinct from the workshop's authoring surfaces.
   engine's own verdict, shown never smoothed); twin-equal; the era
   survived. Inboxes: data/workshop/released + keeper/released.
 
+- `review_replay_stage0.json` - F10 (cycle 15, MVP 0.2): the Review
+  step - the era's best elite lives one RECORDED life at the era's
+  own seed (live_cycle record_frames, DR 0023): birth 1 / wound 2 /
+  repair 2 / episode_tick 32, the scrubber invariant holding at
+  every frame, twin-equal, the honest label riding the artifact.
+  Raw seeds under the weak test-scale repair model truncate honestly
+  (the G2 aligned-but-invalid boundary, pinned); elites record full.
+
 Produced by `game/evidence.py`.
