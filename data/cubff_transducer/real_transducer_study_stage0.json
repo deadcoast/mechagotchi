@@ -1,0 +1,4052 @@
+{
+  "artifact_id": "real_transducer_study_stage0",
+  "status": "complete",
+  "date": "2026-07-12",
+  "source_mode": "real_cubff_checkpoints",
+  "state_count": 400,
+  "run_count": 20,
+  "run_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "per_state": [
+    {
+      "snapshot_id": "seed00_0000000000",
+      "run_seed": 0,
+      "epoch": 1,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed00_0000001024",
+      "run_seed": 0,
+      "epoch": 1025,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed00_0000002048",
+      "run_seed": 0,
+      "epoch": 2049,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed00_0000003072",
+      "run_seed": 0,
+      "epoch": 3073,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed00_0000004096",
+      "run_seed": 0,
+      "epoch": 4097,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed00_0000005120",
+      "run_seed": 0,
+      "epoch": 5121,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed00_0000006144",
+      "run_seed": 0,
+      "epoch": 6145,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed00_0000007168",
+      "run_seed": 0,
+      "epoch": 7169,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed00_0000008192",
+      "run_seed": 0,
+      "epoch": 8193,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed00_0000009216",
+      "run_seed": 0,
+      "epoch": 9217,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed00_0000010240",
+      "run_seed": 0,
+      "epoch": 10241,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed00_0000011264",
+      "run_seed": 0,
+      "epoch": 11265,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed00_0000012288",
+      "run_seed": 0,
+      "epoch": 12289,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed00_0000013312",
+      "run_seed": 0,
+      "epoch": 13313,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed00_0000014336",
+      "run_seed": 0,
+      "epoch": 14337,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed00_0000015360",
+      "run_seed": 0,
+      "epoch": 15361,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed00_0000016384",
+      "run_seed": 0,
+      "epoch": 16385,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed00_0000017408",
+      "run_seed": 0,
+      "epoch": 17409,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed00_0000018432",
+      "run_seed": 0,
+      "epoch": 18433,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed00_0000019456",
+      "run_seed": 0,
+      "epoch": 19457,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed01_0000000000",
+      "run_seed": 1,
+      "epoch": 1,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed01_0000001024",
+      "run_seed": 1,
+      "epoch": 1025,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed01_0000002048",
+      "run_seed": 1,
+      "epoch": 2049,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed01_0000003072",
+      "run_seed": 1,
+      "epoch": 3073,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed01_0000004096",
+      "run_seed": 1,
+      "epoch": 4097,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed01_0000005120",
+      "run_seed": 1,
+      "epoch": 5121,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed01_0000006144",
+      "run_seed": 1,
+      "epoch": 6145,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed01_0000007168",
+      "run_seed": 1,
+      "epoch": 7169,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed01_0000008192",
+      "run_seed": 1,
+      "epoch": 8193,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed01_0000009216",
+      "run_seed": 1,
+      "epoch": 9217,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed01_0000010240",
+      "run_seed": 1,
+      "epoch": 10241,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed01_0000011264",
+      "run_seed": 1,
+      "epoch": 11265,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed01_0000012288",
+      "run_seed": 1,
+      "epoch": 12289,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed01_0000013312",
+      "run_seed": 1,
+      "epoch": 13313,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed01_0000014336",
+      "run_seed": 1,
+      "epoch": 14337,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed01_0000015360",
+      "run_seed": 1,
+      "epoch": 15361,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed01_0000016384",
+      "run_seed": 1,
+      "epoch": 16385,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed01_0000017408",
+      "run_seed": 1,
+      "epoch": 17409,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed01_0000018432",
+      "run_seed": 1,
+      "epoch": 18433,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed01_0000019456",
+      "run_seed": 1,
+      "epoch": 19457,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed02_0000000000",
+      "run_seed": 2,
+      "epoch": 1,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed02_0000001024",
+      "run_seed": 2,
+      "epoch": 1025,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed02_0000002048",
+      "run_seed": 2,
+      "epoch": 2049,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed02_0000003072",
+      "run_seed": 2,
+      "epoch": 3073,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed02_0000004096",
+      "run_seed": 2,
+      "epoch": 4097,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed02_0000005120",
+      "run_seed": 2,
+      "epoch": 5121,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed02_0000006144",
+      "run_seed": 2,
+      "epoch": 6145,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed02_0000007168",
+      "run_seed": 2,
+      "epoch": 7169,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed02_0000008192",
+      "run_seed": 2,
+      "epoch": 8193,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed02_0000009216",
+      "run_seed": 2,
+      "epoch": 9217,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed02_0000010240",
+      "run_seed": 2,
+      "epoch": 10241,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed02_0000011264",
+      "run_seed": 2,
+      "epoch": 11265,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed02_0000012288",
+      "run_seed": 2,
+      "epoch": 12289,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed02_0000013312",
+      "run_seed": 2,
+      "epoch": 13313,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed02_0000014336",
+      "run_seed": 2,
+      "epoch": 14337,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed02_0000015360",
+      "run_seed": 2,
+      "epoch": 15361,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed02_0000016384",
+      "run_seed": 2,
+      "epoch": 16385,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed02_0000017408",
+      "run_seed": 2,
+      "epoch": 17409,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed02_0000018432",
+      "run_seed": 2,
+      "epoch": 18433,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed02_0000019456",
+      "run_seed": 2,
+      "epoch": 19457,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed03_0000000000",
+      "run_seed": 3,
+      "epoch": 1,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed03_0000001024",
+      "run_seed": 3,
+      "epoch": 1025,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed03_0000002048",
+      "run_seed": 3,
+      "epoch": 2049,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed03_0000003072",
+      "run_seed": 3,
+      "epoch": 3073,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed03_0000004096",
+      "run_seed": 3,
+      "epoch": 4097,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed03_0000005120",
+      "run_seed": 3,
+      "epoch": 5121,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed03_0000006144",
+      "run_seed": 3,
+      "epoch": 6145,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed03_0000007168",
+      "run_seed": 3,
+      "epoch": 7169,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed03_0000008192",
+      "run_seed": 3,
+      "epoch": 8193,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed03_0000009216",
+      "run_seed": 3,
+      "epoch": 9217,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed03_0000010240",
+      "run_seed": 3,
+      "epoch": 10241,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed03_0000011264",
+      "run_seed": 3,
+      "epoch": 11265,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed03_0000012288",
+      "run_seed": 3,
+      "epoch": 12289,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed03_0000013312",
+      "run_seed": 3,
+      "epoch": 13313,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed03_0000014336",
+      "run_seed": 3,
+      "epoch": 14337,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed03_0000015360",
+      "run_seed": 3,
+      "epoch": 15361,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed03_0000016384",
+      "run_seed": 3,
+      "epoch": 16385,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed03_0000017408",
+      "run_seed": 3,
+      "epoch": 17409,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed03_0000018432",
+      "run_seed": 3,
+      "epoch": 18433,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed03_0000019456",
+      "run_seed": 3,
+      "epoch": 19457,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed04_0000000000",
+      "run_seed": 4,
+      "epoch": 1,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed04_0000001024",
+      "run_seed": 4,
+      "epoch": 1025,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed04_0000002048",
+      "run_seed": 4,
+      "epoch": 2049,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed04_0000003072",
+      "run_seed": 4,
+      "epoch": 3073,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed04_0000004096",
+      "run_seed": 4,
+      "epoch": 4097,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed04_0000005120",
+      "run_seed": 4,
+      "epoch": 5121,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed04_0000006144",
+      "run_seed": 4,
+      "epoch": 6145,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed04_0000007168",
+      "run_seed": 4,
+      "epoch": 7169,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed04_0000008192",
+      "run_seed": 4,
+      "epoch": 8193,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed04_0000009216",
+      "run_seed": 4,
+      "epoch": 9217,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed04_0000010240",
+      "run_seed": 4,
+      "epoch": 10241,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed04_0000011264",
+      "run_seed": 4,
+      "epoch": 11265,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed04_0000012288",
+      "run_seed": 4,
+      "epoch": 12289,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed04_0000013312",
+      "run_seed": 4,
+      "epoch": 13313,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed04_0000014336",
+      "run_seed": 4,
+      "epoch": 14337,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed04_0000015360",
+      "run_seed": 4,
+      "epoch": 15361,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed04_0000016384",
+      "run_seed": 4,
+      "epoch": 16385,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed04_0000017408",
+      "run_seed": 4,
+      "epoch": 17409,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed04_0000018432",
+      "run_seed": 4,
+      "epoch": 18433,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed04_0000019456",
+      "run_seed": 4,
+      "epoch": 19457,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed05_0000000000",
+      "run_seed": 5,
+      "epoch": 1,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed05_0000001024",
+      "run_seed": 5,
+      "epoch": 1025,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed05_0000002048",
+      "run_seed": 5,
+      "epoch": 2049,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed05_0000003072",
+      "run_seed": 5,
+      "epoch": 3073,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed05_0000004096",
+      "run_seed": 5,
+      "epoch": 4097,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed05_0000005120",
+      "run_seed": 5,
+      "epoch": 5121,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed05_0000006144",
+      "run_seed": 5,
+      "epoch": 6145,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed05_0000007168",
+      "run_seed": 5,
+      "epoch": 7169,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed05_0000008192",
+      "run_seed": 5,
+      "epoch": 8193,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed05_0000009216",
+      "run_seed": 5,
+      "epoch": 9217,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed05_0000010240",
+      "run_seed": 5,
+      "epoch": 10241,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed05_0000011264",
+      "run_seed": 5,
+      "epoch": 11265,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed05_0000012288",
+      "run_seed": 5,
+      "epoch": 12289,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed05_0000013312",
+      "run_seed": 5,
+      "epoch": 13313,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed05_0000014336",
+      "run_seed": 5,
+      "epoch": 14337,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed05_0000015360",
+      "run_seed": 5,
+      "epoch": 15361,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed05_0000016384",
+      "run_seed": 5,
+      "epoch": 16385,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed05_0000017408",
+      "run_seed": 5,
+      "epoch": 17409,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed05_0000018432",
+      "run_seed": 5,
+      "epoch": 18433,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed05_0000019456",
+      "run_seed": 5,
+      "epoch": 19457,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed06_0000000000",
+      "run_seed": 6,
+      "epoch": 1,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed06_0000001024",
+      "run_seed": 6,
+      "epoch": 1025,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed06_0000002048",
+      "run_seed": 6,
+      "epoch": 2049,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed06_0000003072",
+      "run_seed": 6,
+      "epoch": 3073,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed06_0000004096",
+      "run_seed": 6,
+      "epoch": 4097,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed06_0000005120",
+      "run_seed": 6,
+      "epoch": 5121,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed06_0000006144",
+      "run_seed": 6,
+      "epoch": 6145,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed06_0000007168",
+      "run_seed": 6,
+      "epoch": 7169,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed06_0000008192",
+      "run_seed": 6,
+      "epoch": 8193,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed06_0000009216",
+      "run_seed": 6,
+      "epoch": 9217,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed06_0000010240",
+      "run_seed": 6,
+      "epoch": 10241,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed06_0000011264",
+      "run_seed": 6,
+      "epoch": 11265,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed06_0000012288",
+      "run_seed": 6,
+      "epoch": 12289,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed06_0000013312",
+      "run_seed": 6,
+      "epoch": 13313,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed06_0000014336",
+      "run_seed": 6,
+      "epoch": 14337,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed06_0000015360",
+      "run_seed": 6,
+      "epoch": 15361,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed06_0000016384",
+      "run_seed": 6,
+      "epoch": 16385,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed06_0000017408",
+      "run_seed": 6,
+      "epoch": 17409,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed06_0000018432",
+      "run_seed": 6,
+      "epoch": 18433,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed06_0000019456",
+      "run_seed": 6,
+      "epoch": 19457,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed07_0000000000",
+      "run_seed": 7,
+      "epoch": 1,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed07_0000001024",
+      "run_seed": 7,
+      "epoch": 1025,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed07_0000002048",
+      "run_seed": 7,
+      "epoch": 2049,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed07_0000003072",
+      "run_seed": 7,
+      "epoch": 3073,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed07_0000004096",
+      "run_seed": 7,
+      "epoch": 4097,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed07_0000005120",
+      "run_seed": 7,
+      "epoch": 5121,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed07_0000006144",
+      "run_seed": 7,
+      "epoch": 6145,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed07_0000007168",
+      "run_seed": 7,
+      "epoch": 7169,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed07_0000008192",
+      "run_seed": 7,
+      "epoch": 8193,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed07_0000009216",
+      "run_seed": 7,
+      "epoch": 9217,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed07_0000010240",
+      "run_seed": 7,
+      "epoch": 10241,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed07_0000011264",
+      "run_seed": 7,
+      "epoch": 11265,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed07_0000012288",
+      "run_seed": 7,
+      "epoch": 12289,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed07_0000013312",
+      "run_seed": 7,
+      "epoch": 13313,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed07_0000014336",
+      "run_seed": 7,
+      "epoch": 14337,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed07_0000015360",
+      "run_seed": 7,
+      "epoch": 15361,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed07_0000016384",
+      "run_seed": 7,
+      "epoch": 16385,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed07_0000017408",
+      "run_seed": 7,
+      "epoch": 17409,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed07_0000018432",
+      "run_seed": 7,
+      "epoch": 18433,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed07_0000019456",
+      "run_seed": 7,
+      "epoch": 19457,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed08_0000000000",
+      "run_seed": 8,
+      "epoch": 1,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed08_0000001024",
+      "run_seed": 8,
+      "epoch": 1025,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed08_0000002048",
+      "run_seed": 8,
+      "epoch": 2049,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed08_0000003072",
+      "run_seed": 8,
+      "epoch": 3073,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed08_0000004096",
+      "run_seed": 8,
+      "epoch": 4097,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed08_0000005120",
+      "run_seed": 8,
+      "epoch": 5121,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed08_0000006144",
+      "run_seed": 8,
+      "epoch": 6145,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed08_0000007168",
+      "run_seed": 8,
+      "epoch": 7169,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed08_0000008192",
+      "run_seed": 8,
+      "epoch": 8193,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed08_0000009216",
+      "run_seed": 8,
+      "epoch": 9217,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed08_0000010240",
+      "run_seed": 8,
+      "epoch": 10241,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed08_0000011264",
+      "run_seed": 8,
+      "epoch": 11265,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed08_0000012288",
+      "run_seed": 8,
+      "epoch": 12289,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed08_0000013312",
+      "run_seed": 8,
+      "epoch": 13313,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed08_0000014336",
+      "run_seed": 8,
+      "epoch": 14337,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed08_0000015360",
+      "run_seed": 8,
+      "epoch": 15361,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed08_0000016384",
+      "run_seed": 8,
+      "epoch": 16385,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed08_0000017408",
+      "run_seed": 8,
+      "epoch": 17409,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed08_0000018432",
+      "run_seed": 8,
+      "epoch": 18433,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed08_0000019456",
+      "run_seed": 8,
+      "epoch": 19457,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed09_0000000000",
+      "run_seed": 9,
+      "epoch": 1,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed09_0000001024",
+      "run_seed": 9,
+      "epoch": 1025,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed09_0000002048",
+      "run_seed": 9,
+      "epoch": 2049,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed09_0000003072",
+      "run_seed": 9,
+      "epoch": 3073,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed09_0000004096",
+      "run_seed": 9,
+      "epoch": 4097,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed09_0000005120",
+      "run_seed": 9,
+      "epoch": 5121,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed09_0000006144",
+      "run_seed": 9,
+      "epoch": 6145,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed09_0000007168",
+      "run_seed": 9,
+      "epoch": 7169,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed09_0000008192",
+      "run_seed": 9,
+      "epoch": 8193,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed09_0000009216",
+      "run_seed": 9,
+      "epoch": 9217,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed09_0000010240",
+      "run_seed": 9,
+      "epoch": 10241,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed09_0000011264",
+      "run_seed": 9,
+      "epoch": 11265,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed09_0000012288",
+      "run_seed": 9,
+      "epoch": 12289,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed09_0000013312",
+      "run_seed": 9,
+      "epoch": 13313,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed09_0000014336",
+      "run_seed": 9,
+      "epoch": 14337,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed09_0000015360",
+      "run_seed": 9,
+      "epoch": 15361,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed09_0000016384",
+      "run_seed": 9,
+      "epoch": 16385,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed09_0000017408",
+      "run_seed": 9,
+      "epoch": 17409,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed09_0000018432",
+      "run_seed": 9,
+      "epoch": 18433,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed09_0000019456",
+      "run_seed": 9,
+      "epoch": 19457,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed10_0000000000",
+      "run_seed": 10,
+      "epoch": 1,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed10_0000001024",
+      "run_seed": 10,
+      "epoch": 1025,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed10_0000002048",
+      "run_seed": 10,
+      "epoch": 2049,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed10_0000003072",
+      "run_seed": 10,
+      "epoch": 3073,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed10_0000004096",
+      "run_seed": 10,
+      "epoch": 4097,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed10_0000005120",
+      "run_seed": 10,
+      "epoch": 5121,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed10_0000006144",
+      "run_seed": 10,
+      "epoch": 6145,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed10_0000007168",
+      "run_seed": 10,
+      "epoch": 7169,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed10_0000008192",
+      "run_seed": 10,
+      "epoch": 8193,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed10_0000009216",
+      "run_seed": 10,
+      "epoch": 9217,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed10_0000010240",
+      "run_seed": 10,
+      "epoch": 10241,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed10_0000011264",
+      "run_seed": 10,
+      "epoch": 11265,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed10_0000012288",
+      "run_seed": 10,
+      "epoch": 12289,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed10_0000013312",
+      "run_seed": 10,
+      "epoch": 13313,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed10_0000014336",
+      "run_seed": 10,
+      "epoch": 14337,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed10_0000015360",
+      "run_seed": 10,
+      "epoch": 15361,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed10_0000016384",
+      "run_seed": 10,
+      "epoch": 16385,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed10_0000017408",
+      "run_seed": 10,
+      "epoch": 17409,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed10_0000018432",
+      "run_seed": 10,
+      "epoch": 18433,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed10_0000019456",
+      "run_seed": 10,
+      "epoch": 19457,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed11_0000000000",
+      "run_seed": 11,
+      "epoch": 1,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed11_0000001024",
+      "run_seed": 11,
+      "epoch": 1025,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed11_0000002048",
+      "run_seed": 11,
+      "epoch": 2049,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed11_0000003072",
+      "run_seed": 11,
+      "epoch": 3073,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed11_0000004096",
+      "run_seed": 11,
+      "epoch": 4097,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed11_0000005120",
+      "run_seed": 11,
+      "epoch": 5121,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed11_0000006144",
+      "run_seed": 11,
+      "epoch": 6145,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed11_0000007168",
+      "run_seed": 11,
+      "epoch": 7169,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed11_0000008192",
+      "run_seed": 11,
+      "epoch": 8193,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed11_0000009216",
+      "run_seed": 11,
+      "epoch": 9217,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed11_0000010240",
+      "run_seed": 11,
+      "epoch": 10241,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed11_0000011264",
+      "run_seed": 11,
+      "epoch": 11265,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed11_0000012288",
+      "run_seed": 11,
+      "epoch": 12289,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed11_0000013312",
+      "run_seed": 11,
+      "epoch": 13313,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed11_0000014336",
+      "run_seed": 11,
+      "epoch": 14337,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed11_0000015360",
+      "run_seed": 11,
+      "epoch": 15361,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed11_0000016384",
+      "run_seed": 11,
+      "epoch": 16385,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed11_0000017408",
+      "run_seed": 11,
+      "epoch": 17409,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed11_0000018432",
+      "run_seed": 11,
+      "epoch": 18433,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed11_0000019456",
+      "run_seed": 11,
+      "epoch": 19457,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed12_0000000000",
+      "run_seed": 12,
+      "epoch": 1,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed12_0000001024",
+      "run_seed": 12,
+      "epoch": 1025,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed12_0000002048",
+      "run_seed": 12,
+      "epoch": 2049,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed12_0000003072",
+      "run_seed": 12,
+      "epoch": 3073,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed12_0000004096",
+      "run_seed": 12,
+      "epoch": 4097,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed12_0000005120",
+      "run_seed": 12,
+      "epoch": 5121,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed12_0000006144",
+      "run_seed": 12,
+      "epoch": 6145,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed12_0000007168",
+      "run_seed": 12,
+      "epoch": 7169,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed12_0000008192",
+      "run_seed": 12,
+      "epoch": 8193,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed12_0000009216",
+      "run_seed": 12,
+      "epoch": 9217,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed12_0000010240",
+      "run_seed": 12,
+      "epoch": 10241,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed12_0000011264",
+      "run_seed": 12,
+      "epoch": 11265,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed12_0000012288",
+      "run_seed": 12,
+      "epoch": 12289,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed12_0000013312",
+      "run_seed": 12,
+      "epoch": 13313,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed12_0000014336",
+      "run_seed": 12,
+      "epoch": 14337,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed12_0000015360",
+      "run_seed": 12,
+      "epoch": 15361,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed12_0000016384",
+      "run_seed": 12,
+      "epoch": 16385,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed12_0000017408",
+      "run_seed": 12,
+      "epoch": 17409,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed12_0000018432",
+      "run_seed": 12,
+      "epoch": 18433,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed12_0000019456",
+      "run_seed": 12,
+      "epoch": 19457,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed13_0000000000",
+      "run_seed": 13,
+      "epoch": 1,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed13_0000001024",
+      "run_seed": 13,
+      "epoch": 1025,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed13_0000002048",
+      "run_seed": 13,
+      "epoch": 2049,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed13_0000003072",
+      "run_seed": 13,
+      "epoch": 3073,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed13_0000004096",
+      "run_seed": 13,
+      "epoch": 4097,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed13_0000005120",
+      "run_seed": 13,
+      "epoch": 5121,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed13_0000006144",
+      "run_seed": 13,
+      "epoch": 6145,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed13_0000007168",
+      "run_seed": 13,
+      "epoch": 7169,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed13_0000008192",
+      "run_seed": 13,
+      "epoch": 8193,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed13_0000009216",
+      "run_seed": 13,
+      "epoch": 9217,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed13_0000010240",
+      "run_seed": 13,
+      "epoch": 10241,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed13_0000011264",
+      "run_seed": 13,
+      "epoch": 11265,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed13_0000012288",
+      "run_seed": 13,
+      "epoch": 12289,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed13_0000013312",
+      "run_seed": 13,
+      "epoch": 13313,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed13_0000014336",
+      "run_seed": 13,
+      "epoch": 14337,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed13_0000015360",
+      "run_seed": 13,
+      "epoch": 15361,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed13_0000016384",
+      "run_seed": 13,
+      "epoch": 16385,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed13_0000017408",
+      "run_seed": 13,
+      "epoch": 17409,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed13_0000018432",
+      "run_seed": 13,
+      "epoch": 18433,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed13_0000019456",
+      "run_seed": 13,
+      "epoch": 19457,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed14_0000000000",
+      "run_seed": 14,
+      "epoch": 1,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed14_0000001024",
+      "run_seed": 14,
+      "epoch": 1025,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed14_0000002048",
+      "run_seed": 14,
+      "epoch": 2049,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed14_0000003072",
+      "run_seed": 14,
+      "epoch": 3073,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed14_0000004096",
+      "run_seed": 14,
+      "epoch": 4097,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed14_0000005120",
+      "run_seed": 14,
+      "epoch": 5121,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed14_0000006144",
+      "run_seed": 14,
+      "epoch": 6145,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed14_0000007168",
+      "run_seed": 14,
+      "epoch": 7169,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed14_0000008192",
+      "run_seed": 14,
+      "epoch": 8193,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed14_0000009216",
+      "run_seed": 14,
+      "epoch": 9217,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed14_0000010240",
+      "run_seed": 14,
+      "epoch": 10241,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed14_0000011264",
+      "run_seed": 14,
+      "epoch": 11265,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed14_0000012288",
+      "run_seed": 14,
+      "epoch": 12289,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed14_0000013312",
+      "run_seed": 14,
+      "epoch": 13313,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed14_0000014336",
+      "run_seed": 14,
+      "epoch": 14337,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed14_0000015360",
+      "run_seed": 14,
+      "epoch": 15361,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed14_0000016384",
+      "run_seed": 14,
+      "epoch": 16385,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed14_0000017408",
+      "run_seed": 14,
+      "epoch": 17409,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed14_0000018432",
+      "run_seed": 14,
+      "epoch": 18433,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed14_0000019456",
+      "run_seed": 14,
+      "epoch": 19457,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed15_0000000000",
+      "run_seed": 15,
+      "epoch": 1,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed15_0000001024",
+      "run_seed": 15,
+      "epoch": 1025,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed15_0000002048",
+      "run_seed": 15,
+      "epoch": 2049,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed15_0000003072",
+      "run_seed": 15,
+      "epoch": 3073,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed15_0000004096",
+      "run_seed": 15,
+      "epoch": 4097,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed15_0000005120",
+      "run_seed": 15,
+      "epoch": 5121,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed15_0000006144",
+      "run_seed": 15,
+      "epoch": 6145,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed15_0000007168",
+      "run_seed": 15,
+      "epoch": 7169,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed15_0000008192",
+      "run_seed": 15,
+      "epoch": 8193,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed15_0000009216",
+      "run_seed": 15,
+      "epoch": 9217,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed15_0000010240",
+      "run_seed": 15,
+      "epoch": 10241,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed15_0000011264",
+      "run_seed": 15,
+      "epoch": 11265,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed15_0000012288",
+      "run_seed": 15,
+      "epoch": 12289,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed15_0000013312",
+      "run_seed": 15,
+      "epoch": 13313,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed15_0000014336",
+      "run_seed": 15,
+      "epoch": 14337,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed15_0000015360",
+      "run_seed": 15,
+      "epoch": 15361,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed15_0000016384",
+      "run_seed": 15,
+      "epoch": 16385,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed15_0000017408",
+      "run_seed": 15,
+      "epoch": 17409,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed15_0000018432",
+      "run_seed": 15,
+      "epoch": 18433,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed15_0000019456",
+      "run_seed": 15,
+      "epoch": 19457,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed16_0000000000",
+      "run_seed": 16,
+      "epoch": 1,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed16_0000001024",
+      "run_seed": 16,
+      "epoch": 1025,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed16_0000002048",
+      "run_seed": 16,
+      "epoch": 2049,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed16_0000003072",
+      "run_seed": 16,
+      "epoch": 3073,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed16_0000004096",
+      "run_seed": 16,
+      "epoch": 4097,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed16_0000005120",
+      "run_seed": 16,
+      "epoch": 5121,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed16_0000006144",
+      "run_seed": 16,
+      "epoch": 6145,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed16_0000007168",
+      "run_seed": 16,
+      "epoch": 7169,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed16_0000008192",
+      "run_seed": 16,
+      "epoch": 8193,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed16_0000009216",
+      "run_seed": 16,
+      "epoch": 9217,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed16_0000010240",
+      "run_seed": 16,
+      "epoch": 10241,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed16_0000011264",
+      "run_seed": 16,
+      "epoch": 11265,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed16_0000012288",
+      "run_seed": 16,
+      "epoch": 12289,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed16_0000013312",
+      "run_seed": 16,
+      "epoch": 13313,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed16_0000014336",
+      "run_seed": 16,
+      "epoch": 14337,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed16_0000015360",
+      "run_seed": 16,
+      "epoch": 15361,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed16_0000016384",
+      "run_seed": 16,
+      "epoch": 16385,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed16_0000017408",
+      "run_seed": 16,
+      "epoch": 17409,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed16_0000018432",
+      "run_seed": 16,
+      "epoch": 18433,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed16_0000019456",
+      "run_seed": 16,
+      "epoch": 19457,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed17_0000000000",
+      "run_seed": 17,
+      "epoch": 1,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed17_0000001024",
+      "run_seed": 17,
+      "epoch": 1025,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed17_0000002048",
+      "run_seed": 17,
+      "epoch": 2049,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed17_0000003072",
+      "run_seed": 17,
+      "epoch": 3073,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed17_0000004096",
+      "run_seed": 17,
+      "epoch": 4097,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed17_0000005120",
+      "run_seed": 17,
+      "epoch": 5121,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed17_0000006144",
+      "run_seed": 17,
+      "epoch": 6145,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed17_0000007168",
+      "run_seed": 17,
+      "epoch": 7169,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed17_0000008192",
+      "run_seed": 17,
+      "epoch": 8193,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed17_0000009216",
+      "run_seed": 17,
+      "epoch": 9217,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed17_0000010240",
+      "run_seed": 17,
+      "epoch": 10241,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed17_0000011264",
+      "run_seed": 17,
+      "epoch": 11265,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed17_0000012288",
+      "run_seed": 17,
+      "epoch": 12289,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed17_0000013312",
+      "run_seed": 17,
+      "epoch": 13313,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed17_0000014336",
+      "run_seed": 17,
+      "epoch": 14337,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed17_0000015360",
+      "run_seed": 17,
+      "epoch": 15361,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed17_0000016384",
+      "run_seed": 17,
+      "epoch": 16385,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed17_0000017408",
+      "run_seed": 17,
+      "epoch": 17409,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed17_0000018432",
+      "run_seed": 17,
+      "epoch": 18433,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed17_0000019456",
+      "run_seed": 17,
+      "epoch": 19457,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed18_0000000000",
+      "run_seed": 18,
+      "epoch": 1,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed18_0000001024",
+      "run_seed": 18,
+      "epoch": 1025,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed18_0000002048",
+      "run_seed": 18,
+      "epoch": 2049,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed18_0000003072",
+      "run_seed": 18,
+      "epoch": 3073,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed18_0000004096",
+      "run_seed": 18,
+      "epoch": 4097,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed18_0000005120",
+      "run_seed": 18,
+      "epoch": 5121,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed18_0000006144",
+      "run_seed": 18,
+      "epoch": 6145,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed18_0000007168",
+      "run_seed": 18,
+      "epoch": 7169,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed18_0000008192",
+      "run_seed": 18,
+      "epoch": 8193,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed18_0000009216",
+      "run_seed": 18,
+      "epoch": 9217,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed18_0000010240",
+      "run_seed": 18,
+      "epoch": 10241,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed18_0000011264",
+      "run_seed": 18,
+      "epoch": 11265,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed18_0000012288",
+      "run_seed": 18,
+      "epoch": 12289,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed18_0000013312",
+      "run_seed": 18,
+      "epoch": 13313,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed18_0000014336",
+      "run_seed": 18,
+      "epoch": 14337,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed18_0000015360",
+      "run_seed": 18,
+      "epoch": 15361,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed18_0000016384",
+      "run_seed": 18,
+      "epoch": 16385,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed18_0000017408",
+      "run_seed": 18,
+      "epoch": 17409,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed18_0000018432",
+      "run_seed": 18,
+      "epoch": 18433,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed18_0000019456",
+      "run_seed": 18,
+      "epoch": 19457,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed19_0000000000",
+      "run_seed": 19,
+      "epoch": 1,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed19_0000001024",
+      "run_seed": 19,
+      "epoch": 1025,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed19_0000002048",
+      "run_seed": 19,
+      "epoch": 2049,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed19_0000003072",
+      "run_seed": 19,
+      "epoch": 3073,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed19_0000004096",
+      "run_seed": 19,
+      "epoch": 4097,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed19_0000005120",
+      "run_seed": 19,
+      "epoch": 5121,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed19_0000006144",
+      "run_seed": 19,
+      "epoch": 6145,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed19_0000007168",
+      "run_seed": 19,
+      "epoch": 7169,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed19_0000008192",
+      "run_seed": 19,
+      "epoch": 8193,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed19_0000009216",
+      "run_seed": 19,
+      "epoch": 9217,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed19_0000010240",
+      "run_seed": 19,
+      "epoch": 10241,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed19_0000011264",
+      "run_seed": 19,
+      "epoch": 11265,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed19_0000012288",
+      "run_seed": 19,
+      "epoch": 12289,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed19_0000013312",
+      "run_seed": 19,
+      "epoch": 13313,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed19_0000014336",
+      "run_seed": 19,
+      "epoch": 14337,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed19_0000015360",
+      "run_seed": 19,
+      "epoch": 15361,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed19_0000016384",
+      "run_seed": 19,
+      "epoch": 16385,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed19_0000017408",
+      "run_seed": 19,
+      "epoch": 17409,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed19_0000018432",
+      "run_seed": 19,
+      "epoch": 18433,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    },
+    {
+      "snapshot_id": "seed19_0000019456",
+      "run_seed": 19,
+      "epoch": 19457,
+      "direct_valid": false,
+      "semantic_valid": true,
+      "direct_readability": 0,
+      "semantic_readability": 1,
+      "semantic_preferred": true
+    }
+  ],
+  "gates": {
+    "state_count": 400,
+    "preferred_count": 400,
+    "preference_rate": 1.0,
+    "preference_gate": "> 0.6",
+    "preference_gate_met": true,
+    "semantic_invalid_count": 0,
+    "semantic_invalid_rate": 0.0,
+    "invalid_gate": "< 0.1",
+    "invalid_gate_met": true,
+    "keep_decision": "keep"
+  },
+  "arms": {
+    "direct": "A: raw tape to pixels (the lab's projection)",
+    "semantic": "D: CuBFF features -> traits -> constrained grid (the lab's compiler)"
+  },
+  "source_anchors": [
+    "https://github.com/paradigms-of-intelligence/cubff",
+    "https://arxiv.org/abs/2406.19108"
+  ]
+}

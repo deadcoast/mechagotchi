@@ -207,8 +207,14 @@ metrics provenance committed; **the gate flipped to
 `ingested_real_cubff_snapshots` (9/0/0), decision
 `ready_for_real_transducer_comparison`**; honest notes: early-phase
 soup in this window (no takeover), replication scores absent by
-format. The proven build path is seconds-cheap — G3's 20-run
-protocol can afford real scale. Old line kept for context: G2
+format. **G3 (the real transducer study) is DONE (2026-07-12)**: 20
+real runs × the fixed epoch grid = 400 curated states (committed
+with soup hashes); **the documented gates MET — preference 400/400,
+invalid 0/400 → KEEP** — with the sweep's degeneracy scrutinized and
+recorded (direct arm 0/400 valid on early-phase soup, both
+instruments saturated; the honest reading: the semantic transducer
+is the ONLY viable path from real soup to a displayable creature).
+Old line kept for context: G2
 the real-CuBFF corpus through the existing ingest seam (REQUIRED;
 record the blocker honestly if the upstream build fails — never
 fabricate), G3 the transducer study at documented scale over the

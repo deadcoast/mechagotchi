@@ -30,7 +30,7 @@ and nothing "real" is ever fabricated.
   rejection). If the upstream build is blocked on this machine,
   record the blocker honestly with what was attempted — never
   fabricate "real" data (standing law).
-- [ ] **G3 · The transducer study at documented scale.** 20 runs /
+- [x] **G3 · The transducer study at documented scale.** 20 runs /
   400 curated states against the documented keep gates (preference
   >60%, invalid <10%) over the REAL corpus from G2 — the study the
   docs specify; a blocked G2 blocks this honestly, not silently.
