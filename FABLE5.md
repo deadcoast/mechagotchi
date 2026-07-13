@@ -71,26 +71,32 @@ this, or am I periscoping?
   the co-author line `Co-Authored-By: Claude Fable 5
   <noreply@anthropic.com>`.
 
-## 3. Where we are RIGHT NOW (updated 2026-07-12, end of cycle 16)
+## 3. Where we are RIGHT NOW (updated 2026-07-12, end of cycle 17)
 
-- **Active queue:** `audits/TODO.md` = **Cycle 17 · SHARED · Phase G
-  — the late-stage requireds.** Nothing in it is started; the next
-  concrete work is **G1 · CI + reproducibility** (mind the zlib-ng
-  fixture sensitivity — the F1 report records it). **PHASE F IS
-  COMPLETE**: the whole MVP ladder (0.1 → 0.2 → 0.3) delivered and
-  gated green across cycles 14–16 — gates:
-  `2026-07-12-phase-f-mvp01-gate.md`, `…-mvp02-gate.md`,
-  `…-mvp03-gate.md`. The product: `mechas game --play` (or
-  `game/run_game.py`, or the built bundle) — companion + eras +
-  covenant spending + hatchery + Contribute + Review replays +
-  repertoire/lineage browsers + SLIP import/export + community packs,
-  all resumable across restarts (campaign resume byte-identical,
-  replays hash-verified). FOURTEEN stage-0 artifacts under
-  `data/game_client/`, all complete; game 147 · CLI 23 · package 295
-  · workshop 60 · 19 labs — all green. Phase G's charter: the
-  real-CuBFF corpus (REQUIRED — never fabricate real data), the
-  transducer study, CI, distribution decisions, the M7 public alpha;
-  **the gap analysis retires only when G's alpha gate is green.**
+- **EVERY DOCUMENTED PHASE (A–G) IS COMPLETE AND GATED.** The
+  Phase-G alpha gate is GREEN
+  (`research/experiment_reports/2026-07-12-phase-g-gate.md`) and
+  **`docs/gap-analysis.md` is RETIRED per its own charter.**
+  Cycle 17 delivered: G1 CI (DR 0034's zlib-conditional pins; the
+  one sweep runner `tools/ci/run_sweep.py`; the workflow authored —
+  its first CLOUD run awaits a push), G2 **the REAL CuBFF corpus**
+  (the oldest blocker closed with genuine upstream data — built at
+  the audited commit in WSL2; gate flipped 9/0/0), G3 the documented
+  transducer study over 400 REAL curated states (gates MET → KEEP;
+  degeneracy scrutinized), G4 real weather through the untouched
+  seam (client key 4; mildness measured not tuned), G5 DR 0035
+  (files + gates at alpha; registry/signing post-alpha WITH the
+  owner), G6 the alpha packet (`docs/alpha.md` + the README section).
+  Closing sweep: 19 labs + package 295 + workshop 60 + CLI 23 +
+  game 152, 2,211 artifacts — GREEN. Fifteen game stage-0 artifacts.
+- **THE ACTIVE `audits/TODO.md` IS A HANDOFF, NOT A QUEUE**: the next
+  planning source is the OWNER'S decision (pre-registered in G6;
+  scope is the documentation, never an agent-invented queue). Six
+  candidate directions are recorded there (workshop authoring depth,
+  post-takeover CuBFF science, community infrastructure, the
+  engine's standing re-openers, product polish, push+first-CI-run).
+  **Do not start work from the candidates without the owner's
+  choice.**
 - **Cycle 14's shipped record** (kept for context): **F1 is COMPLETE**
   (2026-07-12): DR 0033 chose **pygame-ce** for the client (engine
   imported in-process — packets verbatim, replay fidelity by
@@ -187,7 +193,14 @@ this, or am I periscoping?
    doctor, reviewer prefill, shell completion).
 7. `research/README.md` — the master traceability ledger.
 
-## 5. WHAT TO DO NEXT — Cycle 17, task G1 (PHASE G, SHARED)
+## 5. WHAT TO DO NEXT — ASK THE OWNER (post-alpha)
+
+All documented phases are gated green and the roadmap is retired.
+`audits/TODO.md` is the handoff: present the six candidate
+directions, let the owner choose (or name something new — the
+documentation still defines scope), then decompose THEIR choice into
+a cycle with the standing discipline. The cycle-17 record below is
+kept for context:
 
 `audits/TODO.md` holds cycle 17's full task text. **G1 (CI +
 reproducibility) is DONE (2026-07-12)**: DR 0034 made the

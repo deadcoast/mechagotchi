@@ -1,5 +1,15 @@
 # Gap Analysis — The Documented Application vs What Exists (2026-07-07)
 
+> **RETIRED (2026-07-12), per this document's own charter** ("retired
+> only when Phase G's alpha gate is green"): the Phase-G alpha gate is
+> GREEN — `research/experiment_reports/2026-07-12-phase-g-gate.md`.
+> Every phase below (A–G) is complete and gated; the phase ladder's
+> stamps record the evidence. This document remains as the measured
+> history of the gap and how it closed. **The next planning source is
+> the owner's decision** (the documentation still defines scope; the
+> named remainders and the docs' unexhausted depths are candidate
+> directions, recorded in the gate report and `audits/TODO.md`).
+
 Commissioned by the owner's course correction: the implementation had
 been measured against self-invented cycle queues instead of the
 repository's own documentation. This document measures against the
