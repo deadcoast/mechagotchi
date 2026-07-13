@@ -34,7 +34,7 @@ and nothing "real" is ever fabricated.
   400 curated states against the documented keep gates (preference
   >60%, invalid <10%) over the REAL corpus from G2 — the study the
   docs specify; a blocked G2 blocks this honestly, not silently.
-- [ ] **G4 · Real weather in the game.** Real snapshots drop into the
+- [x] **G4 · Real weather in the game.** Real snapshots drop into the
   weather seam with ZERO seam changes (the documented promise,
   verified end to end in the client: a real-weather era runs and its
   snapshot provenance shows).

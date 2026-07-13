@@ -1,0 +1,50 @@
+{
+  "artifact_id": "real_weather_stage0",
+  "status": "complete",
+  "date": "2026-07-12",
+  "purpose": "Cycle 17 G4 (SHARED, Phase G): REAL weather in the game \u2014 the G2-ingested CuBFF snapshot records drive an era through the engine's cubff_pressure_source seam with ZERO seam changes (the DR 0021 promise, verified); the era's weather provenance is the engine's own per-generation report over real snapshot ids.",
+  "source_artifacts": [
+    "data/cubff_real_ingest/real_snapshot_ingest_stage0_report.json",
+    "game/src/mecha_game/campaign.py",
+    "packages/mecha_engine/src/mecha_engine/runtime/_cubff.py",
+    "research/decision_records/0018-cubff-live-lineage-pressure.md",
+    "research/decision_records/0020-cubff-pressure-runtime-promotion.md"
+  ],
+  "metrics": {
+    "weather": {
+      "forecast": "real",
+      "snapshot_ids": [
+        "0000000000",
+        "0000002048",
+        "0000004096",
+        "0000006144",
+        "0000008192",
+        "0000010240"
+      ]
+    },
+    "generations_ran": 6,
+    "went_extinct": false,
+    "elites": 38,
+    "dropout_multipliers_by_generation": [
+      0.850897,
+      0.771853,
+      0.817762,
+      0.812638,
+      0.836404,
+      0.811641
+    ],
+    "max_multiplier": 0.850897,
+    "provenance_all_real_ids": true,
+    "twin_run_byte_equal": true
+  },
+  "closed_states": [
+    "zero_seam_changes (the ingested records pass into evolve verbatim; the seam's defensive reads supply the honest defaults for fields checkpoints do not store)",
+    "provenance_shows (the era record carries the engine's own per-generation real snapshot ids; the client's weather key 4 = REAL)",
+    "harshness_is_measured_not_tuned (early-phase soup is high-entropy \u2014 the multipliers are whatever the engine's own feature math says; recorded verbatim)"
+  ],
+  "blocked_states": [
+    "replication_and_lineage_channels_silent (checkpoints store neither replication scores nor lineage events \u2014 those pressure channels read their honest defaults; the Python-callback export path would light them, a named upstream-integration increment)"
+  ],
+  "decision": "adopt: the game's weather is upgradeable to real CuBFF with a keypress; synthetic forecasts remain available",
+  "next_research_step": "G5 \u2014 the community distribution decision record"
+}

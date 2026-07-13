@@ -44,7 +44,14 @@ from mecha_engine.storage import (
 # tuning data plus the DR 0021 structure, cited not imported).
 ERA_SEED_STRIDE = 1_000_000
 SUCCESSOR_SEED_OFFSET = 50_000_000
-WEATHER_NAMES = ("calm", "stable_soup", "storm")
+# "real" (G4): the G2-ingested REAL CuBFF snapshots as the pressure
+# source — the documented upgrade, zero seam changes.
+WEATHER_NAMES = ("calm", "stable_soup", "storm", "real")
+REAL_INGEST_REPORT = (
+    Path("data")
+    / "cubff_real_ingest"
+    / "real_snapshot_ingest_stage0_report.json"
+)
 LEGIBILITY_BLEND = 0.7
 LEGIBILITY_BLEND_STEP = 0.05
 LEGIBILITY_BLEND_CAP = 0.9
@@ -113,6 +120,31 @@ def _chaotic_snapshot(index: int) -> dict:
     }
 
 
+def load_real_weather_source(start: Path | None = None) -> list[dict]:
+    """The G2-ingested REAL snapshot records, VERBATIM from the
+    committed ingest report, in epoch order — the documented upgrade
+    path (DR 0021: 'real exports drop in with no seam changes')."""
+    from mecha_game.packets import data_search_origins
+
+    for origin in data_search_origins(start):
+        for base in (origin, *origin.parents):
+            report_path = base / REAL_INGEST_REPORT
+            if report_path.is_file():
+                report = json.loads(
+                    report_path.read_text(encoding="utf-8")
+                )
+                records = report.get("ingested_snapshots") or []
+                if not records:
+                    raise ValueError(
+                        "the real-ingest gate holds no snapshots "
+                        f"(status: {report.get('status')})"
+                    )
+                return sorted(records, key=lambda r: r["epoch"])
+    raise FileNotFoundError(
+        "no real-ingest report near this installation"
+    )
+
+
 def build_weather_source(name: str) -> list[dict] | None:
     """Forecast name -> CuBFF pressure source for the promoted evolve
     (``calm`` = the byte-identical no-source default)."""
@@ -122,6 +154,8 @@ def build_weather_source(name: str) -> list[dict] | None:
         return [_stable_snapshot(i) for i in range(6)]
     if name == "storm":
         return [_chaotic_snapshot(i) for i in range(6)]
+    if name == "real":
+        return load_real_weather_source()
     raise ValueError(f"unknown weather forecast: {name}")
 
 

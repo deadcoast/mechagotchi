@@ -622,6 +622,118 @@ def build_fleet_consumers_report(ticks: int = 80) -> dict:
     }
 
 
+REAL_WEATHER_ARTIFACT_ID = "real_weather_stage0"
+
+
+def build_real_weather_report() -> dict:
+    """G4's measured claims at session scale: the G2-ingested REAL
+    snapshots drive an era through the UNCHANGED pressure seam; the
+    era record's provenance carries the engine's own per-generation
+    real snapshot ids and dropout multipliers; twin runs byte-equal;
+    the harshness of real early-phase soup is recorded, not tuned."""
+    from mecha_game.campaign import load_real_weather_source
+
+    inputs = _campaign_inputs(session_scale=True)
+
+    def run_era() -> dict:
+        campaign = KeeperCampaign(
+            inputs, campaign_id="real_weather_evidence"
+        )
+        return campaign.advance_era("real")
+
+    first = run_era()
+    second = run_era()
+    deterministic = json.dumps(first, sort_keys=True) == json.dumps(
+        second, sort_keys=True
+    )
+    real_ids = {
+        record["snapshot_id"]
+        for record in load_real_weather_source()
+    }
+    by_generation = first["report"]["cubff_pressure"]["by_generation"]
+    provenance_real = all(
+        entry["snapshot_id"] in real_ids for entry in by_generation
+    )
+    multipliers = [
+        entry["dropout_multiplier"] for entry in by_generation
+    ]
+    status = (
+        "complete"
+        if deterministic
+        and provenance_real
+        and by_generation
+        and first["derived"]["generations_ran"] > 0
+        else "refuted"
+    )
+    return {
+        "artifact_id": REAL_WEATHER_ARTIFACT_ID,
+        "status": status,
+        "date": REPORT_DATE,
+        "purpose": (
+            "Cycle 17 G4 (SHARED, Phase G): REAL weather in the game "
+            "— the G2-ingested CuBFF snapshot records drive an era "
+            "through the engine's cubff_pressure_source seam with "
+            "ZERO seam changes (the DR 0021 promise, verified); the "
+            "era's weather provenance is the engine's own "
+            "per-generation report over real snapshot ids."
+        ),
+        "source_artifacts": [
+            "data/cubff_real_ingest/real_snapshot_ingest_stage0_report.json",
+            "game/src/mecha_game/campaign.py",
+            "packages/mecha_engine/src/mecha_engine/runtime/_cubff.py",
+            "research/decision_records/0018-cubff-live-lineage-pressure.md",
+            "research/decision_records/0020-cubff-pressure-runtime-promotion.md",
+        ],
+        "metrics": {
+            "weather": first["weather"],
+            "generations_ran": first["derived"]["generations_ran"],
+            "went_extinct": first["derived"]["went_extinct"],
+            "elites": len(first["elites"]),
+            "dropout_multipliers_by_generation": multipliers,
+            "max_multiplier": max(multipliers) if multipliers else None,
+            "provenance_all_real_ids": provenance_real,
+            "twin_run_byte_equal": deterministic,
+        },
+        "closed_states": [
+            "zero_seam_changes (the ingested records pass into evolve "
+            "verbatim; the seam's defensive reads supply the honest "
+            "defaults for fields checkpoints do not store)",
+            "provenance_shows (the era record carries the engine's "
+            "own per-generation real snapshot ids; the client's "
+            "weather key 4 = REAL)",
+            "harshness_is_measured_not_tuned (early-phase soup is "
+            "high-entropy — the multipliers are whatever the "
+            "engine's own feature math says; recorded verbatim)",
+        ],
+        "blocked_states": [
+            "replication_and_lineage_channels_silent (checkpoints "
+            "store neither replication scores nor lineage events — "
+            "those pressure channels read their honest defaults; the "
+            "Python-callback export path would light them, a named "
+            "upstream-integration increment)",
+        ],
+        "decision": (
+            "adopt: the game's weather is upgradeable to real CuBFF "
+            "with a keypress; synthetic forecasts remain available"
+        ),
+        "next_research_step": (
+            "G5 — the community distribution decision record"
+        ),
+    }
+
+
+def write_real_weather_artifacts(
+    output_dir: str | Path, report: dict
+) -> Path:
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    path = output_dir / f"{REAL_WEATHER_ARTIFACT_ID}.json"
+    path.write_text(
+        json.dumps(report, indent=2) + "\n", encoding="utf-8"
+    )
+    return path
+
+
 PACKS_ARTIFACT_ID = "community_pack_stage0"
 STARTER_PACK_PATH = ROOT / "data" / "packs" / "mechagotchi_starter_pack.json"
 
@@ -2171,6 +2283,10 @@ if __name__ == "__main__":
     print(f"wrote {written}")
     written = write_community_pack_artifacts(
         args.output_dir, build_community_pack_report()
+    )
+    print(f"wrote {written}")
+    written = write_real_weather_artifacts(
+        args.output_dir, build_real_weather_report()
     )
     print(f"wrote {written}")
     release_report = build_installable_release_report()

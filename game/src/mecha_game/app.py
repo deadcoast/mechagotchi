@@ -646,7 +646,10 @@ def run(argv: list[str] | None = None) -> int:
                         pygame.K_1,
                         pygame.K_2,
                         pygame.K_3,
+                        pygame.K_4,
                     ):
+                        # 4 = "real" (G4): the G2-ingested REAL CuBFF
+                        # snapshots as this era's weather.
                         bench.weather_index = (
                             event.key - pygame.K_1
                         ) % len(WEATHER_NAMES)
@@ -797,10 +800,10 @@ def run(argv: list[str] | None = None) -> int:
                 footer.extend(bench.budget_lines())
             else:
                 footer.append(
-                    f"E: run era [{bench.weather}]  1/2/3: weather  "
-                    "C: covenant  H: hatch  R: release  W: workshop  "
-                    "V: review  B: repertoire  L: lineage  X/I: "
-                    "export/import covenant  K: pack"
+                    f"E: run era [{bench.weather}]  1-4: weather "
+                    "(4=REAL)  C: covenant  H: hatch  R: release  "
+                    "W: workshop  V: review  B: repertoire  L: "
+                    "lineage  X/I: covenant io  K: pack"
                 )
             if bench.message:
                 footer.append(bench.message)

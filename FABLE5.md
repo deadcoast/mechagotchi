@@ -214,7 +214,14 @@ invalid 0/400 → KEEP** — with the sweep's degeneracy scrutinized and
 recorded (direct arm 0/400 valid on early-phase soup, both
 instruments saturated; the honest reading: the semantic transducer
 is the ONLY viable path from real soup to a displayable creature).
-Old line kept for context: G2
+**G4 (real weather) is DONE (2026-07-12)**: `build_weather_source("real")`
+= the ingest report's records VERBATIM, the engine seam UNTOUCHED
+(the DR 0021 promise verified); client key 4 = REAL; provenance ids
+flow per generation. Measured honestly: real early-phase weather is
+MILD (0.77–0.85 multipliers — the silent replication/lineage
+channels damp the math; harshness awaits post-takeover soup or the
+callback export path, named). 152 game tests. Old line kept for
+context: G2
 the real-CuBFF corpus through the existing ingest seam (REQUIRED;
 record the blocker honestly if the upstream build fails — never
 fabricate), G3 the transducer study at documented scale over the
