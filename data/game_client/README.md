@@ -90,4 +90,11 @@ the playable front end, distinct from the workshop's authoring surfaces.
   Raw seeds under the weak test-scale repair model truncate honestly
   (the G2 aligned-but-invalid boundary, pinned); elites record full.
 
+- `repertoire_stage0.json` - F13 (cycle 16, MVP 0.3): the archive
+  browsable - every elite rendered from its real packet under the
+  covenant, captions/axes/components record-verbatim, era switching
+  true, twin-equal. A adopts the BROWSED elite. Ledger-sourced
+  cross-restart browsing rides F17; the family lens stays a named
+  rung.
+
 Produced by `game/evidence.py`.

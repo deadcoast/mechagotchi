@@ -12,7 +12,7 @@ packs."* The archive and niches already RUN inside every era (the
 engine's MAP-Elites, cycle 13); 0.3's product work is SURFACING them
 to the player — plus the cycle-15 gate's carried remainders.
 
-- [ ] **F13 · The repertoire browser — the archive surfaced.** The
+- [x] **F13 · The repertoire browser — the archive surfaced.** The
   era archive's elites become a browsable product surface: page
   through niches (descriptor axes, fitness, the elite's body drawn),
   E5's species memory made visible — the player can SEE the 8×8×8

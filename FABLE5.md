@@ -187,9 +187,13 @@ this, or am I periscoping?
 
 ## 5. WHAT TO DO NEXT — Cycle 16, task F13 (THE GAME TRACK, MVP 0.3)
 
-`audits/TODO.md` holds cycle 16's full task text: F13 the repertoire
-browser (the archive's elites browsable — the ledger's stored
-records are the past-era source), F14 the lineage browser, F15 SLIP
+`audits/TODO.md` holds cycle 16's full task text. **F13 (the
+repertoire browser) is DONE (2026-07-12)**: `repertoire.py` (elites
+paged in archive niche order, captions/axes/components
+record-verbatim, bodies from real packets under the covenant); B
+mode in the client with **A adopting the BROWSED elite**; evidence
+`repertoire_stage0.json` (every elite rendered, twin-equal); 123
+game tests. Remaining: F14 the lineage browser, F15 SLIP
 import/export through the authority, F16 community packs at the
 FORMAT rung (distribution stays Phase G), F17 the carried remainders
 (replay persistence via the ledger's `record_replay`; spent-covenant

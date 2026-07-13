@@ -32,6 +32,7 @@ from mecha_game.campaign import (
 from mecha_game.clips import TRANSITIONS, ClipDriver
 from mecha_game.contribute import founders_verdict, gather_releases
 from mecha_game.hatchery import hatch_founders, origin_summary
+from mecha_game.repertoire import RepertoireBrowser
 from mecha_game.replay import ReplayPlayer, overlay_wounds
 from mecha_game.covenant import (
     spend_deliberation_to_budget,
@@ -378,6 +379,7 @@ def run(argv: list[str] | None = None) -> int:
         hatch_count = 0
         review: ReplayPlayer | None = None
         review_playing = False
+        browser: RepertoireBrowser | None = None
         running = True
         # Headless verification: run the requested eras up front.
         if args.eras is not None:
@@ -452,6 +454,29 @@ def run(argv: list[str] | None = None) -> int:
                     elif review is not None and event.key == pygame.K_COMMA:
                         review_playing = False
                         review.back()
+                    elif event.key == pygame.K_b:
+                        # The repertoire browser (F13): species memory
+                        # made visible, era by era, niche by niche.
+                        if browser is not None:
+                            browser = None
+                        elif bench.campaign and bench.campaign.eras:
+                            browser = RepertoireBrowser(bench.campaign)
+                        else:
+                            bench.message = "no era to browse yet (E)"
+                    elif browser is not None and event.key == pygame.K_PERIOD:
+                        browser.step()
+                    elif browser is not None and event.key == pygame.K_COMMA:
+                        browser.back()
+                    elif (
+                        browser is not None
+                        and event.key == pygame.K_LEFTBRACKET
+                    ):
+                        browser.previous_era()
+                    elif (
+                        browser is not None
+                        and event.key == pygame.K_RIGHTBRACKET
+                    ):
+                        browser.next_era()
                     elif event.key == pygame.K_w:
                         # Gather the workshop's and the Keeper's
                         # released creatures for the next era; the
@@ -493,7 +518,15 @@ def run(argv: list[str] | None = None) -> int:
                             event.key - pygame.K_1
                         ) % len(WEATHER_NAMES)
                     elif event.key == pygame.K_a and bench.campaign:
-                        elite = bench.campaign.best_elite_grid()
+                        # A adopts: the browsed elite when the
+                        # repertoire is open, else the era's best.
+                        elite = (
+                            json.loads(
+                                json.dumps(browser.current()["grid"])
+                            )
+                            if browser is not None
+                            else bench.campaign.best_elite_grid()
+                        )
                         if elite is not None:
                             # The era's best elite becomes the Keeper's
                             # companion — through the same engine gate,
@@ -512,6 +545,7 @@ def run(argv: list[str] | None = None) -> int:
 
             if (
                 review is None
+                and browser is None
                 and session.alive
                 and frame % args.tick_frames == 0
             ):
@@ -534,7 +568,23 @@ def run(argv: list[str] | None = None) -> int:
                 if ticks_run == args.ticks:
                     running = False
 
-            if review is not None:
+            if browser is not None:
+                # The repertoire window: the elite's real packet under
+                # the campaign's covenant, statically composed.
+                composed = compose_frame(
+                    browser.packet(),
+                    previous_ghost=None,
+                    cell_px=args.scale,
+                )
+                blank_hud = tuple(
+                    tuple(
+                        (16, 18, 16) for _ in range(width * args.scale)
+                    )
+                    for _ in range(HUD_HEIGHT * args.scale)
+                )
+                lcd = stack_buffers(composed.pixels, blank_hud)
+                snapshot = session.snapshot()
+            elif review is not None:
                 # The Review window: recorded body states, raw and
                 # honestly effect-free (v1 packets declare none); the
                 # wound frames wear the damage event's own cells.
@@ -589,7 +639,14 @@ def run(argv: list[str] | None = None) -> int:
             window.fill((16, 18, 16))
             window.blit(surface, (0, 0))
             footer = _footer_lines(snapshot, queued)
-            if review is not None:
+            if browser is not None:
+                footer = [
+                    "REPERTOIRE  " + browser.caption(),
+                    browser.axes_line(),
+                    browser.components_line(),
+                    ". next  , prev  [ ] era  A adopt this one  B close",
+                ]
+            elif review is not None:
                 footer = [
                     f"REVIEW  {review.replay['creature']['grid_id']}",
                     review.caption(),
@@ -602,7 +659,7 @@ def run(argv: list[str] | None = None) -> int:
                 footer.append(
                     f"E: run era [{bench.weather}]  1/2/3: weather  "
                     "C: covenant  H: hatch  R: release  W: workshop  "
-                    "V: review"
+                    "V: review  B: repertoire"
                 )
             if bench.message:
                 footer.append(bench.message)

@@ -1,0 +1,47 @@
+{
+  "artifact_id": "repertoire_stage0",
+  "status": "complete",
+  "date": "2026-07-12",
+  "purpose": "Cycle 16 F13 (GAME track, Phase F, MVP 0.3): the repertoire browser \u2014 the era archive's elites surfaced as a browsable product (species memory visible): niche order, the descriptor's NAMED axes, fitness and its components, the body drawn from its real packet under the covenant \u2014 record fields verbatim, nothing re-derived.",
+  "source_artifacts": [
+    "game/src/mecha_game/repertoire.py",
+    "game/src/mecha_game/campaign.py",
+    "research/experiment_reports/2026-07-09-phase-e-gate.md"
+  ],
+  "metrics": {
+    "eras": 2,
+    "latest_era_elites": 21,
+    "every_elite_rendered": true,
+    "packet_ids_match_records": true,
+    "era_switch_reaches_the_first_era": true,
+    "twin_run_equal": true,
+    "display_samples": [
+      {
+        "caption": "era 1 [stable_soup]  1/21  gen_f8c66f229b316f16_c02  fitness 0.732  gen 1",
+        "axes": "body_mass 0  sensor_count 0  symmetry 1  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 1",
+        "components": "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000"
+      },
+      {
+        "caption": "era 1 [stable_soup]  2/21  gen_59d38ed3b677e43c_c02  fitness 0.733  gen 1",
+        "axes": "body_mass 0  sensor_count 0  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 0",
+        "components": "bond 1.000  mutation_stability 0.717  readability 0.006  slip_alignment 1.000  survival 1.000  validity 1.000"
+      },
+      {
+        "caption": "era 1 [stable_soup]  3/21  gen_766dee2aeb185f19_c02  fitness 0.760  gen 1",
+        "axes": "body_mass 0  sensor_count 0  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 1",
+        "components": "bond 1.000  mutation_stability 0.717  readability 0.116  slip_alignment 1.000  survival 1.000  validity 1.000"
+      }
+    ]
+  },
+  "closed_states": [
+    "species_memory_visible (the archive browsable in the client: B opens it, ./,/[/] drive it, A adopts the BROWSED elite \u2014 the repertoire is a place the Keeper shops for their next companion)",
+    "captions_are_records (descriptor names+values, fitness components, lineage generation \u2014 verbatim)",
+    "every_body_real (each elite drawn from render_packet_v2 under the campaign covenant)"
+  ],
+  "blocked_states": [
+    "ledger_sourced_browsing_awaits_resume (in-memory eras browse today; past-campaign browsing across restarts rides the F17 resume rung \u2014 the ledger already stores the records verbatim)",
+    "family_view_awaits_a_consumer_rung (E5's recurrent-family clustering is lab math; a cross-era family lens is a named future rung, not smuggled client statistics)"
+  ],
+  "decision": "adopt: the archive is a product surface; F14 browses the lineage",
+  "next_research_step": "F14 \u2014 the lineage browser (the Keeper's whole story from the verbatim lineage blocks and the ledger)"
+}

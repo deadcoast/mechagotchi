@@ -622,6 +622,138 @@ def build_fleet_consumers_report(ticks: int = 80) -> dict:
     }
 
 
+REPERTOIRE_ARTIFACT_ID = "repertoire_stage0"
+
+
+def build_repertoire_report() -> dict:
+    """F13's measured claims at session scale: the whole era archive
+    browsable — EVERY elite renders a real packet under the covenant,
+    every caption/axes/components line is record fields verbatim,
+    paging and era switching deterministic."""
+    from mecha_game.repertoire import RepertoireBrowser
+
+    inputs = _campaign_inputs(session_scale=True)
+    campaign = KeeperCampaign(
+        inputs, campaign_id="repertoire_evidence"
+    )
+    campaign.advance_era("calm")
+    campaign.advance_era("stable_soup")
+
+    def browse_run() -> dict:
+        browser = RepertoireBrowser(campaign)
+        rendered = 0
+        packet_ids_match = True
+        samples = []
+        for position in range(browser.count):
+            packet = browser.packet()
+            rendered += 1
+            if packet["grid_id"] != browser.current()["grid_id"]:
+                packet_ids_match = False
+            if position < 3:
+                samples.append(
+                    {
+                        "caption": browser.caption(),
+                        "axes": browser.axes_line(),
+                        "components": browser.components_line(),
+                    }
+                )
+            browser.step()
+        browser.previous_era()
+        first_era_count = browser.count
+        return {
+            "latest_era_elites": len(
+                campaign.eras[-1]["elites"]
+            ),
+            "rendered": rendered,
+            "packet_ids_match": packet_ids_match,
+            "samples": samples,
+            "first_era_elites_via_switch": first_era_count,
+        }
+
+    first = browse_run()
+    second = browse_run()
+    deterministic = first == second
+    all_rendered = first["rendered"] == first["latest_era_elites"]
+    era_switch_true = first["first_era_elites_via_switch"] == len(
+        campaign.eras[0]["elites"]
+    )
+    status = (
+        "complete"
+        if deterministic
+        and all_rendered
+        and first["packet_ids_match"]
+        and era_switch_true
+        else "refuted"
+    )
+    return {
+        "artifact_id": REPERTOIRE_ARTIFACT_ID,
+        "status": status,
+        "date": REPORT_DATE,
+        "purpose": (
+            "Cycle 16 F13 (GAME track, Phase F, MVP 0.3): the "
+            "repertoire browser — the era archive's elites surfaced "
+            "as a browsable product (species memory visible): niche "
+            "order, the descriptor's NAMED axes, fitness and its "
+            "components, the body drawn from its real packet under "
+            "the covenant — record fields verbatim, nothing "
+            "re-derived."
+        ),
+        "source_artifacts": [
+            "game/src/mecha_game/repertoire.py",
+            "game/src/mecha_game/campaign.py",
+            "research/experiment_reports/2026-07-09-phase-e-gate.md",
+        ],
+        "metrics": {
+            "eras": len(campaign.eras),
+            "latest_era_elites": first["latest_era_elites"],
+            "every_elite_rendered": all_rendered,
+            "packet_ids_match_records": first["packet_ids_match"],
+            "era_switch_reaches_the_first_era": era_switch_true,
+            "twin_run_equal": deterministic,
+            "display_samples": first["samples"],
+        },
+        "closed_states": [
+            "species_memory_visible (the archive browsable in the "
+            "client: B opens it, ./,/[/] drive it, A adopts the "
+            "BROWSED elite — the repertoire is a place the Keeper "
+            "shops for their next companion)",
+            "captions_are_records (descriptor names+values, fitness "
+            "components, lineage generation — verbatim)",
+            "every_body_real (each elite drawn from render_packet_v2 "
+            "under the campaign covenant)",
+        ],
+        "blocked_states": [
+            "ledger_sourced_browsing_awaits_resume (in-memory eras "
+            "browse today; past-campaign browsing across restarts "
+            "rides the F17 resume rung — the ledger already stores "
+            "the records verbatim)",
+            "family_view_awaits_a_consumer_rung (E5's recurrent-"
+            "family clustering is lab math; a cross-era family lens "
+            "is a named future rung, not smuggled client statistics)",
+        ],
+        "decision": (
+            "adopt: the archive is a product surface; F14 browses "
+            "the lineage"
+        ),
+        "next_research_step": (
+            "F14 — the lineage browser (the Keeper's whole story "
+            "from the verbatim lineage blocks and the ledger)"
+        ),
+    }
+
+
+def write_repertoire_artifacts(
+    output_dir: str | Path, report: dict
+) -> Path:
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    path = output_dir / f"{REPERTOIRE_ARTIFACT_ID}.json"
+    path.write_text(
+        json.dumps(report, indent=2) + "\n", encoding="utf-8"
+    )
+    return path
+
+
 REVIEW_ARTIFACT_ID = "review_replay_stage0"
 
 
@@ -1584,6 +1716,10 @@ if __name__ == "__main__":
     print(f"wrote {written}")
     written = write_review_replay_artifacts(
         args.output_dir, build_review_replay_report()
+    )
+    print(f"wrote {written}")
+    written = write_repertoire_artifacts(
+        args.output_dir, build_repertoire_report()
     )
     print(f"wrote {written}")
     release_report = build_installable_release_report()
