@@ -1,70 +1,72 @@
-# Development TODO — Cycle 16: GAME track · Phase F — MVP 0.3 (the species commons)
+# Development TODO — Cycle 17: Phase G — the late-stage requireds (BOTH builds)
 
-**Build track: THE GAME** (per `docs/gap-analysis.md` §0; ENGINE A–E
-complete). MVP 0.1 and 0.2 are DELIVERED and gated (cycles 14–15;
-gates: `2026-07-12-phase-f-mvp01-gate.md`, `…-mvp02-gate.md`). This
-cycle climbs the ladder's last named rung.
+**Build track: SHARED** (per `docs/gap-analysis.md` §4: ENGINE A–E
+complete; GAME Phase F complete — the MVP ladder 0.1→0.3 delivered
+and gated, cycles 14–16). Phase G is the last documented phase; the
+gap analysis retires only when this phase's alpha gate is green.
 
-Source: `docs/gap-analysis.md` (Phase F; the MVP ladder) and validity
-§1.24: *"Add mecha_darwin archive. Add species niches. Add
-import/export SLIP files. Add lineage browser. Add community profile
-packs."* The archive and niches already RUN inside every era (the
-engine's MAP-Elites, cycle 13); 0.3's product work is SURFACING them
-to the player — plus the cycle-15 gate's carried remainders.
+Source: `docs/gap-analysis.md` (Phase G): *"Real-CuBFF corpus + the
+transducer study (20 runs / 400 states, the documented keep gates);
+community asset/profile system; CI + reproducibility; the M7 public
+alpha of BOTH builds."* CuBFF real ingest is REQUIRED (owner,
+2026-07-07) — an additional feature, never an open question;
+synthetic weather remains the interim source until real exports land,
+and nothing "real" is ever fabricated.
 
-- [x] **F13 · The repertoire browser — the archive surfaced.** The
-  era archive's elites become a browsable product surface: page
-  through niches (descriptor axes, fitness, the elite's body drawn),
-  E5's species memory made visible — the player can SEE the 8×8×8
-  repertoire their bloodline fills. Engine truth: every number a
-  report/record field; the ledger's stored elites are the source for
-  past eras.
-- [x] **F14 · The lineage browser.** The Keeper's whole story
-  browsable: the companion lineage file + the campaign's era chain +
-  the ledger's records — who descended from whom, who was hatched/
-  adopted/released, era by era. The grid schema's own lineage blocks
-  (ancestor_ids, mutation_events) are the verbatim source.
-- [x] **F15 · SLIP import/export in the product.** Export the ACTIVE
-  covenant (spends included) to a shareable SLIP file; import one
-  through the engine's authority (verbatim refusals); the imported
-  covenant governs adoption/hatching/eras. The schema ladder
-  (DR 0012) and the zoo fixtures are the compatibility source.
-- [x] **F16 · Community profile packs — the format.** The documented
-  community surface at its FIRST honest rung: a pack = SLIPs +
-  released creatures + provenance in one importable file; packs
-  import through the same authority/admission gates (verbatim
-  verdicts); the committed zoo/releases become the first example
-  pack. (Distribution/community infrastructure stays Phase G —
-  named, not smuggled.)
-- [x] **F17 · Carried remainders.** Replay persistence (the ledger's
-  `record_replay` gains its consumer — reviews survive restart);
-  campaign resume restores the SPENT covenant from the ledger
-  (process-state today, re-earned from facts); the windowed bundle
-  launch-verified once.
-- [ ] **F18 · The MVP 0.3 gate.** One consolidated report with the
-  honest remainder list; Phase F's rungs are then EXHAUSTED — the
-  gate names what (if anything) remains of Phase F vs what opens
-  Phase G, and the gap analysis governs the next cycle.
+- [ ] **G1 · CI + reproducibility.** The full sweep as a checked-in
+  CI workflow (labs + package + workshop + CLI + game; JSON artifact
+  validation; the evidence harness as a regen check). The known
+  environment sensitivities are handled HONESTLY, not hidden: the
+  workshop_editor foreign-fixture byte pins are zlib-BUILD-sensitive
+  (system zlib-ng generated them; classic-zlib interpreters fail 10
+  of them — the F1 report's recorded observation) — the workflow
+  pins a matching interpreter or marks those pins
+  environment-conditional WITH a decision record; pygame suites run
+  headless (SDL dummy, the suite's own convention).
+- [ ] **G2 · The real-CuBFF corpus.** The REQUIRED ingest: obtain or
+  build real CuBFF run exports (the upstream study's code) and land
+  them through the EXISTING ingest seam
+  (`awaiting_real_cubff_snapshots` — admission or verbatim
+  rejection). If the upstream build is blocked on this machine,
+  record the blocker honestly with what was attempted — never
+  fabricate "real" data (standing law).
+- [ ] **G3 · The transducer study at documented scale.** 20 runs /
+  400 curated states against the documented keep gates (preference
+  >60%, invalid <10%) over the REAL corpus from G2 — the study the
+  docs specify; a blocked G2 blocks this honestly, not silently.
+- [ ] **G4 · Real weather in the game.** Real snapshots drop into the
+  weather seam with ZERO seam changes (the documented promise,
+  verified end to end in the client: a real-weather era runs and its
+  snapshot provenance shows).
+- [ ] **G5 · Community distribution decisions.** A decision record
+  for pack distribution (registry/sharing shape, provenance
+  integrity/signing — the F16 remainder), scoped to what the alpha
+  actually needs; implementation follows the DR, never precedes it.
+- [ ] **G6 · The M7 public-alpha packet + the Phase-G gate.** The
+  repo reproducible from its own docs (entry README path: install,
+  run the suites, build the game, play); the alpha checklist of BOTH
+  builds; one consolidated gate report. **If green, the gap analysis
+  RETIRES** — and the next planning source is decided WITH the owner
+  (the documentation still defines scope).
 
 ## Standing note
 
-`docs/gap-analysis.md` governs cycle planning until retired (Phase G
-alpha). The engine-truth law (DR 0021), the identity constraint, the
-triad discipline, and the mirror-never-import boundary apply. CuBFF
-real ingest is REQUIRED late-stage (Phase G). Apache-2.0; deps
-permitted with justification (DR 0028). Standing engine remainders:
-DR 0032's re-openers; occupancy saturation ~55% (pure WFC parents);
-behavior_neediness at 16×16; the unpromoted archive scale-geometry
-seam; evolve's inner loop on WFC; SLIP alignment in scale harnesses;
-the hybrid re-opener; per-role limb/joint motion; clip-frame exports;
-dropped threads stay out (D6). Game-side: 16×16 workshop authoring
-(the committed releases are 8×8); the model cache keys on grid ids
-(content hash the day generated corpora feed it); CI/signing/
-multi-platform packaging (Phase G).
+The engine-truth law (DR 0021), the identity constraint, the triad
+discipline, and the mirror-never-import boundary are unchanged.
+Apache-2.0; deps permitted with justification (DR 0028). Standing
+engine remainders: DR 0032's re-openers; occupancy saturation ~55%;
+behavior_neediness at 16×16; the unpromoted scale-geometry seam
+(still undemanded); evolve's inner loop on WFC; the hybrid re-opener;
+per-role limb/joint motion; clip-frame exports; dropped threads stay
+out (D6). Phase-F remainders carried as facts: 16×16 workshop
+authoring; the ledger-backed repertoire page; the cross-era family
+lens; a WFC hatchery trace seam; per-elite clip playback; UI
+key-surface polish; the model cache's id-keying.
 
 ## Sources
 
-- `docs/gap-analysis.md` (Phase F; §0), `docs/project-research/validity-research.md` (§1.24)
-- `research/experiment_reports/2026-07-12-phase-f-mvp02-gate.md` (the opener)
-- `research/decision_records/0012-slip-schema-extension-ladder.md` (F15), `0022-storage-module.md` (F13/F14/F17 sources)
-- `data/slips/` (the zoo), `data/workshop/released/` (F16's example material)
+- `docs/gap-analysis.md` (Phase G; §4 the ladder)
+- `research/experiment_reports/2026-07-12-phase-f-mvp03-gate.md` (the opener)
+- `data/cubff_real_ingest/` (the honest blocker record + the ingest seam)
+- `research/decision_records/0018`, `0020` (the weather seams), `0028` (deps/license)
+- `labs/cubff_transducer/` (the study's lab), `data/workshop/released/`, `data/packs/` (G5's material)

@@ -210,6 +210,19 @@ the GAME track begins in earnest** — each phase at REAL scale:
   the Review replaying a real recorded life; hardening. §1.23 judged
   honestly — the visual editor stays the workshop's surface by the
   docs' own split, consumed through the bridge).
+  **MVP 0.3 DELIVERED — PHASE F COMPLETE (cycle 16, 2026-07-12)** —
+  gate report
+  `research/experiment_reports/2026-07-12-phase-f-mvp03-gate.md`
+  (the ladder is climbed: the archive surfaced as the repertoire
+  browser with adopt-the-browsed-elite; the lineage browser reading
+  the verbatim blocks; SLIP import/export through the authority;
+  community packs at the FORMAT rung with three layers of engine
+  gates; the carried remainders closed — replay persistence
+  hash-verified, campaign resume byte-identical to the unbroken run,
+  the windowed bundle verified. Named remainders carry as facts, not
+  blockers — 16×16 workshop authoring, the ledger-backed repertoire
+  page, the family lens, pack signing with Phase G's distribution
+  decisions).
 
 ### Shared / late-stage (Phase G)
 

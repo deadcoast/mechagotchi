@@ -71,24 +71,26 @@ this, or am I periscoping?
   the co-author line `Co-Authored-By: Claude Fable 5
   <noreply@anthropic.com>`.
 
-## 3. Where we are RIGHT NOW (updated 2026-07-12, end of cycle 15)
+## 3. Where we are RIGHT NOW (updated 2026-07-12, end of cycle 16)
 
-- **Active queue:** `audits/TODO.md` = **Cycle 16 · GAME track ·
-  Phase F — MVP 0.3 (the species commons).** Nothing in it is
-  started; the next concrete work is **F13 · the repertoire
-  browser**. **CYCLES 14 AND 15 (MVP 0.1 + 0.2) ARE COMPLETE AND
-  GATED GREEN** — gates:
-  `research/experiment_reports/2026-07-12-phase-f-mvp01-gate.md` and
-  `…-mvp02-gate.md`. The playable product exists and closes the
-  creator loop (spend covenant → hatch → raise → release → era →
-  review the recorded life → adopt the elite): `mechas game --play`,
-  or `uv run python -B game/run_game.py`, or the built
-  `dist/Mechagotchi/`. Cycle 15 shipped F7 covenant spending, F8 the
-  hatchery, F9 the Contribute bridge, F10 the Review replays, F11
-  hardening (model cache pinned byte-equal; `--windowed`; `mechas
-  game`), F12 the gate — ten stage-0 artifacts under
-  `data/game_client/`, all complete; game suite 117, CLI 23,
-  package 295.
+- **Active queue:** `audits/TODO.md` = **Cycle 17 · SHARED · Phase G
+  — the late-stage requireds.** Nothing in it is started; the next
+  concrete work is **G1 · CI + reproducibility** (mind the zlib-ng
+  fixture sensitivity — the F1 report records it). **PHASE F IS
+  COMPLETE**: the whole MVP ladder (0.1 → 0.2 → 0.3) delivered and
+  gated green across cycles 14–16 — gates:
+  `2026-07-12-phase-f-mvp01-gate.md`, `…-mvp02-gate.md`,
+  `…-mvp03-gate.md`. The product: `mechas game --play` (or
+  `game/run_game.py`, or the built bundle) — companion + eras +
+  covenant spending + hatchery + Contribute + Review replays +
+  repertoire/lineage browsers + SLIP import/export + community packs,
+  all resumable across restarts (campaign resume byte-identical,
+  replays hash-verified). FOURTEEN stage-0 artifacts under
+  `data/game_client/`, all complete; game 147 · CLI 23 · package 295
+  · workshop 60 · 19 labs — all green. Phase G's charter: the
+  real-CuBFF corpus (REQUIRED — never fabricate real data), the
+  transducer study, CI, distribution decisions, the M7 public alpha;
+  **the gap analysis retires only when G's alpha gate is green.**
 - **Cycle 14's shipped record** (kept for context): **F1 is COMPLETE**
   (2026-07-12): DR 0033 chose **pygame-ce** for the client (engine
   imported in-process — packets verbatim, replay fidelity by
@@ -185,7 +187,19 @@ this, or am I periscoping?
    doctor, reviewer prefill, shell completion).
 7. `research/README.md` — the master traceability ledger.
 
-## 5. WHAT TO DO NEXT — Cycle 16, task F13 (THE GAME TRACK, MVP 0.3)
+## 5. WHAT TO DO NEXT — Cycle 17, task G1 (PHASE G, SHARED)
+
+`audits/TODO.md` holds cycle 17's full task text: G1 CI +
+reproducibility (handle the zlib-ng fixture sensitivity HONESTLY —
+pin a matching interpreter or condition those pins with a DR), G2
+the real-CuBFF corpus through the existing ingest seam (REQUIRED;
+record the blocker honestly if the upstream build fails — never
+fabricate), G3 the transducer study at documented scale over the
+real corpus, G4 real weather into the game's seam (zero seam
+changes, verified), G5 the distribution/signing decision record, G6
+the M7 public-alpha packet + the Phase-G gate — **if green, the gap
+analysis RETIRES and the next planning source is decided WITH the
+owner.** The cycle-16 record below is kept for context:
 
 `audits/TODO.md` holds cycle 16's full task text. **F13 (the
 repertoire browser) is DONE (2026-07-12)**: `repertoire.py` (elites
