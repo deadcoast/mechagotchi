@@ -12,7 +12,7 @@
   "dependency_manifest_path": "pyproject.toml",
   "dependency_group": "lab",
   "pydantic_available": true,
-  "pydantic_version": "2.12.5",
+  "pydantic_version": "2.13.4",
   "jsonschema_available": true,
   "jsonschema_version": "4.26.0",
   "dependency_decision": {

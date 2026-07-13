@@ -27,6 +27,15 @@ theories, methods, and functions derived from them. Nothing is claimed
 without executable evidence; nothing is promoted without passing a
 documented gate.
 
+## The public alpha (M7)
+
+Both builds are reproducible from one document: **`docs/alpha.md`** —
+install, run the full verification sweep, play/build the game, share
+covenant packs. The GAME build lives at `game/` (a pygame-ce client;
+DR 0033) and the ENGINE at `packages/mecha_engine/`; the whole MVP
+ladder (0.1 → 0.3) and Phase G's gates are recorded in
+`research/experiment_reports/` with their evidence under `data/`.
+
 ## The supporting ecosystem
 
 Every piece of source code and application surface is supported by the

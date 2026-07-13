@@ -38,7 +38,7 @@ and nothing "real" is ever fabricated.
   weather seam with ZERO seam changes (the documented promise,
   verified end to end in the client: a real-weather era runs and its
   snapshot provenance shows).
-- [ ] **G5 · Community distribution decisions.** A decision record
+- [x] **G5 · Community distribution decisions.** A decision record
   for pack distribution (registry/sharing shape, provenance
   integrity/signing — the F16 remainder), scoped to what the alpha
   actually needs; implementation follows the DR, never precedes it.
