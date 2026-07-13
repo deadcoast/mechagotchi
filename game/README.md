@@ -51,6 +51,9 @@ back) · **B** browse the repertoire — your bloodline's whole archive,
 niche by niche (**.**/**,** page, **[**/**]** switch eras, **A**
 adopt the one you're looking at) · **L** read your bloodline's story,
 life by life (origins, death causes, the growing ancestor chain) ·
+**X** export your covenant as a shareable SLIP file / **I** import
+one from `keeper/covenants/covenant_import.json` (the engine's
+authority judges it; an import is a new species contract) ·
 **ESC**/close quit. Saves land in
 `keeper/` (gitignored) — quit and come back, the client resumes. The
 companion begs when it wants food — only you can feed it; neglect

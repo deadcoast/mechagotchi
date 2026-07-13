@@ -1,0 +1,83 @@
+"""SLIP import/export — the covenant is shareable (F15, MVP 0.3).
+
+Export writes the ACTIVE covenant VERBATIM: it is already an
+authority-validated SLIP (spends included), shareable as-is — the
+zoo's file convention, no wrapper invented. Import passes two engine
+gates before anything applies: the authority's validation
+(`mecha_engine.slip.validate_slip`, refusals verbatim) and corpus
+compatibility (`evolve`'s own rule — "no seed grid satisfies the SLIP
+profile" — checked with the engine's `is_grid_aligned`); a refused
+import applies NOTHING. An accepted import becomes the campaign's
+NEW BASE covenant: a fresh species contract whose spend budget
+recomputes from the Keeper's earned facts (spends re-apply by
+choice, never silently).
+"""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+from mecha_engine.slip import is_grid_aligned, validate_slip
+
+
+def export_covenant(keeper_campaign, path: str | Path) -> Path:
+    """Write the active covenant verbatim (backup-before-overwrite)."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists():
+        path.with_suffix(".bak.json").write_text(
+            path.read_text(encoding="utf-8"), encoding="utf-8"
+        )
+    path.write_text(
+        json.dumps(keeper_campaign.campaign["slip_profile"], indent=2)
+        + "\n",
+        encoding="utf-8",
+    )
+    return path
+
+
+def import_covenant(keeper_campaign, path: str | Path) -> dict:
+    """Import a covenant through the engine's gates.
+
+    Returns ``{"ok": True, "covenant": …, "aligned_seeds": n}`` or
+    ``{"ok": False, "violations": […]}`` with nothing applied."""
+    try:
+        profile = json.loads(
+            Path(path).read_text(encoding="utf-8")
+        )
+    except (OSError, json.JSONDecodeError) as error:
+        return {
+            "ok": False,
+            "violations": [f"unreadable covenant file: {error}"],
+        }
+    verdict = validate_slip(profile)
+    if not verdict.ok:
+        return {
+            "ok": False,
+            "violations": [
+                f"the authority rejects the covenant: {error}"
+                for error in verdict.errors
+            ],
+        }
+    aligned = sum(
+        1
+        for seed in keeper_campaign.inputs["seed_grids"]
+        if is_grid_aligned(seed, profile).ok
+    )
+    if aligned == 0:
+        return {
+            "ok": False,
+            "violations": [
+                "no seed grid satisfies the SLIP profile — an era "
+                "under this covenant could not begin (the engine's "
+                "own rule)"
+            ],
+        }
+    # The new species contract: base AND active covenant; the earned
+    # budget recomputes from it, spends re-apply by choice.
+    keeper_campaign.base_profile = json.loads(json.dumps(profile))
+    keeper_campaign.campaign["slip_profile"] = json.loads(
+        json.dumps(profile)
+    )
+    return {"ok": True, "covenant": profile, "aligned_seeds": aligned}

@@ -31,6 +31,7 @@ from mecha_game.campaign import (
 )
 from mecha_game.clips import TRANSITIONS, ClipDriver
 from mecha_game.contribute import founders_verdict, gather_releases
+from mecha_game.covenant_io import export_covenant, import_covenant
 from mecha_game.hatchery import hatch_founders, origin_summary
 from mecha_game.lineage import LineageBrowser
 from mecha_game.repertoire import RepertoireBrowser
@@ -492,6 +493,40 @@ def run(argv: list[str] | None = None) -> int:
                         and event.key == pygame.K_RIGHTBRACKET
                     ):
                         browser.next_era()
+                    elif event.key == pygame.K_x:
+                        # Export the ACTIVE covenant (spends included)
+                        # as a shareable SLIP file (F15).
+                        exported = export_covenant(
+                            bench.ensure(),
+                            keeper_dir
+                            / "covenants"
+                            / "covenant_export.json",
+                        )
+                        bench.message = f"covenant exported: {exported.name}"
+                    elif event.key == pygame.K_i:
+                        # Import a covenant through the engine's gates
+                        # (F15): keeper/covenants/covenant_import.json.
+                        import_path = (
+                            keeper_dir
+                            / "covenants"
+                            / "covenant_import.json"
+                        )
+                        if not import_path.is_file():
+                            bench.message = (
+                                f"place a SLIP at {import_path.name} "
+                                "under keeper/covenants/ to import"
+                            )
+                        else:
+                            result = import_covenant(
+                                bench.ensure(), import_path
+                            )
+                            bench.message = (
+                                "covenant imported "
+                                f"({result['aligned_seeds']} seeds "
+                                "satisfy it) — the new species contract"
+                                if result["ok"]
+                                else "; ".join(result["violations"])
+                            )
                     elif event.key == pygame.K_w:
                         # Gather the workshop's and the Keeper's
                         # released creatures for the next era; the
@@ -681,7 +716,8 @@ def run(argv: list[str] | None = None) -> int:
                 footer.append(
                     f"E: run era [{bench.weather}]  1/2/3: weather  "
                     "C: covenant  H: hatch  R: release  W: workshop  "
-                    "V: review  B: repertoire  L: lineage"
+                    "V: review  B: repertoire  L: lineage  X/I: "
+                    "export/import covenant"
                 )
             if bench.message:
                 footer.append(bench.message)

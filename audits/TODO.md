@@ -24,7 +24,7 @@ to the player — plus the cycle-15 gate's carried remainders.
   the ledger's records — who descended from whom, who was hatched/
   adopted/released, era by era. The grid schema's own lineage blocks
   (ancestor_ids, mutation_events) are the verbatim source.
-- [ ] **F15 · SLIP import/export in the product.** Export the ACTIVE
+- [x] **F15 · SLIP import/export in the product.** Export the ACTIVE
   covenant (spends included) to a shareable SLIP file; import one
   through the engine's authority (verbatim refusals); the imported
   covenant governs adoption/hatching/eras. The schema ladder

@@ -622,6 +622,153 @@ def build_fleet_consumers_report(ticks: int = 80) -> dict:
     }
 
 
+COVENANT_IO_ARTIFACT_ID = "covenant_io_stage0"
+
+
+def build_covenant_io_report() -> dict:
+    """F15's measured claims at session scale: the ACTIVE covenant
+    (spends included) exports verbatim as a shareable SLIP; imports
+    pass the authority AND the corpus-compatibility gate with verbatim
+    refusals applying nothing; an accepted import becomes the new
+    base; the round trip is identity; an era runs under an imported
+    zoo covenant."""
+    import tempfile
+
+    from mecha_game.covenant import apply_covenant_change
+    from mecha_game.covenant_io import export_covenant, import_covenant
+
+    inputs = _campaign_inputs(session_scale=True)
+    campaign = KeeperCampaign(inputs, campaign_id="io_evidence")
+    campaign.advance_era("calm")
+    spend = apply_covenant_change(
+        campaign,
+        deliberation_max_ticks=campaign.budget()[
+            "deliberation_max_ticks"
+        ],
+    )
+    with tempfile.TemporaryDirectory() as tmp:
+        exported_path = export_covenant(
+            campaign, Path(tmp) / "covenant.json"
+        )
+        exported = json.loads(
+            exported_path.read_text(encoding="utf-8")
+        )
+        export_verbatim = (
+            exported == campaign.campaign["slip_profile"]
+        )
+        round_trip = import_covenant(campaign, exported_path)
+    gray = import_covenant(
+        campaign, ROOT / "data" / "slips" / "valid" / "slip_gray_stable.json"
+    )
+    era_under_import = campaign.advance_era("calm")
+    bad = import_covenant(
+        campaign,
+        ROOT / "data" / "slips" / "failure_cases" / "slip_bad_version.json",
+    )
+    impossible = json.loads(
+        (ROOT / HELLO_SLIP).read_text(encoding="utf-8")
+    )
+    impossible["grid"]["body_mass_min"] = 200
+    impossible["grid"]["body_mass_max"] = 256
+    with tempfile.TemporaryDirectory() as tmp:
+        impossible_path = Path(tmp) / "impossible.json"
+        impossible_path.write_text(
+            json.dumps(impossible), encoding="utf-8"
+        )
+        incompatible = import_covenant(campaign, impossible_path)
+    status = (
+        "complete"
+        if spend["ok"]
+        and export_verbatim
+        and round_trip["ok"]
+        and gray["ok"]
+        and bool(era_under_import["elites"])
+        and not bad["ok"]
+        and any("authority rejects" in v for v in bad["violations"])
+        and not incompatible["ok"]
+        and any(
+            "no seed grid satisfies" in v
+            for v in incompatible["violations"]
+        )
+        else "refuted"
+    )
+    return {
+        "artifact_id": COVENANT_IO_ARTIFACT_ID,
+        "status": status,
+        "date": REPORT_DATE,
+        "purpose": (
+            "Cycle 16 F15 (GAME track, Phase F, MVP 0.3): SLIP "
+            "import/export in the product — the active covenant "
+            "(spends included) exports VERBATIM as a shareable SLIP "
+            "(the zoo's convention, no wrapper); imports pass the "
+            "engine's authority and evolve's own corpus-"
+            "compatibility rule with verbatim refusals applying "
+            "NOTHING; an accepted import is the new species contract "
+            "and governs the next era."
+        ),
+        "source_artifacts": [
+            "game/src/mecha_game/covenant_io.py",
+            "data/slips/valid/slip_gray_stable.json",
+            "data/slips/failure_cases/slip_bad_version.json",
+            "research/decision_records/0012-slip-schema-extension-ladder.md",
+        ],
+        "metrics": {
+            "spent_covenant_exported_verbatim": export_verbatim,
+            "round_trip_ok": round_trip["ok"],
+            "zoo_import_ok": gray["ok"],
+            "zoo_import_aligned_seeds": gray.get("aligned_seeds"),
+            "era_under_imported_covenant_elites": len(
+                era_under_import["elites"]
+            ),
+            "invalid_refused_verbatim": (
+                not bad["ok"] and bad["violations"][:1]
+            ),
+            "incompatible_refused_named": (
+                not incompatible["ok"]
+                and incompatible["violations"][:1]
+            ),
+        },
+        "closed_states": [
+            "covenants_are_shareable_files (export verbatim — an "
+            "authority-validated SLIP needs no wrapper; X/I in the "
+            "client via the keeper/covenants inbox, the F9 file-"
+            "bridge pattern)",
+            "imports_pass_two_engine_gates (the authority verbatim + "
+            "evolve's no-seed-satisfies rule via is_grid_aligned; "
+            "refusals apply nothing)",
+            "an_import_is_a_new_species_contract (base AND active "
+            "covenant replaced; the earned budget recomputes; spends "
+            "re-apply by choice, never silently)",
+        ],
+        "blocked_states": [
+            "companion_covenant_changes_on_next_adoption (a live "
+            "pet's covenant never swaps under it — imports govern "
+            "future adoptions/hatches/eras)",
+            "pack_bundling_is_F16 (a covenant plus creatures plus "
+            "provenance in one importable file)",
+        ],
+        "decision": (
+            "adopt: covenants travel; F16 bundles the community pack "
+            "format"
+        ),
+        "next_research_step": (
+            "F16 — community profile packs at the FORMAT rung"
+        ),
+    }
+
+
+def write_covenant_io_artifacts(
+    output_dir: str | Path, report: dict
+) -> Path:
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    path = output_dir / f"{COVENANT_IO_ARTIFACT_ID}.json"
+    path.write_text(
+        json.dumps(report, indent=2) + "\n", encoding="utf-8"
+    )
+    return path
+
+
 LINEAGE_ARTIFACT_ID = "lineage_story_stage0"
 
 
@@ -1851,6 +1998,10 @@ if __name__ == "__main__":
     print(f"wrote {written}")
     written = write_lineage_story_artifacts(
         args.output_dir, build_lineage_story_report()
+    )
+    print(f"wrote {written}")
+    written = write_covenant_io_artifacts(
+        args.output_dir, build_covenant_io_report()
     )
     print(f"wrote {written}")
     release_report = build_installable_release_report()

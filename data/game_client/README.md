@@ -104,4 +104,12 @@ the playable front end, distinct from the workshop's authoring surfaces.
   ancestor_ids); twin-equal; the story rides the save file. Origins
   are additive Keeper facts; old saves stay loadable.
 
+- `covenant_io_stage0.json` - F15 (cycle 16, MVP 0.3): covenants
+  travel - the spent covenant exports verbatim and round-trips to
+  identity; the zoo's gray covenant imports (8 seeds satisfy it) and
+  its era fills 22 niches; the invalid fixture refused with the
+  authority's verbatim error; the impossible one with the engine's
+  no-seed-satisfies rule. Imports are new species contracts; spends
+  re-apply by choice.
+
 Produced by `game/evidence.py`.

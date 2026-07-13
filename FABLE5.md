@@ -198,8 +198,14 @@ game tests. **F14 (the lineage browser) is DONE (2026-07-12)**:
 (founder/hatched/era_elite/succession, save-compatible); L pages the
 story; evidence `lineage_story_stage0.json` (ancestor chain growing
 0→1→2 across successions — the founding sentence visible); 131 game
-tests. Remaining: F15 SLIP
-import/export through the authority, F16 community packs at the
+tests. **F15 (SLIP import/export) is DONE (2026-07-12)**:
+`covenant_io.py` (export verbatim; import through the authority +
+evolve's no-seed-satisfies rule; an import is a NEW SPECIES CONTRACT
+— budget recomputes, spends re-apply by choice); X/I in the client
+via keeper/covenants; evidence `covenant_io_stage0.json` (round-trip
+identity; the gray zoo covenant's era filled 22 niches; both
+refusal paths verbatim); 136 game tests. Remaining: F16 community
+packs at the
 FORMAT rung (distribution stays Phase G), F17 the carried remainders
 (replay persistence via the ledger's `record_replay`; spent-covenant
 resume from the ledger; windowed launch-verify), F18 the 0.3 gate —
