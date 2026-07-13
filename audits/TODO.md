@@ -23,7 +23,7 @@ and nothing "real" is ever fabricated.
   pins a matching interpreter or marks those pins
   environment-conditional WITH a decision record; pygame suites run
   headless (SDL dummy, the suite's own convention).
-- [ ] **G2 · The real-CuBFF corpus.** The REQUIRED ingest: obtain or
+- [x] **G2 · The real-CuBFF corpus.** The REQUIRED ingest: obtain or
   build real CuBFF run exports (the upstream study's code) and land
   them through the EXISTING ingest seam
   (`awaiting_real_cubff_snapshots` — admission or verbatim

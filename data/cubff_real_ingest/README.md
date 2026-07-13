@@ -4,9 +4,9 @@ This directory records the real CuBFF snapshot-ingestion gate for the semantic t
 
 Key results:
 
-- Status: awaiting_real_cubff_snapshots
-- Ingested snapshots: 0
-- Non-snapshot files ignored: 1
-- Decision: blocked_real_snapshot_absent
+- Status: ingested_real_cubff_snapshots
+- Ingested snapshots: 9
+- Non-snapshot files ignored: 2
+- Decision: ready_for_real_transducer_comparison
 
 Metrics logs are not treated as snapshots. CuBFF adoption remains blocked until real soup/checkpoint or Python state exports are ingested and compared against the existing semantic transducer baseline.

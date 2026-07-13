@@ -44,9 +44,12 @@ of a bloodline surviving eras.
    or verbatim rejection, both shown).
 4. **Choose the era's weather** — a CuBFF pressure source
    (`cubff_pressure_source`, DR 0018/0020): calm soups, storm soups,
-   mixed forecasts; later, REAL ingested CuBFF runs (currently blocked:
-   `awaiting_real_cubff_snapshots` — the game ships on synthetic
-   weather and upgrades to real exports with zero seam changes).
+   mixed forecasts; later, REAL ingested CuBFF runs (blocked at
+   `awaiting_real_cubff_snapshots` when this record was written;
+   UNBLOCKED 2026-07-12, cycle 17 G2 — real checkpoints ingested,
+   `2026-07-12-real-cubff-corpus.md`; the game ships on synthetic
+   weather and upgrades to real exports with zero seam changes —
+   the G4 rung).
 5. **Run the era** — one `mecha_engine.runtime.evolve` run (the
    promoted surface): generations of candidates, damage cycles scaled
    by that era's weather, archive selection, lineage deepening.

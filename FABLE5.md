@@ -198,7 +198,17 @@ runner (verified locally under the classic-zlib venv: everything
 green, 2208 artifacts valid); `.github/workflows/ci.yml` runs
 windows+ubuntu with the venv built FROM the runner's interpreter and
 a zlib-provenance step. THE FIRST CLOUD RUN AWAITS A PUSH — never
-push unasked. Remaining: G2
+push unasked. **G2 (the real CuBFF corpus) is DONE (2026-07-12) —
+THE OLDEST BLOCKER CLOSED WITH REAL DATA**: upstream built at the
+audited commit in WSL2 Ubuntu (`make CUDA=0`; no Windows toolchain
+exists — checked; no upstream data assets — checked); one genuine
+`bff_noheads --seed 0` run → nine byte-exact `.dat` checkpoints +
+metrics provenance committed; **the gate flipped to
+`ingested_real_cubff_snapshots` (9/0/0), decision
+`ready_for_real_transducer_comparison`**; honest notes: early-phase
+soup in this window (no takeover), replication scores absent by
+format. The proven build path is seconds-cheap — G3's 20-run
+protocol can afford real scale. Old line kept for context: G2
 the real-CuBFF corpus through the existing ingest seam (REQUIRED;
 record the blocker honestly if the upstream build fails — never
 fabricate), G3 the transducer study at documented scale over the
