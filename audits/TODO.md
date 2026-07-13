@@ -1,51 +1,75 @@
-# Development TODO — awaiting the owner's direction (post-alpha)
+# Development TODO — Cycle 18: WORKSHOP track · Phase H — the authoring depth
 
-**Every documented phase is complete and gated** (2026-07-12): the
-ENGINE track A–E (cycles 09–13), the GAME track's full MVP ladder
-0.1→0.3 (cycles 14–16), and Phase G's late-stage requireds including
-the REAL CuBFF corpus (cycle 17). The Phase-G alpha gate is GREEN
-(`research/experiment_reports/2026-07-12-phase-g-gate.md`) and
-`docs/gap-analysis.md` is RETIRED per its own charter.
+**Build track: THE WORKSHOP** — the documented third surface ("the
+authoring layer serving both": it feeds the engine creatures/profiles
+and gives the game its creator loop — gap-analysis §0). Phases A–G
+are complete and gated; the workshop row of the measured gap table
+was never phase-gated and remains the largest unmet documented scope:
+*"Semantic pixel editor with layers, onion skin, animation timeline,
+behavior editor; community asset/profile system; ≤45-min
+first-session creature+SLIP"* vs the delivered single-layer,
+single-frame editors. This cycle opens it — chosen from the
+documentation per the standing planning rule (correction of
+2026-07-12 recorded: the developer plans the next cycle; the owner is
+never asked to).
 
-**The next planning source is decided WITH the owner** — this was
-pre-registered in cycle 17's G6 task, and it honors the standing law:
-scope is the documentation, never an agent-invented queue. No task
-below is started; this file is the handoff.
+Source: the gap table's Workshop row; `docs/mecha-workshop/
+mecha-workshop-design.md` (the design charter, DR 0010's track);
+standing cross-track remainders this cycle closes: **16×16 workshop
+authoring** (the committed releases are 8×8 — real Contribute/pack
+value is blocked on this) and **clip-frame exports** (the Phase-C
+named remainder).
 
-## Candidate directions (recorded, not chosen)
-
-From the named remainders and the docs' unexhausted depths — each
-would decompose into a cycle FROM its governing document if chosen:
-
-1. **The workshop track's depth** (the gap table's authoring row,
-   never phase-gated): 16×16 authoring, layers/onion-skin/animation
-   timeline/behavior editor, clip-frame exports — the ≤45-min
-   first-session creature+SLIP goal.
-2. **Post-takeover CuBFF science**: longer/larger real runs to
-   un-saturate the transducer comparison; the Python-callback export
-   path that lights the replication/lineage pressure channels
-   (harsher REAL weather follows for free).
-3. **Community infrastructure** (post-alpha by DR 0035): a
-   registry/sharing surface + the signing DR it re-opens — an
-   owner-shaped product decision.
-4. **The engine's standing re-openers**: DR 0032's GA-advantage
-   direction / family collapse; occupancy saturation (novelty
-   pressure); behavior_neediness at 16×16; the scale-geometry seam;
-   per-role limb/joint motion.
-5. **Product polish**: ledger-backed repertoire paging, the cross-era
-   family lens, per-elite clip playback, UI key-surface redesign,
-   pack curation pick-lists.
-6. **Pushing + the first cloud CI run** (needs the owner's push).
+- [ ] **H1 · 16×16 authoring end to end.** The grid editor authors at
+  the ratified default scale (DR 0029; the schema has permitted it
+  since cycle 09): canvas, palettes, organ/anchor tooling, and the
+  RELEASE path all at 16×16 — proven by a released 16×16 creature
+  ADMITTING into a game era through the engine's own gates (the F9
+  path, currently rejecting the 8×8 pieces on size). The committed
+  release fixtures gain 16×16 companions (the 8×8 pair stays as the
+  honest rejection fixture).
+- [ ] **H2 · Semantic layers.** The documented editor depth: layers
+  as semantic strata (body / organs / decoration / effects), each
+  toggleable and independently editable, compiling to ONE schema-valid
+  grid (the layer model is authoring state; the saved grid stays the
+  engine's single source of truth — engine-truth law).
+- [ ] **H3 · Onion skin + the animation timeline.** Clip-frame
+  authoring over the promoted clip model: scrub the engine's clip
+  frames, onion-skin adjacent frames, and author the anchor/motion
+  choices the clip model exposes; **clip-frame exports** land here
+  (APNG/spritesheet emit clip frames, not the historical pulse — the
+  named workshop-track increment, no longer smuggle-able).
+- [ ] **H4 · The behavior editor.** SLIP behavior/survival weights,
+  mutation caps, and deliberation depth authored visually, validated
+  live by the engine's authority (verbatim refusals in the page) —
+  the covenant's authoring face.
+- [ ] **H5 · The ≤45-minute first-session gate.** The documented UX
+  goal measured honestly: a scripted first-session protocol (author a
+  creature + its SLIP from blank state through release) timed against
+  the 45-minute bound — scripted-proxy honestly labeled; the manual
+  human pass recorded as prepared-not-blocking (the calibration
+  pattern).
+- [ ] **H6 · The Phase-H gate.** One consolidated report with the
+  honest remainder list (including the community asset/profile system
+  hand-back to DR 0035's post-alpha scope); cycle 18 archived; cycle
+  19 planned FROM THE DOCUMENTATION by the developer.
 
 ## Standing note
 
 The engine-truth law (DR 0021), the identity constraint, the triad
 discipline, the mirror-never-import boundary, Apache-2.0, and DR 0028
-dependencies-with-justification are unchanged and apply to whatever
-opens next.
+apply. The workshop keeps its ratified stack (DR 0010: stdlib server
++ served pages); TS+React remains the documented scale-path IF the
+depth demands it — decided by DR, never drifted into. Standing engine
+remainders unchanged (DR 0032 re-openers; occupancy saturation;
+behavior_neediness at 16×16; the scale-geometry seam; per-role
+motion). Post-alpha candidates recorded in the Phase-G gate (CuBFF
+post-takeover science, community infrastructure, product polish)
+queue behind the documented workshop gap.
 
 ## Sources
 
-- `research/experiment_reports/2026-07-12-phase-g-gate.md` (the gate that retired the roadmap)
-- `docs/gap-analysis.md` (retired; the measured history)
-- `audits/complete/09`–`17` (the closed cycles)
+- `docs/gap-analysis.md` (retired as roadmap; its Workshop row is the measured gap this cycle opens)
+- `docs/mecha-workshop/mecha-workshop-design.md` (the design charter), `research/decision_records/0010-start-mecha-workshop-build-track.md`
+- `research/experiment_reports/2026-07-12-phase-g-gate.md` (the closed ladder), `2026-07-08-phase-c-gate.md` (clip-frame exports, the named remainder)
+- `data/workshop/released/` (the 8×8 fixtures H1 supersedes-with-companions)

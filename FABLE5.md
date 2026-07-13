@@ -89,14 +89,19 @@ this, or am I periscoping?
   owner), G6 the alpha packet (`docs/alpha.md` + the README section).
   Closing sweep: 19 labs + package 295 + workshop 60 + CLI 23 +
   game 152, 2,211 artifacts — GREEN. Fifteen game stage-0 artifacts.
-- **THE ACTIVE `audits/TODO.md` IS A HANDOFF, NOT A QUEUE**: the next
-  planning source is the OWNER'S decision (pre-registered in G6;
-  scope is the documentation, never an agent-invented queue). Six
-  candidate directions are recorded there (workshop authoring depth,
-  post-takeover CuBFF science, community infrastructure, the
-  engine's standing re-openers, product polish, push+first-CI-run).
-  **Do not start work from the candidates without the owner's
-  choice.**
+- **Active queue:** `audits/TODO.md` = **Cycle 18 · WORKSHOP track ·
+  Phase H — the authoring depth** (H1 16×16 authoring end to end, H2
+  semantic layers, H3 onion skin + the animation timeline with
+  clip-frame exports, H4 the behavior editor, H5 the ≤45-min
+  first-session gate, H6 the Phase-H gate). Chosen from the gap
+  table's Workshop row — the largest measured gap never phase-gated.
+  **OWNER CORRECTION (2026-07-12, recorded in memory and here): when
+  a queue exhausts, THE DEVELOPER plans the next cycle from the
+  still-unmet documentation and keeps developing. Never stop to ask
+  "which direction?" — a prior session did and was forcefully
+  corrected.** Post-alpha candidates (post-takeover CuBFF science,
+  community infrastructure per DR 0035, product polish, the engine
+  re-openers) queue behind the documented workshop gap.
 - **Cycle 14's shipped record** (kept for context): **F1 is COMPLETE**
   (2026-07-12): DR 0033 chose **pygame-ce** for the client (engine
   imported in-process — packets verbatim, replay fidelity by
@@ -193,14 +198,14 @@ this, or am I periscoping?
    doctor, reviewer prefill, shell completion).
 7. `research/README.md` — the master traceability ledger.
 
-## 5. WHAT TO DO NEXT — ASK THE OWNER (post-alpha)
+## 5. WHAT TO DO NEXT — Cycle 18, task H1 (THE WORKSHOP TRACK)
 
-All documented phases are gated green and the roadmap is retired.
-`audits/TODO.md` is the handoff: present the six candidate
-directions, let the owner choose (or name something new — the
-documentation still defines scope), then decompose THEIR choice into
-a cycle with the standing discipline. The cycle-17 record below is
-kept for context:
+`audits/TODO.md` holds cycle 18's full task text (H1–H6, the
+authoring depth from the gap table's Workshop row). Next concrete
+work: **H1 · 16×16 authoring end to end** — the grid editor at the
+ratified scale, proven by a released 16×16 creature ADMITTING into a
+game era through the F9 gates. Never stop to ask direction (the
+correction above). The cycle-17 record below is kept for context:
 
 `audits/TODO.md` holds cycle 17's full task text. **G1 (CI +
 reproducibility) is DONE (2026-07-12)**: DR 0034 made the

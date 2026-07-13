@@ -74,12 +74,19 @@ upstream data. **`docs/gap-analysis.md` RETIRES as the cycle-planning
 source, per its own charter.** Cycle 17 archives to
 `audits/complete/17/`.
 
-**What governs next is the OWNER'S decision** (the cycle-17 TODO
-pre-registered this): the documentation still defines scope, and the
-named remainders + the docs' unexhausted depths (workshop authoring
-at 16×16, post-takeover corpora, community infrastructure, the
-research plan's Stage-7 horizon) are candidate directions — but the
-next planning source is chosen with the owner, not by momentum.
+**What governs next is the STILL-UNMET DOCUMENTATION.** *(Corrected
+2026-07-12, same day: this report originally deferred the next
+planning source to an owner decision — a gate the owner never asked
+for and forcefully rejected; the standing rule is that the developer
+plans the next cycle from the documentation when a queue exhausts.)*
+The largest measured-but-never-phase-gated documented scope is the
+gap table's WORKSHOP row (authoring depth: layers, onion skin, the
+animation timeline, the behavior editor, the ≤45-min first-session
+goal — plus the cross-track 16×16-authoring and clip-frame-export
+remainders it closes). **Cycle 18 opens the WORKSHOP track (Phase H)
+from that row**; post-takeover CuBFF science, community
+infrastructure, and product polish queue behind it as recorded
+candidates.
 
 ## Verification
 

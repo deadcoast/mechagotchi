@@ -5,10 +5,12 @@
 > GREEN — `research/experiment_reports/2026-07-12-phase-g-gate.md`.
 > Every phase below (A–G) is complete and gated; the phase ladder's
 > stamps record the evidence. This document remains as the measured
-> history of the gap and how it closed. **The next planning source is
-> the owner's decision** (the documentation still defines scope; the
-> named remainders and the docs' unexhausted depths are candidate
-> directions, recorded in the gate report and `audits/TODO.md`).
+> history of the gap and how it closed. **Cycle planning continues
+> from the still-unmet documentation** (corrected 2026-07-12: the
+> developer plans the next cycle when a queue exhausts — never an
+> owner question). Cycle 18 opened the WORKSHOP track from this
+> document's own Workshop row — the largest measured gap never
+> phase-gated; see `audits/TODO.md`.
 
 Commissioned by the owner's course correction: the implementation had
 been measured against self-invented cycle queues instead of the
