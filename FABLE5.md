@@ -204,9 +204,15 @@ evolve's no-seed-satisfies rule; an import is a NEW SPECIES CONTRACT
 — budget recomputes, spends re-apply by choice); X/I in the client
 via keeper/covenants; evidence `covenant_io_stage0.json` (round-trip
 identity; the gray zoo covenant's era filled 22 niches; both
-refusal paths verbatim); 136 game tests. Remaining: F16 community
-packs at the
-FORMAT rung (distribution stays Phase G), F17 the carried remainders
+refusal paths verbatim); 136 game tests. **F16 (community packs) is
+DONE (2026-07-12)**: `packs.py` (`mechagotchi_pack_v1`; three gate
+layers — build refuses invalid verbatim, import re-judges + stages
+into the inboxes with tamper pinned, era admission at run time); K
+imports in the client; the committed starter pack
+(`data/packs/mechagotchi_starter_pack.json`, regenerated
+deterministically) measured end to end (beetle admitted, the 8×8
+pair rejected verbatim); 143 game tests. Remaining: F17 the carried
+remainders
 (replay persistence via the ledger's `record_replay`; spent-covenant
 resume from the ledger; windowed launch-verify), F18 the 0.3 gate —
 after which Phase F's named rungs are EXHAUSTED and the gate

@@ -112,4 +112,12 @@ the playable front end, distinct from the workshop's authoring surfaces.
   no-seed-satisfies rule. Imports are new species contracts; spends
   re-apply by choice.
 
+- `community_pack_stage0.json` - F16 (cycle 16, MVP 0.3): the pack
+  format - the committed starter pack (4 zoo covenants + 3
+  creatures) builds, imports with all items staged, and its
+  creatures flow into a real era where the engine judges them (the
+  beetle admitted; the 8x8 pair rejected verbatim on size). Three
+  gate layers: build refuses invalid, import re-judges (tamper
+  pinned), era admission at run time. Distribution stays Phase G.
+
 Produced by `game/evidence.py`.

@@ -1,0 +1,89 @@
+{
+  "artifact_id": "community_pack_stage0",
+  "status": "complete",
+  "date": "2026-07-12",
+  "purpose": "Cycle 16 F16 (GAME track, Phase F, MVP 0.3): community profile packs at the FORMAT rung \u2014 mechagotchi_pack_v1 carries SLIPs + creatures + provenance in one importable file; the builder refuses invalid content verbatim; import judges every item again and stages only accepted ones into the existing inboxes; the era admission gates judge staged creatures a third time at run time. Distribution infrastructure stays Phase G.",
+  "source_artifacts": [
+    "game/src/mecha_game/packs.py",
+    "data/packs/mechagotchi_starter_pack.json",
+    "data/slips/valid",
+    "data/workshop/released"
+  ],
+  "metrics": {
+    "starter_pack": {
+      "slips": 4,
+      "creatures": 3,
+      "provenance": {
+        "author": "the mechagotchi repository",
+        "source": "data/slips/valid + data/workshop/released + data/seed_grids_16x16 (committed material)",
+        "license": "Apache-2.0",
+        "created_date": "2026-07-12"
+      }
+    },
+    "import_report": {
+      "slips_staged": 4,
+      "creatures_staged": 3
+    },
+    "era_admission": {
+      "admitted_ids": [
+        "mg_seed16_001_beetle",
+        "gen_13fb7e76f2efcd77_c02",
+        "gen_20f050eea0f3fb17_c02",
+        "gen_7dbc86df9c114975_c02",
+        "gen_91cdd90d19a50e68_c02",
+        "gen_6086403e71064d1d_c02",
+        "gen_8832292d37a2f5b3_c02",
+        "gen_7fce168caeeadd29_c02",
+        "gen_4b630269472edfaf_c02",
+        "gen_a6c1ee37ca5858dd_c02",
+        "gen_e6f5bf62cba9279d_c02",
+        "gen_d1d927a1e946f178_c02",
+        "gen_05ec8d323990c254_c02",
+        "gen_f85f2219a49b4dfd_c02",
+        "gen_6134f960410063d5_c02",
+        "gen_df63c42e5cc04269_c02",
+        "gen_61b1656dc1041acf_c02",
+        "gen_2ab537e520ec2690_c02",
+        "gen_594b05510114f114_c02",
+        "gen_a85fe66e6dcb15e6_c02",
+        "gen_1d5534f292037912_c02",
+        "gen_eb301c36e70ae103_c02",
+        "gen_f84c87372828c57d_c02",
+        "gen_1ccce700c1a0a1ba_c02",
+        "gen_b105733d842ebec6_c02",
+        "gen_0a7d3e7316b7fc10_c02",
+        "gen_6befcac227a80a72_c02",
+        "gen_c7475bbb1b7fe3f4_c02",
+        "gen_2966eaad959c7c35_c02",
+        "gen_f3f61fc89b888c41_c02",
+        "gen_08548bcc53155f98_c02",
+        "gen_920f3e0648b61a6c_c02",
+        "gen_4ae0f150895be3b6_c02",
+        "gen_1b3def28eb712fc7_c02",
+        "gen_924dc4b324f08294_c02",
+        "gen_c3c5700f620970b2_c02",
+        "gen_a3262dc196a0bf64_c02",
+        "gen_a8a61bb201d18c04_c02",
+        "gen_1e6539feb3b73a78_c02",
+        "gen_3adac8600c1b43e9_c02"
+      ],
+      "rejected_ids": [
+        "released_tall_wisp",
+        "released_wide_sentinel"
+      ],
+      "first_rejection_error": "founder grid is 8x8 but the era runs at 16x16"
+    },
+    "era_survived": true
+  },
+  "closed_states": [
+    "the_pack_format_exists (one importable file: SLIPs + creatures + provenance; the starter pack is committed material, built deterministically)",
+    "three_layers_of_engine_gates (build refuses invalid; import re-judges and stages per-item; the era admission gates judge staged creatures at run time \u2014 measured: the 8\u00d78 pair rejected verbatim, the beetle admitted)",
+    "packs_ride_the_existing_inboxes (covenants \u2192 I imports them; creatures \u2192 W gathers them; K imports a pack in the client)"
+  ],
+  "blocked_states": [
+    "distribution_is_phase_g (registries, sharing infrastructure, moderation \u2014 the documented late-stage community scope; this rung is the CARRIER format)",
+    "pack_signing_unversioned (provenance is declarative; integrity/signature schemes belong with Phase G's distribution decisions)"
+  ],
+  "decision": "adopt: the community carrier exists; F17 closes the carried remainders, F18 gates MVP 0.3",
+  "next_research_step": "F17 \u2014 carried remainders (replay persistence, spent-covenant resume, windowed launch-verify)"
+}

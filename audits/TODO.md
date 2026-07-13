@@ -29,7 +29,7 @@ to the player — plus the cycle-15 gate's carried remainders.
   through the engine's authority (verbatim refusals); the imported
   covenant governs adoption/hatching/eras. The schema ladder
   (DR 0012) and the zoo fixtures are the compatibility source.
-- [ ] **F16 · Community profile packs — the format.** The documented
+- [x] **F16 · Community profile packs — the format.** The documented
   community surface at its FIRST honest rung: a pack = SLIPs +
   released creatures + provenance in one importable file; packs
   import through the same authority/admission gates (verbatim

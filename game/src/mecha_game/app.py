@@ -32,6 +32,7 @@ from mecha_game.campaign import (
 from mecha_game.clips import TRANSITIONS, ClipDriver
 from mecha_game.contribute import founders_verdict, gather_releases
 from mecha_game.covenant_io import export_covenant, import_covenant
+from mecha_game.packs import import_pack
 from mecha_game.hatchery import hatch_founders, origin_summary
 from mecha_game.lineage import LineageBrowser
 from mecha_game.repertoire import RepertoireBrowser
@@ -493,6 +494,42 @@ def run(argv: list[str] | None = None) -> int:
                         and event.key == pygame.K_RIGHTBRACKET
                     ):
                         browser.next_era()
+                    elif event.key == pygame.K_k:
+                        # Import a community pack (F16): the format's
+                        # contents judged item by item and staged into
+                        # the inboxes; verdicts shown. (K — P is the
+                        # companion's play action.)
+                        pack_path = (
+                            keeper_dir / "packs" / "pack_import.json"
+                        )
+                        if not pack_path.is_file():
+                            bench.message = (
+                                "place a pack at keeper/packs/"
+                                "pack_import.json to import"
+                            )
+                            continue
+                        report = import_pack(keeper_dir, pack_path)
+                        if not report["ok"]:
+                            bench.message = "; ".join(
+                                report["violations"]
+                            )
+                        else:
+                            ok_slips = sum(
+                                1 for s in report["slips"] if s["ok"]
+                            )
+                            ok_creatures = sum(
+                                1
+                                for c in report["creatures"]
+                                if c["ok"]
+                            )
+                            bench.message = (
+                                f"pack {report['pack_id']}: "
+                                f"{ok_slips}/{len(report['slips'])} "
+                                f"covenants and {ok_creatures}/"
+                                f"{len(report['creatures'])} creatures "
+                                "staged (I imports a covenant; W "
+                                "gathers the creatures)"
+                            )
                     elif event.key == pygame.K_x:
                         # Export the ACTIVE covenant (spends included)
                         # as a shareable SLIP file (F15).
@@ -717,7 +754,7 @@ def run(argv: list[str] | None = None) -> int:
                     f"E: run era [{bench.weather}]  1/2/3: weather  "
                     "C: covenant  H: hatch  R: release  W: workshop  "
                     "V: review  B: repertoire  L: lineage  X/I: "
-                    "export/import covenant"
+                    "export/import covenant  K: pack"
                 )
             if bench.message:
                 footer.append(bench.message)

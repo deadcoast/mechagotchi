@@ -53,7 +53,10 @@ adopt the one you're looking at) · **L** read your bloodline's story,
 life by life (origins, death causes, the growing ancestor chain) ·
 **X** export your covenant as a shareable SLIP file / **I** import
 one from `keeper/covenants/covenant_import.json` (the engine's
-authority judges it; an import is a new species contract) ·
+authority judges it; an import is a new species contract) · **K**
+import a community pack from `keeper/packs/pack_import.json`
+(covenants and creatures staged into the inboxes, verdicts shown;
+`data/packs/mechagotchi_starter_pack.json` is the committed example) ·
 **ESC**/close quit. Saves land in
 `keeper/` (gitignored) — quit and come back, the client resumes. The
 companion begs when it wants food — only you can feed it; neglect

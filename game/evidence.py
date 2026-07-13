@@ -622,6 +622,171 @@ def build_fleet_consumers_report(ticks: int = 80) -> dict:
     }
 
 
+PACKS_ARTIFACT_ID = "community_pack_stage0"
+STARTER_PACK_PATH = ROOT / "data" / "packs" / "mechagotchi_starter_pack.json"
+
+
+def build_community_pack_report() -> dict:
+    """F16's measured claims: the STARTER PACK builds from committed
+    material (the valid zoo covenants + the committed workshop
+    releases + a corpus creature), writes deterministically to
+    `data/packs/`, imports with per-item verdicts staging into the
+    inboxes, and its staged creatures flow into a real era where the
+    engine's admission gates judge them AGAIN (the 8×8 pair verbatim-
+    rejected on size, the 16×16 creature admitted)."""
+    import tempfile
+
+    from mecha_game.contribute import (
+        founders_verdict,
+        load_released_grids,
+    )
+    from mecha_game.packs import build_pack, import_pack, write_pack
+
+    zoo = [
+        json.loads(path.read_text(encoding="utf-8"))
+        for path in sorted(
+            (ROOT / "data" / "slips" / "valid").glob("*.json")
+        )
+    ]
+    releases = load_released_grids(
+        ROOT / "data" / "workshop" / "released"
+    )
+    beetle = json.loads(
+        (ROOT / HELLO_SEED).read_text(encoding="utf-8")
+    )
+    pack = build_pack(
+        pack_id="mechagotchi_starter",
+        title="The Mechagotchi Starter Pack",
+        provenance={
+            "author": "the mechagotchi repository",
+            "source": "data/slips/valid + data/workshop/released "
+            "+ data/seed_grids_16x16 (committed material)",
+            "license": "Apache-2.0",
+            "created_date": REPORT_DATE,
+        },
+        slips=zoo,
+        creatures=releases + [beetle],
+    )
+    write_pack(pack, STARTER_PACK_PATH)
+
+    inputs = _campaign_inputs(session_scale=True)
+    campaign = KeeperCampaign(inputs, campaign_id="pack_evidence")
+    campaign.advance_era("calm")
+    with tempfile.TemporaryDirectory() as tmp:
+        keeper = Path(tmp)
+        report = import_pack(keeper, STARTER_PACK_PATH)
+        staged_creatures = load_released_grids(keeper / "released")
+        era = campaign.advance_era(
+            "calm", released_grids=staged_creatures
+        )
+    verdict = founders_verdict(era)
+    rejected_ids = sorted(r["grid_id"] for r in verdict["rejected"])
+    all_slips_staged = all(entry["ok"] for entry in report["slips"])
+    all_creatures_staged = all(
+        entry["ok"] for entry in report["creatures"]
+    )
+    beetle_admitted = "mg_seed16_001_beetle" in verdict["admitted_ids"]
+    size_rejected = rejected_ids == [
+        "released_tall_wisp",
+        "released_wide_sentinel",
+    ]
+    status = (
+        "complete"
+        if all_slips_staged
+        and all_creatures_staged
+        and beetle_admitted
+        and size_rejected
+        and not era["derived"]["went_extinct"]
+        else "refuted"
+    )
+    return {
+        "artifact_id": PACKS_ARTIFACT_ID,
+        "status": status,
+        "date": REPORT_DATE,
+        "purpose": (
+            "Cycle 16 F16 (GAME track, Phase F, MVP 0.3): community "
+            "profile packs at the FORMAT rung — mechagotchi_pack_v1 "
+            "carries SLIPs + creatures + provenance in one importable "
+            "file; the builder refuses invalid content verbatim; "
+            "import judges every item again and stages only accepted "
+            "ones into the existing inboxes; the era admission gates "
+            "judge staged creatures a third time at run time. "
+            "Distribution infrastructure stays Phase G."
+        ),
+        "source_artifacts": [
+            "game/src/mecha_game/packs.py",
+            "data/packs/mechagotchi_starter_pack.json",
+            "data/slips/valid",
+            "data/workshop/released",
+        ],
+        "metrics": {
+            "starter_pack": {
+                "slips": len(pack["slips"]),
+                "creatures": len(pack["creatures"]),
+                "provenance": pack["provenance"],
+            },
+            "import_report": {
+                "slips_staged": sum(
+                    1 for s in report["slips"] if s["ok"]
+                ),
+                "creatures_staged": sum(
+                    1 for c in report["creatures"] if c["ok"]
+                ),
+            },
+            "era_admission": {
+                "admitted_ids": verdict["admitted_ids"],
+                "rejected_ids": rejected_ids,
+                "first_rejection_error": (
+                    verdict["rejected"][0]["errors"][0]
+                    if verdict["rejected"]
+                    else None
+                ),
+            },
+            "era_survived": not era["derived"]["went_extinct"],
+        },
+        "closed_states": [
+            "the_pack_format_exists (one importable file: SLIPs + "
+            "creatures + provenance; the starter pack is committed "
+            "material, built deterministically)",
+            "three_layers_of_engine_gates (build refuses invalid; "
+            "import re-judges and stages per-item; the era admission "
+            "gates judge staged creatures at run time — measured: "
+            "the 8×8 pair rejected verbatim, the beetle admitted)",
+            "packs_ride_the_existing_inboxes (covenants → I imports "
+            "them; creatures → W gathers them; K imports a pack in "
+            "the client)",
+        ],
+        "blocked_states": [
+            "distribution_is_phase_g (registries, sharing "
+            "infrastructure, moderation — the documented late-stage "
+            "community scope; this rung is the CARRIER format)",
+            "pack_signing_unversioned (provenance is declarative; "
+            "integrity/signature schemes belong with Phase G's "
+            "distribution decisions)",
+        ],
+        "decision": (
+            "adopt: the community carrier exists; F17 closes the "
+            "carried remainders, F18 gates MVP 0.3"
+        ),
+        "next_research_step": (
+            "F17 — carried remainders (replay persistence, "
+            "spent-covenant resume, windowed launch-verify)"
+        ),
+    }
+
+
+def write_community_pack_artifacts(
+    output_dir: str | Path, report: dict
+) -> Path:
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    path = output_dir / f"{PACKS_ARTIFACT_ID}.json"
+    path.write_text(
+        json.dumps(report, indent=2) + "\n", encoding="utf-8"
+    )
+    return path
+
+
 COVENANT_IO_ARTIFACT_ID = "covenant_io_stage0"
 
 
@@ -2002,6 +2167,10 @@ if __name__ == "__main__":
     print(f"wrote {written}")
     written = write_covenant_io_artifacts(
         args.output_dir, build_covenant_io_report()
+    )
+    print(f"wrote {written}")
+    written = write_community_pack_artifacts(
+        args.output_dir, build_community_pack_report()
     )
     print(f"wrote {written}")
     release_report = build_installable_release_report()
