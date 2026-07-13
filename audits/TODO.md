@@ -36,7 +36,7 @@ to the player — plus the cycle-15 gate's carried remainders.
   verdicts); the committed zoo/releases become the first example
   pack. (Distribution/community infrastructure stays Phase G —
   named, not smuggled.)
-- [ ] **F17 · Carried remainders.** Replay persistence (the ledger's
+- [x] **F17 · Carried remainders.** Replay persistence (the ledger's
   `record_replay` gains its consumer — reviews survive restart);
   campaign resume restores the SPENT covenant from the ledger
   (process-state today, re-earned from facts); the windowed bundle

@@ -162,10 +162,16 @@ class _EraBench:
     (model training costs seconds — never paid by pure companion play)."""
 
     def __init__(
-        self, era_scale: str, cache_dir: Path | None = None
+        self,
+        era_scale: str,
+        cache_dir: Path | None = None,
+        state_path: Path | None = None,
+        ledger_path: Path | None = None,
     ) -> None:
         self.era_scale = era_scale
         self.cache_dir = cache_dir
+        self.state_path = state_path
+        self.ledger_path = ledger_path
         self.campaign: KeeperCampaign | None = None
         self.weather_index = 0
         self.message = ""
@@ -188,10 +194,26 @@ class _EraBench:
                 # byte-equal to fresh training, pinned by test.
                 cache_dir=self.cache_dir,
             )
-            self.campaign = KeeperCampaign(
-                inputs,
-                era_config=TINY_ERA_CONFIG if tiny else ERA_CONFIG,
-            )
+            # F17: resume the campaign exactly where it stopped (the
+            # spent covenant included; founders from the ledger).
+            if (
+                self.state_path is not None
+                and self.state_path.is_file()
+                and self.ledger_path is not None
+                and self.ledger_path.is_file()
+            ):
+                self.campaign = KeeperCampaign.load_state(
+                    inputs, self.state_path, self.ledger_path
+                )
+                self.message = (
+                    f"campaign resumed at era "
+                    f"{self.campaign.era_offset}"
+                )
+            else:
+                self.campaign = KeeperCampaign(
+                    inputs,
+                    era_config=TINY_ERA_CONFIG if tiny else ERA_CONFIG,
+                )
         return self.campaign
 
     def budget_lines(self) -> list[str]:
@@ -255,6 +277,8 @@ class _EraBench:
             self.weather, released_grids=released_grids
         )
         campaign.save(ledger_path)
+        if self.state_path is not None:
+            campaign.save_state(self.state_path)
         memory = campaign.species_memory()
         last = memory["last_era"]
         self.message = (
@@ -337,10 +361,13 @@ def run(argv: list[str] | None = None) -> int:
     keeper_dir = args.keeper_dir or default_keeper_dir()
     lineage_path = keeper_dir / LINEAGE_FILENAME
     companion_path = keeper_dir / COMPANION_FILENAME
-    bench = _EraBench(
-        args.era_scale, cache_dir=keeper_dir / "model_cache"
-    )
     campaign_ledger = keeper_dir / "campaign.sqlite3"
+    bench = _EraBench(
+        args.era_scale,
+        cache_dir=keeper_dir / "model_cache",
+        state_path=keeper_dir / "campaign_state.json",
+        ledger_path=campaign_ledger,
+    )
     # Quit and come back (F5): the save file resumes unless --new.
     if companion_path.is_file() and not args.new:
         session = CompanionSession.load(companion_path)
@@ -443,9 +470,28 @@ def run(argv: list[str] | None = None) -> int:
                             review = None
                         elif bench.campaign and bench.campaign.eras:
                             try:
-                                review = ReplayPlayer(
-                                    bench.ensure().record_review_replay()
+                                campaign = bench.ensure()
+                                era_idx = campaign.eras[-1][
+                                    "era_index"
+                                ]
+                                # F17: a persisted review loads back
+                                # (hash-verified); otherwise record it
+                                # and persist the pointer.
+                                replay = campaign.load_review_replay(
+                                    keeper_dir,
+                                    campaign_ledger,
+                                    era_idx,
                                 )
+                                if replay is None:
+                                    replay = (
+                                        campaign.record_review_replay()
+                                    )
+                                    campaign.save_review_replay(
+                                        replay,
+                                        keeper_dir,
+                                        campaign_ledger,
+                                    )
+                                review = ReplayPlayer(replay)
                                 review_playing = True
                             except ValueError as error:
                                 bench.message = str(error)

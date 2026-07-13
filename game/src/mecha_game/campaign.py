@@ -347,6 +347,11 @@ class KeeperCampaign:
         # in memory): the predecessor chain's facts, never copied into
         # this campaign's OWN unlocks.
         self.inherited_unlocks = list(inherited_unlocks or [])
+        # Resume support (F17): eras recorded in the LEDGER before
+        # this process; era indices/seeds continue from the offset,
+        # and the resumed first era's founders come from the ledger.
+        self.era_offset = 0
+        self.resume_founders: list[dict] | None = None
         self.campaign = {
             "campaign_id": campaign_id,
             "keeper_label": keeper_label,
@@ -449,12 +454,17 @@ class KeeperCampaign:
                 f"{self.campaign['status']} — an ended bloodline cannot "
                 "run another era (successor() starts the next)"
             )
-        era_index = len(self.eras)
-        founder_pool = list(released_grids or []) + (
-            [elite["grid"] for elite in self.eras[-1]["elites"]]
-            if self.eras
-            else []
-        )
+        era_index = self.era_offset + len(self.eras)
+        if self.eras:
+            chain = [
+                elite["grid"] for elite in self.eras[-1]["elites"]
+            ]
+        elif self.resume_founders is not None:
+            # The resumed chain continues from the ledger's own pool.
+            chain = self.resume_founders
+        else:
+            chain = []
+        founder_pool = list(released_grids or []) + chain
         founder_grids = founder_pool or None
         legibility_model = self.inputs["legibility_model"]
 
@@ -612,6 +622,181 @@ class KeeperCampaign:
             **plan,
         )
 
+    # -- replay persistence (F17 — DR 0022's pointer rule) -----------------
+
+    def save_review_replay(
+        self,
+        replay: dict,
+        keeper_dir: str | Path,
+        ledger_path: str | Path,
+    ) -> Path:
+        """Persist a review: the artifact stays a FILE, the ledger
+        stores the pointer + sha256 (skipping a duplicate pointer)."""
+        import hashlib
+
+        from mecha_engine.storage import (
+            load_replay_rows,
+            open_ledger,
+            record_replay,
+        )
+
+        keeper_dir = Path(keeper_dir)
+        # The era index is derivable from the replay's own seed.
+        era_index = (
+            replay["parameters"]["rng_seed"] - self.campaign["base_seed"]
+        ) // ERA_SEED_STRIDE
+        path = (
+            keeper_dir
+            / "replays"
+            / f"{self.campaign['campaign_id']}_era{era_index}.json"
+        )
+        path.parent.mkdir(parents=True, exist_ok=True)
+        payload = json.dumps(replay, indent=2) + "\n"
+        path.write_text(payload, encoding="utf-8")
+        digest = hashlib.sha256(payload.encode("utf-8")).hexdigest()
+        relative = path.name
+        conn = open_ledger(Path(ledger_path))
+        try:
+            rows = load_replay_rows(
+                conn, self.campaign["campaign_id"]
+            )
+            already = any(
+                row["era_index"] == era_index
+                and row["artifact_path"] == relative
+                for row in rows
+            )
+            if not already:
+                record_replay(
+                    conn,
+                    self.campaign["campaign_id"],
+                    era_index,
+                    relative,
+                    digest,
+                )
+        finally:
+            conn.close()
+        return path
+
+    def load_review_replay(
+        self,
+        keeper_dir: str | Path,
+        ledger_path: str | Path,
+        era_index: int,
+    ) -> dict | None:
+        """A persisted review, hash-verified against the ledger's
+        recorded sha256 (a tampered artifact is refused, named)."""
+        import hashlib
+
+        from mecha_engine.storage import load_replay_rows, open_ledger
+
+        conn = open_ledger(Path(ledger_path))
+        try:
+            rows = [
+                row
+                for row in load_replay_rows(
+                    conn, self.campaign["campaign_id"]
+                )
+                if row["era_index"] == era_index
+            ]
+        finally:
+            conn.close()
+        if not rows:
+            return None
+        row = rows[0]
+        path = Path(keeper_dir) / "replays" / row["artifact_path"]
+        payload = path.read_text(encoding="utf-8")
+        digest = hashlib.sha256(payload.encode("utf-8")).hexdigest()
+        if digest != row["artifact_sha256"]:
+            raise ValueError(
+                f"replay artifact {row['artifact_path']} fails its "
+                f"recorded sha256 — refusing a tampered recording"
+            )
+        return json.loads(payload)
+
+    # -- campaign state resume (F17) ----------------------------------------
+
+    STATE_FORMAT = "keeper_campaign_state_v1"
+
+    def save_state(self, path: str | Path) -> Path:
+        """The ACTIVE campaign state (the spent covenant included) as
+        play state — the ledger keeps the evidence; this file keeps
+        the Keeper's place."""
+        payload = {
+            "state_format": self.STATE_FORMAT,
+            "campaign_id": self.campaign["campaign_id"],
+            "keeper_label": self.campaign["keeper_label"],
+            "created_date": self.campaign["created_date"],
+            "predecessor_campaign_id": self.campaign[
+                "predecessor_campaign_id"
+            ],
+            "status": self.campaign["status"],
+            "base_seed": self.campaign["base_seed"],
+            "era_count": self.era_offset + len(self.eras),
+            "unlocks": self.campaign["unlocks"],
+            "inherited_unlocks": self.inherited_unlocks,
+            "base_profile": self.base_profile,
+            "slip_profile": self.campaign["slip_profile"],
+            "era_config": self.era_config,
+        }
+        path = Path(path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if path.exists():
+            path.with_suffix(".bak.json").write_text(
+                path.read_text(encoding="utf-8"), encoding="utf-8"
+            )
+        path.write_text(
+            json.dumps(payload, indent=2) + "\n", encoding="utf-8"
+        )
+        return path
+
+    @classmethod
+    def load_state(
+        cls,
+        inputs: dict,
+        state_path: str | Path,
+        ledger_path: str | Path,
+    ) -> "KeeperCampaign":
+        """Resume a campaign exactly where it stopped: the spent
+        covenant and earned facts from the state file, the era chain's
+        founders from the LEDGER's own pool (pinned: a resumed
+        continuation matches the unbroken run byte for byte)."""
+        from mecha_engine.storage import load_founder_pool, open_ledger
+
+        payload = json.loads(
+            Path(state_path).read_text(encoding="utf-8")
+        )
+        if payload.get("state_format") != cls.STATE_FORMAT:
+            raise ValueError(
+                "not a keeper campaign state: "
+                f"{payload.get('state_format')!r}"
+            )
+        campaign = cls(
+            inputs,
+            campaign_id=payload["campaign_id"],
+            keeper_label=payload["keeper_label"],
+            created_date=payload["created_date"],
+            predecessor_campaign_id=payload[
+                "predecessor_campaign_id"
+            ],
+            base_seed=payload["base_seed"],
+            era_config=payload["era_config"],
+            inherited_unlocks=payload["inherited_unlocks"],
+        )
+        campaign.campaign["status"] = payload["status"]
+        campaign.campaign["unlocks"] = payload["unlocks"]
+        campaign.base_profile = payload["base_profile"]
+        campaign.campaign["slip_profile"] = payload["slip_profile"]
+        campaign.era_offset = payload["era_count"]
+        if campaign.era_offset:
+            conn = open_ledger(Path(ledger_path))
+            try:
+                campaign.resume_founders = load_founder_pool(
+                    conn, payload["campaign_id"]
+                )
+            finally:
+                conn.close()
+        return campaign
+
     # -- persistence (DR 0022) --------------------------------------------
 
     def save(self, ledger_path: str | Path) -> Path:
@@ -624,14 +809,17 @@ class KeeperCampaign:
         try:
             record_campaign(conn, self.campaign)
             try:
-                recorded = len(
-                    campaign_history(
+                recorded = {
+                    era["era_index"]
+                    for era in campaign_history(
                         conn, self.campaign["campaign_id"]
                     )["eras"]
-                )
+                }
             except (KeyError, ValueError):
-                recorded = 0
-            for era in self.eras[recorded:]:
+                recorded = set()
+            for era in self.eras:
+                if era["era_index"] in recorded:
+                    continue
                 record_era(
                     conn,
                     self.campaign["campaign_id"],

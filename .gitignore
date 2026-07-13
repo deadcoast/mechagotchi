@@ -30,5 +30,5 @@ game/uv.lock
 
 # F5 release builds (game/build_release.py output): installers are
 # built, never committed
-game/dist/
+game/dist*/
 game/release_work/

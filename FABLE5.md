@@ -211,7 +211,15 @@ into the inboxes with tamper pinned, era admission at run time); K
 imports in the client; the committed starter pack
 (`data/packs/mechagotchi_starter_pack.json`, regenerated
 deterministically) measured end to end (beetle admitted, the 8×8
-pair rejected verbatim); 143 game tests. Remaining: F17 the carried
+pair rejected verbatim); 143 game tests. **F17 (carried remainders)
+is DONE (2026-07-12)**: replay persistence via DR 0022's pointer
+rule (file + ledger sha256, hash-verified loads, tampering refused —
+pinned); campaign resume (`keeper_campaign_state_v1`: spent covenant
++ facts + chain position; founders from the ledger's pool; **a
+resumed continuation matches the unbroken run byte for byte**,
+observed live across two real processes); the windowed bundle
+launch-verified (exit 0). 147 game tests. Remaining: F18 the 0.3
+gate — old line kept for context: F17 the carried
 remainders
 (replay persistence via the ledger's `record_replay`; spent-covenant
 resume from the ledger; windowed launch-verify), F18 the 0.3 gate —
