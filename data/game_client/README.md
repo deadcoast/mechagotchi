@@ -97,4 +97,11 @@ the playable front end, distinct from the workshop's authoring surfaces.
   cross-restart browsing rides F17; the family lens stays a named
   rung.
 
+- `lineage_story_stage0.json` - F14 (cycle 16, MVP 0.3): the lineage
+  browser - a real three-life story (founder -> starvation ->
+  succession x2) with origins verbatim, engine death causes, and the
+  ancestor chain growing 0 -> 1 -> 2 (generate_candidate's own
+  ancestor_ids); twin-equal; the story rides the save file. Origins
+  are additive Keeper facts; old saves stay loadable.
+
 Produced by `game/evidence.py`.

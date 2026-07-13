@@ -1,0 +1,47 @@
+{
+  "artifact_id": "lineage_story_stage0",
+  "status": "complete",
+  "date": "2026-07-12",
+  "purpose": "Cycle 16 F14 (GAME track, Phase F, MVP 0.3): the lineage browser \u2014 the Keeper's whole story browsable, every line a record field verbatim: how each life began (the additive origin fact), how it ended (the engine's own death cause), and the grid schema's lineage blocks (generation, the growing ancestor chain, mutation events). Nothing invented.",
+  "source_artifacts": [
+    "game/src/mecha_game/lineage.py",
+    "game/src/mecha_game/session.py",
+    "research/grid_genome/grid_genome.schema.json"
+  ],
+  "metrics": {
+    "lives": 3,
+    "origins": [
+      "founder",
+      "succession",
+      "succession"
+    ],
+    "death_causes": [
+      "starvation",
+      "starvation"
+    ],
+    "ancestor_chain_depths": [
+      0,
+      1,
+      2
+    ],
+    "ancestor_chain_grows": true,
+    "captions": [
+      "life 1/3  mg_seed16_001_beetle  [founder]  died starvation at age 10",
+      "life 2/3  gen_d42be33dc5a7bfa7  [succession]  died starvation at age 10",
+      "life 3/3  gen_02e0e6c685f2e5ef  [succession]  alive"
+    ],
+    "save_round_trips_the_story": true,
+    "twin_run_equal": true
+  },
+  "closed_states": [
+    "the_story_is_records (origins + engine death causes + verbatim lineage blocks; L pages it in the client)",
+    "origins_are_additive (founder/hatched/era_elite/succession ride the lineage records and the save file; old saves without them stay loadable \u2014 pinned)",
+    "the_ancestor_chain_is_the_engines (generate_candidate's own ancestor_ids, growing across successions)"
+  ],
+  "blocked_states": [
+    "cross_campaign_story_awaits_resume (the session's lineage browses today; weaving the ledger's era chain into one timeline is the F17 resume rung's material)",
+    "no_body_thumbnails_for_past_lives (lineage records are id+metadata by design \u2014 a live pet is not evidence, and dead bodies are not stored; the repertoire browses the archive's stored bodies instead)"
+  ],
+  "decision": "adopt: the lineage browser ships; F15 imports/exports the covenant",
+  "next_research_step": "F15 \u2014 SLIP import/export through the engine's authority"
+}

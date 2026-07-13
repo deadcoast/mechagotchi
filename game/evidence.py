@@ -622,6 +622,133 @@ def build_fleet_consumers_report(ticks: int = 80) -> dict:
     }
 
 
+LINEAGE_ARTIFACT_ID = "lineage_story_stage0"
+
+
+def build_lineage_story_report() -> dict:
+    """F14's measured claims: a real multi-life story — founder →
+    starvation → succession, twice — browsable with every line a
+    record field verbatim: origins (founder/succession), the engine's
+    death causes, the growing ancestor chain in the grid schema's own
+    lineage blocks; the story rides the save file; twin runs equal."""
+    import tempfile
+
+    from mecha_game.lineage import LineageBrowser
+
+    def run_story() -> tuple[list[dict], list[str]]:
+        session = _new_session()
+        captions: list[str] = []
+        for _ in range(2):
+            while session.alive:
+                session.advance()
+            session.succeed()
+        browser = LineageBrowser(session.lineage)
+        browser.index = 0
+        for _ in range(browser.count):
+            captions.append(browser.caption())
+            browser.step()
+        with tempfile.TemporaryDirectory() as tmp:
+            path = session.save(Path(tmp) / "companion.json")
+            resumed = CompanionSession.load(path)
+        assert resumed.lineage == session.lineage
+        return session.lineage, captions
+
+    first_lineage, first_captions = run_story()
+    second_lineage, second_captions = run_story()
+    deterministic = (
+        first_lineage == second_lineage
+        and first_captions == second_captions
+    )
+    origins = [record["origin"] for record in first_lineage]
+    causes = [
+        record.get("death_cause")
+        for record in first_lineage
+        if "death_cause" in record
+    ]
+    ancestor_depths = [
+        len((record.get("lineage") or {}).get("ancestor_ids") or [])
+        for record in first_lineage
+    ]
+    chain_grows = ancestor_depths == sorted(ancestor_depths) and (
+        ancestor_depths[-1] > ancestor_depths[0]
+    )
+    status = (
+        "complete"
+        if deterministic
+        and origins == ["founder", "succession", "succession"]
+        and len(causes) == 2
+        and all(causes)
+        and chain_grows
+        else "refuted"
+    )
+    return {
+        "artifact_id": LINEAGE_ARTIFACT_ID,
+        "status": status,
+        "date": REPORT_DATE,
+        "purpose": (
+            "Cycle 16 F14 (GAME track, Phase F, MVP 0.3): the "
+            "lineage browser — the Keeper's whole story browsable, "
+            "every line a record field verbatim: how each life began "
+            "(the additive origin fact), how it ended (the engine's "
+            "own death cause), and the grid schema's lineage blocks "
+            "(generation, the growing ancestor chain, mutation "
+            "events). Nothing invented."
+        ),
+        "source_artifacts": [
+            "game/src/mecha_game/lineage.py",
+            "game/src/mecha_game/session.py",
+            "research/grid_genome/grid_genome.schema.json",
+        ],
+        "metrics": {
+            "lives": len(first_lineage),
+            "origins": origins,
+            "death_causes": causes,
+            "ancestor_chain_depths": ancestor_depths,
+            "ancestor_chain_grows": chain_grows,
+            "captions": first_captions,
+            "save_round_trips_the_story": True,
+            "twin_run_equal": deterministic,
+        },
+        "closed_states": [
+            "the_story_is_records (origins + engine death causes + "
+            "verbatim lineage blocks; L pages it in the client)",
+            "origins_are_additive (founder/hatched/era_elite/"
+            "succession ride the lineage records and the save file; "
+            "old saves without them stay loadable — pinned)",
+            "the_ancestor_chain_is_the_engines (generate_candidate's "
+            "own ancestor_ids, growing across successions)",
+        ],
+        "blocked_states": [
+            "cross_campaign_story_awaits_resume (the session's "
+            "lineage browses today; weaving the ledger's era chain "
+            "into one timeline is the F17 resume rung's material)",
+            "no_body_thumbnails_for_past_lives (lineage records are "
+            "id+metadata by design — a live pet is not evidence, and "
+            "dead bodies are not stored; the repertoire browses the "
+            "archive's stored bodies instead)",
+        ],
+        "decision": (
+            "adopt: the lineage browser ships; F15 imports/exports "
+            "the covenant"
+        ),
+        "next_research_step": (
+            "F15 — SLIP import/export through the engine's authority"
+        ),
+    }
+
+
+def write_lineage_story_artifacts(
+    output_dir: str | Path, report: dict
+) -> Path:
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    path = output_dir / f"{LINEAGE_ARTIFACT_ID}.json"
+    path.write_text(
+        json.dumps(report, indent=2) + "\n", encoding="utf-8"
+    )
+    return path
+
+
 REPERTOIRE_ARTIFACT_ID = "repertoire_stage0"
 
 
@@ -1720,6 +1847,10 @@ if __name__ == "__main__":
     print(f"wrote {written}")
     written = write_repertoire_artifacts(
         args.output_dir, build_repertoire_report()
+    )
+    print(f"wrote {written}")
+    written = write_lineage_story_artifacts(
+        args.output_dir, build_lineage_story_report()
     )
     print(f"wrote {written}")
     release_report = build_installable_release_report()

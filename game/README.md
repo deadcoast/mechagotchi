@@ -49,7 +49,9 @@ rejects them — the verdict shows) · **V** review the last era's best
 elite living one recorded life (SPACE play/pause, **.** step, **,**
 back) · **B** browse the repertoire — your bloodline's whole archive,
 niche by niche (**.**/**,** page, **[**/**]** switch eras, **A**
-adopt the one you're looking at) · **ESC**/close quit. Saves land in
+adopt the one you're looking at) · **L** read your bloodline's story,
+life by life (origins, death causes, the growing ancestor chain) ·
+**ESC**/close quit. Saves land in
 `keeper/` (gitignored) — quit and come back, the client resumes. The
 companion begs when it wants food — only you can feed it; neglect
 starves it (measured: ~10 ticks).

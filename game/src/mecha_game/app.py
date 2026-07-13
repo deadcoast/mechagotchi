@@ -32,6 +32,7 @@ from mecha_game.campaign import (
 from mecha_game.clips import TRANSITIONS, ClipDriver
 from mecha_game.contribute import founders_verdict, gather_releases
 from mecha_game.hatchery import hatch_founders, origin_summary
+from mecha_game.lineage import LineageBrowser
 from mecha_game.repertoire import RepertoireBrowser
 from mecha_game.replay import ReplayPlayer, overlay_wounds
 from mecha_game.covenant import (
@@ -380,6 +381,7 @@ def run(argv: list[str] | None = None) -> int:
         review: ReplayPlayer | None = None
         review_playing = False
         browser: RepertoireBrowser | None = None
+        story: LineageBrowser | None = None
         running = True
         # Headless verification: run the requested eras up front.
         if args.eras is not None:
@@ -422,6 +424,7 @@ def run(argv: list[str] | None = None) -> int:
                                 [hatched["grid"]]
                             ),
                             name=hatched["grid"]["grid_id"],
+                            origin="hatched",
                         )
                         ghost = None
                         driver = ClipDriver(driver.frame_counts)
@@ -454,6 +457,18 @@ def run(argv: list[str] | None = None) -> int:
                     elif review is not None and event.key == pygame.K_COMMA:
                         review_playing = False
                         review.back()
+                    elif event.key == pygame.K_l:
+                        # The lineage browser (F14): the Keeper's
+                        # whole story, life by life.
+                        story = (
+                            None
+                            if story is not None
+                            else LineageBrowser(session.lineage)
+                        )
+                    elif story is not None and event.key == pygame.K_PERIOD:
+                        story.step()
+                    elif story is not None and event.key == pygame.K_COMMA:
+                        story.back()
                     elif event.key == pygame.K_b:
                         # The repertoire browser (F13): species memory
                         # made visible, era by era, niche by niche.
@@ -538,6 +553,7 @@ def run(argv: list[str] | None = None) -> int:
                                 bench.campaign.campaign["slip_profile"],
                                 model=session.model,
                                 name=elite["grid_id"],
+                                origin="era_elite",
                             )
                             ghost = None
                             driver = ClipDriver(driver.frame_counts)
@@ -639,7 +655,13 @@ def run(argv: list[str] | None = None) -> int:
             window.fill((16, 18, 16))
             window.blit(surface, (0, 0))
             footer = _footer_lines(snapshot, queued)
-            if browser is not None:
+            if story is not None:
+                footer = [
+                    "LINEAGE  " + story.caption(),
+                    *story.detail_lines(),
+                    ". older→newer  , newer→older  L close",
+                ]
+            elif browser is not None:
                 footer = [
                     "REPERTOIRE  " + browser.caption(),
                     browser.axes_line(),
@@ -659,7 +681,7 @@ def run(argv: list[str] | None = None) -> int:
                 footer.append(
                     f"E: run era [{bench.weather}]  1/2/3: weather  "
                     "C: covenant  H: hatch  R: release  W: workshop  "
-                    "V: review  B: repertoire"
+                    "V: review  B: repertoire  L: lineage"
                 )
             if bench.message:
                 footer.append(bench.message)

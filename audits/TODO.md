@@ -19,7 +19,7 @@ to the player — plus the cycle-15 gate's carried remainders.
   repertoire their bloodline fills. Engine truth: every number a
   report/record field; the ledger's stored elites are the source for
   past eras.
-- [ ] **F14 · The lineage browser.** The Keeper's whole story
+- [x] **F14 · The lineage browser.** The Keeper's whole story
   browsable: the companion lineage file + the campaign's era chain +
   the ledger's records — who descended from whom, who was hatched/
   adopted/released, era by era. The grid schema's own lineage blocks

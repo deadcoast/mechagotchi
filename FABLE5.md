@@ -193,7 +193,12 @@ paged in archive niche order, captions/axes/components
 record-verbatim, bodies from real packets under the covenant); B
 mode in the client with **A adopting the BROWSED elite**; evidence
 `repertoire_stage0.json` (every elite rendered, twin-equal); 123
-game tests. Remaining: F14 the lineage browser, F15 SLIP
+game tests. **F14 (the lineage browser) is DONE (2026-07-12)**:
+`lineage.py` + the additive `origin` fact on lineage records
+(founder/hatched/era_elite/succession, save-compatible); L pages the
+story; evidence `lineage_story_stage0.json` (ancestor chain growing
+0→1→2 across successions — the founding sentence visible); 131 game
+tests. Remaining: F15 SLIP
 import/export through the authority, F16 community packs at the
 FORMAT rung (distribution stays Phase G), F17 the carried remainders
 (replay persistence via the ledger's `record_replay`; spent-covenant

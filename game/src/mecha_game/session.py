@@ -98,6 +98,7 @@ class CompanionSession:
         name: str | None = None,
         succession_seed: int = DEFAULT_SUCCESSION_SEED,
         fleet: bool = True,
+        origin: str = "founder",
     ) -> None:
         # The engine's own gate judges the adoption (refuses with the
         # validator's/covenant's verbatim errors).
@@ -121,7 +122,12 @@ class CompanionSession:
         self.session_tick = 0
         self.begging = False
         self.log: list[dict] = []
-        self.lineage: list[dict] = [self._lineage_record(self.grid)]
+        # ``origin`` (F14, additive): how this life began — founder /
+        # hatched / era_elite / succession — a Keeper fact the engine
+        # does not own, recorded alongside the engine's lineage block.
+        self.lineage: list[dict] = [
+            self._lineage_record(self.grid, origin=origin)
+        ]
 
     # -- read model ------------------------------------------------------
 
@@ -302,18 +308,21 @@ class CompanionSession:
             }
         self.grid = child
         self.begging = False
-        self.lineage.append(self._lineage_record(child))
+        self.lineage.append(
+            self._lineage_record(child, origin="succession")
+        )
         return child["grid_id"]
 
     # -- lineage ---------------------------------------------------------
 
-    def _lineage_record(self, grid: dict) -> dict:
+    def _lineage_record(self, grid: dict, *, origin: str) -> dict:
         return {
             "grid_id": grid["grid_id"],
             "parent_grid_id": grid.get("parent_grid_id"),
             # The engine's own lineage block, verbatim.
             "lineage": json.loads(json.dumps(grid.get("lineage"))),
             "born_session_tick": self.session_tick,
+            "origin": origin,
         }
 
     def lineage_document(self) -> dict:
