@@ -12,7 +12,7 @@
   "metrics": {
     "starter_pack": {
       "slips": 4,
-      "creatures": 3,
+      "creatures": 4,
       "provenance": {
         "author": "the mechagotchi repository",
         "source": "data/slips/valid + data/workshop/released + data/seed_grids_16x16 (committed material)",
@@ -22,11 +22,12 @@
     },
     "import_report": {
       "slips_staged": 4,
-      "creatures_staged": 3
+      "creatures_staged": 4
     },
     "era_admission": {
       "admitted_ids": [
         "mg_seed16_001_beetle",
+        "released_glow_lantern",
         "gen_13fb7e76f2efcd77_c02",
         "gen_20f050eea0f3fb17_c02",
         "gen_7dbc86df9c114975_c02",

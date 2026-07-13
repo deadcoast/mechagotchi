@@ -20,7 +20,7 @@ authoring** (the committed releases are 8×8 — real Contribute/pack
 value is blocked on this) and **clip-frame exports** (the Phase-C
 named remainder).
 
-- [ ] **H1 · 16×16 authoring end to end.** The grid editor authors at
+- [x] **H1 · 16×16 authoring end to end.** The grid editor authors at
   the ratified default scale (DR 0029; the schema has permitted it
   since cycle 09): canvas, palettes, organ/anchor tooling, and the
   RELEASE path all at 16×16 — proven by a released 16×16 creature

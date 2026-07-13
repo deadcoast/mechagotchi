@@ -67,9 +67,13 @@ class LoadTests(unittest.TestCase):
 
     def test_the_committed_workshop_releases_load(self):
         grids = load_released_grids(WORKSHOP_RELEASED)
-        self.assertEqual(2, len(grids))
+        self.assertEqual(3, len(grids))
         self.assertEqual(
-            ["released_tall_wisp", "released_wide_sentinel"],
+            [
+                "released_glow_lantern",  # H1: the 16×16 authoring proof
+                "released_tall_wisp",
+                "released_wide_sentinel",
+            ],
             sorted(grid["grid_id"] for grid in grids),
         )
 
@@ -104,7 +108,11 @@ class AdmissionTests(unittest.TestCase):
         era = campaign.advance_era("calm", released_grids=releases)
         verdict = founders_verdict(era)
         self.assertIsNotNone(verdict)
-        self.assertEqual([], verdict["admitted_ids"])
+        # H1: the authored 16×16 lantern admits; the 8×8-era pair
+        # still rejects verbatim on size coherence.
+        self.assertEqual(
+            ["released_glow_lantern"], verdict["admitted_ids"]
+        )
         rejected_ids = [r["grid_id"] for r in verdict["rejected"]]
         self.assertIn("released_tall_wisp", rejected_ids)
         self.assertTrue(
@@ -134,6 +142,40 @@ class AdmissionTests(unittest.TestCase):
         self.assertEqual(
             "released_workshop_16", era["founders_submitted"][0]
         )
+
+    def test_a_committed_16x16_workshop_release_admits_and_leads(self):
+        # H1 (cycle 18): the workshop authors at the ratified scale —
+        # the committed corpus must contain at least one REAL
+        # release-marked 16×16 creature that the era gates ADMIT.
+        releases = load_released_grids(WORKSHOP_RELEASED)
+        sixteens = [
+            grid
+            for grid in releases
+            if grid.get("grid_size") == [16, 16]
+        ]
+        self.assertTrue(
+            sixteens,
+            "no 16x16 creature in data/workshop/released — the "
+            "authoring gap stands",
+        )
+        for grid in sixteens:
+            self.assertIn(
+                "released_into_ecosystem",
+                grid["lineage"]["mutation_events"],
+            )
+        campaign = KeeperCampaign(
+            self.inputs, era_config=TINY_ERA_CONFIG, campaign_id="h1"
+        )
+        era = campaign.advance_era("calm", released_grids=sixteens)
+        verdict = founders_verdict(era)
+        for grid in sixteens:
+            self.assertIn(
+                grid["grid_id"], verdict["admitted_ids"]
+            )
+        self.assertEqual(
+            sixteens[0]["grid_id"], era["founders_submitted"][0]
+        )
+        self.assertTrue(era["elites"])
 
     def test_no_releases_means_no_verdict_block(self):
         campaign = KeeperCampaign(

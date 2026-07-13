@@ -13,12 +13,14 @@
   "metrics": {
     "cycle": {
       "submitted": [
+        "released_glow_lantern",
         "released_tall_wisp",
         "released_wide_sentinel",
         "released_workshop_16"
       ],
       "verdict": {
         "admitted_ids": [
+          "released_glow_lantern",
           "released_workshop_16"
         ],
         "rejected": [
@@ -37,7 +39,7 @@
         ]
       },
       "era_survived": true,
-      "elites": 39
+      "elites": 37
     },
     "twin_run_equal": true,
     "committed_releases_rejected_verbatim": true,

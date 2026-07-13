@@ -1474,9 +1474,19 @@ def build_contribute_bridge_report() -> dict:
         any("8x8" in error and "16x16" in error for error in r["errors"])
         for r in verdict["rejected"]
     )
+    # H1 raised the committed corpus's truth: the authored 16×16
+    # lantern admits alongside the renamed aligned seed; the 8×8
+    # pair still rejects verbatim. Submissions lead in file order.
     admitted_leads = (
         "released_workshop_16" in verdict["admitted_ids"]
-        and first["submitted"][2] == "released_workshop_16"
+        and "released_glow_lantern" in verdict["admitted_ids"]
+        and first["submitted"][-1] == "released_workshop_16"
+        and set(first["submitted"][:3])
+        == {
+            "released_glow_lantern",
+            "released_tall_wisp",
+            "released_wide_sentinel",
+        }
     )
     status = (
         "complete"

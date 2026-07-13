@@ -201,11 +201,18 @@ this, or am I periscoping?
 ## 5. WHAT TO DO NEXT — Cycle 18, task H1 (THE WORKSHOP TRACK)
 
 `audits/TODO.md` holds cycle 18's full task text (H1–H6, the
-authoring depth from the gap table's Workshop row). Next concrete
-work: **H1 · 16×16 authoring end to end** — the grid editor at the
-ratified scale, proven by a released 16×16 creature ADMITTING into a
-game era through the F9 gates. Never stop to ask direction (the
-correction above). The cycle-17 record below is kept for context:
+authoring depth from the gap table's Workshop row). **H1 (16×16
+authoring end to end) is DONE (2026-07-12)**: the glow lantern
+authored through the REAL pipeline (`_build_grid` → validator →
+alignment → `release_creature` with the lineage mark), committed as
+`data/workshop/released/released_glow_lantern.json`, and PINNED
+admitting + leading a game era through the F9 gates; the corpus
+truths (tests + evidence builders) updated honestly; 153 game tests,
+all fifteen artifacts complete. Next: **H2 · semantic layers** (then
+H3 onion skin/timeline + clip-frame exports, H4 the behavior editor,
+H5 the ≤45-min gate, H6 the Phase-H gate). Never stop to ask
+direction (the correction above). The cycle-17 record below is kept
+for context:
 
 `audits/TODO.md` holds cycle 17's full task text. **G1 (CI +
 reproducibility) is DONE (2026-07-12)**: DR 0034 made the
