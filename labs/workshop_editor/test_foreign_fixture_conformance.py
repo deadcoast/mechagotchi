@@ -12,6 +12,7 @@ index/decode error escaping any decoder is a genuine decoder bug.
 import json
 import tempfile
 import unittest
+import zlib
 from pathlib import Path
 
 from foreign_fixture_writer import (
@@ -137,13 +138,31 @@ class TestForeignFixtureWriterDeterminism(unittest.TestCase):
                 )
 
 
+# DR 0034: deflate output is zlib-BUILD-specific. The committed corpus
+# was generated under a zlib-ng CPython build, so the byte-identity
+# pins below run only under a matching build — an environment
+# OBSERVATION (H-01), never a pinned assumption. Every content-level
+# gate (recorded-hash integrity, all decode expectations over freshly
+# built fixtures) runs unconditionally under every build.
+FIXTURE_ZLIB_BUILD = "zlib-ng"
+ZLIB_BUILD_MATCHES = FIXTURE_ZLIB_BUILD in zlib.ZLIB_RUNTIME_VERSION
+_ZLIB_SKIP_REASON = (
+    "byte-identity pins require the fixture-generating zlib build "
+    f"({FIXTURE_ZLIB_BUILD}; this interpreter: "
+    f"{zlib.ZLIB_RUNTIME_VERSION}) — DR 0034; the content gates "
+    "still run"
+)
+
+
 class TestCommittedForeignCorpus(unittest.TestCase):
+    @unittest.skipUnless(ZLIB_BUILD_MATCHES, _ZLIB_SKIP_REASON)
     def test_committed_fixture_files_match_writer_output(self):
         for fixture in FIXTURES:
             with self.subTest(fixture=fixture["fixture_id"]):
                 committed = (FIXTURE_DIR / fixture["file_name"]).read_bytes()
                 self.assertEqual(committed, fixture["png_bytes"])
 
+    @unittest.skipUnless(ZLIB_BUILD_MATCHES, _ZLIB_SKIP_REASON)
     def test_committed_manifest_is_valid_json_and_matches_writer(self):
         committed = json.loads(
             (FIXTURE_DIR / "manifest.json").read_text(encoding="utf-8")

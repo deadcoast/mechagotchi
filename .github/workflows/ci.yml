@@ -1,0 +1,52 @@
+# The full verification sweep as CI (cycle 17 G1, decision record 0034).
+#
+# Two runners, on purpose: windows-latest carries the CPython 3.14
+# build family that generated the foreign-fixture corpus (zlib-ng —
+# the byte-identity pins RUN there), and ubuntu-latest carries a
+# classic-zlib build (the pins SKIP with their named DR 0034 reason,
+# everything else runs — the skip path is exercised on every push).
+# The venv is built from the RUNNER'S set-up interpreter (UV_PYTHON),
+# never uv's managed python-build-standalone, so the zlib provenance
+# of every run is explicit.
+name: sweep
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: sweep-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sweep:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: cpython
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - uses: astral-sh/setup-uv@v5
+
+      - name: Provision the dependency groups (the runner's own CPython)
+        env:
+          UV_PYTHON: ${{ steps.cpython.outputs.python-path }}
+        run: uv sync --group lab --group cli --group game
+
+      - name: Report the interpreter's zlib build (DR 0034 provenance)
+        run: uv run python -c "import sys, zlib; print(sys.version); print('zlib:', zlib.ZLIB_RUNTIME_VERSION)"
+
+      - name: Run the sweep
+        env:
+          SDL_VIDEODRIVER: dummy
+        run: uv run python -B tools/ci/run_sweep.py

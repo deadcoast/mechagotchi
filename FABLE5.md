@@ -189,9 +189,16 @@ this, or am I periscoping?
 
 ## 5. WHAT TO DO NEXT — Cycle 17, task G1 (PHASE G, SHARED)
 
-`audits/TODO.md` holds cycle 17's full task text: G1 CI +
-reproducibility (handle the zlib-ng fixture sensitivity HONESTLY —
-pin a matching interpreter or condition those pins with a DR), G2
+`audits/TODO.md` holds cycle 17's full task text. **G1 (CI +
+reproducibility) is DONE (2026-07-12)**: DR 0034 made the
+foreign-fixture byte pins zlib-build-conditional (named skips, all
+content gates unconditional — classic-zlib now reads OK(skipped=2)
+where it read FAILED(10)); `tools/ci/run_sweep.py` is the one sweep
+runner (verified locally under the classic-zlib venv: everything
+green, 2208 artifacts valid); `.github/workflows/ci.yml` runs
+windows+ubuntu with the venv built FROM the runner's interpreter and
+a zlib-provenance step. THE FIRST CLOUD RUN AWAITS A PUSH — never
+push unasked. Remaining: G2
 the real-CuBFF corpus through the existing ingest seam (REQUIRED;
 record the blocker honestly if the upstream build fails — never
 fabricate), G3 the transducer study at documented scale over the

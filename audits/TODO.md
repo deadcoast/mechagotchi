@@ -13,7 +13,7 @@ alpha of BOTH builds."* CuBFF real ingest is REQUIRED (owner,
 synthetic weather remains the interim source until real exports land,
 and nothing "real" is ever fabricated.
 
-- [ ] **G1 · CI + reproducibility.** The full sweep as a checked-in
+- [x] **G1 · CI + reproducibility.** The full sweep as a checked-in
   CI workflow (labs + package + workshop + CLI + game; JSON artifact
   validation; the evidence harness as a regen check). The known
   environment sensitivities are handled HONESTLY, not hidden: the
