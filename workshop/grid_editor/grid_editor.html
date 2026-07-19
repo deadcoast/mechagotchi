@@ -146,6 +146,9 @@
           <button type="button" class="size-btn" data-size="8">8×8</button>
           <button type="button" class="size-btn" data-size="16">16×16</button>
         </div>
+        <!-- H2: the semantic strata — pick where you paint; the eye
+             toggles VIEW only (hidden strata still save). -->
+        <div class="layers" id="layers" style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;font-size:12px;"></div>
       </div>
       <div class="panel" style="margin-top:14px;">
         <div class="tools" id="tools"></div>
@@ -237,6 +240,58 @@ let inspected = null;
 let palettes = {};
 let paletteId = "lcd_green";
 let matrix = Array.from({ length: SIZE }, () => Array(SIZE).fill("."));
+
+/* H2 (cycle 18) — semantic layers: AUTHORING STATE over the merged
+   matrix. `matrix` stays the single truth every engine-facing path
+   reads (validate/save/preview/export); the strata merge into it in
+   precedence order (last non-empty token wins). Visibility is a VIEW
+   concern only — hidden strata still merge into the saved truth. */
+const LAYER_STRATA = ["body", "organs", "decoration", "effects"];
+function blankStratum(size) {
+  return Array.from({ length: size }, () => Array(size).fill("."));
+}
+function blankLayers(size) {
+  const out = {};
+  for (const name of LAYER_STRATA) out[name] = blankStratum(size);
+  return out;
+}
+let layers = blankLayers(SIZE);
+let layerVisible = { body: true, organs: true, decoration: true, effects: true };
+let activeLayer = "body";
+function mergeLayers(includeHidden) {
+  const size = layers.body.length;
+  const merged = blankStratum(size);
+  for (const name of LAYER_STRATA) {
+    if (!includeHidden && !layerVisible[name]) continue;
+    const stratum = layers[name];
+    for (let y = 0; y < size; y++)
+      for (let x = 0; x < size; x++)
+        if (stratum[y][x] !== ".") merged[y][x] = stratum[y][x];
+  }
+  return merged;
+}
+function syncMatrix() { matrix = mergeLayers(true); }
+function splitIntoLayers(m) {
+  // Deterministic adoption split for drafts without a sidecar:
+  // body core tokens -> body, sensing/expression -> organs, the
+  // rest -> decoration.
+  const out = blankLayers(m.length);
+  for (let y = 0; y < m.length; y++)
+    for (let x = 0; x < m.length; x++) {
+      const token = m[y][x];
+      if (token === ".") continue;
+      const home = token === "B" || token === "A" ? "body"
+        : token === "E" || token === "M" ? "organs" : "decoration";
+      out[home][y][x] = token;
+    }
+  return out;
+}
+function layersPayload() {
+  return LAYER_STRATA.map((name) => ({
+    name, matrix: layers[name], visible: layerVisible[name],
+  }));
+}
+
 let tool = "B";
 let lastVerdict = null;
 let painting = false;
@@ -260,9 +315,10 @@ function draw() {
   const cell = canvas.width / SIZE;
   ctx.fillStyle = colors()[0];
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+  const view = mergeLayers(false); // hidden strata stay out of VIEW only
   for (let y = 0; y < SIZE; y++) {
     for (let x = 0; x < SIZE; x++) {
-      const token = matrix[y][x];
+      const token = view[y][x];
       if (token === ".") continue;
       ctx.fillStyle = tokenColor(token);
       ctx.fillRect(x * cell, y * cell, cell, cell);
@@ -313,13 +369,16 @@ function paintAt(event) {
   delete cellOverrides[`${x},${y}`];
   if (tool === "A") {
     // Authoring convenience, not validation: the previous anchor becomes
-    // body so the creature keeps exactly one anchor while you rehome it.
-    for (let yy = 0; yy < SIZE; yy++)
-      for (let xx = 0; xx < SIZE; xx++)
-        if (matrix[yy][xx] === "A") matrix[yy][xx] = "B";
+    // body so the creature keeps exactly one anchor while you rehome it
+    // (scanned across every stratum — the anchor may live anywhere).
+    for (const name of LAYER_STRATA)
+      for (let yy = 0; yy < SIZE; yy++)
+        for (let xx = 0; xx < SIZE; xx++)
+          if (layers[name][yy][xx] === "A") layers[name][yy][xx] = "B";
   }
-  if (matrix[y][x] === tool) return;
-  matrix[y][x] = tool;
+  if (layers[activeLayer][y][x] === tool) return;
+  layers[activeLayer][y][x] = tool;
+  syncMatrix();
   draw();
   scheduleValidate();
 }
@@ -338,27 +397,45 @@ function refreshSizeUi() {
   }
 }
 
-function adoptMatrix(next) {
+function adoptMatrix(next, adoptedLayers) {
   // Loads and imports carry their own scale; the canvas follows the grid.
-  matrix = next;
-  SIZE = matrix.length;
+  SIZE = next.length;
+  if (adoptedLayers) {
+    layers = blankLayers(SIZE);
+    layerVisible = { body: true, organs: true, decoration: true, effects: true };
+    for (const entry of adoptedLayers) {
+      if (LAYER_STRATA.includes(entry.name)) {
+        layers[entry.name] = entry.matrix;
+        layerVisible[entry.name] = entry.visible !== false;
+      }
+    }
+  } else {
+    layers = splitIntoLayers(next);
+  }
+  syncMatrix();
   for (const key of Object.keys(cellOverrides)) {
     const [ox, oy] = key.split(",").map(Number);
     if (ox >= SIZE || oy >= SIZE) delete cellOverrides[key];
   }
   refreshSizeUi();
+  renderLayersUi();
 }
 
 function setCanvasSize(next) {
   if (!ALLOWED_SIZES.includes(next) || next === SIZE) return;
-  // Resizing preserves the drawing's overlapping region (top-left).
-  const resized = Array.from({ length: next }, (_, y) =>
-    Array.from({ length: next }, (_, x) =>
-      y < SIZE && x < SIZE ? matrix[y][x] : "."
-    )
-  );
+  // Resizing preserves each stratum's overlapping region (top-left).
+  const resizedLayers = LAYER_STRATA.map((name) => ({
+    name,
+    visible: layerVisible[name],
+    matrix: Array.from({ length: next }, (_, y) =>
+      Array.from({ length: next }, (_, x) =>
+        y < SIZE && x < SIZE ? layers[name][y][x] : "."
+      )
+    ),
+  }));
   hideTraitPanel();
-  adoptMatrix(resized);
+  adoptMatrix(resizedLayers[0].matrix.map((row) => row.slice()), resizedLayers);
+  syncMatrix();
   draw(); scheduleValidate();
 }
 
@@ -366,6 +443,38 @@ for (const btn of document.querySelectorAll(".size-btn")) {
   btn.addEventListener("click", () => setCanvasSize(Number(btn.dataset.size)));
 }
 refreshSizeUi();
+
+/* ---------------- semantic layers (H2) ---------------- */
+function renderLayersUi() {
+  const wrap = $("layers");
+  if (!wrap) return;
+  wrap.innerHTML = "";
+  for (const name of LAYER_STRATA) {
+    const label = document.createElement("label");
+    label.style.cssText =
+      "display:flex;align-items:center;gap:4px;cursor:pointer;" +
+      (activeLayer === name ? "font-weight:700;" : "opacity:0.7;");
+    const radio = document.createElement("input");
+    radio.type = "radio";
+    radio.name = "active-layer";
+    radio.checked = activeLayer === name;
+    radio.addEventListener("change", () => {
+      activeLayer = name;
+      renderLayersUi();
+    });
+    const eye = document.createElement("input");
+    eye.type = "checkbox";
+    eye.title = "visible (view only — hidden strata still save)";
+    eye.checked = layerVisible[name];
+    eye.addEventListener("change", () => {
+      layerVisible[name] = eye.checked;
+      draw();
+    });
+    label.append(radio, document.createTextNode(name), eye);
+    wrap.append(label);
+  }
+}
+renderLayersUi();
 
 /* ---------------- tools ---------------- */
 function renderTools() {
@@ -614,7 +723,7 @@ $("save-btn").addEventListener("click", async () => {
   const response = await fetch("/api/save", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name: $("grid-name").value.trim(), matrix, palette_id: paletteId, cell_overrides: cellOverrides }),
+    body: JSON.stringify({ name: $("grid-name").value.trim(), matrix, palette_id: paletteId, cell_overrides: cellOverrides, layers: layersPayload() }),
   });
   const result = await response.json();
   const notice = $("save-notice");
@@ -651,7 +760,7 @@ $("load-select").addEventListener("change", async () => {
   if (grid.ok) {
     cellOverrides = {};
     hideTraitPanel();
-    adoptMatrix(grid.matrix);
+    adoptMatrix(grid.matrix, grid.layers || null);
     paletteId = grid.palette_id || paletteId;
     $("grid-name").value = name;
     renderPalettes(); renderTools(); draw(); scheduleValidate();
@@ -659,7 +768,8 @@ $("load-select").addEventListener("change", async () => {
 });
 
 $("clear-btn").addEventListener("click", () => {
-  matrix = Array.from({ length: SIZE }, () => Array(SIZE).fill("."));
+  layers = blankLayers(SIZE);
+  syncMatrix();
   cellOverrides = {};
   hideTraitPanel();
   $("grid-name").value = "";

@@ -1584,3 +1584,145 @@ class MetricsInstrumentationTests(unittest.TestCase):
             "instrumented_pipeline_no_human_study_data",
             record["provenance"],
         )
+
+
+class SemanticLayerTests(unittest.TestCase):
+    """H2 (cycle 18): layers are AUTHORING STATE riding a sidecar —
+    the saved grid stays the engine's single source of truth. The
+    server verifies the honesty claim (the layers MERGE to the posted
+    matrix, last-non-empty stratum wins in body < organs < decoration
+    < effects order) or refuses; a save without layers deletes any
+    stale sidecar; releases never carry the sidecar."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.temp = tempfile.TemporaryDirectory()
+        base = Path(cls.temp.name)
+        cls.grids_dir = base / "grids"
+        cls.released_dir = base / "released"
+        cls.released_dir.mkdir(parents=True)
+        cls.server = start_workshop_server(
+            port=0,
+            grids_dir=cls.grids_dir,
+            slips_dir=base / "slips",
+            session_dir=base / "game_loop",
+            released_dir=cls.released_dir,
+        )
+        cls.thread = threading.Thread(
+            target=cls.server.serve_forever, daemon=True
+        )
+        cls.thread.start()
+        cls.base = f"http://127.0.0.1:{cls.server.server_address[1]}"
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.server.shutdown()
+        cls.thread.join(timeout=5)
+        cls.temp.cleanup()
+
+    @staticmethod
+    def _layers():
+        size = len(VALID_MATRIX_16)
+        blank = [["." for _ in range(size)] for _ in range(size)]
+        body = [row[:] for row in blank]
+        organs = [row[:] for row in blank]
+        for y, row in enumerate(VALID_MATRIX_16):
+            for x, token in enumerate(row):
+                if token == "B":
+                    body[y][x] = "B"
+                elif token != ".":
+                    organs[y][x] = token
+        return [
+            {"name": "body", "matrix": body, "visible": True},
+            {"name": "organs", "matrix": organs, "visible": True},
+            {"name": "decoration", "matrix": blank, "visible": True},
+            {"name": "effects", "matrix": blank, "visible": True},
+        ]
+
+    def test_layers_ride_a_sidecar_and_reload(self):
+        status, payload = _post(
+            f"{self.base}/api/save",
+            {
+                "name": "layered",
+                "matrix": VALID_MATRIX_16,
+                "palette_id": "lcd_green",
+                "layers": self._layers(),
+            },
+        )
+        self.assertEqual(200, status, payload)
+        self.assertTrue(
+            (self.grids_dir / "layered.layers.json").exists()
+        )
+        status, loaded = _get(f"{self.base}/api/grids/layered")
+        self.assertEqual(200, status)
+        self.assertEqual(
+            ["body", "organs", "decoration", "effects"],
+            [layer["name"] for layer in loaded["layers"]],
+        )
+        self.assertEqual(VALID_MATRIX_16, loaded["matrix"])
+
+    def test_lying_layers_are_refused(self):
+        layers = self._layers()
+        layers[0]["matrix"][0][0] = "B"  # not in the posted matrix
+        status, payload = _post(
+            f"{self.base}/api/save",
+            {
+                "name": "liar",
+                "matrix": VALID_MATRIX_16,
+                "palette_id": "lcd_green",
+                "layers": layers,
+            },
+        )
+        self.assertEqual(400, status)
+        self.assertIn("merge", payload["error"])
+        self.assertEqual(
+            [], list(self.grids_dir.glob("liar*.json"))
+        )
+
+    def test_saving_without_layers_deletes_the_stale_sidecar(self):
+        _post(
+            f"{self.base}/api/save",
+            {
+                "name": "shed",
+                "matrix": VALID_MATRIX_16,
+                "palette_id": "lcd_green",
+                "layers": self._layers(),
+            },
+        )
+        self.assertTrue(
+            (self.grids_dir / "shed.layers.json").exists()
+        )
+        status, _payload = _post(
+            f"{self.base}/api/save",
+            {
+                "name": "shed",
+                "matrix": VALID_MATRIX_16,
+                "palette_id": "lcd_green",
+            },
+        )
+        self.assertEqual(200, status)
+        self.assertFalse(
+            (self.grids_dir / "shed.layers.json").exists()
+        )
+
+    def test_releases_never_carry_the_sidecar(self):
+        _post(
+            f"{self.base}/api/save",
+            {
+                "name": "clean_release",
+                "matrix": VALID_MATRIX_16,
+                "palette_id": "lcd_green",
+                "layers": self._layers(),
+            },
+        )
+        status, payload = _post(
+            f"{self.base}/api/release", {"name": "clean_release"}
+        )
+        self.assertEqual(200, status, payload)
+        self.assertTrue(
+            (self.released_dir / "clean_release.json").exists()
+        )
+        self.assertEqual(
+            [],
+            list(self.released_dir.glob("*.layers.json")),
+        )

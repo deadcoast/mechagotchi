@@ -285,6 +285,38 @@ def _morphology_stats(grid: dict) -> dict:
     }
 
 
+# H2 (cycle 18): the semantic strata, in merge-precedence order. The
+# layer model is AUTHORING STATE riding a sidecar; the saved grid
+# stays the engine's single source of truth, and the server verifies
+# the honesty claim — the layers must MERGE to the posted matrix.
+LAYER_STRATA = ("body", "organs", "decoration", "effects")
+
+
+def _merge_layers(layers: list[dict]) -> tuple[list[list[str]] | None, str | None]:
+    """Merge the four strata (last non-empty token wins) or name the
+    shape problem."""
+    if [layer.get("name") for layer in layers] != list(LAYER_STRATA):
+        return None, (
+            "layers must be exactly the four semantic strata in order: "
+            + ", ".join(LAYER_STRATA)
+        )
+    matrices = [layer.get("matrix") for layer in layers]
+    first = matrices[0]
+    if not isinstance(first, list) or not first:
+        return None, "layer matrices must be non-empty grids"
+    height, width = len(first), len(first[0])
+    for matrix in matrices:
+        if len(matrix) != height or any(len(row) != width for row in matrix):
+            return None, "layer matrices must share one canvas size"
+    merged = [["." for _ in range(width)] for _ in range(height)]
+    for matrix in matrices:  # stratum order = precedence order
+        for y, row in enumerate(matrix):
+            for x, token in enumerate(row):
+                if token != ".":
+                    merged[y][x] = token
+    return merged, None
+
+
 def _build_grid(matrix: list[list[str]], palette_id: str, grid_id: str) -> dict:
     palette = {
         "palette_id": palette_id,
@@ -816,16 +848,20 @@ class _Handler(SimpleHTTPRequestHandler):
                 self._json(404, {"ok": False, "error": "no such grid"})
                 return
             grid = json.loads(file.read_text(encoding="utf-8"))
-            self._json(
-                200,
-                {
-                    "ok": True,
-                    "name": name,
-                    "matrix": matrix_from_grid(grid),
-                    "palette_id": grid.get("palette", {}).get("palette_id"),
-                    "grid_id": grid.get("grid_id"),
-                },
-            )
+            response = {
+                "ok": True,
+                "name": name,
+                "matrix": matrix_from_grid(grid),
+                "palette_id": grid.get("palette", {}).get("palette_id"),
+                "grid_id": grid.get("grid_id"),
+            }
+            # H2: the authoring sidecar reloads with the draft.
+            sidecar = self.server.grids_dir / f"{name}.layers.json"
+            if sidecar.exists():
+                response["layers"] = json.loads(
+                    sidecar.read_text(encoding="utf-8")
+                )["layers"]
+            self._json(200, response)
             return
         return super().do_GET()
 
@@ -973,6 +1009,23 @@ class _Handler(SimpleHTTPRequestHandler):
         # /api/save — strict per the charter's 4-W pillar: the workshop
         # never writes a grid the engine would reject.
         name = _safe_name(payload.get("name", ""))
+        layers = payload.get("layers")
+        if layers is not None:
+            merged, problem = _merge_layers(layers)
+            if problem is not None:
+                self._json(400, {"ok": False, "error": problem})
+                return
+            if merged != matrix:
+                self._json(
+                    400,
+                    {
+                        "ok": False,
+                        "error": "layers do not merge to the posted "
+                        "matrix — the sidecar may not lie about the "
+                        "grid",
+                    },
+                )
+                return
         grid = _build_grid(matrix, palette_id, f"workshop_{name}")
         overrides = payload.get("cell_overrides") or {}
         if overrides:
@@ -1002,6 +1055,17 @@ class _Handler(SimpleHTTPRequestHandler):
         target.write_text(
             json.dumps(grid, indent=2) + "\n", encoding="utf-8"
         )
+        # H2: the layers sidecar is authoring state — written with the
+        # grid, DELETED when a save arrives without layers (a stale
+        # sidecar would lie about the grid).
+        sidecar = self.server.grids_dir / f"{name}.layers.json"
+        if layers is not None:
+            sidecar.write_text(
+                json.dumps({"layers": layers}, indent=2) + "\n",
+                encoding="utf-8",
+            )
+        elif sidecar.exists():
+            sidecar.unlink()
         self._json(
             200,
             {

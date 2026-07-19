@@ -28,7 +28,7 @@ named remainder).
   path, currently rejecting the 8×8 pieces on size). The committed
   release fixtures gain 16×16 companions (the 8×8 pair stays as the
   honest rejection fixture).
-- [ ] **H2 · Semantic layers.** The documented editor depth: layers
+- [x] **H2 · Semantic layers.** The documented editor depth: layers
   as semantic strata (body / organs / decoration / effects), each
   toggleable and independently editable, compiling to ONE schema-valid
   grid (the layer model is authoring state; the saved grid stays the
