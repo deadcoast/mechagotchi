@@ -1,0 +1,137 @@
+{
+  "artifact_id": "workshop_first_session_stage0",
+  "status": "complete",
+  "date": "2026-07-19",
+  "purpose": "H5: prove the documented first-session journey (blank state -> creature + SLIP -> release -> share) exists end to end against the REAL workshop server, timed against the 45-minute bound as a labeled scripted proxy",
+  "source_artifacts": [
+    "workshop/server/workshop_server.py",
+    "workshop/grid_editor/grid_editor.html",
+    "workshop/slip_creator/slip_creator.html",
+    "research/experiment_reports/2026-07-12-semantic-layers.md",
+    "research/experiment_reports/2026-07-19-onion-skin-timeline.md",
+    "research/experiment_reports/2026-07-19-behavior-editor.md"
+  ],
+  "steps": [
+    {
+      "name": "open_the_workshop",
+      "purpose": "both authoring pages exist and carry the Phase-H depth",
+      "ok": true,
+      "requests": 2,
+      "elapsed_seconds": 0.0683,
+      "evidence": {
+        "editor_serves_the_timeline": true,
+        "slip_creator_serves_deliberation": true
+      }
+    },
+    {
+      "name": "first_marks_and_first_refusal",
+      "purpose": "the validator's words are the teaching moment",
+      "ok": true,
+      "requests": 1,
+      "elapsed_seconds": 0.0014,
+      "evidence": {
+        "errors": [
+          "missing animation anchor"
+        ]
+      }
+    },
+    {
+      "name": "author_the_creature",
+      "purpose": "the finished 16x16 creature passes the engine",
+      "ok": true,
+      "requests": 1,
+      "elapsed_seconds": 0.001,
+      "evidence": {
+        "valid": true
+      }
+    },
+    {
+      "name": "author_the_species_slip",
+      "purpose": "the species contract (deliberation included) accepted by the authority and saved",
+      "ok": true,
+      "requests": 2,
+      "elapsed_seconds": 0.0052,
+      "evidence": {
+        "authority_valid": true,
+        "saved_as": "slip_first_session.json",
+        "deliberation": {
+          "max_ticks": 3,
+          "confidence_threshold": 0.72
+        }
+      }
+    },
+    {
+      "name": "save_the_creature",
+      "purpose": "the layered save (H2's sidecar rides beside the grid)",
+      "ok": true,
+      "requests": 1,
+      "elapsed_seconds": 0.0027,
+      "evidence": {
+        "file": "first_moth.json"
+      }
+    },
+    {
+      "name": "see_it_move",
+      "purpose": "the timeline scrubs the engine's clip frames (H3)",
+      "ok": true,
+      "requests": 1,
+      "elapsed_seconds": 0.0036,
+      "evidence": {
+        "frame_count": 4,
+        "moved": true
+      }
+    },
+    {
+      "name": "release_into_the_ecosystem",
+      "purpose": "release-time re-validation + the lineage mark",
+      "ok": true,
+      "requests": 1,
+      "elapsed_seconds": 0.0071,
+      "evidence": {
+        "file": "first_moth.json"
+      }
+    },
+    {
+      "name": "share_it",
+      "purpose": "the animated share carries the scrubbed clip (H3)",
+      "ok": true,
+      "requests": 1,
+      "elapsed_seconds": 0.005,
+      "evidence": {
+        "apng_clip_frames": 4
+      }
+    }
+  ],
+  "metrics": {
+    "scripted_proxy": true,
+    "total_elapsed_seconds": 6.9927,
+    "bound_seconds": 2700,
+    "under_bound": true,
+    "interaction_count": 10,
+    "step_count": 8
+  },
+  "human_pass": {
+    "prepared": true,
+    "blocking": false,
+    "steps": [
+      "open the workshop (mechas workshop) and the slip creator",
+      "draw a first 16x16 creature; meet at least one refusal and fix it from the validator's words",
+      "author the species SLIP (palettes, mass bounds, organ roles, mutation caps, behavior/survival weights, deliberation depth) until the authority accepts it",
+      "save the creature with its semantic layers",
+      "scrub a clip on the timeline (onion skin on) and adjust the anchor until the motion reads",
+      "release the creature into the ecosystem",
+      "export the animated APNG carrying the scrubbed clip",
+      "record total wall-clock against the 45-minute bound"
+    ],
+    "note": "the scripted proxy proves the PATH and counts the interactions; only a human pass measures the 45-minute goal for real \u2014 prepared here, recorded not blocking (the calibration pattern)"
+  },
+  "closed_states": [
+    "first_session_path_exists_end_to_end",
+    "scripted_proxy_under_bound"
+  ],
+  "blocked_states": [
+    "manual_human_first_session_timing (prepared, not blocking - the calibration pattern)"
+  ],
+  "decision": "the first-session journey is real at every step against the live server; the scripted time is a proxy and says so",
+  "next_research_step": "H6: the Phase-H gate consolidates the authoring-depth ladder and hands the community system to DR 0035's post-alpha scope"
+}

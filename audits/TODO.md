@@ -43,7 +43,7 @@ named remainder).
   mutation caps, and deliberation depth authored visually, validated
   live by the engine's authority (verbatim refusals in the page) —
   the covenant's authoring face.
-- [ ] **H5 · The ≤45-minute first-session gate.** The documented UX
+- [x] **H5 · The ≤45-minute first-session gate.** The documented UX
   goal measured honestly: a scripted first-session protocol (author a
   creature + its SLIP from blank state through release) timed against
   the 45-minute bound — scripted-proxy honestly labeled; the manual

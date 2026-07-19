@@ -124,7 +124,11 @@ editor — deliberation depth (DR 0017's confidence-gated thinking, the
 covenant's thinking-depth axis) joins behavior/survival weights and
 mutation caps in the slip creator, authored visually under the live
 authority loop with its refusals verbatim (floor 2, ceiling 8, the
-engine's own 0.72 confidence default).
+engine's own 0.72 confidence default). H5 (2026-07-19): the
+first-session gate — the scripted protocol travels the whole journey
+(blank state → creature + SLIP → release → animated share) against
+the live server, 8/8 steps, labeled a scripted PROXY with the human
+pass prepared-not-blocking (`data/workshop/first_session_stage0.json`).
 
 ## The research the workshop stands on
 
@@ -175,3 +179,4 @@ record with forcing evidence (charter section 5).
 - `research/experiment_reports/2026-07-12-semantic-layers.md`
 - `research/experiment_reports/2026-07-19-onion-skin-timeline.md`
 - `research/experiment_reports/2026-07-19-behavior-editor.md`
+- `research/experiment_reports/2026-07-19-first-session-gate.md`
