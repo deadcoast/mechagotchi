@@ -897,7 +897,7 @@
         },
         "apng_decode_apng_frames": {
           "outcome": "typed_reject",
-          "family": "apng_frame_count_unsupported"
+          "family": "apng_frame_control_unsupported"
         },
         "apng_filtered_frame_data": {
           "outcome": "typed_reject",

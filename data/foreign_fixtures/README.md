@@ -45,16 +45,3 @@ python labs/workshop_editor/foreign_fixture_writer.py
 
 - Fixtures: 22
 - Corpus id: foreign_fixture_corpus_v1
-
-## Build provenance (DR 0034)
-
-The committed corpus bytes were generated under a **zlib-ng** CPython
-build (Windows CPython 3.14, `zlib.ZLIB_RUNTIME_VERSION =
-1.3.1.zlib-ng`). Deflate output is zlib-build-specific, so the
-byte-identity pins in `test_foreign_fixture_conformance.py` run only
-under a matching build and skip (named, citing DR 0034) elsewhere;
-the recorded-hash integrity checks and every decode expectation run
-under every build. Regenerating this corpus is a deliberate act on a
-zlib-ng interpreter — update `FIXTURE_ZLIB_BUILD` in the test module
-with the corpus, in the same change, if the generating build ever
-changes.

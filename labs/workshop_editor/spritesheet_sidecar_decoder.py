@@ -64,16 +64,38 @@ def export_spritesheet_with_sidecar(
     slip_profile: dict,
     *,
     durations_ms: list[int] | None = None,
+    clip_frames: dict | None = None,
 ) -> dict:
-    durations = durations_ms or DEFAULT_FRAME_DURATIONS_MS
-    if len(durations) != 3:
-        raise ValueError("Stage 0 spritesheet proof expects exactly 3 frames")
-
+    """The horizontal-strip carrier. Without ``clip_frames`` this is the
+    historical 3-frame proof, unchanged. With ``clip_frames`` (H3, cycle
+    18: ``{"clip": name, "frames": [{"cells": [...], "animation": ...}]}``)
+    the strip carries the engine's projected clip frames — presentation
+    only; the sidecar's semantic grid stays the single truth."""
     frame_width, frame_height = grid["grid_size"]
-    frame_pixels = [
-        render_spritesheet_frame_pixels(grid, frame_index)
-        for frame_index in range(len(durations))
-    ]
+    if clip_frames is None:
+        durations = durations_ms or DEFAULT_FRAME_DURATIONS_MS
+        if len(durations) != 3:
+            raise ValueError("Stage 0 spritesheet proof expects exactly 3 frames")
+        frame_pixels = [
+            render_spritesheet_frame_pixels(grid, frame_index)
+            for frame_index in range(len(durations))
+        ]
+        frame_labels = None
+    else:
+        clip = str(clip_frames["clip"])
+        frame_count = len(clip_frames["frames"])
+        durations = durations_ms or [200] * frame_count
+        if len(durations) != frame_count:
+            raise ValueError(
+                "clip spritesheet durations must match the clip's frame count"
+            )
+        frame_pixels = [
+            render_grid_rgba_pixels({**grid, "cells": frame["cells"]})
+            for frame in clip_frames["frames"]
+        ]
+        frame_labels = [
+            f"{clip}_frame_{index}" for index in range(frame_count)
+        ]
     sheet_pixels = _pack_horizontal_frames(frame_width, frame_height, frame_pixels)
     png_bytes = encode_png_rgba(frame_width * len(durations), frame_height, sheet_pixels)
     asset = _asset_from_spritesheet_png(
@@ -91,7 +113,17 @@ def export_spritesheet_with_sidecar(
         durations,
         frame_pixels,
         sidecar["integrity"]["semantic_overlay_hash"],
+        frame_labels=frame_labels,
     )
+    if clip_frames is not None:
+        binding = sidecar["animation_binding"]
+        binding["frame_source"] = {
+            "kind": "clip_frames",
+            "clip": str(clip_frames["clip"]),
+        }
+        for entry, frame in zip(binding["frames"], clip_frames["frames"]):
+            if frame.get("animation") is not None:
+                entry["animation"] = deepcopy(frame["animation"])
     sidecar["limitations"] = [
         "Stage 0 spritesheet decoder supports a horizontal strip of equal-size frames only.",
         "Frame pixels may vary visually; semantic grid metadata is restored from the sidecar.",
@@ -402,6 +434,7 @@ def _animation_binding(
     durations: list[int],
     frame_pixels: list[list[tuple[int, int, int, int]]],
     semantic_hash: str,
+    frame_labels: list[str] | None = None,
 ) -> dict:
     return {
         "animation_model": "fixed_horizontal_strip_v1",
@@ -417,7 +450,11 @@ def _animation_binding(
                 "duration_ms": durations[index],
                 "pixel_hash": _hash_pixels(frame_pixels[index]),
                 "semantic_overlay_hash": semantic_hash,
-                "visual_delta": _visual_delta_label(index),
+                "visual_delta": (
+                    frame_labels[index]
+                    if frame_labels is not None
+                    else _visual_delta_label(index)
+                ),
             }
             for index in range(len(durations))
         ],

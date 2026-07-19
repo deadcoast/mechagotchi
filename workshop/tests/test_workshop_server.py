@@ -1726,3 +1726,161 @@ class SemanticLayerTests(unittest.TestCase):
             [],
             list(self.released_dir.glob("*.layers.json")),
         )
+
+
+def _actl_num_frames(png: bytes) -> int:
+    """Read num_frames out of the APNG acTL chunk (type + 4 bytes)."""
+    index = png.find(b"acTL")
+    if index < 0:
+        return 0
+    return int.from_bytes(png[index + 4 : index + 8], "big")
+
+
+class ClipAuthoringTests(unittest.TestCase):
+    """H3: the timeline scrubs the unsaved draft, and APNG/spritesheet
+    exports carry the engine's clip frames — not the historical pulse —
+    when a clip is named (the DR 0013 additive-rung shape: no clip, no
+    change)."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.temp = tempfile.TemporaryDirectory()
+        base = Path(cls.temp.name)
+        cls.server = start_workshop_server(
+            port=0, grids_dir=base / "grids", slips_dir=base / "slips"
+        )
+        cls.base = f"http://127.0.0.1:{cls.server.server_address[1]}"
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.server.shutdown()
+        cls.temp.cleanup()
+
+    def _export(self, kind, extra):
+        payload = {
+            "matrix": VALID_MATRIX,
+            "palette_id": "lcd_green",
+            "profile_id": "slip_lcd_seed",
+        }
+        payload.update(extra)
+        return _post_raw(
+            f"{self.base}/api/export/{kind}",
+            json.dumps(payload).encode("utf-8"),
+        )
+
+    def test_clip_preview_scrubs_the_inline_draft(self):
+        # The authoring loop: the timeline scrubs what is being edited,
+        # unsaved — the engine judges the posted matrix first.
+        status, payload = _post(
+            f"{self.base}/api/preview/clip",
+            {"matrix": VALID_MATRIX_16, "palette_id": "lcd_green", "clip": "ill"},
+        )
+        self.assertEqual(200, status, payload)
+        self.assertEqual("ill", payload["clip"])
+        self.assertEqual(4, payload["frame_count"])
+        self.assertEqual(4, len(payload["frames"]))
+        for index, frame in enumerate(payload["frames"]):
+            block = frame["animation"]
+            self.assertEqual("ill", block["clip"])
+            self.assertEqual(index, block["frame_index"])
+            self.assertEqual(4, block["frame_count"])
+            self.assertGreaterEqual(len(block["anchors"]), 1)
+        first = payload["frames"][0]["cells"]
+        self.assertTrue(
+            any(frame["cells"] != first for frame in payload["frames"][1:]),
+            "the ill clip must visibly move",
+        )
+        self.assertIn("idle", payload["clips"])
+
+    def test_clip_preview_carries_the_authored_motion_roles(self):
+        # The trait editor's cell overrides ride the scrub: an authored
+        # antenna (a sway role) reaches the engine's projection, so the
+        # timeline shows the motion choice the author just made.
+        status, payload = _post(
+            f"{self.base}/api/preview/clip",
+            {
+                "matrix": VALID_MATRIX,
+                "palette_id": "lcd_green",
+                "clip": "idle",
+                "cell_overrides": {"1,0": {"role": "antenna"}},
+            },
+        )
+        self.assertEqual(200, status, payload)
+        roles = {
+            cell.get("role")
+            for frame in payload["frames"]
+            for cell in frame["cells"]
+        }
+        self.assertIn("antenna", roles)
+
+    def test_clip_preview_refuses_an_invalid_inline_draft(self):
+        status, payload = _post(
+            f"{self.base}/api/preview/clip",
+            {"matrix": BROKEN_MATRIX, "palette_id": "lcd_green", "clip": "idle"},
+        )
+        self.assertEqual(400, status)
+        self.assertGreater(len(payload["errors"]), 0)
+
+    def test_apng_export_carries_clip_frames(self):
+        status, png, content_type = self._export("apng", {"clip": "ill"})
+        self.assertEqual(200, status, png[:200])
+        self.assertEqual("image/png", content_type)
+        self.assertEqual(4, _actl_num_frames(png))
+        self.assertEqual(4, png.count(b"fcTL"))
+
+    def test_apng_export_without_clip_stays_the_pulse(self):
+        # The additive rung: no clip in the payload, the historical
+        # two-frame pulse carrier is untouched.
+        status, png, _ = self._export("apng", {})
+        self.assertEqual(200, status)
+        self.assertEqual(2, _actl_num_frames(png))
+
+    def test_apng_export_refuses_an_unknown_clip(self):
+        status, body, _ = self._export("apng", {"clip": "cartwheel"})
+        self.assertEqual(400, status)
+        errors = json.loads(body)["errors"]
+        self.assertTrue(any("cartwheel" in error for error in errors))
+
+    def test_clip_export_is_an_animation_concern(self):
+        # A clip on a single-frame export kind is refused loudly,
+        # never silently dropped.
+        status, body, _ = self._export("png", {"clip": "ill"})
+        self.assertEqual(400, status)
+        self.assertGreater(len(json.loads(body)["errors"]), 0)
+
+    def test_spritesheet_export_carries_clip_frames(self):
+        status, body, _ = self._export("spritesheet", {"clip": "ill"})
+        self.assertEqual(200, status, body[:200])
+        result = json.loads(body)
+        self.assertTrue(result["ok"])
+        binding = result["sidecar"]["animation_binding"]
+        self.assertEqual(4, binding["frame_count"])
+        self.assertEqual(4, len(binding["frames"]))
+        for index, frame in enumerate(binding["frames"]):
+            block = frame["animation"]
+            self.assertEqual("ill", block["clip"])
+            self.assertEqual(index, block["frame_index"])
+        self.assertEqual("ill", binding["frame_source"]["clip"])
+        # The sheet is four frames wide (8x8 creature -> 32px strip).
+        import base64 as _base64
+
+        png = _base64.b64decode(result["png_base64"])
+        self.assertEqual(32, int.from_bytes(png[16:20], "big"))
+        # The pair still restores the creature: clip frames are
+        # presentation; the sidecar's semantic grid stays the truth.
+        status, body, _ = _post_raw(
+            f"{self.base}/api/import/spritesheet",
+            json.dumps(
+                {"png_base64": result["png_base64"], "sidecar": result["sidecar"]}
+            ).encode("utf-8"),
+        )
+        self.assertEqual(200, status, body[:200])
+        restored = json.loads(body)
+        self.assertTrue(restored["ok"])
+        self.assertEqual(VALID_MATRIX, restored["matrix"])
+
+    def test_spritesheet_export_without_clip_stays_three_frames(self):
+        status, body, _ = self._export("spritesheet", {})
+        self.assertEqual(200, status)
+        binding = json.loads(body)["sidecar"]["animation_binding"]
+        self.assertEqual(3, binding["frame_count"])

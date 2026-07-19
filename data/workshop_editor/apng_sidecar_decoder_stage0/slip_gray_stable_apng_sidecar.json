@@ -348,10 +348,10 @@
       "background_index": 0
     },
     "mutation": {
-      "cell_mutation_rate": 0.05,
-      "organ_shift_rate": 0.02,
-      "palette_shift_rate": 0.01,
-      "symmetry_break_rate": 0.01
+      "cell_mutation_rate": 0.008139,
+      "organ_shift_rate": 0.00407,
+      "palette_shift_rate": 0.00407,
+      "symmetry_break_rate": 0.00407
     },
     "lineage": {
       "generation": 1,
@@ -1013,12 +1013,12 @@
   ],
   "integrity": {
     "asset_content_hash": "sha256:90d9571e27f879673e5739290eecdb5f9fa1afff0a072eb8e6d073d3d7ea7d82",
-    "semantic_overlay_hash": "sha256:afad2be9031c3b757897d63c9f981ad0fd206e62864854bb42d424d189b59099",
+    "semantic_overlay_hash": "sha256:93741c3f5076d2f9e90fe237281062f3e80fa9b714026b55f720c92f2f33b7ac",
     "profile_hash": "sha256:94881f9e4c63f91b3c85862d8ff8a0dc5e177d1211e67335984ca3f2b47f9b63",
-    "binding_hash": "sha256:eb805735f510f3582570e29e782203bbf8f8176c990943e9c46781f3c38c8e41"
+    "binding_hash": "sha256:16d02ca591382dcb1ca81c0dc5e93510b635540057b1a0a54645f6209dac6f00"
   },
   "limitations": [
-    "Stage 0 APNG decoder supports two full-canvas 8-bit RGBA source frames only.",
+    "APNG decoder supports two to 16 full-canvas 8-bit RGBA source frames.",
     "Frame semantics remain sidecar-bound; APNG pixels do not encode Mechagotchi organs.",
     "Blend-over, partial-frame offsets, disposal variants, APNG text/private metadata, and full APNG/PNG conformance are not claimed.",
     "Live external editor open-save preservation is not verified by this lab."

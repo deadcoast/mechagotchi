@@ -170,5 +170,77 @@ class SpritesheetSidecarDecoderTests(unittest.TestCase):
             self.assertIn("MECHAGOTCHI_SPRITESHEET_SIDECAR_DECODER", app_data)
 
 
+def synthetic_clip_frames(grid: dict, count: int = 4, clip: str = "ill") -> dict:
+    """Codec-level clip frames (cell lists + animation blocks); the
+    workshop server test pins the REAL engine clip frames end-to-end."""
+    from copy import deepcopy
+
+    frames = []
+    for index in range(count):
+        cells = deepcopy(grid["cells"])
+        for cell in cells[:index]:
+            cell["visual"] = "#00{:02x}40".format(64 + index * 8)
+        frames.append(
+            {
+                "cells": cells,
+                "animation": {
+                    "clip": clip,
+                    "frame_index": index,
+                    "frame_count": count,
+                    "anchors": [
+                        [cell["x"], cell["y"]]
+                        for cell in cells
+                        if cell.get("animation_anchor")
+                    ],
+                },
+            }
+        )
+    return {"clip": clip, "frames": frames}
+
+
+class ClipFrameSpritesheetTests(unittest.TestCase):
+    """H3 (cycle 18): the spritesheet strip gains clip frames as an
+    additive keyword — no clip_frames, no change to the 3-frame proof."""
+
+    def test_export_with_clip_frames_packs_every_frame(self):
+        profile = load_profile(VALID_PROFILE_PATHS[0])
+        grid = first_grid_for(profile)
+        bundle = export_spritesheet_with_sidecar(
+            grid, profile, clip_frames=synthetic_clip_frames(grid)
+        )
+        frame_width, frame_height = grid["grid_size"]
+        decoded = decode_png_rgba(bundle["png_bytes"])
+        self.assertEqual(frame_width * 4, decoded["width"])
+        binding = bundle["sidecar"]["animation_binding"]
+        self.assertEqual(4, binding["frame_count"])
+        self.assertEqual(
+            {"kind": "clip_frames", "clip": "ill"}, binding["frame_source"]
+        )
+        for index, frame in enumerate(binding["frames"]):
+            self.assertEqual(index, frame["animation"]["frame_index"])
+            self.assertEqual("ill", frame["animation"]["clip"])
+            self.assertEqual(f"ill_frame_{index}", frame["visual_delta"])
+
+    def test_clip_frame_export_round_trips_the_semantic_grid(self):
+        profile = load_profile(VALID_PROFILE_PATHS[1])
+        grid = first_grid_for(profile)
+        bundle = export_spritesheet_with_sidecar(
+            grid, profile, clip_frames=synthetic_clip_frames(grid)
+        )
+        imported = import_spritesheet_with_sidecar(
+            bundle["png_bytes"], bundle["sidecar"], source_grid=grid
+        )
+        self.assertTrue(imported["ok"], imported.get("errors"))
+        self.assertEqual(1.0, imported["semantic_fidelity"])
+
+    def test_three_frame_proof_is_untouched_without_clip_frames(self):
+        profile = load_profile(VALID_PROFILE_PATHS[0])
+        grid = first_grid_for(profile)
+        bundle = export_spritesheet_with_sidecar(grid, profile)
+        binding = bundle["sidecar"]["animation_binding"]
+        self.assertEqual(3, binding["frame_count"])
+        self.assertNotIn("frame_source", binding)
+
+
 if __name__ == "__main__":
     unittest.main()

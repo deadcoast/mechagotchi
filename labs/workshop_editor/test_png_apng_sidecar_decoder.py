@@ -200,5 +200,97 @@ class APNGSidecarDecoderTests(unittest.TestCase):
             self.assertIn("MECHAGOTCHI_APNG_SIDECAR_DECODER", app_data)
 
 
+def synthetic_clip_frames(grid: dict, count: int = 4, clip: str = "ill") -> dict:
+    """Codec-level clip frames: cell lists with per-frame visual deltas.
+
+    The codec's contract is "N full-canvas frames from cell lists" — it
+    does not care that these came from the engine; the workshop server
+    test pins the REAL engine clip frames end-to-end."""
+    frames = []
+    for index in range(count):
+        cells = deepcopy(grid["cells"])
+        for cell in cells[:index]:
+            cell["visual"] = "#00{:02x}40".format(64 + index * 8)
+        frames.append(
+            {
+                "cells": cells,
+                "animation": {
+                    "clip": clip,
+                    "frame_index": index,
+                    "frame_count": count,
+                    "anchors": [
+                        [cell["x"], cell["y"]]
+                        for cell in cells
+                        if cell.get("animation_anchor")
+                    ],
+                },
+            }
+        )
+    return {"clip": clip, "frames": frames}
+
+
+class ClipFrameAPNGTests(unittest.TestCase):
+    """H3 (cycle 18): the APNG carrier gains clip frames as an additive
+    keyword — no clip_frames, no change to the historical pulse."""
+
+    def test_export_with_clip_frames_carries_every_frame(self):
+        profile = load_profile(VALID_PROFILE_PATHS[0])
+        grid = first_grid_for(profile)
+        clip_frames = synthetic_clip_frames(grid)
+
+        bundle = export_apng_with_sidecar(grid, profile, clip_frames=clip_frames)
+        decoded = decode_apng_frames(bundle["png_bytes"])
+
+        self.assertEqual(4, decoded["animation_control"]["num_frames"])
+        self.assertEqual(4, decoded["frame_count"])
+        self.assertTrue(all(frame["full_canvas"] for frame in decoded["frames"]))
+        binding = bundle["sidecar"]["apng_binding"]
+        self.assertEqual(4, binding["frame_count"])
+        self.assertEqual(
+            {"kind": "clip_frames", "clip": "ill"}, binding["frame_source"]
+        )
+        for index, frame in enumerate(binding["frames"]):
+            self.assertEqual(f"ill_frame_{index}", frame["frame_id"])
+            self.assertEqual(index, frame["animation"]["frame_index"])
+            self.assertEqual("ill", frame["animation"]["clip"])
+
+    def test_clip_frame_export_round_trips_the_semantic_grid(self):
+        # Clip frames are presentation; the sidecar's semantic grid
+        # stays the single truth and restores intact.
+        profile = load_profile(VALID_PROFILE_PATHS[1])
+        grid = first_grid_for(profile)
+        bundle = export_apng_with_sidecar(
+            grid, profile, clip_frames=synthetic_clip_frames(grid)
+        )
+        imported = import_apng_with_sidecar(
+            bundle["png_bytes"], bundle["sidecar"], source_grid=grid
+        )
+        self.assertTrue(imported["ok"], imported["errors"])
+        self.assertEqual(1.0, imported["semantic_fidelity"])
+        self.assertEqual(4, imported["decoded_apng"]["frame_count"])
+
+    def test_pulse_export_is_untouched_without_clip_frames(self):
+        profile = load_profile(VALID_PROFILE_PATHS[0])
+        grid = first_grid_for(profile)
+        bundle = export_apng_with_sidecar(grid, profile)
+        decoded = decode_apng_frames(bundle["png_bytes"])
+        self.assertEqual(2, decoded["frame_count"])
+        self.assertNotIn("frame_source", bundle["sidecar"]["apng_binding"])
+
+    def test_decode_rejects_frame_counts_beyond_the_bound(self):
+        profile = load_profile(VALID_PROFILE_PATHS[0])
+        grid = first_grid_for(profile)
+        with self.assertRaises(ValueError) as context:
+            export_apng_with_sidecar(
+                grid,
+                profile,
+                clip_frames=synthetic_clip_frames(grid, count=17),
+            )
+        self.assertEqual(
+            "apng_frame_count_unsupported",
+            getattr(context.exception, "family", None),
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

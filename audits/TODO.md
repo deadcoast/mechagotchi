@@ -33,7 +33,7 @@ named remainder).
   toggleable and independently editable, compiling to ONE schema-valid
   grid (the layer model is authoring state; the saved grid stays the
   engine's single source of truth — engine-truth law).
-- [ ] **H3 · Onion skin + the animation timeline.** Clip-frame
+- [x] **H3 · Onion skin + the animation timeline.** Clip-frame
   authoring over the promoted clip model: scrub the engine's clip
   frames, onion-skin adjacent frames, and author the anchor/motion
   choices the clip model exposes; **clip-frame exports** land here

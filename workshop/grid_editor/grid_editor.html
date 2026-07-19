@@ -215,6 +215,31 @@
         semantics in one file, bound to a profile. APNG is the animated share version.
         A spritesheet travels as a pair — the sheet PNG and its sidecar JSON; import needs both.</p>
       </div>
+      <div class="panel" style="margin-top:14px;">
+        <h2>animation — timeline &amp; onion skin</h2>
+        <div class="filebar">
+          <select id="clip-select"><option value="idle">idle</option></select>
+          <button class="action" id="clip-sync-btn">Sync</button>
+          <label style="font-size:12px;display:flex;align-items:center;gap:4px;">
+            <input type="checkbox" id="onion-toggle" checked> onion skin
+          </label>
+          <label style="font-size:12px;display:flex;align-items:center;gap:4px;">
+            <input type="checkbox" id="clip-export-toggle"> exports carry this clip
+          </label>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;margin-top:8px;">
+          <canvas id="anim-canvas" width="192" height="192" style="image-rendering:pixelated;background:#000;"></canvas>
+          <div style="flex:1;">
+            <input type="range" id="clip-scrub" min="0" max="3" step="1" value="0" style="width:100%;accent-color:var(--accent);">
+            <div class="tag" id="clip-frame-tag">no frames yet — Sync scrubs the engine's clip over the current draft</div>
+            <p class="notice" id="anim-notice">the timeline scrubs the engine's projected clip frames for the
+            UNSAVED draft — frames are derived, never stored; the grid stays the single truth. Onion skin
+            ghosts the adjacent frames; the white squares are the engine's anchors for the shown frame
+            (paint with the Anchor tool, Sync to re-scrub). With "exports carry this clip" checked, APNG and
+            spritesheet exports emit these frames instead of the historical pulse.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -380,6 +405,7 @@ function paintAt(event) {
   layers[activeLayer][y][x] = tool;
   syncMatrix();
   draw();
+  markAnimStale();
   scheduleValidate();
 }
 
@@ -419,6 +445,7 @@ function adoptMatrix(next, adoptedLayers) {
   }
   refreshSizeUi();
   renderLayersUi();
+  markAnimStale();
 }
 
 function setCanvasSize(next) {
@@ -575,6 +602,7 @@ function setTrait(field, value) {
   if (Object.keys(override).length) cellOverrides[inspected] = override;
   else delete cellOverrides[inspected];
   draw();
+  markAnimStale();
   scheduleValidate();
 }
 
@@ -786,6 +814,114 @@ function ioReady() {
 }
 $("export-profile").addEventListener("change", ioReady);
 
+/* H3 (cycle 18) — the animation timeline + onion skin. Clip frames are
+   the ENGINE's projections of the draft (POST /api/preview/clip with
+   the inline matrix): derived, never stored — the grid stays the single
+   truth. The onion skin ghosts adjacent frames; anchors are the
+   engine's word, drawn per frame. */
+let anim = { clip: "idle", frames: [], clips: [], frame: 0, stale: false };
+const animCanvas = $("anim-canvas");
+const animCtx = animCanvas.getContext("2d");
+
+function drawAnimFrame(frame, alpha) {
+  const size = frame.grid_size ? frame.grid_size[0] : SIZE;
+  const cellPx = animCanvas.width / size;
+  animCtx.globalAlpha = alpha;
+  for (const cell of frame.cells || []) {
+    animCtx.fillStyle = cell.visual;
+    animCtx.fillRect(cell.x * cellPx, cell.y * cellPx, cellPx, cellPx);
+  }
+  animCtx.globalAlpha = 1;
+}
+
+function drawAnim() {
+  animCtx.globalAlpha = 1;
+  animCtx.fillStyle = colors()[0];
+  animCtx.fillRect(0, 0, animCanvas.width, animCanvas.height);
+  if (!anim.frames.length) return;
+  const index = Math.min(anim.frame, anim.frames.length - 1);
+  if ($("onion-toggle").checked) {
+    if (index > 0) drawAnimFrame(anim.frames[index - 1], 0.25);
+    if (index + 1 < anim.frames.length) drawAnimFrame(anim.frames[index + 1], 0.12);
+  }
+  const frame = anim.frames[index];
+  drawAnimFrame(frame, 1);
+  const size = frame.grid_size ? frame.grid_size[0] : SIZE;
+  const cellPx = animCanvas.width / size;
+  const block = frame.animation || {};
+  animCtx.strokeStyle = "#ffffff";
+  animCtx.lineWidth = 2;
+  for (const anchor of block.anchors || []) {
+    animCtx.strokeRect(
+      anchor[0] * cellPx + cellPx * 0.25,
+      anchor[1] * cellPx + cellPx * 0.25,
+      cellPx * 0.5,
+      cellPx * 0.5,
+    );
+  }
+  const anchors = (block.anchors || []).length;
+  $("clip-frame-tag").textContent =
+    anim.clip + " · frame " + (index + 1) + "/" + anim.frames.length +
+    " · " + anchors + " anchor" + (anchors === 1 ? "" : "s") +
+    (anim.stale ? " · draft changed — Sync to re-scrub" : "");
+}
+
+async function syncClip() {
+  const response = await fetch("/api/preview/clip", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      matrix,
+      palette_id: paletteId,
+      clip: anim.clip,
+      cell_overrides: cellOverrides,
+    }),
+  });
+  const result = await response.json();
+  if (!response.ok || !result.ok) {
+    anim.frames = [];
+    drawAnim();
+    $("clip-frame-tag").textContent =
+      "the engine refused the draft: " + (result.errors || [result.error]).join("; ");
+    return;
+  }
+  anim.frames = result.frames;
+  anim.clips = result.clips || [];
+  anim.stale = false;
+  const select = $("clip-select");
+  if (anim.clips.length && select.options.length !== anim.clips.length) {
+    select.innerHTML = "";
+    for (const name of anim.clips) {
+      const option = document.createElement("option");
+      option.value = name;
+      option.textContent = name;
+      if (name === anim.clip) option.selected = true;
+      select.appendChild(option);
+    }
+  }
+  const scrub = $("clip-scrub");
+  scrub.max = String(anim.frames.length - 1);
+  if (anim.frame > anim.frames.length - 1) anim.frame = 0;
+  scrub.value = String(anim.frame);
+  drawAnim();
+}
+$("clip-sync-btn").addEventListener("click", syncClip);
+$("clip-select").addEventListener("change", () => {
+  anim.clip = $("clip-select").value;
+  syncClip();
+});
+$("clip-scrub").addEventListener("input", () => {
+  anim.frame = Number($("clip-scrub").value);
+  drawAnim();
+});
+$("onion-toggle").addEventListener("change", drawAnim);
+function markAnimStale() {
+  if (anim.frames.length && !anim.stale) {
+    anim.stale = true;
+    drawAnim();
+  }
+}
+
 async function exportCreature(kind) {
   const notice = $("io-notice");
   const response = await fetch("/api/export/" + kind, {
@@ -796,6 +932,11 @@ async function exportCreature(kind) {
       palette_id: paletteId,
       profile_id: $("export-profile").value,
       name: $("grid-name").value.trim() || "workshop_export",
+      // H3: only the animated carrier takes clip frames; single-frame
+      // kinds would be refused loudly by the server.
+      ...(kind === "apng" && $("clip-export-toggle").checked
+        ? { clip: anim.clip }
+        : {}),
     }),
   });
   if (!response.ok) {
@@ -835,6 +976,7 @@ $("export-sheet-btn").addEventListener("click", async () => {
       matrix, palette_id: paletteId,
       profile_id: $("export-profile").value,
       name: $("grid-name").value.trim() || "workshop_export",
+      ...($("clip-export-toggle").checked ? { clip: anim.clip } : {}),
     }),
   });
   const result = await response.json();

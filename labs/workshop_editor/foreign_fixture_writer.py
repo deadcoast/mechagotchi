@@ -1319,7 +1319,10 @@ def build_all_fixtures() -> list[dict]:
             features=["apng", "three_frames", "dispose_op_previous", "sub_canvas_frame_regions"],
             expected={
                 "standard_decode_png_rgba": _decode(),
-                "apng_decode_apng_frames": _reject("apng_frame_count_unsupported"),
+                # H3 (cycle 18) relaxed the frame-count bound to 2..16,
+                # so three frames now reach the per-frame gate: the
+                # dispose-previous control is what rejects this file.
+                "apng_decode_apng_frames": _reject("apng_frame_control_unsupported"),
                 "apng_filtered_frame_data": _reject("apng_dispose_op_unsupported"),
                 "apng_partial_frame_playback": _decode(),
                 "image_data_chunking": _reject("apng_dispose_op_unsupported"),

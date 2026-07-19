@@ -38,7 +38,10 @@ Endpoints:
 - POST /api/preview/clip    {source, name, clip, profile_id?} -> every
                             frame of the clip through the promoted
                             packet rung (C4: the documented animation
-                            block clip/frame_index/frame_count/anchors)
+                            block clip/frame_index/frame_count/anchors).
+                            H3: also accepts an inline UNSAVED draft —
+                            {matrix, palette_id?, cell_overrides?, clip}
+                            — judged by the engine before any frame
 - POST /api/preview/live    {source, name, profile_id, cycles, ticks} ->
                             runtime.live_cycle: damage/repair/episode
                             truth plus before/after packets
@@ -57,7 +60,10 @@ Endpoints:
                             the proven lab codec; strict on validity
                             and profile alignment
 - POST /api/export/apng     same input -> the lab's animated APNG
-                            (base + pulse frames); visual artifact
+                            (base + pulse frames); visual artifact.
+                            H3: + optional clip -> the engine's clip
+                            frames instead of the pulse (additive rung;
+                            spritesheet takes clip the same way)
 - POST /api/import/png      raw PNG bytes -> restored editable matrix,
                             or the codec's own failure families
 - POST /api/export/aseprite same input -> a self-contained LibreSprite/
@@ -1178,12 +1184,40 @@ class _Handler(SimpleHTTPRequestHandler):
         )
 
     def _preview(self, kind: str, payload: dict) -> None:
-        grid = self.server.resolve_creature(
-            str(payload.get("source", "")), str(payload.get("name", ""))
-        )
-        if grid is None:
-            self._json(404, {"ok": False, "error": "no such creature"})
-            return
+        matrix = payload.get("matrix")
+        if kind == "clip" and matrix is not None:
+            # H3 (cycle 18): the timeline scrubs the UNSAVED draft — the
+            # authoring loop must not force a save to see motion. The
+            # engine judges the posted matrix first; an invalid draft
+            # gets the validator's words, never frames.
+            problem = _check_matrix(matrix)
+            if problem:
+                self._json(400, {"ok": False, "errors": [problem]})
+                return
+            palette_id = payload.get("palette_id", "lcd_green")
+            if palette_id not in PALETTES:
+                self._json(400, {"ok": False, "errors": ["unknown palette"]})
+                return
+            grid = _build_grid(matrix, palette_id, "workshop_draft_preview")
+            overrides = payload.get("cell_overrides") or {}
+            if overrides:
+                # The trait editor's motion-role choices (antenna sway,
+                # effect flicker — DR 0015 vocabulary) ride the scrub.
+                problems = _apply_cell_overrides(grid, overrides)
+                if problems:
+                    self._json(400, {"ok": False, "errors": problems})
+                    return
+            validation = validate_grid(grid)
+            if not validation.ok:
+                self._json(400, {"ok": False, "errors": list(validation.errors)})
+                return
+        else:
+            grid = self.server.resolve_creature(
+                str(payload.get("source", "")), str(payload.get("name", ""))
+            )
+            if grid is None:
+                self._json(404, {"ok": False, "error": "no such creature"})
+                return
 
         if kind == "render":
             # T16: packet v2 — the requested animation state's projected
@@ -1633,12 +1667,58 @@ class _Handler(SimpleHTTPRequestHandler):
         if not alignment.ok:
             self._json(400, {"ok": False, "errors": list(alignment.errors)})
             return
+        # H3 (cycle 18): a named clip means the export carries the
+        # engine's projected clip frames, not the historical pulse —
+        # the DR 0013 additive-rung shape (no clip, no change). The
+        # frames are presentation; the sidecar's semantic grid stays
+        # the single truth.
+        clip = payload.get("clip")
+        clip_frames = None
+        if clip is not None:
+            if kind not in ("apng", "spritesheet"):
+                self._json(
+                    400,
+                    {
+                        "ok": False,
+                        "errors": [
+                            "clip frames export as APNG or spritesheet "
+                            "only; a single-frame export has no clip"
+                        ],
+                    },
+                )
+                return
+            try:
+                packets = [
+                    render_packet_v2(
+                        grid,
+                        None,
+                        clip=str(clip),
+                        frame_index=index,
+                        slip_profile=profile,
+                    )
+                    for index in range(clip_frame_count(str(clip)))
+                ]
+            except ValueError as error:
+                self._json(400, {"ok": False, "errors": [str(error)]})
+                return
+            clip_frames = {
+                "clip": str(clip),
+                "frames": [
+                    {
+                        "cells": packet["cells"],
+                        "animation": packet["animation"],
+                    }
+                    for packet in packets
+                ],
+            }
         if kind == "png":
             exported = export_png_with_embedded_sidecar(grid, profile)
             self._png(exported["embedded_png_bytes"], grid_id + ".png")
             return
         if kind == "apng":
-            exported = export_apng_with_sidecar(grid, profile)
+            exported = export_apng_with_sidecar(
+                grid, profile, clip_frames=clip_frames
+            )
             self._png(exported["png_bytes"], grid_id + ".apng.png")
             return
         if kind == "aseprite":
@@ -1650,7 +1730,9 @@ class _Handler(SimpleHTTPRequestHandler):
             )
             return
         if kind == "spritesheet":
-            exported = export_spritesheet_with_sidecar(grid, profile)
+            exported = export_spritesheet_with_sidecar(
+                grid, profile, clip_frames=clip_frames
+            )
             self._json(
                 200,
                 {

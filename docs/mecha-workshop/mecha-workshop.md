@@ -109,6 +109,18 @@ plus the evolution runs' workshop-lineage traces (founders, per-
 generation counts, survival-beyond-founding, fitness vs corpus) from
 the committed wire artifacts. Read-only, engine-judged.
 
+**Phase H depth (cycle 18).** H1 (2026-07-12): 16×16 authoring end to
+end — the release path proven at the ratified default scale. H2
+(2026-07-12): semantic layers (body/organs/decoration/effects) as
+authoring state over the ONE schema-valid grid, with the honesty-
+checked `.layers.json` sidecar. H3 (2026-07-19): the animation panel —
+the timeline scrubs the engine's clip frames for the UNSAVED draft
+(inline matrix + trait overrides through `/api/preview/clip`), onion
+skin ghosts adjacent frames, the engine's anchors ride each frame,
+and **APNG/spritesheet exports carry clip frames when a clip is
+named** (the additive rung: without a clip, the historical base+pulse
+APNG and 3-frame sheet stay untouched).
+
 ## The research the workshop stands on
 
 Every planned surface maps to proven lab work (all ledgered in
@@ -154,3 +166,6 @@ record with forcing evidence (charter section 5).
 - `docs/01-brainstorming.md`
 - `research/README.md`
 - `docs/cli/mechas-cli.md`
+- `research/experiment_reports/2026-07-12-16x16-authoring.md`
+- `research/experiment_reports/2026-07-12-semantic-layers.md`
+- `research/experiment_reports/2026-07-19-onion-skin-timeline.md`

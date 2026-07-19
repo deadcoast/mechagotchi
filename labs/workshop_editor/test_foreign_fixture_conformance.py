@@ -410,7 +410,7 @@ class TestApngSidecarDecoderForeignConformance(unittest.TestCase):
         expectations = {
             "apng_default_image_not_animated": "apng_default_frame_control_missing",
             "apng_dispose_background": "apng_frame_control_unsupported",
-            "apng_dispose_previous": "apng_frame_count_unsupported",
+            "apng_dispose_previous": "apng_frame_control_unsupported",
             "apng_blend_over": "apng_frame_control_unsupported",
             "apng_subcanvas_regions": "apng_frame_control_unsupported",
             "apng_filtered_frames_split_fdat": "apng_filter_unsupported",

@@ -55,8 +55,9 @@ Source: <https://www.w3.org/TR/png-3/>
 
 ## Weaknesses
 
-- Inherits the bounded APNG decoder policy: two full-canvas 8-bit RGBA source
-  frames only.
+- Inherits the bounded APNG decoder policy: two to sixteen full-canvas 8-bit
+  RGBA source frames (relaxed from exactly-two by cycle 18 H3 for clip
+  frames; this lab's own carriers stay two-frame).
 - Does not test live external editor open-save preservation.
 - Does not decide the final production PNG/APNG metadata carrier.
 - Does not prove partial-frame APNG blend/disposal behavior or arbitrary APNGs.

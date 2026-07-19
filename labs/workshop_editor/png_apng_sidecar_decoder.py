@@ -43,6 +43,10 @@ from workshop_editor import compare_semantic_grid_fidelity
 REPORT_PATH = ROOT / "data/workshop_editor/apng_sidecar_decoder_stage0.json"
 DATA_PATH = ROOT / "data/workshop_editor/apng_sidecar_decoder_data.js"
 APNG_FRAME_POLICY = "bounded_full_canvas_source_frames"
+# H3 (cycle 18): the bound serves the documented clip vocabulary
+# (currently <=4 frames per clip) with headroom, while keeping decode
+# work bounded. Two stays the floor - the pulse carrier's shape.
+MAX_APNG_FRAMES = 16
 
 
 class APNGDecodeError(ValueError):
@@ -52,23 +56,47 @@ class APNGDecodeError(ValueError):
         self.message = message
 
 
-def export_apng_with_sidecar(grid: dict, slip_profile: dict) -> dict:
+def export_apng_with_sidecar(
+    grid: dict,
+    slip_profile: dict,
+    *,
+    clip_frames: dict | None = None,
+) -> dict:
+    """The APNG carrier. Without ``clip_frames`` this is the historical
+    two-frame pulse, unchanged. With ``clip_frames`` (H3, cycle 18:
+    ``{"clip": name, "frames": [{"cells": [...], "animation": {...}}]}``)
+    the APNG carries the engine's projected clip frames — presentation
+    only; the sidecar's semantic grid stays the single truth."""
     width, height = grid["grid_size"]
-    base_pixels = render_grid_rgba_pixels(grid)
-    frames = [
-        {
-            "frame_id": "base",
-            "pixels": base_pixels,
-            "delay_num": 1,
-            "delay_den": 5,
-        },
-        {
-            "frame_id": "pulse",
-            "pixels": _pulse_pixels(base_pixels),
-            "delay_num": 1,
-            "delay_den": 5,
-        },
-    ]
+    if clip_frames is None:
+        base_pixels = render_grid_rgba_pixels(grid)
+        frames = [
+            {
+                "frame_id": "base",
+                "pixels": base_pixels,
+                "delay_num": 1,
+                "delay_den": 5,
+            },
+            {
+                "frame_id": "pulse",
+                "pixels": _pulse_pixels(base_pixels),
+                "delay_num": 1,
+                "delay_den": 5,
+            },
+        ]
+    else:
+        clip = str(clip_frames["clip"])
+        frames = [
+            {
+                "frame_id": f"{clip}_frame_{index}",
+                "pixels": render_grid_rgba_pixels(
+                    {**grid, "cells": frame["cells"]}
+                ),
+                "delay_num": 1,
+                "delay_den": 5,
+            }
+            for index, frame in enumerate(clip_frames["frames"])
+        ]
     png_bytes = _encode_bounded_apng(width, height, frames)
     decoded = decode_apng_frames(png_bytes)
     asset = _asset_from_apng_bytes(
@@ -100,8 +128,19 @@ def export_apng_with_sidecar(grid: dict, slip_profile: dict) -> dict:
             for frame in decoded["frames"]
         ],
     }
+    if clip_frames is not None:
+        sidecar["apng_binding"]["frame_source"] = {
+            "kind": "clip_frames",
+            "clip": str(clip_frames["clip"]),
+        }
+        for entry, frame in zip(
+            sidecar["apng_binding"]["frames"], clip_frames["frames"]
+        ):
+            if frame.get("animation") is not None:
+                entry["animation"] = deepcopy(frame["animation"])
     sidecar["limitations"] = [
-        "Stage 0 APNG decoder supports two full-canvas 8-bit RGBA source frames only.",
+        f"APNG decoder supports two to {MAX_APNG_FRAMES} full-canvas "
+        "8-bit RGBA source frames.",
         "Frame semantics remain sidecar-bound; APNG pixels do not encode Mechagotchi organs.",
         "Blend-over, partial-frame offsets, disposal variants, APNG text/private metadata, and full APNG/PNG conformance are not claimed.",
         "Live external editor open-save preservation is not verified by this lab.",
@@ -141,10 +180,10 @@ def decode_apng_frames(png_bytes: bytes) -> dict:
     if len(actl_chunks) != 1 or len(actl_chunks[0]["data"]) != 8:
         raise APNGDecodeError("apng_control_invalid", "APNG acTL chunk must be unique and 8 bytes")
     num_frames, num_plays = struct.unpack(">II", actl_chunks[0]["data"])
-    if num_frames != 2:
+    if num_frames < 2 or num_frames > MAX_APNG_FRAMES:
         raise APNGDecodeError(
             "apng_frame_count_unsupported",
-            "Stage 0 APNG supports exactly two frames",
+            f"APNG supports two to {MAX_APNG_FRAMES} full-canvas frames",
         )
 
     expected_sequence = 0

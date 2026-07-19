@@ -57,7 +57,9 @@ Source: <https://www.w3.org/TR/png-3/>
 
 ## Weaknesses
 
-- Supports only two full-canvas 8-bit RGBA source frames.
+- Supports two to sixteen full-canvas 8-bit RGBA source frames (the bound
+  relaxed from exactly-two by cycle 18 H3 so the carrier can hold the
+  engine's clip frames; the pulse export stays the two-frame floor).
 - Does not support partial-frame offsets, `APNG_BLEND_OP_OVER`, disposal
   variants, Adam7-interlaced animation frames, or arbitrary APNGs.
 - Does not prove live external editor preservation.
