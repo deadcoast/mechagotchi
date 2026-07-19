@@ -39,7 +39,7 @@ named remainder).
   choices the clip model exposes; **clip-frame exports** land here
   (APNG/spritesheet emit clip frames, not the historical pulse — the
   named workshop-track increment, no longer smuggle-able).
-- [ ] **H4 · The behavior editor.** SLIP behavior/survival weights,
+- [x] **H4 · The behavior editor.** SLIP behavior/survival weights,
   mutation caps, and deliberation depth authored visually, validated
   live by the engine's authority (verbatim refusals in the page) —
   the covenant's authoring face.

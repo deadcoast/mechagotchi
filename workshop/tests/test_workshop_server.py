@@ -1884,3 +1884,93 @@ class ClipAuthoringTests(unittest.TestCase):
         self.assertEqual(200, status)
         binding = json.loads(body)["sidecar"]["animation_binding"]
         self.assertEqual(3, binding["frame_count"])
+
+
+class DeliberationAuthoringTests(unittest.TestCase):
+    """H4: deliberation depth — the covenant's thinking-depth axis
+    (CTM-inspired internal ticks, DR 0017) — gains an authoring face
+    in the slip creator, judged live by the engine's authority with
+    its refusals verbatim."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.temp = tempfile.TemporaryDirectory()
+        base = Path(cls.temp.name)
+        cls.slips_dir = base / "slips"
+        cls.server = start_workshop_server(
+            port=0, grids_dir=base / "grids", slips_dir=cls.slips_dir
+        )
+        cls.base = f"http://127.0.0.1:{cls.server.server_address[1]}"
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.server.shutdown()
+        cls.temp.cleanup()
+
+    def _profile(self, deliberation, version="0.2.0"):
+        profile = json.loads(json.dumps(VALID_PROFILE))
+        profile["slip_version"] = version
+        profile["profile_id"] = "workshop_thinker"
+        if deliberation is not None:
+            profile["deliberation"] = deliberation
+        return profile
+
+    def test_serves_the_deliberation_controls(self):
+        with urllib.request.urlopen(f"{self.base}/slip") as response:
+            body = response.read().decode("utf-8")
+        self.assertEqual(200, response.status)
+        self.assertIn("deliberation", body)
+        self.assertIn("delib-ticks", body)
+        self.assertIn("delib-confidence", body)
+
+    def test_deliberation_profile_validates_and_roundtrips(self):
+        profile = self._profile(
+            {"max_ticks": 4, "confidence_threshold": 0.72}
+        )
+        status, payload = _post(
+            f"{self.base}/api/slip/validate", {"profile": profile}
+        )
+        self.assertEqual(200, status)
+        self.assertTrue(payload["valid"], payload["errors"])
+        status, payload = _post(
+            f"{self.base}/api/slip/save", {"profile": profile}
+        )
+        self.assertEqual(200, status, payload)
+        status, loaded = _get(f"{self.base}/api/slips/workshop_thinker")
+        self.assertEqual(200, status)
+        self.assertEqual(profile, loaded["profile"])
+        self.assertEqual(
+            {"max_ticks": 4, "confidence_threshold": 0.72},
+            loaded["profile"]["deliberation"],
+        )
+
+    def test_deliberation_refusals_are_verbatim(self):
+        # The authority's floor is 2 (agent-standards: any tier design
+        # rides the REAL schema floor) — its refusal reaches the page
+        # word for word.
+        profile = self._profile(
+            {"max_ticks": 1, "confidence_threshold": 0.72}
+        )
+        status, payload = _post(
+            f"{self.base}/api/slip/validate", {"profile": profile}
+        )
+        self.assertEqual(200, status)
+        self.assertFalse(payload["valid"])
+        self.assertIn(
+            "deliberation max_ticks must be an integer in 2..8",
+            payload["errors"],
+        )
+
+    def test_deliberation_is_version_gated(self):
+        profile = self._profile(
+            {"max_ticks": 4, "confidence_threshold": 0.72}, version="0.1.0"
+        )
+        status, payload = _post(
+            f"{self.base}/api/slip/validate", {"profile": profile}
+        )
+        self.assertEqual(200, status)
+        self.assertFalse(payload["valid"])
+        self.assertTrue(
+            any("0.2.0" in error for error in payload["errors"]),
+            payload["errors"],
+        )

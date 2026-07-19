@@ -217,6 +217,26 @@
         <div id="survival-sliders"></div>
         <p class="hint" id="survival-sum-hint"></p>
       </div>
+
+      <div class="panel">
+        <h2>deliberation <span style="text-transform:none;letter-spacing:0;">— how long this species thinks when unsure</span></h2>
+        <div class="slider-row" style="grid-template-columns: 150px 1fr 52px;">
+          <span class="name">off / max ticks</span>
+          <input type="range" id="delib-ticks" min="1" max="8" step="1" value="1">
+          <output id="delib-ticks-out">off</output>
+        </div>
+        <div class="slider-row" style="grid-template-columns: 150px 1fr 52px;">
+          <span class="name">confidence gate</span>
+          <input type="range" id="delib-confidence" min="0" max="1" step="0.01" value="0.72">
+          <output id="delib-confidence-out">0.72</output>
+        </div>
+        <p class="hint">CTM-inspired confidence-gated thinking (DR 0017): the
+        creature spends up to max ticks of internal deliberation, stopping
+        early once its confidence clears the gate (engine default 0.72).
+        The authority's floor is 2 ticks, ceiling 8 — this is the covenant's
+        thinking-depth axis (the game's Covenant step spends bloodline tiers
+        into exactly this field). Setting it writes slip_version 0.2.0.</p>
+      </div>
     </div>
 
     <div>
@@ -278,6 +298,11 @@ let riskTolerance = null;
 const SWITCHBOARD_THREADS = ["recent_interaction_ewma", "hidden_mood_estimator", "action_preference_bandit", "mutation_risk_scorer"];
 let disabledThreads = new Set();
 let parentSelection = "";
+/* H4 (cycle 18) — deliberation depth, the covenant's thinking-depth
+   axis. null = off (the slider's 1 sits below the authority's floor
+   of 2, mirroring the risk-tolerance off-sentinel pattern). */
+let deliberationTicks = null;
+let deliberationConfidence = 0.72;
 let lastVerdict = null;
 
 const $ = (id) => document.getElementById(id);
@@ -288,7 +313,7 @@ function buildProfile() {
     values[section] = {};
     for (const [key] of defs) values[section][key] = parseFloat($("s-" + key).value);
   }
-  const usesLadder = forbiddenRoles.size || forbiddenMaterials.size || riskTolerance !== null || disabledThreads.size || parentSelection !== "";
+  const usesLadder = forbiddenRoles.size || forbiddenMaterials.size || riskTolerance !== null || disabledThreads.size || parentSelection !== "" || deliberationTicks !== null;
   const profile = {
     slip_version: usesLadder ? "0.2.0" : "0.1.0",
     profile_id: $("profile-id").value.trim(),
@@ -317,6 +342,12 @@ function buildProfile() {
   }
   if (parentSelection !== "") {
     profile.lineage_preferences = { parent_selection: parentSelection };
+  }
+  if (deliberationTicks !== null) {
+    profile.deliberation = {
+      max_ticks: deliberationTicks,
+      confidence_threshold: deliberationConfidence,
+    };
   }
   return profile;
 }
@@ -457,6 +488,19 @@ $("risk-tolerance").addEventListener("input", () => {
   scheduleValidate();
 });
 
+$("delib-ticks").addEventListener("input", () => {
+  const raw = parseInt($("delib-ticks").value, 10);
+  deliberationTicks = raw < 2 ? null : raw;
+  $("delib-ticks-out").textContent = deliberationTicks === null ? "off" : String(deliberationTicks);
+  scheduleValidate();
+});
+
+$("delib-confidence").addEventListener("input", () => {
+  deliberationConfidence = Math.round(parseFloat($("delib-confidence").value) * 100) / 100;
+  $("delib-confidence-out").textContent = deliberationConfidence.toFixed(2);
+  scheduleValidate();
+});
+
 /* ---------------- live authority verdict ---------------- */
 let validateTimer = null;
 function scheduleValidate() {
@@ -587,6 +631,12 @@ $("load-select").addEventListener("change", async () => {
   renderSwitchToggles();
   $("risk-tolerance").value = riskTolerance === null ? "-0.01" : String(riskTolerance);
   $("risk-tolerance-out").textContent = riskTolerance === null ? "off" : riskTolerance.toFixed(2);
+  deliberationTicks = profile.deliberation?.max_ticks ?? null;
+  deliberationConfidence = profile.deliberation?.confidence_threshold ?? 0.72;
+  $("delib-ticks").value = deliberationTicks === null ? "1" : String(deliberationTicks);
+  $("delib-ticks-out").textContent = deliberationTicks === null ? "off" : String(deliberationTicks);
+  $("delib-confidence").value = String(deliberationConfidence);
+  $("delib-confidence-out").textContent = deliberationConfidence.toFixed(2);
   renderForbiddenToggles();
   $("mass-min").value = profile.grid?.body_mass_min ?? 4;
   $("mass-max").value = profile.grid?.body_mass_max ?? 24;
@@ -618,6 +668,12 @@ $("new-btn").addEventListener("click", () => {
   $("parent-selection").value = "";
   $("risk-tolerance").value = "-0.01";
   $("risk-tolerance-out").textContent = "off";
+  deliberationTicks = null;
+  deliberationConfidence = 0.72;
+  $("delib-ticks").value = "1";
+  $("delib-ticks-out").textContent = "off";
+  $("delib-confidence").value = "0.72";
+  $("delib-confidence-out").textContent = "0.72";
   renderPaletteToggles(); renderRoleToggles(); renderForbiddenToggles(); renderSwitchToggles(); renderSliders();
   scheduleValidate();
 });

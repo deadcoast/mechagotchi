@@ -119,7 +119,12 @@ the timeline scrubs the engine's clip frames for the UNSAVED draft
 skin ghosts adjacent frames, the engine's anchors ride each frame,
 and **APNG/spritesheet exports carry clip frames when a clip is
 named** (the additive rung: without a clip, the historical base+pulse
-APNG and 3-frame sheet stay untouched).
+APNG and 3-frame sheet stay untouched). H4 (2026-07-19): the behavior
+editor — deliberation depth (DR 0017's confidence-gated thinking, the
+covenant's thinking-depth axis) joins behavior/survival weights and
+mutation caps in the slip creator, authored visually under the live
+authority loop with its refusals verbatim (floor 2, ceiling 8, the
+engine's own 0.72 confidence default).
 
 ## The research the workshop stands on
 
@@ -169,3 +174,4 @@ record with forcing evidence (charter section 5).
 - `research/experiment_reports/2026-07-12-16x16-authoring.md`
 - `research/experiment_reports/2026-07-12-semantic-layers.md`
 - `research/experiment_reports/2026-07-19-onion-skin-timeline.md`
+- `research/experiment_reports/2026-07-19-behavior-editor.md`
