@@ -1,75 +1,70 @@
-# Development TODO — Cycle 18: WORKSHOP track · Phase H — the authoring depth
+# Development TODO — Cycle 19: SHARED track · Phase I — the post-takeover science
 
-**Build track: THE WORKSHOP** — the documented third surface ("the
-authoring layer serving both": it feeds the engine creatures/profiles
-and gives the game its creator loop — gap-analysis §0). Phases A–G
-are complete and gated; the workshop row of the measured gap table
-was never phase-gated and remains the largest unmet documented scope:
-*"Semantic pixel editor with layers, onion skin, animation timeline,
-behavior editor; community asset/profile system; ≤45-min
-first-session creature+SLIP"* vs the delivered single-layer,
-single-frame editors. This cycle opens it — chosen from the
-documentation per the standing planning rule (correction of
-2026-07-12 recorded: the developer plans the next cycle; the owner is
-never asked to).
+**Planned from the documentation** (the standing rule: the developer
+plans when a queue exhausts). With Phases A–H complete and gated, the
+largest documented unmet scope is the set of NAMED remainders the
+Phase-G science recorded at its floor: the real-CuBFF instruments
+saturated on EARLY-PHASE soup (G3: the direct arm 0/400 valid,
+readability flat — "post-takeover states would un-saturate the
+comparison"), real weather measured MILD for the same reason (G4:
+"harsh real weather awaits post-takeover soup"; the two silent
+channels await the named callback export path) — plus the engine's
+own named motion/scale remainders (DR 0015's per-role increment; the
+standing note's 16×16 items). Community infrastructure and a pack
+registry remain OWNER decisions (DR 0035); product polish queues
+behind the science per the identity constraint (research first).
 
-Source: the gap table's Workshop row; `docs/mecha-workshop/
-mecha-workshop-design.md` (the design charter, DR 0010's track);
-standing cross-track remainders this cycle closes: **16×16 workshop
-authoring** (the committed releases are 8×8 — real Contribute/pack
-value is blocked on this) and **clip-frame exports** (the Phase-C
-named remainder).
+Sources: `research/experiment_reports/2026-07-12-real-cubff-corpus.md`
+(G2, the build path), `2026-07-12-real-transducer-study.md` (G3, the
+saturation finding), `2026-07-12-real-weather.md` (G4, the mildness
+finding), `2026-07-08-clip-model.md` + DR 0015 (the named per-role
+increment), `2026-07-19-phase-h-gate.md` (the remainder list this
+cycle opens).
 
-- [x] **H1 · 16×16 authoring end to end.** The grid editor authors at
-  the ratified default scale (DR 0029; the schema has permitted it
-  since cycle 09): canvas, palettes, organ/anchor tooling, and the
-  RELEASE path all at 16×16 — proven by a released 16×16 creature
-  ADMITTING into a game era through the engine's own gates (the F9
-  path, currently rejecting the 8×8 pieces on size). The committed
-  release fixtures gain 16×16 companions (the 8×8 pair stays as the
-  honest rejection fixture).
-- [x] **H2 · Semantic layers.** The documented editor depth: layers
-  as semantic strata (body / organs / decoration / effects), each
-  toggleable and independently editable, compiling to ONE schema-valid
-  grid (the layer model is authoring state; the saved grid stays the
-  engine's single source of truth — engine-truth law).
-- [x] **H3 · Onion skin + the animation timeline.** Clip-frame
-  authoring over the promoted clip model: scrub the engine's clip
-  frames, onion-skin adjacent frames, and author the anchor/motion
-  choices the clip model exposes; **clip-frame exports** land here
-  (APNG/spritesheet emit clip frames, not the historical pulse — the
-  named workshop-track increment, no longer smuggle-able).
-- [x] **H4 · The behavior editor.** SLIP behavior/survival weights,
-  mutation caps, and deliberation depth authored visually, validated
-  live by the engine's authority (verbatim refusals in the page) —
-  the covenant's authoring face.
-- [x] **H5 · The ≤45-minute first-session gate.** The documented UX
-  goal measured honestly: a scripted first-session protocol (author a
-  creature + its SLIP from blank state through release) timed against
-  the 45-minute bound — scripted-proxy honestly labeled; the manual
-  human pass recorded as prepared-not-blocking (the calibration
-  pattern).
-- [ ] **H6 · The Phase-H gate.** One consolidated report with the
-  honest remainder list (including the community asset/profile system
-  hand-back to DR 0035's post-alpha scope); cycle 18 archived; cycle
-  19 planned FROM THE DOCUMENTATION by the developer.
+- [ ] **I1 · The post-takeover corpus.** Extend the G2 real-ingest
+  build path past takeover to late epochs; curate post-takeover
+  states with the same discipline (tapes + soup hashes committed, the
+  raw fleet reproducible from recorded parameters; the epoch
+  filename+1 observation honored). The corpus truth: early-phase AND
+  post-takeover states, labeled.
+- [ ] **I2 · The transducer study un-saturated.** Re-run the
+  documented study over post-takeover states. The G3 degeneracy is
+  the pre-registered expectation to BREAK: the direct arm should
+  leave 0-valid and readability should leave flat — gates
+  falsifiable both ways again, boundary values pinned, keep/reject
+  judged on the engine's own numbers.
+- [ ] **I3 · Real weather harshness.** Post-takeover snapshots through
+  the UNTOUCHED cubff_pressure_source seam; the multiplier direction
+  measured, not tuned (does late soup breach the synthetic storm's
+  1.17× precedent?). The silent replication/lineage channels via the
+  named callback export path IF the upstream permits — named, never
+  smuggled; refusals recorded otherwise.
+- [ ] **I4 · Per-role motion.** DR 0015's named future increment:
+  limb/joint/decoration motion in the clip model — lab-proven first,
+  size-parametric at both ratified scales, promoted with parity pins,
+  riding the existing timeline/exports as an ADDITIVE change (the
+  workshop's H3 surfaces consume it untouched).
+- [ ] **I5 · The 16×16 engine remainders.** behavior_neediness at
+  16×16 and occupancy saturation MEASURED (the standing note's named
+  items) with honest findings — closures where the numbers close
+  them, sharper named remainders where they don't.
+- [ ] **I6 · The Phase-I gate.** One consolidated report; cycle 19
+  archived; cycle 20 planned from the documentation.
 
 ## Standing note
 
 The engine-truth law (DR 0021), the identity constraint, the triad
 discipline, the mirror-never-import boundary, Apache-2.0, and DR 0028
-apply. The workshop keeps its ratified stack (DR 0010: stdlib server
-+ served pages); TS+React remains the documented scale-path IF the
-depth demands it — decided by DR, never drifted into. Standing engine
-remainders unchanged (DR 0032 re-openers; occupancy saturation;
-behavior_neediness at 16×16; the scale-geometry seam; per-role
-motion). Post-alpha candidates recorded in the Phase-G gate (CuBFF
-post-takeover science, community infrastructure, product polish)
-queue behind the documented workshop gap.
+apply. The workshop keeps its ratified stack (DR 0010); TS+React
+remains the documented scale-path decided by DR only. DR 0032
+re-openers and the scale-geometry seam stand. Community
+infrastructure, a pack registry, and hosted distribution are owner
+decisions (DR 0035); the ≤45-minute HUMAN first-session pass stays
+prepared-not-blocking (H5).
 
 ## Sources
 
-- `docs/gap-analysis.md` (retired as roadmap; its Workshop row is the measured gap this cycle opens)
-- `docs/mecha-workshop/mecha-workshop-design.md` (the design charter), `research/decision_records/0010-start-mecha-workshop-build-track.md`
-- `research/experiment_reports/2026-07-12-phase-g-gate.md` (the closed ladder), `2026-07-08-phase-c-gate.md` (clip-frame exports, the named remainder)
-- `data/workshop/released/` (the 8×8 fixtures H1 supersedes-with-companions)
+- `research/experiment_reports/2026-07-19-phase-h-gate.md` (the closed ladder + the remainder list)
+- `research/experiment_reports/2026-07-12-real-cubff-corpus.md`, `2026-07-12-real-transducer-study.md`, `2026-07-12-real-weather.md` (the G-phase science this cycle un-saturates)
+- `research/decision_records/0015-dormant-vocabulary-coverage.md` (I4's charter — the WATCH seam), `0021-game-loop.md`, `0035-pack-distribution-at-alpha.md`
+- `audits/complete/18/TODO.md` (the archived cycle)

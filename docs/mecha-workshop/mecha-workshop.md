@@ -129,6 +129,11 @@ first-session gate — the scripted protocol travels the whole journey
 (blank state → creature + SLIP → release → animated share) against
 the live server, 8/8 steps, labeled a scripted PROXY with the human
 pass prepared-not-blocking (`data/workshop/first_session_stage0.json`).
+H6 (2026-07-19): **the Phase-H gate is green**
+(`research/experiment_reports/2026-07-19-phase-h-gate.md`) — the
+community asset/profile system is handed back to DR 0035's post-alpha
+scope (a registry is an owner decision); the workshop is no longer
+the "single-layer, single-frame" measured gap.
 
 ## The research the workshop stands on
 
@@ -157,8 +162,15 @@ Every planned surface maps to proven lab work (all ledgered in
 - [x] 4a. Import/export PNG (self-contained embedded-sidecar roundtrip) + APNG export (2026-07-05)
 - [x] 4b. Import/export Aseprite (self-contained user-data project) + spritesheet (sheet+sidecar pair) (2026-07-05)
 - [x] 5. Genome inspector + lineage browser (2026-07-06)
-- [ ] 6. Community asset/profile system (deferred: needs `storage` DR +
-      licensing/provenance policy)
+- [ ] 6. Community asset/profile system — handed back to DR 0035's
+      post-alpha scope by the Phase-H gate (2026-07-19): packs travel
+      as files at alpha; a registry/sharing service is a product
+      decision made WITH the owner. Re-opened by any
+      hosted-distribution proposal.
+- [x] 7 (Phase H, cycle 18). Authoring depth: 16×16 end to end,
+      semantic layers, onion skin + timeline + clip-frame exports,
+      the behavior editor's deliberation axis, the first-session gate
+      (2026-07-12 → 2026-07-19)
 
 ## Delivery
 
@@ -170,7 +182,7 @@ record with forcing evidence (charter section 5).
 
 ## Sources
 
-- `docs/workshop/mecha-workshop-design.md`
+- `docs/mecha-workshop/mecha-workshop-design.md`
 - `research/decision_records/0010-start-mecha-workshop-build-track.md`
 - `docs/01-brainstorming.md`
 - `research/README.md`
@@ -180,3 +192,4 @@ record with forcing evidence (charter section 5).
 - `research/experiment_reports/2026-07-19-onion-skin-timeline.md`
 - `research/experiment_reports/2026-07-19-behavior-editor.md`
 - `research/experiment_reports/2026-07-19-first-session-gate.md`
+- `research/experiment_reports/2026-07-19-phase-h-gate.md`
