@@ -1,0 +1,212 @@
+{
+  "artifact_id": "role_emission_stage0",
+  "status": "complete",
+  "date": "2026-07-20",
+  "purpose": "Cycle 20 J2 (measurement half): per-surface emission rates for the DR 0011/0015 motion trio \u2014 the generator increment is gated on these numbers.",
+  "source_artifacts": [
+    "labs/grid_genome/constrained_generator.py",
+    "labs/wfc_grid/wfc_grid.py",
+    "packages/mecha_engine/src/mecha_engine/generation/generate.py",
+    "data/vocabulary_exemplars/",
+    "research/experiment_reports/2026-07-20-per-role-motion.md"
+  ],
+  "parameters": {
+    "count": 1000,
+    "rng_seed": 77
+  },
+  "metrics": {
+    "sources": {
+      "constrained": {
+        "grid_count": 1000,
+        "roles": {
+          "limb": {
+            "grids_with_role": 0,
+            "grids_with_role_rate": 0.0,
+            "mean_cells_per_grid": 0.0
+          },
+          "joint": {
+            "grids_with_role": 0,
+            "grids_with_role_rate": 0.0,
+            "mean_cells_per_grid": 0.0
+          },
+          "decoration": {
+            "grids_with_role": 0,
+            "grids_with_role_rate": 0.0,
+            "mean_cells_per_grid": 0.0
+          },
+          "antenna": {
+            "grids_with_role": 0,
+            "grids_with_role_rate": 0.0,
+            "mean_cells_per_grid": 0.0
+          },
+          "sensor": {
+            "grids_with_role": 0,
+            "grids_with_role_rate": 0.0,
+            "mean_cells_per_grid": 0.0
+          },
+          "effect": {
+            "grids_with_role": 0,
+            "grids_with_role_rate": 0.0,
+            "mean_cells_per_grid": 0.0
+          }
+        }
+      },
+      "wfc": {
+        "grid_count": 1000,
+        "roles": {
+          "limb": {
+            "grids_with_role": 1000,
+            "grids_with_role_rate": 1.0,
+            "mean_cells_per_grid": 8.278
+          },
+          "joint": {
+            "grids_with_role": 500,
+            "grids_with_role_rate": 0.5,
+            "mean_cells_per_grid": 0.692
+          },
+          "decoration": {
+            "grids_with_role": 902,
+            "grids_with_role_rate": 0.902,
+            "mean_cells_per_grid": 2.258
+          },
+          "antenna": {
+            "grids_with_role": 710,
+            "grids_with_role_rate": 0.71,
+            "mean_cells_per_grid": 1.18
+          },
+          "sensor": {
+            "grids_with_role": 45,
+            "grids_with_role_rate": 0.045,
+            "mean_cells_per_grid": 0.045
+          },
+          "effect": {
+            "grids_with_role": 106,
+            "grids_with_role_rate": 0.106,
+            "mean_cells_per_grid": 0.109
+          }
+        }
+      },
+      "promoted_generate_batch": {
+        "grid_count": 1000,
+        "roles": {
+          "limb": {
+            "grids_with_role": 0,
+            "grids_with_role_rate": 0.0,
+            "mean_cells_per_grid": 0.0
+          },
+          "joint": {
+            "grids_with_role": 0,
+            "grids_with_role_rate": 0.0,
+            "mean_cells_per_grid": 0.0
+          },
+          "decoration": {
+            "grids_with_role": 0,
+            "grids_with_role_rate": 0.0,
+            "mean_cells_per_grid": 0.0
+          },
+          "antenna": {
+            "grids_with_role": 0,
+            "grids_with_role_rate": 0.0,
+            "mean_cells_per_grid": 0.0
+          },
+          "sensor": {
+            "grids_with_role": 0,
+            "grids_with_role_rate": 0.0,
+            "mean_cells_per_grid": 0.0
+          },
+          "effect": {
+            "grids_with_role": 0,
+            "grids_with_role_rate": 0.0,
+            "mean_cells_per_grid": 0.0
+          }
+        }
+      },
+      "seed_corpus_16": {
+        "grid_count": 50,
+        "roles": {
+          "limb": {
+            "grids_with_role": 33,
+            "grids_with_role_rate": 0.66,
+            "mean_cells_per_grid": 7.18
+          },
+          "joint": {
+            "grids_with_role": 10,
+            "grids_with_role_rate": 0.2,
+            "mean_cells_per_grid": 0.72
+          },
+          "decoration": {
+            "grids_with_role": 29,
+            "grids_with_role_rate": 0.58,
+            "mean_cells_per_grid": 2.46
+          },
+          "antenna": {
+            "grids_with_role": 16,
+            "grids_with_role_rate": 0.32,
+            "mean_cells_per_grid": 1.0
+          },
+          "sensor": {
+            "grids_with_role": 2,
+            "grids_with_role_rate": 0.04,
+            "mean_cells_per_grid": 0.08
+          },
+          "effect": {
+            "grids_with_role": 9,
+            "grids_with_role_rate": 0.18,
+            "mean_cells_per_grid": 0.48
+          }
+        }
+      },
+      "vocabulary_exemplars": {
+        "grid_count": 1,
+        "roles": {
+          "limb": {
+            "grids_with_role": 1,
+            "grids_with_role_rate": 1.0,
+            "mean_cells_per_grid": 4.0
+          },
+          "joint": {
+            "grids_with_role": 1,
+            "grids_with_role_rate": 1.0,
+            "mean_cells_per_grid": 2.0
+          },
+          "decoration": {
+            "grids_with_role": 1,
+            "grids_with_role_rate": 1.0,
+            "mean_cells_per_grid": 1.0
+          },
+          "antenna": {
+            "grids_with_role": 1,
+            "grids_with_role_rate": 1.0,
+            "mean_cells_per_grid": 1.0
+          },
+          "sensor": {
+            "grids_with_role": 1,
+            "grids_with_role_rate": 1.0,
+            "mean_cells_per_grid": 1.0
+          },
+          "effect": {
+            "grids_with_role": 1,
+            "grids_with_role_rate": 1.0,
+            "mean_cells_per_grid": 1.0
+          }
+        }
+      }
+    },
+    "motion_trio_emission": {
+      "constrained": 0.0,
+      "wfc": 0.800667,
+      "promoted_generate_batch": 0.0,
+      "seed_corpus_16": 0.48,
+      "vocabulary_exemplars": 1.0
+    },
+    "finding": "motion-trio emission (mean grids-with-role rate): constrained 0.0, wfc 0.800667, promoted_generate_batch 0.0 vs seed corpus 0.48 and exemplars 1.0"
+  },
+  "closed_states": [
+    "motion_role_emission_measured_per_generation_surface"
+  ],
+  "blocked_states": [
+    "generator_increment_not_designed_here (the gated change rides its own decision record, judged on these numbers)"
+  ],
+  "decision": "motion-trio emission (mean grids-with-role rate): constrained 0.0, wfc 0.800667, promoted_generate_batch 0.0 vs seed corpus 0.48 and exemplars 1.0",
+  "next_research_step": "the gated generator increment (role-aware generation and/or the mutation-temperature knob) with pre-registered gates: emission up, validity held, descriptor support widened"
+}

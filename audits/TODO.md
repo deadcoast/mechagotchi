@@ -23,18 +23,27 @@ Sources: `research/experiment_reports/2026-07-20-phase-i-gate.md`
 DR 0011/0015 (the vocabulary), DR 0031 (WFC adoption), DR 0032 (the
 re-openers), DR 0027 (SLIP authority; visual_grammar/species_class).
 
-- [ ] **J1 · The reachability probe.** Are the 138 unreached bins
-  reachable by ANY validator-passing 16×16 grid? A targeted
-  construction probe per empty bin (search under the validator's own
-  judgment, never hand-painted exceptions): closures where bins are
-  reached, a MEASURED geometric-emptiness bound where they are not —
-  the octile space's true capacity, named.
-- [ ] **J2 · Motion-role emission.** Measure the generators' emission
-  rates for limb/joint/decoration (constrained + WFC paths); then the
-  gated generator increment with its own decision record — role-aware
-  generation and/or the mutation-temperature knob (I5b's
-  named-not-run arm gains its surface here) — judged by pre-registered
-  gates: emission up, validity held, descriptor support widened.
+- [x] **J1 · The reachability probe.** DONE 2026-07-20
+  (`2026-07-20-reachability-probe.md`): under the ENGINE'S OWN move
+  set (promoted model + generate_candidate + validation), 45 more
+  bins reached with committed bin-verified witnesses — 417/512 proven
+  reachable; 95 bounded-not-proven-empty at budget 200, and the
+  emptiness is STRUCTURED (extreme symmetry 46/95, extreme visual
+  complexity 47/95 — the octile corners). The J2 increment re-runs
+  this probe as its own gate evidence.
+- [ ] **J2 · Motion-role emission.** Measurement half DONE 2026-07-20
+  (`2026-07-20-role-emission.md`): **the promoted evolve path emits
+  the motion trio at exactly 0.0** (WFC 0.80, seeds 0.48, exemplars
+  1.0) — the mechanism found: the constrained path's 5-token matrix
+  alphabet (`. B A E M`, pre-DR-0011) ERASES limb/joint/decoration in
+  projection; the game cannot breed what the breeding surface cannot
+  spell. Remaining: the gated generator increment with its own
+  decision record — a vocabulary-complete generation alphabet
+  (projection, adjacency stats, reconstruction, package mirror, all
+  under parity pins; I5b's mutation-temperature knob gains its
+  surface here) — judged by pre-registered gates: emission up,
+  validity held at 1.0, descriptor support widened (the J1 probe
+  re-run as the gate's instrument).
 - [ ] **J3 · Novelty-first at the evolution surface.** The measured
   lever (+0.078 coverage at −11.99 QD) judged where it matters: the
   E3 loop / the game's repertoire consumer, a coverage-vs-QD gate
