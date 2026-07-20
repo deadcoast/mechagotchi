@@ -37,13 +37,15 @@ re-openers), DR 0027 (SLIP authority; visual_grammar/species_class).
   1.0) — the mechanism found: the constrained path's 5-token matrix
   alphabet (`. B A E M`, pre-DR-0011) ERASES limb/joint/decoration in
   projection; the game cannot breed what the breeding surface cannot
-  spell. Remaining: the gated generator increment with its own
-  decision record — a vocabulary-complete generation alphabet
-  (projection, adjacency stats, reconstruction, package mirror, all
-  under parity pins; I5b's mutation-temperature knob gains its
-  surface here) — judged by pre-registered gates: emission up,
-  validity held at 1.0, descriptor support widened (the J1 probe
-  re-run as the gate's instrument).
+  spell. Remaining: the implementation of **DR 0038** (chartered
+  2026-07-20, gates pre-registered): the vocabulary-complete
+  generation alphabet — projection (every ratified role a token),
+  statistics over the full alphabet, VALIDATOR-LEGAL reconstruction
+  per role, the mutation-temperature knob as an off-by-default rider,
+  lab + package under parity pins. Judged by the five recorded gates:
+  emission ≥ 0.24 (half the seed corpus's rate), validity 1.0, probe
+  > 417/512, additivity on legacy corpora, parity verbatim. Refuted
+  gates are first-class findings.
 - [ ] **J3 · Novelty-first at the evolution surface.** The measured
   lever (+0.078 coverage at −11.99 QD) judged where it matters: the
   E3 loop / the game's repertoire consumer, a coverage-vs-QD gate
