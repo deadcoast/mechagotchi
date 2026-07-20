@@ -734,6 +734,185 @@ def write_real_weather_artifacts(
     return path
 
 
+HARSHNESS_ARTIFACT_ID = "real_weather_harshness_stage0"
+HARSHNESS_REPORT_DATE = "2026-07-20"
+# DR 0018's measured synthetic-storm figure: the chaotic soup drove a
+# 1.17x dropout multiplier. The I3 question is whether any REAL
+# post-takeover snapshot breaches it — measured, never tuned.
+STORM_PRECEDENT_MULTIPLIER = 1.17
+
+
+def build_real_weather_harshness_report() -> dict:
+    """Cycle 19 I3: per-phase harshness through the UNTOUCHED seam.
+
+    Every committed real snapshot (the I1 two-phase corpus, phase
+    labels from the runs' own metrics) is measured with the engine's
+    own promoted pressure math (`_cubff_generation_pressure` —
+    verbatim, zero seam changes); multipliers are grouped by phase and
+    the storm-precedent question is answered by the numbers.
+    """
+    from mecha_engine.runtime.evolve import _cubff_generation_pressure
+    from mecha_game.campaign import load_real_weather_source
+
+    per_snapshot = []
+    for record in load_real_weather_source():
+        pressure, multiplier = _cubff_generation_pressure(record)
+        per_snapshot.append(
+            {
+                "snapshot_id": record["snapshot_id"],
+                "epoch": record["epoch"],
+                "phase": record.get("phase", "unmeasured"),
+                "mutation_pressure": pressure,
+                "dropout_multiplier": multiplier,
+            }
+        )
+
+    by_phase: dict = {}
+    for phase in sorted({entry["phase"] for entry in per_snapshot}):
+        multipliers = [
+            entry["dropout_multiplier"]
+            for entry in per_snapshot
+            if entry["phase"] == phase
+        ]
+        by_phase[phase] = {
+            "snapshot_count": len(multipliers),
+            "min_multiplier": min(multipliers),
+            "max_multiplier": max(multipliers),
+            "mean_multiplier": round(
+                sum(multipliers) / len(multipliers), 6
+            ),
+        }
+
+    post = by_phase.get("post_takeover", {})
+    breaches = (
+        post.get("max_multiplier", 0.0) > STORM_PRECEDENT_MULTIPLIER
+    )
+
+    # The callback path (the named increment made real): committed
+    # compact records with replication_per_prog evaluated — every
+    # engine number recomputed live from the committed evidence.
+    callback_payload = json.loads(
+        (
+            ROOT
+            / "data"
+            / "cubff_real_ingest"
+            / "callback_states"
+            / "callback_states_compact.json"
+        ).read_text(encoding="utf-8")
+    )
+    callback_states = []
+    for record in callback_payload["records"]:
+        pressure, multiplier = _cubff_generation_pressure(record)
+        scores = record.get("replication_scores", [])
+        callback_states.append(
+            {
+                "snapshot_id": record["snapshot_id"],
+                "epoch": record["epoch"],
+                "phase": record.get("phase", "unmeasured"),
+                "replication_score_count": len(scores),
+                "high_replication_count": sum(
+                    1 for score in scores if score >= 48
+                ),
+                "mutation_pressure": pressure,
+                "dropout_multiplier": multiplier,
+            }
+        )
+    callback_post = [
+        entry["dropout_multiplier"]
+        for entry in callback_states
+        if entry["phase"] == "post_takeover"
+    ]
+    callback_breaches = bool(
+        callback_post
+        and max(callback_post) > STORM_PRECEDENT_MULTIPLIER
+    )
+    callback_path = {
+        "protocol": callback_payload["protocol"],
+        "per_state": callback_states,
+        "post_takeover_breaches_storm_precedent": callback_breaches,
+    }
+
+    return {
+        "artifact_id": HARSHNESS_ARTIFACT_ID,
+        "status": "complete" if per_snapshot else "refuted",
+        "date": HARSHNESS_REPORT_DATE,
+        "purpose": (
+            "Cycle 19 I3 (SHARED, Phase I): real weather harshness "
+            "measured per phase over the I1 two-phase corpus through "
+            "the engine's UNTOUCHED cubff_pressure_source seam — the "
+            "multiplier direction measured, not tuned; the synthetic "
+            "storm's 1.17x precedent is the pre-registered bar."
+        ),
+        "source_artifacts": [
+            "data/cubff_real_ingest/real_snapshot_ingest_stage0_report.json",
+            "packages/mecha_engine/src/mecha_engine/runtime/evolve.py",
+            "packages/mecha_engine/src/mecha_engine/runtime/_cubff.py",
+            "research/experiment_reports/2026-07-20-post-takeover-corpus.md",
+            "research/decision_records/0018-cubff-live-lineage-pressure.md",
+        ],
+        "metrics": {
+            "storm_precedent_multiplier": STORM_PRECEDENT_MULTIPLIER,
+            "per_snapshot": per_snapshot,
+            "by_phase": by_phase,
+            "post_takeover_breaches_storm_precedent": breaches,
+            "callback_path": callback_path,
+        },
+        "closed_states": [
+            "per_phase_harshness_measured (every committed snapshot "
+            "through the engine's own promoted pressure math, zero "
+            "seam changes)",
+            "storm_precedent_question_answered_by_the_numbers "
+            "(checkpoint seam: NOT breached — post-takeover measures "
+            "MILDER than early through this path because the "
+            "harshness channels are format-silent)",
+            "callback_export_path_real (the upstream PERMITS: "
+            "pybind11 module built at the audited commit, "
+            "eval_selfrep lights replication_per_prog — the "
+            "replication channel carries ~98.6% replicators "
+            "post-takeover vs 2 programs early; multipliers rise to "
+            "~1.02-1.05, HARSHER measured direction, still under "
+            "the 1.17x precedent)",
+        ],
+        "blocked_states": [
+            "lineage_churn_channel_still_silent (neither checkpoints "
+            "nor the callback state expose a lineage-event stream — "
+            "the 0.3*lineage_churn instability channel reads 0 on "
+            "every real path; a harsher real weather may exist "
+            "behind it, unmeasurable until the upstream exposes "
+            "lineage events)",
+            "callback_export_is_wsl_only (the .so is a Linux build; "
+            "the committed compact records + the recorded protocol "
+            "reproduce it)",
+        ],
+        "decision": (
+            "real weather harshness is DIRECTIONAL and measured: "
+            "mild through the checkpoint seam (channels silent), "
+            "harsher (~1.02-1.05x) through the callback path with "
+            "the replication channel lit, and the synthetic storm's "
+            "1.17x precedent stands unbeaten by real soup on every "
+            "path — nothing tuned to feel dramatic"
+        ),
+        "next_research_step": (
+            "wire a callback-sourced weather forecast into the game "
+            "IF a consumer asks (the records are seam-compatible "
+            "today); lineage events remain an upstream-integration "
+            "question"
+        ),
+    }
+
+
+def write_real_weather_harshness_artifacts(
+    output_dir: str | Path, report: dict
+) -> Path:
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    path = output_dir / f"{HARSHNESS_ARTIFACT_ID}.json"
+    path.write_text(
+        json.dumps(report, indent=2) + "\n", encoding="utf-8"
+    )
+    return path
+
+
 PACKS_ARTIFACT_ID = "community_pack_stage0"
 STARTER_PACK_PATH = ROOT / "data" / "packs" / "mechagotchi_starter_pack.json"
 

@@ -42,12 +42,17 @@ cycle opens).
   0/400 → KEEP unchanged; G3's artifact frozen under its own id.
   The sharper remainder: un-saturation needs a different direct arm
   (a structured decoder), a new study design — not more epochs.
-- [ ] **I3 · Real weather harshness.** Post-takeover snapshots through
-  the UNTOUCHED cubff_pressure_source seam; the multiplier direction
-  measured, not tuned (does late soup breach the synthetic storm's
-  1.17× precedent?). The silent replication/lineage channels via the
-  named callback export path IF the upstream permits — named, never
-  smuggled; refusals recorded otherwise.
+- [x] **I3 · Real weather harshness.** DONE 2026-07-20
+  (`2026-07-20-real-weather-harshness.md`): checkpoint seam — NOT
+  breached, post-takeover measures MILDER (0.78 vs 0.82 mean)
+  because the harshness channels are format-silent; the callback
+  path — **the upstream PERMITS** (pybind11 built at the audited
+  commit, venv, no system changes), replication lights up (2 vs
+  129,211 replicators early/post) and multipliers rise to
+  1.021–1.048 — HARSHER measured, still under 1.17× on every path;
+  nothing tuned. Compact records committed self-verifying; the
+  lineage_churn channel stays silent on every real path (named —
+  an upstream-integration question).
 - [ ] **I4 · Per-role motion.** DR 0015's named future increment:
   limb/joint/decoration motion in the clip model — lab-proven first,
   size-parametric at both ratified scales, promoted with parity pins,

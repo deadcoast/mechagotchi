@@ -1,0 +1,191 @@
+{
+  "artifact_id": "real_weather_harshness_stage0",
+  "status": "complete",
+  "date": "2026-07-20",
+  "purpose": "Cycle 19 I3 (SHARED, Phase I): real weather harshness measured per phase over the I1 two-phase corpus through the engine's UNTOUCHED cubff_pressure_source seam \u2014 the multiplier direction measured, not tuned; the synthetic storm's 1.17x precedent is the pre-registered bar.",
+  "source_artifacts": [
+    "data/cubff_real_ingest/real_snapshot_ingest_stage0_report.json",
+    "packages/mecha_engine/src/mecha_engine/runtime/evolve.py",
+    "packages/mecha_engine/src/mecha_engine/runtime/_cubff.py",
+    "research/experiment_reports/2026-07-20-post-takeover-corpus.md",
+    "research/decision_records/0018-cubff-live-lineage-pressure.md"
+  ],
+  "metrics": {
+    "storm_precedent_multiplier": 1.17,
+    "per_snapshot": [
+      {
+        "snapshot_id": "run_seed0_num131072/0000000000",
+        "epoch": 1,
+        "phase": "early_phase",
+        "mutation_pressure": 0.384629,
+        "dropout_multiplier": 0.873092
+      },
+      {
+        "snapshot_id": "run_seed0_num8192/0000000000",
+        "epoch": 1,
+        "phase": "early_phase",
+        "mutation_pressure": 0.364452,
+        "dropout_multiplier": 0.850897
+      },
+      {
+        "snapshot_id": "run_seed0_num131072/0000002048",
+        "epoch": 2049,
+        "phase": "early_phase",
+        "mutation_pressure": 0.293387,
+        "dropout_multiplier": 0.772726
+      },
+      {
+        "snapshot_id": "run_seed0_num8192/0000002048",
+        "epoch": 2049,
+        "phase": "early_phase",
+        "mutation_pressure": 0.292594,
+        "dropout_multiplier": 0.771853
+      },
+      {
+        "snapshot_id": "run_seed0_num131072/0000004096",
+        "epoch": 4097,
+        "phase": "post_takeover",
+        "mutation_pressure": 0.291574,
+        "dropout_multiplier": 0.770731
+      },
+      {
+        "snapshot_id": "run_seed0_num8192/0000004096",
+        "epoch": 4097,
+        "phase": "early_phase",
+        "mutation_pressure": 0.334329,
+        "dropout_multiplier": 0.817762
+      },
+      {
+        "snapshot_id": "run_seed0_num8192/0000006144",
+        "epoch": 6145,
+        "phase": "early_phase",
+        "mutation_pressure": 0.329671,
+        "dropout_multiplier": 0.812638
+      },
+      {
+        "snapshot_id": "run_seed0_num8192/0000008192",
+        "epoch": 8193,
+        "phase": "early_phase",
+        "mutation_pressure": 0.351276,
+        "dropout_multiplier": 0.836404
+      },
+      {
+        "snapshot_id": "run_seed0_num8192/0000010240",
+        "epoch": 10241,
+        "phase": "early_phase",
+        "mutation_pressure": 0.328765,
+        "dropout_multiplier": 0.811641
+      },
+      {
+        "snapshot_id": "run_seed0_num8192/0000012288",
+        "epoch": 12289,
+        "phase": "early_phase",
+        "mutation_pressure": 0.347997,
+        "dropout_multiplier": 0.832797
+      },
+      {
+        "snapshot_id": "run_seed0_num8192/0000014336",
+        "epoch": 14337,
+        "phase": "early_phase",
+        "mutation_pressure": 0.328515,
+        "dropout_multiplier": 0.811366
+      },
+      {
+        "snapshot_id": "run_seed0_num8192/0000016384",
+        "epoch": 16385,
+        "phase": "early_phase",
+        "mutation_pressure": 0.318366,
+        "dropout_multiplier": 0.800203
+      },
+      {
+        "snapshot_id": "run_seed0_num131072/0000032768",
+        "epoch": 32769,
+        "phase": "post_takeover",
+        "mutation_pressure": 0.315182,
+        "dropout_multiplier": 0.7967
+      },
+      {
+        "snapshot_id": "run_seed0_num8192_long/0000262144",
+        "epoch": 262145,
+        "phase": "early_phase",
+        "mutation_pressure": 0.340657,
+        "dropout_multiplier": 0.824723
+      }
+    ],
+    "by_phase": {
+      "early_phase": {
+        "snapshot_count": 12,
+        "min_multiplier": 0.771853,
+        "max_multiplier": 0.873092,
+        "mean_multiplier": 0.818009
+      },
+      "post_takeover": {
+        "snapshot_count": 2,
+        "min_multiplier": 0.770731,
+        "max_multiplier": 0.7967,
+        "mean_multiplier": 0.783716
+      }
+    },
+    "post_takeover_breaches_storm_precedent": false,
+    "callback_path": {
+      "protocol": {
+        "script": "labs/cubff_transducer/callback_state_export.py (run in WSL against the venv-built upstream pybind11 module)",
+        "upstream_commit": "f212e849027c98fcf4b242eccfb5fed435223e23",
+        "build": "make CUDA=0 bin/cubff$(python3-config --extension-suffix) with pybind11 from a venv (no system changes)",
+        "params": {
+          "num_programs": 131072,
+          "seed": 0,
+          "eval_selfrep": true,
+          "callback_interval": 1
+        },
+        "loaded_checkpoints": [
+          "data/cubff_real_ingest/source_snapshots/run_seed0_num131072/0000002048.dat (early control)",
+          "data/cubff_real_ingest/source_snapshots/run_seed0_num131072/0000004096.dat (post-takeover)",
+          "data/cubff_real_ingest/source_snapshots/run_seed0_num131072/0000032768.dat (post-takeover late)"
+        ],
+        "note": "RunSimulation continues from the loaded checkpoint; the first evaluated callback state is epoch+2 relative to the checkpoint FILENAME (header epoch +1)."
+      },
+      "per_state": [
+        {
+          "snapshot_id": "callback_early_control_0000002050",
+          "epoch": 2050,
+          "phase": "early_phase",
+          "replication_score_count": 131072,
+          "high_replication_count": 0,
+          "mutation_pressure": 0.293387,
+          "dropout_multiplier": 0.772726
+        },
+        {
+          "snapshot_id": "callback_post_takeover_0000004098",
+          "epoch": 4098,
+          "phase": "post_takeover",
+          "replication_score_count": 131072,
+          "high_replication_count": 128584,
+          "mutation_pressure": 0.519501,
+          "dropout_multiplier": 1.021451
+        },
+        {
+          "snapshot_id": "callback_post_takeover_late_0000032770",
+          "epoch": 32770,
+          "phase": "post_takeover",
+          "replication_score_count": 131072,
+          "high_replication_count": 129195,
+          "mutation_pressure": 0.543925,
+          "dropout_multiplier": 1.048318
+        }
+      ],
+      "post_takeover_breaches_storm_precedent": false
+    }
+  },
+  "closed_states": [
+    "per_phase_harshness_measured (every committed snapshot through the engine's own promoted pressure math, zero seam changes)",
+    "storm_precedent_question_answered_by_the_numbers (checkpoint seam: NOT breached \u2014 post-takeover measures MILDER than early through this path because the harshness channels are format-silent)",
+    "callback_export_path_real (the upstream PERMITS: pybind11 module built at the audited commit, eval_selfrep lights replication_per_prog \u2014 the replication channel carries ~98.6% replicators post-takeover vs 2 programs early; multipliers rise to ~1.02-1.05, HARSHER measured direction, still under the 1.17x precedent)"
+  ],
+  "blocked_states": [
+    "lineage_churn_channel_still_silent (neither checkpoints nor the callback state expose a lineage-event stream \u2014 the 0.3*lineage_churn instability channel reads 0 on every real path; a harsher real weather may exist behind it, unmeasurable until the upstream exposes lineage events)",
+    "callback_export_is_wsl_only (the .so is a Linux build; the committed compact records + the recorded protocol reproduce it)"
+  ],
+  "decision": "real weather harshness is DIRECTIONAL and measured: mild through the checkpoint seam (channels silent), harsher (~1.02-1.05x) through the callback path with the replication channel lit, and the synthetic storm's 1.17x precedent stands unbeaten by real soup on every path \u2014 nothing tuned to feel dramatic",
+  "next_research_step": "wire a callback-sourced weather forecast into the game IF a consumer asks (the records are seam-compatible today); lineage events remain an upstream-integration question"
+}

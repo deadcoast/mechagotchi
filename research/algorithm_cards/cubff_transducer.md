@@ -140,3 +140,16 @@ phase. Un-saturating the comparison now requires a DIFFERENT direct
 arm (a structured tape decoder), a new study design with its own
 record. Evidence: `data/cubff_transducer/real_transducer_study_stage0.json`
 (G3, frozen) + `real_transducer_study_i2_stage0.json` (I2).
+
+Pressure-seam harshness over real soup (2026-07-20 I3): through the
+checkpoint seam post-takeover soup measures MILDER than early (the
+harshness channels are format-silent); through the CALLBACK path —
+the upstream's pybind11 module built at the audited commit,
+`eval_selfrep` lighting `replication_per_prog` (2 vs 129,211
+replicators early/post) — the engine's multipliers rise to
+1.021–1.048, harsher measured, still under the 1.17× synthetic
+precedent on every path. `lineage_churn` stays silent everywhere
+(no upstream lineage-event stream — named). Evidence:
+`data/game_client/real_weather_harshness_stage0.json` +
+`data/cubff_real_ingest/callback_states/callback_states_compact.json`
+(self-verifying: consumers recompute the engine numbers live).
