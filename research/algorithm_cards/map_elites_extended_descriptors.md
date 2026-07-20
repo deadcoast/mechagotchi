@@ -114,6 +114,15 @@ descriptor_bin_spread: body_mass 3, sensor_count 4, symmetry 4,
   behavior_neediness 2
 ```
 
+Behavior-neediness reference-canvas recalibration on 2026-07-20
+(cycle 19 I5a, DR 0036): the mass term scales by `64 / area` — an
+EXACT identity at 8×8 (`map_elites_extended_stage0.json` regenerates
+byte-identical; every number above is unchanged), and at 16×16 the
+sensor signal leads again (r +0.904 vs mass −0.407; the axis derives
+7 of 7 distinct octile edges in the niche-scale geometry). Evidence:
+`labs/map_elites_archive/neediness_scale16.py` +
+`data/archives/neediness_scale16_stage0.json`.
+
 SLIP lifecycle/archive bridge completed on 2026-05-12.
 
 ```txt

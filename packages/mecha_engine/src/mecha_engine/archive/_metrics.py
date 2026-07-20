@@ -165,8 +165,16 @@ def behavior_neediness(grid: dict, slip_profile: dict | None) -> float:
     Descriptor axes must vary per candidate: a SLIP profile is constant for
     an archive run, so the grid-derived term carries the per-candidate
     signal and the profile neediness only shifts it (Stage 0 calibration).
+    The mass term is scaled to the 8x8 reference canvas (DR 0036) — an
+    exact identity at 8x8; unscaled it swamps the sensor signal at 16x16.
     """
-    grid_term = 0.35 + sensor_count(grid) * 0.08 - body_mass(grid) * 0.01
+    size = grid.get("grid_size", [8, 8])
+    area = max(1, int(size[0]) * int(size[1]))
+    grid_term = (
+        0.35
+        + sensor_count(grid) * 0.08
+        - body_mass(grid) * 0.01 * (64 / area)
+    )
     if slip_profile is not None:
         behavior = slip_profile.get("behavior")
         if not isinstance(behavior, dict):

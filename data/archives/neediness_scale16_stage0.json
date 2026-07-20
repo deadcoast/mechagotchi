@@ -1,0 +1,71 @@
+{
+  "artifact_id": "neediness_scale16_stage0",
+  "status": "complete",
+  "date": "2026-07-20",
+  "purpose": "Measure the Phase-E named remainder \u2014 behavior_neediness mass-domination at 16x16 \u2014 and judge the reference-canvas recalibration on the engine's own numbers.",
+  "source_artifacts": [
+    "labs/map_elites_archive/extended_descriptors.py",
+    "packages/mecha_engine/src/mecha_engine/archive/_metrics.py",
+    "labs/grid_genome/corpus_builder.py (both committed corpora)",
+    "research/experiment_reports/2026-07-09-phase-e-gate.md"
+  ],
+  "formula_original": "0.35 + sensors * 0.08 - body_mass * 0.01",
+  "formula_recalibrated": "0.35 + sensors * 0.08 - body_mass * 0.01 * (64 / area)",
+  "original": {
+    "scale8": {
+      "grid_count": 50,
+      "value_min": 0.37,
+      "value_max": 0.5,
+      "distinct_values": 5,
+      "distinct_bins": 2,
+      "pearson_mass": -0.703219,
+      "pearson_sensors": 0.869924
+    },
+    "scale16": {
+      "grid_count": 50,
+      "value_min": 0.0,
+      "value_max": 0.47,
+      "distinct_values": 18,
+      "distinct_bins": 3,
+      "pearson_mass": -0.725771,
+      "pearson_sensors": 0.529807
+    }
+  },
+  "recalibrated": {
+    "scale8": {
+      "grid_count": 50,
+      "value_min": 0.37,
+      "value_max": 0.5,
+      "distinct_values": 5,
+      "distinct_bins": 2,
+      "pearson_mass": -0.703219,
+      "pearson_sensors": 0.869924,
+      "max_abs_diff_vs_original": 0.0
+    },
+    "scale16": {
+      "grid_count": 50,
+      "value_min": 0.2975,
+      "value_max": 0.86,
+      "distinct_values": 37,
+      "distinct_bins": 3,
+      "pearson_mass": -0.407302,
+      "pearson_sensors": 0.903854
+    }
+  },
+  "application": {
+    "lab_site_matches": true,
+    "package_site_matches": true
+  },
+  "gates": {
+    "identity_8x8": true,
+    "mass_domination_reduced": true,
+    "sensor_signal_present": true
+  },
+  "decision": "recalibrate",
+  "closed_states": [
+    "neediness_mass_domination_measured_at_both_scales",
+    "recalibration_applied_at_both_parity_sites"
+  ],
+  "blocked_states": [],
+  "next_research_step": "the occupancy-saturation measurement (the second I5 item)"
+}

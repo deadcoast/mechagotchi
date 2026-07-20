@@ -468,9 +468,15 @@ def _behavior_neediness(grid: dict, slip_profile: dict | None) -> float:
     # an archive run, so using its neediness directly collapsed this axis to a
     # single bin (review finding H-03). The grid-derived term carries the
     # per-candidate signal; the profile neediness acts as a prior shift only.
+    # The mass term is scaled to the 8x8 reference canvas (DR 0036): the 0.01
+    # coefficient was calibrated against 8x8 masses, and unscaled it swamps
+    # the sensor signal at 16x16 (the Phase-E mass-domination remainder,
+    # measured and closed by labs/map_elites_archive/neediness_scale16.py).
     body_mass = _body_mass(grid)
     sensor_count = _sensor_count(grid)
-    grid_term = 0.35 + sensor_count * 0.08 - body_mass * 0.01
+    size = grid.get("grid_size", [8, 8])
+    area = max(1, int(size[0]) * int(size[1]))
+    grid_term = 0.35 + sensor_count * 0.08 - body_mass * 0.01 * (64 / area)
     if slip_profile is not None:
         behavior = slip_profile.get("behavior", {})
         if "neediness" in behavior:

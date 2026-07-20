@@ -52,8 +52,11 @@ wall-clock measured first (gap-analysis Phase E, E1).
 - Octile edges are calibrated to the current generators' distribution;
   a very different generator (Phase-E evolve at scale) may shift the
   distributions — E3/E4 re-read coverage on the frozen edges.
-- `behavior_neediness` at 16×16 is mass-dominated and supports only 6
-  distinct edges — the axis discriminates weakly at this grid scale.
+- ~~`behavior_neediness` at 16×16 is mass-dominated and supports only
+  6 distinct edges~~ CLOSED by DR 0036 (cycle 19 I5a): the
+  reference-canvas recalibration restores 7 of 7 distinct octile
+  edges (`supports_full_bins: true`) — the axis discriminates at
+  full geometry.
 
 ## Failure modes
 
@@ -77,8 +80,10 @@ prior art (paper, no code dependency).
 ## Prototype result
 
 274/512 niches occupied (coverage 0.535) over 3,000 candidates on the
-disjoint evaluation population; 444 elite replacements, 0 invalid;
-symmetry and visual complexity reach 8/8 bins, neediness 7/8.
+disjoint evaluation population at Phase E; after the DR 0036 neediness
+recalibration (cycle 19 I5a) the same run regenerates at **319/512
+(coverage 0.623)**, 473 elite replacements, 0 invalid, all three axes
+deriving 7 of 7 distinct octile edges (`supports_full_bins: true`).
 Evaluation unit 6.29 ms at the 200-unit pilot → 125.8 s @ 20k / 314.5 s
 @ 50k evaluations (stdlib holds for run-once builds; DR 0028
 measurement recorded for E3's own decision).

@@ -48,13 +48,13 @@
           0.896311
         ],
         "behavior_neediness": [
-          0.0,
-          0.0,
-          0.01,
-          0.06,
-          0.09,
-          0.14,
-          0.22125
+          0.2975,
+          0.3425,
+          0.365,
+          0.38375,
+          0.395,
+          0.445,
+          0.48
         ]
       },
       "diagnostics": {
@@ -73,11 +73,11 @@
           "value_mean": 0.846812
         },
         "behavior_neediness": {
-          "distinct_edge_count": 6,
-          "supports_full_bins": false,
-          "value_min": 0.0,
-          "value_max": 0.56,
-          "value_mean": 0.0897
+          "distinct_edge_count": 7,
+          "supports_full_bins": true,
+          "value_min": 0.2175,
+          "value_max": 0.9275,
+          "value_mean": 0.398592
         }
       }
     },
@@ -113,22 +113,22 @@
         8
       ],
       "total_possible_niches": 512,
-      "occupied_niches": 274,
-      "coverage": 0.535156,
+      "occupied_niches": 319,
+      "coverage": 0.623047,
       "descriptor_bin_spread": {
         "symmetry": 8,
         "visual_complexity": 8,
-        "behavior_neediness": 7
+        "behavior_neediness": 8
       },
       "best_fitness": 0.982918,
-      "mean_elite_fitness": 0.719946,
-      "qd_score": 197.265207,
+      "mean_elite_fitness": 0.711608,
+      "qd_score": 227.002921,
       "candidate_count": 3000,
       "blocked_invalid_count": 0,
       "event_counts": {
-        "inserted_empty_niche": 274,
-        "kept_incumbent_higher_fitness": 2282,
-        "replaced_elite": 444
+        "inserted_empty_niche": 319,
+        "kept_incumbent_higher_fitness": 2208,
+        "replaced_elite": 473
       }
     }
   },
@@ -140,23 +140,22 @@
   ],
   "blocked_states": [
     "documented_figure_discrepancy_512_vs_576 (both dossier figures recorded verbatim; the geometry follows the explicit 8x8x8 comparator spec; Phase-E coverage gates read against the geometry's own 512 cells)",
-    "package_scale_geometry_seam_not_promoted (the engine archive still exposes baseline/extended modes only; promoting the scale geometry is a package change with its own spec update and gate, consumed by E3's evolve run)",
-    "degenerate_axis_distributions (behavior_neediness cannot support 8 distinct octile edges on the derivation population \u2014 recorded, not jittered)"
+    "package_scale_geometry_seam_not_promoted (the engine archive still exposes baseline/extended modes only; promoting the scale geometry is a package change with its own spec update and gate, consumed by E3's evolve run)"
   ],
-  "decision": "The documented 8x8x8 geometry is derivable from the calibrated descriptor surfaces with empirical octile edges, and the package-parity mechanics hold at scale: 274 of 512 niches occupied (coverage 0.535156) over 3000 evaluated candidates.",
+  "decision": "The documented 8x8x8 geometry is derivable from the calibrated descriptor surfaces with empirical octile edges, and the package-parity mechanics hold at scale: 319 of 512 niches occupied (coverage 0.623047) over 3000 evaluated candidates.",
   "next_research_step": "E2: WFC generation throughput at populations in the hundreds per generation, parents drawn from these archive elites, against the dossier's <=250 ms bar.",
   "measured": {
     "context": "stage-0 dev machine; excludes one-time seed/model setup; constrained generation (the promoted evolve inner-loop path) + 24-tick stress-probed lifecycle scoring",
     "evaluation_unit": {
       "sample_count": 200,
       "lifecycle_ticks": 24,
-      "generation_ms_total": 799.29,
-      "scoring_and_insert_ms_total": 458.61,
-      "mean_ms_per_evaluation": 6.2895
+      "generation_ms_total": 1270.63,
+      "scoring_and_insert_ms_total": 646.76,
+      "mean_ms_per_evaluation": 9.5869
     },
     "projections": {
-      "evaluations_20k_s": 125.79,
-      "evaluations_50k_s": 314.48
+      "evaluations_20k_s": 191.74,
+      "evaluations_50k_s": 479.35
     }
   }
 }
