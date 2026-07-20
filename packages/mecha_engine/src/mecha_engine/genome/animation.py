@@ -75,6 +75,69 @@ CLIP_SWAY: dict[str, list[int]] = {
 
 FLICKER_ROLES = {"effect"}
 
+# Cycle 19 I4 (DR 0037): the DR 0015 WATCH seam's named increment —
+# limb/joint/decoration motion, recorded per clip. Amplitudes are the
+# LCD unit step (1px at every canvas). Limbs step VERTICALLY and
+# joints flex HORIZONTALLY with the column-parity sign rule (even
+# column +offset, odd column −offset — the gait / counter-flex read);
+# decoration bobs vertically in unison (ornaments shimmer together).
+# Every per-cell offset keeps the collision/bounds skip.
+LIMB_STEP_ROLES = {"limb"}
+JOINT_FLEX_ROLES = {"joint"}
+DECOR_BOB_ROLES = {"decoration"}
+CLIP_LIMB_STEP: dict[str, list[int]] = {
+    "idle": [0, 0, 0, 0],
+    "blink": [0, 0, 0],
+    "sleep": [0, 0, 0, 0],
+    "beg": [0, -1, -1, 0],
+    "ill": [0, 1, -1, 1],
+}
+CLIP_JOINT_FLEX: dict[str, list[int]] = {
+    "idle": [0, 0, 0, 0],
+    "blink": [0, 0, 0],
+    "sleep": [0, 0, 0, 0],
+    "beg": [0, 1, -1, 0],
+    "ill": [0, -1, 1, -1],
+}
+CLIP_DECOR_BOB: dict[str, list[int]] = {
+    "idle": [0, 1, 0, -1],
+    "blink": [0, 0, 0],
+    "sleep": [0, 0, 0, 0],
+    "beg": [0, -1, -1, 0],
+    "ill": [0, 1, -1, 1],
+}
+
+
+def _apply_role_offsets(
+    cells: list[dict],
+    *,
+    roles: set[str],
+    offset: int,
+    axis: str,
+    parity_sign: bool,
+    width: int,
+    height: int,
+) -> None:
+    """One per-role pass with the standard collision/bounds skip."""
+    if not offset:
+        return
+    occupied = {(cell["x"], cell["y"]) for cell in cells}
+    for cell in cells:
+        if cell["role"] not in roles:
+            continue
+        applied = offset if not parity_sign or cell["x"] % 2 == 0 else -offset
+        if axis == "x":
+            target = (cell["x"] + applied, cell["y"])
+        else:
+            target = (cell["x"], cell["y"] + applied)
+        if not (0 <= target[0] < width and 0 <= target[1] < height):
+            continue
+        if target in occupied:
+            continue
+        occupied.discard((cell["x"], cell["y"]))
+        occupied.add(target)
+        cell["x"], cell["y"] = target
+
 
 def clip_names() -> list[str]:
     return sorted(CLIP_STATES)
@@ -118,6 +181,34 @@ def clip_frame(grid: dict, clip: str, frame_index: int) -> dict:
             occupied.discard((cell["x"], cell["y"]))
             occupied.add(target)
             cell["x"] = target[0]
+
+    _apply_role_offsets(
+        cells,
+        roles=LIMB_STEP_ROLES,
+        offset=CLIP_LIMB_STEP[clip][frame_index],
+        axis="y",
+        parity_sign=True,
+        width=width,
+        height=height,
+    )
+    _apply_role_offsets(
+        cells,
+        roles=JOINT_FLEX_ROLES,
+        offset=CLIP_JOINT_FLEX[clip][frame_index],
+        axis="x",
+        parity_sign=True,
+        width=width,
+        height=height,
+    )
+    _apply_role_offsets(
+        cells,
+        roles=DECOR_BOB_ROLES,
+        offset=CLIP_DECOR_BOB[clip][frame_index],
+        axis="y",
+        parity_sign=False,
+        width=width,
+        height=height,
+    )
 
     if frame_index % 2 == 1:
         cells = [cell for cell in cells if cell["role"] not in FLICKER_ROLES]

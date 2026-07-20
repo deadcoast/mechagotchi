@@ -82,6 +82,69 @@ CLIP_SWAY: dict[str, list[int]] = {
 # Effect cells flicker: hidden on odd frames (aura breathes).
 FLICKER_ROLES = {"effect"}
 
+# Cycle 19 I4 (DR 0037): the DR 0015 WATCH seam's named increment —
+# limb/joint/decoration motion, recorded per clip. Amplitudes are the
+# LCD unit step (1px at every canvas). Limbs step VERTICALLY and
+# joints flex HORIZONTALLY with the column-parity sign rule (even
+# column +offset, odd column −offset — the gait / counter-flex read);
+# decoration bobs vertically in unison (ornaments shimmer together).
+# Every per-cell offset keeps the collision/bounds skip.
+LIMB_STEP_ROLES = {"limb"}
+JOINT_FLEX_ROLES = {"joint"}
+DECOR_BOB_ROLES = {"decoration"}
+CLIP_LIMB_STEP: dict[str, list[int]] = {
+    "idle": [0, 0, 0, 0],
+    "blink": [0, 0, 0],
+    "sleep": [0, 0, 0, 0],
+    "beg": [0, -1, -1, 0],
+    "ill": [0, 1, -1, 1],
+}
+CLIP_JOINT_FLEX: dict[str, list[int]] = {
+    "idle": [0, 0, 0, 0],
+    "blink": [0, 0, 0],
+    "sleep": [0, 0, 0, 0],
+    "beg": [0, 1, -1, 0],
+    "ill": [0, -1, 1, -1],
+}
+CLIP_DECOR_BOB: dict[str, list[int]] = {
+    "idle": [0, 1, 0, -1],
+    "blink": [0, 0, 0],
+    "sleep": [0, 0, 0, 0],
+    "beg": [0, -1, -1, 0],
+    "ill": [0, 1, -1, 1],
+}
+
+
+def _apply_role_offsets(
+    cells: list[dict],
+    *,
+    roles: set[str],
+    offset: int,
+    axis: str,
+    parity_sign: bool,
+    width: int,
+    height: int,
+) -> None:
+    """One per-role pass with the standard collision/bounds skip."""
+    if not offset:
+        return
+    occupied = {(cell["x"], cell["y"]) for cell in cells}
+    for cell in cells:
+        if cell["role"] not in roles:
+            continue
+        applied = offset if not parity_sign or cell["x"] % 2 == 0 else -offset
+        if axis == "x":
+            target = (cell["x"] + applied, cell["y"])
+        else:
+            target = (cell["x"], cell["y"] + applied)
+        if not (0 <= target[0] < width and 0 <= target[1] < height):
+            continue
+        if target in occupied:
+            continue
+        occupied.discard((cell["x"], cell["y"]))
+        occupied.add(target)
+        cell["x"], cell["y"] = target
+
 
 def clip_names() -> list[str]:
     return sorted(CLIP_STATES)
@@ -125,6 +188,34 @@ def clip_frame(grid: dict, clip: str, frame_index: int) -> dict:
             occupied.discard((cell["x"], cell["y"]))
             occupied.add(target)
             cell["x"] = target[0]
+
+    _apply_role_offsets(
+        cells,
+        roles=LIMB_STEP_ROLES,
+        offset=CLIP_LIMB_STEP[clip][frame_index],
+        axis="y",
+        parity_sign=True,
+        width=width,
+        height=height,
+    )
+    _apply_role_offsets(
+        cells,
+        roles=JOINT_FLEX_ROLES,
+        offset=CLIP_JOINT_FLEX[clip][frame_index],
+        axis="x",
+        parity_sign=True,
+        width=width,
+        height=height,
+    )
+    _apply_role_offsets(
+        cells,
+        roles=DECOR_BOB_ROLES,
+        offset=CLIP_DECOR_BOB[clip][frame_index],
+        axis="y",
+        parity_sign=False,
+        width=width,
+        height=height,
+    )
 
     if frame_index % 2 == 1:
         cells = [cell for cell in cells if cell["role"] not in FLICKER_ROLES]
@@ -229,12 +320,21 @@ def build_clip_model_report() -> dict:
             "clip_model_exists_over_the_promoted_projections",
             "frames_are_visual_only_and_deterministic",
             "per_role_motion_recorded_for_antenna_sensor_effect",
+            "per_role_motion_recorded_for_limb_joint_decoration "
+            "(cycle 19 I4, DR 0037: the DR 0015 WATCH seam's named "
+            "increment — gait step, counter-flex, uniform bob, all "
+            "collision-skipped, additive for role-free grids)",
         ],
         "blocked_states": [
-            "transition_graph_not_built (C2: the >=80% dossier bar)",
-            "animstate_300_not_regenerated_as_clip_frames (C3)",
-            "packet_clip_contract_not_wired (C4: the DR 0013 additive rung)",
-            "per_role_motion_for_limb_joint_decoration_unrecorded (a named future increment of the DR 0015 seam, not improvised here)",
+            # The C1-era blockers each closed in their own labs:
+            # transition_graph.py (C2, validity 0.98 vs the 0.8 bar),
+            # animstate_dataset.py (C3, animstate_950 as clip frames),
+            # and the H3 packet/export rung (C4). Per-clip
+            # choreography beyond the recorded tables remains a
+            # future engine DR — named, not improvised.
+            "per_clip_choreography_beyond_the_recorded_tables "
+            "(an engine DR when a consumer asks; the five clips' "
+            "tables are the recorded vocabulary)",
         ],
         "decision": (
             "The clip model holds over the full corpus: every frame in "

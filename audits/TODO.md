@@ -53,15 +53,19 @@ cycle opens).
   nothing tuned. Compact records committed self-verifying; the
   lineage_churn channel stays silent on every real path (named —
   an upstream-integration question).
-- [ ] **I4 · Per-role motion.** DR 0015's named future increment:
-  limb/joint/decoration motion in the clip model — lab-proven first,
-  size-parametric at both ratified scales, promoted with parity pins,
-  riding the existing timeline/exports as an ADDITIVE change (the
-  workshop's H3 surfaces consume it untouched).
-- [ ] **I5 · The 16×16 engine remainders.** behavior_neediness at
-  16×16 and occupancy saturation MEASURED (the standing note's named
-  items) with honest findings — closures where the numbers close
-  them, sharper named remainders where they don't.
+- [x] **I4 · Per-role motion.** DONE 2026-07-20
+  (`2026-07-20-per-role-motion.md`, DR 0037): limb gait step + joint
+  counter-flex (column-parity sign rule) + decoration unison bob,
+  recorded per clip at both parity sites, 1px LCD unit at every
+  canvas, collision-skipped with the skips PINNED on the exemplar's
+  boxed cells; additive verified (role-free grids byte-identical;
+  workshop 83 green untouched); clip gates hold 1.0/1.0/1.0,
+  transition validity 0.98. Sharper remainder: per-clip choreography
+  beyond the recorded tables (an engine DR when a consumer asks).
+- [x] **I5 · The 16×16 engine remainders.** COMPLETE 2026-07-20 —
+  both named items measured with honest findings (I5a closed by
+  recalibration under DR 0036; I5b's bound named sharply: the
+  generators' descriptor range).
   - [x] I5a behavior_neediness DONE 2026-07-20
     (`2026-07-20-neediness-scale16.md`, DR 0036): mass-domination
     measured (r −0.726 at 16×16), the reference-canvas recalibration

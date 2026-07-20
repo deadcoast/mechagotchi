@@ -5,6 +5,9 @@ import unittest
 from pathlib import Path
 
 from clip_model import (
+    CLIP_DECOR_BOB,
+    CLIP_JOINT_FLEX,
+    CLIP_LIMB_STEP,
     CLIP_STATES,
     build_clip_model_report,
     clip_frame,
@@ -51,6 +54,105 @@ class ClipVocabularyTests(unittest.TestCase):
             clip_frame(beetle, "wiggle", 0)
         with self.assertRaises(ValueError):
             clip_frame(beetle, "idle", 99)
+
+
+def _argus() -> dict:
+    return json.loads(
+        (
+            REPO_ROOT / "data" / "vocabulary_exemplars" / "vocab_argus.json"
+        ).read_text(encoding="utf-8")
+    )
+
+
+class PerRoleMotionTests(unittest.TestCase):
+    """Cycle 19 I4 — the DR 0015 WATCH seam's named increment: limb,
+
+    joint, and decoration motion, recorded per clip (DR 0037), never
+    improvised. Amplitudes are the LCD unit step (1px at every
+    canvas); limbs step vertically and joints flex horizontally with
+    the column-parity sign rule (even column +, odd column −, the
+    gait/counter-flex read); decoration bobs uniformly. Every offset
+    keeps the collision/bounds skip — pinned below on the exemplar's
+    own boxed cells, the honesty visible.
+    """
+
+    def test_the_tables_cover_every_clip_at_every_frame(self):
+        for table in (CLIP_LIMB_STEP, CLIP_JOINT_FLEX, CLIP_DECOR_BOB):
+            self.assertEqual(sorted(table), sorted(CLIP_STATES))
+            for clip, offsets in table.items():
+                self.assertEqual(len(CLIP_STATES[clip]), len(offsets))
+                self.assertEqual(0, offsets[0])  # frame 0 = identity
+
+    def test_idle_decoration_bobs_and_the_blocked_bob_is_skipped(self):
+        argus = _argus()
+        # idle frame 1: bob +1 (down) — (3,6) -> (3,7) is free.
+        moved = clip_frame(argus, "idle", 1)
+        decoration = [
+            (cell["x"], cell["y"])
+            for cell in moved["cells"]
+            if cell["role"] == "decoration"
+        ]
+        self.assertEqual([(3, 7)], decoration)
+        # idle frame 3: bob -1 (up) — (3,5) is shell: the skip recorded.
+        blocked = clip_frame(argus, "idle", 3)
+        decoration = [
+            (cell["x"], cell["y"])
+            for cell in blocked["cells"]
+            if cell["role"] == "decoration"
+        ]
+        self.assertEqual([(3, 6)], decoration)
+
+    def test_ill_limbs_gait_by_column_parity_with_collision_honesty(self):
+        argus = _argus()
+        # ill frame 2: body motion (0,0); limb step -1 with the parity
+        # sign rule => odd columns +1 (down), even columns -1 (up).
+        # On the exemplar only (1,6) -> (1,7) is free; the boxed limbs
+        # and the shell-blocked step are skipped — pinned exactly.
+        frame = clip_frame(argus, "ill", 2)
+        limbs = sorted(
+            (cell["x"], cell["y"])
+            for cell in frame["cells"]
+            if cell["role"] == "limb"
+        )
+        self.assertEqual([(1, 5), (1, 7), (6, 5), (6, 6)], limbs)
+
+    def test_joints_flex_by_column_parity_in_open_space(self):
+        rig = _argus()
+        joints = [cell for cell in rig["cells"] if cell["role"] == "joint"]
+        self.assertEqual(2, len(joints))
+        # Row 7 is genuinely open on the exemplar.
+        joints[0]["x"], joints[0]["y"] = 2, 7
+        joints[1]["x"], joints[1]["y"] = 5, 7
+        # ill frame 2: flex +1 with the parity sign rule => even
+        # column (2,7) -> (3,7); odd column (5,7) -> (4,7).
+        frame = clip_frame(rig, "ill", 2)
+        flexed = sorted(
+            (cell["x"], cell["y"])
+            for cell in frame["cells"]
+            if cell["role"] == "joint"
+        )
+        self.assertEqual([(3, 7), (4, 7)], flexed)
+
+    def test_grids_without_the_roles_are_untouched_by_the_increment(self):
+        # ADDITIVE: a seed with no limb/joint/decoration cells keeps
+        # its rows through idle frame 1 (sway is horizontal; no
+        # vertical per-role offset may appear from the increment).
+        drone = next(
+            grid
+            for grid in build_seed_grids_16()
+            if grid["grid_id"] == "mg_seed16_015_drone"
+        )
+        roles = {cell["role"] for cell in drone["cells"]}
+        self.assertFalse(roles & {"limb", "joint", "decoration"})
+        # idle frame 2 carries no offsets at all (body 0, sway 0, the
+        # per-role tables 0) and no flicker (even frame): positions
+        # must be exactly the pristine silhouette.
+        pristine = {(cell["x"], cell["y"]) for cell in drone["cells"]}
+        frame = clip_frame(drone, "idle", 2)
+        self.assertEqual(
+            pristine,
+            {(cell["x"], cell["y"]) for cell in frame["cells"]},
+        )
 
 
 class ClipFrameTests(unittest.TestCase):

@@ -13,8 +13,8 @@
     "corpus_size": 50,
     "edge_count": 13,
     "transitions_measured": 650,
-    "transitions_valid": 642,
-    "transition_validity_rate": 0.987692,
+    "transitions_valid": 639,
+    "transition_validity_rate": 0.983077,
     "validity_bar": 0.8,
     "per_edge_validity": {
       "beg->beg": 1.0,
@@ -26,21 +26,21 @@
       "idle->idle": 1.0,
       "idle->ill": 0.92,
       "idle->sleep": 1.0,
-      "ill->idle": 0.92,
-      "ill->ill": 1.0,
+      "ill->idle": 0.9,
+      "ill->ill": 0.96,
       "sleep->idle": 1.0,
       "sleep->sleep": 1.0
     },
     "boundary_delta": {
-      "p50": 0.028571,
-      "p95": 0.841463,
-      "max": 0.966667
+      "p50": 0.035714,
+      "p95": 0.843137,
+      "max": 0.967742
     },
     "corpus_intra_max_per_clip": {
-      "beg": 0.684211,
+      "beg": 0.666667,
       "blink": 0.222222,
-      "idle": 0.166667,
-      "ill": 0.966667,
+      "idle": 0.272727,
+      "ill": 0.978022,
       "sleep": 0.684211
     }
   },
@@ -54,6 +54,6 @@
     "packet_clip_contract_not_wired (C4)",
     "state_machine_not_driven_by_live_companion_state (the game's client selects clips through this graph; Phase F consumes it)"
   ],
-  "decision": "Transition validity 0.9877 against the >= 0.8 bar: the graph holds.",
+  "decision": "Transition validity 0.9831 against the >= 0.8 bar: the graph holds.",
   "next_research_step": "C3: the animstate_300 dataset over (grid, state, clip, frame)."
 }

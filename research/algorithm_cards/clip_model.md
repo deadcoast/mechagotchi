@@ -19,8 +19,11 @@ into time.
   no deformation, deterministic per creature).
 - Per-role motion (the DR 0015 WATCH seam, recorded per role): antenna/
   sensor sway with per-cell collision/bounds skip; effect flicker on
-  odd frames. Limb/joint/decoration motion is a NAMED future increment,
-  not improvised.
+  odd frames; and — since cycle 19 I4 (DR 0037) — limb gait step
+  (vertical, column-parity sign) + joint counter-flex (horizontal,
+  same rule) + decoration unison bob, all collision-skipped, additive
+  for role-free grids. Per-clip CHOREOGRAPHY beyond the recorded
+  tables stays a named future increment.
 - Frame packets mirror the render packet's cell shape plus the
   dossier's `anchors` list.
 

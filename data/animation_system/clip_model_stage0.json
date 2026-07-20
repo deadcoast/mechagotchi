@@ -24,13 +24,13 @@
     "frames_palette_clean_rate": 1.0,
     "genome_untouched_rate": 1.0,
     "intra_clip_delta": {
-      "mean_fraction": 0.30468,
-      "max_fraction": 0.966667,
+      "mean_fraction": 0.321118,
+      "max_fraction": 0.978022,
       "per_clip_mean": {
-        "beg": 0.271854,
+        "beg": 0.292387,
         "blink": 0.044757,
-        "idle": 0.032345,
-        "ill": 0.767678,
+        "idle": 0.063602,
+        "ill": 0.792595,
         "sleep": 0.320127
       }
     }
@@ -38,13 +38,11 @@
   "closed_states": [
     "clip_model_exists_over_the_promoted_projections",
     "frames_are_visual_only_and_deterministic",
-    "per_role_motion_recorded_for_antenna_sensor_effect"
+    "per_role_motion_recorded_for_antenna_sensor_effect",
+    "per_role_motion_recorded_for_limb_joint_decoration (cycle 19 I4, DR 0037: the DR 0015 WATCH seam's named increment \u2014 gait step, counter-flex, uniform bob, all collision-skipped, additive for role-free grids)"
   ],
   "blocked_states": [
-    "transition_graph_not_built (C2: the >=80% dossier bar)",
-    "animstate_300_not_regenerated_as_clip_frames (C3)",
-    "packet_clip_contract_not_wired (C4: the DR 0013 additive rung)",
-    "per_role_motion_for_limb_joint_decoration_unrecorded (a named future increment of the DR 0015 seam, not improvised here)"
+    "per_clip_choreography_beyond_the_recorded_tables (an engine DR when a consumer asks; the five clips' tables are the recorded vocabulary)"
   ],
   "decision": "The clip model holds over the full corpus: every frame in bounds, palette-clean, genome untouched, and every clip actually moves. The intra-clip delta table is C2's baseline.",
   "next_research_step": "C2: the transition graph and the measured >=80% transition validity bar."
