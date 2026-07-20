@@ -69,9 +69,14 @@ cycle opens).
     sensors lead again at +0.904) — and the measured occupancy link:
     coverage 0.535 → 0.623 (274 → 319/512) from un-collapsing the
     axis alone.
-  - [ ] I5b occupancy saturation past ~62%: the plateau measured with
-    the Phase-E candidates (novelty pressure, re-derived edges,
-    mutation-heavy arms) — closure or a sharper bound.
+  - [x] I5b DONE 2026-07-20 (`2026-07-20-occupancy-saturation.md`):
+    the bound measured — support utilization **1.0** (selection is
+    not the bound at all), edges +0.012 (< bar), novelty-first from
+    a 3× pool **+0.078 → coverage 0.730** at the same scored budget
+    (QD trade recorded: 223.85 vs 235.84). The sharper named bound:
+    the generators' descriptor RANGE (374/512 reached at 3× volume);
+    mutation-heavy stays named-not-run (no generator knob exists);
+    novelty-first adoption is the evolution surface's own gate.
 - [ ] **I6 · The Phase-I gate.** One consolidated report; cycle 19
   archived; cycle 20 planned from the documentation.
 

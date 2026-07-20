@@ -52,6 +52,11 @@ wall-clock measured first (gap-analysis Phase E, E1).
 - Octile edges are calibrated to the current generators' distribution;
   a very different generator (Phase-E evolve at scale) may shift the
   distributions — E3/E4 re-read coverage on the frozen edges.
+- Coverage is bounded by the generators' descriptor RANGE, measured
+  (cycle 19 I5b, `occupancy_saturation_stage0.json`): the archive
+  fills 100% of its population's support; novelty-first selection
+  from a 3× pool lifts coverage to 0.730 at the same scored budget
+  (QD trade recorded); 138 of 512 bins stay unreached at 3× volume.
 - ~~`behavior_neediness` at 16×16 is mass-dominated and supports only
   6 distinct edges~~ CLOSED by DR 0036 (cycle 19 I5a): the
   reference-canvas recalibration restores 7 of 7 distinct octile

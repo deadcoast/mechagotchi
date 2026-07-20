@@ -1,0 +1,147 @@
+{
+  "artifact_id": "occupancy_saturation_stage0",
+  "status": "complete",
+  "date": "2026-07-20",
+  "purpose": "Measure what bounds archive coverage past the DR 0036 level (~0.62) with pre-registered instruments: the population support ceiling, the in-sample edge lever, and the novelty-first pool lever at the same scored budget.",
+  "source_artifacts": [
+    "labs/map_elites_archive/niche_scale_archive.py",
+    "data/archives/niche_scale_archive_stage0.json",
+    "research/decision_records/0036-neediness-scale-recalibration.md",
+    "research/experiment_reports/2026-07-09-phase-e-gate.md"
+  ],
+  "parameters": {
+    "derivation_count": 600,
+    "evaluation_count": 3000,
+    "pool_factor": 3,
+    "rng_seed": 20260709,
+    "lifecycle_ticks": 24,
+    "lever_threshold": 0.02,
+    "support_utilization_bar": 0.9,
+    "population_composition": {
+      "constrained": 1500,
+      "wfc": 1500
+    }
+  },
+  "metrics": {
+    "support_ceiling": {
+      "distinct_descriptors": 334,
+      "of_total_niches": 512
+    },
+    "novelty_pool_support": {
+      "pool_size": 9000,
+      "distinct_descriptors": 374
+    },
+    "arms": {
+      "baseline": {
+        "archive_kind": "map_elites",
+        "geometry": "scale",
+        "descriptor_names": [
+          "symmetry",
+          "visual_complexity",
+          "behavior_neediness"
+        ],
+        "descriptor_cardinalities": [
+          8,
+          8,
+          8
+        ],
+        "total_possible_niches": 512,
+        "occupied_niches": 334,
+        "coverage": 0.652344,
+        "descriptor_bin_spread": {
+          "symmetry": 8,
+          "visual_complexity": 8,
+          "behavior_neediness": 8
+        },
+        "best_fitness": 0.980075,
+        "mean_elite_fitness": 0.706093,
+        "qd_score": 235.835071,
+        "candidate_count": 3000,
+        "blocked_invalid_count": 0,
+        "event_counts": {
+          "inserted_empty_niche": 334,
+          "kept_incumbent_higher_fitness": 2218,
+          "replaced_elite": 448
+        }
+      },
+      "in_sample_edges": {
+        "archive_kind": "map_elites",
+        "geometry": "scale",
+        "descriptor_names": [
+          "symmetry",
+          "visual_complexity",
+          "behavior_neediness"
+        ],
+        "descriptor_cardinalities": [
+          8,
+          8,
+          8
+        ],
+        "total_possible_niches": 512,
+        "occupied_niches": 340,
+        "coverage": 0.664062,
+        "descriptor_bin_spread": {
+          "symmetry": 8,
+          "visual_complexity": 8,
+          "behavior_neediness": 8
+        },
+        "best_fitness": 0.980075,
+        "mean_elite_fitness": 0.707601,
+        "qd_score": 240.584177,
+        "candidate_count": 3000,
+        "blocked_invalid_count": 0,
+        "event_counts": {
+          "inserted_empty_niche": 340,
+          "kept_incumbent_higher_fitness": 2194,
+          "replaced_elite": 466
+        }
+      },
+      "novelty_pool": {
+        "archive_kind": "map_elites",
+        "geometry": "scale",
+        "descriptor_names": [
+          "symmetry",
+          "visual_complexity",
+          "behavior_neediness"
+        ],
+        "descriptor_cardinalities": [
+          8,
+          8,
+          8
+        ],
+        "total_possible_niches": 512,
+        "occupied_niches": 374,
+        "coverage": 0.730469,
+        "descriptor_bin_spread": {
+          "symmetry": 8,
+          "visual_complexity": 8,
+          "behavior_neediness": 8
+        },
+        "best_fitness": 0.984225,
+        "mean_elite_fitness": 0.598521,
+        "qd_score": 223.846989,
+        "candidate_count": 3000,
+        "blocked_invalid_count": 0,
+        "event_counts": {
+          "inserted_empty_niche": 374,
+          "kept_incumbent_higher_fitness": 2312,
+          "replaced_elite": 314
+        }
+      }
+    },
+    "support_utilization": 1.0,
+    "levers": {
+      "in_sample_edges": 0.011718,
+      "novelty_pool": 0.078125
+    },
+    "finding": "measured_levers_move_the_plateau: novelty_pool"
+  },
+  "closed_states": [
+    "occupancy_bound_instrumented (support ceiling + two measured levers at the same scored budget)"
+  ],
+  "blocked_states": [
+    "mutation_heavy_arm_not_run (the constrained generator exposes no mutation-temperature knob; adding one is a generator change with its own decision record \u2014 named, never smuggled)"
+  ],
+  "decision": "measured_levers_move_the_plateau: novelty_pool",
+  "next_research_step": "if generation support is the bound: a descriptor-targeted generator increment (its own record); otherwise adopt the winning lever with its own gate"
+}
