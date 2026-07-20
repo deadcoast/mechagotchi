@@ -1,0 +1,14 @@
+{
+  "run_id": "run_seed0_num8192",
+  "language": "bff_noheads",
+  "seed": 0,
+  "num_programs": 8192,
+  "max_epochs": 16384,
+  "save_interval": 2048,
+  "command": "bin/main --lang bff_noheads --seed 0 --num 8192 --max_epochs 16384 --save_interval 2048 --checkpoint_dir <checkpoint_dir> --log <checkpoint_dir>/metrics.csv --disable_output",
+  "cubff_commit": "f212e849027c98fcf4b242eccfb5fed435223e23",
+  "build": "make CUDA=0 (g++ 13.3.0, OpenMP CPU path, libbrotli) on WSL2 Ubuntu 24.04",
+  "captured": "2026-07-12",
+  "curated_checkpoints": "all nine saves committed (epochs 0..16384 by filename; header epoch is filename+1)",
+  "notes": "The cycle 17 G2 run. Over this window the soup stays early-phase; a separate 262144-epoch probe of the same parameters (2026-07-19) also never crossed the takeover ratio, recorded in the cycle 19 I1 experiment report."
+}

@@ -16,6 +16,13 @@ CHECKPOINT_FIELDS = ["reset_index", "num_programs", "epoch", "soup_bytes"]
 SNAPSHOT_EXTENSIONS = {".dat", ".json", ".jsonl"}
 DATA_ARTIFACT_EXTENSIONS = {".dat", ".bin", ".json", ".jsonl", ".npy", ".npz", ".ppm"}
 METRICS_LOG_HEADER = "epoch,brotli_size,soup_size,higher_entropy"
+METRICS_LOG_FILENAME = "metrics.csv"
+RUN_MANIFEST_FILENAME = "run.json"
+# The takeover signal is the brotli compression collapse measured by the
+# upstream run itself (arXiv:2406.19108): early-phase soup compresses to
+# ~0.85-0.92 of raw, post-takeover soup to ~0.18. Any threshold between
+# the two modes separates them; 0.5 is the pre-registered midpoint.
+TAKEOVER_COMPRESSION_RATIO = 0.5
 
 
 def ingest_snapshot_file(
@@ -38,6 +45,10 @@ def ingest_snapshot_file(
     suffix = path.suffix.lower()
     snapshots: list[dict] = []
     rejected_records: list[dict] = []
+    if path.name == RUN_MANIFEST_FILENAME:
+        # A run manifest records the fleet's reproduction parameters; it
+        # is provenance for its directory's snapshots, never a snapshot.
+        return {"snapshots": [], "rejected_records": []}
     if suffix == ".dat":
         snapshots.append(
             _parse_binary_checkpoint(
@@ -86,7 +97,95 @@ def ingest_snapshot_file(
                 rejected_records=rejected_records,
                 line_number=index + 1,
             )
+    metrics_rows = _sibling_metrics_rows(path)
+    run_parameters = _sibling_run_manifest(path)
+    run_id = (run_parameters or {}).get("run_id")
+    for snapshot in snapshots:
+        _label_phase(snapshot, metrics_rows)
+        if run_parameters is not None:
+            snapshot["provenance"]["run_parameters"] = run_parameters
+        if isinstance(run_id, str) and run_id:
+            # Runs reuse checkpoint filenames (0000002048.dat, ...); the
+            # manifest's run_id keeps ids unique across a corpus of runs.
+            snapshot["snapshot_id"] = f"{run_id}/{snapshot['snapshot_id']}"
     return {"snapshots": snapshots, "rejected_records": rejected_records}
+
+
+def load_metrics_log(path: str | Path) -> dict[int, dict]:
+    """Parse an upstream metrics log into {epoch: row}.
+
+    Rows that do not parse as ``epoch,brotli_size,soup_size,higher_entropy``
+    (the header included) are skipped; the log is the run's own measurement
+    and is never repaired or interpolated.
+    """
+    rows: dict[int, dict] = {}
+    for line in Path(path).read_text(encoding="utf-8").splitlines():
+        parts = line.strip().split(",")
+        if len(parts) != 4:
+            continue
+        try:
+            epoch = int(parts[0])
+            row = {
+                "brotli_size": int(parts[1]),
+                "soup_size": int(parts[2]),
+                "higher_entropy": float(parts[3]),
+            }
+        except ValueError:
+            continue
+        rows[epoch] = row
+    return rows
+
+
+def _sibling_metrics_rows(path: Path) -> dict[int, dict]:
+    metrics_path = path.parent / METRICS_LOG_FILENAME
+    if not metrics_path.is_file():
+        return {}
+    try:
+        return load_metrics_log(metrics_path)
+    except OSError:
+        return {}
+
+
+def _sibling_run_manifest(path: Path) -> dict | None:
+    manifest_path = path.parent / RUN_MANIFEST_FILENAME
+    if not manifest_path.is_file():
+        return None
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return manifest if isinstance(manifest, dict) else None
+
+
+def _label_phase(record: dict, metrics_rows: dict[int, dict]) -> None:
+    """Label a snapshot early_phase / post_takeover / unmeasured.
+
+    The brotli evidence comes from the record itself (Python state
+    exports) or from the run's own metrics log joined on the checkpoint
+    header epoch (the filename+1 observation: file NNNN.dat carries
+    header epoch NNNN+1, which is the epoch the metrics row records).
+    Without measured evidence the phase stays "unmeasured".
+    """
+    brotli = record.get("brotli_size")
+    metrics_row = None
+    if not _is_number(brotli):
+        metrics_row = metrics_rows.get(record["epoch"])
+        if metrics_row is not None:
+            brotli = metrics_row["brotli_size"]
+    if not _is_number(brotli) or not record.get("soup_size"):
+        record["phase"] = "unmeasured"
+        return
+    ratio = brotli / record["soup_size"]
+    record["phase"] = (
+        "post_takeover" if ratio < TAKEOVER_COMPRESSION_RATIO else "early_phase"
+    )
+    record["compression_ratio"] = round(ratio, 6)
+    if metrics_row is not None:
+        record["metrics"] = {
+            "metrics_epoch": record["epoch"],
+            "brotli_size": metrics_row["brotli_size"],
+            "higher_entropy": metrics_row["higher_entropy"],
+        }
 
 
 def _ingest_record(
@@ -212,6 +311,8 @@ def build_ingest_report(
         "snapshot_ids": [snapshot["snapshot_id"] for snapshot in snapshots],
         "ingested_snapshots": snapshots,
         "feature_summary": _feature_summary(snapshots),
+        "phase_summary": _phase_summary(snapshots),
+        "corpus_truth": _corpus_truth(snapshots),
         "rejected_files": rejected_files,
         "rejected_records": rejected_records,
         "non_snapshot_files": non_snapshot_files,
@@ -407,6 +508,24 @@ def _feature_summary(snapshots: list[dict]) -> dict:
     }
 
 
+def _phase_summary(snapshots: list[dict]) -> dict:
+    summary = {"early_phase": 0, "post_takeover": 0, "unmeasured": 0}
+    for snapshot in snapshots:
+        summary[snapshot.get("phase", "unmeasured")] += 1
+    return summary
+
+
+def _corpus_truth(snapshots: list[dict]) -> str:
+    summary = _phase_summary(snapshots)
+    if summary["early_phase"] and summary["post_takeover"]:
+        return "early_and_post_takeover"
+    if summary["early_phase"]:
+        return "early_phase_only"
+    if summary["post_takeover"]:
+        return "post_takeover_only"
+    return "unlabeled"
+
+
 def _checkpoint_format() -> dict:
     return {
         "source": "CuBFF common_language.h checkpoint writer",
@@ -508,6 +627,10 @@ def _readme_text(report: dict) -> str:
         "Key results:\n\n"
         f"- Status: {report['status']}\n"
         f"- Ingested snapshots: {report['ingested_snapshot_count']}\n"
+        f"- Corpus truth: {report['corpus_truth']} "
+        f"(early {report['phase_summary']['early_phase']} · "
+        f"post-takeover {report['phase_summary']['post_takeover']} · "
+        f"unmeasured {report['phase_summary']['unmeasured']})\n"
         f"- Non-snapshot files ignored: {report['non_snapshot_file_count']}\n"
         f"- Decision: {report['decision']['status']}\n\n"
         "Metrics logs are not treated as snapshots. CuBFF adoption remains "

@@ -21,6 +21,13 @@ layer for computational-life state snapshots.
 - Normalized real-CuBFF snapshot records
 - First-program 64-byte `tape` vectors compatible with the semantic transducer
 - Soup size, program count, soup hash, epoch, and optional replication scores
+- Phase labels (`early_phase` / `post_takeover` / `unmeasured`) joined from the
+  run's own `metrics.csv` on the checkpoint header epoch (filename+1), with
+  `compression_ratio` and the pre-registered `TAKEOVER_COMPRESSION_RATIO = 0.5`
+  midpoint; `run.json` reproduction manifests attached as
+  `provenance.run_parameters` (cycle 19 I1)
+- Report-level `phase_summary` and `corpus_truth`
+  (`early_and_post_takeover` only when both phases are really present)
 - Ingest report and upstream source audit
 
 ## Strengths
@@ -62,29 +69,32 @@ Sources:
 
 ## Prototype Result
 
-Implemented on 2026-05-12.
+Implemented on 2026-05-12; the gate flipped on real data in cycle 17 G2
+(2026-07-12); phase labeling added in cycle 19 I1 (2026-07-20).
 
 Artifacts:
 
 - `labs/cubff_transducer/real_snapshot_ingest.py`
 - `labs/cubff_transducer/test_real_snapshot_ingest.py`
 - `data/cubff_real_ingest/real_snapshot_ingest_stage0_report.json`
-- `data/cubff_real_ingest/source_snapshots/README.md`
+- `data/cubff_real_ingest/source_snapshots/README.md` (+ per-run `run.json`)
 - `research/experiment_reports/2026-05-12-cubff-real-snapshot-ingest.md`
+- `research/experiment_reports/2026-07-12-real-cubff-corpus.md` (G2)
+- `research/experiment_reports/2026-07-20-post-takeover-corpus.md` (I1)
 
-Measured result:
-
-- Upstream audited files: 60
-- Committed upstream snapshot artifacts: 0
-- Committed upstream metrics logs: 13
-- Local real snapshots ingested: 0
+Measured result (2026-05-12 audit): upstream audited files 60, committed
+upstream snapshot artifacts 0, committed upstream metrics logs 13 — the
+original blocker. Measured result (G2/I1): real checkpoints from genuine
+upstream runs ingested with 0 rejections; the paper-scale run's own metrics
+cross the takeover ratio between epochs 2753 and 2817; the committed corpus
+truth is `early_and_post_takeover` (counts in the stage-0 report).
 
 ## Decision
 
-Blocked on real snapshot availability. Do not revisit CUBFF adoption from the
-synthetic transducer result. The parser and report gate are ready, but the
-transducer comparison cannot run until real CuBFF checkpoint or Python callback
-state exports exist.
+Adopted as the corpus gate (never a core dependency — the adoption note
+stands): real snapshots flow through this ingest, phase-labeled by the run's
+own instruments. The transducer comparison over post-takeover states is the
+I2 study's charter.
 
 ## Go/No-Go Gate
 

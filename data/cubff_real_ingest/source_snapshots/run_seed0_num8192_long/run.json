@@ -1,0 +1,18 @@
+{
+  "run_id": "run_seed0_num8192_long",
+  "language": "bff_noheads",
+  "seed": 0,
+  "num_programs": 8192,
+  "max_epochs": 262144,
+  "save_interval": 262144,
+  "command": "bin/main --lang bff_noheads --seed 0 --num 8192 --max_epochs 262144 --save_interval 262144 --checkpoint_dir <checkpoint_dir> --log <checkpoint_dir>/metrics.csv --disable_output",
+  "cubff_commit": "f212e849027c98fcf4b242eccfb5fed435223e23",
+  "build": "make CUDA=0 (g++ 13.3.0, OpenMP CPU path, libbrotli) on WSL2 Ubuntu 24.04",
+  "captured": "2026-07-20",
+  "negative_finding": "the NEGATIVE CONTROL: 16x the G2 window at the G2 soup size and the takeover ratio is NEVER crossed — minimum compression ratio 0.675 at epoch 250369, final 0.939 at epoch 262145 (4096 metrics rows). Takeover at this soup size was not observed; a 2026-07-19 probe of the same parameters agreed on the headline.",
+  "curated_checkpoints": [
+    "0000262144.dat"
+  ],
+  "uncommitted_checkpoints": "0000000000.dat (epoch-1 random soup, same role as run_seed0_num8192's epoch-1 save) — reproducible from the recorded command",
+  "notes": "The committed final checkpoint is the deliberate contrast state: LATE-EPOCH (262144) yet EARLY-PHASE — age and phase are different axes, and the corpus now carries both."
+}

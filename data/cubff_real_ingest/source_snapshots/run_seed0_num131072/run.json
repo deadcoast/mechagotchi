@@ -1,0 +1,21 @@
+{
+  "run_id": "run_seed0_num131072",
+  "language": "bff_noheads",
+  "seed": 0,
+  "num_programs": 131072,
+  "max_epochs": 32768,
+  "save_interval": 2048,
+  "command": "bin/main --lang bff_noheads --seed 0 --num 131072 --max_epochs 32768 --save_interval 2048 --checkpoint_dir <checkpoint_dir> --log <checkpoint_dir>/metrics.csv --disable_output",
+  "cubff_commit": "f212e849027c98fcf4b242eccfb5fed435223e23",
+  "build": "make CUDA=0 (g++ 13.3.0, OpenMP CPU path, libbrotli) on WSL2 Ubuntu 24.04",
+  "captured": "2026-07-20",
+  "takeover_observation": "the run's own metrics cross compression ratio 0.5 between epochs 2753 and 2817 (0.708 -> 0.388 in one 64-epoch window)",
+  "curated_checkpoints": [
+    "0000000000.dat",
+    "0000002048.dat",
+    "0000004096.dat",
+    "0000032768.dat"
+  ],
+  "uncommitted_checkpoints": "epochs 6144..30720 by 2048 (thirteen saves, ~8.4 MB each) — reproducible from the recorded command; curation is a size decision, never a truth decision",
+  "notes": "The cycle 19 I1 run: the paper-scale soup (the upstream default --num) driven past takeover to late epochs. Filename epoch is header epoch minus one (the G3-observed rule)."
+}

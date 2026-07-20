@@ -26,7 +26,9 @@ from real_transducer_study import (  # noqa: E402
     run_real_transducer_study,
 )
 
-G2_CORPUS = ROOT / "data" / "cubff_real_ingest" / "source_snapshots"
+G2_CORPUS = (
+    ROOT / "data" / "cubff_real_ingest" / "source_snapshots" / "run_seed0_num8192"
+)
 SOURCE_COMMIT = "f212e849027c98fcf4b242eccfb5fed435223e23"
 
 

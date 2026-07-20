@@ -21,12 +21,16 @@ finding), `2026-07-08-clip-model.md` + DR 0015 (the named per-role
 increment), `2026-07-19-phase-h-gate.md` (the remainder list this
 cycle opens).
 
-- [ ] **I1 · The post-takeover corpus.** Extend the G2 real-ingest
-  build path past takeover to late epochs; curate post-takeover
-  states with the same discipline (tapes + soup hashes committed, the
-  raw fleet reproducible from recorded parameters; the epoch
-  filename+1 observation honored). The corpus truth: early-phase AND
-  post-takeover states, labeled.
+- [x] **I1 · The post-takeover corpus.** DONE 2026-07-20
+  (`research/experiment_reports/2026-07-20-post-takeover-corpus.md`):
+  the paper-scale run (131,072 programs, seed 0, 32,768 epochs)
+  crosses the takeover ratio between epochs 2753 and 2817 by its own
+  metrics; the committed negative control (8192 programs, 262,144
+  epochs) NEVER crosses it — soup age ≠ soup phase, both committed.
+  Per-run corpus dirs with `run.json` manifests; the ingest labels
+  from the run's own metrics (epoch filename+1 honored, run_id
+  disambiguates ids); gate: 14/0/0, corpus_truth
+  `early_and_post_takeover`; game 153 unchanged over the seam.
 - [ ] **I2 · The transducer study un-saturated.** Re-run the
   documented study over post-takeover states. The G3 degeneracy is
   the pre-registered expectation to BREAK: the direct arm should
