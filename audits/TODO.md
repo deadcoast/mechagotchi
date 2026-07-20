@@ -31,12 +31,17 @@ cycle opens).
   from the run's own metrics (epoch filename+1 honored, run_id
   disambiguates ids); gate: 14/0/0, corpus_truth
   `early_and_post_takeover`; game 153 unchanged over the seam.
-- [ ] **I2 · The transducer study un-saturated.** Re-run the
-  documented study over post-takeover states. The G3 degeneracy is
-  the pre-registered expectation to BREAK: the direct arm should
-  leave 0-valid and readability should leave flat — gates
-  falsifiable both ways again, boundary values pinned, keep/reject
-  judged on the engine's own numbers.
+- [x] **I2 · The transducer study un-saturated.** DONE 2026-07-20
+  (`2026-07-20-transducer-study-post-takeover.md`) — **the
+  pre-registered break REFUTED, a first-class finding**: 20 fresh
+  runs at the proven takeover scale (400 states, 386 early / 14
+  post-takeover; onset stochastic — only 4/20 seeds cross by 6,144),
+  and over the post subset the direct arm is STILL 0-valid with
+  readability flat — the saturation is a property of the ARMS, not
+  the soup's phase. Gates re-judged: preference 400/400, invalid
+  0/400 → KEEP unchanged; G3's artifact frozen under its own id.
+  The sharper remainder: un-saturation needs a different direct arm
+  (a structured decoder), a new study design — not more epochs.
 - [ ] **I3 · Real weather harshness.** Post-takeover snapshots through
   the UNTOUCHED cubff_pressure_source seam; the multiplier direction
   measured, not tuned (does late soup breach the synthetic storm's
@@ -52,6 +57,16 @@ cycle opens).
   16×16 and occupancy saturation MEASURED (the standing note's named
   items) with honest findings — closures where the numbers close
   them, sharper named remainders where they don't.
+  - [x] I5a behavior_neediness DONE 2026-07-20
+    (`2026-07-20-neediness-scale16.md`, DR 0036): mass-domination
+    measured (r −0.726 at 16×16), the reference-canvas recalibration
+    gated and applied at both parity sites (8×8 identity exact,
+    sensors lead again at +0.904) — and the measured occupancy link:
+    coverage 0.535 → 0.623 (274 → 319/512) from un-collapsing the
+    axis alone.
+  - [ ] I5b occupancy saturation past ~62%: the plateau measured with
+    the Phase-E candidates (novelty pressure, re-derived edges,
+    mutation-heavy arms) — closure or a sharper bound.
 - [ ] **I6 · The Phase-I gate.** One consolidated report; cycle 19
   archived; cycle 20 planned from the documentation.
 

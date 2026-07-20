@@ -22,6 +22,7 @@ if str(LAB_DIR) not in sys.path:
 
 from real_transducer_study import (  # noqa: E402
     curate_states,
+    judge_degeneracy,
     judge_gates,
     run_real_transducer_study,
 )
@@ -67,6 +68,83 @@ class GateTests(unittest.TestCase):
         ] * 2
         self.assertFalse(judge_gates(invalid)["invalid_gate_met"])
         self.assertEqual("reject", judge_gates(invalid)["keep_decision"])
+
+
+def _phased_result(
+    phase: str,
+    *,
+    direct_valid: bool = False,
+    direct_readability: float = 0.0,
+    semantic_readability: float = 1.0,
+) -> dict:
+    return {
+        "snapshot_id": "s",
+        "run_seed": 0,
+        "phase": phase,
+        "semantic_valid": True,
+        "direct_valid": direct_valid,
+        "semantic_readability": semantic_readability,
+        "direct_readability": direct_readability,
+        "semantic_preferred": semantic_readability > direct_readability,
+    }
+
+
+class DegeneracyTests(unittest.TestCase):
+    """Cycle 19 I2: G3's saturation is the pre-registered expectation
+
+    to BREAK over post-takeover states — and the judgment must be
+    falsifiable both ways (a corpus that stays degenerate is a
+    first-class finding, not an error).
+    """
+
+    def test_post_takeover_direct_validity_breaks_the_degeneracy(self):
+        results = [
+            _phased_result("early_phase"),
+            _phased_result("post_takeover", direct_valid=True),
+            _phased_result("post_takeover"),
+        ]
+        verdict = judge_degeneracy(results)
+        self.assertEqual(2, verdict["post_takeover_state_count"])
+        self.assertEqual(1, verdict["direct_valid_count"])
+        self.assertTrue(verdict["direct_left_zero_valid"])
+        self.assertTrue(verdict["degeneracy_broken"])
+
+    def test_post_takeover_readability_variance_breaks_the_degeneracy(self):
+        results = [
+            _phased_result("post_takeover", direct_readability=0.0),
+            _phased_result("post_takeover", direct_readability=0.25),
+        ]
+        verdict = judge_degeneracy(results)
+        self.assertFalse(verdict["direct_left_zero_valid"])
+        self.assertTrue(verdict["direct_readability_left_flat"])
+        self.assertTrue(verdict["degeneracy_broken"])
+        self.assertEqual(0.0, verdict["direct_readability_min"])
+        self.assertEqual(0.25, verdict["direct_readability_max"])
+
+    def test_a_still_degenerate_post_takeover_corpus_is_reported_honestly(self):
+        results = [
+            _phased_result("post_takeover"),
+            _phased_result("post_takeover"),
+        ]
+        verdict = judge_degeneracy(results)
+        self.assertFalse(verdict["direct_left_zero_valid"])
+        self.assertFalse(verdict["direct_readability_left_flat"])
+        self.assertFalse(verdict["degeneracy_broken"])
+
+    def test_no_post_takeover_states_cannot_claim_a_break(self):
+        verdict = judge_degeneracy([_phased_result("early_phase")])
+        self.assertEqual(0, verdict["post_takeover_state_count"])
+        self.assertFalse(verdict["degeneracy_broken"])
+        self.assertIn("no post-takeover states", verdict["reason"])
+
+    def test_semantic_variance_is_recorded_but_never_the_break_criterion(self):
+        results = [
+            _phased_result("post_takeover", semantic_readability=1.0),
+            _phased_result("post_takeover", semantic_readability=0.75),
+        ]
+        verdict = judge_degeneracy(results)
+        self.assertTrue(verdict["semantic_readability_left_flat"])
+        self.assertFalse(verdict["degeneracy_broken"])
 
 
 class CurationTests(unittest.TestCase):
@@ -117,6 +195,52 @@ class StudyTests(unittest.TestCase):
         self.assertEqual(
             "real_cubff_checkpoints", first["source_mode"]
         )
+
+    def test_per_state_carries_phase_and_the_report_judges_degeneracy(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            run_dir = Path(tmp) / "seed00"
+            run_dir.mkdir()
+            dats = sorted(G2_CORPUS.glob("*.dat"))[:2]
+            for dat in dats:
+                (run_dir / dat.name).write_bytes(dat.read_bytes())
+            # The run's own metrics: first save early, second post.
+            (run_dir / "metrics.csv").write_text(
+                "epoch,brotli_size,soup_size,higher_entropy\n"
+                "1,524284,8192,-0.000301\n"
+                "2049,100000,8192,5.0\n",
+                encoding="utf-8",
+            )
+            states = curate_states(
+                Path(tmp), source_commit=SOURCE_COMMIT
+            )
+            report = run_real_transducer_study(states, rng_seed=5150)
+        self.assertEqual(
+            ["early_phase", "post_takeover"],
+            [entry["phase"] for entry in report["per_state"]],
+        )
+        self.assertEqual(
+            {"early_phase": 1, "post_takeover": 1, "unmeasured": 0},
+            report["phase_summary"],
+        )
+        self.assertIn("degeneracy_broken", report["degeneracy"])
+        self.assertEqual(
+            1, report["degeneracy"]["post_takeover_state_count"]
+        )
+
+    def test_artifact_identity_can_diverge_so_g3_stays_frozen(self):
+        report = run_real_transducer_study(
+            [], artifact_id="real_transducer_study_i2_stage0",
+            date="2026-07-20",
+        )
+        self.assertEqual(
+            "real_transducer_study_i2_stage0", report["artifact_id"]
+        )
+        self.assertEqual("2026-07-20", report["date"])
+        default = run_real_transducer_study([])
+        self.assertEqual(
+            "real_transducer_study_stage0", default["artifact_id"]
+        )
+        self.assertEqual("2026-07-12", default["date"])
 
 
 if __name__ == "__main__":

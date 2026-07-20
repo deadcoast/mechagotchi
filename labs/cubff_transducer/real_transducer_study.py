@@ -120,8 +120,65 @@ def judge_gates(results: list[dict]) -> dict:
     }
 
 
+def judge_degeneracy(results: list[dict]) -> dict:
+    """Cycle 19 I2: judge whether G3's saturation broke — over the
+    post-takeover subset only, falsifiable both ways.
+
+    G3's degeneracy: the direct arm 0/400 valid with readability flat
+    0.0 (both instruments saturated on early-phase soup). The
+    pre-registered expectation for post-takeover states is to BREAK
+    it: the direct arm leaves 0-valid, or its readability leaves
+    flat. Semantic variance is recorded but is never the break
+    criterion (the semantic compiler is validator-gated by
+    construction — its flatness was the instrument's, not the soup's).
+    A corpus that stays degenerate is a first-class finding.
+    """
+    post = [r for r in results if r.get("phase") == "post_takeover"]
+    verdict: dict = {
+        "expectation": (
+            "pre-registered (cycle 19 I2): post-takeover states break "
+            "G3's saturation — the direct arm leaves 0-valid or its "
+            "readability leaves flat"
+        ),
+        "post_takeover_state_count": len(post),
+    }
+    if not post:
+        verdict["degeneracy_broken"] = False
+        verdict["reason"] = (
+            "no post-takeover states in the corpus — the expectation "
+            "cannot be judged, and a break cannot be claimed"
+        )
+        return verdict
+    direct_valid = sum(1 for r in post if r["direct_valid"])
+    direct_reads = [r["direct_readability"] for r in post]
+    semantic_reads = [r["semantic_readability"] for r in post]
+    verdict.update(
+        {
+            "direct_valid_count": direct_valid,
+            "direct_readability_min": min(direct_reads),
+            "direct_readability_max": max(direct_reads),
+            "semantic_readability_min": min(semantic_reads),
+            "semantic_readability_max": max(semantic_reads),
+            "direct_left_zero_valid": direct_valid > 0,
+            "direct_readability_left_flat": max(direct_reads)
+            > min(direct_reads),
+            "semantic_readability_left_flat": max(semantic_reads)
+            > min(semantic_reads),
+        }
+    )
+    verdict["degeneracy_broken"] = (
+        verdict["direct_left_zero_valid"]
+        or verdict["direct_readability_left_flat"]
+    )
+    return verdict
+
+
 def run_real_transducer_study(
-    states: list[dict], *, rng_seed: int = 5150
+    states: list[dict],
+    *,
+    rng_seed: int = 5150,
+    artifact_id: str = ARTIFACT_ID,
+    date: str = REPORT_DATE,
 ) -> dict:
     """Both arms per state, the lab's own functions verbatim."""
     seed_grids = build_seed_grids()
@@ -149,6 +206,7 @@ def run_real_transducer_study(
                 "snapshot_id": state["snapshot_id"],
                 "run_seed": state["run_seed"],
                 "epoch": state["epoch"],
+                "phase": state.get("phase", "unmeasured"),
                 "direct_valid": direct_valid,
                 "semantic_valid": semantic_valid,
                 "direct_readability": direct_read,
@@ -158,16 +216,21 @@ def run_real_transducer_study(
         )
     gates = judge_gates(per_state)
     run_seeds = sorted({state["run_seed"] for state in states})
+    phase_summary = {"early_phase": 0, "post_takeover": 0, "unmeasured": 0}
+    for entry in per_state:
+        phase_summary[entry["phase"]] += 1
     return {
-        "artifact_id": ARTIFACT_ID,
+        "artifact_id": artifact_id,
         "status": "complete",
-        "date": REPORT_DATE,
+        "date": date,
         "source_mode": "real_cubff_checkpoints",
         "state_count": len(states),
         "run_count": len(run_seeds),
         "run_seeds": run_seeds,
+        "phase_summary": phase_summary,
         "per_state": per_state,
         "gates": gates,
+        "degeneracy": judge_degeneracy(per_state),
         "arms": {
             "direct": "A: raw tape to pixels (the lab's projection)",
             "semantic": (
@@ -183,14 +246,16 @@ def run_real_transducer_study(
 
 
 def write_study_artifacts(
-    output_dir: str | Path, report: dict, states: list[dict]
+    output_dir: str | Path,
+    report: dict,
+    states: list[dict],
+    *,
+    curated_filename: str = "real_states_curated.json",
 ) -> Path:
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
-    write_curated_states(
-        output_dir / "real_states_curated.json", states
-    )
-    path = output_dir / f"{ARTIFACT_ID}.json"
+    write_curated_states(output_dir / curated_filename, states)
+    path = output_dir / f"{report['artifact_id']}.json"
     path.write_text(
         json.dumps(report, indent=2) + "\n", encoding="utf-8"
     )
@@ -209,11 +274,24 @@ if __name__ == "__main__":
         type=Path,
         default=ROOT / "data" / "cubff_transducer",
     )
+    parser.add_argument("--artifact-id", default=ARTIFACT_ID)
+    parser.add_argument("--date", default=REPORT_DATE)
+    parser.add_argument(
+        "--curated-filename", default="real_states_curated.json"
+    )
     args = parser.parse_args()
     curated = curate_states(
         args.fleet_dir, source_commit=args.source_commit
     )
-    study = run_real_transducer_study(curated)
-    written = write_study_artifacts(args.output_dir, study, curated)
+    study = run_real_transducer_study(
+        curated, artifact_id=args.artifact_id, date=args.date
+    )
+    written = write_study_artifacts(
+        args.output_dir,
+        study,
+        curated,
+        curated_filename=args.curated_filename,
+    )
     print(f"wrote {written}")
     print(json.dumps(study["gates"], indent=2))
+    print(json.dumps(study["degeneracy"], indent=2))

@@ -121,3 +121,22 @@ caught by `labs/cubff_transducer/test_package_cubff_parity.py`.
 Promoted-surface measurement matches R2 (chaotic 1.17x vs stable
 0.90x at the same seed). Real-snapshot exercise remains honestly
 blocked: the ingest gate still reports awaiting_real_cubff_snapshots.
+
+## Real-Study Result (2026-07-12 G3 · 2026-07-20 I2)
+
+The blocker above closed in cycle 17 G2 (real corpus, the gate
+flipped 9/0/0). G3 ran the documented study over 400 real early-phase
+states: preference 400/400, invalid 0/400 → KEEP — with the sweep's
+degeneracy scrutinized (direct arm 0/400 valid, both instruments
+saturated; "post-takeover states would un-saturate" recorded as the
+remainder). Cycle 19 I2 re-ran the study over a fresh 20-run fleet at
+the PROVEN takeover scale (400 states, 14 post-takeover; onset
+stochastic — 4/20 seeds cross by epoch 6,144) and **REFUTED the
+pre-registered break**: the direct arm is still 0-valid with flat
+readability over post-takeover states. The saturation is a property
+of the ARMS, not the soup's phase — the semantic transducer is the
+only viable path from real soup to a displayable creature in ANY
+phase. Un-saturating the comparison now requires a DIFFERENT direct
+arm (a structured tape decoder), a new study design with its own
+record. Evidence: `data/cubff_transducer/real_transducer_study_stage0.json`
+(G3, frozen) + `real_transducer_study_i2_stage0.json` (I2).
