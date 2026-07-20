@@ -154,8 +154,8 @@ this, or am I periscoping?
   cycle FROM THE GAP ANALYSIS, never from your own momentum.
 - **What exists and is genuinely good** (the owner affirms this): a
   robust `research/` evidence ledger; a comprehensive `data/` evidence
-  directory (each folder = one lab's measured `*_stage0.json` outputs
-  + fixture corpora; the two SCHEMAS live in `research/grid_genome/`
+  directory (each folder = one lab's measured `*_stage0.json` outputs +
+  fixture corpora; the two SCHEMAS live in `research/grid_genome/`
   and `research/slip/`); robust `labs/` python wired to
   `packages/mecha_engine` by lab-side parity pins (drift fails the
   suite — keep it that way). Ten promoted engine modules (genome,
@@ -183,8 +183,8 @@ this, or am I periscoping?
 ## 4. The documents that define the application (read before building)
 
 1. `docs/gap-analysis.md` — the roadmap (start here).
-2. `docs/project-research/validity-research.md` — the founding vision
-   + MVP ladder (§1.34 names the first implementation target: the
+2. `docs/project-research/validity-research.md` — the founding vision +
+   MVP ladder (§1.34 names the first implementation target: the
    16×16 creature that "proves the entire thesis").
 3. `docs/project-research/deep-research/01/deep-research.md` — the
    research dossier: scale figures, thresholds, stages M0–M7 (two
@@ -283,8 +283,8 @@ deterministically) measured end to end (beetle admitted, the 8×8
 pair rejected verbatim); 143 game tests. **F17 (carried remainders)
 is DONE (2026-07-12)**: replay persistence via DR 0022's pointer
 rule (file + ledger sha256, hash-verified loads, tampering refused —
-pinned); campaign resume (`keeper_campaign_state_v1`: spent covenant
-+ facts + chain position; founders from the ledger's pool; **a
+pinned); campaign resume (`keeper_campaign_state_v1`: spent covenant +
+facts + chain position; founders from the ledger's pool; **a
 resumed continuation matches the unbroken run byte for byte**,
 observed live across two real processes); the windowed bundle
 launch-verified (exit 0). 147 game tests. Remaining: F18 the 0.3
@@ -398,6 +398,7 @@ stays late-stage.
   (survivorship bias caught a prior analysis); a faithful replay
   reproduces INPUTS exactly (`founder_grids=None` ≠ `[]`).
 - **Commands** (PowerShell, always `python -B`):
+
   ```powershell
   python -B -m unittest discover -s labs/<lab> -p "test_*.py"
   python -B -m unittest discover -s packages/mecha_engine/tests -p "test_*.py"
@@ -405,6 +406,7 @@ stays late-stage.
   python -B labs/package_promotion/package_promotion_gate.py
   python -m json.tool data/<path>.json
   ```
+
   Full sweep (16 labs + package + workshop + CLI) before claiming a
   cycle complete. Ambient `FORCE_COLOR` breaks CLI test assertions —
   the harness pins it; keep that.
@@ -438,8 +440,8 @@ F1 executed end to end and committed:
    machine runs 3.14.3). Godot = named re-opener at 0.2/0.3 scale;
    web stays the workshop's; DR 0021 G4's served-page delivery
    explicitly superseded for the game build.
-2. **The `game/` build**: `src/mecha_game/{packets,rasterize,app,__main__}.py`
-   + `run_game.py` + `evidence.py` + `pyproject.toml`
+2. **The `game/` build**: `src/mecha_game/{packets,rasterize,app,__main__}.py` +
+   `run_game.py` + `evidence.py` + `pyproject.toml`
    (`mechagotchi-game`, entry point `mechagotchi`, uv path source on
    `mecha-engine`). RED-first (4 failing gates), then GREEN: 21 tests
    (packet truth over the real pair `mg_seed16_001_beetle` ×
@@ -459,8 +461,8 @@ F1 executed end to end and committed:
    (RED/GREEN + sweep + the zlib-ng observation), ledger entry in
    `research/README.md`, `game/README.md`,
    `data/game_client/README.md`, F1 checked off in `audits/TODO.md`.
-5. **Sweep green**: 19 labs (system python) + package 291 + workshop 60
-   + CLI 21 + game 21.
+5. **Sweep green**: 19 labs (system python) + package 291 + workshop 60 +
+   CLI 21 + game 21.
 
 Later the same session, **F2 shipped too** (commit after ed07334):
 `session.py` (the product loop — W1 semantics + D6 beg mediation:
