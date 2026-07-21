@@ -27,6 +27,19 @@ CLASS_INDEX: dict[str, int] = {
 LIVE_INDEX: dict[str, int] = {
     token: index for index, token in enumerate(LIVE_TOKENS)
 }
+# DR 0039: perception coarsening by palette family (verbatim mirror of
+# the research CA lab) — the 5-class learned head PERCEIVES rich tokens
+# as their legacy family; projection/reconstruction preserve them
+# verbatim. The 11-class retrain is a named future record.
+PERCEPTION_LIVE: dict[str, str] = {
+    "S": "B",
+    "J": "B",
+    "L": "B",
+    "N": "E",
+    "P": "E",
+    "D": "E",
+    "F": "E",
+}
 NEIGHBORHOOD_OFFSETS: list[tuple[int, int]] = [
     (dx, dy)
     for dy in range(-2, 3)
@@ -64,7 +77,11 @@ def neighborhood_features(
             token = matrix[ny][nx]
             if token != ".":
                 features.append(
-                    (offset_index * len(LIVE_TOKENS) + LIVE_INDEX[token], 1.0)
+                    (
+                        offset_index * len(LIVE_TOKENS)
+                        + LIVE_INDEX[PERCEPTION_LIVE.get(token, token)],
+                        1.0,
+                    )
                 )
     features.append((POSITION_FEATURE_BASE + y * width + x, 1.0))
     features.append((POSITION_FEATURE_BASE + width * height, 1.0))

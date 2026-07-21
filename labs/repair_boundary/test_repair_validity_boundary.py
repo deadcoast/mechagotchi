@@ -77,9 +77,13 @@ class RepairBoundaryStudyTests(unittest.TestCase):
         )
         self.assertEqual(first, second)
 
-    def test_the_failing_invariant_is_the_disconnected_body_core(self):
-        # The mortal-wound claim is evidence-backed, not assumed: the
-        # only invariant the diagnosis finds broken is the core.
+    def test_the_boundary_receded_below_the_test_scale(self):
+        # DR 0039 moved the boundary: vocabulary-preserving projection
+        # plus the guard's island drain heal every wound this reduced
+        # protocol produces — the diagnosis finds NO broken invariant
+        # at test scale (the full-scale artifact records the residual
+        # mortal-wound gradient, cause: anchor loss, never the old
+        # core disconnection).
         saved = study.EVOLVE_SEEDS
         study.EVOLVE_SEEDS = (20260700, 20260703)
         try:
@@ -91,10 +95,8 @@ class RepairBoundaryStudyTests(unittest.TestCase):
             )
         finally:
             study.EVOLVE_SEEDS = saved
-        self.assertTrue(diagnosis["final_grid_invalid_causes"])
-        for cause in diagnosis["final_grid_invalid_causes"]:
-            self.assertIn("body core", cause)
-        self.assertTrue(diagnosis["core_disconnect_is_the_only_cause"])
+        self.assertEqual({}, diagnosis["final_grid_invalid_causes"])
+        self.assertEqual(0, diagnosis["invalid_cycles"])
 
     def test_report_records_the_refuted_hypothesis_and_verdict(self):
         saved = study.EVOLVE_SEEDS

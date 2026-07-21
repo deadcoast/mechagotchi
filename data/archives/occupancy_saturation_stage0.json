@@ -24,12 +24,12 @@
   },
   "metrics": {
     "support_ceiling": {
-      "distinct_descriptors": 334,
+      "distinct_descriptors": 460,
       "of_total_niches": 512
     },
     "novelty_pool_support": {
       "pool_size": 9000,
-      "distinct_descriptors": 374
+      "distinct_descriptors": 493
     },
     "arms": {
       "baseline": {
@@ -46,22 +46,22 @@
           8
         ],
         "total_possible_niches": 512,
-        "occupied_niches": 334,
-        "coverage": 0.652344,
+        "occupied_niches": 460,
+        "coverage": 0.898438,
         "descriptor_bin_spread": {
           "symmetry": 8,
           "visual_complexity": 8,
           "behavior_neediness": 8
         },
-        "best_fitness": 0.980075,
-        "mean_elite_fitness": 0.706093,
-        "qd_score": 235.835071,
+        "best_fitness": 0.974718,
+        "mean_elite_fitness": 0.676452,
+        "qd_score": 311.167774,
         "candidate_count": 3000,
         "blocked_invalid_count": 0,
         "event_counts": {
-          "inserted_empty_niche": 334,
-          "kept_incumbent_higher_fitness": 2218,
-          "replaced_elite": 448
+          "inserted_empty_niche": 460,
+          "kept_incumbent_higher_fitness": 1999,
+          "replaced_elite": 541
         }
       },
       "in_sample_edges": {
@@ -78,22 +78,22 @@
           8
         ],
         "total_possible_niches": 512,
-        "occupied_niches": 340,
-        "coverage": 0.664062,
+        "occupied_niches": 464,
+        "coverage": 0.90625,
         "descriptor_bin_spread": {
           "symmetry": 8,
           "visual_complexity": 8,
           "behavior_neediness": 8
         },
-        "best_fitness": 0.980075,
-        "mean_elite_fitness": 0.707601,
-        "qd_score": 240.584177,
+        "best_fitness": 0.974718,
+        "mean_elite_fitness": 0.684034,
+        "qd_score": 317.391567,
         "candidate_count": 3000,
         "blocked_invalid_count": 0,
         "event_counts": {
-          "inserted_empty_niche": 340,
-          "kept_incumbent_higher_fitness": 2194,
-          "replaced_elite": 466
+          "inserted_empty_niche": 464,
+          "kept_incumbent_higher_fitness": 2003,
+          "replaced_elite": 533
         }
       },
       "novelty_pool": {
@@ -110,29 +110,29 @@
           8
         ],
         "total_possible_niches": 512,
-        "occupied_niches": 374,
-        "coverage": 0.730469,
+        "occupied_niches": 493,
+        "coverage": 0.962891,
         "descriptor_bin_spread": {
           "symmetry": 8,
           "visual_complexity": 8,
           "behavior_neediness": 8
         },
-        "best_fitness": 0.984225,
-        "mean_elite_fitness": 0.598521,
-        "qd_score": 223.846989,
+        "best_fitness": 0.98084,
+        "mean_elite_fitness": 0.616994,
+        "qd_score": 304.17796,
         "candidate_count": 3000,
         "blocked_invalid_count": 0,
         "event_counts": {
-          "inserted_empty_niche": 374,
-          "kept_incumbent_higher_fitness": 2312,
-          "replaced_elite": 314
+          "inserted_empty_niche": 493,
+          "kept_incumbent_higher_fitness": 2092,
+          "replaced_elite": 415
         }
       }
     },
     "support_utilization": 1.0,
     "levers": {
-      "in_sample_edges": 0.011718,
-      "novelty_pool": 0.078125
+      "in_sample_edges": 0.007812,
+      "novelty_pool": 0.064453
     },
     "finding": "measured_levers_move_the_plateau: novelty_pool"
   },

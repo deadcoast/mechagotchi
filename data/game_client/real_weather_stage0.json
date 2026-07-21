@@ -14,26 +14,26 @@
     "weather": {
       "forecast": "real",
       "snapshot_ids": [
-        "0000000000",
-        "0000002048",
-        "0000004096",
-        "0000006144",
-        "0000008192",
-        "0000010240"
+        "run_seed0_num131072/0000000000",
+        "run_seed0_num8192/0000000000",
+        "run_seed0_num131072/0000002048",
+        "run_seed0_num8192/0000002048",
+        "run_seed0_num131072/0000004096",
+        "run_seed0_num8192/0000004096"
       ]
     },
     "generations_ran": 6,
     "went_extinct": false,
-    "elites": 38,
+    "elites": 53,
     "dropout_multipliers_by_generation": [
+      0.873092,
       0.850897,
+      0.772726,
       0.771853,
-      0.817762,
-      0.812638,
-      0.836404,
-      0.811641
+      0.770731,
+      0.817762
     ],
-    "max_multiplier": 0.850897,
+    "max_multiplier": 0.873092,
     "provenance_all_real_ids": true,
     "twin_run_byte_equal": true
   },

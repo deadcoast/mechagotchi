@@ -17,8 +17,8 @@
       "mg_constrained_002"
     ],
     "origins": [
-      "constrained_wfc_style_stabilizer from mg_seed16_017_pupfish \u00b7 proposals 11/12 \u00b7 gen 1",
-      "constrained_wfc_style_stabilizer from mg_seed16_013_sprout \u00b7 proposals 10/12 \u00b7 gen 1",
+      "constrained_wfc_style_stabilizer from mg_seed16_017_pupfish \u00b7 proposals 10/12 \u00b7 gen 1",
+      "constrained_wfc_style_stabilizer from mg_seed16_013_sprout \u00b7 proposals 12/12 \u00b7 gen 1",
       "constrained_wfc_style_stabilizer from mg_seed16_017_pupfish \u00b7 proposals 9/12 \u00b7 gen 1"
     ],
     "explanations": [
@@ -48,8 +48,8 @@
           "errors": []
         },
         "proposal_attempts": 12,
-        "accepted_proposals": 11,
-        "rejected_proposals": 1,
+        "accepted_proposals": 10,
+        "rejected_proposals": 2,
         "model": {
           "strategy": "constrained_wfc_style_stabilizer",
           "seed_count": 50,
@@ -82,8 +82,8 @@
           "errors": []
         },
         "proposal_attempts": 12,
-        "accepted_proposals": 10,
-        "rejected_proposals": 2,
+        "accepted_proposals": 12,
+        "rejected_proposals": 0,
         "model": {
           "strategy": "constrained_wfc_style_stabilizer",
           "seed_count": 50,

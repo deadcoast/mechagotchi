@@ -38,7 +38,10 @@ from mecha_engine.genome import validate_grid
 from mecha_engine.slip import is_grid_aligned, validate_slip
 from .model import (
     GENERATOR_STRATEGY,
+    ORGAN_ORDER,
     PROPOSAL_SOURCE,
+    RICH_ORGAN_ROLES,
+    RICH_TOKENS,
     GenerationModel,
     matrix_from_grid,
     train_generation_model,
@@ -78,12 +81,35 @@ METADATA_SOURCE = "mecha_engine.generation"
 TRACE_METADATA_KEY = "generation_trace"
 BATCH_GRID_ID_TEMPLATE = "mg_constrained_{index:03d}"
 
+# DR 0038's rider: the structural resample-temperature knob. OFF by
+# default (None = the historical 12-attempt loop, byte-identical); when
+# set it must sit in (0, 2] and scales the proposal-attempt count to
+# round(12 * (1 + temperature)). Mirrors the research generator.
+MAX_RESAMPLE_TEMPERATURE = 2.0
+
+
+def _proposal_attempts(resample_temperature: float | None) -> int:
+    if resample_temperature is None:
+        return PROPOSAL_ATTEMPTS
+    if (
+        isinstance(resample_temperature, bool)
+        or not isinstance(resample_temperature, int | float)
+        or not 0 < resample_temperature <= MAX_RESAMPLE_TEMPERATURE
+    ):
+        raise ValueError(
+            "resample_temperature must be a number in (0, "
+            f"{MAX_RESAMPLE_TEMPERATURE}]: {resample_temperature!r}"
+        )
+    return round(PROPOSAL_ATTEMPTS * (1 + resample_temperature))
+
 
 def generate_candidate(
     parent_grid: dict,
     model: GenerationModel,
     slip_profile: dict | None = None,
     rng_seed: int | None = None,
+    *,
+    resample_temperature: float | None = None,
 ) -> dict:
     """Generate one valid child candidate from an explicit parent grid.
 
@@ -116,6 +142,7 @@ def generate_candidate(
                 + "; ".join(parent_alignment.errors)
             )
 
+    attempts = _proposal_attempts(resample_temperature)
     seed = DEFAULT_RNG_SEED if rng_seed is None else rng_seed
     grid_id = _candidate_grid_id(parent_grid["grid_id"], seed)
     rng = random.Random(f"{seed}:{grid_id}")
@@ -127,6 +154,7 @@ def generate_candidate(
         rng_seed=seed,
         slip=slip_profile,
         base_mutation_events=["parent_grid_supplied", "validator_gated_resample"],
+        proposal_attempts=attempts,
     )
 
 
@@ -135,6 +163,8 @@ def generate_batch(
     count: int,
     slip_profile: dict | None = None,
     rng_seed: int | None = None,
+    *,
+    resample_temperature: float | None = None,
 ) -> list[dict]:
     """Generate exactly ``count`` valid, traceable candidates from seeds.
 
@@ -147,6 +177,7 @@ def generate_batch(
     """
     if isinstance(count, bool) or not isinstance(count, int) or count < 0:
         raise ValueError(f"count must be a non-negative integer: {count}")
+    attempts = _proposal_attempts(resample_temperature)
     model = train_generation_model(seed_grids)
     if slip_profile is not None:
         profile_result = validate_slip(slip_profile)
@@ -170,6 +201,7 @@ def generate_batch(
                 rng_seed=seed,
                 slip=slip_profile,
                 base_mutation_events=["seed_parent_selected", "validator_gated_resample"],
+                proposal_attempts=attempts,
             )
         )
     return candidates
@@ -193,6 +225,7 @@ def _stabilize(
     rng_seed: int,
     slip: dict | None,
     base_mutation_events: list[str],
+    proposal_attempts: int = PROPOSAL_ATTEMPTS,
 ) -> dict:
     """Run the validator-gated constrained stabilization pipeline.
 
@@ -216,7 +249,7 @@ def _stabilize(
     matrix = matrix_from_grid(parent_grid)
     accepted_proposals = 0
     rejected_proposals = 0
-    for _ in range(PROPOSAL_ATTEMPTS):
+    for _ in range(proposal_attempts):
         proposal = deepcopy(matrix)
         _attempt_local_resample(proposal, model, rng)
         candidate = _grid_from_matrix(
@@ -279,7 +312,7 @@ def _stabilize(
         "proposal_source": PROPOSAL_SOURCE,
         "rng_seed": rng_seed,
         "parent_grid_id": parent_grid_id,
-        "proposal_attempts": PROPOSAL_ATTEMPTS,
+        "proposal_attempts": proposal_attempts,
         "accepted_proposals": accepted_proposals,
         "rejected_proposals": rejected_proposals,
         "validation": {"ok": validation.ok, "errors": list(validation.errors)},
@@ -404,61 +437,50 @@ def _grid_from_matrix(
     """
     palette = PALETTES[palette_id]
     cells: list[dict] = []
-    core_cells: list[list[int]] = []
-    sensor_cells: list[list[int]] = []
-    expression_cells: list[list[int]] = []
+    organ_cells: dict[str, list[list[int]]] = {}
 
+    # DR 0038: the full RICH_TOKENS alphabet reconstructs — every token
+    # synthesizes its ratified role/material/organ pairing (mirrors the
+    # research grid_from_matrix; legacy-only matrices reconstruct
+    # byte-identically to the historical shape).
     for y, row in enumerate(matrix):
         for x, token in enumerate(row):
-            if token == ".":
+            if token == "." or token not in RICH_TOKENS:
                 continue
-            if token in {"B", "A"}:
-                cells.append(
-                    _cell(
-                        x,
-                        y,
-                        visual=palette[1],
-                        role="body",
-                        material="hard",
-                        organ="core",
-                        animation_anchor=token == "A",
-                    )
+            role, material, organ, palette_index = RICH_TOKENS[token]
+            cells.append(
+                _cell(
+                    x,
+                    y,
+                    visual=palette[palette_index],
+                    role=role,
+                    material=material,
+                    organ=organ,
+                    animation_anchor=token == "A",
                 )
-                core_cells.append([x, y])
-            elif token == "E":
-                cells.append(
-                    _cell(
-                        x,
-                        y,
-                        visual=palette[2],
-                        role="eye",
-                        material="glass",
-                        organ="sensors",
-                    )
-                )
-                sensor_cells.append([x, y])
-            elif token == "M":
-                cells.append(
-                    _cell(
-                        x,
-                        y,
-                        visual=palette[2],
-                        role="mouth",
-                        material="soft",
-                        organ="expression",
-                    )
-                )
-                expression_cells.append([x, y])
+            )
+            organ_cells.setdefault(organ, []).append([x, y])
 
     organs: dict[str, dict] = {
-        "core": {"role": "body_core", "cells": core_cells, "required": True},
-        "sensors": {"role": "sensor", "cells": sensor_cells, "required": True},
+        "core": {
+            "role": "body_core",
+            "cells": organ_cells.get("core", []),
+            "required": True,
+        },
+        "sensors": {
+            "role": "sensor",
+            "cells": organ_cells.get("sensors", []),
+            "required": True,
+        },
     }
-    if expression_cells:
-        organs["expression"] = {
-            "role": "expression",
-            "cells": expression_cells,
-            "required": False,
+    for organ_id in ORGAN_ORDER:
+        if organ_id in organs or organ_id not in organ_cells:
+            continue
+        organ_role, organ_required = RICH_ORGAN_ROLES[organ_id]
+        organs[organ_id] = {
+            "role": organ_role,
+            "cells": organ_cells[organ_id],
+            "required": organ_required,
         }
 
     return {

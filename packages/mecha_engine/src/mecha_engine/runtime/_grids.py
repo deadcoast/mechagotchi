@@ -13,7 +13,57 @@ bit-for-bit so the runtime lab-parity pin holds.
 
 from __future__ import annotations
 
-TOKENS: frozenset[str] = frozenset({".", "B", "A", "E", "M"})
+# DR 0039: the runtime's damage/repair cycles preserve what the
+# regrowth head cannot yet spell — projection and reconstruction speak
+# the FULL ratified alphabet (verbatim mirror of the repair module and
+# the research CA lab).
+TOKENS: frozenset[str] = frozenset(
+    {".", "B", "A", "S", "J", "L", "E", "M", "N", "P", "D", "F"}
+)
+RICH_TOKENS: dict[str, tuple[str, str, str, int]] = {
+    "B": ("body", "hard", "core", 1),
+    "A": ("body", "hard", "core", 1),
+    "S": ("shell", "hard", "carapace", 1),
+    "J": ("joint", "joint", "joints", 1),
+    "L": ("limb", "hard", "limbs", 1),
+    "E": ("eye", "glass", "sensors", 2),
+    "M": ("mouth", "soft", "expression", 2),
+    "N": ("antenna", "signal", "antennae", 2),
+    "P": ("sensor", "signal", "antennae", 2),
+    "D": ("decoration", "light", "trim", 2),
+    "F": ("effect", "signal", "aura", 2),
+}
+RICH_ORGAN_ROLES: dict[str, tuple[str, bool]] = {
+    "core": ("body_core", True),
+    "carapace": ("body_core", False),
+    "sensors": ("sensor", True),
+    "antennae": ("sensor", False),
+    "expression": ("expression", False),
+    "joints": ("locomotion", False),
+    "limbs": ("locomotion", False),
+    "trim": ("ornament", False),
+    "aura": ("effect", False),
+}
+_RICH_ROLE_TOKENS: dict[str, str] = {
+    "shell": "S",
+    "joint": "J",
+    "limb": "L",
+    "antenna": "N",
+    "sensor": "P",
+    "decoration": "D",
+    "effect": "F",
+}
+_ORGAN_ORDER: tuple[str, ...] = (
+    "core",
+    "carapace",
+    "sensors",
+    "antennae",
+    "expression",
+    "joints",
+    "limbs",
+    "trim",
+    "aura",
+)
 
 # Stage 0 palette fallback table — verbatim copy of the research corpus
 # builder's palette table (the grid_genome research lab's ``PALETTES``,
@@ -58,61 +108,49 @@ def grid_from_matrix(
     palette_id = palette.get("palette_id", "lcd_green")
     colors = palette.get("colors") or PALETTES.get(palette_id, PALETTES["lcd_green"])
     cells: list[dict] = []
-    core_cells: list[list[int]] = []
-    sensor_cells: list[list[int]] = []
-    expression_cells: list[list[int]] = []
+    organ_cells: dict[str, list[list[int]]] = {}
+    # DR 0039: the full RICH_TOKENS alphabet reconstructs — surviving
+    # rich cells keep their ratified pairings; truly-unknown tokens
+    # keep the defensive "B" coercion.
     for y, row in enumerate(matrix):
         for x, token in enumerate(row):
             if token == ".":
                 continue
-            if token not in TOKENS:
+            if token not in RICH_TOKENS:
                 token = "B"
-            if token in {"B", "A"}:
-                cells.append(
-                    _cell(
-                        x,
-                        y,
-                        visual=colors[1],
-                        role="body",
-                        material="hard",
-                        organ="core",
-                        animation_anchor=token == "A",
-                    )
+            role, material, organ, palette_index = RICH_TOKENS[token]
+            cells.append(
+                _cell(
+                    x,
+                    y,
+                    visual=colors[min(palette_index, len(colors) - 1)],
+                    role=role,
+                    material=material,
+                    organ=organ,
+                    animation_anchor=token == "A",
                 )
-                core_cells.append([x, y])
-            elif token == "E":
-                cells.append(
-                    _cell(
-                        x,
-                        y,
-                        visual=colors[min(2, len(colors) - 1)],
-                        role="eye",
-                        material="glass",
-                        organ="sensors",
-                    )
-                )
-                sensor_cells.append([x, y])
-            elif token == "M":
-                cells.append(
-                    _cell(
-                        x,
-                        y,
-                        visual=colors[min(2, len(colors) - 1)],
-                        role="mouth",
-                        material="soft",
-                        organ="expression",
-                    )
-                )
-                expression_cells.append([x, y])
+            )
+            organ_cells.setdefault(organ, []).append([x, y])
     organs: dict[str, dict] = {
-        "core": {"role": "body_core", "cells": core_cells, "required": True},
-        "sensors": {"role": "sensor", "cells": sensor_cells, "required": True},
+        "core": {
+            "role": "body_core",
+            "cells": organ_cells.get("core", []),
+            "required": True,
+        },
+        "sensors": {
+            "role": "sensor",
+            "cells": organ_cells.get("sensors", []),
+            "required": True,
+        },
     }
-    if expression_cells:
-        organs["expression"] = {
-            "role": "expression",
-            "cells": expression_cells,
-            "required": False,
+    for organ_id in _ORGAN_ORDER:
+        if organ_id in organs or organ_id not in organ_cells:
+            continue
+        organ_role, organ_required = RICH_ORGAN_ROLES[organ_id]
+        organs[organ_id] = {
+            "role": organ_role,
+            "cells": organ_cells[organ_id],
+            "required": organ_required,
         }
     return {
         "grid_id": grid_id,
@@ -167,6 +205,14 @@ def _token_for_cell(cell: dict) -> str:
         return "E"
     if cell.get("organ") == "expression" or cell.get("role") == "mouth":
         return "M"
+    # DR 0039: rich roles project to their own tokens (the standalone
+    # anchor role normalizes to "A"); unknown cells keep the defensive
+    # legacy fallback.
+    rich = _RICH_ROLE_TOKENS.get(cell.get("role"))
+    if rich is not None:
+        return rich
+    if cell.get("role") == "anchor":
+        return "A"
     return "B"
 
 

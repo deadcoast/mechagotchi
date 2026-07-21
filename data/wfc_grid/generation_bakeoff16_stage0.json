@@ -37,17 +37,25 @@
         "candidate_count": 100,
         "validity_rate": 1.0,
         "connectedness_rate": 1.0,
-        "organ_presence_f1_mean": 0.732143,
-        "symmetry_mean": 0.806272,
-        "silhouette_entropy_bits": 6.448758,
-        "unique_silhouettes": 91,
+        "organ_presence_f1_mean": 0.918207,
+        "symmetry_mean": 0.809562,
+        "silhouette_entropy_bits": 6.643856,
+        "unique_silhouettes": 100,
         "palette_violation_rate": 0.0,
-        "descriptor_novelty": 0.32,
-        "readability_proxy_mean": 0.839753,
+        "descriptor_novelty": 0.26,
+        "readability_proxy_mean": 0.79663,
         "readability_proxy_status": "8x8_calibrated_proxy",
-        "rich_roles_emitted": [],
-        "rich_alphabet": false,
-        "training_copy_rate": 0.0,
+        "rich_roles_emitted": [
+          "antenna",
+          "decoration",
+          "effect",
+          "joint",
+          "limb",
+          "sensor",
+          "shell"
+        ],
+        "rich_alphabet": true,
+        "training_copy_rate": 0.01,
         "meets_validity_bar": true
       },
       "hybrid": {
@@ -78,17 +86,25 @@
       "markov": {
         "candidate_count": 100,
         "validity_rate": 0.02,
-        "connectedness_rate": 0.13,
-        "organ_presence_f1_mean": 0.625,
-        "symmetry_mean": 0.14215,
-        "silhouette_entropy_bits": 6.623856,
-        "unique_silhouettes": 99,
+        "connectedness_rate": 0.14,
+        "organ_presence_f1_mean": 0.864455,
+        "symmetry_mean": 0.136982,
+        "silhouette_entropy_bits": 6.643856,
+        "unique_silhouettes": 100,
         "palette_violation_rate": 0.0,
         "descriptor_novelty": 0.29,
-        "readability_proxy_mean": 0.362593,
+        "readability_proxy_mean": 0.28901,
         "readability_proxy_status": "8x8_calibrated_proxy",
-        "rich_roles_emitted": [],
-        "rich_alphabet": false,
+        "rich_roles_emitted": [
+          "antenna",
+          "decoration",
+          "effect",
+          "joint",
+          "limb",
+          "sensor",
+          "shell"
+        ],
+        "rich_alphabet": true,
         "training_copy_rate": 0.0,
         "meets_validity_bar": false
       },
@@ -144,10 +160,11 @@
     },
     "verdict": {
       "eligible": [
+        "constrained",
         "hybrid",
         "wfc"
       ],
-      "winner": "wfc",
+      "winner": "constrained",
       "hybrid_won": false,
       "hybrid_refuted": true
     }
@@ -161,29 +178,29 @@
     "engine_adoption_pending (B3: the winner, by decision record)",
     "human_pairwise_preference_not_collected (owner-deferred; never a blocker)"
   ],
-  "decision": "Winner by the pre-registered rule: wfc.",
+  "decision": "Winner by the pre-registered rule: constrained.",
   "next_research_step": "B3: adopt the winner into mecha_engine.generation by decision record (additive seam, byte-identical off, RED-first).",
   "measured": {
     "context": "stage-0 dev machine; excludes one-time model training",
     "arms": {
       "random": {
-        "mean_ms_per_candidate": 0.2,
+        "mean_ms_per_candidate": 0.39,
         "meets_time_bar": true
       },
       "markov": {
-        "mean_ms_per_candidate": 0.21,
+        "mean_ms_per_candidate": 0.36,
         "meets_time_bar": true
       },
       "constrained": {
-        "mean_ms_per_candidate": 2.27,
+        "mean_ms_per_candidate": 3.59,
         "meets_time_bar": true
       },
       "wfc": {
-        "mean_ms_per_candidate": 6.32,
+        "mean_ms_per_candidate": 6.92,
         "meets_time_bar": true
       },
       "hybrid": {
-        "mean_ms_per_candidate": 6.2,
+        "mean_ms_per_candidate": 7.62,
         "meets_time_bar": true
       }
     }

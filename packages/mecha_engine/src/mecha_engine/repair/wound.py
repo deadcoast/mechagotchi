@@ -179,4 +179,80 @@ def _wound_fill_validity_guard(
                 break
         if not errors or not improved:
             break
+    if errors:
+        # DR 0039 island drain (verbatim mirror of the research lab):
+        # refilled body cells at former limb or decoration positions
+        # form required-core ISLANDS the strict pass cannot fix one
+        # flip at a time. Template-free and structural: components of
+        # the matrix's own core cells; every core WOUND SITE outside
+        # the largest component flips to its best NON-core live class,
+        # per-flip non-increasing acceptance. Runs ONLY on stall, so
+        # every historically-passing guard outcome is untouched.
+        site_set = set(sites)
+        core_points = {
+            (x, y)
+            for y, row in enumerate(matrix)
+            for x, token in enumerate(row)
+            if token in {"B", "A"}
+        }
+        for x, y in sorted(
+            _minor_core_components(core_points) & site_set
+        ):
+            current_token = matrix[y][x]
+            probs = softmax_probs(
+                weights, neighborhood_features(matrix, x, y)
+            )
+            alternatives = sorted(
+                (
+                    class_index
+                    for class_index in range(1, len(CLASS_TOKENS))
+                    if CLASS_TOKENS[class_index] not in {current_token, "B", "A"}
+                ),
+                key=lambda class_index: (-probs[class_index], class_index),
+            )
+            for class_index in alternatives:
+                matrix[y][x] = CLASS_TOKENS[class_index]
+                candidate_errors = probe_errors(matrix)
+                if len(candidate_errors) <= len(errors):
+                    errors = candidate_errors
+                    substitutions += 1
+                    break
+                matrix[y][x] = current_token
+            if not errors:
+                break
     return matrix, substitutions
+
+
+def _minor_core_components(
+    core_points: set[tuple[int, int]],
+) -> set[tuple[int, int]]:
+    """Every core cell OUTSIDE the largest 8-connected component
+
+    (ties break toward the component holding the smallest coordinate,
+    so the choice is deterministic)."""
+    remaining = set(core_points)
+    components: list[set[tuple[int, int]]] = []
+    while remaining:
+        start = min(remaining)
+        seen = {start}
+        queue = [start]
+        while queue:
+            cx, cy = queue.pop()
+            for nx in (cx - 1, cx, cx + 1):
+                for ny in (cy - 1, cy, cy + 1):
+                    if (nx, ny) in remaining and (nx, ny) not in seen:
+                        seen.add((nx, ny))
+                        queue.append((nx, ny))
+        components.append(seen)
+        remaining -= seen
+    if not components:
+        return set()
+    largest = max(
+        components,
+        key=lambda comp: (len(comp), tuple(-c for c in min(comp))),
+    )
+    minor: set[tuple[int, int]] = set()
+    for component in components:
+        if component is not largest:
+            minor |= component
+    return minor

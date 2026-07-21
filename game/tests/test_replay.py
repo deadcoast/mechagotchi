@@ -102,17 +102,20 @@ class ReplayTests(unittest.TestCase):
         )
 
     def test_an_unaligned_repair_records_a_truncated_life_honestly(self):
-        # The G2-measured boundary: a raw seed under the weak
-        # test-scale repair model repairs aligned-but-invalid or
-        # unaligned — the replay records the truncated life verbatim
-        # (no episode ticks), never smoothing it into a full one.
+        # The boundary moved under DR 0039 (vocabulary-preserving
+        # repair + the island drain heal the old session-band wounds),
+        # so the truncated-life fixture rides the MEASURED residual
+        # boundary: a mortal wound at the harsh regime (dropout 0.6,
+        # four cycles) the guard cannot heal — the replay records the
+        # truncated life verbatim (no episode ticks), never smoothing
+        # it into a full one.
         replay = build_replay(
-            self.inputs["seed_grids"][0],
+            self.inputs["seed_grids"][2],
             self.inputs["slip_profile"],
             self.inputs["repair_model"],
-            damage_cycles=1,
+            damage_cycles=4,
             ticks=6,
-            dropout_rate=0.2,
+            dropout_rate=0.6,
             rng_seed=20260712,
         )
         self.assertEqual(0, replay["tick_frame_count"])

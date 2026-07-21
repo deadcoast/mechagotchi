@@ -9,7 +9,7 @@ from corpus_builder import PALETTES, build_seed_grids
 # run_baseline is re-exported from grid_helpers: tests and callers use
 # `from markov_grid import run_baseline` (identical to random_mutation's;
 # constrained_generator's variant adds unique_signatures).
-from grid_helpers import grid_from_matrix, run_baseline  # noqa: F401
+from grid_helpers import ROLE_TOKENS, grid_from_matrix, run_baseline  # noqa: F401
 from grid_helpers import weighted_sample as _sample
 from validator import validate_grid  # noqa: F401  (kept for API compatibility)
 
@@ -86,15 +86,22 @@ def write_markov_corpus(generated_dir: Path, generated_grids: list[dict]) -> Non
 
 
 def _matrix_from_grid(grid: dict) -> list[list[str]]:
+    # DR 0038: every ratified role projects to its RICH token — the
+    # generator sees the whole vocabulary (legacy-role grids project
+    # identically to the historical 5-token behavior).
     width, height = grid["grid_size"]
     matrix = [["." for _ in range(width)] for _ in range(height)]
     for cell in grid["cells"]:
         if cell["role"] == "body":
             matrix[cell["y"]][cell["x"]] = "A" if cell["animation_anchor"] else "B"
-        elif cell["role"] == "eye":
-            matrix[cell["y"]][cell["x"]] = "E"
-        elif cell["role"] == "mouth":
-            matrix[cell["y"]][cell["x"]] = "M"
+        elif cell["role"] == "anchor":
+            # The schema's standalone anchor role normalizes to the seed
+            # corpus's own convention: an anchor-flagged body cell.
+            matrix[cell["y"]][cell["x"]] = "A"
+        else:
+            token = ROLE_TOKENS.get(cell["role"])
+            if token is not None:
+                matrix[cell["y"]][cell["x"]] = token
     return matrix
 
 

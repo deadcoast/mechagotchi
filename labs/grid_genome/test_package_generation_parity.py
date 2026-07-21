@@ -94,6 +94,60 @@ class PackageGenerationParityTests(unittest.TestCase):
 
         self.assert_corpora_semantically_identical(lab_corpus, package_corpus)
 
+    def test_rich_alphabet_corpus_parity_24_candidates(self):
+        # DR 0038: the vocabulary-complete alphabet mirrors verbatim —
+        # trained on the RICH 16x16 seeds, lab and package emit
+        # semantically identical corpora (motion trio included).
+        from corpus_builder import build_seed_grids_16
+
+        seeds = build_seed_grids_16()
+        lab_corpus = build_constrained_corpus(seeds, count=24, rng_seed=41)
+        package_corpus = generate_batch(
+            build_seed_grids_16(), 24, rng_seed=41
+        )
+
+        self.assert_corpora_semantically_identical(lab_corpus, package_corpus)
+        emitted = {
+            cell["role"]
+            for grid in package_corpus
+            for cell in grid["cells"]
+        }
+        self.assertTrue(emitted & {"limb", "joint", "decoration"})
+
+    def test_resample_temperature_parity_and_default_identity(self):
+        # DR 0038's rider mirrors: the knob unset is byte-identical at
+        # both sites; set, both batch surfaces agree with each other
+        # (the batch paths share the parent-selection RNG consumption).
+        from corpus_builder import build_seed_grids_16
+        from mecha_engine.generation import (
+            generate_candidate,
+            train_generation_model,
+        )
+
+        seeds = build_seed_grids_16()
+        lab_hot = build_constrained_corpus(
+            seeds, count=6, rng_seed=7, resample_temperature=1.5
+        )
+        package_hot = generate_batch(
+            build_seed_grids_16(), 6, rng_seed=7, resample_temperature=1.5
+        )
+        self.assert_corpora_semantically_identical(lab_hot, package_hot)
+
+        package_model = train_generation_model(seeds)
+        parent = seeds[0]
+        self.assertEqual(
+            grid_signature(generate_candidate(parent, package_model, rng_seed=7)),
+            grid_signature(
+                generate_candidate(
+                    parent, package_model, rng_seed=7, resample_temperature=None
+                )
+            ),
+        )
+        with self.assertRaises(ValueError):
+            generate_candidate(
+                parent, package_model, rng_seed=7, resample_temperature=9.0
+            )
+
     def test_slip_constrained_corpus_parity_50_candidates(self):
         profile = load_lcd_slip()
         seeds = build_seed_grids()

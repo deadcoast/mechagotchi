@@ -58,6 +58,29 @@ RICH_ORGAN_ROLES = {
     "aura": ("effect", False),
 }
 
+# DR 0038: the generator paths speak the SAME alphabet as the authoring
+# path. One token per ratified role for projection (body's anchor bearer
+# projects as "A"); the canonical organ order keeps legacy-only matrices
+# reconstructing byte-identically (core, sensors, expression — exactly
+# the historical layout — with the new organs slotting in between only
+# when their tokens actually appear).
+ROLE_TOKENS = {
+    role: token
+    for token, (role, _material, _organ, _index) in RICH_TOKENS.items()
+    if token != "A"
+}
+ORGAN_ORDER = [
+    "core",
+    "carapace",
+    "sensors",
+    "antennae",
+    "expression",
+    "joints",
+    "limbs",
+    "trim",
+    "aura",
+]
+
 
 def _cell(
     x: int,
@@ -97,70 +120,63 @@ def grid_from_matrix(
 ) -> dict:
     """Build a grid payload from a token matrix (rows of tokens).
 
-    ``strict_tokens=True`` raises on tokens outside {., B, A, E, M}
-    (blueprint authoring path); otherwise unknown tokens are skipped
-    (generator paths, where sampled tokens come from the seed alphabet).
+    DR 0038: the full RICH_TOKENS alphabet reconstructs — every token
+    synthesizes its ratified role/material/organ pairing, so the
+    generator paths can spell the whole DR 0011 vocabulary.
+    ``strict_tokens=True`` raises on tokens outside the ratified
+    alphabet (blueprint authoring path); otherwise unknown tokens are
+    skipped (generator paths). Legacy-only matrices (B/A/E/M)
+    reconstruct byte-identically to the historical shape.
     ``rng_seed`` is recorded in metadata only when provided.
     """
     palette = PALETTES[palette_id]
     cells: list[dict] = []
-    core_cells: list[list[int]] = []
-    sensor_cells: list[list[int]] = []
-    expression_cells: list[list[int]] = []
+    organ_cells: dict[str, list[list[int]]] = {}
 
     for y, row in enumerate(matrix):
         for x, token in enumerate(row):
             if token == ".":
                 continue
-            if token in {"B", "A"}:
-                cells.append(
-                    _cell(
-                        x,
-                        y,
-                        visual=palette[1],
-                        role="body",
-                        material="hard",
-                        organ="core",
-                        animation_anchor=token == "A",
+            if token not in RICH_TOKENS:
+                if strict_tokens:
+                    raise ValueError(
+                        f"{grid_id} has unsupported token {token!r}"
                     )
+                continue
+            role, material, organ, palette_index = RICH_TOKENS[token]
+            cells.append(
+                _cell(
+                    x,
+                    y,
+                    visual=palette[palette_index],
+                    role=role,
+                    material=material,
+                    organ=organ,
+                    animation_anchor=token == "A",
                 )
-                core_cells.append([x, y])
-            elif token == "E":
-                cells.append(
-                    _cell(
-                        x,
-                        y,
-                        visual=palette[2],
-                        role="eye",
-                        material="glass",
-                        organ="sensors",
-                    )
-                )
-                sensor_cells.append([x, y])
-            elif token == "M":
-                cells.append(
-                    _cell(
-                        x,
-                        y,
-                        visual=palette[2],
-                        role="mouth",
-                        material="soft",
-                        organ="expression",
-                    )
-                )
-                expression_cells.append([x, y])
-            elif strict_tokens:
-                raise ValueError(f"{grid_id} has unsupported token {token!r}")
+            )
+            organ_cells.setdefault(organ, []).append([x, y])
 
     organs = {
-        "core": {"role": "body_core", "cells": core_cells, "required": True},
-        "sensors": {"role": "sensor", "cells": sensor_cells, "required": True},
+        "core": {
+            "role": "body_core",
+            "cells": organ_cells.get("core", []),
+            "required": True,
+        },
+        "sensors": {
+            "role": "sensor",
+            "cells": organ_cells.get("sensors", []),
+            "required": True,
+        },
     }
-    if expression_cells:
-        organs["expression"] = {
-            "role": "expression",
-            "cells": expression_cells,
-            "required": False,
+    for organ_id in ORGAN_ORDER:
+        if organ_id in organs or organ_id not in organ_cells:
+            continue
+        organ_role, organ_required = RICH_ORGAN_ROLES[organ_id]
+        organs[organ_id] = {
+            "role": organ_role,
+            "cells": organ_cells[organ_id],
+            "required": organ_required,
         }
 
     metadata: dict = {"source": source}

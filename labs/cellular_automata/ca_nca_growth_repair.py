@@ -24,7 +24,62 @@ from slip import is_grid_aligned
 from validator import validate_grid
 
 
-TOKENS = {".", "B", "A", "E", "M"}
+# DR 0039: repair preserves what it cannot yet spell. Projection and
+# reconstruction speak the FULL ratified alphabet (the RICH_TOKENS
+# pairings, mirrored from labs/grid_genome/grid_helpers.py) so
+# surviving cells keep their roles verbatim; PERCEPTION coarsens rich
+# tokens to their palette-family legacy class (body-family -> B,
+# sensory/light-family -> E) because the learned regrowth head stays
+# 5-class — the 11-class retrain is a named future record.
+TOKENS = {".", "B", "A", "S", "J", "L", "E", "M", "N", "P", "D", "F"}
+RICH_TOKENS = {
+    "B": ("body", "hard", "core", 1),
+    "A": ("body", "hard", "core", 1),
+    "S": ("shell", "hard", "carapace", 1),
+    "J": ("joint", "joint", "joints", 1),
+    "L": ("limb", "hard", "limbs", 1),
+    "E": ("eye", "glass", "sensors", 2),
+    "M": ("mouth", "soft", "expression", 2),
+    "N": ("antenna", "signal", "antennae", 2),
+    "P": ("sensor", "signal", "antennae", 2),
+    "D": ("decoration", "light", "trim", 2),
+    "F": ("effect", "signal", "aura", 2),
+}
+RICH_ORGAN_ROLES = {
+    "core": ("body_core", True),
+    "carapace": ("body_core", False),
+    "sensors": ("sensor", True),
+    "antennae": ("sensor", False),
+    "expression": ("expression", False),
+    "joints": ("locomotion", False),
+    "limbs": ("locomotion", False),
+    "trim": ("ornament", False),
+    "aura": ("effect", False),
+}
+_RICH_ROLE_TOKENS = {
+    "shell": "S",
+    "joint": "J",
+    "limb": "L",
+    "antenna": "N",
+    "sensor": "P",
+    "decoration": "D",
+    "effect": "F",
+}
+_ORGAN_ORDER = [
+    "core",
+    "carapace",
+    "sensors",
+    "antennae",
+    "expression",
+    "joints",
+    "limbs",
+    "trim",
+    "aura",
+]
+# Perception coarsening by palette family (recorded, DR 0039):
+# body-family (hard/joint structural) tokens read as B; sensory/light
+# tokens read as E; the legacy four read as themselves.
+PERCEPTION_LIVE = {"S": "B", "J": "B", "L": "B", "N": "E", "P": "E", "D": "E", "F": "E"}
 SOURCE_REFS = [
     {
         "name": "Growing Neural Cellular Automata",
@@ -747,7 +802,9 @@ def train_neighborhood_repair_model(
                     for x in range(width):
                         if damaged_matrix[y][x] != ".":
                             continue
-                        label = _CLASS_INDEX[target[y][x]]
+                        label = _CLASS_INDEX[
+                            PERCEPTION_LIVE.get(target[y][x], target[y][x])
+                        ]
                         weight = live_class_weight if label != 0 else 1.0
                         examples.append(
                             (
@@ -995,7 +1052,82 @@ def _wound_fill_validity_guard(
                 break
         if not errors or not improved:
             break
+    if errors:
+        # DR 0039 island drain: refilled body cells at former limb or
+        # decoration positions form required-core ISLANDS the strict
+        # pass cannot fix one flip at a time (each drain holds the
+        # error count until the last island falls). Template-free and
+        # structural: components of the matrix's own core cells; every
+        # core WOUND SITE outside the largest component flips to its
+        # best NON-core live class, per-flip non-increasing acceptance.
+        # Runs ONLY on stall, so every historically-passing guard
+        # outcome is untouched.
+        site_set = set(sites)
+        core_points = {
+            (x, y)
+            for y, row in enumerate(matrix)
+            for x, token in enumerate(row)
+            if token in {"B", "A"}
+        }
+        for x, y in sorted(
+            _minor_core_components(core_points) & site_set
+        ):
+            current_token = matrix[y][x]
+            probs = _softmax_probs(
+                weights, _neighborhood_features(matrix, x, y)
+            )
+            alternatives = sorted(
+                (
+                    class_index
+                    for class_index in range(1, len(CLASS_TOKENS))
+                    if CLASS_TOKENS[class_index] not in {current_token, "B", "A"}
+                ),
+                key=lambda class_index: (-probs[class_index], class_index),
+            )
+            for class_index in alternatives:
+                matrix[y][x] = CLASS_TOKENS[class_index]
+                candidate_errors = probe_errors(matrix)
+                if len(candidate_errors) <= len(errors):
+                    errors = candidate_errors
+                    substitutions += 1
+                    break
+                matrix[y][x] = current_token
+            if not errors:
+                break
     return matrix, substitutions
+
+
+def _minor_core_components(core_points: set[tuple[int, int]]) -> set[tuple[int, int]]:
+    """Every core cell OUTSIDE the largest 8-connected component
+
+    (ties break toward the component holding the smallest coordinate,
+    so the choice is deterministic)."""
+    remaining = set(core_points)
+    components: list[set[tuple[int, int]]] = []
+    while remaining:
+        start = min(remaining)
+        seen = {start}
+        queue = [start]
+        while queue:
+            cx, cy = queue.pop()
+            for nx in (cx - 1, cx, cx + 1):
+                for ny in (cy - 1, cy, cy + 1):
+                    if (nx, ny) in remaining and (nx, ny) not in seen:
+                        seen.add((nx, ny))
+                        queue.append((nx, ny))
+        components.append(seen)
+        remaining -= seen
+    if not components:
+        return set()
+    largest = max(
+        components,
+        key=lambda comp: (len(comp), tuple(-c for c in min(comp))),
+    )
+    minor: set[tuple[int, int]] = set()
+    for component in components:
+        if component is not largest:
+            minor |= component
+    return minor
 
 
 def run_trained_repair_benchmark(
@@ -1193,7 +1325,11 @@ def _neighborhood_features(
             token = matrix[ny][nx]
             if token != ".":
                 features.append(
-                    (offset_index * len(LIVE_TOKENS) + _LIVE_INDEX[token], 1.0)
+                    (
+                        offset_index * len(LIVE_TOKENS)
+                        + _LIVE_INDEX[PERCEPTION_LIVE.get(token, token)],
+                        1.0,
+                    )
                 )
     features.append((_POSITION_FEATURE_BASE + y * width + x, 1.0))
     features.append((_POSITION_FEATURE_BASE + width * height, 1.0))
@@ -1772,61 +1908,49 @@ def grid_from_matrix(
     palette_id = palette.get("palette_id", "lcd_green")
     colors = palette.get("colors") or PALETTES.get(palette_id, PALETTES["lcd_green"])
     cells = []
-    core_cells = []
-    sensor_cells = []
-    expression_cells = []
+    organ_cells: dict[str, list[list[int]]] = {}
+    # DR 0039: the full RICH_TOKENS alphabet reconstructs — surviving
+    # rich cells keep their ratified role/material/organ pairings;
+    # truly-unknown tokens keep the defensive "B" coercion.
     for y, row in enumerate(matrix):
         for x, token in enumerate(row):
             if token == ".":
                 continue
-            if token not in TOKENS:
+            if token not in RICH_TOKENS:
                 token = "B"
-            if token in {"B", "A"}:
-                cells.append(
-                    _cell(
-                        x,
-                        y,
-                        visual=colors[1],
-                        role="body",
-                        material="hard",
-                        organ="core",
-                        animation_anchor=token == "A",
-                    )
+            role, material, organ, palette_index = RICH_TOKENS[token]
+            cells.append(
+                _cell(
+                    x,
+                    y,
+                    visual=colors[min(palette_index, len(colors) - 1)],
+                    role=role,
+                    material=material,
+                    organ=organ,
+                    animation_anchor=token == "A",
                 )
-                core_cells.append([x, y])
-            elif token == "E":
-                cells.append(
-                    _cell(
-                        x,
-                        y,
-                        visual=colors[min(2, len(colors) - 1)],
-                        role="eye",
-                        material="glass",
-                        organ="sensors",
-                    )
-                )
-                sensor_cells.append([x, y])
-            elif token == "M":
-                cells.append(
-                    _cell(
-                        x,
-                        y,
-                        visual=colors[min(2, len(colors) - 1)],
-                        role="mouth",
-                        material="soft",
-                        organ="expression",
-                    )
-                )
-                expression_cells.append([x, y])
+            )
+            organ_cells.setdefault(organ, []).append([x, y])
     organs = {
-        "core": {"role": "body_core", "cells": core_cells, "required": True},
-        "sensors": {"role": "sensor", "cells": sensor_cells, "required": True},
+        "core": {
+            "role": "body_core",
+            "cells": organ_cells.get("core", []),
+            "required": True,
+        },
+        "sensors": {
+            "role": "sensor",
+            "cells": organ_cells.get("sensors", []),
+            "required": True,
+        },
     }
-    if expression_cells:
-        organs["expression"] = {
-            "role": "expression",
-            "cells": expression_cells,
-            "required": False,
+    for organ_id in _ORGAN_ORDER:
+        if organ_id in organs or organ_id not in organ_cells:
+            continue
+        organ_role, organ_required = RICH_ORGAN_ROLES[organ_id]
+        organs[organ_id] = {
+            "role": organ_role,
+            "cells": organ_cells[organ_id],
+            "required": organ_required,
         }
     return {
         "grid_id": grid_id,
@@ -2337,6 +2461,14 @@ def _token_for_cell(cell: dict) -> str:
         return "E"
     if cell.get("organ") == "expression" or cell.get("role") == "mouth":
         return "M"
+    # DR 0039: rich roles project to their own tokens (the standalone
+    # anchor role normalizes to "A"); truly-unknown cells keep the
+    # defensive legacy fallback.
+    rich = _RICH_ROLE_TOKENS.get(cell.get("role"))
+    if rich is not None:
+        return rich
+    if cell.get("role") == "anchor":
+        return "A"
     return "B"
 
 

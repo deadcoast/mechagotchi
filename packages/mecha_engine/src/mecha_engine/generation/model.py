@@ -31,7 +31,55 @@ from mecha_engine.genome import validate_grid
 # the training corpus (DR 0029), these remain as the historical defaults.
 GRID_WIDTH = 8
 GRID_HEIGHT = 8
-TOKENS: tuple[str, ...] = (".", "B", "A", "E", "M")
+
+# DR 0038: the vocabulary-complete generation alphabet — a VERBATIM
+# mirror of the research lab's RICH_TOKENS / RICH_ORGAN_ROLES
+# (labs/grid_genome/grid_helpers.py; the same tables the seed corpus
+# was authored with). When the lab authority changes, resync verbatim —
+# drift is caught by labs/grid_genome/test_package_generation_parity.py.
+# token -> (role, material, organ_id, palette_index); "A" is the
+# anchor-flagged body cell.
+RICH_TOKENS: dict[str, tuple[str, str, str, int]] = {
+    "B": ("body", "hard", "core", 1),
+    "A": ("body", "hard", "core", 1),
+    "S": ("shell", "hard", "carapace", 1),
+    "J": ("joint", "joint", "joints", 1),
+    "L": ("limb", "hard", "limbs", 1),
+    "E": ("eye", "glass", "sensors", 2),
+    "M": ("mouth", "soft", "expression", 2),
+    "N": ("antenna", "signal", "antennae", 2),
+    "P": ("sensor", "signal", "antennae", 2),
+    "D": ("decoration", "light", "trim", 2),
+    "F": ("effect", "signal", "aura", 2),
+}
+RICH_ORGAN_ROLES: dict[str, tuple[str, bool]] = {
+    "core": ("body_core", True),
+    "carapace": ("body_core", False),
+    "sensors": ("sensor", True),
+    "antennae": ("sensor", False),
+    "expression": ("expression", False),
+    "joints": ("locomotion", False),
+    "limbs": ("locomotion", False),
+    "trim": ("ornament", False),
+    "aura": ("effect", False),
+}
+ROLE_TOKENS: dict[str, str] = {
+    role: token
+    for token, (role, _material, _organ, _index) in RICH_TOKENS.items()
+    if token != "A"
+}
+ORGAN_ORDER: tuple[str, ...] = (
+    "core",
+    "carapace",
+    "sensors",
+    "antennae",
+    "expression",
+    "joints",
+    "limbs",
+    "trim",
+    "aura",
+)
+TOKENS: tuple[str, ...] = (".", *RICH_TOKENS)
 
 # Production strategy label: constrained WFC-style stabilization gated by
 # mecha_engine.genome.validate_grid, never raw Markov sampling.
@@ -58,16 +106,24 @@ class GenerationModel:
 
 
 def matrix_from_grid(grid: dict) -> list[list[str]]:
-    """Project a grid genome onto the token matrix used for training."""
+    """Project a grid genome onto the token matrix used for training.
+
+    DR 0038: every ratified role projects to its RICH token (the
+    standalone anchor role normalizes to "A", the seed corpus's
+    anchor-flagged-body convention); legacy-role grids project
+    identically to the historical 5-token behavior.
+    """
     width, height = grid["grid_size"]
     matrix = [["." for _ in range(width)] for _ in range(height)]
     for cell in grid["cells"]:
         if cell["role"] == "body":
             matrix[cell["y"]][cell["x"]] = "A" if cell["animation_anchor"] else "B"
-        elif cell["role"] == "eye":
-            matrix[cell["y"]][cell["x"]] = "E"
-        elif cell["role"] == "mouth":
-            matrix[cell["y"]][cell["x"]] = "M"
+        elif cell["role"] == "anchor":
+            matrix[cell["y"]][cell["x"]] = "A"
+        else:
+            token = ROLE_TOKENS.get(cell["role"])
+            if token is not None:
+                matrix[cell["y"]][cell["x"]] = token
     return matrix
 
 

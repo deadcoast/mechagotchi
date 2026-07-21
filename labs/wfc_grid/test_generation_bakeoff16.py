@@ -54,20 +54,22 @@ class BakeoffTests(unittest.TestCase):
         for name in ["markov", "random"]:
             self.assertFalse(arms[name]["meets_validity_bar"], name)
 
-    def test_the_pre_registered_verdict_wfc_wins_hybrid_refuted(self):
+    def test_the_pre_registered_verdict_constrained_wins_post_dr0038(self):
         # Deterministic drift guard (fixed corpus + seed): the verdict is
-        # a pure function of the batches. A corpus change legitimately
+        # a pure function of the batches. A generator change legitimately
         # re-runs the rule — this pin makes that visible, never silent.
+        # DR 0038 taught the constrained path the rich alphabet, so the
+        # eligibility bar that once excluded it (its own emission gap,
+        # never its quality) now admits it — and by the SAME
+        # pre-registered rule it WINS. WFC's adoption (DR 0031) stands
+        # until its own record revisits it; this pin records the
+        # measured verdict, not the adoption.
         verdict = self.report["metrics"]["verdict"]
-        self.assertEqual(["hybrid", "wfc"], sorted(verdict["eligible"]))
-        self.assertEqual("wfc", verdict["winner"])
-        self.assertTrue(verdict["hybrid_refuted"])
-        # The constrained arm is barred from eligibility by the rich-
-        # alphabet requirement, not by quality: it clears validity.
-        self.assertNotIn("constrained", verdict["eligible"])
-        self.assertTrue(
-            self.report["metrics"]["arms"]["constrained"]["meets_validity_bar"]
+        self.assertEqual(
+            ["constrained", "hybrid", "wfc"], sorted(verdict["eligible"])
         )
+        self.assertEqual("constrained", verdict["winner"])
+        self.assertTrue(verdict["hybrid_refuted"])
 
     def test_hybrid_candidates_are_gated_valid(self):
         train = split_corpus(build_seed_grids_16())[0]

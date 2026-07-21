@@ -16,6 +16,7 @@ from ._damage import apply_stochastic_damage
 from ._features import (
     CLASS_INDEX,
     CLASS_TOKENS,
+    PERCEPTION_LIVE,
     feature_count_for,
     neighborhood_features,
     train_softmax,
@@ -73,7 +74,9 @@ def train_repair_model(
                     for x in range(width):
                         if damaged_matrix[y][x] != ".":
                             continue
-                        label = CLASS_INDEX[target[y][x]]
+                        label = CLASS_INDEX[
+                            PERCEPTION_LIVE.get(target[y][x], target[y][x])
+                        ]
                         weight = live_class_weight if label != 0 else 1.0
                         examples.append(
                             (

@@ -10,26 +10,26 @@
   ],
   "metrics": {
     "eras": 2,
-    "latest_era_elites": 21,
+    "latest_era_elites": 29,
     "every_elite_rendered": true,
     "packet_ids_match_records": true,
     "era_switch_reaches_the_first_era": true,
     "twin_run_equal": true,
     "display_samples": [
       {
-        "caption": "era 1 [stable_soup]  1/21  gen_f8c66f229b316f16_c02  fitness 0.732  gen 1",
+        "caption": "era 1 [stable_soup]  1/29  gen_3bc68650e89c838c_c02  fitness 0.758  gen 1",
         "axes": "body_mass 0  sensor_count 0  symmetry 1  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 1",
-        "components": "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000"
+        "components": "bond 1.000  mutation_stability 0.717  readability 0.111  slip_alignment 1.000  survival 1.000  validity 1.000"
       },
       {
-        "caption": "era 1 [stable_soup]  2/21  gen_59d38ed3b677e43c_c02  fitness 0.733  gen 1",
-        "axes": "body_mass 0  sensor_count 0  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 0",
-        "components": "bond 1.000  mutation_stability 0.717  readability 0.006  slip_alignment 1.000  survival 1.000  validity 1.000"
-      },
-      {
-        "caption": "era 1 [stable_soup]  3/21  gen_766dee2aeb185f19_c02  fitness 0.760  gen 1",
+        "caption": "era 1 [stable_soup]  2/29  gen_995686ac6b33ef03_c02  fitness 0.756  gen 1",
         "axes": "body_mass 0  sensor_count 0  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 1",
-        "components": "bond 1.000  mutation_stability 0.717  readability 0.116  slip_alignment 1.000  survival 1.000  validity 1.000"
+        "components": "bond 1.000  mutation_stability 0.717  readability 0.102  slip_alignment 1.000  survival 1.000  validity 1.000"
+      },
+      {
+        "caption": "era 1 [stable_soup]  3/29  gen_bbcf7dd8c1c00b1f_c02  fitness 0.732  gen 1",
+        "axes": "body_mass 0  sensor_count 0  symmetry 3  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 1",
+        "components": "bond 1.000  mutation_stability 0.717  readability 0.001  slip_alignment 1.000  survival 1.000  validity 1.000"
       }
     ]
   },

@@ -14,7 +14,7 @@
     "round_trip_ok": true,
     "zoo_import_ok": true,
     "zoo_import_aligned_seeds": 8,
-    "era_under_imported_covenant_elites": 22,
+    "era_under_imported_covenant_elites": 35,
     "invalid_refused_verbatim": [
       "the authority rejects the covenant: slip_version must be one of 0.1.0, 0.2.0"
     ],

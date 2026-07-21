@@ -33,12 +33,12 @@
       "last_era": {
         "era_index": 2,
         "weather": "storm",
-        "filled_niches": 17,
-        "qd_score": 13.343187,
+        "filled_niches": 24,
+        "qd_score": 18.921775,
         "max_lineage_generation": 2,
         "went_extinct": false,
-        "elite_count": 17,
-        "elite_mean_learned_readability": 0.221778
+        "elite_count": 24,
+        "elite_mean_learned_readability": 0.236419
       },
       "unlocks": [
         {
@@ -46,7 +46,7 @@
           "tier": 1,
           "earned_era_index": 0,
           "metric_path": "report.summary.archive.filled_niches",
-          "metric_value": 39,
+          "metric_value": 52,
           "threshold": 16
         },
         {
@@ -54,7 +54,7 @@
           "tier": 2,
           "earned_era_index": 0,
           "metric_path": "report.summary.archive.filled_niches",
-          "metric_value": 39,
+          "metric_value": 52,
           "threshold": 26
         },
         {
@@ -62,7 +62,7 @@
           "tier": 3,
           "earned_era_index": 0,
           "metric_path": "report.summary.archive.filled_niches",
-          "metric_value": 39,
+          "metric_value": 52,
           "threshold": 36
         },
         {
@@ -78,7 +78,7 @@
           "tier": 1,
           "earned_era_index": 0,
           "metric_path": "report.summary.archive.qd_score",
-          "metric_value": 32.281609,
+          "metric_value": 41.008231,
           "threshold": 9.0
         },
         {
@@ -86,24 +86,16 @@
           "tier": 2,
           "earned_era_index": 0,
           "metric_path": "report.summary.archive.qd_score",
-          "metric_value": 32.281609,
+          "metric_value": 41.008231,
           "threshold": 18.0
         },
         {
-          "axis": "legibility",
-          "tier": 1,
+          "axis": "quality_diversity",
+          "tier": 3,
           "earned_era_index": 0,
-          "metric_path": "derived.elite_mean_learned_readability",
-          "metric_value": 0.400279,
-          "threshold": 0.25
-        },
-        {
-          "axis": "legibility",
-          "tier": 2,
-          "earned_era_index": 0,
-          "metric_path": "derived.elite_mean_learned_readability",
-          "metric_value": 0.400279,
-          "threshold": 0.35
+          "metric_path": "report.summary.archive.qd_score",
+          "metric_value": 41.008231,
+          "threshold": 33.0
         },
         {
           "axis": "storm_record",

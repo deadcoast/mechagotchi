@@ -5,7 +5,7 @@ from copy import deepcopy
 from pathlib import Path
 
 from corpus_builder import PALETTES, build_seed_grids
-from grid_helpers import grid_from_matrix
+from grid_helpers import RICH_TOKENS, grid_from_matrix
 from grid_helpers import grid_signature as _signature
 from grid_helpers import run_baseline as _run_baseline
 from grid_helpers import weighted_sample as _weighted_sample
@@ -17,7 +17,33 @@ from validator import validate_grid
 ROOT = Path(__file__).resolve().parents[2]
 
 
-TOKENS = [".", "B", "A", "E", "M"]
+# DR 0038: the vocabulary-complete generation alphabet — one token per
+# ratified role (the RICH_TOKENS pairings), "." for empty. Legacy-only
+# corpora train zero counts for the new tokens, and zero-count tokens
+# are never sampled, so legacy behavior is byte-identical.
+TOKENS = [".", *RICH_TOKENS]
+
+# DR 0038's rider: the structural resample-temperature knob. OFF by
+# default (None = the historical 12-attempt loop, byte-identical);
+# when set it must sit in (0, 2] and scales the proposal-attempt count
+# to round(12 * (1 + temperature)).
+BASE_PROPOSAL_ATTEMPTS = 12
+MAX_RESAMPLE_TEMPERATURE = 2.0
+
+
+def _proposal_attempts(resample_temperature: float | None) -> int:
+    if resample_temperature is None:
+        return BASE_PROPOSAL_ATTEMPTS
+    if (
+        isinstance(resample_temperature, bool)
+        or not isinstance(resample_temperature, int | float)
+        or not 0 < resample_temperature <= MAX_RESAMPLE_TEMPERATURE
+    ):
+        raise ValueError(
+            "resample_temperature must be a number in (0, "
+            f"{MAX_RESAMPLE_TEMPERATURE}]: {resample_temperature!r}"
+        )
+    return round(BASE_PROPOSAL_ATTEMPTS * (1 + resample_temperature))
 
 # Per-rate ceilings for the deterministic mutation-rate jitter (review
 # finding L-12). When no SLIP profile is supplied the ceilings are the fixed
@@ -81,7 +107,10 @@ def generate_constrained_grid(
     grid_id: str,
     rng_seed: int,
     slip: dict | None = None,
+    *,
+    resample_temperature: float | None = None,
 ) -> dict:
+    attempts = _proposal_attempts(resample_temperature)
     rng = random.Random(f"{rng_seed}:{grid_id}")
     parent_pool = _filter_seed_pool(seed_grids, slip)
     parent = deepcopy(rng.choice(parent_pool))
@@ -95,7 +124,7 @@ def generate_constrained_grid(
     parent["lineage"]["ancestor_ids"] = [parent_grid_id]
 
     matrix = _matrix_from_grid(parent)
-    for _ in range(12):
+    for _ in range(attempts):
         proposal = deepcopy(matrix)
         _attempt_local_resample(proposal, model, rng)
         candidate = _grid_from_matrix(
@@ -127,6 +156,8 @@ def build_constrained_corpus(
     count: int = 100,
     rng_seed: int = 77,
     slip: dict | None = None,
+    *,
+    resample_temperature: float | None = None,
 ) -> list[dict]:
     model = train_constraints(seed_grids)
     return [
@@ -136,6 +167,7 @@ def build_constrained_corpus(
             grid_id=f"mg_constrained_{index:03d}",
             rng_seed=rng_seed,
             slip=slip,
+            resample_temperature=resample_temperature,
         )
         for index in range(count)
     ]

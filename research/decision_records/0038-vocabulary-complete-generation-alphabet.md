@@ -4,11 +4,15 @@ Date: 2026-07-20
 
 ## Status
 
-**Accepted — implementation pending** (cycle 20 · Phase J, task J2's
-second half). This record charters the gated change; the
-implementation lands as its own commit(s) judged by the gates below.
-Until then the alphabet stays as-is and the measured blindness stands
-recorded.
+**Accepted — IMPLEMENTED 2026-07-20**, all five gates MET (the
+implementing report: `2026-07-20-vocabulary-alphabet.md`): emission
+0.0 → **0.512** (bar ≥ 0.24; exceeds the training corpus's own 0.48),
+validity 1.0 held at both sites, the reachability probe leapt 372 →
+**495 generator-reached / 503 of 512 proven** (bar > 417), the 8×8
+legacy artifacts regenerated **byte-identical**, and parity holds
+verbatim including the new rich-corpus and resample-temperature pins.
+Implementation surfaced a SECOND vocabulary-blind surface (repair),
+cured by DR 0039 in the same change.
 
 ## Context
 
