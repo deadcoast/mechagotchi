@@ -1974,3 +1974,149 @@ class DeliberationAuthoringTests(unittest.TestCase):
             any("0.2.0" in error for error in payload["errors"]),
             payload["errors"],
         )
+
+
+class SpeciesGrammarAuthoringTests(unittest.TestCase):
+    """J5 (cycle 20): species_class + visual_grammar — the last
+    un-authored ladder fields — gain their authoring faces in the slip
+    creator, judged live by the engine's authority with its refusals
+    verbatim (the H-phase pattern). The grid-compat pin is the authored
+    range meeting the generated range: a named material grammar narrows
+    which creatures belong, in the authority's own words."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.temp = tempfile.TemporaryDirectory()
+        base = Path(cls.temp.name)
+        cls.grids_dir = base / "grids"
+        cls.slips_dir = base / "slips"
+        cls.server = start_workshop_server(
+            port=0, grids_dir=cls.grids_dir, slips_dir=cls.slips_dir
+        )
+        cls.base = f"http://127.0.0.1:{cls.server.server_address[1]}"
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.server.shutdown()
+        cls.temp.cleanup()
+
+    def _profile(self, *, species=None, grammar=None, version="0.2.0"):
+        profile = json.loads(json.dumps(VALID_PROFILE))
+        profile["slip_version"] = version
+        profile["profile_id"] = "workshop_grammarian"
+        if species is not None:
+            profile["species_class"] = species
+        if grammar is not None:
+            profile["visual_grammar"] = grammar
+        return profile
+
+    def test_serves_the_species_grammar_controls(self):
+        with urllib.request.urlopen(f"{self.base}/slip") as response:
+            body = response.read().decode("utf-8")
+        self.assertEqual(200, response.status)
+        self.assertIn("species-class", body)
+        self.assertIn("grammar-material-toggles", body)
+        self.assertIn("grammar-vocab-toggles", body)
+        self.assertIn("visual grammar", body)
+
+    def test_species_grammar_profile_validates_and_roundtrips(self):
+        profile = self._profile(
+            species="glass_being",
+            grammar={
+                "allowed_materials": ["soft", "glass", "light"],
+                "animation_vocab": ["idle", "blink", "sleep"],
+            },
+        )
+        status, payload = _post(
+            f"{self.base}/api/slip/validate", {"profile": profile}
+        )
+        self.assertEqual(200, status)
+        self.assertTrue(payload["valid"], payload["errors"])
+        status, payload = _post(
+            f"{self.base}/api/slip/save", {"profile": profile}
+        )
+        self.assertEqual(200, status, payload)
+        status, loaded = _get(f"{self.base}/api/slips/workshop_grammarian")
+        self.assertEqual(200, status)
+        self.assertEqual(profile, loaded["profile"])
+        self.assertEqual("glass_being", loaded["profile"]["species_class"])
+        self.assertEqual(
+            ["soft", "glass", "light"],
+            loaded["profile"]["visual_grammar"]["allowed_materials"],
+        )
+
+    def test_species_grammar_refusals_are_verbatim(self):
+        # The authority's words reach the page untouched — one refusal
+        # per authored surface (identifier shape, mandatory idle,
+        # material vocabulary).
+        cases = [
+            (
+                self._profile(species="Glass Being"),
+                "species_class must be a non-empty lowercase identifier",
+            ),
+            (
+                self._profile(grammar={"animation_vocab": ["blink"]}),
+                "visual_grammar animation_vocab must include idle",
+            ),
+            (
+                self._profile(grammar={"allowed_materials": ["chrome"]}),
+                "visual_grammar allowed material not in vocabulary: chrome",
+            ),
+        ]
+        for profile, refusal in cases:
+            status, payload = _post(
+                f"{self.base}/api/slip/validate", {"profile": profile}
+            )
+            self.assertEqual(200, status)
+            self.assertFalse(payload["valid"], refusal)
+            self.assertIn(refusal, payload["errors"])
+
+    def test_species_grammar_is_version_gated(self):
+        profile = self._profile(
+            species="glass_being",
+            grammar={"animation_vocab": ["idle"]},
+            version="0.1.0",
+        )
+        status, payload = _post(
+            f"{self.base}/api/slip/validate", {"profile": profile}
+        )
+        self.assertEqual(200, status)
+        self.assertFalse(payload["valid"])
+        for field in ("species_class", "visual_grammar"):
+            self.assertIn(
+                f"profile {field} requires slip_version 0.2.0",
+                payload["errors"],
+            )
+
+    def test_grammar_narrows_the_grid_compat_verdict(self):
+        # The authored range meeting the generated range: a saved
+        # workshop creature carrying `hard` cells is refused by a
+        # profile whose grammar does not allow `hard`, in the
+        # authority's own words.
+        seed = json.loads(
+            (ROOT / "data" / "seed_grids" / "mg_seed_001.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.grids_dir.mkdir(parents=True, exist_ok=True)
+        (self.grids_dir / "grammar_subject.json").write_text(
+            json.dumps(seed), encoding="utf-8"
+        )
+        profile = self._profile(
+            grammar={"allowed_materials": ["soft", "glass"]}
+        )
+        status, payload = _post(
+            f"{self.base}/api/slip/validate", {"profile": profile}
+        )
+        self.assertEqual(200, status)
+        self.assertTrue(payload["valid"], payload["errors"])
+        subjects = {
+            entry["name"]: entry
+            for entry in payload["grid_compat"]["workshop_grids"]
+        }
+        self.assertIn("grammar_subject", subjects)
+        self.assertFalse(subjects["grammar_subject"]["ok"])
+        self.assertIn(
+            "material not allowed by SLIP visual grammar: hard",
+            subjects["grammar_subject"]["errors"],
+        )

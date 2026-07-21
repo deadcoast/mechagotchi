@@ -31,7 +31,7 @@ re-openers), DR 0027 (SLIP authority; visual_grammar/species_class).
   emptiness is STRUCTURED (extreme symmetry 46/95, extreme visual
   complexity 47/95 — the octile corners). The J2 increment re-runs
   this probe as its own gate evidence.
-- [ ] **J2 · Motion-role emission.** Measurement half DONE 2026-07-20
+- [x] **J2 · Motion-role emission.** Measurement half DONE 2026-07-20
   (`2026-07-20-role-emission.md`): **the promoted evolve path emits
   the motion trio at exactly 0.0** (WFC 0.80, seeds 0.48, exemplars
   1.0) — the mechanism found: the constrained path's 5-token matrix
@@ -76,10 +76,20 @@ re-openers), DR 0027 (SLIP authority; visual_grammar/species_class).
   information — a coherent decoder is a compiler by another name, so
   the semantic transducer's necessity is now a measured coherence
   theorem, not a corpus accident.
-- [ ] **J5 · visual_grammar + species_class authoring.** The named
-  un-authored SLIP fields gain their authoring faces in the workshop
-  under the live authority loop (refusals verbatim, the H-phase
-  pattern) — the authored range meeting the generated range.
+- [x] **J5 · visual_grammar + species_class authoring.** DONE
+  2026-07-20 (`2026-07-20-species-grammar-authoring.md`): the slip
+  creator gains the species & visual grammar panel (species_class
+  input, allowed-materials + animation-vocab toggles, idle-mandatory
+  stated honestly, ladder auto-versioning, load/New round-trip) with
+  NO server change — the authority has judged both fields since
+  DR 0027, and its refusals reach the page verbatim (three pinned).
+  **The authored range meets the generated range, pinned**: an
+  authored soft+glass grammar refuses a committed hard-celled seed
+  with `material not allowed by SLIP visual grammar: hard` on the
+  compatibility chips. RED first (the page pin; the authority pins
+  were already green and say so). Remainders: server-verified not
+  click-tested (H5's standing gate); a "required materials" rung =
+  a new DR 0012 ladder decision.
 - [ ] **J6 · The Phase-J gate.** One consolidated report; cycle 20
   archived; cycle 21 planned from the documentation.
 

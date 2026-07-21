@@ -237,6 +237,26 @@
         thinking-depth axis (the game's Covenant step spends bloodline tiers
         into exactly this field). Setting it writes slip_version 0.2.0.</p>
       </div>
+
+      <div class="panel">
+        <h2>species &amp; visual grammar <span style="text-transform:none;letter-spacing:0;">— who this species is and what it may look like</span></h2>
+        <label class="field" for="species-class">species class</label>
+        <input type="text" id="species-class" placeholder="glass_being" maxlength="48">
+        <p class="hint">a taxonomy label — lowercase letters, digits, and
+        underscores; leave blank to keep the field off</p>
+        <label class="field">allowed materials — the species' palette of substance</label>
+        <div class="toggle-group" id="grammar-material-toggles"></div>
+        <p class="hint">none selected = every material allowed; naming any
+        narrows the species to exactly those — a creature carrying any other
+        material is refused by the authority's alignment check (that refusal
+        shows on the compatibility chips)</p>
+        <label class="field">animation vocabulary — the states this species may perform</label>
+        <div class="toggle-group" id="grammar-vocab-toggles"></div>
+        <p class="hint">idle is mandatory whenever a vocabulary is named
+        (packet-v2 clip selection honors it); none selected keeps the
+        engine's full five. Setting any of these writes slip_version
+        0.2.0 (the schema ladder).</p>
+      </div>
     </div>
 
     <div>
@@ -303,6 +323,13 @@ let parentSelection = "";
    of 2, mirroring the risk-tolerance off-sentinel pattern). */
 let deliberationTicks = null;
 let deliberationConfidence = 0.72;
+/* J5 (cycle 20) — species_class + visual_grammar, the last un-authored
+   ladder fields. Empty input / empty sets = the fields stay off;
+   selections emit in the schema's canonical vocabulary order. */
+const ALLOWABLE_MATERIALS = ["void", "soft", "hard", "glass", "joint", "light", "signal"];
+const ANIMATION_VOCAB = ["idle", "blink", "sleep", "beg", "ill"];
+let grammarMaterials = new Set();
+let grammarVocab = new Set();
 let lastVerdict = null;
 
 const $ = (id) => document.getElementById(id);
@@ -313,7 +340,8 @@ function buildProfile() {
     values[section] = {};
     for (const [key] of defs) values[section][key] = parseFloat($("s-" + key).value);
   }
-  const usesLadder = forbiddenRoles.size || forbiddenMaterials.size || riskTolerance !== null || disabledThreads.size || parentSelection !== "" || deliberationTicks !== null;
+  const speciesClass = $("species-class").value.trim();
+  const usesLadder = forbiddenRoles.size || forbiddenMaterials.size || riskTolerance !== null || disabledThreads.size || parentSelection !== "" || deliberationTicks !== null || speciesClass !== "" || grammarMaterials.size || grammarVocab.size;
   const profile = {
     slip_version: usesLadder ? "0.2.0" : "0.1.0",
     profile_id: $("profile-id").value.trim(),
@@ -349,7 +377,44 @@ function buildProfile() {
       confidence_threshold: deliberationConfidence,
     };
   }
+  if (speciesClass !== "") {
+    profile.species_class = speciesClass;
+  }
+  if (grammarMaterials.size || grammarVocab.size) {
+    profile.visual_grammar = {};
+    if (grammarMaterials.size) {
+      profile.visual_grammar.allowed_materials =
+        ALLOWABLE_MATERIALS.filter((m) => grammarMaterials.has(m));
+    }
+    if (grammarVocab.size) {
+      profile.visual_grammar.animation_vocab =
+        ANIMATION_VOCAB.filter((s) => grammarVocab.has(s));
+    }
+  }
   return profile;
+}
+
+function renderGrammarToggles() {
+  for (const [wrapId, vocab, selected] of [
+    ["grammar-material-toggles", ALLOWABLE_MATERIALS, grammarMaterials],
+    ["grammar-vocab-toggles", ANIMATION_VOCAB, grammarVocab],
+  ]) {
+    const wrap = $(wrapId);
+    wrap.innerHTML = "";
+    for (const value of vocab) {
+      const btn = document.createElement("button");
+      btn.className = "toggle";
+      btn.type = "button";
+      btn.setAttribute("aria-pressed", selected.has(value) ? "true" : "false");
+      btn.textContent = value;
+      btn.addEventListener("click", () => {
+        selected.has(value) ? selected.delete(value) : selected.add(value);
+        renderGrammarToggles();
+        scheduleValidate();
+      });
+      wrap.appendChild(btn);
+    }
+  }
 }
 
 function renderSwitchToggles() {
@@ -637,6 +702,10 @@ $("load-select").addEventListener("change", async () => {
   $("delib-ticks-out").textContent = deliberationTicks === null ? "off" : String(deliberationTicks);
   $("delib-confidence").value = String(deliberationConfidence);
   $("delib-confidence-out").textContent = deliberationConfidence.toFixed(2);
+  $("species-class").value = profile.species_class || "";
+  grammarMaterials = new Set(profile.visual_grammar?.allowed_materials || []);
+  grammarVocab = new Set(profile.visual_grammar?.animation_vocab || []);
+  renderGrammarToggles();
   renderForbiddenToggles();
   $("mass-min").value = profile.grid?.body_mass_min ?? 4;
   $("mass-max").value = profile.grid?.body_mass_max ?? 24;
@@ -674,11 +743,14 @@ $("new-btn").addEventListener("click", () => {
   $("delib-ticks-out").textContent = "off";
   $("delib-confidence").value = "0.72";
   $("delib-confidence-out").textContent = "0.72";
-  renderPaletteToggles(); renderRoleToggles(); renderForbiddenToggles(); renderSwitchToggles(); renderSliders();
+  $("species-class").value = "";
+  grammarMaterials = new Set();
+  grammarVocab = new Set();
+  renderPaletteToggles(); renderRoleToggles(); renderForbiddenToggles(); renderSwitchToggles(); renderGrammarToggles(); renderSliders();
   scheduleValidate();
 });
 
-for (const id of ["profile-id", "profile-name"]) {
+for (const id of ["profile-id", "profile-name", "species-class"]) {
   $(id).addEventListener("input", scheduleValidate);
 }
 for (const id of ["mass-min", "mass-max"]) {
@@ -696,6 +768,7 @@ for (const id of ["mass-min", "mass-max"]) {
   renderRoleToggles();
   renderForbiddenToggles();
   renderSwitchToggles();
+  renderGrammarToggles();
   renderSliders();
   refreshSlipList();
   scheduleValidate();
