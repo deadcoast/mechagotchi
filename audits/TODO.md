@@ -37,13 +37,21 @@ coarsening record), DR 0021 (engine truth).
   default; the re-opener (the undiluted rich-site instrument) is
   NAMED. A refused gate delivered as a first-class finding — exactly
   as chartered.
-- [ ] **K2 · The DR 0031 generation-layer revisit.** The flipped
-  16×16 bake-off (constrained-wins by the record's own pre-registered
-  rule) gets its decision: a new DR judging whether the generation
-  layer's default changes, over regenerated evidence at the ratified
-  canvas — legacy artifacts byte-identical pinned either way; the
-  verdict (keep WFC / adopt constrained / hybrid) recorded with its
-  rule, never vibes.
+- [x] **K2 · The DR 0031 generation-layer revisit.** DONE 2026-07-21
+  (`2026-07-21-generation-arm-loop.md`, **DR 0042 ADOPTED on both
+  axes**): the revisit judged AT THE CONSUMER — both generation arms
+  through the FULL loop at the matched budget (the J3 lesson applied
+  to its own subject) — and the one-shot flip AMPLIFIED instead of
+  dissolving: constrained wins coverage 0.7852 → **0.8984** (+0.1133
+  vs the +0.02 bar; **460 niches = the measured support ceiling**)
+  and QD ratio **1.3025**, in 272 s vs 462 s. The loop's generation
+  default is constrained (WFC runnable, byte-identical when asked
+  for); DR 0031's clause superseded at the loop, its promoted WFC
+  surface untouched; E4 re-run symmetrically — coverage gate MET at
+  0.8865, the GA-advantage clause refused DEEPER (+11.3%), best
+  fitness equal. The ~22% constrained generation-failure rate is a
+  named observation; budget pins evolved to the generator-agnostic
+  invariant with WFC exactness kept.
 - [ ] **K3 · The last nine bins.** The J1/J2 probe re-armed with the
   full post-DR-0038 move set (the vocabulary-complete model, the
   resample-temperature rider, novelty-first selection) in a guided
@@ -78,8 +86,9 @@ The engine-truth law (DR 0021), the identity constraint, the triad
 discipline, the mirror-never-import boundary, Apache-2.0, and DR 0028
 apply. The workshop keeps its ratified stack (DR 0010); TS+React
 remains the documented scale-path decided by DR only. DR 0032
-re-openers stand (the advantage sits at +18.7% vs the ≥25% bar under
-the richer vocabulary — narrowed, not triggered). Per-clip
+re-openers stand (the advantage sits at +11.3% vs the ≥25% bar under
+the adopted generation layer — the refutation deepens monotonically
+as the candidate stream improves, DR 0042; never triggered). Per-clip
 choreography stays an engine DR when a consumer asks; the ≤45-minute
 HUMAN first-session pass stays prepared-not-blocking (H5); community
 infrastructure, a pack registry, and hosted distribution are owner

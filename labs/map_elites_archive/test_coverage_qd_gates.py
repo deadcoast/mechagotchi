@@ -55,7 +55,18 @@ class GaBaselineTests(unittest.TestCase):
         )
 
     def test_ga_spends_the_identical_budget(self):
-        self.assertEqual(24, self.first["evaluations_total"])
+        # DR 0042: the adopted constrained generator records failures,
+        # so the GA crosses the bar with bounded overshoot; the WFC
+        # arm's exactness still holds and stays pinned.
+        self.assertGreaterEqual(self.first["evaluations_total"], 24)
+        self.assertLess(self.first["evaluations_total"], 24 + 8)
+        wfc = run_ga_baseline(
+            population=8,
+            target_evaluations=24,
+            rng_seed=RNG_SEED,
+            generation="wfc",
+        )
+        self.assertEqual(24, wfc["evaluations_total"])
 
     def test_ga_has_no_archive_only_scalar_selection(self):
         # The plain GA never keys anything by niche: selection is scalar
@@ -139,9 +150,15 @@ class ReportTests(unittest.TestCase):
             metrics["map_elites_runs"], metrics["ga_runs"]
         ):
             self.assertEqual(map_run["rng_seed"], ga_run["rng_seed"])
-            self.assertEqual(
-                map_run["evaluations_total"], ga_run["evaluations_total"]
-            )
+            # DR 0042: both arms cross the identical scored-budget bar
+            # with bounded overshoot under the fallible constrained
+            # generator (exact equality held only for infallible WFC).
+            for total in (
+                map_run["evaluations_total"],
+                ga_run["evaluations_total"],
+            ):
+                self.assertGreaterEqual(total, 24)
+                self.assertLess(total, 24 + 8)
 
     def test_verdict_and_per_axis_spread_are_recorded(self):
         metrics = self.report["metrics"]

@@ -86,9 +86,26 @@ GO for E4/E5: budget reached, bound met, determinism pinned. NO-GO
 triggers: the E4 GA-baseline comparison refuting the ≥25%-over-GA
 documented gate, or determinism drift under the pinned seeds.
 
+## Evolution
+
+- **DR 0040 (2026-07-20)**: `selection` became an arm; novelty_first
+  adopted on both axes (coverage 0.7637 → 0.7852, QD ratio 1.0216) at
+  the matched budget.
+- **DR 0042 (2026-07-21)**: `generation` became an arm; the
+  constrained path (the promoted evolve inner loop, vocabulary-complete
+  since DR 0038) beat the WFC incumbent on BOTH pre-registered bars in
+  the full loop — coverage 0.7852 → **0.8984** (+0.1133 vs the +0.02
+  bar; 460 niches = the measured support ceiling), QD ratio **1.3025**
+  — and is the adopted generation default; WFC stays a runnable arm.
+  The constrained arm's ~22% recorded generation-failure rate is a
+  named observation; budget pins evolved to the generator-agnostic
+  bounded-overshoot invariant with WFC exactness kept.
+
 ## Sources
 
 - `labs/map_elites_archive/evaluation_loop_scale.py` (+ `test_evaluation_loop_scale.py`)
 - `data/archives/evaluation_loop_scale_stage0.json`
-- `research/experiment_reports/2026-07-09-evaluation-loop-scale.md`
+- `data/archives/generation_arm_evolution_stage0.json` (the DR 0042 verdict)
+- `research/experiment_reports/2026-07-09-evaluation-loop-scale.md`, `2026-07-21-generation-arm-loop.md`
+- `research/decision_records/0040-novelty-first-evolution-surface.md`, `0042-generation-layer-loop-revisit.md`
 - `docs/project-research/deep-research/01/deep-research.md`

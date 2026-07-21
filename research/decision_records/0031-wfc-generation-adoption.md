@@ -8,6 +8,16 @@ Date: 2026-07-08
 the gap analysis' Phase B exists for, decided by the B2 bake-off under
 a rule pre-registered before the run.
 
+**Amendment (2026-07-21, DR 0042)**: decision 2's production-generator
+clause is **superseded at the evolution loop** — after DR 0038 made the
+constrained path vocabulary-complete, it won both the regenerated
+bake-off (this record's own rule) and the full-loop comparison
+(coverage +0.1133, QD ratio 1.3025 at the matched budget), and the
+loop's generation default is now `constrained`. The promoted
+`mecha_engine.generation` WFC surface (decision 1) stands untouched:
+additive, parity-pinned, a runnable arm and instrument everywhere it is
+consumed.
+
 ## Context
 
 The documents specified Markov → WFC/constraints → mutation → validator

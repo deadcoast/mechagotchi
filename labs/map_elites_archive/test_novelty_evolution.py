@@ -52,13 +52,24 @@ class SelectionArmTests(unittest.TestCase):
             **TINY, selection="novelty_first", pool_factor=2
         )
         baseline = run_evaluation_loop(**TINY)
-        self.assertEqual(
-            baseline["evaluations_total"], novelty["evaluations_total"]
+        # DR 0042: both arms cross the same scored-budget bar; the
+        # adopted constrained generator records failures, so totals
+        # land within one population of each other and the pool holds
+        # the survivors of pool_factor x population attempts.
+        self.assertGreaterEqual(novelty["evaluations_total"], 64)
+        self.assertGreaterEqual(baseline["evaluations_total"], 64)
+        self.assertLess(
+            abs(
+                baseline["evaluations_total"]
+                - novelty["evaluations_total"]
+            ),
+            16,
         )
         for entry in novelty["trajectory"]:
             with self.subTest(generation=entry["generation"]):
                 self.assertTrue(entry["selection_novelty"])
-                self.assertEqual(entry["pool_size"], 2 * 16)
+                self.assertGreaterEqual(entry["pool_size"], 1)
+                self.assertLessEqual(entry["pool_size"], 2 * 16)
 
     def test_blend_alternates_and_records_which_generations_were_novel(self):
         blend = run_evaluation_loop(
@@ -103,8 +114,14 @@ class ComparisonReportTests(unittest.TestCase):
         self.assertEqual(
             ["baseline", "blend", "novelty_first"], sorted(arms)
         )
-        budgets = {arm["evaluations_total"] for arm in arms.values()}
-        self.assertEqual(1, len(budgets))
+        # DR 0042: the matched budget is the shared bar every arm must
+        # cross; under the adopted fallible constrained generator each
+        # arm's overshoot is bounded by one population (exact equality
+        # held only for infallible WFC).
+        for name, arm in arms.items():
+            with self.subTest(arm=name):
+                self.assertGreaterEqual(arm["evaluations_total"], 64)
+                self.assertLess(arm["evaluations_total"], 64 + 16)
 
     def test_the_decision_is_the_pre_registered_rule_applied(self):
         metrics = self.report["metrics"]

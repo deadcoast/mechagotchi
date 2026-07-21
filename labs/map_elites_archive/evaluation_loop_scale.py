@@ -72,10 +72,13 @@ from niche_scale_archive import (  # noqa: E402
 from wfc_grid import _signature, split_corpus  # noqa: E402
 from wfc_grid import train_wfc_model as lab_train_wfc_model  # noqa: E402
 from wfc_population_throughput import (  # noqa: E402
+    constrained_population,
     load_frozen_scale_edges,
     parents_from_archive,
     wfc_population,
 )
+
+from mecha_engine.generation import train_generation_model  # noqa: E402
 
 
 REPORT_DATE = "2026-07-09"
@@ -104,24 +107,58 @@ def run_evaluation_loop(
     # stay runnable arms.
     selection: str = "novelty_first",
     pool_factor: int = 3,
+    # DR 0042 (adopted on the measured verdict): the generation layer
+    # is an arm, and "constrained" — E2's recorded promoted-evolve
+    # inner loop, verbatim — is the loop's default after beating the
+    # WFC incumbent on BOTH pre-registered bars at the matched budget
+    # (coverage 0.7852 -> 0.8984, +0.1133 vs the +0.02 bar; QD ratio
+    # 1.3025 vs the 0.95 floor). "wfc" stays a runnable arm,
+    # byte-identical when asked for.
+    generation: str = "constrained",
 ) -> dict:
     """The full generational loop to the documented evaluation budget.
 
     Deterministic under ``rng_seed``: the bootstrap population, every
-    generation's WFC collapse, every stress-probed lifecycle score, and
-    every elite decision replay identically. Returns the archive, the
-    per-generation trajectory, and lean elite records (descriptor, axis
-    values, signature hash — E5's clustering inputs).
+    generation's candidate generation, every stress-probed lifecycle
+    score, and every elite decision replay identically. Returns the
+    archive, the per-generation trajectory, and lean elite records
+    (descriptor, axis values, signature hash — E5's clustering inputs).
     """
     if selection not in ("baseline", "novelty_first", "blend"):
         raise ValueError(
             "selection must be baseline | novelty_first | blend: "
             f"{selection!r}"
         )
+    if generation not in ("wfc", "constrained"):
+        raise ValueError(
+            f"generation must be wfc | constrained: {generation!r}"
+        )
     edges = load_frozen_scale_edges()
     slip_profile = _load_default_slip()
     seeds = build_seed_grids_16()
     train, _, _ = split_corpus(seeds)
+    generation_model = (
+        train_generation_model(seeds) if generation == "constrained" else None
+    )
+
+    def generate_population(
+        parents: list[dict], count: int, generation_index: int
+    ) -> tuple[list[dict], list[dict]]:
+        if generation == "wfc":
+            return wfc_population(
+                parents,
+                population=count,
+                generation_index=generation_index,
+                rng_seed=rng_seed,
+            )
+        return constrained_population(
+            parents,
+            generation_model,
+            population=count,
+            generation_index=generation_index,
+            rng_seed=rng_seed,
+            slip_profile=slip_profile,
+        )
 
     archive = new_scale_archive()
     elite_grids: dict[str, dict] = {}
@@ -166,11 +203,8 @@ def run_evaluation_loop(
         )
         pool_size = None
         if novelty_generation:
-            pool, failures = wfc_population(
-                parents,
-                population=population * pool_factor,
-                generation_index=generation_index,
-                rng_seed=rng_seed,
+            pool, failures = generate_population(
+                parents, population * pool_factor, generation_index
             )
             pool_size = len(pool)
             candidates = _novelty_first_candidates(
@@ -181,11 +215,8 @@ def run_evaluation_loop(
                 slip_profile=slip_profile,
             )
         else:
-            candidates, failures = wfc_population(
-                parents,
-                population=population,
-                generation_index=generation_index,
-                rng_seed=rng_seed,
+            candidates, failures = generate_population(
+                parents, population, generation_index
             )
         replacements_before = _replacement_count(archive)
         for index, candidate in enumerate(candidates):
@@ -238,6 +269,28 @@ def run_evaluation_loop(
         }
         for niche, elite in sorted(archive["elites"].items())
     ]
+    # DR 0042 (observation, not a gate): the elites' role texture — the
+    # game-facing consequence of the generation-layer choice.
+    motion_roles = {"limb", "joint", "decoration"}
+    elite_role_sets = [
+        {
+            cell["role"]
+            for cell in elite_grids[elite["grid_id"]]["cells"]
+        }
+        for elite in archive["elites"].values()
+    ]
+    elite_role_summary = {
+        "roles_present": sorted(set().union(*elite_role_sets))
+        if elite_role_sets
+        else [],
+        "motion_trio_elite_fraction": round(
+            sum(1 for roles in elite_role_sets if roles & motion_roles)
+            / len(elite_role_sets),
+            6,
+        )
+        if elite_role_sets
+        else 0.0,
+    }
     return {
         "archive": archive,
         "archive_summary": summary,
@@ -245,6 +298,8 @@ def run_evaluation_loop(
         "evaluations_total": evaluations,
         "bootstrap_composition": bootstrap_composition,
         "elite_records": elite_records,
+        "generation": generation,
+        "elite_role_summary": elite_role_summary,
     }
 
 
@@ -282,14 +337,32 @@ def build_evaluation_loop_report(
     target_evaluations: int = 20_480,
     rng_seed: int = DEFAULT_RNG_SEED,
     lifecycle_ticks: int = DEFAULT_LIFECYCLE_TICKS,
+    generation: str = "constrained",
 ) -> dict:
     result = run_evaluation_loop(
         population=population,
         target_evaluations=target_evaluations,
         rng_seed=rng_seed,
         lifecycle_ticks=lifecycle_ticks,
+        generation=generation,
     )
     summary = result["archive_summary"]
+    parent_path_evidence = {
+        "wfc": (
+            "E2 (data/wfc_grid/wfc_population_throughput_stage0."
+            "json): validity 1.0, unique-signature rate 1.0, "
+            "7.04 ms/candidate with retraining, archive growth "
+            "171->233 under the WFC parent path"
+        ),
+        "constrained": (
+            "DR 0042 (data/archives/generation_arm_evolution_stage0."
+            "json): the promoted-evolve inner loop beat the WFC "
+            "incumbent in the FULL loop at the matched budget — "
+            "coverage 0.7852 -> 0.8984 (+0.1133 vs the +0.02 bar), "
+            "QD ratio 1.3025 (vs the 0.95 floor) — the adopted "
+            "generation default"
+        ),
+    }[generation]
     return {
         "artifact_id": ARTIFACT_ID,
         "status": "complete",
@@ -297,9 +370,10 @@ def build_evaluation_loop_report(
         "purpose": (
             "Run the full generational evolve loop at the documented "
             "evaluation budget (20k+ stress-probed lifecycle evaluations) "
-            "over the E1 scale geometry with the E2-evidenced WFC parent "
-            "path; wall-clock measured first against the pre-registered "
-            "bound; determinism pinned under seeds (cycle 13 E3)."
+            "over the E1 scale geometry with the adopted generation "
+            "layer (DR 0042); wall-clock measured first against the "
+            "pre-registered bound; determinism pinned under seeds "
+            "(cycle 13 E3)."
         ),
         "source_artifacts": [
             "labs/map_elites_archive/niche_scale_archive.py",
@@ -317,13 +391,8 @@ def build_evaluation_loop_report(
                 "rng_seed": rng_seed,
                 "lifecycle_ticks": lifecycle_ticks,
                 "wall_clock_bound_s": PRE_REGISTERED_BOUND_S,
-                "parent_path": "wfc",
-                "parent_path_evidence": (
-                    "E2 (data/wfc_grid/wfc_population_throughput_stage0."
-                    "json): validity 1.0, unique-signature rate 1.0, "
-                    "7.04 ms/candidate with retraining, archive growth "
-                    "171->233 under the WFC parent path"
-                ),
+                "parent_path": generation,
+                "parent_path_evidence": parent_path_evidence,
                 "bootstrap_composition": result["bootstrap_composition"],
                 "frozen_edges_source": (
                     "data/archives/niche_scale_archive_stage0.json"

@@ -62,17 +62,32 @@ class LoopDeterminismTests(unittest.TestCase):
                 )
 
     def test_evaluation_accounting_is_exact(self):
-        # bootstrap population + population per generation, run until the
-        # target is reached.
+        # bootstrap population + per-generation scored candidates, run
+        # until the target is reached. DR 0042: the adopted constrained
+        # generator records failures loudly, so a generation scores
+        # exactly what it produced (never more than population); the
+        # WFC arm's exact multiples still hold and stay pinned.
         result = self.first
         self.assertGreaterEqual(result["evaluations_total"], 32)
-        self.assertEqual(
-            result["evaluations_total"],
-            8 + 8 * len(result["trajectory"]),
-        )
+        previous = 8
+        for entry in result["trajectory"]:
+            scored = entry["evaluations_total"] - previous
+            self.assertGreaterEqual(scored, 1)
+            self.assertLessEqual(scored, 8)
+            previous = entry["evaluations_total"]
+        self.assertEqual(result["evaluations_total"], previous)
         self.assertEqual(
             result["evaluations_total"],
             result["archive"]["candidate_count"],
+        )
+        wfc = run_evaluation_loop(
+            population=8,
+            target_evaluations=32,
+            rng_seed=RNG_SEED,
+            generation="wfc",
+        )
+        self.assertEqual(
+            wfc["evaluations_total"], 8 + 8 * len(wfc["trajectory"])
         )
 
     def test_occupancy_never_shrinks_across_generations(self):
@@ -128,8 +143,9 @@ class ReportTests(unittest.TestCase):
     def test_protocol_pre_registers_the_wall_clock_bound(self):
         protocol = self.report["metrics"]["protocol"]
         self.assertEqual(PRE_REGISTERED_BOUND_S, protocol["wall_clock_bound_s"])
-        self.assertEqual("wfc", protocol["parent_path"])
-        self.assertIn("E2", protocol["parent_path_evidence"])
+        # DR 0042: the adopted generation default, with its evidence.
+        self.assertEqual("constrained", protocol["parent_path"])
+        self.assertIn("DR 0042", protocol["parent_path_evidence"])
 
     def test_trajectory_and_final_archive_are_consistent(self):
         metrics = self.report["metrics"]

@@ -1,0 +1,123 @@
+{
+  "artifact_id": "generation_arm_evolution_stage0",
+  "status": "complete",
+  "date": "2026-07-21",
+  "purpose": "Cycle 21 K2 (DR 0042): DR 0031's revisit judged at its consumer \u2014 both generation arms through the FULL adopted loop at the matched documented budget, the rule pre-registered and incumbent-favoring.",
+  "source_artifacts": [
+    "labs/map_elites_archive/evaluation_loop_scale.py",
+    "labs/wfc_grid/wfc_population_throughput.py",
+    "data/wfc_grid/generation_bakeoff16_stage0.json",
+    "research/decision_records/0042-generation-layer-loop-revisit.md",
+    "research/decision_records/0031-wfc-generation-adoption.md",
+    "research/decision_records/0040-novelty-first-evolution-surface.md"
+  ],
+  "parameters": {
+    "population": 256,
+    "target_evaluations": 20480,
+    "rng_seed": 20260709,
+    "lifecycle_ticks": 24,
+    "selection": "novelty_first (the DR 0040 adopted default)",
+    "coverage_gain_bar": 0.02,
+    "qd_cost_factor": 0.95
+  },
+  "metrics": {
+    "arms": {
+      "wfc": {
+        "evaluations_total": 20480,
+        "generations": 79,
+        "occupied_niches": 402,
+        "coverage": 0.785156,
+        "qd_score": 310.650061,
+        "mean_elite_fitness": 0.772761,
+        "best_fitness": 0.971513,
+        "collapse_failures_total": 0,
+        "elite_role_summary": {
+          "roles_present": [
+            "antenna",
+            "body",
+            "decoration",
+            "effect",
+            "eye",
+            "joint",
+            "limb",
+            "mouth",
+            "sensor",
+            "shell"
+          ],
+          "motion_trio_elite_fraction": 1.0
+        },
+        "wall_clock_s": 461.572,
+        "final_trajectory_entry": {
+          "generation": 79,
+          "evaluations_total": 20480,
+          "parent_count": 402,
+          "collapse_failures": 0,
+          "occupied_niches": 402,
+          "coverage": 0.785156,
+          "qd_score": 310.650061,
+          "best_fitness": 0.971513,
+          "replacements_this_generation": 0,
+          "selection_novelty": true,
+          "pool_size": 768
+        }
+      },
+      "constrained": {
+        "evaluations_total": 20681,
+        "generations": 80,
+        "occupied_niches": 460,
+        "coverage": 0.898438,
+        "qd_score": 404.618236,
+        "mean_elite_fitness": 0.879605,
+        "best_fitness": 0.971513,
+        "collapse_failures_total": 4435,
+        "elite_role_summary": {
+          "roles_present": [
+            "antenna",
+            "body",
+            "decoration",
+            "effect",
+            "eye",
+            "joint",
+            "limb",
+            "mouth",
+            "sensor",
+            "shell"
+          ],
+          "motion_trio_elite_fraction": 1.0
+        },
+        "wall_clock_s": 272.086,
+        "final_trajectory_entry": {
+          "generation": 80,
+          "evaluations_total": 20681,
+          "parent_count": 460,
+          "collapse_failures": 38,
+          "occupied_niches": 460,
+          "coverage": 0.898438,
+          "qd_score": 404.618236,
+          "best_fitness": 0.971513,
+          "replacements_this_generation": 4,
+          "selection_novelty": true,
+          "pool_size": 730
+        }
+      }
+    },
+    "lever": {
+      "coverage_gain": 0.113282,
+      "qd_ratio": 1.302489,
+      "meets_coverage_gain_bar": true,
+      "meets_qd_cost_bar": true
+    }
+  },
+  "closed_states": [
+    "generation_layer_revisit_judged_in_the_loop"
+  ],
+  "blocked_states": [
+    "one_shot_bakeoff_and_loop_verdicts_reconciled_in_the_experiment_report"
+  ],
+  "decision": {
+    "verdict": "adopt:constrained",
+    "rule": "constrained vs the wfc incumbent: coverage gain >= +0.02 AND qd_score >= 0.95 x wfc; otherwise the incumbent stands at its consumer (DR 0042, pre-registered; ties favor the incumbent)",
+    "reason": "the challenger met both pre-registered bars in the loop"
+  },
+  "next_research_step": "fill DR 0042's measured-verdict section from this artifact; the loop's generation default follows the verdict; either way both arms stay runnable"
+}

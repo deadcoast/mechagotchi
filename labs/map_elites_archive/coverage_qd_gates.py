@@ -66,9 +66,12 @@ from niche_scale_archive import (  # noqa: E402
 from wfc_grid import split_corpus  # noqa: E402
 from wfc_grid import train_wfc_model as lab_train_wfc_model  # noqa: E402
 from wfc_population_throughput import (  # noqa: E402
+    constrained_population,
     load_frozen_scale_edges,
     wfc_population,
 )
+
+from mecha_engine.generation import train_generation_model  # noqa: E402
 
 
 REPORT_DATE = "2026-07-09"
@@ -91,20 +94,29 @@ def run_ga_baseline(
     target_evaluations: int = 20_480,
     rng_seed: int = DEFAULT_RNG_SEED,
     lifecycle_ticks: int = DEFAULT_LIFECYCLE_TICKS,
+    generation: str = "constrained",
 ) -> dict:
     """The plain GA under the identical budget — the documented control.
 
     Scalar truncation selection (top half by fitness, ties broken by
-    grid_id), full generational replacement, the same WFC variation
-    operator retrained on the selected parents, the same bootstrap and
-    per-candidate seed scheme as the MAP-Elites arm. No archive, no
-    niches — coverage is measured externally over the evaluation
-    history.
+    grid_id), full generational replacement, THE SAME variation
+    operator as the MAP-Elites arm (the loop's adopted generation
+    layer, DR 0042 — `generation` mirrors the loop's arm so the
+    documented symmetry holds under either layer), the same bootstrap
+    and per-candidate seed scheme. No archive, no niches — coverage is
+    measured externally over the evaluation history.
     """
+    if generation not in ("wfc", "constrained"):
+        raise ValueError(
+            f"generation must be wfc | constrained: {generation!r}"
+        )
     edges = load_frozen_scale_edges()
     slip_profile = _load_default_slip()
     seeds = build_seed_grids_16()
     train, _, _ = split_corpus(seeds)
+    generation_model = (
+        train_generation_model(seeds) if generation == "constrained" else None
+    )
 
     evaluations = 0
     history_niches: set[tuple[int, ...]] = set()
@@ -143,12 +155,22 @@ def run_ga_baseline(
             scored, key=lambda pair: (-pair[1], pair[0]["grid_id"])
         )
         parents = [grid for grid, _ in ranked[: max(1, population // 2)]]
-        candidates, failures = wfc_population(
-            parents,
-            population=population,
-            generation_index=generation_index,
-            rng_seed=rng_seed,
-        )
+        if generation == "wfc":
+            candidates, failures = wfc_population(
+                parents,
+                population=population,
+                generation_index=generation_index,
+                rng_seed=rng_seed,
+            )
+        else:
+            candidates, failures = constrained_population(
+                parents,
+                generation_model,
+                population=population,
+                generation_index=generation_index,
+                rng_seed=rng_seed,
+                slip_profile=slip_profile,
+            )
         scored = [
             (
                 candidate,
@@ -182,6 +204,7 @@ def run_ga_baseline(
         "history_niches_touched": len(history_niches),
         "history_coverage": round(len(history_niches) / TOTAL_SCALE_NICHES, 6),
         "selection": "truncation_top_half_scalar_fitness",
+        "generation": generation,
     }
 
 
@@ -224,6 +247,7 @@ def build_coverage_gate_report(
     target_evaluations: int = 20_480,
     seeds: list[int] | None = None,
     lifecycle_ticks: int = DEFAULT_LIFECYCLE_TICKS,
+    generation: str = "constrained",
 ) -> dict:
     seeds = list(DEFAULT_SEEDS) if seeds is None else list(seeds)
     map_elites_runs: list[dict] = []
@@ -234,6 +258,7 @@ def build_coverage_gate_report(
             target_evaluations=target_evaluations,
             rng_seed=seed,
             lifecycle_ticks=lifecycle_ticks,
+            generation=generation,
         )
         summary = loop["archive_summary"]
         map_elites_runs.append(
@@ -257,6 +282,7 @@ def build_coverage_gate_report(
                 target_evaluations=target_evaluations,
                 rng_seed=seed,
                 lifecycle_ticks=lifecycle_ticks,
+                generation=generation,
             )
         )
     verdict = judge_gates(map_elites_runs=map_elites_runs, ga_runs=ga_runs)
@@ -305,11 +331,14 @@ def build_coverage_gate_report(
                 "ga_design": (
                     "plain generational GA: truncation selection (top half "
                     "by scalar fitness, grid_id tie-break), full "
-                    "replacement, the SAME WFC variation operator retrained "
-                    "on selected parents, the SAME bootstrap/seed scheme/"
-                    "evaluation unit; coverage measured over the full "
-                    "evaluation history (the GA-favorable reading)"
+                    "replacement, the SAME variation operator as the "
+                    "MAP-Elites arm (the loop's adopted generation layer — "
+                    "DR 0042 — so the documented symmetry holds), the SAME "
+                    "bootstrap/seed scheme/evaluation unit; coverage "
+                    "measured over the full evaluation history (the "
+                    "GA-favorable reading)"
                 ),
+                "generation_layer": generation,
             },
             "map_elites_runs": map_elites_runs,
             "ga_runs": ga_runs,
