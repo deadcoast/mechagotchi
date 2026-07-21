@@ -1,0 +1,2865 @@
+{
+  "artifact_id": "structured_decoder_stage0",
+  "status": "complete",
+  "date": "2026-07-20",
+  "purpose": "Cycle 20 J4: the I2 remainder's DIFFERENT direct arm \u2014 a tape decoder grounded in bff_noheads's own instruction classes, judged freely by the validator over the committed two-phase corpus; un-saturation and refutation both first-class.",
+  "source_artifacts": [
+    "data/cubff_transducer/real_states_curated_i2.json",
+    "labs/cubff_transducer/cubff_transducer.py (score_readability)",
+    "labs/grid_genome/grid_helpers.py (the rich reconstruction)",
+    "research/experiment_reports/2026-07-20-transducer-study-post-takeover.md"
+  ],
+  "instruction_correspondence": {
+    "[": "J",
+    "]": "J",
+    "<": "L",
+    ">": "L",
+    "{": "N",
+    "}": "P",
+    "+": "F",
+    "-": "F",
+    ".": "B",
+    ",": "E"
+  },
+  "metrics": {
+    "state_count": 400,
+    "decoder_valid_count": 0,
+    "decoder_valid_rate": 0.0,
+    "readability_min": 0.28,
+    "readability_max": 0.38,
+    "per_phase": {
+      "early_phase": {
+        "state_count": 386,
+        "valid_count": 0,
+        "valid_rate": 0.0,
+        "mean_readability": 0.294456,
+        "mean_decoded_cells": 7.132124
+      },
+      "post_takeover": {
+        "state_count": 14,
+        "valid_count": 0,
+        "valid_rate": 0.0,
+        "mean_readability": 0.327143,
+        "mean_decoded_cells": 15.142857
+      }
+    },
+    "per_state": [
+      {
+        "snapshot_id": "seed00_0000000000",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed00_0000000320",
+        "phase": "early_phase",
+        "decoded_cell_count": 61,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed00_0000000640",
+        "phase": "early_phase",
+        "decoded_cell_count": 56,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed00_0000000960",
+        "phase": "early_phase",
+        "decoded_cell_count": 46,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed00_0000001280",
+        "phase": "early_phase",
+        "decoded_cell_count": 12,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed00_0000001600",
+        "phase": "early_phase",
+        "decoded_cell_count": 13,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed00_0000001920",
+        "phase": "early_phase",
+        "decoded_cell_count": 10,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed00_0000002240",
+        "phase": "early_phase",
+        "decoded_cell_count": 7,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed00_0000002560",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed00_0000002880",
+        "phase": "post_takeover",
+        "decoded_cell_count": 16,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed00_0000003200",
+        "phase": "post_takeover",
+        "decoded_cell_count": 15,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed00_0000003520",
+        "phase": "post_takeover",
+        "decoded_cell_count": 15,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed00_0000003840",
+        "phase": "post_takeover",
+        "decoded_cell_count": 15,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed00_0000004160",
+        "phase": "post_takeover",
+        "decoded_cell_count": 16,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed00_0000004480",
+        "phase": "post_takeover",
+        "decoded_cell_count": 14,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed00_0000004800",
+        "phase": "post_takeover",
+        "decoded_cell_count": 12,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed00_0000005120",
+        "phase": "post_takeover",
+        "decoded_cell_count": 12,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed00_0000005440",
+        "phase": "post_takeover",
+        "decoded_cell_count": 16,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed00_0000005760",
+        "phase": "post_takeover",
+        "decoded_cell_count": 13,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed00_0000006080",
+        "phase": "post_takeover",
+        "decoded_cell_count": 13,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed01_0000000000",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed01_0000000320",
+        "phase": "early_phase",
+        "decoded_cell_count": 7,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed01_0000000640",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed01_0000000960",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed01_0000001280",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed01_0000001600",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed01_0000001920",
+        "phase": "early_phase",
+        "decoded_cell_count": 8,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed01_0000002240",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed01_0000002560",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed01_0000002880",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed01_0000003200",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed01_0000003520",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed01_0000003840",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed01_0000004160",
+        "phase": "early_phase",
+        "decoded_cell_count": 8,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed01_0000004480",
+        "phase": "early_phase",
+        "decoded_cell_count": 11,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed01_0000004800",
+        "phase": "early_phase",
+        "decoded_cell_count": 9,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed01_0000005120",
+        "phase": "early_phase",
+        "decoded_cell_count": 13,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed01_0000005440",
+        "phase": "early_phase",
+        "decoded_cell_count": 7,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed01_0000005760",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed01_0000006080",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed02_0000000000",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed02_0000000320",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed02_0000000640",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed02_0000000960",
+        "phase": "early_phase",
+        "decoded_cell_count": 7,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed02_0000001280",
+        "phase": "early_phase",
+        "decoded_cell_count": 7,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed02_0000001600",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed02_0000001920",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed02_0000002240",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed02_0000002560",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed02_0000002880",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed02_0000003200",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed02_0000003520",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed02_0000003840",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed02_0000004160",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed02_0000004480",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed02_0000004800",
+        "phase": "early_phase",
+        "decoded_cell_count": 9,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed02_0000005120",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed02_0000005440",
+        "phase": "early_phase",
+        "decoded_cell_count": 7,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed02_0000005760",
+        "phase": "early_phase",
+        "decoded_cell_count": 9,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed02_0000006080",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed03_0000000000",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed03_0000000320",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed03_0000000640",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed03_0000000960",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed03_0000001280",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed03_0000001600",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed03_0000001920",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed03_0000002240",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed03_0000002560",
+        "phase": "early_phase",
+        "decoded_cell_count": 34,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed03_0000002880",
+        "phase": "early_phase",
+        "decoded_cell_count": 20,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed03_0000003200",
+        "phase": "early_phase",
+        "decoded_cell_count": 21,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed03_0000003520",
+        "phase": "early_phase",
+        "decoded_cell_count": 16,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed03_0000003840",
+        "phase": "early_phase",
+        "decoded_cell_count": 16,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed03_0000004160",
+        "phase": "early_phase",
+        "decoded_cell_count": 18,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed03_0000004480",
+        "phase": "early_phase",
+        "decoded_cell_count": 19,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed03_0000004800",
+        "phase": "early_phase",
+        "decoded_cell_count": 15,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed03_0000005120",
+        "phase": "early_phase",
+        "decoded_cell_count": 16,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed03_0000005440",
+        "phase": "early_phase",
+        "decoded_cell_count": 19,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed03_0000005760",
+        "phase": "early_phase",
+        "decoded_cell_count": 13,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed03_0000006080",
+        "phase": "early_phase",
+        "decoded_cell_count": 13,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed04_0000000000",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed04_0000000320",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed04_0000000640",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed04_0000000960",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed04_0000001280",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed04_0000001600",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed04_0000001920",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed04_0000002240",
+        "phase": "early_phase",
+        "decoded_cell_count": 8,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed04_0000002560",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed04_0000002880",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed04_0000003200",
+        "phase": "early_phase",
+        "decoded_cell_count": 0,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed04_0000003520",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed04_0000003840",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed04_0000004160",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed04_0000004480",
+        "phase": "early_phase",
+        "decoded_cell_count": 10,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed04_0000004800",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed04_0000005120",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed04_0000005440",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed04_0000005760",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed04_0000006080",
+        "phase": "early_phase",
+        "decoded_cell_count": 8,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed05_0000000000",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed05_0000000320",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed05_0000000640",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed05_0000000960",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed05_0000001280",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed05_0000001600",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed05_0000001920",
+        "phase": "early_phase",
+        "decoded_cell_count": 8,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed05_0000002240",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed05_0000002560",
+        "phase": "early_phase",
+        "decoded_cell_count": 10,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed05_0000002880",
+        "phase": "early_phase",
+        "decoded_cell_count": 7,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed05_0000003200",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed05_0000003520",
+        "phase": "early_phase",
+        "decoded_cell_count": 8,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed05_0000003840",
+        "phase": "early_phase",
+        "decoded_cell_count": 8,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed05_0000004160",
+        "phase": "early_phase",
+        "decoded_cell_count": 18,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed05_0000004480",
+        "phase": "early_phase",
+        "decoded_cell_count": 10,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed05_0000004800",
+        "phase": "early_phase",
+        "decoded_cell_count": 8,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed05_0000005120",
+        "phase": "early_phase",
+        "decoded_cell_count": 12,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed05_0000005440",
+        "phase": "early_phase",
+        "decoded_cell_count": 10,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed05_0000005760",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed05_0000006080",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed06_0000000000",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed06_0000000320",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed06_0000000640",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed06_0000000960",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed06_0000001280",
+        "phase": "early_phase",
+        "decoded_cell_count": 0,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed06_0000001600",
+        "phase": "early_phase",
+        "decoded_cell_count": 0,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed06_0000001920",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed06_0000002240",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed06_0000002560",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed06_0000002880",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed06_0000003200",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed06_0000003520",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed06_0000003840",
+        "phase": "early_phase",
+        "decoded_cell_count": 12,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed06_0000004160",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed06_0000004480",
+        "phase": "early_phase",
+        "decoded_cell_count": 13,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed06_0000004800",
+        "phase": "early_phase",
+        "decoded_cell_count": 10,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed06_0000005120",
+        "phase": "early_phase",
+        "decoded_cell_count": 0,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed06_0000005440",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed06_0000005760",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed06_0000006080",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed07_0000000000",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed07_0000000320",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed07_0000000640",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed07_0000000960",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed07_0000001280",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed07_0000001600",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed07_0000001920",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed07_0000002240",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed07_0000002560",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed07_0000002880",
+        "phase": "early_phase",
+        "decoded_cell_count": 9,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed07_0000003200",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed07_0000003520",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed07_0000003840",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed07_0000004160",
+        "phase": "early_phase",
+        "decoded_cell_count": 8,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed07_0000004480",
+        "phase": "early_phase",
+        "decoded_cell_count": 8,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed07_0000004800",
+        "phase": "early_phase",
+        "decoded_cell_count": 14,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed07_0000005120",
+        "phase": "early_phase",
+        "decoded_cell_count": 8,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed07_0000005440",
+        "phase": "early_phase",
+        "decoded_cell_count": 12,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed07_0000005760",
+        "phase": "early_phase",
+        "decoded_cell_count": 12,
+        "decoder_valid": false,
+        "decoder_readability": 0.38
+      },
+      {
+        "snapshot_id": "seed07_0000006080",
+        "phase": "early_phase",
+        "decoded_cell_count": 12,
+        "decoder_valid": false,
+        "decoder_readability": 0.38
+      },
+      {
+        "snapshot_id": "seed08_0000000000",
+        "phase": "early_phase",
+        "decoded_cell_count": 0,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed08_0000000320",
+        "phase": "early_phase",
+        "decoded_cell_count": 0,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed08_0000000640",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed08_0000000960",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed08_0000001280",
+        "phase": "early_phase",
+        "decoded_cell_count": 0,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed08_0000001600",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed08_0000001920",
+        "phase": "early_phase",
+        "decoded_cell_count": 42,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed08_0000002240",
+        "phase": "early_phase",
+        "decoded_cell_count": 25,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed08_0000002560",
+        "phase": "early_phase",
+        "decoded_cell_count": 21,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed08_0000002880",
+        "phase": "early_phase",
+        "decoded_cell_count": 20,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed08_0000003200",
+        "phase": "early_phase",
+        "decoded_cell_count": 19,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed08_0000003520",
+        "phase": "early_phase",
+        "decoded_cell_count": 14,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed08_0000003840",
+        "phase": "post_takeover",
+        "decoded_cell_count": 17,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed08_0000004160",
+        "phase": "early_phase",
+        "decoded_cell_count": 18,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed08_0000004480",
+        "phase": "early_phase",
+        "decoded_cell_count": 0,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed08_0000004800",
+        "phase": "early_phase",
+        "decoded_cell_count": 0,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed08_0000005120",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed08_0000005440",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed08_0000005760",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed08_0000006080",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed09_0000000000",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed09_0000000320",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed09_0000000640",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed09_0000000960",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed09_0000001280",
+        "phase": "early_phase",
+        "decoded_cell_count": 9,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed09_0000001600",
+        "phase": "early_phase",
+        "decoded_cell_count": 16,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed09_0000001920",
+        "phase": "early_phase",
+        "decoded_cell_count": 17,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed09_0000002240",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed09_0000002560",
+        "phase": "early_phase",
+        "decoded_cell_count": 7,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed09_0000002880",
+        "phase": "early_phase",
+        "decoded_cell_count": 7,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed09_0000003200",
+        "phase": "early_phase",
+        "decoded_cell_count": 7,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed09_0000003520",
+        "phase": "early_phase",
+        "decoded_cell_count": 10,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed09_0000003840",
+        "phase": "early_phase",
+        "decoded_cell_count": 10,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed09_0000004160",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed09_0000004480",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed09_0000004800",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed09_0000005120",
+        "phase": "early_phase",
+        "decoded_cell_count": 9,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed09_0000005440",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed09_0000005760",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed09_0000006080",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed10_0000000000",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed10_0000000320",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed10_0000000640",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed10_0000000960",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed10_0000001280",
+        "phase": "early_phase",
+        "decoded_cell_count": 0,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed10_0000001600",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed10_0000001920",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed10_0000002240",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed10_0000002560",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed10_0000002880",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed10_0000003200",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed10_0000003520",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed10_0000003840",
+        "phase": "early_phase",
+        "decoded_cell_count": 8,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed10_0000004160",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed10_0000004480",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed10_0000004800",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed10_0000005120",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed10_0000005440",
+        "phase": "early_phase",
+        "decoded_cell_count": 7,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed10_0000005760",
+        "phase": "early_phase",
+        "decoded_cell_count": 8,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed10_0000006080",
+        "phase": "early_phase",
+        "decoded_cell_count": 10,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed11_0000000000",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed11_0000000320",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed11_0000000640",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed11_0000000960",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed11_0000001280",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed11_0000001600",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed11_0000001920",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed11_0000002240",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed11_0000002560",
+        "phase": "early_phase",
+        "decoded_cell_count": 9,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed11_0000002880",
+        "phase": "early_phase",
+        "decoded_cell_count": 7,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed11_0000003200",
+        "phase": "early_phase",
+        "decoded_cell_count": 10,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed11_0000003520",
+        "phase": "early_phase",
+        "decoded_cell_count": 11,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed11_0000003840",
+        "phase": "early_phase",
+        "decoded_cell_count": 9,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed11_0000004160",
+        "phase": "early_phase",
+        "decoded_cell_count": 13,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed11_0000004480",
+        "phase": "early_phase",
+        "decoded_cell_count": 11,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed11_0000004800",
+        "phase": "early_phase",
+        "decoded_cell_count": 8,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed11_0000005120",
+        "phase": "early_phase",
+        "decoded_cell_count": 9,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed11_0000005440",
+        "phase": "early_phase",
+        "decoded_cell_count": 18,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed11_0000005760",
+        "phase": "early_phase",
+        "decoded_cell_count": 13,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed11_0000006080",
+        "phase": "early_phase",
+        "decoded_cell_count": 9,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed12_0000000000",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed12_0000000320",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed12_0000000640",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed12_0000000960",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed12_0000001280",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed12_0000001600",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed12_0000001920",
+        "phase": "early_phase",
+        "decoded_cell_count": 8,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed12_0000002240",
+        "phase": "early_phase",
+        "decoded_cell_count": 7,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed12_0000002560",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed12_0000002880",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed12_0000003200",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed12_0000003520",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed12_0000003840",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed12_0000004160",
+        "phase": "early_phase",
+        "decoded_cell_count": 10,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed12_0000004480",
+        "phase": "early_phase",
+        "decoded_cell_count": 11,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed12_0000004800",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed12_0000005120",
+        "phase": "early_phase",
+        "decoded_cell_count": 11,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed12_0000005440",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed12_0000005760",
+        "phase": "early_phase",
+        "decoded_cell_count": 9,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed12_0000006080",
+        "phase": "early_phase",
+        "decoded_cell_count": 7,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed13_0000000000",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed13_0000000320",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed13_0000000640",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed13_0000000960",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed13_0000001280",
+        "phase": "early_phase",
+        "decoded_cell_count": 0,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed13_0000001600",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed13_0000001920",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed13_0000002240",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed13_0000002560",
+        "phase": "early_phase",
+        "decoded_cell_count": 0,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed13_0000002880",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed13_0000003200",
+        "phase": "early_phase",
+        "decoded_cell_count": 7,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed13_0000003520",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed13_0000003840",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed13_0000004160",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed13_0000004480",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed13_0000004800",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed13_0000005120",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed13_0000005440",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed13_0000005760",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed13_0000006080",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed14_0000000000",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed14_0000000320",
+        "phase": "early_phase",
+        "decoded_cell_count": 0,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed14_0000000640",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed14_0000000960",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed14_0000001280",
+        "phase": "early_phase",
+        "decoded_cell_count": 51,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed14_0000001600",
+        "phase": "early_phase",
+        "decoded_cell_count": 42,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed14_0000001920",
+        "phase": "early_phase",
+        "decoded_cell_count": 34,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed14_0000002240",
+        "phase": "early_phase",
+        "decoded_cell_count": 29,
+        "decoder_valid": false,
+        "decoder_readability": 0.38
+      },
+      {
+        "snapshot_id": "seed14_0000002560",
+        "phase": "early_phase",
+        "decoded_cell_count": 31,
+        "decoder_valid": false,
+        "decoder_readability": 0.38
+      },
+      {
+        "snapshot_id": "seed14_0000002880",
+        "phase": "early_phase",
+        "decoded_cell_count": 9,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed14_0000003200",
+        "phase": "early_phase",
+        "decoded_cell_count": 10,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed14_0000003520",
+        "phase": "early_phase",
+        "decoded_cell_count": 11,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed14_0000003840",
+        "phase": "early_phase",
+        "decoded_cell_count": 12,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed14_0000004160",
+        "phase": "early_phase",
+        "decoded_cell_count": 17,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed14_0000004480",
+        "phase": "early_phase",
+        "decoded_cell_count": 17,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed14_0000004800",
+        "phase": "early_phase",
+        "decoded_cell_count": 8,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed14_0000005120",
+        "phase": "early_phase",
+        "decoded_cell_count": 12,
+        "decoder_valid": false,
+        "decoder_readability": 0.38
+      },
+      {
+        "snapshot_id": "seed14_0000005440",
+        "phase": "early_phase",
+        "decoded_cell_count": 11,
+        "decoder_valid": false,
+        "decoder_readability": 0.38
+      },
+      {
+        "snapshot_id": "seed14_0000005760",
+        "phase": "early_phase",
+        "decoded_cell_count": 12,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed14_0000006080",
+        "phase": "early_phase",
+        "decoded_cell_count": 12,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed15_0000000000",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed15_0000000320",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed15_0000000640",
+        "phase": "early_phase",
+        "decoded_cell_count": 0,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed15_0000000960",
+        "phase": "early_phase",
+        "decoded_cell_count": 0,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed15_0000001280",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed15_0000001600",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed15_0000001920",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed15_0000002240",
+        "phase": "early_phase",
+        "decoded_cell_count": 8,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed15_0000002560",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed15_0000002880",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed15_0000003200",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed15_0000003520",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed15_0000003840",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed15_0000004160",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed15_0000004480",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed15_0000004800",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed15_0000005120",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed15_0000005440",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed15_0000005760",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed15_0000006080",
+        "phase": "post_takeover",
+        "decoded_cell_count": 25,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed16_0000000000",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed16_0000000320",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed16_0000000640",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed16_0000000960",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed16_0000001280",
+        "phase": "early_phase",
+        "decoded_cell_count": 7,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed16_0000001600",
+        "phase": "early_phase",
+        "decoded_cell_count": 8,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed16_0000001920",
+        "phase": "early_phase",
+        "decoded_cell_count": 13,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed16_0000002240",
+        "phase": "early_phase",
+        "decoded_cell_count": 8,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed16_0000002560",
+        "phase": "early_phase",
+        "decoded_cell_count": 7,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed16_0000002880",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed16_0000003200",
+        "phase": "early_phase",
+        "decoded_cell_count": 17,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed16_0000003520",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed16_0000003840",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed16_0000004160",
+        "phase": "early_phase",
+        "decoded_cell_count": 29,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed16_0000004480",
+        "phase": "early_phase",
+        "decoded_cell_count": 18,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed16_0000004800",
+        "phase": "early_phase",
+        "decoded_cell_count": 24,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed16_0000005120",
+        "phase": "early_phase",
+        "decoded_cell_count": 15,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed16_0000005440",
+        "phase": "post_takeover",
+        "decoded_cell_count": 13,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed16_0000005760",
+        "phase": "early_phase",
+        "decoded_cell_count": 13,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed16_0000006080",
+        "phase": "early_phase",
+        "decoded_cell_count": 15,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed17_0000000000",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed17_0000000320",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed17_0000000640",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed17_0000000960",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed17_0000001280",
+        "phase": "early_phase",
+        "decoded_cell_count": 0,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed17_0000001600",
+        "phase": "early_phase",
+        "decoded_cell_count": 0,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed17_0000001920",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed17_0000002240",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed17_0000002560",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed17_0000002880",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed17_0000003200",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed17_0000003520",
+        "phase": "early_phase",
+        "decoded_cell_count": 0,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed17_0000003840",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed17_0000004160",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed17_0000004480",
+        "phase": "early_phase",
+        "decoded_cell_count": 8,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed17_0000004800",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed17_0000005120",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed17_0000005440",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed17_0000005760",
+        "phase": "early_phase",
+        "decoded_cell_count": 13,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed17_0000006080",
+        "phase": "early_phase",
+        "decoded_cell_count": 10,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed18_0000000000",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed18_0000000320",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed18_0000000640",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed18_0000000960",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed18_0000001280",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed18_0000001600",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed18_0000001920",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed18_0000002240",
+        "phase": "early_phase",
+        "decoded_cell_count": 7,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed18_0000002560",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed18_0000002880",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed18_0000003200",
+        "phase": "early_phase",
+        "decoded_cell_count": 7,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed18_0000003520",
+        "phase": "early_phase",
+        "decoded_cell_count": 0,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed18_0000003840",
+        "phase": "early_phase",
+        "decoded_cell_count": 4,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed18_0000004160",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed18_0000004480",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed18_0000004800",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed18_0000005120",
+        "phase": "early_phase",
+        "decoded_cell_count": 14,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed18_0000005440",
+        "phase": "early_phase",
+        "decoded_cell_count": 10,
+        "decoder_valid": false,
+        "decoder_readability": 0.34
+      },
+      {
+        "snapshot_id": "seed18_0000005760",
+        "phase": "early_phase",
+        "decoded_cell_count": 19,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed18_0000006080",
+        "phase": "early_phase",
+        "decoded_cell_count": 10,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed19_0000000000",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed19_0000000320",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed19_0000000640",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed19_0000000960",
+        "phase": "early_phase",
+        "decoded_cell_count": 0,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed19_0000001280",
+        "phase": "early_phase",
+        "decoded_cell_count": 1,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed19_0000001600",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed19_0000001920",
+        "phase": "early_phase",
+        "decoded_cell_count": 2,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed19_0000002240",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed19_0000002560",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed19_0000002880",
+        "phase": "early_phase",
+        "decoded_cell_count": 3,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed19_0000003200",
+        "phase": "early_phase",
+        "decoded_cell_count": 0,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed19_0000003520",
+        "phase": "early_phase",
+        "decoded_cell_count": 8,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed19_0000003840",
+        "phase": "early_phase",
+        "decoded_cell_count": 5,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed19_0000004160",
+        "phase": "early_phase",
+        "decoded_cell_count": 7,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed19_0000004480",
+        "phase": "early_phase",
+        "decoded_cell_count": 10,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed19_0000004800",
+        "phase": "early_phase",
+        "decoded_cell_count": 9,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed19_0000005120",
+        "phase": "early_phase",
+        "decoded_cell_count": 11,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed19_0000005440",
+        "phase": "early_phase",
+        "decoded_cell_count": 10,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed19_0000005760",
+        "phase": "early_phase",
+        "decoded_cell_count": 6,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      },
+      {
+        "snapshot_id": "seed19_0000006080",
+        "phase": "early_phase",
+        "decoded_cell_count": 9,
+        "decoder_valid": false,
+        "decoder_readability": 0.28
+      }
+    ],
+    "gates": {
+      "validity_unsaturated": false,
+      "readability_graded": true,
+      "phase_sensitive": true
+    }
+  },
+  "closed_states": [
+    "structured_decoder_designed_and_judged_freely"
+  ],
+  "blocked_states": [
+    "pipeline_adoption_not_in_question (the KEEP decision for the semantic transducer stands; the decoder is a study instrument)"
+  ],
+  "decision": {
+    "verdict": "decoder_joins_the_refuted_record",
+    "reason": "even a language-grounded structured decoder cannot produce validator-passing bodies from real tape \u2014 the refuted record grows by one honest entry"
+  },
+  "next_research_step": "if unsaturated: the graded comparison re-runs the preference question with a live direct arm; if refuted: the record stands sharper"
+}

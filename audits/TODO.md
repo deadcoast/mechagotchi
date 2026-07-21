@@ -62,10 +62,20 @@ re-openers), DR 0027 (SLIP authority; visual_grammar/species_class).
   re-registered 600 → 1200 s (the 3× generation volume, measured
   774 s, cited not silent); baseline/blend stay runnable. The game's
   repertoire inherits the richer loop truth through its own consumer.
-- [ ] **J4 · The structured-decoder arm.** I2's sharper remainder: a
-  DIFFERENT direct arm (a structured tape decoder) designed with
-  pre-registered gates falsifiable both ways; the comparison
-  un-saturates or the decoder joins the refuted record honestly.
+- [x] **J4 · The structured-decoder arm.** DONE 2026-07-20
+  (`2026-07-20-structured-decoder.md`): the decoder grounded in
+  bff_noheads's own ten instruction bytes (copy→body, loops→joints,
+  head-motion→limbs/feelers, mutation→effects; position-preserving;
+  anchor on the first copy-read; NO fix-ups) — **verdict:
+  decoder_joins_the_refuted_record** (0/400 valid, the pre-registered
+  validity gate failed honestly) — and the refutation is SHARP: the
+  decoder is the first direct arm that SEES the phase (post-takeover
+  15.14 cells vs early 7.13; readability graded and phase-sensitive)
+  and it measures pre-takeover instruction warm-up (7.13 vs the ~2.5
+  random expectation). The failure is SPATIAL COHERENCE, not
+  information — a coherent decoder is a compiler by another name, so
+  the semantic transducer's necessity is now a measured coherence
+  theorem, not a corpus accident.
 - [ ] **J5 · visual_grammar + species_class authoring.** The named
   un-authored SLIP fields gain their authoring faces in the workshop
   under the live authority loop (refusals verbatim, the H-phase
