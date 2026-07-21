@@ -1,0 +1,144 @@
+{
+  "artifact_id": "regrowth_head11_stage0",
+  "status": "complete",
+  "date": "2026-07-21",
+  "purpose": "DR 0041 K1: measure whether the 11-class regrowth head restores the rich vocabulary the repair stack preserves, without regressing the shape prior, validity, legacy byte-identity, or cross-site parity.",
+  "source_artifacts": [
+    "research/decision_records/0041-eleven-class-regrowth-head.md",
+    "research/decision_records/0039-repair-vocabulary-preservation.md",
+    "labs/cellular_automata/ca_nca_growth_repair.py",
+    "labs/grid_genome/corpus_builder.py",
+    "packages/mecha_engine/src/mecha_engine/repair/"
+  ],
+  "configuration": {
+    "corpus": "build_seed_grids_16 (the committed rich corpus)",
+    "training_count": 40,
+    "held_out_count": 10,
+    "dropout_rates": [
+      0.2,
+      0.4,
+      0.6
+    ],
+    "damage_instances": 3,
+    "epochs": 150,
+    "rng_seed": 20260512,
+    "damage_seed": 20260720,
+    "run_once_bound_seconds": 900
+  },
+  "metrics": {
+    "legacy": {
+      "model_id": "neighborhood_softmax_repair_model_stage0",
+      "class_count": 5,
+      "wound_events": 90,
+      "wound_sites_measured": 2680,
+      "exact_restoration": 0.741418,
+      "family_restoration": 0.843657,
+      "valid_rate": 1.0,
+      "guard_substitutions": 131,
+      "per_dropout_rate": {
+        "0.2": {
+          "wound_sites": 450,
+          "exact_restoration": 0.72
+        },
+        "0.4": {
+          "wound_sites": 919,
+          "exact_restoration": 0.754081
+        },
+        "0.6": {
+          "wound_sites": 1311,
+          "exact_restoration": 0.739893
+        }
+      },
+      "site_breakdown": {
+        "rich_token_sites": 480,
+        "rich_site_exact_restoration": 0.0,
+        "legacy_token_sites": 2200,
+        "legacy_site_exact_restoration": 0.903182
+      }
+    },
+    "rich": {
+      "model_id": "neighborhood_softmax_repair_model_rich_stage0",
+      "class_count": 12,
+      "wound_events": 90,
+      "wound_sites_measured": 2680,
+      "exact_restoration": 0.835821,
+      "family_restoration": 0.880224,
+      "valid_rate": 1.0,
+      "guard_substitutions": 5,
+      "per_dropout_rate": {
+        "0.2": {
+          "wound_sites": 450,
+          "exact_restoration": 0.846667
+        },
+        "0.4": {
+          "wound_sites": 919,
+          "exact_restoration": 0.848749
+        },
+        "0.6": {
+          "wound_sites": 1311,
+          "exact_restoration": 0.823036
+        }
+      },
+      "site_breakdown": {
+        "rich_token_sites": 480,
+        "rich_site_exact_restoration": 0.525,
+        "legacy_token_sites": 2200,
+        "legacy_site_exact_restoration": 0.903636
+      }
+    }
+  },
+  "gates": {
+    "g1_exact_gain": {
+      "bar": ">= +0.1",
+      "measured": 0.094403,
+      "met": false
+    },
+    "g2_family_held": {
+      "bar": ">= -0.02",
+      "measured": 0.036567,
+      "met": true
+    },
+    "g3_validity_held": {
+      "bar": ">= 0.0",
+      "measured": 0.0,
+      "met": true
+    },
+    "g4_legacy_byte_identity": {
+      "bar": "legacy model dict unchanged (no vocabulary key, historical classes and model_id)",
+      "measured": {
+        "vocabulary_key_absent": true,
+        "class_tokens": [
+          ".",
+          "B",
+          "A",
+          "E",
+          "M"
+        ],
+        "model_id": "neighborhood_softmax_repair_model_stage0"
+      },
+      "met": true
+    },
+    "g5_parity": {
+      "bar": "lab and package train byte-identical models, both vocabularies",
+      "measured": {
+        "legacy_identical": true,
+        "rich_identical": true
+      },
+      "met": true
+    }
+  },
+  "decision": {
+    "verdict": "withhold_adoption",
+    "rule": "pre-registered (DR 0041): adopt only if G1-G5 all pass; the era-loop consumer then trains vocabulary='rich' and the coarsening retires from the rich path; any refusal is a first-class finding."
+  },
+  "closed_states": [
+    "eleven_class_head_trainable_at_both_sites",
+    "restoration_measured_per_arm_at_wound_sites"
+  ],
+  "blocked_states": [
+    "adoption_execution_and_era_regression_recorded_in_the_experiment_report_not_here",
+    "linear_softmax_architecture_ceiling_unmeasured_beyond_these_gates"
+  ],
+  "decision_note": "The artifact records the measured verdict; the K1 experiment report executes (or withholds) the adoption per the rule and carries the era regression evidence.",
+  "next_research_step": "If adopted: the boundary study re-measures under the rich head. If withheld: the refusal's numbers name the next lever (architecture, corpus, or training budget)."
+}

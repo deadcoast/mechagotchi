@@ -178,6 +178,24 @@ protocol):
   structural agreement 0.785 against held-out targets, bounding the entire
   retrieved-template repair family below the 0.9 bar on this corpus.
 
+Vocabulary evolution (2026-07-20/21, DR 0039 → DR 0041):
+
+- DR 0039 made projection/reconstruction vocabulary-PRESERVING with the
+  head kept 5-class behind a recorded palette-family perception
+  coarsening (wounded rich cells regrow as legacy classes).
+- DR 0041 made the class vocabulary a model-level property
+  (`vocabulary="legacy"|"rich"`, mirrored at both head sites, legacy
+  byte-identical — no new model key, HEAD-vs-K1 regen hash-equal). The
+  K1 study over the committed 16×16 rich seed corpus (2,680 wound
+  sites): the rich head restores rich-token sites 0.0 → **0.525**
+  exact with legacy-token sites unchanged (0.9032 vs 0.9036), family
+  restoration +0.037, validity 1.0 both arms, guard substitutions
+  **131 → 5** (coarsened fills break invariants the guard must
+  hill-climb away; native fills almost never do). The pre-registered
+  pooled G1 bar (≥ +0.10) REFUSED at +0.0944 — diluted by the 2,200
+  legacy-token sites — so adoption is withheld per the rule; the
+  undiluted instrument is the named re-opener.
+
 ## Decision
 
 Prototype as a discrete local-attractor growth, repair, and persistence lab
@@ -190,4 +208,6 @@ any target template, so template assistance is no longer required for repair
 stability when damage events report destroyed positions — an engine-native
 signal. The repair candidate's `lab_only_target_template_assisted` blocker
 now derives from `site_aware_meets_assisted_stability_bar`; the blind arm's
-verdict stays recorded separately.
+verdict stays recorded separately. The 11-class head (DR 0041) is
+implemented, parity-pinned, and opt-in; the era loop keeps the legacy head
+until a record re-charters the gate on the undiluted instrument.

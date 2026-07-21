@@ -21,6 +21,10 @@ from mecha_engine.genome import validate_grid
 
 from ._features import (
     CLASS_TOKENS,
+    LIVE_INDEX,
+    LIVE_INDEX_FOR_VOCABULARY,
+    PERCEPTION_LIVE,
+    model_vocabulary,
     neighborhood_features,
     require_model_scale,
     softmax_probs,
@@ -61,6 +65,8 @@ def repair_wound_sites(
     creature's silhouette or destroyed tokens — no template enters.
     """
     weights = model["weights"]
+    live_tokens, class_tokens, perception = model_vocabulary(model)
+    live_index = LIVE_INDEX_FOR_VOCABULARY[model.get("vocabulary", "legacy")]
     matrix = matrix_from_grid(damaged_grid)
     require_model_scale(model, matrix)
     if wound_sites is None:
@@ -71,10 +77,16 @@ def repair_wound_sites(
     while pending:
         best_choice = None
         for x, y in pending:
-            probs = softmax_probs(weights, neighborhood_features(matrix, x, y))
-            live_class = max(range(1, len(CLASS_TOKENS)), key=lambda c: probs[c])
+            probs = softmax_probs(
+                weights,
+                neighborhood_features(
+                    matrix, x, y,
+                    live_index=live_index, perception=perception,
+                ),
+            )
+            live_class = max(range(1, len(class_tokens)), key=lambda c: probs[c])
             if best_choice is None or probs[live_class] > best_choice[0]:
-                best_choice = (probs[live_class], x, y, CLASS_TOKENS[live_class])
+                best_choice = (probs[live_class], x, y, class_tokens[live_class])
         confidence, x, y, token = best_choice
         matrix[y][x] = token
         fill_confidence[(x, y)] = confidence
@@ -88,6 +100,9 @@ def repair_wound_sites(
             weights,
             damaged_grid,
             slip_profile=slip_profile,
+            class_tokens=class_tokens,
+            live_index=live_index,
+            perception=perception,
         )
 
     repaired = grid_from_matrix(
@@ -116,6 +131,9 @@ def _wound_fill_validity_guard(
     source_grid: dict,
     *,
     slip_profile: dict | None = None,
+    class_tokens: list[str] = CLASS_TOKENS,
+    live_index: dict[str, int] = LIVE_INDEX,
+    perception: dict[str, str] = PERCEPTION_LIVE,
 ) -> tuple[list[list[str]], int]:
     """Substitute wound-site tokens until the grid validates, or give up.
 
@@ -156,18 +174,22 @@ def _wound_fill_validity_guard(
         for x, y in sites:
             current_token = matrix[y][x]
             probs = softmax_probs(
-                weights, neighborhood_features(matrix, x, y)
+                weights,
+                neighborhood_features(
+                    matrix, x, y,
+                    live_index=live_index, perception=perception,
+                ),
             )
             alternatives = sorted(
                 (
                     class_index
-                    for class_index in range(1, len(CLASS_TOKENS))
-                    if CLASS_TOKENS[class_index] != current_token
+                    for class_index in range(1, len(class_tokens))
+                    if class_tokens[class_index] != current_token
                 ),
                 key=lambda class_index: (-probs[class_index], class_index),
             )
             for class_index in alternatives:
-                matrix[y][x] = CLASS_TOKENS[class_index]
+                matrix[y][x] = class_tokens[class_index]
                 candidate_errors = probe_errors(matrix)
                 if len(candidate_errors) < len(errors):
                     errors = candidate_errors
@@ -200,18 +222,22 @@ def _wound_fill_validity_guard(
         ):
             current_token = matrix[y][x]
             probs = softmax_probs(
-                weights, neighborhood_features(matrix, x, y)
+                weights,
+                neighborhood_features(
+                    matrix, x, y,
+                    live_index=live_index, perception=perception,
+                ),
             )
             alternatives = sorted(
                 (
                     class_index
-                    for class_index in range(1, len(CLASS_TOKENS))
-                    if CLASS_TOKENS[class_index] not in {current_token, "B", "A"}
+                    for class_index in range(1, len(class_tokens))
+                    if class_tokens[class_index] not in {current_token, "B", "A"}
                 ),
                 key=lambda class_index: (-probs[class_index], class_index),
             )
             for class_index in alternatives:
-                matrix[y][x] = CLASS_TOKENS[class_index]
+                matrix[y][x] = class_tokens[class_index]
                 candidate_errors = probe_errors(matrix)
                 if len(candidate_errors) <= len(errors):
                     errors = candidate_errors

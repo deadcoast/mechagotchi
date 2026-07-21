@@ -29,8 +29,9 @@ from validator import validate_grid
 # pairings, mirrored from labs/grid_genome/grid_helpers.py) so
 # surviving cells keep their roles verbatim; PERCEPTION coarsens rich
 # tokens to their palette-family legacy class (body-family -> B,
-# sensory/light-family -> E) because the learned regrowth head stays
-# 5-class — the 11-class retrain is a named future record.
+# sensory/light-family -> E) for the LEGACY 5-class head; DR 0041 adds
+# the rich 11-class head as a model-level vocabulary (identity
+# perception — no coarsening), chosen at training time.
 TOKENS = {".", "B", "A", "S", "J", "L", "E", "M", "N", "P", "D", "F"}
 RICH_TOKENS = {
     "B": ("body", "hard", "core", 1),
@@ -106,6 +107,25 @@ LIVE_TOKENS = ["B", "A", "E", "M"]
 CLASS_TOKENS = [".", "B", "A", "E", "M"]
 _CLASS_INDEX = {token: index for index, token in enumerate(CLASS_TOKENS)}
 _LIVE_INDEX = {token: index for index, token in enumerate(LIVE_TOKENS)}
+# DR 0041: the 11-class regrowth head. The head's class vocabulary is a
+# model-level property chosen at training time: "legacy" is the
+# historical 5-class head with the DR 0039 perception coarsening,
+# byte-identical; "rich" is the full ratified live alphabet in
+# declaration order (a 12-way softmax with empty) with IDENTITY
+# perception — the head sees and predicts every token it preserves.
+RICH_LIVE_TOKENS = ["B", "A", "S", "J", "L", "E", "M", "N", "P", "D", "F"]
+RICH_CLASS_TOKENS = ["."] + RICH_LIVE_TOKENS
+_RICH_LIVE_INDEX = {
+    token: index for index, token in enumerate(RICH_LIVE_TOKENS)
+}
+REPAIR_VOCABULARIES = {
+    "legacy": (LIVE_TOKENS, CLASS_TOKENS, PERCEPTION_LIVE),
+    "rich": (RICH_LIVE_TOKENS, RICH_CLASS_TOKENS, {}),
+}
+_LIVE_INDEX_FOR_VOCABULARY = {
+    "legacy": _LIVE_INDEX,
+    "rich": _RICH_LIVE_INDEX,
+}
 NEIGHBORHOOD_OFFSETS = [
     (dx, dy)
     for dy in range(-2, 3)
@@ -120,8 +140,39 @@ NEIGHBORHOOD_FEATURE_COUNT = _POSITION_FEATURE_BASE + 64 + 1
 _BIAS_FEATURE_INDEX = NEIGHBORHOOD_FEATURE_COUNT - 1
 
 
-def _feature_count_for(width: int, height: int) -> int:
-    return _POSITION_FEATURE_BASE + width * height + 1
+def _feature_count_for(
+    width: int, height: int, live_token_count: int = len(LIVE_TOKENS)
+) -> int:
+    # DR 0041: the layout derives from the live-token count exactly as
+    # it derives from grid scale (DR 0029); at the legacy count every
+    # value reproduces the historical layout bit-for-bit.
+    return (
+        len(NEIGHBORHOOD_OFFSETS) * live_token_count + width * height + 1
+    )
+
+
+def _model_vocabulary(model: dict) -> tuple[list[str], list[str], dict]:
+    """(live_tokens, class_tokens, perception) for a trained model.
+
+    Pre-DR-0041 models carry no ``vocabulary`` key and are legacy (the
+    ``_require_model_scale`` compat precedent). A model whose recorded
+    ``class_tokens`` contradict its vocabulary is refused loudly — a
+    model must never be decoded through the wrong alphabet.
+    """
+    name = model.get("vocabulary", "legacy")
+    if name not in REPAIR_VOCABULARIES:
+        raise ValueError(
+            "repair model vocabulary must be one of "
+            + ", ".join(sorted(REPAIR_VOCABULARIES))
+            + f": {name}"
+        )
+    live_tokens, class_tokens, perception = REPAIR_VOCABULARIES[name]
+    recorded = model.get("class_tokens")
+    if recorded is not None and list(recorded) != class_tokens:
+        raise ValueError(
+            f"repair model class_tokens do not match its {name} vocabulary"
+        )
+    return live_tokens, class_tokens, perception
 
 
 def _require_model_scale(model: dict, matrix: list[list[str]]) -> None:
@@ -761,6 +812,7 @@ def train_neighborhood_repair_model(
     learning_rate: float = 1.5,
     live_class_weight: float = 3.0,
     rng_seed: int = 20260512,
+    vocabulary: str = "legacy",
 ) -> dict:
     """Train a per-cell softmax repair rule by deterministic gradient descent.
 
@@ -770,9 +822,25 @@ def train_neighborhood_repair_model(
     learns corpus-level shape statistics through its weights. Full-batch
     gradient descent from zero-initialised weights on a convex softmax loss
     makes the training run exactly reproducible.
+
+    ``vocabulary`` (DR 0041) selects the head's class alphabet:
+    ``"legacy"`` is the historical 5-class head with the DR 0039
+    perception coarsening, byte-identical (the model dict gains no new
+    key); ``"rich"`` trains over the full ratified live alphabet with
+    identity perception, recorded in the model as ``vocabulary`` and a
+    distinct ``model_id``.
     """
     if not training_grids:
         raise ValueError("training_grids must not be empty")
+    if vocabulary not in REPAIR_VOCABULARIES:
+        raise ValueError(
+            "repair vocabulary must be one of "
+            + ", ".join(sorted(REPAIR_VOCABULARIES))
+            + f": {vocabulary}"
+        )
+    live_tokens, class_tokens, perception = REPAIR_VOCABULARIES[vocabulary]
+    live_index = _LIVE_INDEX_FOR_VOCABULARY[vocabulary]
+    class_index = {token: index for index, token in enumerate(class_tokens)}
     # DR 0029 / cycle 09 A3: the feature layout derives from the corpus's
     # own grid size (an 8x8 corpus trains bit-identical historical
     # weights); mixed sizes would silently corrupt the position one-hot,
@@ -784,7 +852,7 @@ def train_neighborhood_repair_model(
             + ", ".join(f"{w}x{h}" for w, h in sorted(sizes))
         )
     ((width, height),) = sizes
-    feature_count = _feature_count_for(width, height)
+    feature_count = _feature_count_for(width, height, len(live_tokens))
     examples = []
     for grid_index, grid in enumerate(training_grids):
         target = matrix_from_grid(grid)
@@ -802,13 +870,19 @@ def train_neighborhood_repair_model(
                     for x in range(width):
                         if damaged_matrix[y][x] != ".":
                             continue
-                        label = _CLASS_INDEX[
-                            PERCEPTION_LIVE.get(target[y][x], target[y][x])
+                        label = class_index[
+                            perception.get(target[y][x], target[y][x])
                         ]
                         weight = live_class_weight if label != 0 else 1.0
                         examples.append(
                             (
-                                _neighborhood_features(damaged_matrix, x, y),
+                                _neighborhood_features(
+                                    damaged_matrix,
+                                    x,
+                                    y,
+                                    live_index=live_index,
+                                    perception=perception,
+                                ),
                                 label,
                                 weight,
                             )
@@ -819,9 +893,12 @@ def train_neighborhood_repair_model(
         epochs=epochs,
         learning_rate=learning_rate,
         feature_count=feature_count,
+        class_count=len(class_tokens),
     )
-    return {
-        "model_id": "neighborhood_softmax_repair_model_stage0",
+    model = {
+        "model_id": "neighborhood_softmax_repair_model_stage0"
+        if vocabulary == "legacy"
+        else f"neighborhood_softmax_repair_model_{vocabulary}_stage0",
         "source_mode": "learned_neighborhood_softmax_gradient_descent",
         "training_grid_count": len(training_grids),
         "training_grid_ids": [grid.get("grid_id") for grid in training_grids],
@@ -829,7 +906,7 @@ def train_neighborhood_repair_model(
         "height": height,
         "example_count": len(examples),
         "feature_count": feature_count,
-        "class_tokens": list(CLASS_TOKENS),
+        "class_tokens": list(class_tokens),
         "dropout_rates": list(dropout_rates),
         "damage_instances": damage_instances,
         "epochs": epochs,
@@ -846,6 +923,11 @@ def train_neighborhood_repair_model(
             "It learns one species-level shape prior across the corpus and cannot distinguish individual grid variants.",
         ],
     }
+    # DR 0041 rider pattern: the key is recorded ONLY when non-legacy,
+    # so every committed legacy model dict is byte-identical.
+    if vocabulary != "legacy":
+        model["vocabulary"] = vocabulary
+    return model
 
 
 def repair_with_neighborhood_model(
@@ -861,6 +943,8 @@ def repair_with_neighborhood_model(
     synchronous and fully deterministic; no target grid is consulted.
     """
     weights = model["weights"]
+    live_tokens, class_tokens, perception = _model_vocabulary(model)
+    live_index = _LIVE_INDEX_FOR_VOCABULARY[model.get("vocabulary", "legacy")]
     matrix = matrix_from_grid(damaged_grid)
     _require_model_scale(model, matrix)
     height = len(matrix)
@@ -874,11 +958,14 @@ def repair_with_neighborhood_model(
                     continue
                 probs = _softmax_probs(
                     weights,
-                    _neighborhood_features(matrix, x, y),
+                    _neighborhood_features(
+                        matrix, x, y,
+                        live_index=live_index, perception=perception,
+                    ),
                 )
                 if probs[0] < 0.5:
-                    best = max(range(1, len(CLASS_TOKENS)), key=lambda c: probs[c])
-                    updated[y][x] = CLASS_TOKENS[best]
+                    best = max(range(1, len(class_tokens)), key=lambda c: probs[c])
+                    updated[y][x] = class_tokens[best]
                     changed = True
         matrix = updated
         if not changed:
@@ -934,6 +1021,8 @@ def repair_with_wound_sites(
     creature's silhouette or destroyed tokens — no template enters.
     """
     weights = model["weights"]
+    live_tokens, class_tokens, perception = _model_vocabulary(model)
+    live_index = _LIVE_INDEX_FOR_VOCABULARY[model.get("vocabulary", "legacy")]
     matrix = matrix_from_grid(damaged_grid)
     _require_model_scale(model, matrix)
     if wound_sites is None:
@@ -944,10 +1033,16 @@ def repair_with_wound_sites(
     while pending:
         best_choice = None
         for x, y in pending:
-            probs = _softmax_probs(weights, _neighborhood_features(matrix, x, y))
-            live_class = max(range(1, len(CLASS_TOKENS)), key=lambda c: probs[c])
+            probs = _softmax_probs(
+                weights,
+                _neighborhood_features(
+                    matrix, x, y,
+                    live_index=live_index, perception=perception,
+                ),
+            )
+            live_class = max(range(1, len(class_tokens)), key=lambda c: probs[c])
             if best_choice is None or probs[live_class] > best_choice[0]:
-                best_choice = (probs[live_class], x, y, CLASS_TOKENS[live_class])
+                best_choice = (probs[live_class], x, y, class_tokens[live_class])
         confidence, x, y, token = best_choice
         matrix[y][x] = token
         fill_confidence[(x, y)] = confidence
@@ -961,6 +1056,9 @@ def repair_with_wound_sites(
             weights,
             damaged_grid,
             slip_profile=slip_profile,
+            class_tokens=class_tokens,
+            live_index=live_index,
+            perception=perception,
         )
 
     repaired = grid_from_matrix(
@@ -989,6 +1087,9 @@ def _wound_fill_validity_guard(
     source_grid: dict,
     *,
     slip_profile: dict | None = None,
+    class_tokens: list[str] = CLASS_TOKENS,
+    live_index: dict[str, int] = _LIVE_INDEX,
+    perception: dict[str, str] = PERCEPTION_LIVE,
 ) -> tuple[list[list[str]], int]:
     """Substitute wound-site tokens until the grid validates, or give up.
 
@@ -1029,18 +1130,22 @@ def _wound_fill_validity_guard(
         for x, y in sites:
             current_token = matrix[y][x]
             probs = _softmax_probs(
-                weights, _neighborhood_features(matrix, x, y)
+                weights,
+                _neighborhood_features(
+                    matrix, x, y,
+                    live_index=live_index, perception=perception,
+                ),
             )
             alternatives = sorted(
                 (
                     class_index
-                    for class_index in range(1, len(CLASS_TOKENS))
-                    if CLASS_TOKENS[class_index] != current_token
+                    for class_index in range(1, len(class_tokens))
+                    if class_tokens[class_index] != current_token
                 ),
                 key=lambda class_index: (-probs[class_index], class_index),
             )
             for class_index in alternatives:
-                matrix[y][x] = CLASS_TOKENS[class_index]
+                matrix[y][x] = class_tokens[class_index]
                 candidate_errors = probe_errors(matrix)
                 if len(candidate_errors) < len(errors):
                     errors = candidate_errors
@@ -1074,18 +1179,22 @@ def _wound_fill_validity_guard(
         ):
             current_token = matrix[y][x]
             probs = _softmax_probs(
-                weights, _neighborhood_features(matrix, x, y)
+                weights,
+                _neighborhood_features(
+                    matrix, x, y,
+                    live_index=live_index, perception=perception,
+                ),
             )
             alternatives = sorted(
                 (
                     class_index
-                    for class_index in range(1, len(CLASS_TOKENS))
-                    if CLASS_TOKENS[class_index] not in {current_token, "B", "A"}
+                    for class_index in range(1, len(class_tokens))
+                    if class_tokens[class_index] not in {current_token, "B", "A"}
                 ),
                 key=lambda class_index: (-probs[class_index], class_index),
             )
             for class_index in alternatives:
-                matrix[y][x] = CLASS_TOKENS[class_index]
+                matrix[y][x] = class_tokens[class_index]
                 candidate_errors = probe_errors(matrix)
                 if len(candidate_errors) <= len(errors):
                     errors = candidate_errors
@@ -1311,12 +1420,19 @@ def write_trained_repair_artifacts(output_dir: Path, report: dict) -> None:
 
 
 def _neighborhood_features(
-    matrix: list[list[str]], x: int, y: int
+    matrix: list[list[str]],
+    x: int,
+    y: int,
+    *,
+    live_index: dict[str, int] = _LIVE_INDEX,
+    perception: dict[str, str] = PERCEPTION_LIVE,
 ) -> list[tuple[int, float]]:
-    # The layout derives from the matrix's own dimensions; at 8x8 every
-    # index is identical to the historical fixed layout.
+    # The layout derives from the matrix's own dimensions and the
+    # vocabulary's live-token count (DR 0041); at 8x8 with the legacy
+    # defaults every index is identical to the historical fixed layout.
     height = len(matrix)
     width = len(matrix[0]) if height else 0
+    position_base = len(NEIGHBORHOOD_OFFSETS) * len(live_index)
     features = []
     for offset_index, (dx, dy) in enumerate(NEIGHBORHOOD_OFFSETS):
         nx = x + dx
@@ -1326,13 +1442,13 @@ def _neighborhood_features(
             if token != ".":
                 features.append(
                     (
-                        offset_index * len(LIVE_TOKENS)
-                        + _LIVE_INDEX[PERCEPTION_LIVE.get(token, token)],
+                        offset_index * len(live_index)
+                        + live_index[perception.get(token, token)],
                         1.0,
                     )
                 )
-    features.append((_POSITION_FEATURE_BASE + y * width + x, 1.0))
-    features.append((_POSITION_FEATURE_BASE + width * height, 1.0))
+    features.append((position_base + y * width + x, 1.0))
+    features.append((position_base + width * height, 1.0))
     return features
 
 
@@ -1342,8 +1458,8 @@ def _train_softmax(
     epochs: int,
     learning_rate: float,
     feature_count: int = NEIGHBORHOOD_FEATURE_COUNT,
+    class_count: int = len(CLASS_TOKENS),
 ) -> tuple[list[list[float]], float, float]:
-    class_count = len(CLASS_TOKENS)
     weights = [[0.0] * feature_count for _ in range(class_count)]
     total_weight = sum(weight for _, _, weight in examples)
     initial_loss = final_loss = 0.0

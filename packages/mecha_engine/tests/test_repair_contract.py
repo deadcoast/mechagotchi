@@ -71,6 +71,9 @@ REQUIRED_TRAIN_DEFAULTS = {
     "learning_rate": "1.5",
     "live_class_weight": "3.0",
     "rng_seed": "20260512",
+    # DR 0041: the head's class vocabulary is a model-level property;
+    # the legacy default keeps every historical training byte-identical.
+    "vocabulary": "'legacy'",
 }
 REQUIRED_WOUND_DEFAULTS = {
     "damaged_grid": "REQUIRED",

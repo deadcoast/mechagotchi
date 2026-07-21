@@ -28,9 +28,9 @@ LIVE_INDEX: dict[str, int] = {
     token: index for index, token in enumerate(LIVE_TOKENS)
 }
 # DR 0039: perception coarsening by palette family (verbatim mirror of
-# the research CA lab) — the 5-class learned head PERCEIVES rich tokens
+# the research CA lab) — the LEGACY 5-class head PERCEIVES rich tokens
 # as their legacy family; projection/reconstruction preserve them
-# verbatim. The 11-class retrain is a named future record.
+# verbatim.
 PERCEPTION_LIVE: dict[str, str] = {
     "S": "B",
     "J": "B",
@@ -39,6 +39,27 @@ PERCEPTION_LIVE: dict[str, str] = {
     "P": "E",
     "D": "E",
     "F": "E",
+}
+# DR 0041: the 11-class regrowth head (verbatim mirror of the research
+# CA lab). The head's class vocabulary is a model-level property chosen
+# at training time: "legacy" is the historical 5-class head with the
+# DR 0039 coarsening, byte-identical; "rich" is the full ratified live
+# alphabet in declaration order (a 12-way softmax with empty) with
+# IDENTITY perception.
+RICH_LIVE_TOKENS: list[str] = [
+    "B", "A", "S", "J", "L", "E", "M", "N", "P", "D", "F",
+]
+RICH_CLASS_TOKENS: list[str] = ["."] + RICH_LIVE_TOKENS
+RICH_LIVE_INDEX: dict[str, int] = {
+    token: index for index, token in enumerate(RICH_LIVE_TOKENS)
+}
+REPAIR_VOCABULARIES: dict[str, tuple[list[str], list[str], dict[str, str]]] = {
+    "legacy": (LIVE_TOKENS, CLASS_TOKENS, PERCEPTION_LIVE),
+    "rich": (RICH_LIVE_TOKENS, RICH_CLASS_TOKENS, {}),
+}
+LIVE_INDEX_FOR_VOCABULARY: dict[str, dict[str, int]] = {
+    "legacy": LIVE_INDEX,
+    "rich": RICH_LIVE_INDEX,
 }
 NEIGHBORHOOD_OFFSETS: list[tuple[int, int]] = [
     (dx, dy)
@@ -54,21 +75,61 @@ NEIGHBORHOOD_FEATURE_COUNT: int = POSITION_FEATURE_BASE + 64 + 1
 BIAS_FEATURE_INDEX: int = NEIGHBORHOOD_FEATURE_COUNT - 1
 
 
-def feature_count_for(width: int, height: int) -> int:
-    """Feature-vector width for a grid scale (position one-hot + bias)."""
-    return POSITION_FEATURE_BASE + width * height + 1
+def feature_count_for(
+    width: int, height: int, live_token_count: int = len(LIVE_TOKENS)
+) -> int:
+    """Feature-vector width for a grid scale (position one-hot + bias).
+
+    DR 0041: the layout derives from the live-token count exactly as it
+    derives from grid scale (DR 0029); at the legacy count every value
+    reproduces the historical layout bit-for-bit.
+    """
+    return (
+        len(NEIGHBORHOOD_OFFSETS) * live_token_count + width * height + 1
+    )
+
+
+def model_vocabulary(model: dict) -> tuple[list[str], list[str], dict[str, str]]:
+    """(live_tokens, class_tokens, perception) for a trained model.
+
+    Pre-DR-0041 models carry no ``vocabulary`` key and are legacy (the
+    ``require_model_scale`` compat precedent). A model whose recorded
+    ``class_tokens`` contradict its vocabulary is refused loudly — a
+    model must never be decoded through the wrong alphabet.
+    """
+    name = model.get("vocabulary", "legacy")
+    if name not in REPAIR_VOCABULARIES:
+        raise ValueError(
+            "repair model vocabulary must be one of "
+            + ", ".join(sorted(REPAIR_VOCABULARIES))
+            + f": {name}"
+        )
+    live_tokens, class_tokens, perception = REPAIR_VOCABULARIES[name]
+    recorded = model.get("class_tokens")
+    if recorded is not None and list(recorded) != class_tokens:
+        raise ValueError(
+            f"repair model class_tokens do not match its {name} vocabulary"
+        )
+    return live_tokens, class_tokens, perception
 
 
 def neighborhood_features(
-    matrix: list[list[str]], x: int, y: int
+    matrix: list[list[str]],
+    x: int,
+    y: int,
+    *,
+    live_index: dict[str, int] = LIVE_INDEX,
+    perception: dict[str, str] = PERCEPTION_LIVE,
 ) -> list[tuple[int, float]]:
     """Sparse one-hot features for the 5x5 neighborhood of a cell.
 
-    The layout derives from the matrix's own dimensions; at 8x8 every
-    index is identical to the historical fixed layout.
+    The layout derives from the matrix's own dimensions and the
+    vocabulary's live-token count (DR 0041); at 8x8 with the legacy
+    defaults every index is identical to the historical fixed layout.
     """
     height = len(matrix)
     width = len(matrix[0]) if height else 0
+    position_base = len(NEIGHBORHOOD_OFFSETS) * len(live_index)
     features: list[tuple[int, float]] = []
     for offset_index, (dx, dy) in enumerate(NEIGHBORHOOD_OFFSETS):
         nx = x + dx
@@ -78,13 +139,13 @@ def neighborhood_features(
             if token != ".":
                 features.append(
                     (
-                        offset_index * len(LIVE_TOKENS)
-                        + LIVE_INDEX[PERCEPTION_LIVE.get(token, token)],
+                        offset_index * len(live_index)
+                        + live_index[perception.get(token, token)],
                         1.0,
                     )
                 )
-    features.append((POSITION_FEATURE_BASE + y * width + x, 1.0))
-    features.append((POSITION_FEATURE_BASE + width * height, 1.0))
+    features.append((position_base + y * width + x, 1.0))
+    features.append((position_base + width * height, 1.0))
     return features
 
 
@@ -94,9 +155,9 @@ def train_softmax(
     epochs: int,
     learning_rate: float,
     feature_count: int = NEIGHBORHOOD_FEATURE_COUNT,
+    class_count: int = len(CLASS_TOKENS),
 ) -> tuple[list[list[float]], float, float]:
     """Deterministic full-batch gradient descent from zero-initial weights."""
-    class_count = len(CLASS_TOKENS)
     weights = [[0.0] * feature_count for _ in range(class_count)]
     total_weight = sum(weight for _, _, weight in examples)
     initial_loss = final_loss = 0.0

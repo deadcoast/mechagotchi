@@ -24,15 +24,19 @@ flipped bake-off), `2026-07-20-reachability-probe.md` (the 9 bins),
 DR 0017 (the North Star), DR 0031 (the revisit rule), DR 0039 (the
 coarsening record), DR 0021 (engine truth).
 
-- [ ] **K1 · The 11-class regrowth head.** DR 0039's named record
-  built for real: the NCA regrowth head retrained over the ratified
-  11-role vocabulary so repair PERCEIVES what it now preserves —
-  gates pre-registered before the run (restoration ≥ the current
-  5-class + coarsening path on the measured boundary corpus; the
-  palette-family coarsening retired or kept BY MEASUREMENT; parity at
-  all three mirrors — CA lab authority, promoted repair, runtime
-  twin; the era regression green; byte-identity wherever the head is
-  not engaged). A refused gate is a first-class finding.
+- [x] **K1 · The 11-class regrowth head.** DONE 2026-07-21
+  (`2026-07-21-regrowth-head11.md`, **DR 0041 — adoption WITHHELD by
+  its own pre-registered rule**): the head implemented at both sites
+  as a model-level vocabulary (legacy byte-identical, hash-proven;
+  rich = the full alphabet, identity perception; consumers derive the
+  alphabet from the model). G1 (pooled exact gain ≥ +0.10) REFUSED at
+  +0.0944 while G2–G5 pass — and the refusal measures its own
+  mechanism: rich-token sites 0.0 → 0.525 exact, legacy sites
+  untouched (0.903 both), guard substitutions 131 → 5; the pooled
+  metric is denominator-diluted. The coarsening stays the recorded
+  default; the re-opener (the undiluted rich-site instrument) is
+  NAMED. A refused gate delivered as a first-class finding — exactly
+  as chartered.
 - [ ] **K2 · The DR 0031 generation-layer revisit.** The flipped
   16×16 bake-off (constrained-wins by the record's own pre-registered
   rule) gets its decision: a new DR judging whether the generation

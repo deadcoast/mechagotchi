@@ -17,7 +17,8 @@ Verbatim lab semantics, pinned by the lab-side parity test.
 from __future__ import annotations
 
 from ._features import (
-    CLASS_TOKENS,
+    LIVE_INDEX_FOR_VOCABULARY,
+    model_vocabulary,
     neighborhood_features,
     require_model_scale,
     softmax_probs,
@@ -40,6 +41,8 @@ def repair_blind(
     deterministic; no target grid is consulted.
     """
     weights = model["weights"]
+    live_tokens, class_tokens, perception = model_vocabulary(model)
+    live_index = LIVE_INDEX_FOR_VOCABULARY[model.get("vocabulary", "legacy")]
     matrix = matrix_from_grid(damaged_grid)
     require_model_scale(model, matrix)
     height = len(matrix)
@@ -53,11 +56,14 @@ def repair_blind(
                     continue
                 probs = softmax_probs(
                     weights,
-                    neighborhood_features(matrix, x, y),
+                    neighborhood_features(
+                        matrix, x, y,
+                        live_index=live_index, perception=perception,
+                    ),
                 )
                 if probs[0] < 0.5:
-                    best = max(range(1, len(CLASS_TOKENS)), key=lambda c: probs[c])
-                    updated[y][x] = CLASS_TOKENS[best]
+                    best = max(range(1, len(class_tokens)), key=lambda c: probs[c])
+                    updated[y][x] = class_tokens[best]
                     changed = True
         matrix = updated
         if not changed:

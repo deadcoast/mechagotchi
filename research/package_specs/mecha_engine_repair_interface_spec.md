@@ -70,6 +70,13 @@ Required fields (from `train_neighborhood_repair_model`):
 - `rng_seed`, `epochs`, `learning_rate`, `live_class_weight`
 - `initial_loss`, `final_loss`
 - `target_template_used: false` (hard invariant)
+- `vocabulary` (DR 0041) — recorded ONLY when non-legacy (`"rich"`:
+  the 11-class head over the full ratified live alphabet, identity
+  perception). Absent = legacy: the historical 5-class head with the
+  DR 0039 coarsening, byte-identical. Consumers derive the class
+  alphabet from the model (`vocabulary` + `class_tokens` must agree,
+  refused loudly otherwise); `train_repair_model` gains the
+  keyword-only `vocabulary="legacy"` parameter.
 
 ### RepairResult (today: repaired grid + `metadata`)
 

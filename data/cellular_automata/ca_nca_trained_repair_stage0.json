@@ -67,6 +67,8 @@
       "mg_seed_039",
       "mg_seed_040"
     ],
+    "width": 8,
+    "height": 8,
     "example_count": 8639,
     "feature_count": 161,
     "class_tokens": [
