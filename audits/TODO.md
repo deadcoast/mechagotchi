@@ -51,10 +51,17 @@ re-openers), DR 0027 (SLIP authority; visual_grammar/species_class).
   bake-off verdict flipped to constrained-wins (DR 0031 revisit
   evidence, named). Remainders: the 11-class regrowth head (its own
   record); 9 unreached bins.
-- [ ] **J3 · Novelty-first at the evolution surface.** The measured
-  lever (+0.078 coverage at −11.99 QD) judged where it matters: the
-  E3 loop / the game's repertoire consumer, a coverage-vs-QD gate
-  decided by DR — adopt, reject, or blend, on the numbers.
+- [x] **J3 · Novelty-first at the evolution surface.** DONE
+  2026-07-20 (`2026-07-20-novelty-evolution.md`, **DR 0040
+  ADOPTED**): the rule pre-registered BEFORE the run; three arms at
+  the matched documented budget — and the one-shot instrument's trade
+  DISSOLVES in the loop: novelty_first wins on BOTH axes (coverage
+  0.764 → **0.785**, +0.0215 ≥ bar; QD 304.1 → **310.65**, ratio
+  1.0216) while blend's half-time novelty fails the gain bar. The
+  loop's default is now novelty_first; the run-once bound
+  re-registered 600 → 1200 s (the 3× generation volume, measured
+  774 s, cited not silent); baseline/blend stay runnable. The game's
+  repertoire inherits the richer loop truth through its own consumer.
 - [ ] **J4 · The structured-decoder arm.** I2's sharper remainder: a
   DIFFERENT direct arm (a structured tape decoder) designed with
   pre-registered gates falsifiable both ways; the comparison

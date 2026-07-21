@@ -1,0 +1,116 @@
+{
+  "artifact_id": "novelty_evolution_stage0",
+  "status": "complete",
+  "date": "2026-07-20",
+  "purpose": "Cycle 20 J3 (DR 0040): the I5b novelty lever judged at the surface that owns the trade \u2014 the E3 evolution loop at the documented budget, three arms, pre-registered bars, the decision on the numbers.",
+  "source_artifacts": [
+    "labs/map_elites_archive/evaluation_loop_scale.py",
+    "data/archives/occupancy_saturation_stage0.json",
+    "research/decision_records/0040-novelty-first-evolution-surface.md"
+  ],
+  "parameters": {
+    "population": 256,
+    "target_evaluations": 20480,
+    "rng_seed": 20260709,
+    "lifecycle_ticks": 24,
+    "pool_factor": 3,
+    "coverage_gain_bar": 0.02,
+    "qd_cost_factor": 0.95
+  },
+  "metrics": {
+    "arms": {
+      "baseline": {
+        "evaluations_total": 20480,
+        "generations": 79,
+        "occupied_niches": 391,
+        "coverage": 0.763672,
+        "qd_score": 304.084602,
+        "mean_elite_fitness": 0.77771,
+        "best_fitness": 0.971513,
+        "wall_clock_s": 268.383,
+        "final_trajectory_entry": {
+          "generation": 79,
+          "evaluations_total": 20480,
+          "parent_count": 390,
+          "collapse_failures": 0,
+          "occupied_niches": 391,
+          "coverage": 0.763672,
+          "qd_score": 304.084602,
+          "best_fitness": 0.971513,
+          "replacements_this_generation": 1
+        }
+      },
+      "novelty_first": {
+        "evaluations_total": 20480,
+        "generations": 79,
+        "occupied_niches": 402,
+        "coverage": 0.785156,
+        "qd_score": 310.650061,
+        "mean_elite_fitness": 0.772761,
+        "best_fitness": 0.971513,
+        "wall_clock_s": 774.415,
+        "final_trajectory_entry": {
+          "generation": 79,
+          "evaluations_total": 20480,
+          "parent_count": 402,
+          "collapse_failures": 0,
+          "occupied_niches": 402,
+          "coverage": 0.785156,
+          "qd_score": 310.650061,
+          "best_fitness": 0.971513,
+          "replacements_this_generation": 0,
+          "selection_novelty": true,
+          "pool_size": 768
+        }
+      },
+      "blend": {
+        "evaluations_total": 20480,
+        "generations": 79,
+        "occupied_niches": 394,
+        "coverage": 0.769531,
+        "qd_score": 311.017424,
+        "mean_elite_fitness": 0.789384,
+        "best_fitness": 0.971513,
+        "wall_clock_s": 463.677,
+        "final_trajectory_entry": {
+          "generation": 79,
+          "evaluations_total": 20480,
+          "parent_count": 394,
+          "collapse_failures": 0,
+          "occupied_niches": 394,
+          "coverage": 0.769531,
+          "qd_score": 311.017424,
+          "best_fitness": 0.971513,
+          "replacements_this_generation": 8,
+          "selection_novelty": false
+        }
+      }
+    },
+    "levers": {
+      "novelty_first": {
+        "coverage_gain": 0.021484,
+        "qd_ratio": 1.021591,
+        "meets_coverage_gain_bar": true,
+        "meets_qd_cost_bar": true
+      },
+      "blend": {
+        "coverage_gain": 0.005859,
+        "qd_ratio": 1.022799,
+        "meets_coverage_gain_bar": false,
+        "meets_qd_cost_bar": true
+      }
+    }
+  },
+  "closed_states": [
+    "novelty_lever_judged_at_the_evolution_surface"
+  ],
+  "blocked_states": [
+    "game_repertoire_wiring_is_the_consumers_increment_on_adopt"
+  ],
+  "decision": {
+    "verdict": "adopt:novelty_first",
+    "rule": "coverage gain >= +0.02 AND qd_score >= 0.95 x baseline; highest-coverage adoptable arm wins; otherwise reject (DR 0040, pre-registered)",
+    "reason": "an arm met both pre-registered bars"
+  },
+  "next_research_step": "fill DR 0040's decision section from this artifact; the loop's default follows the verdict"
+}
