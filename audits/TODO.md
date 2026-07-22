@@ -52,13 +52,22 @@ coarsening record), DR 0021 (engine truth).
   fitness equal. The ~22% constrained generation-failure rate is a
   named observation; budget pins evolved to the generator-agnostic
   invariant with WFC exactness kept.
-- [ ] **K3 · The last nine bins.** The J1/J2 probe re-armed with the
-  full post-DR-0038 move set (the vocabulary-complete model, the
-  resample-temperature rider, novelty-first selection) in a guided
-  descent on the 9 octile-corner bins — verdict per bin: reachable
-  with a committed bin-verified witness, or bounded SHARPER with the
-  budget and the structural reason named (extreme symmetry × extreme
-  complexity); an impossibility claim only if proven, never by fiat.
+- [x] **K3 · The last nine bins.** DONE 2026-07-21
+  (`2026-07-21-reachability-escalation.md`): the probe escalated
+  under the full post-DR-0038 move set (budget 2000, the temperature
+  rider's full ladder, elite depth 8; protocol pre-registered,
+  targets the committed bins verbatim) — **five reached with
+  bin-verified witnesses (508/512 proven), two of them ONLY at high
+  temperature** (the DR 0038 knob paying off at its chartered
+  surface), and **four bounded SHARPER by the new blocking-axis
+  instrument**: the remaining emptiness is MEASURE-THINNESS, not
+  distance — one bin 0.0014 from its boundary, two behind razor-thin
+  joint windows (0.0069/0.0094), one suspected QUANTIZATION emptiness
+  (875 conditional candidates spanning the required interval without
+  landing inside). Bounds stay bounds, now with measured gaps.
+  Remainders: an analytical emptiness argument for the quantization
+  bin is its own record; the thin-window mechanism implicates the
+  frozen derivation edges (a named geometry question).
 - [ ] **K4 · The real forecast, decided by its consumer.** The game's
   own DR judges adopting the I3 callback-sourced weather channel
   (replication_per_prog lit: multipliers 1.021–1.048) as a forecast
