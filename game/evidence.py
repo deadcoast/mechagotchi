@@ -913,6 +913,133 @@ def write_real_weather_harshness_artifacts(
     return path
 
 
+DENSITY_ARTIFACT_ID = "forecast_density_stage0"
+# The bff_noheads instruction bytes — mirrored VERBATIM from the J4
+# lab's INSTRUCTION_TOKENS (labs/cubff_transducer/structured_decoder
+# .py; cited, never imported across the boundary): [ ] < > { } + - . ,
+INSTRUCTION_BYTE_VALUES = frozenset(
+    ord(char) for char in "[]<>{}+-.,"
+)
+
+
+def build_forecast_density_report() -> dict:
+    """Cycle 21 K4 (DR 0043): the J4 warm-up instrument on the game's
+    own committed forecasts.
+
+    Instruction density — the count of bff_noheads instruction bytes
+    in a committed 64-byte tape — measured over BOTH real record
+    families (the checkpoint corpus, whose format cannot carry the
+    replication channel, and the callback records, whose channel is
+    lit), with the random expectation RECOMPUTED in-run. Brotli-free
+    by construction: the signal J4 showed warms up before the
+    compression collapse, available on exactly the records whose
+    harshness channels are silent. An instrument, never a multiplier.
+    """
+    from mecha_game.campaign import (
+        load_callback_weather_source,
+        load_real_weather_source,
+    )
+
+    expectation = round(64 * len(INSTRUCTION_BYTE_VALUES) / 256, 6)
+    sources: dict = {}
+    for name, records in (
+        ("real", load_real_weather_source()),
+        ("callback", load_callback_weather_source()),
+    ):
+        per_record = []
+        for record in records:
+            tape = [int(value) % 256 for value in record.get("tape", [])]
+            density = sum(
+                1 for byte in tape if byte in INSTRUCTION_BYTE_VALUES
+            )
+            per_record.append(
+                {
+                    "snapshot_id": record["snapshot_id"],
+                    "epoch": record["epoch"],
+                    "phase": record.get("phase", "unmeasured"),
+                    "tape_bytes": len(tape),
+                    "instruction_density": density,
+                    "above_random_expectation": density > expectation,
+                }
+            )
+        by_phase: dict = {}
+        for phase in sorted(
+            {entry["phase"] for entry in per_record}
+        ):
+            densities = [
+                entry["instruction_density"]
+                for entry in per_record
+                if entry["phase"] == phase
+            ]
+            by_phase[phase] = {
+                "record_count": len(densities),
+                "mean_density": round(
+                    sum(densities) / len(densities), 6
+                ),
+            }
+        sources[name] = {"per_record": per_record, "by_phase": by_phase}
+
+    return {
+        "artifact_id": DENSITY_ARTIFACT_ID,
+        "status": "complete",
+        "date": "2026-07-21",
+        "purpose": (
+            "K4 (DR 0043): the J4 instruction-density warm-up as a "
+            "checkpoint-capable, brotli-free harshness instrument "
+            "over the game's committed forecast records."
+        ),
+        "source_artifacts": [
+            "data/cubff_real_ingest/real_snapshot_ingest_stage0_report.json",
+            "data/cubff_real_ingest/callback_states/callback_states_compact.json",
+            "labs/cubff_transducer/structured_decoder.py",
+            "research/decision_records/0043-callback-forecast-adoption.md",
+        ],
+        "metrics": {
+            "method": (
+                "brotli-free: instruction-byte count over each "
+                "committed 64-byte tape; the ten bff_noheads "
+                "instruction bytes mirrored verbatim from the J4 "
+                "lab; expectation recomputed in-run as "
+                "64 * 10 / 256"
+            ),
+            "instruction_byte_count": len(INSTRUCTION_BYTE_VALUES),
+            "random_expectation": expectation,
+            "sources": sources,
+        },
+        "closed_states": [
+            "density_measured_on_both_committed_record_families",
+            "expectation_recomputed_never_pasted",
+        ],
+        "blocked_states": [
+            "instrument_only (a harshness-model change feeding "
+            "multipliers would be its own gated record — DR 0043)",
+            "callback_corpus_is_three_states_from_one_run (the I3 "
+            "remainder, unchanged)",
+        ],
+        "decision": (
+            "the warm-up instrument rides the forecast evidence; "
+            "multipliers untouched (DR 0043 clause 2)"
+        ),
+        "next_research_step": (
+            "a harshness-model record MAY charter density as a "
+            "pressure input with its own gates; until then the "
+            "instrument observes"
+        ),
+    }
+
+
+def write_forecast_density_artifacts(
+    output_dir: str | Path, report: dict
+) -> Path:
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    path = output_dir / f"{DENSITY_ARTIFACT_ID}.json"
+    path.write_text(
+        json.dumps(report, indent=2) + "\n", encoding="utf-8"
+    )
+    return path
+
+
 PACKS_ARTIFACT_ID = "community_pack_stage0"
 STARTER_PACK_PATH = ROOT / "data" / "packs" / "mechagotchi_starter_pack.json"
 
@@ -2476,6 +2603,10 @@ if __name__ == "__main__":
     print(f"wrote {written}")
     written = write_real_weather_artifacts(
         args.output_dir, build_real_weather_report()
+    )
+    print(f"wrote {written}")
+    written = write_forecast_density_artifacts(
+        args.output_dir, build_forecast_density_report()
     )
     print(f"wrote {written}")
     release_report = build_installable_release_report()

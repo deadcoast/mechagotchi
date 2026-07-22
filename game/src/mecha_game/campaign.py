@@ -45,12 +45,21 @@ from mecha_engine.storage import (
 ERA_SEED_STRIDE = 1_000_000
 SUCCESSOR_SEED_OFFSET = 50_000_000
 # "real" (G4): the G2-ingested REAL CuBFF snapshots as the pressure
-# source — the documented upgrade, zero seam changes.
-WEATHER_NAMES = ("calm", "stable_soup", "storm", "real")
+# source — the documented upgrade, zero seam changes. "callback"
+# (K4, DR 0043): the I3 compact records with the replication channel
+# LIT — the first forecast whose harshness channels carry measured
+# biology; same seam, zero engine changes.
+WEATHER_NAMES = ("calm", "stable_soup", "storm", "real", "callback")
 REAL_INGEST_REPORT = (
     Path("data")
     / "cubff_real_ingest"
     / "real_snapshot_ingest_stage0_report.json"
+)
+CALLBACK_STATES_PATH = (
+    Path("data")
+    / "cubff_real_ingest"
+    / "callback_states"
+    / "callback_states_compact.json"
 )
 LEGIBILITY_BLEND = 0.7
 LEGIBILITY_BLEND_STEP = 0.05
@@ -145,6 +154,33 @@ def load_real_weather_source(start: Path | None = None) -> list[dict]:
     )
 
 
+def load_callback_weather_source(start: Path | None = None) -> list[dict]:
+    """The I3 callback compact records, VERBATIM in epoch order —
+    the replication channel LIT (DR 0043; the committed evidence is
+    self-verifying: tape + soup hash + all per-program scores). A
+    missing or empty record file refuses with a named error, never a
+    silent fallback (the G4/load_real_weather_source pattern)."""
+    from mecha_game.packets import data_search_origins
+
+    for origin in data_search_origins(start):
+        for base in (origin, *origin.parents):
+            states_path = base / CALLBACK_STATES_PATH
+            if states_path.is_file():
+                payload = json.loads(
+                    states_path.read_text(encoding="utf-8")
+                )
+                records = payload.get("records") or []
+                if not records:
+                    raise ValueError(
+                        "the callback state file holds no records"
+                    )
+                return sorted(records, key=lambda r: r["epoch"])
+    raise FileNotFoundError(
+        "no callback weather states near this installation "
+        "(data/cubff_real_ingest/callback_states)"
+    )
+
+
 def build_weather_source(name: str) -> list[dict] | None:
     """Forecast name -> CuBFF pressure source for the promoted evolve
     (``calm`` = the byte-identical no-source default)."""
@@ -156,6 +192,8 @@ def build_weather_source(name: str) -> list[dict] | None:
         return [_chaotic_snapshot(i) for i in range(6)]
     if name == "real":
         return load_real_weather_source()
+    if name == "callback":
+        return load_callback_weather_source()
     raise ValueError(f"unknown weather forecast: {name}")
 
 

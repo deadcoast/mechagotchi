@@ -1,0 +1,193 @@
+{
+  "artifact_id": "forecast_density_stage0",
+  "status": "complete",
+  "date": "2026-07-21",
+  "purpose": "K4 (DR 0043): the J4 instruction-density warm-up as a checkpoint-capable, brotli-free harshness instrument over the game's committed forecast records.",
+  "source_artifacts": [
+    "data/cubff_real_ingest/real_snapshot_ingest_stage0_report.json",
+    "data/cubff_real_ingest/callback_states/callback_states_compact.json",
+    "labs/cubff_transducer/structured_decoder.py",
+    "research/decision_records/0043-callback-forecast-adoption.md"
+  ],
+  "metrics": {
+    "method": "brotli-free: instruction-byte count over each committed 64-byte tape; the ten bff_noheads instruction bytes mirrored verbatim from the J4 lab; expectation recomputed in-run as 64 * 10 / 256",
+    "instruction_byte_count": 10,
+    "random_expectation": 2.5,
+    "sources": {
+      "real": {
+        "per_record": [
+          {
+            "snapshot_id": "run_seed0_num131072/0000000000",
+            "epoch": 1,
+            "phase": "early_phase",
+            "tape_bytes": 64,
+            "instruction_density": 2,
+            "above_random_expectation": false
+          },
+          {
+            "snapshot_id": "run_seed0_num8192/0000000000",
+            "epoch": 1,
+            "phase": "early_phase",
+            "tape_bytes": 64,
+            "instruction_density": 3,
+            "above_random_expectation": true
+          },
+          {
+            "snapshot_id": "run_seed0_num131072/0000002048",
+            "epoch": 2049,
+            "phase": "early_phase",
+            "tape_bytes": 64,
+            "instruction_density": 9,
+            "above_random_expectation": true
+          },
+          {
+            "snapshot_id": "run_seed0_num8192/0000002048",
+            "epoch": 2049,
+            "phase": "early_phase",
+            "tape_bytes": 64,
+            "instruction_density": 3,
+            "above_random_expectation": true
+          },
+          {
+            "snapshot_id": "run_seed0_num131072/0000004096",
+            "epoch": 4097,
+            "phase": "post_takeover",
+            "tape_bytes": 64,
+            "instruction_density": 12,
+            "above_random_expectation": true
+          },
+          {
+            "snapshot_id": "run_seed0_num8192/0000004096",
+            "epoch": 4097,
+            "phase": "early_phase",
+            "tape_bytes": 64,
+            "instruction_density": 9,
+            "above_random_expectation": true
+          },
+          {
+            "snapshot_id": "run_seed0_num8192/0000006144",
+            "epoch": 6145,
+            "phase": "early_phase",
+            "tape_bytes": 64,
+            "instruction_density": 10,
+            "above_random_expectation": true
+          },
+          {
+            "snapshot_id": "run_seed0_num8192/0000008192",
+            "epoch": 8193,
+            "phase": "early_phase",
+            "tape_bytes": 64,
+            "instruction_density": 5,
+            "above_random_expectation": true
+          },
+          {
+            "snapshot_id": "run_seed0_num8192/0000010240",
+            "epoch": 10241,
+            "phase": "early_phase",
+            "tape_bytes": 64,
+            "instruction_density": 12,
+            "above_random_expectation": true
+          },
+          {
+            "snapshot_id": "run_seed0_num8192/0000012288",
+            "epoch": 12289,
+            "phase": "early_phase",
+            "tape_bytes": 64,
+            "instruction_density": 5,
+            "above_random_expectation": true
+          },
+          {
+            "snapshot_id": "run_seed0_num8192/0000014336",
+            "epoch": 14337,
+            "phase": "early_phase",
+            "tape_bytes": 64,
+            "instruction_density": 8,
+            "above_random_expectation": true
+          },
+          {
+            "snapshot_id": "run_seed0_num8192/0000016384",
+            "epoch": 16385,
+            "phase": "early_phase",
+            "tape_bytes": 64,
+            "instruction_density": 13,
+            "above_random_expectation": true
+          },
+          {
+            "snapshot_id": "run_seed0_num131072/0000032768",
+            "epoch": 32769,
+            "phase": "post_takeover",
+            "tape_bytes": 64,
+            "instruction_density": 11,
+            "above_random_expectation": true
+          },
+          {
+            "snapshot_id": "run_seed0_num8192_long/0000262144",
+            "epoch": 262145,
+            "phase": "early_phase",
+            "tape_bytes": 64,
+            "instruction_density": 4,
+            "above_random_expectation": true
+          }
+        ],
+        "by_phase": {
+          "early_phase": {
+            "record_count": 12,
+            "mean_density": 6.916667
+          },
+          "post_takeover": {
+            "record_count": 2,
+            "mean_density": 11.5
+          }
+        }
+      },
+      "callback": {
+        "per_record": [
+          {
+            "snapshot_id": "callback_early_control_0000002050",
+            "epoch": 2050,
+            "phase": "early_phase",
+            "tape_bytes": 64,
+            "instruction_density": 9,
+            "above_random_expectation": true
+          },
+          {
+            "snapshot_id": "callback_post_takeover_0000004098",
+            "epoch": 4098,
+            "phase": "post_takeover",
+            "tape_bytes": 64,
+            "instruction_density": 12,
+            "above_random_expectation": true
+          },
+          {
+            "snapshot_id": "callback_post_takeover_late_0000032770",
+            "epoch": 32770,
+            "phase": "post_takeover",
+            "tape_bytes": 64,
+            "instruction_density": 11,
+            "above_random_expectation": true
+          }
+        ],
+        "by_phase": {
+          "early_phase": {
+            "record_count": 1,
+            "mean_density": 9.0
+          },
+          "post_takeover": {
+            "record_count": 2,
+            "mean_density": 11.5
+          }
+        }
+      }
+    }
+  },
+  "closed_states": [
+    "density_measured_on_both_committed_record_families",
+    "expectation_recomputed_never_pasted"
+  ],
+  "blocked_states": [
+    "instrument_only (a harshness-model change feeding multipliers would be its own gated record \u2014 DR 0043)",
+    "callback_corpus_is_three_states_from_one_run (the I3 remainder, unchanged)"
+  ],
+  "decision": "the warm-up instrument rides the forecast evidence; multipliers untouched (DR 0043 clause 2)",
+  "next_research_step": "a harshness-model record MAY charter density as a pressure input with its own gates; until then the instrument observes"
+}

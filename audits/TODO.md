@@ -68,16 +68,23 @@ coarsening record), DR 0021 (engine truth).
   Remainders: an analytical emptiness argument for the quantization
   bin is its own record; the thin-window mechanism implicates the
   frozen derivation edges (a named geometry question).
-- [ ] **K4 · The real forecast, decided by its consumer.** The game's
-  own DR judges adopting the I3 callback-sourced weather channel
-  (replication_per_prog lit: multipliers 1.021–1.048) as a forecast
-  source beside keys 1–4, and the J4 instruction-density warm-up as a
-  checkpoint-only harshness instrument (brotli-free, seam-honest);
-  `lineage_churn` dispositioned honestly in the same record (upstream
-  exposes no lineage-event stream — blocked-upstream named, or a
-  measured proxy judged by the DR's own gates). Zero engine-seam
-  changes (DR 0021's precedent); WSL-only paths recorded, never
-  hidden.
+- [x] **K4 · The real forecast, decided by its consumer.** DONE
+  2026-07-21 (`2026-07-21-callback-forecast.md`, **DR 0043**): the
+  game adopts forecast key 5 — the committed I3 callback records
+  verbatim, the first weather whose harshness channels are LIT — with
+  zero engine-seam changes (no `packages/` file in the change set;
+  keys 1–4 suites unmodified) and the era's multipliers pinned equal
+  to the I3 artifact's committed values, recomputed live. The J4
+  warm-up rides as the brotli-free density instrument over BOTH
+  record families — early 6.92 vs the recomputed 2.5 expectation,
+  post-takeover 11.5, ON THE CHECKPOINT RECORDS whose channels are
+  silent — an instrument, never a multiplier. `lineage_churn`
+  dispositioned BLOCKED-UPSTREAM (callback `lineage_events: []`
+  pinned honest; re-openers named). Game 174 green; all fifteen prior
+  evidence artifacts regenerate byte-identical, the density artifact
+  joins as the sixteenth. Remainders: three callback states from one
+  run (the I3 scale, unchanged); density-as-pressure is its own named
+  record.
 - [ ] **K5 · The covenant meets its budget in the workshop.** H4's
   named cross-surface decision made by DR: whether the workshop may
   READ campaign state to show earned covenant caps beside the

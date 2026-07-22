@@ -647,9 +647,12 @@ def run(argv: list[str] | None = None) -> int:
                         pygame.K_2,
                         pygame.K_3,
                         pygame.K_4,
+                        pygame.K_5,
                     ):
                         # 4 = "real" (G4): the G2-ingested REAL CuBFF
-                        # snapshots as this era's weather.
+                        # snapshots as this era's weather. 5 =
+                        # "callback" (K4, DR 0043): the I3 records
+                        # with the replication channel LIT.
                         bench.weather_index = (
                             event.key - pygame.K_1
                         ) % len(WEATHER_NAMES)
@@ -800,10 +803,10 @@ def run(argv: list[str] | None = None) -> int:
                 footer.extend(bench.budget_lines())
             else:
                 footer.append(
-                    f"E: run era [{bench.weather}]  1-4: weather "
-                    "(4=REAL)  C: covenant  H: hatch  R: release  "
-                    "W: workshop  V: review  B: repertoire  L: "
-                    "lineage  X/I: covenant io  K: pack"
+                    f"E: run era [{bench.weather}]  1-5: weather "
+                    "(4=REAL 5=CALLBACK)  C: covenant  H: hatch  "
+                    "R: release  W: workshop  V: review  B: "
+                    "repertoire  L: lineage  X/I: covenant io  K: pack"
                 )
             if bench.message:
                 footer.append(bench.message)
