@@ -40,17 +40,31 @@ table at 203–206; the worked descriptor at 526–532),
 `research/questions.md` (Evolution Q2/Q3), DR 0017 (the North Star),
 DR 0021 (engine truth), DR 0042 (the adopted layer), DR 0043 (clause 2).
 
-- [ ] **L1 · The refusal-cause histogram.** K2's named remainder, and
-  the cheapest instrument in the queue: the constrained arm logs ~22%
-  generation failures and `constrained_population` already captures
-  `{parent_grid_id, error}` per failure — but only `len(failures)`
-  survives into the loop's trajectory, so the *causes* have never been
-  looked at. Aggregate them into a cause histogram over the adopted
-  loop's own run. Pre-register that this is an **INSTRUMENT, not a
-  change**: whatever it finds, any generator fix it motivates is its
-  own record with its own gates. Report which refusals dominate
-  (validity? mass bounds? connectivity?) and what fraction of the
-  effective pool they cost.
+- [x] **L1 · The refusal-cause histogram.** DONE 2026-07-26
+  (`2026-07-26-generation-refusal-causes.md`): the cheapest instrument
+  in the queue answered none of the guesses and **corrected DR 0042's
+  reading of its own number, twice**. The loop gained the additive
+  `collect_refusals` seam (byte-identical when off, pinned; one gated
+  key). The count reproduces EXACTLY — 4,435, matching the committed
+  K2 artifact and the loop's own independent counter — but **the rate
+  is 7.2%, not ~22%** (the old figure used the scored budget, 20,480,
+  where novelty-first REQUESTS 61,440 attempts), and **the promoted
+  path refused ZERO invalid candidates**: 100% of refusals are the
+  SLIP rejecting the **parent** before a candidate exists. The loss is
+  a SELECTION fact, not a generator fact. The mechanism closes on
+  itself: origin is 100% **bootstrap**, 0 loop offspring — exactly as
+  `_acceptable` guarantees, since it requires SLIP alignment to emit —
+  so the bootstrap seeds the archive with creatures the covenant
+  forbids as parents, they win niches on fitness, hold them, and are
+  refused forever. Hence generation 1 refusing 73.8% of its requests
+  and a flat **38-per-generation tax unbroken for the last 40
+  generations**. Palette dominates the reasons (4,411 vs 613 organ
+  role). K2's report, DR 0042, and the card carry dated correction
+  notes; the fix is NOT taken here (it trades against coverage — its
+  own record). A process note is recorded: the first origin labeling
+  read lineage depth as provenance and was wrong (3,611 bootstrap
+  creatures sit at depth 1); caught before the report, corrected to
+  membership, both fields now pinned.
 - [ ] **L2 · The lineage-dominance clause, judged at last.** The
   MAP-Elites evaluation gate reads, verbatim (`deep-research.md:205`):
   *"archive coverage ≥ 25% on a 576-cell repertoire after 20k

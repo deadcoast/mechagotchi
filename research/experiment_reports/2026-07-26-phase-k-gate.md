@@ -217,6 +217,13 @@ H-01) — restored with `git checkout`, never committed.
    the count survives into the loop's trajectory. A refusal-cause
    histogram is a cheap instrument, and a lower failure rate may raise
    the effective pool.
+   **CLOSED same day by cycle 22 L1**
+   (`2026-07-26-generation-refusal-causes.md`) — and it corrected the
+   premise this item was written on: the rate is **7.2%** (the ~22%
+   figure divided by the scored budget, not the 61,440 attempts the
+   loop makes), and **100% of the refusals are SLIP-rejected PARENTS**,
+   not invalid candidates. The wording above is left as the gate
+   recorded it.
 3. **The four bounded bins** carry measured gaps now: one 0.0014 from
    its boundary, two behind razor-thin joint windows, one behind
    suspected quantization emptiness. The quantization bin is the

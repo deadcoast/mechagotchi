@@ -99,6 +99,22 @@ generator-agnostic invariant — bounded overshoot, per-generation scored
 arms' elites span the full role palette with motion-trio elite fraction
 1.0 (the observation gate-free, as registered).
 
+> **CORRECTED BY MEASUREMENT, 2026-07-26 (cycle 22 L1 —
+> `2026-07-26-generation-refusal-causes.md`).** The count above is
+> exact and reproduces to the record; the two claims attached to it do
+> not. **(a) The rate.** "~22% of attempts" divides 4,435 by the
+> *scored budget* (20,480). Under the adopted novelty-first default the
+> loop REQUESTS `population × pool_factor` per generation, so the real
+> denominator is 61,440 attempts and the measured refusal rate is
+> **7.2%**. **(b) The diagnosis.** `generate_candidate` refused
+> **zero** invalid candidates in those 61,440 attempts: 100% of the
+> refusals are `parent grid cannot satisfy SLIP constraints` — the
+> PARENT rejected before any candidate is proposed. The failures are a
+> selection fact, not a generator fact. Both corrections are measured,
+> not argued; this paragraph stands as what K2 recorded, and the
+> adoption it supports is unaffected (the scored budget both arms
+> crossed is unchanged).
+
 **Execution of the adoption**: the loop default flipped
 (`generation="constrained"`, WFC runnable and byte-identical when asked
 for); the loop's committed artifact regenerated under the new default;

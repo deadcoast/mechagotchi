@@ -34,6 +34,13 @@ SLIP alignment stays out of this harness (generation measured without
 profile constraints — the standing E2 scope note); the engine archive's
 scale-geometry seam stays lab-side (the promotion is its own gated
 package change, named for the Phase-E gate).
+
+Cycle 22 L1 added ``collect_refusals`` — an OBSERVATION seam, additive
+and byte-identical when off (pinned). It surfaces the refusal records
+the generation arms have always built and the loop has always thrown
+away, and it is what corrected DR 0042's reading of its own failure
+number: the refusals are SLIP-rejected PARENTS, not invalid candidates
+(`labs/map_elites_archive/generation_refusal_causes.py`).
 """
 
 import argparse
@@ -115,6 +122,15 @@ def run_evaluation_loop(
     # 1.3025 vs the 0.95 floor). "wfc" stays a runnable arm,
     # byte-identical when asked for.
     generation: str = "constrained",
+    # Cycle 22 L1 (an INSTRUMENT, never a gate): the generation arms
+    # already build a record per refusal — `{parent_grid_id, error}` —
+    # but only `len(failures)` has ever survived into the trajectory,
+    # so K2's ~22% constrained failure rate has a count and no cause.
+    # Turning this on collects those records verbatim and reports the
+    # attempt denominator only the loop can compute. Additive and
+    # byte-identical when off (pinned): observing the loop must never
+    # perturb the loop.
+    collect_refusals: bool = False,
 ) -> dict:
     """The full generational loop to the documented evaluation budget.
 
@@ -184,10 +200,13 @@ def run_evaluation_loop(
     bootstrap_population, bootstrap_composition = build_population(
         population, rng_seed, train, lab_train_wfc_model(train)
     )
+    bootstrap_ids = {grid.get("grid_id") for grid in bootstrap_population}
     for index, grid in enumerate(bootstrap_population):
         evaluate_and_insert(grid, rng_seed + index)
 
     trajectory: list[dict] = []
+    refusal_records: list[dict] = []
+    generation_attempts = 0
     generation_index = 0
     while evaluations < target_evaluations:
         generation_index += 1
@@ -203,8 +222,9 @@ def run_evaluation_loop(
         )
         pool_size = None
         if novelty_generation:
+            requested = population * pool_factor
             pool, failures = generate_population(
-                parents, population * pool_factor, generation_index
+                parents, requested, generation_index
             )
             pool_size = len(pool)
             candidates = _novelty_first_candidates(
@@ -215,8 +235,46 @@ def run_evaluation_loop(
                 slip_profile=slip_profile,
             )
         else:
+            requested = population
             candidates, failures = generate_population(
-                parents, population, generation_index
+                parents, requested, generation_index
+            )
+        if collect_refusals:
+            # L1: the records verbatim — the generation index is what
+            # makes an early-vs-late reading possible, and the parent id
+            # is what distinguishes "this parent is unbreedable" from
+            # "the generator missed".
+            #
+            # `parent_origin` is measured by MEMBERSHIP in the bootstrap
+            # population this loop built, not inferred from the parent's
+            # lineage depth. The distinction is not pedantic: a
+            # bootstrap creature is itself generated FROM a seed, so its
+            # lineage depth is already 1, and reading depth as origin
+            # mislabels every bootstrap creature as loop offspring
+            # (measured, then caught — see the L1 report's process
+            # note). Lineage depth rides along as its own honest field.
+            generation_attempts += requested
+            parent_depths = {
+                parent.get("grid_id"): (parent.get("lineage") or {}).get(
+                    "generation"
+                )
+                for parent in parents
+            }
+            refusal_records.extend(
+                {
+                    "generation_index": generation_index,
+                    "parent_grid_id": failure.get("parent_grid_id"),
+                    "parent_origin": (
+                        "bootstrap"
+                        if failure.get("parent_grid_id") in bootstrap_ids
+                        else "loop_offspring"
+                    ),
+                    "parent_lineage_depth": parent_depths.get(
+                        failure.get("parent_grid_id")
+                    ),
+                    "error": failure.get("error"),
+                }
+                for failure in failures
             )
         replacements_before = _replacement_count(archive)
         for index, candidate in enumerate(candidates):
@@ -291,7 +349,7 @@ def run_evaluation_loop(
         if elite_role_sets
         else 0.0,
     }
-    return {
+    result = {
         "archive": archive,
         "archive_summary": summary,
         "trajectory": trajectory,
@@ -301,6 +359,13 @@ def run_evaluation_loop(
         "generation": generation,
         "elite_role_summary": elite_role_summary,
     }
+    if collect_refusals:
+        # The seam adds exactly ONE key, and only when asked (pinned).
+        result["refusal_collection"] = {
+            "records": refusal_records,
+            "generation_attempts_total": generation_attempts,
+        }
+    return result
 
 
 def _novelty_first_candidates(

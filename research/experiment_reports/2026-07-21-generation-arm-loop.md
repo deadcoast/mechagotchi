@@ -44,7 +44,16 @@ role palette, motion-trio elite fraction 1.0.
 
 **The honest number**: the constrained arm logged **4,435 generation
 failures** (~22% of attempts — the promoted path refuses invalid
-candidates loudly; WFC logged 0). The scored budget is the loop's
+candidates loudly; WFC logged 0).
+
+> **CORRECTED BY MEASUREMENT, 2026-07-26** (cycle 22 L1 —
+> `2026-07-26-generation-refusal-causes.md`): the count reproduces
+> exactly, but both claims attached to it were wrong. The rate is
+> **7.2%**, not ~22% — "attempts" here was the *scored budget*
+> (20,480), while novelty-first REQUESTS 61,440. And the promoted path
+> refused **zero** invalid candidates: 100% of the refusals are the
+> SLIP rejecting the **parent** before a candidate is proposed. Left
+> standing as what this cycle recorded; the adoption is unaffected. The scored budget is the loop's
 while-condition, crossed identically by both arms; the
 budget-accounting pins evolved from exact-multiples (an infallible-
 generator assumption) to the generator-agnostic invariant — bounded
@@ -105,7 +114,11 @@ adopt:constrained                       # both bars met; 272-462 s/arm vs the 12
 1. **The ~22% generation-failure rate** of the constrained arm is
    recorded but unexplained — which refusals dominate (validity?
    mass bounds?) is a cheap next measurement; a lower failure rate
-   may raise the effective pool further.
+   may raise the effective pool further. **CLOSED 2026-07-26 by cycle
+   22 L1** (`2026-07-26-generation-refusal-causes.md`): the cheap
+   measurement was taken and answered neither guess — the rate is
+   7.2% against the real attempt denominator, and every refusal is a
+   SLIP-rejected PARENT, not a rejected candidate.
 2. **52 niches remain** between the loop's 460 and the 512-bin space —
    the same 9-bin octile-corner emptiness plus the support boundary;
    K3's probe question, unchanged.

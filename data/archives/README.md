@@ -36,3 +36,22 @@ Measured archive evidence produced by `labs/map_elites_archive/`.
   morphological families across ALL TEN independent seeded runs vs
   the documented >=5 (strict intersection over 4x4x4 coarse
   descriptor cells; nothing curated). Species memory, measured.
+- `generation_refusal_causes_stage0.json` - cycle 22 L1: the
+  refusal-cause histogram over the adopted loop, and the instrument
+  that CORRECTED DR 0042's reading of its own number. The count
+  reproduces exactly (4,435, matching the committed K2 artifact and
+  the loop's own independent counter), but the rate is 7.2% not ~22%
+  (the old figure divided by the scored budget, 20,480, where
+  novelty-first REQUESTS 61,440 attempts), and the promoted path
+  refused ZERO invalid candidates: 100% of the refusals are
+  `parent grid cannot satisfy SLIP constraints` - the profile
+  rejecting the PARENT before a candidate exists. Reasons: palette
+  4,411, required organ role 613 (5,024 reasons over 4,435 refusals).
+  Origin measured by membership, not inferred: 100% bootstrap, 0 loop
+  offspring - as `_acceptable` guarantees, since it requires SLIP
+  alignment to emit. The curve is structural: generation 1 refuses
+  73.8% of its 768 requests, then decays to exactly 38 per generation
+  unbroken for the last 40 generations - SLIP-illegal bootstrap
+  elites holding niches permanently. An INSTRUMENT: no generation
+  behaviour changed; the fix (and its coverage trade) is its own
+  record.

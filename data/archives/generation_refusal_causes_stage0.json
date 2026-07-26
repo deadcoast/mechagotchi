@@ -1,0 +1,431 @@
+{
+  "artifact_id": "generation_refusal_causes_stage0",
+  "status": "stage0",
+  "date": "2026-07-26",
+  "purpose": "Cycle 22 L1: diagnose the constrained generation arm's refusals by the promoted generator's own raise sites \u2014 K2 recorded the ~22% rate and left the cause unmeasured.",
+  "source_artifacts": [
+    "data/archives/generation_arm_evolution_stage0.json",
+    "data/archives/evaluation_loop_scale_stage0.json"
+  ],
+  "parameters": {
+    "population": 256,
+    "target_evaluations": 20480,
+    "rng_seed": 20260709,
+    "lifecycle_ticks": 24,
+    "generation": "constrained",
+    "selection": "novelty_first (the DR 0040 adopted default)"
+  },
+  "metrics": {
+    "generation_attempts_total": 61440,
+    "refusals_total": 4435,
+    "refusal_rate": 0.072184,
+    "family_histogram": {
+      "parent_slip_misaligned": 4435
+    },
+    "family_share": {
+      "parent_slip_misaligned": 1.0
+    },
+    "reason_class_histogram": {
+      "palette not allowed by SLIP": 4411,
+      "required organ role missing for SLIP": 613
+    },
+    "reason_classes_by_family": {
+      "parent_slip_misaligned": {
+        "palette not allowed by SLIP": 4411,
+        "required organ role missing for SLIP": 613
+      }
+    },
+    "reason_examples": {
+      "palette not allowed by SLIP": "palette pocket_plum not allowed by SLIP",
+      "required organ role missing for SLIP": "required organ role missing for SLIP: expression"
+    },
+    "refusals_by_generation": [
+      {
+        "generation": 1,
+        "refusals": 567
+      },
+      {
+        "generation": 2,
+        "refusals": 294
+      },
+      {
+        "generation": 3,
+        "refusals": 171
+      },
+      {
+        "generation": 4,
+        "refusals": 136
+      },
+      {
+        "generation": 5,
+        "refusals": 100
+      },
+      {
+        "generation": 6,
+        "refusals": 82
+      },
+      {
+        "generation": 7,
+        "refusals": 62
+      },
+      {
+        "generation": 8,
+        "refusals": 52
+      },
+      {
+        "generation": 9,
+        "refusals": 52
+      },
+      {
+        "generation": 10,
+        "refusals": 52
+      },
+      {
+        "generation": 11,
+        "refusals": 50
+      },
+      {
+        "generation": 12,
+        "refusals": 48
+      },
+      {
+        "generation": 13,
+        "refusals": 48
+      },
+      {
+        "generation": 14,
+        "refusals": 48
+      },
+      {
+        "generation": 15,
+        "refusals": 47
+      },
+      {
+        "generation": 16,
+        "refusals": 47
+      },
+      {
+        "generation": 17,
+        "refusals": 47
+      },
+      {
+        "generation": 18,
+        "refusals": 47
+      },
+      {
+        "generation": 19,
+        "refusals": 47
+      },
+      {
+        "generation": 20,
+        "refusals": 47
+      },
+      {
+        "generation": 21,
+        "refusals": 47
+      },
+      {
+        "generation": 22,
+        "refusals": 45
+      },
+      {
+        "generation": 23,
+        "refusals": 45
+      },
+      {
+        "generation": 24,
+        "refusals": 44
+      },
+      {
+        "generation": 25,
+        "refusals": 44
+      },
+      {
+        "generation": 26,
+        "refusals": 44
+      },
+      {
+        "generation": 27,
+        "refusals": 44
+      },
+      {
+        "generation": 28,
+        "refusals": 44
+      },
+      {
+        "generation": 29,
+        "refusals": 44
+      },
+      {
+        "generation": 30,
+        "refusals": 44
+      },
+      {
+        "generation": 31,
+        "refusals": 44
+      },
+      {
+        "generation": 32,
+        "refusals": 43
+      },
+      {
+        "generation": 33,
+        "refusals": 43
+      },
+      {
+        "generation": 34,
+        "refusals": 43
+      },
+      {
+        "generation": 35,
+        "refusals": 43
+      },
+      {
+        "generation": 36,
+        "refusals": 43
+      },
+      {
+        "generation": 37,
+        "refusals": 43
+      },
+      {
+        "generation": 38,
+        "refusals": 42
+      },
+      {
+        "generation": 39,
+        "refusals": 42
+      },
+      {
+        "generation": 40,
+        "refusals": 40
+      },
+      {
+        "generation": 41,
+        "refusals": 38
+      },
+      {
+        "generation": 42,
+        "refusals": 38
+      },
+      {
+        "generation": 43,
+        "refusals": 38
+      },
+      {
+        "generation": 44,
+        "refusals": 38
+      },
+      {
+        "generation": 45,
+        "refusals": 38
+      },
+      {
+        "generation": 46,
+        "refusals": 38
+      },
+      {
+        "generation": 47,
+        "refusals": 38
+      },
+      {
+        "generation": 48,
+        "refusals": 38
+      },
+      {
+        "generation": 49,
+        "refusals": 38
+      },
+      {
+        "generation": 50,
+        "refusals": 38
+      },
+      {
+        "generation": 51,
+        "refusals": 38
+      },
+      {
+        "generation": 52,
+        "refusals": 38
+      },
+      {
+        "generation": 53,
+        "refusals": 38
+      },
+      {
+        "generation": 54,
+        "refusals": 38
+      },
+      {
+        "generation": 55,
+        "refusals": 38
+      },
+      {
+        "generation": 56,
+        "refusals": 38
+      },
+      {
+        "generation": 57,
+        "refusals": 38
+      },
+      {
+        "generation": 58,
+        "refusals": 38
+      },
+      {
+        "generation": 59,
+        "refusals": 38
+      },
+      {
+        "generation": 60,
+        "refusals": 38
+      },
+      {
+        "generation": 61,
+        "refusals": 38
+      },
+      {
+        "generation": 62,
+        "refusals": 38
+      },
+      {
+        "generation": 63,
+        "refusals": 38
+      },
+      {
+        "generation": 64,
+        "refusals": 38
+      },
+      {
+        "generation": 65,
+        "refusals": 38
+      },
+      {
+        "generation": 66,
+        "refusals": 38
+      },
+      {
+        "generation": 67,
+        "refusals": 38
+      },
+      {
+        "generation": 68,
+        "refusals": 38
+      },
+      {
+        "generation": 69,
+        "refusals": 38
+      },
+      {
+        "generation": 70,
+        "refusals": 38
+      },
+      {
+        "generation": 71,
+        "refusals": 38
+      },
+      {
+        "generation": 72,
+        "refusals": 38
+      },
+      {
+        "generation": 73,
+        "refusals": 38
+      },
+      {
+        "generation": 74,
+        "refusals": 38
+      },
+      {
+        "generation": 75,
+        "refusals": 38
+      },
+      {
+        "generation": 76,
+        "refusals": 38
+      },
+      {
+        "generation": 77,
+        "refusals": 38
+      },
+      {
+        "generation": 78,
+        "refusals": 38
+      },
+      {
+        "generation": 79,
+        "refusals": 38
+      },
+      {
+        "generation": 80,
+        "refusals": 38
+      }
+    ],
+    "distinct_refused_parents": 131,
+    "largest_single_parent_share": 0.036753,
+    "refused_parent_origin": {
+      "bootstrap": 4435
+    },
+    "refused_parent_lineage_depth": {
+      "1": 3611,
+      "0": 824
+    },
+    "most_refused_parents": {
+      "mg_constrained_081": 163,
+      "mg_constrained_005": 163,
+      "mg_wfc_068": 163,
+      "mg_constrained_127": 120,
+      "mg_constrained_002": 114,
+      "mg_constrained_030": 106,
+      "mg_constrained_101": 97,
+      "mg_constrained_106": 90,
+      "mg_constrained_125": 90,
+      "mg_constrained_034": 90,
+      "mg_constrained_109": 90,
+      "mg_constrained_031": 90,
+      "mg_constrained_093": 90,
+      "mg_constrained_071": 90,
+      "mg_constrained_048": 90,
+      "mg_constrained_052": 89,
+      "mg_constrained_092": 89,
+      "mg_constrained_009": 89,
+      "mg_constrained_046": 89,
+      "mg_constrained_078": 89,
+      "mg_constrained_056": 89,
+      "mg_constrained_050": 89,
+      "mg_constrained_011": 89,
+      "mg_constrained_110": 89,
+      "mg_constrained_060": 89
+    },
+    "unclassified_messages": [],
+    "unclassified_total": 0,
+    "unnormalized_reasons": {},
+    "unnormalized_total": 0,
+    "reported_example_cap": 25,
+    "k2_self_verification": {
+      "applicable": true,
+      "committed_total": 4435,
+      "measured_total": 4435,
+      "match": true
+    },
+    "loop_counter_agreement": true,
+    "wall_clock_s": 273.776,
+    "pre_registered_bound_s": 1200.0,
+    "within_bound": true
+  },
+  "closed_states": [
+    "the constrained arm's refusals are classified by raise site, not pooled into one rate",
+    "reason classes group across variable values while keeping the authority's own words",
+    "the refusal total is cross-checked against the loop's own independent collapse-failure counter"
+  ],
+  "blocked_states": [
+    "this instrument does not change generation behaviour: any fix it motivates is its own record with its own pre-registered gates",
+    "reasons are split on '; ' \u2014 an individual authority error containing that separator would be over-split (unobserved, recorded as a known limitation)",
+    "the WFC arm is not measured here: it logs zero refusals, so the histogram would be empty by construction"
+  ],
+  "decision": {
+    "kind": "instrument",
+    "rule": "pre-registered (cycle 22 L1): this module OBSERVES. It reports whatever the histogram says, including a result that contradicts K2's reading of its own number. No generation change rides on this artifact."
+  },
+  "next_research_step": "L2: the documented lineage-dominance clause (deep-research.md:205), never judged."
+}

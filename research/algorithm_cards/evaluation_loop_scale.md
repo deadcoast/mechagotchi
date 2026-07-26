@@ -98,14 +98,27 @@ documented gate, or determinism drift under the pinned seeds.
   bar; 460 niches = the measured support ceiling), QD ratio **1.3025**
   — and is the adopted generation default; WFC stays a runnable arm.
   The constrained arm's ~22% recorded generation-failure rate is a
-  named observation; budget pins evolved to the generator-agnostic
-  bounded-overshoot invariant with WFC exactness kept.
+  named observation (**corrected by L1 below**); budget pins evolved to
+  the generator-agnostic bounded-overshoot invariant with WFC exactness
+  kept.
+- **Cycle 22 L1 (2026-07-26)**: the loop gained the additive
+  `collect_refusals` seam — byte-identical when off (pinned), adding
+  exactly one key when on, carrying each refusal's verbatim error, its
+  generation index, and its parent's lineage depth. The instrument it
+  feeds **corrected DR 0042's own reading of its own number**: the
+  4,435 count is exact, but the rate is **7.2%** (the ~22% figure used
+  the SCORED budget, 20,480, where novelty-first REQUESTS 61,440), and
+  the promoted path refused **zero** invalid candidates — 100% of the
+  refusals are SLIP-rejected PARENTS, so the loss is a selection fact,
+  not a generator fact. An instrument only: no generation behaviour
+  changed.
 
 ## Sources
 
 - `labs/map_elites_archive/evaluation_loop_scale.py` (+ `test_evaluation_loop_scale.py`)
 - `data/archives/evaluation_loop_scale_stage0.json`
 - `data/archives/generation_arm_evolution_stage0.json` (the DR 0042 verdict)
-- `research/experiment_reports/2026-07-09-evaluation-loop-scale.md`, `2026-07-21-generation-arm-loop.md`
+- `labs/map_elites_archive/generation_refusal_causes.py` (+ `test_generation_refusal_causes.py`) · `data/archives/generation_refusal_causes_stage0.json` (the L1 instrument)
+- `research/experiment_reports/2026-07-09-evaluation-loop-scale.md`, `2026-07-21-generation-arm-loop.md`, `2026-07-26-generation-refusal-causes.md`
 - `research/decision_records/0040-novelty-first-evolution-surface.md`, `0042-generation-layer-loop-revisit.md`
 - `docs/project-research/deep-research/01/deep-research.md`

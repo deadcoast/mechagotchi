@@ -257,13 +257,17 @@ first green CLOUD CI run, which awaits a push never made unasked.
 same change, one commit per task naming the task ID. Cycle 22's queue
 in order:
 
-1. **L1 · the refusal-cause histogram** — the cheapest instrument in
-   the queue. The constrained arm's ~22% generation failures already
-   carry their error strings (`constrained_population` captures
-   `{parent_grid_id, error}`); only the count survives into the loop's
-   trajectory, so the causes have never been looked at. An
-   INSTRUMENT — any generator fix it motivates is its own record.
-2. **L2 · the lineage-dominance clause, judged at last** — the
+1. ~~**L1 · the refusal-cause histogram**~~ — **DONE 2026-07-26**
+   (`2026-07-26-generation-refusal-causes.md`). It corrected DR 0042
+   twice: the rate is **7.2%** not ~22% (the old figure divided by the
+   scored budget, not the 61,440 attempts), and the promoted path
+   refused **zero** invalid candidates — 100% of refusals are the SLIP
+   rejecting the **parent**, all of them bootstrap creatures, holding
+   niches permanently and taxing every generation at a flat 38. A
+   selection fact, not a generator fact. **The fix was deliberately not
+   taken** — it trades against coverage and needs its own gated record.
+2. **L2 · the lineage-dominance clause, judged at last** ← **THE NEXT
+   TASK.** The
    documented MAP-Elites gate's second half (`deep-research.md:205`:
    *"no single lineage > 40% of occupied cells"*), never measured in
    the project's history. Measurable today: `generate_candidate`
