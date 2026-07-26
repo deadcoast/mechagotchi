@@ -85,14 +85,22 @@ coarsening record), DR 0021 (engine truth).
   joins as the sixteenth. Remainders: three callback states from one
   run (the I3 scale, unchanged); density-as-pressure is its own named
   record.
-- [ ] **K5 · The covenant meets its budget in the workshop.** H4's
-  named cross-surface decision made by DR: whether the workshop may
-  READ campaign state to show earned covenant caps beside the
-  authoring sliders (budgets stay the GAME's; the workshop never
-  pretends to know unlock facts it doesn't) — adopted with its
-  boundary pinned, or rejected-with-reason as its own record; if
-  adopted, the H-phase pattern (live authority loop, refusals
-  verbatim, server-verified).
+- [x] **K5 · The covenant meets its budget in the workshop.** DONE
+  2026-07-21 (`2026-07-21-covenant-budget-face.md`, **DR 0044 —
+  ADOPTED, boundary pinned**): the session lab owns the read model
+  (`state_covenant_budget`, extracted verbatim from its own
+  `apply_covenant_change` with the identity pinned); the server gains
+  ONE read-only endpoint (absent session → `available: false` with
+  the reason named — the workshop never fabricates unlock facts; the
+  GET leaves the state file byte-identical, pinned); the slip creator
+  gains the advisory strip — earned deliberation/palette caps beside
+  the very sliders that author them, amber with the gap named when
+  exceeded. **Advisory, never authority, pinned**: an over-budget
+  schema-legal profile still validates and saves; the game's
+  `apply_covenant_change` stays the only spender. RED first (404);
+  workshop 92 + game_loop 84 green. Remainders: SLIP-shaped caps only
+  (engine caps stay on the session page); server-verified not
+  click-tested (H5).
 - [ ] **K6 · The Phase-K gate.** One consolidated report; cycle 21
   archived; cycle 22 planned from the documentation.
 

@@ -341,6 +341,24 @@ def covenant_budget(
     }
 
 
+def state_covenant_budget(state: dict) -> dict:
+    """The ACTIVE campaign's earned budget from recorded state — the
+    session lab's read model (DR 0044: the composition extracted
+    VERBATIM from `apply_covenant_change`, which now calls it; the
+    workshop's advisory endpoint consumes exactly this function so no
+    surface recomputes game logic)."""
+    return covenant_budget(
+        state.get("base_profile")
+        or next(
+            c
+            for c in state["campaigns"]
+            if c["campaign_id"] == state["active_campaign_id"]
+        )["slip_profile"],
+        state.get("base_engine_parameters") or state["engine_parameters"],
+        resolve_unlock_state(state["campaigns"], state["active_campaign_id"]),
+    )
+
+
 def apply_covenant_change(
     state: dict,
     *,
@@ -354,16 +372,7 @@ def apply_covenant_change(
     authority validator as every covenant; over-budget requests are
     rejected with named violations and NOTHING is applied. Past eras
     stay reproducible — the ledger stores each era's profile verbatim."""
-    budget = covenant_budget(
-        state.get("base_profile")
-        or next(
-            c
-            for c in state["campaigns"]
-            if c["campaign_id"] == state["active_campaign_id"]
-        )["slip_profile"],
-        state.get("base_engine_parameters") or state["engine_parameters"],
-        resolve_unlock_state(state["campaigns"], state["active_campaign_id"]),
-    )
+    budget = state_covenant_budget(state)
     violations: list[str] = []
     if allowed_palettes is not None:
         for palette in allowed_palettes:

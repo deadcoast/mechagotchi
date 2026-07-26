@@ -692,6 +692,28 @@ class SessionRunnerTests(unittest.TestCase):
             "threshold": 1,
         }
 
+    def test_state_covenant_budget_is_the_extracted_read_model(self):
+        # DR 0044: the state->budget composition extracted verbatim —
+        # the read model over a fresh state equals covenant_budget over
+        # the state's own recorded facts, and an over-spend rejection
+        # carries the identical budget (the refactor's identity pin).
+        from session_runner import state_covenant_budget
+
+        state = self._fresh_state()
+        expected = covenant_budget(
+            state["base_profile"],
+            state["base_engine_parameters"],
+            resolve_unlock_state(
+                state["campaigns"], state["active_campaign_id"]
+            ),
+        )
+        self.assertEqual(expected, state_covenant_budget(state))
+        rejection = apply_covenant_change(
+            state, deliberation_max_ticks=8
+        )
+        self.assertFalse(rejection["ok"])
+        self.assertEqual(expected, rejection["budget"])
+
     def test_covenant_budget_is_the_base_when_nothing_is_earned(self):
         state = self._fresh_state()
         base_profile = state["base_profile"]

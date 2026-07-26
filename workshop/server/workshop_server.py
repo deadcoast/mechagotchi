@@ -83,6 +83,9 @@ Endpoints:
 - GET  /api/released        creatures currently released
 - GET  /session             the Keeper's session page (G4, DR 0021)
 - GET  /api/session/state   the persistent keeper session's read model
+- GET  /api/covenant/budget the active campaign's earned covenant caps
+  (K5, DR 0044: read-only, the session lab's own read model; an absent
+  session answers available:false honestly — advisory, never authority)
                             (campaign digests, unlock state, forecasts)
 - POST /api/session/new     {campaign_id?, base_seed?} -> start a
                             keeper session (409 if one exists)
@@ -191,6 +194,7 @@ from session_runner import (  # noqa: E402
     new_keeper_state,
     save_keeper_state,
     session_scale,
+    state_covenant_budget,
     train_legibility_model,
 )
 
@@ -755,6 +759,35 @@ class _Handler(SimpleHTTPRequestHandler):
                     "replay": json.loads(
                         replay_path.read_text(encoding="utf-8")
                     ),
+                },
+            )
+            return
+        if path == "/api/covenant/budget":
+            # K5 (DR 0044): the earned budget's authoring-face read —
+            # READ-ONLY, the session lab's own read model verbatim; an
+            # absent session answers honestly, never fabricates.
+            state = load_keeper_state(self.server.session_state_path)
+            if state is None:
+                self._json(
+                    200,
+                    {
+                        "ok": True,
+                        "available": False,
+                        "reason": (
+                            "no keeper session near this project — "
+                            "the advisory shows earned caps only when "
+                            "a campaign exists"
+                        ),
+                    },
+                )
+                return
+            self._json(
+                200,
+                {
+                    "ok": True,
+                    "available": True,
+                    "active_campaign_id": state["active_campaign_id"],
+                    "budget": state_covenant_budget(state),
                 },
             )
             return

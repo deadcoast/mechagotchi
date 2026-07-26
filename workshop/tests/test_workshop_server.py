@@ -2120,3 +2120,93 @@ class SpeciesGrammarAuthoringTests(unittest.TestCase):
             "material not allowed by SLIP visual grammar: hard",
             subjects["grammar_subject"]["errors"],
         )
+
+
+class CovenantBudgetAdvisoryTests(unittest.TestCase):
+    """K5 (DR 0044): the covenant's earned budget gains its workshop
+    face — advisory, never authority. The endpoint is read-only, an
+    absent session answers honestly, the served budget is the session
+    lab's own read model verbatim, and nothing the advisory shows can
+    refuse a schema-legal profile."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.temp = tempfile.TemporaryDirectory()
+        base = Path(cls.temp.name)
+        cls.session_dir = base / "game_loop"
+        cls.server = start_workshop_server(
+            port=0,
+            grids_dir=base / "grids",
+            slips_dir=base / "slips",
+            session_dir=cls.session_dir,
+        )
+        cls.base = f"http://127.0.0.1:{cls.server.server_address[1]}"
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.server.shutdown()
+        cls.temp.cleanup()
+
+    def test_serves_the_advisory_strip(self):
+        with urllib.request.urlopen(f"{self.base}/slip") as response:
+            body = response.read().decode("utf-8")
+        self.assertEqual(200, response.status)
+        self.assertIn("covenant-budget", body)
+        self.assertIn("/api/covenant/budget", body)
+
+    def test_no_session_answers_available_false_honestly(self):
+        status, payload = _get(f"{self.base}/api/covenant/budget")
+        self.assertEqual(200, status)
+        self.assertFalse(payload["available"])
+        self.assertIn("no keeper session", payload["reason"])
+        self.assertNotIn("budget", payload)
+
+    def test_the_budget_is_the_session_labs_own_read_model(self):
+        status, created = _post(
+            f"{self.base}/api/session/new",
+            {"campaign_id": "advisory_test"},
+        )
+        self.assertEqual(200, status, created)
+        try:
+            state_path = self.session_dir / "keeper_session.json"
+            before = state_path.read_bytes()
+            status, payload = _get(f"{self.base}/api/covenant/budget")
+            self.assertEqual(200, status)
+            self.assertTrue(payload["available"])
+            self.assertEqual(
+                "advisory_test", payload["active_campaign_id"]
+            )
+            # Self-verifying: the served budget equals the session
+            # lab's own read model over the same recorded state.
+            from session_runner import state_covenant_budget
+
+            state = json.loads(before.decode("utf-8"))
+            self.assertEqual(
+                state_covenant_budget(state), payload["budget"]
+            )
+            # Read-only: the GET changed nothing on disk.
+            self.assertEqual(before, state_path.read_bytes())
+        finally:
+            for stale in self.session_dir.glob("*"):
+                stale.unlink()
+
+    def test_over_budget_authoring_still_validates_and_saves(self):
+        # DR 0044 clause 3: advisory, never authority — a schema-legal
+        # profile beyond any campaign's earned caps validates and
+        # saves exactly as before.
+        profile = json.loads(json.dumps(VALID_PROFILE))
+        profile["slip_version"] = "0.2.0"
+        profile["profile_id"] = "beyond_budget"
+        profile["deliberation"] = {
+            "max_ticks": 8,
+            "confidence_threshold": 0.72,
+        }
+        status, payload = _post(
+            f"{self.base}/api/slip/validate", {"profile": profile}
+        )
+        self.assertEqual(200, status)
+        self.assertTrue(payload["valid"], payload["errors"])
+        status, payload = _post(
+            f"{self.base}/api/slip/save", {"profile": profile}
+        )
+        self.assertEqual(200, status, payload)

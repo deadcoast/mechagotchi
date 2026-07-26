@@ -266,6 +266,14 @@
         <p class="notice" id="review-note"></p>
       </div>
       <div class="panel">
+        <h2>covenant budget <span style="text-transform:none;letter-spacing:0;">— the active campaign's earned caps</span></h2>
+        <div id="covenant-budget"><p class="notice">checking for a keeper session…</p></div>
+        <p class="hint">advisory only (DR 0044): budgets gate the game's
+        covenant application, never SLIP validity — a species legal under
+        the schema stays legal regardless of any one campaign's
+        progression</p>
+      </div>
+      <div class="panel">
         <h2>who fits this profile?</h2>
         <div class="compat-big" id="compat-seed">–</div>
         <div class="compat-sub">of the 50 seed creatures would belong to this profile</div>
@@ -566,6 +574,67 @@ $("delib-confidence").addEventListener("input", () => {
   scheduleValidate();
 });
 
+/* ---------------- covenant budget advisory (K5, DR 0044) --------- */
+let covenantBudget = null;
+
+async function loadCovenantBudget() {
+  try {
+    const response = await fetch("/api/covenant/budget");
+    covenantBudget = await response.json();
+  } catch (error) {
+    covenantBudget = null;
+  }
+  renderBudgetAdvisory();
+}
+
+function renderBudgetAdvisory() {
+  const wrap = $("covenant-budget");
+  if (!wrap) return;
+  wrap.innerHTML = "";
+  const note = document.createElement("p");
+  note.className = "notice";
+  if (!covenantBudget || !covenantBudget.ok) {
+    note.textContent = "advisory unavailable";
+    wrap.appendChild(note);
+    return;
+  }
+  if (!covenantBudget.available) {
+    note.textContent = covenantBudget.reason;
+    wrap.appendChild(note);
+    return;
+  }
+  const budget = covenantBudget.budget;
+  const head = document.createElement("p");
+  head.className = "compat-sub";
+  head.textContent =
+    covenantBudget.active_campaign_id
+    + " earned: deliberation ticks ≤ " + budget.deliberation_max_ticks
+    + " · palettes " + budget.allowed_palettes.join(", ");
+  wrap.appendChild(head);
+  const advisories = [];
+  if (deliberationTicks !== null) {
+    if (budget.deliberation_max_ticks === 0) {
+      advisories.push("deliberation is not yet earned in this campaign");
+    } else if (deliberationTicks > budget.deliberation_max_ticks) {
+      advisories.push(
+        "deliberation " + deliberationTicks
+        + " exceeds the earned cap " + budget.deliberation_max_ticks
+      );
+    }
+  }
+  const beyond = [...selectedPalettes].filter(
+    (palette) => !budget.allowed_palettes.includes(palette)
+  );
+  if (beyond.length) {
+    advisories.push("palettes beyond the earned set: " + beyond.join(", "));
+  }
+  note.style.color = advisories.length ? "var(--amber)" : "var(--accent)";
+  note.textContent = advisories.length
+    ? advisories.join("; ") + " — the game's covenant step would refuse this spend"
+    : "the authored profile sits within this campaign's earned covenant";
+  wrap.appendChild(note);
+}
+
 /* ---------------- live authority verdict ---------------- */
 let validateTimer = null;
 function scheduleValidate() {
@@ -638,6 +707,7 @@ function renderVerdict(verdict) {
     ? "ready to save"
     : "the authority must accept the profile before it can be saved";
   $("save-notice").className = "notice";
+  renderBudgetAdvisory();
 }
 
 /* ---------------- save / load ---------------- */
@@ -771,6 +841,7 @@ for (const id of ["mass-min", "mass-max"]) {
   renderGrammarToggles();
   renderSliders();
   refreshSlipList();
+  loadCovenantBudget();
   scheduleValidate();
 })();
 </script>
