@@ -101,6 +101,18 @@ deviation is named here as the honest record.
    (octiles over a 600-candidate derivation) — whether the geometry
    itself should re-derive under the DR 0042 generation layer is a
    named question for the archive's own records, not smuggled here.
+   **ANSWERED 2026-07-26 by cycle 22 L3**
+   (`2026-07-26-geometry-consistency.md`): the geometry is **not
+   stale** — E1's protocol re-run under today's code reproduces the
+   committed edges exactly, against a measured sampling control of
+   0.0102, because the frozen artifact was already regenerated at the
+   DR 0038 commit. So these thin windows are a real property of the
+   distribution and the quantization hypothesis HARDENS. Note also
+   that this escalation's edges are **derived live from all 50 seeds**,
+   not the frozen train-derived set the evolution loop uses — the two
+   differ by up to 0.0375, so this report's bin intervals (e.g.
+   neediness `[0.3825, 0.3975)`) belong to the probe's geometry, and
+   its `508/512` is not directly comparable to the loop's `460/512`.
 
 ## Sources
 

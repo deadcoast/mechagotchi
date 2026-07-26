@@ -39,7 +39,17 @@ the loop — it amplified (one-shot novelty margin +0.01 → loop coverage
 margin +0.1133). And the number is structural: **460 occupied niches is
 exactly the support ceiling the occupancy instrument measured** (J2's
 re-measure: support 460) — the constrained loop fills everything its
-candidate stream is known to reach. Both arms' elites span the full
+candidate stream is known to reach.
+
+> **QUALIFIED BY MEASUREMENT, 2026-07-26** (cycle 22 L3 —
+> `2026-07-26-geometry-consistency.md`): the word *exactly* is not
+> justified. The loop's 460 is counted in the **frozen** (train-derived)
+> geometry; the occupancy instrument's support 460 is counted in the
+> geometry it derives **live from all 50 seeds**, and those two edge
+> sets differ by up to 0.0375 — 3.7× the measured sampling control. The
+> two numbers coincide, but they are counted in different coordinate
+> systems, so the coincidence is not an established identity. Neither
+> artifact is wrong; reading across them is what this note corrects. Both arms' elites span the full
 role palette, motion-trio elite fraction 1.0.
 
 **The honest number**: the constrained arm logged **4,435 generation

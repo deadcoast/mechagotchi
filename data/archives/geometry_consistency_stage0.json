@@ -1,0 +1,349 @@
+{
+  "artifact_id": "geometry_consistency_stage0",
+  "status": "stage0",
+  "date": "2026-07-26",
+  "purpose": "Cycle 22 L3: test whether the frozen scale geometry is STALE (K3's named question) and, separately, whether the repo's several live derivation recipes agree with each other.",
+  "source_artifacts": [
+    "data/archives/niche_scale_archive_stage0.json",
+    "data/archives/reachability_escalation_stage0.json",
+    "data/archives/occupancy_saturation_stage0.json",
+    "data/archives/evaluation_loop_scale_stage0.json"
+  ],
+  "parameters": {
+    "derivation_count": 600,
+    "control_count": 600,
+    "rng_seed": 20260709,
+    "incumbent_composition": {
+      "constrained": 300,
+      "wfc": 300
+    },
+    "loop_stream_produced": 120,
+    "loop_stream_refused": 480
+  },
+  "metrics": {
+    "recipes": {
+      "incumbent": {
+        "edges": {
+          "symmetry": [
+            0.322437,
+            0.363636,
+            0.418813,
+            0.478243,
+            0.644478,
+            0.925511,
+            0.954128
+          ],
+          "visual_complexity": [
+            0.860816,
+            0.871018,
+            0.877231,
+            0.883531,
+            0.88986,
+            0.896811,
+            0.906586
+          ],
+          "behavior_neediness": [
+            0.295,
+            0.336875,
+            0.365,
+            0.3825,
+            0.395,
+            0.445,
+            0.4775
+          ]
+        },
+        "sample_size": 600
+      },
+      "probe": {
+        "edges": {
+          "symmetry": [
+            0.322581,
+            0.361111,
+            0.412698,
+            0.469669,
+            0.643311,
+            0.921245,
+            0.954265
+          ],
+          "visual_complexity": [
+            0.854783,
+            0.86771,
+            0.875275,
+            0.882224,
+            0.887879,
+            0.894817,
+            0.904185
+          ],
+          "behavior_neediness": [
+            0.2975,
+            0.3325,
+            0.3625,
+            0.3825,
+            0.3975,
+            0.4475,
+            0.515
+          ]
+        },
+        "sample_size": 600
+      },
+      "loop_stream": {
+        "edges": {
+          "symmetry": [
+            0.612561,
+            0.803659,
+            0.903226,
+            0.923077,
+            0.936669,
+            0.952381,
+            0.964988
+          ],
+          "visual_complexity": [
+            0.822847,
+            0.847517,
+            0.856204,
+            0.86312,
+            0.868215,
+            0.874762,
+            0.907591
+          ],
+          "behavior_neediness": [
+            0.354375,
+            0.365,
+            0.374063,
+            0.3975,
+            0.44,
+            0.469375,
+            0.56125
+          ]
+        },
+        "sample_size": 120
+      }
+    },
+    "frozen_edges": {
+      "symmetry": [
+        0.322437,
+        0.363636,
+        0.418813,
+        0.478243,
+        0.644478,
+        0.925511,
+        0.954128
+      ],
+      "visual_complexity": [
+        0.860816,
+        0.871018,
+        0.877231,
+        0.883531,
+        0.88986,
+        0.896811,
+        0.906586
+      ],
+      "behavior_neediness": [
+        0.295,
+        0.336875,
+        0.365,
+        0.3825,
+        0.395,
+        0.445,
+        0.4775
+      ]
+    },
+    "frozen_vs_incumbent": {
+      "per_axis": {
+        "behavior_neediness": 0.0,
+        "symmetry": 0.0,
+        "visual_complexity": 0.0
+      },
+      "max_abs": 0.0
+    },
+    "sampling_control": {
+      "per_axis": {
+        "behavior_neediness": 0.008125,
+        "symmetry": 0.010206,
+        "visual_complexity": 0.001289
+      },
+      "max_abs": 0.010206
+    },
+    "recipe_separation": {
+      "incumbent_vs_probe": {
+        "per_axis": {
+          "behavior_neediness": 0.0375,
+          "symmetry": 0.008574,
+          "visual_complexity": 0.006033
+        },
+        "max_abs": 0.0375
+      },
+      "incumbent_vs_loop_stream": {
+        "per_axis": {
+          "behavior_neediness": 0.08375,
+          "symmetry": 0.484413,
+          "visual_complexity": 0.037969
+        },
+        "max_abs": 0.484413
+      }
+    },
+    "occupancy_under_frozen_geometry": {
+      "incumbent": {
+        "symmetry": {
+          "counts": [
+            75,
+            70,
+            80,
+            75,
+            75,
+            75,
+            74,
+            76
+          ],
+          "total_variation": 0.01,
+          "empty_octiles": 0,
+          "sample_size": 600
+        },
+        "visual_complexity": {
+          "counts": [
+            75,
+            75,
+            75,
+            75,
+            75,
+            75,
+            75,
+            75
+          ],
+          "total_variation": 0.0,
+          "empty_octiles": 0,
+          "sample_size": 600
+        },
+        "behavior_neediness": {
+          "counts": [
+            68,
+            82,
+            66,
+            72,
+            80,
+            80,
+            75,
+            77
+          ],
+          "total_variation": 0.031667,
+          "empty_octiles": 0,
+          "sample_size": 600
+        }
+      },
+      "probe": {
+        "symmetry": {
+          "counts": [
+            74,
+            77,
+            81,
+            77,
+            67,
+            81,
+            67,
+            76
+          ],
+          "total_variation": 0.028333,
+          "empty_octiles": 0,
+          "sample_size": 600
+        },
+        "visual_complexity": {
+          "counts": [
+            107,
+            72,
+            66,
+            72,
+            78,
+            73,
+            73,
+            59
+          ],
+          "total_variation": 0.058333,
+          "empty_octiles": 0,
+          "sample_size": 600
+        },
+        "behavior_neediness": {
+          "counts": [
+            63,
+            98,
+            68,
+            60,
+            72,
+            72,
+            72,
+            95
+          ],
+          "total_variation": 0.071667,
+          "empty_octiles": 0,
+          "sample_size": 600
+        }
+      },
+      "loop_stream": {
+        "symmetry": {
+          "counts": [
+            12,
+            0,
+            0,
+            0,
+            9,
+            43,
+            32,
+            24
+          ],
+          "total_variation": 0.45,
+          "empty_octiles": 3,
+          "sample_size": 120
+        },
+        "visual_complexity": {
+          "counts": [
+            52,
+            34,
+            7,
+            2,
+            1,
+            0,
+            8,
+            16
+          ],
+          "total_variation": 0.475,
+          "empty_octiles": 1,
+          "sample_size": 120
+        },
+        "behavior_neediness": {
+          "counts": [
+            2,
+            2,
+            23,
+            23,
+            8,
+            22,
+            11,
+            29
+          ],
+          "total_variation": 0.308333,
+          "empty_octiles": 0,
+          "sample_size": 120
+        }
+      }
+    },
+    "wall_clock_s": 8.999
+  },
+  "closed_states": [
+    "the staleness question is answered by measurement: E1's own protocol re-run under today's code, compared to the committed edges",
+    "the bar is the MEASURED sampling control, not a constant",
+    "the repo's live derivation recipes are named and compared against each other"
+  ],
+  "blocked_states": [
+    "this instrument never moves the geometry: re-deriving the edges would change the meaning of every coverage number in the ledger and is its own gated record",
+    "the loop_stream recipe is measured from SEED parents, not from the loop's steady-state elites \u2014 L1 showed seed parents are largely SLIP-illegal, so its sample is small and biased; it bounds the question, it does not settle it",
+    "K3's blocking-axis windows are NOT re-measured here \u2014 that needs the probe re-run, which is its own slice"
+  ],
+  "decision": {
+    "verdict": "withhold_regeneration",
+    "drift": 0.0,
+    "control": 0.010206,
+    "ratio": 0.0,
+    "factor": 2.0,
+    "rule": "pre-registered (cycle 22 L3), incumbent-favouring: the frozen geometry STANDS unless re-running E1's own derivation protocol under today's code moves the edges by at least 2.0x the MEASURED sampling control (the same recipe derived twice at different seeds). The bar derives from evidence, never from a constant, and the instrument never moves the geometry itself."
+  },
+  "next_research_step": "L4: animation_density judged as a candidate axis \u2014 which must state which geometry it would join."
+}

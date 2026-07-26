@@ -73,3 +73,28 @@ Measured archive evidence produced by `labs/map_elites_archive/`.
   elite has no recorded ancestry. The documented 576-cell repertoire
   vs this archive's proven 512-cell geometry (DR 0029/E1) is
   DECLARED in the artifact, never silently substituted.
+- `geometry_consistency_stage0.json` - cycle 22 L3: is the scale
+  geometry STALE, or merely INCONSISTENT? Answer: not stale, but
+  SPLIT. E1's derivation protocol re-run under today's code
+  reproduces the committed frozen edges EXACTLY (drift 0.0) against a
+  MEASURED sampling control of 0.010206 (the same recipe derived twice
+  at different seeds - the bar derives from evidence, never a
+  constant), so the pre-registered incumbent-favouring rule returns
+  `withhold_regeneration`. The "pre-DR-0038 calibration" premise is
+  refuted: the frozen artifact was regenerated AT the DR 0038 commit
+  (f8c171b) and its derivation population carries the full vocabulary
+  (100% motion trio). K3's measure-thin windows are therefore REAL,
+  not a calibration artifact, and the quantization hypothesis hardens.
+  THE FINDING: the repo runs TWO scale geometries. `incumbent`
+  (build_population over the corpus TRAIN split) produces the frozen
+  edges that `evaluation_loop_scale` and `coverage_qd_gates` consume;
+  `probe` (build_population over ALL 50 seeds) is what
+  `reachability_probe` and `occupancy_saturation` derive LIVE each
+  run. They differ by up to 0.0375 - 3.7x the measured control - so
+  460/512 occupied and 508/512 reachable are counted in different
+  coordinate systems. A third recipe (`loop_stream`, the promoted
+  generate_candidate under the SLIP) is reported as a BOUND ONLY:
+  120 of 600 produced from SLIP-illegal seed parents (L1's finding
+  again), small and biased. The instrument never moves the geometry -
+  repairing the split changes what every historical coverage number
+  means and is its own gated record.

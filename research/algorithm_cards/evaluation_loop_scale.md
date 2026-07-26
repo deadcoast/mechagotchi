@@ -124,6 +124,17 @@ documented gate, or determinism drift under the pinned seeds.
   creatures even though the adopted generation layer is `constrained`
   — generation layer and founder stock are independent facts. Elite
   lineage depth spans 0–18.
+- **Cycle 22 L3 (2026-07-26)**: the geometry this loop measures in was
+  tested for staleness and is **not stale** — E1's protocol re-run
+  today reproduces the committed edges exactly (drift 0.0 against a
+  measured 0.0102 sampling control), verdict `withhold_regeneration`.
+  But the survey found the repo runs **two** geometries: this loop
+  (and `coverage_qd_gates`) consume the frozen **train**-derived edges
+  via `load_frozen_scale_edges`, while `reachability_probe` and
+  `occupancy_saturation` derive **live from all 50 seeds** — edge sets
+  differing by up to 0.0375, 3.7× the control. **Coverage and QD
+  numbers from this loop are therefore not directly comparable to
+  reachability or support counts.**
 
 ## Sources
 
@@ -132,6 +143,7 @@ documented gate, or determinism drift under the pinned seeds.
 - `data/archives/generation_arm_evolution_stage0.json` (the DR 0042 verdict)
 - `labs/map_elites_archive/generation_refusal_causes.py` (+ `test_generation_refusal_causes.py`) · `data/archives/generation_refusal_causes_stage0.json` (the L1 instrument)
 - `labs/map_elites_archive/lineage_dominance.py` (+ `test_lineage_dominance.py`) · `data/archives/lineage_dominance_stage0.json` (the L2 instrument)
+- `labs/map_elites_archive/geometry_consistency.py` (+ `test_geometry_consistency.py`) · `data/archives/geometry_consistency_stage0.json` (the L3 instrument) · `research/experiment_reports/2026-07-26-geometry-consistency.md`
 - `research/experiment_reports/2026-07-09-evaluation-loop-scale.md`, `2026-07-21-generation-arm-loop.md`, `2026-07-26-generation-refusal-causes.md`, `2026-07-26-lineage-dominance.md`
 - `research/decision_records/0040-novelty-first-evolution-surface.md`, `0042-generation-layer-loop-revisit.md`
 - `docs/project-research/deep-research/01/deep-research.md`

@@ -236,6 +236,16 @@ H-01) — restored with `git checkout`, never committed.
    the space and spells the full vocabulary. Whether the geometry
    re-derives under DR 0042 is a named question for the archive's own
    records — and it bears on what every coverage number since means.
+   **CORRECTED same day by cycle 22 L3**
+   (`2026-07-26-geometry-consistency.md`): the "pre-DR-0038" premise
+   above is **wrong** — the frozen artifact was regenerated at the
+   DR 0038 commit itself, and re-running E1's protocol today
+   reproduces the committed edges exactly. The geometry is not stale.
+   What L3 found instead is that the repo runs **two** geometries: the
+   loop and the E4 gates use the frozen train-derived edges, while the
+   reachability probe and the occupancy instrument derive live from
+   all 50 seeds — so `508/512 reachable` and `460/512 occupied` are
+   counted in different coordinate systems.
 5. **Density-as-pressure** — DR 0043 clause 2. Whether J4's
    instruction-density instrument should FEED the harshness math
    (giving the checkpoint forecast measured-biology harshness without

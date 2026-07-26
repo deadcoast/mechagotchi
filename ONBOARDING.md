@@ -266,19 +266,29 @@ in order:
    niches permanently and taxing every generation at a flat 38. A
    selection fact, not a generator fact. **The fix was deliberately not
    taken** — it trades against coverage and needs its own gated record.
-2. **L2 · the lineage-dominance clause, judged at last** ← **THE NEXT
-   TASK.** The
-   documented MAP-Elites gate's second half (`deep-research.md:205`:
-   *"no single lineage > 40% of occupied cells"*), never measured in
-   the project's history. Measurable today: `generate_candidate`
-   preserves `parent_grid_id` and `lineage.ancestor_ids`. Record the
-   576-vs-512 repertoire divergence honestly rather than judging one
-   bar against the other's population.
-3. **L3 · the derivation edges re-derived** under the DR 0042 layer —
-   K3's named geometry question; incumbent-favoring, and comparability
-   of every historical artifact handled explicitly.
-4. **L4 · `animation_density`** — the documented fourth axis, judged as
-   a candidate (Evolution Q2's open half). Adoption not assumed.
+2. ~~**L2 · the lineage-dominance clause**~~ — **DONE 2026-07-26**
+   (`2026-07-26-lineage-dominance.md`). The documented gate's second
+   half, never measured in the project's history: **PASS at 0.2848**
+   against the ≤ 0.40 bar. Beside the verdict and outside it: **four
+   founder lines hold half the archive**, and the two largest were
+   founded by WFC *bootstrap* creatures even though the adopted
+   generation layer is `constrained`.
+3. ~~**L3 · the derivation edges re-derived**~~ — **DONE 2026-07-26**
+   (`2026-07-26-geometry-consistency.md`). The premise was tested and
+   **refuted**: the geometry is **not stale** (drift 0.0 vs a measured
+   0.0102 control; the frozen artifact was regenerated at the DR 0038
+   commit), so K3's thin windows are real and the quantization
+   hypothesis hardens. **What it found instead: the repo runs TWO
+   scale geometries** — the loop and E4 gates on frozen train-derived
+   edges, the reachability probe and occupancy instrument on live
+   all-seeds edges, differing by 3.7× the control. `460/512 occupied`
+   and `508/512 reachable` are counted in different coordinate
+   systems. Diagnosed, **not repaired** — repair changes what every
+   historical coverage number means.
+4. **L4 · `animation_density`** ← **THE NEXT TASK.** The documented
+   fourth axis, judged as a candidate (Evolution Q2's open half).
+   Adoption not assumed — and after L3 it must state **which** of the
+   two geometries it would join.
 5. **L5 · density-as-pressure** (DR 0043 clause 2) — the GAME's own
    consumer decision, with its own DR and the seam law honored.
 6. **L6 · the Phase-L gate** — then archive to `audits/complete/22/`

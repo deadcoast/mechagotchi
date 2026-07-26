@@ -85,22 +85,33 @@ DR 0021 (engine truth), DR 0042 (the adopted layer), DR 0043 (clause 2).
   elite cross-checks L1's residual bootstrap population. The 576-vs-512
   repertoire divergence is declared in the artifact, never substituted.
   Archive lab 181 green; 279 s vs the 1200 s bound.
-- [ ] **L3 · The derivation edges re-derived under the adopted layer.**
-  K3's named geometry question, and the mechanism behind its four
-  remaining bounds. The octile edges are frozen from a 600-candidate
-  derivation produced before DR 0038/0042; the adopted stream now
-  spells the full vocabulary and reaches ~90% of the space. Re-derive
-  the edges under the adopted layer by the SAME documented protocol
-  (interior octiles, disjoint derivation/occupancy populations — the
-  law that edges are never scored on their own calibration data),
-  then judge by a **pre-registered, incumbent-favoring** rule whether
-  the geometry should move. Handle comparability honestly: every
-  historical artifact stays true under the edges it was measured with,
-  and any adoption states plainly what prior coverage numbers do and
-  do not mean afterwards. Re-run K3's blocking-axis instrument on the
-  four bounded bins under the re-derived edges — if measure-thinness
-  is an artifact of stale calibration, that is the finding; if the
-  windows survive, the quantization hypothesis hardens.
+- [x] **L3 · The derivation edges re-derived under the adopted layer.**
+  DONE 2026-07-26 (`2026-07-26-geometry-consistency.md`): the task's
+  own premise was tested first and **REFUTED** — the geometry is **not
+  stale**. E1's protocol re-run under today's code reproduces the
+  committed edges **exactly** (drift 0.0) against a **measured**
+  sampling control of 0.0102, because the frozen artifact was already
+  regenerated at the DR 0038 commit (`f8c171b`) and its derivation
+  population carries the full vocabulary. Verdict
+  `withhold_regeneration` by the pre-registered, incumbent-favouring
+  rule. **So K3's measure-thin windows are real, not a calibration
+  artifact, and the quantization hypothesis HARDENS** — the outcome
+  the plan named for that branch. **And the measurement surfaced what
+  nobody had written down: the repo runs TWO scale geometries.** The
+  loop and the E4 gates consume the frozen **train**-derived edges;
+  `reachability_probe` and `occupancy_saturation` derive **live from
+  all 50 seeds** — edge sets differing by up to 0.0375, **3.7× the
+  measured control**. So `460/512 occupied` and `508/512 reachable`
+  are counted in different coordinate systems, and K2's claim that 460
+  is "exactly" the support ceiling compares across them. Dated
+  qualifying notes added to K2's report, K3's report, and the Phase-K
+  gate; no artifact rewritten, none is wrong. Archive lab 198 green.
+  Remainders: the split is diagnosed, not repaired (repair changes what
+  every historical coverage number means — its own gated record); the
+  `loop_stream` recipe is a BOUND only (120 of 600 produced from
+  SLIP-illegal seed parents — L1's finding again), and measuring the
+  distribution the archive is truly filled from needs the loop's
+  steady-state elites, which the L2 seam already exposes.
 - [ ] **L4 · `animation_density` — the documented axis, judged as a
   candidate.** `research.md:616-629` names ten intended niche axes and
   the dossier's own worked archive entry
