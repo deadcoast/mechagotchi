@@ -48,6 +48,7 @@ import hashlib
 import json
 import sys
 import time
+from copy import deepcopy
 from pathlib import Path
 
 
@@ -131,6 +132,14 @@ def run_evaluation_loop(
     # byte-identical when off (pinned): observing the loop must never
     # perturb the loop.
     collect_refusals: bool = False,
+    # Cycle 22 L2 (an INSTRUMENT, never a gate): the documented
+    # MAP-Elites gate has a second clause — "no single lineage > 40% of
+    # occupied cells" (deep-research.md:205) — that has never been
+    # measured. Turning this on emits the engine's OWN recorded
+    # ancestry for each occupied niche's elite; the founder rule lives
+    # in one pinned place (`lineage_dominance.founder_of`), so the loop
+    # collects and never derives. Additive and byte-identical when off.
+    collect_lineage: bool = False,
 ) -> dict:
     """The full generational loop to the documented evaluation budget.
 
@@ -364,6 +373,25 @@ def run_evaluation_loop(
         result["refusal_collection"] = {
             "records": refusal_records,
             "generation_attempts_total": generation_attempts,
+        }
+    if collect_lineage:
+        # L2: the engine's OWN recorded ancestry per occupied niche,
+        # verbatim. `ancestor_ids` accumulates oldest-first
+        # (`[*parent_ancestors, parent_grid_id]` in the promoted
+        # generator), so element 0 is the founder — but that derivation
+        # belongs to the instrument, not here.
+        result["lineage_collection"] = {
+            "occupied_niches": summary["occupied_niches"],
+            "elites": [
+                {
+                    "niche": niche,
+                    "grid_id": elite["grid_id"],
+                    "lineage": deepcopy(
+                        elite_grids[elite["grid_id"]].get("lineage") or {}
+                    ),
+                }
+                for niche, elite in sorted(archive["elites"].items())
+            ],
         }
     return result
 

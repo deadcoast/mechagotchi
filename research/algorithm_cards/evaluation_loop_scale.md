@@ -112,6 +112,18 @@ documented gate, or determinism drift under the pinned seeds.
   refusals are SLIP-rejected PARENTS, so the loss is a selection fact,
   not a generator fact. An instrument only: no generation behaviour
   changed.
+- **Cycle 22 L2 (2026-07-26)**: the loop gained the additive
+  `collect_lineage` seam (byte-identical when off, one gated key,
+  emitting the engine's own recorded ancestry per occupied niche), and
+  **the documented gate's second clause was judged for the first
+  time** — `deep-research.md:205`, *"no single lineage > 40% of
+  occupied cells"*. **PASS at 0.2848** (131 of 460 cells) over 38
+  founder lines. Reported beside the verdict and deliberately outside
+  it: **four founder lines hold half the archive**, and the two
+  largest (39.4% between them) are founded by WFC *bootstrap*
+  creatures even though the adopted generation layer is `constrained`
+  — generation layer and founder stock are independent facts. Elite
+  lineage depth spans 0–18.
 
 ## Sources
 
@@ -119,6 +131,7 @@ documented gate, or determinism drift under the pinned seeds.
 - `data/archives/evaluation_loop_scale_stage0.json`
 - `data/archives/generation_arm_evolution_stage0.json` (the DR 0042 verdict)
 - `labs/map_elites_archive/generation_refusal_causes.py` (+ `test_generation_refusal_causes.py`) · `data/archives/generation_refusal_causes_stage0.json` (the L1 instrument)
-- `research/experiment_reports/2026-07-09-evaluation-loop-scale.md`, `2026-07-21-generation-arm-loop.md`, `2026-07-26-generation-refusal-causes.md`
+- `labs/map_elites_archive/lineage_dominance.py` (+ `test_lineage_dominance.py`) · `data/archives/lineage_dominance_stage0.json` (the L2 instrument)
+- `research/experiment_reports/2026-07-09-evaluation-loop-scale.md`, `2026-07-21-generation-arm-loop.md`, `2026-07-26-generation-refusal-causes.md`, `2026-07-26-lineage-dominance.md`
 - `research/decision_records/0040-novelty-first-evolution-surface.md`, `0042-generation-layer-loop-revisit.md`
 - `docs/project-research/deep-research/01/deep-research.md`

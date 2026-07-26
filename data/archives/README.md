@@ -55,3 +55,21 @@ Measured archive evidence produced by `labs/map_elites_archive/`.
   elites holding niches permanently. An INSTRUMENT: no generation
   behaviour changed; the fix (and its coverage trade) is its own
   record.
+- `lineage_dominance_stage0.json` - cycle 22 L2: the documented
+  MAP-Elites gate's SECOND clause, judged for the first time in the
+  project's history - "no single lineage > 40% of occupied cells"
+  (deep-research.md:205), the quantitative form of Evolution Q1.
+  Rule pre-registered before the run (a lineage is a founder line,
+  `lineage.ancestor_ids[0]`, oldest-first per the promoted generator;
+  pass if max share <= 0.40, and exactly 40% is not a violation per
+  the documented wording). VERDICT: PASS at 0.2848 (131 of 460
+  occupied cells) across 38 founder lines. Reported beside the
+  verdict and deliberately OUTSIDE it, because the clause asks about
+  one lineage and cannot see a cartel: FOUR founder lines hold half
+  the archive, and the two largest (39.4% between them) are founded
+  by WFC *bootstrap* creatures even though the adopted generation
+  layer is `constrained` - generation layer and founder stock are
+  independent facts. Elite lineage depth spans 0-18; exactly one
+  elite has no recorded ancestry. The documented 576-cell repertoire
+  vs this archive's proven 512-cell geometry (DR 0029/E1) is
+  DECLARED in the artifact, never silently substituted.

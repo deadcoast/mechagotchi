@@ -65,20 +65,26 @@ DR 0021 (engine truth), DR 0042 (the adopted layer), DR 0043 (clause 2).
   read lineage depth as provenance and was wrong (3,611 bootstrap
   creatures sit at depth 1); caught before the report, corrected to
   membership, both fields now pinned.
-- [ ] **L2 · The lineage-dominance clause, judged at last.** The
-  MAP-Elites evaluation gate reads, verbatim (`deep-research.md:205`):
-  *"archive coverage ≥ 25% on a 576-cell repertoire after 20k
-  evaluations; **no single lineage > 40% of occupied cells**"*. The
-  coverage half has been judged five times; **the dominance half has
-  never been measured**. It is measurable today — `generate_candidate`
-  preserves `parent_grid_id` and `lineage.ancestor_ids`, so every
-  elite's founder is recoverable — and the adopted layer's 460-niche
-  archive is the population to judge it on. Pre-register the rule with
-  pass/refuse both first-class, measure founder share over occupied
-  cells, and **record the 576-vs-512 repertoire divergence honestly**
-  (the documented repertoire is 576 cells; the proven geometry is
-  512 under DR 0029's octile design) rather than quietly judging one
-  bar against the other's population.
+- [x] **L2 · The lineage-dominance clause, judged at last.** DONE
+  2026-07-26 (`2026-07-26-lineage-dominance.md`): **PASS at 0.2848**
+  against the documented ≤ 0.40 bar — 131 of 460 occupied cells in the
+  largest of 38 founder lines. The rule was pre-registered before the
+  run (founder = `ancestor_ids[0]`, oldest-first per the generator's
+  own composition; exactly 40% is not a violation, per the documented
+  wording), and the loop gained the additive `collect_lineage` seam
+  (byte-identical when off; the loop collects, the instrument derives,
+  so the founder rule lives in one pinned place). **The finding beside
+  the verdict**: four founder lines hold HALF the archive — a clause
+  about one lineage cannot see a cartel of four — reported as an
+  observation with the bar deliberately NOT widened to meet it. **The
+  dominant lines were founded by the losing generator**: the two
+  largest (39.4% between them) are WFC *bootstrap* creatures even
+  though every elite was bred by the adopted `constrained` layer, so
+  generation layer and founder stock are independent facts, separated
+  here for the first time. Depth spans 0–18; the single self-founded
+  elite cross-checks L1's residual bootstrap population. The 576-vs-512
+  repertoire divergence is declared in the artifact, never substituted.
+  Archive lab 181 green; 279 s vs the 1200 s bound.
 - [ ] **L3 · The derivation edges re-derived under the adopted layer.**
   K3's named geometry question, and the mechanism behind its four
   remaining bounds. The octile edges are frozen from a 600-candidate
