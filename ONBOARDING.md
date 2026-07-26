@@ -138,7 +138,8 @@ and from the named remainders each cycle's own records leave behind.
 | 19 | I | the post-takeover science |
 | 20 | J | the generative range (vocabulary blindness found and cured) |
 | 21 | K | the vocabulary settles its stack (gate green 2026-07-26) |
-| **22** | **L** | **the descriptor space settles its geometry ← WE ARE HERE** |
+| 22 | L | the descriptor space settles its geometry — and the cycle audits its own ledger (gate green 2026-07-26) |
+| **23** | **M** | **the archive meets its own inhabitants ← WE ARE HERE** |
 
 Archived queues live in `audits/complete/NN/TODO.md`.
 
@@ -183,15 +184,38 @@ context for what cycle 22 extends:
   withheld adoption, four measured bounds, and a blocked-upstream
   disposition.
 
-### Cycle 22 · Phase L — the descriptor space settles its geometry
+### Cycle 22 · Phase L — CLOSED, gate green 2026-07-26
 
-`audits/TODO.md` is the live queue: **L1–L6, none started.** The
-through-line is the surface Phase K's remainders all meet on — the
-geometry that decides what "coverage 0.8984" and "460 niches" mean.
-Its octile edges were calibrated on a *pre-DR-0038* population; the
-documentation names ten niche axes and a four-axis descriptor while the
-engine carries three/six; and **the MAP-Elites gate's second clause has
-never once been judged**. See `audits/TODO.md` for each task's
+All six tasks DONE; gate report
+`research/experiment_reports/2026-07-26-phase-l-gate.md`; queue archived
+at `audits/complete/22/TODO.md`. What it settled, in one line each:
+**L1** corrected DR 0042 twice (the rate is 7.2% not ~22%; the refusals
+are SLIP-rejected *parents*, not invalid candidates, and 100% of them
+bootstrap creatures). **L2** judged the documented lineage-dominance
+clause for the first time in the project's history — PASS at 0.2848,
+with *four founder lines holding half the archive* reported beside the
+verdict and the bar not widened to capture it. **L3** proved the
+geometry is not stale and found the repo runs **two** of them, differing
+by 3.7× the sampling control. **L4** let `animation_density` earn every
+machine gate and still refused adoption, because the documented
+criterion needs the deferred human panel. **L5** (DR 0045) corrected the
+checkpoint forecast's inverted biology, with the DR's pre-run prediction
+matching the measurement to four decimal places.
+
+**The cycle's character, and the reason to trust it**: three of the five
+slices corrected something the ledger already said — and **nothing was
+rewritten**. Every correction is a dated note beside the original.
+
+### Cycle 23 · Phase M — the archive meets its own inhabitants
+
+`audits/TODO.md` is the live queue: **M1–M6, none started.** The spine
+is Phase L's unplanned finding, which arrived four separate times
+without anyone looking for it: **every instrument measures a different
+population from the one the archive is actually filled with.** The L2
+lineage seam already exposes the elite set, so the expensive part is
+built. M5 is a deliberate GAME-track slice after an archive-heavy
+Phase L — five of the eight documented *visible* companion state axes
+have no field in the engine. See `audits/TODO.md` for each task's
 pre-registered shape.
 
 ### What exists and is genuinely good
@@ -254,62 +278,42 @@ first green CLOUD CI run, which awaits a push never made unasked.
 ## 4. WHAT TO DO NEXT
 
 **Work `audits/TODO.md` task by task** — RED first, triad docs in the
-same change, one commit per task naming the task ID. Cycle 22's queue
-in order:
+same change, one commit per task naming the task ID. Cycle 23's queue
+in order (cycle 22's closed ladder is in §3 and its gate report):
 
-1. ~~**L1 · the refusal-cause histogram**~~ — **DONE 2026-07-26**
-   (`2026-07-26-generation-refusal-causes.md`). It corrected DR 0042
-   twice: the rate is **7.2%** not ~22% (the old figure divided by the
-   scored budget, not the 61,440 attempts), and the promoted path
-   refused **zero** invalid candidates — 100% of refusals are the SLIP
-   rejecting the **parent**, all of them bootstrap creatures, holding
-   niches permanently and taxing every generation at a flat 38. A
-   selection fact, not a generator fact. **The fix was deliberately not
-   taken** — it trades against coverage and needs its own gated record.
-2. ~~**L2 · the lineage-dominance clause**~~ — **DONE 2026-07-26**
-   (`2026-07-26-lineage-dominance.md`). The documented gate's second
-   half, never measured in the project's history: **PASS at 0.2848**
-   against the ≤ 0.40 bar. Beside the verdict and outside it: **four
-   founder lines hold half the archive**, and the two largest were
-   founded by WFC *bootstrap* creatures even though the adopted
-   generation layer is `constrained`.
-3. ~~**L3 · the derivation edges re-derived**~~ — **DONE 2026-07-26**
-   (`2026-07-26-geometry-consistency.md`). The premise was tested and
-   **refuted**: the geometry is **not stale** (drift 0.0 vs a measured
-   0.0102 control; the frozen artifact was regenerated at the DR 0038
-   commit), so K3's thin windows are real and the quantization
-   hypothesis hardens. **What it found instead: the repo runs TWO
-   scale geometries** — the loop and E4 gates on frozen train-derived
-   edges, the reachability probe and occupancy instrument on live
-   all-seeds edges, differing by 3.7× the control. `460/512 occupied`
-   and `508/512 reachable` are counted in different coordinate
-   systems. Diagnosed, **not repaired** — repair changes what every
-   historical coverage number means.
-4. ~~**L4 · `animation_density`**~~ — **DONE 2026-07-26**
-   (`2026-07-26-animation-density-axis.md`). The axis **earns its place
-   on every machine gate and still cannot be adopted**: spread PASS,
-   independence PASS decisively (max |r| 0.173), discrimination PASS at
-   2.7× the bar (**54.3%** of same-three-axis-bin pairs separated), cost
-   reported (occupied 289 → 448; coverage 0.5645 → 0.1094). Verdict
-   `adoptable_pending_blocked_clause` — the documented selection
-   criterion needs the owner-deferred human panel and **no proxy was
-   substituted**. The definition is labelled **CHOSEN**, because the
-   documentation names the axis exactly once and never defines it.
-5. ~~**L5 · density-as-pressure**~~ — **DONE 2026-07-26**
-   (`2026-07-26-density-as-pressure.md`, **DR 0045 ADOPTED**). The
-   checkpoint forecast stops lying about the biology: with the
-   replication and lineage channels structurally absent, pressure rode
-   on entropy and diversity — both of which FALL as a soup organizes —
-   so the engine read organization as calm. Density is the one carried
-   channel that RISES. **The DR's pre-run prediction (≈ +0.041) matched
-   to four decimals (+0.040617)**; the inversion goes −0.034293 →
-   +0.006324 and agrees with the lit-channel ground truth. Honest
-   limit: ~2.4% of the callback path's magnitude — direction restored,
-   not force. All sixteen game artifacts byte-identical; the rider is
-   OFF by default.
-6. **L6 · the Phase-L gate** ← **THE NEXT TASK.** One consolidated
-   report; cycle 22 archived to `audits/complete/22/`; cycle 23 planned
-   from the documentation. **Do not ask which direction.**
+1. **M1 · the archive measured on its own inhabitants** ← **THE NEXT
+   TASK.** Phase L's convergent finding, acted on: re-measure octile
+   occupancy, the descriptor distribution and L4's `animation_density`
+   candidate against the loop's **steady-state elites** rather than the
+   derivation/bootstrap population every instrument has used. The L2
+   `collect_lineage` seam already exposes the elite set. **Pre-register
+   what counts as a material difference** before running. An INSTRUMENT
+   slice — it changes no geometry and adopts nothing.
+2. **M2 · the geometry split, decided** — L3's named gated record.
+   Converge on one calibration population, or freeze the split
+   explicitly with its reason and a rule about which numbers may be
+   compared. Either way, state plainly what prior coverage numbers do
+   and do not mean afterwards; every historical artifact stays true
+   under the edges it was measured with.
+3. **M3 · the unbreedable bootstrap elites** — L1's named fix, which
+   **trades against coverage** (a niche whose only occupant is
+   SLIP-illegal goes empty if excluded). Three candidate changes are
+   not equivalent; measure each arm's cost, pre-register the bar, and
+   let refusal be first-class.
+4. **M4 · ancestry versus morphology** — L2's named question, never
+   asked: do Phase E's **52 recurrent families** trace to common
+   ancestors, or converge from different founder lines? Convergence
+   would be a real ALife result, and it bears on Evolution Q3.
+5. **M5 · the documented visible companion state** — the GAME-track
+   slice. `validity-research.md` §1.17 names eight visible axes;
+   `happiness`, `cleanliness`, `mood`, `age` and `health` have no
+   engine field. Survey each honestly first — some are genuinely absent
+   state, others derivable views (mood very likely from
+   `select_animation_state`). Decide per axis by DR, and **never invent
+   a number for a player**.
+6. **M6 · the Phase-M gate** — then archive to `audits/complete/23/`
+   and plan cycle 24 from the documentation. **Do not ask which
+   direction.**
 
 ---
 
