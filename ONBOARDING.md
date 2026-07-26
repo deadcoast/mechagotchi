@@ -295,12 +295,21 @@ in order:
    criterion needs the owner-deferred human panel and **no proxy was
    substituted**. The definition is labelled **CHOSEN**, because the
    documentation names the axis exactly once and never defines it.
-5. **L5 · density-as-pressure** (DR 0043 clause 2) ← **THE NEXT TASK.**
-   The GAME's own consumer decision, with its own DR and the seam law
-   honored (additive, byte-identical when off, proven).
-6. **L6 · the Phase-L gate** — then archive to `audits/complete/22/`
-   and plan cycle 23 from the documentation. **Do not ask which
-   direction.**
+5. ~~**L5 · density-as-pressure**~~ — **DONE 2026-07-26**
+   (`2026-07-26-density-as-pressure.md`, **DR 0045 ADOPTED**). The
+   checkpoint forecast stops lying about the biology: with the
+   replication and lineage channels structurally absent, pressure rode
+   on entropy and diversity — both of which FALL as a soup organizes —
+   so the engine read organization as calm. Density is the one carried
+   channel that RISES. **The DR's pre-run prediction (≈ +0.041) matched
+   to four decimals (+0.040617)**; the inversion goes −0.034293 →
+   +0.006324 and agrees with the lit-channel ground truth. Honest
+   limit: ~2.4% of the callback path's magnitude — direction restored,
+   not force. All sixteen game artifacts byte-identical; the rider is
+   OFF by default.
+6. **L6 · the Phase-L gate** ← **THE NEXT TASK.** One consolidated
+   report; cycle 22 archived to `audits/complete/22/`; cycle 23 planned
+   from the documentation. **Do not ask which direction.**
 
 ---
 

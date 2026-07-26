@@ -15,8 +15,57 @@ from __future__ import annotations
 import math
 from collections import Counter
 
+# DR 0045 (cycle 22 L5): the ten bff_noheads instruction bytes,
+# MIRRORED VERBATIM from labs/cubff_transducer/structured_decoder.py's
+# INSTRUCTION_TOKENS (the J4 authority) — cited, never imported across
+# the package boundary, because this mirror cannot import labs.
+CUBFF_INSTRUCTION_BYTES = frozenset(
+    ord(character) for character in "[]<>{}+-.,"
+)
 
-def extract_cubff_features(snapshot: dict) -> dict:
+# The theoretical maximum organization ratio. A tape whose every byte is
+# an instruction has density n, hence ratio n / (n * 10/256) = 256/10 —
+# INDEPENDENT of tape length. Derived from the language's own alphabet,
+# never calibrated on the corpus, which is what keeps DR 0045's gate
+# honest.
+ORGANIZATION_CEILING = 256 / len(CUBFF_INSTRUCTION_BYTES)
+
+# Pre-registered (DR 0045): density may contribute at most 0.5 to a
+# pressure in [0,1] — enough to matter, never enough to dominate the
+# three incumbent terms.
+CUBFF_DENSITY_WEIGHT = 0.5
+
+
+def organization_of(tape: list[int]) -> dict:
+    """Instruction density as a measured departure from randomness.
+
+    A uniformly random tape of length n carries ``n * 10/256``
+    instruction bytes, so ``ratio`` is 1.0 at chance and rises as the
+    soup organizes. ``signal`` maps that onto [0,1] against the
+    language's theoretical ceiling.
+
+    This is the one channel the CHECKPOINT format carries that rises
+    with organization: entropy and instruction diversity both fall,
+    and replication_rate / lineage_churn are structurally absent
+    (DR 0043 clause 3), which is why the promoted math reads a
+    replicator-dominated soup as calm.
+    """
+    length = len(tape)
+    if not length:
+        return {"density": 0.0, "expectation": 0.0, "ratio": 0.0, "signal": 0.0}
+    density = float(sum(1 for byte in tape if byte in CUBFF_INSTRUCTION_BYTES))
+    expectation = length * len(CUBFF_INSTRUCTION_BYTES) / 256
+    ratio = density / expectation if expectation else 0.0
+    signal = (ratio - 1.0) / (ORGANIZATION_CEILING - 1.0)
+    return {
+        "density": round(density, 6),
+        "expectation": round(expectation, 6),
+        "ratio": round(ratio, 6),
+        "signal": round(_clamp(signal), 6),
+    }
+
+
+def extract_cubff_features(snapshot: dict, *, include_density: bool = False) -> dict:
     tape = _tape_values(snapshot)
     replication_scores = [
         float(value) for value in snapshot.get("replication_scores", []) if _is_number(value)
@@ -46,7 +95,7 @@ def extract_cubff_features(snapshot: dict) -> dict:
         0.5 * replication_rate + 0.25 * motif_repetition_rate + 0.25 * lineage_churn
     )
 
-    return {
+    features = {
         "snapshot_id": str(snapshot.get("snapshot_id", "cubff_snapshot")),
         "epoch": int(snapshot.get("epoch", 0)) if isinstance(snapshot.get("epoch", 0), int) else 0,
         "language": str(snapshot.get("language", "unknown")),
@@ -67,13 +116,32 @@ def extract_cubff_features(snapshot: dict) -> dict:
             )[:5]
         ],
     }
+    if include_density:
+        # DR 0045: an ADDITIVE observation. Off, the dict above is
+        # byte-identical to the incumbent's (pinned).
+        organization = organization_of(tape)
+        features["instruction_density"] = organization["density"]
+        features["density_expectation"] = organization["expectation"]
+        features["organization_ratio"] = organization["ratio"]
+        features["organization_signal"] = organization["signal"]
+    return features
 
-def features_to_traits(features: dict) -> dict:
+def features_to_traits(features: dict, *, density_weight: float = 0.0) -> dict:
+    """Traits from features; ``density_weight`` is DR 0045's rider.
+
+    At weight 0.0 this is the incumbent formula exactly (pinned). A
+    non-zero weight REQUIRES the density features — a silent zero
+    contribution would hide a wiring bug, so the KeyError is deliberate.
+    """
     mutation_pressure = _clamp(
         0.45 * features["instability"]
         + 0.35 * features["semantic_pressure"]
         + 0.2 * features["instruction_diversity"]
     )
+    if density_weight:
+        mutation_pressure = _clamp(
+            mutation_pressure + density_weight * features["organization_signal"]
+        )
     structural_pressure = _clamp(
         0.55 * features["replication_rate"] + 0.45 * features["motif_repetition_rate"]
     )

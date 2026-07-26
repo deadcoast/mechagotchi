@@ -120,4 +120,26 @@ the playable front end, distinct from the workshop's authoring surfaces.
   gate layers: build refuses invalid, import re-judges (tamper
   pinned), era admission at run time. Distribution stays Phase G.
 
+- `density_pressure_stage0.json` - cycle 22 L5 (DR 0045 ADOPTED): the
+  checkpoint forecast stops lying about the biology. I3's defect
+  diagnosed to its mechanism - with `replication_scores` and
+  `lineage_events` structurally absent from the checkpoint format,
+  pressure rides on entropy and instruction diversity, both of which
+  FALL as a soup organizes, so the engine reads organization as calm
+  (post-takeover 0.784 vs early 0.818, while the same runs count 2
+  replicators early against 129,211 post-takeover). Instruction
+  density is the one carried channel that RISES, so it is the missing
+  counterweight; the signal is DERIVED (ratio against the random
+  expectation `n x 10/256`, mapped to a 256/10 = 25.6 ceiling that is
+  independent of tape length), never calibrated, with the weight
+  pre-registered at 0.5. The DR's pre-run prediction of a ~+0.041
+  swing matched to four decimals (+0.040617): inversion -0.034293 ->
+  +0.006324 (G1), agreeing with the lit-channel callback ground truth
+  0.772726 -> 1.034884 (G2), all sixteen prior artifacts
+  byte-identical (G3), replication_rate and lineage_churn still 0
+  (G4), the (0.5, 1.6) band held (G5). The honest limit: +0.0063 vs
+  the ground truth's +0.2622 is ~2.4% of the magnitude - the
+  DIRECTION of the biology is restored, not its force. The rider is
+  OFF by default in the engine.
+
 Produced by `game/evidence.py`.

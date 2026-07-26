@@ -1,0 +1,262 @@
+{
+  "artifact_id": "density_pressure_stage0",
+  "status": "stage0",
+  "date": "2026-07-26",
+  "purpose": "Cycle 22 L5 (DR 0045): judge whether instruction density, fed as its own named channel, corrects the checkpoint forecast's inverted harshness \u2014 the defect I3 measured and DR 0043 clause 2 named.",
+  "source_artifacts": [
+    "data/game_client/real_weather_harshness_stage0.json",
+    "data/game_client/forecast_density_stage0.json",
+    "data/cubff_real_ingest/callback_states/callback_states_compact.json"
+  ],
+  "parameters": {
+    "density_weight": 0.5,
+    "organization_ceiling": 25.6,
+    "multiplier_band": [
+      0.5,
+      1.6
+    ],
+    "checkpoint_records": 14,
+    "callback_records": 3
+  },
+  "metrics": {
+    "checkpoint_per_snapshot": [
+      {
+        "snapshot_id": "run_seed0_num131072/0000000000",
+        "epoch": 1,
+        "phase": "early_phase",
+        "instruction_density": 2.0,
+        "organization_ratio": 0.8,
+        "organization_signal": 0,
+        "mutation_pressure_off": 0.384629,
+        "mutation_pressure_on": 0.384629,
+        "dropout_multiplier_off": 0.873092,
+        "dropout_multiplier_on": 0.873092
+      },
+      {
+        "snapshot_id": "run_seed0_num8192/0000000000",
+        "epoch": 1,
+        "phase": "early_phase",
+        "instruction_density": 3.0,
+        "organization_ratio": 1.2,
+        "organization_signal": 0.00813,
+        "mutation_pressure_off": 0.364452,
+        "mutation_pressure_on": 0.368517,
+        "dropout_multiplier_off": 0.850897,
+        "dropout_multiplier_on": 0.855369
+      },
+      {
+        "snapshot_id": "run_seed0_num131072/0000002048",
+        "epoch": 2049,
+        "phase": "early_phase",
+        "instruction_density": 9.0,
+        "organization_ratio": 3.6,
+        "organization_signal": 0.105691,
+        "mutation_pressure_off": 0.293387,
+        "mutation_pressure_on": 0.346232,
+        "dropout_multiplier_off": 0.772726,
+        "dropout_multiplier_on": 0.830855
+      },
+      {
+        "snapshot_id": "run_seed0_num8192/0000002048",
+        "epoch": 2049,
+        "phase": "early_phase",
+        "instruction_density": 3.0,
+        "organization_ratio": 1.2,
+        "organization_signal": 0.00813,
+        "mutation_pressure_off": 0.292594,
+        "mutation_pressure_on": 0.296659,
+        "dropout_multiplier_off": 0.771853,
+        "dropout_multiplier_on": 0.776325
+      },
+      {
+        "snapshot_id": "run_seed0_num131072/0000004096",
+        "epoch": 4097,
+        "phase": "post_takeover",
+        "instruction_density": 12.0,
+        "organization_ratio": 4.8,
+        "organization_signal": 0.154472,
+        "mutation_pressure_off": 0.291574,
+        "mutation_pressure_on": 0.36881,
+        "dropout_multiplier_off": 0.770731,
+        "dropout_multiplier_on": 0.855691
+      },
+      {
+        "snapshot_id": "run_seed0_num8192/0000004096",
+        "epoch": 4097,
+        "phase": "early_phase",
+        "instruction_density": 9.0,
+        "organization_ratio": 3.6,
+        "organization_signal": 0.105691,
+        "mutation_pressure_off": 0.334329,
+        "mutation_pressure_on": 0.387174,
+        "dropout_multiplier_off": 0.817762,
+        "dropout_multiplier_on": 0.875891
+      },
+      {
+        "snapshot_id": "run_seed0_num8192/0000006144",
+        "epoch": 6145,
+        "phase": "early_phase",
+        "instruction_density": 10.0,
+        "organization_ratio": 4.0,
+        "organization_signal": 0.121951,
+        "mutation_pressure_off": 0.329671,
+        "mutation_pressure_on": 0.390647,
+        "dropout_multiplier_off": 0.812638,
+        "dropout_multiplier_on": 0.879712
+      },
+      {
+        "snapshot_id": "run_seed0_num8192/0000008192",
+        "epoch": 8193,
+        "phase": "early_phase",
+        "instruction_density": 5.0,
+        "organization_ratio": 2.0,
+        "organization_signal": 0.04065,
+        "mutation_pressure_off": 0.351276,
+        "mutation_pressure_on": 0.371601,
+        "dropout_multiplier_off": 0.836404,
+        "dropout_multiplier_on": 0.858761
+      },
+      {
+        "snapshot_id": "run_seed0_num8192/0000010240",
+        "epoch": 10241,
+        "phase": "early_phase",
+        "instruction_density": 12.0,
+        "organization_ratio": 4.8,
+        "organization_signal": 0.154472,
+        "mutation_pressure_off": 0.328765,
+        "mutation_pressure_on": 0.406001,
+        "dropout_multiplier_off": 0.811641,
+        "dropout_multiplier_on": 0.896601
+      },
+      {
+        "snapshot_id": "run_seed0_num8192/0000012288",
+        "epoch": 12289,
+        "phase": "early_phase",
+        "instruction_density": 5.0,
+        "organization_ratio": 2.0,
+        "organization_signal": 0.04065,
+        "mutation_pressure_off": 0.347997,
+        "mutation_pressure_on": 0.368322,
+        "dropout_multiplier_off": 0.832797,
+        "dropout_multiplier_on": 0.855154
+      },
+      {
+        "snapshot_id": "run_seed0_num8192/0000014336",
+        "epoch": 14337,
+        "phase": "early_phase",
+        "instruction_density": 8.0,
+        "organization_ratio": 3.2,
+        "organization_signal": 0.089431,
+        "mutation_pressure_off": 0.328515,
+        "mutation_pressure_on": 0.373231,
+        "dropout_multiplier_off": 0.811366,
+        "dropout_multiplier_on": 0.860554
+      },
+      {
+        "snapshot_id": "run_seed0_num8192/0000016384",
+        "epoch": 16385,
+        "phase": "early_phase",
+        "instruction_density": 13.0,
+        "organization_ratio": 5.2,
+        "organization_signal": 0.170732,
+        "mutation_pressure_off": 0.318366,
+        "mutation_pressure_on": 0.403732,
+        "dropout_multiplier_off": 0.800203,
+        "dropout_multiplier_on": 0.894105
+      },
+      {
+        "snapshot_id": "run_seed0_num131072/0000032768",
+        "epoch": 32769,
+        "phase": "post_takeover",
+        "instruction_density": 11.0,
+        "organization_ratio": 4.4,
+        "organization_signal": 0.138211,
+        "mutation_pressure_off": 0.315182,
+        "mutation_pressure_on": 0.384287,
+        "dropout_multiplier_off": 0.7967,
+        "dropout_multiplier_on": 0.872716
+      },
+      {
+        "snapshot_id": "run_seed0_num8192_long/0000262144",
+        "epoch": 262145,
+        "phase": "early_phase",
+        "instruction_density": 4.0,
+        "organization_ratio": 1.6,
+        "organization_signal": 0.02439,
+        "mutation_pressure_off": 0.340657,
+        "mutation_pressure_on": 0.352852,
+        "dropout_multiplier_off": 0.824723,
+        "dropout_multiplier_on": 0.838137
+      }
+    ],
+    "callback_per_snapshot": [
+      {
+        "snapshot_id": "callback_early_control_0000002050",
+        "epoch": 2050,
+        "phase": "early_phase",
+        "instruction_density": 9.0,
+        "organization_ratio": 3.6,
+        "organization_signal": 0.105691,
+        "mutation_pressure_off": 0.293387,
+        "mutation_pressure_on": 0.346232,
+        "dropout_multiplier_off": 0.772726,
+        "dropout_multiplier_on": 0.830855
+      },
+      {
+        "snapshot_id": "callback_post_takeover_0000004098",
+        "epoch": 4098,
+        "phase": "post_takeover",
+        "instruction_density": 12.0,
+        "organization_ratio": 4.8,
+        "organization_signal": 0.154472,
+        "mutation_pressure_off": 0.519501,
+        "mutation_pressure_on": 0.596737,
+        "dropout_multiplier_off": 1.021451,
+        "dropout_multiplier_on": 1.106411
+      },
+      {
+        "snapshot_id": "callback_post_takeover_late_0000032770",
+        "epoch": 32770,
+        "phase": "post_takeover",
+        "instruction_density": 11.0,
+        "organization_ratio": 4.4,
+        "organization_signal": 0.138211,
+        "mutation_pressure_off": 0.543925,
+        "mutation_pressure_on": 0.61303,
+        "dropout_multiplier_off": 1.048318,
+        "dropout_multiplier_on": 1.124333
+      }
+    ],
+    "checkpoint_phase_means_off": {
+      "early_phase": 0.818009,
+      "post_takeover": 0.783716
+    },
+    "checkpoint_phase_means_on": {
+      "early_phase": 0.85788,
+      "post_takeover": 0.864204
+    },
+    "callback_phase_means_off": {
+      "early_phase": 0.772726,
+      "post_takeover": 1.034884
+    },
+    "inversion_off": -0.034293,
+    "inversion_on": 0.006324,
+    "callback_ground_truth_direction": "post_takeover_harsher"
+  },
+  "closed_states": [
+    "both arms measured over the SAME committed records with the engine's own promoted pressure math",
+    "the callback corpus, whose replication channel is LIT, is measured alongside as the ground truth the proxy must match"
+  ],
+  "blocked_states": [
+    "density enters as its OWN named channel and never synthesizes replication_rate or lineage_churn; DR 0043 clause 3's BLOCKED-UPSTREAM disposition is untouched",
+    "three callback states from one run remains the corpus's honest scale (the I3 remainder, unchanged)"
+  ],
+  "decision": {
+    "verdict": "adopt",
+    "g1_inversion_corrected": true,
+    "g2_agrees_with_callback_ground_truth": true,
+    "g5_within_documented_band": true,
+    "rule": "pre-registered (DR 0045): adopt only if G1 (the checkpoint inversion is corrected) AND G2 (the direction agrees with the lit-channel callback ground truth) AND G5 (the documented multiplier band holds). A refused gate reverts or narrows the rider; no weight is tuned to rescue it."
+  },
+  "next_research_step": "L6: the Phase-L gate; cycle 22 archived; cycle 23 planned from the documentation."
+}

@@ -86,7 +86,15 @@ PS> python -B game/evidence.py
 2. **The density instrument observes and nothing more** — whether
    density should FEED the pressure math (giving the checkpoint
    forecast measured-biology harshness without the callback path) is
-   the named future record.
+   the named future record. **CLOSED 2026-07-26 by cycle 22 L5**
+   (`2026-07-26-density-as-pressure.md`, **DR 0045 ADOPTED**): density
+   now may feed the pressure math as its own named channel, off by
+   default and byte-identical there. It corrects I3's inversion
+   (−0.034293 → +0.006324) and agrees with this report's lit-channel
+   ground truth — but recovers only **~2.4% of the callback path's
+   magnitude**, so it restores the DIRECTION of the biology, not its
+   force. `lineage_churn` stays BLOCKED-UPSTREAM; nothing is
+   synthesized.
 3. The WSL-only export path stays recorded in the served protocol
    text (G5) — a Windows-native export remains unattempted, as with
    G2/I3.

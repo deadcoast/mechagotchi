@@ -146,17 +146,36 @@ DR 0021 (engine truth), DR 0042 (the adopted layer), DR 0043 (clause 2).
   `CLIP_LIMB_STEP["idle"]` and `CLIP_JOINT_FLEX["idle"]` are all zero,
   so limbs and joints never move in idle — not collision skips.
   Archive lab 219 green.
-- [ ] **L5 · Density-as-pressure, decided by its consumer.** DR 0043
-  clause 2, the GAME's own named record: J4's brotli-free
-  instruction-density instrument measures real warm-up and phase on
-  exactly the checkpoint records whose replication and lineage channels
-  are silent (early 6.92 = 2.8× expectation, post-takeover 11.5 =
-  4.6×). Whether density should FEED the harshness math — giving the
-  key-4 checkpoint forecast measured-biology pressure without the
-  WSL-only callback path — is a consumer decision requiring its own DR
-  with pre-registered gates, the seam law honored (additive,
-  byte-identical when off, proven), and the existing forecasts'
-  multipliers left provably untouched unless the gate says otherwise.
+- [x] **L5 · Density-as-pressure, decided by its consumer.** DONE
+  2026-07-26 (`2026-07-26-density-as-pressure.md`, **DR 0045 —
+  ADOPTED on the measured verdict**): the checkpoint forecast stops
+  lying about the biology. **The defect's mechanism diagnosed exactly**:
+  with `replication_scores` and `lineage_events` structurally absent
+  from the checkpoint format, pressure is driven by entropy and
+  instruction diversity — **both of which FALL as a soup organizes** —
+  so the engine reads organization as calm, which is why I3 measured
+  post-takeover soup MILDER (0.784) than early (0.818) while the same
+  runs count 2 replicators early against 129,211 post-takeover.
+  Instruction density is the one carried channel that RISES, so it is
+  the missing counterweight, not a knob. **The signal is DERIVED, not
+  calibrated**: `organization_ratio = density / (n × 10/256)` (1.0 at
+  chance) mapped against a ceiling of **256/10 = 25.6** — the
+  theoretical all-instruction maximum, **independent of tape length**
+  and a property of the language's alphabet rather than the corpus.
+  Weight pre-registered at 0.5. **THE PREDICTION WAS WRITTEN DOWN
+  BEFORE THE RUN** (≈ +0.041 multiplier swing) **AND MATCHED TO FOUR
+  DECIMAL PLACES** (+0.040617): the inversion goes **−0.034293 →
+  +0.006324**, G1 MET; the lit-channel callback ground truth reads
+  `post_takeover_harsher` and the checkpoint ordering now agrees, G2
+  MET; **all SIXTEEN committed game artifacts regenerate
+  byte-identical** with transducer 58 / runtime 65 / package 295 green
+  unmodified, G3 MET; `replication_rate` and `lineage_churn` stay 0 —
+  DR 0043 clause 3 untouched — G4 MET; the `(0.5, 1.6)` band holds, G5
+  MET. **The honest limit stated with the win**: +0.0063 against the
+  ground truth's +0.2622 is **~2.4% of the magnitude** — density
+  recovers the DIRECTION of the biology, not its force. RED first;
+  rider mirrored at both parity sites (DR 0038 pattern); game 183
+  green (174 + 9).
 - [ ] **L6 · The Phase-L gate.** One consolidated report; cycle 22
   archived; cycle 23 planned from the documentation.
 

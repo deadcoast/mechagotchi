@@ -1040,6 +1040,181 @@ def write_forecast_density_artifacts(
     return path
 
 
+DENSITY_PRESSURE_ARTIFACT_ID = "density_pressure_stage0"
+
+
+def _phase_means(entries: list[dict], key: str) -> dict:
+    means: dict = {}
+    for phase in sorted({entry["phase"] for entry in entries}):
+        values = [e[key] for e in entries if e["phase"] == phase]
+        means[phase] = round(sum(values) / len(values), 6) if values else 0.0
+    return means
+
+
+def build_density_pressure_report() -> dict:
+    """Cycle 22 L5 (DR 0045): does density correct the checkpoint
+    forecast's inverted harshness?
+
+    I3 measured the defect through the untouched seam: real
+    post-takeover soup arrives MILDER than early-phase soup, because
+    `replication_scores` and `lineage_events` are structurally absent
+    from the checkpoint format, leaving pressure driven by entropy and
+    instruction diversity — both of which FALL as a soup organizes.
+    Instruction density is the one carried channel that RISES.
+
+    Both arms are measured with the engine's own promoted pressure
+    math, the rider OFF and ON, over the SAME committed records. The
+    callback corpus — whose replication channel is LIT — is measured
+    alongside as the ground truth the proxy must agree with.
+    """
+    from mecha_engine.runtime.evolve import _cubff_generation_pressure
+    from mecha_engine.runtime._cubff import (
+        CUBFF_DENSITY_WEIGHT,
+        ORGANIZATION_CEILING,
+        extract_cubff_features,
+    )
+    from mecha_game.campaign import (
+        load_callback_weather_source,
+        load_real_weather_source,
+    )
+
+    def measure(records: list[dict]) -> list[dict]:
+        rows = []
+        for record in records:
+            base_pressure, base_multiplier = _cubff_generation_pressure(record)
+            rider_pressure, rider_multiplier = _cubff_generation_pressure(
+                record, density_pressure=True
+            )
+            organization = extract_cubff_features(record, include_density=True)
+            rows.append(
+                {
+                    "snapshot_id": record["snapshot_id"],
+                    "epoch": record["epoch"],
+                    "phase": record.get("phase", "unmeasured"),
+                    "instruction_density": organization["instruction_density"],
+                    "organization_ratio": organization["organization_ratio"],
+                    "organization_signal": organization["organization_signal"],
+                    "mutation_pressure_off": base_pressure,
+                    "mutation_pressure_on": rider_pressure,
+                    "dropout_multiplier_off": base_multiplier,
+                    "dropout_multiplier_on": rider_multiplier,
+                }
+            )
+        return rows
+
+    checkpoint = measure(load_real_weather_source())
+    callback = measure(load_callback_weather_source())
+
+    off_means = _phase_means(checkpoint, "dropout_multiplier_off")
+    on_means = _phase_means(checkpoint, "dropout_multiplier_on")
+    callback_off_means = _phase_means(callback, "dropout_multiplier_off")
+
+    early, post = "early_phase", "post_takeover"
+    have_both = early in off_means and post in off_means
+
+    # G1 — the inversion is corrected on the checkpoint forecast.
+    g1_met = bool(have_both and on_means[post] > on_means[early])
+    # G2 — the direction agrees with the callback ground truth, whose
+    # replication channel is LIT.
+    callback_direction = (
+        None
+        if not (early in callback_off_means and post in callback_off_means)
+        else callback_off_means[post] > callback_off_means[early]
+    )
+    g2_met = bool(g1_met and callback_direction is True)
+    # G5 — the documented band still clamps every result.
+    low, high = 0.5, 1.6
+    g5_met = all(
+        low <= row["dropout_multiplier_on"] <= high
+        for row in checkpoint + callback
+    )
+
+    verdict = "adopt" if (g1_met and g2_met and g5_met) else "refuse"
+
+    return {
+        "artifact_id": DENSITY_PRESSURE_ARTIFACT_ID,
+        "status": "stage0",
+        "date": "2026-07-26",
+        "purpose": (
+            "Cycle 22 L5 (DR 0045): judge whether instruction density, "
+            "fed as its own named channel, corrects the checkpoint "
+            "forecast's inverted harshness — the defect I3 measured and "
+            "DR 0043 clause 2 named."
+        ),
+        "source_artifacts": [
+            "data/game_client/real_weather_harshness_stage0.json",
+            "data/game_client/forecast_density_stage0.json",
+            "data/cubff_real_ingest/callback_states/callback_states_compact.json",
+        ],
+        "parameters": {
+            "density_weight": CUBFF_DENSITY_WEIGHT,
+            "organization_ceiling": round(ORGANIZATION_CEILING, 6),
+            "multiplier_band": [low, high],
+            "checkpoint_records": len(checkpoint),
+            "callback_records": len(callback),
+        },
+        "metrics": {
+            "checkpoint_per_snapshot": checkpoint,
+            "callback_per_snapshot": callback,
+            "checkpoint_phase_means_off": off_means,
+            "checkpoint_phase_means_on": on_means,
+            "callback_phase_means_off": callback_off_means,
+            "inversion_off": (
+                round(off_means[post] - off_means[early], 6) if have_both else None
+            ),
+            "inversion_on": (
+                round(on_means[post] - on_means[early], 6) if have_both else None
+            ),
+            "callback_ground_truth_direction": (
+                "post_takeover_harsher"
+                if callback_direction
+                else ("post_takeover_milder" if callback_direction is False else None)
+            ),
+        },
+        "closed_states": [
+            "both arms measured over the SAME committed records with the "
+            "engine's own promoted pressure math",
+            "the callback corpus, whose replication channel is LIT, is "
+            "measured alongside as the ground truth the proxy must match",
+        ],
+        "blocked_states": [
+            "density enters as its OWN named channel and never "
+            "synthesizes replication_rate or lineage_churn; DR 0043 "
+            "clause 3's BLOCKED-UPSTREAM disposition is untouched",
+            "three callback states from one run remains the corpus's "
+            "honest scale (the I3 remainder, unchanged)",
+        ],
+        "decision": {
+            "verdict": verdict,
+            "g1_inversion_corrected": g1_met,
+            "g2_agrees_with_callback_ground_truth": g2_met,
+            "g5_within_documented_band": g5_met,
+            "rule": (
+                "pre-registered (DR 0045): adopt only if G1 (the "
+                "checkpoint inversion is corrected) AND G2 (the "
+                "direction agrees with the lit-channel callback ground "
+                "truth) AND G5 (the documented multiplier band holds). "
+                "A refused gate reverts or narrows the rider; no weight "
+                "is tuned to rescue it."
+            ),
+        },
+        "next_research_step": (
+            "L6: the Phase-L gate; cycle 22 archived; cycle 23 planned "
+            "from the documentation."
+        ),
+    }
+
+
+def write_density_pressure_artifacts(
+    output_dir: str | Path, report: dict
+) -> Path:
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    path = output_dir / f"{DENSITY_PRESSURE_ARTIFACT_ID}.json"
+    path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    return path
+
+
 PACKS_ARTIFACT_ID = "community_pack_stage0"
 STARTER_PACK_PATH = ROOT / "data" / "packs" / "mechagotchi_starter_pack.json"
 
@@ -2607,6 +2782,10 @@ if __name__ == "__main__":
     print(f"wrote {written}")
     written = write_forecast_density_artifacts(
         args.output_dir, build_forecast_density_report()
+    )
+    print(f"wrote {written}")
+    written = write_density_pressure_artifacts(
+        args.output_dir, build_density_pressure_report()
     )
     print(f"wrote {written}")
     release_report = build_installable_release_report()

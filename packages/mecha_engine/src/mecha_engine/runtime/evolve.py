@@ -64,11 +64,25 @@ CUBFF_PRESSURE_GAIN = 1.1
 CUBFF_MULTIPLIER_BAND = (0.5, 1.6)
 
 
-def _cubff_generation_pressure(snapshot: dict) -> tuple[float, float]:
-    """(mutation_pressure, dropout_multiplier) for one generation."""
-    pressure = features_to_traits(extract_cubff_features(snapshot))[
-        "mutation_pressure"
-    ]
+def _cubff_generation_pressure(
+    snapshot: dict, *, density_pressure: bool = False
+) -> tuple[float, float]:
+    """(mutation_pressure, dropout_multiplier) for one generation.
+
+    ``density_pressure`` is DR 0045's rider: OFF by default and
+    byte-identical there (pinned). On, instruction density enters as
+    its own named channel — the one signal the CHECKPOINT format
+    carries that RISES as a soup organizes, and therefore the
+    counterweight to entropy terms that fall. It never synthesizes the
+    structurally-absent replication or lineage channels.
+    """
+    from ._cubff import CUBFF_DENSITY_WEIGHT
+
+    features = extract_cubff_features(snapshot, include_density=density_pressure)
+    pressure = features_to_traits(
+        features,
+        density_weight=CUBFF_DENSITY_WEIGHT if density_pressure else 0.0,
+    )["mutation_pressure"]
     raw = 1.0 + CUBFF_PRESSURE_GAIN * (pressure - 0.5)
     low, high = CUBFF_MULTIPLIER_BAND
     return round(pressure, 6), round(max(low, min(high, raw)), 6)
