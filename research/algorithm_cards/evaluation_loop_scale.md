@@ -135,6 +135,16 @@ documented gate, or determinism drift under the pinned seeds.
   differing by up to 0.0375, 3.7× the control. **Coverage and QD
   numbers from this loop are therefore not directly comparable to
   reachability or support counts.**
+- **Cycle 22 L4 (2026-07-26)**: a fourth descriptor axis
+  (`animation_density`, the documented four-axis descriptor's missing
+  member) was proposed and judged as a CANDIDATE against **this loop's
+  incumbent geometry**. All machine gates pass — spread, independence
+  (max |r| 0.173), and discrimination (54.3% of same-three-axis-bin
+  pairs separated) — with the coverage cost reported: occupied 289 →
+  448 while coverage falls 0.5645 → 0.1094 (512 → 4096 cells).
+  **Not adopted**: the documented selection criterion needs the
+  owner-deferred human panel and no proxy was substituted. The loop's
+  geometry is unchanged.
 
 ## Sources
 
@@ -144,6 +154,7 @@ documented gate, or determinism drift under the pinned seeds.
 - `labs/map_elites_archive/generation_refusal_causes.py` (+ `test_generation_refusal_causes.py`) · `data/archives/generation_refusal_causes_stage0.json` (the L1 instrument)
 - `labs/map_elites_archive/lineage_dominance.py` (+ `test_lineage_dominance.py`) · `data/archives/lineage_dominance_stage0.json` (the L2 instrument)
 - `labs/map_elites_archive/geometry_consistency.py` (+ `test_geometry_consistency.py`) · `data/archives/geometry_consistency_stage0.json` (the L3 instrument) · `research/experiment_reports/2026-07-26-geometry-consistency.md`
+- `labs/map_elites_archive/animation_density_axis.py` (+ `test_animation_density_axis.py`) · `data/archives/animation_density_axis_stage0.json` (the L4 candidate axis) · `research/experiment_reports/2026-07-26-animation-density-axis.md`
 - `research/experiment_reports/2026-07-09-evaluation-loop-scale.md`, `2026-07-21-generation-arm-loop.md`, `2026-07-26-generation-refusal-causes.md`, `2026-07-26-lineage-dominance.md`
 - `research/decision_records/0040-novelty-first-evolution-surface.md`, `0042-generation-layer-loop-revisit.md`
 - `docs/project-research/deep-research/01/deep-research.md`

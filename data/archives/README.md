@@ -98,3 +98,31 @@ Measured archive evidence produced by `labs/map_elites_archive/`.
   again), small and biased. The instrument never moves the geometry -
   repairing the split changes what every historical coverage number
   means and is its own gated record.
+- `animation_density_axis_stage0.json` - cycle 22 L4: the documented
+  four-axis descriptor's missing member, proposed and judged as a
+  CANDIDATE. The definition is declared CHOSEN, not documented -
+  `animation_density` appears in the documentation exactly once, as a
+  value in the worked archive entry at deep-research.md:530, with no
+  formula or threshold anywhere; this lab proposes "the fraction of
+  live cells whose role the clip model animates", with the animating
+  role set READ FROM clip_model at import (pinned) rather than copied.
+  Pre-registered gates, refusal first-class: A1 spread PASS (8
+  distinct octile edges; range 0.011-0.600, mean 0.192); A2
+  independence PASS decisively (max |Pearson r| 0.173 vs the 0.5 bar -
+  visual_complexity just 0.068, so the axis is nearly orthogonal to
+  everything the archive measures); A3 discrimination PASS at 2.7x the
+  bar (of the 656 pairs sharing the SAME three-axis bin, 356 = 54.3%
+  land in different animation octiles - more than half the archive's
+  current indistinguishability is animation structure it has no
+  coordinate for); A4 cost REPORTED not gated (occupied 289 -> 448,
+  +55% distinguishable classes, while coverage falls 0.5645 -> 0.1094
+  because 8^3 = 512 becomes 8^4 = 4096). VERDICT
+  `adoptable_pending_blocked_clause` - NOT adopted: the documented
+  selection criterion ("inter-rater interpretability >= 0.7",
+  deep-research.md:204) needs the owner-deferred human panel and NO
+  proxy is substituted. The honest conclusion is narrower and still
+  useful: the axis is worth the human panel's time. Per L3 the target
+  geometry is NAMED (incumbent, frozen train-derived). A realised-
+  motion observation rides along and is read correctly: the 0.0417 vs
+  0.1924 gap is mostly the IDLE CLIP'S SCHEDULE (limb and joint
+  offsets are all zero in idle), not collision skips.

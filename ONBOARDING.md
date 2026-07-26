@@ -285,12 +285,19 @@ in order:
    and `508/512 reachable` are counted in different coordinate
    systems. Diagnosed, **not repaired** — repair changes what every
    historical coverage number means.
-4. **L4 · `animation_density`** ← **THE NEXT TASK.** The documented
-   fourth axis, judged as a candidate (Evolution Q2's open half).
-   Adoption not assumed — and after L3 it must state **which** of the
-   two geometries it would join.
-5. **L5 · density-as-pressure** (DR 0043 clause 2) — the GAME's own
-   consumer decision, with its own DR and the seam law honored.
+4. ~~**L4 · `animation_density`**~~ — **DONE 2026-07-26**
+   (`2026-07-26-animation-density-axis.md`). The axis **earns its place
+   on every machine gate and still cannot be adopted**: spread PASS,
+   independence PASS decisively (max |r| 0.173), discrimination PASS at
+   2.7× the bar (**54.3%** of same-three-axis-bin pairs separated), cost
+   reported (occupied 289 → 448; coverage 0.5645 → 0.1094). Verdict
+   `adoptable_pending_blocked_clause` — the documented selection
+   criterion needs the owner-deferred human panel and **no proxy was
+   substituted**. The definition is labelled **CHOSEN**, because the
+   documentation names the axis exactly once and never defines it.
+5. **L5 · density-as-pressure** (DR 0043 clause 2) ← **THE NEXT TASK.**
+   The GAME's own consumer decision, with its own DR and the seam law
+   honored (additive, byte-identical when off, proven).
 6. **L6 · the Phase-L gate** — then archive to `audits/complete/22/`
    and plan cycle 23 from the documentation. **Do not ask which
    direction.**

@@ -14,7 +14,10 @@ The through-line for cycle 22 is the surface all of those meet on: the
 **descriptor space** — the geometry that decides what "coverage 0.8984"
 and "460 niches" actually mean. Its octile edges were calibrated
 empirically over a 600-candidate population produced by the
-*pre-DR-0038* generation layer; K3's four remaining bins turned out to
+*pre-DR-0038* generation layer **— REFUTED 2026-07-26 by L3: the
+frozen artifact was regenerated AT the DR 0038 commit, re-derivation
+reproduces it exactly, and the real finding is that the repo runs TWO
+geometries**; K3's four remaining bins turned out to
 be blocked by measure-thin windows in exactly those frozen edges; the
 documentation names ten intended niche axes and a worked four-axis
 descriptor while the engine carries three (baseline) / six (extended);
@@ -112,24 +115,37 @@ DR 0021 (engine truth), DR 0042 (the adopted layer), DR 0043 (clause 2).
   SLIP-illegal seed parents — L1's finding again), and measuring the
   distribution the archive is truly filled from needs the loop's
   steady-state elites, which the L2 seam already exposes.
-- [ ] **L4 · `animation_density` — the documented axis, judged as a
-  candidate.** `research.md:616-629` names ten intended niche axes and
-  the dossier's own worked archive entry
-  (`deep-research.md:526-532`) shows a FOUR-axis descriptor
-  `{symmetry, visual_complexity, neediness, animation_density}`. The
-  engine carries three/six and no animation axis — and since Phase C/H
-  built the clip model, density is now derivable from engine truth.
-  Derive it, measure its spread and its independence from the
-  incumbent axes over the committed elites, and judge by a
-  pre-registered rule whether it EARNS a place. Adoption is not
-  assumed: a fourth axis multiplies the bin space, so the rule must
-  weigh discrimination against the coverage it costs. This is the open
-  half of **Evolution Q2** (*"Which behavior descriptors make useful
-  archive niches?"*) — and the documented selection criterion,
-  *"descriptor set selected with inter-rater interpretability ≥ 0.7"*
-  (`deep-research.md:204`), depends on the owner-deferred human panel:
-  either name an honest machine-side substitute in the record or block
-  that clause explicitly. Never present a proxy as the human measure.
+- [x] **L4 · `animation_density` — the documented axis, judged as a
+  candidate.** DONE 2026-07-26
+  (`2026-07-26-animation-density-axis.md`): **the axis earns its place
+  on every machine gate, and still cannot be adopted.** First, the
+  honesty that shapes the slice: `animation_density` appears in the
+  documentation **exactly once**, as a value in a JSON example, with no
+  formula or threshold anywhere — so the definition is **CHOSEN** (the
+  fraction of live cells whose role the clip model animates, with the
+  role set READ FROM `clip_model` at import, never copied) and is
+  labelled as chosen, not documented. **A1 spread PASS** (8 distinct
+  octile edges; range 0.011–0.600, mean 0.192). **A2 independence
+  PASS decisively** — max |r| **0.173** vs the 0.5 bar (complexity just
+  0.068): nearly orthogonal to everything the archive measures. **A3
+  discrimination PASS at 2.7× the bar** — among the 656 pairs sharing
+  the SAME three-axis bin, **356 (54.3%)** land in different animation
+  octiles, so more than half the archive's current indistinguishability
+  is animation structure it has no coordinate for. **A4 cost reported,
+  not gated**: occupied 289 → **448** (+55% distinguishable classes)
+  while coverage falls 0.5645 → **0.1094**, the space being 8× bigger.
+  **VERDICT `adoptable_pending_blocked_clause` — NOT adopted**: the
+  documented selection criterion (*"inter-rater interpretability ≥
+  0.7"*, `deep-research.md:204`) needs the owner-deferred human panel,
+  and **no proxy is substituted** (the transducer study's labelled
+  proxy is the precedent for why). The honest conclusion is narrower
+  and still useful: the axis is **worth the human panel's time**. Per
+  L3, the target geometry is NAMED (incumbent, frozen train-derived).
+  A realised-motion observation rides along and is read correctly: the
+  0.0417-vs-0.1924 gap is **mostly the idle clip's schedule** —
+  `CLIP_LIMB_STEP["idle"]` and `CLIP_JOINT_FLEX["idle"]` are all zero,
+  so limbs and joints never move in idle — not collision skips.
+  Archive lab 219 green.
 - [ ] **L5 · Density-as-pressure, decided by its consumer.** DR 0043
   clause 2, the GAME's own named record: J4's brotli-free
   instruction-density instrument measures real warm-up and phase on

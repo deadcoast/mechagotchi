@@ -1,0 +1,85 @@
+{
+  "artifact_id": "animation_density_axis_stage0",
+  "status": "stage0",
+  "date": "2026-07-26",
+  "purpose": "Cycle 22 L4: propose and judge animation_density as a candidate fourth descriptor axis \u2014 the documented four-axis descriptor's missing member and Evolution Q2's open half.",
+  "source_artifacts": [
+    "data/archives/niche_scale_archive_stage0.json",
+    "data/archives/geometry_consistency_stage0.json",
+    "data/animation_system/clip_model_stage0.json"
+  ],
+  "parameters": {
+    "population_count": 600,
+    "rng_seed": 20260709,
+    "composition": {
+      "constrained": 300,
+      "wfc": 300
+    },
+    "animating_roles": [
+      "antenna",
+      "decoration",
+      "effect",
+      "joint",
+      "limb",
+      "sensor"
+    ]
+  },
+  "metrics": {
+    "definition_provenance": "CHOSEN by this lab, not documented. `animation_density` appears in the documentation exactly once \u2014 as a value in the worked archive entry at deep-research.md:530 \u2014 with no formula, range or threshold anywhere. This module proposes a definition grounded in the engine's own clip tables and asks whether it earns a place; it does not claim to implement a documented one.",
+    "target_geometry": "incumbent (frozen train-derived edges)",
+    "edges": [
+      0.097222,
+      0.133333,
+      0.157895,
+      0.180556,
+      0.2,
+      0.235294,
+      0.274402
+    ],
+    "edge_diagnostics": {
+      "distinct_edge_count": 7,
+      "supports_full_bins": true,
+      "value_min": 0.011236,
+      "value_max": 0.6,
+      "value_mean": 0.192438
+    },
+    "correlation_with_incumbent": {
+      "symmetry": 0.173412,
+      "visual_complexity": 0.068047,
+      "behavior_neediness": 0.141292
+    },
+    "max_abs_correlation": 0.173412,
+    "discrimination": 0.542683,
+    "same_bin_pairs": 656,
+    "split_pairs": 356,
+    "coverage_cost": {
+      "cells_3_axis": 512,
+      "cells_4_axis": 4096,
+      "occupied_3_axis": 289,
+      "occupied_4_axis": 448,
+      "coverage_3_axis": 0.564453,
+      "coverage_4_axis": 0.109375
+    },
+    "realised_idle_density_mean": 0.041683,
+    "potential_minus_realised_mean": 0.150755,
+    "wall_clock_s": 4.821
+  },
+  "closed_states": [
+    "the axis is derived from the engine's own clip tables, read at import rather than copied",
+    "the definition is declared CHOSEN, since the documentation names the axis without ever defining it",
+    "the coverage cost of a fourth axis is reported in the artifact, not left for the reader to derive"
+  ],
+  "blocked_states": [
+    "the documented selection criterion \u2014 inter-rater interpretability >= 0.7 (deep-research.md:204) \u2014 needs the owner-deferred human panel. It is BLOCKED, and no machine proxy is substituted for it; adoption cannot be claimed",
+    "the axis measures POTENTIAL animation: per-cell offsets are skipped on collision or bounds, so a carried animating role may never move. realised_idle_density bounds that gap as an observation over the one clip with no body translation",
+    "judged on the derivation population, not on the loop's elites; a candidate axis measured on what the archive is FILLED with is its own slice (L3's open question)"
+  ],
+  "decision": {
+    "verdict": "adoptable_pending_blocked_clause",
+    "failed_gates": [],
+    "interpretability_clause_blocked": true,
+    "blocked_clause": "deep-research.md:204 \u2014 'descriptor set selected with inter-rater interpretability >= 0.7'. An inter-rater measure needs the owner-deferred human panel; no proxy is substituted.",
+    "rule": "pre-registered (cycle 22 L4), refusal first-class: A1 the axis must support 8 distinct octile edges; A2 |Pearson r| against every incumbent axis < 0.5; A3 at least 0.2 of same-3-axis-bin pairs must land in different animation octiles. A4 (coverage cost) is REPORTED, never gated. Even with A1-A3 all passing the verdict is at best 'adoptable_pending_blocked_clause', because the documented selection criterion (inter-rater interpretability >= 0.7, deep-research.md:204) needs the owner-deferred human panel and NO proxy is substituted for it."
+  },
+  "next_research_step": "L5: density-as-pressure, decided by its consumer (DR 0043 clause 2)."
+}
