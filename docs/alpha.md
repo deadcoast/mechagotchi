@@ -40,13 +40,16 @@ uv run python -B game/build_release.py   # the installable bundle -> game/dist/M
 Controls and the whole loop (companion → eras → covenant spending →
 hatchery → contribute → review → repertoire/lineage → packs):
 `game/README.md`. Weather key **4** selects REAL CuBFF weather (the
-G2-ingested run; a checkout is required for the real forecast).
+G2-ingested run; a checkout is required for the real forecast); key
+**5** selects the callback forecast — the first weather whose
+harshness channels are LIT, sourced from the committed I3 callback
+records (decision record 0043).
 Quit and relaunch — the companion AND the campaign resume.
 
 ## 3. Regenerate the game's evidence (optional, deliberate)
 
 ```powershell
-uv run python -B game/evidence.py   # 15 stage-0 artifacts under data/game_client/
+uv run python -B game/evidence.py   # 16 stage-0 artifacts under data/game_client/
 ```
 
 Evidence regeneration is a deliberate act, not a CI job (the G1
@@ -83,6 +86,7 @@ its full protocol and per-state results.
 
 ## Sources
 
-- `docs/gap-analysis.md` (Phase G / M7), `research/experiment_reports/2026-07-12-phase-g-gate.md` (the gate this packet belongs to)
+- `docs/gap-analysis.md` (Phase G / M7 — RETIRED per its own charter; the measured history), `research/experiment_reports/2026-07-12-phase-g-gate.md` (the gate this packet belongs to)
+- `research/experiment_reports/2026-07-21-callback-forecast.md` + `research/decision_records/0043-callback-forecast-adoption.md` (forecast key 5 and the sixteenth game artifact), `research/experiment_reports/2026-07-26-phase-k-gate.md` (the freshness pass that corrected the artifact count)
 - `research/decision_records/0034-ci-and-zlib-conditional-pins.md`, `0035-pack-distribution-at-alpha.md`
 - `tools/ci/run_sweep.py`, `.github/workflows/ci.yml`, `game/README.md`

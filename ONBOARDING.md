@@ -1,7 +1,8 @@
 # ONBOARDING.md — start here, next session
 
-Written **2026-07-21** by the outgoing session and completed
-**2026-07-26**, at the owner's direction. Read this file completely
+Written **2026-07-21** by the outgoing session, completed
+**2026-07-26** at the owner's direction, and its §3/§4 state sections
+refreshed the same day at the Phase-K gate. Read this file completely
 before touching anything.
 
 **How to trust this file:** §1 (the frame), §2 (owner rulings), §6 (the
@@ -110,7 +111,7 @@ never a blocker.
 
 ---
 
-## 3. WHERE WE ARE RIGHT NOW (2026-07-21 — verify against `git log`)
+## 3. WHERE WE ARE RIGHT NOW (2026-07-26 — verify against `git log`)
 
 ### The headline
 
@@ -136,14 +137,17 @@ and from the named remainders each cycle's own records leave behind.
 | 18 | H | workshop authoring depth |
 | 19 | I | the post-takeover science |
 | 20 | J | the generative range (vocabulary blindness found and cured) |
-| **21** | **K** | **the vocabulary settles its stack ← WE ARE HERE** |
+| 21 | K | the vocabulary settles its stack (gate green 2026-07-26) |
+| **22** | **L** | **the descriptor space settles its geometry ← WE ARE HERE** |
 
 Archived queues live in `audits/complete/NN/TODO.md`.
 
-### Cycle 21 · Phase K — current status
+### Cycle 21 · Phase K — CLOSED, gate green 2026-07-26
 
-`audits/TODO.md` is the live queue: **K1–K5 are DONE; K6 is the only
-task left.**
+All six tasks are DONE and the gate report is
+`research/experiment_reports/2026-07-26-phase-k-gate.md`. The queue is
+archived at `audits/complete/21/TODO.md`. Kept here as the immediate
+context for what cycle 22 extends:
 
 - **K1 — the 11-class regrowth head** (DR 0041): implemented at both
   head sites as a model-level vocabulary. **Adoption WITHHELD by its
@@ -172,31 +176,23 @@ task left.**
   earned caps beside the sliders that author them. **Advisory, never
   authority** — an over-budget schema-legal profile still validates and
   saves; the game's `apply_covenant_change` stays the only spender.
-- **K6 — the Phase-K gate** ← **THE NEXT TASK.** One consolidated gate
-  report; cycle 21 archived to `audits/complete/21/`; cycle 22 planned
-  from the documentation.
+- **K6 — the Phase-K gate** (`2026-07-26-phase-k-gate.md`): the
+  consolidated ladder, the closing sweep, and the remainder list that
+  became cycle 22's plan. The cycle's shape recorded as the finding:
+  **three of five slices ended in a verb that was not "ship it"** — a
+  withheld adoption, four measured bounds, and a blocked-upstream
+  disposition.
 
-### ⚠ UNCOMMITTED WORK IN THE TREE
+### Cycle 22 · Phase L — the descriptor space settles its geometry
 
-**K5 is complete but NOT COMMITTED.** At handoff `git status` shows:
-
-```text
- M audits/TODO.md                              (K5 checked off)
- M research/README.md                          (K5 ledger entry)
- M labs/game_loop/session_runner.py            (state_covenant_budget)
- M labs/game_loop/test_session_runner.py
- M workshop/server/workshop_server.py          (the read-only endpoint)
- M workshop/slip_creator/slip_creator.html     (the advisory strip)
- M workshop/tests/test_workshop_server.py
- M .serena/project.yml                         (tooling noise)
-?? research/decision_records/0044-covenant-budget-workshop-face.md
-?? research/experiment_reports/2026-07-21-covenant-budget-face.md
-```
-
-**First act of the next session: verify these are still uncommitted
-(the owner's IDE may have committed them), confirm the suites are
-green, and commit K5 before starting K6.** Last commit at handoff:
-`c452b86` (K4).
+`audits/TODO.md` is the live queue: **L1–L6, none started.** The
+through-line is the surface Phase K's remainders all meet on — the
+geometry that decides what "coverage 0.8984" and "460 niches" mean.
+Its octile edges were calibrated on a *pre-DR-0038* population; the
+documentation names ten niche axes and a four-axis descriptor while the
+engine carries three/six; and **the MAP-Elites gate's second clause has
+never once been judged**. See `audits/TODO.md` for each task's
+pre-registered shape.
 
 ### What exists and is genuinely good
 
@@ -212,44 +208,78 @@ green, and commit K5 before starting K6.** Last commit at handoff:
 - **`workshop/`** — grid editor, SLIP creator, preview/scrubber,
   inspector, Keeper session page. ~92 tests.
 - **`labs/`** — 19 research labs; every algorithm is proven here first.
-- **`research/`** — the evidence ledger: 249 experiment reports,
-  algorithm cards, 44 decision records, package specs.
+- **`research/`** — the evidence ledger: 250 experiment reports,
+  77 algorithm cards, 44 decision records, package specs.
 - **`data/`** — 2,230 JSON evidence artifacts, all valid.
 
-**Verified at handoff (2026-07-21):** `python -B tools/ci/run_sweep.py`
-→ **SWEEP GREEN** — all 19 lab suites, package, CLI, game, and
-workshop OK; `data artifacts OK — 2230 JSON artifacts valid`. This was
-run **with the uncommitted K5 work in the tree**, so that work is
-verified green, not merely finished. (Slowest: workshop 165 s,
-runtime_integration 73 s, cellular_automata 35 s, map_elites 33 s.)
+**Verified at the Phase-K gate (2026-07-26):**
+`python -B tools/ci/run_sweep.py` → **SWEEP GREEN** — 19 lab suites +
+package 295 + workshop 92 + game 174 + CLI 23;
+`data artifacts OK — 2230 JSON artifacts valid`. Total ≈ 506 s.
+(Slowest: workshop 215.7 s, runtime_integration 90.6 s,
+map_elites_archive 48.1 s, cellular_automata 40.8 s — the last two grew
+this cycle with K1–K3's model-training and escalation pins.)
 - Real CuBFF data is ingested; 16×16 is the proven grid scale;
   novelty-first evolution and the constrained generation layer are
   adopted; the vocabulary is ratified end to end.
 
 ### Standing named remainders (not tasks until a record charters them)
 
-The undiluted rich-site regrowth instrument (K1's named re-opener);
-the ~22% constrained generation-failure cause; an analytical emptiness
-argument for the quantization bin; density-as-pressure (DR 0043 clause
-2); richer callback export states; SLIP-shaped caps only in the
-workshop budget strip; the ≤45-min HUMAN first-session pass (H5,
-prepared-not-blocking); per-clip choreography (an engine DR when a
-consumer asks); the scale-geometry seam; DR 0032's re-openers
-(untriggered, refutation deepening).
+Phase K's own: the undiluted rich-site regrowth instrument and the
+unexplained 0.525 ceiling (DR 0041's re-opener); an analytical
+emptiness argument for the quantization bin; richer callback export
+states (a WSL run); SLIP-shaped caps only in the workshop budget strip.
+*(The ~22% generation-failure cause, the frozen derivation edges, and
+density-as-pressure were promoted OUT of this list into cycle 22 as
+L1/L3/L5.)*
+
+From the documentation, surveyed at the Phase-K gate: Stage 2's
+undispositioned generator arms (**shape grammar**, **CPPN**) and the
+unbuilt method tracks (MRF-lite, Lenia, reaction–diffusion, the MDP
+sandbox, the QDax shadow port, z3/SMT at DR 0011's WATCH); the
+micro-learner ablation conditions **E/F/G** (Q-table, tiny decision
+tree, Bayesian counter), never instantiated in the Phase-D fleet; the
+24×24 scale-up (DR 0014's re-opener) and the unpromoted
+scale-geometry seam.
+
+Standing: the ≤45-min HUMAN first-session pass and the whole
+owner-deferred human-study block (prepared-not-blocking — and the
+transducer study's "preference" number is a labeled PROXY, never
+human preference); per-clip choreography (an engine DR when a consumer
+asks); DR 0032's re-openers (untriggered, refutation deepening); the
+first green CLOUD CI run, which awaits a push never made unasked.
 
 ---
 
 ## 4. WHAT TO DO NEXT
 
-1. **Commit K5** (see the warning above) — verify green first.
-2. **K6 · the Phase-K gate**: one consolidated gate report in
-   `research/experiment_reports/2026-07-21-phase-k-gate.md` following
-   the pattern of `2026-07-20-phase-j-gate.md` — the consolidated
-   ladder K1→K5 with each verdict, the closing full sweep, and the
-   **honest remainder list** (which becomes cycle 22's plan).
-3. **Archive** `audits/TODO.md` → `audits/complete/21/TODO.md`.
-4. **Plan cycle 22 FROM THE DOCUMENTATION** and the remainders Phase K
-   recorded — then keep developing. Do not ask which direction.
+**Work `audits/TODO.md` task by task** — RED first, triad docs in the
+same change, one commit per task naming the task ID. Cycle 22's queue
+in order:
+
+1. **L1 · the refusal-cause histogram** — the cheapest instrument in
+   the queue. The constrained arm's ~22% generation failures already
+   carry their error strings (`constrained_population` captures
+   `{parent_grid_id, error}`); only the count survives into the loop's
+   trajectory, so the causes have never been looked at. An
+   INSTRUMENT — any generator fix it motivates is its own record.
+2. **L2 · the lineage-dominance clause, judged at last** — the
+   documented MAP-Elites gate's second half (`deep-research.md:205`:
+   *"no single lineage > 40% of occupied cells"*), never measured in
+   the project's history. Measurable today: `generate_candidate`
+   preserves `parent_grid_id` and `lineage.ancestor_ids`. Record the
+   576-vs-512 repertoire divergence honestly rather than judging one
+   bar against the other's population.
+3. **L3 · the derivation edges re-derived** under the DR 0042 layer —
+   K3's named geometry question; incumbent-favoring, and comparability
+   of every historical artifact handled explicitly.
+4. **L4 · `animation_density`** — the documented fourth axis, judged as
+   a candidate (Evolution Q2's open half). Adoption not assumed.
+5. **L5 · density-as-pressure** (DR 0043 clause 2) — the GAME's own
+   consumer decision, with its own DR and the seam law honored.
+6. **L6 · the Phase-L gate** — then archive to `audits/complete/22/`
+   and plan cycle 23 from the documentation. **Do not ask which
+   direction.**
 
 ---
 
@@ -512,5 +542,6 @@ mechas session --open
 - `research/README.md` (the master ledger)
 - `research/decision_records/0017`, `0021`, `0026`–`0044`
 - `research/experiment_reports/2026-07-12-phase-g-gate.md`,
-  `2026-07-20-phase-j-gate.md`, `2026-07-21-*.md`
+  `2026-07-20-phase-j-gate.md`, `2026-07-21-*.md`,
+  `2026-07-26-phase-k-gate.md` (the gate that refreshed §3/§4)
 - `tools/ci/run_sweep.py`
