@@ -1,5 +1,8 @@
 # Audit output notes for reference
 
+-------
+## [01]
+
 ```bash
 git log --oneline -5; Write-Output "=== tree ==="; git status --short
 
@@ -45,4 +48,84 @@ One measurement is honestly weak and I flagged it first rather than burying it:
 
 Four commits this session (K6, L1, L2, L3), sweep green at each, 2,233 artifacts valid. Next in the queue is L4 — animation_density judged as a candidate axis — which after L3 must now also state which of the two geometries it would join.
 
+-------
+## [02]
+
+```bash
+git show --stat df68ca7 | Select-Object -First 12
+
+OUT
+commit df68ca71d19c7a82ad30397da2865e44a9964df8
+Author: deadcoast <ponydriverco@gmail.com>
+Date:   Sun Jul 26 05:43:45 2026 -0700
+
+    feat: Add current state, custom workflow, and feature requests documentation
+    
+    - Introduced a new markdown file detailing the current state of the repository, emphasizing the need for recalibration and further development.
+    - Created a custom workflow document outlining the steps for reviewing and updating project documentation and tasks.
+    - Added a feature requests document for the Mecha Workshop and Draw-on-Evolution functionalities, including visual examples and specific enhancement requests.
+
+ .depreciated/audit-notes.md                      | 48 ++++++++++++++++++++++++
+ .depreciated/{ => v0.0.1}/01-design.md           |  0
+ ```
+
+That commit touched only .depreciated/ — your personal archive — so no collision. Per your standing ruling I haven't acted on its contents, though I'll note it now contains an audit-notes.md and a feature-requests doc (Mecha Workshop, Draw-on-Evolution); say the word if you want those pulled into the queue.
+
+L4 — the result
+animation_density earns its place on every machine gate, and still cannot be adopted. That combination is the finding.
+
+First, the honesty that shaped the whole slice. The task said "the documented axis," but animation_density appears in the documentation exactly once — as a value in a JSON example at deep-research.md:530. No formula, no range, no threshold, anywhere. So I did not implement a documented axis; I proposed one and labelled the definition CHOSEN. Calling it documented would have been L1's error in K2 repeated.
+
+The proposal, grounded in engine truth: the fraction of live cells whose role the clip model animates — with the animating role set (antenna, sensor, effect, limb, joint, decoration) read from clip_model at import, never copied, so a change to the engine's clip tables moves the axis with it. A pin enforces that.
+
+The gates, pre-registered before the run:
+
+| Gate | Bar | Measured |
+|--|--|--|
+| A1 spread | supports 8 octiles | 7 distinct edges, range 0.011–0.600 — pass |
+| A2 independence | `\|r\| < 0.5` | 0.173 max (complexity just 0.068) — pass decisively |
+| A3 discrimination |	`≥ 0.20` | 0.543 — pass at 2.7× the bar |
+| A4 cost |	`reported, not gated` | occupied 289 → 448; coverage 0.5645 → 0.1094 |
+
+A3 is the number that matters. Among the 656 population pairs sharing the same three-axis bin — creatures the current geometry cannot tell apart at all — 356 (54.3%) land in different animation octiles. More than half of the archive's present indistinguishability is animation structure it has no coordinate for. And the axis is nearly orthogonal to everything already measured, so that's genuinely new information rather than a restatement of symmetry.
+
+The cost is real and I put it in the artifact rather than leaving you to derive it: the fourth axis reveals 159 more distinguishable classes while spreading the same population across eight times the space, so coverage as a fraction falls five-fold.
+
+Why it still isn't adopted. The documented selection criterion isn't a machine measure — deep-research.md:204 requires a descriptor set "selected with inter-rater interpretability ≥ 0.7", which needs the human panel you've deferred. I blocked that clause explicitly and substituted no proxy; the transducer study's labelled readability proxy is precisely why. Verdict: adoptable_pending_blocked_clause. The honest conclusion is narrower and still useful — the axis is worth the panel's time if one is ever scheduled.
+
+Two smaller things I want on the record. Per L3, the axis had to name which geometry it would join (the incumbent, frozen train-derived one). And the realised-motion observation needed careful reading: realised idle density is 0.0417 against a potential 0.1924, but that gap is mostly the idle clip's own schedule — CLIP_LIMB_STEP["idle"] and CLIP_JOINT_FLEX["idle"] are all zeros, so limbs and joints never move during idle — not evidence that three-quarters of animating cells are collision-blocked. I also adjusted two pins during implementation and said so in the report: one was case-sensitive, and I moved the realised-motion invariant off a hand-built stub onto real committed seed creatures, which made it stronger.
+
+Five commits this session (K6, L1–L4), sweep green at each, 2,234 artifacts valid, 219 archive-lab tests. Next is L5 — density-as-pressure (DR 0043 clause 2), the GAME's own consumer decision, which needs its own decision record and the seam law honoured.
+
+-------
+## [03]
+
+> USER_MESSAGE
+
+````md
+# NEXT STEPS AND REFRESHER CALIBRATION
+
+> FEEDBACK: GOOD WORK SO FAR.
+>> NEXT_STEPS: L5; density-as-pressure (DR 0043 clause 2), the GAME's own consumer decision, which needs its own decision record and the seam law honoured.
+
+## [PRINCIPLE-ENGINEER] agent for [MIVIM] project
+
+### BOUNDARY PUSHING INTEGRATIONS AND IMPLEMENTATIONS
+
+> M I V I M · Modular Innovations, Versatile Integration Methods
+>> :dev_goals:" Creating methods, features, applications that are novel and noticed, featured by github pages, development blogs, influencer techs. Industry leading creativity that cant be ignored.
+>> :development_style: Novel, Creative and Unique methods supported by rigerous research, validation and mathematics.
+
 ---
+
+> Your methods for MIVIM-DEVELOPMENT utilize two layers (a, b) to balance eachother.
+>> (a) CREATIVITY IN UNIQUE INTEGRATIONS "We develop to lead industries, our PRINCIPLE-ENGINEER AGENTS are HAND-SELECTED for their ABILITY to balance their [CODING-ABILITIES](SCIENTIFIC, UNIQUE, CREATIVE) when working on boundary pusshing, unique and novel applications. 
+>> (b) RESEARCH-AND-VALIDATION "The sstem is created created to keep (a) methods grounded in reality and practical use for our simulation. These two(a, b) aspects work in harmony togeter. 
+>> (c) BALANCE in CREATIVE, UNIQUE, REALISTIC and NOVEL DEVELOPMENT;
+>>> (c.1) `(a) :: CIRCUMVENTS :: (b) from  : "creating standard, mundane half developed applications, templated examples framed as requested development."`
+>>> (c.2) `(b) :: CIRCUMVENTS :: (a) from : "creating claims without use, support, or validation. creativity must be balanced in reality with provable facts supported by mathematics and displayed in the unique, novel simulation game we have created."`
+
+---
+
+[THINK ABOUT] what your TASK provides, HOW the TASK operates for relevant purpose operates in the INTENDED use.
+````
