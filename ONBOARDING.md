@@ -2,8 +2,12 @@
 
 Written **2026-07-21** by the outgoing session, completed
 **2026-07-26** at the owner's direction, and its §3/§4 state sections
-refreshed the same day at the Phase-K gate. Read this file completely
-before touching anything.
+refreshed at the **Phase-L gate (2026-07-26)**. Read this file
+completely before touching anything.
+
+`CHANGELOG.md` in the root is the cycle-by-cycle summary of what
+shipped; it is derived from the gate reports, and where they disagree
+the gate report wins.
 
 **How to trust this file:** §1 (the frame), §2 (owner rulings), §6 (the
 format), and §7 (honesty norms) are *durable* — they are owner rulings
@@ -145,44 +149,19 @@ Archived queues live in `audits/complete/NN/TODO.md`.
 
 ### Cycle 21 · Phase K — CLOSED, gate green 2026-07-26
 
-All six tasks are DONE and the gate report is
-`research/experiment_reports/2026-07-26-phase-k-gate.md`. The queue is
-archived at `audits/complete/21/TODO.md`. Kept here as the immediate
-context for what cycle 22 extends:
-
-- **K1 — the 11-class regrowth head** (DR 0041): implemented at both
-  head sites as a model-level vocabulary. **Adoption WITHHELD by its
-  own pre-registered rule** — G1 refused at +0.0944 vs the +0.10 bar
-  while G2–G5 passed. The refusal carries its own measured mechanism
-  (rich-token sites 0.0 → 0.525; the pooled metric is
-  denominator-diluted). A refused gate delivered as a first-class
-  finding.
-- **K2 — the DR 0031 generation-layer revisit** (DR 0042, **ADOPTED**):
-  judged at the consumer through the full loop. Constrained wins
-  coverage 0.7852 → **0.8984** and QD ratio 1.3025; 460 niches = the
-  measured support ceiling. The E4 gates re-ran symmetrically; the
-  DR 0032 GA-advantage clause refused *deeper* (+11.3% vs ≥25%).
-- **K3 — the last nine bins**: the reachability probe escalated —
-  **five reached (508/512 proven)**, four bounded sharper by a new
-  blocking-axis instrument: the remaining emptiness is
-  MEASURE-THINNESS, not distance (one bin misses by 0.0014; one is
-  suspected *quantization* emptiness).
-- **K4 — the real forecast** (DR 0043): the game adopts forecast key 5
-  — the committed I3 callback records verbatim, the first weather
-  whose harshness channels are LIT — with **zero engine-seam changes**
-  proven structurally and behaviorally. `lineage_churn` dispositioned
-  BLOCKED-UPSTREAM (honest silence, no proxy smuggled).
-- **K5 — the covenant's budget face in the workshop** (DR 0044,
-  **ADOPTED, boundary pinned**): the slip creator shows the campaign's
-  earned caps beside the sliders that author them. **Advisory, never
-  authority** — an over-budget schema-legal profile still validates and
-  saves; the game's `apply_covenant_change` stays the only spender.
-- **K6 — the Phase-K gate** (`2026-07-26-phase-k-gate.md`): the
-  consolidated ladder, the closing sweep, and the remainder list that
-  became cycle 22's plan. The cycle's shape recorded as the finding:
-  **three of five slices ended in a verb that was not "ship it"** — a
-  withheld adoption, four measured bounds, and a blocked-upstream
-  disposition.
+Gate report `research/experiment_reports/2026-07-26-phase-k-gate.md`;
+queue archived at `audits/complete/21/TODO.md`. The vocabulary Phase J
+taught the engine to spell was settled through its whole stack:
+**DR 0041** implemented the 11-class regrowth head and **WITHHELD its
+adoption** by its own bar (+0.0944 vs +0.10); **DR 0042** adopted the
+constrained generation layer at its consumer (coverage 0.7852 →
+**0.8984**); the reachability probe proved **508/512** bins with the
+residue bounded by measured gaps; **DR 0043** adopted forecast key 5
+(the first lit harshness channels) and dispositioned `lineage_churn`
+**BLOCKED-UPSTREAM**; **DR 0044** gave the covenant's earned budget an
+advisory-never-authority face in the workshop. Three of five slices
+ended in a verb that was not "ship it". Full detail: the gate report
+and `CHANGELOG.md`.
 
 ### Cycle 22 · Phase L — CLOSED, gate green 2026-07-26
 
@@ -228,36 +207,53 @@ pre-registered shape.
 - **`game/`** — the playable client (pygame-ce). Companion loop, era
   bench, covenant spending, hatchery, Contribute bridge, replays,
   repertoire/lineage browsers, SLIP import/export, community packs,
-  save/resume, a PyInstaller bundle. ~174 tests.
+  save/resume, a PyInstaller bundle. **183 tests.**
 - **`workshop/`** — grid editor, SLIP creator, preview/scrubber,
-  inspector, Keeper session page. ~92 tests.
+  inspector, Keeper session page. **92 tests.**
 - **`labs/`** — 19 research labs; every algorithm is proven here first.
-- **`research/`** — the evidence ledger: 250 experiment reports,
-  77 algorithm cards, 44 decision records, package specs.
-- **`data/`** — 2,230 JSON evidence artifacts, all valid.
+  (The two that grew most in cycle 22: `map_elites_archive` 142 → **219**,
+  `cubff_transducer` 43 → **58**.)
+- **`research/`** — the evidence ledger: **256 experiment reports**,
+  **77 algorithm cards**, **45 decision records** (through DR 0045),
+  package specs.
+- **`data/`** — **2,235 JSON evidence artifacts**, all valid.
 
-**Verified at the Phase-K gate (2026-07-26):**
+**Verified at the Phase-L gate (2026-07-26):**
 `python -B tools/ci/run_sweep.py` → **SWEEP GREEN** — 19 lab suites +
-package 295 + workshop 92 + game 174 + CLI 23;
-`data artifacts OK — 2230 JSON artifacts valid`. Total ≈ 506 s.
-(Slowest: workshop 215.7 s, runtime_integration 90.6 s,
-map_elites_archive 48.1 s, cellular_automata 40.8 s — the last two grew
-this cycle with K1–K3's model-training and escalation pins.)
+package 295 + workshop 92 + game 183 + CLI 23;
+`data artifacts OK — 2235 JSON artifacts valid`.
+(Slowest: workshop 174.9 s, runtime_integration 85.0 s,
+map_elites_archive 51.5 s, cellular_automata 40.1 s.)
 - Real CuBFF data is ingested; 16×16 is the proven grid scale;
   novelty-first evolution and the constrained generation layer are
-  adopted; the vocabulary is ratified end to end.
+  adopted; the vocabulary is ratified end to end; the checkpoint
+  forecast's harshness now tracks the direction of its own biology
+  (DR 0045).
 
 ### Standing named remainders (not tasks until a record charters them)
 
-Phase K's own: the undiluted rich-site regrowth instrument and the
-unexplained 0.525 ceiling (DR 0041's re-opener); an analytical
-emptiness argument for the quantization bin; richer callback export
-states (a WSL run); SLIP-shaped caps only in the workshop budget strip.
+Phase L's own — the four that became cycle 23 (M1–M4) are in the queue,
+not here. What stays: `animation_density`'s adoption, which waits on the
+human panel (L4); the **576-vs-512 repertoire divergence**, declared by
+L2 and unresolved; **which forecast keys enable the DR 0045 density
+rider in a shipped client** — a client decision L5 did not make; and the
+honest limit that density recovers direction, not magnitude (~2.4% of
+the callback path's gap).
+
+Phase K's own, still standing: the undiluted rich-site regrowth
+instrument and the unexplained 0.525 ceiling (DR 0041's re-opener); an
+analytical emptiness argument for the quantization bin; richer callback
+export states (a WSL run); SLIP-shaped caps only in the workshop budget
+strip.
 *(The ~22% generation-failure cause, the frozen derivation edges, and
 density-as-pressure were promoted OUT of this list into cycle 22 as
-L1/L3/L5.)*
+L1/L3/L5 — all three are now closed.)*
 
-From the documentation, surveyed at the Phase-K gate: Stage 2's
+From the documentation, surveyed at the Phase-K gate and re-verified at
+the Phase-L gate: **five of the eight documented VISIBLE companion state
+axes have no engine field** (`validity-research.md` §1.17 — `happiness`,
+`cleanliness`, `mood`, `age`, `health`; this is cycle 23's M5 and the
+largest player-facing gap the survey found); Stage 2's
 undispositioned generator arms (**shape grammar**, **CPPN**) and the
 unbuilt method tracks (MRF-lite, Lenia, reaction–diffusion, the MDP
 sandbox, the QDax shadow port, z3/SMT at DR 0011's WATCH); the
@@ -329,13 +325,14 @@ labs/                    19 research labs — algorithms proven here FIRST
 research/                the evidence ledger (the deliverable)
   ├─ experiment_reports/ dated findings (YYYY-MM-DD-kebab-slug.md)
   ├─ algorithm_cards/    fixed-template cards (snake_case, same stem)
-  ├─ decision_records/   ADRs, NNNN-slug.md (through 0044)
+  ├─ decision_records/   ADRs, NNNN-slug.md (through 0045)
   ├─ package_specs/      contracts + the traceability matrix
   └─ README.md           THE MASTER TRACEABILITY LEDGER
 data/                    JSON evidence artifacts + fixture corpora
 docs/                    the vision + roadmap documents
 audits/TODO.md           THE ACTIVE CYCLE QUEUE
-audits/complete/NN/      archived cycles
+audits/complete/NN/      archived cycles (01–07, 09–22)
+CHANGELOG.md             cycle-by-cycle summary (derived from the gates)
 keeper/, game/dist/      live play state / builds — GITIGNORED, not evidence
 ```
 
@@ -403,9 +400,11 @@ they are not written down elsewhere:
 4. `docs/gap-analysis.md` — RETIRED but the measured history.
 5. `research/decision_records/` — 0017 (North Star), 0021 (the game),
    0028 (license/deps), 0029 (size-parametric), 0031/0042 (generation),
-   0032, 0033 (pygame-ce), 0035 (community = owner), 0038–0044 (recent).
+   0032, 0033 (pygame-ce), 0035 (community = owner), 0038–0045 (recent;
+   0045 is density-as-pressure, cycle 22's one new record).
 6. `research/README.md` — the traceability ledger.
 7. `docs/alpha.md` — the public-alpha packet.
+8. `CHANGELOG.md` — the cycle-by-cycle summary, derived from the gates.
 
 ---
 
@@ -554,28 +553,33 @@ mechas session --open
 
 ## 10. First moves for a fresh session
 
-1. `git log --oneline -10` and `git status --short` — what happened,
-   and is K5 still uncommitted?
+1. `git log --oneline -10` and `git status --short` — what happened, and
+   is anything uncommitted? **The owner's IDE commits mid-session**, so
+   never assume the tree is yours; check before committing and stage by
+   explicit path.
 2. Read `audits/TODO.md` — the live queue and its standing note.
 3. `python -B tools/ci/run_sweep.py --quick` — confirm the tree is
    green before changing anything.
 4. Read the most recent experiment reports in
-   `research/experiment_reports/` (2026-07-21-*) for the immediate
-   context of the last work.
+   `research/experiment_reports/` (`2026-07-26-*`) for the immediate
+   context, starting with `2026-07-26-phase-l-gate.md`. `CHANGELOG.md`
+   is the faster orientation if you only need the shape.
 5. Then work the queue — task by task, RED first, triad docs in the
    same change, one commit per task. When the queue exhausts, plan the
    next cycle yourself from the documentation.
 
 ## Sources
 
-- `audits/TODO.md` (cycle 21 · Phase K), `audits/complete/*/TODO.md`
+- `audits/TODO.md` (cycle 23 · Phase M), `audits/complete/*/TODO.md`
+- `CHANGELOG.md` (the cycle-by-cycle summary)
 - `FABLE5.md` (the prior handoff; §1–2, §6 remain law)
 - `AGENTS.md`, `CLAUDE.md`, `docs/agent-standards.md`
 - `docs/gap-analysis.md` (retired; the measured history)
 - `docs/project-research/` (the vision documents)
 - `research/README.md` (the master ledger)
-- `research/decision_records/0017`, `0021`, `0026`–`0044`
+- `research/decision_records/0017`, `0021`, `0026`–`0045`
 - `research/experiment_reports/2026-07-12-phase-g-gate.md`,
-  `2026-07-20-phase-j-gate.md`, `2026-07-21-*.md`,
-  `2026-07-26-phase-k-gate.md` (the gate that refreshed §3/§4)
+  `2026-07-20-phase-j-gate.md`, `2026-07-26-phase-k-gate.md`,
+  `2026-07-26-phase-l-gate.md` (the gate that refreshed §3/§4),
+  `2026-07-26-*.md` (the L1–L5 science)
 - `tools/ci/run_sweep.py`

@@ -1,0 +1,266 @@
+# Changelog
+
+All notable changes to Mechagotchi, organised by **development cycle and
+phase** — the repo's own unit of work — newest first.
+
+**This file is a summary, not the record.** The authoritative history is
+the evidence ledger: `research/README.md` maps every finding to its
+report, decision record, lab code and data artifact, and each phase ends
+with a consolidated gate report under `research/experiment_reports/`.
+Entries here are derived from those gates; where they disagree, **the
+gate report wins**.
+
+There are no semantic-version releases. The project ships evidence, and
+a phase is "done" only when its queue is exhausted **and** a full
+verification sweep is green (`python -B tools/ci/run_sweep.py`). Adopted
+capabilities are recorded as numbered decision records (`DR NNNN`).
+
+Conventions used below: **ADOPTED** (a gate passed and the capability
+ships), **WITHHELD/REFUSED** (a pre-registered gate failed and the
+refusal shipped as the finding), **CORRECTED** (a previously recorded
+number was re-measured and superseded by a dated note — originals are
+never rewritten).
+
+---
+
+## [Unreleased] — Cycle 23 · Phase M — "the archive meets its own inhabitants"
+
+*In progress. Queue: `audits/TODO.md` (M1–M6, none started).*
+
+Planned from Phase L's unplanned convergent finding — **every instrument
+measures a different population from the one the archive is actually
+filled with** — plus the still-unmet documentation.
+
+- **M1** — re-measure occupancy, the descriptor distribution and the
+  `animation_density` candidate against the loop's *steady-state elites*
+  rather than the derivation/bootstrap population.
+- **M2** — decide the two-geometry split by decision record.
+- **M3** — the unbreedable bootstrap elites, whose fix trades against
+  coverage.
+- **M4** — ancestry versus morphology: do Phase E's 52 recurrent
+  families share ancestors, or converge from different founder lines?
+- **M5** — *(GAME track)* the documented visible companion state; five
+  of the eight documented visible axes have no engine field.
+- **M6** — the Phase-M gate.
+
+---
+
+## Cycle 22 · Phase L — "the descriptor space settles its geometry" — 2026-07-26
+
+**Gate: GREEN.** `research/experiment_reports/2026-07-26-phase-l-gate.md`
+Closing sweep: 19 lab suites + package 295 + workshop 92 + game 183 +
+CLI 23 — **2,235 JSON artifacts, 0 invalid**.
+
+The cycle set out to settle the descriptor geometry and did — but its
+defining character was unplanned: **three of its five slices corrected
+something the ledger already said, and nothing was rewritten.** Every
+correction is a dated note beside the original wording.
+
+### Added
+
+- `collect_refusals` and `collect_lineage` observation seams on the
+  evolution loop — additive, **byte-identical when off** (pinned), each
+  adding exactly one gated key.
+- **DR 0045** — density as pressure: instruction density may feed the
+  CuBFF pressure math as its own named channel, off by default, mirrored
+  at both parity sites.
+- Four new instruments: the refusal-cause histogram, the
+  lineage-dominance judge, the geometry-consistency survey, and the
+  `animation_density` candidate axis.
+
+### Changed / Corrected
+
+- **CORRECTED (DR 0042, twice)** — the constrained arm's generation
+  failure rate is **7.2%**, not the recorded ~22% (the old figure
+  divided by the *scored budget*, where novelty-first requests 61,440
+  attempts); and the promoted path refused **zero** invalid candidates.
+  All 4,435 refusals are the SLIP rejecting the **parent** — a selection
+  fact, not a generator fact — and 100% of those parents are bootstrap
+  creatures.
+- **CORRECTED** — the claim that 460 occupied niches is "exactly" the
+  measured support ceiling compares numbers counted in **two different
+  scale geometries** (see below); the coincidence is real, the identity
+  is not established.
+- **CORRECTED (DR 0043 / I3)** — the checkpoint forecast's inverted
+  harshness. With `replication_scores` and `lineage_events` structurally
+  absent from the checkpoint format, pressure rode on entropy and
+  instruction diversity, **both of which fall as a soup organizes**, so
+  the engine read organization as calm. Density — the one carried
+  channel that rises — corrects the direction: inversion **−0.034293 →
+  +0.006324**, agreeing with the lit-channel callback ground truth.
+
+### Measured / Judged
+
+- **The documented lineage-dominance clause judged for the first time in
+  the project's history** — *"no single lineage > 40% of occupied
+  cells"* (`deep-research.md:205`). **PASS at 0.2848** across 38 founder
+  lines. Reported beside the verdict and deliberately outside it: **four
+  founder lines hold half the archive**, and the two largest were
+  founded by WFC *bootstrap* creatures though every elite was bred by
+  the adopted `constrained` layer.
+- **The scale geometry is not stale — it is split.** Re-running E1's
+  derivation protocol reproduces the committed edges **exactly** (drift
+  0.0 against a *measured* 0.0102 sampling control). But the repo runs
+  **two** geometries: the loop and E4 gates on frozen train-derived
+  edges, the reachability probe and occupancy instrument on live
+  all-seeds edges — differing by **3.7× the sampling control**. So
+  `460/512 occupied` and `508/512 reachable` are counted in different
+  coordinate systems. Diagnosed, **not repaired**.
+- K3's measure-thin windows are therefore **real**, and the quantization
+  hypothesis hardens.
+- **DR 0045's pre-run prediction (≈ +0.041) matched the measurement
+  (+0.040617) to four decimal places**, from a ceiling derived from the
+  language's own alphabet (256/10 = 25.6, independent of tape length)
+  and a weight fixed in advance.
+
+### Withheld
+
+- **`animation_density` — adoptable, not adopted.** The candidate axis
+  passed *every* machine gate (spread; independence at max |r| 0.173;
+  discrimination at 2.7× the bar — **54.3%** of same-three-axis-bin
+  pairs separated) with its cost reported (occupied 289 → 448; coverage
+  0.5645 → 0.1094). Adoption was still refused: the documented selection
+  criterion is *inter-rater interpretability*, which needs the
+  owner-deferred human panel, and **no proxy was substituted**.
+
+### Honest limits recorded
+
+- Density recovers the **direction** of the biology, not its force —
+  +0.0063 against the ground truth's +0.2622, about **2.4%** of the
+  magnitude. The DR 0045 rider is **off by default** in the engine.
+
+---
+
+## Cycle 21 · Phase K — "the vocabulary settles its stack" — 2026-07-26
+
+**Gate: GREEN.** `research/experiment_reports/2026-07-26-phase-k-gate.md`
+Closing sweep: 19 lab suites + package 295 + workshop 92 + game 174 +
+CLI 23 — 2,230 artifacts, 0 invalid.
+
+Three of five slices ended in a verb that was not "ship it": a withheld
+adoption, four measured bounds, and a blocked-upstream disposition.
+
+- **DR 0041 — the 11-class regrowth head: adoption WITHHELD** by its own
+  pre-registered rule (G1 refused at +0.0944 against a +0.10 bar while
+  G2–G5 passed). The refusal carries its measured mechanism: at rich
+  token sites the legacy head restores 0.0 exactly against the rich
+  head's 0.525, and the pooled metric is denominator-diluted.
+- **DR 0042 — the generation layer ADOPTED at its consumer.** Judged
+  through the full loop at a matched 20,480-evaluation budget:
+  coverage 0.7852 → **0.8984**, QD ratio 1.3025, 460 niches. The DR 0032
+  GA-advantage clause refused *deeper* (+11.3% against a ≥ 25% bar).
+- **508/512 descriptor bins proven reachable** — five more bins reached,
+  two only at high mutation temperature; the remaining four bounded
+  sharper by a new blocking-axis instrument (measure-thinness, not
+  distance).
+- **DR 0043 — forecast key 5 ADOPTED**: the first weather whose harshness
+  channels are lit, with zero engine-seam changes proven structurally and
+  behaviorally. `lineage_churn` dispositioned **BLOCKED-UPSTREAM** —
+  honest silence, no proxy smuggled.
+- **DR 0044 — the covenant's budget face in the workshop ADOPTED**,
+  advisory-never-authority and pinned as such.
+
+---
+
+## Cycle 20 · Phase J — "the generative range" — 2026-07-20
+
+**Gate: GREEN.** `2026-07-20-phase-j-gate.md`
+
+- **Vocabulary blindness found and cured.** The breeding surface emitted
+  the motion trio at exactly **0.0** — a pre-DR-0011 five-token
+  projection erased seven ratified roles. **DR 0038** cured generation
+  (emission 0.0 → **0.512**); **DR 0039** cured a second blind surface in
+  the repair stack.
+- **DR 0040 — novelty-first evolution ADOPTED** on both axes.
+- The structured decoder joined the **refuted record** with its mechanism
+  measured: the failure is spatial coherence, not information.
+
+## Cycle 19 · Phase I — "the post-takeover science" — 2026-07-20
+
+**Gate: GREEN.** `2026-07-20-phase-i-gate.md` — real post-takeover soup
+corpus; weather harshness measured per phase; the callback export path
+made real (replication channel lit) but left unconsumed by decision.
+
+## Cycle 18 · Phase H — "workshop authoring depth" — 2026-07-19
+
+**Gate: GREEN.** `2026-07-19-phase-h-gate.md` — 16×16 authoring end to
+end with game admission, semantic layers, the animation timeline and
+onion skin, the behavior editor, and the first-session journey proven
+with its scripted proxy honestly labelled.
+
+## Cycle 17 · Phase G — the public-alpha gate — 2026-07-12
+
+**Gate: GREEN.** `2026-07-12-phase-g-gate.md`
+
+- **Every documented phase A–G complete and gated**; `docs/gap-analysis.md`
+  RETIRED per its own charter.
+- **REAL CuBFF corpus ingested** — genuine upstream data built at the
+  audited commit (the project's oldest blocker, closed).
+- The alpha packet (`docs/alpha.md`): both builds reproducible from one
+  document.
+
+## Cycles 14–16 · Phase F — the GAME client — 2026-07-12
+
+**Gates: GREEN** (MVP 0.1, 0.2, 0.3). *"Eras of the Soup"* — the playable
+pygame-ce client (**DR 0033**): companion loop, era bench, covenant
+spending, hatchery, replays, repertoire and lineage browsers, SLIP
+import/export, community packs, save/resume, and a PyInstaller bundle.
+
+## Cycle 13 · Phase E — evolution at documented scale — 2026-07-09
+
+**Gate: GREEN.** 20,480 stress-probed evaluations per run; coverage, QD
+and recurrent-family gates; **DR 0032** dispositioned the GA-advantage
+clause as refuted with named re-openers.
+
+## Cycle 12 · Phase D — the intelligence threads — 2026-07-08
+
+**Gate: GREEN.** The 11-thread micro-learner fleet, with ablation gates
+keeping five and **dropping six** on the measured rule.
+
+## Cycle 11 · Phase C — the animation system — 2026-07-08
+
+**Gate: GREEN.** Clips, transitions (0.9877), the `animstate_950`
+dataset, and the render-packet contract.
+
+## Cycle 10 · Phase B — generation — 2026-07-08
+
+**Gate: GREEN.** The real generator bake-off: **DR 0031** adopted WFC;
+the hybrid arm was **REFUTED**.
+
+## Cycle 09 · Phase A — the 16×16 foundation — 2026-07-08
+
+**Gate: GREEN.** **DR 0029** (size-parametric grids, 16×16 the proven
+default) and **DR 0030** (size-relative SLIP mass bounds).
+
+## Cycles 01–07 · pre-phase — through 2026-07-07
+
+The ontology, the grid-genome schema and its numbered invariants, the
+SLIP schema and its dual validators, the research labs, and the module
+promotion program that produced `packages/mecha_engine`. *(There is no
+cycle 08.)* Archived queues: `audits/complete/01/` … `audits/complete/07/`.
+
+---
+
+## Standing, by owner ruling
+
+These are decisions, not backlog:
+
+- **License: Apache-2.0** (DR 0028). Third-party dependencies are
+  permitted when a capability needs one; stdlib has simply kept holding
+  at every measured scale gate so far — a *measurement*, not a policy.
+- **Manual readability calibration is deferred by owner choice.** The
+  learned model is primary (**DR 0019**); the rating pipeline is its
+  fallback and is never a blocker.
+- **Community infrastructure, a pack registry and hosted distribution
+  are owner decisions** (**DR 0035**), not tasks.
+- The human-study block stays prepared-not-blocking. Where a human
+  measure is unavailable, the record says so and **no proxy is
+  substituted for it**.
+
+## Sources
+
+- `research/README.md` — the master traceability ledger (the authoritative record)
+- `research/experiment_reports/` — dated findings and the per-phase gate reports
+- `research/decision_records/` — ADRs `0001`–`0045`
+- `audits/TODO.md` (the live queue) and `audits/complete/NN/TODO.md` (archived cycles)
+- `tools/ci/run_sweep.py` — the one verification sweep every gate runs
