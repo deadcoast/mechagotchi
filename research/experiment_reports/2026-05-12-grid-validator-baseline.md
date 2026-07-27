@@ -109,8 +109,5 @@ authored.
 
 - `docs/02-research_plan.md`
 - `research/grid_genome/grid_invariants.md`
-- JSON Schema Draft 2020-12 validation specification:
-  https://json-schema.org/draft/2020-12/json-schema-validation
-- Python `unittest` documentation:
-  https://docs.python.org/3/library/unittest.html
-
+- [JSON Schema Draft 2020-12 validation specification](https://json-schema.org/draft/2020-12/json-schema-validation)
+- [Python `unittest` documentation:](https://docs.python.org/3/library/unittest.html)
