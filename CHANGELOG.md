@@ -164,6 +164,44 @@ unchanged or strengthened.
   size-matched control was **deliberately not run**, because changing a
   statistic after seeing its numbers is re-scoring.
 
+### Corrected by external code review, before merge (2026-07-27)
+
+PR #2 drew automated review from five tools. Seven findings; **four were
+real and fixed, one recorded, three verified wrong and rejected.**
+
+- **CORRECTED — the byte-identity contract was actually broken** (M3).
+  The `slip_admission` arm emitted two keys **unconditionally**, so the
+  loop's return value changed for every existing caller even when off —
+  contradicting the claim M3's own report made. The pin could not catch
+  it, because it compared two calls to the *new* code and both had
+  gained the keys: **"byte-identical when off" means identical to what
+  the loop returned before the seam existed.** Both keys are now
+  rung-conditional and the off-mode key set is **pinned against a frozen
+  list**. No measured value changed.
+- **CORRECTED — `bootstrap_composition` went stale** (M3). Under the
+  `bootstrap` arm the population was filtered without recomputing the
+  composition, so the result reported a mix summing to the *unfiltered*
+  population beside an admitted count that did not. Now recomputed by
+  measured membership, and pinned.
+- **HARDENED — the M5 engine probe** replaced the child process's entire
+  environment and hard-coded a Windows path, with no timeout. It now
+  follows the repo's existing probe pattern (inherit `os.environ`,
+  extend `PYTHONPATH`, bounded timeout). Artifact regenerated;
+  dispositions identical.
+- **The Phase-M gate report's sweep block** was abbreviated; replaced
+  with the full pasted output, per the norm.
+- **RECORDED, not re-scored** — M4's statistic covers every family per
+  run, not only the recurrent intersection (63 against runs of 63/64/64,
+  so at most one non-recurrent family each). Restricting it after seeing
+  the numbers would be the re-scoring this repo forbids; it ships as a
+  named remainder.
+- **REJECTED, each verified empirically** — "`parents[1]` should be
+  `parents[2]`" (**they resolve to the identical path**); "stage0 slugs
+  must be hyphenated" (**219 of 219** existing artifacts use
+  underscores); "test methods need `-> None`" (**0 of 545** existing
+  test methods are annotated). Complying would have made the five new
+  files the only inconsistent ones in the repo.
+
 ---
 
 ## Cycle 22 · Phase L — "the descriptor space settles its geometry" — 2026-07-26
@@ -382,6 +420,6 @@ These are decisions, not backlog:
 
 - `research/README.md` — the master traceability ledger (the authoritative record)
 - `research/experiment_reports/` — dated findings and the per-phase gate reports
-- `research/decision_records/` — ADRs `0001`–`0045`
+- `research/decision_records/` — ADRs `0001`–`0048`
 - `audits/TODO.md` (the live queue) and `audits/complete/NN/TODO.md` (archived cycles)
 - `tools/ci/run_sweep.py` — the one verification sweep every gate runs

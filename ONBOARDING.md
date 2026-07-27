@@ -15,13 +15,26 @@ and established discipline; they do not expire. §3 (state) and §4
 (what's next) are a **snapshot** — re-verify them against `git log`,
 `audits/TODO.md`, and the gate artifacts before relying on them.
 
-Related files: `FABLE5.md` is the previous onboarding handoff (its §1–2
-and §6 remain valid law; its §3/§5 state sections are stale — this file
-supersedes them). `AGENTS.md` is the current agent operating brief;
-`CLAUDE.md` remains the Claude-specific brief.
-`docs/agent-standards.md` is an older orientation doc, largely
-superseded. Where they conflict: **this file and the decision records
-win.**
+**The orienting files at the repo root**, and what each is for:
+
+| file | what it is |
+| --- | --- |
+| `ONBOARDING.md` | **this file** — start here |
+| `README.md` | what the project *is*, and the anti-drift identity constraint |
+| `CLAUDE.md` | the agent operating brief (commands, architecture, conventions) |
+| `CHANGELOG.md` | cycle-by-cycle summary, derived from the gate reports |
+| `_MOC_.md` | map of contents across the documentation |
+| `TOOLS.md` | the tooling notes |
+| `audits/TODO.md` | **the live cycle queue** — the actual work list |
+
+*Corrected 2026-07-27*: earlier versions of this file pointed at
+`FABLE5.md` and `AGENTS.md` as live references. **Both now live under
+`.depreciated/`** (`v0.0.1/FABLE5.md`, `AGENTS.md`) — the owner's
+personal archive, which §2 says to ignore unless explicitly linked. Do
+not go looking for them at the root. `docs/agent-standards.md` still
+exists and is an older orientation doc, largely superseded.
+
+Where anything conflicts: **this file and the decision records win.**
 
 ---
 
@@ -125,6 +138,18 @@ never a blocker.
 2026-07-12). It remains as the measured history of the gap and how it
 closed. Since then, cycles plan from the **still-unmet documentation**
 and from the named remainders each cycle's own records leave behind.
+
+### Branch and merge state (verify with `git log --oneline origin/main..HEAD`)
+
+Working branch: **`phase-l-gate`** — the name is historical and is *not*
+being renamed (see §6). It carries cycles 22–23. `origin/main` sits at
+the **PR #1** merge (cycle 22 / Phase L); **PR #2** carries cycle 23 and
+was opened 2026-07-27.
+
+**If PR #2 has merged by the time you read this**, fast-forward local
+`main`, and cut cycle 24's branch from `main` — do not keep building on
+the merged branch. That mistake is exactly what stranded cycle 23 off
+`main` for a full cycle.
 
 ### The cycle ladder so far
 
@@ -256,8 +281,8 @@ slice. See `audits/TODO.md` for each task's pre-registered shape.
 `python -B tools/ci/run_sweep.py` → **SWEEP GREEN** — 19 lab suites +
 package 295 + workshop 92 + game 183 + CLI 23;
 `data artifacts OK — 2240 JSON artifacts valid`.
-(Slowest: workshop 174.9 s, runtime_integration 85.0 s,
-map_elites_archive 51.5 s, cellular_automata 40.1 s.)
+(Slowest at this gate: workshop 228.8 s, runtime_integration 102.5 s,
+map_elites_archive 90.3 s, cellular_automata 47.0 s.)
 - Real CuBFF data is ingested; 16×16 is the proven grid scale;
   novelty-first evolution and the constrained generation layer are
   adopted; the vocabulary is ratified end to end; the checkpoint
@@ -380,13 +405,13 @@ labs/                    19 research labs — algorithms proven here FIRST
 research/                the evidence ledger (the deliverable)
   ├─ experiment_reports/ dated findings (YYYY-MM-DD-kebab-slug.md)
   ├─ algorithm_cards/    fixed-template cards (snake_case, same stem)
-  ├─ decision_records/   ADRs, NNNN-slug.md (through 0045)
+  ├─ decision_records/   ADRs, NNNN-slug.md (through 0048)
   ├─ package_specs/      contracts + the traceability matrix
   └─ README.md           THE MASTER TRACEABILITY LEDGER
 data/                    JSON evidence artifacts + fixture corpora
 docs/                    the vision + roadmap documents
 audits/TODO.md           THE ACTIVE CYCLE QUEUE
-audits/complete/NN/      archived cycles (01–07, 09–22)
+audits/complete/NN/      archived cycles (01–07, 09–23)
 CHANGELOG.md             cycle-by-cycle summary (derived from the gates)
 keeper/, game/dist/      live play state / builds — GITIGNORED, not evidence
 ```
@@ -455,8 +480,10 @@ they are not written down elsewhere:
 4. `docs/gap-analysis.md` — RETIRED but the measured history.
 5. `research/decision_records/` — 0017 (North Star), 0021 (the game),
    0028 (license/deps), 0029 (size-parametric), 0031/0042 (generation),
-   0032, 0033 (pygame-ce), 0035 (community = owner), 0038–0045 (recent;
-   0045 is density-as-pressure, cycle 22's one new record).
+   0032, 0033 (pygame-ce), 0035 (community = owner), 0038–0048
+   (recent; 0046 the geometry split + its comparability rule, 0047 the
+   SLIP-admission arms, 0048 the visible companion axes — cycle 23's
+   three new records).
 6. `research/README.md` — the traceability ledger.
 7. `docs/alpha.md` — the public-alpha packet.
 8. `CHANGELOG.md` — the cycle-by-cycle summary, derived from the gates.
@@ -523,6 +550,47 @@ naming the task ID, the evidence, and the doc updates. A cycle ends
 only when the queue is exhausted AND a full sweep is green — then
 archive to `audits/complete/NN/` and plan the next cycle from the
 documentation and the recorded remainders.
+
+### The branch and merge rule (learned the hard way, 2026-07-27)
+
+**This bit us once and cost a whole cycle of drift, so it is written
+down.** Cycle 22 was merged to `main` by PR #1 — and then cycle 23 was
+developed **on the same `phase-l-gate` branch**, so ten commits, 42
+files and ~9,000 lines accumulated off `main` before anyone noticed. The
+branch name was also lying by then: it said Phase L while carrying all
+of Phase M.
+
+The rule:
+
+1. **One branch per cycle**, named for its own phase.
+2. **PR back to `main` at the gate**, not "eventually". A closed cycle
+   that is not on `main` is not really closed.
+3. **After the merge, cut the next cycle's branch from `main`** — never
+   continue on the merged one.
+4. **Never push or merge unasked** (owner ruling, §2). Prepare the PR
+   and *say* it is ready; the owner decides.
+5. `git log --oneline origin/main..HEAD` is the check. If that list is
+   longer than the cycle you are working on, work is stranded.
+
+### External code review runs on every PR
+
+Five bots review PRs here (CodeRabbit, Copilot, qodo, Codex, Sourcery;
+`.coderabbit.yaml` configures the first). **Triage their findings, do
+not implement them on sight** — treat this exactly like the
+receiving-review discipline in §7:
+
+- **Verify before complying.** Cycle 23's review produced seven
+  findings: four real (a genuine byte-identity contract break, stale
+  composition metadata, a non-portable subprocess probe, an abbreviated
+  sweep block), one worth recording, and **three that were simply
+  wrong** — each disproved in a single command (`parents[1]` and
+  `parents[2]` resolve to the *same path*; 219 of 219 artifacts use
+  underscore slugs; 0 of 545 test methods carry `-> None`).
+- **Repo convention beats a generic rule.** A "fix" that would make your
+  files the only inconsistent ones in the tree is not a fix.
+- **When review catches a wrong claim in a shipped report, add a dated
+  note** — the same law as any other correction. Do not silently edit
+  the sentence into being true.
 
 ---
 
@@ -597,6 +665,25 @@ mechas session --open
 - **`deliberation.max_ticks` has an authority floor of 2.**
 - **Rung-conditional keys exist only when their feature ran** —
   `None` ≠ `[]` ≠ absent.
+- **"Byte-identical when off" means identical to what the surface
+  returned BEFORE the seam existed** — not merely identical between two
+  calls to the new code. A test comparing new-to-new cannot catch a key
+  both calls gained; **pin the off-mode key set against a frozen list**.
+  Cycle 23's M3 shipped this bug and external review caught it.
+- **A verdict must agree with the number it publishes.** At a gate
+  boundary, `(0.5 - 0.4) / 0.05` evaluates to `1.9999999999999996` but
+  *reports* as `2.0` — judge on the **rounded** value, or the artifact
+  says "z = 2.0, refused". That is float representation, not science.
+- **Subprocess probes: inherit the environment, never replace it.**
+  Follow `mecha_engine_scaffold_verification_gate._import_probe_env` —
+  copy `os.environ`, *extend* `PYTHONPATH`, and set a timeout. A
+  hand-built two-key env drops `PATH`/virtualenv vars and hard-codes a
+  platform.
+- **`ROOT` may be written two equivalent ways.** `Path(__file__).
+  resolve().parents[2]` and `LAB_DIR.parents[1]` (where `LAB_DIR` is the
+  module's own directory) resolve to the **same** repo root; the archive
+  lab uses the second throughout. Reviewers have flagged the second as a
+  violation — it is not. Verify before "fixing".
 - **Complex one-liners fail PowerShell parsing** — write a script file
   to the scratchpad instead. The Bash tool's `cd` persists between
   calls; prefer absolute paths.
@@ -611,24 +698,56 @@ mechas session --open
 1. `git log --oneline -10` and `git status --short` — what happened, and
    is anything uncommitted? **The owner's IDE commits mid-session**, so
    never assume the tree is yours; check before committing and stage by
-   explicit path.
-2. Read `audits/TODO.md` — the live queue and its standing note.
-3. `python -B tools/ci/run_sweep.py --quick` — confirm the tree is
-   green before changing anything.
-4. Read the most recent experiment reports in
-   `research/experiment_reports/` (`2026-07-26-*`) for the immediate
-   context, starting with `2026-07-26-phase-l-gate.md`. `CHANGELOG.md`
+   explicit path. Expect `.depreciated/audit-notes.md` to be dirty; that
+   is the owner's file — **never stage it**.
+2. `git log --oneline origin/main..HEAD` — **is anything stranded off
+   `main`?** If that list is longer than the cycle you are about to
+   work, a previous cycle was never merged back (see §6, the branch and
+   merge rule). Fix that before adding to the pile.
+3. Read `audits/TODO.md` — the live queue and its standing note.
+4. `python -B tools/ci/run_sweep.py --quick` — confirm the tree is
+   green before changing anything. **~5 min**; the full sweep is ~9 min
+   and is required before any commit that closes a task.
+5. Read the most recent experiment reports in
+   `research/experiment_reports/` (`2026-07-27-*`) for the immediate
+   context, starting with `2026-07-27-phase-m-gate.md`. `CHANGELOG.md`
    is the faster orientation if you only need the shape.
-5. Then work the queue — task by task, RED first, triad docs in the
+6. Then work the queue — task by task, RED first, triad docs in the
    same change, one commit per task. When the queue exhausts, plan the
    next cycle yourself from the documentation.
+
+### What a task actually looks like, start to finish
+
+Every cycle-23 slice ran this loop; copy it:
+
+1. **Read the charter** — the task's own bullet in `audits/TODO.md`, and
+   the reports it names. They tell you what is already measured.
+2. **Write the pins FIRST** (`test_<module>.py`) and run them — you want
+   `ModuleNotFoundError`. That is the RED, and it goes in the report.
+3. **Pre-register the rule IN the module docstring** — the statistic,
+   the bar (derived from measured evidence, never a constant), and the
+   adopt/withhold/refuse verbs. *Then* run. A gate that cannot fail is
+   a bug.
+4. **Implement**, get the pins green, run the whole lab suite.
+5. **Run the study**, at documented budget. Long runs go in the
+   background; derive the wall-clock bound from the incumbent's
+   (DR 0028) rather than picking one.
+6. **Write the triad in the same change** — experiment report (WHY /
+   WHAT / FINDINGS / Verification with pasted output / Sources),
+   algorithm-card entry, `research/README.md` ledger entry, and a DR if
+   anything was adopted, withheld or refused.
+7. **Report what the numbers say**, including against your own
+   expectations. Three cycle-23 slices contradicted their own charter,
+   and that was the value.
+8. **Full sweep**, `git checkout` the two `data/slips` observation
+   artifacts, stage by explicit path, one commit naming the task ID.
 
 ## Sources
 
 - `audits/TODO.md` (cycle 24 · Phase N), `audits/complete/*/TODO.md`
 - `CHANGELOG.md` (the cycle-by-cycle summary)
-- `FABLE5.md` (the prior handoff; §1–2, §6 remain law)
-- `AGENTS.md`, `CLAUDE.md`, `docs/agent-standards.md`
+- `CLAUDE.md`, `README.md`, `_MOC_.md`, `docs/agent-standards.md`  
+  (`FABLE5.md` and `AGENTS.md` are now under `.depreciated/` — archived)
 - `docs/gap-analysis.md` (retired; the measured history)
 - `docs/project-research/` (the vision documents)
 - `research/README.md` (the master ledger)

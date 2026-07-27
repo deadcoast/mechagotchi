@@ -323,6 +323,47 @@ Nothing is pushed — the branch is phase-l-gate, six commits ahead, awaiting yo
 
 ///
 
+PR #2 is open and mergeable: https://github.com/deadcoast/mechagotchi/pull/2
+
+phase-l-gate → main · 10 commits · 42 files · +8,948 / −247 · MERGEABLE, no conflicts.
+
+That closes the gap you spotted. To restate it accurately: 63e551c is origin/main (the PR #1 merge that brought Phase L back). The branch was also fully pushed the whole time — origin/phase-l-gate already matched local HEAD exactly, so nothing was stranded on your machine. What actually happened is that after PR #1 merged, work kept going on the same branch instead of a new one, so everything since — the two pre-session commits plus all of cycle 23 — accumulated off main.
+
+The PR body is written from the Phase-M gate report: the M1–M6 ladder, the three prose corrections with their dated-note handling, the measured results (the elite control catching a 5.14× false positive, the geometry split turning out not to be the disease, K2's 460-vs-456 resolution, the refusal tax going to zero, Evolution Q3), and the two limitations I recorded rather than repaired.
+
+Two things called out in the PR so they're visible at review rather than buried:
+
+98550ed and 851e158 are IDE auto-commits touching only .depreciated/audit-notes.md — your personal archive. I never staged that file all session; merging carries it to main, which is your call.
+Verified green at 96e2544 (full sweep, 2,240 artifacts, 0 invalid). 851e158 adds nothing outside .depreciated/, so the gate result stands for the branch tip.
+I haven't merged it — that's yours. Once it's in, local main is 1 behind origin/main and will want a fast-forward before cycle 24 starts.
+
+Development resumes at N1 · do 600 creatures determine the octile edges? — the deepest thing Phase M found, sitting underneath every coverage number in the ledger. Say the word and I'll pick it up.
+
+///
+
+Fixed — four real defects:
+
+Probe replaced the entire environment + no timeout (Copilot & qodo, both right). I'd written env={"PYTHONPATH": ..., "SYSTEMROOT": "C:\\Windows"} — that drops PATH/HOME/virtualenv vars and hard-codes a Windows path, so it would fail on any other machine, and a stuck import would hang forever. Now follows the repo's existing probe pattern (_import_probe_env): inherit os.environ, extend PYTHONPATH, timeout=120 with a clear error. Artifact regenerated — dispositions identical.
+
+Byte-identity contract genuinely broken (codex — the sharpest catch). slip_admission and bootstrap_admitted were unconditional, so the loop's return value changed for every existing caller even when off. My pin couldn't catch it because it compared two calls to the new code, and both had gained the keys. "Byte-identical when off" means identical to what the loop returned before the arm existed. Both keys are now rung-conditional, and the off-mode key set is pinned against a frozen list so a future unconditional key fails the suite.
+
+bootstrap_composition went stale under the bootstrap arm (qodo). Real bug I introduced: filtering the population without recomputing the composition reported a mix summing to 256 beside an admitted count of 49. Now recomputed by measured membership, and pinned.
+
+Gate report's sweep block was abbreviated (qodo). The norm is pasted real output; mine had an ellipsis. Replaced with the full 24-line sweep.
+
+Recorded, not re-scored — one: codex noted the ancestry statistic covers all families per run, not just the recurrent intersection. Real but bounded — the intersection is 63 against runs of 63/64/64, so at most one non-recurrent family per run enters the mean. Restricting the statistic after seeing the numbers is precisely the re-scoring this repo forbids, and the verdict isn't close to its bar (z +21.4/+16.0/+17.4). It ships as a named remainder in both artifact and report.
+
+Rejected — three, each verified empirically rather than argued:
+
+"ROOT = LAB_DIR.parents[1] should be parents[2]" — they resolve to the identical path; I ran it to confirm.
+"stage0 slugs must be hyphenated" — 219 of 219 existing artifacts use underscores, zero use hyphens.
+"test methods need -> None" — 0 of 545 existing test methods are annotated.
+Following any of those three would have made my five files the only inconsistent ones in the repo.
+
+I also recorded the two code defects as dated correction notes in the affected reports rather than quietly editing the claims to become true — M3's report had asserted byte-identity that the code didn't deliver, and that's exactly the kind of thing this repo's discipline says to record.
+
+Once M4's artifact lands I'll run the full sweep and push to phase-l-gate — no new PR, so PR #2 picks the commits up automatically.
+
 -------
 ## [09]
 

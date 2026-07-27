@@ -412,6 +412,18 @@ def build_family_ancestry_report(
         ],
         "blocked_states": [
             CROSS_RUN_NOT_WELL_POSED,
+            "the statistic covers EVERY family in each run with >= 2 "
+            "members, not only the families common to all runs. Review "
+            "flagged the mismatch against the report's 'recurrent "
+            "families' framing and it is real but bounded: the "
+            "intersection here is 63 while the runs carry 63/64/64 "
+            "families, so at most ONE non-recurrent family per run "
+            "enters the mean and its null. It is recorded rather than "
+            "re-scored — restricting the statistic after seeing the "
+            "numbers is exactly the re-scoring this repo forbids (M1's "
+            "size-matched-control precedent), and the verdict is not "
+            "close to its bar at z +21.39 / +15.96 / +17.39. A "
+            "recurrent-only variant is named for whoever runs it next",
             "'convergent' is the NULL: it is an absence of evidence for "
             "common descent, never positive proof of convergence. The "
             "positive evidence is the distinct-founder count, reported "

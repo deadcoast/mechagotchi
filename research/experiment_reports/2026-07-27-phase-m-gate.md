@@ -141,17 +141,38 @@ Both are named for whoever runs them next rather than quietly fixed.
 
 ```powershell
 PS> python -B tools/ci/run_sweep.py
-...
-lab:map_elites_archive           OK  OK
-lab:architecture                 OK  OK
-package                          OK  OK
-cli                              OK  OK (skipped=15)
-game                             OK  OK (skipped=5)
-workshop                         OK  <sys>:0: ResourceWarning: unclosed <socket...>
-data artifacts                   OK  2240 JSON artifacts valid
+lab:animation_system             OK  OK  [12.6s]
+lab:architecture                 OK  OK  [18.9s]
+lab:asset_pipeline               OK  OK  [0.8s]
+lab:cellular_automata            OK  OK  [47.0s]
+lab:ctm_ticks                    OK  OK  [0.1s]
+lab:cubff_transducer             OK  OK  [0.7s]
+lab:datasets                     OK  OK  [3.3s]
+lab:game_loop                    OK  OK  [9.8s]
+lab:grid_genome                  OK  OK  [8.7s]
+lab:lifecycle_sim                OK  OK  [0.6s]
+lab:map_elites_archive           OK  OK  [90.3s]
+lab:micro_threads                OK  OK  [10.7s]
+lab:package_promotion            OK  OK  [0.2s]
+lab:readability_benchmark        OK  OK  [3.5s]
+lab:repair_boundary              OK  OK  [5.5s]
+lab:runtime_integration          OK  OK  [102.5s]
+lab:slip_validator               OK  OK  [0.7s]
+lab:wfc_grid                     OK  OK  [7.7s]
+lab:workshop_editor              OK  OK  [9.6s]
+package                          OK  OK  [8.6s]
+cli                              OK  OK (skipped=15)  [3.7s]
+game                             OK  OK (skipped=5)  [15.7s]
+workshop                         OK  <sys>:0: ResourceWarning: unclosed <socket.socket fd=312, family=2, type=1, proto=0, laddr=('127.0.0.1', 8268)>  [228.8s]
+data artifacts                   OK  2240 JSON artifacts valid  [0.7s]
 
 SWEEP GREEN
 ```
+
+*(A gate slice changes no code, so it carries no RED/GREEN pair of its
+own — the closing sweep is its verification, following the Phase-K and
+Phase-L gate precedent. The RED/GREEN blocks with pasted output live in
+the five slice reports this one consolidates.)*
 
 **19 lab suites + package 295 + workshop 92 + game 183 + CLI 23 —
 2,240 JSON artifacts, 0 invalid — SWEEP GREEN.**

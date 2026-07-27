@@ -146,6 +146,65 @@ class LoopAdmissionSeamTests(unittest.TestCase):
         explicit = run_evaluation_loop(slip_admission="none", **TINY)
         self.assertEqual(implicit, explicit)
 
+    def test_the_OFF_result_carries_no_arm_key_at_all(self):
+        # The pin the earlier draft was missing, and the reason review
+        # caught a real regression: comparing two calls to the NEW code
+        # cannot detect a key that both of them gained. "Byte-identical
+        # when off" means identical to what the loop returned BEFORE
+        # this arm existed, so the off-mode key set is frozen here and a
+        # future unconditional key fails this test.
+        off = run_evaluation_loop(**TINY)
+        self.assertEqual(
+            {
+                "archive",
+                "archive_summary",
+                "trajectory",
+                "evaluations_total",
+                "bootstrap_composition",
+                "elite_records",
+                "generation",
+                "elite_role_summary",
+            },
+            set(off),
+        )
+
+    def test_each_arm_adds_only_its_OWN_keys(self):
+        off = run_evaluation_loop(**TINY)
+        expected = {
+            "bootstrap": {"slip_admission", "bootstrap_admitted"},
+            "insertion": {"slip_admission", "bootstrap_admitted"},
+            "parents": {
+                "slip_admission",
+                "bootstrap_admitted",
+                "parent_fallback_generations",
+            },
+        }
+        for mode in ARMS:
+            with self.subTest(mode=mode):
+                on = run_evaluation_loop(slip_admission=mode, **TINY)
+                self.assertEqual(expected[mode], set(on) - set(off))
+
+    def test_the_bootstrap_arm_recomputes_its_COMPOSITION_after_filtering(self):
+        # Review caught this too: filtering the bootstrap without
+        # recomputing the composition reports a mix summing to the
+        # unfiltered population beside an admitted count that does not.
+        arm = run_evaluation_loop(slip_admission="bootstrap", **TINY)
+        composition = arm["bootstrap_composition"]
+        self.assertEqual(
+            arm["bootstrap_admitted"],
+            composition["constrained"] + composition["wfc"],
+        )
+        # ...and it must actually be smaller than the unfiltered mix,
+        # or the pin would pass vacuously on a profile that admits all.
+        off = run_evaluation_loop(**TINY)
+        self.assertLess(
+            arm["bootstrap_admitted"], off["evaluations_total"]
+        )
+        self.assertLessEqual(
+            composition["constrained"],
+            off["bootstrap_composition"]["constrained"],
+        )
+
     def test_an_unknown_mode_is_refused_loudly(self):
         with self.assertRaises(ValueError):
             run_evaluation_loop(slip_admission="whatever", **TINY)
@@ -156,9 +215,13 @@ class LoopAdmissionSeamTests(unittest.TestCase):
                 result = run_evaluation_loop(slip_admission=mode, **TINY)
                 self.assertEqual(mode, result["slip_admission"])
 
-    def test_the_off_mode_reports_none_and_adds_no_other_key(self):
+    def test_the_off_mode_names_no_arm_because_no_arm_ran(self):
+        # `None != [] != absent` — the off mode does not report
+        # `slip_admission: "none"`, it reports nothing, so a reader can
+        # never mistake "the incumbent ran" for "an arm ran and chose
+        # not to act".
         off = run_evaluation_loop(**TINY)
-        self.assertEqual("none", off["slip_admission"])
+        self.assertNotIn("slip_admission", off)
 
     def test_the_insertion_arm_admits_only_SLIP_LEGAL_elites(self):
         # The arm's whole claim. Measured on the archive it produced,

@@ -51,6 +51,7 @@ shown as uncalibrated or not shown at all.
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -157,6 +158,27 @@ print(json.dumps({
 """
 
 
+PROBE_TIMEOUT_S = 120
+
+
+def _probe_env() -> dict:
+    """Inherit the environment and EXTEND ``PYTHONPATH``, never replace it.
+
+    The repo's existing package-boundary probe
+    (`mecha_engine_scaffold_verification_gate._import_probe_env`) does
+    exactly this, and for good reason: replacing the whole environment
+    drops `PATH`, `HOME`, `LANG` and any virtualenv variables, so the
+    probe fails for reasons that have nothing to do with the engine it
+    is measuring — and hard-coding a platform key makes it non-portable.
+    """
+    env = os.environ.copy()
+    existing = env.get("PYTHONPATH")
+    env["PYTHONPATH"] = str(PACKAGE_SRC) + (
+        os.pathsep + existing if existing else ""
+    )
+    return env
+
+
 def _probe_engine() -> dict:
     """Measure the live engine through the package boundary.
 
@@ -165,13 +187,21 @@ def _probe_engine() -> dict:
     package, and this keeps the measurement honest rather than mocked.
     """
     seed = ROOT / "data" / "seed_grids_16x16" / "mg_seed16_001_beetle.json"
-    result = subprocess.run(
-        [sys.executable, "-B", "-c", _PROBE, str(seed)],
-        capture_output=True,
-        text=True,
-        env={"PYTHONPATH": str(PACKAGE_SRC), "SYSTEMROOT": "C:\\Windows"},
-        cwd=str(ROOT),
-    )
+    try:
+        result = subprocess.run(
+            [sys.executable, "-B", "-c", _PROBE, str(seed)],
+            capture_output=True,
+            text=True,
+            env=_probe_env(),
+            cwd=str(ROOT),
+            timeout=PROBE_TIMEOUT_S,
+        )
+    except subprocess.TimeoutExpired as error:
+        raise RuntimeError(
+            "the engine probe did not return within "
+            f"{PROBE_TIMEOUT_S}s; the survey refuses to report "
+            "dispositions it could not measure"
+        ) from error
     if result.returncode != 0:
         raise RuntimeError(
             "the engine probe failed; the survey refuses to report "
