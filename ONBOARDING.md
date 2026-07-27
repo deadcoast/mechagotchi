@@ -187,7 +187,7 @@ rewritten**. Every correction is a dated note beside the original.
 
 ### Cycle 23 · Phase M — the archive meets its own inhabitants
 
-`audits/TODO.md` is the live queue: **M1–M2 DONE (2026-07-27), M3–M6
+`audits/TODO.md` is the live queue: **M1–M3 DONE (2026-07-27), M4–M6
 open.** The spine
 is Phase L's unplanned finding, which arrived four separate times
 without anyone looking for it: **every instrument measures a different
@@ -310,17 +310,23 @@ in order (cycle 22's closed ladder is in §3 and its gate report):
    **comparability rule** — numbers measured in different geometries
    may not be read against each other, and any claim that does must be
    re-measured in one geometry before it is restated.
-3. **M3 · the unbreedable bootstrap elites** ← **THE NEXT TASK.** L1's
-   named fix, which **trades against coverage** (a niche whose only
-   occupant is SLIP-illegal goes empty if excluded). Three candidate
-   changes are not equivalent; measure each arm's cost, pre-register
-   the bar, and let refusal be first-class. **M1 measured the
-   denominator**: 48 of 460 elites (10.4%) are bootstrap creatures, so
-   a worst-case exclusion empties about a tenth of the archive.
-4. **M4 · ancestry versus morphology** — L2's named question, never
-   asked: do Phase E's **52 recurrent families** trace to common
-   ancestors, or converge from different founder lines? Convergence
-   would be a real ALife result, and it bears on Evolution Q3.
+3. **M3 · the unbreedable bootstrap elites** — **DONE 2026-07-27**
+   (`2026-07-27-slip-admission-arms.md`, **DR 0047**): **three fixes
+   that all work, and the one the rule picked is the worst of them.**
+   All three arms drive the 4,435-refusal tax to **zero** at a coverage
+   cost **below** the measured control, so L1's declined trade is
+   affordable. The tie-break picks `parents` — which is then the only
+   arm that **lowers quality** and **leaves all 35 illegal elites
+   seated**, while `bootstrap`/`insertion` raise mean elite fitness
+   3.8% and give a SLIP-clean archive. **The loop default is
+   WITHHELD**, with the reason measured. Measured along the way: the
+   covenant admits only **49 of 256** bootstrap creatures (19.1%), and
+   **35 of M1's 48 bootstrap elites are SLIP-illegal**.
+4. **M4 · ancestry versus morphology** ← **THE NEXT TASK.** L2's named
+   question, never asked: do Phase E's **52 recurrent families** trace
+   to common ancestors, or converge from different founder lines?
+   Convergence would be a real ALife result, and it bears on
+   Evolution Q3.
 5. **M5 · the documented visible companion state** — the GAME-track
    slice. `validity-research.md` §1.17 names eight visible axes;
    `happiness`, `cleanliness`, `mood`, `age` and `health` have no

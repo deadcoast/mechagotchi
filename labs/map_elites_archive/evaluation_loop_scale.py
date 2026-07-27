@@ -94,6 +94,8 @@ from wfc_population_throughput import (  # noqa: E402
     wfc_population,
 )
 
+from slip import is_grid_aligned  # noqa: E402
+
 from mecha_engine.generation import train_generation_model  # noqa: E402
 
 
@@ -162,6 +164,25 @@ def run_evaluation_loop(
     # already sits at depth 1). The loop collects; the instrument
     # derives. Additive and byte-identical when off.
     collect_elite_grids: bool = False,
+    # Cycle 23 M3 (an ARM set, judged by its own pre-registered gate —
+    # never a silent default change): L1 measured that 100% of the
+    # loop's generation refusals are the SLIP rejecting the PARENT, and
+    # that every such parent is a bootstrap creature the corpus
+    # generators built without ever being handed the profile. M1 sized
+    # them: 48 of 460 elites. The fix TRADES AGAINST COVERAGE — a niche
+    # whose only occupant is SLIP-illegal goes empty if that occupant is
+    # excluded — so the three candidate changes are separated here and
+    # measured, never blended:
+    #
+    #   "bootstrap" — admit only SLIP-legal creatures into the bootstrap
+    #   "insertion" — admit only SLIP-legal creatures into the ARCHIVE
+    #   "parents"   — keep the archive as-is, but breed only legal elites
+    #
+    # The predicate is the generation arm's own (`slip.is_grid_aligned`),
+    # imported and never re-implemented, so an arm cannot admit a
+    # creature the generator would refuse. "none" is the incumbent and
+    # is byte-identical (pinned).
+    slip_admission: str = "none",
 ) -> dict:
     """The full generational loop to the documented evaluation budget.
 
@@ -179,6 +200,11 @@ def run_evaluation_loop(
     if generation not in ("wfc", "constrained"):
         raise ValueError(
             f"generation must be wfc | constrained: {generation!r}"
+        )
+    if slip_admission not in ("none", "bootstrap", "insertion", "parents"):
+        raise ValueError(
+            "slip_admission must be none | bootstrap | insertion | "
+            f"parents: {slip_admission!r}"
         )
     edges = load_frozen_scale_edges()
     slip_profile = _load_default_slip()
@@ -211,6 +237,21 @@ def run_evaluation_loop(
     elite_grids: dict[str, dict] = {}
     evaluations = 0
 
+    # M3: the generation arm's OWN predicate, memoised per grid id. A
+    # second implementation could admit a creature `generate_candidate`
+    # would refuse, which would make every arm's number a fiction.
+    legality_cache: dict[str, bool] = {}
+
+    def _is_slip_legal(grid: dict) -> bool:
+        if slip_profile is None:
+            return True
+        grid_id = grid.get("grid_id")
+        cached = legality_cache.get(grid_id)
+        if cached is None:
+            cached = is_grid_aligned(grid, slip_profile).ok
+            legality_cache[grid_id] = cached
+        return cached
+
     def evaluate_and_insert(grid: dict, run_seed: int) -> None:
         nonlocal evaluations
         score = score_extended_candidate(
@@ -219,11 +260,17 @@ def run_evaluation_loop(
             lifecycle_ticks=lifecycle_ticks,
             rng_seed=run_seed,
         )
+        # The evaluation is SPENT whether or not the archive admits the
+        # creature: the budget is scored lifecycles, and letting a
+        # refused insertion buy an extra evaluation would compare the
+        # arms at different budgets.
+        evaluations += 1
+        if slip_admission == "insertion" and not _is_slip_legal(grid):
+            return
         descriptor = scale_descriptor_for_values(
             scale_axis_values(grid, slip_profile=slip_profile), edges
         )
         insert_scale_candidate(archive, grid, score, descriptor)
-        evaluations += 1
         event = archive["events"][-1]["event"]
         if event in ("inserted_empty_niche", "replaced_elite"):
             elite_grids[grid["grid_id"]] = grid
@@ -231,6 +278,18 @@ def run_evaluation_loop(
     bootstrap_population, bootstrap_composition = build_population(
         population, rng_seed, train, lab_train_wfc_model(train)
     )
+    bootstrap_admitted = len(bootstrap_population)
+    if slip_admission == "bootstrap":
+        bootstrap_population = [
+            grid for grid in bootstrap_population if _is_slip_legal(grid)
+        ]
+        bootstrap_admitted = len(bootstrap_population)
+        if not bootstrap_population:
+            raise ValueError(
+                "slip_admission='bootstrap' admitted no creatures: the "
+                "profile rejects the entire bootstrap population, so the "
+                "loop has nothing to seed the archive with"
+            )
     bootstrap_ids = {grid.get("grid_id") for grid in bootstrap_population}
     for index, grid in enumerate(bootstrap_population):
         evaluate_and_insert(grid, rng_seed + index)
@@ -239,9 +298,20 @@ def run_evaluation_loop(
     refusal_records: list[dict] = []
     generation_attempts = 0
     generation_index = 0
+    parent_fallback_generations = 0
     while evaluations < target_evaluations:
         generation_index += 1
         parents = parents_from_archive(archive, elite_grids)
+        if slip_admission == "parents":
+            breedable = [grid for grid in parents if _is_slip_legal(grid)]
+            if breedable:
+                parents = breedable
+            else:
+                # No legal elite exists yet. Falling back silently would
+                # reintroduce the very refusals this arm exists to
+                # remove and make its gate uninterpretable, so the
+                # fallback is COUNTED and rides in the result.
+                parent_fallback_generations += 1
         # DR 0040: novelty-first candidate selection — generation is
         # cheap, the SCORED budget is the bar. A novelty generation
         # collapses pool_factor x population, bins the pool with the
@@ -389,7 +459,16 @@ def run_evaluation_loop(
         "elite_records": elite_records,
         "generation": generation,
         "elite_role_summary": elite_role_summary,
+        # M3: the arm is named in the result the same way `generation`
+        # is — an arm is part of the run's identity, not an observation.
+        "slip_admission": slip_admission,
+        "bootstrap_admitted": bootstrap_admitted,
     }
+    if slip_admission == "parents":
+        # A rung-conditional key: it exists only when its arm ran, so a
+        # reader can never mistake "absent" for "zero" (the None != []
+        # != absent discipline).
+        result["parent_fallback_generations"] = parent_fallback_generations
     if collect_refusals:
         # The seam adds exactly ONE key, and only when asked (pinned).
         result["refusal_collection"] = {

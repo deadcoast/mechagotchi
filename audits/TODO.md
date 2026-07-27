@@ -103,15 +103,33 @@ DR 0021 (engine truth), DR 0029 (the geometry), DR 0042, DR 0045.
   **freeze the probe's edges** (the incumbent's protection, which the
   probe lacks) and **whether 600 determines the edges at all**. RED
   first; 20 pins.
-- [ ] **M3 · The unbreedable bootstrap elites.** L1's named fix,
-  deliberately not taken there because it **trades against coverage**.
-  Three candidate changes are NOT equivalent: filter the bootstrap
-  through the SLIP, refuse SLIP-illegal candidates at archive
-  insertion, or restrict parent selection to breedable elites. A niche
-  whose only occupant is SLIP-illegal goes EMPTY if that occupant is
-  excluded, so "fixing" the 7.2% could lower the 0.8984 the loop just
-  adopted. Measure each arm's coverage cost, pre-register the bar, and
-  let refusal be first-class.
+- [x] **M3 · The unbreedable bootstrap elites.** DONE 2026-07-27
+  (`2026-07-27-slip-admission-arms.md`, **DR 0047**): **three fixes that
+  all work — and the one the rule picked is the worst of them.**
+  Measured directly: the covenant admits only **49 of 256** bootstrap
+  creatures (19.1%), and **35 of the 48 bootstrap elites are
+  SLIP-illegal** (superseding L2's inferred "~23"). Three arms,
+  separated and never blended, sharing the generation arm's OWN
+  `is_grid_aligned` (imported, never re-implemented). Pre-registered:
+  **G1 refusals == exactly zero** (structural — L1 proved 100% of
+  refusals are SLIP-illegal parents, so a percentage bar would be a
+  number nobody derived); **G2 coverage cost ≤ the MEASURED seed-to-seed
+  control**; tie-break **least-invasive-first**, fixed in advance.
+  **All three arms drive 4,435 refusals to ZERO** (`parents` never
+  needing its fallback, so G1 is clean not rescued) **and every coverage
+  cost lands below the 0.033204 control** — L1's declined trade is
+  affordable. Tie-break → `parents`. **AND THE RANKING REVERSES ON WHAT
+  THE RULE DID NOT GATE**: `parents` is the **only arm that lowers
+  quality** (QD 404.618236 → 398.954451) and **leaves all 35 illegal
+  elites seated**, while `bootstrap`/`insertion` raise mean elite
+  fitness 3.8% (0.8796 → 0.913) and produce a **SLIP-clean archive**
+  for three more niches. The bar was **not** widened to capture it.
+  **DR 0047 ships all three as runnable arms and WITHHOLDS the loop
+  default change** — measured reason, not caution: the gate weighed two
+  dimensions and the arms separate on two others in the opposite order.
+  What would decide it is named (quality + archive legality
+  pre-registered alongside coverage, multi-seed; likely winner
+  `insertion`). RED first; 25 pins; archive lab 275 → 300 green.
 - [ ] **M4 · Ancestry versus morphology: do the recurrent families
   share ancestry?** L2's named question, never asked. Phase E measured
   **52 recurrent morphological families** by coarse-descriptor

@@ -170,6 +170,24 @@ documented gate, or determinism drift under the pinned seeds.
   committed 460 / 0.898438 / 404.618236 exactly, so the seam perturbs
   nothing by measurement as well as by pin. An INSTRUMENT: no geometry
   moved, nothing adopted, L4's verdict untouched.
+- **Cycle 23 M3 (2026-07-27, DR 0047)**: the loop gained the additive
+  `slip_admission` ARM set — `bootstrap` / `insertion` / `parents`,
+  byte-identical at `"none"` (pinned), the SLIP predicate being the
+  generation arm's own `is_grid_aligned` imported rather than
+  re-implemented. Measured: the covenant admits only **49 of 256**
+  bootstrap creatures (19.1%), and **35 of the 48 bootstrap elites are
+  SLIP-illegal**. **All three arms drive the 4,435-refusal tax to
+  ZERO** (G1, a structural bar), and **every coverage cost lands below
+  the measured 0.033204 control** — so L1's declined trade is
+  affordable. Tie-break (least invasive) → `parents`. **And the ranking
+  reverses on what the rule did not gate**: `parents` is the **only arm
+  that lowers quality** (QD 404.618236 → 398.954451) and **leaves all
+  35 illegal elites seated**, while `bootstrap` / `insertion` raise mean
+  elite fitness 3.8% (0.8796 → 0.913) and produce a SLIP-clean archive
+  for three more niches. **The loop default is NOT changed** — withheld
+  with the reason measured, because the gate weighed two dimensions and
+  the arms separate on two others in the opposite order. The incumbent
+  configuration's 460 / 0.898438 / 404.618236 stands untouched.
 
 ## Sources
 
@@ -181,6 +199,8 @@ documented gate, or determinism drift under the pinned seeds.
 - `labs/map_elites_archive/geometry_consistency.py` (+ `test_geometry_consistency.py`) · `data/archives/geometry_consistency_stage0.json` (the L3 instrument) · `research/experiment_reports/2026-07-26-geometry-consistency.md`
 - `labs/map_elites_archive/animation_density_axis.py` (+ `test_animation_density_axis.py`) · `data/archives/animation_density_axis_stage0.json` (the L4 candidate axis) · `research/experiment_reports/2026-07-26-animation-density-axis.md`
 - `labs/map_elites_archive/elite_population_measures.py` (+ `test_elite_population_measures.py`, 36 pins) · `data/archives/elite_population_measures_stage0.json` (the M1 instrument) · `research/experiment_reports/2026-07-27-elite-population-measures.md`
+- `labs/map_elites_archive/slip_admission_arms.py` (+ `test_slip_admission_arms.py`, 25 pins) · `data/archives/slip_admission_arms_stage0.json` (the M3 arms) · `research/experiment_reports/2026-07-27-slip-admission-arms.md` · `research/decision_records/0047-slip-admission-arms.md`
+- `labs/grid_genome/slip.py` (`is_grid_aligned` — the M3 arms' shared predicate, imported never re-implemented)
 - `research/experiment_reports/2026-07-09-evaluation-loop-scale.md`, `2026-07-21-generation-arm-loop.md`, `2026-07-26-generation-refusal-causes.md`, `2026-07-26-lineage-dominance.md`
 - `research/decision_records/0040-novelty-first-evolution-surface.md`, `0042-generation-layer-loop-revisit.md`
 - `docs/project-research/deep-research/01/deep-research.md`

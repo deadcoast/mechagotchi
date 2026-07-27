@@ -25,7 +25,7 @@ never rewritten).
 
 ## [Unreleased] — Cycle 23 · Phase M — "the archive meets its own inhabitants"
 
-*In progress. Queue: `audits/TODO.md` (M1–M2 done; M3–M6 open).*
+*In progress. Queue: `audits/TODO.md` (M1–M3 done; M4–M6 open).*
 
 Planned from Phase L's unplanned convergent finding — **every instrument
 measures a different population from the one the archive is actually
@@ -70,8 +70,23 @@ filled with** — plus the still-unmet documentation.
   historical number is retracted; the operative output is a
   **comparability rule**: numbers from different geometries may not be
   read against each other.
-- **M3** — the unbreedable bootstrap elites, whose fix trades against
-  coverage.
+- **M3 — DONE 2026-07-27 (DR 0047).** The unbreedable bootstrap elites:
+  **three fixes that all work, and the one the rule picked is the worst
+  of them.** Measured: the covenant admits only **49 of 256** bootstrap
+  creatures (19.1%); **35 of the 48 bootstrap elites are SLIP-illegal**.
+  All three arms drive the **4,435-refusal tax to zero**, and every
+  coverage cost lands **below** the measured 0.033204 control — so L1's
+  declined trade is affordable. The pre-registered tie-break picks
+  `parents`. **Then the ranking reverses on what the rule did not
+  gate**: `parents` is the only arm that **lowers quality** (QD
+  404.618236 → 398.954451) and **leaves all 35 illegal elites seated**,
+  while `bootstrap`/`insertion` raise mean elite fitness 3.8% and give a
+  **SLIP-clean archive** for three more niches. The bar was not widened.
+- **WITHHELD** — the loop default does **not** change (DR 0047). The
+  gate weighed refusals and coverage; the arms separate on archive
+  legality and quality in the opposite order, so promoting the gate's
+  winner would let a rule decide a question it did not ask. What would
+  decide it is named, not guessed.
 - **M4** — ancestry versus morphology: do Phase E's 52 recurrent
   families share ancestors, or converge from different founder lines?
 - **M5** — *(GAME track)* the documented visible companion state; five

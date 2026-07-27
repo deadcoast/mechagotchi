@@ -1,0 +1,195 @@
+{
+  "artifact_id": "slip_admission_arms_stage0",
+  "status": "stage0",
+  "date": "2026-07-27",
+  "purpose": "Cycle 23 M3: measure what each of the three candidate fixes for the unbreedable bootstrap elites COSTS in coverage, against a measured control, with refusal first-class \u2014 L1's named fix, deliberately not taken there because it trades against the coverage DR 0042 adopted.",
+  "source_artifacts": [
+    "data/archives/generation_refusal_causes_stage0.json",
+    "data/archives/elite_population_measures_stage0.json",
+    "data/archives/lineage_dominance_stage0.json",
+    "data/archives/generation_arm_evolution_stage0.json",
+    "data/archives/evaluation_loop_scale_stage0.json"
+  ],
+  "parameters": {
+    "population": 256,
+    "target_evaluations": 20480,
+    "rng_seed": 20260709,
+    "control_rng_seed": 21260712,
+    "lifecycle_ticks": 24,
+    "generation": "constrained (the DR 0042 adopted default)",
+    "selection": "novelty_first (the DR 0040 adopted default)",
+    "arms": [
+      "bootstrap",
+      "insertion",
+      "parents"
+    ],
+    "invasiveness_order": [
+      "parents",
+      "insertion",
+      "bootstrap"
+    ],
+    "slip_profile": "data/slips/valid/slip_lcd_seed.json"
+  },
+  "metrics": {
+    "baseline": {
+      "slip_admission": "none",
+      "occupied_niches": 460,
+      "coverage": 0.898438,
+      "qd_score": 404.618236,
+      "best_fitness": 0.971513,
+      "evaluations_total": 20681,
+      "generations_run": 80,
+      "refusals": 4435,
+      "generation_attempts_total": 61440,
+      "bootstrap_admitted": 256,
+      "elite_origin_counts": {
+        "bootstrap": 48,
+        "loop_offspring": 412
+      },
+      "slip_illegal_elites": 35
+    },
+    "baseline_control": {
+      "slip_admission": "none",
+      "occupied_niches": 443,
+      "coverage": 0.865234,
+      "qd_score": 388.057903,
+      "best_fitness": 0.960885,
+      "evaluations_total": 20701,
+      "generations_run": 80,
+      "refusals": 4400,
+      "generation_attempts_total": 61440,
+      "bootstrap_admitted": 256,
+      "elite_origin_counts": {
+        "bootstrap": 51,
+        "loop_offspring": 392
+      },
+      "slip_illegal_elites": 37
+    },
+    "coverage_control": 0.033204,
+    "arms": {
+      "bootstrap": {
+        "slip_admission": "bootstrap",
+        "occupied_niches": 451,
+        "coverage": 0.880859,
+        "qd_score": 411.886553,
+        "best_fitness": 0.971513,
+        "evaluations_total": 20529,
+        "generations_run": 80,
+        "refusals": 0,
+        "generation_attempts_total": 61440,
+        "bootstrap_admitted": 49,
+        "elite_origin_counts": {
+          "bootstrap": 14,
+          "loop_offspring": 437
+        },
+        "slip_illegal_elites": 0,
+        "coverage_cost": 0.017579,
+        "niches_lost": 9,
+        "refusals_removed": 4435,
+        "adoptable": true,
+        "failed_gates": [],
+        "cause_eliminated": true,
+        "coverage_preserved": true
+      },
+      "insertion": {
+        "slip_admission": "insertion",
+        "occupied_niches": 451,
+        "coverage": 0.880859,
+        "qd_score": 411.738214,
+        "best_fitness": 0.971513,
+        "evaluations_total": 20480,
+        "generations_run": 79,
+        "refusals": 0,
+        "generation_attempts_total": 60672,
+        "bootstrap_admitted": 256,
+        "elite_origin_counts": {
+          "bootstrap": 14,
+          "loop_offspring": 437
+        },
+        "slip_illegal_elites": 0,
+        "coverage_cost": 0.017579,
+        "niches_lost": 9,
+        "refusals_removed": 4435,
+        "adoptable": true,
+        "failed_gates": [],
+        "cause_eliminated": true,
+        "coverage_preserved": true
+      },
+      "parents": {
+        "slip_admission": "parents",
+        "occupied_niches": 454,
+        "coverage": 0.886719,
+        "qd_score": 398.954451,
+        "best_fitness": 0.971513,
+        "evaluations_total": 20480,
+        "generations_run": 79,
+        "refusals": 0,
+        "generation_attempts_total": 60672,
+        "bootstrap_admitted": 256,
+        "elite_origin_counts": {
+          "bootstrap": 48,
+          "loop_offspring": 406
+        },
+        "slip_illegal_elites": 35,
+        "parent_fallback_generations": 0,
+        "coverage_cost": 0.011719,
+        "niches_lost": 6,
+        "refusals_removed": 4435,
+        "adoptable": true,
+        "failed_gates": [],
+        "cause_eliminated": true,
+        "coverage_preserved": true
+      }
+    },
+    "wall_clock_s": 1914.665,
+    "pre_registered_bound_s": 6000.0,
+    "within_bound": true
+  },
+  "closed_states": [
+    "the three candidate fixes are separated and measured independently \u2014 never blended into one 'fix'",
+    "the coverage bar is the loop's own MEASURED seed-to-seed variation, not a constant",
+    "G1 is structural (exactly zero refusals), derived from L1's measured mechanism rather than picked as a percentage",
+    "the SLIP predicate is the generation arm's own, imported and never re-implemented, so no arm can admit a creature the generator would refuse",
+    "every arm's coverage cost is reported, including refused arms \u2014 a refused arm's cost is the evidence for refusing it"
+  ],
+  "blocked_states": [
+    "this module ADOPTS NOTHING: it measures the arms and applies the rule. Changing the loop's default is a decision record's job, and the incumbent stays runnable and byte-identical when the arm is off",
+    "one seed per arm against a two-seed control; a distributional claim about any arm's cost needs E4's ten-seed protocol",
+    "the arms are measured under ONE SLIP profile (slip_lcd_seed). A profile with a wider palette would reject fewer bootstrap creatures and could change every cost here \u2014 the numbers are this covenant's, not the mechanism's in general",
+    "coverage and QD are incumbent-geometry numbers (DR 0046's comparability rule): they may not be read against reachability or support counts, which live in the probe geometry"
+  ],
+  "decision": {
+    "adopted_arm": "parents",
+    "adoptable_arms": [
+      "bootstrap",
+      "insertion",
+      "parents"
+    ],
+    "coverage_control": 0.033204,
+    "per_arm": {
+      "bootstrap": {
+        "adoptable": true,
+        "failed_gates": [],
+        "refusals": 0,
+        "coverage_cost": 0.017579,
+        "niches_lost": 9
+      },
+      "insertion": {
+        "adoptable": true,
+        "failed_gates": [],
+        "refusals": 0,
+        "coverage_cost": 0.017579,
+        "niches_lost": 9
+      },
+      "parents": {
+        "adoptable": true,
+        "failed_gates": [],
+        "refusals": 0,
+        "coverage_cost": 0.011719,
+        "niches_lost": 6
+      }
+    },
+    "rule": "pre-registered (cycle 23 M3), refusal first-class: an arm is ADOPTABLE only if it passes BOTH gates. G1 \u2014 the cause is eliminated: refusals == exactly zero, a STRUCTURAL bar because L1 proved 100% of refusals are SLIP-illegal parents, so removing the cause must reach zero (a percentage-reduction bar would be a number nobody derived). G2 \u2014 coverage is preserved: the arm's coverage cost must not exceed the MEASURED coverage control, the loop's own seed-to-seed variation measured by running the incumbent at two seeds, never a constant; a coverage GAIN is never penalised. Among passing arms the winner is the least invasive (parents < insertion < bootstrap), fixed before the run. This module adopts nothing: changing the loop's default is a decision record's job."
+  },
+  "next_research_step": "M4: ancestry versus morphology \u2014 do Phase E's 52 recurrent families share ancestors, or converge from different founder lines? (Evolution Q3.)"
+}
