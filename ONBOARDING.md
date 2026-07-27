@@ -187,7 +187,7 @@ rewritten**. Every correction is a dated note beside the original.
 
 ### Cycle 23 · Phase M — the archive meets its own inhabitants
 
-`audits/TODO.md` is the live queue: **M1 DONE (2026-07-27), M2–M6
+`audits/TODO.md` is the live queue: **M1–M2 DONE (2026-07-27), M3–M6
 open.** The spine
 is Phase L's unplanned finding, which arrived four separate times
 without anyone looking for it: **every instrument measures a different
@@ -292,18 +292,31 @@ in order (cycle 22's closed ladder is in §3 and its gate report):
    on the elites; and L4's A3/A4 are **structurally undefined** here
    (one elite per niche), corrected by a dated note beside L4's
    original.
-2. **M2 · the geometry split, decided** ← **THE NEXT TASK.** L3's named
-   gated record.
-   Converge on one calibration population, or freeze the split
-   explicitly with its reason and a rule about which numbers may be
-   compared. Either way, state plainly what prior coverage numbers do
-   and do not mean afterwards; every historical artifact stays true
-   under the edges it was measured with.
-3. **M3 · the unbreedable bootstrap elites** — L1's named fix, which
-   **trades against coverage** (a niche whose only occupant is
-   SLIP-illegal goes empty if excluded). Three candidate changes are
-   not equivalent; measure each arm's cost, pre-register the bar, and
-   let refusal be first-class.
+2. **M2 · the geometry split, decided** — **DONE 2026-07-27**
+   (`2026-07-27-geometry-decision.md`, **DR 0046**): **`freeze_split`,
+   convergence refused on the measurement — the split was not the
+   disease.** Measured in *addresses* rather than edge distance:
+   disagreement 0.360000 vs a measured control of 0.310333 (ratio
+   1.16 against a 2.0 bar). The control is the finding — the probe
+   recipe disagrees with **itself** at another seed on **31%** of the
+   population, the incumbent on 20%, so the two geometries are two
+   draws from a noisy edge-derivation process and converging them
+   would fix nothing. Localised to `visual_complexity`, whose octile
+   edges sit in a ~0.046-wide band (K3's measure-thinness, in
+   addresses). K2's "460 = exactly the ceiling" resolved: **460 probe
+   vs 456 incumbent**, not equal. Named follow-on: **freeze the
+   probe's edges**, and whether 600 determines the edges at all. No
+   historical number is retracted; the operative output is DR 0046's
+   **comparability rule** — numbers measured in different geometries
+   may not be read against each other, and any claim that does must be
+   re-measured in one geometry before it is restated.
+3. **M3 · the unbreedable bootstrap elites** ← **THE NEXT TASK.** L1's
+   named fix, which **trades against coverage** (a niche whose only
+   occupant is SLIP-illegal goes empty if excluded). Three candidate
+   changes are not equivalent; measure each arm's cost, pre-register
+   the bar, and let refusal be first-class. **M1 measured the
+   denominator**: 48 of 460 elites (10.4%) are bootstrap creatures, so
+   a worst-case exclusion empties about a tenth of the archive.
 4. **M4 · ancestry versus morphology** — L2's named question, never
    asked: do Phase E's **52 recurrent families** trace to common
    ancestors, or converge from different founder lines? Convergence

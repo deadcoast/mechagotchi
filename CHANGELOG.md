@@ -25,7 +25,7 @@ never rewritten).
 
 ## [Unreleased] — Cycle 23 · Phase M — "the archive meets its own inhabitants"
 
-*In progress. Queue: `audits/TODO.md` (M1 done; M2–M6 open).*
+*In progress. Queue: `audits/TODO.md` (M1–M2 done; M3–M6 open).*
 
 Planned from Phase L's unplanned convergent finding — **every instrument
 measures a different population from the one the archive is actually
@@ -49,7 +49,27 @@ filled with** — plus the still-unmet documentation.
   un-run on the elites but **structurally undefined**: one elite per
   niche means the same-bin denominator is measured at 0 and
   `occupied_4 == occupied_3` for any fourth axis. No number substituted.
-- **M2** — decide the two-geometry split by decision record.
+- **M2 — DONE 2026-07-27 (DR 0046).** The two-geometry split
+  **frozen, convergence REFUSED on the measurement** — and the split
+  turned out not to be the disease. Measured in the unit ledger numbers
+  actually use (**address changes**, not edge distance): disagreement
+  **0.360000** against a *measured* control of **0.310333** → ratio
+  **1.16** vs a 2.0 bar. The control is the finding: re-deriving the
+  **probe** recipe at another seed reassigns **31%** of the population,
+  the **incumbent** **20%** — the two geometries differ barely more
+  than either differs from a resampled copy of itself, so they are two
+  draws from a noisy edge-derivation process and converging them would
+  have fixed nothing. Localised to **`visual_complexity`** (0.2647 of
+  address changes), whose seven octile edges sit in a ~0.046-wide band
+  — K3's measure-thinness, now measured in addresses.
+- **CORRECTED (K2's cross-geometry claim, sharpened).** Counted over
+  one population the support ceiling is **460 (probe) vs 456
+  (incumbent)**. L3 recorded the identity as *not established*; M2
+  records the numbers as **not equal** — the match at 460 was a
+  coincidence across a geometry **and** a population boundary. No
+  historical number is retracted; the operative output is a
+  **comparability rule**: numbers from different geometries may not be
+  read against each other.
 - **M3** — the unbreedable bootstrap elites, whose fix trades against
   coverage.
 - **M4** — ancestry versus morphology: do Phase E's 52 recurrent

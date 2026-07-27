@@ -49,7 +49,21 @@ candidate stream is known to reach.
 > sets differ by up to 0.0375 — 3.7× the measured sampling control. The
 > two numbers coincide, but they are counted in different coordinate
 > systems, so the coincidence is not an established identity. Neither
-> artifact is wrong; reading across them is what this note corrects. Both arms' elites span the full
+> artifact is wrong; reading across them is what this note corrects.
+>
+> **SHARPENED 2026-07-27** (cycle 23 M2 —
+> `2026-07-27-geometry-decision.md`, DR 0046): the coincidence does not
+> survive being measured in one geometry. Counted over a single
+> population under the **incumbent** edges the support ceiling is
+> **456**, against **460** under the probe edges — so the match at 460
+> was a coincidence across **two** boundaries, not one: a different
+> geometry *and* a different population (the ceiling is counted over a
+> 3,000-creature evaluation population, the occupied 460 over the
+> loop's 20,480 evaluations). L3 recorded that the identity was *not
+> established*; M2 records that the two numbers are **not equal** once
+> either mismatch is removed. The original claim above stands as what
+> K2 measured, and both artifacts remain true under the edges and
+> populations they were measured with. Both arms' elites span the full
 role palette, motion-trio elite fraction 1.0.
 
 **The honest number**: the constrained arm logged **4,435 generation

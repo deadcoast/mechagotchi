@@ -69,18 +69,40 @@ DR 0021 (engine truth), DR 0029 (the geometry), DR 0042, DR 0045.
   committed 460 / 0.898438 / 404.618236 exactly. RED first; 36 pins;
   archive lab 219 → 255 green. An INSTRUMENT: no geometry moved,
   nothing adopted, L4's verdict untouched.
-- [ ] **M2 · The geometry split, decided.** L3's named gated record.
-  The repo runs two scale geometries — frozen train-derived (the loop,
-  the E4 gates) and live all-seeds (the probe, the occupancy
-  instrument) — differing by 3.7× the measured sampling control, and
-  their numbers have been read against each other in prose. Decide it
-  by DR: converge on one calibration population, or **freeze the split
-  explicitly with its reason and a rule about which numbers may be
-  compared**. Either way the record must state plainly what prior
-  coverage numbers do and do not mean afterwards, and every historical
-  artifact stays true under the edges it was measured with. If the
-  geometry moves, re-run K3's blocking-axis instrument on the four
-  bounded bins under the decision.
+- [x] **M2 · The geometry split, decided.** DONE 2026-07-27
+  (`2026-07-27-geometry-decision.md`, **DR 0046**): **`freeze_split`,
+  and the split was NOT the disease.** L3's statistic could not decide
+  this — edge distance is not the unit any ledger number is expressed
+  in — so M2 measured the split in **addresses**: the fraction of one
+  population landing in a different niche under the two geometries.
+  Pre-registered, status-quo-favouring, direction fixed in advance
+  (`CONVERGENCE_TARGET = "incumbent"` pinned with its reason, so the
+  measurement could decide *whether* but never *which way*).
+  **Disagreement 0.360000 against a MEASURED control of 0.310333 →
+  ratio 1.16 vs the 2.0 bar.** The verdict is driven by an enormous
+  control: re-deriving the **probe** recipe at another seed reassigns
+  **31%** of the population, the **incumbent** **20%** — so the two
+  geometries differ from each other barely more than either differs
+  from a resampled copy of itself. **They are two draws from a noisy
+  edge-derivation process, not two principled coordinate systems**, and
+  convergence is **refused on the measurement** because it would have
+  picked one draw over another and fixed nothing. Mechanism localised:
+  `visual_complexity` carries it (0.2647 vs 0.0537 / 0.0790), its seven
+  interior edges packed in a ~0.046-wide band — **K3's measure-thinness
+  and L3's own band, now in addresses**, so the real defect is that
+  that axis's octiles are **not determined by a 600-creature
+  derivation**. **K2's cross-geometry claim resolved**: the support
+  ceiling is **460 (probe, reproducing the committed artifact exactly)
+  vs 456 (incumbent)** — L3 said the identity was *not established*,
+  M2 says the numbers are **not equal**, the match having been a
+  coincidence across a geometry **and** a population boundary; dated
+  note added beside K2's original. **K3's blocking-axis re-run
+  correctly NOT triggered** (the geometry did not move) and the
+  non-firing recorded. No historical number retracted; the operative
+  output is the comparability rule. Named follow-on, not smuggled in:
+  **freeze the probe's edges** (the incumbent's protection, which the
+  probe lacks) and **whether 600 determines the edges at all**. RED
+  first; 20 pins.
 - [ ] **M3 · The unbreedable bootstrap elites.** L1's named fix,
   deliberately not taken there because it **trades against coverage**.
   Three candidate changes are NOT equivalent: filter the bootstrap
