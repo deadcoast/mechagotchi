@@ -555,11 +555,6 @@ documentation and the recorded remainders.
 
 ### The branch and merge rule
 
-The old version of this section said *"PR back to `main` at the gate"*
-and *"never push or merge unasked"* — a contradiction. The second won
-every time, and cycles 22 and 23 both ended up stranded off `main`.
-The second rule is deleted.
-
 **At gate close: merge into `main`, push, bring the branch level with
 `main`.** Do not ask. Do not continue on a branch while its PR is open —
 the merge takes a snapshot and everything after it is stranded again.
