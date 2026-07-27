@@ -100,7 +100,7 @@
       "stale_prose_note": "Documents across research/ state 52. The committed artifact says 54: the count moved when the DR 0038 vocabulary regenerated E4's elite rosters (commit f8c171b's own message records 'recurrent families 52 -> 54'), and the prose was never updated. The historical documents stay true as what they measured under the pre-DR-0038 vocabulary; dated notes now sit beside them."
     },
     "recurrent_families_in_this_study": 63,
-    "wall_clock_s": 1070.396,
+    "wall_clock_s": 657.564,
     "pre_registered_bound_s": 3600.0,
     "within_bound": true
   },
@@ -113,6 +113,7 @@
   ],
   "blocked_states": [
     "Asking whether recurrent families share ancestry ACROSS runs is not well posed, and that is a structural fact rather than a budget limit: every run builds its own bootstrap population, so a founder id in one run is not the same object as a founder id in another and the ancestry spaces are disjoint. Families recur MORPHOLOGICALLY; their ancestry cannot recur, because there is no shared ancestor pool for it to recur in. The question is therefore asked WITHIN each run and its answer compared across runs.",
+    "the statistic covers EVERY family in each run with >= 2 members, not only the families common to all runs. Review flagged the mismatch against the report's 'recurrent families' framing and it is real but bounded: the intersection here is 63 while the runs carry 63/64/64 families, so at most ONE non-recurrent family per run enters the mean and its null. It is recorded rather than re-scored \u2014 restricting the statistic after seeing the numbers is exactly the re-scoring this repo forbids (M1's size-matched-control precedent), and the verdict is not close to its bar at z +21.39 / +15.96 / +17.39. A recurrent-only variant is named for whoever runs it next",
     "'convergent' is the NULL: it is an absence of evidence for common descent, never positive proof of convergence. The positive evidence is the distinct-founder count, reported separately and never folded into the verdict",
     "a coarse family is E5's 4x4x4 cell, which is a descriptor region rather than a visually-verified morphological type; whether members of one cell look alike to a human is the owner-deferred survey's question and no proxy is offered",
     "DR 0046's comparability rule applies: these descriptors are incumbent-geometry addresses and may not be read against probe-geometry counts"

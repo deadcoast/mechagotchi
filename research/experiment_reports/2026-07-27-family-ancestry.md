@@ -194,7 +194,11 @@ OK
 ```
 
 The lab invocation that produced the artifact (three documented-budget
-loops; wall clock **1070.396 s** against the **derived** 3600 s bound):
+loops; wall clock **657.564 s** against the **derived** 3600 s bound —
+the study was re-run to record the scope note in remainder 2, and
+**every measured value reproduced identically**; only the wall clock
+differs, which it does by construction as a per-run observation, the
+first run having measured 1070.396 s on a busier machine):
 
 ```powershell
 PS> python -B labs/map_elites_archive/family_ancestry.py
