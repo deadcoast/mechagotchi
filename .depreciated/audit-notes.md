@@ -178,8 +178,150 @@ Cycle 22 has one task left: L6, the Phase-L gate — consolidate L1–L5, archiv
 -------
 ## [07]
 
+> {"id":"claude-opus-5"}
+
+```text
+I'll wait for the sweep rather than poll it.
+
+M1 is complete and documented; the full sweep is the last gate before I commit it and move to M2.
+
+What shipped:
+
+Code — elite_population_measures.py + 36 pins, and the loop's third additive observation seam collect_elite_grids (byte-identical when off, proven alone and composed with L2's seam).
+Evidence — data/archives/elite_population_measures_stage0.json, JSON-valid, produced twice with every measured value identical.
+Docs, same change — the experiment report with RED/GREEN/lab-invocation verification blocks and pasted output; the algorithm-card Evolution entry; the research/README.md ledger entry; the TODO check-off; CHANGELOG and ONBOARDING state lines; and a dated note beside L4's original remainder rather than a rewrite of it.
+The result worth flagging: M1 partly deflated the premise its own cycle was planned on. Phase M was built on "every instrument measures a different population from the one the archive is filled with," and for the three incumbent descriptor axes that difference does not clear a measured bar — highest ratio 1.70 against 2.0. I recorded that as a deflation rather than dressing it up, and I did not widen the bar to capture the one visible shape (the depleted top symmetry octiles, 48 and 28 against a flat ~57). That stays "suggestive, not established."
+
+The finding I'd carry forward is methodological and it was measured, not argued: requiring a control for both population types — the expensive one being a second full loop — is what stopped animation_density being reported as a decisive material difference at 5.14× the bar. Against the correct control it's 0.85. The cheap-control design would have published a false positive, and the axis that looked most different turned out to be the least trustworthy.
+
+Two things this hands directly to later tasks: M3's denominator is now exact (48 of 460 elites, 10.4%, are bootstrap creatures — so the fix it must gate trades against about a tenth of coverage in the worst case), and L4's A2 independence margin halves on the archive's real inhabitants (max |r| 0.173 → 0.350, still inside its bar) — a reason for the deferred human panel to look harder, not a machine substitute for it.
+
+One limit I chose not to fix: TVD's finite-sample bias, with the derivation-vs-elite comparison mixing sizes (600 vs 460). Correcting it now would mean changing the statistic after seeing the numbers, which this repo forbids — so it ships as a named remainder, and it cuts toward smaller true differences, so it doesn't threaten the verdict.
+
+Next after the commit: M2 — the geometry split, decided by record, which is a DR-bearing slice rather than an instrument.
+```
+
 -------
 ## [08]
+
+Corrections placed beside the originals in four primary carriers (E5 report, E5 card, DR 0032, Phase-E gate) — none rewritten. The M4 study is running.
+
+The stale-count finding, before the study even returns: every prose surface in research/ says 52 recurrent families; the committed artifact says 54, with per-run counts 57–58 rather than 53–56. Commit f8c171b's own message records "recurrent families 52 → 54" — the artifact regenerated when the DR 0038 vocabulary landed, and the documents never followed. So 52 propagated into the Phase-E gate, DR 0032, the repertoire-browser report, L2, the Phase-L gate, audits/TODO.md and gap-analysis.md. The gate verdict is unchanged (met, by a wider margin); only the figure is stale. It surfaced because M4 reads the count from the artifact rather than quoting prose — which is now a pinned property of the module.
+
+M4 also had to reshape its own question before it could answer it. L2 asked whether recurrent families share ancestry across runs. That turns out not to be well posed: every run builds its own bootstrap, so a founder id in one run isn't the same object as a founder id in another — the ancestry spaces are disjoint. Families recur morphologically; their ancestry cannot recur, because there's no shared ancestor pool for it to recur in. The answerable question is asked within each run and compared across runs.
+
+Design notes, pre-registered: the statistic is mean largest-founder share over families with ≥2 members (single-member families excluded and counted — their share is 1.0 by construction and would manufacture common descent out of arithmetic); the null is measured by permuting founder labels with both marginals preserved, so the null differs from the observation only in the pairing; convergent is explicitly the null, an absence of evidence for common descent rather than proof of convergence, with the positive evidence (distinct founders per family) reported separately and never folded into the verdict. Both the family rule and the founder rule are imported from the instruments that own them.
+
+One more pin failure worth recording: at the boundary, z computes to 1.9999999999999996 but reports as 2.0 — so the verdict would have contradicted its own published number. I judge on the rounded value, following the L2 precedent where a pin asserting float rounding rather than a measurement was replaced.
+
+///
+
+M4's answer to L2's question is "both, and here's how much of each" — which is a better result than either single answer would have been.
+
+The question needed reshaping before it could be answered at all: asking whether recurrent families share ancestry across runs turns out to be not well posed, structurally rather than for budget. Every run builds its own bootstrap, so a founder id in one run isn't the same object as one in another — the ancestry spaces are disjoint. Families recur morphologically; their ancestry cannot recur, because there's no shared ancestor pool for it to recur in.
+
+Asked within each run against a measured permutation null (founder labels shuffled, both marginals preserved, so the null differs only in the pairing):
+
+```plaintext
+seed	share	null	z	verdict
+20260709	0.543184	0.341331 ± 0.009436	+21.39	common_descent
+20260710	0.608161	0.450059 ± 0.009906	+15.96	common_descent
+20260711	0.540681	0.343126 ± 0.011357	+17.39	common_descent
+```
+
+Consistent across all three seeds. Evolution Q3 — "can lineage continuity be measured independently from visual novelty?" — has a measured answer, and it is no. They're coupled.
+
+But the magnitude needs reading carefully, and I've said so plainly in the report: the z values are large because the null is tight (±0.009–0.011 over 200 rounds), not because the effect is near-total. Treating z as an effect size would be exactly the "beware the statistic" error this repo has been burned by. The excess is ~0.16–0.20 — about 29–31% of the way from chance to pure lineage determination (a rescaling I computed after the run and labelled as outside the gate).
+
+And the convergence half is real: a typical family holds 2.84–3.30 distinct founder lines, up to 7. The same coarse morphology is reached from multiple independent lines. The distinct-founder count was deliberately never allowed into the verdict — which is precisely what keeps that half visible. A rule that could only return one answer would have hidden the other.
+
+The stale-count finding came free: prose everywhere says 52 recurrent families; the artifact says 54. Commit f8c171b records "52 → 54" when the DR 0038 vocabulary regenerated E4's rosters — the artifact moved, the documents didn't, and 52 propagated into seven places. Dated notes now sit beside the four primary carriers; nothing retracted, gate verdict unchanged (met by a wider margin). It surfaced only because the module reads the count from the artifact instead of quoting prose, now a pinned property.
+
+Also recorded: a second pin failure fixed as a pin, not code. At the boundary z computes to 1.9999999999999996 but reports as 2.0 — the verdict would have contradicted its own published number. It now judges on the rounded value, following L2's precedent.
+
+Next after the commit: M5 — the documented visible companion state, the GAME-track slice, where five of eight documented visible axes have no engine field.
+
+///
+
+M5's result is that the task's own premise was wrong, and the honest move was to build nothing.
+
+The charter said survey each axis honestly before building. So the instrument measures rather than asserts — every disposition comes from a real lifecycle state on a committed seed creature, through the package boundary. A survey that read the document and reported what the document said would have reproduced exactly the error it exists to correct.
+
+```plaintext
+hunger       lifecycle_field        0.374
+happiness    absent                 —
+energy       lifecycle_field        0.68
+cleanliness  absent                 —
+mood         derived_engine_value   curious
+age          lifecycle_field        0
+health       absent                 —
+bond         lifecycle_field        0.6075
+```
+
+prior claim: 5 absent (happiness, cleanliness, mood, age, health)
+measured   : 3 absent (happiness, cleanliness, health)
+age is a lifecycle field (age_ticks, set at construction, incremented every tick, reported as survival_ticks) and mood is a derived engine value (select_animation_state returns (animation, mood), since Phase C) — and the game already displays both (app.py:316, session.py:149/156). The earlier survey counted lifecycle homeostasis fields, which is a narrower question than "has an engine field." So two axes that are engine truth and already on the player's screen were recorded as the repo's largest player-facing gap.
+
+The substantive result is that the three real gaps are three different kinds of gap — which is precisely why "build a visible-state panel" would have been wrong:
+
+happiness has no definition. Named in the documentation, never defined. bond is a separate documented axis, not a synonym. Any number today is invented.
+cleanliness has no mechanic. The action set is feed/play/sleep/idle/mutate — there is no clean action — and no state accumulates dirt. It needs a need, a decay, an action, and its policy/reward interaction. Treating it as a missing field would understate it by an order of magnitude.
+health is definable, but only as a CHOSEN definition. grid_stability and per-cell damage exist and move — but both are documented HIDDEN axes, so surfacing either as health promotes a hidden axis to a visible one, and any composite needs weights nobody documented.
+DR 0048 builds nothing, and that's the finding: happiness/cleanliness out of scope, health withheld pending its own gate on the L4 precedent — including on whether a player-facing "health" that is really grid-stability is honest labelling or a euphemism. Building the panel would have invented two numbers and mislabelled a third, which DR 0021's first law forbids.
+
+This is the third overstated claim this cycle has caught — after M1's understated L4 remainder and M4's stale 52-vs-54 count — and like both, it was found by reading the engine instead of the prose. A dated note sits beside the Phase-L gate's remainder 7; the Phase-K gate originated the survey but doesn't state the count, so I corrected my own Sources line rather than claim a note there.
+
+Sweep running. After the commit, M6 — the Phase-M gate closes the cycle.
+
+///
+
+Cycle 23 · Phase M is written up and cycle 24 is planned. M6 delivered:
+
+The gate report — 2026-07-27-phase-m-gate.md, the consolidated ladder M1–M5.
+Cycle 23 archived to audits/complete/23/TODO.md (via git mv, history kept).
+Cycle 24 planned from the documentation — audits/TODO.md, Phase N, N1–N6.
+State docs refreshed: CHANGELOG.md (cycle 23 dated and closed, cycle 24 opened), ONBOARDING.md §3/§4 per its own gate-time convention, CLAUDE.md, and the research/README.md ledger entry.
+The cycle's honest character, which I recorded as the finding rather than as a footnote: Phase L audited its own numbers; Phase M audited its own sentences. Three of five slices found a claim in the repo's own prose was wrong — L4's remainder understated (A3/A4 are impossible, not un-run), the recurrent-family count stale (prose 52, artifact 54 since f8c171b), the visible-state gap overstated (five → three, two already on screen). Each was found the same way: by reading the engine instead of the document. Every correction is a dated note beside the original; in all three cases the underlying verdict was unchanged or strengthened.
+
+The gates held in both directions, again. M1's could have fired and didn't. M2 had convergence available and refused it on the measurement. M3 found three adoptable arms and still withheld the default. M5 was chartered to build a player-facing feature and built nothing.
+
+I also recorded two limitations of this cycle's own pre-registrations rather than quietly repairing them: M3 never gated QD (which moved in both directions across the arms), and M1's TVD carries a finite-sample bias with mixed sample sizes — a size-matched control was deliberately not run, because changing a statistic after seeing its numbers is re-scoring.
+
+Cycle 24 · Phase N — "the descriptor space earns its edges" is planned from Phase M's deepest finding: the octile edges are not determined by a 600-creature derivation. visual_complexity re-addresses 26% of the population on a resample, with its seven edges inside a 0.046-wide band — a defect underneath every coverage number in the ledger. N1 measures whether the derivation protocol is sound at all; N2 freezes the probe's edges; N3 is deliberately non-archive (the micro-learner conditions E/F/G, documented and unmet since cycle 12) because cycles 22 and 23 were both archive-heavy and the anti-periscope rule applies to me too; N4 and N5 pay the debts DR 0047 and DR 0048 explicitly asked for, N5 on the GAME track.
+
+Once the sweep confirms green I'll commit M6 and the cycle-24 plan, then start N1.
+
+///
+
+Cycle 23 · Phase M is closed and green. Six commits, six tasks, three new decision records, and a full sweep at the gate.
+
+What shipped
+slice	outcome
+M1	archive measured on its own inhabitants	within_sampling_noise — the cycle's own premise partly deflated
+M2	the geometry split, decided	DR 0046 — frozen; convergence refused on the measurement
+M3	the unbreedable bootstrap elites	DR 0047 — three arms adoptable; loop default withheld
+M4	ancestry versus morphology	Evolution Q3 answered no — and both halves reported
+M5	the documented visible companion state	DR 0048 — surveyed, and nothing built
+M6	the Phase-M gate	SWEEP GREEN, 2,240 artifacts, 0 invalid
+Labs grew 219 → 319 (archive) and 14 → 27 (architecture). Ledger: 261 reports, 77 cards, 48 records.
+
+The thing worth telling you plainly
+Phase L audited its own numbers. Phase M audited its own sentences — and the prose lost three times. L4's remainder was understated (A3/A4 on elites aren't un-run, they're structurally impossible). The recurrent-family count was stale — every document said 52, the artifact has said 54 since f8c171b regenerated it. The visible-state gap was overstated — five became three, and two of the "missing" axes were already on the player's screen.
+
+All three were found the same way: by reading the engine instead of the document. For a project whose documentation is the deliverable, that gap between what was measured and what was written down is worth knowing about. Every correction is a dated note beside the original — nothing rewritten, and in all three cases the underlying verdict held or strengthened.
+
+The gates also kept refusing things, which is the evidence they're real: M1's could have fired and didn't; M2 had convergence available and turned it down on the measurement; M3 found three adoptable arms and still withheld the default because they separate on dimensions the gate never weighed; M5 was chartered to build a player-facing feature and built nothing, because the panel would have invented two numbers and mislabelled a third.
+
+I also recorded two weaknesses in my own pre-registrations rather than quietly patching them: M3 never gated QD (which moved both directions), and M1's TVD mixes sample sizes — a size-matched control was deliberately not run, because changing a statistic after seeing its numbers is re-scoring.
+
+Cycle 24 is planned and ready
+Phase N — "the descriptor space earns its edges." The spine is M2's deepest finding: the octile edges aren't determined by a 600-creature derivation — visual_complexity re-addresses 26% of the population on a mere resample, with its seven edges inside a 0.046-wide band. That sits underneath every coverage number in the repo.
+
+N1 measures whether the derivation protocol is sound at all; N2 freezes the probe's edges; N3 is deliberately non-archive (the micro-learner conditions E/F/G, documented and unmet since cycle 12) because two cycles running have been archive-heavy and the anti-periscope rule applies to me too; N4 and N5 pay the debts DR 0047 and DR 0048 explicitly asked for, N5 on the GAME track.
+
+Nothing is pushed — the branch is phase-l-gate, six commits ahead, awaiting your call on that. Next up is N1 unless you'd rather redirect.
+
+///
 
 -------
 ## [09]

@@ -61,6 +61,13 @@ Repo Apache-2.0 (DR 0028); stdlib only.
 52 recurrent families across all ten runs vs the documented ≥5 (met
 10×); per-run occupied-family counts stable at 53–56 of 64.
 
+> **SUPERSEDED BY REGENERATION, noted 2026-07-27** (cycle 23 M4): the
+> committed artifact says **54**, per-run counts **57–58**. The figures
+> above are the pre-DR-0038 vocabulary's; the artifact regenerated with
+> E4's rosters at commit `f8c171b` (*"recurrent families 52 → 54"*) and
+> the prose was never updated. The gate verdict is unchanged (met, by a
+> wider margin). See `research/experiment_reports/2026-07-27-family-ancestry.md`.
+
 ## Decision
 
 **adopt** (the species-memory clause is measured and MET; feeds the

@@ -1,0 +1,132 @@
+{
+  "artifact_id": "geometry_decision_stage0",
+  "status": "stage0",
+  "date": "2026-07-27",
+  "purpose": "Cycle 23 M2: decide L3's two-geometry split by measuring it in the unit ledger numbers are counted in \u2014 the fraction of one population that changes descriptor address between the geometries \u2014 against a MEASURED control, with the direction of convergence fixed before the run.",
+  "source_artifacts": [
+    "data/archives/geometry_consistency_stage0.json",
+    "data/archives/niche_scale_archive_stage0.json",
+    "data/archives/occupancy_saturation_stage0.json",
+    "data/archives/reachability_probe_stage0.json",
+    "data/archives/reachability_escalation_stage0.json",
+    "data/archives/evaluation_loop_scale_stage0.json",
+    "data/archives/elite_population_measures_stage0.json"
+  ],
+  "parameters": {
+    "derivation_count": 600,
+    "evaluation_count": 3000,
+    "rng_seed": 20260709,
+    "control_rng_seed": 21260712,
+    "population_composition": {
+      "constrained": 1500,
+      "wfc": 1500
+    },
+    "recipes": {
+      "incumbent": "build_population(N, seed, TRAIN, wfc_model) \u2014 frozen and committed; consumed by evaluation_loop_scale and coverage_qd_gates via load_frozen_scale_edges",
+      "probe": "build_population(N, seed, ALL 50 SEEDS, wfc_model) \u2014 re-derived live every run by reachability_probe and occupancy_saturation"
+    }
+  },
+  "metrics": {
+    "edges": {
+      "incumbent": {
+        "symmetry": [
+          0.322437,
+          0.363636,
+          0.418813,
+          0.478243,
+          0.644478,
+          0.925511,
+          0.954128
+        ],
+        "visual_complexity": [
+          0.860816,
+          0.871018,
+          0.877231,
+          0.883531,
+          0.88986,
+          0.896811,
+          0.906586
+        ],
+        "behavior_neediness": [
+          0.295,
+          0.336875,
+          0.365,
+          0.3825,
+          0.395,
+          0.445,
+          0.4775
+        ]
+      },
+      "probe": {
+        "symmetry": [
+          0.322581,
+          0.361111,
+          0.412698,
+          0.469669,
+          0.643311,
+          0.921245,
+          0.954265
+        ],
+        "visual_complexity": [
+          0.854783,
+          0.86771,
+          0.875275,
+          0.882224,
+          0.887879,
+          0.894817,
+          0.904185
+        ],
+        "behavior_neediness": [
+          0.2975,
+          0.3325,
+          0.3625,
+          0.3825,
+          0.3975,
+          0.4475,
+          0.515
+        ]
+      }
+    },
+    "bin_disagreement": 0.36,
+    "per_axis_disagreement": {
+      "symmetry": 0.053667,
+      "visual_complexity": 0.264667,
+      "behavior_neediness": 0.079
+    },
+    "control_by_recipe": {
+      "incumbent": 0.2,
+      "probe": 0.310333
+    },
+    "measured_control": 0.310333,
+    "support_ceiling": {
+      "incumbent": 456,
+      "probe": 460
+    },
+    "total_niches": 512,
+    "wall_clock_s": 35.772
+  },
+  "closed_states": [
+    "the split is measured in the unit ledger numbers are counted in (address changes), not only in edge distance",
+    "the bar is the MEASURED self-disagreement of each recipe at two seeds, with the larger taken \u2014 never a constant",
+    "the direction of convergence was fixed before the measurement, so it could not be chosen to suit the result",
+    "K2's cross-geometry claim is re-measured with the support ceiling counted in BOTH geometries from one population",
+    "Every historical artifact stays true under the edges it was measured with. Nothing in this decision retracts a committed number: coverage 0.8984, QD 404.618236 and the 460 occupied niches remain exactly what they were, measured in the incumbent geometry. What changes is what may be COMPARED with what \u2014 a descriptor bin index means nothing except relative to the edges that produced it, so numbers from different geometries may not be read against each other, and any claim that does so must be re-measured in one geometry before it is restated."
+  ],
+  "blocked_states": [
+    "this module never moves a geometry: it measures and decides. Re-deriving the probe-side surfaces is the CONSEQUENCE of the record this feeds (DR 0046), carried out by the surfaces that own those numbers",
+    "the reachability numbers (508/512 proven, the four bins bounded by K3's blocking-axis instrument) are NOT re-run here \u2014 that is a full probe re-run under the decided geometry and is named as required follow-on work, with its cost, rather than estimated",
+    "the support ceiling here is counted over this module's evaluation population; it is the SAME recipe and size occupancy_saturation uses, but a ceiling is a property of the population it is counted over, so it is reported as this population's ceiling and not substituted for that artifact's"
+  ],
+  "decision": {
+    "verdict": "freeze_split",
+    "disagreement": 0.36,
+    "control": 0.310333,
+    "ratio": 1.160044,
+    "factor": 2.0,
+    "convergence_target": null,
+    "convergence_target_reason": null,
+    "historical_validity": "Every historical artifact stays true under the edges it was measured with. Nothing in this decision retracts a committed number: coverage 0.8984, QD 404.618236 and the 460 occupied niches remain exactly what they were, measured in the incumbent geometry. What changes is what may be COMPARED with what \u2014 a descriptor bin index means nothing except relative to the edges that produced it, so numbers from different geometries may not be read against each other, and any claim that does so must be re-measured in one geometry before it is restated.",
+    "rule": "pre-registered (cycle 23 M2), status-quo-favouring, both verdicts first-class: the two-geometry split STANDS unless the geometries disagree by at least 2.0x the MEASURED control. The statistic is the BIN DISAGREEMENT RATE \u2014 the fraction of one common population that receives a different descriptor address under the two geometries \u2014 because that is the unit every coverage number is counted in, and edge distance is not. The control is the same recipe derived at two different seeds (how far a geometry disagrees with ITSELF), measured for both recipes with the LARGER taken. WHETHER to converge is decided here by measurement; WHICH WAY is fixed in advance (CONVERGENCE_TARGET = 'incumbent') so the direction cannot be chosen to suit the result."
+  },
+  "next_research_step": "M3: the unbreedable bootstrap elites, whose fix trades against coverage \u2014 with M1's measured denominator (48 of 460 elites are bootstrap creatures)."
+}

@@ -1,0 +1,200 @@
+{
+  "artifact_id": "companion_state_survey_stage0",
+  "status": "stage0",
+  "date": "2026-07-27",
+  "purpose": "Cycle 23 M5: survey the eight documented VISIBLE companion state axes against the LIVE engine before building anything \u2014 the charter's own instruction \u2014 and re-measure the Phase-K/L claim that five of them have no engine field.",
+  "source_artifacts": [
+    "docs/project-research/validity-research.md",
+    "packages/mecha_engine/src/mecha_engine/lifecycle/simulate.py",
+    "packages/mecha_engine/src/mecha_engine/genome/animation.py",
+    "data/seed_grids_16x16/mg_seed16_001_beetle.json"
+  ],
+  "parameters": {
+    "documented_visible_axes": [
+      "hunger",
+      "happiness",
+      "energy",
+      "cleanliness",
+      "mood",
+      "age",
+      "health",
+      "bond"
+    ],
+    "documented_hidden_axes": [
+      "mutation pressure",
+      "lineage fitness",
+      "stress",
+      "novelty decay",
+      "attachment score",
+      "user response confidence",
+      "profile alignment",
+      "grid stability"
+    ],
+    "dispositions": [
+      "lifecycle_field",
+      "derived_engine_value",
+      "absent"
+    ],
+    "probe_grid": "data/seed_grids_16x16/mg_seed16_001_beetle.json",
+    "measurement": "a real initial_state + advance_tick + select_animation_state through the package boundary; nothing is read off a document"
+  },
+  "metrics": {
+    "visible_axes": {
+      "hunger": {
+        "axis": "hunger",
+        "disposition": "lifecycle_field",
+        "engine_field": "hunger",
+        "engine_function": null,
+        "measured_value": 0.374,
+        "note": "carried as lifecycle state key 'hunger', measured on a live initial_state"
+      },
+      "happiness": {
+        "axis": "happiness",
+        "disposition": "absent",
+        "engine_field": null,
+        "engine_function": null,
+        "measured_value": null,
+        "note": "no engine source. No lifecycle field, no derivation, and no documented formula: validity-research.md names the axis and never defines it. `bond` is a separate documented axis and is not a synonym. Any happiness number today would be invented."
+      },
+      "energy": {
+        "axis": "energy",
+        "disposition": "lifecycle_field",
+        "engine_field": "energy",
+        "engine_function": null,
+        "measured_value": 0.68,
+        "note": "carried as lifecycle state key 'energy', measured on a live initial_state"
+      },
+      "cleanliness": {
+        "axis": "cleanliness",
+        "disposition": "absent",
+        "engine_field": null,
+        "engine_function": null,
+        "measured_value": null,
+        "note": "no engine MECHANIC, not merely no field. The lifecycle's action set is (feed, play, sleep, idle, mutate) \u2014 there is no clean action \u2014 and no state accumulates dirt. Supplying cleanliness needs a new mechanic, which is a design decision with its own record, not a derived view."
+      },
+      "mood": {
+        "axis": "mood",
+        "disposition": "derived_engine_value",
+        "engine_field": null,
+        "engine_function": "mecha_engine.genome.animation.select_animation_state",
+        "measured_value": "curious",
+        "note": "computed by the engine from state it already carries (returns (animation, mood)); engine truth, no new field required. Not a homeostasis field, which is why a field-only survey recorded it as absent"
+      },
+      "age": {
+        "axis": "age",
+        "disposition": "lifecycle_field",
+        "engine_field": "age_ticks",
+        "engine_function": null,
+        "measured_value": 0,
+        "note": "carried as lifecycle state key 'age_ticks', measured on a live initial_state"
+      },
+      "health": {
+        "axis": "health",
+        "disposition": "absent",
+        "engine_field": null,
+        "engine_function": null,
+        "measured_value": null,
+        "note": "no engine field, and the nearest sources are documented HIDDEN: `grid_stability` is a hidden axis by validity-research.md's own split, and per-cell `damage` feeds it. A 'health' bar composed from them would either rename a hidden axis as a visible one or blend them on weights nobody documented. The axis is definable from engine truth, but the definition would be CHOSEN (the L4 precedent) and needs its own gate."
+      },
+      "bond": {
+        "axis": "bond",
+        "disposition": "lifecycle_field",
+        "engine_field": "bond",
+        "engine_function": null,
+        "measured_value": 0.6075,
+        "note": "carried as lifecycle state key 'bond', measured on a live initial_state"
+      }
+    },
+    "present_axes": [
+      "hunger",
+      "energy",
+      "mood",
+      "age",
+      "bond"
+    ],
+    "absent_axes": [
+      "happiness",
+      "cleanliness",
+      "health"
+    ],
+    "lifecycle_state_keys": [
+      "action_counts",
+      "action_rewards",
+      "age_ticks",
+      "alive",
+      "body_mass",
+      "bond",
+      "curiosity",
+      "death_cause",
+      "energy",
+      "grid_id",
+      "grid_stability",
+      "history",
+      "hunger",
+      "neediness",
+      "recent_interactions",
+      "recovery_events",
+      "sleepiness",
+      "slip_profile_id",
+      "stress"
+    ],
+    "age_ticks_increments": 1,
+    "prior_claim": {
+      "claim": "five of the eight documented VISIBLE companion state axes have no engine field (happiness, cleanliness, mood, age, health) \u2014 recorded at the Phase-K gate and re-verified at the Phase-L gate as the largest documented player-facing gap in the repo",
+      "previously_reported_absent": 5,
+      "previously_named": [
+        "happiness",
+        "cleanliness",
+        "mood",
+        "age",
+        "health"
+      ],
+      "measured_absent": 3,
+      "measured_names": [
+        "happiness",
+        "cleanliness",
+        "health"
+      ],
+      "correction": "the claim is OVERSTATED. `age` is a lifecycle field (age_ticks, set at construction and incremented every tick) and `mood` is a derived engine value (select_animation_state, since Phase C) \u2014 both are engine truth and both are already displayed by the game. The earlier survey counted homeostasis fields, which is a narrower question than 'has an engine field'. The real gap is three axes, not five."
+    }
+  },
+  "closed_states": [
+    "every documented visible axis is measured against the LIVE engine rather than read off a document",
+    "the Phase-K/L claim is re-measured and corrected: three axes are absent, not five",
+    "the visible and hidden documented lists are kept apart, so promoting a hidden axis to a visible one cannot happen by accident",
+    "each absent axis carries its measured CAUSE, so DR 0048 decides on evidence rather than impression"
+  ],
+  "blocked_states": [
+    "no absent axis is given a value: DR 0021's first law means an axis with no honest source is shown as uncalibrated or not shown at all, and nothing here invents a number",
+    "this module builds nothing and adopts nothing \u2014 what each absent axis should become is DR 0048's decision",
+    "`health` is DEFINABLE from engine truth (grid_stability and per-cell damage) but both are documented HIDDEN axes, so any definition would be CHOSEN rather than documented (the L4 precedent) and needs its own gate",
+    "the game-side display of age and mood is cited by file reference, not measured here: importing the game from a lab would cross the boundary law"
+  ],
+  "decision": {
+    "measured_absent": 3,
+    "absent_axes": [
+      "happiness",
+      "cleanliness",
+      "health"
+    ],
+    "present_axes": [
+      "hunger",
+      "energy",
+      "mood",
+      "age",
+      "bond"
+    ],
+    "prior_claim_status": "overstated \u2014 three absent, not five",
+    "per_axis": {
+      "hunger": "lifecycle_field",
+      "happiness": "absent",
+      "energy": "lifecycle_field",
+      "cleanliness": "absent",
+      "mood": "derived_engine_value",
+      "age": "lifecycle_field",
+      "health": "absent",
+      "bond": "lifecycle_field"
+    }
+  },
+  "next_research_step": "DR 0048 decides each absent axis: engine truth, a derived view, or deliberately out of scope. Then M6, the Phase-M gate."
+}

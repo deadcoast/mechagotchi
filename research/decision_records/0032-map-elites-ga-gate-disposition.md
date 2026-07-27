@@ -29,6 +29,13 @@ own inputs spec), GA coverage read over its full evaluation history
   families across all ten independent seeded runs vs the documented
   ≥5.
 
+  > **Count superseded by regeneration, noted 2026-07-27** (cycle 23 M4):
+  > the committed artifact now reads **54**, the count having moved when
+  > the DR 0038 vocabulary regenerated E4's rosters (commit `f8c171b`).
+  > The clause's disposition is **unchanged and MET by a wider margin**;
+  > only the figure quoted here is stale. See
+  > `research/experiment_reports/2026-07-27-family-ancestry.md`.
+
 ## Why the advantage gate under-shoots, on the evidence
 
 Both comparators consume the winning WFC generator per the dossier's

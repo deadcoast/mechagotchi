@@ -223,6 +223,22 @@ here for what cycle 22 closed):
    mutation pressure in the CuBFF traits, lineage fitness in the archive
    — so the hidden list needs a per-axis survey rather than a headline.)
    This is the largest documented GAME-facing gap in the repo.
+
+   > **CORRECTED BY MEASUREMENT, 2026-07-27** (cycle 23 M5 —
+   > `2026-07-27-companion-state-survey.md`, **DR 0048**): **the count
+   > is three, not five, and this is not the largest player-facing gap
+   > on the corrected evidence.** `age` **is** a lifecycle field
+   > (`age_ticks`, set at construction and incremented every tick,
+   > reported as `survival_ticks`), and `mood` **is** a derived engine
+   > value (`select_animation_state` returns `(animation, mood)`, since
+   > Phase C) — **both are engine truth and both are already displayed
+   > by the game** (`app.py:316`, `session.py:149`/`156`). The claim
+   > above counted lifecycle *homeostasis fields*, which is a narrower
+   > question than "has an engine field". The real gap is `happiness`,
+   > `cleanliness` and `health` — and they are three *different kinds*
+   > of gap (no definition; no mechanic; a definition that would have to
+   > be CHOSEN from documented-HIDDEN axes). The wording above stands as
+   > what the Phase-K/L survey measured.
 8. **Stage 2 remains partially met**: shape grammar and CPPN are named
    arms with no lab, no module and no record — still undispositioned.
 9. **Unbuilt method tracks**, each with zero implementation hits:

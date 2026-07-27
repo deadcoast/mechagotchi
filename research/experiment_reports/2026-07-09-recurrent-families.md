@@ -43,6 +43,21 @@ memory" is a story, not a property.
   occupied per run, of which 52 are common to all ten. Independent
   evolution runs rediscover essentially the same morphological
   structure — the species-memory property, measured.
+
+> **SUPERSEDED BY REGENERATION, noted 2026-07-27** (cycle 23 M4 —
+> `2026-07-27-family-ancestry.md`). **The committed artifact now says
+> 54, not 52, and per-run counts 57–58, not 53–56.** The numbers above
+> are what this study measured under the *pre-DR-0038* vocabulary; when
+> the DR 0038/0039 vocabulary landed, E4's elite rosters regenerated and
+> this artifact regenerated with them — commit `f8c171b`'s own message
+> records *"recurrent families 52 → 54 (gate MET)"*. **The regeneration
+> was recorded; the prose was not updated**, so `52` propagated into the
+> Phase-E gate, DR 0032, the repertoire-browser report, L2, the Phase-L
+> gate, `audits/TODO.md` and `docs/gap-analysis.md`. Nothing above is
+> retracted: it stays true of the vocabulary it was measured under, and
+> the gate's verdict is unchanged (met, by an even wider margin). M4
+> reads the count from the artifact rather than from prose, which is how
+> it surfaced.
 - With E4, the dossier's four-clause MAP-Elites gate now reads:
   coverage MET (2.2×), best-fitness MET (identical), families MET
   (10×), GA-advantage REFUTED (+22.6% vs ≥25%, DR 0032's disposition).

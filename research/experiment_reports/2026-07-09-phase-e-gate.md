@@ -48,6 +48,14 @@ gate.
   ≥5** — the strict intersection, nothing curated; per-run family
   counts stable at 53–56. Species memory, measured.
 
+  > **Count superseded by regeneration, noted 2026-07-27** (cycle 23 M4):
+  > the committed artifact reads **54**, per-run counts **57–58**. The
+  > figures here are the pre-DR-0038 vocabulary's and stay true of it;
+  > the artifact regenerated with E4's rosters at commit `f8c171b`
+  > (*"recurrent families 52 → 54"*) and the prose was never updated.
+  > The gate verdict is unchanged. See
+  > `research/experiment_reports/2026-07-27-family-ancestry.md`.
+
 Full sweep at the gate: 19 lab suites, the 291-test package suite, the
 workshop suite, and the CLI suite — all green.
 
