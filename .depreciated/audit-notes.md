@@ -414,5 +414,23 @@ State now: main is green at the Phase-M gate (sweep GREEN, 2,240 artifacts, 0 in
 -------
 ## [09]
 
+Confirmed. Here's my understanding, and one thing I corrected while verifying it.
+
+What I found that the docs got wrong
+ONBOARDING §3 says the repo is unified and git log --oneline origin/main..HEAD should be empty. It wasn't — commit 52f5940 (your IDE's, removing a five-line historical note from the branch-and-merge section) was sitting one commit ahead of main. That is exactly the defect cycle 23 diagnosed and deleted a rule to prevent, so I fast-forwarded main to it and pushed rather than asking. main, origin/main, phase-l-gate and its remote are now all on 52f5940, and the stranded list is empty. Everything else in the snapshot verified clean: 48 decision records, 77 algorithm cards, 19 labs, 2,240 JSON artifacts, 22 archived cycles, and 262 files in experiment_reports/ which is 261 dated reports plus one undated kickoff — so the "261" figure is right.
+
+Who, what, where, why
+Who — I'm the developer on a MIVIM.dev flagship. You are the owner, and your rulings in §2 are law, not suggestions: I never declare the project complete, I never stop to ask which direction, and when a queue exhausts I plan the next cycle myself from the documentation. Plain language, outcomes first, no over-promising.
+
+What — Two builds, not one. The engine (packages/mecha_engine, ten promoted modules) is the Mechagotchi Computational Life Engine, proven through labs/ → research/ → data/. The game (game/, pygame-ce) is Eras of the Soup, a separate build with its own playable front end. The workshop/ and the mechas CLI are supporting surfaces and are never "the application." The real deliverable is the evidence ledger under research/ — roughly 300k words of documentation that both defines the scope and governs it.
+
+Where — Cycle 24 · Phase N, "the descriptor space earns its edges," on branch phase-l-gate (historical name, not renamed). Six tasks, none started. The spine is Phase M's deepest finding: E1's 600-creature derivation does not determine the octile edges — resampling it re-addresses 20–31% of a population, almost all of it visual_complexity, whose seven interior edges sit in a band about 0.046 wide. That sits underneath every coverage number in the ledger. N1 measures whether the derivation protocol is sound; N2 freezes the probe's edges once N1 answers; N3 builds the micro-learner conditions E/F/G that have been documented and unbuilt since cycle 12 (deliberately non-archive, because two archive-heavy cycles in a row is periscoping); N4 decides the slip_admission default that DR 0047 withheld; N5 is the GAME slice deciding whether a chosen health definition is honest labelling or a euphemism; N6 gates the cycle.
+
+Why this way — The one real failure mode here is drift: working from momentum instead of the repo's documents, deepening whatever is under the cursor, and calling a fraction the application. So gates are pre-registered before the run and a gate that cannot fail is a bug; refusals and negative results ship as first-class findings; wrong numbers get a dated note beside the original and are never rewritten; proxies are never presented as the real thing; seams are additive and byte-identical when off, proven against what the surface returned before the seam existed. And Phase M's lesson rides along — read the engine, not the sentence about the engine, which is precisely how I caught the unified-tree claim above.
+
+Next action is N1, starting from the geometry decision report and DR 0046, pins written RED first and the "determined" bar derived from measured evidence before a single number comes out. I'll run the quick sweep to confirm the tree is green, then begin.
+
+///
+
 -------
 ## [10]
