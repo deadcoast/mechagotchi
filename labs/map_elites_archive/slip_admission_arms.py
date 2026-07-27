@@ -176,6 +176,12 @@ def _run(
         if not slip_legal(record["grid"], slip_profile)
     )
     measured = {
+        # The loop emits arm metadata only when an arm actually ran
+        # (byte-identical when off), so the incumbent's values are named
+        # here rather than read back: with no admission arm the
+        # bootstrap is unfiltered by construction, so admitted ==
+        # population. That is a definition, not a measurement dressed up
+        # as one.
         "slip_admission": slip_admission,
         "occupied_niches": summary["occupied_niches"],
         "coverage": summary["coverage"],
@@ -187,7 +193,7 @@ def _run(
         "generation_attempts_total": result["refusal_collection"][
             "generation_attempts_total"
         ],
-        "bootstrap_admitted": result["bootstrap_admitted"],
+        "bootstrap_admitted": result.get("bootstrap_admitted", population),
         "elite_origin_counts": origins,
         "slip_illegal_elites": illegal_elites,
     }

@@ -146,17 +146,28 @@ it.)*
    morphological type.** Whether members of one 4×4×4 cell look alike to
    a human is the owner-deferred survey's question, and **no proxy is
    offered**.
-2. **Three seeds.** Consistent, but a distributional claim wants E4's
+2. **The statistic covers every family in each run, not only the
+   recurrent intersection.** Review flagged the mismatch against this
+   report's "recurrent families" framing, and it is real but bounded:
+   the intersection here is **63** while the runs carry **63 / 64 / 64**
+   families, so **at most one non-recurrent family per run** enters the
+   mean and its null. It is **recorded rather than re-scored** —
+   restricting the statistic after seeing the numbers is exactly the
+   re-scoring this repo forbids (M1's size-matched-control precedent) —
+   and the verdict is nowhere near its bar at z +21.39 / +15.96 /
+   +17.39, so the residue cannot plausibly carry it. A recurrent-only
+   variant is named for whoever runs it next.
+3. **Three seeds.** Consistent, but a distributional claim wants E4's
    ten-seed protocol.
-3. **`common_descent` describes a tendency, not a mechanism.** *Why*
+4. **`common_descent` describes a tendency, not a mechanism.** *Why*
    families lean toward founders — inheritance of morphology, or
    founders occupying descriptor regions the loop then explores locally
    — is not separated here, and the two would need different
    instruments.
-4. **The rescaled 29–31% is an interpretive aid computed after the
+5. **The rescaled 29–31% is an interpretive aid computed after the
    run**, clearly outside the pre-registered gate. It is offered because
    the raw z invites over-reading, not as a measured bar.
-5. **DR 0046's comparability rule applies**: these are
+6. **DR 0046's comparability rule applies**: these are
    incumbent-geometry addresses and may not be read against
    probe-geometry counts.
 

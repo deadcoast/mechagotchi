@@ -152,6 +152,19 @@ measured   : 3 absent (happiness, cleanliness, health)
 wrote data/architecture/companion_state_survey_stage0.json
 ```
 
+> **HARDENED BY REVIEW, 2026-07-27.** The engine probe originally
+> replaced the child process's **entire** environment with a two-key
+> dict and hard-coded a Windows path (`SYSTEMROOT="C:\\Windows"`), and
+> carried **no timeout** — so it would have failed off this machine for
+> reasons having nothing to do with the engine it measures, and a stuck
+> import would have hung the survey and its tests indefinitely. It now
+> follows the repo's existing package-boundary probe pattern
+> (`mecha_engine_scaffold_verification_gate._import_probe_env`):
+> inherit `os.environ`, **extend** `PYTHONPATH` rather than replace it,
+> and bound the call with a timeout that raises a clear error. The
+> artifact was regenerated through the corrected probe and **every
+> measured disposition is identical**.
+
 ## Sources
 
 - `audits/TODO.md` (cycle 23 M5) · `research/decision_records/0048-visible-companion-state-axes.md` (the record this study produced)

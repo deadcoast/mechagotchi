@@ -208,6 +208,26 @@ ADOPTED ARM: parents
 wrote data/archives/slip_admission_arms_stage0.json
 ```
 
+> **CORRECTED BY REVIEW, 2026-07-27 (a claim in this report was
+> wrong).** As first committed, the arm emitted `slip_admission` and
+> `bootstrap_admitted` **unconditionally**, so the loop's returned
+> dictionary changed for every existing caller even at
+> `slip_admission="none"` — which contradicts the byte-identical-when-off
+> claim made above and throughout this report. The pin could not catch
+> it, because it compared two calls to the *new* implementation and both
+> had gained the keys; "byte-identical when off" means identical to what
+> the loop returned **before the arm existed**. Both keys are now
+> **rung-conditional**, and the off-mode key set is **pinned against a
+> frozen list** so a future unconditional key fails the suite. A second
+> defect found in the same review: under the `bootstrap` arm the
+> population was filtered without recomputing `bootstrap_composition`,
+> so the result reported a mix summing to the *unfiltered* population
+> beside an admitted count that did not — the composition is now
+> recomputed by measured membership, and pinned. **No measured value in
+> the artifact changed**: `bootstrap_admitted` for the incumbent is the
+> population by construction either way, and the composition was never
+> carried into this study's artifact.
+
 **A pin that failed and was corrected as a pin, not as code** — recorded
 rather than buried. An early pin asserted the insertion arm ends on the
 same `evaluations_total` as the incumbent (measured 64 against 76). It

@@ -245,7 +245,10 @@ def run_evaluation_loop(
     def _is_slip_legal(grid: dict) -> bool:
         if slip_profile is None:
             return True
-        grid_id = grid.get("grid_id")
+        # Coerced to str: the cache is keyed by id, and a grid missing
+        # one would otherwise cache under None and collide with every
+        # other unnamed grid.
+        grid_id = str(grid.get("grid_id", ""))
         cached = legality_cache.get(grid_id)
         if cached is None:
             cached = is_grid_aligned(grid, slip_profile).ok
@@ -280,10 +283,32 @@ def run_evaluation_loop(
     )
     bootstrap_admitted = len(bootstrap_population)
     if slip_admission == "bootstrap":
+        # `build_population` returns the constrained half first, then the
+        # WFC half, so membership is recoverable by index BEFORE the
+        # filter. Recomputing the composition matters: leaving it at the
+        # pre-filter counts would report a mix that sums to the original
+        # population beside an `bootstrap_admitted` that does not — the
+        # kind of internally inconsistent metadata that misleads every
+        # downstream reader.
+        constrained_ids = {
+            grid.get("grid_id")
+            for grid in bootstrap_population[
+                : bootstrap_composition.get("constrained", 0)
+            ]
+        }
         bootstrap_population = [
             grid for grid in bootstrap_population if _is_slip_legal(grid)
         ]
         bootstrap_admitted = len(bootstrap_population)
+        admitted_constrained = sum(
+            1
+            for grid in bootstrap_population
+            if grid.get("grid_id") in constrained_ids
+        )
+        bootstrap_composition = {
+            "constrained": admitted_constrained,
+            "wfc": bootstrap_admitted - admitted_constrained,
+        }
         if not bootstrap_population:
             raise ValueError(
                 "slip_admission='bootstrap' admitted no creatures: the "
@@ -459,11 +484,21 @@ def run_evaluation_loop(
         "elite_records": elite_records,
         "generation": generation,
         "elite_role_summary": elite_role_summary,
-        # M3: the arm is named in the result the same way `generation`
-        # is — an arm is part of the run's identity, not an observation.
-        "slip_admission": slip_admission,
-        "bootstrap_admitted": bootstrap_admitted,
     }
+    if slip_admission != "none":
+        # M3: arm metadata is RUNG-CONDITIONAL, not unconditional.
+        #
+        # An earlier draft emitted these two keys always, on the
+        # `generation` precedent. That was wrong, and review caught it:
+        # the law is byte-identical when OFF, and "off" means identical
+        # to what the loop returned before this arm existed — not merely
+        # identical between two calls to the new code. Emitting them
+        # unconditionally silently changed the result dict for every
+        # existing caller, and a test comparing new-to-new could never
+        # have detected it (the off-mode key set is now pinned against a
+        # frozen list for exactly that reason).
+        result["slip_admission"] = slip_admission
+        result["bootstrap_admitted"] = bootstrap_admitted
     if slip_admission == "parents":
         # A rung-conditional key: it exists only when its arm ran, so a
         # reader can never mistake "absent" for "zero" (the None != []
