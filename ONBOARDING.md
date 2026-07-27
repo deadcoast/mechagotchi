@@ -2,7 +2,7 @@
 
 Written **2026-07-21** by the outgoing session, completed
 **2026-07-26** at the owner's direction, and its §3/§4 state sections
-refreshed at the **Phase-L gate (2026-07-26)**. Read this file
+refreshed at the **Phase-M gate (2026-07-27)**. Read this file
 completely before touching anything.
 
 `CHANGELOG.md` in the root is the cycle-by-cycle summary of what
@@ -115,7 +115,7 @@ never a blocker.
 
 ---
 
-## 3. WHERE WE ARE RIGHT NOW (2026-07-26 — verify against `git log`)
+## 3. WHERE WE ARE RIGHT NOW (2026-07-27 — verify against `git log`)
 
 ### The headline
 
@@ -143,9 +143,10 @@ and from the named remainders each cycle's own records leave behind.
 | 20 | J | the generative range (vocabulary blindness found and cured) |
 | 21 | K | the vocabulary settles its stack (gate green 2026-07-26) |
 | 22 | L | the descriptor space settles its geometry — and the cycle audits its own ledger (gate green 2026-07-26) |
-| **23** | **M** | **the archive meets its own inhabitants ← WE ARE HERE** |
+| 23 | M | the archive meets its own inhabitants — and the cycle audits its own **prose** (gate green 2026-07-27) |
+| **24** | **N** | **the descriptor space earns its edges ← WE ARE HERE** |
 
-Archived queues live in `audits/complete/NN/TODO.md`.
+Archived queues live in `audits/complete/NN/TODO.md` (01–07, 09–23).
 
 ### Cycle 21 · Phase K — CLOSED, gate green 2026-07-26
 
@@ -185,18 +186,50 @@ matching the measurement to four decimal places.
 slices corrected something the ledger already said — and **nothing was
 rewritten**. Every correction is a dated note beside the original.
 
-### Cycle 23 · Phase M — the archive meets its own inhabitants
+### Cycle 23 · Phase M — CLOSED, gate green 2026-07-27
 
-`audits/TODO.md` is the live queue: **M1–M5 DONE (2026-07-27), M6
-open.** The spine
-is Phase L's unplanned finding, which arrived four separate times
-without anyone looking for it: **every instrument measures a different
-population from the one the archive is actually filled with.** The L2
-lineage seam already exposes the elite set, so the expensive part is
-built. M5 is a deliberate GAME-track slice after an archive-heavy
-Phase L — five of the eight documented *visible* companion state axes
-have no field in the engine. See `audits/TODO.md` for each task's
-pre-registered shape.
+All six tasks DONE; gate report
+`research/experiment_reports/2026-07-27-phase-m-gate.md`; queue archived
+at `audits/complete/23/TODO.md`. **M1** measured the archive on its own
+inhabitants — `within_sampling_noise`, partly deflating the cycle's own
+premise, with its lasting result methodological: measuring a control for
+**both** population types caught a false positive that the cheap control
+alone would have published at 5.14×. **M2** decided L3's geometry split
+by measuring it in *addresses* rather than edge distance, and **refused
+convergence on the measurement**: the probe recipe disagrees with itself
+at another seed on 31% of the population, so the two geometries are two
+draws from a noisy process, not two coordinate systems (**DR 0046**).
+**M3** measured all three unbreedable-bootstrap fixes, found every one
+drives the 4,435-refusal tax to zero inside the noise floor, and **still
+withheld the default change** because the arms separate on quality and
+archive legality in the opposite order (**DR 0047**). **M4** answered
+Evolution Q3 — `common_descent`, but with the convergence half reported
+beside it. **M5** was chartered to build a player-facing feature and
+**built nothing**, because two of the five "missing" axes were already
+on screen (**DR 0048**).
+
+**The cycle's character, and the reason to trust it**: three of the five
+slices found a claim in the repo's own **prose** was wrong — and each
+was found by *reading the engine instead of the document*. Phase L
+audited its own numbers; **Phase M audited its own sentences.** Every
+correction is a dated note beside the original.
+
+### Cycle 24 · Phase N — the descriptor space earns its edges
+
+`audits/TODO.md` is the live queue: **N1–N6, none started.** The spine
+is Phase M's deepest finding: **the octile edges are not determined by a
+600-creature derivation.** `visual_complexity` re-addresses **26% of the
+population** when the derivation is merely resampled, and its seven
+interior edges sit inside a band about **0.046 wide** — a defect
+*underneath every coverage number in the ledger*, and a question about
+E1's derivation protocol rather than about which population feeds it.
+
+N1/N2 sit under everything; N4 and N5 pay debts DR 0047 and DR 0048
+explicitly asked for; **N3 is deliberately non-archive** — the
+micro-learner ablation conditions E/F/G, documented and unmet since
+cycle 12 — because cycles 22 and 23 were both archive-heavy and the
+anti-periscope rule applies to the developer too. N5 is the GAME-track
+slice. See `audits/TODO.md` for each task's pre-registered shape.
 
 ### What exists and is genuinely good
 
@@ -212,17 +245,17 @@ pre-registered shape.
 - **`workshop/`** — grid editor, SLIP creator, preview/scrubber,
   inspector, Keeper session page. **92 tests.**
 - **`labs/`** — 19 research labs; every algorithm is proven here first.
-  (The two that grew most in cycle 22: `map_elites_archive` 142 → **219**,
-  `cubff_transducer` 43 → **58**.)
-- **`research/`** — the evidence ledger: **256 experiment reports**,
-  **77 algorithm cards**, **45 decision records** (through DR 0045),
+  (The two that grew most in cycle 23: `map_elites_archive` 219 → **319**,
+  `architecture` 14 → **27**.)
+- **`research/`** — the evidence ledger: **261 experiment reports**,
+  **77 algorithm cards**, **48 decision records** (through DR 0048),
   package specs.
-- **`data/`** — **2,235 JSON evidence artifacts**, all valid.
+- **`data/`** — **2,240 JSON evidence artifacts**, all valid.
 
-**Verified at the Phase-L gate (2026-07-26):**
+**Verified at the Phase-M gate (2026-07-27):**
 `python -B tools/ci/run_sweep.py` → **SWEEP GREEN** — 19 lab suites +
 package 295 + workshop 92 + game 183 + CLI 23;
-`data artifacts OK — 2235 JSON artifacts valid`.
+`data artifacts OK — 2240 JSON artifacts valid`.
 (Slowest: workshop 174.9 s, runtime_integration 85.0 s,
 map_elites_archive 51.5 s, cellular_automata 40.1 s.)
 - Real CuBFF data is ingested; 16×16 is the proven grid scale;
@@ -233,13 +266,23 @@ map_elites_archive 51.5 s, cellular_automata 40.1 s.)
 
 ### Standing named remainders (not tasks until a record charters them)
 
-Phase L's own — the four that became cycle 23 (M1–M4) are in the queue,
-not here. What stays: `animation_density`'s adoption, which waits on the
-human panel (L4); the **576-vs-512 repertoire divergence**, declared by
-L2 and unresolved; **which forecast keys enable the DR 0045 density
-rider in a shipped client** — a client decision L5 did not make; and the
-honest limit that density recovers direction, not magnitude (~2.4% of
-the callback path's gap).
+Phase M's own — the five that became cycle 24 (N1–N5) are in the queue,
+not here. What stays from Phase M: the **scored candidate stream**, which
+would answer L4's A3/A4 on the population the archive is filled *from*
+(M1); a **size-matched TVD control** (M1); a **game-side snapshot pin**
+for age and mood (M5); the documented **HIDDEN axes**, still never
+surveyed per-axis; **`cleanliness`**, which needs a MECHANIC, and
+**`happiness`**, which needs a DEFINITION — neither is a display gap
+(M5).
+
+Phase L's own, still standing: `animation_density`'s adoption, which
+waits on the human panel (L4) — and whose **A2 independence halves on
+the elites** (M1: max |r| 0.173 → 0.350), a reason for that panel to
+look harder and never a machine substitute for it; the **576-vs-512
+repertoire divergence**, declared by L2 and unresolved; **which forecast
+keys enable the DR 0045 density rider in a shipped client** — a client
+decision L5 did not make; and the honest limit that density recovers
+direction, not magnitude (~2.4% of the callback path's gap).
 
 Phase K's own, still standing: the undiluted rich-site regrowth
 instrument and the unexplained 0.525 ceiling (DR 0041's re-opener); an
@@ -280,87 +323,50 @@ first green CLOUD CI run, which awaits a push never made unasked.
 ## 4. WHAT TO DO NEXT
 
 **Work `audits/TODO.md` task by task** — RED first, triad docs in the
-same change, one commit per task naming the task ID. Cycle 23's queue
-in order (cycle 22's closed ladder is in §3 and its gate report):
+same change, one commit per task naming the task ID. Cycle 24's queue in
+order (cycle 23's closed ladder is in §3 and its gate report):
 
-1. **M1 · the archive measured on its own inhabitants** — **DONE
-   2026-07-27** (`2026-07-27-elite-population-measures.md`). Verdict
-   **`within_sampling_noise`** on all four statistics against a
-   *measured* bar (highest ratio 1.70 vs 2.0), so the slice partly
-   deflated its own cycle's premise. Its method result is the one to
-   carry forward: **measuring a control for BOTH population types
-   caught a false positive** — `animation_density` reads 5.14× →
-   "material" against the cheap derivation control alone and 0.85 →
-   within noise against the elite control (a second full loop). Also
-   measured: **48 of 460 elites (10.4%) are bootstrap creatures**
-   (M3's denominator, now exact); L4's A2 independence weakens by half
-   on the elites; and L4's A3/A4 are **structurally undefined** here
-   (one elite per niche), corrected by a dated note beside L4's
-   original.
-2. **M2 · the geometry split, decided** — **DONE 2026-07-27**
-   (`2026-07-27-geometry-decision.md`, **DR 0046**): **`freeze_split`,
-   convergence refused on the measurement — the split was not the
-   disease.** Measured in *addresses* rather than edge distance:
-   disagreement 0.360000 vs a measured control of 0.310333 (ratio
-   1.16 against a 2.0 bar). The control is the finding — the probe
-   recipe disagrees with **itself** at another seed on **31%** of the
-   population, the incumbent on 20%, so the two geometries are two
-   draws from a noisy edge-derivation process and converging them
-   would fix nothing. Localised to `visual_complexity`, whose octile
-   edges sit in a ~0.046-wide band (K3's measure-thinness, in
-   addresses). K2's "460 = exactly the ceiling" resolved: **460 probe
-   vs 456 incumbent**, not equal. Named follow-on: **freeze the
-   probe's edges**, and whether 600 determines the edges at all. No
-   historical number is retracted; the operative output is DR 0046's
-   **comparability rule** — numbers measured in different geometries
-   may not be read against each other, and any claim that does must be
-   re-measured in one geometry before it is restated.
-3. **M3 · the unbreedable bootstrap elites** — **DONE 2026-07-27**
-   (`2026-07-27-slip-admission-arms.md`, **DR 0047**): **three fixes
-   that all work, and the one the rule picked is the worst of them.**
-   All three arms drive the 4,435-refusal tax to **zero** at a coverage
-   cost **below** the measured control, so L1's declined trade is
-   affordable. The tie-break picks `parents` — which is then the only
-   arm that **lowers quality** and **leaves all 35 illegal elites
-   seated**, while `bootstrap`/`insertion` raise mean elite fitness
-   3.8% and give a SLIP-clean archive. **The loop default is
-   WITHHELD**, with the reason measured. Measured along the way: the
-   covenant admits only **49 of 256** bootstrap creatures (19.1%), and
-   **35 of M1's 48 bootstrap elites are SLIP-illegal**.
-4. **M4 · ancestry versus morphology** — **DONE 2026-07-27**
-   (`2026-07-27-family-ancestry.md`): **both answers are true at
-   once.** The question was reshaped first — asking it *across* runs is
-   **not well posed**, since each run's founder ids are disjoint
-   objects. Asked within each run against a **measured permutation
-   null**: **`common_descent`, consistent across three seeds** (z
-   +21.39 / +15.96 / +17.39), so **Evolution Q3 is answered NO** —
-   lineage continuity is not independent of visual novelty. But the z
-   is large because the null is *tight*: the effect is ~29–31% of the
-   way to pure lineage determination, and families hold **2.84–3.30
-   distinct founder lines** (up to 7), so convergence is real too.
-   **Also corrected**: E5's recurrent-family count is **54**, not the
-   **52** every prose surface still said — the artifact regenerated at
-   `f8c171b` and the documents never followed. Dated notes added; the
-   gate verdict is unchanged.
-5. **M5 · the documented visible companion state** — **DONE
-   2026-07-27** (`2026-07-27-companion-state-survey.md`, **DR 0048**):
-   **two of the five "gaps" were already on the player's screen.** The
-   charter said survey before building, so the instrument **measures
-   rather than asserts** — `age` **is** a lifecycle field (`age_ticks`)
-   and `mood` **is** a derived engine value (`select_animation_state`,
-   since Phase C), and the game displays both. The real gap is
-   **three**, and they are three different *kinds*: `happiness` has no
-   **definition**, `cleanliness` has no **mechanic** (no clean action,
-   no dirt state), `health` is definable only as a **CHOSEN**
-   definition from documented-**hidden** axes. **Nothing was built, and
-   that is the finding** — the panel would have invented two numbers
-   and mislabelled a third. `health` is **withheld pending its own
-   gate** and is the obvious next record.
-6. **M6 · the Phase-M gate** ← **THE NEXT TASK.** One consolidated
-   report; then archive to `audits/complete/23/` and plan cycle 24 from
-   the documentation. **Do not ask which direction.**
-
----
+1. **N1 · do 600 creatures determine the octile edges?** ← **THE NEXT
+   TASK.** M2's named follow-on and the deepest defect Phase M found:
+   re-deriving E1's recipe at another seed **re-addresses 20–31% of a
+   population**, driven almost entirely by `visual_complexity`, whose
+   seven interior edges sit in a ~0.046-wide band. Measure edge
+   stability as a function of derivation size; pre-register what
+   "determined" means (evidence-derived, never a constant); report the
+   size at which the geometry stops moving, **or report honestly that
+   it does not stabilise within reach**. This changes no geometry — it
+   measures whether the protocol producing them is sound.
+2. **N2 · freeze the probe's edges** — DR 0046's strongest named
+   follow-on, and it should follow N1's answer rather than precede it.
+   No committed probe number is wrong, but each is contingent on a draw
+   no artifact records. Freeze them as E1's are, record the provenance,
+   and re-express 508/512 and the support ceiling against the frozen
+   set.
+3. **N3 · the micro-learner ablation conditions E/F/G** — documented and
+   unmet since **cycle 12**, and deliberately this cycle's
+   **non-archive** ENGINE slice after two archive-heavy cycles (the
+   anti-periscope rule applies to the developer too). Build Q-table,
+   tiny decision tree and Bayesian counter; run the D6 ablation gates
+   **verbatim**; let the measured rule keep or drop each. Dropping all
+   three is first-class; a drop that changes the kept-five roster would
+   be a real result.
+4. **N4 · the `slip_admission` default, decided** — DR 0047's named
+   decider. All three arms already drive the refusal tax to zero inside
+   the noise floor, so the question is *which*, not *whether*. Re-run
+   with **quality and archive legality pre-registered alongside
+   coverage**, multi-seed. DR 0047 records that the likely winner is
+   **`insertion`**, not the tie-break's `parents` — which is exactly
+   why the gate must be written first and allowed to refuse all three.
+5. **N5 · `health` — the CHOSEN definition, gated** *(GAME track)* —
+   DR 0048's named next record, and the one absent visible axis with a
+   real engine source. `grid_stability` and per-cell `damage` are both
+   documented **HIDDEN**, so any definition is CHOSEN and must say so
+   first. Gate it on more than arithmetic: whether a player-facing
+   "health" that is really grid-stability is **honest labelling or a
+   euphemism** is part of the decision. **Refusal is first-class.**
+6. **N6 · the Phase-N gate** — then archive to `audits/complete/24/`
+   and plan cycle 25 from the documentation. **Do not ask which
+   direction.**
 
 ## 5. The map — what each directory IS
 
@@ -619,16 +625,17 @@ mechas session --open
 
 ## Sources
 
-- `audits/TODO.md` (cycle 23 · Phase M), `audits/complete/*/TODO.md`
+- `audits/TODO.md` (cycle 24 · Phase N), `audits/complete/*/TODO.md`
 - `CHANGELOG.md` (the cycle-by-cycle summary)
 - `FABLE5.md` (the prior handoff; §1–2, §6 remain law)
 - `AGENTS.md`, `CLAUDE.md`, `docs/agent-standards.md`
 - `docs/gap-analysis.md` (retired; the measured history)
 - `docs/project-research/` (the vision documents)
 - `research/README.md` (the master ledger)
-- `research/decision_records/0017`, `0021`, `0026`–`0045`
+- `research/decision_records/0017`, `0021`, `0026`–`0048`
 - `research/experiment_reports/2026-07-12-phase-g-gate.md`,
   `2026-07-20-phase-j-gate.md`, `2026-07-26-phase-k-gate.md`,
-  `2026-07-26-phase-l-gate.md` (the gate that refreshed §3/§4),
-  `2026-07-26-*.md` (the L1–L5 science)
+  `2026-07-26-phase-l-gate.md`,
+  `2026-07-27-phase-m-gate.md` (the gate that refreshed §3/§4),
+  `2026-07-27-*.md` (the M1–M5 science)
 - `tools/ci/run_sweep.py`

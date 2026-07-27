@@ -23,9 +23,29 @@ never rewritten).
 
 ---
 
-## [Unreleased] — Cycle 23 · Phase M — "the archive meets its own inhabitants"
+## [Unreleased] — Cycle 24 · Phase N — "the descriptor space earns its edges"
 
-*In progress. Queue: `audits/TODO.md` (M1–M5 done; M6 open).*
+*In progress. Queue: `audits/TODO.md` (N1–N6, none started).*
+
+Planned from Phase M's deepest finding — **the octile edges are not
+determined by a 600-creature derivation** — plus the debts DR 0047 and
+DR 0048 explicitly asked for, and one non-archive slice (the
+never-instantiated micro-learner conditions E/F/G) after two
+archive-heavy cycles.
+
+---
+
+## Cycle 23 · Phase M — "the archive meets its own inhabitants" — 2026-07-27
+
+**Gate: GREEN.** `research/experiment_reports/2026-07-27-phase-m-gate.md`
+Closing sweep: 19 lab suites + package 295 + workshop 92 + game 183 +
+CLI 23 — **2,240 JSON artifacts, 0 invalid**.
+
+The cycle answered every question it set itself. But its defining
+character was unplanned: **three of its five slices found that a claim
+in the repo's own prose was wrong** — and each was found by reading the
+engine instead of the document. Phase L audited its own *numbers*;
+**Phase M audited its own sentences.**
 
 Planned from Phase L's unplanned convergent finding — **every instrument
 measures a different population from the one the archive is actually
@@ -123,7 +143,26 @@ filled with** — plus the still-unmet documentation.
   axes. **Nothing was built, and that is the finding** — building the
   panel would have invented two numbers and mislabelled a third
   (DR 0021's first law).
-- **M6** — the Phase-M gate.
+
+### The three prose corrections, each a dated note beside the original
+
+- **L4's remainder was UNDERSTATED** (M1) — A3/A4 on the elites are not
+  un-run, they are *structurally impossible*.
+- **The recurrent-family count was STALE** (M4) — prose said **52**; the
+  artifact has said **54** since `f8c171b` regenerated it under the
+  DR 0038 vocabulary.
+- **The visible-state gap was OVERSTATED** (M5) — five became **three**,
+  and two of the "missing" axes were already on the player's screen.
+
+Nothing was rewritten; in all three cases the underlying verdict was
+unchanged or strengthened.
+
+### Limitations of this cycle's own pre-registrations, recorded not repaired
+
+- **M3 never gated QD**, which moved in both directions across the arms.
+- **M1's TVD carries a finite-sample bias** and mixes sample sizes; a
+  size-matched control was **deliberately not run**, because changing a
+  statistic after seeing its numbers is re-scoring.
 
 ---
 
