@@ -178,6 +178,29 @@ Cycle 22 has one task left: L6, the Phase-L gate — consolidate L1–L5, archiv
 -------
 ## [07]
 
+> {"id":"claude-opus-5"}
+
+```text
+I'll wait for the sweep rather than poll it.
+
+M1 is complete and documented; the full sweep is the last gate before I commit it and move to M2.
+
+What shipped:
+
+Code — elite_population_measures.py + 36 pins, and the loop's third additive observation seam collect_elite_grids (byte-identical when off, proven alone and composed with L2's seam).
+Evidence — data/archives/elite_population_measures_stage0.json, JSON-valid, produced twice with every measured value identical.
+Docs, same change — the experiment report with RED/GREEN/lab-invocation verification blocks and pasted output; the algorithm-card Evolution entry; the research/README.md ledger entry; the TODO check-off; CHANGELOG and ONBOARDING state lines; and a dated note beside L4's original remainder rather than a rewrite of it.
+The result worth flagging: M1 partly deflated the premise its own cycle was planned on. Phase M was built on "every instrument measures a different population from the one the archive is filled with," and for the three incumbent descriptor axes that difference does not clear a measured bar — highest ratio 1.70 against 2.0. I recorded that as a deflation rather than dressing it up, and I did not widen the bar to capture the one visible shape (the depleted top symmetry octiles, 48 and 28 against a flat ~57). That stays "suggestive, not established."
+
+The finding I'd carry forward is methodological and it was measured, not argued: requiring a control for both population types — the expensive one being a second full loop — is what stopped animation_density being reported as a decisive material difference at 5.14× the bar. Against the correct control it's 0.85. The cheap-control design would have published a false positive, and the axis that looked most different turned out to be the least trustworthy.
+
+Two things this hands directly to later tasks: M3's denominator is now exact (48 of 460 elites, 10.4%, are bootstrap creatures — so the fix it must gate trades against about a tenth of coverage in the worst case), and L4's A2 independence margin halves on the archive's real inhabitants (max |r| 0.173 → 0.350, still inside its bar) — a reason for the deferred human panel to look harder, not a machine substitute for it.
+
+One limit I chose not to fix: TVD's finite-sample bias, with the derivation-vs-elite comparison mixing sizes (600 vs 460). Correcting it now would mean changing the statistic after seeing the numbers, which this repo forbids — so it ships as a named remainder, and it cuts toward smaller true differences, so it doesn't threaten the verdict.
+
+Next after the commit: M2 — the geometry split, decided by record, which is a DR-bearing slice rather than an instrument.
+```
+
 -------
 ## [08]
 
