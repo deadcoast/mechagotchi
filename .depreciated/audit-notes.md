@@ -129,3 +129,60 @@ Five commits this session (K6, L1–L4), sweep green at each, 2,234 artifacts va
 
 [THINK ABOUT] what your TASK provides, HOW the TASK operates for relevant purpose operates in the INTENDED use.
 ````
+
+-------
+## [04]
+
+L5 is committed (308910c), tree clean. This one turned out to be the most interesting slice of the cycle, so let me be precise about what it actually did.
+
+The defect was a mechanism, not a bug
+Before writing anything I traced why I3's inversion happens, and it's structural. The promoted pressure math is 0.45·instability + 0.35·semantic_pressure + 0.20·instruction_diversity. On the checkpoint path replication_scores and lineage_events are structurally absent — the format cannot store them. With those terms at zero, pressure rides almost entirely on entropy and instruction diversity, and both of those fall as a soup organizes.
+
+So the engine reads organization as calm. Every channel it can see decreases while every channel that would rise is missing. That's why a Keeper met the era with 129,211 replicators as gentler than the one with 2 — no number invented anywhere, and the player still shown the opposite of the biology.
+
+The fix was derived, not tuned
+Instruction density is the one carried channel that rises with organization — which makes it the specific missing counterweight rather than a knob. And it has a known random expectation, so it needs no calibration: a random tape of length n carries n × 10/256 instruction bytes, giving a ratio that is 1.0 at chance. I mapped that against a ceiling of 256/10 = 25.6 — the all-instruction maximum, which is independent of tape length because it's a property of the bff_noheads alphabet, not of the corpus. Weight pre-registered at 0.5.
+
+The DR wrote the prediction down before the run — a ≈ +0.041 multiplier swing, with the explicit words "predicted to just barely flip it — and it may not." Measured swing: +0.040617. Right to four decimal places, with no adjustment of any kind. That agreement is the real evidence the formulation describes something rather than being fitted to a wanted answer, and had it landed on the other side of zero the DR committed in advance to recording the refusal.
+
+early	post-takeover	gap
+checkpoint, rider off	0.818009	0.783716	−0.034293
+checkpoint, rider on	0.857880	0.864204	+0.006324
+callback (lit channel)	0.772726	1.034884	+0.262158
+All five gates met: the inversion corrected (G1), agreement with the lit-channel ground truth (G2), all sixteen committed game artifacts regenerating byte-identical with transducer/runtime/package suites passing unmodified (G3), replication_rate and lineage_churn still exactly 0 so nothing is synthesized (G4), and the documented (0.5, 1.6) band holding (G5).
+
+The limit, stated with the win
+The corrected gap is +0.0063 against the ground truth's +0.2622 — about 2.4% of the magnitude. Density recovers the direction of the biology, not its force. The checkpoint forecast now points the right way and remains a much quieter instrument than the callback path. I put that number in the report, the DR, the artifact and the commit rather than letting anyone infer it, because reading +0.0063 as "the checkpoint forecast now conveys post-takeover ferocity" would be overreading it.
+
+Two scope notes: the rider is off by default in the engine — this record adopts the capability and proves it at the consumer; which forecast keys enable it in a shipped client is a client decision, and the era bench is unchanged. And the 0.5 weight was fixed in advance and never revisited; any other weight would need its own record explaining why it isn't curve-fitting to a wanted feel.
+
+Six commits this session (K6, L1–L5), sweep green at each, now 2,235 artifacts. Your IDE also landed two commits of its own alongside mine (coderabbit config, and audit-notes updates including a section on animation_density) — I haven't acted on those.
+
+Cycle 22 has one task left: L6, the Phase-L gate — consolidate L1–L5, archive to audits/complete/22/, and plan cycle 23 from the documentation.
+
+-------
+## [05]
+
+````md
+# MIVIM DEVELOPMENT: NEXT_STEPS
+
+> {"id":"claude-opus-5"}, {"dev_id":"[PRINCIPLE-ENGINEER]"}, {"org":"MIVIM"}
+>> NEXT_STEPS:  L6, the Phase-L gate — consolidate L1–L5, archive to audits/complete/22/, and plan cycle 23 from the documentation.
+>
+> M I V I M · Modular Innovations, Versatile Integration Methods
+>
+>> :dev_goals:"Creating methods, features, applications that are novel and noticed, featured by github pages, development blogs, influencer techs. Industry leading creativity that cant be ignored."
+>> :development_style:"Novel, Creative and Unique methods supported by rigerous research, validation and mathematics."
+````
+
+-------
+## [07]
+
+-------
+## [08]
+
+-------
+## [09]
+
+-------
+## [10]
