@@ -130,17 +130,33 @@ DR 0021 (engine truth), DR 0029 (the geometry), DR 0042, DR 0045.
   What would decide it is named (quality + archive legality
   pre-registered alongside coverage, multi-seed; likely winner
   `insertion`). RED first; 25 pins; archive lab 275 → 300 green.
-- [ ] **M4 · Ancestry versus morphology: do the recurrent families
-  share ancestry?** L2's named question, never asked. Phase E measured
-  **52 recurrent morphological families** by coarse-descriptor
-  intersection across ten seeds; L2 measured **38 founder lines** by
-  recorded ancestry. They are different objects — descriptor
-  similarity versus who descends from whom — and both are now exposed.
-  Do morphologically-recurrent families trace to common ancestors, or
-  do they **converge from different lines**? Convergence would be a
-  genuine ALife result about the descriptor space, not a bookkeeping
-  fact, and it bears directly on Evolution Q3 (*"Can lineage
-  continuity be measured independently from visual novelty?"*).
+- [x] **M4 · Ancestry versus morphology: do the recurrent families
+  share ancestry?** DONE 2026-07-27 (`2026-07-27-family-ancestry.md`):
+  **both answers are true at once.** The question was **reshaped
+  first** — asking it *across* runs is **not well posed**, since every
+  run builds its own bootstrap so founder ids in different runs are
+  disjoint objects; families recur morphologically, their ancestry
+  cannot. Asked within each run against a **MEASURED permutation null**
+  (both marginals preserved), with single-member families **excluded
+  and counted** and `convergent` declared explicitly as **the null**:
+  **`common_descent`, consistent across three seeds and decisive** —
+  z **+21.39 / +15.96 / +17.39**. **So Evolution Q3 has a measured
+  answer and it is NO**: lineage continuity is *not* independent of
+  visual novelty here. **But the z is large because the null is TIGHT,
+  not because the effect is near-total** — the excess is ~0.16–0.20,
+  about **29–31% of the way** from chance to pure lineage
+  determination (a post-hoc rescaling, outside the gate). **And the
+  convergence half is real**: **2.84–3.30 distinct founder lines per
+  family, up to 7** — the same morphology *is* reached from multiple
+  lines. The distinct-founder count was never allowed into the verdict,
+  which is what keeps that half visible. **Also found on the way in: a
+  stale count.** Prose across `research/` says **52** recurrent
+  families; the committed artifact says **54** (commit `f8c171b`'s own
+  message records "52 → 54" when the DR 0038 vocabulary regenerated
+  E4's rosters). Dated notes added beside the four primary carriers;
+  nothing retracted, gate verdict unchanged. Surfaced because the
+  module **reads the count from the artifact**, pinned. RED first;
+  19 pins.
 - [ ] **M5 · The documented visible companion state.** The survey's
   largest player-facing gap, and this cycle's GAME-track slice.
   `validity-research.md` §1.17 names eight VISIBLE state axes —

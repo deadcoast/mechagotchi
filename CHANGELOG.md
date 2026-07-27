@@ -25,7 +25,7 @@ never rewritten).
 
 ## [Unreleased] — Cycle 23 · Phase M — "the archive meets its own inhabitants"
 
-*In progress. Queue: `audits/TODO.md` (M1–M3 done; M4–M6 open).*
+*In progress. Queue: `audits/TODO.md` (M1–M4 done; M5–M6 open).*
 
 Planned from Phase L's unplanned convergent finding — **every instrument
 measures a different population from the one the archive is actually
@@ -87,8 +87,25 @@ filled with** — plus the still-unmet documentation.
   legality and quality in the opposite order, so promoting the gate's
   winner would let a rule decide a question it did not ask. What would
   decide it is named, not guessed.
-- **M4** — ancestry versus morphology: do Phase E's 52 recurrent
-  families share ancestors, or converge from different founder lines?
+- **M4 — DONE 2026-07-27.** Ancestry versus morphology: **both answers
+  are true at once.** The question was reshaped first — asking it
+  *across* runs is **not well posed** (each run's founder ids are
+  disjoint objects, so families recur morphologically but their
+  ancestry cannot). Asked within each run against a **measured
+  permutation null**: **`common_descent`, consistent across three
+  seeds** — z **+21.39 / +15.96 / +17.39**. **Evolution Q3 answered,
+  and the answer is NO** — lineage continuity is not independent of
+  visual novelty. But the z is large because the null is *tight*, not
+  because the effect is near-total: the excess is ~0.16–0.20, about
+  **29–31% of the way** to pure lineage determination. And the
+  convergence half is real — **2.84–3.30 distinct founder lines per
+  family, up to 7**.
+- **CORRECTED (E5's recurrent-family count).** Prose across `research/`
+  says **52**; the committed artifact says **54** (per-run 57–58, not
+  53–56). Commit `f8c171b`'s message records "52 → 54" when the DR 0038
+  vocabulary regenerated E4's rosters — the artifact moved, the prose
+  did not. Dated notes beside the four primary carriers; nothing
+  retracted and the gate verdict is unchanged.
 - **M5** — *(GAME track)* the documented visible companion state; five
   of the eight documented visible axes have no engine field.
 - **M6** — the Phase-M gate.

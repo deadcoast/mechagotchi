@@ -187,7 +187,7 @@ rewritten**. Every correction is a dated note beside the original.
 
 ### Cycle 23 · Phase M — the archive meets its own inhabitants
 
-`audits/TODO.md` is the live queue: **M1–M3 DONE (2026-07-27), M4–M6
+`audits/TODO.md` is the live queue: **M1–M4 DONE (2026-07-27), M5–M6
 open.** The spine
 is Phase L's unplanned finding, which arrived four separate times
 without anyone looking for it: **every instrument measures a different
@@ -322,12 +322,23 @@ in order (cycle 22's closed ladder is in §3 and its gate report):
    WITHHELD**, with the reason measured. Measured along the way: the
    covenant admits only **49 of 256** bootstrap creatures (19.1%), and
    **35 of M1's 48 bootstrap elites are SLIP-illegal**.
-4. **M4 · ancestry versus morphology** ← **THE NEXT TASK.** L2's named
-   question, never asked: do Phase E's **52 recurrent families** trace
-   to common ancestors, or converge from different founder lines?
-   Convergence would be a real ALife result, and it bears on
-   Evolution Q3.
-5. **M5 · the documented visible companion state** — the GAME-track
+4. **M4 · ancestry versus morphology** — **DONE 2026-07-27**
+   (`2026-07-27-family-ancestry.md`): **both answers are true at
+   once.** The question was reshaped first — asking it *across* runs is
+   **not well posed**, since each run's founder ids are disjoint
+   objects. Asked within each run against a **measured permutation
+   null**: **`common_descent`, consistent across three seeds** (z
+   +21.39 / +15.96 / +17.39), so **Evolution Q3 is answered NO** —
+   lineage continuity is not independent of visual novelty. But the z
+   is large because the null is *tight*: the effect is ~29–31% of the
+   way to pure lineage determination, and families hold **2.84–3.30
+   distinct founder lines** (up to 7), so convergence is real too.
+   **Also corrected**: E5's recurrent-family count is **54**, not the
+   **52** every prose surface still said — the artifact regenerated at
+   `f8c171b` and the documents never followed. Dated notes added; the
+   gate verdict is unchanged.
+5. **M5 · the documented visible companion state** ← **THE NEXT
+   TASK.** The GAME-track
    slice. `validity-research.md` §1.17 names eight visible axes;
    `happiness`, `cleanliness`, `mood`, `age` and `health` have no
    engine field. Survey each honestly first — some are genuinely absent

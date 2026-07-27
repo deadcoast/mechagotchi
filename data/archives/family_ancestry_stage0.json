@@ -1,0 +1,146 @@
+{
+  "artifact_id": "family_ancestry_stage0",
+  "status": "stage0",
+  "date": "2026-07-27",
+  "purpose": "Cycle 23 M4: ask L2's named question \u2014 do morphologically recurrent families trace to common ancestors, or converge from different founder lines? (Evolution Q3.) The question is reshaped first, because asking it across runs is not well posed.",
+  "source_artifacts": [
+    "data/archives/recurrent_families_stage0.json",
+    "data/archives/lineage_dominance_stage0.json",
+    "data/archives/coverage_qd_gates_stage0.json",
+    "data/archives/elite_population_measures_stage0.json",
+    "data/archives/evaluation_loop_scale_stage0.json"
+  ],
+  "parameters": {
+    "population": 256,
+    "target_evaluations": 20480,
+    "rng_seeds": [
+      20260709,
+      20260710,
+      20260711
+    ],
+    "lifecycle_ticks": 24,
+    "shuffle_rounds": 200,
+    "coarsening_factor": 2,
+    "generation": "constrained (the DR 0042 adopted default)",
+    "family_rule": "recurrent_families.family_key (imported)",
+    "founder_rule": "lineage_dominance.founder_of (imported)"
+  },
+  "metrics": {
+    "runs": [
+      {
+        "rng_seed": 20260709,
+        "elites": 460,
+        "distinct_founders": 38,
+        "families_total": 63,
+        "families_scored": 62,
+        "single_member_families_excluded": 1,
+        "mean_largest_founder_share": 0.543184,
+        "mean_distinct_founders_per_family": 3.193548,
+        "max_distinct_founders_in_a_family": 7,
+        "scored_members": 459,
+        "null": {
+          "rounds": 200,
+          "mean": 0.341331,
+          "stdev": 0.009436,
+          "min": 0.320757,
+          "max": 0.37235
+        },
+        "z": 21.391797,
+        "verdict": "common_descent"
+      },
+      {
+        "rng_seed": 20260710,
+        "elites": 458,
+        "distinct_founders": 33,
+        "families_total": 64,
+        "families_scored": 62,
+        "single_member_families_excluded": 2,
+        "mean_largest_founder_share": 0.608161,
+        "mean_distinct_founders_per_family": 2.83871,
+        "max_distinct_founders_in_a_family": 7,
+        "scored_members": 456,
+        "null": {
+          "rounds": 200,
+          "mean": 0.450059,
+          "stdev": 0.009906,
+          "min": 0.429147,
+          "max": 0.481855
+        },
+        "z": 15.960226,
+        "verdict": "common_descent"
+      },
+      {
+        "rng_seed": 20260711,
+        "elites": 464,
+        "distinct_founders": 36,
+        "families_total": 64,
+        "families_scored": 64,
+        "single_member_families_excluded": 0,
+        "mean_largest_founder_share": 0.540681,
+        "mean_distinct_founders_per_family": 3.296875,
+        "max_distinct_founders_in_a_family": 7,
+        "scored_members": 464,
+        "null": {
+          "rounds": 200,
+          "mean": 0.343126,
+          "stdev": 0.011357,
+          "min": 0.309431,
+          "max": 0.376135
+        },
+        "z": 17.394999,
+        "verdict": "common_descent"
+      }
+    ],
+    "verdict_consistent_across_runs": true,
+    "e5_recurrence": {
+      "artifact": "data/archives/recurrent_families_stage0.json",
+      "committed_recurrent_family_count": 54,
+      "recomputed_from_artifact": 54,
+      "runs_analyzed": 10,
+      "stale_prose_note": "Documents across research/ state 52. The committed artifact says 54: the count moved when the DR 0038 vocabulary regenerated E4's elite rosters (commit f8c171b's own message records 'recurrent families 52 -> 54'), and the prose was never updated. The historical documents stay true as what they measured under the pre-DR-0038 vocabulary; dated notes now sit beside them."
+    },
+    "recurrent_families_in_this_study": 63,
+    "wall_clock_s": 1070.396,
+    "pre_registered_bound_s": 3600.0,
+    "within_bound": true
+  },
+  "closed_states": [
+    "L2's named question is asked for the first time, with the family rule and the founder rule both IMPORTED from the instruments that own them",
+    "the null is MEASURED by permutation with both marginals preserved, so 'more than chance' has an operational meaning",
+    "single-member families are excluded and counted rather than averaged in at a structural 1.0",
+    "E5's stated reason for using descriptor clustering instead of ancestry (the WFC parent path carrying no single parent) is retired by DR 0042's adopted constrained layer, which records ancestry on every candidate",
+    "the committed E5 recurrent-family count is READ from the artifact, not quoted from prose that has gone stale"
+  ],
+  "blocked_states": [
+    "Asking whether recurrent families share ancestry ACROSS runs is not well posed, and that is a structural fact rather than a budget limit: every run builds its own bootstrap population, so a founder id in one run is not the same object as a founder id in another and the ancestry spaces are disjoint. Families recur MORPHOLOGICALLY; their ancestry cannot recur, because there is no shared ancestor pool for it to recur in. The question is therefore asked WITHIN each run and its answer compared across runs.",
+    "'convergent' is the NULL: it is an absence of evidence for common descent, never positive proof of convergence. The positive evidence is the distinct-founder count, reported separately and never folded into the verdict",
+    "a coarse family is E5's 4x4x4 cell, which is a descriptor region rather than a visually-verified morphological type; whether members of one cell look alike to a human is the owner-deferred survey's question and no proxy is offered",
+    "DR 0046's comparability rule applies: these descriptors are incumbent-geometry addresses and may not be read against probe-geometry counts"
+  ],
+  "decision": {
+    "verdict": "common_descent",
+    "consistent_across_runs": true,
+    "per_run": {
+      "20260709": {
+        "verdict": "common_descent",
+        "z": 21.391797,
+        "mean_largest_founder_share": 0.543184,
+        "mean_distinct_founders_per_family": 3.193548
+      },
+      "20260710": {
+        "verdict": "common_descent",
+        "z": 15.960226,
+        "mean_largest_founder_share": 0.608161,
+        "mean_distinct_founders_per_family": 2.83871
+      },
+      "20260711": {
+        "verdict": "common_descent",
+        "z": 17.394999,
+        "mean_largest_founder_share": 0.540681,
+        "mean_distinct_founders_per_family": 3.296875
+      }
+    },
+    "rule": "pre-registered (cycle 23 M4): the statistic is the mean largest-founder share over families with >= 2 members (single-member families excluded and counted \u2014 their share is 1.0 by construction). The null is MEASURED by permuting founder labels across elites, preserving both family sizes and founder-line sizes so the null differs from the observation only in the pairing. Verdict 'common_descent' when the observed share stands >= 2.0 standard deviations above that null, 'convergent' otherwise. 'convergent' IS THE NULL \u2014 an absence of evidence for common descent, never positive proof of convergence; the positive evidence is reported separately as the mean number of distinct founder lines per family."
+  },
+  "next_research_step": "M5: the documented visible companion state \u2014 the GAME-track slice; five of the eight documented visible axes have no engine field."
+}
