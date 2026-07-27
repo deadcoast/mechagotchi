@@ -25,15 +25,30 @@ never rewritten).
 
 ## [Unreleased] — Cycle 23 · Phase M — "the archive meets its own inhabitants"
 
-*In progress. Queue: `audits/TODO.md` (M1–M6, none started).*
+*In progress. Queue: `audits/TODO.md` (M1 done; M2–M6 open).*
 
 Planned from Phase L's unplanned convergent finding — **every instrument
 measures a different population from the one the archive is actually
 filled with** — plus the still-unmet documentation.
 
-- **M1** — re-measure occupancy, the descriptor distribution and the
-  `animation_density` candidate against the loop's *steady-state elites*
-  rather than the derivation/bootstrap population.
+- **M1 — DONE 2026-07-27.** The instruments turned around to face the
+  archive's actual inhabitants — and the slice **tested its own cycle's
+  premise first and partly deflated it**: the elites' descriptor
+  distribution is **`within_sampling_noise`** against the derivation
+  population on all four statistics (highest ratio 1.70 vs a 2.0 bar).
+  The bar was *measured*, one control per population type with the
+  larger taken — and **that choice caught a false positive**:
+  `animation_density` reads **5.14× → "material"** against the cheap
+  derivation control alone and **0.85 → within noise** against the
+  elite control (a second full loop). Beside the verdict: the top two
+  symmetry octiles are depleted (48 and 28 vs ~57 flat), suggestive and
+  not established; **48 of 460 elites (10.4%) are bootstrap creatures**
+  — M3's denominator, now exact; L4's A2 independence **weakens by
+  half** on the elites (max |r| 0.173 → 0.350, still inside its bar).
+  **CORRECTED (L4's remainder, understated)** — A3 and A4 are not
+  un-run on the elites but **structurally undefined**: one elite per
+  niche means the same-bin denominator is measured at 0 and
+  `occupied_4 == occupied_3` for any fourth axis. No number substituted.
 - **M2** — decide the two-geometry split by decision record.
 - **M3** — the unbreedable bootstrap elites, whose fix trades against
   coverage.

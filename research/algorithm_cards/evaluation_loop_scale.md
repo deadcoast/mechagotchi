@@ -145,6 +145,31 @@ documented gate, or determinism drift under the pinned seeds.
   **Not adopted**: the documented selection criterion needs the
   owner-deferred human panel and no proxy was substituted. The loop's
   geometry is unchanged.
+- **Cycle 23 M1 (2026-07-27)**: the loop gained its third additive
+  observation seam, `collect_elite_grids` — byte-identical when off
+  (pinned alone *and* composed with `collect_lineage`), one gated key,
+  emitting a deep COPY of each occupied niche's elite grid plus its
+  origin measured by MEMBERSHIP in the bootstrap population. Phase L's
+  convergent finding was then tested: **the elites' descriptor
+  distribution is NOT distinguishable from the derivation population's**
+  — `within_sampling_noise` on all four statistics against a bar of 2×
+  a MEASURED control, highest ratio 1.70 (symmetry). The control is two
+  population types each drawn twice, **larger taken** — and that choice
+  is what prevented a false positive: `animation_density` reads
+  **5.14× → "material"** against the cheap derivation control alone and
+  **0.85 → within noise** against the elite control (a second full
+  loop), which is 6.1× larger on that axis. Measured beside the
+  verdict: **48 of 460 elites (10.4%) are bootstrap creatures**
+  (M3's denominator, now exact), the top two symmetry octiles are
+  depleted (48 and 28 vs ~57 flat) without reaching the bar, and L4's
+  **A2 independence weakens by half on the elites** (max |r| 0.173 →
+  **0.350**, still under its 0.5 bar). L4's **A3 and A4 are
+  STRUCTURALLY UNDEFINED** on this population — one elite per niche
+  means zero same-bin pairs and `occupied_4 == occupied_3` for any
+  fourth axis — and no number was substituted. The loop reproduced its
+  committed 460 / 0.898438 / 404.618236 exactly, so the seam perturbs
+  nothing by measurement as well as by pin. An INSTRUMENT: no geometry
+  moved, nothing adopted, L4's verdict untouched.
 
 ## Sources
 
@@ -155,6 +180,7 @@ documented gate, or determinism drift under the pinned seeds.
 - `labs/map_elites_archive/lineage_dominance.py` (+ `test_lineage_dominance.py`) · `data/archives/lineage_dominance_stage0.json` (the L2 instrument)
 - `labs/map_elites_archive/geometry_consistency.py` (+ `test_geometry_consistency.py`) · `data/archives/geometry_consistency_stage0.json` (the L3 instrument) · `research/experiment_reports/2026-07-26-geometry-consistency.md`
 - `labs/map_elites_archive/animation_density_axis.py` (+ `test_animation_density_axis.py`) · `data/archives/animation_density_axis_stage0.json` (the L4 candidate axis) · `research/experiment_reports/2026-07-26-animation-density-axis.md`
+- `labs/map_elites_archive/elite_population_measures.py` (+ `test_elite_population_measures.py`, 36 pins) · `data/archives/elite_population_measures_stage0.json` (the M1 instrument) · `research/experiment_reports/2026-07-27-elite-population-measures.md`
 - `research/experiment_reports/2026-07-09-evaluation-loop-scale.md`, `2026-07-21-generation-arm-loop.md`, `2026-07-26-generation-refusal-causes.md`, `2026-07-26-lineage-dominance.md`
 - `research/decision_records/0040-novelty-first-evolution-surface.md`, `0042-generation-layer-loop-revisit.md`
 - `docs/project-research/deep-research/01/deep-research.md`

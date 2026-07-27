@@ -168,6 +168,26 @@ was affected.
    archive is actually *filled* with is L3's open question wearing a
    different hat — and the L2 lineage seam already exposes the elite
    set, so it is cheap.
+
+   > **Note added 2026-07-27 (cycle 23 M1 — this remainder was
+   > UNDERSTATED; the wording above stands as what L4 expected).**
+   > Carrying it out shows that two of the four gates above cannot be
+   > re-measured on the elite population *at all* — not for want of
+   > budget, but structurally. **The archive holds exactly one elite
+   > per niche**, so no two elites can share a three-axis bin: **A3's
+   > same-bin-pair denominator is zero**, and **A4 is degenerate**
+   > (every elite already occupies a distinct 3-axis cell, so any
+   > fourth axis maps it to a distinct 4-axis cell and
+   > `occupied_4 == occupied_3` — for *any* fourth axis whatsoever).
+   > A3 and A4 are properties of a **population**, not of an elite set.
+   > A1 and A2 *are* defined on the elites and were re-measured.
+   > What would genuinely answer A3/A4 on the filled population is the
+   > loop's **scored candidate stream** — every creature evaluated, not
+   > only the winners — which is a different seam and a different
+   > slice. See `2026-07-27-elite-population-measures.md`. **L4's
+   > verdict is untouched**: `adoptable_pending_blocked_clause` stands,
+   > and the documented interpretability clause is still BLOCKED on the
+   > owner-deferred human panel.
 3. **The definition is one of several defensible ones.** Potential
    animation by role was chosen for being deterministic, engine-sourced
    and explainable; a realised-motion definition across all five clips
@@ -185,3 +205,4 @@ was affected.
 - `labs/animation_system/clip_model.py` (the animating role tables, read at import) · `labs/map_elites_archive/niche_scale_archive.py` (the octile protocol)
 - `data/archives/animation_density_axis_stage0.json` (the artifact) · `niche_scale_archive_stage0.json` (the incumbent geometry) · `data/animation_system/clip_model_stage0.json`
 - `research/decision_records/0015-dormant-vocabulary-coverage.md`, `0029-16x16-default-grid-scale.md`, `0037-per-role-motion.md`
+- `research/experiment_reports/2026-07-27-elite-population-measures.md` (cycle 23 M1 — the elite re-measure; the source of the dated note above, which corrects remainder 2 as understated: A1/A2 were re-measured on the elites, A3/A4 are structurally undefined there)

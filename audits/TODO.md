@@ -38,18 +38,37 @@ hidden state axes), `docs/project-research/deep-research/01/deep-research.md`,
 `research/questions.md` (Evolution Q2/Q3), DR 0017 (the North Star),
 DR 0021 (engine truth), DR 0029 (the geometry), DR 0042, DR 0045.
 
-- [ ] **M1 · The archive measured on its own inhabitants.** The
-  convergent Phase-L finding, acted on. Re-measure the things the
-  ledger reports — octile occupancy, the descriptor distribution, and
-  L4's `animation_density` candidate — against the loop's
-  **steady-state elites** rather than the derivation/bootstrap
-  population every instrument has used. The L2 `collect_lineage` seam
-  already exposes the elite set; extend it (additively,
-  byte-identical when off) if elite *grids* rather than records are
-  needed. **Pre-register what counts as a material difference** before
-  running, so "the elites look different" cannot become a conclusion
-  in search of a bar. This is an INSTRUMENT slice: it changes no
-  geometry and adopts nothing.
+- [x] **M1 · The archive measured on its own inhabitants.** DONE
+  2026-07-27 (`2026-07-27-elite-population-measures.md`): the
+  convergent finding acted on — and **the difference is
+  `within_sampling_noise` on all four statistics**, so the slice tested
+  its own cycle's premise first, the way L3 did, and partly deflated
+  it. The loop gained its third additive seam, `collect_elite_grids`
+  (byte-identical when off, pinned alone AND composed with
+  `collect_lineage`; deep copies; origin by MEMBERSHIP, never depth).
+  The bar was MEASURED, not constant: the same population type drawn
+  twice at different seeds, **one control per type and the larger
+  taken** — and **that choice prevented a false positive**, measurably:
+  `animation_density` reads **5.14× → "material"** against the cheap
+  derivation control alone and **0.85 → within noise** against the
+  elite control (a second full loop, 6.1× larger on that axis). Highest
+  ratio overall 1.70 (symmetry) against the 2.0 bar. Reported beside
+  the verdict, outside it: the top two symmetry octiles are depleted
+  (48 and 28 vs ~57 flat) — suggestive, **not** established, and the
+  bar was not widened. **48 of 460 elites (10.4%) are bootstrap
+  creatures — M3's denominator, now exact** (L2's depth-inferred "~48"
+  agrees, and the agreement is explicitly NOT claimed as independent,
+  since the loop's lineage composition forces it). L4's **A2
+  independence weakens by half** on the elites (max |r| 0.173 →
+  0.350, still inside its bar), and **L4's remainder is corrected as
+  UNDERSTATED by a dated note beside the original**: A3/A4 are
+  STRUCTURALLY UNDEFINED here — one elite per niche means the same-bin
+  denominator is measured at 0 and `occupied_4 == occupied_3` for any
+  fourth axis — with **no number substituted**; the scored candidate
+  stream is named as what would answer them. The loop reproduced its
+  committed 460 / 0.898438 / 404.618236 exactly. RED first; 36 pins;
+  archive lab 219 → 255 green. An INSTRUMENT: no geometry moved,
+  nothing adopted, L4's verdict untouched.
 - [ ] **M2 · The geometry split, decided.** L3's named gated record.
   The repo runs two scale geometries — frozen train-derived (the loop,
   the E4 gates) and live all-seeds (the probe, the occupancy

@@ -41,6 +41,14 @@ the generation arms have always built and the loop has always thrown
 away, and it is what corrected DR 0042's reading of its own failure
 number: the refusals are SLIP-rejected PARENTS, not invalid candidates
 (`labs/map_elites_archive/generation_refusal_causes.py`).
+
+Cycle 23 M1 added ``collect_elite_grids`` — the third observation seam,
+under the same law. L2's seam emits ancestry; this one emits the elite
+GRIDS, because Phase L's convergent finding is that every geometry,
+occupancy and candidate-axis number in the ledger is measured on a
+derivation or bootstrap population rather than on the creatures the
+archive is actually filled with, and a morphological re-measure needs
+the cells (`labs/map_elites_archive/elite_population_measures.py`).
 """
 
 import argparse
@@ -140,6 +148,20 @@ def run_evaluation_loop(
     # in one pinned place (`lineage_dominance.founder_of`), so the loop
     # collects and never derives. Additive and byte-identical when off.
     collect_lineage: bool = False,
+    # Cycle 23 M1 (an INSTRUMENT, never a gate): every geometry,
+    # occupancy and candidate-axis number in the ledger is measured on a
+    # derivation or bootstrap population, never on the creatures the
+    # archive is actually filled with — Phase L's convergent finding,
+    # arrived at four separate times. The L2 seam emits ancestry only;
+    # measuring a MORPHOLOGICAL statistic (animation density, the
+    # descriptor axes recomputed) needs the cells themselves. Turning
+    # this on emits a deep COPY of each occupied niche's elite grid,
+    # plus its origin measured by MEMBERSHIP in this loop's bootstrap
+    # population (L1's recorded process error: lineage depth is not
+    # provenance — a bootstrap creature is generated FROM a seed and
+    # already sits at depth 1). The loop collects; the instrument
+    # derives. Additive and byte-identical when off.
+    collect_elite_grids: bool = False,
 ) -> dict:
     """The full generational loop to the documented evaluation budget.
 
@@ -389,6 +411,31 @@ def run_evaluation_loop(
                     "lineage": deepcopy(
                         elite_grids[elite["grid_id"]].get("lineage") or {}
                     ),
+                }
+                for niche, elite in sorted(archive["elites"].items())
+            ],
+        }
+    if collect_elite_grids:
+        # M1: the creatures the archive is actually filled with, whole.
+        # Deep-copied because an observation seam must never hand out a
+        # live reference into the loop's working set — a caller that
+        # mutated one would corrupt the parents of the next generation.
+        # `origin` is measured by MEMBERSHIP in this loop's bootstrap
+        # population, never inferred from lineage depth (L1's error).
+        result["elite_grid_collection"] = {
+            "occupied_niches": summary["occupied_niches"],
+            "bootstrap_population_size": len(bootstrap_ids),
+            "elites": [
+                {
+                    "niche": niche,
+                    "grid_id": elite["grid_id"],
+                    "origin": (
+                        "bootstrap"
+                        if elite["grid_id"] in bootstrap_ids
+                        else "loop_offspring"
+                    ),
+                    "fitness": elite["fitness"],
+                    "grid": deepcopy(elite_grids[elite["grid_id"]]),
                 }
                 for niche, elite in sorted(archive["elites"].items())
             ],

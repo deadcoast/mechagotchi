@@ -187,7 +187,8 @@ rewritten**. Every correction is a dated note beside the original.
 
 ### Cycle 23 · Phase M — the archive meets its own inhabitants
 
-`audits/TODO.md` is the live queue: **M1–M6, none started.** The spine
+`audits/TODO.md` is the live queue: **M1 DONE (2026-07-27), M2–M6
+open.** The spine
 is Phase L's unplanned finding, which arrived four separate times
 without anyone looking for it: **every instrument measures a different
 population from the one the archive is actually filled with.** The L2
@@ -277,15 +278,22 @@ first green CLOUD CI run, which awaits a push never made unasked.
 same change, one commit per task naming the task ID. Cycle 23's queue
 in order (cycle 22's closed ladder is in §3 and its gate report):
 
-1. **M1 · the archive measured on its own inhabitants** ← **THE NEXT
-   TASK.** Phase L's convergent finding, acted on: re-measure octile
-   occupancy, the descriptor distribution and L4's `animation_density`
-   candidate against the loop's **steady-state elites** rather than the
-   derivation/bootstrap population every instrument has used. The L2
-   `collect_lineage` seam already exposes the elite set. **Pre-register
-   what counts as a material difference** before running. An INSTRUMENT
-   slice — it changes no geometry and adopts nothing.
-2. **M2 · the geometry split, decided** — L3's named gated record.
+1. **M1 · the archive measured on its own inhabitants** — **DONE
+   2026-07-27** (`2026-07-27-elite-population-measures.md`). Verdict
+   **`within_sampling_noise`** on all four statistics against a
+   *measured* bar (highest ratio 1.70 vs 2.0), so the slice partly
+   deflated its own cycle's premise. Its method result is the one to
+   carry forward: **measuring a control for BOTH population types
+   caught a false positive** — `animation_density` reads 5.14× →
+   "material" against the cheap derivation control alone and 0.85 →
+   within noise against the elite control (a second full loop). Also
+   measured: **48 of 460 elites (10.4%) are bootstrap creatures**
+   (M3's denominator, now exact); L4's A2 independence weakens by half
+   on the elites; and L4's A3/A4 are **structurally undefined** here
+   (one elite per niche), corrected by a dated note beside L4's
+   original.
+2. **M2 · the geometry split, decided** ← **THE NEXT TASK.** L3's named
+   gated record.
    Converge on one calibration population, or freeze the split
    explicitly with its reason and a rule about which numbers may be
    compared. Either way, state plainly what prior coverage numbers do
