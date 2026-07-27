@@ -54,7 +54,7 @@ Medium.
 Reference repo is MIT licensed, but provided image samples and tiles are called
 out separately in the license file. Treat code and sample assets separately.
 
-Source: https://github.com/mxgmn/WaveFunctionCollapse
+[Source:WaveFunctionCollapse](https://github.com/mxgmn/WaveFunctionCollapse)
 
 ## Prototype Result
 
