@@ -117,9 +117,13 @@ never a blocker.
   blocker.**
 - **`.depreciated/` is the owner's personal archive** — ignore unless
   explicitly linked.
-- **Never push without being asked.** Commit per completed task. Note:
-  the owner's IDE tooling can commit the working tree mid-session —
+- **Ask before publishing NEW work** (a PR nobody requested, a branch
+  the owner has not seen). **Never ask to unify finished work** — at
+  gate close, merge into `main` and push. Standing authorization,
+  2026-07-27. Never force-push or rewrite history.
+- Commit per completed task. The owner's IDE commits mid-session —
   check `git log` before committing and stage by explicit path.
+  `.depreciated/audit-notes.md` is the owner's; never stage it.
 - **Community infrastructure, a pack registry, and hosted
   distribution are OWNER decisions** (DR 0035), not tasks.
 - Talk to the owner in **plain language**: explain what things ARE,
@@ -139,17 +143,15 @@ never a blocker.
 closed. Since then, cycles plan from the **still-unmet documentation**
 and from the named remainders each cycle's own records leave behind.
 
-### Branch and merge state (verify with `git log --oneline origin/main..HEAD`)
+### Branch and merge state
 
-Working branch: **`phase-l-gate`** — the name is historical and is *not*
-being renamed (see §6). It carries cycles 22–23. `origin/main` sits at
-the **PR #1** merge (cycle 22 / Phase L); **PR #2** carries cycle 23 and
-was opened 2026-07-27.
+Working branch **`phase-l-gate`** — historical name, not being renamed
+(phases are already sequential, I→N). It carries cycles 22–24.
 
-**If PR #2 has merged by the time you read this**, fast-forward local
-`main`, and cut cycle 24's branch from `main` — do not keep building on
-the merged branch. That mistake is exactly what stranded cycle 23 off
-`main` for a full cycle.
+**Unified as of 2026-07-27**: `main`, `origin/main`, the branch and its
+remote are all on one commit. Cycles 22 (PR #1) and 23 (PR #2) are
+merged. Check with `git log --oneline origin/main..HEAD` — it should be
+empty.
 
 ### The cycle ladder so far
 
@@ -551,26 +553,18 @@ only when the queue is exhausted AND a full sweep is green — then
 archive to `audits/complete/NN/` and plan the next cycle from the
 documentation and the recorded remainders.
 
-### The branch and merge rule (learned the hard way, 2026-07-27)
+### The branch and merge rule
 
-**This bit us once and cost a whole cycle of drift, so it is written
-down.** Cycle 22 was merged to `main` by PR #1 — and then cycle 23 was
-developed **on the same `phase-l-gate` branch**, so ten commits, 42
-files and ~9,000 lines accumulated off `main` before anyone noticed. The
-branch name was also lying by then: it said Phase L while carrying all
-of Phase M.
+The old version of this section said *"PR back to `main` at the gate"*
+and *"never push or merge unasked"* — a contradiction. The second won
+every time, and cycles 22 and 23 both ended up stranded off `main`.
+The second rule is deleted.
 
-The rule:
+**At gate close: merge into `main`, push, bring the branch level with
+`main`.** Do not ask. Do not continue on a branch while its PR is open —
+the merge takes a snapshot and everything after it is stranded again.
 
-1. **One branch per cycle**, named for its own phase.
-2. **PR back to `main` at the gate**, not "eventually". A closed cycle
-   that is not on `main` is not really closed.
-3. **After the merge, cut the next cycle's branch from `main`** — never
-   continue on the merged one.
-4. **Never push or merge unasked** (owner ruling, §2). Prepare the PR
-   and *say* it is ready; the owner decides.
-5. `git log --oneline origin/main..HEAD` is the check. If that list is
-   longer than the cycle you are working on, work is stranded.
+`git log --oneline origin/main..HEAD` must be empty when you stop.
 
 ### External code review runs on every PR
 

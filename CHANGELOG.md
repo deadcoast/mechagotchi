@@ -202,6 +202,19 @@ real and fixed, one recorded, three verified wrong and rejected.**
   test methods are annotated). Complying would have made the five new
   files the only inconsistent ones in the repo.
 
+### Workflow defect: contradictory branch rules — FIXED by deletion
+
+Cycles 22 and 23 both ended up stranded off `main`. The cause was two
+rules in `ONBOARDING.md` that contradicted each other: *"PR back to
+`main` at the gate"* obligated the merge, *"never push or merge
+unasked"* forbade it. The second won every time, so each gate ended with
+a question instead of a merge.
+
+**The second rule is deleted.** "Never push without being asked" now
+covers publishing *new* work only; unifying finished, gated work needs
+no ask. Repo unified 2026-07-27 — `main`, `origin/main` and the working
+branch on one commit.
+
 ---
 
 ## Cycle 22 · Phase L — "the descriptor space settles its geometry" — 2026-07-26
