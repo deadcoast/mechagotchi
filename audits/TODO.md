@@ -45,20 +45,47 @@ truth), `0029-16x16-default-grid-scale.md` (the geometry),
 `docs/project-research/deep-research/01/deep-research.md`,
 `docs/project-research/research.md`, `research/questions.md`.
 
-- [ ] **N1 · Do 600 creatures determine the octile edges?** M2's named
-  follow-on, and the deepest defect cycle 23 found. E1 derives the
-  scale geometry from a 600-candidate population; M2 measured that
-  re-deriving the same recipe at another seed **re-addresses 20–31% of
-  a population**, driven almost entirely by `visual_complexity`, whose
-  edges sit in a ~0.046-wide band. **Measure edge stability as a
-  function of derivation size** — pre-register what "determined" means
-  (an edge-movement or re-addressing bar derived from evidence, never a
-  constant) and report the size at which the geometry stops moving, or
-  report honestly that it does not stabilise within reach. This changes
-  no geometry: it measures whether the protocol that produces them is
-  sound. If it is not, say so plainly — every coverage number stays
-  true under the edges it was measured with (DR 0046's rule), but what
-  those edges *mean* would change.
+- [x] **N1 · Do 600 creatures determine the octile edges?** DONE
+  2026-07-27 (`2026-07-27-derivation-size-stability.md`, **DR 0049**):
+  **no for the edges, yes for the number the ledger quotes — and the
+  two gates disagreeing is the finding.** The statistic is DR 0046's
+  own re-addressing rate as a **function of derivation size** (ladder
+  75→4800, 64×, four disjoint seed pairs per rung, both recipes). The
+  instrument validated itself first: pair 0 IS M2's pair by
+  construction, and **both DR 0046 controls reproduce exactly**
+  (0.2 / 0.310333), as do the committed frozen edges. **GATE 1
+  `sampling_limited` on both recipes** — slope **-0.4186** / **-0.3997**
+  against theory's -0.5, judged by the MEASURED spread of four
+  per-track slopes — so **structural indeterminacy is REFUTED**: R(N)
+  falls monotonically 0.7268 → 0.1278 and the edges are under-sampled,
+  not unknowable. **GATE 2 splits from it**: against a MEASURED floor
+  of 4 niches, **at N=600 the incumbent re-addresses 31.7% of creatures
+  while its occupied-niche count moves exactly the floor** — and at
+  N=4800 re-addressing has improved 2.5× while ceiling movement is
+  *higher*. **DR 0049: `derivation_count` STAYS at 600**, because what
+  raising it would fix is not what was broken. **The mechanism
+  separates two things M2's prose fused**: the `visual_complexity` band
+  is constant across the whole 64× range (0.0440 → 0.0452), so
+  **measure-thinness is STRUCTURAL and permanent while only the edge
+  placement inside it is sampled** — and it is the *slowest-converging*
+  axis (smallest contributor at N=75, 49% of all movement at N=4800).
+  **CORRECTED — DR 0046's two controls are understated single draws**
+  (four-pair means 0.316917 / 0.371583), which **strengthens** M2:
+  ratio 1.16 → **0.969**, `freeze_split` by a wider margin. Dated notes
+  beside both originals; nothing retracted. **A limitation of this
+  slice's OWN pre-registration recorded not repaired**: Gate 2's
+  movement is **not monotone** and the incumbent passes by an exact
+  tie against a floor measured from three pairs, so `determined_at =
+  600` is a noisy statistic crossing a threshold, not a located
+  stability point — and the two recipes' Gate-2 verdicts must not be
+  read as a real difference. Saturation ruled out per rung (distinct
+  0.9935 at N=4800). Wall clock 826.247 s against the pilot's own
+  752.15 s projection. RED first; 43 pins; archive lab **322 → 365**
+  green (the Phase-M gate's "319" is a gate-time count superseded by
+  `ce6b063`, which added 3 pins to `test_slip_admission_arms.py` in the
+  PR-review round — measured here rather than quoted, so a stale number
+  is not propagated). Full sweep GREEN, **2,241 JSON artifacts, 0
+  invalid**. No geometry moved.
 - [ ] **N2 · Freeze the probe's edges.** DR 0046's strongest named
   follow-on, and it should follow N1's answer rather than precede it.
   The incumbent geometry is protected from its own instability by being
@@ -70,7 +97,14 @@ truth), `0029-16x16-default-grid-scale.md` (the geometry),
   provenance recorded, and re-express the probe-side headline numbers
   (508/512 reachable, the support ceiling) against the frozen set.
   Pre-register whether any of them move, and by how much before it
-  matters.
+  matters. **N1's size guidance, now measured** (DR 0049): freezing at a
+  *larger* derivation size buys address stability but **not** aggregate
+  stability — the probe's occupied-niche movement never reaches the
+  measured floor anywhere on a 64× ladder — while freezing at E1's own
+  600 keeps the two recipes size-comparable, which is worth more than a
+  marginal rung. The probe's re-addressing at N=4800 (0.129333) is level
+  with the incumbent's, so the recipes do not differ in *stability*, only
+  in the corpus they draw from.
 - [ ] **N3 · The micro-learner ablation conditions E/F/G.** Documented,
   unmet since **cycle 12**, and deliberately chosen as this cycle's
   non-archive ENGINE slice — the anti-periscope rule's own instruction

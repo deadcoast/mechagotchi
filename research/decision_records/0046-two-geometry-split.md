@@ -108,6 +108,21 @@ reassigns **20%**. The gap between the two geometries (36%) is barely
 larger than either recipe's disagreement with a resampled copy of
 itself.
 
+> **Dated note, 2026-07-27 (cycle 24 N1 / DR 0049) — these two controls
+> are UNDERSTATED, and correcting them STRENGTHENS this record.** Both
+> numbers above are **single draws**. N1 measured the same statistic at
+> the same derivation size over **four disjoint seed pairs**: the
+> incumbent mean is **0.316917** (pairs `[0.200, 0.386, 0.363, 0.319]`
+> — M2 happened to draw the most favourable pair on the ladder) and the
+> probe mean is **0.371583** (pairs `[0.310, 0.523, 0.349, 0.303]`).
+> Re-running this record's own rule against the four-pair control gives
+> **0.360000 / 0.371583 = 0.969** against the 2.0 bar, so `freeze_split`
+> holds by a **wider** margin than 1.16 — the two geometries differ by
+> *less* than the probe recipe differs from a resampled copy of itself.
+> The sentence above is more true than when it was written. Nothing is
+> retracted; the originals stand as what M2 measured. See
+> `research/experiment_reports/2026-07-27-derivation-size-stability.md`.
+
 **So the two geometries are not two principled coordinate systems. They
 are two draws from a noisy edge-derivation process.** Converging them
 would have picked one draw over another and changed nothing about the
@@ -183,6 +198,23 @@ pre-registered gate, and none is smuggled in here:
    for `visual_complexity` in particular. That is a question about the
    derivation protocol itself (E1's), not about which population feeds
    it.
+
+   > **Dated note, 2026-07-27 — ANSWERED by cycle 24 N1 (DR 0049), and
+   > the answer splits in two.** The protocol is **`sampling_limited`,
+   > not structurally indeterminate**: re-addressing falls monotonically
+   > from 0.7268 at N=75 to 0.1278 at N=4800 at a log-log slope of
+   > -0.4186, consistent with sampling theory's -0.5 against a measured
+   > spread. So 600 does **not** determine the edges — and neither does
+   > 4,800 — but the edges are reachable, not unknowable. Meanwhile the
+   > **occupied-niche count** every ledger number is quoted in was
+   > already at its measured floor at 600 and does **not** improve with
+   > derivation size. E1's 600 therefore stays, on the measurement.
+   > This record's guess above ("suggests it may not") was right about
+   > the addresses and would have been wrong about the consequence.
+   > **And the `~0.046-wide band` and the edge placement are separable:**
+   > the band is essentially constant across a 64× range of derivation
+   > sizes, so measure-thinness is **structural and permanent** while
+   > only the placement inside it is sampled.
 3. **Re-running the reachability numbers.** 508/512 and the four bins
    bounded by K3 stay probe-geometry numbers. Nothing here invalidates
    them; the comparability rule governs how they may be quoted.
@@ -190,6 +222,7 @@ pre-registered gate, and none is smuggled in here:
 ## Sources
 
 - `research/experiment_reports/2026-07-27-geometry-decision.md` (this record's study)
+- `research/experiment_reports/2026-07-27-derivation-size-stability.md` + `research/decision_records/0049-derivation-size-and-octile-determinacy.md` (cycle 24 N1 — answers this record's second named follow-on, and corrects its two controls by dated note)
 - `labs/map_elites_archive/geometry_decision.py` (+ `test_geometry_decision.py`, 20 pins) · `data/archives/geometry_decision_stage0.json`
 - `research/experiment_reports/2026-07-26-geometry-consistency.md` (L3 — the diagnosis this record decides), `2026-07-21-generation-arm-loop.md` (K2 — the cross-geometry claim, now carrying a dated note), `2026-07-21-reachability-escalation.md` (K3 — measure-thinness), `2026-07-27-elite-population-measures.md` (M1 — the measured-control precedent this study follows)
 - `labs/map_elites_archive/niche_scale_archive.py` (the derivation protocol), `reachability_probe.py`, `occupancy_saturation.py` (the probe-geometry consumers), `evaluation_loop_scale.py`, `coverage_qd_gates.py` (the incumbent consumers) · `labs/wfc_grid/wfc_population_throughput.py` (`load_frozen_scale_edges`)

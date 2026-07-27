@@ -1,0 +1,1149 @@
+{
+  "artifact_id": "derivation_size_stability_stage0",
+  "status": "stage0",
+  "date": "2026-07-27",
+  "purpose": "Cycle 24 N1: measure whether E1's 600-creature derivation DETERMINES the octile edges, by running the re-addressing rate as a function of derivation size against two pre-registered gates \u2014 a mechanism gate against sampling theory's own convergence rate, and a practical gate against the MEASURED movement the occupied-niche count shows when only the evaluation population is resampled.",
+  "source_artifacts": [
+    "data/archives/geometry_decision_stage0.json",
+    "data/archives/geometry_consistency_stage0.json",
+    "data/archives/niche_scale_archive_stage0.json",
+    "data/archives/occupancy_saturation_stage0.json",
+    "data/archives/reachability_probe_stage0.json"
+  ],
+  "parameters": {
+    "size_ladder": [
+      75,
+      150,
+      300,
+      600,
+      1200,
+      2400,
+      4800
+    ],
+    "replicate_seed_count": 8,
+    "replicate_seeds": [
+      20260709,
+      21260712,
+      22260715,
+      23260718,
+      24260721,
+      25260724,
+      26260727,
+      27260730
+    ],
+    "disjoint_pairs": [
+      [
+        20260709,
+        21260712
+      ],
+      [
+        22260715,
+        23260718
+      ],
+      [
+        24260721,
+        25260724
+      ],
+      [
+        26260727,
+        27260730
+      ]
+    ],
+    "evaluation_count": 3000,
+    "evaluation_replicate_count": 6,
+    "recipes": [
+      "incumbent",
+      "probe"
+    ],
+    "bins_per_axis": 8,
+    "total_niches": 512,
+    "recipe_definitions": {
+      "incumbent": "build_population(N, seed, TRAIN, wfc_model) \u2014 E1's own protocol, whose output is frozen and committed and carries every coverage/QD number in the ledger",
+      "probe": "build_population(N, seed, ALL 50 SEEDS, wfc_model) \u2014 re-derived live by reachability_probe and occupancy_saturation; measured here because N2 must choose a size to freeze it AT"
+    }
+  },
+  "metrics": {
+    "ladder": {
+      "incumbent": {
+        "75": {
+          "derivation_count": 75,
+          "readdressing_by_pair": [
+            0.633333,
+            0.595,
+            0.896667,
+            0.782333
+          ],
+          "readdressing_mean": 0.726833,
+          "readdressing_spread": 0.1391,
+          "per_axis_readdressing_mean": {
+            "symmetry": 0.326167,
+            "visual_complexity": 0.23875,
+            "behavior_neediness": 0.463
+          },
+          "support_ceiling_by_seed": [
+            448,
+            444,
+            449,
+            443,
+            432,
+            446,
+            419,
+            435
+          ],
+          "ceiling_movement_by_pair": [
+            4,
+            6,
+            14,
+            16
+          ],
+          "ceiling_movement_mean": 10,
+          "edge_band_width_mean": {
+            "symmetry": 0.648646,
+            "visual_complexity": 0.043993,
+            "behavior_neediness": 0.185781
+          },
+          "first_replicate_distinct_fraction": 1.0,
+          "first_replicate_edges": {
+            "symmetry": [
+              0.306939,
+              0.354552,
+              0.424242,
+              0.466667,
+              0.626389,
+              0.903125,
+              0.940731
+            ],
+            "visual_complexity": [
+              0.858138,
+              0.867856,
+              0.876251,
+              0.880969,
+              0.885894,
+              0.894123,
+              0.901385
+            ],
+            "behavior_neediness": [
+              0.29,
+              0.305,
+              0.35375,
+              0.3775,
+              0.388125,
+              0.405,
+              0.4625
+            ]
+          }
+        },
+        "150": {
+          "derivation_count": 150,
+          "readdressing_by_pair": [
+            0.453667,
+            0.479,
+            0.713,
+            0.593333
+          ],
+          "readdressing_mean": 0.55975,
+          "readdressing_spread": 0.118866,
+          "per_axis_readdressing_mean": {
+            "symmetry": 0.27875,
+            "visual_complexity": 0.206667,
+            "behavior_neediness": 0.231917
+          },
+          "support_ceiling_by_seed": [
+            446,
+            455,
+            440,
+            466,
+            425,
+            450,
+            435,
+            433
+          ],
+          "ceiling_movement_by_pair": [
+            9,
+            26,
+            25,
+            2
+          ],
+          "ceiling_movement_mean": 15.5,
+          "edge_band_width_mean": {
+            "symmetry": 0.649085,
+            "visual_complexity": 0.045923,
+            "behavior_neediness": 0.190976
+          },
+          "first_replicate_distinct_fraction": 1.0,
+          "first_replicate_edges": {
+            "symmetry": [
+              0.319941,
+              0.365035,
+              0.411664,
+              0.496377,
+              0.83647,
+              0.924165,
+              0.948166
+            ],
+            "visual_complexity": [
+              0.860557,
+              0.869108,
+              0.876738,
+              0.884214,
+              0.889719,
+              0.896181,
+              0.908202
+            ],
+            "behavior_neediness": [
+              0.2925,
+              0.3125,
+              0.354375,
+              0.38,
+              0.3925,
+              0.444375,
+              0.479375
+            ]
+          }
+        },
+        "300": {
+          "derivation_count": 300,
+          "readdressing_by_pair": [
+            0.346333,
+            0.431,
+            0.494,
+            0.384333
+          ],
+          "readdressing_mean": 0.413917,
+          "readdressing_spread": 0.063634,
+          "per_axis_readdressing_mean": {
+            "symmetry": 0.154334,
+            "visual_complexity": 0.168416,
+            "behavior_neediness": 0.164583
+          },
+          "support_ceiling_by_seed": [
+            458,
+            448,
+            450,
+            466,
+            449,
+            460,
+            458,
+            456
+          ],
+          "ceiling_movement_by_pair": [
+            10,
+            16,
+            11,
+            2
+          ],
+          "ceiling_movement_mean": 9.75,
+          "edge_band_width_mean": {
+            "symmetry": 0.642767,
+            "visual_complexity": 0.045486,
+            "behavior_neediness": 0.185977
+          },
+          "first_replicate_distinct_fraction": 1.0,
+          "first_replicate_edges": {
+            "symmetry": [
+              0.328052,
+              0.369231,
+              0.412698,
+              0.478806,
+              0.835267,
+              0.925093,
+              0.951991
+            ],
+            "visual_complexity": [
+              0.860502,
+              0.870004,
+              0.877433,
+              0.884246,
+              0.890005,
+              0.895613,
+              0.905881
+            ],
+            "behavior_neediness": [
+              0.2925,
+              0.316875,
+              0.3625,
+              0.3825,
+              0.397188,
+              0.445,
+              0.481563
+            ]
+          }
+        },
+        "600": {
+          "derivation_count": 600,
+          "readdressing_by_pair": [
+            0.2,
+            0.385667,
+            0.362667,
+            0.319333
+          ],
+          "readdressing_mean": 0.316917,
+          "readdressing_spread": 0.082654,
+          "per_axis_readdressing_mean": {
+            "symmetry": 0.07025,
+            "visual_complexity": 0.1465,
+            "behavior_neediness": 0.14125
+          },
+          "support_ceiling_by_seed": [
+            456,
+            456,
+            462,
+            456,
+            460,
+            461,
+            460,
+            469
+          ],
+          "ceiling_movement_by_pair": [
+            0,
+            6,
+            1,
+            9
+          ],
+          "ceiling_movement_mean": 4,
+          "edge_band_width_mean": {
+            "symmetry": 0.643192,
+            "visual_complexity": 0.045185,
+            "behavior_neediness": 0.185234
+          },
+          "first_replicate_distinct_fraction": 0.998333,
+          "first_replicate_edges": {
+            "symmetry": [
+              0.322437,
+              0.363636,
+              0.418813,
+              0.478243,
+              0.644478,
+              0.925511,
+              0.954128
+            ],
+            "visual_complexity": [
+              0.860816,
+              0.871018,
+              0.877231,
+              0.883531,
+              0.88986,
+              0.896811,
+              0.906586
+            ],
+            "behavior_neediness": [
+              0.295,
+              0.336875,
+              0.365,
+              0.3825,
+              0.395,
+              0.445,
+              0.4775
+            ]
+          }
+        },
+        "1200": {
+          "derivation_count": 1200,
+          "readdressing_by_pair": [
+            0.163,
+            0.449333,
+            0.173333,
+            0.248333
+          ],
+          "readdressing_mean": 0.2585,
+          "readdressing_spread": 0.132783,
+          "per_axis_readdressing_mean": {
+            "symmetry": 0.0835,
+            "visual_complexity": 0.103167,
+            "behavior_neediness": 0.104167
+          },
+          "support_ceiling_by_seed": [
+            460,
+            454,
+            462,
+            460,
+            472,
+            462,
+            460,
+            459
+          ],
+          "ceiling_movement_by_pair": [
+            6,
+            2,
+            10,
+            1
+          ],
+          "ceiling_movement_mean": 4.75,
+          "edge_band_width_mean": {
+            "symmetry": 0.646536,
+            "visual_complexity": 0.045102,
+            "behavior_neediness": 0.187891
+          },
+          "first_replicate_distinct_fraction": 0.9975,
+          "first_replicate_edges": {
+            "symmetry": [
+              0.3125,
+              0.366111,
+              0.414319,
+              0.474576,
+              0.641975,
+              0.926152,
+              0.954128
+            ],
+            "visual_complexity": [
+              0.86098,
+              0.870779,
+              0.877098,
+              0.884294,
+              0.890657,
+              0.897326,
+              0.906964
+            ],
+            "behavior_neediness": [
+              0.3,
+              0.3425,
+              0.3675,
+              0.3825,
+              0.395,
+              0.4425,
+              0.4775
+            ]
+          }
+        },
+        "2400": {
+          "derivation_count": 2400,
+          "readdressing_by_pair": [
+            0.14,
+            0.194333,
+            0.154,
+            0.189
+          ],
+          "readdressing_mean": 0.169333,
+          "readdressing_spread": 0.026504,
+          "per_axis_readdressing_mean": {
+            "symmetry": 0.059,
+            "visual_complexity": 0.064167,
+            "behavior_neediness": 0.054917
+          },
+          "support_ceiling_by_seed": [
+            457,
+            459,
+            462,
+            455,
+            469,
+            458,
+            465,
+            455
+          ],
+          "ceiling_movement_by_pair": [
+            2,
+            7,
+            11,
+            10
+          ],
+          "ceiling_movement_mean": 7.5,
+          "edge_band_width_mean": {
+            "symmetry": 0.644509,
+            "visual_complexity": 0.044938,
+            "behavior_neediness": 0.179453
+          },
+          "first_replicate_distinct_fraction": 0.995,
+          "first_replicate_edges": {
+            "symmetry": [
+              0.3125,
+              0.370085,
+              0.41791,
+              0.474576,
+              0.644743,
+              0.927536,
+              0.955224
+            ],
+            "visual_complexity": [
+              0.860779,
+              0.870559,
+              0.877091,
+              0.883898,
+              0.890408,
+              0.896226,
+              0.905436
+            ],
+            "behavior_neediness": [
+              0.2975,
+              0.339375,
+              0.3675,
+              0.3825,
+              0.395,
+              0.4425,
+              0.475
+            ]
+          }
+        },
+        "4800": {
+          "derivation_count": 4800,
+          "readdressing_by_pair": [
+            0.126,
+            0.156,
+            0.111667,
+            0.117667
+          ],
+          "readdressing_mean": 0.127833,
+          "readdressing_spread": 0.019676,
+          "per_axis_readdressing_mean": {
+            "symmetry": 0.028667,
+            "visual_complexity": 0.062417,
+            "behavior_neediness": 0.042
+          },
+          "support_ceiling_by_seed": [
+            464,
+            452,
+            465,
+            457,
+            468,
+            458,
+            459,
+            460
+          ],
+          "ceiling_movement_by_pair": [
+            12,
+            8,
+            10,
+            1
+          ],
+          "ceiling_movement_mean": 7.75,
+          "edge_band_width_mean": {
+            "symmetry": 0.644362,
+            "visual_complexity": 0.045196,
+            "behavior_neediness": 0.179062
+          },
+          "first_replicate_distinct_fraction": 0.993542,
+          "first_replicate_edges": {
+            "symmetry": [
+              0.3125,
+              0.371429,
+              0.41791,
+              0.477612,
+              0.657534,
+              0.929577,
+              0.955224
+            ],
+            "visual_complexity": [
+              0.860262,
+              0.870617,
+              0.876976,
+              0.883329,
+              0.890254,
+              0.896389,
+              0.906071
+            ],
+            "behavior_neediness": [
+              0.3,
+              0.345,
+              0.3675,
+              0.385,
+              0.395,
+              0.4425,
+              0.4775
+            ]
+          }
+        }
+      },
+      "probe": {
+        "75": {
+          "derivation_count": 75,
+          "readdressing_by_pair": [
+            0.539667,
+            0.740667,
+            0.676333,
+            0.724
+          ],
+          "readdressing_mean": 0.670167,
+          "readdressing_spread": 0.091171,
+          "per_axis_readdressing_mean": {
+            "symmetry": 0.270083,
+            "visual_complexity": 0.314667,
+            "behavior_neediness": 0.329833
+          },
+          "support_ceiling_by_seed": [
+            443,
+            442,
+            429,
+            454,
+            428,
+            451,
+            453,
+            440
+          ],
+          "ceiling_movement_by_pair": [
+            1,
+            25,
+            23,
+            13
+          ],
+          "ceiling_movement_mean": 15.5,
+          "edge_band_width_mean": {
+            "symmetry": 0.641776,
+            "visual_complexity": 0.048585,
+            "behavior_neediness": 0.220078
+          },
+          "first_replicate_distinct_fraction": 1.0,
+          "first_replicate_edges": {
+            "symmetry": [
+              0.290557,
+              0.343834,
+              0.40411,
+              0.450704,
+              0.54021,
+              0.925434,
+              0.955224
+            ],
+            "visual_complexity": [
+              0.855969,
+              0.865669,
+              0.873196,
+              0.88081,
+              0.88612,
+              0.894013,
+              0.902747
+            ],
+            "behavior_neediness": [
+              0.2925,
+              0.30875,
+              0.355,
+              0.38,
+              0.393125,
+              0.43625,
+              0.530625
+            ]
+          }
+        },
+        "150": {
+          "derivation_count": 150,
+          "readdressing_by_pair": [
+            0.443,
+            0.663667,
+            0.738,
+            0.54
+          ],
+          "readdressing_mean": 0.596167,
+          "readdressing_spread": 0.130751,
+          "per_axis_readdressing_mean": {
+            "symmetry": 0.275,
+            "visual_complexity": 0.304667,
+            "behavior_neediness": 0.227333
+          },
+          "support_ceiling_by_seed": [
+            431,
+            444,
+            433,
+            470,
+            417,
+            461,
+            464,
+            436
+          ],
+          "ceiling_movement_by_pair": [
+            13,
+            37,
+            44,
+            28
+          ],
+          "ceiling_movement_mean": 30.5,
+          "edge_band_width_mean": {
+            "symmetry": 0.64085,
+            "visual_complexity": 0.048584,
+            "behavior_neediness": 0.211445
+          },
+          "first_replicate_distinct_fraction": 1.0,
+          "first_replicate_edges": {
+            "symmetry": [
+              0.285714,
+              0.344828,
+              0.383411,
+              0.439089,
+              0.527198,
+              0.898551,
+              0.948037
+            ],
+            "visual_complexity": [
+              0.854492,
+              0.864802,
+              0.873498,
+              0.880777,
+              0.886135,
+              0.892426,
+              0.901956
+            ],
+            "behavior_neediness": [
+              0.2925,
+              0.320625,
+              0.354687,
+              0.38125,
+              0.395313,
+              0.449375,
+              0.523438
+            ]
+          }
+        },
+        "300": {
+          "derivation_count": 300,
+          "readdressing_by_pair": [
+            0.402333,
+            0.578333,
+            0.572667,
+            0.567667
+          ],
+          "readdressing_mean": 0.53025,
+          "readdressing_spread": 0.085389,
+          "per_axis_readdressing_mean": {
+            "symmetry": 0.231583,
+            "visual_complexity": 0.268583,
+            "behavior_neediness": 0.170583
+          },
+          "support_ceiling_by_seed": [
+            446,
+            448,
+            451,
+            463,
+            423,
+            459,
+            467,
+            449
+          ],
+          "ceiling_movement_by_pair": [
+            2,
+            12,
+            36,
+            18
+          ],
+          "ceiling_movement_mean": 17,
+          "edge_band_width_mean": {
+            "symmetry": 0.635471,
+            "visual_complexity": 0.048489,
+            "behavior_neediness": 0.215508
+          },
+          "first_replicate_distinct_fraction": 1.0,
+          "first_replicate_edges": {
+            "symmetry": [
+              0.318948,
+              0.360656,
+              0.4,
+              0.451613,
+              0.627586,
+              0.918254,
+              0.95122
+            ],
+            "visual_complexity": [
+              0.854119,
+              0.864513,
+              0.874016,
+              0.882421,
+              0.887201,
+              0.892917,
+              0.900537
+            ],
+            "behavior_neediness": [
+              0.2925,
+              0.32625,
+              0.3575,
+              0.3825,
+              0.4025,
+              0.450625,
+              0.520625
+            ]
+          }
+        },
+        "600": {
+          "derivation_count": 600,
+          "readdressing_by_pair": [
+            0.310333,
+            0.523333,
+            0.349333,
+            0.303333
+          ],
+          "readdressing_mean": 0.371583,
+          "readdressing_spread": 0.103171,
+          "per_axis_readdressing_mean": {
+            "symmetry": 0.131083,
+            "visual_complexity": 0.182084,
+            "behavior_neediness": 0.111833
+          },
+          "support_ceiling_by_seed": [
+            460,
+            457,
+            452,
+            467,
+            453,
+            457,
+            466,
+            465
+          ],
+          "ceiling_movement_by_pair": [
+            3,
+            15,
+            4,
+            1
+          ],
+          "ceiling_movement_mean": 5.75,
+          "edge_band_width_mean": {
+            "symmetry": 0.634984,
+            "visual_complexity": 0.04826,
+            "behavior_neediness": 0.217031
+          },
+          "first_replicate_distinct_fraction": 1.0,
+          "first_replicate_edges": {
+            "symmetry": [
+              0.322581,
+              0.361111,
+              0.412698,
+              0.469669,
+              0.643311,
+              0.921245,
+              0.954265
+            ],
+            "visual_complexity": [
+              0.854783,
+              0.86771,
+              0.875275,
+              0.882224,
+              0.887879,
+              0.894817,
+              0.904185
+            ],
+            "behavior_neediness": [
+              0.2975,
+              0.3325,
+              0.3625,
+              0.3825,
+              0.3975,
+              0.4475,
+              0.515
+            ]
+          }
+        },
+        "1200": {
+          "derivation_count": 1200,
+          "readdressing_by_pair": [
+            0.267333,
+            0.303,
+            0.224333,
+            0.253
+          ],
+          "readdressing_mean": 0.261916,
+          "readdressing_spread": 0.032707,
+          "per_axis_readdressing_mean": {
+            "symmetry": 0.083333,
+            "visual_complexity": 0.115667,
+            "behavior_neediness": 0.087
+          },
+          "support_ceiling_by_seed": [
+            465,
+            459,
+            452,
+            464,
+            453,
+            452,
+            464,
+            461
+          ],
+          "ceiling_movement_by_pair": [
+            6,
+            12,
+            1,
+            3
+          ],
+          "ceiling_movement_mean": 5.5,
+          "edge_band_width_mean": {
+            "symmetry": 0.636081,
+            "visual_complexity": 0.048084,
+            "behavior_neediness": 0.220391
+          },
+          "first_replicate_distinct_fraction": 0.998333,
+          "first_replicate_edges": {
+            "symmetry": [
+              0.31746,
+              0.366111,
+              0.413793,
+              0.47619,
+              0.666667,
+              0.925373,
+              0.952381
+            ],
+            "visual_complexity": [
+              0.855345,
+              0.868751,
+              0.875895,
+              0.882859,
+              0.889321,
+              0.896165,
+              0.904444
+            ],
+            "behavior_neediness": [
+              0.3,
+              0.33,
+              0.3625,
+              0.3825,
+              0.3975,
+              0.445625,
+              0.515
+            ]
+          }
+        },
+        "2400": {
+          "derivation_count": 2400,
+          "readdressing_by_pair": [
+            0.253,
+            0.208667,
+            0.157,
+            0.203333
+          ],
+          "readdressing_mean": 0.2055,
+          "readdressing_spread": 0.039257,
+          "per_axis_readdressing_mean": {
+            "symmetry": 0.050667,
+            "visual_complexity": 0.086833,
+            "behavior_neediness": 0.084084
+          },
+          "support_ceiling_by_seed": [
+            457,
+            465,
+            455,
+            454,
+            455,
+            458,
+            463,
+            468
+          ],
+          "ceiling_movement_by_pair": [
+            8,
+            1,
+            3,
+            5
+          ],
+          "ceiling_movement_mean": 4.25,
+          "edge_band_width_mean": {
+            "symmetry": 0.636974,
+            "visual_complexity": 0.047336,
+            "behavior_neediness": 0.220664
+          },
+          "first_replicate_distinct_fraction": 0.995833,
+          "first_replicate_edges": {
+            "symmetry": [
+              0.31746,
+              0.369231,
+              0.416667,
+              0.47619,
+              0.686567,
+              0.925373,
+              0.953846
+            ],
+            "visual_complexity": [
+              0.855971,
+              0.867732,
+              0.875571,
+              0.882383,
+              0.889253,
+              0.89546,
+              0.904149
+            ],
+            "behavior_neediness": [
+              0.2975,
+              0.3275,
+              0.3625,
+              0.3825,
+              0.3975,
+              0.445,
+              0.515
+            ]
+          }
+        },
+        "4800": {
+          "derivation_count": 4800,
+          "readdressing_by_pair": [
+            0.117333,
+            0.158,
+            0.121667,
+            0.120333
+          ],
+          "readdressing_mean": 0.129333,
+          "readdressing_spread": 0.019197,
+          "per_axis_readdressing_mean": {
+            "symmetry": 0.02425,
+            "visual_complexity": 0.059167,
+            "behavior_neediness": 0.052417
+          },
+          "support_ceiling_by_seed": [
+            464,
+            466,
+            453,
+            462,
+            460,
+            464,
+            461,
+            468
+          ],
+          "ceiling_movement_by_pair": [
+            2,
+            9,
+            4,
+            7
+          ],
+          "ceiling_movement_mean": 5.5,
+          "edge_band_width_mean": {
+            "symmetry": 0.636478,
+            "visual_complexity": 0.047415,
+            "behavior_neediness": 0.221914
+          },
+          "first_replicate_distinct_fraction": 0.99375,
+          "first_replicate_edges": {
+            "symmetry": [
+              0.318841,
+              0.372881,
+              0.41791,
+              0.482759,
+              0.754798,
+              0.926829,
+              0.954128
+            ],
+            "visual_complexity": [
+              0.855907,
+              0.86791,
+              0.87573,
+              0.882205,
+              0.888877,
+              0.895172,
+              0.903541
+            ],
+            "behavior_neediness": [
+              0.2975,
+              0.33,
+              0.365,
+              0.3825,
+              0.3975,
+              0.4475,
+              0.52
+            ]
+          }
+        }
+      }
+    },
+    "slope_fits": {
+      "incumbent": {
+        "track_slopes": [
+          -0.409583,
+          -0.297747,
+          -0.533893,
+          -0.433222
+        ],
+        "slope_mean": -0.418611,
+        "slope_spread": 0.096942,
+        "unfittable_tracks": []
+      },
+      "probe": {
+        "track_slopes": [
+          -0.31466,
+          -0.39135,
+          -0.472934,
+          -0.419679
+        ],
+        "slope_mean": -0.399656,
+        "slope_spread": 0.06599,
+        "unfittable_tracks": []
+      }
+    },
+    "evaluation_resampling_floor": {
+      "floor": 4,
+      "frozen_edge_ceilings": [
+        456,
+        458,
+        455,
+        449,
+        454,
+        458
+      ],
+      "pairwise_movements": [
+        2,
+        6,
+        4
+      ],
+      "unit": "occupied niches (of 512)",
+      "method": "the committed frozen incumbent edges held fixed while the evaluation population is resampled at the same size \u2014 the movement that has nothing to do with derivation size"
+    },
+    "dr0046_reproduction": {
+      "incumbent": {
+        "committed": 0.2,
+        "measured": 0.2,
+        "reproduced": true,
+        "applicable": true
+      },
+      "probe": {
+        "committed": 0.310333,
+        "measured": 0.310333,
+        "reproduced": true,
+        "applicable": true
+      }
+    },
+    "wall_clock_s": 826.247
+  },
+  "closed_states": [
+    "edge stability is measured as a FUNCTION of derivation size, in DR 0046's address unit, rather than at one size",
+    "the mechanism gate compares against sampling theory's own convergence rate, judged by the MEASURED spread of independent per-track slopes",
+    "the practical gate is measured in the unit the ledger quotes (occupied niches) against a MEASURED floor",
+    "the instrument reproduces DR 0046's committed control at E1's own derivation size, so every rung is interpretable",
+    "generator saturation is measured per rung, so a population that stopped producing new creatures cannot be read as a geometry that stopped moving",
+    "This study moves no geometry and retracts no number. Every committed coverage, QD and reachability figure stays true under the edges it was measured with, and DR 0046's comparability rule still governs how they may be quoted. What is measured here is whether the PROTOCOL that produces those edges determines them \u2014 a question about what the edges mean, not about whether the numbers counted against them were counted correctly."
+  ],
+  "blocked_states": [
+    "this study moves no geometry and freezes nothing: acting on it is N2's charter (freezing the probe's edges) and any change to E1's derivation size would be its own record",
+    "the evaluation population shares an rng seed with the second derivation replicate, inherited from M2's construction so DR 0046 reproduces exactly. The draws differ in size and source corpus and so are not identical, but they are not formally independent either \u2014 recorded rather than silently re-seeded, because re-seeding would have cost the reproduction check",
+    "the re-addressing statistic counts an address change of any size (DR 0046's own remainder, inherited): a creature moving one octile counts the same as one moving three on all three axes",
+    "one common evaluation population carries every rung's re-addressing rate, so the ladder measures derivation instability against a fixed ruler and says nothing about how the rate would move on a different evaluation draw"
+  ],
+  "decision": {
+    "by_recipe": {
+      "incumbent": {
+        "mechanism": {
+          "verdict": "sampling_limited",
+          "slope": -0.418611,
+          "slope_spread": 0.096942,
+          "consistent_band": [
+            -0.612495,
+            -0.224727
+          ],
+          "theory_slope": -0.5,
+          "factor": 2.0,
+          "reading": "the re-addressing is ordinary sampling error: the protocol is sound and 600 is merely too small, so a larger derivation buys a determinate geometry"
+        },
+        "practical": {
+          "verdict": "determined",
+          "determined_at": 600,
+          "floor": 4,
+          "e1_derivation_count": 600,
+          "e1_movement": 4,
+          "e1_size_determined": true,
+          "largest_size_measured": 4800
+        }
+      },
+      "probe": {
+        "mechanism": {
+          "verdict": "sampling_limited",
+          "slope": -0.399656,
+          "slope_spread": 0.06599,
+          "consistent_band": [
+            -0.531636,
+            -0.267676
+          ],
+          "theory_slope": -0.5,
+          "factor": 2.0,
+          "reading": "the re-addressing is ordinary sampling error: the protocol is sound and 600 is merely too small, so a larger derivation buys a determinate geometry"
+        },
+        "practical": {
+          "verdict": "not_determined_within_reach",
+          "determined_at": null,
+          "floor": 4,
+          "e1_derivation_count": 600,
+          "e1_movement": 5.75,
+          "e1_size_determined": false,
+          "largest_size_measured": 4800
+        }
+      }
+    },
+    "rule": "pre-registered (cycle 24 N1), two gates, every verdict first-class. The statistic is the RE-ADDRESSING RATE R(N): the fraction of one common evaluation population that receives a different descriptor address under two independent derivations of size N \u2014 DR 0046's unit, because a niche is a whole address and edge distance is not the unit any ledger number is counted in. GATE 1 (mechanism): fit log R against log N; sampling theory for quantile estimates predicts a slope of -0.5. Judge it against the MEASURED spread of the per-track slopes at 2.0x, never against a constant \u2014 'sampling_limited' if theory lies inside the measured band (the protocol is sound and 600 is merely small), 'structurally_indeterminate' if the curve is materially flatter (no affordable population determines the edges), 'faster_than_sampling' if steeper. GATE 2 (practical): the derivation-induced movement in OCCUPIED-NICHE COUNT, against a MEASURED floor \u2014 the movement that same count shows when the edges are held fixed and the evaluation population is resampled. 'determined_at' is the smallest ladder size reaching that floor; 'not_determined_within_reach' is first-class. The two gates may disagree, and reporting only one of them would hide the finding.",
+    "geometry_unchanged": "This study moves no geometry and retracts no number. Every committed coverage, QD and reachability figure stays true under the edges it was measured with, and DR 0046's comparability rule still governs how they may be quoted. What is measured here is whether the PROTOCOL that produces those edges determines them \u2014 a question about what the edges mean, not about whether the numbers counted against them were counted correctly."
+  },
+  "next_research_step": "N2: freeze the probe's edges to a committed artifact with recorded provenance, at a derivation size this study names \u2014 and re-express 508/512 and the support ceiling against the frozen set."
+}

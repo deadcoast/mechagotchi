@@ -62,6 +62,29 @@ wall-clock measured first (gap-analysis Phase E, E1).
   reference-canvas recalibration restores 7 of 7 distinct octile
   edges (`supports_full_bins: true`) — the axis discriminates at
   full geometry.
+- **The 600-candidate derivation does NOT determine the octile edges**
+  (cycle 24 N1, DR 0049 — measured, and the strongest caveat on this
+  card). Two independent derivations at that size re-address **31.7%**
+  of a population; at 4,800 they still re-address **12.8%**. The
+  instability is **`sampling_limited`, not structural** — R(N) falls
+  monotonically from 0.7268 (N=75) to 0.1278 (N=4800) at a log-log
+  slope of **-0.4186**, consistent with sampling theory's -0.5 against a
+  measured spread — so the edges are reachable, just under-sampled.
+  **`derivation_count` stays at 600 anyway**, on the measurement: the
+  **occupied-niche count** every consumer quotes was already at its
+  measured floor (4 niches) at 600 and does **not** improve with
+  derivation size. Raising it would re-address a third of the population
+  and move no number anyone reads.
+- **`visual_complexity`'s measure-thinness is STRUCTURAL, and separate
+  from its edge placement** (cycle 24 N1). Its seven interior edges sit
+  in a band ~0.045 wide that is **essentially constant across a 64×
+  range of derivation sizes** (0.043993 at N=75, 0.045196 at N=4800) —
+  no derivation budget narrows it. Sampling fixes only *where* the edges
+  sit inside that fixed band. It is also the **slowest-converging** axis:
+  the *smallest* per-axis contributor at N=75 and **49%** of all axis
+  movement by N=4800, the other two having converged out from under it.
+  Prose that treats the band width as a small-sample artifact is wrong
+  by DR 0049.
 
 ## Failure modes
 
@@ -111,5 +134,7 @@ recorded re-derivation decision.
 - `labs/map_elites_archive/niche_scale_archive.py` (+ `test_niche_scale_archive.py`)
 - `data/archives/niche_scale_archive_stage0.json`
 - `research/experiment_reports/2026-07-09-niche-scale-archive.md`
+- `research/experiment_reports/2026-07-27-derivation-size-stability.md` + `research/decision_records/0049-derivation-size-and-octile-determinacy.md` (cycle 24 N1 — the derivation protocol measured as a function of size; `derivation_count` stays 600 on the measurement)
+- `research/decision_records/0046-two-geometry-split.md` (the comparability rule; the two-geometry split this protocol's edges sit on one side of)
 - `docs/project-research/deep-research/01/deep-research.md`
 - `packages/mecha_engine/src/mecha_engine/archive/store.py`

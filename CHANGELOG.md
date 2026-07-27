@@ -25,13 +25,59 @@ never rewritten).
 
 ## [Unreleased] — Cycle 24 · Phase N — "the descriptor space earns its edges"
 
-*In progress. Queue: `audits/TODO.md` (N1–N6, none started).*
+*In progress. Queue: `audits/TODO.md` (**N1 DONE**; N2–N6 open).*
 
 Planned from Phase M's deepest finding — **the octile edges are not
 determined by a 600-creature derivation** — plus the debts DR 0047 and
 DR 0048 explicitly asked for, and one non-archive slice (the
 never-instantiated micro-learner conditions E/F/G) after two
 archive-heavy cycles.
+
+- **N1 — DONE 2026-07-27 (DR 0049).** The cycle's founding premise
+  measured — **and it is half right, in the half that matters least**.
+  DR 0046's re-addressing statistic run as a *function* of derivation
+  size (75 → 4,800, four disjoint seed pairs per rung, both recipes),
+  after the instrument reproduced **both** committed DR 0046 controls
+  exactly. **Gate 1: `sampling_limited` on both recipes** — slope
+  **-0.4186** / **-0.3997** against sampling theory's -0.5, judged by
+  the *measured* spread of four per-track slopes — so
+  **structural indeterminacy is REFUTED**: re-addressing falls
+  monotonically 0.7268 → **0.1278** and the edges are under-sampled,
+  not unknowable. **Gate 2 splits from Gate 1, and that is the
+  finding**: against a *measured* floor of 4 niches, **at N=600 the
+  incumbent re-addresses 31.7% of individual creatures while its
+  occupied-niche count moves exactly the floor** — and at N=4,800
+  re-addressing has improved 2.5× while ceiling movement is *higher*.
+  So 600 does not determine the edges, and neither does 4,800; but the
+  numbers every consumer reads were already at their measurement floor
+  at 600.
+- **DECIDED — `derivation_count` stays at 600** (DR 0049), not from
+  caution but because **what raising it would fix is not what was
+  broken**: it would re-address a third of the population, invalidate
+  the frozen edge artifact, and move no number anyone quotes.
+- **The mechanism separates two things M2's prose fused.** The
+  `visual_complexity` edge band is essentially constant across the whole
+  64× range (0.043993 → 0.045196), so **measure-thinness is structural
+  and permanent — no derivation budget narrows it — while only the edge
+  *placement* inside that fixed band is sampled.** K3's measure-thin
+  windows are therefore not a small-sample artifact, and
+  `visual_complexity` is the **slowest-converging** axis: the smallest
+  per-axis contributor at N=75, **49%** of all axis movement by N=4,800.
+- **CORRECTED (DR 0046's two controls, understated).** They are single
+  draws; the four-pair means are **0.316917** (against 0.200000
+  recorded) and **0.371583** (against 0.310333). **M2's verdict is
+  unchanged and strengthened** — ratio 1.16 → **0.969** against the same
+  2.0 bar, so the two geometries differ by *less* than the probe recipe
+  differs from a resampled copy of itself. Dated notes beside both
+  originals; nothing rewritten.
+- **A limitation of N1's OWN pre-registration, recorded not repaired.**
+  Gate 2's rule assumes monotone convergence and the movement is not
+  monotone (`10.0, 15.5, 9.75, 4.0, 4.75, 7.5, 7.75`); the incumbent
+  passes by an **exact tie** against a floor measured from three pairs.
+  The verdict stands as the rule produced it, but `determined_at = 600`
+  is a noisy statistic crossing a threshold, **not a located stability
+  point** — and the two recipes' Gate-2 verdicts must not be read as a
+  real difference between them.
 
 ---
 
@@ -433,6 +479,6 @@ These are decisions, not backlog:
 
 - `research/README.md` — the master traceability ledger (the authoritative record)
 - `research/experiment_reports/` — dated findings and the per-phase gate reports
-- `research/decision_records/` — ADRs `0001`–`0048`
+- `research/decision_records/` — ADRs `0001`–`0049`
 - `audits/TODO.md` (the live queue) and `audits/complete/NN/TODO.md` (archived cycles)
 - `tools/ci/run_sweep.py` — the one verification sweep every gate runs

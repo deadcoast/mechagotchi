@@ -204,6 +204,27 @@ committed.
    band. That is a defect **underneath every coverage number in the
    repo**, and it is a question about E1's derivation protocol rather
    than about which population feeds it.
+
+   > **Dated note, 2026-07-27 — ANSWERED by cycle 24 N1 (DR 0049), and
+   > the phrase "underneath every coverage number in the repo" is
+   > OVERSTATED.** Both halves measured. (a) The protocol is
+   > **`sampling_limited`, not structurally indeterminate** — slope
+   > **-0.4186** against sampling theory's -0.5 inside a measured band,
+   > re-addressing falling monotonically 0.7268 (N=75) → **0.1278**
+   > (N=4800). So 600 does not determine the *addresses*, and neither
+   > does 4,800 — but the edges are under-sampled, not unknowable.
+   > (b) **The coverage numbers were already at their measurement
+   > floor.** Against a measured floor of 4 niches, the incumbent's
+   > occupied-niche count moves exactly 4 at N=600 while 31.7% of
+   > individual creatures re-address — and at N=4800 re-addressing has
+   > improved 2.5× while ceiling movement is *higher*. The instability
+   > is real in addresses and **does not reach the aggregate every
+   > coverage figure is counted in**. `derivation_count` therefore stays
+   > at 600 (DR 0049). The 26% and the 0.046 band above are both
+   > confirmed — and the band is now measured **constant across a 64×
+   > size range**, so measure-thinness is structural and permanent while
+   > only the edge placement inside it is sampled. See
+   > `research/experiment_reports/2026-07-27-derivation-size-stability.md`.
 2. **The probe's edges are not frozen** (M2 / DR 0046). The incumbent is
    protected from its own 20% instability by being committed once; the
    probe is re-derived live. No committed probe number is wrong, but

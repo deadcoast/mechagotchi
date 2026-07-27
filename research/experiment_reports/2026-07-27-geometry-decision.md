@@ -70,6 +70,17 @@ population to different niches.** The incumbent recipe reassigns 20%.
 The gap between the two geometries — 36% — is barely larger than either
 recipe's disagreement with a *resampled copy of itself*.
 
+> **Dated note, 2026-07-27 (cycle 24 N1 / DR 0049) — both controls are
+> UNDERSTATED single draws, and correcting them strengthens the
+> verdict.** Measured over **four disjoint seed pairs** at the same
+> derivation size, the incumbent control is **0.316917** (pairs
+> `[0.200, 0.386, 0.363, 0.319]`) and the probe **0.371583** (pairs
+> `[0.310, 0.523, 0.349, 0.303]`) — this study drew the most favourable
+> incumbent pair on the ladder. Against the four-pair control the ratio
+> becomes **0.969**, not 1.16, so `freeze_split` holds by a wider
+> margin. Nothing here is retracted. See
+> `research/experiment_reports/2026-07-27-derivation-size-stability.md`.
+
 So the honest reading is not "the split is fine". It is:
 
 > **The two geometries are not two principled coordinate systems. They
@@ -152,6 +163,18 @@ the absence as an omission.
    all** is now an open question about E1's derivation protocol itself,
    not about which population feeds it. `visual_complexity` in
    particular looks under-determined at that size.
+
+   > **Dated note, 2026-07-27 — ANSWERED by cycle 24 N1 (DR 0049).**
+   > `sampling_limited`, not structurally indeterminate (slope -0.4186
+   > against theory's -0.5, inside a measured band): 600 does not
+   > determine the addresses and neither does 4,800, but the edges are
+   > reachable rather than unknowable. The **occupied-niche count** the
+   > ledger actually quotes was already at its measured floor at 600 and
+   > does not improve with derivation size, so E1's 600 stays.
+   > `visual_complexity` is confirmed the **slowest-converging** axis —
+   > and its ~0.046 band is **constant across a 64× size range**, so the
+   > measure-thinness is structural while only the edge placement inside
+   > it is sampled.
 3. **The reachability numbers are untouched.** 508/512 and the four
    bins K3 bounded remain probe-geometry numbers; nothing here
    invalidates them, and the comparability rule governs how they may be
@@ -201,6 +224,7 @@ wrote data/archives/geometry_decision_stage0.json
 ## Sources
 
 - `audits/TODO.md` (cycle 23 M2) · `research/decision_records/0046-two-geometry-split.md` (the record this study produced)
+- `research/experiment_reports/2026-07-27-derivation-size-stability.md` · `research/decision_records/0049-derivation-size-and-octile-determinacy.md` (cycle 24 N1 — answers remainder 2 and corrects this study's controls by dated note)
 - `research/experiment_reports/2026-07-26-geometry-consistency.md` (L3 — the diagnosis this decides), `2026-07-21-generation-arm-loop.md` (K2 — the cross-geometry claim, now carrying a dated note), `2026-07-21-reachability-escalation.md` (K3 — measure-thinness and the bounded bins), `2026-07-27-elite-population-measures.md` (M1 — the measured-control precedent)
 - `labs/map_elites_archive/geometry_decision.py` (+ `test_geometry_decision.py`, 20 pins) · `data/archives/geometry_decision_stage0.json`
 - `labs/map_elites_archive/niche_scale_archive.py` (the derivation protocol), `reachability_probe.py`, `occupancy_saturation.py` (probe-geometry consumers), `evaluation_loop_scale.py`, `coverage_qd_gates.py` (incumbent consumers) · `labs/wfc_grid/wfc_population_throughput.py` (`load_frozen_scale_edges`)

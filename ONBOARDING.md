@@ -243,13 +243,30 @@ correction is a dated note beside the original.
 
 ### Cycle 24 · Phase N — the descriptor space earns its edges
 
-`audits/TODO.md` is the live queue: **N1–N6, none started.** The spine
+`audits/TODO.md` is the live queue: **N1 DONE, N2–N6 open.** The spine
 is Phase M's deepest finding: **the octile edges are not determined by a
 600-creature derivation.** `visual_complexity` re-addresses **26% of the
 population** when the derivation is merely resampled, and its seven
 interior edges sit inside a band about **0.046 wide** — a defect
 *underneath every coverage number in the ledger*, and a question about
 E1's derivation protocol rather than about which population feeds it.
+
+*Corrected 2026-07-27 by N1 / DR 0049*: the premise is **half right, in
+the half that matters least**, and "a defect underneath every coverage
+number" is **overstated**. Measured as a function of derivation size,
+the protocol is **`sampling_limited`, not structurally indeterminate**
+(slope −0.4186 against sampling theory's −0.5, inside a measured band):
+600 does not determine the *addresses* and neither does 4,800, but the
+edges are under-sampled rather than unknowable. Meanwhile the
+**occupied-niche count every coverage figure is counted in was already
+at its measured floor at 600** — it moves exactly the floor there while
+31.7% of individual creatures re-address, and at 4,800 re-addressing has
+improved 2.5× while the ceiling movement is *higher*. **`derivation_count`
+stays at 600**, because what raising it would fix is not what was broken.
+The 26% and the 0.046 band both stand — and the band is now measured
+**constant across a 64× size range**, so the measure-thinness is
+structural and permanent while only the edge placement inside it is
+sampled.
 
 N1/N2 sit under everything; N4 and N5 pay debts DR 0047 and DR 0048
 explicitly asked for; **N3 is deliberately non-archive** — the
@@ -353,22 +370,28 @@ first green CLOUD CI run, which awaits a push never made unasked.
 same change, one commit per task naming the task ID. Cycle 24's queue in
 order (cycle 23's closed ladder is in §3 and its gate report):
 
-1. **N1 · do 600 creatures determine the octile edges?** ← **THE NEXT
-   TASK.** M2's named follow-on and the deepest defect Phase M found:
-   re-deriving E1's recipe at another seed **re-addresses 20–31% of a
-   population**, driven almost entirely by `visual_complexity`, whose
-   seven interior edges sit in a ~0.046-wide band. Measure edge
-   stability as a function of derivation size; pre-register what
-   "determined" means (evidence-derived, never a constant); report the
-   size at which the geometry stops moving, **or report honestly that
-   it does not stabilise within reach**. This changes no geometry — it
-   measures whether the protocol producing them is sound.
-2. **N2 · freeze the probe's edges** — DR 0046's strongest named
-   follow-on, and it should follow N1's answer rather than precede it.
-   No committed probe number is wrong, but each is contingent on a draw
-   no artifact records. Freeze them as E1's are, record the provenance,
-   and re-express 508/512 and the support ceiling against the frozen
-   set.
+1. **N1 · do 600 creatures determine the octile edges?** — **DONE
+   2026-07-27 (DR 0049).** `sampling_limited`, not structurally
+   indeterminate (slope −0.4186 vs theory's −0.5 inside a measured
+   band): 600 does not determine the addresses and neither does 4,800,
+   but the edges are under-sampled rather than unknowable. **The
+   occupied-niche count the ledger quotes was already at its measured
+   floor at 600**, so `derivation_count` stays. Measure-thinness proved
+   **structural** (the band is constant across 64×) while only the edge
+   placement inside it is sampled. DR 0046's two controls corrected as
+   understated single draws — which **strengthens** `freeze_split`
+   (ratio 1.16 → 0.969).
+2. **N2 · freeze the probe's edges** ← **THE NEXT TASK.** DR 0046's
+   strongest named follow-on, and it follows N1's answer rather than
+   preceding it. No committed probe number is wrong, but each is
+   contingent on a draw no artifact records. Freeze them as E1's are,
+   record the provenance, and re-express 508/512 and the support
+   ceiling against the frozen set. **N1's size guidance (DR 0049)**:
+   freezing at a larger derivation size buys address stability but
+   **not** aggregate stability, and freezing at E1's own 600 keeps the
+   two recipes size-comparable — the probe's re-addressing at N=4800
+   (0.1293) is level with the incumbent's, so the recipes do not differ
+   in stability, only in the corpus they draw from.
 3. **N3 · the micro-learner ablation conditions E/F/G** — documented and
    unmet since **cycle 12**, and deliberately this cycle's
    **non-archive** ENGINE slice after two archive-heavy cycles (the
