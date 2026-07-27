@@ -157,22 +157,33 @@ DR 0021 (engine truth), DR 0029 (the geometry), DR 0042, DR 0045.
   nothing retracted, gate verdict unchanged. Surfaced because the
   module **reads the count from the artifact**, pinned. RED first;
   19 pins.
-- [ ] **M5 · The documented visible companion state.** The survey's
-  largest player-facing gap, and this cycle's GAME-track slice.
-  `validity-research.md` §1.17 names eight VISIBLE state axes —
-  *hunger, happiness, energy, cleanliness, mood, age, health, bond* —
-  and the engine's lifecycle carries `hunger, energy, stress, bond,
-  grid_stability`. **`happiness`, `cleanliness`, `mood`, `age` and
-  `health` have no field.** Survey each honestly before building:
-  some may be genuinely absent state, others **derivable views** of
-  what the engine already tracks — age from ticks lived, health from
-  grid stability and damage, and **mood** very likely from
-  `genome.animation.select_animation_state(lifecycle_state)`, which
-  already maps lifecycle onto the five clip states. Decide per axis by
-  DR whether it is engine truth,
-  a derived view, or deliberately out of scope — and **never invent a
-  number for a player** (DR 0021's first law). An uncalibrated axis is
-  shown as uncalibrated or not shown at all.
+- [x] **M5 · The documented visible companion state.** DONE 2026-07-27
+  (`2026-07-27-companion-state-survey.md`, **DR 0048**): **two of the
+  five "gaps" were already on the player's screen.** The charter said
+  survey honestly *before* building, so the instrument **measures
+  rather than asserts** — every disposition comes from a real lifecycle
+  state on a committed seed creature through the package boundary.
+  **`age` IS a lifecycle field** (`age_ticks`, set at construction,
+  incremented every tick, reported as `survival_ticks`) **and `mood` IS
+  a derived engine value** (`select_animation_state` returns
+  `(animation, mood)`, since Phase C) — **and the game already displays
+  both**. The prior claim counted lifecycle *homeostasis fields*, a
+  narrower question than "has an engine field". **The real gap is
+  three, not five**, and on the corrected evidence this is not the
+  repo's largest player-facing gap. **And the three are three different
+  KINDS of gap**: `happiness` has no **definition** (named, never
+  defined; `bond` is not a synonym); `cleanliness` has no **mechanic**
+  (no clean action, no dirt state — it needs a need, a decay, an action
+  and its policy/reward interaction); `health` is **definable but only
+  as a CHOSEN definition**, since `grid_stability` and per-cell
+  `damage` are both documented **HIDDEN** axes and any composite needs
+  undocumented weights. **DR 0048 builds NOTHING, and that is the
+  finding** — `happiness`/`cleanliness` out of scope, `health`
+  **withheld pending its own gate** (the L4 precedent). Building the
+  panel would have invented two numbers and mislabelled a third.
+  `absent` is first-class and **no absent axis carries a value —
+  pinned**. Dated note added beside the Phase-L gate's remainder 7.
+  RED first; 13 pins.
 - [ ] **M6 · The Phase-M gate.** One consolidated report; cycle 23
   archived; cycle 24 planned from the documentation.
 

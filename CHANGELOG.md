@@ -25,7 +25,7 @@ never rewritten).
 
 ## [Unreleased] — Cycle 23 · Phase M — "the archive meets its own inhabitants"
 
-*In progress. Queue: `audits/TODO.md` (M1–M4 done; M5–M6 open).*
+*In progress. Queue: `audits/TODO.md` (M1–M5 done; M6 open).*
 
 Planned from Phase L's unplanned convergent finding — **every instrument
 measures a different population from the one the archive is actually
@@ -106,8 +106,23 @@ filled with** — plus the still-unmet documentation.
   vocabulary regenerated E4's rosters — the artifact moved, the prose
   did not. Dated notes beside the four primary carriers; nothing
   retracted and the gate verdict is unchanged.
-- **M5** — *(GAME track)* the documented visible companion state; five
-  of the eight documented visible axes have no engine field.
+- **M5 — DONE 2026-07-27 (DR 0048).** *(GAME track)* The documented
+  visible companion state — **and two of the five "gaps" were already
+  on the player's screen.** The charter said survey before building, so
+  the instrument **measures rather than asserts**: `age` **is** a
+  lifecycle field (`age_ticks`) and `mood` **is** a derived engine value
+  (`select_animation_state`, since Phase C), and the game already
+  displays both. **CORRECTED** — the prior claim counted lifecycle
+  *homeostasis fields*, a narrower question than "has an engine field";
+  **the real gap is three axes, not five**, and on this evidence it is
+  not the repo's largest player-facing gap.
+- **WITHHELD / OUT OF SCOPE** — the three real gaps are three different
+  *kinds*: `happiness` has no **definition**, `cleanliness` has no
+  **mechanic** (no clean action, no dirt state), and `health` is
+  definable only as a **CHOSEN** definition from documented-**hidden**
+  axes. **Nothing was built, and that is the finding** — building the
+  panel would have invented two numbers and mislabelled a third
+  (DR 0021's first law).
 - **M6** — the Phase-M gate.
 
 ---

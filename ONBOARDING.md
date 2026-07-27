@@ -187,7 +187,7 @@ rewritten**. Every correction is a dated note beside the original.
 
 ### Cycle 23 · Phase M — the archive meets its own inhabitants
 
-`audits/TODO.md` is the live queue: **M1–M4 DONE (2026-07-27), M5–M6
+`audits/TODO.md` is the live queue: **M1–M5 DONE (2026-07-27), M6
 open.** The spine
 is Phase L's unplanned finding, which arrived four separate times
 without anyone looking for it: **every instrument measures a different
@@ -250,11 +250,16 @@ strip.
 density-as-pressure were promoted OUT of this list into cycle 22 as
 L1/L3/L5 — all three are now closed.)*
 
-From the documentation, surveyed at the Phase-K gate and re-verified at
-the Phase-L gate: **five of the eight documented VISIBLE companion state
-axes have no engine field** (`validity-research.md` §1.17 — `happiness`,
-`cleanliness`, `mood`, `age`, `health`; this is cycle 23's M5 and the
-largest player-facing gap the survey found); Stage 2's
+From the documentation: **THREE of the eight documented VISIBLE
+companion state axes have no engine source** (`validity-research.md`
+§1.17 — `happiness`, `cleanliness`, `health`). *Corrected 2026-07-27 by
+M5 / DR 0048*: the Phase-K/L survey said **five**, but `age` is a
+lifecycle field (`age_ticks`) and `mood` is a derived engine value
+(`select_animation_state`) — both engine truth, both already displayed
+by the game. The survey had counted lifecycle *homeostasis fields*. The
+three real gaps are three different kinds — no definition, no mechanic,
+and a definition that would have to be CHOSEN from documented-hidden
+axes — and DR 0048 built none of them. Also standing: Stage 2's
 undispositioned generator arms (**shape grammar**, **CPPN**) and the
 unbuilt method tracks (MRF-lite, Lenia, reaction–diffusion, the MDP
 sandbox, the QDax shadow port, z3/SMT at DR 0011's WATCH); the
@@ -337,17 +342,23 @@ in order (cycle 22's closed ladder is in §3 and its gate report):
    **52** every prose surface still said — the artifact regenerated at
    `f8c171b` and the documents never followed. Dated notes added; the
    gate verdict is unchanged.
-5. **M5 · the documented visible companion state** ← **THE NEXT
-   TASK.** The GAME-track
-   slice. `validity-research.md` §1.17 names eight visible axes;
-   `happiness`, `cleanliness`, `mood`, `age` and `health` have no
-   engine field. Survey each honestly first — some are genuinely absent
-   state, others derivable views (mood very likely from
-   `select_animation_state`). Decide per axis by DR, and **never invent
-   a number for a player**.
-6. **M6 · the Phase-M gate** — then archive to `audits/complete/23/`
-   and plan cycle 24 from the documentation. **Do not ask which
-   direction.**
+5. **M5 · the documented visible companion state** — **DONE
+   2026-07-27** (`2026-07-27-companion-state-survey.md`, **DR 0048**):
+   **two of the five "gaps" were already on the player's screen.** The
+   charter said survey before building, so the instrument **measures
+   rather than asserts** — `age` **is** a lifecycle field (`age_ticks`)
+   and `mood` **is** a derived engine value (`select_animation_state`,
+   since Phase C), and the game displays both. The real gap is
+   **three**, and they are three different *kinds*: `happiness` has no
+   **definition**, `cleanliness` has no **mechanic** (no clean action,
+   no dirt state), `health` is definable only as a **CHOSEN**
+   definition from documented-**hidden** axes. **Nothing was built, and
+   that is the finding** — the panel would have invented two numbers
+   and mislabelled a third. `health` is **withheld pending its own
+   gate** and is the obvious next record.
+6. **M6 · the Phase-M gate** ← **THE NEXT TASK.** One consolidated
+   report; then archive to `audits/complete/23/` and plan cycle 24 from
+   the documentation. **Do not ask which direction.**
 
 ---
 
