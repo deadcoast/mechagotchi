@@ -25,7 +25,7 @@ never rewritten).
 
 ## [Unreleased] — Cycle 24 · Phase N — "the descriptor space earns its edges"
 
-*In progress. Queue: `audits/TODO.md` (**N1 DONE**; N2–N6 open).*
+*In progress. Queue: `audits/TODO.md` (**N1, N2 DONE**; N3–N6 open).*
 
 Planned from Phase M's deepest finding — **the octile edges are not
 determined by a 600-creature derivation** — plus the debts DR 0047 and
@@ -78,6 +78,40 @@ archive-heavy cycles.
   is a noisy statistic crossing a threshold, **not a located stability
   point** — and the two recipes' Gate-2 verdicts must not be read as a
   real difference between them.
+- **N2 — DONE 2026-07-28 (DR 0050).** DR 0046's strongest named
+  follow-on: the probe geometry is **frozen and committed**, so both
+  scale geometries are now protected the same way instead of one being
+  privileged. **All four pre-registered gates passed.** G1 provenance
+  matched (a fresh derivation reproduces the recorded probe edges
+  exactly — structural, no tolerance); G2 determinism `reproducible`
+  (DR 0046 *asserted* "deterministic in practice"; this **measures**
+  it); **G3 consumer invariance `invariant` — both committed headlines
+  recomputed from scratch and both exact**: support ceiling
+  **460 → 460**, reached-by-generators **495 → 495**, which matters
+  because M2 had already found one cross-geometry headline that did
+  *not* survive recounting; G4 separation held at **0.037500**,
+  precisely L3's split, so DR 0046's refusal to converge is intact.
+  The recipe now lives in **one** place instead of three private copies,
+  every probe-side artifact records `edges_source`, and **a parity pin
+  makes a live re-derivation fail the suite if it drifts** — turning
+  "deterministic in practice" from an assertion into an enforced
+  property.
+- **CORRECTED — the queue's description of the defect was wrong, and the
+  truth is worse.** `audits/TODO.md` recorded that each probe number is
+  contingent on *"a draw no artifact records"*.
+  `reachability_probe_stage0.json` **does** record its edges; it is
+  `occupancy_saturation` and `reachability_escalation` that record
+  **none** while depending on the same draw — so a re-derivation would
+  have moved all three artifacts and **only one would have shown it**.
+  Found by reading the artifacts instead of the sentence: the third such
+  catch in three cycles.
+- **The honest limit, stated with the win: freezing the edges does not
+  freeze the numbers.** The support ceiling ranges **447–462** across
+  six evaluation resamples (`[460, 457, 462, 447, 454, 451]`), so the
+  committed **460** is one draw from that spread and only the coordinate
+  system it is counted in is now pinned. Reported because a reader
+  seeing "frozen" beside the ceiling could reasonably conclude
+  otherwise.
 
 ---
 
@@ -479,6 +513,6 @@ These are decisions, not backlog:
 
 - `research/README.md` — the master traceability ledger (the authoritative record)
 - `research/experiment_reports/` — dated findings and the per-phase gate reports
-- `research/decision_records/` — ADRs `0001`–`0049`
+- `research/decision_records/` — ADRs `0001`–`0050`
 - `audits/TODO.md` (the live queue) and `audits/complete/NN/TODO.md` (archived cycles)
 - `tools/ci/run_sweep.py` — the one verification sweep every gate runs

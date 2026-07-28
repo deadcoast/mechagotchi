@@ -44,6 +44,15 @@ wall-clock measured first (gap-analysis Phase E, E1).
 - Geometry is the documented spec, not an invention; every axis is an
   existing canonical surface (no new statistics).
 - Edges are measured, deterministic, and honest about degenerate axes.
+- **Both scale geometries are now frozen and committed** (cycle 24 N2,
+  DR 0050): these incumbent edges via
+  `data/archives/niche_scale_archive_stage0.json`, and the probe
+  geometry via `data/archives/probe_edge_freeze_stage0.json`. Each is
+  loaded through one shared loader and pinned against a live
+  re-derivation, so an edge drift **fails the suite** rather than
+  silently re-addressing creatures. Neither geometry is privileged, and
+  DR 0046's comparability rule still governs reading one against the
+  other.
 - Elite decisions parity-pinned byte-equal to `mecha_engine.archive`
   under the extended geometry.
 
@@ -135,6 +144,7 @@ recorded re-derivation decision.
 - `data/archives/niche_scale_archive_stage0.json`
 - `research/experiment_reports/2026-07-09-niche-scale-archive.md`
 - `research/experiment_reports/2026-07-27-derivation-size-stability.md` + `research/decision_records/0049-derivation-size-and-octile-determinacy.md` (cycle 24 N1 — the derivation protocol measured as a function of size; `derivation_count` stays 600 on the measurement)
+- `research/experiment_reports/2026-07-28-probe-edge-freeze.md` + `research/decision_records/0050-probe-geometry-frozen.md` (cycle 24 N2 — the PROBE geometry frozen and committed the same way these incumbent edges are, with a parity pin; `data/archives/probe_edge_freeze_stage0.json`)
 - `research/decision_records/0046-two-geometry-split.md` (the comparability rule; the two-geometry split this protocol's edges sit on one side of)
 - `docs/project-research/deep-research/01/deep-research.md`
 - `packages/mecha_engine/src/mecha_engine/archive/store.py`

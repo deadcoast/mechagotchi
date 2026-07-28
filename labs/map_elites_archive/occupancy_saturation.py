@@ -7,10 +7,15 @@ candidate levers. This lab measures the two that exist without
 changing any generator, plus the hard bound that scopes them all:
 
 - **support_ceiling** — distinct descriptor bins present in the
-  evaluation population under the run's own derived edges: the hard
+  evaluation population under the FROZEN probe edges: the hard
   upper bound on occupancy for ANY selection scheme over that
   population. If baseline occupancy ≈ the ceiling, selection is not
-  the bound — generation is.
+  the bound — generation is. *(Cycle 24 N2: these were "the run's own
+  derived edges", re-derived live from a private copy of the recipe
+  and never recorded in this artifact, so the draw the ceiling was
+  counted under could move silently. They are now loaded from
+  ``data/archives/probe_edge_freeze_stage0.json`` and the source is
+  recorded in ``parameters.edges_source``.)*
 - **in_sample_edges** — the same population binned by edges derived
   from itself (the calibration lever's theoretical best; degenerate
   by design as calibration practice — measured here only to size the
@@ -51,6 +56,7 @@ from niche_scale_archive import (  # noqa: E402
     _load_default_slip,
 )
 from corpus_builder import build_seed_grids_16  # noqa: E402
+from probe_edge_freeze import probe_edges_for  # noqa: E402
 from wfc_grid import split_corpus, train_wfc_model  # noqa: E402
 
 ARTIFACT_ID = "occupancy_saturation_stage0"
@@ -117,18 +123,12 @@ def build_occupancy_report(
     train, _, _ = split_corpus(seeds)
     wfc_model = train_wfc_model(train)
 
-    derivation, _ = build_population(
-        derivation_count, rng_seed, seeds, wfc_model
+    # The probe geometry is FROZEN and committed (cycle 24 N2). This
+    # artifact never recorded the edges its support ceiling was counted
+    # under; now it names a committed source and records which one.
+    derived_edges, edges_source = probe_edges_for(
+        derivation_count=derivation_count, rng_seed=rng_seed
     )
-    derived_edges = {
-        name: derive_scale_bin_edges(
-            [
-                scale_axis_values(grid, slip_profile=slip_profile)[name]
-                for grid in derivation
-            ]
-        )
-        for name in SCALE_DESCRIPTOR_NAMES
-    }
 
     evaluation_seed = rng_seed + EVALUATION_STREAM_OFFSET
     evaluation, composition = build_population(
@@ -249,6 +249,10 @@ def build_occupancy_report(
         ],
         "parameters": {
             "derivation_count": derivation_count,
+            "edges_source": edges_source,
+            "frozen_edges_artifact": (
+                "data/archives/probe_edge_freeze_stage0.json"
+            ),
             "evaluation_count": evaluation_count,
             "pool_factor": pool_factor,
             "rng_seed": rng_seed,

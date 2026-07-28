@@ -229,6 +229,22 @@ committed.
    protected from its own 20% instability by being committed once; the
    probe is re-derived live. No committed probe number is wrong, but
    each is contingent on a draw no artifact records.
+
+   > **Dated note, 2026-07-28 — DONE by cycle 24 N2 (DR 0050), and
+   > "a draw no artifact records" is WRONG.**
+   > `reachability_probe_stage0.json` **does** record its edges at
+   > `metrics.edges`; it is `occupancy_saturation_stage0.json` and
+   > `reachability_escalation_stage0.json` that record **none** while
+   > depending on the same draw — so a re-derivation would have moved
+   > all three and only one would have shown it. The geometry is now
+   > committed at `data/archives/probe_edge_freeze_stage0.json` with its
+   > provenance, the recipe lives in one place instead of three private
+   > copies, every probe-side artifact records `edges_source`, and a
+   > live re-derivation is **pinned** so drift fails the suite. All four
+   > gates passed; the committed headlines recount **exactly**
+   > (460 → 460, 495 → 495) and separation held at 0.037500.
+   > **Honest limit**: freezing the edges does not freeze the numbers —
+   > the support ceiling spans **447–462** across evaluation resamples.
 3. **The `slip_admission` default is undecided** (M3 / DR 0047), and
    what would decide it is named: quality and archive legality
    pre-registered *alongside* coverage, multi-seed. On current evidence

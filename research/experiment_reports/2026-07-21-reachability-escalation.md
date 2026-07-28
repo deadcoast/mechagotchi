@@ -114,6 +114,19 @@ deviation is named here as the honest record.
    neediness `[0.3825, 0.3975)`) belong to the probe's geometry, and
    its `508/512` is not directly comparable to the loop's `460/512`.
 
+   > **Dated note, 2026-07-28 (cycle 24 N2 / DR 0050) — "derived live"
+   > is no longer true, and this report's own wording is why it
+   > mattered.** The blocking-axis instrument above describes its bounds
+   > as *"the required octile interval from the **frozen** edges"*, but
+   > this escalation derived them live and recorded none of them in its
+   > artifact. The probe geometry is now genuinely frozen and committed
+   > (`data/archives/probe_edge_freeze_stage0.json`), loaded through one
+   > shared loader, and pinned against a live re-derivation. **No number
+   > in this report changes** — the frozen set reproduces the draw these
+   > bounds were computed under exactly (N2's G1), which is what makes
+   > the intervals above still correct. The comparability point in this
+   > paragraph is unchanged and is now DR 0046's standing rule.
+
 ## Sources
 
 - `audits/TODO.md` (cycle 21 K3) · `research/experiment_reports/2026-07-20-reachability-probe.md` (J1) + `2026-07-20-vocabulary-alphabet.md` (the DR 0038 leap + the rider)

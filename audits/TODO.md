@@ -86,25 +86,46 @@ truth), `0029-16x16-default-grid-scale.md` (the geometry),
   PR-review round — measured here rather than quoted, so a stale number
   is not propagated). Full sweep GREEN, **2,241 JSON artifacts, 0
   invalid**. No geometry moved.
-- [ ] **N2 · Freeze the probe's edges.** DR 0046's strongest named
-  follow-on, and it should follow N1's answer rather than precede it.
-  The incumbent geometry is protected from its own instability by being
-  derived once and committed; `reachability_probe` and
-  `occupancy_saturation` re-derive **live every run**. No committed
-  probe number is wrong — the default seed makes them deterministic —
-  but each is contingent on a draw **no artifact records**. Freeze them
-  to a committed artifact the way E1's are, with the regeneration
-  provenance recorded, and re-express the probe-side headline numbers
-  (508/512 reachable, the support ceiling) against the frozen set.
-  Pre-register whether any of them move, and by how much before it
-  matters. **N1's size guidance, now measured** (DR 0049): freezing at a
-  *larger* derivation size buys address stability but **not** aggregate
-  stability — the probe's occupied-niche movement never reaches the
-  measured floor anywhere on a 64× ladder — while freezing at E1's own
-  600 keeps the two recipes size-comparable, which is worth more than a
-  marginal rung. The probe's re-addressing at N=4800 (0.129333) is level
-  with the incumbent's, so the recipes do not differ in *stability*, only
-  in the corpus they draw from.
+- [x] **N2 · Freeze the probe's edges.** DONE 2026-07-28
+  (`2026-07-28-probe-edge-freeze.md`, **DR 0050**): **frozen, all four
+  gates passed — and the defect was not the one this charter
+  described.** **CORRECTED**: the premise below says each probe number
+  is contingent on *"a draw no artifact records"*.
+  `reachability_probe_stage0.json` **DOES** record its edges at
+  `metrics.edges`. What was true, and worse, is that
+  `occupancy_saturation_stage0.json` and
+  `reachability_escalation_stage0.json` record **none** while depending
+  on the same draw — so a re-derivation would have moved all three and
+  **only one would have shown it**, and K3's blocking-axis bounds are
+  expressed as "the octile interval from the frozen edges" in an
+  artifact carrying no edges. Found by reading the artifacts instead of
+  the sentence — the third such catch in three cycles. **G1 provenance
+  `provenance_matched`** (fresh derivation reproduces the recorded
+  edges exactly; structural, no tolerance). **G2 determinism
+  `reproducible`** — DR 0046 *asserted* "deterministic in practice";
+  this measures it. **G3 consumer invariance `invariant`** — both
+  committed headlines recomputed from scratch and **exact**: support
+  ceiling **460 → 460**, reached-by-generators **495 → 495**. **G4
+  separation `separated`** at **0.037500**, precisely L3's split, so
+  DR 0046's refusal to converge is intact. Frozen at **600** on DR
+  0049's guidance. The recipe now lives in **one** place instead of
+  three private copies; all three sites load one shared loader; every
+  probe-side artifact records `edges_source`; and **a parity pin makes a
+  live re-derivation fail the suite if it drifts**. Reported beside the
+  verdict and outside it: over the **same six populations**, the
+  incumbent floor is 4 and the probe's 7 — suggestive that the probe
+  geometry is noisier in the aggregate, **not established** (three pairs
+  each, one movement of 15 carrying it). Wall clock 447.912 s. RED
+  first; 30 pins; the three rewired consumers pass **unchanged**;
+  archive lab **365 → 395** green (measured, not quoted — and unlike
+  N1's it reconciles). Full sweep GREEN, **2,242 JSON artifacts, 0
+  invalid**.
+  **Honest remainder that matters most: freezing the edges does NOT
+  freeze the numbers** — the support ceiling ranges **447–462** across
+  six evaluation resamples, so the committed 460 is one draw from that
+  spread and only its coordinate system is now pinned. The two engine
+  move-set descents were not re-run (unchanged because the edges are
+  identical — that is G1 — not because they were recomputed).
 - [ ] **N3 · The micro-learner ablation conditions E/F/G.** Documented,
   unmet since **cycle 12**, and deliberately chosen as this cycle's
   non-archive ENGINE slice — the anti-periscope rule's own instruction

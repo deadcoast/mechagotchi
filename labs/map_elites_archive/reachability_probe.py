@@ -34,11 +34,11 @@ from niche_scale_archive import (  # noqa: E402
     SCALE_DESCRIPTOR_NAMES,
     _load_default_slip,
     build_population,
-    derive_scale_bin_edges,
     scale_axis_values,
     scale_descriptor_for_values,
 )
 from corpus_builder import build_seed_grids_16  # noqa: E402
+from probe_edge_freeze import probe_edges_for  # noqa: E402
 from wfc_grid import split_corpus, train_wfc_model  # noqa: E402
 
 from mecha_engine.generation import (  # noqa: E402
@@ -72,18 +72,12 @@ def build_reachability_report(
     train, _, _ = split_corpus(seeds)
     wfc_model = train_wfc_model(train)
 
-    derivation, _ = build_population(
-        derivation_count, rng_seed, seeds, wfc_model
+    # The probe geometry is FROZEN and committed (cycle 24 N2): this
+    # used to re-derive live from a private copy of the recipe, so the
+    # draw every number here is counted under could move silently.
+    edges, edges_source = probe_edges_for(
+        derivation_count=derivation_count, rng_seed=rng_seed
     )
-    edges = {
-        name: derive_scale_bin_edges(
-            [
-                scale_axis_values(grid, slip_profile=slip_profile)[name]
-                for grid in derivation
-            ]
-        )
-        for name in SCALE_DESCRIPTOR_NAMES
-    }
 
     def bin_of(grid: dict) -> tuple[int, ...]:
         return scale_descriptor_for_values(
@@ -216,6 +210,10 @@ def build_reachability_report(
         ],
         "parameters": {
             "derivation_count": derivation_count,
+            "edges_source": edges_source,
+            "frozen_edges_artifact": (
+                "data/archives/probe_edge_freeze_stage0.json"
+            ),
             "pool_count": pool_count,
             "per_bin_budget": per_bin_budget,
             "elite_size": elite_size,
@@ -319,18 +317,12 @@ def build_escalation_report(
     train, _, _ = split_corpus(seeds)
     wfc_model = train_wfc_model(train)
 
-    derivation, _ = build_population(
-        derivation_count, rng_seed, seeds, wfc_model
+    # The frozen probe geometry (cycle 24 N2) — K3's blocking-axis
+    # bounds are expressed as octile intervals "from the frozen edges",
+    # and now they actually are.
+    edges, edges_source = probe_edges_for(
+        derivation_count=derivation_count, rng_seed=rng_seed
     )
-    edges = {
-        name: derive_scale_bin_edges(
-            [
-                scale_axis_values(grid, slip_profile=slip_profile)[name]
-                for grid in derivation
-            ]
-        )
-        for name in SCALE_DESCRIPTOR_NAMES
-    }
 
     def axis_values_of(grid: dict) -> dict:
         return scale_axis_values(grid, slip_profile=slip_profile)
@@ -516,6 +508,10 @@ def build_escalation_report(
                 temperature for temperature in TEMPERATURE_LADDER
             ],
             "derivation_count": derivation_count,
+            "edges_source": edges_source,
+            "frozen_edges_artifact": (
+                "data/archives/probe_edge_freeze_stage0.json"
+            ),
             "pool_count": pool_count,
             "rng_seed": rng_seed,
             "run_once_bound_seconds": ESCALATION_BOUND_S,

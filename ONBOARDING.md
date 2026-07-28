@@ -381,19 +381,23 @@ order (cycle 23's closed ladder is in §3 and its gate report):
    placement inside it is sampled. DR 0046's two controls corrected as
    understated single draws — which **strengthens** `freeze_split`
    (ratio 1.16 → 0.969).
-2. **N2 · freeze the probe's edges** ← **THE NEXT TASK.** DR 0046's
-   strongest named follow-on, and it follows N1's answer rather than
-   preceding it. No committed probe number is wrong, but each is
-   contingent on a draw no artifact records. Freeze them as E1's are,
-   record the provenance, and re-express 508/512 and the support
-   ceiling against the frozen set. **N1's size guidance (DR 0049)**:
-   freezing at a larger derivation size buys address stability but
-   **not** aggregate stability, and freezing at E1's own 600 keeps the
-   two recipes size-comparable — the probe's re-addressing at N=4800
-   (0.1293) is level with the incumbent's, so the recipes do not differ
-   in stability, only in the corpus they draw from.
-3. **N3 · the micro-learner ablation conditions E/F/G** — documented and
-   unmet since **cycle 12**, and deliberately this cycle's
+2. **N2 · freeze the probe's edges** — **DONE 2026-07-28 (DR 0050).**
+   Frozen at 600 with recorded provenance; all four gates passed. Both
+   committed headlines recomputed from scratch and came back **exact**
+   (support ceiling 460 → 460, reached-by-generators 495 → 495);
+   determinism **measured** rather than inherited from DR 0046's
+   assertion; separation held at 0.037500 so the refusal to converge is
+   intact. The recipe now lives in one place instead of three private
+   copies, every probe-side artifact records `edges_source`, and a
+   **parity pin makes drift fail the suite**. *Corrected*: the charter
+   said "a draw no artifact records" — `reachability_probe` **does**
+   record its edges; `occupancy_saturation` and
+   `reachability_escalation` do not, which is worse. Honest limit:
+   **freezing the edges does not freeze the numbers** — the support
+   ceiling spans 447–462 across evaluation resamples.
+3. **N3 · the micro-learner ablation conditions E/F/G** ← **THE NEXT
+   TASK.** Documented and unmet since **cycle 12**, and deliberately
+   this cycle's
    **non-archive** ENGINE slice after two archive-heavy cycles (the
    anti-periscope rule applies to the developer too). Build Q-table,
    tiny decision tree and Bayesian counter; run the D6 ablation gates

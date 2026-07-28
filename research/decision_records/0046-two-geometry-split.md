@@ -193,6 +193,24 @@ pre-registered gate, and none is smuggled in here:
    artifact records, and a future run at a different seed or count would
    silently re-address 31% of creatures. **This is the strongest
    follow-on this record names.**
+
+   > **Dated note, 2026-07-28 — DONE by cycle 24 N2 (DR 0050), and the
+   > phrase "in a way no artifact records" is WRONG.**
+   > `reachability_probe_stage0.json` **does** record its edges at
+   > `metrics.edges`. What was true — and worse — is that
+   > `occupancy_saturation_stage0.json` and
+   > `reachability_escalation_stage0.json` record **no** edges while
+   > depending on the same draw, so a re-derivation would have moved all
+   > three artifacts and only one would have shown it. The geometry is
+   > now committed at `data/archives/probe_edge_freeze_stage0.json` with
+   > its provenance, the recipe lives in one place instead of three
+   > private copies, every probe-side artifact records `edges_source`,
+   > and a live re-derivation is **pinned** against the frozen set so
+   > drift fails the suite. All four gates passed: the committed
+   > headlines recount **exactly** (460 → 460, 495 → 495), determinism
+   > measured rather than inherited, and separation held at **0.037500**
+   > so this record's refusal to converge is intact. See
+   > `research/experiment_reports/2026-07-28-probe-edge-freeze.md`.
 2. **Testing whether `derivation_count = 600` determines the octile
    edges at all.** The instability measured here suggests it may not,
    for `visual_complexity` in particular. That is a question about the

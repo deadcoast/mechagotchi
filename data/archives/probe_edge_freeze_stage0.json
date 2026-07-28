@@ -1,0 +1,226 @@
+{
+  "artifact_id": "probe_edge_freeze_stage0",
+  "status": "stage0",
+  "date": "2026-07-28",
+  "purpose": "Cycle 24 N2: freeze the probe geometry to a committed artifact with recorded provenance \u2014 the way E1's incumbent edges already are \u2014 so the three probe-side consumers stop re-deriving it live from three private copies of the recipe, and so a future re-derivation FAILS THE SUITE instead of silently re-addressing creatures.",
+  "source_artifacts": [
+    "data/archives/reachability_probe_stage0.json",
+    "data/archives/occupancy_saturation_stage0.json",
+    "data/archives/reachability_escalation_stage0.json",
+    "data/archives/niche_scale_archive_stage0.json",
+    "data/archives/geometry_decision_stage0.json",
+    "data/archives/derivation_size_stability_stage0.json"
+  ],
+  "parameters": {
+    "evaluation_count": 3000,
+    "pool_count": 9000,
+    "evaluation_replicate_count": 6,
+    "pool_replicate_count": 4,
+    "rng_seed": 20260709,
+    "committed_evaluation_count": 3000,
+    "committed_pool_count": 9000
+  },
+  "metrics": {
+    "frozen_edges": {
+      "edges": {
+        "symmetry": [
+          0.322581,
+          0.361111,
+          0.412698,
+          0.469669,
+          0.643311,
+          0.921245,
+          0.954265
+        ],
+        "visual_complexity": [
+          0.854783,
+          0.86771,
+          0.875275,
+          0.882224,
+          0.887879,
+          0.894817,
+          0.904185
+        ],
+        "behavior_neediness": [
+          0.2975,
+          0.3325,
+          0.3625,
+          0.3825,
+          0.3975,
+          0.4475,
+          0.515
+        ]
+      },
+      "provenance": {
+        "recipe": "build_population(N, seed, ALL 50 SEED GRIDS, wfc_model) then interior octiles of the measured axis distributions \u2014 the recipe reachability_probe and occupancy_saturation each carried their own copy of before this freeze",
+        "derivation_count": 600,
+        "rng_seed": 20260709,
+        "corpus": "all 50 seed grids from build_seed_grids_16() \u2014 NOT the 30-grid train split the incumbent uses; the corpus is the whole difference between the two geometries",
+        "regenerate": "python -B labs/map_elites_archive/probe_edge_freeze.py",
+        "pointer": "metrics.frozen_edges.edges",
+        "frozen_on": "2026-07-28",
+        "sizing_rationale": "frozen at E1's own 600 on DR 0049's measured guidance: a larger derivation buys ADDRESS stability but not AGGREGATE stability (the probe's occupied-count movement never reaches the measured floor anywhere on a 64x ladder), while 600 keeps the two geometries size-comparable \u2014 worth more than a marginal rung \u2014 and is the draw every committed probe-side number was counted under"
+      }
+    },
+    "recorded_edges_witness": {
+      "source": "data/archives/reachability_probe_stage0.json",
+      "pointer": "metrics.edges",
+      "edges": {
+        "symmetry": [
+          0.322581,
+          0.361111,
+          0.412698,
+          0.469669,
+          0.643311,
+          0.921245,
+          0.954265
+        ],
+        "visual_complexity": [
+          0.854783,
+          0.86771,
+          0.875275,
+          0.882224,
+          0.887879,
+          0.894817,
+          0.904185
+        ],
+        "behavior_neediness": [
+          0.2975,
+          0.3325,
+          0.3625,
+          0.3825,
+          0.3975,
+          0.4475,
+          0.515
+        ]
+      }
+    },
+    "incumbent_edges": {
+      "symmetry": [
+        0.322437,
+        0.363636,
+        0.418813,
+        0.478243,
+        0.644478,
+        0.925511,
+        0.954128
+      ],
+      "visual_complexity": [
+        0.860816,
+        0.871018,
+        0.877231,
+        0.883531,
+        0.88986,
+        0.896811,
+        0.906586
+      ],
+      "behavior_neediness": [
+        0.295,
+        0.336875,
+        0.365,
+        0.3825,
+        0.395,
+        0.445,
+        0.4775
+      ]
+    },
+    "re_expressed_headlines": {
+      "support_ceiling": {
+        "committed": 460,
+        "re_expressed": 460,
+        "comparable": true,
+        "delta": 0
+      },
+      "reached_by_generators": {
+        "committed": 495,
+        "re_expressed": 495,
+        "comparable": true,
+        "delta": 0
+      }
+    },
+    "evaluation_resampling_floor": {
+      "population_count": 3000,
+      "replicates": 6,
+      "distinct_counts": [
+        460,
+        457,
+        462,
+        447,
+        454,
+        451
+      ],
+      "pairwise_movements": [
+        3,
+        15,
+        3
+      ],
+      "floor": 7
+    },
+    "pool_resampling_floor": {
+      "population_count": 9000,
+      "replicates": 4,
+      "distinct_counts": [
+        495,
+        497,
+        493,
+        496
+      ],
+      "pairwise_movements": [
+        2,
+        3
+      ],
+      "floor": 2.5
+    },
+    "tightest_floor": 2.5,
+    "total_niches": 512,
+    "wall_clock_s": 447.912
+  },
+  "closed_states": [
+    "the probe geometry is a committed object with recorded regeneration provenance, protected the same way E1's incumbent edges are rather than one geometry being privileged over the other",
+    "the recipe lives in ONE place (derive_probe_edges) instead of three private copies at three call sites",
+    "a live re-derivation is pinned against the frozen set, so drift FAILS THE SUITE instead of silently re-addressing creatures",
+    "DR 0046's asserted determinism is MEASURED rather than inherited",
+    "the committed headline numbers are READ from their artifacts and recounted, never quoted from prose",
+    "This freeze moves no geometry and retracts no number. It makes an existing draw an addressable object with recorded provenance and a parity pin, so that a future re-derivation FAILS THE SUITE instead of silently re-addressing creatures. DR 0046's comparability rule is untouched: probe-geometry numbers and incumbent-geometry numbers still may not be read against each other.",
+    "508/512 is a COMPOSED number: 495 bins reached by the generators (a binning result, re-expressed here) plus 8 from the probe's engine move-set descent and 5 from K3's escalation (search results, NOT re-run here). The descent counts are unchanged because the edges are identical \u2014 that is Gate 1 \u2014 and not because they were recomputed. Had the edges moved, re-running both descents would have been mandatory."
+  ],
+  "blocked_states": [
+    "the two engine move-set descents (+8 probe, +5 escalation) are NOT re-run here \u2014 see the descent note; they are unchanged because the edges are identical, which is Gate 1",
+    "occupancy_saturation and reachability_escalation still do not record the edges their numbers are counted under in their OWN artifacts; this task gives them a shared frozen source and a pin, and regenerating those artifacts to carry it is a re-run of each, named rather than silently skipped",
+    "the resampling floors are measured at these two population sizes only, and the tightest is taken; a floor measured over many more pairs would resolve a smaller movement",
+    "DR 0046's comparability rule is untouched: probe-geometry numbers still may not be read against incumbent-geometry numbers"
+  ],
+  "decision": {
+    "gates": {
+      "g1_provenance": {
+        "verdict": "provenance_matched",
+        "differing_axes": [],
+        "basis": "exact equality with no tolerance \u2014 the frozen set and the draw reachability_probe_stage0.json records are supposed to be the same object, so any difference is a redefinition of every committed probe-side number, not a rounding artifact"
+      },
+      "g2_determinism": {
+        "verdict": "reproducible",
+        "differing_axes": [],
+        "basis": "DR 0046 asserted the probe is 'deterministic in practice (a fixed default seed)'. This measures that claim instead of inheriting it; the cross-run form is pinned in the suite"
+      },
+      "g3_consumer_invariance": {
+        "verdict": "invariant",
+        "movements": {
+          "support_ceiling": 0,
+          "reached_by_generators": 0
+        },
+        "worst_movement": 0,
+        "floor": 2.5,
+        "basis": "the movement the same count shows when the frozen edges are held fixed and only the counted population is resampled, with the TIGHTEST measured floor taken"
+      },
+      "g4_separation": {
+        "verdict": "separated",
+        "max_abs_delta": 0.03750000000000003,
+        "basis": "DR 0046 refused convergence ON THE MEASUREMENT; a freeze that adopted the incumbent edges would undo that record without saying so"
+      }
+    },
+    "freeze": "accepted",
+    "rule": "pre-registered (cycle 24 N2), four gates, every verdict first-class. GATE 1 PROVENANCE: the frozen edges must equal the edges reachability_probe_stage0.json already records, because that is the draw the committed 508/512 was counted under \u2014 STRUCTURAL, with NO TOLERANCE, since the two are supposed to be the same object and a tolerance would let a redefinition pass as rounding. GATE 2 DETERMINISM: two independent derivations at the documented parameters must be identical, testing DR 0046's asserted 'deterministic in practice' rather than assuming it. GATE 3 CONSUMER INVARIANCE: the probe-side headline numbers re-expressed against the frozen set must not move, judged against a MEASURED floor \u2014 the movement the same count shows when the frozen edges are held fixed and only the counted population is resampled \u2014 with the TIGHTEST measured floor taken, so a movement must sit inside the strictest noise estimate before it is called noise. GATE 4 SEPARATION: the frozen probe set must NOT equal the frozen incumbent set, because DR 0046 refused convergence and a freeze that adopted the incumbent edges would undo that record silently.",
+    "geometry_unchanged": "This freeze moves no geometry and retracts no number. It makes an existing draw an addressable object with recorded provenance and a parity pin, so that a future re-derivation FAILS THE SUITE instead of silently re-addressing creatures. DR 0046's comparability rule is untouched: probe-geometry numbers and incumbent-geometry numbers still may not be read against each other."
+  },
+  "next_research_step": "N3: the micro-learner ablation conditions E/F/G \u2014 documented and unmet since cycle 12, and deliberately this cycle's non-archive ENGINE slice."
+}
