@@ -133,6 +133,24 @@ beside the verdict.
    likely winner is `insertion`, not `parents` — and that is exactly why
    it needs its own gate rather than a paragraph here.
 
+   > **Dated note, 2026-07-28 — DONE by cycle 24 N4 (DR 0052), and this
+   > prediction is CONFIRMED.** The decider was built exactly as named:
+   > G3 quality and G4 archive legality added as gates beside G1/G2,
+   > over three seeds, with this record's invasiveness tie-break carried
+   > verbatim and applied only to arms clearing all four. **`parents`
+   > fails G4 completely** — 35/37/35 illegal elites against the
+   > incumbent's 35/37/33, evicting none — while **`bootstrap` and
+   > `insertion` both clear all four**, and the tie-break picks
+   > **`insertion`**. This record's withholding is therefore *resolved,
+   > not overturned*: the rule was right for the questions it asked, the
+   > winner was right under those questions, and refusing to promote it
+   > was the right call. The incumbent reproduced this record's
+   > committed baseline exactly at the shared seed (0.898438 /
+   > 404.618236 / 4,435 / 35 / 460). Cost stated plainly: `insertion`
+   > spends **0.029948 coverage, 90% of the measured control** — a
+   > narrow pass. See
+   > `research/experiment_reports/2026-07-28-slip-admission-default.md`.
+
 ## Consequences
 
 - The 4,435-refusal tax is now **solved in principle** — three ways,
@@ -153,6 +171,7 @@ beside the verdict.
 ## Sources
 
 - `research/experiment_reports/2026-07-27-slip-admission-arms.md` (this record's study)
+- `research/experiment_reports/2026-07-28-slip-admission-default.md` + `research/decision_records/0052-slip-admission-default-insertion.md` (cycle 24 N4 — the decider this record named; the default is `insertion` and this record's prediction is confirmed)
 - `labs/map_elites_archive/slip_admission_arms.py` (+ `test_slip_admission_arms.py`, 25 pins) · `evaluation_loop_scale.py` (the additive `slip_admission` arm) · `data/archives/slip_admission_arms_stage0.json`
 - `research/experiment_reports/2026-07-26-generation-refusal-causes.md` (L1 — the mechanism and the named fix), `2026-07-27-elite-population-measures.md` (M1 — the 48-of-460 denominator), `2026-07-26-lineage-dominance.md` (L2), `2026-07-21-generation-arm-loop.md` (K2 / DR 0042 — the coverage this trades against)
 - `labs/grid_genome/slip.py` (`is_grid_aligned`, the shared predicate) · `labs/grid_genome/constrained_generator.py` (`_acceptable`) · `labs/wfc_grid/wfc_population_throughput.py`

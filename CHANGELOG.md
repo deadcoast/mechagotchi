@@ -25,7 +25,8 @@ never rewritten).
 
 ## [Unreleased] — Cycle 24 · Phase N — "the descriptor space earns its edges"
 
-*In progress. Queue: `audits/TODO.md` (**N1, N2, N3 DONE**; N4–N6 open).*
+*In progress. Queue: `audits/TODO.md` (**N1–N4 DONE**; N5, N6 open, plus
+**N7** — the migration DR 0052 scheduled).*
 
 Planned from Phase M's deepest finding — **the octile edges are not
 determined by a 600-creature derivation** — plus the debts DR 0047 and
@@ -159,6 +160,51 @@ archive-heavy cycles.
   rather than a re-score; **G drops either way**.
 - **WITHHELD** — nothing is promoted. `FLEET_THREADS` is untouched; a
   kept candidate has passed the ablation gate, not joined the fleet.
+- **N4 — DONE 2026-07-28 (DR 0052). ADOPTED: the `slip_admission`
+  default is `insertion`** — DR 0047's withholding **resolved** and its
+  prediction **confirmed**. Four gates pre-registered before the run,
+  which mattered more than usual because DR 0047 had published a
+  prediction and a gate written afterwards cannot refute one. G1 and G2
+  are DR 0047's carried verbatim (G1 now required on *every* seed,
+  because a mean would let a clean seed hide a dirty one); **G3
+  quality** and **G4 archive legality** are the two it asked for, G4
+  **structural like G1** on its own reasoning — a covenant either holds
+  over the archive it bred or it does not. The tie-break is DR 0047's
+  invasiveness order **verbatim**; only the *set* it applies to changed,
+  which is the whole mechanism by which this overturns its winner
+  without touching its rule.
+- **The instrument reproduced DR 0047's committed baseline exactly** at
+  the shared seed — coverage 0.898438, QD 404.618236, 4,435 refusals, 35
+  illegal elites, 460 niches — with the configuration read from its
+  *artifact*, not its prose.
+- **`parents` fails G4 completely** (35/37/35 illegal elites against the
+  incumbent's 35/37/33 — it evicts none), while **`bootstrap` and
+  `insertion` both clear all four** and are indistinguishable on the
+  gated dimensions (identical coverage every seed, QD within 0.1 —
+  structural, both removing the same creatures). The tie-break therefore
+  decides on invasiveness alone → **`insertion`**.
+- **The cost, stated not softened**: 0.029948 coverage — **90% of the
+  measured 0.033204 control**, a narrow pass — buying 4,435 wasted
+  evaluations per run removed and an archive legal under its own
+  covenant. QD untouched (−0.1356 against a 16.56 control).
+- **SCHEDULED, not assumed** — the default is *decided*, not *flipped*.
+  `run_evaluation_loop` still defaults to `none`, and changing it
+  rewrites the committed artifacts of **at least six lab modules** that
+  call the loop without naming an arm, including **DR 0042's headline
+  coverage** and **L1's entire subject**. Queued as **N7** with its
+  ~380 s-per-run cost measured, rather than left as a floating
+  remainder.
+- **PROCESS DEVIATION, recorded not buried.** The first run used
+  `population=512` — a parameter the module *invented* rather than
+  inherited (M3 measured at 256, the loop's own documented default). The
+  incumbent then failed to reproduce DR 0047's baseline and **the
+  verdict flipped**: `insertion` failed G2 by **0.000652**, 2% of the
+  control, leaving `bootstrap` sole passer. A hair's-width miss on the
+  wrong configuration would have refuted a correct prediction. Caught by
+  checking the discrepancy rather than accepting the tidy verdict,
+  corrected, re-run; two pinned guards now read DR 0047's parameters
+  from its artifact and refuse a diverging run. The 512 run is **not**
+  offered as a robustness check — it was an error.
 
 ---
 
@@ -560,6 +606,6 @@ These are decisions, not backlog:
 
 - `research/README.md` — the master traceability ledger (the authoritative record)
 - `research/experiment_reports/` — dated findings and the per-phase gate reports
-- `research/decision_records/` — ADRs `0001`–`0051`
+- `research/decision_records/` — ADRs `0001`–`0052`
 - `audits/TODO.md` (the live queue) and `audits/complete/NN/TODO.md` (archived cycles)
 - `tools/ci/run_sweep.py` — the one verification sweep every gate runs

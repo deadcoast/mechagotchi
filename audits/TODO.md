@@ -169,16 +169,51 @@ truth), `0029-16x16-default-grid-scale.md` (the geometry),
   E's uniform-random baseline is weak (the documented precedent's
   shape, not a test against the incumbent reactive rule), and F's stump
   baseline gets a full-sample oracle while the tree is scored online.
-- [ ] **N4 · The `slip_admission` default, decided.** DR 0047's named
-  decider, with its bars stated there rather than invented here: the
-  three arms all drive the 4,435-refusal tax to zero at a coverage cost
-  inside the measured control, so the question is no longer *whether*
-  but *which*. Re-run with **quality and archive legality
-  pre-registered as gates alongside coverage**, over multiple seeds.
-  DR 0047 records that on current evidence the likely winner is
-  **`insertion`**, not the invasiveness tie-break's `parents` — which
-  is exactly why the gate must be written before the run and allowed to
-  refuse all three.
+- [x] **N4 · The `slip_admission` default, decided.** DONE 2026-07-28
+  (`2026-07-28-slip-admission-default.md`, **DR 0052**): **the default
+  is `insertion`, and DR 0047's prediction is CONFIRMED.** Four gates
+  pre-registered before the run — G1/G2 are DR 0047's carried verbatim
+  (G1 now per-seed, because a mean would let a clean seed hide a dirty
+  one), G3 **quality** and G4 **archive legality** are the two it asked
+  for, with G4 **structural like G1** on DR 0047's own reasoning: a
+  covenant either holds over the archive it bred or it does not. The
+  tie-break is DR 0047's invasiveness order **verbatim**; only the *set*
+  it applies to changed, which is the whole mechanism by which this
+  overturns its winner without touching its rule. **The incumbent
+  reproduced DR 0047's committed baseline exactly** at the shared seed
+  (0.898438 / 404.618236 / 4,435 refusals / 35 illegal / 460 niches).
+  **`parents` FAILS G4 completely** (35/37/35 illegal elites vs the
+  incumbent's 35/37/33 — it evicts none); **`bootstrap` and `insertion`
+  both clear all four** and are indistinguishable on the gated
+  dimensions (identical coverage on every seed, QD within 0.1 —
+  structural, both removing the same creatures), so the tie-break picks
+  **`insertion`**. Cost stated plainly: **0.029948 coverage, 90% of the
+  measured 0.033204 control** — a narrow pass, not a free one; QD
+  untouched (−0.1356 against a 16.56 control). Wall clock 3560.685 s
+  against a **derived** 14400 s bound. RED first; 36 pins.
+  **PROCESS DEVIATION RECORDED**: the first run used `population=512`, a
+  parameter this module *invented* rather than inherited — the incumbent
+  then failed to reproduce DR 0047's baseline and the verdict FLIPPED
+  (`insertion` failing G2 by 0.000652, 2% of the control). Caught by
+  checking the discrepancy, corrected to the documented 256, re-run; two
+  pinned guards now read DR 0047's parameters from its artifact and
+  refuse a diverging run.
+- [ ] **N7 · Flip the `slip_admission` default to `insertion`** —
+  the migration DR 0052 **schedules rather than assumes**, with its
+  blast radius already measured. `run_evaluation_loop` still defaults to
+  `slip_admission="none"`; changing it rewrites the committed artifacts
+  of **at least six lab modules that call the loop without naming an
+  arm** — `evaluation_loop_scale`, `coverage_qd_gates`,
+  `elite_population_measures`, `family_ancestry`,
+  `generation_refusal_causes` and `lineage_dominance` — including
+  **DR 0042's headline coverage 0.8984** and **L1's entire subject**
+  (its 4,435 refusals become 0). At ~380 s per loop run, plus a delta to
+  explain for every artifact and every test pinned to one. Regenerate
+  each, explain each delta, and restate DR 0042's coverage under the new
+  default; **DR 0046's comparability rule applies throughout**. Do not
+  start it by flipping the constant — start it by listing every artifact
+  and test that moves, because an unlisted one is a silent
+  contradiction.
 - [ ] **N5 · `health` — the CHOSEN definition, gated.** *(GAME track.)*
   DR 0048's named next record and the one absent visible axis with a
   real engine source. `grid_stability` and per-cell `damage` both exist

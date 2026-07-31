@@ -1,0 +1,530 @@
+{
+  "artifact_id": "slip_admission_default_stage0",
+  "status": "stage0",
+  "date": "2026-07-28",
+  "purpose": "Cycle 24 N4: decide the `slip_admission` default, which DR 0047 withheld. Its named decider, built as named \u2014 quality and archive legality pre-registered as gates ALONGSIDE coverage, over multiple seeds, with DR 0047's invasiveness tie-break applied only among arms that clear all four gates, and refusing all three first-class.",
+  "source_artifacts": [
+    "data/archives/slip_admission_arms_stage0.json",
+    "data/archives/generation_refusal_causes_stage0.json",
+    "data/archives/elite_population_measures_stage0.json",
+    "data/archives/evaluation_loop_scale_stage0.json"
+  ],
+  "parameters": {
+    "population": 256,
+    "target_evaluations": 20480,
+    "lifecycle_ticks": 24,
+    "seed_count": 3,
+    "seeds": [
+      20260709,
+      21260712,
+      22260715
+    ],
+    "configurations": [
+      "none",
+      "bootstrap",
+      "insertion",
+      "parents"
+    ],
+    "invasiveness_order": [
+      "parents",
+      "insertion",
+      "bootstrap"
+    ],
+    "pre_registered_bound_s": 14400.0,
+    "within_bound": true,
+    "slip_profile": "data/slips/valid/slip_lcd_seed.json"
+  },
+  "metrics": {
+    "per_seed": {
+      "none": [
+        {
+          "slip_admission": "none",
+          "occupied_niches": 460,
+          "coverage": 0.898438,
+          "qd_score": 404.618236,
+          "best_fitness": 0.971513,
+          "evaluations_total": 20681,
+          "generations_run": 80,
+          "refusals": 4435,
+          "generation_attempts_total": 61440,
+          "bootstrap_admitted": 256,
+          "elite_origin_counts": {
+            "bootstrap": 48,
+            "loop_offspring": 412
+          },
+          "slip_illegal_elites": 35,
+          "rng_seed": 20260709
+        },
+        {
+          "slip_admission": "none",
+          "occupied_niches": 443,
+          "coverage": 0.865234,
+          "qd_score": 388.057903,
+          "best_fitness": 0.960885,
+          "evaluations_total": 20701,
+          "generations_run": 80,
+          "refusals": 4400,
+          "generation_attempts_total": 61440,
+          "bootstrap_admitted": 256,
+          "elite_origin_counts": {
+            "bootstrap": 51,
+            "loop_offspring": 392
+          },
+          "slip_illegal_elites": 37,
+          "rng_seed": 21260712
+        },
+        {
+          "slip_admission": "none",
+          "occupied_niches": 444,
+          "coverage": 0.867188,
+          "qd_score": 389.882949,
+          "best_fitness": 0.968917,
+          "evaluations_total": 20679,
+          "generations_run": 80,
+          "refusals": 4543,
+          "generation_attempts_total": 61440,
+          "bootstrap_admitted": 256,
+          "elite_origin_counts": {
+            "bootstrap": 47,
+            "loop_offspring": 397
+          },
+          "slip_illegal_elites": 33,
+          "rng_seed": 22260715
+        }
+      ],
+      "bootstrap": [
+        {
+          "slip_admission": "bootstrap",
+          "occupied_niches": 451,
+          "coverage": 0.880859,
+          "qd_score": 411.886553,
+          "best_fitness": 0.971513,
+          "evaluations_total": 20529,
+          "generations_run": 80,
+          "refusals": 0,
+          "generation_attempts_total": 61440,
+          "bootstrap_admitted": 49,
+          "elite_origin_counts": {
+            "bootstrap": 14,
+            "loop_offspring": 437
+          },
+          "slip_illegal_elites": 0,
+          "rng_seed": 20260709
+        },
+        {
+          "slip_admission": "bootstrap",
+          "occupied_niches": 426,
+          "coverage": 0.832031,
+          "qd_score": 386.199579,
+          "best_fitness": 0.962376,
+          "evaluations_total": 20529,
+          "generations_run": 80,
+          "refusals": 0,
+          "generation_attempts_total": 61440,
+          "bootstrap_admitted": 49,
+          "elite_origin_counts": {
+            "bootstrap": 14,
+            "loop_offspring": 412
+          },
+          "slip_illegal_elites": 0,
+          "rng_seed": 21260712
+        },
+        {
+          "slip_admission": "bootstrap",
+          "occupied_niches": 424,
+          "coverage": 0.828125,
+          "qd_score": 384.36693,
+          "best_fitness": 0.968917,
+          "evaluations_total": 20533,
+          "generations_run": 80,
+          "refusals": 0,
+          "generation_attempts_total": 61440,
+          "bootstrap_admitted": 53,
+          "elite_origin_counts": {
+            "bootstrap": 13,
+            "loop_offspring": 411
+          },
+          "slip_illegal_elites": 0,
+          "rng_seed": 22260715
+        }
+      ],
+      "insertion": [
+        {
+          "slip_admission": "insertion",
+          "occupied_niches": 451,
+          "coverage": 0.880859,
+          "qd_score": 411.738214,
+          "best_fitness": 0.971513,
+          "evaluations_total": 20480,
+          "generations_run": 79,
+          "refusals": 0,
+          "generation_attempts_total": 60672,
+          "bootstrap_admitted": 256,
+          "elite_origin_counts": {
+            "bootstrap": 14,
+            "loop_offspring": 437
+          },
+          "slip_illegal_elites": 0,
+          "rng_seed": 20260709
+        },
+        {
+          "slip_admission": "insertion",
+          "occupied_niches": 426,
+          "coverage": 0.832031,
+          "qd_score": 386.12345,
+          "best_fitness": 0.962376,
+          "evaluations_total": 20480,
+          "generations_run": 79,
+          "refusals": 0,
+          "generation_attempts_total": 60672,
+          "bootstrap_admitted": 256,
+          "elite_origin_counts": {
+            "bootstrap": 14,
+            "loop_offspring": 412
+          },
+          "slip_illegal_elites": 0,
+          "rng_seed": 21260712
+        },
+        {
+          "slip_admission": "insertion",
+          "occupied_niches": 424,
+          "coverage": 0.828125,
+          "qd_score": 384.290746,
+          "best_fitness": 0.968917,
+          "evaluations_total": 20480,
+          "generations_run": 79,
+          "refusals": 0,
+          "generation_attempts_total": 60672,
+          "bootstrap_admitted": 256,
+          "elite_origin_counts": {
+            "bootstrap": 13,
+            "loop_offspring": 411
+          },
+          "slip_illegal_elites": 0,
+          "rng_seed": 22260715
+        }
+      ],
+      "parents": [
+        {
+          "slip_admission": "parents",
+          "occupied_niches": 454,
+          "coverage": 0.886719,
+          "qd_score": 398.954451,
+          "best_fitness": 0.971513,
+          "evaluations_total": 20480,
+          "generations_run": 79,
+          "refusals": 0,
+          "generation_attempts_total": 60672,
+          "bootstrap_admitted": 256,
+          "elite_origin_counts": {
+            "bootstrap": 48,
+            "loop_offspring": 406
+          },
+          "slip_illegal_elites": 35,
+          "parent_fallback_generations": 0,
+          "rng_seed": 20260709
+        },
+        {
+          "slip_admission": "parents",
+          "occupied_niches": 443,
+          "coverage": 0.865234,
+          "qd_score": 387.093068,
+          "best_fitness": 0.962215,
+          "evaluations_total": 20480,
+          "generations_run": 79,
+          "refusals": 0,
+          "generation_attempts_total": 60672,
+          "bootstrap_admitted": 256,
+          "elite_origin_counts": {
+            "bootstrap": 53,
+            "loop_offspring": 390
+          },
+          "slip_illegal_elites": 37,
+          "parent_fallback_generations": 0,
+          "rng_seed": 21260712
+        },
+        {
+          "slip_admission": "parents",
+          "occupied_niches": 443,
+          "coverage": 0.865234,
+          "qd_score": 388.993995,
+          "best_fitness": 0.968917,
+          "evaluations_total": 20480,
+          "generations_run": 79,
+          "refusals": 0,
+          "generation_attempts_total": 60672,
+          "bootstrap_admitted": 256,
+          "elite_origin_counts": {
+            "bootstrap": 47,
+            "loop_offspring": 396
+          },
+          "slip_illegal_elites": 35,
+          "parent_fallback_generations": 0,
+          "rng_seed": 22260715
+        }
+      ]
+    },
+    "incumbent": {
+      "coverage_by_seed": [
+        0.898438,
+        0.865234,
+        0.867188
+      ],
+      "qd_by_seed": [
+        404.618236,
+        388.057903,
+        389.882949
+      ],
+      "mean_coverage": 0.876953,
+      "mean_qd": 394.186363,
+      "refusals_by_seed": [
+        4435,
+        4400,
+        4543
+      ],
+      "illegal_elites_by_seed": [
+        35,
+        37,
+        33
+      ]
+    },
+    "dr0047_configuration": {
+      "verdict": "configuration_matched",
+      "mismatches": [],
+      "committed": {
+        "population": 256,
+        "target_evaluations": 20480,
+        "rng_seed": 20260709
+      },
+      "basis": "N4 decides a default DR 0047 withheld, so it must run the configuration DR 0047 ran; otherwise its prediction is untestable and every number here answers a different question"
+    },
+    "dr0047_reproduction": {
+      "applicable": true,
+      "committed": {
+        "population": 256,
+        "target_evaluations": 20480,
+        "rng_seed": 20260709,
+        "coverage": 0.898438,
+        "qd_score": 404.618236,
+        "refusals": 4435,
+        "slip_illegal_elites": 35
+      },
+      "measured_at_first_seed": {
+        "coverage": 0.898438,
+        "qd_score": 404.618236,
+        "refusals": 4435,
+        "slip_illegal_elites": 35
+      },
+      "reproduced": true,
+      "basis": "the first seed IS DR 0047's seed, so the incumbent measured here must reproduce the committed baseline exactly; if it does not, the arms are being judged against a different loop than the one DR 0047 withheld on"
+    },
+    "measured_controls": {
+      "coverage": 0.033204,
+      "qd": 16.560333,
+      "method": "the incumbent's own seed-to-seed spread over 3 seeds \u2014 measured, never a constant"
+    },
+    "arm_means": {
+      "bootstrap": {
+        "coverage": 0.847005,
+        "qd": 394.151021,
+        "occupied_niches": 433.667
+      },
+      "insertion": {
+        "coverage": 0.847005,
+        "qd": 394.050803,
+        "occupied_niches": 433.667
+      },
+      "parents": {
+        "coverage": 0.872396,
+        "qd": 391.680505,
+        "occupied_niches": 446.667
+      }
+    },
+    "gates": {
+      "bootstrap": {
+        "arm": "bootstrap",
+        "adoptable": true,
+        "failed_gates": [],
+        "G1_cause_eliminated": true,
+        "refusals_by_seed": [
+          0,
+          0,
+          0
+        ],
+        "G2_coverage_preserved": true,
+        "coverage_cost": 0.029948,
+        "coverage_control": 0.033204,
+        "G3_quality_preserved": true,
+        "quality_delta": -0.035342,
+        "quality_control": 16.560333,
+        "G4_archive_legality": true,
+        "illegal_elites_by_seed": [
+          0,
+          0,
+          0
+        ]
+      },
+      "insertion": {
+        "arm": "insertion",
+        "adoptable": true,
+        "failed_gates": [],
+        "G1_cause_eliminated": true,
+        "refusals_by_seed": [
+          0,
+          0,
+          0
+        ],
+        "G2_coverage_preserved": true,
+        "coverage_cost": 0.029948,
+        "coverage_control": 0.033204,
+        "G3_quality_preserved": true,
+        "quality_delta": -0.135559,
+        "quality_control": 16.560333,
+        "G4_archive_legality": true,
+        "illegal_elites_by_seed": [
+          0,
+          0,
+          0
+        ]
+      },
+      "parents": {
+        "arm": "parents",
+        "adoptable": false,
+        "failed_gates": [
+          "G4_archive_legality"
+        ],
+        "G1_cause_eliminated": true,
+        "refusals_by_seed": [
+          0,
+          0,
+          0
+        ],
+        "G2_coverage_preserved": true,
+        "coverage_cost": 0.004558,
+        "coverage_control": 0.033204,
+        "G3_quality_preserved": true,
+        "quality_delta": -2.505858,
+        "quality_control": 16.560333,
+        "G4_archive_legality": false,
+        "illegal_elites_by_seed": [
+          35,
+          37,
+          35
+        ]
+      }
+    },
+    "wall_clock_s": 0.003,
+    "compute": {
+      "runs_computed_this_invocation": 0,
+      "runs_read_from_cache": 12,
+      "wall_clock_note": "wall_clock_s times THIS invocation only. Twelve documented-budget loops do not fit in one sitting, so a run may be resumed from cache; where runs_read_from_cache is non-zero this number is a replay time and NOT the cost of the study. The measured cost of the full twelve-loop run was 3560.685 s against the derived 14400.0 s bound. The loop is deterministic and the cache key carries every parameter, so a replay reproduces the same numbers \u2014 verified: the cached regeneration returned every value identical to the computed run."
+    }
+  },
+  "closed_states": [
+    "DR 0047's named decider is BUILT as named: quality and archive legality pre-registered as gates alongside coverage, over multiple seeds",
+    "G1 and G2 are DR 0047's own gates, carried verbatim rather than restated, and G1 now holds per-seed instead of once",
+    "G4 is structural on the same reasoning DR 0047 used for G1 \u2014 a covenant either holds over its archive or it does not",
+    "the tie-break is DR 0047's invasiveness order unchanged; only the set it is applied to has changed, which is the whole mechanism by which this can overturn its winner without touching its rule",
+    "DR 0047's published prediction is recorded and given NO weight in the rule",
+    "refusing all three is reachable and first-class",
+    "the configuration is CHECKED against DR 0047's own committed parameters, read from its artifact rather than quoted, and the incumbent must reproduce its committed baseline at the shared seed \u2014 a study deciding a question another record withheld must run that record's loop"
+  ],
+  "blocked_states": [
+    "this module adopts nothing: moving the loop's default is a decision record's job, and the incumbent stays byte-identical when slip_admission='none'",
+    "one SLIP profile (slip_lcd_seed) \u2014 DR 0047's own recorded limit, inherited unchanged: a wider palette would reject fewer bootstrap creatures and could move every cost here, so these remain this covenant's numbers",
+    "no arm EVICTS an already-seated illegal elite; that fourth candidate is still unmeasured (DR 0047's remainder)",
+    "DR 0046's comparability rule applies: every coverage and QD number here is an incumbent-geometry number"
+  ],
+  "decision": {
+    "choice": {
+      "verdict": "adopt_default",
+      "default": "insertion",
+      "passing_arms": [
+        "insertion",
+        "bootstrap"
+      ],
+      "incumbent_default": "the loop default moves off `slip_admission=none` to the least invasive arm clearing all four gates",
+      "tie_break": [
+        "parents",
+        "insertion",
+        "bootstrap"
+      ]
+    },
+    "gates": {
+      "bootstrap": {
+        "arm": "bootstrap",
+        "adoptable": true,
+        "failed_gates": [],
+        "G1_cause_eliminated": true,
+        "refusals_by_seed": [
+          0,
+          0,
+          0
+        ],
+        "G2_coverage_preserved": true,
+        "coverage_cost": 0.029948,
+        "coverage_control": 0.033204,
+        "G3_quality_preserved": true,
+        "quality_delta": -0.035342,
+        "quality_control": 16.560333,
+        "G4_archive_legality": true,
+        "illegal_elites_by_seed": [
+          0,
+          0,
+          0
+        ]
+      },
+      "insertion": {
+        "arm": "insertion",
+        "adoptable": true,
+        "failed_gates": [],
+        "G1_cause_eliminated": true,
+        "refusals_by_seed": [
+          0,
+          0,
+          0
+        ],
+        "G2_coverage_preserved": true,
+        "coverage_cost": 0.029948,
+        "coverage_control": 0.033204,
+        "G3_quality_preserved": true,
+        "quality_delta": -0.135559,
+        "quality_control": 16.560333,
+        "G4_archive_legality": true,
+        "illegal_elites_by_seed": [
+          0,
+          0,
+          0
+        ]
+      },
+      "parents": {
+        "arm": "parents",
+        "adoptable": false,
+        "failed_gates": [
+          "G4_archive_legality"
+        ],
+        "G1_cause_eliminated": true,
+        "refusals_by_seed": [
+          0,
+          0,
+          0
+        ],
+        "G2_coverage_preserved": true,
+        "coverage_cost": 0.004558,
+        "coverage_control": 0.033204,
+        "G3_quality_preserved": true,
+        "quality_delta": -2.505858,
+        "quality_control": 16.560333,
+        "G4_archive_legality": false,
+        "illegal_elites_by_seed": [
+          35,
+          37,
+          35
+        ]
+      }
+    },
+    "rule": "pre-registered (cycle 24 N4) BEFORE the run, and deliberately so: DR 0047 published a prediction ('the likely winner is insertion, not parents'), and a gate written after the numbers arrive cannot refute the prediction it exists to test. FOUR gates, refusal first-class. G1 \u2014 the cause is eliminated: refusals == exactly zero, STRUCTURAL (DR 0047's, unchanged) and now required on EVERY seed, because a mean would let one clean seed hide a dirty one. G2 \u2014 coverage is preserved: cost must not exceed the MEASURED seed-to-seed coverage control, never a constant; a coverage GAIN is never penalised. G3 \u2014 QUALITY is preserved (the first gate DR 0047 asked for): QD must not fall below the incumbent's by more than the MEASURED seed-to-seed QD control; a quality GAIN is never penalised. G4 \u2014 ARCHIVE LEGALITY (the second): zero SLIP-illegal elites on EVERY seed, STRUCTURAL exactly like G1, because a covenant either holds over the archive it bred or it does not and a percentage bar would be a number nobody derived. Among arms clearing ALL FOUR the winner is the least invasive (parents < insertion < bootstrap) \u2014 DR 0047's tie-break verbatim, now applied to a rule that asks the questions its withholding named. If no arm clears all four the loop default does NOT move and DR 0047 stands; this module adopts nothing by itself.",
+    "dr0047_prediction": "DR 0047 predicted, before this gate existed, that the likely winner is `insertion` rather than the old tie-break's `parents`. The prediction is recorded here so the measurement can confirm or refute it on the record, and it was given no weight in the rule."
+  },
+  "next_research_step": "N5: `health` \u2014 the CHOSEN definition, gated (GAME track), DR 0048's named next record."
+}

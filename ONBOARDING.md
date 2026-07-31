@@ -412,14 +412,30 @@ order (cycle 23's closed ladder is in §3 and its gate report):
    recorded: the first run scored G at −154.796% because the observer
    scored it against an event the thread cannot see; corrected and
    re-run, with E and F bit-for-bit unchanged.
-4. **N4 · the `slip_admission` default, decided** ← **THE NEXT TASK.**
-   DR 0047's named decider. All three arms already drive the refusal tax to zero inside
+4. **N4 · the `slip_admission` default, decided** — **DONE 2026-07-28
+   (DR 0052): the default is `insertion`, and DR 0047's prediction is
+   CONFIRMED.** Four gates pre-registered first (G1/G2 DR 0047's
+   verbatim, G1 now per-seed; G3 quality and G4 archive legality the two
+   it asked for, G4 structural like G1). `parents` fails G4 completely —
+   35/37/35 illegal elites, evicting none — while `bootstrap` and
+   `insertion` both clear all four and are indistinguishable on the
+   gated dimensions, so DR 0047's own invasiveness tie-break picks
+   `insertion`. Cost stated plainly: **0.029948 coverage, 90% of the
+   measured control** — a narrow pass. The incumbent reproduced
+   DR 0047's committed baseline exactly. **Decided, not flipped** —
+   the migration is queued as **N7** with its blast radius measured. A
+   process deviation is recorded: a first run at `population=512` (a
+   parameter the module invented, not inherited) flipped the verdict,
+   was caught by the baseline mismatch, and is now blocked by two
+   pinned guards.
+   *(Original charter: DR 0047's named decider.)* All three arms already drive the refusal tax to zero inside
    the noise floor, so the question is *which*, not *whether*. Re-run
    with **quality and archive legality pre-registered alongside
    coverage**, multi-seed. DR 0047 records that the likely winner is
    **`insertion`**, not the tie-break's `parents` — which is exactly
    why the gate must be written first and allowed to refuse all three.
-5. **N5 · `health` — the CHOSEN definition, gated** *(GAME track)* —
+5. **N5 · `health` — the CHOSEN definition, gated** ← **THE NEXT TASK.**
+   *(GAME track)* —
    DR 0048's named next record, and the one absent visible axis with a
    real engine source. `grid_stability` and per-cell `damage` are both
    documented **HIDDEN**, so any definition is CHOSEN and must say so
