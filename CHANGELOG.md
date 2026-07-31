@@ -25,8 +25,8 @@ never rewritten).
 
 ## [Unreleased] — Cycle 24 · Phase N — "the descriptor space earns its edges"
 
-*In progress. Queue: `audits/TODO.md` (**N1–N4 DONE**; N5, N6 open, plus
-**N7** — the migration DR 0052 scheduled).*
+*In progress. Queue: `audits/TODO.md` (**N1–N4 and N7 DONE**; N5, N6
+open).*
 
 Planned from Phase M's deepest finding — **the octile edges are not
 determined by a 600-creature derivation** — plus the debts DR 0047 and
@@ -205,6 +205,46 @@ archive-heavy cycles.
   corrected, re-run; two pinned guards now read DR 0047's parameters
   from its artifact and refuse a diverging run. The 512 run is **not**
   offered as a robustness check — it was an error.
+- **N7 — DONE 2026-07-28 (DR 0053). The default is FLIPPED to
+  `insertion` — and the migration turned out not to be a
+  regeneration.** DR 0052 scheduled this rather than letting it happen
+  as a side effect, and the charter's own instruction decided how it
+  went: *inventory before you flip the constant.*
+- **The inventory was bigger than DR 0052 estimated**: **eight**
+  production modules call the loop implicitly, not "at least six" — it
+  missed `generation_arm_evolution` and `novelty_evolution` — writing
+  eight committed artifacts across **63** implicit call sites.
+- **Flipping broke DR 0047's pinned byte-identity contract**
+  (`implicit == explicit("none")`), which proved to be the *weak* form
+  ONBOARDING §9 warns about: it states a fact about the default, not
+  about off-mode identity. Its guarantee now rests on the
+  **frozen-key-set** pin, which survives a default change.
+- **THE FINDING, and it inverts the obvious plan: regenerating the eight
+  would have DESTROYED EVIDENCE.** `generation_refusal_causes` **is**
+  the measurement of the 4,435-refusal tax, and under `insertion` that
+  tax is zero — re-running it would not update the finding, it would
+  erase the evidence the finding is made of. Three more measure the
+  incumbent population directly (M1's 48-of-460, L2's bootstrap-founded
+  dominant lines, M4's ancestry) and two are bake-offs readable only at
+  fixed settings.
+- **So the migration is: flip the default, and make every historical
+  study NAME its arm.** All eight now pass `slip_admission="none"`
+  explicitly with a per-study reason — the call-site discipline N2
+  applied to `edges_source`, now generalised by **DR 0053**: *any
+  setting that changes what an artifact means is recorded at the call
+  site that produced it, never inherited from a default.*
+- **The change is PROSPECTIVE, stated rather than dressed up.** No
+  committed number moves; every new consumer gets zero refusal tax and a
+  covenant-legal archive by default, pinned — which is what makes the
+  fix propagate instead of sitting in a record. Proven by regenerating
+  L1's artifact: **every measured field identical**, the sole difference
+  being `wall_clock_s`, a machine-dependent stopwatch. Stated as
+  measured rather than rounded up to "byte-identical".
+- **NAMED, NOT DONE** — `evaluation_loop_scale` (DR 0042's headline
+  0.8984) and `coverage_qd_gates` (the E4 gates) are the only genuine
+  migration candidates and need their own record. The four
+  defect-measuring studies should probably never migrate: **a
+  measurement does not improve, it is reproduced or superseded.**
 
 ---
 
@@ -606,6 +646,6 @@ These are decisions, not backlog:
 
 - `research/README.md` — the master traceability ledger (the authoritative record)
 - `research/experiment_reports/` — dated findings and the per-phase gate reports
-- `research/decision_records/` — ADRs `0001`–`0052`
+- `research/decision_records/` — ADRs `0001`–`0053`
 - `audits/TODO.md` (the live queue) and `audits/complete/NN/TODO.md` (archived cycles)
 - `tools/ci/run_sweep.py` — the one verification sweep every gate runs

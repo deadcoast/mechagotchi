@@ -259,6 +259,12 @@ def build_coverage_gate_report(
             rng_seed=seed,
             lifecycle_ticks=lifecycle_ticks,
             generation=generation,
+            # Pinned to the incumbent (cycle 24 N7): the E4 gates are
+            # judged on the configuration they were documented under,
+            # and this artifact is the evidence of it. DR 0052 moved the
+            # loop's default to "insertion"; migrating THIS study is a
+            # separate decision with its own delta to explain.
+            slip_admission="none",
         )
         summary = loop["archive_summary"]
         map_elites_runs.append(

@@ -320,6 +320,13 @@ def _elite_population(
         lifecycle_ticks=lifecycle_ticks,
         generation="constrained",
         collect_elite_grids=True,
+        # Pinned to the incumbent (cycle 24 N7): M1 measured the elites
+        # the archive ACTUALLY holds, bootstrap creatures included —
+        # "48 of 460 are bootstrap" is a fact about the unfiltered loop.
+        # Under "insertion" those creatures never reach the archive, so
+        # running this study on the new default would not update the
+        # number, it would answer a different question.
+        slip_admission="none",
     )
     collection = result["elite_grid_collection"]
     grids = [record["grid"] for record in collection["elites"]]

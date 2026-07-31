@@ -182,7 +182,24 @@ def run_evaluation_loop(
     # imported and never re-implemented, so an arm cannot admit a
     # creature the generator would refuse. "none" is the incumbent and
     # is byte-identical (pinned).
-    slip_admission: str = "none",
+    #
+    # DR 0052 (cycle 24 N4/N7): the ADOPTED default is "insertion". It
+    # clears all four gates — zero refusals, coverage inside the
+    # measured control, QD untouched, and a covenant-LEGAL archive — and
+    # is the least invasive arm that does. `parents` was rejected as a
+    # default because it stops the tax without evicting a single illegal
+    # elite.
+    #
+    # EVERY EXISTING STUDY NAMES ITS ARM EXPLICITLY rather than
+    # inheriting this. That is deliberate and is the same discipline N2
+    # applied to the probe geometry's `edges_source`: a study's
+    # admission policy is part of what it measured, so it belongs at the
+    # call site where a reader can see it — not silently in a default
+    # that can move underneath a committed artifact. Because every
+    # historical caller is pinned, this change is PROSPECTIVE: it fixes
+    # what new work gets, and no committed number moves (proven, not
+    # asserted — see `research/experiment_reports/2026-07-28-slip-admission-migration.md`).
+    slip_admission: str = "insertion",
 ) -> dict:
     """The full generational loop to the documented evaluation budget.
 
@@ -599,6 +616,13 @@ def build_evaluation_loop_report(
         rng_seed=rng_seed,
         lifecycle_ticks=lifecycle_ticks,
         generation=generation,
+        # Pinned to the incumbent (cycle 24 N7): this is E3's study and
+        # the source of DR 0042's headline coverage 0.8984, quoted in
+        # decision records, gate reports and ONBOARDING. DR 0052 moved
+        # the loop's default to "insertion"; restating THIS number is a
+        # documented migration with its own record, not a side effect of
+        # a default change.
+        slip_admission="none",
     )
     summary = result["archive_summary"]
     parent_path_evidence = {
@@ -710,6 +734,10 @@ def measure_loop_pilot(
         target_evaluations=population * (generations + 1),
         rng_seed=rng_seed,
         lifecycle_ticks=lifecycle_ticks,
+        # Pinned to the incumbent (cycle 24 N7): the DR 0028 wall-clock
+        # pilot projects the cost of the configuration the studies run,
+        # so it must time that configuration.
+        slip_admission="none",
     )
     elapsed_ms = (time.perf_counter() - start) * 1000
     mean_ms = round(elapsed_ms / result["evaluations_total"], 4)

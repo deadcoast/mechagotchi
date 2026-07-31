@@ -209,6 +209,14 @@ def build_refusal_cause_report(
         lifecycle_ticks=lifecycle_ticks,
         generation="constrained",
         collect_refusals=True,
+        # Pinned to the incumbent (cycle 24 N7), and this one is the
+        # clearest case in the repo: THIS STUDY IS THE MEASUREMENT OF
+        # THE DEFECT. Its subject is the 4,435-refusal tax. DR 0052
+        # moved the loop's default to "insertion", under which that tax
+        # is zero — so running this study on the new default would not
+        # update the finding, it would ERASE the evidence the finding
+        # is made of.
+        slip_admission="none",
     )
     wall_clock_s = round(time.perf_counter() - started, 3)
 

@@ -434,6 +434,23 @@ order (cycle 23's closed ladder is in §3 and its gate report):
    coverage**, multi-seed. DR 0047 records that the likely winner is
    **`insertion`**, not the tie-break's `parents` — which is exactly
    why the gate must be written first and allowed to refuse all three.
+4b. **N7 · flip the `slip_admission` default** — **DONE 2026-07-28
+   (DR 0053).** Flipped to `insertion` — and the migration turned out
+   **not to be a regeneration**. The inventory (the charter's own
+   instruction, and what decided the task) found **eight** implicit
+   callers, not DR 0052's estimated six. Regenerating them would have
+   **destroyed evidence**: `generation_refusal_causes` *is* the
+   measurement of the 4,435-refusal tax and reports zero under the fix.
+   So the migration was **flip the default and make every historical
+   study NAME its arm** — all eight pinned to `"none"` with reasons.
+   **Prospective by design**: no committed number moves (proven — every
+   measured field of L1's artifact identical, only `wall_clock_s`
+   differs), and every *new* caller gets the fix by default, pinned.
+   DR 0053's rule: *a setting that changes what an artifact means is
+   recorded at the call site, never inherited from a default; and a
+   study that measures a defect is never migrated onto the fix.*
+   Named-not-done: `evaluation_loop_scale` (DR 0042's 0.8984) and
+   `coverage_qd_gates` need their own record.
 5. **N5 · `health` — the CHOSEN definition, gated** ← **THE NEXT TASK.**
    *(GAME track)* —
    DR 0048's named next record, and the one absent visible axis with a

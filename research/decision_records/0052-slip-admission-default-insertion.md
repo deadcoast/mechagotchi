@@ -116,6 +116,23 @@ default; it does not flip it. `run_evaluation_loop` still defaults to
 per artifact, that is its own task: **queued as N7 with this cost
 measured**, not left floating.
 
+> **Dated note, 2026-07-28 — DONE by cycle 24 N7 (DR 0053), and the
+> migration was NOT the regeneration this paragraph assumed.** The
+> inventory found **eight** implicit callers, not six (this record
+> missed `generation_arm_evolution` and `novelty_evolution`). More
+> importantly, regenerating them would have **destroyed evidence**:
+> `generation_refusal_causes` *is* the measurement of the 4,435-refusal
+> tax and reports zero under `insertion`, and three more studies measure
+> the unfiltered population directly while two are bake-offs that are
+> only readable at fixed settings. The correct migration was to **flip
+> the default and make every historical study NAME its arm** — all eight
+> now pass `slip_admission="none"` explicitly with a per-study reason.
+> The change is therefore **prospective**: new callers get the fix by
+> default (pinned), and **no committed number moves** (proven by
+> regenerating L1's artifact — every measured field identical). The two
+> genuine migration candidates, `evaluation_loop_scale` (this record's
+> 0.8984 concern) and `coverage_qd_gates`, need their own record.
+
 ## What this record does NOT do
 
 1. **It does not change any committed number.** Coverage 0.8984, QD

@@ -53,6 +53,11 @@ def build_novelty_evolution_report(
             lifecycle_ticks=lifecycle_ticks,
             selection=arm_name,
             pool_factor=pool_factor,
+            # Pinned to the incumbent (cycle 24 N7): DR 0040 adopted
+            # novelty-first on a bake-off between selection arms, and a
+            # bake-off is only readable if every arm shares every other
+            # setting with the run that decided it.
+            slip_admission="none",
         )
         summary = result["archive_summary"]
         arms[arm_name] = {

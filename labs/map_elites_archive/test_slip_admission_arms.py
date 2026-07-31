@@ -141,10 +141,26 @@ class PreRegisteredRuleTests(unittest.TestCase):
 
 
 class LoopAdmissionSeamTests(unittest.TestCase):
-    def test_the_seam_is_byte_identical_when_off(self):
+    def test_the_loop_default_is_the_ADOPTED_arm(self):
+        # Cycle 24 N7 (DR 0052). This pin replaced an earlier one that
+        # asserted `run_evaluation_loop(slip_admission="none", **TINY) == slip_admission="none"`
+        # — i.e. that the default WAS the incumbent. That was true when
+        # M3 added the seam and is deliberately false now: the adopted
+        # default is `insertion`, which clears all four of DR 0052's
+        # gates. The off-mode guarantee it used to carry did not
+        # disappear; it moved to the two pins below, where it is stated
+        # against a FROZEN key set instead of against whatever the
+        # default happens to be — the stronger form, and the one
+        # ONBOARDING §9 asks for.
         implicit = run_evaluation_loop(**TINY)
-        explicit = run_evaluation_loop(slip_admission="none", **TINY)
-        self.assertEqual(implicit, explicit)
+        self.assertEqual("insertion", implicit["slip_admission"])
+
+    def test_the_incumbent_is_still_reachable_and_unchanged(self):
+        # The incumbent did not go away — it is named rather than
+        # implied. Every historical study pins this explicitly so its
+        # committed artifact keeps its meaning.
+        off = run_evaluation_loop(slip_admission="none", **TINY)
+        self.assertNotIn("slip_admission", off)
 
     def test_the_OFF_result_carries_no_arm_key_at_all(self):
         # The pin the earlier draft was missing, and the reason review
@@ -153,7 +169,7 @@ class LoopAdmissionSeamTests(unittest.TestCase):
         # when off" means identical to what the loop returned BEFORE
         # this arm existed, so the off-mode key set is frozen here and a
         # future unconditional key fails this test.
-        off = run_evaluation_loop(**TINY)
+        off = run_evaluation_loop(slip_admission="none", **TINY)
         self.assertEqual(
             {
                 "archive",
@@ -169,7 +185,7 @@ class LoopAdmissionSeamTests(unittest.TestCase):
         )
 
     def test_each_arm_adds_only_its_OWN_keys(self):
-        off = run_evaluation_loop(**TINY)
+        off = run_evaluation_loop(slip_admission="none", **TINY)
         expected = {
             "bootstrap": {"slip_admission", "bootstrap_admitted"},
             "insertion": {"slip_admission", "bootstrap_admitted"},
@@ -196,7 +212,7 @@ class LoopAdmissionSeamTests(unittest.TestCase):
         )
         # ...and it must actually be smaller than the unfiltered mix,
         # or the pin would pass vacuously on a profile that admits all.
-        off = run_evaluation_loop(**TINY)
+        off = run_evaluation_loop(slip_admission="none", **TINY)
         self.assertLess(
             arm["bootstrap_admitted"], off["evaluations_total"]
         )
@@ -220,7 +236,7 @@ class LoopAdmissionSeamTests(unittest.TestCase):
         # `slip_admission: "none"`, it reports nothing, so a reader can
         # never mistake "the incumbent ran" for "an arm ran and chose
         # not to act".
-        off = run_evaluation_loop(**TINY)
+        off = run_evaluation_loop(slip_admission="none", **TINY)
         self.assertNotIn("slip_admission", off)
 
     def test_the_insertion_arm_admits_only_SLIP_LEGAL_elites(self):
@@ -238,7 +254,9 @@ class LoopAdmissionSeamTests(unittest.TestCase):
         # it would prove nothing if no illegal elite ever reached an
         # archive in the first place. This is the arm's reason to exist.
         slip = _load_default_slip()
-        off = run_evaluation_loop(collect_elite_grids=True, **TINY)
+        off = run_evaluation_loop(
+            collect_elite_grids=True, slip_admission="none", **TINY
+        )
         illegal = [
             record
             for record in off["elite_grid_collection"]["elites"]
@@ -258,7 +276,7 @@ class LoopAdmissionSeamTests(unittest.TestCase):
         # generation produced, which the refusal count changes. The real
         # invariant is that scored-and-refused candidates are counted as
         # scored, which is exactly what these two comparisons say.
-        off = run_evaluation_loop(**TINY)
+        off = run_evaluation_loop(slip_admission="none", **TINY)
         arm = run_evaluation_loop(slip_admission="insertion", **TINY)
         self.assertEqual(
             off["evaluations_total"], off["archive"]["candidate_count"]

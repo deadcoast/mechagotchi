@@ -55,6 +55,12 @@ def build_generation_arm_report(
             rng_seed=rng_seed,
             lifecycle_ticks=lifecycle_ticks,
             generation=arm_name,
+            # Pinned to the incumbent (cycle 24 N7): DR 0042 adopted the
+            # constrained generation layer on a bake-off between
+            # generation arms; like DR 0040's, it is only readable if
+            # every arm shares every other setting with the run that
+            # decided it.
+            slip_admission="none",
         )
         summary = result["archive_summary"]
         arms[arm_name] = {

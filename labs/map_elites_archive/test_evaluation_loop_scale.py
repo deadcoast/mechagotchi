@@ -38,11 +38,25 @@ class LoopDeterminismTests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        # Pinned to the incumbent (cycle 24 N7): these are the INCUMBENT
+        # loop's determinism and accounting pins, and one of them —
+        # `evaluations_total == candidate_count` — is true only when
+        # nothing is refused at the archive door. DR 0052 moved the
+        # default to `insertion`, under which a refused candidate still
+        # spends its evaluation without becoming one; that is the
+        # documented behaviour and is pinned separately in
+        # `test_slip_admission_arms`.
         cls.first = run_evaluation_loop(
-            population=8, target_evaluations=32, rng_seed=RNG_SEED
+            population=8,
+            target_evaluations=32,
+            rng_seed=RNG_SEED,
+            slip_admission="none",
         )
         cls.second = run_evaluation_loop(
-            population=8, target_evaluations=32, rng_seed=RNG_SEED
+            population=8,
+            target_evaluations=32,
+            rng_seed=RNG_SEED,
+            slip_admission="none",
         )
 
     def test_identical_seeds_produce_identical_loops(self):

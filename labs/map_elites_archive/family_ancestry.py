@@ -253,6 +253,11 @@ def _run_elites(
         lifecycle_ticks=lifecycle_ticks,
         generation="constrained",
         collect_lineage=True,
+        # Pinned to the incumbent (cycle 24 N7): M4's common-descent
+        # verdict was measured over the founder lines the unfiltered
+        # loop produces. "insertion" removes whole bootstrap founder
+        # lines, so the ancestry question changes shape under it.
+        slip_admission="none",
     )
     lineage_by_niche = {
         record["niche"]: record

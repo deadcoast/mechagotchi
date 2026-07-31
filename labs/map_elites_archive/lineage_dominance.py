@@ -135,6 +135,13 @@ def build_lineage_dominance_report(
         lifecycle_ticks=lifecycle_ticks,
         generation="constrained",
         collect_lineage=True,
+        # Pinned to the incumbent (cycle 24 N7): L2 judged the
+        # documented lineage-dominance clause over the founder lines the
+        # unfiltered loop produces — and reported beside the verdict
+        # that the two largest lines were founded by WFC BOOTSTRAP
+        # creatures. "insertion" removes exactly those, so the study's
+        # subject would vanish under the new default.
+        slip_admission="none",
     )
     wall_clock_s = round(time.perf_counter() - started, 3)
 

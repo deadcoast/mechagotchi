@@ -198,22 +198,49 @@ truth), `0029-16x16-default-grid-scale.md` (the geometry),
   checking the discrepancy, corrected to the documented 256, re-run; two
   pinned guards now read DR 0047's parameters from its artifact and
   refuse a diverging run.
-- [ ] **N7 · Flip the `slip_admission` default to `insertion`** —
-  the migration DR 0052 **schedules rather than assumes**, with its
-  blast radius already measured. `run_evaluation_loop` still defaults to
-  `slip_admission="none"`; changing it rewrites the committed artifacts
-  of **at least six lab modules that call the loop without naming an
-  arm** — `evaluation_loop_scale`, `coverage_qd_gates`,
-  `elite_population_measures`, `family_ancestry`,
-  `generation_refusal_causes` and `lineage_dominance` — including
-  **DR 0042's headline coverage 0.8984** and **L1's entire subject**
-  (its 4,435 refusals become 0). At ~380 s per loop run, plus a delta to
-  explain for every artifact and every test pinned to one. Regenerate
-  each, explain each delta, and restate DR 0042's coverage under the new
-  default; **DR 0046's comparability rule applies throughout**. Do not
+- [x] **N7 · Flip the `slip_admission` default to `insertion`.** DONE
+  2026-07-28 (`2026-07-28-slip-admission-migration.md`, **DR 0053**):
+  **flipped — and the migration turned out NOT to be a regeneration.**
+  The charter's own instruction decided it: inventory first. That found
+  **eight** implicit callers, not the six DR 0052 estimated (it missed
+  `generation_arm_evolution` and `novelty_evolution`), across **63**
+  implicit call sites in 7 test files. Flipping then broke **DR 0047's
+  pinned byte-identity contract** (`implicit == explicit("none")`) —
+  which was the *weak* form ONBOARDING §9 warns about, stating a fact
+  about the default rather than about off-mode identity; its guarantee
+  now lives in the **frozen-key-set** pin, the stronger form.
+  **THE FINDING: regenerating the eight would have DESTROYED
+  EVIDENCE.** `generation_refusal_causes` **is** the measurement of the
+  4,435-refusal tax and reports zero under `insertion` — re-running it
+  would erase the evidence the finding is made of, not update it. Three
+  more measure the unfiltered population directly (M1's 48-of-460, L2's
+  bootstrap-founded lines, M4's ancestry) and two are **bake-offs**
+  (DR 0031/0042, DR 0040) readable only at fixed settings. So the
+  correct migration was **flip the default and make every historical
+  study NAME its arm** — all eight now pass `slip_admission="none"`
+  explicitly with a per-study reason, the same call-site discipline N2
+  applied to `edges_source`. **The change is PROSPECTIVE and that is
+  stated, not dressed up**: no committed number moves, every new caller
+  gets zero refusal tax and a covenant-legal archive by default (pinned
+  by `test_the_loop_default_is_the_ADOPTED_arm`, which is what makes the
+  fix propagate rather than sit in a record). Proven by regenerating
+  L1's artifact: **every measured field identical**, the sole difference
+  being `wall_clock_s`, a machine-dependent stopwatch — stated as
+  measured rather than rounded up to "byte-identical". Archive lab 432
+  green. **Named, not done**: `evaluation_loop_scale` (DR 0042's
+  headline 0.8984) and `coverage_qd_gates` (the E4 gates) are the only
+  genuine migration candidates and need their own record; the four
+  defect-measuring studies should probably never migrate at all.
+  *Original charter, kept because its instruction is what decided the
+  task: "the migration DR 0052 schedules rather than assumes… **Do not
   start it by flipping the constant — start it by listing every artifact
   and test that moves, because an unlisted one is a silent
-  contradiction.
+  contradiction.**" The inventory is exactly what turned a
+  regenerate-everything plan into a name-your-arm one, and it is also
+  what found the two callers DR 0052's estimate had missed. The charter
+  also assumed the migration would "restate DR 0042's coverage under the
+  new default" — it does not, and DR 0053 records why that must be its
+  own decision.*
 - [ ] **N5 · `health` — the CHOSEN definition, gated.** *(GAME track.)*
   DR 0048's named next record and the one absent visible axis with a
   real engine source. `grid_stability` and per-cell `damage` both exist
