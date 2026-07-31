@@ -323,7 +323,7 @@ Nothing is pushed — the branch is phase-l-gate, six commits ahead, awaiting yo
 
 ///
 
-PR #2 is open and mergeable: https://github.com/deadcoast/mechagotchi/pull/2
+[PR #2 is open and mergeable](https://github.com/deadcoast/mechagotchi/pull/2)
 
 phase-l-gate → main · 10 commits · 42 files · +8,948 / −247 · MERGEABLE, no conflicts.
 
@@ -429,6 +429,183 @@ Where — Cycle 24 · Phase N, "the descriptor space earns its edges," on branch
 Why this way — The one real failure mode here is drift: working from momentum instead of the repo's documents, deepening whatever is under the cursor, and calling a fraction the application. So gates are pre-registered before the run and a gate that cannot fail is a bug; refusals and negative results ship as first-class findings; wrong numbers get a dated note beside the original and are never rewritten; proxies are never presented as the real thing; seams are additive and byte-identical when off, proven against what the surface returned before the seam existed. And Phase M's lesson rides along — read the engine, not the sentence about the engine, which is precisely how I caught the unified-tree claim above.
 
 Next action is N1, starting from the geometry decision report and DR 0046, pins written RED first and the "determined" bar derived from measured evidence before a single number comes out. I'll run the quick sweep to confirm the tree is green, then begin.
+
+///
+
+-------
+## [10]
+
+PowerShell Restore observation artifacts and stage N2
+IN
+Set-Location "c:\Users\ryanf\github\_new\mechagotchi"; git checkout -- data/slips/slip_pydantic_contract_stage0.json data/slips/slip_schema_migration_dependency_gate_stage0.json; git log --oneline -1; git add labs/map_elites_archive/probe_edge_freeze.py labs/map_elites_archive/test_probe_edge_freeze.py labs/map_elites_archive/reachability_probe.py labs/map_elites_archive/occupancy_saturation.py data/archives/probe_edge_freeze_stage0.json research/experiment_reports/2026-07-28-probe-edge-freeze.md research/decision_records/0050-probe-geometry-frozen.md research/decision_records/0046-two-geometry-split.md research/experiment_reports/2026-07-21-reachability-escalation.md research/experiment_reports/2026-07-27-phase-m-gate.md research/algorithm_cards/niche_scale_archive.md research/README.md audits/TODO.md CHANGELOG.md ONBOARDING.md; git status --short
+
+OUT
+e221941 N1: do 600 creatures determine the octile edges? No for the edges, yes for the number the ledger quotes
+warning: in the working copy of 'labs/map_elites_archive/occupancy_saturation.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'labs/map_elites_archive/reachability_probe.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'research/experiment_reports/2026-07-21-reachability-escalation.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'labs/map_elites_archive/probe_edge_freeze.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'labs/map_elites_archive/test_probe_edge_freeze.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'research/decision_records/0050-probe-geometry-frozen.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'research/experiment_reports/2026-07-28-probe-edge-freeze.md', LF will be replaced by CRLF the next time Git touches it
+M  CHANGELOG.md
+M  ONBOARDING.md
+M  audits/TODO.md
+A  data/archives/probe_edge_freeze_stage0.json
+M  labs/map_elites_archive/occupancy_saturation.py
+A  labs/map_elites_archive/probe_edge_freeze.py
+M  labs/map_elites_archive/reachability_probe.py
+A  labs/map_elites_archive/test_probe_edge_freeze.py
+M  research/README.md
+M  research/algorithm_cards/niche_scale_archive.md
+M  research/decision_records/0046-two-geometry-split.md
+A  research/decision_records/0050-probe-geometry-frozen.md
+M  research/experiment_reports/2026-07-21-reachability-escalation.md
+M  research/experiment_reports/2026-07-27-phase-m-gate.md
+A  research/experiment_reports/2026-07-28-probe-edge-freeze.md
+PowerShell Commit N2
+IN
+Set-Location "c:\Users\ryanf\github\_new\mechagotchi"; git commit -m @'
+N2: freeze the probe's edges - and the defect was not the one the queue described
+
+DR 0046's strongest named follow-on. The incumbent geometry is derived
+once and committed; the probe was re-derived live on every run from three
+separate call sites, each carrying its own copy of the recipe - an
+exposure DR 0049 priced at 31% of a population re-addressed per
+re-derivation.
+
+CORRECTED - the charter's premise is wrong and the truth is worse. It
+said each probe number is contingent on "a draw no artifact records".
+reachability_probe_stage0.json DOES record its edges at metrics.edges;
+occupancy_saturation and reachability_escalation record NONE while
+depending on the same draw, so a re-derivation would have moved all three
+artifacts and only one would have shown it. K3's report even describes
+its bounds as "the octile interval from the frozen edges" while deriving
+them live and recording none. Found by reading the artifacts instead of
+the sentence - the third such catch in three cycles.
+
+FREEZE ACCEPTED, all four pre-registered gates passed:
+- G1 PROVENANCE provenance_matched - a fresh derivation reproduces the
+  recorded probe edges exactly. Structural, NO TOLERANCE: the two are
+  supposed to be the same object, and a tolerance would let a real
+  redefinition pass as rounding.
+- G2 DETERMINISM reproducible - DR 0046 ASSERTED "deterministic in
+  practice"; this measures it rather than inheriting it.
+- G3 CONSUMER INVARIANCE invariant - both committed headlines recomputed
+  from scratch and both exact: support ceiling 460 -> 460,
+  reached_by_generators 495 -> 495. This is the gate that could have
+  embarrassed the ledger, since M2 already found one cross-geometry
+  headline that did not survive recounting. occupancy_saturation's
+  ceiling is now CONFIRMED to have been counted under exactly the edges
+  reachability_probe recorded - previously an assumption nothing checked.
+- G4 SEPARATION separated at max |delta| 0.037500, precisely L3's
+  measured split, so DR 0046's refusal to converge is intact.
+
+Frozen at 600 on DR 0049's measured guidance: a larger derivation buys
+address but not aggregate stability, and 600 keeps the two geometries
+size-comparable while being the draw every committed probe-side number
+was already counted under.
+
+What changed in the code: the recipe now lives in ONE place
+(derive_probe_edges) instead of three private copies; all three sites
+load one shared loader; every probe-side artifact records edges_source;
+the parameters stay honest (probe_edges_for returns frozen ONLY at the
+documented count and seed, any other draw derives live and says so); and
+a parity pin asserts a live re-derivation equals the committed set on
+every run, so drift FAILS THE SUITE.
+
+Reported beside the verdict and deliberately outside it: measured over
+the SAME six populations, the incumbent floor is 4 and the probe's 7,
+suggesting the probe geometry is noisier in the aggregate - suggestive,
+NOT established (three pairs each, one movement of 15 carrying it).
+
+Honest limit stated with the win: FREEZING THE EDGES DOES NOT FREEZE THE
+NUMBERS. The support ceiling ranges 447-462 across six evaluation
+resamples, so the committed 460 is one draw from that spread and only the
+coordinate system it is counted in is now pinned. The two engine move-set
+descents were NOT re-run; they are unchanged because the edges are
+identical (that is G1), not because they were recomputed.
+
+Wall clock 447.912 s. RED first; 30 pins; the three rewired consumers
+pass unchanged (48 tests across the four files); archive lab 365 -> 395
+green, measured not quoted. Full sweep GREEN, 2242 JSON artifacts, 0
+invalid.
+
+Docs updated in the same change: experiment report, DR 0050, dated notes
+beside DR 0046, the Phase-M gate report and K3's escalation report (each
+carrying a claim this slice corrected), the niche_scale_archive card, the
+research/README ledger, audits/TODO (N2 closed), CHANGELOG and ONBOARDING.
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+'@ 2>&1 | Select-Object -Last 7
+
+OUT
+[phase-l-gate 6f13957] N2: freeze the probe's edges - and the defect was not the one the queue described
+ 15 files changed, 1895 insertions(+), 70 deletions(-)
+ create mode 100644 data/archives/probe_edge_freeze_stage0.json
+ create mode 100644 labs/map_elites_archive/probe_edge_freeze.py
+ create mode 100644 labs/map_elites_archive/test_probe_edge_freeze.py
+ create mode 100644 research/decision_records/0050-probe-geometry-frozen.md
+ create mode 100644 research/experiment_reports/2026-07-28-probe-edge-freeze.md
+PowerShell Unify main and both remotes
+IN
+Set-Location "c:\Users\ryanf\github\_new\mechagotchi"; git checkout main 2>&1 | Select-Object -Last 1; git merge --ff-only phase-l-gate 2>&1 | Select-Object -Last 1; git push origin main 2>&1 | Select-Object -Last 1; git checkout phase-l-gate 2>&1 | Select-Object -Last 1; git push origin phase-l-gate 2>&1 | Select-Object -Last 1; echo "=== STRANDED ==="; git log --oneline origin/main..HEAD; echo "(end)"; git status --short; echo "(clean if empty)"
+
+OUT
+Your branch is up to date with 'origin/main'.
+ create mode 100644 research/experiment_reports/2026-07-28-probe-edge-freeze.md
+   e221941..6f13957  main -> main
+Your branch is ahead of 'origin/phase-l-gate' by 1 commit.
+   e221941..6f13957  phase-l-gate -> phase-l-gate
+=== STRANDED ===
+(end)
+(clean if empty)
+N2 is done, committed, and the repo is unified — main, origin/main, phase-l-gate and its remote all on 6f13957, working tree clean, full sweep green with 2,242 artifacts valid.
+
+The freeze
+All four pre-registered gates passed, so FREEZE ACCEPTED. The probe geometry is now a committed artifact with its recipe, derivation count, seed, corpus, sizing rationale and regeneration command recorded beside it — protected exactly the way E1's incumbent edges already were, rather than one geometry being privileged over the other.
+
+The gate that could have embarrassed the ledger was G3, and it didn't. Both committed probe-side headlines were recomputed from scratch under the frozen set and came back exact: support ceiling 460 → 460, reached-by-generators 495 → 495. That matters specifically because M2 had already found one cross-geometry headline that didn't survive recounting. As a side effect, occupancy_saturation's ceiling is now confirmed to have been counted under exactly the edges reachability_probe recorded — previously an assumption nothing had checked. G4 held separation at 0.037500, precisely L3's measured split, so DR 0046's refusal to converge is intact.
+
+The charter was wrong, and worse than it said
+It described each probe number as contingent on "a draw no artifact records." Reading the artifacts instead: reachability_probe_stage0.json does record its edges. It's occupancy_saturation and reachability_escalation that record none while depending on the same draw — so a re-derivation would have moved all three artifacts and only one would have shown it. K3's report even describes its bounds as "the octile interval from the frozen edges" while deriving them live and recording none. Third cycle running that the engine has contradicted a sentence about the engine; dated notes now sit beside DR 0046, the Phase-M gate report, and K3's report.
+
+What actually changed
+The recipe lives in one place now instead of three private copies, all three sites load one shared loader, and every probe-side artifact records edges_source so the draw is visible in the artifact rather than inferable only from module source. The parameters stay honest — a caller asking for a different derivation gets a live one and the artifact says so, because silently returning frozen edges would make the parameter a lie. And a parity pin asserts a live re-derivation equals the committed set on every suite run, which is what turns DR 0046's assertion of determinism into an enforced property: drift now fails the suite instead of silently re-addressing 31% of creatures.
+
+Two things I want on the record
+Freezing the edges does not freeze the numbers. The support ceiling ranges 447–462 across six evaluation resamples, so the committed 460 is one draw from that spread — only the coordinate system it's counted in is now pinned. Anyone seeing "frozen" beside that number could reasonably conclude otherwise, so it's stated in the report, the DR, the queue and the changelog.
+
+Reported beside the verdict but kept out of the gate: measured over the same six populations, the incumbent floor is 4 and the probe's is 7, suggesting the probe geometry is noisier in the aggregate. Suggestive, not established — three pairs each, with one movement of 15 carrying it.
+
+Also worth noting: the archive lab is 365 → 395, which reconciles exactly this time. I measured it rather than quoting, since that arithmetic already failed once this cycle.
+
+Next is N3 — the micro-learner ablation conditions E/F/G, documented and unbuilt since cycle 12, and deliberately this cycle's non-archive engine slice after two archive-heavy tasks.
+
+///
+
+-------
+## [10]
+
+///
+
+-------
+## [10]
+
+///
+
+-------
+## [10]
+
+///
+
+-------
+## [10]
+
+///
+
+-------
+## [10]
 
 ///
 
