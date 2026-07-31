@@ -126,17 +126,49 @@ truth), `0029-16x16-default-grid-scale.md` (the geometry),
   spread and only its coordinate system is now pinned. The two engine
   move-set descents were not re-run (unchanged because the edges are
   identical — that is G1 — not because they were recomputed).
-- [ ] **N3 · The micro-learner ablation conditions E/F/G.** Documented,
-  unmet since **cycle 12**, and deliberately chosen as this cycle's
-  non-archive ENGINE slice — the anti-periscope rule's own instruction
-  after two archive-heavy cycles. The Phase-D fleet instantiated 11
-  threads and the D6 ablation kept five; conditions **E (Q-table)**,
-  **F (tiny decision tree)** and **G (Bayesian counter)** were named in
-  the protocol and **never built**. Build them, run them through the
-  same D6 ablation gates **verbatim**, and let the measured rule keep
-  or drop each. Dropping all three is a first-class outcome; so is a
-  drop that changes the kept-five roster, which would be a real result
-  about the fleet.
+- [x] **N3 · The micro-learner ablation conditions E/F/G.** DONE
+  2026-07-28 (`2026-07-28-candidate-learner-ablation.md`, **DR 0051**):
+  **built at last, and two of three DROPPED by the documented rule.**
+  Each learner is the dossier's own mechanism with the dossier's own
+  named weakness **respected rather than engineered around**, and all
+  three credit the **EXECUTED** action (the keeper can override, so a
+  learner crediting its own recommendation would learn a policy the
+  world never ran). The rule is **D6's rule verbatim** with
+  `ablation_gates` **IMPORTED, never re-implemented**, so the candidates
+  are judged by the same code that judged the eleven. **E
+  `qtable_policy` KEEP** (skill **+55.459%**, welfare 0.795%); **F
+  `tiny_tree_router` DROP** (skill **−1.776%**); **G
+  `bayes_keeper_counter` DROP** (skill **+2.756%**, under half the bar).
+  **The pre-run expectation held** — every candidate's welfare cost is
+  under 1.2%, so all three were decided on skill, reproducing D6's
+  saturated decision seam. **Both drops carry a measured mechanism
+  confirming the dossier's weakness column**: F's depth-2 tree returns
+  0.799976 vs the depth-1 stump's 0.814443, so **the second split is
+  decoration** (dilution, not overfitting — the leaves are too thin);
+  G's Brier 0.190317 vs the running rate's 0.195712 puts a number on
+  "limited expressivity", and **nothing in the switchboard consumes the
+  uncertainty** a Beta posterior carries. **The incumbent eleven were
+  re-judged, not assumed**: all land 0.000–0.359%, so **the kept-five
+  roster is unchanged** — because those verdicts rest on skill metrics
+  that are properties of each thread's own prediction task, not of
+  fleet composition. One number moved: `fleet_vs_frozen` **−0.054% →
+  +0.965%** (sign flip, ~1%, far below any gate). **Byte-identity
+  PROVEN**: the committed D6 artifact regenerates with an identical
+  SHA-256, all 14 welfares and 11 verdicts unchanged, with the off-mode
+  roster pinned against a **frozen literal list**. **Process deviation
+  recorded**: the first run scored G at −154.796% because the observer
+  scored it against keeper-override while the thread observes
+  `recent_interactions` — the learner marked wrong on a question it was
+  never asked; corrected and re-run (**−154.796% → +2.756%**, E and F
+  bit-for-bit unchanged), a defect repair rather than a re-score, and
+  G drops either way. Wall clock 107.155 s against a 555.35 s pilot
+  projection. RED first; 38 pins; micro_threads lab 85 → **123** green
+  (measured, not carried forward). Full sweep GREEN, **2,243 JSON
+  artifacts, 0 invalid**.
+  **Nothing promoted** — `FLEET_THREADS` is untouched. Honest limits:
+  E's uniform-random baseline is weak (the documented precedent's
+  shape, not a test against the incumbent reactive rule), and F's stump
+  baseline gets a full-sample oracle while the tree is scored online.
 - [ ] **N4 · The `slip_admission` default, decided.** DR 0047's named
   decider, with its bars stated there rather than invented here: the
   three arms all drive the 4,435-refusal tax to zero at a coverage cost

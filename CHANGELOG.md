@@ -25,7 +25,7 @@ never rewritten).
 
 ## [Unreleased] — Cycle 24 · Phase N — "the descriptor space earns its edges"
 
-*In progress. Queue: `audits/TODO.md` (**N1, N2 DONE**; N3–N6 open).*
+*In progress. Queue: `audits/TODO.md` (**N1, N2, N3 DONE**; N4–N6 open).*
 
 Planned from Phase M's deepest finding — **the octile edges are not
 determined by a 600-creature derivation** — plus the debts DR 0047 and
@@ -112,6 +112,53 @@ archive-heavy cycles.
   system it is counted in is now pinned. Reported because a reader
   seeing "frozen" beside the ceiling could reasonably conclude
   otherwise.
+- **N3 — DONE 2026-07-28 (DR 0051).** *(ENGINE track, deliberately
+  non-archive after two archive-heavy cycles.)* The dossier's
+  micro-learner ablation conditions **E (Q-table)**, **F (tiny decision
+  tree)** and **G (Bayesian counter)** — named in the protocol and
+  **never built since cycle 12** — are instantiated and judged through
+  the **D6 gates verbatim**, with `ablation_gates` **imported, never
+  re-implemented**. Each learner is the dossier's own mechanism with the
+  dossier's own named weakness *respected* rather than engineered
+  around, and all three credit the **executed** action, because the
+  keeper can override and a learner crediting its own recommendation
+  would learn a policy the world never ran.
+- **E `qtable_policy` KEPT** (skill **+55.459%** regret reduction,
+  welfare 0.795%); **F `tiny_tree_router` DROPPED** (**−1.776%**);
+  **G `bayes_keeper_counter` DROPPED** (**+2.756%**, under half the
+  bar). The pre-run expectation, written into the module first, held:
+  every candidate's welfare cost is under 1.2%, so all three were
+  decided on **skill** — D6's saturated decision seam reproduced.
+- **Both drops carry a measured mechanism confirming the dossier's own
+  weakness column.** F: the depth-2 tree returns **0.799976** against
+  the depth-1 stump's **0.814443** — **the second split is decoration**,
+  and the failure is *dilution* (leaves too thin to carry it) rather
+  than overfitting. G: Brier **0.190317** against the running rate's
+  **0.195712** — a real improvement in the right direction, under half
+  the bar, and **nothing in the switchboard consumes the uncertainty** a
+  Beta posterior carries.
+- **The kept-five roster is unchanged, re-judged rather than assumed.**
+  All eleven incumbents recomputed on the new baseline land between
+  **0.000% and 0.359%** — because their verdicts rest on skill metrics
+  that are properties of each thread's own prediction task, not of fleet
+  composition. One number moved: `fleet_vs_frozen` **−0.054% →
+  +0.965%** (a sign flip of ~1%, far below any gate).
+- **Byte-identity PROVEN, not asserted** — the committed D6 artifact
+  regenerates at full scale with an identical SHA-256, all 14 condition
+  welfares and all 11 thread verdicts unchanged, with the off-mode
+  roster pinned against a **frozen literal list** rather than a second
+  call to the new code.
+- **PROCESS DEVIATION, recorded not buried.** The first run scored G at
+  **−154.796%** — the instrument's error, not the learner's: the
+  observer scored it against *keeper override* while the thread observes
+  `recent_interactions` (*whether the executed action was social*), two
+  different events, so the learner was marked wrong on a question it was
+  never asked. Corrected to its own observable and re-run:
+  **−154.796% → +2.756%**, with **E and F bit-for-bit unchanged** — the
+  check that the fix touched only the mismatched metric. A defect repair
+  rather than a re-score; **G drops either way**.
+- **WITHHELD** — nothing is promoted. `FLEET_THREADS` is untouched; a
+  kept candidate has passed the ablation gate, not joined the fleet.
 
 ---
 
@@ -513,6 +560,6 @@ These are decisions, not backlog:
 
 - `research/README.md` — the master traceability ledger (the authoritative record)
 - `research/experiment_reports/` — dated findings and the per-phase gate reports
-- `research/decision_records/` — ADRs `0001`–`0050`
+- `research/decision_records/` — ADRs `0001`–`0051`
 - `audits/TODO.md` (the live queue) and `audits/complete/NN/TODO.md` (archived cycles)
 - `tools/ci/run_sweep.py` — the one verification sweep every gate runs

@@ -1,0 +1,486 @@
+{
+  "artifact_id": "candidate_learner_ablation_stage0",
+  "status": "stage0",
+  "date": "2026-07-28",
+  "purpose": "Cycle 24 N3: build the dossier's micro-learner ablation conditions E (Q-table), F (tiny decision tree) and G (Bayesian counter) \u2014 named in the protocol and never instantiated since cycle 12 \u2014 and run them through the D6 gates VERBATIM on the same harness, letting the measured rule keep or drop each.",
+  "source_artifacts": [
+    "data/micro_threads/ablation_gates_stage0.json",
+    "data/micro_threads/need_predictors_stage0.json",
+    "data/micro_threads/animation_bandit_hmm_mood_stage0.json",
+    "data/micro_threads/evidence_threads_stage0.json",
+    "docs/project-research/deep-research/01/deep-research.md"
+  ],
+  "parameters": {
+    "lifecycles_per_keeper": 100,
+    "ticks_per_lifecycle": 200,
+    "seed_base": 20260709,
+    "keepers": [
+      "attentive",
+      "neglectful",
+      "erratic",
+      "punitive",
+      "exploratory"
+    ],
+    "condition_letters": {
+      "E": "qtable_policy",
+      "F": "tiny_tree_router",
+      "G": "bayes_keeper_counter"
+    },
+    "incumbent_fleet": [
+      "hunger_forecast",
+      "energy_forecast",
+      "boredom_novelty",
+      "attention_forecast",
+      "interaction_timing",
+      "animation_bandit",
+      "hidden_mood_hmm",
+      "mutation_stability",
+      "readability",
+      "slip_compat",
+      "lineage_survival"
+    ],
+    "candidates": [
+      "qtable_policy",
+      "tiny_tree_router",
+      "bayes_keeper_counter"
+    ],
+    "full_scale_run": true
+  },
+  "metrics": {
+    "gates": {
+      "full_vs_rules_only_welfare_pct": 296.653,
+      "full_vs_rules_only_meets_15pct": true,
+      "fleet_vs_frozen_welfare_pct": 0.965,
+      "candidate_keep_count": 1,
+      "candidate_drop_count": 2
+    },
+    "ablation": {
+      "lifecycles_per_keeper": 100,
+      "ticks_per_lifecycle": 200,
+      "conditions": [
+        {
+          "condition": "rules_only",
+          "welfare": 0.047324,
+          "welfare_by_keeper": {
+            "attentive": 0.043278,
+            "neglectful": 0.043358,
+            "erratic": 0.060314,
+            "punitive": 0.043358,
+            "exploratory": 0.04631
+          },
+          "mean_survival_ticks": 11.802
+        },
+        {
+          "condition": "frozen",
+          "welfare": 0.185918,
+          "welfare_by_keeper": {
+            "attentive": 0.720082,
+            "neglectful": 0.050218,
+            "erratic": 0.081579,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.464
+        },
+        {
+          "condition": "full_fleet",
+          "welfare": 0.187712,
+          "welfare_by_keeper": {
+            "attentive": 0.727579,
+            "neglectful": 0.050266,
+            "erratic": 0.083001,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.944
+        },
+        {
+          "condition": "minus_hunger_forecast",
+          "welfare": 0.187039,
+          "welfare_by_keeper": {
+            "attentive": 0.724205,
+            "neglectful": 0.050266,
+            "erratic": 0.08301,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.77
+        },
+        {
+          "condition": "minus_energy_forecast",
+          "welfare": 0.187679,
+          "welfare_by_keeper": {
+            "attentive": 0.727417,
+            "neglectful": 0.050266,
+            "erratic": 0.083001,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.944
+        },
+        {
+          "condition": "minus_boredom_novelty",
+          "welfare": 0.18729,
+          "welfare_by_keeper": {
+            "attentive": 0.725469,
+            "neglectful": 0.050266,
+            "erratic": 0.083001,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.818
+        },
+        {
+          "condition": "minus_attention_forecast",
+          "welfare": 0.187289,
+          "welfare_by_keeper": {
+            "attentive": 0.725466,
+            "neglectful": 0.050266,
+            "erratic": 0.083001,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.818
+        },
+        {
+          "condition": "minus_interaction_timing",
+          "welfare": 0.187471,
+          "welfare_by_keeper": {
+            "attentive": 0.726374,
+            "neglectful": 0.050266,
+            "erratic": 0.083001,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.838
+        },
+        {
+          "condition": "minus_animation_bandit",
+          "welfare": 0.187712,
+          "welfare_by_keeper": {
+            "attentive": 0.727579,
+            "neglectful": 0.050266,
+            "erratic": 0.083001,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.944
+        },
+        {
+          "condition": "minus_hidden_mood_hmm",
+          "welfare": 0.187169,
+          "welfare_by_keeper": {
+            "attentive": 0.72634,
+            "neglectful": 0.050215,
+            "erratic": 0.081578,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.61
+        },
+        {
+          "condition": "minus_mutation_stability",
+          "welfare": 0.187712,
+          "welfare_by_keeper": {
+            "attentive": 0.727579,
+            "neglectful": 0.050266,
+            "erratic": 0.083001,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.944
+        },
+        {
+          "condition": "minus_readability",
+          "welfare": 0.187712,
+          "welfare_by_keeper": {
+            "attentive": 0.727579,
+            "neglectful": 0.050266,
+            "erratic": 0.083001,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.944
+        },
+        {
+          "condition": "minus_slip_compat",
+          "welfare": 0.187712,
+          "welfare_by_keeper": {
+            "attentive": 0.727579,
+            "neglectful": 0.050266,
+            "erratic": 0.083001,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.944
+        },
+        {
+          "condition": "minus_lineage_survival",
+          "welfare": 0.187712,
+          "welfare_by_keeper": {
+            "attentive": 0.727579,
+            "neglectful": 0.050266,
+            "erratic": 0.083001,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.944
+        },
+        {
+          "condition": "minus_qtable_policy",
+          "welfare": 0.186219,
+          "welfare_by_keeper": {
+            "attentive": 0.720049,
+            "neglectful": 0.050269,
+            "erratic": 0.083067,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.536
+        },
+        {
+          "condition": "minus_tiny_tree_router",
+          "welfare": 0.186558,
+          "welfare_by_keeper": {
+            "attentive": 0.72175,
+            "neglectful": 0.050269,
+            "erratic": 0.08306,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.682
+        },
+        {
+          "condition": "minus_bayes_keeper_counter",
+          "welfare": 0.18547,
+          "welfare_by_keeper": {
+            "attentive": 0.716371,
+            "neglectful": 0.050266,
+            "erratic": 0.082998,
+            "punitive": 0.037049,
+            "exploratory": 0.040663
+          },
+          "mean_survival_ticks": 47.402
+        }
+      ]
+    },
+    "candidate_skills": {
+      "records_scored": 23972,
+      "qtable_policy": {
+        "name": "action_regret_reduction_vs_uniform_random_policy",
+        "value_pct": 55.459,
+        "detail": {
+          "qtable_regret": 0.015406,
+          "uniform_regret": 0.03459
+        },
+        "source": "measured on the D6 harness (this artifact)"
+      },
+      "tiny_tree_router": {
+        "name": "route_return_improvement_vs_depth1_stump",
+        "value_pct": -1.776,
+        "detail": {
+          "tree_mean_return": 0.799976,
+          "stump_mean_return": 0.814443
+        },
+        "source": "measured on the D6 harness (this artifact)"
+      },
+      "bayes_keeper_counter": {
+        "name": "next_interaction_brier_reduction_vs_running_rate",
+        "value_pct": 2.756,
+        "detail": {
+          "bayes_brier": 0.190317,
+          "running_rate_brier": 0.195712,
+          "scored_ticks": 23972
+        },
+        "source": "measured on the D6 harness (this artifact)"
+      }
+    },
+    "candidate_verdicts": [
+      {
+        "thread": "qtable_policy",
+        "decision": "keep",
+        "welfare_removal_cost_pct": 0.795,
+        "skill_pct": 55.459,
+        "note": "kept on its documented skill metric; decision-seam welfare contribution below the 5% bar (recorded)",
+        "condition_letter": "E",
+        "skill_metric": {
+          "name": "action_regret_reduction_vs_uniform_random_policy",
+          "value_pct": 55.459,
+          "detail": {
+            "qtable_regret": 0.015406,
+            "uniform_regret": 0.03459
+          },
+          "source": "measured on the D6 harness (this artifact)"
+        }
+      },
+      {
+        "thread": "tiny_tree_router",
+        "decision": "drop",
+        "welfare_removal_cost_pct": 0.615,
+        "skill_pct": -1.776,
+        "note": "DROPPED by the documented 5% rule on BOTH welfare removal cost and its own skill metric \u2014 recorded, not kept for sentiment",
+        "condition_letter": "F",
+        "skill_metric": {
+          "name": "route_return_improvement_vs_depth1_stump",
+          "value_pct": -1.776,
+          "detail": {
+            "tree_mean_return": 0.799976,
+            "stump_mean_return": 0.814443
+          },
+          "source": "measured on the D6 harness (this artifact)"
+        }
+      },
+      {
+        "thread": "bayes_keeper_counter",
+        "decision": "drop",
+        "welfare_removal_cost_pct": 1.194,
+        "skill_pct": 2.756,
+        "note": "DROPPED by the documented 5% rule on BOTH welfare removal cost and its own skill metric \u2014 recorded, not kept for sentiment",
+        "condition_letter": "G",
+        "skill_metric": {
+          "name": "next_interaction_brier_reduction_vs_running_rate",
+          "value_pct": 2.756,
+          "detail": {
+            "bayes_brier": 0.190317,
+            "running_rate_brier": 0.195712,
+            "scored_ticks": 23972
+          },
+          "source": "measured on the D6 harness (this artifact)"
+        }
+      }
+    ],
+    "incumbent_reverdicts": [
+      {
+        "thread": "hunger_forecast",
+        "welfare_removal_cost_pct": 0.359,
+        "meets_welfare_bar": false
+      },
+      {
+        "thread": "energy_forecast",
+        "welfare_removal_cost_pct": 0.018,
+        "meets_welfare_bar": false
+      },
+      {
+        "thread": "boredom_novelty",
+        "welfare_removal_cost_pct": 0.225,
+        "meets_welfare_bar": false
+      },
+      {
+        "thread": "attention_forecast",
+        "welfare_removal_cost_pct": 0.225,
+        "meets_welfare_bar": false
+      },
+      {
+        "thread": "interaction_timing",
+        "welfare_removal_cost_pct": 0.128,
+        "meets_welfare_bar": false
+      },
+      {
+        "thread": "animation_bandit",
+        "welfare_removal_cost_pct": 0.0,
+        "meets_welfare_bar": false
+      },
+      {
+        "thread": "hidden_mood_hmm",
+        "welfare_removal_cost_pct": 0.289,
+        "meets_welfare_bar": false
+      },
+      {
+        "thread": "mutation_stability",
+        "welfare_removal_cost_pct": 0.0,
+        "meets_welfare_bar": false
+      },
+      {
+        "thread": "readability",
+        "welfare_removal_cost_pct": 0.0,
+        "meets_welfare_bar": false
+      },
+      {
+        "thread": "slip_compat",
+        "welfare_removal_cost_pct": 0.0,
+        "meets_welfare_bar": false
+      },
+      {
+        "thread": "lineage_survival",
+        "welfare_removal_cost_pct": 0.0,
+        "meets_welfare_bar": false
+      }
+    ],
+    "wall_clock_s": 107.155
+  },
+  "closed_states": [
+    "the dossier's conditions E/F/G are INSTANTIATED and judged, unmet since cycle 12",
+    "the D6 harness is IMPORTED, never re-implemented \u2014 the candidates are judged by the same code that judged the incumbent eleven",
+    "the D6 keep/drop rule is applied verbatim at the same 5% bar, with dropping first-class",
+    "each candidate's skill baseline follows an existing D6 precedent rather than a new statistic",
+    "the incumbent eleven are RE-JUDGED on the new full_fleet baseline rather than assumed unchanged",
+    "The candidates are additive and byte-identical when off: FLEET_THREADS is untouched, the extension rides the same opt-in seam, and a thread without an explicit learning_switches[name] is True never runs and holds no memory. The off-mode roster is pinned against a FROZEN literal list of the Phase-D eleven, not against a second call to the new code (the cycle-23 trap).",
+    "Written before the run: D6 measured every welfare removal cost at ~0 (the frozen reactive rules already sit near the autonomous-behavior welfare optimum; the remaining welfare belongs to the keeper), so all five kept threads were kept on SKILL rather than welfare. The candidates are therefore expected to show near-zero welfare cost too, with their fate resting on skill. The measurement is free to refute this."
+  ],
+  "blocked_states": [
+    "no candidate is promoted into FLEET_THREADS by this study: a kept candidate would need its own decision record, and the Phase-D fleet roster is unchanged here",
+    "the welfare seam is known to be saturated (D6 measured every removal cost at ~0 and recorded that the remaining welfare belongs to the keeper), so a near-zero candidate welfare cost bounds the decision seam rather than the learner's value",
+    "the skill metrics are measured on this harness and these five documented keepers only; a different keeper distribution would move them",
+    "a learner with no measurable skill baseline records None and is judged on welfare alone \u2014 never a substituted zero"
+  ],
+  "decision": {
+    "candidate_verdicts": [
+      {
+        "thread": "qtable_policy",
+        "decision": "keep",
+        "welfare_removal_cost_pct": 0.795,
+        "skill_pct": 55.459,
+        "note": "kept on its documented skill metric; decision-seam welfare contribution below the 5% bar (recorded)",
+        "condition_letter": "E",
+        "skill_metric": {
+          "name": "action_regret_reduction_vs_uniform_random_policy",
+          "value_pct": 55.459,
+          "detail": {
+            "qtable_regret": 0.015406,
+            "uniform_regret": 0.03459
+          },
+          "source": "measured on the D6 harness (this artifact)"
+        }
+      },
+      {
+        "thread": "tiny_tree_router",
+        "decision": "drop",
+        "welfare_removal_cost_pct": 0.615,
+        "skill_pct": -1.776,
+        "note": "DROPPED by the documented 5% rule on BOTH welfare removal cost and its own skill metric \u2014 recorded, not kept for sentiment",
+        "condition_letter": "F",
+        "skill_metric": {
+          "name": "route_return_improvement_vs_depth1_stump",
+          "value_pct": -1.776,
+          "detail": {
+            "tree_mean_return": 0.799976,
+            "stump_mean_return": 0.814443
+          },
+          "source": "measured on the D6 harness (this artifact)"
+        }
+      },
+      {
+        "thread": "bayes_keeper_counter",
+        "decision": "drop",
+        "welfare_removal_cost_pct": 1.194,
+        "skill_pct": 2.756,
+        "note": "DROPPED by the documented 5% rule on BOTH welfare removal cost and its own skill metric \u2014 recorded, not kept for sentiment",
+        "condition_letter": "G",
+        "skill_metric": {
+          "name": "next_interaction_brier_reduction_vs_running_rate",
+          "value_pct": 2.756,
+          "detail": {
+            "bayes_brier": 0.190317,
+            "running_rate_brier": 0.195712,
+            "scored_ticks": 23972
+          },
+          "source": "measured on the D6 harness (this artifact)"
+        }
+      }
+    ],
+    "rule": "pre-registered (cycle 24 N3) and NOT a new rule \u2014 it is D6's rule verbatim, applied to the dossier's unmet conditions E/F/G. The dossier: 'Keep a learner only if its removal causes at least a 5% decline in one target metric without improving another more important metric.' Operationally as D6 applied it: a learner keeps its place on EITHER its welfare removal cost OR its own documented skill metric, at the same 5% bar. Skill baselines follow existing D6 precedents rather than new statistics: regret reduction vs a uniform random policy (the animation_bandit precedent), return improvement vs a DEPTH-1 STUMP (the tree's own simpler self \u2014 if depth 2 cannot beat depth 1 the second split is decoration), and next-interaction Brier reduction vs the running interaction rate (the attention_forecast precedent, the harsher baseline). DROPPING ALL THREE IS FIRST-CLASS. The incumbent eleven are RE-JUDGED on the new full_fleet baseline, because adding threads moves the baseline every removal cost is measured against and a changed kept-five roster would be a real result about the fleet.",
+    "pre_run_expectation": "Written before the run: D6 measured every welfare removal cost at ~0 (the frozen reactive rules already sit near the autonomous-behavior welfare optimum; the remaining welfare belongs to the keeper), so all five kept threads were kept on SKILL rather than welfare. The candidates are therefore expected to show near-zero welfare cost too, with their fate resting on skill. The measurement is free to refute this.",
+    "byte_identical": "The candidates are additive and byte-identical when off: FLEET_THREADS is untouched, the extension rides the same opt-in seam, and a thread without an explicit learning_switches[name] is True never runs and holds no memory. The off-mode roster is pinned against a FROZEN literal list of the Phase-D eleven, not against a second call to the new code (the cycle-23 trap)."
+  },
+  "next_research_step": "N4: the slip_admission default, decided \u2014 DR 0047's named decider, with quality and archive legality pre-registered alongside coverage."
+}

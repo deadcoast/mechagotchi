@@ -110,19 +110,28 @@ def keeper_respond(
     raise ValueError(f"unknown keeper model: {keeper_id}")
 
 
-def _condition_switches(condition: str) -> tuple[dict, bool]:
-    """(learning_switches, fleet_observes) for one ablation condition."""
+def _condition_switches(
+    condition: str, fleet_names: list[str] | None = None
+) -> tuple[dict, bool]:
+    """(learning_switches, fleet_observes) for one ablation condition.
+
+    ``fleet_names`` defaults to the committed Phase-D eleven, so every
+    existing caller is byte-identical; cycle 24 N3 passes the extended
+    roster to run the dossier's E/F/G conditions on the same harness
+    rather than re-implementing it.
+    """
+    names = FLEET_THREAD_NAMES if fleet_names is None else list(fleet_names)
     if condition == "rules_only":
         return {name: False for name in SWITCHBOARD_THREAD_NAMES}, False
     if condition == "frozen":
         return {}, False
     if condition == "full_fleet":
-        return {name: True for name in FLEET_THREAD_NAMES}, True
+        return {name: True for name in names}, True
     if condition.startswith("minus_"):
         removed = condition[len("minus_"):]
-        if removed not in FLEET_THREAD_NAMES:
+        if removed not in names:
             raise ValueError(f"unknown fleet thread: {removed}")
-        switches = {name: True for name in FLEET_THREAD_NAMES}
+        switches = {name: True for name in names}
         switches[removed] = False
         return switches, True
     raise ValueError(f"unknown condition: {condition}")
@@ -136,12 +145,14 @@ def run_dependent_lifecycle(
     rng_seed: int,
     condition: str,
     evidence: dict | None = None,
+    fleet_names: list[str] | None = None,
+    observer=None,
 ) -> dict:
     from animation_states import select_animation_state
     from lifecycle_sim import advance_tick, initial_lifecycle_state
     from micro_switchboard import run_switchboard
 
-    switches, fleet_observes = _condition_switches(condition)
+    switches, fleet_observes = _condition_switches(condition, fleet_names)
     rng = random.Random(rng_seed)
     state = initial_lifecycle_state(grid, None)
     if switches:
@@ -172,7 +183,23 @@ def run_dependent_lifecycle(
             if override is not None
             else ("idle" if begging else decision["action"])
         )
+        pre_state = state
         state = advance_tick(state, executed)
+        # Cycle 24 N3: an optional read-only observation hook, so the
+        # skill metrics are measured on THIS harness rather than on a
+        # second copy of it. Default None keeps every caller identical.
+        if observer is not None:
+            observer(
+                {
+                    "state": pre_state,
+                    "decision": decision,
+                    "executed": executed,
+                    "entry": state["history"][-1],
+                    "keeper_id": keeper_id,
+                    "begging": begging,
+                    "override": override,
+                }
+            )
         balance_total += state["history"][-1]["balance"]
         lived += 1
         # The D5-measured hotspot: the bench loop trims its own history.
@@ -195,14 +222,16 @@ def run_ablation_conditions(
     lifecycles_per_keeper: int = FULL_LIFECYCLES_PER_KEEPER,
     ticks: int = FULL_TICKS,
     seed_base: int = SEED_BASE,
+    fleet_names: list[str] | None = None,
 ) -> dict:
     from corpus_builder import build_seed_grids
 
+    names = FLEET_THREAD_NAMES if fleet_names is None else list(fleet_names)
     seeds = build_seed_grids()
     evidence_by_grid = _keeper_evidence(seeds)
     conditions = (
         ["rules_only", "frozen", "full_fleet"]
-        + [f"minus_{name}" for name in FLEET_THREAD_NAMES]
+        + [f"minus_{name}" for name in names]
     )
     results = []
     for condition in conditions:
@@ -220,6 +249,7 @@ def run_ablation_conditions(
                     rng_seed=seed_base + keeper_index * 100_000 + index,
                     condition=condition,
                     evidence=evidence_by_grid[grid["grid_id"]],
+                    fleet_names=names,
                 )
                 keeper_welfare += summary["welfare"]
                 survival_sum += summary["survival_ticks"]

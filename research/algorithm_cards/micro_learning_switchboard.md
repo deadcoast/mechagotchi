@@ -177,3 +177,43 @@ bandit, mutation-risk scorer dead_weight at single-episode scale —
 queued for the scaled rerun, not removed. The flat deltas across
 user models confirm the census gap: interaction signals barely reach
 decisions until boredom/timing threads exist.
+
+## Ablation Conditions E/F/G (2026-07-28, cycle 24 N3 — DR 0051)
+
+The dossier's micro-learner ablation names eight conditions; Phase D's
+eleven-thread fleet contained **no Q-table, no decision tree and no
+Bayesian counter**, so **E/F/G were documented and unmet from cycle 12
+until now**. All three built and run through the D6 gates **verbatim**
+(`ablation_gates` imported, never re-implemented), at the same 5% bar:
+
+| condition | learner | decision | welfare | skill |
+| --- | --- | --- | --- | --- |
+| **E** | `qtable_policy` (3×3 hunger/energy buckets) | **KEEP** | 0.795% | **+55.459%** regret reduction vs uniform random |
+| **F** | `tiny_tree_router` (depth 2, ≤4 leaves) | **DROP** | 0.615% | **−1.776%** vs a depth-1 stump |
+| **G** | `bayes_keeper_counter` (Beta-Bernoulli) | **DROP** | 1.194% | **+2.756%** Brier reduction vs the running rate |
+
+**Both drops confirm this card's own "Mathematical Basis" entries in the
+harsh direction, with numbers attached.** F: splitting on energy *after*
+hunger returns 0.799976 against the stump's 0.814443 — the second split
+is **decoration**, and the failure is dilution (thin leaves) rather than
+overfitting. G: a Beta-Bernoulli posterior is barely distinguishable
+from a running mean on this question (Brier 0.190317 vs 0.195712) — the
+uncertainty it carries buys 2.756%, **under half the bar**, and nothing
+in the switchboard consumes the uncertainty itself.
+
+Every candidate's welfare removal cost is **under 1.2%**, reproducing
+D6's saturated decision seam: the frozen reactive rules sit near the
+autonomous-behavior welfare optimum, so learners are decided on skill.
+The **kept-five roster is unchanged** — all eleven incumbents re-judged
+on the new baseline land between 0.000% and 0.359%, and their skill
+metrics are properties of each thread's own prediction task rather than
+of fleet composition.
+
+**Nothing is promoted**: `FLEET_THREADS` is untouched and the committed
+D6 artifact regenerates **byte-identical** (SHA-256
+`75640475cc9c9fc4cab5f4c4955121e8a2a118672169e5c64acdc5bf17e66f44`),
+proven by regeneration rather than asserted. Honest limits: E's uniform
+random baseline is weak (the `animation_bandit` precedent's shape, not a
+test against the incumbent reactive rule), and F's stump baseline is
+given a full-sample oracle while the tree is scored online — an
+asymmetry that runs against the tree.

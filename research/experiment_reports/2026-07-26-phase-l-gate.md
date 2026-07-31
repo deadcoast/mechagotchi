@@ -246,6 +246,17 @@ here for what cycle 22 closed):
    QDax shadow port, and z3/SMT (WATCH by DR 0011's own words).
 10. **The micro-learner ablation conditions E/F/G** (Q-table, tiny
     decision tree, Bayesian counter) were never instantiated.
+
+    > **Dated note, 2026-07-28 — CLOSED by cycle 24 N3 (DR 0051).** All
+    > three built and judged through the D6 gates verbatim: **E
+    > `qtable_policy` KEPT** (+55.459% skill), **F `tiny_tree_router`
+    > DROPPED** (−1.776% — the depth-2 split is worse than a depth-1
+    > stump), **G `bayes_keeper_counter` DROPPED** (+2.756%, under half
+    > the bar). Every candidate's welfare cost is under 1.2%, so all
+    > three were decided on skill, reproducing D6's saturated decision
+    > seam. The kept-five roster is **unchanged**, and the committed D6
+    > artifact regenerates **byte-identical**. Nothing is promoted. See
+    > `research/experiment_reports/2026-07-28-candidate-learner-ablation.md`.
 11. **The 24×24 scale-up** (DR 0014's re-opener) and the unpromoted
     **scale-geometry seam**.
 12. **The human-study block** stays owner-deferred and

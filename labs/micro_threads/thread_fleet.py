@@ -869,6 +869,286 @@ def lineage_survival_signal(thread_state: dict, lifecycle_state: dict) -> dict:
 
 
 # The fleet registry: (name, observe, signal), execution order fixed.
+# ---------------------------------------------------------------------
+# Cycle 24 N3: the dossier's ablation conditions E / F / G.
+#
+# The micro-learner ablation names eight conditions; Phase D built the
+# eleven-thread fleet and instantiated NONE of E (Q-table), F (tiny
+# decision tree) or G (Bayesian counter), so those conditions have been
+# documented-and-unmet since cycle 12. These three learners exist to be
+# ABLATED — they are candidates, not fleet, and they are additive and
+# byte-identical when off (they require an explicit ``True`` switch, and
+# ``FLEET_THREADS`` below is untouched, so every committed Phase-D
+# number stands).
+#
+# Each is the dossier's own mechanism, with the dossier's own named
+# weakness respected rather than engineered around:
+#   E  Q-table              "state explosion, needs repeated visits"
+#                           -> scoped tightly to 3x3 buckets, silent
+#                              until a state has been visited enough
+#   F  Tiny decision tree   "brittle if overfit"
+#                           -> depth 2, at most four leaves, thresholds
+#                              adapt as running means rather than being
+#                              fitted to a sample
+#   G  Bayesian counter     "limited expressivity"
+#                           -> one Beta-Bernoulli question only: how
+#                              responsive is this keeper?
+# ---------------------------------------------------------------------
+
+QTABLE_TERCILES = (0.34, 0.67)
+QTABLE_MIN_VISITS = 3
+QTABLE_CONFIDENT_VISITS = 12
+QTABLE_EFFECT_SCALE = 0.30
+TREE_MIN_SAMPLES = 3
+TREE_CONFIDENT_SAMPLES = 10
+TREE_SPLIT_ALPHA = 0.15
+TREE_EFFECT_SCALE = 0.25
+BAYES_CONFIDENT_OBSERVATIONS = 12
+BAYES_EFFECT_SCALE = 0.35
+_CREDITABLE_ACTIONS = ("feed", "play", "sleep", "idle", "mutate")
+
+
+def _tercile(value: object) -> int:
+    number = _clamp(value)
+    if number < QTABLE_TERCILES[0]:
+        return 0
+    if number < QTABLE_TERCILES[1]:
+        return 1
+    return 2
+
+
+def _qtable_bucket(lifecycle_state: dict) -> str:
+    """The tightly scoped discrete state: 3 hunger x 3 energy = 9."""
+    return (
+        f"{_tercile(lifecycle_state.get('hunger'))}"
+        f"{_tercile(lifecycle_state.get('energy'))}"
+    )
+
+
+def _last_executed(lifecycle_state: dict) -> tuple[str, float] | None:
+    """The action the tick ACTUALLY ran, and the balance it returned.
+
+    The keeper can override the companion's choice, so a learner that
+    credited its own recommendation would be learning a policy the
+    world never executed.
+    """
+    history = lifecycle_state.get("history") or []
+    if not history:
+        return None
+    entry = history[-1]
+    action = entry.get("action")
+    if action not in _CREDITABLE_ACTIONS:
+        return None
+    try:
+        return action, float(entry.get("balance", 0.0))
+    except (TypeError, ValueError):
+        return None
+
+
+def _running_update(store: dict, key: str, value: float) -> None:
+    record = store.get(key) or {"mean": 0.0, "n": 0}
+    count = int(record["n"]) + 1
+    mean = float(record["mean"]) + (value - float(record["mean"])) / count
+    store[key] = {"mean": round(mean, 6), "n": count}
+
+
+def qtable_policy_observe(thread_state: dict, lifecycle_state: dict) -> dict:
+    """E — tabular value estimate over (bucket, EXECUTED action)."""
+    table = {key: dict(value) for key, value in (thread_state.get("q") or {}).items()}
+    pending = thread_state.get("pending_bucket")
+    executed = _last_executed(lifecycle_state)
+    if pending is not None and executed is not None:
+        action, reward = executed
+        _running_update(table, f"{pending}|{action}", reward)
+    return {"q": table, "pending_bucket": _qtable_bucket(lifecycle_state)}
+
+
+def qtable_policy_signal(thread_state: dict, lifecycle_state: dict) -> dict:
+    bucket = _qtable_bucket(lifecycle_state)
+    table = thread_state.get("q") or {}
+    seen = {
+        key.split("|", 1)[1]: value
+        for key, value in table.items()
+        if key.startswith(f"{bucket}|") and int(value.get("n", 0)) >= QTABLE_MIN_VISITS
+    }
+    if not seen:
+        return _thread(
+            "qtable_policy",
+            {"bucket": bucket, "visited_actions": 0},
+            {"best_action": None, "cold_start": True},
+            0.0,
+            "Q-table cold: this bucket has not been visited enough to act.",
+            {},
+        )
+    best_action = max(seen, key=lambda action: float(seen[action]["mean"]))
+    best_value = float(seen[best_action]["mean"])
+    visits = sum(int(value["n"]) for value in seen.values())
+    confidence = min(1.0, visits / QTABLE_CONFIDENT_VISITS)
+    effects = {}
+    if best_value > 0:
+        effects[best_action] = round(best_value * QTABLE_EFFECT_SCALE, 6)
+    return _thread(
+        "qtable_policy",
+        {"bucket": bucket, "visited_actions": len(seen)},
+        {
+            "best_action": best_action,
+            "best_value": round(best_value, 6),
+            "cold_start": False,
+        },
+        confidence,
+        f"Q-table over 3x3 hunger/energy buckets; bucket {bucket} favours {best_action}.",
+        effects,
+    )
+
+
+def _tree_leaf(thread_state: dict, lifecycle_state: dict) -> tuple[str, float, float]:
+    hunger_split = float(thread_state.get("hunger_split", 0.5))
+    energy_split = float(thread_state.get("energy_split", 0.5))
+    hunger = _clamp(lifecycle_state.get("hunger"))
+    energy = _clamp(lifecycle_state.get("energy"))
+    leaf = ("h" if hunger >= hunger_split else "l") + (
+        "h" if energy >= energy_split else "l"
+    )
+    return leaf, hunger_split, energy_split
+
+
+def tiny_tree_router_observe(thread_state: dict, lifecycle_state: dict) -> dict:
+    """F — depth-2 router; thresholds adapt, they are never fitted."""
+    leaf_returns = {
+        key: {action: dict(record) for action, record in value.items()}
+        for key, value in (thread_state.get("leaf_returns") or {}).items()
+    }
+    pending = thread_state.get("pending_leaf")
+    executed = _last_executed(lifecycle_state)
+    if pending is not None and executed is not None:
+        action, reward = executed
+        bucket = leaf_returns.setdefault(pending, {})
+        _running_update(bucket, action, reward)
+    hunger_split = float(thread_state.get("hunger_split", 0.5))
+    energy_split = float(thread_state.get("energy_split", 0.5))
+    hunger_split += TREE_SPLIT_ALPHA * (_clamp(lifecycle_state.get("hunger")) - hunger_split)
+    energy_split += TREE_SPLIT_ALPHA * (_clamp(lifecycle_state.get("energy")) - energy_split)
+    updated = {
+        "leaf_returns": leaf_returns,
+        "hunger_split": round(hunger_split, 6),
+        "energy_split": round(energy_split, 6),
+    }
+    leaf, _, _ = _tree_leaf(updated, lifecycle_state)
+    updated["pending_leaf"] = leaf
+    return updated
+
+
+def tiny_tree_router_signal(thread_state: dict, lifecycle_state: dict) -> dict:
+    leaf, hunger_split, energy_split = _tree_leaf(thread_state, lifecycle_state)
+    route = (
+        f"hunger{'>=' if leaf[0] == 'h' else '<'}{hunger_split:.2f} & "
+        f"energy{'>=' if leaf[1] == 'h' else '<'}{energy_split:.2f}"
+    )
+    bucket = (thread_state.get("leaf_returns") or {}).get(leaf) or {}
+    usable = {
+        action: record
+        for action, record in bucket.items()
+        if int(record.get("n", 0)) >= TREE_MIN_SAMPLES
+    }
+    if not usable:
+        return _thread(
+            "tiny_tree_router",
+            {"leaf": leaf, "samples": 0},
+            {"route": route, "best_action": None, "cold_start": True},
+            0.0,
+            "Tiny tree cold: this leaf has too few samples to route.",
+            {},
+        )
+    best_action = max(usable, key=lambda action: float(usable[action]["mean"]))
+    best_value = float(usable[best_action]["mean"])
+    samples = sum(int(record["n"]) for record in usable.values())
+    effects = {}
+    if best_value > 0:
+        effects[best_action] = round(best_value * TREE_EFFECT_SCALE, 6)
+    return _thread(
+        "tiny_tree_router",
+        {"leaf": leaf, "samples": samples},
+        {
+            "route": route,
+            "best_action": best_action,
+            "best_value": round(best_value, 6),
+            "cold_start": False,
+        },
+        min(1.0, samples / TREE_CONFIDENT_SAMPLES),
+        f"Depth-2 router: {route} -> {best_action}.",
+        effects,
+    )
+
+
+def bayes_keeper_counter_observe(thread_state: dict, lifecycle_state: dict) -> dict:
+    """G — Beta-Bernoulli tracker on one question: is the keeper there?"""
+    alpha = float(thread_state.get("alpha", 1.0))
+    beta = float(thread_state.get("beta", 1.0))
+    observations = int(thread_state.get("observations", 0))
+    interactions = lifecycle_state.get("recent_interactions") or []
+    if interactions:
+        if _clamp(interactions[-1]) > 0:
+            alpha += 1.0
+        else:
+            beta += 1.0
+        observations += 1
+    return {
+        "alpha": round(alpha, 6),
+        "beta": round(beta, 6),
+        "observations": observations,
+    }
+
+
+def bayes_keeper_counter_signal(thread_state: dict, lifecycle_state: dict) -> dict:
+    alpha = float(thread_state.get("alpha", 1.0))
+    beta = float(thread_state.get("beta", 1.0))
+    observations = int(thread_state.get("observations", 0))
+    total = alpha + beta
+    responsiveness = alpha / total
+    uncertainty = (alpha * beta / (total * total * (total + 1.0))) ** 0.5
+    if observations == 0:
+        return _thread(
+            "bayes_keeper_counter",
+            {"observations": 0},
+            {
+                "responsiveness": round(responsiveness, 6),
+                "uncertainty": round(uncertainty, 6),
+                "cold_start": True,
+            },
+            0.0,
+            "Beta-Bernoulli cold: no keeper evidence observed yet.",
+            {},
+        )
+    hunger = _clamp(lifecycle_state.get("hunger"))
+    # The domain point: begging only pays if someone answers. A
+    # companion that has learned its keeper is absent should stop
+    # spending ticks on a display nobody sees.
+    pull = (responsiveness - 0.5) * 2.0
+    effects = {"feed": round(pull * hunger * BAYES_EFFECT_SCALE, 6)}
+    if pull < 0:
+        effects["sleep"] = round(-pull * (1.0 - hunger) * BAYES_EFFECT_SCALE, 6)
+    return _thread(
+        "bayes_keeper_counter",
+        {"observations": observations},
+        {
+            "responsiveness": round(responsiveness, 6),
+            "uncertainty": round(uncertainty, 6),
+            "cold_start": False,
+        },
+        min(1.0, observations / BAYES_CONFIDENT_OBSERVATIONS),
+        (
+            # Named for what it MEASURES: the rate of social ticks
+            # (`recent_interactions`, i.e. executed feed/play). In the
+            # beg-mediated dependent harness that is dominated by the
+            # keeper answering a beg, but it is not purely the keeper —
+            # an autonomous play counts too.
+            f"Social-tick rate {responsiveness:.2f} "
+            f"(+/-{uncertainty:.2f}) over {observations} observations."
+        ),
+        effects,
+    )
+
+
 FLEET_THREADS = [
     ("hunger_forecast", hunger_forecast_observe, hunger_forecast_signal),
     ("energy_forecast", energy_forecast_observe, energy_forecast_signal),
@@ -884,31 +1164,50 @@ FLEET_THREADS = [
 ]
 FLEET_THREAD_NAMES = [name for name, _observe, _signal in FLEET_THREADS]
 
+# Cycle 24 N3: the dossier's E/F/G learners are CANDIDATES, not fleet.
+# ``FLEET_THREADS`` above stays the committed Phase-D eleven so every
+# Phase-D number keeps its meaning; the candidates ride the same seam
+# and are reachable only by an explicit opt-in, which is what makes the
+# extension byte-identical when off.
+CANDIDATE_THREADS = [
+    ("qtable_policy", qtable_policy_observe, qtable_policy_signal),
+    ("tiny_tree_router", tiny_tree_router_observe, tiny_tree_router_signal),
+    (
+        "bayes_keeper_counter",
+        bayes_keeper_counter_observe,
+        bayes_keeper_counter_signal,
+    ),
+]
+CANDIDATE_THREAD_NAMES = [name for name, _observe, _signal in CANDIDATE_THREADS]
+EXTENDED_FLEET_THREADS = FLEET_THREADS + CANDIDATE_THREADS
+
 
 def observe_fleet(lifecycle_state: dict) -> dict:
-    """One observe step for every OPTED-IN fleet thread.
+    """One observe step for every OPTED-IN thread.
 
     Returns the new ``thread_states`` mapping (the caller stores it back
     on its state); the input state is never mutated. Threads without an
     explicit ``learning_switches[name] is True`` do not run and hold no
-    memory.
+    memory — which is why iterating the EXTENDED list (cycle 24 N3)
+    leaves every existing caller byte-identical: a profile that never
+    names a candidate can never run one.
     """
     switches = lifecycle_state.get("learning_switches") or {}
     thread_states = dict(lifecycle_state.get("thread_states") or {})
     updated: dict = {}
-    for name, observe, _signal in FLEET_THREADS:
+    for name, observe, _signal in EXTENDED_FLEET_THREADS:
         if switches.get(name) is True:
             updated[name] = observe(thread_states.get(name) or {}, lifecycle_state)
     return updated
 
 
 def fleet_signals(lifecycle_state: dict) -> list[dict]:
-    """Signals for every opted-in fleet thread (the switchboard seam)."""
+    """Signals for every opted-in thread (the switchboard seam)."""
     switches = lifecycle_state.get("learning_switches") or {}
     thread_states = lifecycle_state.get("thread_states") or {}
     return [
         signal(thread_states.get(name) or {}, lifecycle_state)
-        for name, _observe, signal in FLEET_THREADS
+        for name, _observe, signal in EXTENDED_FLEET_THREADS
         if switches.get(name) is True
     ]
 
