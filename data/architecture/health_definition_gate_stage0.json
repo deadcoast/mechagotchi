@@ -1,0 +1,329 @@
+{
+  "artifact_id": "health_definition_gate_stage0",
+  "status": "stage0",
+  "date": "2026-07-28",
+  "purpose": "Cycle 24 N5: gate a CHOSEN definition of the documented VISIBLE axis `health`, which DR 0048 withheld \u2014 including on the question it named: whether a player-facing 'health' that is really grid-stability is honest labelling or a euphemism. Two candidates, four gates, refusal first-class.",
+  "source_artifacts": [
+    "data/architecture/companion_state_survey_stage0.json",
+    "data/seed_grids_16x16/mg_seed16_001_beetle.json"
+  ],
+  "parameters": {
+    "ticks": 200,
+    "lifecycles": 3,
+    "keeper_actions": [
+      "feed",
+      "play"
+    ],
+    "companion_actions": [
+      "sleep",
+      "idle",
+      "mutate"
+    ],
+    "incumbent_visible_axes": [
+      "hunger",
+      "energy",
+      "bond"
+    ],
+    "candidates": {
+      "grid_stability": {
+        "label": "DR 0048's named candidate: the hidden axis, surfaced",
+        "chosen": true,
+        "rationale": "engine truth, moves under the lifecycle, and one of the four lethal conditions (grid_collapse at <= 0.05)",
+        "hidden_axes_read": [
+          "grid_stability"
+        ]
+      },
+      "danger_margin": {
+        "label": "how close am I to trouble, on my worst axis",
+        "chosen": true,
+        "rationale": "the MINIMUM normalised safety margin across the engine's own DANGER_THRESHOLDS. DR 0048 rejected a composite because 'any composite needs weights nobody documented' \u2014 a minimum has no weights at all, only the engine's published thresholds",
+        "renamed_from": "lethal_margin",
+        "rename_reason": "DANGER_THRESHOLDS carries five axes and one of them, `bond`, is NOT a lethal condition \u2014 only hunger, energy, stress and grid_stability appear in _life_status. A gate asking whether a label is honest may not ship a definition whose own name overstates what it measures",
+        "hidden_axes_read": [
+          "stress",
+          "grid_stability"
+        ]
+      }
+    },
+    "seed_grid": "data/seed_grids_16x16/mg_seed16_001_beetle.json"
+  },
+  "metrics": {
+    "engine": {
+      "danger_thresholds": {
+        "hunger": 0.75,
+        "energy": 0.25,
+        "stress": 0.65,
+        "bond": 0.25,
+        "grid_stability": 0.35
+      },
+      "actions": [
+        "feed",
+        "play",
+        "sleep",
+        "idle",
+        "mutate"
+      ],
+      "initial": {
+        "hunger": 0.374,
+        "energy": 0.68,
+        "stress": 0.18,
+        "bond": 0.6075,
+        "grid_stability": 0.96
+      },
+      "per_action_delta": {
+        "feed": {
+          "hunger": -0.2799,
+          "energy": -0.018,
+          "stress": -0.02176,
+          "bond": 0.016,
+          "grid_stability": -0.001
+        },
+        "play": {
+          "hunger": 0.0751,
+          "energy": -0.098,
+          "stress": -0.03226,
+          "bond": 0.0685,
+          "grid_stability": -0.001
+        },
+        "sleep": {
+          "hunger": 0.0651,
+          "energy": 0.312,
+          "stress": -0.11476,
+          "bond": -0.007,
+          "grid_stability": 0.009
+        },
+        "idle": {
+          "hunger": 0.0601,
+          "energy": -0.04,
+          "stress": 0.03074,
+          "bond": -0.016,
+          "grid_stability": -0.003
+        },
+        "mutate": {
+          "hunger": 0.0601,
+          "energy": -0.073,
+          "stress": 0.06274,
+          "bond": 0.011,
+          "grid_stability": -0.056
+        }
+      },
+      "distress": {
+        "reached_hunger_danger": true,
+        "before": {
+          "hunger": 0.7947,
+          "energy": 0.4,
+          "stress": 0.407801,
+          "bond": 0.4955,
+          "grid_stability": 0.939
+        },
+        "after_keeper_feed": {
+          "hunger": 0.5148,
+          "energy": 0.382,
+          "stress": 0.390248,
+          "bond": 0.5115,
+          "grid_stability": 0.938
+        },
+        "delta": {
+          "hunger": -0.2799,
+          "energy": -0.018,
+          "stress": -0.017553,
+          "bond": 0.016,
+          "grid_stability": -0.001
+        }
+      },
+      "lifecycles": [
+        {
+          "arm": "neglect",
+          "index": 0,
+          "alive": false,
+          "death_cause": "starvation",
+          "ticks": 11,
+          "final": {
+            "hunger": 1.0,
+            "energy": 0.24,
+            "stress": 0.551195,
+            "bond": 0.4315,
+            "grid_stability": 0.927
+          }
+        },
+        {
+          "arm": "care",
+          "index": 0,
+          "alive": true,
+          "death_cause": null,
+          "ticks": 200,
+          "final": {
+            "hunger": 0.0751,
+            "energy": 0.884,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.998
+          }
+        },
+        {
+          "arm": "neglect",
+          "index": 1,
+          "alive": false,
+          "death_cause": "starvation",
+          "ticks": 11,
+          "final": {
+            "hunger": 1.0,
+            "energy": 0.24,
+            "stress": 0.551195,
+            "bond": 0.4315,
+            "grid_stability": 0.927
+          }
+        },
+        {
+          "arm": "care",
+          "index": 1,
+          "alive": true,
+          "death_cause": null,
+          "ticks": 200,
+          "final": {
+            "hunger": 0.0751,
+            "energy": 0.884,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.998
+          }
+        },
+        {
+          "arm": "neglect",
+          "index": 2,
+          "alive": false,
+          "death_cause": "starvation",
+          "ticks": 11,
+          "final": {
+            "hunger": 1.0,
+            "energy": 0.24,
+            "stress": 0.551195,
+            "bond": 0.4315,
+            "grid_stability": 0.927
+          }
+        },
+        {
+          "arm": "care",
+          "index": 2,
+          "alive": true,
+          "death_cause": null,
+          "ticks": 200,
+          "final": {
+            "hunger": 0.0751,
+            "energy": 0.884,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.998
+          }
+        }
+      ]
+    },
+    "incumbent_keeper_responses": {
+      "hunger": 0.2799,
+      "energy": 0.098,
+      "bond": 0.0685
+    },
+    "incumbent_response_floor": 0.0685,
+    "candidates": {
+      "grid_stability": {
+        "keeper_response": {
+          "feed": -0.001,
+          "play": -0.001
+        },
+        "distress_relief": -0.001,
+        "survivor_values": [
+          0.998,
+          0.998,
+          0.998
+        ],
+        "death_values": [
+          0.927,
+          0.927,
+          0.927
+        ],
+        "separates_deaths_from_survivors": true
+      },
+      "danger_margin": {
+        "keeper_response": {
+          "feed": 0.021333,
+          "play": -0.075467
+        },
+        "distress_relief": 0.176,
+        "survivor_values": [
+          0.845333,
+          0.845333,
+          0.845333
+        ],
+        "death_values": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "separates_deaths_from_survivors": true
+      }
+    }
+  },
+  "closed_states": [
+    "both definitions are declared CHOSEN up front (the L4 precedent), because validity-research.md names `health` and never defines it",
+    "the euphemism question DR 0048 named is a REAL GATE with a measured answer, not a paragraph of judgement",
+    "G2's bar is MEASURED as the smallest response an existing VISIBLE axis shows to the keeper's own verbs, never a constant",
+    "the keeper's verbs are measured from the game's keeper model rather than assumed, because a player-facing bar is judged against what the PLAYER can do",
+    "refusal is reachable for every candidate (pinned), as DR 0048 required",
+    "a prediction was recorded BEFORE the run so it could be wrong on the record (DR 0045's precedent)"
+  ],
+  "blocked_states": [
+    "this module builds no UI: it decides whether a definition may carry the name, and putting a bar on the player's screen is the consumer's change",
+    "surfacing ANY of these promotes a documented HIDDEN axis to a VISIBLE one \u2014 a documentation change to validity-research.md \u00a71.17, not an engine one, and it is not made here",
+    "one seed creature and one SLIP-free lifecycle: the measurements are of the engine's action model, which is profile-independent, but a profile with different behaviour weights would move the magnitudes",
+    "`happiness` and `cleanliness` stay OUT OF SCOPE (DR 0048): one needs a definition, the other a mechanic",
+    "`danger_margin` reads DANGER_THRESHOLDS, which is a PUBLIC name in a PUBLIC module but is NOT in the package's __all__ \u2014 so a definition built on it depends on a surface the package has not promised. Adopting it would mean promoting that constant to the public API, which is a package change with its own spec update and gate"
+  ],
+  "decision": {
+    "candidates": {
+      "grid_stability": {
+        "candidate": "grid_stability",
+        "verdict": "refuse_as_euphemism",
+        "failed_gates": [
+          "G2_keeper_responsive",
+          "G4_honest_label"
+        ],
+        "chosen_definition": true,
+        "hidden_axes_read": [
+          "grid_stability"
+        ],
+        "keeper_action_response": {
+          "feed": -0.001,
+          "play": -0.001
+        },
+        "best_keeper_response": 0.001,
+        "incumbent_response_floor": 0.0685,
+        "distress_relief": -0.001,
+        "separates_deaths_from_survivors": true
+      },
+      "danger_margin": {
+        "candidate": "danger_margin",
+        "verdict": "adopt",
+        "failed_gates": [],
+        "chosen_definition": true,
+        "hidden_axes_read": [
+          "stress",
+          "grid_stability"
+        ],
+        "keeper_action_response": {
+          "feed": 0.021333,
+          "play": -0.075467
+        },
+        "best_keeper_response": 0.075467,
+        "incumbent_response_floor": 0.0685,
+        "distress_relief": 0.176,
+        "separates_deaths_from_survivors": true
+      }
+    },
+    "adopted": [
+      "danger_margin"
+    ],
+    "rule": "pre-registered (cycle 24 N5), refusal first-class and reachable for every candidate. Both definitions are declared CHOSEN up front (the L4 precedent): validity-research.md names `health` and never defines it. G1 \u2014 the definition must DECLARE which documented HIDDEN axes it reads; a definition that will not say what it reads cannot be audited. G2 \u2014 the KEEPER must be able to move it, judged against what the PLAYER can do (feed, play) rather than what the companion does to itself, with the bar MEASURED as the smallest response any existing VISIBLE axis shows to those same actions, never a constant. G3 \u2014 it must be coupled to survival: deaths and survivors must separate on it. G4 \u2014 THE LABEL TEST, the question DR 0048 actually asked: put the creature in distress, have the keeper relieve it, and measure whether the bar rises. A bar that does not move when the keeper relieves the distress is a EUPHEMISM whatever it is called, and earns 'refuse_as_euphemism' \u2014 a harsher verdict than the 'withhold' a structural failure earns, because the two are different accusations and must not be conflated. This module builds no UI: it decides whether a definition may carry the name.",
+    "pre_run_prediction": "Written before the run (DR 0045's precedent, so it can be wrong on the record): `grid_stability` is expected to FAIL G2 and G4 and be refused as a euphemism, because the engine's ACTION_EFFECTS move it by exactly 0.0 under both `feed` and `play` \u2014 the only two verbs a keeper has \u2014 while it falls 0.055 under `mutate`, an action a player would read as growth rather than harm. `danger_margin` is expected to pass, because hunger and energy are lethal axes that feed and sleep move. If the measurement disagrees, the measurement wins."
+  },
+  "next_research_step": "N6: the Phase-N gate \u2014 then archive cycle 24 and plan cycle 25 from the documentation."
+}

@@ -25,8 +25,8 @@ never rewritten).
 
 ## [Unreleased] — Cycle 24 · Phase N — "the descriptor space earns its edges"
 
-*In progress. Queue: `audits/TODO.md` (**N1–N4 and N7 DONE**; N5, N6
-open).*
+*In progress. Queue: `audits/TODO.md` (**N1–N5 and N7 DONE**; N6 — the
+Phase-N gate — open).*
 
 Planned from Phase M's deepest finding — **the octile edges are not
 determined by a 600-creature derivation** — plus the debts DR 0047 and
@@ -245,6 +245,43 @@ archive-heavy cycles.
   migration candidates and need their own record. The four
   defect-measuring studies should probably never migrate: **a
   measurement does not improve, it is reproduced or superseded.**
+- **N5 — DONE 2026-07-28 (DR 0054).** *(GAME track.)* **A definition
+  ADOPTED and a euphemism REFUSED**, resolving DR 0048's withholding of
+  `health` through the gate it named. Four gates, refusal reachable for
+  every candidate, and a prediction recorded before the run — confirmed.
+- **REFUSED — `grid_stability` under the name "health"**, on the
+  decisive number: the neglected creature **starved to death** and
+  finished with `grid_stability` at **0.927**, so the bar would read
+  **93% on a corpse** — and feeding a starving companion moves it
+  **−0.001**, *down*. **An inverted signal, not a weak one**, which is
+  why the verdict is `refuse_as_euphemism` rather than `withhold`. It
+  technically *passed* the survival gate (0.998 vs 0.927), and that pass
+  is instructive: a 0.07 gap looks like separation in a table while
+  reading 93% at the moment of death.
+- **ADOPTED — `health` is `danger_margin`**, the minimum normalised
+  safety margin across the engine's own `DANGER_THRESHOLDS`. It answers
+  DR 0048's own objection that a composite needs undocumented weights:
+  **a minimum has no weights at all.** Reads 0.0 on the dead creature,
+  0.845 on the survivor, and **+0.176** when the keeper feeds a starving
+  companion.
+- **Reported beside the verdict: the game already got this right.** It
+  displays the axis as *"body stability"* and never committed the
+  euphemism — and it already shows `stress` too, so the shipped client
+  surfaces **two documented-HIDDEN axes under accurate names** and
+  **§1.17's visible/hidden split is stale against it**. Found by reading
+  the client rather than the document; recorded, not amended.
+- **What shipped is the guard** — 5 game-side pins making the refusal an
+  **enforced property**: nothing on the player's screen may carry the
+  name "health" until a consumer change lands one.
+- **A self-correction, for the reason the study exists**: candidate B was
+  renamed `lethal_margin` → `danger_margin` mid-study, because
+  `DANGER_THRESHOLDS` includes `bond`, which is not lethal. **A gate
+  about honest labels may not ship an overclaiming name.**
+- **NAMED, NOT DONE** — the adopted definition is not on screen: it reads
+  a constant that is public in its module but **not in the package's
+  `__all__`**, so landing it needs a package promotion with its own
+  gate. And **`play` lowers it** (−0.0755, play costs energy) — honest,
+  but a design question whoever puts it on screen owns.
 
 ---
 
@@ -646,6 +683,6 @@ These are decisions, not backlog:
 
 - `research/README.md` — the master traceability ledger (the authoritative record)
 - `research/experiment_reports/` — dated findings and the per-phase gate reports
-- `research/decision_records/` — ADRs `0001`–`0053`
+- `research/decision_records/` — ADRs `0001`–`0054`
 - `audits/TODO.md` (the live queue) and `audits/complete/NN/TODO.md` (archived cycles)
 - `tools/ci/run_sweep.py` — the one verification sweep every gate runs

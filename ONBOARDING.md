@@ -451,7 +451,23 @@ order (cycle 23's closed ladder is in §3 and its gate report):
    study that measures a defect is never migrated onto the fix.*
    Named-not-done: `evaluation_loop_scale` (DR 0042's 0.8984) and
    `coverage_qd_gates` need their own record.
-5. **N5 · `health` — the CHOSEN definition, gated** ← **THE NEXT TASK.**
+5. **N5 · `health` — the CHOSEN definition, gated** — **DONE 2026-07-28
+   (DR 0054): a definition ADOPTED and a euphemism REFUSED.**
+   `grid_stability` under the name "health" is **refused** on the
+   decisive number — the neglected creature **starved to death** with
+   `grid_stability` at **0.927**, so the bar would read **93% on a
+   corpse**, and feeding a starving companion moves it *down*. An
+   inverted signal, not a weak one. **`health` is adopted as
+   `danger_margin`**, the minimum safety margin across the engine's own
+   `DANGER_THRESHOLDS` — which answers DR 0048's objection that a
+   composite needs undocumented weights, since a minimum has none.
+   **The game already got this right** (it says "body stability"), and
+   what shipped is a **guard** pinning that nothing on screen carries
+   the name "health" until a consumer change lands one. Named-not-done:
+   the definition reads a constant not in the package's `__all__`, so
+   landing it needs a package promotion with its own gate.
+   *(Original charter below.)*
+5b. *(charter)* **N5 · `health` — the CHOSEN definition, gated**
    *(GAME track)* —
    DR 0048's named next record, and the one absent visible axis with a
    real engine source. `grid_stability` and per-cell `damage` are both
@@ -459,9 +475,12 @@ order (cycle 23's closed ladder is in §3 and its gate report):
    first. Gate it on more than arithmetic: whether a player-facing
    "health" that is really grid-stability is **honest labelling or a
    euphemism** is part of the decision. **Refusal is first-class.**
-6. **N6 · the Phase-N gate** — then archive to `audits/complete/24/`
-   and plan cycle 25 from the documentation. **Do not ask which
-   direction.**
+6. **N6 · the Phase-N gate** ← **THE NEXT TASK.** One consolidated
+   report over N1–N5 and N7, then archive to `audits/complete/24/` and
+   plan cycle 25 from the documentation. **Do not ask which
+   direction.** Cycle 24 shipped **six** decision records (0049–0054) —
+   the queue grew one task mid-cycle (N7), which DR 0052 scheduled and
+   N7 then discovered was not the task it looked like.
 
 ## 5. The map — what each directory IS
 

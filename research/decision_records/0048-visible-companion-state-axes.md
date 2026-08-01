@@ -99,6 +99,26 @@ declares its definition **CHOSEN** (exactly as L4 did for
 including on whether a player-facing "health" that is really
 grid-stability is *honest labelling* or a euphemism. **Not built here.**
 
+> **Dated note, 2026-07-28 — RESOLVED by cycle 24 N5 (DR 0054), and the
+> euphemism question is answered: it IS a euphemism.** The gate was
+> built as named. **`grid_stability` under the name "health" is
+> REFUSED**, on the decisive measurement that a creature which
+> **starved to death** finished with `grid_stability` at **0.927** — a
+> bar reading that axis shows **93% on a corpse** — and that feeding a
+> starving companion moves it **−0.001**, i.e. *down*. An inverted
+> signal, not a weak one. **`health` is instead ADOPTED as
+> `danger_margin`**, the minimum normalised safety margin across the
+> engine's own `DANGER_THRESHOLDS`, which answers this record's own
+> objection: a composite would need undocumented weights, and **a
+> minimum has no weights at all**. Also found, by reading the client
+> rather than the document: **the game never committed the euphemism** —
+> it already displays the axis as *"body stability"* — and it already
+> shows `stress` too, so **§1.17's visible/hidden split is stale against
+> the shipped game**. Nothing is on screen yet: `danger_margin` reads a
+> constant not in the package's `__all__`, and promoting it is a package
+> change with its own gate. See
+> `research/experiment_reports/2026-07-28-health-definition-gate.md`.
+
 ## Consequences
 
 - **The Phase-K/L claim is corrected by a dated note beside the

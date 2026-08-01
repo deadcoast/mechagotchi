@@ -241,18 +241,46 @@ truth), `0029-16x16-default-grid-scale.md` (the geometry),
   also assumed the migration would "restate DR 0042's coverage under the
   new default" — it does not, and DR 0053 records why that must be its
   own decision.*
-- [ ] **N5 · `health` — the CHOSEN definition, gated.** *(GAME track.)*
-  DR 0048's named next record and the one absent visible axis with a
-  real engine source. `grid_stability` and per-cell `damage` both exist
-  and both move under the lifecycle, but **both are documented HIDDEN
-  axes**, so any definition is CHOSEN (the L4 precedent) and must say
-  so first. Gate it on more than arithmetic: whether a player-facing
-  "health" that is really grid-stability is **honest labelling or a
-  euphemism** is part of the decision, and DR 0021's first law means an
-  uncalibrated axis is shown as uncalibrated or not shown at all.
-  **Refusal is first-class** — "the engine has the numbers but the
-  player should not be shown them under this name" is a legitimate
-  verdict.
+- [x] **N5 · `health` — the CHOSEN definition, gated.** DONE 2026-07-28
+  (`2026-07-28-health-definition-gate.md`, **DR 0054**): **a definition
+  ADOPTED and a euphemism REFUSED.** Two candidates, four gates, refusal
+  reachable for each (pinned), and a prediction recorded before the run
+  — **confirmed**. **`grid_stability` under the name "health" is
+  REFUSED as a euphemism** on the decisive number: the neglected
+  creature **starved to death** and finished with `grid_stability` at
+  **0.927**, so the bar would read **93% on a corpse**, and feeding a
+  starving companion moves it **−0.001** — *down*. An inverted signal,
+  not a weak one, which is why the verdict is `refuse_as_euphemism`
+  rather than `withhold`. **`health` is ADOPTED as `danger_margin`** —
+  the minimum normalised safety margin across the engine's own
+  `DANGER_THRESHOLDS` — which answers DR 0048's own objection that a
+  composite needs undocumented weights: **a minimum has no weights at
+  all**. It reads 0.0 on the dead creature, 0.845 on the survivor, and
+  rises **+0.176** when the keeper feeds a starving companion.
+  **REPORTED BESIDE THE VERDICT: the game already got this right** — it
+  displays the axis as *"body stability"* and never committed the
+  euphemism, and it already shows `stress` too, so **§1.17's
+  visible/hidden split is stale against the shipped client** (found by
+  reading the client, not the document; recorded, not amended).
+  **What SHIPPED is the guard**: 5 pins in
+  `game/tests/test_health_label_guard.py` making the refusal an enforced
+  property — nothing on screen may carry the name "health" until a
+  consumer change lands one. **Self-correction recorded**: candidate B
+  was renamed `lethal_margin` → `danger_margin` mid-study because
+  `DANGER_THRESHOLDS` includes `bond`, which is not lethal — a gate
+  about honest labels may not ship an overclaiming name. RED first; 25
+  pins; game 183 → **188** green. **Named, not done**: `danger_margin`
+  is not on screen because it reads a constant not in the package's
+  `__all__` (a package change with its own gate), and `play` LOWERS it
+  (−0.0755, play costs energy) — a real design question whoever puts it
+  on screen owns.
+  *Original charter, and its last sentence is exactly what happened:
+  "**Refusal is first-class** — 'the engine has the numbers but the
+  player should not be shown them under this name' is a legitimate
+  verdict." It also assumed per-cell `damage` "moves under the
+  lifecycle"; measured, `damage` is read once at `initial_state` to
+  shape the starting `grid_stability` and does not change thereafter —
+  a small correction, recorded.*
 - [ ] **N6 · The Phase-N gate.** One consolidated report; cycle 24
   archived; cycle 25 planned from the documentation.
 
