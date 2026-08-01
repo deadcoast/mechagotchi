@@ -2,7 +2,7 @@
 
 Written **2026-07-21** by the outgoing session, completed
 **2026-07-26** at the owner's direction, and its §3/§4 state sections
-refreshed at the **Phase-M gate (2026-07-27)**. Read this file
+refreshed at the **Phase-N gate (2026-07-28)**. Read this file
 completely before touching anything.
 
 `CHANGELOG.md` in the root is the cycle-by-cycle summary of what
@@ -132,7 +132,7 @@ never a blocker.
 
 ---
 
-## 3. WHERE WE ARE RIGHT NOW (2026-07-27 — verify against `git log`)
+## 3. WHERE WE ARE RIGHT NOW (2026-07-28 — verify against `git log`)
 
 ### The headline
 
@@ -146,12 +146,12 @@ and from the named remainders each cycle's own records leave behind.
 ### Branch and merge state
 
 Working branch **`phase-l-gate`** — historical name, not being renamed
-(phases are already sequential, I→N). It carries cycles 22–24.
+(phases are already sequential, I→O). It carries cycles 22–24.
 
-**Unified as of 2026-07-27**: `main`, `origin/main`, the branch and its
-remote are all on one commit. Cycles 22 (PR #1) and 23 (PR #2) are
-merged. Check with `git log --oneline origin/main..HEAD` — it should be
-empty.
+**Unified as of 2026-07-28**: `main`, `origin/main`, the branch and its
+remote are all on one commit. Every cycle-24 task was merged and pushed
+at its own commit, per §6's branch rule. Check with
+`git log --oneline origin/main..HEAD` — it should be empty.
 
 ### The cycle ladder so far
 
@@ -171,9 +171,10 @@ empty.
 | 21 | K | the vocabulary settles its stack (gate green 2026-07-26) |
 | 22 | L | the descriptor space settles its geometry — and the cycle audits its own ledger (gate green 2026-07-26) |
 | 23 | M | the archive meets its own inhabitants — and the cycle audits its own **prose** (gate green 2026-07-27) |
-| **24** | **N** | **the descriptor space earns its edges ← WE ARE HERE** |
+| 24 | N | the descriptor space earns its edges — and the cycle audits its own **instruments** (gate green 2026-07-28) |
+| **25** | **O** | **the adopted definitions reach the player ← WE ARE HERE** |
 
-Archived queues live in `audits/complete/NN/TODO.md` (01–07, 09–23).
+Archived queues live in `audits/complete/NN/TODO.md` (01–07, 09–24).
 
 ### Cycle 21 · Phase K — CLOSED, gate green 2026-07-26
 
@@ -241,7 +242,36 @@ was found by *reading the engine instead of the document*. Phase L
 audited its own numbers; **Phase M audited its own sentences.** Every
 correction is a dated note beside the original.
 
-### Cycle 24 · Phase N — the descriptor space earns its edges
+### Cycle 24 · Phase N — CLOSED, gate green 2026-07-28
+
+All six tasks DONE (N1–N5 plus **N7**, which DR 0052 added mid-cycle
+rather than letting a default change happen as a side effect); gate
+report `research/experiment_reports/2026-07-28-phase-n-gate.md`; queue
+archived at `audits/complete/24/TODO.md`. Six decision records,
+**0049–0054**.
+
+**The cycle's character, and the reason to trust it**: **Phase L audited
+its own numbers, Phase M its own sentences, and Phase N its own
+INSTRUMENTS.** Every one of its six slices found a defect in the
+measuring apparatus rather than in the thing measured — and **three were
+errors the session made and caught before they shipped as findings**
+(N3's observer scored a learner on an event it cannot observe; N4's
+population parameter was invented and **flipped the verdict**; N5's own
+candidate name overclaimed). Each is a recorded process deviation.
+
+**Every gate that could have rubber-stamped, did not**: N3 dropped two of
+three, N5 refused DR 0048's *named* candidate and adopted one the record
+never proposed, N4's rule could have refused all three arms, and **N1's
+own prediction was refuted by its own measurement.**
+
+**Phase N's specific debt, and it is this cycle's plan: it adopted three
+things and put NONE of them in front of a player.** `insertion` is the
+loop's default but every historical study is pinned to the incumbent;
+`danger_margin` is the adopted definition of `health` but is blocked
+off-screen by one package constant. Correct in each case, deliberate in
+each case — and exactly the debt that quietly becomes permanent.
+
+### Cycle 25 · Phase O — the adopted definitions reach the player
 
 `audits/TODO.md` is the live queue: **N1 DONE, N2–N6 open.** The spine
 is Phase M's deepest finding: **the octile edges are not determined by a
@@ -268,12 +298,21 @@ The 26% and the 0.046 band both stand — and the band is now measured
 structural and permanent while only the edge placement inside it is
 sampled.
 
-N1/N2 sit under everything; N4 and N5 pay debts DR 0047 and DR 0048
-explicitly asked for; **N3 is deliberately non-archive** — the
-micro-learner ablation conditions E/F/G, documented and unmet since
-cycle 12 — because cycles 22 and 23 were both archive-heavy and the
-anti-periscope rule applies to the developer too. N5 is the GAME-track
-slice. See `audits/TODO.md` for each task's pre-registered shape.
+*(The paragraph above is Phase N's charter, kept because N1 answered it.
+The section that follows is cycle 25's.)*
+
+`audits/TODO.md` is the live queue: **O1–O5, none started.** The spine
+is Phase N's own debt — **it adopted three things and put none of them
+in front of a player.** O1 promotes the single package constant blocking
+the `health` readout; O2 lands that readout **and answers the design
+question DR 0054 deliberately refused to answer for the consumer**
+(`play` LOWERS `danger_margin`, so a keeper will read the drop as a
+bug); O3 migrates the two headline studies DR 0053 scoped, restating
+**DR 0042's coverage 0.8984** with a delta explained at every site that
+quotes it; and **O4 is deliberately non-archive and non-loop** — Stage
+2's **shape grammar** and **CPPN**, named in the dossier and never
+dispositioned, the same class of debt N3 closed after twelve cycles.
+See `audits/TODO.md` for each task's pre-registered shape.
 
 ### What exists and is genuinely good
 
@@ -291,10 +330,10 @@ slice. See `audits/TODO.md` for each task's pre-registered shape.
 - **`labs/`** — 19 research labs; every algorithm is proven here first.
   (The two that grew most in cycle 23: `map_elites_archive` 219 → **319**,
   `architecture` 14 → **27**.)
-- **`research/`** — the evidence ledger: **261 experiment reports**,
-  **77 algorithm cards**, **48 decision records** (through DR 0048),
+- **`research/`** — the evidence ledger: **267 experiment reports**,
+  **77 algorithm cards**, **54 decision records** (through DR 0054),
   package specs.
-- **`data/`** — **2,240 JSON evidence artifacts**, all valid.
+- **`data/`** — **2,245 JSON evidence artifacts**, all valid.
 
 **Verified at the Phase-M gate (2026-07-27):**
 `python -B tools/ci/run_sweep.py` → **SWEEP GREEN** — 19 lab suites +
@@ -370,117 +409,51 @@ first green CLOUD CI run, which awaits a push never made unasked.
 ## 4. WHAT TO DO NEXT
 
 **Work `audits/TODO.md` task by task** — RED first, triad docs in the
-same change, one commit per task naming the task ID. Cycle 24's queue in
-order (cycle 23's closed ladder is in §3 and its gate report):
+same change, one commit per task naming the task ID. Cycle 25's queue in
+order (cycle 24's closed ladder is in §3 and its gate report):
 
-1. **N1 · do 600 creatures determine the octile edges?** — **DONE
-   2026-07-27 (DR 0049).** `sampling_limited`, not structurally
-   indeterminate (slope −0.4186 vs theory's −0.5 inside a measured
-   band): 600 does not determine the addresses and neither does 4,800,
-   but the edges are under-sampled rather than unknowable. **The
-   occupied-niche count the ledger quotes was already at its measured
-   floor at 600**, so `derivation_count` stays. Measure-thinness proved
-   **structural** (the band is constant across 64×) while only the edge
-   placement inside it is sampled. DR 0046's two controls corrected as
-   understated single draws — which **strengthens** `freeze_split`
-   (ratio 1.16 → 0.969).
-2. **N2 · freeze the probe's edges** — **DONE 2026-07-28 (DR 0050).**
-   Frozen at 600 with recorded provenance; all four gates passed. Both
-   committed headlines recomputed from scratch and came back **exact**
-   (support ceiling 460 → 460, reached-by-generators 495 → 495);
-   determinism **measured** rather than inherited from DR 0046's
-   assertion; separation held at 0.037500 so the refusal to converge is
-   intact. The recipe now lives in one place instead of three private
-   copies, every probe-side artifact records `edges_source`, and a
-   **parity pin makes drift fail the suite**. *Corrected*: the charter
-   said "a draw no artifact records" — `reachability_probe` **does**
-   record its edges; `occupancy_saturation` and
-   `reachability_escalation` do not, which is worse. Honest limit:
-   **freezing the edges does not freeze the numbers** — the support
-   ceiling spans 447–462 across evaluation resamples.
-3. **N3 · the micro-learner ablation conditions E/F/G** — **DONE
-   2026-07-28 (DR 0051).** Built at last after twelve cycles and judged
-   through the D6 gates verbatim: **E `qtable_policy` KEEP** (+55.459%
-   skill), **F `tiny_tree_router` DROP** (−1.776% — the depth-2 split is
-   *decoration*, worse than a depth-1 stump), **G
-   `bayes_keeper_counter` DROP** (+2.756%, under half the bar). Every
-   candidate's welfare cost is under 1.2%, so all three were decided on
-   skill — D6's saturated decision seam reproduced. **The kept-five
-   roster is unchanged** (incumbents re-judged at 0.000–0.359%).
-   Byte-identity **proven** by regenerating the committed D6 artifact to
-   an identical SHA-256. **Nothing promoted.** Process deviation
-   recorded: the first run scored G at −154.796% because the observer
-   scored it against an event the thread cannot see; corrected and
-   re-run, with E and F bit-for-bit unchanged.
-4. **N4 · the `slip_admission` default, decided** — **DONE 2026-07-28
-   (DR 0052): the default is `insertion`, and DR 0047's prediction is
-   CONFIRMED.** Four gates pre-registered first (G1/G2 DR 0047's
-   verbatim, G1 now per-seed; G3 quality and G4 archive legality the two
-   it asked for, G4 structural like G1). `parents` fails G4 completely —
-   35/37/35 illegal elites, evicting none — while `bootstrap` and
-   `insertion` both clear all four and are indistinguishable on the
-   gated dimensions, so DR 0047's own invasiveness tie-break picks
-   `insertion`. Cost stated plainly: **0.029948 coverage, 90% of the
-   measured control** — a narrow pass. The incumbent reproduced
-   DR 0047's committed baseline exactly. **Decided, not flipped** —
-   the migration is queued as **N7** with its blast radius measured. A
-   process deviation is recorded: a first run at `population=512` (a
-   parameter the module invented, not inherited) flipped the verdict,
-   was caught by the baseline mismatch, and is now blocked by two
-   pinned guards.
-   *(Original charter: DR 0047's named decider.)* All three arms already drive the refusal tax to zero inside
-   the noise floor, so the question is *which*, not *whether*. Re-run
-   with **quality and archive legality pre-registered alongside
-   coverage**, multi-seed. DR 0047 records that the likely winner is
-   **`insertion`**, not the tie-break's `parents` — which is exactly
-   why the gate must be written first and allowed to refuse all three.
-4b. **N7 · flip the `slip_admission` default** — **DONE 2026-07-28
-   (DR 0053).** Flipped to `insertion` — and the migration turned out
-   **not to be a regeneration**. The inventory (the charter's own
-   instruction, and what decided the task) found **eight** implicit
-   callers, not DR 0052's estimated six. Regenerating them would have
-   **destroyed evidence**: `generation_refusal_causes` *is* the
-   measurement of the 4,435-refusal tax and reports zero under the fix.
-   So the migration was **flip the default and make every historical
-   study NAME its arm** — all eight pinned to `"none"` with reasons.
-   **Prospective by design**: no committed number moves (proven — every
-   measured field of L1's artifact identical, only `wall_clock_s`
-   differs), and every *new* caller gets the fix by default, pinned.
-   DR 0053's rule: *a setting that changes what an artifact means is
-   recorded at the call site, never inherited from a default; and a
-   study that measures a defect is never migrated onto the fix.*
-   Named-not-done: `evaluation_loop_scale` (DR 0042's 0.8984) and
-   `coverage_qd_gates` need their own record.
-5. **N5 · `health` — the CHOSEN definition, gated** — **DONE 2026-07-28
-   (DR 0054): a definition ADOPTED and a euphemism REFUSED.**
-   `grid_stability` under the name "health" is **refused** on the
-   decisive number — the neglected creature **starved to death** with
-   `grid_stability` at **0.927**, so the bar would read **93% on a
-   corpse**, and feeding a starving companion moves it *down*. An
-   inverted signal, not a weak one. **`health` is adopted as
-   `danger_margin`**, the minimum safety margin across the engine's own
-   `DANGER_THRESHOLDS` — which answers DR 0048's objection that a
-   composite needs undocumented weights, since a minimum has none.
-   **The game already got this right** (it says "body stability"), and
-   what shipped is a **guard** pinning that nothing on screen carries
-   the name "health" until a consumer change lands one. Named-not-done:
-   the definition reads a constant not in the package's `__all__`, so
-   landing it needs a package promotion with its own gate.
-   *(Original charter below.)*
-5b. *(charter)* **N5 · `health` — the CHOSEN definition, gated**
-   *(GAME track)* —
-   DR 0048's named next record, and the one absent visible axis with a
-   real engine source. `grid_stability` and per-cell `damage` are both
-   documented **HIDDEN**, so any definition is CHOSEN and must say so
-   first. Gate it on more than arithmetic: whether a player-facing
-   "health" that is really grid-stability is **honest labelling or a
-   euphemism** is part of the decision. **Refusal is first-class.**
-6. **N6 · the Phase-N gate** ← **THE NEXT TASK.** One consolidated
-   report over N1–N5 and N7, then archive to `audits/complete/24/` and
-   plan cycle 25 from the documentation. **Do not ask which
-   direction.** Cycle 24 shipped **six** decision records (0049–0054) —
-   the queue grew one task mid-cycle (N7), which DR 0052 scheduled and
-   N7 then discovered was not the task it looked like.
+1. **O1 · promote `DANGER_THRESHOLDS` to the package's public API** ←
+   **THE NEXT TASK.** N5's named blocker and the smallest real thing in
+   the queue. `danger_margin` — the adopted definition of `health` —
+   reads a constant that is a **public name in a public module but is
+   not in `mecha_engine`'s `__all__`**, so any consumer depending on it
+   depends on a surface the package never promised. Promote it with the
+   package discipline: a contract entry in `research/package_specs/`, a
+   package test, the traceability matrix updated. **Do not widen the
+   promotion beyond the constant** — whether the margin formula itself
+   belongs in the engine is a separate decision, and the task must say
+   which it did.
+2. **O2 · land the `health` readout in the game** *(GAME track, depends
+   on O1)*. DR 0054 adopted the definition and shipped only a guard.
+   Put it on screen — **and answer the design question DR 0054 refused
+   to answer for the consumer**: `play` LOWERS `danger_margin`
+   (−0.075467, because play costs energy), so a keeper who sees
+   "health" drop when they play with their pet will read it as a bug.
+   Decide and gate whether that ships as-is (honest, engine truth),
+   smoothed, or split in two. **DR 0021's first law binds.** Refusing to
+   display it after all is a legitimate verdict.
+3. **O3 · migrate the two headline studies onto the adopted default** —
+   DR 0053's rule 3, scoped there and unfinished by design.
+   `evaluation_loop_scale` (the source of **DR 0042's coverage
+   0.8984**) and `coverage_qd_gates` (the E4 gates) are the **only two**
+   of eight callers whose migration is a real question rather than an
+   evidence-destroying regeneration. Restate both under `insertion`,
+   **explain the delta at every site quoting the old number**, and keep
+   the incumbent artifacts as the measurements they were. The other six
+   stay pinned; DR 0053 says why.
+4. **O4 · Stage 2's undispositioned generator arms** — deliberately
+   **non-archive and non-loop** after a cycle that spent four of six
+   slices in the archive. **Shape grammar** and **CPPN** are named in
+   the dossier and have never been dispositioned: no card, no
+   prototype, no verdict — the same debt N3 closed after twelve cycles.
+   Smallest honest prototype of each, judged against the adopted
+   generation layer on its own bake-off terms. **Rejecting both is
+   first-class**; DR 0031 already refuted the hybrid arm, and a second
+   measured refutation is worth more than a third generator nobody
+   asked for.
+5. **O5 · the Phase-O gate** — then archive to `audits/complete/25/`
+   and plan cycle 26 from the documentation. **Do not ask which
+   direction.**
 
 ## 5. The map — what each directory IS
 

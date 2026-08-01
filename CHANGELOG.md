@@ -23,10 +23,46 @@ never rewritten).
 
 ---
 
-## [Unreleased] — Cycle 24 · Phase N — "the descriptor space earns its edges"
+## [Unreleased] — Cycle 25 · Phase O — "the adopted definitions reach the player"
 
-*In progress. Queue: `audits/TODO.md` (**N1–N5 and N7 DONE**; N6 — the
-Phase-N gate — open).*
+*Not started. Queue: `audits/TODO.md` (O1–O5).* Planned from Phase N's
+unusual debt: **it adopted three things and put none of them in front of
+a player.** `insertion` is the loop's default but every historical study
+is pinned to the incumbent, and `danger_margin` is the adopted
+definition of `health` but is blocked off-screen by one package
+constant. Each is correct and deliberate — and exactly the kind of debt
+that quietly becomes permanent.
+
+---
+
+## Cycle 24 · Phase N — "the descriptor space earns its edges" — 2026-07-28
+
+**Gate: GREEN.** `research/experiment_reports/2026-07-28-phase-n-gate.md`
+Closing sweep: 19 lab suites + package + workshop + game **188** + CLI —
+**2,245 JSON artifacts, 0 invalid**. Six decision records, **0049–0054**.
+
+The cycle earned the descriptor space its edges and answered four
+long-standing questions. But its defining character was unplanned:
+**Phase L audited its own numbers, Phase M its own sentences, and Phase N
+its own INSTRUMENTS.** Every one of its six slices found a defect in the
+measuring apparatus rather than in the thing measured — DR 0046's
+controls were single draws; the queue's description of N2's defect was
+wrong; N3's observer scored a learner on an event it cannot see; N4's
+population parameter was invented and **flipped the verdict**; N7's
+obvious migration plan would have **destroyed evidence**; and N5's own
+candidate name overclaimed. **Three of those six were errors this
+session made and caught before they shipped as findings**, each recorded
+as a process deviation rather than absorbed.
+
+**And every gate that could have rubber-stamped, did not**: N3 dropped
+two of three candidates, N5 refused DR 0048's *named* candidate and
+adopted one the record had not proposed, N4's rule could have refused all
+three arms, and **N1 predicted structural indeterminacy and its own
+measurement refuted it**. Two pre-run predictions were recorded and held;
+one was recorded and refuted.
+
+The queue grew one task mid-cycle — **N7** — which DR 0052 scheduled
+rather than letting a default change happen as a side effect.
 
 Planned from Phase M's deepest finding — **the octile edges are not
 determined by a 600-creature derivation** — plus the debts DR 0047 and
