@@ -25,7 +25,7 @@ never rewritten).
 
 ## [Unreleased] — Cycle 25 · Phase O — "the adopted definitions reach the player"
 
-*In progress. Queue: `audits/TODO.md` (**O1 DONE**; O2–O5 open).* Planned from Phase N's
+*In progress. Queue: `audits/TODO.md` (**O1, O2 DONE**; O3–O5 open).* Planned from Phase N's
 unusual debt: **it adopted three things and put none of them in front of
 a player.** `insertion` is the loop's default but every historical study
 is pinned to the incumbent, and `danger_margin` is the adopted
@@ -60,6 +60,38 @@ that quietly becomes permanent.
   made this decision and named this task as its blocker, and W1's
   precedent documents a surface widening in the contract gate rather
   than a record of its own.
+- **O2 — DONE 2026-07-28 (DR 0055).** *(GAME track.)* **`health` is on
+  the player's screen** — and the fix for the play-drop was **not to
+  hide it**. DR 0054 deferred one question: `play` *lowers* the number
+  (−0.075467, play costs energy), so a keeper will read the drop as a
+  bug. Two of the three available answers are forbidden by DR 0021's
+  first law — smoothing or hiding the fall would make the surface show
+  something the engine does not.
+- **ADOPTED — the readout ships with its BINDING AXIS.** Health is a
+  *minimum* across axes, and a bare minimum discards the one thing that
+  makes it legible: *which* axis is binding. `health 0.62 (tired)` costs
+  **no new number** (argmin of margins already computed), is engine
+  truth, and turns an unexplained fall into a sentence. The word names
+  the state, never a friendlier version of it — DR 0054's refusal
+  against comfortable renaming binds this table too.
+- **The measured case, taken from the live client rather than a test**:
+  a keeper who never sleeps sees `tired` from tick 2, **0.000 by tick
+  7**, and the companion **dies of `energy_collapse` at tick 10** — the
+  readout **named the death cause eight ticks early**, where a bare
+  number would have shown only a falling line. A keeper who acts on the
+  word takes the same creature **0.487 → 0.976**. The play-drop itself is
+  visible and legible in that run (tick 8 plays at 0.813; tick 9 reads
+  0.715 and says `tired`).
+- **Refusal was reachable and did not fire** — a pin asserts that when
+  the bar drops, the axis named after it must be one `play` actually
+  worsens, or the readout misleads and does not ship.
+- Formula **mirrored** into the game per the boundary law and pinned
+  against the committed N5 artifact. Game suite **188 → 200**.
+- **Honest limit recorded, not fixed**: the bar bottoms out at **danger,
+  not death** — health reads 0.000 while the companion is still alive.
+  Defensible as a warning that leaves time to act, but "health" implies
+  zero means dead and it does not; a different floor is a different
+  CHOSEN definition needing its own gate.
 
 ---
 
@@ -747,6 +779,6 @@ These are decisions, not backlog:
 
 - `research/README.md` — the master traceability ledger (the authoritative record)
 - `research/experiment_reports/` — dated findings and the per-phase gate reports
-- `research/decision_records/` — ADRs `0001`–`0054`
+- `research/decision_records/` — ADRs `0001`–`0055`
 - `audits/TODO.md` (the live queue) and `audits/complete/NN/TODO.md` (archived cycles)
 - `tools/ci/run_sweep.py` — the one verification sweep every gate runs

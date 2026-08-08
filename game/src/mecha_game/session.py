@@ -44,6 +44,8 @@ from mecha_engine.lifecycle import (
     initial_state,
 )
 
+from .health import health_readout
+
 LINEAGE_FORMAT = "keeper_lineage_v1"
 SESSION_FORMAT = "keeper_session_v1"
 # The D6 ablation verdicts, applied without sentiment: exactly the five
@@ -154,6 +156,12 @@ class CompanionSession:
                 if key in self.state
             },
             "mood": probe["mood"],
+            # O2 (DR 0054): the adopted CHOSEN definition of `health`,
+            # carried with the axis that binds it — a bare minimum
+            # throws away the one thing that makes it legible, and the
+            # keeper's `play` verb LOWERS it (play costs energy), so the
+            # readout has to be able to say why.
+            "health": health_readout(self.state),
             "begging": self.begging,
             "ui_hints": probe["ui_hints"],
             "generation_count": len(self.lineage),

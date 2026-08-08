@@ -82,8 +82,32 @@ remainder list this cycle opens), `2026-07-28-health-definition-gate.md`
   updated. **Do not widen the promotion beyond the constant** — if the
   margin formula itself belongs in the engine, that is a separate
   decision, and this task must say which it did.
-- [ ] **O2 · Land the `health` readout in the game** *(GAME track,
-  depends on O1)*. DR 0054 adopted `danger_margin` and shipped only a
+- [x] **O2 · Land the `health` readout in the game.** DONE 2026-07-28
+  (`2026-07-28-health-readout.md`, **DR 0055**): **health is on the
+  player's screen, and the play-drop is explained rather than hidden.**
+  Three ways to handle a keeper verb that lowers the bar, and two are
+  forbidden by DR 0021's first law — smoothing or hiding it would make
+  the surface show something the engine does not. **The answer is to
+  show the BINDING AXIS beside the number**: health is a *minimum*, and
+  a bare minimum throws away the one thing that makes it legible, so
+  `health 0.62 (tired)` costs no new number (argmin of margins already
+  computed) and turns an unexplained fall into a sentence. **Refusal was
+  reachable and did not fire** — a pin asserts that a drop must be
+  explained by the axis named after it. **THE MEASURED CASE, from the
+  live client**: a keeper who never sleeps sees `tired` from tick 2,
+  0.000 by tick 7, and **dies of `energy_collapse` at tick 10** — the
+  readout named the death cause **eight ticks early**; a keeper who acts
+  on the word goes **0.487 → 0.976** on the same creature. The
+  play-drop itself is visible and legible in that run (tick 8 plays at
+  0.813, tick 9 reads 0.715 and says `tired`). Formula **MIRRORED** into
+  the game per the boundary law and pinned against the committed N5
+  artifact, so drift either way fails the suite. RED first; 12 pins;
+  game 188 → **200**. **Honest limit recorded, not fixed**: the bar
+  bottoms out at DANGER, not death, so health reads 0.000 while the
+  companion is still alive — defensible as a warning, but "health"
+  implies zero means dead and it does not; a different floor is a
+  different CHOSEN definition needing its own gate.
+  *Original charter (GAME track, depended on O1):* DR 0054 adopted `danger_margin` and shipped only a
   guard. Put it on screen — and **answer the design question DR 0054
   refused to answer for the consumer**: `play` LOWERS `danger_margin`
   (−0.075467, because play costs energy and adds hunger), so a keeper

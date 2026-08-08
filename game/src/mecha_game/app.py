@@ -312,8 +312,19 @@ def _footer_lines(snapshot: dict, queued: str | None) -> list[str]:
             "ENTER: adopt successor    ESC: quit",
         ]
     needs = snapshot["needs"]
+    # O2 (DR 0054): health is the CHOSEN `danger_margin` definition, and
+    # it is shown WITH the axis binding it. The keeper's `play` verb
+    # lowers the number (play costs energy), so a bare figure would read
+    # as a bug; "health 0.62 (tired)" reads as a sentence instead. The
+    # word is the state the axis is in, never a friendlier name for it.
+    health = snapshot.get("health")
+    health_text = (
+        f"health {health['value']:.2f} ({health['binding_word']})   "
+        if health
+        else ""
+    )
     line = (
-        f"mood {snapshot['mood']}   age {snapshot['age_ticks']}   "
+        f"{health_text}mood {snapshot['mood']}   age {snapshot['age_ticks']}   "
         f"gen {snapshot['generation_count']}"
     )
     if snapshot["begging"]:
