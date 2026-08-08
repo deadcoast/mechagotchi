@@ -224,13 +224,13 @@ Expected implementation-stage result:
 - `data/workshop_editor/slip_long_horizon_behavior_gate_stage0.json`
 - `data/package_promotion/mecha_engine_package_promotion_gate_stage0.json`
 - Tamagotchi Connection manual index:
-  https://tamagotchi-official.com/manual/toy/connection/
+  `https://tamagotchi-official.com/manual/toy/connection/`
 - JaxLife artificial-life simulator paper:
-  https://arxiv.org/abs/2409.00853
+  `https://arxiv.org/abs/2409.00853`
 - Sutton and Barto, Reinforcement Learning: An Introduction:
-  https://mitpress.mit.edu/9780262039246/reinforcement-learning/
+  `https://mitpress.mit.edu/9780262039246/reinforcement-learning/`
 - Contextual-bandit paper used by switchboard feedback research:
-  https://arxiv.org/abs/1003.0146
+  `https://arxiv.org/abs/1003.0146`
 
 ## Deliberation in history (F1, 2026-07-07 — the seen thought)
 
