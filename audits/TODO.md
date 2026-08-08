@@ -44,8 +44,35 @@ remainder list this cycle opens), `2026-07-28-health-definition-gate.md`
 `docs/project-research/deep-research/01/deep-research.md`,
 `docs/project-research/research.md`, `research/questions.md`.
 
-- [ ] **O1 · Promote `DANGER_THRESHOLDS` to the package's public API.**
-  N5's named blocker, and the smallest real thing in this queue.
+- [x] **O1 · Promote `DANGER_THRESHOLDS` to the package's public API.**
+  DONE 2026-07-28 (`2026-07-28-danger-thresholds-promotion.md`): the
+  lifecycle surface widens **six names → seven**, following the **W1
+  precedent** exactly (document the widening in the contract gate, add
+  to `__all__`, let the **exact `__all__` equality probe** fail until
+  spec and code agree — that failing run *is* the RED, the pin doing its
+  job by rejecting an undocumented widening). **The promotion is
+  deliberately narrow and the narrowness is PINNED**: the charter said
+  do not widen beyond the constant, and a package test now asserts
+  neither `danger_margin` nor `health` appears on the surface, so
+  whether the margin formula belongs in the engine stays a separate
+  decision rather than eroding by drift. **The constant is pinned BY
+  VALUE, not by presence** — a promoted constant whose numbers can drift
+  is not a contract — plus a coverage pin that **every lethal axis has a
+  threshold**, because a set missing one would let a bar read healthy on
+  a dying companion, *the exact failure DR 0054 refused `grid_stability`
+  for*. The **"danger, not lethal"** distinction is now a package-level
+  pin too (`bond` has a threshold and is not a death condition).
+  **N5's loop is closed**: the lab imports from the public API and its
+  artifact regenerates with **identical verdicts**, the check that this
+  moved a surface and not a behaviour. Package suite **295 → 299**; no
+  existing assertion moved. **No DR**: DR 0054 already made this
+  decision and named this task as its blocker, and the W1 precedent
+  documents a surface widening in the contract gate rather than a record
+  of its own — writing one here would record the *execution* of a
+  decision rather than a decision. Traceability matrix updated.
+  *Original charter, kept because its last instruction is what shaped
+  the task:* N5's named blocker, and the smallest real thing in this
+  queue.
   `danger_margin` — the adopted definition of `health` — reads a
   constant that is a **public name in a public module but is not in
   `mecha_engine`'s `__all__`**, so any consumer depending on it depends

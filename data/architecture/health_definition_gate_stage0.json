@@ -276,7 +276,7 @@
     "surfacing ANY of these promotes a documented HIDDEN axis to a VISIBLE one \u2014 a documentation change to validity-research.md \u00a71.17, not an engine one, and it is not made here",
     "one seed creature and one SLIP-free lifecycle: the measurements are of the engine's action model, which is profile-independent, but a profile with different behaviour weights would move the magnitudes",
     "`happiness` and `cleanliness` stay OUT OF SCOPE (DR 0048): one needs a definition, the other a mechanic",
-    "`danger_margin` reads DANGER_THRESHOLDS, which is a PUBLIC name in a PUBLIC module but is NOT in the package's __all__ \u2014 so a definition built on it depends on a surface the package has not promised. Adopting it would mean promoting that constant to the public API, which is a package change with its own spec update and gate"
+    "CLOSED 2026-07-28 by cycle 25 O1: `danger_margin` reads DANGER_THRESHOLDS, which WAS a public name in a public module outside the package's __all__ \u2014 a definition built on a surface the package had not promised. O1 promoted the constant with a contract entry, a by-value package pin and a matrix update, and this module now imports it from the public API. The margin FORMULA is deliberately still NOT promoted, and a package test pins that it is absent"
   ],
   "decision": {
     "candidates": {

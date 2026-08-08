@@ -35,6 +35,7 @@ from statistics import mean
 
 import mecha_engine.lifecycle as lifecycle_module
 from mecha_engine.lifecycle import (
+    DANGER_THRESHOLDS,
     advance_tick,
     initial_state,
     reward_for_transition,
@@ -101,6 +102,10 @@ def probe_surface() -> dict:
     return {
         "public_all": sorted(lifecycle_module.__all__),
         "public_names": public_names,
+        # O1 (cycle 25): the promoted constant is probed BY VALUE
+        # through the package boundary, so the contract pins what the
+        # numbers are and not merely that a name exists.
+        "danger_thresholds": dict(DANGER_THRESHOLDS),
         "learner_named_public_surface": [
             name
             for name in public_names

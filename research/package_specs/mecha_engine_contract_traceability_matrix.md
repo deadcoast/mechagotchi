@@ -154,7 +154,18 @@ Future `tests/test_lifecycle_contract.py` must verify:
 - switchboard/idle/random comparator metrics are reproduced or revised through
   a new decision record;
 - reward values stay inside `[0, 1]`;
-- online learner memory remains outside `mecha_engine.lifecycle`.
+- online learner memory remains outside `mecha_engine.lifecycle`;
+- **the public surface is exactly the contracted set** (exact `__all__`
+  equality), now **seven** names after O1 promoted `DANGER_THRESHOLDS`;
+- **`DANGER_THRESHOLDS` is pinned BY VALUE**, not merely by presence — a
+  promoted constant whose numbers can drift is not a contract — and
+  **covers every lethal axis**, because a threshold set missing one
+  would let a health bar read healthy on a dying companion (the failure
+  DR 0054 refused `grid_stability` for);
+- **the promotion did not widen beyond the constant**: neither
+  `danger_margin` nor `health` appears on the lifecycle surface, so
+  whether the margin formula belongs in the engine stays a separate
+  decision with its own gate.
 
 ## Archive Test Obligations
 

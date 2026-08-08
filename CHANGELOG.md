@@ -25,13 +25,41 @@ never rewritten).
 
 ## [Unreleased] — Cycle 25 · Phase O — "the adopted definitions reach the player"
 
-*Not started. Queue: `audits/TODO.md` (O1–O5).* Planned from Phase N's
+*In progress. Queue: `audits/TODO.md` (**O1 DONE**; O2–O5 open).* Planned from Phase N's
 unusual debt: **it adopted three things and put none of them in front of
 a player.** `insertion` is the loop's default but every historical study
 is pinned to the incumbent, and `danger_margin` is the adopted
 definition of `health` but is blocked off-screen by one package
 constant. Each is correct and deliberate — and exactly the kind of debt
 that quietly becomes permanent.
+
+- **O1 — DONE 2026-07-28.** **`DANGER_THRESHOLDS` promoted to the
+  package's public API**, taking the lifecycle contracted surface from
+  **six names to seven** and removing the blocker DR 0054 recorded
+  against its own adopted definition of `health`. Follows the **W1
+  precedent** exactly: document the widening in the contract gate, add
+  to `__all__`, and let the **exact `__all__` equality probe** fail
+  until spec and code agree — **that failing run is the RED**, the pin
+  doing its job by rejecting an undocumented widening.
+- **The promotion is deliberately narrow, and the narrowness is
+  pinned.** The charter said not to widen beyond the constant; a package
+  test now asserts **neither `danger_margin` nor `health` appears on the
+  surface**, so whether the margin formula belongs in the engine stays a
+  separate decision instead of eroding by drift.
+- **The constant is pinned BY VALUE, not by presence** — a promoted
+  constant whose numbers can drift is not a contract — with a second pin
+  that **every lethal axis has a threshold**, because a set missing one
+  would let a bar read healthy on a dying companion, *the exact failure
+  DR 0054 refused `grid_stability` for*. The **"danger, not lethal"**
+  distinction is now a package-level pin too.
+- **N5's loop is closed**: the lab imports from the public API and its
+  artifact regenerates with **identical verdicts** — the check that this
+  moved a *surface* and not a *behaviour*. Package suite **295 → 299**,
+  no existing assertion moved.
+- **No decision record, and the reason is recorded**: DR 0054 already
+  made this decision and named this task as its blocker, and W1's
+  precedent documents a surface widening in the contract gate rather
+  than a record of its own.
 
 ---
 

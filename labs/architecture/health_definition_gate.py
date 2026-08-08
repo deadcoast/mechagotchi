@@ -173,13 +173,13 @@ PROBE_TIMEOUT_S = 240
 
 _PROBE = r"""
 import json, sys
-from mecha_engine.lifecycle import ACTIONS, advance_tick, initial_state
-# DANGER_THRESHOLDS is a PUBLIC name in a PUBLIC module but is not
-# re-exported by the package's __all__, so it is imported from the
-# submodule rather than reached for through a private path. Recorded in
-# the artifact's blocked states: a definition that depends on it is
-# depending on a surface the package has not promised.
-from mecha_engine.lifecycle.simulate import DANGER_THRESHOLDS
+# DANGER_THRESHOLDS was promoted to the package's public API by cycle 25
+# O1, precisely so this definition stops depending on a surface the
+# package never promised. It is now imported from `__all__` like every
+# other contracted name.
+from mecha_engine.lifecycle import (
+    ACTIONS, DANGER_THRESHOLDS, advance_tick, initial_state,
+)
 
 grid = json.loads(open(sys.argv[1], encoding="utf-8").read())
 ticks = int(sys.argv[2])
@@ -510,12 +510,14 @@ def build_health_definition_report(*, ticks: int = 200, lifecycles: int = 3) -> 
             "behaviour weights would move the magnitudes",
             "`happiness` and `cleanliness` stay OUT OF SCOPE (DR 0048): "
             "one needs a definition, the other a mechanic",
-            "`danger_margin` reads DANGER_THRESHOLDS, which is a PUBLIC "
-            "name in a PUBLIC module but is NOT in the package's "
-            "__all__ — so a definition built on it depends on a surface "
-            "the package has not promised. Adopting it would mean "
-            "promoting that constant to the public API, which is a "
-            "package change with its own spec update and gate",
+            "CLOSED 2026-07-28 by cycle 25 O1: `danger_margin` reads "
+            "DANGER_THRESHOLDS, which WAS a public name in a public "
+            "module outside the package's __all__ — a definition built "
+            "on a surface the package had not promised. O1 promoted the "
+            "constant with a contract entry, a by-value package pin and "
+            "a matrix update, and this module now imports it from the "
+            "public API. The margin FORMULA is deliberately still NOT "
+            "promoted, and a package test pins that it is absent",
         ],
         "decision": {
             "candidates": judged,

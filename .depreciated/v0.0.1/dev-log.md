@@ -80,12 +80,12 @@ The proposal, grounded in engine truth: the fraction of live cells whose role th
 
 The gates, pre-registered before the run:
 
-| Gate | Bar | Measured |
-|--|--|--|
-| A1 spread | supports 8 octiles | 7 distinct edges, range 0.011–0.600 — pass |
-| A2 independence | `\|r\| < 0.5` | 0.173 max (complexity just 0.068) — pass decisively |
-| A3 discrimination |	`≥ 0.20` | 0.543 — pass at 2.7× the bar |
-| A4 cost |	`reported, not gated` | occupied 289 → 448; coverage 0.5645 → 0.1094 |
+| Gate              | Bar                   | Measured                                            |
+|-------------------|-----------------------|-----------------------------------------------------|
+| A1 spread         | supports 8 octiles    | 7 distinct edges, range 0.011–0.600 — pass          |
+| A2 independence   | `\|r\| < 0.5`         | 0.173 max (complexity just 0.068) — pass decisively |
+| A3 discrimination | `≥ 0.20`              | 0.543 — pass at 2.7× the bar                        |
+| A4 cost           | `reported, not gated` | occupied 289 → 448; coverage 0.5645 → 0.1094        |
 
 A3 is the number that matters. Among the 656 population pairs sharing the same three-axis bin — creatures the current geometry cannot tell apart at all — 356 (54.3%) land in different animation octiles. More than half of the archive's present indistinguishability is animation structure it has no coordinate for. And the axis is nearly orthogonal to everything already measured, so that's genuinely new information rather than a restatement of symmetry.
 
@@ -589,7 +589,7 @@ Next is N3 — the micro-learner ablation conditions E/F/G, documented and unbui
 
 The study is running (~8 min). While it finishes, one design property worth flagging in advance: the depth-1 stump baseline for the tree is given a full-sample argmax (an oracle), while the tree is scored on its online recommendation. That asymmetry runs against the tree, so condition F's skill number will be conservative — I'll record that as a limitation rather than let it read as a fair fight.
 
-I've also added two more pins on the byte-identity claim: called without the new fleet_names parameter, _condition_switches("full_fleet") must still produce exactly the eleven Phase-D switches, and minus_qtable_policy must be refused on the default roster. Both pinned against a frozen literal rather than a second call to the new code — the trap M3 shipped and external review caught.
+I've also added two more pins on the byte-identity claim: called without the new fleet_names parameter,_condition_switches("full_fleet") must still produce exactly the eleven Phase-D switches, and minus_qtable_policy must be refused on the default roster. Both pinned against a frozen literal rather than a second call to the new code — the trap M3 shipped and external review caught.
 
 After the study I'll regenerate the committed D6 artifact at full scale and diff it against the committed file, so "byte-identical when off" is proven rather than asserted.
 
@@ -731,9 +731,11 @@ The run is 8/12 done. When it lands I'll tell you which fix won and what it cost
 
 PowerShell Check N4 run progress
 IN
-$p="C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\scratchpad\n4_cache"; "cached 256-runs: $((Get-ChildItem $p -Filter '*_p256_*').Count) of 12"; Get-ChildItem $p -Filter "*_p256_*" | Select-Object -ExpandProperty Name; echo "--- task output ---"; Get-Content "C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\tasks\bqp75l9xw.output" -Tail 20
+$p="C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\scratchpad\n4_cache"; "cached 256-runs: $((Get-ChildItem $p -Filter '*_p256_*').Count) of 12"; Get-ChildItem $p -Filter "**p256**" | Select-Object -ExpandProperty Name; echo "--- task output ---"; Get-Content "C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\tasks\bqp75l9xw.output" -Tail 20
 
 OUT
+
+```text
 cached 256-runs: 10 of 12
 bootstrap_p256_e20480_t24_s20260709.json
 bootstrap_p256_e20480_t24_s21260712.json
@@ -750,6 +752,9 @@ parents_p256_e20480_t24_s20260709.json
 
 Write C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\scratchpad\check_n4_repro.py
 44 lines
+```
+
+```python
 import json
 from pathlib import Path
 
@@ -781,23 +786,27 @@ for field in fields:
 print(f"\nREPRODUCED: {ok}")
 
 print("\n--- all cached 256 runs ---")
-for path in sorted(CACHE.glob("*_p256_*.json")):
+for path in sorted(CACHE.glob("**p256**.json")):
     d = json.loads(path.read_text(encoding="utf-8"))
     print(
         "  {:<11} seed {}  cov {:.6f}  QD {:>10.4f}  refusals {:>5}  illegal {:>3}".format(
             d["slip_admission"],
-            path.stem.split("_s")[-1],
+            path.stem.split["_s"](-1),
             d["coverage"],
             d["qd_score"],
             d["refusals"],
             d["slip_illegal_elites"],
         )
     )
+```
+
 PowerShell Verify N4 reproduces DR 0047's committed baseline
 IN
 python -B "C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\scratchpad\check_n4_repro.py" 2>&1
 
 OUT
+
+```text
 DR 0047 committed baseline vs N4 incumbent at the SAME seed:
 
   coverage               committed       0.898438   N4       0.898438   MATCH
@@ -819,6 +828,8 @@ REPRODUCED: True
   none        seed 21260712  cov 0.865234  QD   388.0579  refusals  4400  illegal  37
   none        seed 22260715  cov 0.867188  QD   389.8829  refusals  4543  illegal  33
   parents     seed 20260709  cov 0.886719  QD   398.9545  refusals     0  illegal  35
+```
+
 The corrected run reproduces the previous cycle's committed baseline exactly — all five numbers, same seed:
 
 last cycle committed	this run
@@ -844,9 +855,11 @@ Two parents runs left (~13 min). When they land I'll regenerate the artifact wit
 
 PowerShell Check N4 run progress
 IN
-$p="C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\scratchpad\n4_cache"; "cached 256-runs: $((Get-ChildItem $p -Filter '*_p256_*').Count) of 12"; Get-ChildItem $p -Filter "*_p256_*" | Select-Object -ExpandProperty Name; echo "--- task output ---"; Get-Content "C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\tasks\bqp75l9xw.output" -Tail 20
+$p="C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\scratchpad\n4_cache"; "cached 256-runs: $((Get-ChildItem $p -Filter '*_p256_*').Count) of 12"; Get-ChildItem $p -Filter "**p256**" | Select-Object -ExpandProperty Name; echo "--- task output ---"; Get-Content "C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\tasks\bqp75l9xw.output" -Tail 20
 
 OUT
+
+```text
 cached 256-runs: 10 of 12
 bootstrap_p256_e20480_t24_s20260709.json
 bootstrap_p256_e20480_t24_s21260712.json
@@ -863,6 +876,9 @@ parents_p256_e20480_t24_s20260709.json
 
 Write C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\scratchpad\check_n4_repro.py
 44 lines
+```
+
+```python
 import json
 from pathlib import Path
 
@@ -894,23 +910,27 @@ for field in fields:
 print(f"\nREPRODUCED: {ok}")
 
 print("\n--- all cached 256 runs ---")
-for path in sorted(CACHE.glob("*_p256_*.json")):
+for path in sorted(CACHE.glob("**p256**.json")):
     d = json.loads(path.read_text(encoding="utf-8"))
     print(
         "  {:<11} seed {}  cov {:.6f}  QD {:>10.4f}  refusals {:>5}  illegal {:>3}".format(
             d["slip_admission"],
-            path.stem.split("_s")[-1],
+            path.stem.split["_s"](-1),
             d["coverage"],
             d["qd_score"],
             d["refusals"],
             d["slip_illegal_elites"],
         )
     )
+```
+
 PowerShell Verify N4 reproduces DR 0047's committed baseline
 IN
 python -B "C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\scratchpad\check_n4_repro.py" 2>&1
 
 OUT
+
+```text
 DR 0047 committed baseline vs N4 incumbent at the SAME seed:
 
   coverage               committed       0.898438   N4       0.898438   MATCH
@@ -932,6 +952,8 @@ REPRODUCED: True
   none        seed 21260712  cov 0.865234  QD   388.0579  refusals  4400  illegal  37
   none        seed 22260715  cov 0.867188  QD   389.8829  refusals  4543  illegal  33
   parents     seed 20260709  cov 0.886719  QD   398.9545  refusals     0  illegal  35
+```
+
 The corrected run reproduces the previous cycle's committed baseline exactly — all five numbers, same seed:
 
 last cycle committed	this run
@@ -958,6 +980,8 @@ IN
 Set-Location "c:\Users\ryanf\github\_new\mechagotchi"; python -B "c:\Users\ryanf\github\_new\mechagotchi\labs\map_elites_archive\slip_admission_default.py" --cache-dir "C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\scratchpad\n4_cache" 2>&1
 
 OUT
+
+```text
 incumbent  coverage 0.876953 QD 394.186363  refusals [4435, 4400, 4543]  illegal [35, 37, 33]
 measured controls: coverage 0.033204, QD 16.560333
 
@@ -971,6 +995,8 @@ measured controls: coverage 0.033204, QD 16.560333
 ADOPT_DEFAULT  default -> insertion
   passing arms: ['insertion', 'bootstrap']
   wall clock 0.019 s (bound 14400.0 s, within True)
+```
+
 wrote data/archives/slip_admission_default_stage0.json
 Regenerated from cache in 0.019 s with identical numbers — which proves the cache is faithful, but it would now record a misleading wall clock. Fixing that.
 
@@ -987,6 +1013,8 @@ IN
 Set-Location "c:\Users\ryanf\github\_new\mechagotchi"; python -B "c:\Users\ryanf\github\_new\mechagotchi\labs\map_elites_archive\slip_admission_default.py" --cache-dir "C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\scratchpad\n4_cache" 2>&1 | Select-Object -Last 6; echo "--- pins ---"; Set-Location "c:\Users\ryanf\github\_new\mechagotchi\labs\map_elites_archive"; python -B -m unittest test_slip_admission_default 2>&1 | Select-Object -Last 4; Set-Location "c:\Users\ryanf\github\_new\mechagotchi"; python -m json.tool "data\archives\slip_admission_default_stage0.json" > $null; if ($LASTEXITCODE -eq 0) { "JSON OK" }
 
 OUT
+
+```text
              G1 True  G2 True  G3 True  G4 False  -> FAILS G4_archive_legality
 
 ADOPT_DEFAULT  default -> insertion
@@ -995,6 +1023,8 @@ ADOPT_DEFAULT  default -> insertion
 wrote data/archives/slip_admission_default_stage0.json
 --- pins ---
 ----------------------------------------------------------------------
+```
+
 Ran 36 tests in 1.075s
 
 OK
@@ -1013,7 +1043,8 @@ The blast radius is the answer to "should N4 flip it": at least six lab modules 
 
 Write c:\Users\ryanf\github\_new\mechagotchi\research\experiment_reports\2026-07-28-slip-admission-default.md
 268 lines
-# Experiment Report: The `slip_admission` Default, Decided — `insertion`, Exactly as DR 0047 Predicted (Cycle 24 · SHARED · N4)
+
+## Experiment Report: The `slip_admission` Default, Decided — `insertion`, Exactly as DR 0047 Predicted (Cycle 24 · SHARED · N4)
 
 Date: 2026-07-28
 
@@ -1085,13 +1116,13 @@ arms) — twelve documented-budget loops.
 The first seed **is** DR 0047's seed, so the incumbent measured here
 must reproduce its committed baseline exactly. It does, on every field:
 
-| | DR 0047 committed | N4 measured |
-| --- | --- | --- |
-| coverage | 0.898438 | **0.898438** |
-| QD | 404.618236 | **404.618236** |
-| refusals | 4,435 | **4,435** |
-| SLIP-illegal elites | 35 | **35** |
-| occupied niches | 460 | **460** |
+|                     | DR 0047 committed | N4 measured    |
+|---------------------|-------------------|----------------|
+| coverage            | 0.898438          | **0.898438**   |
+| QD                  | 404.618236        | **404.618236** |
+| refusals            | 4,435             | **4,435**      |
+| SLIP-illegal elites | 35                | **35**         |
+| occupied niches     | 460               | **460**        |
 
 The configuration is **read from DR 0047's artifact**, not quoted from
 its prose, and a mismatch is refused rather than silently run. That
@@ -1107,12 +1138,12 @@ Measured controls (the incumbent's own seed-to-seed spread): coverage
 DR 0047's figure, because seeds 0 and 1 are the pair it used and seed 2
 falls between them.
 
-| arm | coverage | cost | QD | Δ QD | refusals | illegal elites | verdict |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| incumbent | 0.876953 | — | 394.186363 | — | 4435 / 4400 / 4543 | 35 / 37 / 33 | — |
-| `bootstrap` | 0.847005 | +0.029948 | 394.1510 | −0.0353 | 0 / 0 / 0 | **0 / 0 / 0** | **ADOPTABLE** |
-| `insertion` | 0.847005 | +0.029948 | 394.0508 | −0.1356 | 0 / 0 / 0 | **0 / 0 / 0** | **ADOPTABLE** |
-| `parents` | 0.872396 | +0.004558 | 391.6805 | −2.5059 | 0 / 0 / 0 | **35 / 37 / 35** | **FAILS G4** |
+| arm         | coverage | cost      | QD         | Δ QD    | refusals           | illegal elites   | verdict       |
+|-------------|----------|-----------|------------|---------|--------------------|------------------|---------------|
+| incumbent   | 0.876953 | —         | 394.186363 | —       | 4435 / 4400 / 4543 | 35 / 37 / 33     | —             |
+| `bootstrap` | 0.847005 | +0.029948 | 394.1510   | −0.0353 | 0 / 0 / 0          | **0 / 0 / 0**    | **ADOPTABLE** |
+| `insertion` | 0.847005 | +0.029948 | 394.0508   | −0.1356 | 0 / 0 / 0          | **0 / 0 / 0**    | **ADOPTABLE** |
+| `parents`   | 0.872396 | +0.004558 | 391.6805   | −2.5059 | 0 / 0 / 0          | **35 / 37 / 35** | **FAILS G4**  |
 
 **`parents` fails on archive legality, and it fails completely.** It
 stops the tax without clearing a single illegal elite — 35, 37 and 35
@@ -1282,7 +1313,8 @@ be mistaken for the study's cost.
 - `data/archives/slip_admission_arms_stage0.json` (DR 0047's committed baseline, reproduced exactly)
 Write c:\Users\ryanf\github\_new\mechagotchi\research\decision_records\0052-slip-admission-default-insertion.md
 159 lines
-# Decision Record 0052: The `slip_admission` Default Is `insertion` — DR 0047's Withholding Resolved, Its Prediction Confirmed
+
+## Decision Record 0052: The `slip_admission` Default Is `insertion` — DR 0047's Withholding Resolved, Its Prediction Confirmed
 
 Date: 2026-07-28
 
@@ -1348,11 +1380,11 @@ mismatch is refused rather than run.
 Controls (the incumbent's own seed-to-seed spread): coverage
 **0.033204**, QD **16.560333**.
 
-| arm | coverage cost | Δ QD | refusals | illegal elites | verdict |
-| --- | --- | --- | --- | --- | --- |
-| `bootstrap` | +0.029948 | −0.0353 | 0 / 0 / 0 | **0 / 0 / 0** | **ADOPTABLE** |
-| `insertion` | +0.029948 | −0.1356 | 0 / 0 / 0 | **0 / 0 / 0** | **ADOPTABLE** |
-| `parents` | +0.004558 | −2.5059 | 0 / 0 / 0 | **35 / 37 / 35** | **FAILS G4** |
+| arm         | coverage cost | Δ QD    | refusals  | illegal elites   | verdict       |
+|-------------|---------------|---------|-----------|------------------|---------------|
+| `bootstrap` | +0.029948     | −0.0353 | 0 / 0 / 0 | **0 / 0 / 0**    | **ADOPTABLE** |
+| `insertion` | +0.029948     | −0.1356 | 0 / 0 / 0 | **0 / 0 / 0**    | **ADOPTABLE** |
+| `parents`   | +0.004558     | −2.5059 | 0 / 0 / 0 | **35 / 37 / 35** | **FAILS G4**  |
 
 **`parents` fails archive legality completely**, not marginally: 35, 37
 and 35 illegal elites against the incumbent's 35, 37 and 33. It declines
@@ -1487,9 +1519,14 @@ SWEEP GREEN — 2,244 artifacts. Verifying the lab count and that the artifact i
 
 PowerShell Verify artifact honesty fields and archive lab count
 IN
+
+```ps1
 Set-Location "c:\Users\ryanf\github\_new\mechagotchi"; python -B -c "import json; d=json.load(open('data/archives/slip_admission_default_stage0.json',encoding='utf-8')); m=d['metrics']; print('wall_clock_s:', m['wall_clock_s']); print('compute:', json.dumps({k:v for k,v in m['compute'].items() if k!='wall_clock_note'})); print('config verdict:', m['dr0047_configuration']['verdict']); print('reproduced:', m['dr0047_reproduction']['reproduced']); print('choice:', d['decision']['choice']['verdict'], '->', d['decision']['choice']['default'])"; echo "--- archive lab ---"; Set-Location "c:\Users\ryanf\github\_new\mechagotchi\labs\map_elites_archive"; python -B -m unittest discover -s . -p "test_*.py" 2>&1 | Select-Object -Last 3; Set-Location "c:\Users\ryanf\github\_new\mechagotchi"
+```
 
 OUT
+
+```text
 wall_clock_s: 0.003
 compute: {"runs_computed_this_invocation": 0, "runs_read_from_cache": 12}
 config verdict: configuration_matched
@@ -1497,6 +1534,7 @@ reproduced: True
 choice: adopt_default -> insertion
 --- archive lab ---
 Ran 431 tests in 170.454s
+```
 
 OK
 All checks hold: configuration matched, baseline reproduced, and the artifact plainly marks itself as a 12-run replay with the real 3,560 s recorded. Archive lab 395 → 431, which reconciles.
@@ -1698,6 +1736,7 @@ Write C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechag
 """N7 step 1: list EVERY caller of run_evaluation_loop and whether it
 names an arm. An unlisted one is a silent contradiction."""
 
+```python
 import re
 from pathlib import Path
 
@@ -1747,11 +1786,13 @@ for rel, line, arm in explicit:
 print(f"  total: {len(explicit)}")
 
 print("\n\nARTIFACTS WRITTEN BY THE IMPLICIT CALLERS")
-for rel, _line in sorted(set((r, 0) for r, _ in implicit)):
+for rel, _line in sorted(set((r, 0) for r,_ in implicit)):
     module = ROOT / rel
     text = module.read_text(encoding="utf-8", errors="replace")
     ids = re.findall(r'ARTIFACT_ID\s*=\s*"([^"]+)"', text)
     print(f"  {rel}: {ids or '(none declared)'}")
+```
+
 PowerShell Inventory every run_evaluation_loop caller
 IN
 python -B "C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\scratchpad\n7_inventory.py" 2>&1
@@ -1759,6 +1800,7 @@ python -B "C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-m
 OUT
 CALLERS OF run_evaluation_loop
 
+```text
 --- IMPLICIT (would change if the default flips) ---
   labs/map_elites_archive/coverage_qd_gates.py:256
   labs/map_elites_archive/elite_population_measures.py:316
@@ -1837,7 +1879,6 @@ CALLERS OF run_evaluation_loop
   labs/map_elites_archive/test_slip_admission_arms.py:262  slip_admission="insertion"
   labs/map_elites_archive/test_slip_admission_arms.py:274  slip_admission="parents"
   total: 10
-
 
 ARTIFACTS WRITTEN BY THE IMPLICIT CALLERS
   labs/map_elites_archive/coverage_qd_gates.py: ['coverage_qd_gates_stage0']
@@ -1947,23 +1988,23 @@ Set-Location "c:\Users\ryanf\github\_new\mechagotchi\labs\map_elites_archive"; p
 
 OUT
 Exit code 1
-FAIL: test_evaluation_accounting_is_exact 
+FAIL: test_evaluation_accounting_is_exact
 (test_evaluation_loop_scale.LoopDeterminismTests.test_evaluation_accounting_is_exact)
-FAIL: test_each_arm_adds_only_its_OWN_keys 
+FAIL: test_each_arm_adds_only_its_OWN_keys
 (test_slip_admission_arms.LoopAdmissionSeamTests.test_each_arm_adds_only_its_OWN_keys) (mode='bootstrap')
-FAIL: test_each_arm_adds_only_its_OWN_keys 
+FAIL: test_each_arm_adds_only_its_OWN_keys
 (test_slip_admission_arms.LoopAdmissionSeamTests.test_each_arm_adds_only_its_OWN_keys) (mode='insertion')
-FAIL: test_each_arm_adds_only_its_OWN_keys 
+FAIL: test_each_arm_adds_only_its_OWN_keys
 (test_slip_admission_arms.LoopAdmissionSeamTests.test_each_arm_adds_only_its_OWN_keys) (mode='parents')
-FAIL: test_the_OFF_result_carries_no_arm_key_at_all 
+FAIL: test_the_OFF_result_carries_no_arm_key_at_all
 (test_slip_admission_arms.LoopAdmissionSeamTests.test_the_OFF_result_carries_no_arm_key_at_all)
-FAIL: test_the_incumbent_archive_DOES_hold_slip_illegal_elites 
+FAIL: test_the_incumbent_archive_DOES_hold_slip_illegal_elites
 (test_slip_admission_arms.LoopAdmissionSeamTests.test_the_incumbent_archive_DOES_hold_slip_illegal_elites)
-FAIL: test_the_insertion_arm_still_SCORES_what_it_refuses_to_insert 
+FAIL: test_the_insertion_arm_still_SCORES_what_it_refuses_to_insert
 (test_slip_admission_arms.LoopAdmissionSeamTests.test_the_insertion_arm_still_SCORES_what_it_refuses_to_insert)
-FAIL: test_the_off_mode_names_no_arm_because_no_arm_ran 
+FAIL: test_the_off_mode_names_no_arm_because_no_arm_ran
 (test_slip_admission_arms.LoopAdmissionSeamTests.test_the_off_mode_names_no_arm_because_no_arm_ran)
-FAIL: test_the_seam_is_byte_identical_when_off 
+FAIL: test_the_seam_is_byte_identical_when_off
 (test_slip_admission_arms.LoopAdmissionSeamTests.test_the_seam_is_byte_identical_when_off)
 --- totals ---
 Down to 9, all in the seam's own tests — they call the loop implicitly and expect off-mode. Let me look at them properly rather than just adding arguments.
@@ -2007,6 +2048,8 @@ Traceback (most recent call last):
 AssertionError: 32 != 26
 
 ----------------------------------------------------------------------
+```
+
 Ran 42 tests in 15.998s
 
 FAILED (failures=2)
@@ -2025,8 +2068,12 @@ IN
 Set-Location "c:\Users\ryanf\github\_new\mechagotchi\labs\map_elites_archive"; python -B -m unittest discover -s . -p "test_*.py" 2>&1 | Select-Object -Last 12; Set-Location "c:\Users\ryanf\github\_new\mechagotchi"
 
 OUT
+
+```text
 ................................................................................................................................................................................................................................................................................................................................................................................................................................................
 ----------------------------------------------------------------------
+```
+
 Ran 432 tests in 128.738s
 
 OK
@@ -2042,7 +2089,8 @@ While that runs, writing N7 up. The inventory changed what this task actually is
 
 Write c:\Users\ryanf\github\_new\mechagotchi\research\experiment_reports\2026-07-28-slip-admission-migration.md
 192 lines
-# Experiment Report: Flipping the `slip_admission` Default — and the Migration Turned Out Not To Be a Regeneration (Cycle 24 · SHARED · N7)
+
+## Experiment Report: Flipping the `slip_admission` Default — and the Migration Turned Out Not To Be a Regeneration (Cycle 24 · SHARED · N7)
 
 Date: 2026-07-28
 
@@ -2067,13 +2115,13 @@ DR 0052 said "at least six lab modules". Measured by walking every
 `run_evaluation_loop(` call site and checking whether the call names an
 arm:
 
-| | count |
-| --- | --- |
-| production modules calling the loop **implicitly** | **8** |
-| committed artifacts they write | **8** |
-| implicit call sites in total (production + tests) | **63** |
-| test files containing implicit call sites | **7** |
-| call sites that already name an arm | 10 |
+|                                                    | count  |
+|----------------------------------------------------|--------|
+| production modules calling the loop **implicitly** | **8**  |
+| committed artifacts they write                     | **8**  |
+| implicit call sites in total (production + tests)  | **63** |
+| test files containing implicit call sites          | **7**  |
+| call sites that already name an arm                | 10     |
 
 The two DR 0052 missed are **`generation_arm_evolution`** (DR 0031/0042's
 generation bake-off) and **`novelty_evolution`** (DR 0040's selection
@@ -2243,7 +2291,8 @@ Writing the governance rule this task produced while the regeneration finishes.
 
 Write c:\Users\ryanf\github\_new\mechagotchi\research\decision_records\0053-admission-policy-belongs-at-the-call-site.md
 109 lines
-# Decision Record 0053: A Study's Admission Policy Belongs at Its Call Site — and a Study That Measures a Defect Is Never Migrated Onto the Fix
+
+## Decision Record 0053: A Study's Admission Policy Belongs at Its Call Site — and a Study That Measures a Defect Is Never Migrated Onto the Fix
 
 Date: 2026-07-28
 
@@ -2381,6 +2430,8 @@ The run succeeded — it only failed on a cosmetic print that assumed the output
 
 Write C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\scratchpad\diff_n7.py
 43 lines
+
+```python
 """N7 byte-identity proof: does the committed L1 artifact regenerate
 exactly now that its caller names slip_admission="none" explicitly?"""
 
@@ -2422,7 +2473,9 @@ else:
     m = c["metrics"]
     for key in sorted(m):
         if "refus" in key.lower():
-            print(f"  metrics.{key}: {str(m[key])[:120]}")
+            print(f"  metrics.{key}: {str[m[key]](:120)}")
+```
+
 PowerShell Prove L1 artifact byte-identity after N7
 IN
 python -B "C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\scratchpad\diff_n7.py" 2>&1
@@ -2452,7 +2505,7 @@ print('identical ignoring wall_clock_s:', strip(c)==strip(g))
 m=c['metrics']
 print('committed refusal_total:', m.get('refusal_total'))
 print('regen     refusal_total:', g['metrics'].get('refusal_total'))
-print('committed keys:', sorted(m)[:12])
+print('committed keys:', sorted[m](:12))
 " 2>&1
 
 OUT
@@ -2700,3 +2753,67 @@ Next in the queue is N5 — health for the game client — then N6, the Phase-N 
 
 -------
 ## [16]
+
+Cycle 24 is closed. The Phase-N gate is green — everything on 5bab03a, nothing stranded, sweep green at 2,245 artifacts.
+
+What the cycle shipped
+Six tasks, six decision records (0049–0054):
+
+N1 — 600 creatures don't determine the octile edges, and neither do 4,800. But the number the ledger actually quotes was already as stable as it gets, and spending 8× more made it worse. The thin band in visual_complexity is permanent, not a sampling artefact.
+N2 — the probe geometry is frozen and pinned, with both committed headline numbers recomputed exactly.
+N3 — the ablation conditions the dossier named in cycle 12 finally exist. One earned its place, two didn't, and both drops carry a measured mechanism.
+N4/N7 — the wasted-breeding fix is decided (insertion) and the default is flipped, so new work gets it automatically.
+N5 — health is defined, and calling grid stability "health" is refused: it would read 93% on a corpse.
+The thing I'd want you to take from it
+Phase L audited its numbers. Phase M audited its sentences. Phase N audited its instruments — and all six slices found the measuring tool wrong rather than the thing being measured. Three of those were mine: an observer scoring a learner on an event it can't see, a population parameter I invented that flipped a verdict, and a name I gave a definition that overclaimed. Each is written down as a process deviation rather than smoothed over.
+
+The habit that caught them is now in CLAUDE.md: check the instrument against a committed number before trusting what it says. N4's check is the only reason a wrong parameter didn't silently overturn a correct prediction.
+
+Cycle 25 is planned and queued
+Phase N left a specific debt: it adopted three things and put none of them in front of a player. That's correct in each case and deliberate in each case — and exactly the kind of debt that quietly becomes permanent. So Phase O is where the adopted things land:
+
+O1 promotes the one package constant blocking the health readout. O2 puts it on screen and answers the question I deliberately left open — playing with your pet lowers the health bar, and someone has to decide whether that ships honest, smoothed, or split in two. O3 does the migration that restates the 0.8984 headline with deltas explained everywhere it's quoted. O4 is deliberately away from the archive: shape grammar and CPPN, named in the dossier and never dispositioned — the same debt N3 just closed after twelve cycles.
+
+Next task is O1, and it's the smallest real thing in the queue.
+
+-------
+## [17]
+
+Sweep running. O1 in plain terms:
+
+The engine now officially publishes its danger thresholds. Before this, the health definition I adopted last cycle was reading a number that happened to be accessible but wasn't part of the engine's promised interface — so it could have changed underneath us without anything failing. Now it's a documented part of the contract, with tests that pin the actual values, not just that the name exists.
+
+Three things I made sure of:
+
+It's pinned by value. A constant you promise but whose numbers can drift isn't a promise. The five thresholds are now asserted exactly.
+
+It covers every way a creature can die. There's a test for that specifically, because a threshold set missing one would let a health bar read fine on a dying companion — which is the exact failure that got grid_stability refused last cycle.
+
+It didn't grow beyond the constant. The charter said promote the number, not the formula, and there's now a test asserting the formula isn't on the public surface. That keeps "should the engine own this calculation?" an open question with its own gate, rather than something that quietly happened.
+
+The loop from last cycle is closed — the lab now imports through the front door, and its results come out identical, which is the check that I moved an interface and not a behaviour. Package tests went 295 → 299 with nothing existing disturbed.
+
+I deliberately didn't write a decision record for this. Last cycle's DR already made the decision and named this task as its blocker; the precedent for widening this particular surface is to document it in the contract spec. A record here would document executing a decision rather than making one, and that makes the ledger harder to read, not easier.
+
+Next is O2 — actually putting health on the player's screen, which means answering the question I left open: playing with your pet lowers the number, and someone has to decide whether that ships as-is.
+
+-------
+## [18]
+
+-------
+## [19]
+
+-------
+## [20]
+
+-------
+## [21]
+
+-------
+## [22]
+
+-------
+## [23]
+
+-------
+## [24]

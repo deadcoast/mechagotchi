@@ -41,12 +41,32 @@ DRIVER = Path(__file__).resolve().parent / "helpers" / "lifecycle_contract_drive
 # see the gate doc's "Interactive surface" amendment.
 REQUIRED_PUBLIC_SURFACE = [
     "ACTIONS",
+    "DANGER_THRESHOLDS",
     "advance_tick",
     "choose_action_detailed",
     "initial_state",
     "reward_for_transition",
     "run_episode",
 ]
+# O1 (cycle 25): the contracted values of the promoted constant. DR 0054
+# adopted `danger_margin` — the minimum normalised safety margin across
+# these thresholds — as the definition of the documented VISIBLE axis
+# `health`, so a consumer reading them is reading the engine's own
+# published danger boundaries. Pinned by VALUE, not merely by presence:
+# a promoted constant whose numbers can drift is not a contract.
+REQUIRED_DANGER_THRESHOLDS = {
+    "hunger": 0.75,
+    "energy": 0.25,
+    "stress": 0.65,
+    "bond": 0.25,
+    "grid_stability": 0.35,
+}
+# The engine's four LETHAL conditions (`_life_status`). `bond` is a
+# danger threshold and is NOT lethal — the distinction that renamed
+# DR 0054's adopted candidate from `lethal_margin` to `danger_margin`,
+# and the reason this constant may not be described as "the lethal
+# thresholds" anywhere.
+LETHAL_AXES = ["energy", "grid_stability", "hunger", "stress"]
 REQUIRED_EPISODE_FIELDS = [
     "ticks_requested",
     "survival_ticks",
@@ -133,6 +153,39 @@ class MechaEngineLifecycleContractTests(unittest.TestCase):
     def test_public_surface_is_exactly_the_contracted_set(self):
         surface = self.report["surface"]
         self.assertEqual(REQUIRED_PUBLIC_SURFACE, surface["public_all"])
+
+    def test_danger_thresholds_are_contracted_by_value(self):
+        # O1 (cycle 25): promoted for DR 0054's `danger_margin`. A
+        # constant whose numbers can drift is not a contract, so the
+        # values are pinned, not just the name's presence.
+        self.assertEqual(
+            REQUIRED_DANGER_THRESHOLDS, self.report["surface"]["danger_thresholds"]
+        )
+
+    def test_danger_thresholds_cover_every_lethal_axis(self):
+        # The promotion exists so a consumer can ask "how close to
+        # trouble is this creature". A threshold set missing a lethal
+        # axis would let a bar read healthy on a dying companion — the
+        # exact failure DR 0054 refused `grid_stability` for.
+        thresholds = self.report["surface"]["danger_thresholds"]
+        for axis in LETHAL_AXES:
+            self.assertIn(axis, thresholds)
+
+    def test_danger_thresholds_are_not_described_as_lethal(self):
+        # `bond` is a danger threshold and is NOT a lethal condition.
+        # DR 0054 renamed its own candidate over exactly this, so the
+        # promoted surface may not overclaim either.
+        thresholds = self.report["surface"]["danger_thresholds"]
+        self.assertIn("bond", thresholds)
+        self.assertNotIn("bond", LETHAL_AXES)
+
+    def test_the_promotion_did_not_widen_beyond_the_constant(self):
+        # O1's charter: promote the constant, not the margin formula.
+        # If the formula ever belongs in the engine that is its own
+        # decision, and this pin makes the difference visible.
+        surface = set(self.report["surface"]["public_all"])
+        for smuggled in ("danger_margin", "health", "lethal_margin"):
+            self.assertNotIn(smuggled, surface)
 
     def test_run_episode_signature_matches_interface_spec(self):
         defaults = self.report["surface"]["run_episode_defaults"]

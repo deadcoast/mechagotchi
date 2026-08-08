@@ -262,3 +262,44 @@ included. No behavior changed: both names bind the exact objects the
 module already used internally, `run_episode` remains the episode
 authority, and the no-learner-memory rule is untouched (the chooser is
 stateless). Pinned by the surface probe (exact `__all__` equality).
+
+## Danger thresholds (O1, 2026-07-28 - the health definition's floor)
+
+The contracted public surface widens from six names to seven:
+**`DANGER_THRESHOLDS`** - the per-axis boundaries at which a companion
+is in trouble.
+
+**Why it is promoted.** DR 0054 adopted **`danger_margin`** - the
+minimum normalised safety margin across these thresholds - as the
+**CHOSEN** definition of the documented VISIBLE axis `health`, after
+**refusing `grid_stability` under that name as a euphemism** (a
+creature that starved to death finished with `grid_stability` at 0.927,
+so a bar reading it would show 93% on a corpse). Any consumer computing
+that margin must read these numbers. Before this promotion they were a
+public name in a public module that `__all__` did not carry, so a
+consumer depending on them depended on a surface the package had never
+promised - and a definition built on an unpromised surface is a
+definition that can break without notice.
+
+**What is promoted, and what deliberately is not.** The **constant** is
+promoted. The **margin formula is NOT**: whether `danger_margin` itself
+belongs in the engine is a separate decision with its own gate, and a
+package test pins that neither `danger_margin` nor `health` appears on
+this surface, so the difference stays visible rather than drifting.
+
+**No behavior changed.** The name binds the exact object `simulate`
+already used internally; every threshold value, every death condition
+and every episode number is untouched.
+
+**These are DANGER thresholds, not lethal ones.** `bond` carries a
+threshold and is **not** a death condition - only `hunger`, `energy`,
+`stress` and `grid_stability` appear in `_life_status`. DR 0054 renamed
+its own candidate away from "lethal" over exactly this distinction, and
+a package test pins that the promoted surface does not overclaim either.
+
+**Pinned by**: the surface probe (exact `__all__` equality), plus the
+constant probed **BY VALUE** through the package boundary - a promoted
+constant whose numbers can drift is not a contract - plus a coverage
+pin that every lethal axis has a threshold, because a threshold set
+missing one would let a bar read healthy on a dying companion, the
+exact failure DR 0054 refused `grid_stability` for.
