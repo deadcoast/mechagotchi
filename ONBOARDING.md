@@ -2,7 +2,7 @@
 
 Written **2026-07-21** by the outgoing session, completed
 **2026-07-26** at the owner's direction, and its §3/§4 state sections
-refreshed **2026-07-28 mid-cycle-25 (after O3)**. Read this file
+refreshed **2026-08-08 mid-cycle-25 (after O4)**. Read this file
 completely before touching anything.
 
 The changelog (`sunsetted/complete/CHANGELOG/01/CHANGELOG.md`) is the
@@ -287,7 +287,7 @@ each case — and exactly the debt that quietly becomes permanent.
 
 ### Cycle 25 · Phase O — the adopted definitions reach the player — IN PROGRESS
 
-`sunsetted/TODO.md` is the live queue: **O1, O2, O3 DONE; O4 and O5 open.**
+`sunsetted/TODO.md` is the live queue: **O1–O4 DONE; O5 (the gate) open.**
 The spine is Phase N's own debt — **it adopted three things and put none
 of them in front of a player.**
 
@@ -328,6 +328,25 @@ attributed to the adoption). **DR 0042 is not retracted**; DR 0056 adds
 a **quoting rule** — any *"the loop achieves X"* must name which arm.
 Only the adopted arm was re-run (ten runs, not forty), because the GA
 control takes no `slip_admission` and cannot move.
+
+**O4 — DONE (DR 0057).** **Stage 2's last undispositioned generator
+arms judged — each in its DOCUMENTED role, and the charter's own
+framing corrected first.** CPPN (stance: *"late exploratory
+generator"*) was bake-offed on B2's own terms and **REJECTED** at
+validity **0.12** vs the 0.85 dossier bar — with the mechanism measured
+(79 of 88 invalid bodies are *connected* cores under the DR 0029 mass
+floor; only 9 disconnect) and the method's documented strengths
+recorded beside the verdict (symmetry 0.475 above the WFC family;
+100/100 unique; none of it offsets validity, pre-registered). Shape
+grammar (stance: *"validator or post-generator stabilizer"* — a role
+**already shipped** as `wfc_grid._finish`) was judged at the sharper
+question *does it beat the incumbent?* — it repairs the raw collapse
+0.01 → **1.00** validity at retention 1.0, then **TIES** the incumbent
+at 1.00/1.0 under two-seed measured noise 0.0: **WATCH**, because a tie
+is not a reason to replace a shipped incumbent. The instrument
+reproduced the committed wfc row exactly before any new number was
+trusted. Nothing adopted; no incumbent moved; prediction confirmed.
+Lab 36 → **61**.
 
 ### What exists and is genuinely good
 
@@ -415,10 +434,14 @@ readout is **on the player's screen with its binding axis beside it**.
 is also **measurably stale against the shipped client**, which already
 surfaces two documented-HIDDEN axes under accurate names.
 
-Also standing: Stage 2's
-undispositioned generator arms (**shape grammar**, **CPPN**) — **now
-chartered as O4, with two recorded corrections to its framing** (see §4)
-— and the unbuilt method tracks (MRF-lite, Lenia, reaction–diffusion, the MDP
+Also standing: ~~Stage 2's
+undispositioned generator arms (**shape grammar**, **CPPN**)~~
+**CLOSED 2026-08-08 by O4 / DR 0057** — each judged in its documented
+role (CPPN rejected on validity 0.12 with the mass-floor mechanism
+measured; shape grammar watch, tying the incumbent `_finish` at
+1.00/1.0 under measured noise 0.0; nothing adopted, prediction
+confirmed); the unbuilt method tracks remain (MRF-lite, Lenia,
+reaction–diffusion, the MDP
 sandbox, the QDax shadow port, z3/SMT at DR 0011's WATCH); the
 ~~the micro-learner ablation conditions **E/F/G** (Q-table, tiny
 decision tree, Bayesian counter), never instantiated in the Phase-D
@@ -446,42 +469,13 @@ order (cycle 24's closed ladder is in §3 and its gate report):
 1. ~~**O1 · promote `DANGER_THRESHOLDS`**~~ — **DONE 2026-07-28.** See §3.
 2. ~~**O2 · land the `health` readout**~~ — **DONE 2026-07-28 (DR 0055).**
 3. ~~**O3 · restate the headline studies**~~ — **DONE 2026-07-28 (DR 0056).**
-4. **O4 · Stage 2's undispositioned generator arms** ← **THE NEXT
-   TASK.** Deliberately **non-archive and non-loop** after a cycle that
-   spent four of six slices in the archive. **Shape grammar** and
-   **CPPN** are named in the dossier and have never been dispositioned:
-   no card, no prototype, no verdict — the same debt N3 closed after
-   twelve cycles.
-
-   **Start from the two corrections already recorded in
-   `sunsetted/TODO.md`, not from the original charter** — both were found
-   by reading the dossier and the engine *before* writing measurement
-   code, which is exactly Phase N's lesson applied to a framing rather
-   than an instrument:
-
-   - **The charter's "bake-off both" framing is wrong for one of them.**
-     CPPN is *"keep as a late exploratory generator"* — a generator
-     bake-off **is** its documented role. But **shape grammar is filed
-     under Constraint systems**, whose documented stance is *"use as
-     validator or **post-generator stabilizer**"*. It is explicitly not
-     proposed as a generator, so a bake-off would test it at a job
-     nobody gave it and a rejection earned that way would mean nothing.
-   - **Shape grammar's documented role is ALREADY SHIPPED.**
-     `wfc_grid._finish` (inside `generate_wfc_grid`) is documented in
-     its own docstring as *"the documented post-generator stabilizer
-     pass"* and quotes the dossier verbatim — largest 8-connected core,
-     cardinality constraints as restart conditions, anchor
-     normalization — as part of the **adopted** WFC arm (DR 0031). So
-     *"does a constraint stabilizer help?"* is answered. **The real open
-     question is: does a shape-grammar stabilizer beat the incumbent
-     `_finish`?**
-
-   **Rejecting both is first-class**; DR 0031 already refuted the hybrid
-   arm, and a second measured refutation is worth more than a third
-   generator nobody asked for.
-5. **O5 · the Phase-O gate** — then archive to `sunsetted/complete/TODO/25/`
-   and plan cycle 26 from the documentation. **Do not ask which
-   direction.**
+4. ~~**O4 · Stage 2's undispositioned generator arms**~~ — **DONE
+   2026-08-08 (DR 0057).** See §3. The two design-phase charter
+   corrections it started from are preserved in `sunsetted/TODO.md` and
+   in the report's process note.
+5. **O5 · the Phase-O gate** ← **THE NEXT TASK** — one consolidated
+   report; then archive to `sunsetted/complete/TODO/25/` and plan
+   cycle 26 from the documentation. **Do not ask which direction.**
 
 ## 5. The map — what each directory IS
 
@@ -838,11 +832,12 @@ Every cycle-23 slice ran this loop; copy it:
 - `docs/gap-analysis.md` (retired; the measured history)
 - `docs/project-research/` (the vision documents)
 - `research/README.md` (the master ledger)
-- `research/decision_records/0017`, `0021`, `0026`–`0056`
+- `research/decision_records/0017`, `0021`, `0026`–`0057`
 - `research/experiment_reports/2026-07-12-phase-g-gate.md`,
   `2026-07-20-phase-j-gate.md`, `2026-07-26-phase-k-gate.md`,
   `2026-07-26-phase-l-gate.md`, `2026-07-27-phase-m-gate.md`,
   `2026-07-28-phase-n-gate.md` (the last CLOSED gate),
   `2026-07-28-danger-thresholds-promotion.md`, `-health-readout.md`,
-  `-adopted-default-restatement.md` (cycle 25's O1–O3, which refreshed §3/§4)
+  `-adopted-default-restatement.md`,
+  `2026-08-08-stage2-generator-arms.md` (cycle 25's O1–O4, which refreshed §3/§4)
 - `tools/ci/run_sweep.py`

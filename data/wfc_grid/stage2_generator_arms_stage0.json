@@ -1,0 +1,284 @@
+{
+  "artifact_id": "stage2_generator_arms_stage0",
+  "status": "complete",
+  "date": "2026-08-08",
+  "purpose": "Disposition Stage 2's two undispositioned generator arms \u2014 CPPN and shape grammar \u2014 each in its DOCUMENTED role (the O4 charter correction): CPPN as a generator on the B2 bake-off's own terms against the adopted constrained layer's committed row (DR 0042), shape grammar as a post-generator stabilizer head-to-head against the incumbent wfc_grid._finish (DR 0031). The rule and the prediction were pre-registered; rejecting both is first-class.",
+  "source_artifacts": [
+    "labs/wfc_grid/wfc_grid.py",
+    "labs/wfc_grid/generation_bakeoff16.py",
+    "labs/grid_genome/grid_helpers.py",
+    "labs/grid_genome/validator.py",
+    "data/wfc_grid/generation_bakeoff16_stage0.json",
+    "data/seed_grids_16x16",
+    "docs/project-research/deep-research/01/deep-research.md",
+    "research/decision_records/0031-wfc-generation-adoption.md",
+    "research/decision_records/0042-generation-layer-loop-revisit.md"
+  ],
+  "parameters": {
+    "count": 100,
+    "size": 16,
+    "rng_seed": 1030,
+    "noise_seed": 2061,
+    "committed_batch_count": 100,
+    "committed_rng_seed": 1030,
+    "raw_collapse_failures": 0,
+    "incumbent_pipeline_failures": 0,
+    "incumbent_second_seed_failures": 0
+  },
+  "metrics": {
+    "instrument_check": {
+      "applicable": true,
+      "committed_artifact": "data/wfc_grid/generation_bakeoff16_stage0.json",
+      "committed_row": "wfc",
+      "distinct_floor_reproduced": 0.68,
+      "comparisons": {
+        "validity_rate": {
+          "committed": 1.0,
+          "measured": 1.0,
+          "match": true
+        },
+        "readability_proxy_mean": {
+          "committed": 0.685047,
+          "measured": 0.685047,
+          "match": true
+        },
+        "descriptor_novelty": {
+          "committed": 0.25,
+          "measured": 0.25,
+          "match": true
+        },
+        "silhouette_entropy_bits": {
+          "committed": 6.643856,
+          "measured": 6.643856,
+          "match": true
+        },
+        "unique_silhouettes": {
+          "committed": 100,
+          "measured": 100,
+          "match": true
+        }
+      },
+      "reproduced_committed_row": true
+    },
+    "cppn": {
+      "measures": {
+        "candidate_count": 100,
+        "validity_rate": 0.12,
+        "connectedness_rate": 0.88,
+        "organ_presence_f1_mean": 0.770661,
+        "symmetry_mean": 0.475226,
+        "silhouette_entropy_bits": 6.643856,
+        "unique_silhouettes": 100,
+        "palette_violation_rate": 0.0,
+        "descriptor_novelty": 0.22,
+        "readability_proxy_mean": 0.446945,
+        "readability_proxy_status": "8x8_calibrated_proxy",
+        "rich_roles_emitted": [
+          "antenna",
+          "decoration",
+          "effect",
+          "joint",
+          "limb",
+          "sensor",
+          "shell"
+        ],
+        "rich_alphabet": true,
+        "training_copy_rate": 0.0,
+        "meets_validity_bar": false
+      },
+      "baseline_committed_row": {
+        "validity_rate": 1.0,
+        "readability_proxy_mean": 0.79663,
+        "descriptor_novelty": 0.26,
+        "silhouette_entropy_bits": 6.643856,
+        "unique_silhouettes": 100
+      },
+      "judged": {
+        "arm": "cppn",
+        "role": "generator",
+        "verdict": "reject",
+        "reason": "validity 0.12 is below the dossier bar 0.85 the adopted layer was judged by; validity is the first gate and nothing offsets it",
+        "inputs": {
+          "validity_rate": 0.12,
+          "baseline_validity_rate": 1.0,
+          "readability": 0.446945,
+          "baseline_readability": 0.79663,
+          "distinct_rate": 1.0
+        }
+      }
+    },
+    "shape_grammar": {
+      "raw_collapse": {
+        "candidate_count": 100,
+        "validity_rate": 0.01,
+        "connectedness_rate": 0.01,
+        "organ_presence_f1_mean": 0.961409,
+        "symmetry_mean": 0.380449,
+        "silhouette_entropy_bits": 6.643856,
+        "unique_silhouettes": 100,
+        "palette_violation_rate": 0.0,
+        "descriptor_novelty": 0.15,
+        "readability_proxy_mean": 0.443203,
+        "readability_proxy_status": "8x8_calibrated_proxy",
+        "rich_roles_emitted": [
+          "antenna",
+          "decoration",
+          "effect",
+          "joint",
+          "limb",
+          "sensor",
+          "shell"
+        ],
+        "rich_alphabet": true,
+        "training_copy_rate": 0.0,
+        "meets_validity_bar": false
+      },
+      "grammar_stabilized": {
+        "candidate_count": 100,
+        "validity_rate": 1.0,
+        "connectedness_rate": 1.0,
+        "organ_presence_f1_mean": 0.961409,
+        "symmetry_mean": 0.389473,
+        "silhouette_entropy_bits": 6.643856,
+        "unique_silhouettes": 100,
+        "palette_violation_rate": 0.0,
+        "descriptor_novelty": 0.21,
+        "readability_proxy_mean": 0.701285,
+        "readability_proxy_status": "8x8_calibrated_proxy",
+        "rich_roles_emitted": [
+          "antenna",
+          "decoration",
+          "effect",
+          "joint",
+          "limb",
+          "sensor",
+          "shell"
+        ],
+        "rich_alphabet": true,
+        "training_copy_rate": 0.0,
+        "meets_validity_bar": true
+      },
+      "incumbent_finish": {
+        "candidate_count": 100,
+        "validity_rate": 1.0,
+        "connectedness_rate": 1.0,
+        "organ_presence_f1_mean": 0.961929,
+        "symmetry_mean": 0.3973,
+        "silhouette_entropy_bits": 6.643856,
+        "unique_silhouettes": 100,
+        "palette_violation_rate": 0.0,
+        "descriptor_novelty": 0.25,
+        "readability_proxy_mean": 0.685047,
+        "readability_proxy_status": "8x8_calibrated_proxy",
+        "rich_roles_emitted": [
+          "antenna",
+          "decoration",
+          "effect",
+          "joint",
+          "limb",
+          "shell"
+        ],
+        "rich_alphabet": true,
+        "training_copy_rate": 0.0,
+        "meets_validity_bar": true
+      },
+      "incumbent_finish_second_seed": {
+        "candidate_count": 100,
+        "validity_rate": 1.0,
+        "connectedness_rate": 1.0,
+        "organ_presence_f1_mean": 0.960672,
+        "symmetry_mean": 0.382096,
+        "silhouette_entropy_bits": 6.643856,
+        "unique_silhouettes": 100,
+        "palette_violation_rate": 0.0,
+        "descriptor_novelty": 0.19,
+        "readability_proxy_mean": 0.68498,
+        "readability_proxy_status": "8x8_calibrated_proxy",
+        "rich_roles_emitted": [
+          "antenna",
+          "decoration",
+          "effect",
+          "joint",
+          "limb",
+          "sensor",
+          "shell"
+        ],
+        "rich_alphabet": true,
+        "training_copy_rate": 0.0,
+        "meets_validity_bar": true
+      },
+      "noise": {
+        "validity": 0.0,
+        "distinct": 0.0,
+        "derivation": "the incumbent pipeline run twice, seeds 1030 and 2061, |delta| per metric (cycle 22 L3's pattern)"
+      },
+      "judged": {
+        "arm": "shape_grammar",
+        "role": "post_generator_stabilizer",
+        "verdict": "watch",
+        "reason": "ties the incumbent _finish within the measured noise floor (1.0 vs 1.0, noise 0.0); a tie is not a reason to replace a shipped incumbent",
+        "inputs": {
+          "validity_before": 0.01,
+          "validity_after": 1.0,
+          "distinct_before": 1.0,
+          "distinct_after": 1.0,
+          "distinct_retention": 1.0,
+          "incumbent_validity_after": 1.0,
+          "incumbent_distinct_after": 1.0,
+          "noise_validity": 0.0,
+          "noise_distinct": 0.0
+        }
+      }
+    }
+  },
+  "closed_states": [
+    "cppn_dispositioned_in_documented_role_generator",
+    "shape_grammar_dispositioned_in_documented_role_stabilizer",
+    "charter_framing_correction_recorded (a bake-off-both framing would have tested shape grammar at a job the dossier never gave it)",
+    "instrument_reproduced_committed_wfc_row (batch 100, seed 1030)"
+  ],
+  "blocked_states": [
+    "cppn_under_evolutionary_mutation_not_measured (the indirect encoding's documented selling point is regularity under mutation; a generator-only bake-off cannot see it \u2014 the re-opener if CPPN ever returns)",
+    "shape_grammar_as_standalone_validator_not_separately_judged (the dossier stance's other half; the engine's validate_grid already holds that job)",
+    "human_pairwise_preference_not_collected (owner-deferred; never a blocker)",
+    "24x24_not_measured (DR 0014's re-opener would apply to any adopted generator; nothing is adopted here)"
+  ],
+  "decision": {
+    "rule": "PRE-REGISTERED before the run; each arm is judged in its DOCUMENTED ROLE, not the charter's original bake-off-both framing. CPPN (generator): reject if validity < the dossier bar 0.85 (the B2 bake-off's own bar) \u2014 validity is the first gate and nothing offsets it; reject if distinct rate <= 0.68 (the committed refused random arm's measured floor); prototype if it matches the adopted constrained layer's committed row (DR 0042) on BOTH validity and readability; watch otherwise. Adopt is deliberately unreachable at stage 0 \u2014 the charter's own verbs are reject/watch/prototype, and adoption is a decision-record act at documented scale, not a prototype verdict. Shape grammar (post-generator stabilizer, judged at the incumbent wfc_grid._finish's own job): reject if it does not raise validity over the raw collapse beyond the measured noise; reject if distinct retention falls below 0.68 (over-constraining novelty, the dossier's named risk); prototype only if it beats the incumbent _finish on validity beyond the two-seed noise floor without worse distinct retention; watch on a tie within noise; reject if it loses to the incumbent beyond noise \u2014 the DR 0031 hybrid-refutation logic: a challenger that adds nothing over the shipped incumbent is refused. Instrument gate: at the committed protocol (batch 100, seed 1030) the harness must reproduce the committed wfc row of generation_bakeoff16_stage0.json exactly; a mismatch raises instead of writing an artifact.",
+    "prediction": "Recorded before the run: cppn is predicted to REJECT on raw validity \u2014 an indirect encoding painting activation blobs meets the semantic-pixel validator's connected-core floor head on, which is the dossier's own named risk ('hard integration with semantic pixels'). Shape grammar is predicted to raise validity over the raw collapse but at best TIE the incumbent _finish at its committed validity 1.0, landing WATCH. Whatever the numbers say is what ships.",
+    "arms": {
+      "cppn": {
+        "arm": "cppn",
+        "role": "generator",
+        "verdict": "reject",
+        "reason": "validity 0.12 is below the dossier bar 0.85 the adopted layer was judged by; validity is the first gate and nothing offsets it",
+        "inputs": {
+          "validity_rate": 0.12,
+          "baseline_validity_rate": 1.0,
+          "readability": 0.446945,
+          "baseline_readability": 0.79663,
+          "distinct_rate": 1.0
+        }
+      },
+      "shape_grammar": {
+        "arm": "shape_grammar",
+        "role": "post_generator_stabilizer",
+        "verdict": "watch",
+        "reason": "ties the incumbent _finish within the measured noise floor (1.0 vs 1.0, noise 0.0); a tie is not a reason to replace a shipped incumbent",
+        "inputs": {
+          "validity_before": 0.01,
+          "validity_after": 1.0,
+          "distinct_before": 1.0,
+          "distinct_after": 1.0,
+          "distinct_retention": 1.0,
+          "incumbent_validity_after": 1.0,
+          "incumbent_distinct_after": 1.0,
+          "noise_validity": 0.0,
+          "noise_distinct": 0.0
+        }
+      }
+    },
+    "prediction_outcome": "prediction_confirmed"
+  },
+  "next_research_step": "Register both dispositions in the ledger (algorithm cards + decision record); the named blocked_states are the only documented paths back."
+}
