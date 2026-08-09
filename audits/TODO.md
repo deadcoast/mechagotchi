@@ -155,7 +155,46 @@ remainder list this cycle opens), `2026-07-28-health-definition-gate.md`
   measurements they were. **DR 0046's comparability rule applies
   throughout.** The other six callers stay pinned; DR 0053 says why, and
   re-opening that is not this task.
-- [ ] **O4 · Stage 2's undispositioned generator arms.** Deliberately
+- [ ] **O4 · Stage 2's undispositioned generator arms.** *(Design done,
+  not built. Two corrections found by reading the dossier and the engine
+  BEFORE writing measurement code — they reshape the task, and the next
+  session should start from them rather than from the charter below.)*
+
+  **CORRECTION 1 — the charter's framing is wrong for one of the two.**
+  It says *"judge them against the adopted generation layer on its own
+  bake-off terms"*. Measured against the dossier: **CPPN** is *"Indirect
+  encoding… optional late-stage"*, priority low-to-medium, integration
+  risk **High**, stance *"keep as a late exploratory generator"* — a
+  generator bake-off IS its documented role. But **shape grammar** is
+  filed under **Constraint systems** with WFC and SAT/SMT, and the
+  stance for that family is *"**use as validator or post-generator
+  stabilizer**"*. It is **explicitly not** proposed as a primary
+  generator, so a bake-off would test it at a job nobody gave it and a
+  rejection earned that way would mean nothing. **Judge each in its
+  documented role.**
+
+  **CORRECTION 2 — shape grammar's documented role is ALREADY SHIPPED,
+  and this is the bigger finding.** `wfc_grid._finish` (called inside
+  `generate_wfc_grid`, line ~169) is documented in its own docstring as
+  *"The documented post-generator stabilizer pass"* and quotes the
+  dossier's *"use as validator or post-generator stabilizer"*
+  recommendation verbatim. It applies exactly those constraint
+  productions — keep the largest 8-connected core, cardinality
+  constraints as restart conditions, anchor normalization — and it is
+  part of the **adopted** WFC arm (DR 0031). So *"does a constraint
+  stabilizer help?"* is answered and adopted. **The real open question
+  is sharper: does a SHAPE-GRAMMAR stabilizer beat the incumbent
+  `_finish`?** That is a genuine bake-off where rejection is a real
+  outcome rather than a foregone one.
+
+  **Process note for whoever picks this up**: the RED test written
+  during this design (`labs/wfc_grid/test_stage2_generator_arms.py`) was
+  committed prematurely by the owner's IDE mid-design and then removed,
+  because a deliberately-failing test in a lab directory turns the
+  closing sweep red for an unrelated task. **Do not write a RED into a
+  lab directory until the previous task is committed.** The design and
+  both corrections above survive; the file does not.
+- [ ] **O4 · (original charter)** Deliberately
   **non-archive and non-loop** after a cycle that spent four of six
   slices in the archive — the anti-periscope rule's own instruction.
   `docs/project-research/deep-research/01/deep-research.md` names
