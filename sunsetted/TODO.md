@@ -136,19 +136,25 @@ two real gaps and the stale split), `0054`/`0055` (the pattern),
   *(Original charter, kept:)* Refusal is first-class: if the smallest
   honest mechanic is indistinguishable from noise at the documented
   budgets, record BLOCKED-ON-MECHANIC with the measurement attached.
-- [ ] **P4 · The Q-table meets the incumbent it actually has to beat.**
-  *(ENGINE.)* DR 0051 kept condition E on skill +55.459% against
-  **uniform random** — the documented precedent's shape and, as the
-  record itself says, a weak opponent. Run the harder comparison N3
-  named and did not run: `qtable_policy` against the **incumbent frozen
-  reactive rule** on the same replayed histories, D6's rule verbatim,
-  gates pre-registered. In the same lab, repair N3's second named
-  asymmetry: give F's tree a **like-for-like online stump** baseline
-  (the committed one scores the stump with a full-sample oracle while
-  the tree runs online — an asymmetry that runs against the tree).
-  Both committed artifacts stay untouched (DR 0053: restate, never
-  overwrite); F's drop is expected to hold either way, and if it does
-  not, that is the finding.
+- [x] **P4 · The Q-table meets the incumbent it actually has to beat.**
+  DONE 2026-08-09 (`2026-08-09-harder-skill-baselines.md`; no DR — both
+  findings are dated notes beside DR 0051): **the prediction was
+  REFUTED on E, and the refutation is the headline — the Q-table BEATS
+  the incumbent frozen reactive rule itself, by 44.685%.** The
+  collector (a superset of N3's, same harness/seeds/order) reproduced
+  **all** committed N3 statistics exactly before either harder number
+  was trusted. The frozen rule's per-tick choices carry empirical
+  regret **0.027851** — 81% of uniform random's — so the harder
+  opponent was barely harder: D6's welfare-optimality is about
+  survival, and per-tick selection leaves real regret on the table.
+  **F's drop holds like-for-like**: the online stump (the tree's own
+  footing) narrows the deficit −1.776% → **−0.744%** — the asymmetry
+  was ~58% of the committed gap, the sign never flips. **No roster
+  change in any branch** (pre-registered); E's keep now rests on a far
+  stronger footing, recorded beside DR 0051 not re-scored.
+  micro_threads 123 → **140**.
+  *(Original charter, kept:)* F's drop is expected to hold either way,
+  and if it does not, that is the finding.
 - [ ] **P5 · The probe artifacts carry their own edges.** *(SHARED.)*
   N2/DR 0050 froze the derivation recipe and found the real defect:
   `occupancy_saturation` and `reachability_escalation` record **no

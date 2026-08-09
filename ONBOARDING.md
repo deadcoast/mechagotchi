@@ -302,12 +302,23 @@ IDE) recorded as a trap with its rule.
 
 ### Cycle 26 · Phase P — the missing axes earn their sources — OPEN
 
-`sunsetted/TODO.md` is the live queue: **P1–P3 DONE; P4–P6 open.** The
+`sunsetted/TODO.md` is the live queue: **P1–P4 DONE; P5–P6 open.** The
 axis work is complete — **no documented visible axis lacks an engine
-source any longer** — and what remains is the two instrument repairs
-Phase N named (the Q-table's harder baseline, P4; the probe artifacts'
-committed edges, P5) and the gate. Task detail and sources are in the
+source any longer** — and what remains is the probe artifacts'
+committed edges (P5) and the gate. Task detail and sources are in the
 queue itself.
+
+**P4 — DONE 2026-08-09 (no DR; dated notes beside DR 0051).** **The
+prediction was REFUTED, and the refutation is the headline: the
+Q-table BEATS the incumbent frozen reactive rule itself, by
+44.685%.** The collector reproduced ALL of N3's committed statistics
+exactly first; the frozen rule's per-tick choices turned out to carry
+empirical regret 0.027851 — 81% of uniform random's — so the harder
+opponent was barely harder (D6's welfare-optimality is about survival;
+per-tick selection leaves real regret on the table). **F's drop holds
+like-for-like** (−1.776% → −0.744% against the online stump — the
+asymmetry was ~58% of the gap, the sign never flips). **No roster
+change in any branch, pre-registered.** micro_threads 123 → **140**.
 
 **P1 — DONE 2026-08-08 (no DR; the decisions cited are 0048/0054/0055).**
 **The §1.17 split measured AS SHIPPED, and the founding text now
@@ -551,9 +562,9 @@ charters with their sources are in the queue file):
 3. ~~**P3 · `cleanliness` earns a mechanic**~~ — **DONE 2026-08-09
    (DR 0059).** See §3. The opt-in mechanic adopted and landed; the
    default-covenant flip is a named future record.
-4. **P4 · the Q-table meets the incumbent it actually has to beat** —
-   N3's harder comparison, plus F's like-for-like online stump; both
-   committed artifacts untouched.
+4. ~~**P4 · the Q-table meets the incumbent it actually has to
+   beat**~~ — **DONE 2026-08-09.** See §3. It beat the incumbent
+   itself; the prediction was refuted; the roster is unchanged.
 5. **P5 · the probe artifacts carry their own edges** — restate
    `occupancy_saturation` and `reachability_escalation` under the
    frozen recipe as new artifacts (DR 0053's rule 2).

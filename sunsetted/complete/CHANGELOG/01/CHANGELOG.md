@@ -25,7 +25,7 @@ never rewritten).
 
 ## [Unreleased] — Cycle 26 · Phase P — "the missing axes earn their sources"
 
-*In progress. Queue: `sunsetted/TODO.md` (**P1–P3 DONE**; P4–P6 open).*
+*In progress. Queue: `sunsetted/TODO.md` (**P1–P4 DONE**; P5–P6 open).*
 Planned from DR 0048's two real gaps (`happiness` needed a DEFINITION,
 `cleanliness` needs a MECHANIC — neither a display gap) and the
 instrument repairs Phase N and O named.
@@ -101,6 +101,22 @@ instrument repairs Phase N and O named.
   instrument regenerated: **7 on screen / 0 absent upstream — no
   documented visible axis lacks an engine source any longer.** Package
   299 → **316**; game 228 → **239**; lifecycle_sim 24 → **43**.
+- **P4 — DONE 2026-08-09 (no DR; two dated notes beside DR 0051).**
+  **The harder baselines N3 named — and the prediction was REFUTED:
+  the Q-table BEATS the incumbent frozen reactive rule itself, by
+  44.685%** (rule regret 0.027851 vs the Q-table's 0.015406, on the
+  incumbent's own replayed states, nine times the documented 5% bar) —
+  the frozen rule turned out barely harder than uniform random
+  (0.03459): its welfare-optimality is about survival outcomes, and
+  its per-tick choices leave real regret on the table. **F's drop
+  holds like-for-like**: against an online stump on the tree's own
+  footing the deficit narrows −1.776% → **−0.744%** — the asymmetry
+  DR 0051 flagged was ~58% of the committed gap, and the sign never
+  flips. The collector reproduced **all** committed N3 statistics
+  exactly before either harder number was trusted; **no roster change
+  in any branch, pre-registered** — E's keep now rests on a far
+  stronger footing, recorded beside DR 0051, never re-scored.
+  micro_threads 123 → **140**.
 
 ---
 

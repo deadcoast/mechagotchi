@@ -149,11 +149,31 @@ as pre-registered, and **G is dropped either way**.
    and therefore the documented comparison, but it is a weak opponent:
    *"better than choosing at random in the same bucket"* is a lower bar
    than 55% sounds. The harder comparison is not run here.
+   > **Dated note, 2026-08-09 (cycle 26 P4).** Now run, as a new
+   > artifact (`data/micro_threads/harder_skill_baselines_stage0.json`)
+   > whose collector reproduced this record's committed statistics
+   > exactly first. **The Q-table BEATS the incumbent frozen reactive
+   > rule by 44.685%** (rule regret 0.027851 vs the Q-table's 0.015406,
+   > over the same replayed states, at the same 5% bar) — the harder
+   > opponent turned out to be barely harder than uniform (0.0346): the
+   > frozen rules are welfare-optimal at the survival level, and their
+   > per-tick choices still carry real empirical regret. The P4
+   > prediction expected the advantage to collapse and was **refuted**.
+   > This record's keep stands unchanged; the roster is unchanged
+   > (pre-registered in P4's rule); promotion remains a separate record
+   > needing a consumer.
 3. **It does not give F a like-for-like baseline.** The depth-1 stump is
    scored on a full-sample argmax while the tree is scored on its
    **online** recommendation — an asymmetry that runs *against* the
    tree. The drop holds at the 5% bar either way, but the −1.776% margin
    should not be read as precise.
+   > **Dated note, 2026-08-09 (cycle 26 P4).** Now measured in the same
+   > new artifact: against a like-for-like ONLINE stump (per-lifecycle
+   > running means, the tree's own cold-start footing) the tree still
+   > loses — **−0.744%** — so the asymmetry accounted for roughly 58%
+   > of the committed −1.776% gap and the **drop holds like-for-like**,
+   > exactly as this record expected its margin not to be read as
+   > precise.
 4. **It does not revisit the saturated welfare seam.** D6 measured it;
    this reproduces it. A near-zero candidate welfare cost bounds the
    decision seam, not the learner's value.

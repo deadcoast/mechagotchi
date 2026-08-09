@@ -1,0 +1,120 @@
+{
+  "artifact_id": "harder_skill_baselines_stage0",
+  "status": "stage0",
+  "date": "2026-08-09",
+  "purpose": "Cycle 26 P4: run the two harder baselines DR 0051 named and did not run \u2014 the qtable against the incumbent frozen reactive rule, and the tree against a like-for-like ONLINE stump \u2014 as a NEW artifact on the same harness, with the collector required to reproduce all three committed skill numbers exactly before either is trusted. No roster change in any branch.",
+  "source_artifacts": [
+    "data/micro_threads/candidate_learner_ablation_stage0.json",
+    "labs/micro_threads/candidate_learner_ablation.py",
+    "labs/micro_threads/ablation_gates.py",
+    "labs/micro_threads/thread_fleet.py",
+    "research/decision_records/0051-micro-learner-conditions-efg.md"
+  ],
+  "parameters": {
+    "lifecycles_per_keeper": 100,
+    "ticks_per_lifecycle": 200,
+    "seed_base": 20260709,
+    "keep_threshold_pct": 5.0,
+    "frozen_rule_stripping": [
+      "learning_switches",
+      "thread_states",
+      "evidence",
+      "last_animation"
+    ],
+    "online_stump": "per-lifecycle running (side, action) means, predict-then-update, cold until the side has seen two distinct actions, valued under the same full-sample means as the committed framing"
+  },
+  "metrics": {
+    "instrument_check": {
+      "applicable": true,
+      "committed_artifact": "data/micro_threads/candidate_learner_ablation_stage0.json",
+      "comparisons": {
+        "records_scored": {
+          "committed": 23972,
+          "reproduced": 23972
+        },
+        "q_vs_uniform_pct": {
+          "committed": 55.459,
+          "reproduced": 55.459
+        },
+        "q_regret": {
+          "committed": 0.015406,
+          "reproduced": 0.015406
+        },
+        "uniform_regret": {
+          "committed": 0.03459,
+          "reproduced": 0.03459
+        },
+        "tree_vs_oracle_pct": {
+          "committed": -1.776,
+          "reproduced": -1.776
+        },
+        "tree_mean_return": {
+          "committed": 0.799976,
+          "reproduced": 0.799976
+        },
+        "stump_oracle_return": {
+          "committed": 0.814443,
+          "reproduced": 0.814443
+        },
+        "bayes_vs_running_pct": {
+          "committed": 2.756,
+          "reproduced": 2.756
+        }
+      },
+      "reproduced_committed_statistics": true
+    },
+    "reproduced": {
+      "records_scored": 23972,
+      "q_regret": 0.015406,
+      "uniform_regret": 0.03459,
+      "q_vs_uniform_pct": 55.459,
+      "tree_mean_return": 0.799976,
+      "stump_oracle_return": 0.814443,
+      "tree_vs_oracle_pct": -1.776,
+      "bayes_vs_running_pct": 2.756
+    },
+    "harder": {
+      "rule_regret": 0.027851,
+      "q_vs_rule_pct": 44.685,
+      "online_stump_return": 0.805975,
+      "online_stump_scored": 21093,
+      "tree_vs_online_stump_pct": -0.744
+    },
+    "judged": {
+      "e_verdict": "beats_incumbent_rule",
+      "f_verdict": "drop_holds_like_for_like",
+      "q_vs_rule_pct": 44.685,
+      "tree_vs_online_stump_pct": -0.744,
+      "keep_threshold_pct": 5.0,
+      "roster_changed": false
+    },
+    "wall_clock_s": 5.895
+  },
+  "closed_states": [
+    "both harder questions DR 0051 named are now measured, on the committed harness with the committed seeds",
+    "the collector reproduced the committed N3 statistics exactly before either harder statistic was judged",
+    "a prediction was recorded BEFORE the run"
+  ],
+  "blocked_states": [
+    "no roster change in any branch (pre-registered): DR 0051's verdicts stand and these findings become dated notes beside it",
+    "the empirical bucket means are made largely of the harness's own executed behaviour, so every regret here is regret against an empirical optimum, not a counterfactual simulator (N3's inherited framing)",
+    "one extended-fleet condition; the harder baselines are measured where the candidates actually ran"
+  ],
+  "decision": {
+    "e_verdict": "beats_incumbent_rule",
+    "f_verdict": "drop_holds_like_for_like",
+    "roster_changed": false,
+    "judged": {
+      "e_verdict": "beats_incumbent_rule",
+      "f_verdict": "drop_holds_like_for_like",
+      "q_vs_rule_pct": 44.685,
+      "tree_vs_online_stump_pct": -0.744,
+      "keep_threshold_pct": 5.0,
+      "roster_changed": false
+    },
+    "rule": "pre-registered (cycle 26 P4). Both harder statistics are judged at the documented D6 bar (5%), on the SAME harness, seeds and record order as the committed N3 artifact, and the collector must REPRODUCE all three committed skill numbers exactly at the committed budget before either is trusted (the instrument gate raises otherwise). E: the qtable's empirical regret against the incumbent frozen reactive rule's regret over the same bucket means - beats_incumbent_rule at >= +5%, loses_to_incumbent_rule at <= -5%, indistinguishable_from_rule between. F: the tree's mean return against a like-for-like ONLINE stump (per-lifecycle running means, cold until its side has seen two actions, valued under the same full-sample means) - drop_overturned_like_for_like only above +5%, drop_holds_like_for_like otherwise. NO ROSTER CHANGE in any branch: DR 0051's verdicts were made by the documented rule and stand; these findings become dated notes beside DR 0051, never a re-score.",
+    "pre_run_prediction": "Written before the run: the frozen reactive rule is expected to be a far harder opponent than uniform random - the qtable's +55.459% is expected to COLLAPSE toward the +-5% band (indistinguishable_from_rule, direction unknown), because the empirical bucket means are made largely of the rule's own behaviour. The like-for-like online stump is expected to lose some of its oracle advantage, narrowing F's -1.776% toward zero without crossing the +5% bar (drop_holds_like_for_like). Either refutation ships as the finding.",
+    "prediction_outcome": "prediction_refuted: predicted {'e_verdict': 'indistinguishable_from_rule', 'f_verdict': 'drop_holds_like_for_like'}, measured {'e_verdict': 'beats_incumbent_rule', 'f_verdict': 'drop_holds_like_for_like'}"
+  },
+  "next_research_step": "Record both findings as dated notes beside DR 0051; then P5 (the probe artifacts carry their own edges) and P6 (the Phase-P gate)."
+}
