@@ -3279,6 +3279,547 @@ When O3 lands I'll finish its report, DR and docs, commit it, and then run O4 ag
 -------
 ## [21]
 
+When O3 lands I'll finish its report, DR and docs, commit it, and then run O4 against the corrected framing — CPPN as a generator arm, shape grammar as a stabilizer measured against the incumbent _finish rather than against a job it was never given.
+
+Read C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\tasks\bmcdertpa.output
+O3's result is in, and it's more favourable than "coverage went down" would suggest.
+
+Write c:\Users\ryanf\github\_new\mechagotchi\research\experiment_reports\2026-07-28-adopted-default-restatement.md
+178 lines
+# Experiment Report: The Headline Studies Restated Under the Adopted Default — Coverage Buys Quality, and No Documented Gate Regressed (Cycle 25 · SHARED · O3)
+
+Date: 2026-07-28
+
+## WHY
+
+DR 0052 adopted `insertion` as the `slip_admission` default and DR 0053
+flipped it **prospectively** — all eight historical callers pinned to
+the incumbent, no committed number moved. DR 0053 then named the only
+two whose migration is a real question rather than an
+evidence-destroying regeneration:
+
+- **`evaluation_loop_scale`** — the source of **DR 0042's headline
+  coverage 0.8984**, quoted across decision records, gate reports and
+  ONBOARDING;
+- **`coverage_qd_gates`** — the documented **E4 gates**.
+
+O3 restates both.
+
+## WHAT
+
+**This restates; it never overwrites.** DR 0053's rule 2 is the shape of
+the task: *a measurement does not improve — it is reproduced, or
+superseded by a new measurement answering a new question.* "What does
+the loop achieve under the adopted default" **is** a new question, so it
+gets a new artifact and both committed incumbent artifacts stay exactly
+as they are.
+
+**Only the adopted arm was re-run**, and that shrank the work by roughly
+three quarters:
+
+| what | how it was obtained | why |
+| --- | --- | --- |
+| adopted MAP-Elites runs, 10 documented seeds | **re-run** | the new measurement |
+| incumbent E4 runs | **read** from the committed artifact | DR 0053 rule 2 forbids re-running them |
+| GA control, 10 runs | **read** | `run_ga_baseline` takes **no** `slip_admission` — structurally unaffected by the arm, so re-running would reproduce numbers that cannot move |
+| DR 0042's headline, both sides | **read** | the incumbent from its own artifact; the adopted side from N4, which already measured `insertion` at that seed |
+
+The documented E4 gates were re-judged **verbatim** — `judge_gates`
+imported from `coverage_qd_gates`, never re-implemented, because a
+second copy could score the adopted arm by a rule the incumbent was
+never held to — and against the **same GA control** the incumbent was
+judged against.
+
+**The gate that could fail**: a documented gate that **passed** under
+the incumbent and **fails** under the adopted default is a regression
+and a blocking finding. A gate that was *already* failing is explicitly
+not one — DR 0032's GA-advantage clause has been refuted repeatedly, and
+blaming the new arm for it would be a false accusation.
+
+## FINDINGS
+
+### DR 0042's headline, restated — and the trade is not what "coverage fell" implies
+
+At DR 0042's own seed (20260709), same population, same budget:
+
+| | incumbent (`none`) | adopted (`insertion`) | delta |
+| --- | --- | --- | --- |
+| coverage | 0.898438 | **0.880859** | **−0.017579** |
+| **QD** | 404.618236 | **411.738214** | **+7.119978** |
+| occupied niches | 460 | 451 | −9 |
+| **refusals** | 4,435 | **0** | **−4,435** |
+| **SLIP-illegal elites** | 35 | **0** | **−35** |
+
+> **Coverage does not fall for nothing — it buys quality.** L1 refused
+> to patch the refusal tax because *"the fix trades against coverage"*.
+> It does, and the restatement prices the other side of that trade:
+> **nine niches and 0.0176 coverage buy +7.12 QD, the elimination of
+> 4,435 wasted evaluations per run, and an archive that is legal under
+> the covenant that bred it.**
+
+The incumbent side reproduced N4's measurement exactly (`True`), so the
+two artifacts agree and the restatement compares the same loop.
+
+### The documented E4 gates hold — `NO_REGRESSION`
+
+Re-judged over the documented ten paired seeds:
+
+| gate | incumbent | adopted | |
+| --- | --- | --- | --- |
+| `coverage_gate_met` | **True** | **True** | held |
+| `ga_advantage_gate_met` | False | False | **already failing — not a regression** |
+
+| statistic | delta |
+| --- | --- |
+| `map_elites_coverage_mean` | −0.023633 |
+| `map_elites_best_fitness_mean` | **−0.000565** |
+| `coverage_advantage_over_ga` | −0.029664 |
+
+**No documented gate that passed now fails.** Mean best fitness is
+essentially untouched (−0.000565), and the coverage gate clears its
+documented bar with enormous margin either way.
+
+### DR 0032's GA-advantage clause, refuted again — and slightly deeper
+
+`ga_advantage_gate_met` was already `False` under the incumbent and
+stays `False`. **This is not a consequence of the adoption**, and the
+gate is written so it cannot be reported as one. What the adoption does
+change is the margin: `coverage_advantage_over_ga` falls a further
+**0.029664**, so the clause is refuted a little more decisively than
+before. Recorded, not re-scored — DR 0032's own re-openers are
+untriggered and this changes none of them.
+
+## HONEST REMAINDERS
+
+1. **Both committed incumbent artifacts are untouched.**
+   `evaluation_loop_scale_stage0.json` and `coverage_qd_gates_stage0.json`
+   remain the measurements they were. DR 0042's 0.8984 is **not
+   retracted** — it is what the loop achieves under the incumbent, and
+   it stays true of that configuration.
+2. **The other six loop callers stay pinned**, and four of them
+   *measure the defect* and must never migrate (DR 0053).
+3. **DR 0046's comparability rule applies**: every coverage and QD
+   number here is an **incumbent-geometry** number. The restatement
+   changes the admission arm, not the geometry.
+4. **One SLIP profile** (`slip_lcd_seed`) — DR 0047's inherited limit. A
+   wider palette rejects fewer bootstrap creatures and would move every
+   number here.
+5. **The GA control was read, not re-run.** That is sound because the
+   arm cannot reach it structurally, but it does mean the GA side of the
+   comparison carries the incumbent run's own seed noise unchanged.
+
+## Verification
+
+RED — the pins, written before the module existed:
+
+```powershell
+PS> python -B -m unittest test_adopted_default_restatement   # (from labs/map_elites_archive)
+ModuleNotFoundError: No module named 'adopted_default_restatement'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+```
+
+GREEN:
+
+```powershell
+PS> python -B -m unittest test_adopted_default_restatement
+----------------------------------------------------------------------
+Ran 17 tests in 0.239s
+
+OK
+```
+
+The lab invocation that produced the artifact:
+
+```powershell
+PS> python -B labs/map_elites_archive/adopted_default_restatement.py
+DR 0042 headline (seed 20260709): coverage 0.898438 -> 0.880859 (delta -0.017579); QD 404.618236 -> 411.738214 (+7.119978); niches 460 -> 451 (-9)
+  incumbent headline reproduced from N4: True; refusals under the adopted default: 0; illegal elites: 0
+
+E4 gates, re-judged verbatim over the documented ten seeds:
+  map_elites_coverage_mean: delta -0.023633
+  map_elites_best_fitness_mean: delta -0.000565
+  coverage_advantage_over_ga: delta -0.029664
+  coverage_gate_met: True -> True
+  ga_advantage_gate_met: False -> False
+
+NO_REGRESSION
+  already failing (not a regression): ['ga_advantage_gate_met']
+  computed 10, replayed 0, 2594.122 s
+wrote data/archives/adopted_default_restatement_stage0.json
+```
+
+Wall clock **2594.122 s** for ten documented-budget runs — a quarter of
+the naive forty-run cost, because the incumbent runs and the GA control
+were read rather than re-measured.
+
+## Sources
+
+- `audits/TODO.md` (cycle 25 O3) · `research/decision_records/0056-adopted-default-headline-restatement.md` (the record this study produced)
+- `research/decision_records/0053-admission-policy-belongs-at-the-call-site.md` (rules 2 and 3, which scoped this task), `0052-slip-admission-default-insertion.md`, `0042-generation-layer-loop-revisit.md` (the headline restated here, not retracted), `0032-map-elites-ga-gate-disposition.md`, `0046-two-geometry-split.md` (comparability)
+- `labs/map_elites_archive/adopted_default_restatement.py` (+ `test_adopted_default_restatement.py`, 17 pins) · `data/archives/adopted_default_restatement_stage0.json`
+- `labs/map_elites_archive/coverage_qd_gates.py` (`judge_gates`, imported never re-implemented) · `evaluation_loop_scale.py`
+- `data/archives/coverage_qd_gates_stage0.json`, `evaluation_loop_scale_stage0.json`, `slip_admission_default_stage0.json` (all read, none overwritten)
+Write c:\Users\ryanf\github\_new\mechagotchi\research\decision_records\0056-adopted-default-headline-restatement.md
+99 lines
+# Decision Record 0056: The Adopted Default's Headline Numbers — DR 0042 Restated, Not Retracted
+
+Date: 2026-07-28
+
+## Status
+
+**ACCEPTED.** The loop's headline numbers under the adopted
+`slip_admission="insertion"` default are recorded, the documented E4
+gates are re-judged and **hold**, and **DR 0042's numbers are not
+retracted** — they remain what the loop achieves under the incumbent.
+
+## Context
+
+DR 0053 flipped the default prospectively and named the only two studies
+whose migration was a real question. O3 restated both, without
+overwriting either committed artifact, because DR 0053's rule 2 makes
+this **a new measurement answering a new question** rather than a
+regeneration.
+
+## The restated headline
+
+At DR 0042's own seed, population and budget:
+
+| | incumbent (`none`) | adopted (`insertion`) | delta |
+| --- | --- | --- | --- |
+| coverage | 0.898438 | **0.880859** | −0.017579 |
+| **QD** | 404.618236 | **411.738214** | **+7.119978** |
+| occupied niches | 460 | 451 | −9 |
+| refusals | 4,435 | **0** | −4,435 |
+| SLIP-illegal elites | 35 | **0** | −35 |
+
+**Coverage does not fall for nothing — it buys quality.** L1 refused to
+patch the refusal tax because *"the fix trades against coverage"*. It
+does, and this prices the other side: **nine niches and 0.0176 coverage
+buy +7.12 QD, the removal of 4,435 wasted evaluations per run, and an
+archive legal under the covenant that bred it.**
+
+## The documented E4 gates: `NO_REGRESSION`
+
+Re-judged **verbatim** (`judge_gates` imported, never re-implemented)
+over the documented ten paired seeds, against the **same GA control**:
+
+| gate | incumbent | adopted | |
+| --- | --- | --- | --- |
+| `coverage_gate_met` | True | **True** | held |
+| `ga_advantage_gate_met` | False | False | already failing — **not** a regression |
+
+Mean best fitness moves **−0.000565**. No documented gate that passed
+now fails.
+
+## Decision
+
+**1. The adopted default's headline numbers are: coverage 0.880859, QD
+411.738214, 451 niches, 0 refusals, 0 illegal elites** (DR 0042's seed
+and budget). These are what to quote for *"the loop under the adopted
+default"*.
+
+**2. DR 0042's 0.8984 is NOT retracted.** It is what the loop achieves
+under the incumbent arm and stays true of that configuration. Both
+numbers are correct; they answer different questions, and a dated note
+now sits beside DR 0042 saying which is which.
+
+**3. Neither committed artifact is overwritten.**
+`evaluation_loop_scale_stage0.json` and `coverage_qd_gates_stage0.json`
+remain the measurements they were — DR 0053 rule 2.
+
+**4. DR 0032's GA-advantage clause is refuted again, and slightly
+deeper**, with `coverage_advantage_over_ga` falling a further 0.029664.
+**This is explicitly not attributed to the adoption**: the gate was
+already failing under the incumbent, and the comparison is written so a
+pre-existing failure cannot be reported as a regression. DR 0032's
+re-openers stay untriggered.
+
+**5. Quoting rule.** Any statement of the form *"the loop achieves X"*
+must now say **which arm** it means. DR 0046's comparability rule
+already forbids reading numbers across geometries; this adds the same
+discipline across admission arms.
+
+## What this record does NOT do
+
+1. **It does not migrate the other six callers.** Four of them measure
+   the defect and must never migrate (DR 0053 rule 2).
+2. **It does not re-run the GA control.** `run_ga_baseline` takes no
+   `slip_admission` and is structurally unaffected, so the control was
+   read — sound, but it means the GA side carries the incumbent run's
+   own seed noise unchanged.
+3. **It does not widen the evidence beyond one SLIP profile**
+   (`slip_lcd_seed`), DR 0047's inherited limit.
+4. **It does not touch the geometry.** Every number here is an
+   incumbent-geometry number (DR 0046).
+
+## Sources
+
+- `research/experiment_reports/2026-07-28-adopted-default-restatement.md` (this record's study)
+- `research/decision_records/0053-admission-policy-belongs-at-the-call-site.md` (rules 2 and 3), `0052-slip-admission-default-insertion.md`, `0042-generation-layer-loop-revisit.md` (restated, not retracted), `0032-map-elites-ga-gate-disposition.md`, `0047-slip-admission-arms.md`, `0046-two-geometry-split.md`
+- `labs/map_elites_archive/adopted_default_restatement.py` (+ `test_adopted_default_restatement.py`, 17 pins) · `data/archives/adopted_default_restatement_stage0.json`
+- `data/archives/coverage_qd_gates_stage0.json`, `evaluation_loop_scale_stage0.json`, `slip_admission_default_stage0.json` (read, never overwritten)
+- `audits/TODO.md` (cycle 25 O3)
+Now the dated notes at the primary carriers of the old headline.
+
+Grep "0\.8984" (in c:\Users\ryanf\github\_new\mechagotchi\research\decision_records\0042-generation-layer-loop-revisit.md)
+8 lines of output
+Edit c:\Users\ryanf\github\_new\mechagotchi\research\decision_records\0042-generation-layer-loop-revisit.md
+Added 17 lines
+Grep "0\.8984|0\.898438" (in c:\Users\ryanf\github\_new\mechagotchi\research\algorithm_cards\evaluation_loop_scale.md)
+21 lines of output
+Read c:\Users\ryanf\github\_new\mechagotchi\research\algorithm_cards\evaluation_loop_scale.md (lines 174-195)
+Edit c:\Users\ryanf\github\_new\mechagotchi\research\algorithm_cards\evaluation_loop_scale.md
+Added 22 lines
+Edit c:\Users\ryanf\github\_new\mechagotchi\audits\TODO.md
+Added 26 lines
+PowerShell Clean the O3 stub and validate the artifact
+IN
+Set-Location "c:\Users\ryanf\github\_new\mechagotchi"; (Get-Content audits\TODO.md -Raw) -replace '- \[ \] ~~\*\*O3 · \(original charter\)\*\*~~', '  *Original charter:*' | Set-Content audits\TODO.md -NoNewline; python -m json.tool "data\archives\adopted_default_restatement_stage0.json" > $null; if ($LASTEXITCODE -eq 0) { "JSON OK" }; Select-String -Path audits\TODO.md -Pattern "Original charter" | Select-Object LineNumber
+
+OUT
+JSON OK
+
+LineNumber
+----------
+        73
+       110
+       147
+Queue is clean. Ledger and changelog, then the sweep.
+
+Edit c:\Users\ryanf\github\_new\mechagotchi\research\README.md
+Added 4 lines
+Edit c:\Users\ryanf\github\_new\mechagotchi\CHANGELOG.md
+Modified
+Edit c:\Users\ryanf\github\_new\mechagotchi\CHANGELOG.md
+Added 31 lines
+PowerShell Run the full sweep for O3
+IN
+Set-Location "c:\Users\ryanf\github\_new\mechagotchi"; (Get-Content CHANGELOG.md -Raw) -replace '- `research/decision_records/` — ADRs `0001`–`0055`', '- `research/decision_records/` — ADRs `0001`–`0056`' | Set-Content CHANGELOG.md -NoNewline; python -B tools/ci/run_sweep.py 2>&1 | Select-Object -Last 8
+
+OUT
+Command running in background with ID: blxywo3e1. Output is being written to: C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\tasks\blxywo3e1.output. You will be notified when it completes. To check interim output, use Read on that file path.
+Sweep running. O3's result in plain terms — and it's better than I expected.
+
+I'd been describing this as "coverage drops 0.0176 when we turn the fix on." That's true, but it's only half the trade, and the other half is the interesting part:
+
+before	after
+coverage	0.898438	0.880859
+quality (QD)	404.62	411.74
+niches filled	460	451
+wasted attempts	4,435	0
+illegal creatures in archive	35	0
+Coverage doesn't fall for nothing — it buys quality. Nine fewer niches and a bit of coverage buy +7.12 quality, the elimination of every wasted breeding attempt, and an archive that's fully legal under the player's own profile. Cycle 22 declined to fix the refusal tax because "the fix trades against coverage" — this finally prices what you get for that trade.
+
+Nothing broke. I re-ran the documented gates over their full ten seeds and the coverage gate still passes; best fitness moved by 0.0006. One gate is failing, but it was already failing — that's the GA-advantage clause that's been refuted repeatedly — and I wrote the comparison specifically so a pre-existing failure can't be blamed on the new change. Its margin does slip a further 0.03, so that clause is refuted slightly harder now.
+
+The old number isn't retracted. 0.8984 is still what the loop does with the fix off, and that stays true. What changed is that any claim of the form "the loop achieves X" now has to say which setting it means — same discipline the project already applies across geometries. Dated notes are beside the original in DR 0042 and the algorithm card.
+
+One efficiency note worth recording: the naive version of this task is forty full-scale runs, about four hours. It came in at ten runs and 43 minutes, because the previous cycle's own rule says you don't re-run measurements you already have — and the GA control literally can't be affected by this setting, so re-running it would have reproduced numbers that cannot move.
+
+Once the sweep confirms, I'll commit O3 and start O4's build against the corrected framing.
+
+The sweep failed. Let me see what broke.
+
+PowerShell Read the failing sweep output
+IN
+Get-Content "C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\tasks\blxywo3e1.output" -Tail 30
+
+OUT
+lab:workshop_editor              OK  OK  [4.8s]
+package                          OK  OK  [5.9s]
+cli                              OK  OK (skipped=15)  [3.7s]
+game                             OK  OK (skipped=5)  [10.8s]
+workshop                         OK  <sys>:0: ResourceWarning: unclosed <socket.socket fd=652, family=2, type=1, proto=0, laddr=('127.0.0.1', 3507)>  [187.2s]
+data artifacts                   OK  2246 JSON artifacts valid  [0.5s]
+
+SWEEP FAILED: lab:wfc_grid
+That's my error, and the sweep caught it. I wrote O4's RED test into labs/wfc_grid/ while O3 was still open — so O3's verification sweep is failing on O4's deliberately-failing test. Let me confirm.
+
+PowerShell Confirm the wfc_grid failure is O4's RED test
+IN
+Set-Location "c:\Users\ryanf\github\_new\mechagotchi\labs\wfc_grid"; python -B -m unittest discover -s . -p "test_*.py" 2>&1 | Select-Object -Last 6; Set-Location "c:\Users\ryanf\github\_new\mechagotchi"
+
+OUT
+Exit code 1
+----------------------------------------------------------------------
+Ran 37 tests in 6.275s
+
+FAILED (errors=1)
+Confirmed — 37 tests, 1 error, my O4 RED. Moving it aside so O3's verification reflects O3.
+
+PowerShell Move O4's RED aside and verify wfc_grid is green
+IN
+Set-Location "c:\Users\ryanf\github\_new\mechagotchi"; $hold="C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\scratchpad\o4_hold"; New-Item -ItemType Directory -Force $hold | Out-Null; Move-Item labs\wfc_grid\test_stage2_generator_arms.py "$hold\" -Force; "moved O4 RED aside"; Set-Location "c:\Users\ryanf\github\_new\mechagotchi\labs\wfc_grid"; python -B -m unittest discover -s . -p "test_*.py" 2>&1 | Select-Object -Last 4; Set-Location "c:\Users\ryanf\github\_new\mechagotchi"
+
+OUT
+moved O4 RED aside
+----------------------------------------------------------------------
+Ran 36 tests in 5.916s
+
+OK
+PowerShell Re-run the full sweep for O3
+IN
+Set-Location "c:\Users\ryanf\github\_new\mechagotchi"; python -B tools/ci/run_sweep.py 2>&1 | Select-Object -Last 8
+
+OUT
+Command running in background with ID: b6bi2763s. Output is being written to: C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\tasks\b6bi2763s.output. You will be notified when it completes. To check interim output, use Read on that file path.
+I made a process error and the sweep caught it — worth stating plainly.
+
+I started O4's RED test while O3 was still open. A RED test is supposed to fail, so leaving it in labs/wfc_grid/ meant O3's closing sweep failed on unrelated, unstarted work. Every previous task in this session committed before the next began, so the RED never overlapped a verification run.
+
+Two things follow. The sweep did exactly its job — a red sweep on a task I was about to call done is precisely the outcome that discipline exists for. And the fix is not to weaken anything: I've moved O4's RED aside so O3's verification reflects O3's state, confirmed wfc_grid is green at 36 tests, and re-run the full sweep. Once O3 is committed I'll restore the RED and build O4 against it.
+
+The rule I'll follow for the rest of this cycle: don't write a RED into a lab directory until the previous task is committed. Design work and reading are fine to overlap; a deliberately-failing test is not.
+
+Nothing about O3's result changed — the sweep failure was entirely O4's incomplete file, and the artifact count went 2,245 → 2,246 as expected for O3's new artifact.
+
+Read C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\tasks\b6bi2763s.output
+PowerShell Stage O3 by explicit path
+IN
+Set-Location "c:\Users\ryanf\github\_new\mechagotchi"; git checkout -- data/slips/slip_pydantic_contract_stage0.json data/slips/slip_schema_migration_dependency_gate_stage0.json 2>$null; git log --oneline -1; git add labs/map_elites_archive/adopted_default_restatement.py labs/map_elites_archive/test_adopted_default_restatement.py data/archives/adopted_default_restatement_stage0.json research/experiment_reports/2026-07-28-adopted-default-restatement.md research/decision_records/0056-adopted-default-headline-restatement.md research/decision_records/0042-generation-layer-loop-revisit.md research/algorithm_cards/evaluation_loop_scale.md research/README.md audits/TODO.md CHANGELOG.md; git status --short | Select-String -NotMatch "depreciated|research/reports/"
+
+OUT
+5378bc9 feat: Restate DR 0042's headline coverage under the adopted default and document findings
+
+ D labs/wfc_grid/test_stage2_generator_arms.py
+The IDE committed my O3 work as 5378bc9 — and it also committed O4's deliberately-failing RED test, which means HEAD is currently red. Let me confirm.
+
+PowerShell Trace the IDE commit and confirm the red state
+IN
+Set-Location "c:\Users\ryanf\github\_new\mechagotchi"; git log --oneline -3; echo "=== which commit added O4's RED? ==="; git log --oneline -2 -- labs/wfc_grid/test_stage2_generator_arms.py; echo "=== is O3 committed? ==="; git log --oneline -1 -- research/decision_records/0056-adopted-default-headline-restatement.md; echo "=== staged now ==="; git status --short | Select-String -NotMatch "depreciated|research/reports/"
+
+OUT
+5378bc9 feat: Restate DR 0042's headline coverage under the adopted default and document findings
+6db7fa5 feat: Add unit tests for Stage 2 generator arms and correct charter framing
+ad5a78f Implement O3 adopted default restatement for cycle 25
+=== which commit added O4's RED? ===
+6db7fa5 feat: Add unit tests for Stage 2 generator arms and correct charter framing
+=== is O3 committed? ===
+5378bc9 feat: Restate DR 0042's headline coverage under the adopted default and document findings
+=== staged now ===
+
+ D labs/wfc_grid/test_stage2_generator_arms.py
+Now I understand the full state. The owner's tooling made three commits: two took my O3 work (which is correct and complete), but 6db7fa5 committed O4's deliberately-failing RED test — so HEAD is red on unstarted work.
+
+O3 is safely committed. Let me restore green and record O4's findings so they aren't lost.
+
+Edit c:\Users\ryanf\github\_new\mechagotchi\audits\TODO.md
+Added 39 lines
+PowerShell Stage the RED removal and O4 findings, verify green
+IN
+Set-Location "c:\Users\ryanf\github\_new\mechagotchi"; git add audits/TODO.md labs/wfc_grid/test_stage2_generator_arms.py; git status --short | Select-String -NotMatch "depreciated|research/reports/"; echo "--- verify wfc_grid green ---"; Set-Location "c:\Users\ryanf\github\_new\mechagotchi\labs\wfc_grid"; python -B -m unittest discover -s . -p "test_*.py" 2>&1 | Select-Object -Last 3; Set-Location "c:\Users\ryanf\github\_new\mechagotchi"
+
+OUT
+M  audits/TODO.md
+D  labs/wfc_grid/test_stage2_generator_arms.py
+--- verify wfc_grid green ---
+Ran 36 tests in 5.662s
+
+OK
+PowerShell Commit the fix and unify
+IN
+Set-Location "c:\Users\ryanf\github\_new\mechagotchi"; git commit -m @'
+O4 design: record the two charter corrections, and remove a prematurely committed RED
+
+O3 is committed (ad5a78f, 5378bc9). This commit does two things and
+builds nothing.
+
+1. REMOVES labs/wfc_grid/test_stage2_generator_arms.py from HEAD.
+
+The owner's IDE committed it (6db7fa5) while O4 was still in design. It
+is a RED test - deliberately failing, because its module does not exist
+yet - so committing it made the tree RED and turned O3's closing sweep
+red on unrelated, unstarted work. The sweep caught it, which is the
+discipline working.
+
+PROCESS LESSON, RECORDED: do not write a RED into a lab directory until
+the previous task is committed. Design work and reading may overlap
+tasks; a deliberately-failing test may not. Every earlier task this
+session committed before the next began, so the RED never overlapped a
+verification run.
+
+2. RECORDS O4's two corrections in its queue entry, so the design
+survives even though the file does not.
+
+CORRECTION 1 - the charter's framing is wrong for one of the two arms.
+It says "judge them against the adopted generation layer on its own
+bake-off terms". Against the dossier: CPPN is "Indirect encoding...
+optional late-stage", integration risk High, stance "keep as a late
+exploratory generator" - a generator bake-off IS its documented role.
+But shape grammar is filed under Constraint systems with WFC and
+SAT/SMT, and that family's stance is "use as validator or
+post-generator stabilizer" - explicitly NOT a primary generator. A
+bake-off would test it at a job nobody gave it, and a rejection earned
+that way would mean nothing.
+
+CORRECTION 2, the bigger one - shape grammar's documented role is
+ALREADY SHIPPED. wfc_grid._finish, called inside generate_wfc_grid, is
+documented in its own docstring as "The documented post-generator
+stabilizer pass" and quotes the dossier's recommendation verbatim. It
+applies exactly those constraint productions (largest 8-connected core,
+cardinality constraints as restart conditions, anchor normalization) and
+is part of the ADOPTED WFC arm (DR 0031). So "does a constraint
+stabilizer help?" is answered and adopted. The real open question is
+sharper: DOES A SHAPE-GRAMMAR STABILIZER BEAT THE INCUMBENT _finish? -
+a genuine bake-off where rejection is a real outcome rather than a
+foregone one.
+
+Both corrections were found by reading the dossier and the engine BEFORE
+writing measurement code, which is the cycle-24 lesson applied: check
+the instrument, and the framing, against what is actually there.
+
+wfc_grid 36 green; full sweep GREEN at 2246 JSON artifacts before this
+change, and this change only removes a failing file and edits a queue
+entry.
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+'@ 2>&1 | Select-Object -Last 4; git checkout main 2>&1 | Select-Object -Last 1; git merge --ff-only phase-l-gate 2>&1 | Select-Object -Last 1; git push origin main 2>&1 | Select-Object -Last 1; git checkout phase-l-gate 2>&1 | Select-Object -Last 1; git push origin phase-l-gate 2>&1 | Select-Object -Last 1; echo "=== STRANDED ==="; git log --oneline origin/main..HEAD; echo "(end)"
+
+OUT
+[phase-l-gate 2361090] O4 design: record the two charter corrections, and remove a prematurely committed RED
+ 2 files changed, 40 insertions(+), 282 deletions(-)
+ delete mode 100644 labs/wfc_grid/test_stage2_generator_arms.py
+Your branch is up to date with 'origin/main'.
+ create mode 100644 research/experiment_reports/2026-07-28-adopted-default-restatement.md
+   12821f9..2361090  main -> main
+Your branch is ahead of 'origin/phase-l-gate' by 1 commit.
+   5378bc9..2361090  phase-l-gate -> phase-l-gate
+=== STRANDED ===
+(end)
+O3 is committed and the tree is green again — everything on 2361090, nothing stranded.
+
+O3's result
+Coverage buys quality. That's the finding, and it changes how the trade reads:
+
+fix off	fix on
+coverage	0.898438	0.880859
+quality (QD)	404.62	411.74
+wasted attempts	4,435	0
+illegal creatures	35	0
+Cycle 22 declined to fix the wasted-attempt problem because "the fix trades against coverage." It does — nine niches worth. This finally prices the other side: you get +7.12 quality, zero waste, and an archive that's legal under the player's own profile.
+
+Every documented gate still passes. One gate fails, but it was already failing before the change, and I wrote the comparison so a pre-existing failure can't be blamed on the new arm. The old 0.8984 isn't retracted — it's still true with the fix off. What's new is a rule that any "the loop achieves X" claim has to say which setting.
+
+The naive version of this task was forty runs and about four hours. It came in at ten runs and 43 minutes, because the previous cycle's own rule says don't re-measure what you already have, and the GA control literally cannot be affected by this setting.
+
+My mistake, and what I did about it
+I started O4's RED test while O3 was still open. A RED test is meant to fail — so it turned O3's closing sweep red on work that hadn't started. Your IDE then committed that failing test, which briefly made HEAD red.
+
+I've removed it, verified green, and written the rule into the commit: don't put a deliberately-failing test in a lab directory until the previous task is committed. Reading and design can overlap tasks; a red test can't.
+
+Where O4 stands
+Designed, not built — and the design changed twice before I wrote any measurement code, both times by reading rather than assuming:
+
+The charter was wrong about shape grammar. The dossier files it under constraint systems with a stance of "use as validator or post-generator stabilizer" — not as a generator. Bake-off framing would test it at a job nobody proposed.
+
+And that role is already shipped. wfc_grid._finish is documented in its own docstring as "the documented post-generator stabilizer pass", quotes the dossier verbatim, and runs inside the adopted WFC generator. So the honest open question isn't "does a stabilizer help" — it's does a shape-grammar stabilizer beat the incumbent _finish, which is a real contest.
+
+Both corrections are recorded in O4's queue entry, so whoever picks it up starts from them rather than from the charter I now know to be wrong. CPPN is unaffected — a generator bake-off is genuinely its documented role.
+
 -------
 ## [22]
 
