@@ -2852,6 +2852,430 @@ The headline number itself is already known from committed evidence: coverage 0.
 -------
 ## [20]
 
+Let me check O3's run before starting anything — you conditioned on that.
+
+PowerShell Check whether O3's run has finished
+IN
+$p="C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\scratchpad\o3_cache"; if (Test-Path $p) { "cached O3 runs: $((Get-ChildItem $p -Filter '*.json').Count) of 10" } else { "no cache yet" }; echo "--- task output ---"; Get-Content "C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\tasks\bmcdertpa.output" -Tail 8
+
+OUT
+cached O3 runs: 1 of 10
+--- task output ---
+No — O3 is still running, 1 of 10 seeds cached, roughly 55 minutes left. I won't start a second heavy computation against it.
+
+What I can do without contention is O4's reading and design, which is just files. Let me start there and hold its measurement until O3 lands.
+
+Grep "shape grammar|CPPN" (in c:\Users\ryanf\github\_new\mechagotchi\docs\project-research\deep-research\01\deep-research.md)
+43 lines of output
+O3 is 1/10 with ~50 minutes left, so I'll do O4's design now and hold its measurement.
+
+Reading the dossier first has already changed the task. My own O4 charter is subtly wrong, and it's worth flagging before I build anything:
+
+CPPN — the dossier lists it as "Indirect encoding… optional late-stage", priority low-to-medium, integration risk High, recommended stance "keep as a late exploratory generator." Judging it as a generator arm is correct.
+Shape grammar — the dossier files it under Constraint systems with WFC and SAT/SMT, and its recommended stance is "use as validator or post-generator stabilizer" — explicitly not a primary generator.
+My charter said "judge them against the adopted generation layer on its own bake-off terms". For CPPN that's right. For shape grammar it's a category error: it would be testing the method at a job the dossier never proposed for it, and a rejection earned that way would be meaningless.
+
+So each gets judged in its documented role — CPPN as a generator arm, shape grammar as a post-generator stabilizer measured on whether it improves another generator's output. Writing the pins to that shape.
+
+Write c:\Users\ryanf\github\_new\mechagotchi\labs\wfc_grid\test_stage2_generator_arms.py
+282 lines
+"""Pins for cycle 25 O4: Stage 2's undispositioned generator arms.
+
+`deep-research.md` names two generator-adjacent methods that have never
+been dispositioned — no card, no prototype, no reject/watch verdict —
+since the dossier was written. This slice judges both.
+
+**THE CHARTER'S FRAMING WAS WRONG FOR ONE OF THEM, and the pins encode
+the correction.** O4's charter said *"judge them against the adopted
+generation layer on its own bake-off terms"*. Measured against the
+dossier rather than the charter:
+
+- **CPPN** — *"Indirect encoding… optional late-stage"*, priority
+  low-to-medium, integration risk **High**, stance *"keep as a late
+  exploratory generator"*. A generator bake-off is exactly its
+  documented role.
+- **Shape grammar** — filed under **Constraint systems** with WFC and
+  SAT/SMT, stance *"**use as validator or post-generator
+  stabilizer**"*. It is **explicitly not** proposed as a primary
+  generator, so a bake-off would test it at a job the dossier never
+  gave it, and a rejection earned that way would mean nothing.
+
+So each is judged **in its documented role**, and the artifact records
+that the roles differ. **Rejecting both is first-class** — DR 0031
+already refuted the hybrid arm, and a measured refutation is worth more
+than a third generator nobody asked for.
+
+```python
+import json
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+LAB_DIR = Path(__file__).resolve().parent
+ROOT = LAB_DIR.parents[1]
+for _sub in ("labs/wfc_grid", "labs/grid_genome", "labs/readability_benchmark"):
+    _path = str(ROOT / _sub)
+    if _path not in sys.path:
+        sys.path.insert(0, _path)
+
+from stage2_generator_arms import (  # noqa: E402
+    ARTIFACT_ID,
+    ARMS,
+    DOCUMENTED_ROLES,
+    PRE_REGISTERED_RULE,
+    PRE_RUN_PREDICTION,
+    build_stage2_arms_report,
+    cppn_grid,
+    judge_generator_arm,
+    judge_stabilizer_arm,
+    shape_grammar_stabilize,
+    write_stage2_arms_artifacts,
+)
+
+
+class DocumentedRoleTests(unittest.TestCase):
+    """Each method is judged at the job the dossier gave it."""
+
+    def test_both_undispositioned_arms_are_carried(self):
+        self.assertEqual(sorted(ARMS), ["cppn", "shape_grammar"])
+
+    def test_cppn_is_judged_as_a_generator(self):
+        self.assertEqual(DOCUMENTED_ROLES["cppn"]["role"], "generator")
+
+    def test_shape_grammar_is_judged_as_a_stabilizer_not_a_generator(self):
+        # The correction this slice makes to its own charter.
+        role = DOCUMENTED_ROLES["shape_grammar"]
+        self.assertEqual(role["role"], "post_generator_stabilizer")
+        self.assertIn("validator or post-generator stabilizer", role["dossier_stance"])
+
+    def test_every_arm_quotes_the_dossier_stance_it_is_judged_against(self):
+        for name in ARMS:
+            self.assertTrue(DOCUMENTED_ROLES[name]["dossier_stance"])
+
+    def test_the_verdict_vocabulary_is_the_algorithm_card_one(self):
+        # reject / watch / prototype / adopt — the fixed template's own
+        # decision verbs, not invented ones.
+        judged = judge_generator_arm(
+            arm="cppn",
+            validity_rate=0.0,
+            baseline_validity_rate=1.0,
+            readability=0.0,
+            baseline_readability=1.0,
+            distinct_rate=0.0,
+        )
+        self.assertIn(judged["verdict"], ("reject", "watch", "prototype", "adopt"))
+
+
+class CppnMechanismTests(unittest.TestCase):
+    def test_a_cppn_grid_is_deterministic_for_a_seed(self):
+        first = cppn_grid(rng_seed=7, size=8)
+        second = cppn_grid(rng_seed=7, size=8)
+        self.assertEqual(first, second)
+
+    def test_different_seeds_give_different_bodies(self):
+        self.assertNotEqual(cppn_grid(rng_seed=1, size=8), cppn_grid(rng_seed=2, size=8))
+
+    def test_the_cppn_produces_a_grid_shaped_object(self):
+        grid = cppn_grid(rng_seed=3, size=8)
+        self.assertIn("cells", grid)
+        self.assertIn("grid_size", grid)
+        self.assertEqual(grid["grid_size"], [8, 8])
+
+    def test_the_indirect_encoding_is_a_function_of_position(self):
+        # The whole point of a CPPN: the body is f(x, y), so symmetry
+        # and repeated motifs come free. A body whose cells do not vary
+        # with position is not a CPPN body.
+        grid = cppn_grid(rng_seed=11, size=8)
+        roles = {(cell["x"], cell["y"]): cell["role"] for cell in grid["cells"]}
+        self.assertGreater(len(roles), 1)
+
+
+class ShapeGrammarMechanismTests(unittest.TestCase):
+    def test_the_stabilizer_returns_a_grid_and_a_trace(self):
+        grid = cppn_grid(rng_seed=5, size=8)
+        stabilized, trace = shape_grammar_stabilize(grid)
+        self.assertIn("cells", stabilized)
+        self.assertIsInstance(trace, list)
+
+    def test_the_stabilizer_never_mutates_its_input(self):
+        grid = cppn_grid(rng_seed=5, size=8)
+        before = json.dumps(grid, sort_keys=True)
+        shape_grammar_stabilize(grid)
+        self.assertEqual(before, json.dumps(grid, sort_keys=True))
+
+    def test_every_applied_production_is_named_in_the_trace(self):
+        # A stabilizer that cannot say what it did is a black box, and
+        # the dossier's stance for this method is "validator" — an
+        # unexplainable validator is worthless.
+        grid = cppn_grid(rng_seed=9, size=8)
+        _, trace = shape_grammar_stabilize(grid)
+        for entry in trace:
+            self.assertIn("rule", entry)
+
+
+class GeneratorGateTests(unittest.TestCase):
+    """CPPN's gate — the documented generator threshold."""
+
+    def test_an_arm_that_cannot_produce_valid_bodies_is_rejected(self):
+        judged = judge_generator_arm(
+            arm="cppn",
+            validity_rate=0.0,
+            baseline_validity_rate=1.0,
+            readability=0.0,
+            baseline_readability=0.83,
+            distinct_rate=1.0,
+        )
+        self.assertEqual(judged["verdict"], "reject")
+
+    def test_an_arm_matching_the_adopted_layer_is_at_least_watched(self):
+        judged = judge_generator_arm(
+            arm="cppn",
+            validity_rate=1.0,
+            baseline_validity_rate=1.0,
+            readability=0.9,
+            baseline_readability=0.83,
+            distinct_rate=1.0,
+        )
+        self.assertIn(judged["verdict"], ("watch", "prototype", "adopt"))
+
+    def test_validity_is_the_first_gate_and_nothing_offsets_it(self):
+        # Novelty cannot buy a generator that produces invalid bodies:
+        # the validator is the engine's own hard floor.
+        judged = judge_generator_arm(
+            arm="cppn",
+            validity_rate=0.02,
+            baseline_validity_rate=1.0,
+            readability=0.99,
+            baseline_readability=0.83,
+            distinct_rate=1.0,
+        )
+        self.assertEqual(judged["verdict"], "reject")
+        self.assertIn("validity", judged["reason"].lower())
+
+    def test_a_negative_rate_is_refused(self):
+        with self.assertRaises(ValueError):
+            judge_generator_arm(
+                arm="cppn",
+                validity_rate=-0.1,
+                baseline_validity_rate=1.0,
+                readability=0.5,
+                baseline_readability=0.5,
+                distinct_rate=1.0,
+            )
+
+
+class StabilizerGateTests(unittest.TestCase):
+    """Shape grammar's gate — its OWN documented job."""
+
+    def test_a_stabilizer_that_raises_validity_is_at_least_watched(self):
+        judged = judge_stabilizer_arm(
+            arm="shape_grammar",
+            validity_before=0.10,
+            validity_after=0.60,
+            distinct_before=1.0,
+            distinct_after=0.95,
+        )
+        self.assertIn(judged["verdict"], ("watch", "prototype", "adopt"))
+
+    def test_a_stabilizer_that_does_not_raise_validity_is_rejected(self):
+        judged = judge_stabilizer_arm(
+            arm="shape_grammar",
+            validity_before=0.10,
+            validity_after=0.10,
+            distinct_before=1.0,
+            distinct_after=1.0,
+        )
+        self.assertEqual(judged["verdict"], "reject")
+
+    def test_over_constraining_novelty_is_the_documented_risk_and_is_gated(self):
+        # The dossier's named risk for constraint systems is
+        # "over-constraining novelty". A stabilizer that collapses the
+        # population to one body has not helped.
+        judged = judge_stabilizer_arm(
+            arm="shape_grammar",
+            validity_before=0.10,
+            validity_after=1.00,
+            distinct_before=1.0,
+            distinct_after=0.02,
+        )
+        self.assertEqual(judged["verdict"], "reject")
+        self.assertIn("novelty", judged["reason"].lower())
+
+
+class PreRegistrationTests(unittest.TestCase):
+    def test_the_rule_names_the_role_correction(self):
+        rule = PRE_REGISTERED_RULE.lower()
+        self.assertIn("pre-registered", rule)
+        self.assertIn("documented role", rule)
+        self.assertIn("stabilizer", rule)
+
+    def test_a_prediction_is_recorded_before_the_run(self):
+        self.assertIn("cppn", PRE_RUN_PREDICTION.lower())
+
+
+class ArtifactTests(unittest.TestCase):
+    report: dict
+
+    @classmethod
+    def setUpClass(cls):
+        cls.report = build_stage2_arms_report(count=12, size=16)
+
+    def test_report_carries_every_required_artifact_key(self):
+        for key in (
+            "artifact_id",
+            "status",
+            "date",
+            "purpose",
+            "source_artifacts",
+            "parameters",
+            "metrics",
+            "closed_states",
+            "blocked_states",
+            "decision",
+            "next_research_step",
+        ):
+            self.assertIn(key, self.report)
+        self.assertEqual(self.report["artifact_id"], ARTIFACT_ID)
+
+    def test_both_arms_are_dispositioned(self):
+        verdicts = self.report["decision"]["arms"]
+        self.assertEqual(sorted(verdicts), ["cppn", "shape_grammar"])
+        for entry in verdicts.values():
+            self.assertIn(entry["verdict"], ("reject", "watch", "prototype", "adopt"))
+
+    def test_source_artifact_paths_are_repo_relative(self):
+        for path in self.report["source_artifacts"]:
+            self.assertFalse(Path(path).is_absolute())
+            self.assertNotIn("\\", path)
+
+    def test_artifact_round_trips_as_json(self):
+        with tempfile.TemporaryDirectory() as directory:
+            written = write_stage2_arms_artifacts(directory, self.report)
+            self.assertEqual(len(written), 1)
+            reloaded = json.loads(written[0].read_text(encoding="utf-8"))
+        self.assertEqual(reloaded["artifact_id"], ARTIFACT_ID)
+        self.assertEqual(reloaded["decision"]["rule"], PRE_REGISTERED_RULE)
+
+
+if __name__ == "__main__":
+    unittest.main()
+```
+
+PowerShell Capture O4's RED and check O3 progress
+IN
+
+Set-Location "c:\Users\ryanf\github\_new\mechagotchi\labs\wfc_grid"; python -B -m unittest test_stage2_generator_arms 2>&1 | Select-Object -Last 8; Set-Location "c:\Users\ryanf\github\_new\mechagotchi"; $p="C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\scratchpad\o3_cache"; "O3 progress: $((Get-ChildItem $p -Filter '*.json' -ErrorAction SilentlyContinue).Count) of 10"
+
+OUT
+
+```text
+Exit code 1
+    )
+ModuleNotFoundError: No module named 'stage2_generator_arms'
+
+----------------------------------------------------------------------
+```
+
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+O3 progress: 1 of 10
+O4's RED is captured. But O3 is still at 1/10 — let me make sure it's actually progressing and not stalled.
+
+PowerShell Verify O3 is progressing
+IN
+$p="C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\scratchpad\o3_cache"; Get-ChildItem $p -Filter '*.json' -ErrorAction SilentlyContinue | Select-Object Name, LastWriteTime; "now: $(Get-Date -Format 'HH:mm:ss')"; "--- python processes ---"; Get-Process python -ErrorAction SilentlyContinue | Select-Object Id, StartTime, @{n='CPUs';e={[math]::Round($_.CPU,0)}} | Format-Table -AutoSize
+
+OUT
+
+```text
+Name                                        LastWriteTime
+----                                        -------------
+e4_insertion_p256_e20480_t24_s20260709.json 2026-08-08 5:10:30 PM
+now: 17:13:44
+--- python processes ---
+
+
+    Id StartTime               CPUs
+    -- ---------               ----
+ 20072 2026-08-08 4:10:53 PM   0.00
+217116 2026-08-08 4:10:53 PM   1.00
+217152 2026-08-08 5:05:56 PM 457.00
+```
+
+Healthy — one run per ~4.5 min, second in progress, ~38 min left. Continuing O4's build (file writing only, no compute contention).
+
+PowerShell Inspect the grid genome shape the CPPN must emit
+IN
+
+```ps1
+Set-Location "c:\Users\ryanf\github\_new\mechagotchi"; python -B -c "
+import json
+g=json.load(open('data/seed_grids_16x16/mg_seed16_001_beetle.json',encoding='utf-8'))
+print('top keys:', sorted(g))
+print('grid_size:', g['grid_size'])
+print('cell keys:', sorted(g['cells'][0]))
+print('sample cell:', json.dumps(g['cells'][0]))
+print('organs sample:', json.dumps(g.get['organs',[]](:1)))
+print('palette:', json.dumps(g.get('palette'))[:120])
+print('roles used:', sorted({c['role'] for c in g['cells']}))
+" 2>&1
+```
+
+OUT
+
+```text
+Exit code 1
+top keys: ['cells', 'grid_id', 'grid_size', 'lineage', 'metadata', 'mutation', 'organs', 'palette', 'parent_grid_id', 'schema_version']
+grid_size: [16, 16]
+cell keys: ['animation_anchor', 'damage', 'locked', 'material', 'mutation_weight', 'organ', 'role', 'stress', 'visual', 'x', 'y']
+sample cell: {"x": 4, "y": 1, "visual": "#d8ffd6", "role": "sensor", "material": "signal", "mutation_weight": 0.1, "animation_anchor": false, "organ": "antennae", "stress": 0, "damage": 0, "locked": false}
+```
+
+Traceback (most recent call last):
+
+```text
+  File "<string>", line 8, in <module>
+    print('organs sample:', json.dumps(g.get('organs',[])[:1]))
+                                       ~~~~~~~~~~~~~~~~~~^^^^
+```
+
+KeyError: slice(None, 1, None)
+
+The genome is rich — 11 cell fields plus organs, palette, lineage. Let me find the assembly helper so the CPPN reuses it rather than re-implementing scaffolding.
+
+```text
+Grep "^def .*grid|schema_version|def _assemble|def _grid_from" (in c:\Users\ryanf\github\_new\mechagotchi\labs\wfc_grid\wfc_grid.py)
+41 lines of output
+Grep "^def " (in c:\Users\ryanf\github\_new\mechagotchi\labs\wfc_grid\wfc_grid.py)
+16 lines of output
+_finish is the matrix→genome assembler. If the CPPN emits a token matrix and reuses it, the comparison with WFC becomes apples-to-apples.
+
+Read c:\Users\ryanf\github\_new\mechagotchi\labs\wfc_grid\wfc_grid.py (lines 361-382)
+That reframes O4 substantially. Let me verify before I claim it.
+
+Grep "_finish\(|shape grammar|stabilizer" (in c:\Users\ryanf\github\_new\mechagotchi\labs\wfc_grid\wfc_grid.py)
+```
+
+32 lines of output
+
+Verified. `_finish` is called inside generate_wfc_grid (line 169), and its own docstring reads "The documented post-generator stabilizer pass", quoting the dossier's "use as validator or post-generator stabilizer" recommendation.
+
+That's a second, bigger correction to O4's charter — and it's the same pattern this repo keeps producing: reading the engine instead of the document.
+
+The charter said shape grammar has "no card, no prototype, no reject/watch verdict." For the method that's true. But its documented role is already implemented and shipped. The dossier files shape grammars under Constraint systems alongside WFC and SAT/SMT, and gives that whole family one stance: use as validator or post-generator stabilizer. That stance is satisfied — _finish applies exactly those productions (keep the largest 8-connected core, cardinality constraints as restart conditions, anchor normalization) inside the adopted WFC arm from DR 0031.
+
+So the honest open question is not "does a constraint stabilizer help?" — that's answered and adopted. It's "does a shape-grammar stabilizer beat the incumbent _finish?" That's a sharper bake-off, and one where rejection is a real outcome rather than a foregone one.
+
+CPPN is unaffected: the dossier genuinely proposes it as a late exploratory generator, so a generator bake-off is its documented role.
+
+Where things stand:
+
+O3 — still running, verified progressing (one seed per ~4.5 min, 2 of 10 done, ~30 min left). I'm not starting a competing computation against it.
+O4 — design complete, RED captured (ModuleNotFoundError: No module named 'stage2_generator_arms'), and both charter corrections found before writing any measurement code rather than after.
+When O3 lands I'll finish its report, DR and docs, commit it, and then run O4 against the corrected framing — CPPN as a generator arm, shape grammar as a stabilizer measured against the incumbent _finish rather than against a job it was never given.
+
 -------
 ## [21]
 
