@@ -23,12 +23,17 @@ never rewritten).
 
 ---
 
-## [Unreleased] — Cycle 26 · Phase P — "the missing axes earn their sources"
+## Cycle 26 · Phase P — "the missing axes earn their sources" — 2026-08-09
 
-*In progress. Queue: `sunsetted/TODO.md` (**P1–P5 DONE**; P6 open).*
-Planned from DR 0048's two real gaps (`happiness` needed a DEFINITION,
-`cleanliness` needs a MECHANIC — neither a display gap) and the
-instrument repairs Phase N and O named.
+**Gate: GREEN.** `research/experiment_reports/2026-08-09-phase-p-gate.md`;
+queue archived to `sunsetted/complete/TODO/26/`. Planned from DR 0048's
+two real gaps (`happiness` needed a DEFINITION, `cleanliness` a
+MECHANIC — neither a display gap) and the instrument repairs Phase N
+and O named. **The visible-axis program is COMPLETE**: seven of §1.17's
+eight visible axes on the player's screen, one an honest opt-in, zero
+without an engine source — and the split instrument moved with every
+surface change, expecting exactly three DR-explained differences and
+raising on a fourth.
 
 - **P1 — DONE 2026-08-08 (no DR; the decisions cited are
   0048/0054/0055).** **The §1.17 visible/hidden split measured AS
@@ -133,6 +138,15 @@ instrument repairs Phase N and O named.
   deviation is recorded: the first comparison enumeration was
   under-specified and corrected before any verdict shipped.
   map_elites_archive 449 → **464**.
+- **P6 — the Phase-P gate: GREEN 2026-08-09.** Closing sweep: 19 lab
+  suites + package **316** + workshop **92** + game **239** + CLI —
+  **2,253 JSON artifacts, 0 invalid**. Ledger at the gate: **280**
+  experiment reports, **79** algorithm cards, **59** decision records.
+  One prediction refuted (P4 — the cycle's sharpest finding), three
+  process deviations caught and recorded, five instruments verified
+  against committed evidence before any new number was trusted.
+  Cycle 27 (Phase Q — "the engine's own advice reaches its decisions")
+  planned from the documentation and the recorded remainders.
 
 ---
 

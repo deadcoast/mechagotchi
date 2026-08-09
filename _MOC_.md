@@ -3,7 +3,7 @@
 **The navigational map of the Mechagotchi repository.** Every directory,
 what it *is*, and which file to open for a given question.
 
-Last refreshed **2026-08-08** (Phase-O gate green; cycle 26 · Phase P
+Last refreshed **2026-08-09** (Phase-P gate green; cycle 27 · Phase Q
 open). Counts in §5 are measured, not quoted — re-measure before
 relying on them.
 
@@ -201,7 +201,7 @@ repo-relative POSIX strings, never absolute.
 | file | what it is |
 | --- | --- |
 | **[`sunsetted/TODO.md`](sunsetted/TODO.md)** | **THE LIVE CYCLE QUEUE** — the actual work list |
-| [`sunsetted/complete/TODO/NN/TODO.md`](sunsetted/complete/TODO) | archived cycles (01–07, 09–25; **there is no cycle 08**) |
+| [`sunsetted/complete/TODO/NN/TODO.md`](sunsetted/complete/TODO) | archived cycles (01–07, 09–26; **there is no cycle 08**) |
 | [`CHANGELOG.md`](sunsetted/complete/CHANGELOG/01/CHANGELOG.md) | the cycle-by-cycle summary, derived from the gate reports |
 
 **The cycle rule:** work the queue task by task, RED first, triad docs in
@@ -222,24 +222,25 @@ the documentation**. Never ask which direction.
 | 23 | M | the archive's own inhabitants — *and the cycle audits its own **sentences*** |
 | 24 | N | the descriptor space earns its edges — *and the cycle audits its own **instruments*** |
 | 25 | O | the adopted definitions reach the player — *landed without a committed number drifting* |
-| **26** | **P** | **the missing axes earn their sources ← current** |
+| 26 | P | the missing axes earn their sources — *the visible-axis program complete* |
+| **27** | **Q** | **the engine's own advice reaches its decisions ← current** |
 
 ### The measured state
 
-Verified **2026-08-08**, `python -B tools/ci/run_sweep.py` →
+Verified **2026-08-09**, `python -B tools/ci/run_sweep.py` →
 **SWEEP GREEN**:
 
 | surface | count |
 | --- | --- |
 | lab suites | **19** |
-| package | **299** tests |
-| game | **200** tests |
+| package | **316** tests |
+| game | **239** tests |
 | workshop | **92** tests |
 | CLI | **23** tests |
-| JSON artifacts | **2,247**, 0 invalid |
-| experiment reports | **273** |
+| JSON artifacts | **2,253**, 0 invalid |
+| experiment reports | **280** |
 | algorithm cards | **79** |
-| decision records | **57** (through DR 0057) |
+| decision records | **59** (through DR 0059) |
 
 ---
 

@@ -38,25 +38,25 @@ ladder (0.1 → 0.3) and Phase G's gates are recorded in
 
 ## Where the project is
 
-**Verified 2026-08-08** — `python -B tools/ci/run_sweep.py` →
+**Verified 2026-08-09** — `python -B tools/ci/run_sweep.py` →
 **SWEEP GREEN**. One runner covers every surface, and nothing is claimed
 without it:
 
 | surface | state |
 | --- | --- |
-| ENGINE (`packages/mecha_engine/`) | 10 promoted modules · **299** contract tests |
-| GAME (`game/`) | the playable client · **200** tests |
+| ENGINE (`packages/mecha_engine/`) | 10 promoted modules · **316** contract tests |
+| GAME (`game/`) | the playable client · **239** tests |
 | workshop (authoring) | **92** tests |
 | `mechas` CLI (support) | **23** tests |
 | labs | **19** suites — every algorithm proven here first |
-| evidence | **2,247** JSON artifacts, 0 invalid |
-| ledger | **273** experiment reports · **79** algorithm cards · **57** decision records |
+| evidence | **2,253** JSON artifacts, 0 invalid |
+| ledger | **280** experiment reports · **79** algorithm cards · **59** decision records |
 
 Every documented phase **A–G is complete and gated** (the public-alpha
 gate went green 2026-07-12, retiring `docs/gap-analysis.md` per its own
 charter). Development since then runs in **cycles**, each planned from
 the still-unmet documentation and from the remainders the previous
-cycle's own records name — currently **cycle 26 · Phase P**. The live
+cycle's own records name — currently **cycle 27 · Phase Q**. The live
 queue is `sunsetted/TODO.md`; the changelog
 (`sunsetted/complete/CHANGELOG/01/CHANGELOG.md`) is the cycle-by-cycle
 summary; `_MOC_.md` maps the whole repository.

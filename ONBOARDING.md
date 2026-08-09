@@ -2,7 +2,7 @@
 
 Written **2026-07-21** by the outgoing session, completed
 **2026-07-26** at the owner's direction, and its §3/§4 state sections
-refreshed **2026-08-08 at the Phase-O gate (cycle 26 planned)**. Read
+refreshed **2026-08-09 at the Phase-P gate (cycle 27 planned)**. Read
 this file completely before touching anything.
 
 The changelog (`sunsetted/complete/CHANGELOG/01/CHANGELOG.md`) is the
@@ -187,9 +187,10 @@ merged and pushed at its own commit, per §6's branch rule. Check with
 | 23 | M | the archive meets its own inhabitants — and the cycle audits its own **prose** (gate green 2026-07-27) |
 | 24 | N | the descriptor space earns its edges — and the cycle audits its own **instruments** (gate green 2026-07-28) |
 | 25 | O | the adopted definitions reach the player — landed without a committed number drifting (gate green 2026-08-08) |
-| **26** | **P** | **the missing axes earn their sources ← WE ARE HERE** |
+| 26 | P | the missing axes earn their sources — the visible-axis program complete (gate green 2026-08-09) |
+| **27** | **Q** | **the engine's own advice reaches its decisions ← WE ARE HERE** |
 
-Archived queues live in `sunsetted/complete/TODO/NN/TODO.md` (01–07, 09–25).
+Archived queues live in `sunsetted/complete/TODO/NN/TODO.md` (01–07, 09–26).
 
 ### Cycle 21 · Phase K — CLOSED, gate green 2026-07-26
 
@@ -300,12 +301,30 @@ never overwritten, challengers judged in their documented roles, and
 the one mid-cycle process failure (a RED committed early by the owner's
 IDE) recorded as a trap with its rule.
 
-### Cycle 26 · Phase P — the missing axes earn their sources — OPEN
+### Cycle 26 · Phase P — CLOSED, gate green 2026-08-09
 
-`sunsetted/TODO.md` is the live queue: **P1–P5 DONE; P6 (the gate)
-open.** The axis work is complete — **no documented visible axis lacks
-an engine source any longer** — and both instrument repairs Phase N
-named are done. Task detail and sources are in the queue itself.
+All six tasks DONE; gate report
+`research/experiment_reports/2026-08-09-phase-p-gate.md`; queue archived
+at `sunsetted/complete/TODO/26/TODO.md`. Two decision records,
+**0058–0059** (three slices deliberately wrote none). **The
+visible-axis program is COMPLETE**: seven of §1.17's eight visible
+axes on the player's screen, one an honest opt-in, zero without an
+engine source — and the split instrument moved with every surface
+change, expecting exactly three DR-explained differences and raising
+on a fourth. One prediction was REFUTED (P4 — the cycle's sharpest
+finding: the Q-table beats the incumbent rule itself); three process
+deviations were caught and recorded; five instruments were verified
+against committed evidence before any new number was trusted.
+
+### Cycle 27 · Phase Q — the engine's own advice reaches its decisions — OPEN
+
+`sunsetted/TODO.md` is the live queue: **Q1–Q5, none started.** The
+spine is P4's finding made into a consumer gate (the switchboard
+leaves 44.685% per-tick regret on the table and the learner that
+recovers it has no consumer — DR 0051 decision 3), plus the two
+authorship rungs cycle 26 named (the SLIP mechanics rung, DR 0059's
+default-flip record) and the oldest un-surveyed half of §1.17 (M5's
+remainder 4). Task detail and sources are in the queue itself.
 
 **P5 — DONE 2026-08-09 (no DR; DR 0050's own named remainder
 executed).** **The last two probe artifacts that could not prove their
@@ -454,17 +473,18 @@ Lab 36 → **61**.
 - **`workshop/`** — grid editor, SLIP creator, preview/scrubber,
   inspector, Keeper session page. **92 tests.**
 - **`labs/`** — 19 research labs; every algorithm is proven here first.
-  (`map_elites_archive` is the largest at **449**, having grown through
-  cycles 23–25; `micro_threads` **123**; `wfc_grid` **61** after O4.)
-- **`research/`** — the evidence ledger: **273 experiment reports**,
-  **79 algorithm cards**, **57 decision records** (through DR 0057),
+  (`map_elites_archive` is the largest at **464**; `micro_threads`
+  **140**; `architecture` **76**; `wfc_grid` **61**; `lifecycle_sim`
+  **43** — all grown through cycles 25–26.)
+- **`research/`** — the evidence ledger: **280 experiment reports**,
+  **79 algorithm cards**, **59 decision records** (through DR 0059),
   package specs.
-- **`data/`** — **2,247 JSON evidence artifacts**, all valid.
+- **`data/`** — **2,253 JSON evidence artifacts**, all valid.
 
-**Verified 2026-08-08, at the Phase-O gate:**
+**Verified 2026-08-09, at the Phase-P gate:**
 `python -B tools/ci/run_sweep.py` → **SWEEP GREEN** — 19 lab suites +
-package **299** + workshop 92 + game **200** + CLI 23;
-`data artifacts OK — 2247 JSON artifacts valid`.
+package **316** + workshop 92 + game **239** + CLI 23;
+`data artifacts OK — 2253 JSON artifacts valid`.
 (Slowest: workshop ~187 s, runtime_integration ~85 s,
 map_elites_archive ~50 s, cellular_automata ~40 s.)
 - Real CuBFF data is ingested; 16×16 is the proven grid scale;
@@ -560,27 +580,26 @@ first green CLOUD CI run, which awaits a push never made unasked.
 ## 4. WHAT TO DO NEXT
 
 **Work `sunsetted/TODO.md` task by task** — RED first, triad docs in the
-same change, one commit per task naming the task ID. Cycle 26's queue in
-order (cycle 25's closed ladder is in §3 and its gate report; the full
+same change, one commit per task naming the task ID. Cycle 27's queue in
+order (cycle 26's closed ladder is in §3 and its gate report; the full
 charters with their sources are in the queue file):
 
-1. **P1 · §1.17 earns a dated correction** — measure the visible/hidden
-   axis split as shipped, then a dated note beside §1.17 (never a
-   rewrite).
-2. ~~**P2 · `happiness` chooses a definition**~~ — **DONE 2026-08-08
-   (DR 0058).** See §3. `social_warmth` adopted; the readout landed
-   the same day.
-3. ~~**P3 · `cleanliness` earns a mechanic**~~ — **DONE 2026-08-09
-   (DR 0059).** See §3. The opt-in mechanic adopted and landed; the
-   default-covenant flip is a named future record.
-4. ~~**P4 · the Q-table meets the incumbent it actually has to
-   beat**~~ — **DONE 2026-08-09.** See §3. It beat the incumbent
-   itself; the prediction was refuted; the roster is unchanged.
-5. ~~**P5 · the probe artifacts carry their own edges**~~ — **DONE
-   2026-08-09.** See §3. Both restated identical; the originals
-   untouched.
-6. **P6 · the Phase-P gate** — then archive to
-   `sunsetted/complete/TODO/26/` and plan cycle 27 from the
+1. **Q1 · the Q-table earns its consumer — or the seam stays empty** —
+   wire the kept learner into the switchboard's additive decision seam
+   as an opt-in (byte-identical off, proven), judged by the D6 rule
+   verbatim; `eligible_not_promoted` is the expected verdict and ships
+   as the finding.
+2. **Q2 · the SLIP ladder gains its mechanics rung** — the covenant
+   becomes the mechanic's author (DR 0012's ladder, the DR 0013
+   climb), both validators + the pydantic mirror + fixtures both ways.
+3. **Q3 · the default-covenant flip gets its record** — adopt or
+   refuse, priced either way; refusing is first-class; if adopted, the
+   regeneration cascade ships in the same slice.
+4. **Q4 · the hidden half of §1.17 earns its survey** — the six
+   unsurfaced hidden axes' engine sources, measured (M5's remainder 4,
+   standing since cycle 23); a survey, not a build.
+5. **Q5 · the Phase-Q gate** — then archive to
+   `sunsetted/complete/TODO/27/` and plan cycle 28 from the
    documentation. **Do not ask which direction.**
 
 ## 5. The map — what each directory IS
@@ -895,11 +914,12 @@ mechas session --open
    and is required before any commit that closes a task.
 5. Read the most recent experiment reports in
    `research/experiment_reports/` for the immediate context, starting
-   with `2026-08-08-phase-o-gate.md` (the last closed gate) and then
-   cycle 25's own — `2026-07-28-danger-thresholds-promotion.md`,
-   `-health-readout.md`, `-adopted-default-restatement.md`,
-   `2026-08-08-stage2-generator-arms.md`. The changelog is the faster
-   orientation if you only need the shape.
+   with `2026-08-09-phase-p-gate.md` (the last closed gate) and then
+   cycle 26's own — `2026-08-08-companion-axis-split.md`,
+   `-happiness-definition-gate.md`,
+   `2026-08-09-cleanliness-mechanic-gate.md`,
+   `-harder-skill-baselines.md`, `-probe-artifact-restatement.md`.
+   The changelog is the faster orientation if you only need the shape.
 6. Then work the queue — task by task, RED first, triad docs in the
    same change, one commit per task. When the queue exhausts, plan the
    next cycle yourself from the documentation.
@@ -939,13 +959,15 @@ Every cycle-23 slice ran this loop; copy it:
 - `docs/gap-analysis.md` (retired; the measured history)
 - `docs/project-research/` (the vision documents)
 - `research/README.md` (the master ledger)
-- `research/decision_records/0017`, `0021`, `0026`–`0057`
+- `research/decision_records/0017`, `0021`, `0026`–`0059`
 - `research/experiment_reports/2026-07-12-phase-g-gate.md`,
   `2026-07-20-phase-j-gate.md`, `2026-07-26-phase-k-gate.md`,
   `2026-07-26-phase-l-gate.md`, `2026-07-27-phase-m-gate.md`,
-  `2026-07-28-phase-n-gate.md`,
-  `2026-08-08-phase-o-gate.md` (the last CLOSED gate),
-  `2026-07-28-danger-thresholds-promotion.md`, `-health-readout.md`,
-  `-adopted-default-restatement.md`,
-  `2026-08-08-stage2-generator-arms.md` (cycle 25's O1–O4)
+  `2026-07-28-phase-n-gate.md`, `2026-08-08-phase-o-gate.md`,
+  `2026-08-09-phase-p-gate.md` (the last CLOSED gate),
+  `2026-08-08-companion-axis-split.md`,
+  `-happiness-definition-gate.md`,
+  `2026-08-09-cleanliness-mechanic-gate.md`,
+  `-harder-skill-baselines.md`, `-probe-artifact-restatement.md`
+  (cycle 26's P1–P5)
 - `tools/ci/run_sweep.py`

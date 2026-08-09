@@ -1,180 +1,104 @@
-# Development TODO — Cycle 26: SHARED track · Phase P — the missing axes earn their sources
+# Development TODO — Cycle 27: ENGINE track · Phase Q — the engine's own advice reaches its decisions
 
-**Planned from the documentation and from cycle 25's own named
+**Planned from the documentation and from cycle 26's own named
 remainders** (the standing rule: the developer plans when a queue
 exhausts).
 
-Phase O landed the adopted definitions: `DANGER_THRESHOLDS` on the
-package surface (O1), `health` on the player's screen with its binding
-axis (O2, DR 0055), the headline studies restated under the adopted
-default without touching a committed artifact (O3, DR 0056), and the
-Stage 2 generator program's last disposition debt closed (O4, DR 0057).
-What Phase O did **not** do — could not do, by DR 0048's own finding —
-is give the two remaining documented VISIBLE axes anything to display:
-**`happiness` has no DEFINITION** (closed by P2, 2026-08-08 —
-DR 0058 chose `social_warmth` and landed the readout) **and
-`cleanliness` has no MECHANIC** (closed by P3, 2026-08-09 — DR 0059
-adopted the opt-in seam; the default-covenant flip is a named future
-record).
-Neither is a display gap; both are upstream-of-display gaps, and the
-O2/DR 0055 pattern (choose by gate, refuse euphemisms, land the readout
-with the adoption so the debt never dangles) is now proven twice over
-(N5 → O2).
-
-The cycle also owes its own instruments three standing repairs Phase N
-and O named precisely: §1.17 was **measurably stale against the shipped
-client** (closed by P1, 2026-08-08 — the split is measured and the
-dated note placed); N3's kept Q-table has only beaten a
-**uniform-random** opponent, not the incumbent reactive rule; and N2's
-two probe artifacts still do not carry their edges in their
-**committed** bodies.
+Phase P finished the visible-axis program (every §1.17 visible axis now
+has an engine source; two chosen definitions and one opt-in mechanic
+shipped) and repaired the instruments Phase N named. Its sharpest
+finding charters this cycle: **P4 measured the Q-table beating the
+incumbent frozen reactive rule itself by 44.685%** — the switchboard's
+per-tick choices leave real empirical regret on the table, and the
+learner that recovers it sits on an opt-in seam with no consumer.
+DR 0051 decision 3: joining the fleet *"needs a consumer asking for
+it."* This cycle is that consumer's gate — plus the two authorship
+rungs cycle 26 named (the SLIP mechanics rung, DR 0059's default-flip
+record) and the oldest un-surveyed half of §1.17.
 
 **The identity constraint and the anti-periscope rule both apply.**
-P1 is documentation truth (SHARED); P2 and P3 are the two GAME-facing
-axis gates, each running the proven N5 pattern end to end; P4 and P5
-are ENGINE/SHARED instrument repairs. Nothing in this queue touches the
+Q1/Q2 are ENGINE (a decision-seam gate; a schema-ladder rung); Q3 is
+GAME-adjacent authorship (the covenant flip record, gated); Q4 is
+SHARED documentation truth (the hidden axes). Nothing here touches the
 archive loop's defaults; community infrastructure stays an owner
 decision (DR 0035); the owner-deferred human-study block stays
 prepared-not-blocking.
 
-Sources: `research/experiment_reports/2026-08-08-phase-o-gate.md` (the
-remainder list this cycle opens), `2026-07-28-health-definition-gate.md`
-and `2026-07-28-health-readout.md` (the N5 → O2 pattern P2/P3 copy),
-`2026-07-28-candidate-learner-ablation.md` (P4's named remainders),
-`2026-07-28-probe-edge-freeze.md` (P5's remainder),
-`2026-07-27-companion-state-survey.md` and
-`research/decision_records/0048-visible-companion-state-axes.md` (the
-two real gaps and the stale split), `0054`/`0055` (the pattern),
-`0053` (restate, never overwrite), `0021-game-loop.md` (engine truth),
-`docs/project-research/validity-research.md` §1.17,
+Sources: `research/experiment_reports/2026-08-09-phase-p-gate.md` (the
+remainder list this cycle opens),
+`2026-08-09-harder-skill-baselines.md` (Q1's charter),
+`research/decision_records/0051-micro-learner-conditions-efg.md`
+(decision 3 and the two dated notes), `0059-cleanliness-mechanic-opt-in.md`
+(Q2/Q3's named records), `0012-slip-schema-extension-ladder.md` (the
+ladder Q2 climbs), `0013-port-slip-v2-and-packet-v2.md` (the last rung's
+shape), `2026-07-27-companion-state-survey.md` (remainder 4, Q4's
+charter), `docs/project-research/validity-research.md` §1.17,
 `research/questions.md`.
 
-- [x] **P1 · §1.17 earns a dated correction.** DONE 2026-08-08
-  (`2026-08-08-companion-axis-split.md`; no DR — the decisions cited
-  are 0048/0054/0055): **the split measured AS SHIPPED on a live client
-  session — 6 of 8 visible axes on screen, 2 absent upstream of
-  display, 2 hidden axes surfaced honestly — and §1.17 now carries the
-  dated correction note quoting the artifact.** On-screen was
-  pre-registered as a NAMED READOUT on `snapshot()` (the read model
-  every frame draws from); the instrument gate reproduced the committed
-  M5 survey on exactly **7 of 8** visible dispositions with `health`
-  differing only as absent → `chosen_definition_dr0054` (DR 0054's own
-  decision, not drift — any other mismatch raises); measured absences
-  were asserted live first, so a future engine growing `happiness`, a
-  `clean` action, or a `health` field refuses a stale correction.
-  **Measured: no axis without an engine source is shown** (DR 0021's
-  first law, pinned per-axis), and **M5's remainder 2 is CLOSED in the
-  game's own suite** (snapshot carries `age_ticks` and `mood`; the
-  surfaced hidden axes carry their shipped labels). Prediction
-  (recorded first) confirmed. Game 200 → **216**. M5's remainder 4
-  (the six unsurfaced hidden axes' engine sources) stands, carried in
-  the artifact's blocked states.
-  *(Original charter, kept:)* Build the smallest evidence artifact that
-  measures the split as shipped (each §1.17 axis → its engine source
-  and its on-screen surface, or its recorded absence), then place a
-  **dated correction note beside §1.17** — the correction law: never
-  rewrite the founding vision text. The artifact is the instrument
-  future surveys check against, so N5's stale-survey failure mode
-  cannot recur silently.
-- [x] **P2 · `happiness` chooses a definition — or refuses every
-  candidate.** DONE 2026-08-08
-  (`2026-08-08-happiness-definition-gate.md`, **DR 0058**):
-  **`social_warmth` ADOPTED — the mean of the engine's own
-  recent-interaction window — and the readout landed the same day.**
-  Three candidates, all CHOSEN, all reading only what the engine
-  already records; five pre-registered gates (N5's four + **G5
-  distinct-from-shown**, whose `refuse_as_duplicate` outranks the
-  euphemism verdict); both instrument gates held first (N5's committed
-  **0.0685** floor reproduced exactly; the balance mirror matched the
-  engine over 633 ticks at |Δ| 0.0). **`bond_rename` refused as a
-  duplicate** (its series IS the shown bond readout's, tick for tick);
-  **`need_balance` withheld under the floor** with both liabilities
-  recorded (−0.047/−0.027 keeper responses, negative from a
-  near-target start; corpse reading 0.65 — the mean hides the killer
-  axis); **`social_warmth`'s neglected corpse reads 0.0** — the
-  strongest honesty property shown — with +0.083 under both verbs and
-  +0.2 relief. Prediction (recorded first) confirmed, including its
-  named uncertainty. **The live client reproduces the
-  differentiation: `play` RAISES happiness while it LOWERS health** —
-  two bars, different questions, both true. The P1 instrument moved
-  with the surface deliberately (regenerated: **7/1/2**); §1.17
-  carries a dated addendum. Game 216 → **228**; architecture lab
-  52 → **76**.
-  *(Original charter, kept:)* If one is adopted, the readout lands in
-  the same slice with its explanatory context; if every candidate is
-  refused, the refusal ships as the finding and §1.17's axis is
-  recorded BLOCKED-ON-DEFINITION — a first-class outcome, not a
-  failure.
-- [x] **P3 · `cleanliness` earns a mechanic — or the record says why
-  not.** DONE 2026-08-09
-  (`2026-08-09-cleanliness-mechanic-gate.md`, **DR 0059**): **the
-  engine's first OPT-IN lifecycle mechanic, ADOPTED — and dirt hurts
-  only the neglected.** The seam (additive `mechanics` keyword;
-  `__all__` unchanged) is **byte-identical when off, proven against
-  the committed Stage 0 comparator's own numbers** and a frozen
-  19-key state list; **every parameter DERIVED, never picked** (decay
-  0.0124 = the median incumbent drift; mutate's mess 0.055 = its own
-  grid cost; clean's restore 0.32 = feed's own hunger relief;
-  dirt→stress 0.01 = the engine's own need→stress coefficient). Five
-  pre-registered gates with the charter's refusals first-class
-  (`blocked_on_mechanic`, `refuse_as_lethal_cosmetic`); instruments
-  reproduced the committed episodes and N5's 0.0685 floor first;
-  **ADOPT** — clean responds **+0.3076**, the neglect stream shows the
-  exact deterministic consequence (**+0.00682** stress, the tick-11
-  starvation unmoved), switchboard welfare impact **1.6e-05** vs the
-  documented 5% D6 bar, and **an attentive keeper's care absorbs the
-  dirt pressure entirely (care-stream delta 0.0)** — predicted and
-  confirmed. Landed same slice for opted-in covenants (needs readout,
-  the `clean` verb, succession + save/resume); a default session is
-  byte-identical, pinned; **the default-covenant flip is a NAMED
-  future record with its regeneration cascade priced**. The P1
-  instrument regenerated: **7 on screen / 0 absent upstream / 2
-  hidden surfaced — no documented visible axis lacks an engine source
-  any longer.** Package 299 → **316**; game 228 → **239**;
-  lifecycle_sim 24 → **43**. The autonomous policies never clean and
-  there is no dirt beg-display — named, not smuggled.
-  *(Original charter, kept:)* Refusal is first-class: if the smallest
-  honest mechanic is indistinguishable from noise at the documented
-  budgets, record BLOCKED-ON-MECHANIC with the measurement attached.
-- [x] **P4 · The Q-table meets the incumbent it actually has to beat.**
-  DONE 2026-08-09 (`2026-08-09-harder-skill-baselines.md`; no DR — both
-  findings are dated notes beside DR 0051): **the prediction was
-  REFUTED on E, and the refutation is the headline — the Q-table BEATS
-  the incumbent frozen reactive rule itself, by 44.685%.** The
-  collector (a superset of N3's, same harness/seeds/order) reproduced
-  **all** committed N3 statistics exactly before either harder number
-  was trusted. The frozen rule's per-tick choices carry empirical
-  regret **0.027851** — 81% of uniform random's — so the harder
-  opponent was barely harder: D6's welfare-optimality is about
-  survival, and per-tick selection leaves real regret on the table.
-  **F's drop holds like-for-like**: the online stump (the tree's own
-  footing) narrows the deficit −1.776% → **−0.744%** — the asymmetry
-  was ~58% of the committed gap, the sign never flips. **No roster
-  change in any branch** (pre-registered); E's keep now rests on a far
-  stronger footing, recorded beside DR 0051 not re-scored.
-  micro_threads 123 → **140**.
-  *(Original charter, kept:)* F's drop is expected to hold either way,
-  and if it does not, that is the finding.
-- [x] **P5 · The probe artifacts carry their own edges.** DONE
-  2026-08-09 (`2026-08-09-probe-artifact-restatement.md`; no DR — this
-  executes DR 0050's own named remainder): **both restatements come
-  back IDENTICAL to the number.** Each study re-ran through its own
-  committed builder (imported, never re-implemented) at its documented
-  defaults and was written as a NEW `*_edged_stage0` artifact beside
-  the untouched original, with a `restates` pointer,
-  `parameters.edges_source`, and a full-body deep comparison:
-  **zero differing paths, zero removals over the entire bodies**, the
-  only additions DR 0050's two provenance keys. The time-bounded
-  concern named in the pre-registered rule did not materialize
-  (escalation 85.3 s vs its 900 s bound). The committed originals
-  still carry no edges — deliberately, and pinned. Process deviation
-  recorded: the first comparison enumeration was under-specified (it
-  allowed only `edges_source`) and was corrected before any verdict
-  shipped. map_elites_archive 449 → **464**.
-  *(Original charter, kept:)* with every delta explained and DR 0046's
-  comparability rule applied throughout.
-- [ ] **P6 · The Phase-P gate.** One consolidated report; cycle 26
-  archived to `sunsetted/complete/TODO/26/`; cycle 27 planned from the
+- [ ] **Q1 · The Q-table earns its consumer — or the seam stays
+  empty.** *(ENGINE.)* P4's finding is a consumer argument: the frozen
+  reactive rule's per-tick choices carry 0.027851 empirical regret and
+  `qtable_policy` carries 0.015406 on the same states — but regret over
+  replayed histories is not end-to-end welfare, and D6's lesson stands
+  (the decision seam's welfare is near-saturated; ~0 welfare deltas are
+  the expected shape). Gate the consumer decision honestly: wire the
+  kept Q-table's recommendation into the switchboard's additive
+  decision seam as an OPT-IN (byte-identical off, proven against the
+  committed D6/N3 numbers), and pre-register the D6 rule verbatim on
+  the same harness at the same budgets: welfare vs the incumbent
+  switchboard, skill on the same replayed states, and the beg-display
+  interaction (the companion's autonomous `feed` choice is the beg —
+  a learner that begs more is a design change, not a free win; measure
+  it). **Adopt into the default fleet only if the documented 5% bar is
+  cleared on a gated metric; `eligible_not_promoted` is the expected
+  verdict** (the D6 welfare saturation) and ships as the finding with
+  the seam left opt-in. Refusal is first-class; nothing deletes the
+  incumbent rule.
+- [ ] **Q2 · The SLIP ladder gains its mechanics rung.** *(ENGINE
+  schema.)* DR 0059's opt-in has exactly one author today: a
+  constructor keyword. The covenant is the documented author of
+  behavior (SLIP: *"user-authored constraint profile … governs
+  generation and behavior"*), and DR 0012's ladder is the documented
+  way schemas grow. Climb it exactly as DR 0013 did for v0.2: extend
+  `slip.schema.json` with an OPTIONAL `mechanics` block (absent =
+  byte-identical, every committed profile untouched), mirror it through
+  both validators and the pydantic contract (regenerating the generated
+  schema), plumb `initial_state` to read it (the keyword argument stays
+  and wins when both are present — pre-register which authority order
+  and why), and pin fixtures both ways (`data/slips/valid/` gains an
+  opted-in profile; `failure_cases/` gains a malformed one). The game
+  session then honors a covenant-carried opt-in with no constructor
+  change — the authorship DR 0059 deferred, delivered.
+- [ ] **Q3 · The default-covenant flip gets its record — ADOPT or
+  REFUSE, priced either way.** *(GAME.)* DR 0059 named this decision
+  and priced its costs (the session-built evidence artifacts
+  regenerate; the default play feel changes). Decide it as a gated
+  record, not a drift: measure the default keeper experience with the
+  mechanic on (the O2 pattern — a scripted live-client life: does the
+  clean verb read legibly beside feed/play; does the dirt→stress
+  pressure change the default first-session story), enumerate the
+  artifact regeneration set EXACTLY (which committed artifacts move and
+  by what), and pre-register the adopt/refuse criteria before the
+  measurement. **Refusing the flip is first-class** — an opt-in
+  mechanic the default covenant deliberately does not carry is a
+  legitimate product stance if the record says why; if adopted, the
+  regeneration cascade ships in the same slice with every delta
+  explained (DR 0053 discipline).
+- [ ] **Q4 · The hidden half of §1.17 earns its survey.** *(SHARED ·
+  documentation truth.)* M5's remainder 4 has stood since cycle 23:
+  the six unsurfaced HIDDEN axes (`mutation pressure`,
+  `lineage fitness`, `novelty decay`, `attachment score`,
+  `user response confidence`, `profile alignment`) have never had
+  their engine sources measured — P1 measured only whether the client
+  surfaces them. Extend the M5/P1 instrument pattern: per axis, the
+  measured disposition (field / derived / absent) with the measured
+  cause, through the package boundary, reproducing the committed P1
+  split artifact's on-screen half as the instrument check. No
+  displays, no adoptions — a survey (DR 0048's shape: nothing built,
+  and that can be the finding); §1.17's note gains a dated addendum
+  with the completed table.
+- [ ] **Q5 · The Phase-Q gate.** One consolidated report; cycle 27
+  archived to `sunsetted/complete/TODO/27/`; cycle 28 planned from the
   documentation. **Do not ask which direction.**
 
 ## Standing note
@@ -184,37 +108,34 @@ discipline, the mirror-never-import boundary, Apache-2.0, and DR 0028
 apply. Gates are PRE-REGISTERED before the run and a gate that cannot
 fail is a bug; new seams are additive and byte-identical when off,
 proven not asserted; adoption never deletes the incumbent. **DR 0046's
-comparability rule is law** (numbers from different geometries are never
-read against each other). **DR 0053's rules are law** (a
-meaning-changing setting is recorded at the call site, never inherited;
-a study that measures a defect is never migrated onto the fix; a
-measurement is reproduced or superseded, never improved). **DR 0056's
-quoting rule is law** (any "the loop achieves X" names its admission
-arm). **Check the instrument against a committed number before trusting
-what it says** (Phase N's law; O4 ran it as a hard gate that raises on
-mismatch — copy that). **Do not write a RED into a lab directory until
-the previous task is committed** (cycle 25's recorded trap).
+comparability rule is law. DR 0053's rules are law. DR 0056's quoting
+rule is law. Check the instrument against a committed number before
+trusting what it says** (O4/P2/P4 all ran it as a hard gate that raises
+on mismatch — copy that). **Do not write a RED into a lab directory
+until the previous task is committed** (cycle 25's recorded trap).
 
 **Named, deliberately not tasked**: `animation_density`'s adoption
-awaiting the owner-deferred human panel (L4; its A2 independence halves
-on the elites, M1); the **576-vs-512** repertoire divergence (L2); the
-scored candidate stream and a size-matched TVD control (M1); the
-game-side snapshot pin for age and mood (M5); a floor fine enough to
-**locate** N1's knee; the probe's two engine move-set descents (N2);
-O2's honest limit — the health bar bottoms at DANGER not death, and a
-different floor is a different CHOSEN definition needing its own gate;
-CPPN's re-opener (regularity **under mutation**, plus an answer to the
-measured mass-floor mechanism — DR 0057); shape grammar's re-opener (a
-protocol where the incumbent's restart budget actually exhausts, or a
-readability-gated stabilizer comparison — DR 0057); the unbuilt method
-tracks (**MRF-lite**, **Lenia/Flow-Lenia**, **reaction–diffusion**, the
-**MDP sandbox**, the **QDax shadow port**, **z3/SMT** at DR 0011's
-WATCH); the **24×24 scale-up** (DR 0014's re-opener); the undiluted
-rich-site regrowth instrument and the unexplained 0.525 ceiling
-(DR 0041); an analytical emptiness argument for the quantization bin;
-richer callback export states (a WSL run); which forecast keys enable
-the DR 0045 density rider in a shipped client; DR 0032's re-openers
-(untriggered, refutation deepening).
+awaiting the owner-deferred human panel (L4; A2 independence halves on
+elites, M1); the **576-vs-512** repertoire divergence (L2); the scored
+candidate stream and a size-matched TVD control (M1); a floor fine
+enough to **locate** N1's knee; the probe's two engine move-set
+descents (N2); O2's honest limit (the health bar bottoms at DANGER not
+death — a different floor is a different CHOSEN definition needing its
+own gate); the happiness window (5 ticks is the engine's bound, not
+tuned — a different horizon is a different definition, DR 0058); a
+dirt beg-display / autonomous grooming (a covenant/deliberation design
+question, DR 0059); a dirt-aware welfare metric (a new measurement,
+never a migration, DR 0053); CPPN's re-opener (regularity under
+mutation + the mass-floor mechanism, DR 0057); shape grammar's
+re-opener (a protocol where the incumbent's restart budget exhausts,
+DR 0057); the unbuilt method tracks (**MRF-lite**, **Lenia/Flow-Lenia**,
+**reaction–diffusion**, the **MDP sandbox**, the **QDax shadow port**,
+**z3/SMT** at DR 0011's WATCH); the **24×24 scale-up** (DR 0014's
+re-opener); the undiluted rich-site regrowth instrument and the 0.525
+ceiling (DR 0041); an analytical emptiness argument for the
+quantization bin; richer callback export states (a WSL run); which
+forecast keys enable the DR 0045 density rider in a shipped client;
+DR 0032's re-openers (untriggered, refutation deepening).
 
 The owner-deferred **human-study block** stays prepared-not-blocking:
 the readability panel, the bake-off's readability clause, the
@@ -229,9 +150,8 @@ run awaits a push that is never made unasked.
 
 ## Sources
 
-- `research/experiment_reports/2026-08-08-phase-o-gate.md` (the closed ladder + the remainder list this cycle opens)
-- `research/experiment_reports/2026-08-08-stage2-generator-arms.md`, `2026-07-28-adopted-default-restatement.md`, `2026-07-28-health-readout.md`, `2026-07-28-danger-thresholds-promotion.md` (the Phase-O science this cycle extends)
-- `research/experiment_reports/2026-07-28-candidate-learner-ablation.md`, `2026-07-28-probe-edge-freeze.md`, `2026-07-27-companion-state-survey.md` (the named remainders P4/P5/P1 close)
-- `research/decision_records/0048-visible-companion-state-axes.md`, `0050-probe-geometry-frozen.md`, `0051-micro-learner-conditions-efg.md`, `0053-admission-policy-belongs-at-the-call-site.md`, `0054-health-definition-danger-margin.md`, `0055-health-readout-binding-axis.md`, `0056-adopted-default-headline-restatement.md`, `0057-stage2-generator-arms-dispositioned.md`
+- `research/experiment_reports/2026-08-09-phase-p-gate.md` (the closed ladder + the remainder list this cycle opens)
+- `research/experiment_reports/2026-08-09-harder-skill-baselines.md`, `2026-08-09-cleanliness-mechanic-gate.md`, `2026-08-08-happiness-definition-gate.md`, `2026-08-08-companion-axis-split.md` (the Phase-P science this cycle extends)
+- `research/decision_records/0051-micro-learner-conditions-efg.md`, `0057`–`0059`; `0012-slip-schema-extension-ladder.md`, `0013-port-slip-v2-and-packet-v2.md`, `0048-visible-companion-state-axes.md`, `0021-game-loop.md`, `0028-dependency-and-license-policy.md`
 - `docs/project-research/validity-research.md` §1.17, `docs/project-research/deep-research/01/deep-research.md`, `docs/project-research/research.md`, `research/questions.md`
-- `sunsetted/complete/TODO/25/TODO.md` (the archived cycle)
+- `sunsetted/complete/TODO/26/TODO.md` (the archived cycle)
