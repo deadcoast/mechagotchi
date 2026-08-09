@@ -3286,7 +3286,7 @@ O3's result is in, and it's more favourable than "coverage went down" would sugg
 
 Write c:\Users\ryanf\github\_new\mechagotchi\research\experiment_reports\2026-07-28-adopted-default-restatement.md
 178 lines
-# Experiment Report: The Headline Studies Restated Under the Adopted Default — Coverage Buys Quality, and No Documented Gate Regressed (Cycle 25 · SHARED · O3)
+## Experiment Report: The Headline Studies Restated Under the Adopted Default — Coverage Buys Quality, and No Documented Gate Regressed (Cycle 25 · SHARED · O3)
 
 Date: 2026-07-28
 
@@ -3317,12 +3317,12 @@ as they are.
 **Only the adopted arm was re-run**, and that shrank the work by roughly
 three quarters:
 
-| what | how it was obtained | why |
-| --- | --- | --- |
-| adopted MAP-Elites runs, 10 documented seeds | **re-run** | the new measurement |
-| incumbent E4 runs | **read** from the committed artifact | DR 0053 rule 2 forbids re-running them |
-| GA control, 10 runs | **read** | `run_ga_baseline` takes **no** `slip_admission` — structurally unaffected by the arm, so re-running would reproduce numbers that cannot move |
-| DR 0042's headline, both sides | **read** | the incumbent from its own artifact; the adopted side from N4, which already measured `insertion` at that seed |
+| what                                         | how it was obtained                  | why                                                                                                                                          |
+|----------------------------------------------|--------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| adopted MAP-Elites runs, 10 documented seeds | **re-run**                           | the new measurement                                                                                                                          |
+| incumbent E4 runs                            | **read** from the committed artifact | DR 0053 rule 2 forbids re-running them                                                                                                       |
+| GA control, 10 runs                          | **read**                             | `run_ga_baseline` takes **no** `slip_admission` — structurally unaffected by the arm, so re-running would reproduce numbers that cannot move |
+| DR 0042's headline, both sides               | **read**                             | the incumbent from its own artifact; the adopted side from N4, which already measured `insertion` at that seed                               |
 
 The documented E4 gates were re-judged **verbatim** — `judge_gates`
 imported from `coverage_qd_gates`, never re-implemented, because a
@@ -3342,13 +3342,13 @@ blaming the new arm for it would be a false accusation.
 
 At DR 0042's own seed (20260709), same population, same budget:
 
-| | incumbent (`none`) | adopted (`insertion`) | delta |
-| --- | --- | --- | --- |
-| coverage | 0.898438 | **0.880859** | **−0.017579** |
-| **QD** | 404.618236 | **411.738214** | **+7.119978** |
-| occupied niches | 460 | 451 | −9 |
-| **refusals** | 4,435 | **0** | **−4,435** |
-| **SLIP-illegal elites** | 35 | **0** | **−35** |
+|                         | incumbent (`none`) | adopted (`insertion`) | delta         |
+|-------------------------|--------------------|-----------------------|---------------|
+| coverage                | 0.898438           | **0.880859**          | **−0.017579** |
+| **QD**                  | 404.618236         | **411.738214**        | **+7.119978** |
+| occupied niches         | 460                | 451                   | −9            |
+| **refusals**            | 4,435              | **0**                 | **−4,435**    |
+| **SLIP-illegal elites** | 35                 | **0**                 | **−35**       |
 
 > **Coverage does not fall for nothing — it buys quality.** L1 refused
 > to patch the refusal tax because *"the fix trades against coverage"*.
@@ -3364,16 +3364,16 @@ two artifacts agree and the restatement compares the same loop.
 
 Re-judged over the documented ten paired seeds:
 
-| gate | incumbent | adopted | |
-| --- | --- | --- | --- |
-| `coverage_gate_met` | **True** | **True** | held |
-| `ga_advantage_gate_met` | False | False | **already failing — not a regression** |
+| gate                    | incumbent | adopted  |                                        |
+|-------------------------|-----------|----------|----------------------------------------|
+| `coverage_gate_met`     | **True**  | **True** | held                                   |
+| `ga_advantage_gate_met` | False     | False    | **already failing — not a regression** |
 
-| statistic | delta |
-| --- | --- |
-| `map_elites_coverage_mean` | −0.023633 |
+| statistic                      | delta         |
+|--------------------------------|---------------|
+| `map_elites_coverage_mean`     | −0.023633     |
 | `map_elites_best_fitness_mean` | **−0.000565** |
-| `coverage_advantage_over_ga` | −0.029664 |
+| `coverage_advantage_over_ga`   | −0.029664     |
 
 **No documented gate that passed now fails.** Mean best fitness is
 essentially untouched (−0.000565), and the coverage gate clears its
@@ -3465,7 +3465,8 @@ were read rather than re-measured.
 - `data/archives/coverage_qd_gates_stage0.json`, `evaluation_loop_scale_stage0.json`, `slip_admission_default_stage0.json` (all read, none overwritten)
 Write c:\Users\ryanf\github\_new\mechagotchi\research\decision_records\0056-adopted-default-headline-restatement.md
 99 lines
-# Decision Record 0056: The Adopted Default's Headline Numbers — DR 0042 Restated, Not Retracted
+
+## Decision Record 0056: The Adopted Default's Headline Numbers — DR 0042 Restated, Not Retracted
 
 Date: 2026-07-28
 
@@ -3488,13 +3489,13 @@ regeneration.
 
 At DR 0042's own seed, population and budget:
 
-| | incumbent (`none`) | adopted (`insertion`) | delta |
-| --- | --- | --- | --- |
-| coverage | 0.898438 | **0.880859** | −0.017579 |
-| **QD** | 404.618236 | **411.738214** | **+7.119978** |
-| occupied niches | 460 | 451 | −9 |
-| refusals | 4,435 | **0** | −4,435 |
-| SLIP-illegal elites | 35 | **0** | −35 |
+|                     | incumbent (`none`) | adopted (`insertion`) | delta         |
+|---------------------|--------------------|-----------------------|---------------|
+| coverage            | 0.898438           | **0.880859**          | −0.017579     |
+| **QD**              | 404.618236         | **411.738214**        | **+7.119978** |
+| occupied niches     | 460                | 451                   | −9            |
+| refusals            | 4,435              | **0**                 | −4,435        |
+| SLIP-illegal elites | 35                 | **0**                 | −35           |
 
 **Coverage does not fall for nothing — it buys quality.** L1 refused to
 patch the refusal tax because *"the fix trades against coverage"*. It
@@ -3507,10 +3508,10 @@ archive legal under the covenant that bred it.**
 Re-judged **verbatim** (`judge_gates` imported, never re-implemented)
 over the documented ten paired seeds, against the **same GA control**:
 
-| gate | incumbent | adopted | |
-| --- | --- | --- | --- |
-| `coverage_gate_met` | True | **True** | held |
-| `ga_advantage_gate_met` | False | False | already failing — **not** a regression |
+| gate                    | incumbent | adopted  |                                        |
+|-------------------------|-----------|----------|----------------------------------------|
+| `coverage_gate_met`     | True      | **True** | held                                   |
+| `ga_advantage_gate_met` | False     | False    | already failing — **not** a regression |
 
 Mean best fitness moves **−0.000565**. No documented gate that passed
 now fails.
@@ -3581,6 +3582,8 @@ IN
 Set-Location "c:\Users\ryanf\github\_new\mechagotchi"; (Get-Content audits\TODO.md -Raw) -replace '- \[ \] ~~\*\*O3 · \(original charter\)\*\*~~', '  *Original charter:*' | Set-Content audits\TODO.md -NoNewline; python -m json.tool "data\archives\adopted_default_restatement_stage0.json" > $null; if ($LASTEXITCODE -eq 0) { "JSON OK" }; Select-String -Path audits\TODO.md -Pattern "Original charter" | Select-Object LineNumber
 
 OUT
+
+```text
 JSON OK
 
 LineNumber
@@ -3588,6 +3591,8 @@ LineNumber
         73
        110
        147
+```
+
 Queue is clean. Ledger and changelog, then the sweep.
 
 Edit c:\Users\ryanf\github\_new\mechagotchi\research\README.md
@@ -3644,11 +3649,15 @@ IN
 Set-Location "c:\Users\ryanf\github\_new\mechagotchi\labs\wfc_grid"; python -B -m unittest discover -s . -p "test_*.py" 2>&1 | Select-Object -Last 6; Set-Location "c:\Users\ryanf\github\_new\mechagotchi"
 
 OUT
+
+```text
 Exit code 1
 ----------------------------------------------------------------------
 Ran 37 tests in 6.275s
 
 FAILED (errors=1)
+```
+
 Confirmed — 37 tests, 1 error, my O4 RED. Moving it aside so O3's verification reflects O3.
 
 PowerShell Move O4's RED aside and verify wfc_grid is green
@@ -3656,9 +3665,12 @@ IN
 Set-Location "c:\Users\ryanf\github\_new\mechagotchi"; $hold="C:\Users\ryanf\AppData\Local\Temp\claude\c--Users-ryanf-github--new-mechagotchi\a8bb6ef6-e90a-4c94-87f9-2ec6e15f53ff\scratchpad\o4_hold"; New-Item -ItemType Directory -Force $hold | Out-Null; Move-Item labs\wfc_grid\test_stage2_generator_arms.py "$hold\" -Force; "moved O4 RED aside"; Set-Location "c:\Users\ryanf\github\_new\mechagotchi\labs\wfc_grid"; python -B -m unittest discover -s . -p "test_*.py" 2>&1 | Select-Object -Last 4; Set-Location "c:\Users\ryanf\github\_new\mechagotchi"
 
 OUT
+
+```text
 moved O4 RED aside
 ----------------------------------------------------------------------
 Ran 36 tests in 5.916s
+```
 
 OK
 PowerShell Re-run the full sweep for O3
@@ -3822,6 +3834,988 @@ Both corrections are recorded in O4's queue entry, so whoever picks it up starts
 
 -------
 ## [22]
+
+❯ review @CLAUDE.md , @ONBOARDING.md , @README.md , @*MOC*.md for your workflow, tasks and development planning. Adhere to the MIVIM format; YOU ARE ESCALATED TO PRINCIPLE ENGINEER DEVELOPER CLEARANCE; YOU MAY LOOSEN GUIDELINES ONLY TO FURTHER DEVELOP. YOU MAY NEVER LOOSEN GUIDELINES TO TECHNICALLY COMPLETE A TASK. YOU MAY NEVER LOOSEN GUIDELINES TO GET AROUND A TASK. YOU ARE A RESPONSIBLE HIGH LEVEL DEVELOPER; AND YOU ARE IN CHARGE OF REPOSITORY ORGANIZATION AND FUTURE DEVELOPMENT. BEGIN `MIVIM` Principle Engineer
+Read CLAUDE.md (122 lines)
+Read ONBOARDING.md (841 lines)
+Read README.md (126 lines)
+Read *MOC*.md (326 lines)
+
+I'll orient first per ONBOARDING §10 — git state, the live queue, and what this sunsetted/ reorganization in the working tree actually is — then continue cycle 25 development (O4 is the next open task).
+
+  Searched for 12 patterns, read 8 files, ran 5 shell commands
+
+● Background command "Run quick verification sweep to confirm green baseline" completed (exit code 0)
+
+● Update(ONBOARDING.md)
+Added 9 lines, removed 9 lines
+re SLIP-rejected *parents*, not invalid candidates, and 100% of them
+bootstrap creatures). **L2** judged the documented lineage-dominance
+
+All six tasks DONE; gate report
+`research/experiment_reports/2026-07-27-phase-m-gate.md`; queue archived
+at `audits/complete/23/TODO.md`. **M1** measured the archive on its own
+at `sunsetted/complete/TODO/23/TODO.md`. **M1** measured the archive on its own
+inhabitants — `within_sampling_noise`, partly deflating the cycle's own
+premise, with its lasting result methodological: measuring a control for
+**both** population types caught a false positive that the cheap control
+
+All six tasks DONE (N1–N5 plus **N7ycle
+rather than letting a default changate
+report `research/experiment_reports/2026-07-28-phase-n-gate.md`; queue
+archived at `audits/complete/24/TODO.md`. Six decision records,
+archived at `sunsetted/complete/TODO/24/TODO.md`. Six decision records,
+**0049–0054**.
+
+**The cycle's character, and the reason to trust it**: **Phase L audited
+
+   **Rejecting both is first-class**; DR 0031 already refuted the hybrid
+   arm, and a second measured refutation is worth more than a third
+   generator nobody asked for.
+5. **O5 · the Phase-O gate** — then archive to `audits/complete/25/`
+5. **O5 · the Phase-O gate** — then archive to `sunsetted/complete/TODO/25/`
+   and plan cycle 26 from the documentation. **Do not ask which
+   direction.**
+
+data/                    JSON evidera
+nly when the queue is exhausted AND a full sweep is green — then
+archive to `audits/complete/NN/` and plan the next cycle from the
+archive to `sunsetted/complete/TODO/NN/` and plan the next cycle from the
+documentation and the recorded remainders.
+
+### The branch and merge rule
+
+## Sources
+
+- `audits/TODO.md` (cycle 25 · Phase O — the LIVE queue), `audits/complete/*/TODO.md`
+- `audits/TODO.md` (cycle 25 · Phase O — the LIVE queue), `sunsetted/complete/TODO/*/TODO.md`
+- `CHANGELOG.md` (the cycle-by-cycl
+unsetted/TODO.md`, and the gate artifacts before relying on them.
+
+**The orienting files at the repo root**, and what each is for:
+
+| `CHANGELOG.md` | cycle-by-cycle summary, derived from the gate reports |
+| `_MOC_.md` | map of contents across the documentation |
+| `TOOLS.md` | the tooling notes |
+| `audits/TODO.md` | **the live cycle queue** — the actual work list |
+| `sunsetted/TODO.md` | **the live cycle queue** — the actual work list |
+
+*Corrected 2026-07-27*: earlier versions of this file pointed at
+`FABLE5.md` and `AGENTS.md` as live nder
+
+### Cycle 25 · Phase O — the adopted definitions reach the player — IN PROGRESS
+
+`audits/TODO.md` is the live queue: open.**
+
+## 4. WHAT TO DO NEXT
+
+**Work `audits/TODO.md` task by task** — RED first, triad docs in the
+**Work `sunsetted/TODO.md` task by task** — RED first, triad docs in the
+same change, one commit per task naming the task ID. Cycle 25's queue in
+order (cycle 24's closed ladder is in §3 and its gate report):
+
+   twelve cycles.
+
+   **Start from the two corrections already recorded in
+   `audits/TODO.md`, not from the o found
+   `sunsetted/TODO.md`, not from the original charter** — both were found
+   by reading the dossier and the engine *before* writing measurement
+   code, which is exactly Phase N's lesson applied to a framing rather
+   than an instrument:
+
+unsetted/complete/TODO/NN/      archived cycles (01–07, 09–24)
+CHANGELOG.md             cycle-by-cycle summary (derived from the gates)
+keeper/, game/dist/      live play state / builds — GITIGNORED, not evidence
+
+### The cycle rule
+
+Work `audits/TODO.md` task by task; one commit per completed task
+Work `sunsetted/TODO.md` task by task; one commit per completed task
+naming the task ID, the evidence, and the doc updates. A cycle ends
+only when the queue is exhausted AND a full sweep is green — then
+archive to `sunsetted/complete/TODO/NN/` and plan the next cycle from the
+
+   `main`?** If that list is longer than the cycle you are about to
+   work, a previous cycle was never merged back (see §6, the branch and
+   merge rule). Fix that before add
+3. Read `audits/TODO.md` — the live queue and its standing note.
+3. Read `sunsetted/TODO.md` — the lte.
+4. `python -B tools/ci/run_sweep.py --quick` — confirm the tree is
+   green before changing anything. **~5 min**; the full sweep is ~9 min
+   and is required before any commit that closes a task.
+
+Every cycle-23 slice ran this loop;
+s/TODO.md` (cycle 25 · Phase O — the LIVE queue), `sunsetted/complete/TODO/*/TODO.md`
+- `sunsetted/TODO.md` (cycle 25 · Phase O — the LIVE queue), `sunsetted/complete/TODO/*/TODO.md`
+- `CHANGELOG.md` (the cycle-by-cycle summary)
+- `CLAUDE.md`, `README.md`, `_MOC_.md`, `docs/agent-standards.md`
+  (`FABLE5.md` and `AGENTS.md` are now under `.depreciated/` — archived)
+
+● Update(ONBOARDING.md)
+Added 3 lines, removed 3 lines
+refreshed **2026-07-28 mid-cycle-25 (after O3)**. Read this file
+completely before touching anything.
+
+`CHANGELOG.md` in the root is the cy
+shipped; it is derived from the gate reports, and where they disagree
+the gate report wins.
+The changelog (`sunsetted/complete/CHANGELOG/01/CHANGELOG.md`) is the
+cycle-by-cycle summary of what shipped; it is derived from the gate
+reports, and where they disagree the gate report wins.
+
+**How to trust this file:** §1 (the frame), §2 (owner rulings), §6 (the
+format), and §7 (honesty norms) are lings
+ted/TODO.md` | **the live cycle queue** — the actual work list |
+
+● Update(ONBOARDING.md)
+Added 1 line, removed 1 line
+docs/                    the vision + roadmap documents
+sunsetted/TODO.md           THE ACTIVE CYCLE QUEUE
+sunsetted/complete/TODO/NN/      archived cycles (01–07, 09–24)
+CHANGELOG.md             cycle-by-cycle summary (derived from the gates)
+sunsetted/complete/CHANGELOG/01/CHANGELOG.md   the cycle-by-cycle summary
+keeper/, game/dist/      live play state / builds — GITIGNORED, not evidence
+
+● Update(ONBOARDING.md)
+Added 2 lines, removed 1 line
+   three new records).
+6. `research/README.md` — the traceability ledger.
+7. `docs/alpha.md` — the public-alpha packet.
+8. `CHANGELOG.md` — the cycle-by-cy gates.
+
+- `sunsetted/TODO.md` (cycle 25 · Phase O — the LIVE queue), `sunsetted/complete/TODO/*/TODO.md`
+- `CHANGELOG.md` (the cycle-by-cycle summary)
+- `sunsetted/complete/CHANGELOG/01/CHANGELOG.md` (the cycle-by-cycle summary)
+- `CLAUDE.md`, `README.md`, `_MOC_.md`, `docs/agent-standards.md`
+  (`FABLE5.md` and `AGENTS.md` are now under `.depreciated/` — archived)
+- `docs/gap-analysis.md` (retired; the measured history)
+
+● Update(ONBOARDING.md)
+Added 7 lines
+not go looking for them at the root. `docs/agent-standards.md` still
+exists and is an older orientation d
+
+*Relocated 2026-08-08 by the owner*: the `audits/` tree and the root
+`CHANGELOG.md` now live under `sunsetted/` — the live queue at
+`sunsetted/TODO.md`, archived cyclesNN/`,
+
+Now CLAUDE.md, README.md, *MOC*.md, and the live queue's Sources footer:
+
+● Update(CLAUDE.md)
+Added 1 line, removed 1 line
+
+Mechagotchi is a **research-first** workspace for a grid-based artificial-life companion engine — the *
+*Mechagotchi Computational Life Engine**, inspired by the CuBFF study and source code behind *Computati
+onal Life: How Well-formed, Self-replicating Programs Emerge from Simple Interaction* (arXiv:2406.19108
+; local copy `assets/pdf/2406.19108vconstraint (anti-drift, see the root`
+README.md`): this repository is NOT a CLI application — the`mechas` CLI under `tools/` is a supportive
+ layer only. The application is the engine.** Every surface is supported by the same ecosystem (researc
+h, documents, features, designs, TODO, specs, modules, CLI, tests); the goal requires researched, mathe
+matical support and provable practicev flagship held to the strict standar
+Promotion is governed by `labs/package_promotion/package_promotion_gate.py`; a module only mo
+ves when its gate says`promotion_ready`. The documentation under`research/` *is* the deliverable: a l
+iving evidence ledger where every claim traces from the research plan down through experiment reports t
+o lab code and JSON data artifacts.
+
+The governing document is `docs/project-research/research.md` (thesis, math/ALife layers, Stages 0–7, e
+valuation framework); `research/decision_records/0017-recalibration-engine-game-duality.md` is the Nort
+h Star (the ENGINE+GAME duality — deep integrations over breadth; the manual rating system is a FALLBAC
+K, never a blocker). `research/README.md` is the master traceability ledger. `ONBOARDING.md` orients a
+fresh session (the frame, the owner rulings that are law, the state snapshot, honesty norms, first move
+s — its state sections are a snapshot, so re-verify them against `git log` and the gate artifacts; `doc
+s/agent-standards.md` is an older oreded). The active development queue is
+ `audits/TODO.md` (cycle 25 · SHARED track · Phase O — "the adopted definitions reach the player"). `CH
+ANGELOG.md` in the root is the cycle-by-cycle summary of what shipped, derived from the gate reports (w
+here they disagree, the gate report  is **RETIRED** per its own charter (t
+he Phase-G alpha gate went green 2026-07-12); it remains as the measured history of the gap and how it
+closed. Since then each cycle is plaumentation and the remainders the prev
+ious cycle's own records name — never from an invented queue, and never by asking the owner which direc
+tion. Completed cycles archive under `audits/complete/` (01–07, 09–24; there is no cycle 08). `.depreci
+ated/` is the owner's personal archive — ignore unless explicitly linked.
+The governing document is `docs/project-research/research.md` (thesis, math/ALife layers, Stages 0–7, e
+valuation framework); `research/decision_records/0017-recalibration-engine-game-duality.md` is the Nort
+h Star (the ENGINE+GAME duality — de the manual rating system is a FALLBAC
+no cycle 08). `.depreciated/` is the owner's personal archive — ignore unless explicitly linked.
+
+**Current state, verified 2026-07-28 (cycle 25 · Phase O, O1–O3 done):** `python -B tools/ci/run_sweep.
+py` → SWEEP GREEN — 19 lab suites + package 299 + workshop 92 + game 200 + CLI 23, **2,246 JSON artifac
+ts, 0 invalid**. The ledger holds 272 experiment reports, 77 algorithm cards and 56 decision records (t
+hrough DR 0056). Cycle 24 grew the archive lab 365 → 432 and `micro_threads` 85 → 123; cycle 25 took th
+e archive lab to 449, the package 295 → 299 (`DANGER_THRESHOLDS` promoted, O1) and the game 188 → 200 (
+the `health` readout, O2/DR 0055).
+
+● Update(README.md)
+Added 3 lines, removed 2 lines
+charter). Development since then runs in **cycles**, each planned from
+the still-unmet documentation and frs
+cycle's own records name — currently **cycle 25 · Phase O**. The live
+queue is `audits/TODO.md`; `CHANGELOG.md` is the cycle-by-cycle summary;
+`_MOC_.md` maps the whole repository.
+queue is `sunsetted/TODO.md`; the changelog
+(`sunsetted/complete/CHANGELOG/01/CHANGELOG.md`) is the cycle-by-cycle
+summary; `_MOC_.md` maps the whole r
+onal Life: How Well-formed, Self-replicating Programs Emerge from Simple Interaction* (arXiv:2406.19108
+; local copy `assets/pdf/2406.19108v2.pdf`). **Standing identity constraint (anti-drift, see the root `
+README.md`): this repository is NOT a CLI application — the `mechas` CLI under `tools/` is a supportive
+ layer only. The application is the engine.** Every surface is supported by the same ecosystem (researc
+h, documents, features, designs, TODO, specs, modules, CLI, tests); the goal requires researched, mathe
+matical support and provable practices, and the repo is a MIVIM.dev flagship held to the strict standar
+ds it has established. All algorithms are first proven in `labs/` as executable research prototypes; si
+nce report v0.9 the project is in the **package-implementation phase**: `packages/mecha_engine` (src la
+yout, decision record 0004) contains ten promoted modules — `genome`, `generation`, `lifecycle`, `archi
+ve`, `provenance`, `repair` (decision record 0006), `runtime` (decision record 0008), `learning` (decis
+ion record 0009), `storage` (decision record 0022), and `slip` (decision record 0027; `render` disposit
+ioned rejected-until-consumer by decked by contract tests and lab-side par
+ity pins. Promotion is governed by `labs/package_promotion/package_promotion_gate.py`; a module only mo
+ves when its gate says `promotion_ready`. The documentation under `research/` *is* the deliverable: a l
+iving evidence ledger where every claim traces from the research plan down through experiment reports t
+o lab code and JSON data artifacts.
+fresh session (the frame, the owner rulings that are law, the state snapshot, honesty norms, first move
+s — its state sections are a snapshot, so re-verify them against `git log` and the gate artifacts; `doc
+s/agent-standards.md` is an older orientation doc, largely superseded). The active development queue is
+ `sunsetted/TODO.md` (cycle 25 · SHARED track · Phase O — "the adopted definitions reach the player").
+`sunsetted/complete/CHANGELOG/01/CHANGELOG.md` is the cycle-by-cycle summary of what shipped, derived f
+rom the gate reports (where they disagree, the gate report wins). `docs/gap-analysis.md` is **RETIRED**
+ per its own charter (the Phase-G alpha gate went green 2026-07-12); it remains as the measured history
+ of the gap and how it closed. Since then each cycle is planned from the still-unmet documentation and
+the remainders the previous cycle's own records name — never from an invented queue, and never by askin
+g the owner which direction. Completed cycles archive under `audits/complete/` (01–07, 09–24; there is
+no cycle 08). `.depreciated/` is the owner's personal archive — ignore unless explicitly linked.
+The governing document is `docs/projesis, math/ALife layers, Stages 0–7, e
+valuation framework);`research/decision_records/0017-recalibration-engine-game-duality.md` is the Nort
+h Star (the ENGINE+GAME duality — deep integrations over breadth; the manual rating system is a FALLBAC
+K, never a blocker). `research/README.md` is the master traceability ledger. `ONBOARDING.md` orients a
+fresh session (the frame, the owner te snapshot, honesty norms, first move
+ `sunsetted/TODO.md` (cycle 25 · SHARED track · Phase O — "the adopted definitions reach the player").
+`sunsetted/complete/CHANGELOG/01/CHANGELOG.md` is the cycle-by-cycle summary of what shipped, derived f
+rom the gate reports (where they disagree, the gate report wins). `docs/gap-analysis.md` is **RETIRED**
+ per its own charter (the Phase-G alpha gate went green 2026-07-12); it remains as the measured history
+ of the gap and how it closed. Since then each cycle is planned from the still-unmet documentation and
+the remainders the previous cycle's own records name — never from an invented queue, and never by askin
+g the owner which direction. Completed cycles archive under `sunsetted/complete/TODO/` (01–07, 09–24; t
+here is no cycle 08). (The owner relocated the former `audits/` tree and the root `CHANGELOG.md` into `
+sunsetted/` on 2026-08-08; dated records citing `audits/...` cite where the files lived when written an
+d are not rewritten.) `.depreciated/` is the owner's personal archive — ignore unless explicitly linked
+.
+
+**Current state, verified 2026-07-28 (cycle 25 · Phase O, O1–O3 done):** `python -B tools/ci/run_sweep.
+py` → SWEEP GREEN — 19 lab suites + package 299 + workshop 92 + game 200 + CLI 23, **2,246 JSON artifac
+ts, 0 invalid**. The ledger holds 272 experiment reports, 77 algorithm cards and 56 decision records (t
+hrough DR 0056). Cycle 24 grew the archive lab 365 → 432 and `micro_threads` 85 → 123; cycle 25 took th
+e archive lab to 449, the package 295 → 299 (`DANGER_THRESHOLDS` promoted, O1) and the game 188 → 200 (
+the `health` readout, O2/DR 0055).
+
+● Update(README.md)
+Added 2 lines, removed 2 lines
+- `research/literature_map.md`
+- `docs/cli/mechas-cli-design.md`
+- `docs/alpha.md` (the public-alpha packet)
+- `ONBOARDING.md` (the session entry point), `_MOC_.md` (the map of contents), `CLAUDE.md`, `CHANGELOG
+.md`
+- `audits/TODO.md` (the live cycle queue)
+- `ONBOARDING.md` (the session entr of contents), `CLAUDE.md`, `sunsetted
+x markdown files sit at the repo root. This is what each one is for:
+Five markdown files sit at the repo root (the changelog was relocated
+into`sunsetted/` by the owner, 2026-08-08). This is what each one is for:
+
+| file | what it is | read it when |
+|------|------------|--------------|
+
+● Update(*MOC*.md)
+Added 2 lines, removed 2 lines
+
+| file                                                            | what it is                                                                                                                                                                                                                                                                                                                                                                                                               |
+|-----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **[`audits/TODO.md`](sunsetted/TODO.md)**                       | **THE LIVE CYCLE QUEUE** — the actual work list                                                                                                                                                                                                                                                                                                                                                                          |
+| [`audits/complete/NN/TODO.md`](sucycles)                        | (01–07, 09–24; **there is no cycle 08**)                                                                                                                                                                                                                                                                                                                                                                                 |
+| **[`sunsetted/TODO.md`](sunsetted/TODO.md)**                    | **THE LIVE CYCLE QUEUE** — the actual work list                                                                                                                                                                                                                                                                                                                                                                          |
+| [`sunsetted/complete/TODO/NN/TODO.md`](sunsetted/complete/TODO) | archived cycles (01–07, 09–24; **there is no cycle 08**)                                                                                                                                                                                                                                                                                                                                                                 |
+| [`CHANGELOG.md`](sunsetted/comple                               | the cycle-by-cycle summary, derivedhe same change, **one commit per task naming the task ID**. A cycle endsonly when the queue is exhausted **and** a full sweep is green — then archive to `audits/complete/NN/` and **plan the next cycle from the documentation**. Never ask which direction. archive to `sunsetted/complete/TODO/NN/` and **plan the next cycle from the documentation**. Never ask which direction. |
+
+### The phase ladder
+
+● Update(*MOC*.md)
+Added 1 line, removed 1 line
+
+## Sources
+
+- `ONBOARDING.md`, `README.md`, `CLAUDE.md`, `CHANGELOG.md`, `TOOLS.md`
+- `ONBOARDING.md`, `README.md`, `CLAUDE.md`, `TOOLS.md`, `sunsetted/complete/CHANGELOG/01/CHANGELOG.md
+`
+line, removed 1 line
+- `docs/project-research/research.md`, `validity-research.md`, `deep-research/01/deep-research.md`
+- `research/README.md` (the master ledger), `research/glossary.md`, `research/questions.md`
+- `research/decision_records/0017`, `0021`, `0028`, `0033`, `0035`, `0046`, `0052`–`0056`
+- `audits/TODO.md`, `audits/complete/`
+- `sunsetted/TODO.md`, `sunsetted/complete/TODO/`
+- `tools/ci/run_sweep.py` (the one verification sweep)
+
+● Update(sunsetted\TODO.md)
+Added 1 line, removed 1 line
+- `research/decision_records/0049`–`0054`; `0021-game-loop.md`, `0028-dependency-and-license-policy.md
+`, `0031-wfc-generation-adoption.mdp-revisit.md`, `0046-two-geometry-spli
+t.md`, `0048-visible-companion-state-axes.md`
+- `research/package_specs/` (O1's contract home) · `packages/mecha_engine/src/mecha_engine/lifecycle/s
+imulate.py`
+- `docs/project-research/validity-rect-research/deep-research/01/deep-res
+powers:test-driven-development)
+Successfully loaded skill
+
+  Ran 3 shell commands
+
+● Write(labs\wfc_grid\stage2_generator_arms.py)
+Wrote 918 lines to labs\wfc_grid\stage2_generator_arms.py
+"""Stage 2's undispositioned generator arms (cycle 25 O4).
+
+`deep-research.md` names two generator-adjacent methods that have never
+been dispositioned — no card, no prototype, no reject/watch verdict.
+This lab judges both, **each in its dion O4
+recorded against its own charter):
+
+- **CPPN** — the dossier files it undp as
+  a late exploratory generator"*, *"optional late-stage"*, integration
+  risk High, named risk *"hard integration with semantic pixels"*. A
+… +908 lines
+
+  Ran 1 shell command
+
+● Update(labs\wfc_grid\stage2_generator_arms.py)
+Added 4 lines, removed 1 line
+
+```python
+        ) + out["bias"]
+        z = math.tanh(z)
+        if token == ".":
+```
+
+Wrote 205 lines to research\experiment_reports\2026-08-08-stage2-generator-arms.md
+
+## Stage 2's Undispositioned Generator Arms — CPPN Rejected, Shape Grammar Watches the Incumbent It Cannot Beat
+
+Date: 2026-08-08 · Cycle 25 · SHARED track · Phase O, task O4
+
+The research dossier names **shape grammar** and **CPPN** as
+generator-adjacent methods, and neither has ever been dispositioned: no
+card, no prototype, no reject/watch verdict — the same class of
+documented-and-unmet debt N3 closed fns
+… +199 lines
+
+Now the two algorithm cards, on the fixed template:
+
+rch\algorithm_cards\cppn_generator.md)
+Wrote 90 lines to research\algorithm_cards\cppn_generator.md
+
+## Algorithm Card: CPPN Generator (Indirect Encoding)
+
+## Purpose
+
+Disposition the dossier's *Indirect encoding* row (*"CPPN,
+HyperNEAT-style regularity"*) at its documented role — *"Keep as a late
+exploratory generator"*, *"optional late-stage"* — which had never been
+dispositioned: no card, no prototype, no verdict (cycle 25 O4).
+
+## Mathematical Basis
+a primary generator, which is why O4 corrected its own charter's
+bake-off-both framing. The documented role is **already shipped** as
+`wfc_grid._finish` (DR 0031's adopted arm), so the honest question is
+… +86 lines
+
+Now DR 0057:
+
+● Write(~\github_new\mechagotchi\research\decision_records\0057-stage2-generator-arms-dispositioned.md)
+Wrote 1 line to ..\..\..\github_new\mechagotchi\research\decision_records\0057-stage2-generator-arms-dispositioned.md
+placeholder
+
+atus
+
+**ACCEPTED** (cycle 25 · SHARED track · Phase O, task O4) — by the rule
+pre-registered in `labs/wfc_grid/stage2_generator_arms.py` before the
+run, with the prediction recorded first and confirmed.
+… +114 lines
+
+● Update(research\README.md)
+Added 4 lines
+- `game/evidence.py` (`build_real_weather_harshness_report`) + `game/tests/test_real_weather_harshnes
+s.py` (10 pins) · `labs/cubff_transducer/callback_state_export.py`
+- `data/game_client/real_weather_h/cubff_real_ingest/callback_states/cal
+lback_states_compact.json` (cycle 19 I3 · SHARED · Phase I: **real weather harshness — measured per p
+hase, and the callback path made REAL**. Through the UNTOUCHED checkpoint seam the pre-registered que
+stion answers NO: post-takeover soup does not breach the synthetic storm's 1.17× precedent — it measu
+res MILDER than early-phase (mean 0.784 vs 0.818) because structured replicator tape is low-entropy w
+hile the harshness channels (replire exactly the ones the checkpoint for
+G (tape + soup hash + full replication scores; the builder and tests recompute every engine number
+live from the committed evidence — never pasted), phases labeled by the I1 ingest from in-record brot
+li; the raw ~100 MB JSONL reproducible from the committed script. Game 163 green. RED first both slic
+es (builder ImportError; `callback_path` KeyError). Honest remainders: lineage_churn silent on EVERY
+real path (upstream exposes no lineage-event stream — a harsher weather may hide behind it, named); t
+he export is WSL-only like G2's build path; a callback-sourced game forecast is a consumer decision,
+not smuggled; three states from one run — distributional claims need their own protocol)
+
+- `research/experiment_reports/2026-08-08-stage2-generator-arms.md`
+- `labs/wfc_grid/stage2_generator_arms.py` (+ `test_stage2_generator_arms.py`, 25 pins) · `research/a
+lgorithm_cards/cppn_generator.md` · `research/algorithm_cards/shape_grammar_stabilizer.md` · **DR 005
+7 — CPPN rejected, shape grammar w
+`data/wfc_grid/stage2_generator_arms_stage0.json` (cycle 25 O4 · SHARED · Phase O: **Stage 2's last
+ undispositioned generator arms judged — each in its DOCUMENTED role, and the charter's own framing c
+orrected first**. The dossier names CPPN and shape grammar and neither ever got a card, a prototype,
+or a verdict — the same disposition debt DR 0051 closed for the learner conditions after twelve cycle
+s. **THE CHARTER SAID BAKE-OFF BOTH AND THAT WAS WRONG FOR ONE OF THEM**: CPPN's stance is *"keep as
+a late exploratory generator"* (a bake-off IS its role), but shape grammar is a Constraint system — *
+"use as validator or post-generator stabilizer"* — and its documented role is ALREADY SHIPPED as `wfc
+_grid._finish` inside the adopted WFC arm, so its honest question is sharper: does it BEAT the incumb
+ent? **The instrument reproduced the committed wfc row exactly (all five keys) before any new number
+was trusted**, the 0.68 distinct floor is the committed refused random arm's own rate re-derived at r
+un time, and the stabilizer noise floors are two-seed measured (0.0/0.0). **CPPN — REJECT**: validity
+ **0.12** vs the 0.85 dossier bar,t incoherence (79 of 88 invalid bodies
+ are *connected* cores under the DR 0029 18-cell floor; only 9 disconnect) — while what the dossier s
+ays the method is good at showed up too (symmetry 0.475226, above the WFC family's 0.397; 100/100 uni
+que; copy rate 0.0; emits `sensor` lacks) and by the pre-registered rule
+ none of it offsets validity. **SHAPE GRAMMAR — WATCH**: six named RNG-free productions repair the ra
+w collapse stream (validity 0.01, 99% disconnected — the historical measurement reproduced) to **1.00
+ with retention 1.0**, doing the documented job emphatically — then TIE the incumbent `_finish` at 1.
+00/1.0 under noise 0.0, and **a tie is not a reason to replace a shipped incumbent** (DR 0031's hybri
+d-refutation logic pointed the other way: not refuted, adds nothing at the gated criteria). Recorded-
+not-judged: the grammar's readabilir-vs-restart architecture. **Predicti
+on confirmed on both arms**, with one refinement it did not contain (it named semantic-pixel integrat
+ion; the measurement named the mass floor). Adopt was pre-registered as unreachable at stage 0 — the
+charter's own verbs are reject/watdesign-phase pin file restored verbati
+m from git history, `ModuleNotFoundError` watched). Honest remainders: CPPN under evolutionary mutati
+on not measured (the re-opener); slidator not separately judged; the rea
+dability numbers are the labeled 8×8 proxy)
+
+- `research/experiment_reports/2026-07-28-adopted-default-restatement.md`
+- `labs/map_elites_archive/adopted_default_restatement.py` (+ `test_adopted_default_restatement.py`,
+17 pins) · `coverage_qd_gates.py` (`judge_gates`, IMPORTED never re-implemented) · **DR 0056 — the ad
+opted default's headline numbers; ed**
+ work ~75%**: the incumbent runs are READ (rule 2 forbids re-running them), the **GA control is RE
+AD because `run_ga_baseline` takes no `slip_admission`** and is *structurally* unaffected by the arm
+— re-running it would spend an hour reproducing numbers that cannot have moved — and DR 0042's headli
+ne is read on both sides (incumbent from its own artifact, adopted from N4, which had already measure
+d `insertion` at that seed). **THE HEADLINE, at DR 0042's own seed, population and budget**: coverage
+ **0.898438 → 0.880859** (−0.017579), **QD 404.618236 → 411.738214 (+7.119978)**, occupied niches 460
+ → 451 (−9), **refusals 4,435 → 0**, **SLIP-illegal elites 35 → 0**; the incumbent side reproduced N4
+'s measurement exactly, so the two artifacts agree and the restatement compares the same loop. **COVE
+RAGE DOES NOT FALL FOR NOTHING — IT BUYS QUALITY**: L1 refused to patch the refusal tax because *"the
+ fix trades against coverage"*, and this prices the other side of that trade — **nine niches and 0.01
+76 coverage buy +7.12 QD, the elimination of 4,435 wasted evaluations per run, and an archive legal u
+nder the covenant that bred it**. D**: re-judged **VERBATIM** (`judge_ga
+tes` imported, never re-implemented, because a second copy could score the adopted arm by a rule the
+incumbent was never held to) over ds and against the **SAME GA control**
+ — `coverage_gate_met` **True → True**, mean best fitness moving only **−0.000565**, verdict **`NO_RE
+GRESSION`**. **`ga_advantage_gate_met` was ALREADY failing and is explicitly NOT attributed to the ad
+option** — the gate is written so a pre-existing failure cannot be reported as a regression, because
+blaming the new arm for DR 0032's long-refuted clause would be a false accusation — though its margin
+ does fall a further **0.029664**, so DR 0032 is refuted a little more decisively (recorded, not re-s
+cored; its re-openers stay untriggCTED**: 0.8984 is what the loop achiev
+7's inherited limit)
+
+● Update(sunsetted\TODO.md)
+Added 26 lines, removed 4 lines
+  measurements they were. **DR 0046's comparability rule applies
+  throughout.** The other six callers stay pinned; DR 0053 says why, and
+  re-opening that is not this task.
+- [ ] **O4 · Stage 2's undispositioned generator arms.** *(Design done,
+  not built. Two corrections found by reading the dossier and the engine
+  BEFORE writing measurement code — they reshape the task, and the next
+  session should start from them rather than from the charter below.)*
+- [x] **O4 · Stage 2's undispositio26-08-08
+  (`2026-08-08-stage2-generator-arms.md`, **DR 0057**): **each arm
+  judged in its DOCUMENTED role — CPPN REJECTED, shape grammar WATCH,
+  nothing adopted, and the prediction (recorded first) confirmed.** The
+  instrument reproduced the committkeys)
+corded what the method is documented to be good at (symmetry
+  0.475226 above the WFC family's 0.397; 100/100 unique; copy rate 0.0)
+  and by the pre-registered rule none of it offsets validity. **Shape
+  grammar**: six named RNG-free productions repair the raw collapse
+  (0.01 → **1.00** validity, retention 1.0 — the documented job done
+  emphatically) and then **TIE the incumbent `_finish`** at 1.00/1.0
+  under noise 0.0 — a tie is not a reason to replace a shipped
+  incumbent (DR 0031's hybrid-refutation logic, pointed the other way).
+  Recorded-not-judged: the grammar's +0.016238 readability edge and its
+  repair-vs-restart architecture. **The Stage 2 disposition debt is
+  CLOSED** — every generator-adjacent method the dossier names now
+  carries a verdict. Lab 36 →**61*tered
+  unreachable at stage 0. *(Design-phase corrections and the restored
+  RED's provenance are recorded in the report's process note.)*
+  *(Original design note, kept:)*
+
+  **CORRECTION 1 — the charter's fr two.**
+
+Written **2026-07-21** by the outgoing session, completed
+**2026-07-26** at the owner's direction, and its §3/§4 state sections
+refreshed **2026-07-28 mid-cycle-25 (after O3)**. Read this file
+refreshed **2026-08-08 mid-cycle-25 (after O4)**. Read this file
+completely before touching anything.
+
+The changelog (`sunsetted/complete/CHANGELOG/01/CHANGELOG.md`) is the
+
+● Update(ONBOARDING.md)
+Added 8 lines, removed 4 lines
+is also **measurably stale against lready
+surfaces two documented-HIDDEN axes under accurate names.
+
+Also standing: Stage 2's
+undispositioned generator arms (**shape grammar**, **CPPN**) — **now
+chartered as O4, with two recorded corrections to its framing** (see §4)
+— and the unbuilt method tracks (MRF-lite, Lenia, reaction–diffusion, the MDP
+Also standing: ~~Stage 2's
+undispositioned generator arms (**shape grammar**, **CPPN**)~~
+**CLOSED 2026-08-08 by O4 / DR 0057** — each judged in its documented
+role (CPPN rejected on validity 0.12 with the mass-floor mechanism
+measured; shape grammar watch, tying the incumbent `_finish` at
+1.00/1.0 under measured noise 0.0; nothing adopted, prediction
+confirmed); the unbuilt method tracks remain (MRF-lite, Lenia,
+reaction–diffusion, the MDP
+sandbox, the QDax shadow port, z3/SMT at DR 0011's WATCH); the
+~~the micro-learner ablation conditions **E/F/G** (Q-table, tiny
+decision tree, Bayesian counter), never instantiated in the Phase-D
+
+floor; only 9 disconnect) and the method's documented strengths
+recorded beside the verdict (symmetry 0.475 above the WFC family;
+100/100 unique; none of it offsets validity, pre-registered). Shape
+grammar (stance: *"validator or post-generator stabilizer"* — a role
+**already shipped** as `wfc_grid._finish`) was judged at the sharper
+question *does it beat the incumbent?* — it repairs the raw collapse
+0.01 → **1.00** validity at retention 1.0, then **TIES** the incumbent
+at 1.00/1.0 under two-seed measured noise 0.0: **WATCH**, because a tie
+is not a reason to replace a shipped incumbent. The instrument
+reproduced the committed wfc row exactly before any new number was
+trusted. Nothing adopted; no incumbent moved; prediction confirmed.
+Lab 36 → **61**.
+### Cycle 25 · Phase O — the adopted definitions reach the player — IN PROGRESS
+
+`sunsetted/TODO.md` is the live queue: **O1, O2, O3 DONE; O4 and O5 open.**
+`sunsetted/TODO.md` is the live queue: **O1–O4 DONE; O5 (the gate) open.**
+The spine is Phase N's own debt — **it adopted three things and put none
+of them in front of a player.**
+
+● Update(ONBOARDING.md)
+Added 7 lines, removed 36 lines
+1. ~~**O1 · promote `DANGER_THRESHOLDS`**~~ — **DONE 2026-07-28.** See §3.
+2. ~~**O2 · land the `health` readoR 0055).**
+3. ~~**O3 · restate the headline studies**~~ — **DONE 2026-07-28 (DR 0056).**
+4. **O4 · Stage 2's undispositionedT
+   TASK.** Deliberately **non-archive and non-loop** after a cycle that
+   spent four of six slices in the archive. **Shape grammar** and
+   **CPPN** are named in the dossier and have never been dispositioned:
+   no card, no prototype, no verdicfter
+   in the report's process note.
+5. **O5 · the Phase-O gate** ← **THE NEXT TASK** — one consolidated
+   report; then archive to `sunsetted/complete/TODO/25/` and plan
+   cycle 26 from the documentation. **Do not ask which direction.**
+
+   **Start from the two corrections already recorded in
+   `sunsetted/TODO.md`, not from the original charter** — both were found
+   by reading the dossier and the engine *before* writing measurement
+   code, which is exactly Phase N's lesson applied to a framing rather
+   than an instrument:
+
+   - **The charter's "bake-off both them.**
+     CPPN is *"keep as a late exploratory generator"* — a generator
+     bake-off **is** its documented role. But **shape grammar is filed
+     under Constraint systems**, whose documented stance is *"use as
+     validator or **post-generator tly not
+   - **Shape grammar's documented role is ALREADY SHIPPED.**
+     `wfc_grid._finish` (inside `generate_wfc_grid`) is documented in
+     its own docstring as *"the documented post-generator stabilizer
+     pass"* and quotes the dossier verbatim — largest 8-connected core,
+     cardinality constraints as restart conditions, anchor
+     normalization — as part of the **adopted** WFC arm (DR 0031). So
+     *"does a constraint stabilizer help?"* is answered. **The real open
+     question is: does a shape-grammar stabilizer beat the incumbent
+     `_finish`?**
+
+   **Rejecting both is first-class**; DR 0031 already refuted the hybrid
+   arm, and a second measured refutird
+   generator nobody asked for.
+5. **O5 · the Phase-O gate** — then archive to `sunsetted/complete/TODO/25/`
+   and plan cycle 26 from the documentation. **Do not ask which
+   direction.**
+
+## 5. The map — what each directory
+
+```text
+
+● Update(ONBOARDING.md)
+Added 1 line, removed 1 line
+- `docs/gap-analysis.md` (retired; the measured history)
+- `docs/project-research/` (the vision documents)
+- `research/README.md` (the master ledger)
+- `research/decision_records/0017`, `0021`, `0026`–`0056`
+- `research/decision_records/0017`,
+opted-default-restatement.md` (cycle 25's O1–O3, which refreshed §3/§4)
+  `-adopted-default-restatement.md`,
+  `2026-08-08-stage2-generator-arms.md` (cycle 25's O1–O4, which refreshed §3/§4)
+- `tools/ci/run_sweep.py`
+
+O4's code and documents are complete. Full sweep now (required before a task-closing commit), in the background:
+
+  Read 1 file, ran 1 shell command
+
+The gate structure is clear. Checking sweep progress:
+
+  Made 2 scratchpad edits +339, searched for 1 shell commands
+
+Monitor is overkill here — the sweep task itre check since it should be finishing aboutnow:
+
+  Read 1 file
+
+The full sweep is still running (it buffers nd takes ~8½ minutes; its completion
+
+O4 done, awaiting the closing sweep to commit:
+- labs/wfc_grid/stage2_generator_arms.py + the restored 25-pin RED test (recovered byte-for-byte from git history, watched failing first). Lab suite 36 → 61, all green.
+- The study ran at the documented budget with the rule and prediction pre-registered: CPPN rejected (validity 0.12 vs the 0.85 bar; measured mechanism: 79 of 88 invalid bodies are connected cores under the mass floor), shape grammar watch (repairs raw collapse 0.01 → 1.00 validity at retention 1.0, then ties the incumbent _finish at 1.00/1.0 under a measured noise floor of 0.0). The harness reproduced the committed wfc bake-off row exactly on all five keys before any new number was trusted. Prediction confirmed.
+- Triad complete: experiment report, two algorithm cards, DR 0057, ledger entry, queue + ONBOARDING refreshed.
+
+Prepared for O5 (drafts in scratchpad): the ycle-26 queue (Phase P — "the missing axes
+earn their sources": §1.17 correction, happiness mechanic gate, the Q-table's harderbaseline, the probe artifacts' committed edges).
+
+Once the sweep lands green: git checkout the two slips observation artifacts, commit O4, then close the gate — archive
+cycle 25, install the cycle-26 queue, updateshots, commit O5, merge to main, and push
+
+※ recap: Continuing cycle 25: the repo reorg is committed and O4 (generator-arm verdicts: CPPN rejected, shape grammar watch) is finished, awaiting the full verification sweep. Next: commit O4, then close the Phase-O gate and merge to main. (disable recaps in /config)
+
+● Background command "Run the full verification sweep before the O4 commit" completed (exit code 0)
+
+The full sweep completed (exit 0). Reading its output for the gate report's verification block:
+
+  Committed e8b2c17, read 1 file, ran 2 shell commands
+
+Now archive the completed cycle-25 queue and
+
+  Read 1 file, ran 1 shell command
+
+● Update(sunsetted\complete\CHANGELOG\01\CHANG
+s, removed 2 lines
+
+---
+
+## [Unreleased] — Cycle 25 · Phase O — "the adopted definitions reach the player"
+## Cycle 25 · Phase O — "the adopted definitions reach the player" — 2026-08-08
+
+*In progress. Queue: `audits/TODO.md` (**O1–O3 DONE**; O4, O5 open).* Planned from Phase N's
+**Gate: GREEN.** `research/experiment_reports/2026-08-08-phase-o-gate.md`;
+queue archived to `sunsetted/complete/TODO/25/`. Planned from Phase N's
+unusual debt: **it adopted three things and put none of them in front of
+a player.** `insertion` is the loop'l study
+is pinned to the incumbent, and `danger_margin` is the adopted
+
+● Update(sunsetted\complete\CHANGELOG\01\CHANG
+Added 29 lines
+  *"the loop achieves X"* must name **which arm** — the same discipline
+  DR 0046 imposed across geometries. Dated notes sit beside DR 0042 and
+  the `evaluation_loop_scale` card.
+- **O4 — DONE 2026-08-08 (DR 0057).** **Stage 2's last undispositioned
+  generator arms judged — each in i
+  charter's own bake-off-both framing corrected first** (shape grammar
+  is a Constraint system whose documented role is *"validator or
+  post-generator stabilizer"* — a r
+  `wfc_grid._finish`). **CPPN — REJECTED** as a generator: validity
+  **0.12** vs the 0.85 dossier bar,(79 of
+  88 invalid bodies are *connected* cores under the DR 0029 mass floor;
+  only 9 disconnect) and the method's documented strengths recorded
+  beside the verdict (symmetry 0.475 above the WFC family; 100/100
+  unique; none of it offsets validity, pre-registered). **Shape grammar
+  — WATCH**: six named RNG-free productions repair the raw collapse
+  0.01 → **1.00** validity at retenmbent
+le 26 (Phase P — "the missing axes earn their sources") planned
+  from the documentation and the recorded remainders.
+- *Mid-cycle, recorded*: the owner relocated the work-queue tree —
+  `audits/` → `sunsetted/` and the root `CHANGELOG.md` → this file's
+  current path — completed as rename-preserving commit `a4b04ae` with
+  the living root docs re-pointed and dated records left as written.
+
+---
+
+
+● Update(ONBOARDING.md)
+Added 2 lines, removed 2 lines
+
+Written **2026-07-21** by the outgoing session, completed
+**2026-07-26** at the owner's direction, and its §3/§4 state sections
+refreshed **2026-08-08 mid-cycle-25 (after O4)**. Read this file
+completely before touching anything.
+refreshed **2026-08-08 at the Phase-O gate (cycle 26 planned)**. Read
+this file completely before touching
+| N | the descriptor space earns its edges — and the cycle audits its own **instruments** (gate g
+reen 2026-07-28) |
+| **25** | **O** | **the adopted definitions reach the player ← WE ARE HERE** |
+| 25 | O | the adopted definitions reach the player — landed without a committed number drifting (gate
+ green 2026-08-08) |
+| **26** | **P** | **the missing axes earn their sources ← WE ARE HERE** |
+
+Archived queues live in `sunsetted/complete/TODO/NN/TODO.md` (01–07, 09–24).
+
+
+● Update(ONBOARDING.md)
+Added 1 line, removed 1 line
+| 25 | O | the adopted definitions reach the player — landed without a committed number drifting (gate
+ green 2026-08-08) |
+| **26** | **P** | **the missing axes earn their sources ← WE ARE HERE** |
+
+nes, removed 4 lines
+off-screen by one package constant. Correct in each case, deliberate in
+each case — and exactly the debt that quietly becomes permanent.
+
+### Cycle 25 · Phase O — the adopted definitions reach the player — IN PROGRESS
+### Cycle 25 · Phase O — CLOSED, gate green 2026-08-08
+
+`sunsetted/TODO.md` is the live queue: **O1–O4 DONE; O5 (the gate) open.**
+The spine is Phase N's own debt — **it adopted three things and put none
+of them in front of a player.**
+All five tasks DONE; gate report
+unsetted/complete/TODO/25/TODO.md`. Three decision records,
+**0055–0057** (O1 deliberately wrote none — executing DR 0054's decision
+is not a decision). The spine was Phase N's own debt — **it adopted
+three things and put none of them in front of a player** — and the
+cycle's character is that it **paid that debt without a single
+committed number drifting**: landings additive, headlines restated
+never overwritten, challengers judged in their documented roles, and
+the one mid-cycle process failure (a RED committed early by the owner's
+IDE) recorded as a trap with its rule.
+
+### Cycle 26 · Phase P — the missinPEN
+
+`sunsetted/TODO.md` is the live queue: **P1–P6, none started.** The two
+remaining documented VISIBLE axes he gap
+is upstream of display (`happiness` needs a DEFINITION, `cleanliness` a
+MECHANIC — DR 0048); §1.17 is measurably stale against the shipped
+client; and two instruments owe repairs Phase N named (the Q-table's
+harder baseline; the probe artifacts' committed edges). Task detail and
+sources are in the queue itself.
+
+**O1 — DONE (no DR; DR 0054 already made the decision).** The lifecycle
+public surface widens **six names → seven** (`DANGER_THRESHOLDS`),
+following the W1 precedent: the exaails
+
+● Update(ONBOARDING.md)
+Added 5 lines, removed 5 lines
+- **`labs/`** — 19 research labs; every algorithm is proven here first.
+  (`map_elites_archive` is the largest at **449**, having grown through
+  cycles 23–25; `micro_threads` **123**.)
+- **`research/`** — the evidence les**,
+rified 2026-08-08, at the Phase-O gate:**
+`python -B tools/ci/run_sweep.py` → **SWEEP GREEN** — 19 lab suites +
+package **299** + workshop 92 + game **200** + CLI 23;
+`data artifacts OK — 2246 JSON artifacts valid`.
+`data artifacts OK — 2247 JSON artifacts valid`.
+(Slowest: workshop ~187 s, runtime_integration ~85 s,
+map_elites_archive ~50 s, cellular_automata ~40 s.)
+- Real CuBFF data is ingested; 16×16 is the proven grid scale;
+
+● Update(ONBOARDING.md)
+Added 1 line, removed 1 line
+  inspector, Keeper session page. **92 tests.**
+- **`labs/`** — 19 research labs; e first.
+  (`map_elites_archive` is the largest at **449**, having grown through
+  cycles 23–25; `micro_threads` **123**.)
+  cycles 23–25; `micro_threads` **123**; `wfc_grid` **61** after O4.)
+- **`research/`** — the evidence les**,
+. WHAT TO DO NEXT
+
+**Work `sunsetted/TODO.md` task by task** — RED first, triad docs in the
+same change, one commit per task naming the task ID. Cycle 25's queue in
+order (cycle 24's closed ladder is in §3 and its gate report):
+same change, one commit per task naming the task ID. Cycle 26's queue in
+order (cycle 25's closed ladder is in §3 and its gate report; the full
+charters with their sources are in the queue file):
+
+1. ~~**O1 · promote `DANGER_THRESHOLDS`**~~ — **DONE 2026-07-28.** See §3.
+2. ~~**O2 · land the `health` readoR 0055).**
+3. ~~**O3 · restate the headline studies**~~ — **DONE 2026-07-28 (DR 0056).**
+4. ~~**O4 · Stage 2's undispositioned generator arms**~~ — **DONE
+   2026-08-08 (DR 0057).** See §3. The two design-phase charter
+   corrections it started from are md` and
+ycle 26 from the documentation. **Do not ask which direction.**
+1. **P1 · §1.17 earns a dated correction** — measure the visible/hidden
+   axis split as shipped, then a dated note beside §1.17 (never a
+   rewrite).
+2. **P2 · `happiness` chooses a definition — or refuses every
+   candidate** — the proven N5 → O2 pattern end to end: pre-registered
+   refusal criteria (the euphemism test), and if adopted, the readout
+   lands in the same slice.
+3. **P3 · `cleanliness` earns a mechanic — or the record says why
+   not** — read the engine first; smallest documented mechanic as an
+   additive seam, byte-identical of
+4. **P4 · the Q-table meets the incumbent it actually has to beat** —
+   N3's harder comparison, plus F's like-for-like online stump; both
+   committed artifacts untouched.
+5. **P5 · the probe artifacts carry their own edges** — restate
+   `occupancy_saturation` and `reachability_escalation` under the
+   frozen recipe as new artifacts (DR 0053's rule 2).
+6. **P6 · the Phase-P gate** — then
+   `sunsetted/complete/TODO/26/` and plan cycle 27 from the
+   documentation. **Do not ask which direction.**
+
+## 5. The map — what each directory IS
+
+
+● Update(ONBOARDING.md)
+Added 3 lines, removed 2 lines
+- `research/experiment_reports/2026
+026-07-28-danger-thresholds-promotion.md`, `-health-readout.md`,
+  `-adopted-default-restatement.md`,
+  `2026-08-08-stage2-generator-arms.md` (cycle 25's O1–O4, which refreshed §3/§4)
+  `2026-08-08-stage2-generator-arms.md` (cycle 25's O1–O4)
+- `tools/ci/run_sweep.py`
+
+● Update(ONBOARDING.md)
+Added 6 lines, removed 5 lines
+   green before changing anything. **~5 min**; the full sweep is ~9 min
+   and is required before any commit that closes a task.
+5. Read the most recent experiment
+   `research/experiment_reports/` (`2026-07-28-*`) for the immediate
+   context, starting with `2026-07- closed
+   gate) and then cycle 25's own — `2026-07-28-danger-thresholds-promotion.md`,
+   `-health-readout.md`, `-adopted-default-restatement.md`.
+   `CHANGELOG.md` is the faster orientation if you only need the shape.
+   `research/experiment_reports/` frting
+ext cycle yourself from the documentation.
+
+Now README and MOC state refreshes:
+
+● Update(README.md)
+Added 1 line, removed 1 line
+
+## Where the project is
+
+**Verified 2026-07-28** — `python -B tools/ci/run_sweep.py` →
+**Verified 2026-08-08** — `python -B
+**SWEEP GREEN**. One runner covers every surface, and nothing is claimed
+without it:
+
+
+● Update(README.md)
+Added 2 lines, removed 2 lines
+| workshop (authoring) | **92** test
+went green 2026-07-12, retiring `docs/gap-analysis.md` per its own
+
+● Update(README.md)
+Added 1 line, removed 1 line
+gate went green 2026-07-12, retiring `docs/gap-analysis.md` per its own
+charter). Development since then runs in **cycles**, each planned from
+the still-unmet documentation and from the remainders the previous
+cycle's own records name — currently **cycle 25 · Phase O**. The live
+cycle's own records name — currently **cycle 26 · Phase P**. The live
+queue is `sunsetted/TODO.md`; the changelog
+(`sunsetted/complete/CHANGELOG/01/CHcycle
+
+● Update(_MOC_.md)
+Added 3 lines, removed 2 lines
+**The navigational map of the Mechagotchi repository.** Every directory,
+what it *is*, and which file to open for a given question.
+
+Last rebuilt **2026-07-28** (cycle 25 · Phase O, in progress). Counts in
+§5 are measured, not quoted — re-measure before relying on them.
+Last refreshed **2026-08-08** (Phase-O gate green; cycle 26 · Phase P
+open). Counts in §5 are measured, not quoted — re-measure before
+relying on them.
+
+<!-- vscode-markdown-toc -->
+* 1. [1.1. START HERE](#STARTHERE)
+
+● Update(_MOC_.md)
+Added 2 lines, removed 1 line
+| 22 | L | the descriptor geometry — *and the cycle audits its own **numbers*** |
+| 23 | M | the archive's own inhabitants — *and the cycle audits its own **sentences*** |
+| 24 | N | the descriptor space ear audits its own **instruments*** |
+| **25** | **O** | **the adopted decurrent** |
+| 25 | O | the adopted definitions reach the player — *landed without a committed number drifting* |
+| **26** | **P** | **the missing axes earn their sources ← current** |
+
+### The measured state
+
+### The measured state
+
+Verified **2026-07-28**, `python -B tools/ci/run_sweep.py` →
+Verified **2026-08-08**, `python -B tools/ci/run_sweep.py` →
+**SWEEP GREEN**:
+
+| surface | count |
+
+● Update(_MOC_.md)
+Added 4 lines, removed 4 lines
+| game | **200** tests |
+| workshop | **92** tests |
+| CLI | **23** tests |
+| JSON artifacts | **2,246**, 0 inv
+| experiment reports | **272** |
+| algorithm cards | **77** |
+| decision records | **56** (through DR 0056) |
+| JSON artifacts | **2,247**, 0 invalid |
+| experiment reports | **273** |
+| algorithm cards | **79** |
+| decision records | **57** (through DR 0057) |
+
+---
+
+
+● Update(_MOC_.md)
+Error editing file
+
+● Update(_MOC_.md)
+Added 1 line, removed 1 line
+| file                                         | what it is                                      |
+|----------------------------------------------|-------------------------------------------------|
+| **[`sunsetted/TODO.md`](sunsetted/TODO.md)** | **THE LIVE CYCLE QUEUE** — the actual work list |
+| [`sunsetted/complete/TODO/NN/TODO) | archived cycles (01–07, 09–24; **t
+here is no cycle 08**) |
+| [`sunsetted/complete/TODO/NN/TODO.md`](sunsetted/complete/TODO) | archived cycles (01–07, 09–25; **t
+here is no cycle 08**) |
+| [`CHANGELOG.md`](sunsetted/comple | the cycle-by-cycle summary, derived
+ from the gate reports |
+
+**The cycle rule:** work the queue task by task, RED first, triad docs in
+
+pdate(_MOC_.md)
+Added 1 line
+| 0052 / 0053 | `slip_admission="insertion"` adopted → **a setting that changes what an artifact MEANS
+ is recorded at the call site, never inherited from a default; a study that measures a defect is never
+ migrated onto the fix** |
+| 0054 / 0055 | `health` **is** `danger_margin` (a euphemism refused) → the readout ships **with its b
+inding axis** |
+| 0056 | DR 0042's headline **restated, not retracted** — any *"the loop achieves X"* must name **whic
+h arm** |
+| 0057 | Stage 2's generator arms dispositioned **in their documented roles** — CPPN rejected, shape g
+rammar watches, nothing adopted |
+
+### The evidence itself
+
+
+● Update(_MOC_.md)
+`
+* `docs/project-research/research.md`, `validity-research.md`, `deep-research/01/deep-research.md`
+* `research/README.md` (the master ledger), `research/glossary.md`, `research/questions.md`
+* `research/decision_records/0017`, `0021`, `0028`, `0033`, `0035`, `0046`, `0052`–`0056`
+* `research/decision_records/0017`, `0021`, `0028`, `0033`, `0035`, `0046`, `0052`–`0057`
+* `sunsetted/TODO.md`, `sunsetted/complete/TODO/`
+* `tools/ci/run_sweep.py` (the one verification sweep)
+
+  Ran 2 shell commands
+
+Committing O5, then merging to main and pushse authorization:
+
+  Committed 1bd66a0, pushed to main, merged phase-l-gate
+
+Everything is merged and pushed — origin/main..HEAD is empty, the tree is clean except the owner's .depreciated file, and both main and phase-l-gate sit on c0650f5.
+
+Cycle 25 · Phase O is CLOSED — gate GREEN, everything on main
+
+The gate: closing full sweep GREEN — 19 lab op 92 + game 200 + CLI 23, 2,247 JSONartifacts, 0 invalid. Ledger now at 273 experiment reports, 79 algorithm cards, 57 decision records (through DR 0057).
+
+What this session did, in three commits plus the gate:
+
+anization (a4b04ae): your relocation of audits/ → sunsetted/ and root CHANGELOG.md → sunsetted/complete/CHANGELOG/01/ was completed coherently — all 28 files committed as history-preserving renames, the living root docs (CLAUDE.md, ONBOARDING, README, MOC) re-pointed with dated relocation notes, and dated records left exactly as written per the correction law. One observation, flagged not questioned: the live queue now lives under a directory named "sunsetted," which reads as retired — if that ever bothers you it's a one-commit rename, and everything is consistent either way.
+2. O4 (e8b2c17, DR 0057): Stage 2's last undispositioned generator arms judged — each in its documented role, starting from the two charter corrections the previous session recorded. The RED test was restored byte-for-byte from git history and watched failing first. CPPN: rejected — validity 0.12 vs the 0.85 dossier bar, and the measured mechanism is mass, not incoherence (79 of 88 invalid bodies are connected cores under the 18-cell floor; its symmetry 0.475
+actually beats the WFC family's 0.397, recortting nothing). Shape grammar: watch — itssix named productions repair raw collapse from 0.01 to 1.00 validity at full novelty retention, then tie the incumbent _finish at 1.00/1.0 under a measured noise floor of 0.0, and a tie doesn't replace a shipped incumbent. The harness reproduced the committed bake-off row exactly on all five keys before any new number was trusted; both pre-run
+predictions held. wfc_grid lab 36 → 61 tests
+3. O5 (1bd66a0): consolidated gate report, queue archived to sunsetted/complete/TODO/25/, changelog's cycle-25 section closed, and all state snapshots refreshed to measured numbers.
+
+Cycle 26 · Phase P — "the missing axes earn their sources" — is planned and installed at sunsetted/TODO.md, from the documentation and the recorded remainders: P1 a dated correction for the measurably-stale §1.17; P2 happiness chooses a definition (or refuses every candidate) and P3 cleanliness earns a mechanic — each running the proven N5→O2 pattern with refusal first-class; P4 the Q-table against the incumbent it actually has to beat; P5 the probe artifacts carrying their own edges; P6 the gate. P1 is the next task whenever development resumes.
+
+✻ Crunched for 4m 52s
+
+※ recap: Cycle 25 (Phase O) is closed with a green gate, all work merged to main and pushed, including your sunsetted/ relocation and the O4 generator-arm verdicts. Cycle 26 is planned in sunsetted/TODO.md; next action is starting P1. (disable recaps in /config)
 
 -------
 ## [23]
