@@ -155,10 +155,32 @@ remainder list this cycle opens), `2026-07-28-health-definition-gate.md`
   measurements they were. **DR 0046's comparability rule applies
   throughout.** The other six callers stay pinned; DR 0053 says why, and
   re-opening that is not this task.
-- [ ] **O4 · Stage 2's undispositioned generator arms.** *(Design done,
-  not built. Two corrections found by reading the dossier and the engine
-  BEFORE writing measurement code — they reshape the task, and the next
-  session should start from them rather than from the charter below.)*
+- [x] **O4 · Stage 2's undispositioned generator arms.** DONE 2026-08-08
+  (`2026-08-08-stage2-generator-arms.md`, **DR 0057**): **each arm
+  judged in its DOCUMENTED role — CPPN REJECTED, shape grammar WATCH,
+  nothing adopted, and the prediction (recorded first) confirmed.** The
+  instrument reproduced the committed wfc row exactly (all five keys)
+  before any new number was trusted; the 0.68 distinct floor is the
+  committed refused random arm's own rate re-derived at run time; the
+  stabilizer noise floors are two-seed measured (0.0/0.0). **CPPN**:
+  validity **0.12** vs the 0.85 dossier bar — and the mechanism is MASS,
+  not incoherence (79 of 88 invalid bodies are *connected* cores under
+  the DR 0029 floor; only 9 disconnect), while the measurement also
+  recorded what the method is documented to be good at (symmetry
+  0.475226 above the WFC family's 0.397; 100/100 unique; copy rate 0.0)
+  and by the pre-registered rule none of it offsets validity. **Shape
+  grammar**: six named RNG-free productions repair the raw collapse
+  (0.01 → **1.00** validity, retention 1.0 — the documented job done
+  emphatically) and then **TIE the incumbent `_finish`** at 1.00/1.0
+  under noise 0.0 — a tie is not a reason to replace a shipped
+  incumbent (DR 0031's hybrid-refutation logic, pointed the other way).
+  Recorded-not-judged: the grammar's +0.016238 readability edge and its
+  repair-vs-restart architecture. **The Stage 2 disposition debt is
+  CLOSED** — every generator-adjacent method the dossier names now
+  carries a verdict. Lab 36 → **61**; two cards; adopt pre-registered
+  unreachable at stage 0. *(Design-phase corrections and the restored
+  RED's provenance are recorded in the report's process note.)*
+  *(Original design note, kept:)*
 
   **CORRECTION 1 — the charter's framing is wrong for one of the two.**
   It says *"judge them against the adopted generation layer on its own
@@ -273,4 +295,4 @@ awaits a push that is never made unasked.
 - `research/decision_records/0049`–`0054`; `0021-game-loop.md`, `0028-dependency-and-license-policy.md`, `0031-wfc-generation-adoption.md`, `0042-generation-layer-loop-revisit.md`, `0046-two-geometry-split.md`, `0048-visible-companion-state-axes.md`
 - `research/package_specs/` (O1's contract home) · `packages/mecha_engine/src/mecha_engine/lifecycle/simulate.py`
 - `docs/project-research/validity-research.md` §1.17, `docs/project-research/deep-research/01/deep-research.md`, `docs/project-research/research.md`, `research/questions.md`
-- `audits/complete/24/TODO.md` (the archived cycle)
+- `sunsetted/complete/TODO/24/TODO.md` (the archived cycle)

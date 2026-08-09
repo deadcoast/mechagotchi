@@ -2,18 +2,18 @@
 
 Written **2026-07-21** by the outgoing session, completed
 **2026-07-26** at the owner's direction, and its §3/§4 state sections
-refreshed **2026-07-28 mid-cycle-25 (after O3)**. Read this file
-completely before touching anything.
+refreshed **2026-08-08 at the Phase-O gate (cycle 26 planned)**. Read
+this file completely before touching anything.
 
-`CHANGELOG.md` in the root is the cycle-by-cycle summary of what
-shipped; it is derived from the gate reports, and where they disagree
-the gate report wins.
+The changelog (`sunsetted/complete/CHANGELOG/01/CHANGELOG.md`) is the
+cycle-by-cycle summary of what shipped; it is derived from the gate
+reports, and where they disagree the gate report wins.
 
 **How to trust this file:** §1 (the frame), §2 (owner rulings), §6 (the
 format), and §7 (honesty norms) are *durable* — they are owner rulings
 and established discipline; they do not expire. §3 (state) and §4
 (what's next) are a **snapshot** — re-verify them against `git log`,
-`audits/TODO.md`, and the gate artifacts before relying on them.
+`sunsetted/TODO.md`, and the gate artifacts before relying on them.
 
 **The orienting files at the repo root**, and what each is for:
 
@@ -22,10 +22,10 @@ and established discipline; they do not expire. §3 (state) and §4
 | `ONBOARDING.md` | **this file** — start here |
 | `README.md` | what the project *is*, and the anti-drift identity constraint |
 | `CLAUDE.md` | the agent operating brief (commands, architecture, conventions) |
-| `CHANGELOG.md` | cycle-by-cycle summary, derived from the gate reports |
+| `sunsetted/complete/CHANGELOG/01/CHANGELOG.md` | cycle-by-cycle summary, derived from the gate reports |
 | `_MOC_.md` | map of contents across the documentation |
 | `TOOLS.md` | the tooling notes |
-| `audits/TODO.md` | **the live cycle queue** — the actual work list |
+| `sunsetted/TODO.md` | **the live cycle queue** — the actual work list |
 
 *Corrected 2026-07-27*: earlier versions of this file pointed at
 `FABLE5.md` and `AGENTS.md` as live references. **Both now live under
@@ -33,6 +33,13 @@ and established discipline; they do not expire. §3 (state) and §4
 personal archive, which §2 says to ignore unless explicitly linked. Do
 not go looking for them at the root. `docs/agent-standards.md` still
 exists and is an older orientation doc, largely superseded.
+
+*Relocated 2026-08-08 by the owner*: the `audits/` tree and the root
+`CHANGELOG.md` now live under `sunsetted/` — the live queue at
+`sunsetted/TODO.md`, archived cycles at `sunsetted/complete/TODO/NN/`,
+the changelog at `sunsetted/complete/CHANGELOG/01/CHANGELOG.md`. Dated
+records that cite `audits/...` paths cite where the files lived when
+they were written; per the correction law they are not rewritten.
 
 Where anything conflicts: **this file and the decision records win.**
 
@@ -179,14 +186,15 @@ merged and pushed at its own commit, per §6's branch rule. Check with
 | 22 | L | the descriptor space settles its geometry — and the cycle audits its own ledger (gate green 2026-07-26) |
 | 23 | M | the archive meets its own inhabitants — and the cycle audits its own **prose** (gate green 2026-07-27) |
 | 24 | N | the descriptor space earns its edges — and the cycle audits its own **instruments** (gate green 2026-07-28) |
-| **25** | **O** | **the adopted definitions reach the player ← WE ARE HERE** |
+| 25 | O | the adopted definitions reach the player — landed without a committed number drifting (gate green 2026-08-08) |
+| **26** | **P** | **the missing axes earn their sources ← WE ARE HERE** |
 
-Archived queues live in `audits/complete/NN/TODO.md` (01–07, 09–24).
+Archived queues live in `sunsetted/complete/TODO/NN/TODO.md` (01–07, 09–25).
 
 ### Cycle 21 · Phase K — CLOSED, gate green 2026-07-26
 
 Gate report `research/experiment_reports/2026-07-26-phase-k-gate.md`;
-queue archived at `audits/complete/21/TODO.md`. The vocabulary Phase J
+queue archived at `sunsetted/complete/TODO/21/TODO.md`. The vocabulary Phase J
 taught the engine to spell was settled through its whole stack:
 **DR 0041** implemented the 11-class regrowth head and **WITHHELD its
 adoption** by its own bar (+0.0944 vs +0.10); **DR 0042** adopted the
@@ -203,7 +211,7 @@ and `CHANGELOG.md`.
 
 All six tasks DONE; gate report
 `research/experiment_reports/2026-07-26-phase-l-gate.md`; queue archived
-at `audits/complete/22/TODO.md`. What it settled, in one line each:
+at `sunsetted/complete/TODO/22/TODO.md`. What it settled, in one line each:
 **L1** corrected DR 0042 twice (the rate is 7.2% not ~22%; the refusals
 are SLIP-rejected *parents*, not invalid candidates, and 100% of them
 bootstrap creatures). **L2** judged the documented lineage-dominance
@@ -225,7 +233,7 @@ rewritten**. Every correction is a dated note beside the original.
 
 All six tasks DONE; gate report
 `research/experiment_reports/2026-07-27-phase-m-gate.md`; queue archived
-at `audits/complete/23/TODO.md`. **M1** measured the archive on its own
+at `sunsetted/complete/TODO/23/TODO.md`. **M1** measured the archive on its own
 inhabitants — `within_sampling_noise`, partly deflating the cycle's own
 premise, with its lasting result methodological: measuring a control for
 **both** population types caught a false positive that the cheap control
@@ -254,7 +262,7 @@ correction is a dated note beside the original.
 All six tasks DONE (N1–N5 plus **N7**, which DR 0052 added mid-cycle
 rather than letting a default change happen as a side effect); gate
 report `research/experiment_reports/2026-07-28-phase-n-gate.md`; queue
-archived at `audits/complete/24/TODO.md`. Six decision records,
+archived at `sunsetted/complete/TODO/24/TODO.md`. Six decision records,
 **0049–0054**.
 
 **The cycle's character, and the reason to trust it**: **Phase L audited
@@ -278,11 +286,29 @@ loop's default but every historical study is pinned to the incumbent;
 off-screen by one package constant. Correct in each case, deliberate in
 each case — and exactly the debt that quietly becomes permanent.
 
-### Cycle 25 · Phase O — the adopted definitions reach the player — IN PROGRESS
+### Cycle 25 · Phase O — CLOSED, gate green 2026-08-08
 
-`audits/TODO.md` is the live queue: **O1, O2, O3 DONE; O4 and O5 open.**
-The spine is Phase N's own debt — **it adopted three things and put none
-of them in front of a player.**
+All five tasks DONE; gate report
+`research/experiment_reports/2026-08-08-phase-o-gate.md`; queue archived
+at `sunsetted/complete/TODO/25/TODO.md`. Three decision records,
+**0055–0057** (O1 deliberately wrote none — executing DR 0054's decision
+is not a decision). The spine was Phase N's own debt — **it adopted
+three things and put none of them in front of a player** — and the
+cycle's character is that it **paid that debt without a single
+committed number drifting**: landings additive, headlines restated
+never overwritten, challengers judged in their documented roles, and
+the one mid-cycle process failure (a RED committed early by the owner's
+IDE) recorded as a trap with its rule.
+
+### Cycle 26 · Phase P — the missing axes earn their sources — OPEN
+
+`sunsetted/TODO.md` is the live queue: **P1–P6, none started.** The two
+remaining documented VISIBLE axes have nothing to display and the gap
+is upstream of display (`happiness` needs a DEFINITION, `cleanliness` a
+MECHANIC — DR 0048); §1.17 is measurably stale against the shipped
+client; and two instruments owe repairs Phase N named (the Q-table's
+harder baseline; the probe artifacts' committed edges). Task detail and
+sources are in the queue itself.
 
 **O1 — DONE (no DR; DR 0054 already made the decision).** The lifecycle
 public surface widens **six names → seven** (`DANGER_THRESHOLDS`),
@@ -322,6 +348,25 @@ a **quoting rule** — any *"the loop achieves X"* must name which arm.
 Only the adopted arm was re-run (ten runs, not forty), because the GA
 control takes no `slip_admission` and cannot move.
 
+**O4 — DONE (DR 0057).** **Stage 2's last undispositioned generator
+arms judged — each in its DOCUMENTED role, and the charter's own
+framing corrected first.** CPPN (stance: *"late exploratory
+generator"*) was bake-offed on B2's own terms and **REJECTED** at
+validity **0.12** vs the 0.85 dossier bar — with the mechanism measured
+(79 of 88 invalid bodies are *connected* cores under the DR 0029 mass
+floor; only 9 disconnect) and the method's documented strengths
+recorded beside the verdict (symmetry 0.475 above the WFC family;
+100/100 unique; none of it offsets validity, pre-registered). Shape
+grammar (stance: *"validator or post-generator stabilizer"* — a role
+**already shipped** as `wfc_grid._finish`) was judged at the sharper
+question *does it beat the incumbent?* — it repairs the raw collapse
+0.01 → **1.00** validity at retention 1.0, then **TIES** the incumbent
+at 1.00/1.0 under two-seed measured noise 0.0: **WATCH**, because a tie
+is not a reason to replace a shipped incumbent. The instrument
+reproduced the committed wfc row exactly before any new number was
+trusted. Nothing adopted; no incumbent moved; prediction confirmed.
+Lab 36 → **61**.
+
 ### What exists and is genuinely good
 
 - **`packages/mecha_engine`** — ten promoted modules: `genome`,
@@ -338,16 +383,16 @@ control takes no `slip_admission` and cannot move.
   inspector, Keeper session page. **92 tests.**
 - **`labs/`** — 19 research labs; every algorithm is proven here first.
   (`map_elites_archive` is the largest at **449**, having grown through
-  cycles 23–25; `micro_threads` **123**.)
-- **`research/`** — the evidence ledger: **272 experiment reports**,
-  **77 algorithm cards**, **56 decision records** (through DR 0056),
+  cycles 23–25; `micro_threads` **123**; `wfc_grid` **61** after O4.)
+- **`research/`** — the evidence ledger: **273 experiment reports**,
+  **79 algorithm cards**, **57 decision records** (through DR 0057),
   package specs.
-- **`data/`** — **2,246 JSON evidence artifacts**, all valid.
+- **`data/`** — **2,247 JSON evidence artifacts**, all valid.
 
-**Verified 2026-07-28, mid-cycle-25 (after O3):**
+**Verified 2026-08-08, at the Phase-O gate:**
 `python -B tools/ci/run_sweep.py` → **SWEEP GREEN** — 19 lab suites +
 package **299** + workshop 92 + game **200** + CLI 23;
-`data artifacts OK — 2246 JSON artifacts valid`.
+`data artifacts OK — 2247 JSON artifacts valid`.
 (Slowest: workshop ~187 s, runtime_integration ~85 s,
 map_elites_archive ~50 s, cellular_automata ~40 s.)
 - Real CuBFF data is ingested; 16×16 is the proven grid scale;
@@ -408,10 +453,14 @@ readout is **on the player's screen with its binding axis beside it**.
 is also **measurably stale against the shipped client**, which already
 surfaces two documented-HIDDEN axes under accurate names.
 
-Also standing: Stage 2's
-undispositioned generator arms (**shape grammar**, **CPPN**) — **now
-chartered as O4, with two recorded corrections to its framing** (see §4)
-— and the unbuilt method tracks (MRF-lite, Lenia, reaction–diffusion, the MDP
+Also standing: ~~Stage 2's
+undispositioned generator arms (**shape grammar**, **CPPN**)~~
+**CLOSED 2026-08-08 by O4 / DR 0057** — each judged in its documented
+role (CPPN rejected on validity 0.12 with the mass-floor mechanism
+measured; shape grammar watch, tying the incumbent `_finish` at
+1.00/1.0 under measured noise 0.0; nothing adopted, prediction
+confirmed); the unbuilt method tracks remain (MRF-lite, Lenia,
+reaction–diffusion, the MDP
 sandbox, the QDax shadow port, z3/SMT at DR 0011's WATCH); the
 ~~the micro-learner ablation conditions **E/F/G** (Q-table, tiny
 decision tree, Bayesian counter), never instantiated in the Phase-D
@@ -432,49 +481,30 @@ first green CLOUD CI run, which awaits a push never made unasked.
 
 ## 4. WHAT TO DO NEXT
 
-**Work `audits/TODO.md` task by task** — RED first, triad docs in the
-same change, one commit per task naming the task ID. Cycle 25's queue in
-order (cycle 24's closed ladder is in §3 and its gate report):
+**Work `sunsetted/TODO.md` task by task** — RED first, triad docs in the
+same change, one commit per task naming the task ID. Cycle 26's queue in
+order (cycle 25's closed ladder is in §3 and its gate report; the full
+charters with their sources are in the queue file):
 
-1. ~~**O1 · promote `DANGER_THRESHOLDS`**~~ — **DONE 2026-07-28.** See §3.
-2. ~~**O2 · land the `health` readout**~~ — **DONE 2026-07-28 (DR 0055).**
-3. ~~**O3 · restate the headline studies**~~ — **DONE 2026-07-28 (DR 0056).**
-4. **O4 · Stage 2's undispositioned generator arms** ← **THE NEXT
-   TASK.** Deliberately **non-archive and non-loop** after a cycle that
-   spent four of six slices in the archive. **Shape grammar** and
-   **CPPN** are named in the dossier and have never been dispositioned:
-   no card, no prototype, no verdict — the same debt N3 closed after
-   twelve cycles.
-
-   **Start from the two corrections already recorded in
-   `audits/TODO.md`, not from the original charter** — both were found
-   by reading the dossier and the engine *before* writing measurement
-   code, which is exactly Phase N's lesson applied to a framing rather
-   than an instrument:
-
-   - **The charter's "bake-off both" framing is wrong for one of them.**
-     CPPN is *"keep as a late exploratory generator"* — a generator
-     bake-off **is** its documented role. But **shape grammar is filed
-     under Constraint systems**, whose documented stance is *"use as
-     validator or **post-generator stabilizer**"*. It is explicitly not
-     proposed as a generator, so a bake-off would test it at a job
-     nobody gave it and a rejection earned that way would mean nothing.
-   - **Shape grammar's documented role is ALREADY SHIPPED.**
-     `wfc_grid._finish` (inside `generate_wfc_grid`) is documented in
-     its own docstring as *"the documented post-generator stabilizer
-     pass"* and quotes the dossier verbatim — largest 8-connected core,
-     cardinality constraints as restart conditions, anchor
-     normalization — as part of the **adopted** WFC arm (DR 0031). So
-     *"does a constraint stabilizer help?"* is answered. **The real open
-     question is: does a shape-grammar stabilizer beat the incumbent
-     `_finish`?**
-
-   **Rejecting both is first-class**; DR 0031 already refuted the hybrid
-   arm, and a second measured refutation is worth more than a third
-   generator nobody asked for.
-5. **O5 · the Phase-O gate** — then archive to `audits/complete/25/`
-   and plan cycle 26 from the documentation. **Do not ask which
-   direction.**
+1. **P1 · §1.17 earns a dated correction** — measure the visible/hidden
+   axis split as shipped, then a dated note beside §1.17 (never a
+   rewrite).
+2. **P2 · `happiness` chooses a definition — or refuses every
+   candidate** — the proven N5 → O2 pattern end to end: pre-registered
+   refusal criteria (the euphemism test), and if adopted, the readout
+   lands in the same slice.
+3. **P3 · `cleanliness` earns a mechanic — or the record says why
+   not** — read the engine first; smallest documented mechanic as an
+   additive seam, byte-identical off; refusal first-class.
+4. **P4 · the Q-table meets the incumbent it actually has to beat** —
+   N3's harder comparison, plus F's like-for-like online stump; both
+   committed artifacts untouched.
+5. **P5 · the probe artifacts carry their own edges** — restate
+   `occupancy_saturation` and `reachability_escalation` under the
+   frozen recipe as new artifacts (DR 0053's rule 2).
+6. **P6 · the Phase-P gate** — then archive to
+   `sunsetted/complete/TODO/26/` and plan cycle 27 from the
+   documentation. **Do not ask which direction.**
 
 ## 5. The map — what each directory IS
 
@@ -493,9 +523,9 @@ research/                the evidence ledger (the deliverable)
   └─ README.md           THE MASTER TRACEABILITY LEDGER
 data/                    JSON evidence artifacts + fixture corpora
 docs/                    the vision + roadmap documents
-audits/TODO.md           THE ACTIVE CYCLE QUEUE
-audits/complete/NN/      archived cycles (01–07, 09–24)
-CHANGELOG.md             cycle-by-cycle summary (derived from the gates)
+sunsetted/TODO.md           THE ACTIVE CYCLE QUEUE
+sunsetted/complete/TODO/NN/      archived cycles (01–07, 09–24)
+sunsetted/complete/CHANGELOG/01/CHANGELOG.md   the cycle-by-cycle summary
 keeper/, game/dist/      live play state / builds — GITIGNORED, not evidence
 ```
 
@@ -569,7 +599,8 @@ they are not written down elsewhere:
    three new records).
 6. `research/README.md` — the traceability ledger.
 7. `docs/alpha.md` — the public-alpha packet.
-8. `CHANGELOG.md` — the cycle-by-cycle summary, derived from the gates.
+8. `sunsetted/complete/CHANGELOG/01/CHANGELOG.md` — the cycle-by-cycle
+   summary, derived from the gates.
 
 ---
 
@@ -628,10 +659,10 @@ runnable and parity-pinned.
 
 ### The cycle rule
 
-Work `audits/TODO.md` task by task; one commit per completed task
+Work `sunsetted/TODO.md` task by task; one commit per completed task
 naming the task ID, the evidence, and the doc updates. A cycle ends
 only when the queue is exhausted AND a full sweep is green — then
-archive to `audits/complete/NN/` and plan the next cycle from the
+archive to `sunsetted/complete/TODO/NN/` and plan the next cycle from the
 documentation and the recorded remainders.
 
 ### The branch and merge rule
@@ -781,16 +812,17 @@ mechas session --open
    `main`?** If that list is longer than the cycle you are about to
    work, a previous cycle was never merged back (see §6, the branch and
    merge rule). Fix that before adding to the pile.
-3. Read `audits/TODO.md` — the live queue and its standing note.
+3. Read `sunsetted/TODO.md` — the live queue and its standing note.
 4. `python -B tools/ci/run_sweep.py --quick` — confirm the tree is
    green before changing anything. **~5 min**; the full sweep is ~9 min
    and is required before any commit that closes a task.
 5. Read the most recent experiment reports in
-   `research/experiment_reports/` (`2026-07-28-*`) for the immediate
-   context, starting with `2026-07-28-phase-n-gate.md` (the last closed
-   gate) and then cycle 25's own — `2026-07-28-danger-thresholds-promotion.md`,
-   `-health-readout.md`, `-adopted-default-restatement.md`.
-   `CHANGELOG.md` is the faster orientation if you only need the shape.
+   `research/experiment_reports/` for the immediate context, starting
+   with `2026-08-08-phase-o-gate.md` (the last closed gate) and then
+   cycle 25's own — `2026-07-28-danger-thresholds-promotion.md`,
+   `-health-readout.md`, `-adopted-default-restatement.md`,
+   `2026-08-08-stage2-generator-arms.md`. The changelog is the faster
+   orientation if you only need the shape.
 6. Then work the queue — task by task, RED first, triad docs in the
    same change, one commit per task. When the queue exhausts, plan the
    next cycle yourself from the documentation.
@@ -799,7 +831,7 @@ mechas session --open
 
 Every cycle-23 slice ran this loop; copy it:
 
-1. **Read the charter** — the task's own bullet in `audits/TODO.md`, and
+1. **Read the charter** — the task's own bullet in `sunsetted/TODO.md`, and
    the reports it names. They tell you what is already measured.
 2. **Write the pins FIRST** (`test_<module>.py`) and run them — you want
    `ModuleNotFoundError`. That is the RED, and it goes in the report.
@@ -823,18 +855,20 @@ Every cycle-23 slice ran this loop; copy it:
 
 ## Sources
 
-- `audits/TODO.md` (cycle 25 · Phase O — the LIVE queue), `audits/complete/*/TODO.md`
-- `CHANGELOG.md` (the cycle-by-cycle summary)
+- `sunsetted/TODO.md` (cycle 25 · Phase O — the LIVE queue), `sunsetted/complete/TODO/*/TODO.md`
+- `sunsetted/complete/CHANGELOG/01/CHANGELOG.md` (the cycle-by-cycle summary)
 - `CLAUDE.md`, `README.md`, `_MOC_.md`, `docs/agent-standards.md`  
   (`FABLE5.md` and `AGENTS.md` are now under `.depreciated/` — archived)
 - `docs/gap-analysis.md` (retired; the measured history)
 - `docs/project-research/` (the vision documents)
 - `research/README.md` (the master ledger)
-- `research/decision_records/0017`, `0021`, `0026`–`0056`
+- `research/decision_records/0017`, `0021`, `0026`–`0057`
 - `research/experiment_reports/2026-07-12-phase-g-gate.md`,
   `2026-07-20-phase-j-gate.md`, `2026-07-26-phase-k-gate.md`,
   `2026-07-26-phase-l-gate.md`, `2026-07-27-phase-m-gate.md`,
-  `2026-07-28-phase-n-gate.md` (the last CLOSED gate),
+  `2026-07-28-phase-n-gate.md`,
+  `2026-08-08-phase-o-gate.md` (the last CLOSED gate),
   `2026-07-28-danger-thresholds-promotion.md`, `-health-readout.md`,
-  `-adopted-default-restatement.md` (cycle 25's O1–O3, which refreshed §3/§4)
+  `-adopted-default-restatement.md`,
+  `2026-08-08-stage2-generator-arms.md` (cycle 25's O1–O4)
 - `tools/ci/run_sweep.py`

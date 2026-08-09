@@ -23,9 +23,10 @@ never rewritten).
 
 ---
 
-## [Unreleased] — Cycle 25 · Phase O — "the adopted definitions reach the player"
+## Cycle 25 · Phase O — "the adopted definitions reach the player" — 2026-08-08
 
-*In progress. Queue: `audits/TODO.md` (**O1–O3 DONE**; O4, O5 open).* Planned from Phase N's
+**Gate: GREEN.** `research/experiment_reports/2026-08-08-phase-o-gate.md`;
+queue archived to `sunsetted/complete/TODO/25/`. Planned from Phase N's
 unusual debt: **it adopted three things and put none of them in front of
 a player.** `insertion` is the loop's default but every historical study
 is pinned to the incumbent, and `danger_margin` is the adopted
@@ -123,6 +124,35 @@ that quietly becomes permanent.
   *"the loop achieves X"* must name **which arm** — the same discipline
   DR 0046 imposed across geometries. Dated notes sit beside DR 0042 and
   the `evaluation_loop_scale` card.
+- **O4 — DONE 2026-08-08 (DR 0057).** **Stage 2's last undispositioned
+  generator arms judged — each in its DOCUMENTED role, and the
+  charter's own bake-off-both framing corrected first** (shape grammar
+  is a Constraint system whose documented role is *"validator or
+  post-generator stabilizer"* — a role **already shipped** as
+  `wfc_grid._finish`). **CPPN — REJECTED** as a generator: validity
+  **0.12** vs the 0.85 dossier bar, with the mechanism measured (79 of
+  88 invalid bodies are *connected* cores under the DR 0029 mass floor;
+  only 9 disconnect) and the method's documented strengths recorded
+  beside the verdict (symmetry 0.475 above the WFC family; 100/100
+  unique; none of it offsets validity, pre-registered). **Shape grammar
+  — WATCH**: six named RNG-free productions repair the raw collapse
+  0.01 → **1.00** validity at retention 1.0, then **TIE the incumbent
+  `_finish`** at 1.00/1.0 under a two-seed measured noise floor of 0.0
+  — a tie is not a reason to replace a shipped incumbent. **The
+  instrument reproduced the committed wfc bake-off row exactly (all
+  five keys) before any new number was trusted.** Prediction (recorded
+  first) confirmed on both arms; nothing adopted; wfc_grid lab
+  36 → **61**.
+- **O5 — the Phase-O gate: GREEN 2026-08-08.** Closing sweep: 19 lab
+  suites + package **299** + workshop **92** + game **200** + CLI —
+  **2,247 JSON artifacts, 0 invalid**. Ledger at the gate: **273**
+  experiment reports, **79** algorithm cards, **57** decision records.
+  Cycle 26 (Phase P — "the missing axes earn their sources") planned
+  from the documentation and the recorded remainders.
+- *Mid-cycle, recorded*: the owner relocated the work-queue tree —
+  `audits/` → `sunsetted/` and the root `CHANGELOG.md` → this file's
+  current path — completed as rename-preserving commit `a4b04ae` with
+  the living root docs re-pointed and dated records left as written.
 
 ---
 
