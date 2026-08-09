@@ -155,15 +155,24 @@ two real gaps and the stale split), `0054`/`0055` (the pattern),
   micro_threads 123 → **140**.
   *(Original charter, kept:)* F's drop is expected to hold either way,
   and if it does not, that is the finding.
-- [ ] **P5 · The probe artifacts carry their own edges.** *(SHARED.)*
-  N2/DR 0050 froze the derivation recipe and found the real defect:
-  `occupancy_saturation` and `reachability_escalation` record **no
-  edges at all** in their committed bodies, so neither artifact can
-  prove which geometry produced it. Restate both under the frozen
-  recipe with `edges_source` carried in-body — as **new artifacts**
-  beside the committed ones (DR 0053's rule 2: a measurement is
-  reproduced or superseded, never improved), with every delta explained
-  and DR 0046's comparability rule applied throughout.
+- [x] **P5 · The probe artifacts carry their own edges.** DONE
+  2026-08-09 (`2026-08-09-probe-artifact-restatement.md`; no DR — this
+  executes DR 0050's own named remainder): **both restatements come
+  back IDENTICAL to the number.** Each study re-ran through its own
+  committed builder (imported, never re-implemented) at its documented
+  defaults and was written as a NEW `*_edged_stage0` artifact beside
+  the untouched original, with a `restates` pointer,
+  `parameters.edges_source`, and a full-body deep comparison:
+  **zero differing paths, zero removals over the entire bodies**, the
+  only additions DR 0050's two provenance keys. The time-bounded
+  concern named in the pre-registered rule did not materialize
+  (escalation 85.3 s vs its 900 s bound). The committed originals
+  still carry no edges — deliberately, and pinned. Process deviation
+  recorded: the first comparison enumeration was under-specified (it
+  allowed only `edges_source`) and was corrected before any verdict
+  shipped. map_elites_archive 449 → **464**.
+  *(Original charter, kept:)* with every delta explained and DR 0046's
+  comparability rule applied throughout.
 - [ ] **P6 · The Phase-P gate.** One consolidated report; cycle 26
   archived to `sunsetted/complete/TODO/26/`; cycle 27 planned from the
   documentation. **Do not ask which direction.**

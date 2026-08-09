@@ -302,11 +302,22 @@ IDE) recorded as a trap with its rule.
 
 ### Cycle 26 · Phase P — the missing axes earn their sources — OPEN
 
-`sunsetted/TODO.md` is the live queue: **P1–P4 DONE; P5–P6 open.** The
-axis work is complete — **no documented visible axis lacks an engine
-source any longer** — and what remains is the probe artifacts'
-committed edges (P5) and the gate. Task detail and sources are in the
-queue itself.
+`sunsetted/TODO.md` is the live queue: **P1–P5 DONE; P6 (the gate)
+open.** The axis work is complete — **no documented visible axis lacks
+an engine source any longer** — and both instrument repairs Phase N
+named are done. Task detail and sources are in the queue itself.
+
+**P5 — DONE 2026-08-09 (no DR; DR 0050's own named remainder
+executed).** **The last two probe artifacts that could not prove their
+draw now carry their own edges — and both restatements come back
+IDENTICAL to the number.** Each study re-ran through its own committed
+builder at its documented defaults, written as a NEW `*_edged_stage0`
+artifact beside the untouched original with a full-body deep
+comparison: **zero differing paths over the entire bodies**; the only
+additions are DR 0050's two provenance keys; the time-bounded concern
+did not materialize (escalation 85.3 s vs its 900 s bound). The
+committed originals still carry no edges — deliberately, and pinned.
+map_elites_archive 449 → **464**.
 
 **P4 — DONE 2026-08-09 (no DR; dated notes beside DR 0051).** **The
 prediction was REFUTED, and the refutation is the headline: the
@@ -565,9 +576,9 @@ charters with their sources are in the queue file):
 4. ~~**P4 · the Q-table meets the incumbent it actually has to
    beat**~~ — **DONE 2026-08-09.** See §3. It beat the incumbent
    itself; the prediction was refuted; the roster is unchanged.
-5. **P5 · the probe artifacts carry their own edges** — restate
-   `occupancy_saturation` and `reachability_escalation` under the
-   frozen recipe as new artifacts (DR 0053's rule 2).
+5. ~~**P5 · the probe artifacts carry their own edges**~~ — **DONE
+   2026-08-09.** See §3. Both restated identical; the originals
+   untouched.
 6. **P6 · the Phase-P gate** — then archive to
    `sunsetted/complete/TODO/26/` and plan cycle 27 from the
    documentation. **Do not ask which direction.**

@@ -25,7 +25,7 @@ never rewritten).
 
 ## [Unreleased] — Cycle 26 · Phase P — "the missing axes earn their sources"
 
-*In progress. Queue: `sunsetted/TODO.md` (**P1–P4 DONE**; P5–P6 open).*
+*In progress. Queue: `sunsetted/TODO.md` (**P1–P5 DONE**; P6 open).*
 Planned from DR 0048's two real gaps (`happiness` needed a DEFINITION,
 `cleanliness` needs a MECHANIC — neither a display gap) and the
 instrument repairs Phase N and O named.
@@ -117,6 +117,22 @@ instrument repairs Phase N and O named.
   in any branch, pre-registered** — E's keep now rests on a far
   stronger footing, recorded beside DR 0051, never re-scored.
   micro_threads 123 → **140**.
+- **P5 — DONE 2026-08-09 (no DR; DR 0050's own named remainder
+  executed).** **The probe artifacts carry their own edges — both
+  restatements IDENTICAL to the number.** `occupancy_saturation` and
+  `reachability_escalation` re-ran through their own committed
+  builders at documented defaults, written as NEW `*_edged_stage0`
+  artifacts beside the untouched originals (`restates` pointers,
+  `parameters.edges_source`, full-body deep comparisons in
+  `restatement_check`): **zero differing paths, zero removals over the
+  entire bodies**; the only additions are DR 0050's two provenance
+  keys; the escalation's time-bound concern did not materialize
+  (85.3 s vs 900 s). The committed originals still carry no edges —
+  deliberately, and pinned; the restatements prove the DRAW, not the
+  numbers' population stability (DR 0050 item 3 stands). A process
+  deviation is recorded: the first comparison enumeration was
+  under-specified and corrected before any verdict shipped.
+  map_elites_archive 449 → **464**.
 
 ---
 
