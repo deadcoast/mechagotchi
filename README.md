@@ -36,6 +36,37 @@ DR 0033) and the ENGINE at `packages/mecha_engine/`; the whole MVP
 ladder (0.1 → 0.3) and Phase G's gates are recorded in
 `research/experiment_reports/` with their evidence under `data/`.
 
+## Where the project is
+
+**Verified 2026-07-28** — `python -B tools/ci/run_sweep.py` →
+**SWEEP GREEN**. One runner covers every surface, and nothing is claimed
+without it:
+
+| surface | state |
+| --- | --- |
+| ENGINE (`packages/mecha_engine/`) | 10 promoted modules · **299** contract tests |
+| GAME (`game/`) | the playable client · **200** tests |
+| workshop (authoring) | **92** tests |
+| `mechas` CLI (support) | **23** tests |
+| labs | **19** suites — every algorithm proven here first |
+| evidence | **2,246** JSON artifacts, 0 invalid |
+| ledger | **272** experiment reports · **77** algorithm cards · **56** decision records |
+
+Every documented phase **A–G is complete and gated** (the public-alpha
+gate went green 2026-07-12, retiring `docs/gap-analysis.md` per its own
+charter). Development since then runs in **cycles**, each planned from
+the still-unmet documentation and from the remainders the previous
+cycle's own records name — currently **cycle 25 · Phase O**. The live
+queue is `audits/TODO.md`; `CHANGELOG.md` is the cycle-by-cycle summary;
+`_MOC_.md` maps the whole repository.
+
+**Negative results are first-class here.** A pre-registered gate that
+refuses its own adoption ships as the finding, and the refuted record is
+a valued part of the ledger — recent cycles have withheld an adoption at
++0.0944 against a +0.10 bar, refused a metric as a euphemism because it
+would have read 93% on a dead companion, and built nothing at all when
+the survey found the "gap" was already on screen.
+
 ## The supporting ecosystem
 
 Every piece of source code and application surface is supported by the
@@ -83,9 +114,12 @@ developed quality of life by explicit policy.
 ## Sources
 
 - `assets/pdf/2406.19108v2.pdf` (Computational Life, arXiv:2406.19108)
-- `docs/project-research/research.md`
-- `docs/agent-standards.md`
-- `research/README.md`
+- `docs/project-research/research.md` (the governing document)
+- `research/README.md` (the master traceability ledger)
 - `research/literature_map.md`
 - `docs/cli/mechas-cli-design.md`
-- `CLAUDE.md`
+- `docs/alpha.md` (the public-alpha packet)
+- `ONBOARDING.md` (the session entry point), `_MOC_.md` (the map of contents), `CLAUDE.md`, `CHANGELOG.md`
+- `audits/TODO.md` (the live cycle queue)
+- `tools/ci/run_sweep.py` (the one verification sweep the state table above comes from)
+- `docs/agent-standards.md` (older orientation, largely superseded)

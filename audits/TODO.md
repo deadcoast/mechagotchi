@@ -194,7 +194,7 @@ remainder list this cycle opens), `2026-07-28-health-definition-gate.md`
   closing sweep red for an unrelated task. **Do not write a RED into a
   lab directory until the previous task is committed.** The design and
   both corrections above survive; the file does not.
-- [ ] **O4 · (original charter)** Deliberately
+  *Original charter:* Deliberately
   **non-archive and non-loop** after a cycle that spent four of six
   slices in the archive — the anti-periscope rule's own instruction.
   `docs/project-research/deep-research/01/deep-research.md` names

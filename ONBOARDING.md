@@ -2,7 +2,7 @@
 
 Written **2026-07-21** by the outgoing session, completed
 **2026-07-26** at the owner's direction, and its §3/§4 state sections
-refreshed at the **Phase-N gate (2026-07-28)**. Read this file
+refreshed **2026-07-28 mid-cycle-25 (after O3)**. Read this file
 completely before touching anything.
 
 `CHANGELOG.md` in the root is the cycle-by-cycle summary of what
@@ -146,12 +146,19 @@ and from the named remainders each cycle's own records leave behind.
 ### Branch and merge state
 
 Working branch **`phase-l-gate`** — historical name, not being renamed
-(phases are already sequential, I→O). It carries cycles 22–24.
+(phases are already sequential, I→O). It carries cycles 22–25.
 
 **Unified as of 2026-07-28**: `main`, `origin/main`, the branch and its
-remote are all on one commit. Every cycle-24 task was merged and pushed
-at its own commit, per §6's branch rule. Check with
+remote are all on one commit. Every cycle-24 and cycle-25 task was
+merged and pushed at its own commit, per §6's branch rule. Check with
 `git log --oneline origin/main..HEAD` — it should be empty.
+
+> **A trap this cycle actually hit** (recorded in §9 too): **do not write
+> a RED test into a lab directory until the previous task is
+> committed.** O3's closing sweep failed on O4's deliberately-failing
+> test, and the owner's IDE then committed that RED — briefly making
+> HEAD red on unstarted work. Design and reading may overlap tasks; a
+> failing test may not.
 
 ### The cycle ladder so far
 
@@ -271,48 +278,49 @@ loop's default but every historical study is pinned to the incumbent;
 off-screen by one package constant. Correct in each case, deliberate in
 each case — and exactly the debt that quietly becomes permanent.
 
-### Cycle 25 · Phase O — the adopted definitions reach the player
+### Cycle 25 · Phase O — the adopted definitions reach the player — IN PROGRESS
 
-`audits/TODO.md` is the live queue: **N1 DONE, N2–N6 open.** The spine
-is Phase M's deepest finding: **the octile edges are not determined by a
-600-creature derivation.** `visual_complexity` re-addresses **26% of the
-population** when the derivation is merely resampled, and its seven
-interior edges sit inside a band about **0.046 wide** — a defect
-*underneath every coverage number in the ledger*, and a question about
-E1's derivation protocol rather than about which population feeds it.
+`audits/TODO.md` is the live queue: **O1, O2, O3 DONE; O4 and O5 open.**
+The spine is Phase N's own debt — **it adopted three things and put none
+of them in front of a player.**
 
-*Corrected 2026-07-27 by N1 / DR 0049*: the premise is **half right, in
-the half that matters least**, and "a defect underneath every coverage
-number" is **overstated**. Measured as a function of derivation size,
-the protocol is **`sampling_limited`, not structurally indeterminate**
-(slope −0.4186 against sampling theory's −0.5, inside a measured band):
-600 does not determine the *addresses* and neither does 4,800, but the
-edges are under-sampled rather than unknowable. Meanwhile the
-**occupied-niche count every coverage figure is counted in was already
-at its measured floor at 600** — it moves exactly the floor there while
-31.7% of individual creatures re-address, and at 4,800 re-addressing has
-improved 2.5× while the ceiling movement is *higher*. **`derivation_count`
-stays at 600**, because what raising it would fix is not what was broken.
-The 26% and the 0.046 band both stand — and the band is now measured
-**constant across a 64× size range**, so the measure-thinness is
-structural and permanent while only the edge placement inside it is
-sampled.
+**O1 — DONE (no DR; DR 0054 already made the decision).** The lifecycle
+public surface widens **six names → seven** (`DANGER_THRESHOLDS`),
+following the W1 precedent: the exact `__all__` equality probe fails
+until spec and code agree, and **that failing run is the RED**. The
+promotion is deliberately narrow **and the narrowness is pinned** — a
+test asserts neither `danger_margin` nor `health` is on the surface, so
+whether the margin formula belongs in the engine stays a separate
+decision. The constant is pinned **by value**, not by presence. Package
+**295 → 299**.
 
-*(The paragraph above is Phase N's charter, kept because N1 answered it.
-The section that follows is cycle 25's.)*
+**O2 — DONE (DR 0055).** *(GAME track.)* **`health` is on the player's
+screen, and the play-drop is explained rather than hidden.** `play`
+lowers the number (play costs energy), and two of the three ways to
+handle that — smoothing, hiding — are forbidden by DR 0021's first law.
+The answer: **show the BINDING AXIS beside the number.** `health 0.62
+(tired)` costs no new number (argmin of margins already computed) and
+turns an unexplained fall into a sentence. **The measured case, from the
+live client**: a keeper who never sleeps sees `tired` from tick 2, 0.000
+by tick 7, and dies of `energy_collapse` at tick 10 — **the readout
+named the death cause eight ticks early.** Game **188 → 200**. Honest
+limit recorded, not fixed: the bar bottoms out at **danger, not death**,
+so it reads 0.000 on a living companion.
 
-`audits/TODO.md` is the live queue: **O1–O5, none started.** The spine
-is Phase N's own debt — **it adopted three things and put none of them
-in front of a player.** O1 promotes the single package constant blocking
-the `health` readout; O2 lands that readout **and answers the design
-question DR 0054 deliberately refused to answer for the consumer**
-(`play` LOWERS `danger_margin`, so a keeper will read the drop as a
-bug); O3 migrates the two headline studies DR 0053 scoped, restating
-**DR 0042's coverage 0.8984** with a delta explained at every site that
-quotes it; and **O4 is deliberately non-archive and non-loop** — Stage
-2's **shape grammar** and **CPPN**, named in the dossier and never
-dispositioned, the same class of debt N3 closed after twelve cycles.
-See `audits/TODO.md` for each task's pre-registered shape.
+**O3 — DONE (DR 0056).** **The headline studies restated under the
+adopted default — and coverage buys quality.** DR 0053's rule 2 shaped
+it: a measurement does not improve, so this is a **new artifact** and
+both committed incumbent artifacts are untouched. At DR 0042's own seed:
+coverage **0.898438 → 0.880859** (−0.017579) but **QD 404.618236 →
+411.738214 (+7.119978)**, **refusals 4,435 → 0**, **illegal elites
+35 → 0**. L1 declined to patch the refusal tax because *"the fix trades
+against coverage"* — this prices the other side. The documented E4 gates
+were re-judged **verbatim** over ten paired seeds: **`NO_REGRESSION`**
+(`ga_advantage_gate_met` was **already** failing and is explicitly not
+attributed to the adoption). **DR 0042 is not retracted**; DR 0056 adds
+a **quoting rule** — any *"the loop achieves X"* must name which arm.
+Only the adopted arm was re-run (ten runs, not forty), because the GA
+control takes no `slip_admission` and cannot move.
 
 ### What exists and is genuinely good
 
@@ -324,23 +332,24 @@ See `audits/TODO.md` for each task's pre-registered shape.
 - **`game/`** — the playable client (pygame-ce). Companion loop, era
   bench, covenant spending, hatchery, Contribute bridge, replays,
   repertoire/lineage browsers, SLIP import/export, community packs,
-  save/resume, a PyInstaller bundle. **183 tests.**
+  save/resume, a PyInstaller bundle. **200 tests** (O2 added 12 with the
+  `health` readout).
 - **`workshop/`** — grid editor, SLIP creator, preview/scrubber,
   inspector, Keeper session page. **92 tests.**
 - **`labs/`** — 19 research labs; every algorithm is proven here first.
-  (The two that grew most in cycle 23: `map_elites_archive` 219 → **319**,
-  `architecture` 14 → **27**.)
-- **`research/`** — the evidence ledger: **267 experiment reports**,
-  **77 algorithm cards**, **54 decision records** (through DR 0054),
+  (`map_elites_archive` is the largest at **449**, having grown through
+  cycles 23–25; `micro_threads` **123**.)
+- **`research/`** — the evidence ledger: **272 experiment reports**,
+  **77 algorithm cards**, **56 decision records** (through DR 0056),
   package specs.
-- **`data/`** — **2,245 JSON evidence artifacts**, all valid.
+- **`data/`** — **2,246 JSON evidence artifacts**, all valid.
 
-**Verified at the Phase-M gate (2026-07-27):**
+**Verified 2026-07-28, mid-cycle-25 (after O3):**
 `python -B tools/ci/run_sweep.py` → **SWEEP GREEN** — 19 lab suites +
-package 295 + workshop 92 + game 183 + CLI 23;
-`data artifacts OK — 2240 JSON artifacts valid`.
-(Slowest at this gate: workshop 228.8 s, runtime_integration 102.5 s,
-map_elites_archive 90.3 s, cellular_automata 47.0 s.)
+package **299** + workshop 92 + game **200** + CLI 23;
+`data artifacts OK — 2246 JSON artifacts valid`.
+(Slowest: workshop ~187 s, runtime_integration ~85 s,
+map_elites_archive ~50 s, cellular_automata ~40 s.)
 - Real CuBFF data is ingested; 16×16 is the proven grid scale;
   novelty-first evolution and the constrained generation layer are
   adopted; the vocabulary is ratified end to end; the checkpoint
@@ -385,9 +394,24 @@ lifecycle field (`age_ticks`) and `mood` is a derived engine value
 by the game. The survey had counted lifecycle *homeostasis fields*. The
 three real gaps are three different kinds — no definition, no mechanic,
 and a definition that would have to be CHOSEN from documented-hidden
-axes — and DR 0048 built none of them. Also standing: Stage 2's
-undispositioned generator arms (**shape grammar**, **CPPN**) and the
-unbuilt method tracks (MRF-lite, Lenia, reaction–diffusion, the MDP
+axes — and DR 0048 built none of them.
+
+*Corrected 2026-07-28 by N5 / DR 0054 and O2 / DR 0055*: **`health` is
+no longer one of the three.** It was the "CHOSEN definition" kind, and
+the choice has now been made and gated — `health` **is** `danger_margin`
+(the minimum normalised safety margin across the engine's own
+`DANGER_THRESHOLDS`), the candidate DR 0048 *named* was **refused as a
+euphemism** (it would have read 93% on a starved corpse), and the
+readout is **on the player's screen with its binding axis beside it**.
+**Two real gaps remain**: `happiness` needs a DEFINITION and
+`cleanliness` needs a MECHANIC — neither is a display gap. §1.17 itself
+is also **measurably stale against the shipped client**, which already
+surfaces two documented-HIDDEN axes under accurate names.
+
+Also standing: Stage 2's
+undispositioned generator arms (**shape grammar**, **CPPN**) — **now
+chartered as O4, with two recorded corrections to its framing** (see §4)
+— and the unbuilt method tracks (MRF-lite, Lenia, reaction–diffusion, the MDP
 sandbox, the QDax shadow port, z3/SMT at DR 0011's WATCH); the
 ~~the micro-learner ablation conditions **E/F/G** (Q-table, tiny
 decision tree, Bayesian counter), never instantiated in the Phase-D
@@ -412,45 +436,42 @@ first green CLOUD CI run, which awaits a push never made unasked.
 same change, one commit per task naming the task ID. Cycle 25's queue in
 order (cycle 24's closed ladder is in §3 and its gate report):
 
-1. **O1 · promote `DANGER_THRESHOLDS` to the package's public API** ←
-   **THE NEXT TASK.** N5's named blocker and the smallest real thing in
-   the queue. `danger_margin` — the adopted definition of `health` —
-   reads a constant that is a **public name in a public module but is
-   not in `mecha_engine`'s `__all__`**, so any consumer depending on it
-   depends on a surface the package never promised. Promote it with the
-   package discipline: a contract entry in `research/package_specs/`, a
-   package test, the traceability matrix updated. **Do not widen the
-   promotion beyond the constant** — whether the margin formula itself
-   belongs in the engine is a separate decision, and the task must say
-   which it did.
-2. **O2 · land the `health` readout in the game** *(GAME track, depends
-   on O1)*. DR 0054 adopted the definition and shipped only a guard.
-   Put it on screen — **and answer the design question DR 0054 refused
-   to answer for the consumer**: `play` LOWERS `danger_margin`
-   (−0.075467, because play costs energy), so a keeper who sees
-   "health" drop when they play with their pet will read it as a bug.
-   Decide and gate whether that ships as-is (honest, engine truth),
-   smoothed, or split in two. **DR 0021's first law binds.** Refusing to
-   display it after all is a legitimate verdict.
-3. **O3 · migrate the two headline studies onto the adopted default** —
-   DR 0053's rule 3, scoped there and unfinished by design.
-   `evaluation_loop_scale` (the source of **DR 0042's coverage
-   0.8984**) and `coverage_qd_gates` (the E4 gates) are the **only two**
-   of eight callers whose migration is a real question rather than an
-   evidence-destroying regeneration. Restate both under `insertion`,
-   **explain the delta at every site quoting the old number**, and keep
-   the incumbent artifacts as the measurements they were. The other six
-   stay pinned; DR 0053 says why.
-4. **O4 · Stage 2's undispositioned generator arms** — deliberately
-   **non-archive and non-loop** after a cycle that spent four of six
-   slices in the archive. **Shape grammar** and **CPPN** are named in
-   the dossier and have never been dispositioned: no card, no
-   prototype, no verdict — the same debt N3 closed after twelve cycles.
-   Smallest honest prototype of each, judged against the adopted
-   generation layer on its own bake-off terms. **Rejecting both is
-   first-class**; DR 0031 already refuted the hybrid arm, and a second
-   measured refutation is worth more than a third generator nobody
-   asked for.
+1. ~~**O1 · promote `DANGER_THRESHOLDS`**~~ — **DONE 2026-07-28.** See §3.
+2. ~~**O2 · land the `health` readout**~~ — **DONE 2026-07-28 (DR 0055).**
+3. ~~**O3 · restate the headline studies**~~ — **DONE 2026-07-28 (DR 0056).**
+4. **O4 · Stage 2's undispositioned generator arms** ← **THE NEXT
+   TASK.** Deliberately **non-archive and non-loop** after a cycle that
+   spent four of six slices in the archive. **Shape grammar** and
+   **CPPN** are named in the dossier and have never been dispositioned:
+   no card, no prototype, no verdict — the same debt N3 closed after
+   twelve cycles.
+
+   **Start from the two corrections already recorded in
+   `audits/TODO.md`, not from the original charter** — both were found
+   by reading the dossier and the engine *before* writing measurement
+   code, which is exactly Phase N's lesson applied to a framing rather
+   than an instrument:
+
+   - **The charter's "bake-off both" framing is wrong for one of them.**
+     CPPN is *"keep as a late exploratory generator"* — a generator
+     bake-off **is** its documented role. But **shape grammar is filed
+     under Constraint systems**, whose documented stance is *"use as
+     validator or **post-generator stabilizer**"*. It is explicitly not
+     proposed as a generator, so a bake-off would test it at a job
+     nobody gave it and a rejection earned that way would mean nothing.
+   - **Shape grammar's documented role is ALREADY SHIPPED.**
+     `wfc_grid._finish` (inside `generate_wfc_grid`) is documented in
+     its own docstring as *"the documented post-generator stabilizer
+     pass"* and quotes the dossier verbatim — largest 8-connected core,
+     cardinality constraints as restart conditions, anchor
+     normalization — as part of the **adopted** WFC arm (DR 0031). So
+     *"does a constraint stabilizer help?"* is answered. **The real open
+     question is: does a shape-grammar stabilizer beat the incumbent
+     `_finish`?**
+
+   **Rejecting both is first-class**; DR 0031 already refuted the hybrid
+   arm, and a second measured refutation is worth more than a third
+   generator nobody asked for.
 5. **O5 · the Phase-O gate** — then archive to `audits/complete/25/`
    and plan cycle 26 from the documentation. **Do not ask which
    direction.**
@@ -467,13 +488,13 @@ labs/                    19 research labs — algorithms proven here FIRST
 research/                the evidence ledger (the deliverable)
   ├─ experiment_reports/ dated findings (YYYY-MM-DD-kebab-slug.md)
   ├─ algorithm_cards/    fixed-template cards (snake_case, same stem)
-  ├─ decision_records/   ADRs, NNNN-slug.md (through 0048)
+  ├─ decision_records/   ADRs, NNNN-slug.md (through 0056)
   ├─ package_specs/      contracts + the traceability matrix
   └─ README.md           THE MASTER TRACEABILITY LEDGER
 data/                    JSON evidence artifacts + fixture corpora
 docs/                    the vision + roadmap documents
 audits/TODO.md           THE ACTIVE CYCLE QUEUE
-audits/complete/NN/      archived cycles (01–07, 09–23)
+audits/complete/NN/      archived cycles (01–07, 09–24)
 CHANGELOG.md             cycle-by-cycle summary (derived from the gates)
 keeper/, game/dist/      live play state / builds — GITIGNORED, not evidence
 ```
@@ -736,6 +757,13 @@ mechas session --open
 - **Complex one-liners fail PowerShell parsing** — write a script file
   to the scratchpad instead. The Bash tool's `cd` persists between
   calls; prefer absolute paths.
+- **A RED test in a lab directory turns the CLOSING SWEEP red for the
+  task you are trying to finish.** Cycle 25 hit this: O4's RED was
+  written while O3 was still open, O3's verification sweep failed on it,
+  and the owner's IDE then committed the failing file. **Do not write a
+  RED into a lab directory until the previous task is committed** —
+  design work and reading may overlap tasks, a deliberately-failing test
+  may not.
 - **Servers must bind port 0** (OS-reserved ranges shift).
 - Two `data/slips` pydantic-version observation artifacts get rewritten
   by `slip_validator` sweeps — `git checkout` them, never commit.
@@ -758,9 +786,11 @@ mechas session --open
    green before changing anything. **~5 min**; the full sweep is ~9 min
    and is required before any commit that closes a task.
 5. Read the most recent experiment reports in
-   `research/experiment_reports/` (`2026-07-27-*`) for the immediate
-   context, starting with `2026-07-27-phase-m-gate.md`. `CHANGELOG.md`
-   is the faster orientation if you only need the shape.
+   `research/experiment_reports/` (`2026-07-28-*`) for the immediate
+   context, starting with `2026-07-28-phase-n-gate.md` (the last closed
+   gate) and then cycle 25's own — `2026-07-28-danger-thresholds-promotion.md`,
+   `-health-readout.md`, `-adopted-default-restatement.md`.
+   `CHANGELOG.md` is the faster orientation if you only need the shape.
 6. Then work the queue — task by task, RED first, triad docs in the
    same change, one commit per task. When the queue exhausts, plan the
    next cycle yourself from the documentation.
@@ -793,17 +823,18 @@ Every cycle-23 slice ran this loop; copy it:
 
 ## Sources
 
-- `audits/TODO.md` (cycle 24 · Phase N), `audits/complete/*/TODO.md`
+- `audits/TODO.md` (cycle 25 · Phase O — the LIVE queue), `audits/complete/*/TODO.md`
 - `CHANGELOG.md` (the cycle-by-cycle summary)
 - `CLAUDE.md`, `README.md`, `_MOC_.md`, `docs/agent-standards.md`  
   (`FABLE5.md` and `AGENTS.md` are now under `.depreciated/` — archived)
 - `docs/gap-analysis.md` (retired; the measured history)
 - `docs/project-research/` (the vision documents)
 - `research/README.md` (the master ledger)
-- `research/decision_records/0017`, `0021`, `0026`–`0048`
+- `research/decision_records/0017`, `0021`, `0026`–`0056`
 - `research/experiment_reports/2026-07-12-phase-g-gate.md`,
   `2026-07-20-phase-j-gate.md`, `2026-07-26-phase-k-gate.md`,
-  `2026-07-26-phase-l-gate.md`,
-  `2026-07-27-phase-m-gate.md` (the gate that refreshed §3/§4),
-  `2026-07-27-*.md` (the M1–M5 science)
+  `2026-07-26-phase-l-gate.md`, `2026-07-27-phase-m-gate.md`,
+  `2026-07-28-phase-n-gate.md` (the last CLOSED gate),
+  `2026-07-28-danger-thresholds-promotion.md`, `-health-readout.md`,
+  `-adopted-default-restatement.md` (cycle 25's O1–O3, which refreshed §3/§4)
 - `tools/ci/run_sweep.py`
