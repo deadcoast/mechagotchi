@@ -2,8 +2,8 @@
 
 Written **2026-07-21** by the outgoing session, completed
 **2026-07-26** at the owner's direction, and its §3/§4 state sections
-refreshed **2026-08-08 mid-cycle-25 (after O4)**. Read this file
-completely before touching anything.
+refreshed **2026-08-08 at the Phase-O gate (cycle 26 planned)**. Read
+this file completely before touching anything.
 
 The changelog (`sunsetted/complete/CHANGELOG/01/CHANGELOG.md`) is the
 cycle-by-cycle summary of what shipped; it is derived from the gate
@@ -186,9 +186,10 @@ merged and pushed at its own commit, per §6's branch rule. Check with
 | 22 | L | the descriptor space settles its geometry — and the cycle audits its own ledger (gate green 2026-07-26) |
 | 23 | M | the archive meets its own inhabitants — and the cycle audits its own **prose** (gate green 2026-07-27) |
 | 24 | N | the descriptor space earns its edges — and the cycle audits its own **instruments** (gate green 2026-07-28) |
-| **25** | **O** | **the adopted definitions reach the player ← WE ARE HERE** |
+| 25 | O | the adopted definitions reach the player — landed without a committed number drifting (gate green 2026-08-08) |
+| **26** | **P** | **the missing axes earn their sources ← WE ARE HERE** |
 
-Archived queues live in `sunsetted/complete/TODO/NN/TODO.md` (01–07, 09–24).
+Archived queues live in `sunsetted/complete/TODO/NN/TODO.md` (01–07, 09–25).
 
 ### Cycle 21 · Phase K — CLOSED, gate green 2026-07-26
 
@@ -285,11 +286,29 @@ loop's default but every historical study is pinned to the incumbent;
 off-screen by one package constant. Correct in each case, deliberate in
 each case — and exactly the debt that quietly becomes permanent.
 
-### Cycle 25 · Phase O — the adopted definitions reach the player — IN PROGRESS
+### Cycle 25 · Phase O — CLOSED, gate green 2026-08-08
 
-`sunsetted/TODO.md` is the live queue: **O1–O4 DONE; O5 (the gate) open.**
-The spine is Phase N's own debt — **it adopted three things and put none
-of them in front of a player.**
+All five tasks DONE; gate report
+`research/experiment_reports/2026-08-08-phase-o-gate.md`; queue archived
+at `sunsetted/complete/TODO/25/TODO.md`. Three decision records,
+**0055–0057** (O1 deliberately wrote none — executing DR 0054's decision
+is not a decision). The spine was Phase N's own debt — **it adopted
+three things and put none of them in front of a player** — and the
+cycle's character is that it **paid that debt without a single
+committed number drifting**: landings additive, headlines restated
+never overwritten, challengers judged in their documented roles, and
+the one mid-cycle process failure (a RED committed early by the owner's
+IDE) recorded as a trap with its rule.
+
+### Cycle 26 · Phase P — the missing axes earn their sources — OPEN
+
+`sunsetted/TODO.md` is the live queue: **P1–P6, none started.** The two
+remaining documented VISIBLE axes have nothing to display and the gap
+is upstream of display (`happiness` needs a DEFINITION, `cleanliness` a
+MECHANIC — DR 0048); §1.17 is measurably stale against the shipped
+client; and two instruments owe repairs Phase N named (the Q-table's
+harder baseline; the probe artifacts' committed edges). Task detail and
+sources are in the queue itself.
 
 **O1 — DONE (no DR; DR 0054 already made the decision).** The lifecycle
 public surface widens **six names → seven** (`DANGER_THRESHOLDS`),
@@ -364,16 +383,16 @@ Lab 36 → **61**.
   inspector, Keeper session page. **92 tests.**
 - **`labs/`** — 19 research labs; every algorithm is proven here first.
   (`map_elites_archive` is the largest at **449**, having grown through
-  cycles 23–25; `micro_threads` **123**.)
-- **`research/`** — the evidence ledger: **272 experiment reports**,
-  **77 algorithm cards**, **56 decision records** (through DR 0056),
+  cycles 23–25; `micro_threads` **123**; `wfc_grid` **61** after O4.)
+- **`research/`** — the evidence ledger: **273 experiment reports**,
+  **79 algorithm cards**, **57 decision records** (through DR 0057),
   package specs.
-- **`data/`** — **2,246 JSON evidence artifacts**, all valid.
+- **`data/`** — **2,247 JSON evidence artifacts**, all valid.
 
-**Verified 2026-07-28, mid-cycle-25 (after O3):**
+**Verified 2026-08-08, at the Phase-O gate:**
 `python -B tools/ci/run_sweep.py` → **SWEEP GREEN** — 19 lab suites +
 package **299** + workshop 92 + game **200** + CLI 23;
-`data artifacts OK — 2246 JSON artifacts valid`.
+`data artifacts OK — 2247 JSON artifacts valid`.
 (Slowest: workshop ~187 s, runtime_integration ~85 s,
 map_elites_archive ~50 s, cellular_automata ~40 s.)
 - Real CuBFF data is ingested; 16×16 is the proven grid scale;
@@ -463,19 +482,29 @@ first green CLOUD CI run, which awaits a push never made unasked.
 ## 4. WHAT TO DO NEXT
 
 **Work `sunsetted/TODO.md` task by task** — RED first, triad docs in the
-same change, one commit per task naming the task ID. Cycle 25's queue in
-order (cycle 24's closed ladder is in §3 and its gate report):
+same change, one commit per task naming the task ID. Cycle 26's queue in
+order (cycle 25's closed ladder is in §3 and its gate report; the full
+charters with their sources are in the queue file):
 
-1. ~~**O1 · promote `DANGER_THRESHOLDS`**~~ — **DONE 2026-07-28.** See §3.
-2. ~~**O2 · land the `health` readout**~~ — **DONE 2026-07-28 (DR 0055).**
-3. ~~**O3 · restate the headline studies**~~ — **DONE 2026-07-28 (DR 0056).**
-4. ~~**O4 · Stage 2's undispositioned generator arms**~~ — **DONE
-   2026-08-08 (DR 0057).** See §3. The two design-phase charter
-   corrections it started from are preserved in `sunsetted/TODO.md` and
-   in the report's process note.
-5. **O5 · the Phase-O gate** ← **THE NEXT TASK** — one consolidated
-   report; then archive to `sunsetted/complete/TODO/25/` and plan
-   cycle 26 from the documentation. **Do not ask which direction.**
+1. **P1 · §1.17 earns a dated correction** — measure the visible/hidden
+   axis split as shipped, then a dated note beside §1.17 (never a
+   rewrite).
+2. **P2 · `happiness` chooses a definition — or refuses every
+   candidate** — the proven N5 → O2 pattern end to end: pre-registered
+   refusal criteria (the euphemism test), and if adopted, the readout
+   lands in the same slice.
+3. **P3 · `cleanliness` earns a mechanic — or the record says why
+   not** — read the engine first; smallest documented mechanic as an
+   additive seam, byte-identical off; refusal first-class.
+4. **P4 · the Q-table meets the incumbent it actually has to beat** —
+   N3's harder comparison, plus F's like-for-like online stump; both
+   committed artifacts untouched.
+5. **P5 · the probe artifacts carry their own edges** — restate
+   `occupancy_saturation` and `reachability_escalation` under the
+   frozen recipe as new artifacts (DR 0053's rule 2).
+6. **P6 · the Phase-P gate** — then archive to
+   `sunsetted/complete/TODO/26/` and plan cycle 27 from the
+   documentation. **Do not ask which direction.**
 
 ## 5. The map — what each directory IS
 
@@ -788,11 +817,12 @@ mechas session --open
    green before changing anything. **~5 min**; the full sweep is ~9 min
    and is required before any commit that closes a task.
 5. Read the most recent experiment reports in
-   `research/experiment_reports/` (`2026-07-28-*`) for the immediate
-   context, starting with `2026-07-28-phase-n-gate.md` (the last closed
-   gate) and then cycle 25's own — `2026-07-28-danger-thresholds-promotion.md`,
-   `-health-readout.md`, `-adopted-default-restatement.md`.
-   `CHANGELOG.md` is the faster orientation if you only need the shape.
+   `research/experiment_reports/` for the immediate context, starting
+   with `2026-08-08-phase-o-gate.md` (the last closed gate) and then
+   cycle 25's own — `2026-07-28-danger-thresholds-promotion.md`,
+   `-health-readout.md`, `-adopted-default-restatement.md`,
+   `2026-08-08-stage2-generator-arms.md`. The changelog is the faster
+   orientation if you only need the shape.
 6. Then work the queue — task by task, RED first, triad docs in the
    same change, one commit per task. When the queue exhausts, plan the
    next cycle yourself from the documentation.
@@ -836,8 +866,9 @@ Every cycle-23 slice ran this loop; copy it:
 - `research/experiment_reports/2026-07-12-phase-g-gate.md`,
   `2026-07-20-phase-j-gate.md`, `2026-07-26-phase-k-gate.md`,
   `2026-07-26-phase-l-gate.md`, `2026-07-27-phase-m-gate.md`,
-  `2026-07-28-phase-n-gate.md` (the last CLOSED gate),
+  `2026-07-28-phase-n-gate.md`,
+  `2026-08-08-phase-o-gate.md` (the last CLOSED gate),
   `2026-07-28-danger-thresholds-promotion.md`, `-health-readout.md`,
   `-adopted-default-restatement.md`,
-  `2026-08-08-stage2-generator-arms.md` (cycle 25's O1–O4, which refreshed §3/§4)
+  `2026-08-08-stage2-generator-arms.md` (cycle 25's O1–O4)
 - `tools/ci/run_sweep.py`

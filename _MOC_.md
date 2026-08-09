@@ -3,8 +3,9 @@
 **The navigational map of the Mechagotchi repository.** Every directory,
 what it *is*, and which file to open for a given question.
 
-Last rebuilt **2026-07-28** (cycle 25 · Phase O, in progress). Counts in
-§5 are measured, not quoted — re-measure before relying on them.
+Last refreshed **2026-08-08** (Phase-O gate green; cycle 26 · Phase P
+open). Counts in §5 are measured, not quoted — re-measure before
+relying on them.
 
 <!-- vscode-markdown-toc -->
 * 1. [1.1. START HERE](#STARTHERE)
@@ -176,6 +177,7 @@ change updates its documents in the SAME change.**
 | 0052 / 0053 | `slip_admission="insertion"` adopted → **a setting that changes what an artifact MEANS is recorded at the call site, never inherited from a default; a study that measures a defect is never migrated onto the fix** |
 | 0054 / 0055 | `health` **is** `danger_margin` (a euphemism refused) → the readout ships **with its binding axis** |
 | 0056 | DR 0042's headline **restated, not retracted** — any *"the loop achieves X"* must name **which arm** |
+| 0057 | Stage 2's generator arms dispositioned **in their documented roles** — CPPN rejected, shape grammar watches, nothing adopted |
 
 ### The evidence itself
 
@@ -197,7 +199,7 @@ repo-relative POSIX strings, never absolute.
 | file | what it is |
 | --- | --- |
 | **[`sunsetted/TODO.md`](sunsetted/TODO.md)** | **THE LIVE CYCLE QUEUE** — the actual work list |
-| [`sunsetted/complete/TODO/NN/TODO.md`](sunsetted/complete/TODO) | archived cycles (01–07, 09–24; **there is no cycle 08**) |
+| [`sunsetted/complete/TODO/NN/TODO.md`](sunsetted/complete/TODO) | archived cycles (01–07, 09–25; **there is no cycle 08**) |
 | [`CHANGELOG.md`](sunsetted/complete/CHANGELOG/01/CHANGELOG.md) | the cycle-by-cycle summary, derived from the gate reports |
 
 **The cycle rule:** work the queue task by task, RED first, triad docs in
@@ -217,11 +219,12 @@ the documentation**. Never ask which direction.
 | 22 | L | the descriptor geometry — *and the cycle audits its own **numbers*** |
 | 23 | M | the archive's own inhabitants — *and the cycle audits its own **sentences*** |
 | 24 | N | the descriptor space earns its edges — *and the cycle audits its own **instruments*** |
-| **25** | **O** | **the adopted definitions reach the player ← current** |
+| 25 | O | the adopted definitions reach the player — *landed without a committed number drifting* |
+| **26** | **P** | **the missing axes earn their sources ← current** |
 
 ### The measured state
 
-Verified **2026-07-28**, `python -B tools/ci/run_sweep.py` →
+Verified **2026-08-08**, `python -B tools/ci/run_sweep.py` →
 **SWEEP GREEN**:
 
 | surface | count |
@@ -231,10 +234,10 @@ Verified **2026-07-28**, `python -B tools/ci/run_sweep.py` →
 | game | **200** tests |
 | workshop | **92** tests |
 | CLI | **23** tests |
-| JSON artifacts | **2,246**, 0 invalid |
-| experiment reports | **272** |
-| algorithm cards | **77** |
-| decision records | **56** (through DR 0056) |
+| JSON artifacts | **2,247**, 0 invalid |
+| experiment reports | **273** |
+| algorithm cards | **79** |
+| decision records | **57** (through DR 0057) |
 
 ---
 
@@ -321,6 +324,6 @@ personal archive — ignore unless explicitly linked.**
 * `ONBOARDING.md`, `README.md`, `CLAUDE.md`, `TOOLS.md`, `sunsetted/complete/CHANGELOG/01/CHANGELOG.md`
 * `docs/project-research/research.md`, `validity-research.md`, `deep-research/01/deep-research.md`
 * `research/README.md` (the master ledger), `research/glossary.md`, `research/questions.md`
-* `research/decision_records/0017`, `0021`, `0028`, `0033`, `0035`, `0046`, `0052`–`0056`
+* `research/decision_records/0017`, `0021`, `0028`, `0033`, `0035`, `0046`, `0052`–`0057`
 * `sunsetted/TODO.md`, `sunsetted/complete/TODO/`
 * `tools/ci/run_sweep.py` (the one verification sweep)
