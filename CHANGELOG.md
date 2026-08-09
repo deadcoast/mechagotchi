@@ -25,7 +25,7 @@ never rewritten).
 
 ## [Unreleased] — Cycle 25 · Phase O — "the adopted definitions reach the player"
 
-*In progress. Queue: `audits/TODO.md` (**O1, O2 DONE**; O3–O5 open).* Planned from Phase N's
+*In progress. Queue: `audits/TODO.md` (**O1–O3 DONE**; O4, O5 open).* Planned from Phase N's
 unusual debt: **it adopted three things and put none of them in front of
 a player.** `insertion` is the loop's default but every historical study
 is pinned to the incumbent, and `danger_margin` is the adopted
@@ -92,6 +92,37 @@ that quietly becomes permanent.
   Defensible as a warning that leaves time to act, but "health" implies
   zero means dead and it does not; a different floor is a different
   CHOSEN definition needing its own gate.
+- **O3 — DONE 2026-07-28 (DR 0056). The headline studies RESTATED under
+  the adopted default — and coverage buys quality.** DR 0053's rule 2
+  shaped the task: *a measurement does not improve, it is reproduced or
+  superseded by a new measurement answering a new question*, so this
+  wrote a **new artifact** and left both committed incumbent artifacts
+  exactly as they were. **Only the adopted arm was re-run**, cutting the
+  work ~75%: the incumbent runs are read, and the **GA control is read
+  because `run_ga_baseline` takes no `slip_admission`** and is
+  structurally unaffected by the arm.
+- **The headline, at DR 0042's own seed**: coverage **0.898438 →
+  0.880859** (−0.017579), **QD 404.618236 → 411.738214 (+7.119978)**,
+  niches 460 → 451, **refusals 4,435 → 0**, **illegal elites 35 → 0**.
+  **Coverage does not fall for nothing — it buys quality.** L1 declined
+  to patch the refusal tax because *"the fix trades against coverage"*;
+  this prices the other side — nine niches and 0.0176 coverage buy
+  **+7.12 QD** and an archive legal under the covenant that bred it.
+- **The documented E4 gates hold: `NO_REGRESSION`.** Re-judged verbatim
+  (`judge_gates` imported) over the documented ten paired seeds against
+  the same GA control — `coverage_gate_met` True → True, mean best
+  fitness moving only −0.000565.
+- **`ga_advantage_gate_met` was already failing and is explicitly NOT
+  attributed to the adoption** — the comparison is written so a
+  pre-existing failure cannot be reported as a regression, because
+  blaming the new arm for DR 0032's long-refuted clause would be a false
+  accusation. Its margin does fall a further 0.029664, so **DR 0032 is
+  refuted a little more decisively** (recorded, not re-scored).
+- **DR 0042 is NOT retracted.** 0.8984 remains what the loop achieves
+  under the incumbent arm. DR 0056 adds a **quoting rule** instead: any
+  *"the loop achieves X"* must name **which arm** — the same discipline
+  DR 0046 imposed across geometries. Dated notes sit beside DR 0042 and
+  the `evaluation_loop_scale` card.
 
 ---
 
@@ -779,6 +810,6 @@ These are decisions, not backlog:
 
 - `research/README.md` — the master traceability ledger (the authoritative record)
 - `research/experiment_reports/` — dated findings and the per-phase gate reports
-- `research/decision_records/` — ADRs `0001`–`0055`
+- `research/decision_records/` — ADRs `0001`–`0056`
 - `audits/TODO.md` (the live queue) and `audits/complete/NN/TODO.md` (archived cycles)
 - `tools/ci/run_sweep.py` — the one verification sweep every gate runs

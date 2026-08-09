@@ -80,6 +80,23 @@ documented budget.
 | mean elite fitness | 0.7728 | **0.8796** | (observation) | — |
 | wall clock | 461.6 s | **272.1 s** | ≤ 1200 s each | both met |
 
+> **Dated note, 2026-07-28 (cycle 25 O3 / DR 0056) — these numbers are
+> NOT retracted, and they now need an arm named beside them.** They are
+> what the loop achieves under `slip_admission="none"`, the incumbent
+> arm, which is what this bake-off ran. DR 0052 later adopted
+> `insertion` as the loop's default and DR 0053 flipped it. Restated at
+> **this record's own seed and budget**, the adopted default gives
+> **coverage 0.880859** (−0.017579), **QD 411.738214 (+7.119978)**, 451
+> niches (−9), **0 refusals** (−4,435) and **0 SLIP-illegal elites**
+> (−35). **Coverage does not fall for nothing — it buys quality**: nine
+> niches and 0.0176 coverage buy +7.12 QD and an archive legal under the
+> covenant that bred it. Both sets of numbers are correct and answer
+> different questions; DR 0056's quoting rule is that any statement of
+> the form *"the loop achieves X"* must say **which arm** it means. The
+> documented E4 gates were re-judged under the adopted default and
+> **hold** (`NO_REGRESSION`). See
+> `research/experiment_reports/2026-07-28-adopted-default-restatement.md`.
+
 **Verdict: `adopt:constrained`.** The J3 dissolution lesson ran in
 REVERSE this time: the one-shot bake-off's flip did not dissolve in the
 loop — it AMPLIFIED (one-shot novelty margin +0.01; loop coverage

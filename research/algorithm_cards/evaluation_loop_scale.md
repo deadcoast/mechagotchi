@@ -188,6 +188,28 @@ documented gate, or determinism drift under the pinned seeds.
   with the reason measured, because the gate weighed two dimensions and
   the arms separate on two others in the opposite order. The incumbent
   configuration's 460 / 0.898438 / 404.618236 stands untouched.
+- **Cycle 24 N4/N7 (2026-07-28, DR 0052/0053)**: the withheld default is
+  **DECIDED as `insertion`** — `parents` fails archive legality
+  completely (35/37/35 illegal elites, evicting none) while `bootstrap`
+  and `insertion` clear all four gates and are indistinguishable on
+  them, so DR 0047's own invasiveness tie-break decides. The loop's
+  **default parameter is now `insertion`**, flipped **prospectively**:
+  **every historical caller names `slip_admission="none"` explicitly**,
+  because a setting that changes what an artifact means belongs at the
+  call site, and **a study that measures a defect is never migrated onto
+  the fix** (DR 0053).
+- **Cycle 25 O3 (2026-07-28, DR 0056)**: the headline **RESTATED under
+  the adopted default, not retracted**. At DR 0042's own seed and
+  budget: coverage **0.880859** (−0.017579), **QD 411.738214
+  (+7.119978)**, 451 niches (−9), **0 refusals** (−4,435), **0
+  SLIP-illegal elites** (−35). **Coverage does not fall for nothing — it
+  buys quality.** The documented E4 gates re-judged verbatim over the
+  ten documented seeds: **`NO_REGRESSION`** (`coverage_gate_met` holds;
+  `ga_advantage_gate_met` was already failing and is explicitly not
+  attributed to the adoption, though its margin falls a further
+  0.029664 — DR 0032 refuted again, slightly deeper). **Quoting rule**:
+  any statement of the form *"the loop achieves X"* must now name
+  **which arm** it means. Both committed artifacts stay untouched.
 
 ## Sources
 

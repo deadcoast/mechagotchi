@@ -117,8 +117,34 @@ remainder list this cycle opens), `2026-07-28-health-definition-gate.md`
   first law binds**: whatever ships is engine truth or it does not ship.
   Refusing to display it after all is a legitimate verdict if the design
   question has no honest answer.
-- [ ] **O3 · Migrate the two headline studies onto the adopted
-  default.** DR 0053's rule 3, scoped there and unfinished by design:
+- [x] **O3 · Migrate the two headline studies onto the adopted
+  default.** DONE 2026-07-28
+  (`2026-07-28-adopted-default-restatement.md`, **DR 0056**):
+  **restated, not overwritten — and coverage buys quality.** DR 0053's
+  rule 2 shaped it: *a measurement does not improve, it is reproduced or
+  superseded by a new measurement answering a new question*, so this is
+  a **new artifact** and both committed incumbent artifacts stay exactly
+  as they were. **Only the adopted arm was re-run**, which cut the work
+  ~75%: the incumbent runs are read (rule 2 forbids re-running them) and
+  the **GA control is read because `run_ga_baseline` takes no
+  `slip_admission`** — structurally unaffected, so re-running it would
+  reproduce numbers that cannot move. **THE HEADLINE, at DR 0042's own
+  seed**: coverage **0.898438 → 0.880859** (−0.017579), **QD
+  404.618236 → 411.738214 (+7.119978)**, niches 460 → 451, **refusals
+  4,435 → 0**, **illegal elites 35 → 0**. **Coverage does not fall for
+  nothing — nine niches and 0.0176 coverage buy +7.12 QD and an archive
+  legal under the covenant that bred it**, which prices the other side
+  of the trade L1 declined. **E4 gates re-judged VERBATIM** (`judge_gates`
+  imported) over the documented ten seeds against the same GA control:
+  **`NO_REGRESSION`** — `coverage_gate_met` holds, mean best fitness
+  moves −0.000565, and `ga_advantage_gate_met` was **already failing**
+  so it is explicitly not attributed to the adoption (DR 0032 refuted
+  again, its margin falling a further 0.029664). **DR 0042 is NOT
+  retracted**; DR 0056 adds a quoting rule instead — any *"the loop
+  achieves X"* must name **which arm**. Dated notes beside DR 0042 and
+  the `evaluation_loop_scale` card. Wall clock 2594.122 s for ten
+  documented-budget runs. RED first; 17 pins.
+  *Original charter:* DR 0053's rule 3, scoped there and unfinished by design:
   `evaluation_loop_scale` (the source of **DR 0042's headline coverage
   0.8984**) and `coverage_qd_gates` (the E4 gates) are the **only two**
   of the eight callers whose migration is a real question rather than an
