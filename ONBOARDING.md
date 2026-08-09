@@ -5,15 +5,15 @@ Written **2026-07-21** by the outgoing session, completed
 refreshed **2026-07-28 mid-cycle-25 (after O3)**. Read this file
 completely before touching anything.
 
-`CHANGELOG.md` in the root is the cycle-by-cycle summary of what
-shipped; it is derived from the gate reports, and where they disagree
-the gate report wins.
+The changelog (`sunsetted/complete/CHANGELOG/01/CHANGELOG.md`) is the
+cycle-by-cycle summary of what shipped; it is derived from the gate
+reports, and where they disagree the gate report wins.
 
 **How to trust this file:** §1 (the frame), §2 (owner rulings), §6 (the
 format), and §7 (honesty norms) are *durable* — they are owner rulings
 and established discipline; they do not expire. §3 (state) and §4
 (what's next) are a **snapshot** — re-verify them against `git log`,
-`audits/TODO.md`, and the gate artifacts before relying on them.
+`sunsetted/TODO.md`, and the gate artifacts before relying on them.
 
 **The orienting files at the repo root**, and what each is for:
 
@@ -22,10 +22,10 @@ and established discipline; they do not expire. §3 (state) and §4
 | `ONBOARDING.md` | **this file** — start here |
 | `README.md` | what the project *is*, and the anti-drift identity constraint |
 | `CLAUDE.md` | the agent operating brief (commands, architecture, conventions) |
-| `CHANGELOG.md` | cycle-by-cycle summary, derived from the gate reports |
+| `sunsetted/complete/CHANGELOG/01/CHANGELOG.md` | cycle-by-cycle summary, derived from the gate reports |
 | `_MOC_.md` | map of contents across the documentation |
 | `TOOLS.md` | the tooling notes |
-| `audits/TODO.md` | **the live cycle queue** — the actual work list |
+| `sunsetted/TODO.md` | **the live cycle queue** — the actual work list |
 
 *Corrected 2026-07-27*: earlier versions of this file pointed at
 `FABLE5.md` and `AGENTS.md` as live references. **Both now live under
@@ -33,6 +33,13 @@ and established discipline; they do not expire. §3 (state) and §4
 personal archive, which §2 says to ignore unless explicitly linked. Do
 not go looking for them at the root. `docs/agent-standards.md` still
 exists and is an older orientation doc, largely superseded.
+
+*Relocated 2026-08-08 by the owner*: the `audits/` tree and the root
+`CHANGELOG.md` now live under `sunsetted/` — the live queue at
+`sunsetted/TODO.md`, archived cycles at `sunsetted/complete/TODO/NN/`,
+the changelog at `sunsetted/complete/CHANGELOG/01/CHANGELOG.md`. Dated
+records that cite `audits/...` paths cite where the files lived when
+they were written; per the correction law they are not rewritten.
 
 Where anything conflicts: **this file and the decision records win.**
 
@@ -181,12 +188,12 @@ merged and pushed at its own commit, per §6's branch rule. Check with
 | 24 | N | the descriptor space earns its edges — and the cycle audits its own **instruments** (gate green 2026-07-28) |
 | **25** | **O** | **the adopted definitions reach the player ← WE ARE HERE** |
 
-Archived queues live in `audits/complete/NN/TODO.md` (01–07, 09–24).
+Archived queues live in `sunsetted/complete/TODO/NN/TODO.md` (01–07, 09–24).
 
 ### Cycle 21 · Phase K — CLOSED, gate green 2026-07-26
 
 Gate report `research/experiment_reports/2026-07-26-phase-k-gate.md`;
-queue archived at `audits/complete/21/TODO.md`. The vocabulary Phase J
+queue archived at `sunsetted/complete/TODO/21/TODO.md`. The vocabulary Phase J
 taught the engine to spell was settled through its whole stack:
 **DR 0041** implemented the 11-class regrowth head and **WITHHELD its
 adoption** by its own bar (+0.0944 vs +0.10); **DR 0042** adopted the
@@ -203,7 +210,7 @@ and `CHANGELOG.md`.
 
 All six tasks DONE; gate report
 `research/experiment_reports/2026-07-26-phase-l-gate.md`; queue archived
-at `audits/complete/22/TODO.md`. What it settled, in one line each:
+at `sunsetted/complete/TODO/22/TODO.md`. What it settled, in one line each:
 **L1** corrected DR 0042 twice (the rate is 7.2% not ~22%; the refusals
 are SLIP-rejected *parents*, not invalid candidates, and 100% of them
 bootstrap creatures). **L2** judged the documented lineage-dominance
@@ -225,7 +232,7 @@ rewritten**. Every correction is a dated note beside the original.
 
 All six tasks DONE; gate report
 `research/experiment_reports/2026-07-27-phase-m-gate.md`; queue archived
-at `audits/complete/23/TODO.md`. **M1** measured the archive on its own
+at `sunsetted/complete/TODO/23/TODO.md`. **M1** measured the archive on its own
 inhabitants — `within_sampling_noise`, partly deflating the cycle's own
 premise, with its lasting result methodological: measuring a control for
 **both** population types caught a false positive that the cheap control
@@ -254,7 +261,7 @@ correction is a dated note beside the original.
 All six tasks DONE (N1–N5 plus **N7**, which DR 0052 added mid-cycle
 rather than letting a default change happen as a side effect); gate
 report `research/experiment_reports/2026-07-28-phase-n-gate.md`; queue
-archived at `audits/complete/24/TODO.md`. Six decision records,
+archived at `sunsetted/complete/TODO/24/TODO.md`. Six decision records,
 **0049–0054**.
 
 **The cycle's character, and the reason to trust it**: **Phase L audited
@@ -280,7 +287,7 @@ each case — and exactly the debt that quietly becomes permanent.
 
 ### Cycle 25 · Phase O — the adopted definitions reach the player — IN PROGRESS
 
-`audits/TODO.md` is the live queue: **O1, O2, O3 DONE; O4 and O5 open.**
+`sunsetted/TODO.md` is the live queue: **O1, O2, O3 DONE; O4 and O5 open.**
 The spine is Phase N's own debt — **it adopted three things and put none
 of them in front of a player.**
 
@@ -432,7 +439,7 @@ first green CLOUD CI run, which awaits a push never made unasked.
 
 ## 4. WHAT TO DO NEXT
 
-**Work `audits/TODO.md` task by task** — RED first, triad docs in the
+**Work `sunsetted/TODO.md` task by task** — RED first, triad docs in the
 same change, one commit per task naming the task ID. Cycle 25's queue in
 order (cycle 24's closed ladder is in §3 and its gate report):
 
@@ -447,7 +454,7 @@ order (cycle 24's closed ladder is in §3 and its gate report):
    twelve cycles.
 
    **Start from the two corrections already recorded in
-   `audits/TODO.md`, not from the original charter** — both were found
+   `sunsetted/TODO.md`, not from the original charter** — both were found
    by reading the dossier and the engine *before* writing measurement
    code, which is exactly Phase N's lesson applied to a framing rather
    than an instrument:
@@ -472,7 +479,7 @@ order (cycle 24's closed ladder is in §3 and its gate report):
    **Rejecting both is first-class**; DR 0031 already refuted the hybrid
    arm, and a second measured refutation is worth more than a third
    generator nobody asked for.
-5. **O5 · the Phase-O gate** — then archive to `audits/complete/25/`
+5. **O5 · the Phase-O gate** — then archive to `sunsetted/complete/TODO/25/`
    and plan cycle 26 from the documentation. **Do not ask which
    direction.**
 
@@ -493,9 +500,9 @@ research/                the evidence ledger (the deliverable)
   └─ README.md           THE MASTER TRACEABILITY LEDGER
 data/                    JSON evidence artifacts + fixture corpora
 docs/                    the vision + roadmap documents
-audits/TODO.md           THE ACTIVE CYCLE QUEUE
-audits/complete/NN/      archived cycles (01–07, 09–24)
-CHANGELOG.md             cycle-by-cycle summary (derived from the gates)
+sunsetted/TODO.md           THE ACTIVE CYCLE QUEUE
+sunsetted/complete/TODO/NN/      archived cycles (01–07, 09–24)
+sunsetted/complete/CHANGELOG/01/CHANGELOG.md   the cycle-by-cycle summary
 keeper/, game/dist/      live play state / builds — GITIGNORED, not evidence
 ```
 
@@ -569,7 +576,8 @@ they are not written down elsewhere:
    three new records).
 6. `research/README.md` — the traceability ledger.
 7. `docs/alpha.md` — the public-alpha packet.
-8. `CHANGELOG.md` — the cycle-by-cycle summary, derived from the gates.
+8. `sunsetted/complete/CHANGELOG/01/CHANGELOG.md` — the cycle-by-cycle
+   summary, derived from the gates.
 
 ---
 
@@ -628,10 +636,10 @@ runnable and parity-pinned.
 
 ### The cycle rule
 
-Work `audits/TODO.md` task by task; one commit per completed task
+Work `sunsetted/TODO.md` task by task; one commit per completed task
 naming the task ID, the evidence, and the doc updates. A cycle ends
 only when the queue is exhausted AND a full sweep is green — then
-archive to `audits/complete/NN/` and plan the next cycle from the
+archive to `sunsetted/complete/TODO/NN/` and plan the next cycle from the
 documentation and the recorded remainders.
 
 ### The branch and merge rule
@@ -781,7 +789,7 @@ mechas session --open
    `main`?** If that list is longer than the cycle you are about to
    work, a previous cycle was never merged back (see §6, the branch and
    merge rule). Fix that before adding to the pile.
-3. Read `audits/TODO.md` — the live queue and its standing note.
+3. Read `sunsetted/TODO.md` — the live queue and its standing note.
 4. `python -B tools/ci/run_sweep.py --quick` — confirm the tree is
    green before changing anything. **~5 min**; the full sweep is ~9 min
    and is required before any commit that closes a task.
@@ -799,7 +807,7 @@ mechas session --open
 
 Every cycle-23 slice ran this loop; copy it:
 
-1. **Read the charter** — the task's own bullet in `audits/TODO.md`, and
+1. **Read the charter** — the task's own bullet in `sunsetted/TODO.md`, and
    the reports it names. They tell you what is already measured.
 2. **Write the pins FIRST** (`test_<module>.py`) and run them — you want
    `ModuleNotFoundError`. That is the RED, and it goes in the report.
@@ -823,8 +831,8 @@ Every cycle-23 slice ran this loop; copy it:
 
 ## Sources
 
-- `audits/TODO.md` (cycle 25 · Phase O — the LIVE queue), `audits/complete/*/TODO.md`
-- `CHANGELOG.md` (the cycle-by-cycle summary)
+- `sunsetted/TODO.md` (cycle 25 · Phase O — the LIVE queue), `sunsetted/complete/TODO/*/TODO.md`
+- `sunsetted/complete/CHANGELOG/01/CHANGELOG.md` (the cycle-by-cycle summary)
 - `CLAUDE.md`, `README.md`, `_MOC_.md`, `docs/agent-standards.md`  
   (`FABLE5.md` and `AGENTS.md` are now under `.depreciated/` — archived)
 - `docs/gap-analysis.md` (retired; the measured history)

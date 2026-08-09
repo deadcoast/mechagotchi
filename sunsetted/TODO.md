@@ -273,4 +273,4 @@ awaits a push that is never made unasked.
 - `research/decision_records/0049`–`0054`; `0021-game-loop.md`, `0028-dependency-and-license-policy.md`, `0031-wfc-generation-adoption.md`, `0042-generation-layer-loop-revisit.md`, `0046-two-geometry-split.md`, `0048-visible-companion-state-axes.md`
 - `research/package_specs/` (O1's contract home) · `packages/mecha_engine/src/mecha_engine/lifecycle/simulate.py`
 - `docs/project-research/validity-research.md` §1.17, `docs/project-research/deep-research/01/deep-research.md`, `docs/project-research/research.md`, `research/questions.md`
-- `audits/complete/24/TODO.md` (the archived cycle)
+- `sunsetted/complete/TODO/24/TODO.md` (the archived cycle)

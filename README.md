@@ -57,8 +57,9 @@ gate went green 2026-07-12, retiring `docs/gap-analysis.md` per its own
 charter). Development since then runs in **cycles**, each planned from
 the still-unmet documentation and from the remainders the previous
 cycle's own records name — currently **cycle 25 · Phase O**. The live
-queue is `audits/TODO.md`; `CHANGELOG.md` is the cycle-by-cycle summary;
-`_MOC_.md` maps the whole repository.
+queue is `sunsetted/TODO.md`; the changelog
+(`sunsetted/complete/CHANGELOG/01/CHANGELOG.md`) is the cycle-by-cycle
+summary; `_MOC_.md` maps the whole repository.
 
 **Negative results are first-class here.** A pre-registered gate that
 refuses its own adoption ships as the finding, and the refuted record is
@@ -119,7 +120,7 @@ developed quality of life by explicit policy.
 - `research/literature_map.md`
 - `docs/cli/mechas-cli-design.md`
 - `docs/alpha.md` (the public-alpha packet)
-- `ONBOARDING.md` (the session entry point), `_MOC_.md` (the map of contents), `CLAUDE.md`, `CHANGELOG.md`
-- `audits/TODO.md` (the live cycle queue)
+- `ONBOARDING.md` (the session entry point), `_MOC_.md` (the map of contents), `CLAUDE.md`, `sunsetted/complete/CHANGELOG/01/CHANGELOG.md`
+- `sunsetted/TODO.md` (the live cycle queue)
 - `tools/ci/run_sweep.py` (the one verification sweep the state table above comes from)
 - `docs/agent-standards.md` (older orientation, largely superseded)
