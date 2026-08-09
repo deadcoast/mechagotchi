@@ -179,6 +179,7 @@ change updates its documents in the SAME change.**
 | 0056 | DR 0042's headline **restated, not retracted** — any *"the loop achieves X"* must name **which arm** |
 | 0057 | Stage 2's generator arms dispositioned **in their documented roles** — CPPN rejected, shape grammar watches, nothing adopted |
 | 0058 | `happiness` **is** `social_warmth` (a duplicate refused, the engine's own statistic withheld) → the readout lands the same day; **play raises happiness while it lowers health, and both are true** |
+| 0059 | `cleanliness` earns its MECHANIC — the engine's first **opt-in** lifecycle seam, byte-identical off, every parameter derived; **dirt hurts only the neglected**, and the default-covenant flip is a named future record |
 
 ### The evidence itself
 

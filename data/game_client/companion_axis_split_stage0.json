@@ -152,11 +152,11 @@
       "cleanliness": {
         "documented_split": "visible",
         "engine_source": {
-          "disposition": "absent",
-          "engine_field": null,
+          "disposition": "opt_in_mechanic_dr0059",
+          "engine_field": "cleanliness (opt-in)",
           "engine_function": null,
           "measured_value": null,
-          "measured_cause": "no lifecycle field and no clean action \u2014 the live action set is ('feed', 'play', 'sleep', 'idle', 'mutate') \u2014 and no state accumulates dirt; DR 0048: the axis needs a MECHANIC"
+          "measured_cause": "the engine now carries an OPT-IN cleanliness mechanic (DR 0059: a derived decay, a keeper clean verb, a bounded dirt\u2192stress coupling; byte-identical when off); the default client does not enable it, so the shipped read model shows nothing \u2014 an honest opt-in absence, no longer a missing mechanic. The autonomous action set is unchanged: ('feed', 'play', 'sleep', 'idle', 'mutate')"
         },
         "on_screen": {
           "shown": false,
@@ -287,9 +287,14 @@
     },
     "instrument_check": {
       "committed_artifact": "data/architecture/companion_state_survey_stage0.json",
-      "matching_axes": 6,
+      "matching_axes": 5,
       "reproduced_committed_dispositions": true,
       "expected_differences": {
+        "cleanliness": {
+          "committed": "absent",
+          "measured": "opt_in_mechanic_dr0059",
+          "explained_by": "DR 0059 (the opt-in mechanic adopted through the P3 five-gate study; the default covenant does not enable it) \u2014 a decision, not instrument drift"
+        },
         "health": {
           "committed": "absent",
           "measured": "chosen_definition_dr0054",
@@ -304,7 +309,7 @@
     },
     "counts": {
       "visible_on_screen": 7,
-      "visible_absent_upstream": 1,
+      "visible_absent_upstream": 0,
       "hidden_surfaced": 2
     }
   },
@@ -324,7 +329,7 @@
     "prediction": "Recorded before the run: six of the eight documented-visible axes on screen, with happiness and cleanliness absent UPSTREAM of display (DR 0048's two real gaps); stress and grid stability \u2014 both documented hidden \u2014 surfaced under the accurate labels 'stress' and 'body stability'; the other six hidden axes not surfaced; the instrument matching the committed survey 7/8 with health explained by DR 0054/0055. Whatever the measurement says is what ships.",
     "correction_warranted": true,
     "correction_clauses": [
-      "7 of the eight documented VISIBLE axes are on the shipped client's read model (age, bond, energy, happiness, health, hunger, mood); the one that is not \u2014 cleanliness \u2014 is absent UPSTREAM of display (a missing MECHANIC, DR 0048), not a display gap.",
+      "7 of the eight documented VISIBLE axes are on the shipped client's read model (age, bond, energy, happiness, health, hunger, mood); the one that is not \u2014 cleanliness \u2014 now has an OPT-IN engine mechanic (DR 0059) that the default covenant does not enable: an honest opt-in absence, no longer a missing mechanic.",
       "health and happiness are VISIBLE under CHOSEN definitions (danger_margin, DR 0054/0055; social_warmth, DR 0058) \u2014 not documented definitions, and both surfaces say chosen.",
       "Two documented HIDDEN axes are surfaced under accurate names: stress as 'stress' and grid stability as 'body stability'."
     ],
@@ -337,9 +342,7 @@
       "hunger",
       "mood"
     ],
-    "visible_absent_upstream": [
-      "cleanliness"
-    ],
+    "visible_absent_upstream": [],
     "hidden_surfaced": [
       "grid stability",
       "stress"

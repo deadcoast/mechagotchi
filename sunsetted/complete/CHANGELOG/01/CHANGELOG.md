@@ -25,7 +25,7 @@ never rewritten).
 
 ## [Unreleased] — Cycle 26 · Phase P — "the missing axes earn their sources"
 
-*In progress. Queue: `sunsetted/TODO.md` (**P1, P2 DONE**; P3–P6 open).*
+*In progress. Queue: `sunsetted/TODO.md` (**P1–P3 DONE**; P4–P6 open).*
 Planned from DR 0048's two real gaps (`happiness` needed a DEFINITION,
 `cleanliness` needs a MECHANIC — neither a display gap) and the
 instrument repairs Phase N and O named.
@@ -72,6 +72,35 @@ instrument repairs Phase N and O named.
   The P1 instrument moved with the surface deliberately (regenerated:
   **7 visible on screen / 1 absent upstream / 2 hidden surfaced**);
   §1.17 carries a dated addendum. Game 216 → **228**.
+- **P3 — DONE 2026-08-09 (DR 0059).** **`cleanliness` earns its
+  MECHANIC — the engine's first OPT-IN lifecycle seam — and dirt hurts
+  only the neglected.** The one §1.17 gap no display work could close.
+  The seam (additive `mechanics` keyword; `__all__` unchanged) is
+  **byte-identical when off**, proven against the committed Stage 0
+  comparator's own episode numbers and a frozen 19-key state list;
+  **every parameter DERIVED** (decay 0.0124 = the median incumbent
+  drift; mutate's mess 0.055 = its own grid cost; clean's restore
+  0.32 = feed's own hunger relief; dirt→stress 0.01 = the engine's own
+  need→stress coefficient). The companion cannot clean itself; the
+  mechanic is non-lethal; dead states return unchanged, clean included.
+- **ADOPTED through five pre-registered gates** with the charter's
+  refusals first-class (`blocked_on_mechanic` for an unmeasurable
+  consequence, `refuse_as_lethal_cosmetic` for a killing or
+  welfare-busting one): instruments reproduced the committed episodes
+  and N5's 0.0685 floor first; clean responds **+0.3076**; the neglect
+  stream shows the exact deterministic consequence (**+0.00682** final
+  stress, the tick-11 starvation unmoved); switchboard welfare impact
+  **1.6e-05** against the documented 5% D6 bar. **The fairness
+  finding, predicted and confirmed: an attentive keeper's care absorbs
+  the dirt pressure entirely (care-stream delta 0.0).**
+- **Landed the same slice for opted-in covenants** (the needs readout,
+  the `clean` verb, succession and save/resume persistence); a default
+  session is byte-identical to the pre-seam client, pinned. **The
+  default-covenant flip is a NAMED future record** with its evidence
+  regeneration cascade priced — never a side effect. The split
+  instrument regenerated: **7 on screen / 0 absent upstream — no
+  documented visible axis lacks an engine source any longer.** Package
+  299 → **316**; game 228 → **239**; lifecycle_sim 24 → **43**.
 
 ---
 

@@ -1,0 +1,257 @@
+{
+  "artifact_id": "cleanliness_mechanic_gate_stage0",
+  "status": "stage0",
+  "date": "2026-08-09",
+  "purpose": "Cycle 26 P3: gate the opt-in cleanliness mechanic seam \u2014 the MECHANIC gap DR 0048 measured (no field, no decay, no answering action) \u2014 through the package boundary at the documented Stage 0 budget, with every verdict the charter names first-class: withhold, blocked_on_mechanic, refuse_as_lethal_cosmetic, adopt.",
+  "source_artifacts": [
+    "data/lifecycle/lifecycle_stage0.json",
+    "data/architecture/health_definition_gate_stage0.json",
+    "data/seed_grids/mg_seed_001.json",
+    "data/slips/valid/slip_lcd_seed.json",
+    "packages/mecha_engine/src/mecha_engine/lifecycle/simulate.py",
+    "packages/mecha_engine/tests/test_lifecycle_cleanliness_seam.py",
+    "research/decision_records/0048-visible-companion-state-axes.md"
+  ],
+  "parameters": {
+    "ticks": 72,
+    "seed_grid": "data/seed_grids/mg_seed_001.json",
+    "slip_profile": "data/slips/valid/slip_lcd_seed.json",
+    "derived_constants": {
+      "decay": 0.0124,
+      "mutate_mess": 0.055,
+      "clean_restore": 0.32,
+      "stress_coefficient": 0.01
+    },
+    "welfare_bar": 0.05
+  },
+  "metrics": {
+    "instrument_check": {
+      "switchboard_reproduced": true,
+      "idle_reproduced": true,
+      "committed_need_balance": 0.789129,
+      "committed_keeper_floor": 0.0685,
+      "recomputed_keeper_floor": 0.0685
+    },
+    "gates": {
+      "verdict": "adopt",
+      "failed_gates": [],
+      "need_decays": true,
+      "keeper_response": 0.3076,
+      "incumbent_response_floor": 0.0685,
+      "clean_answers": true,
+      "consequence_measurable": true,
+      "survival_unchanged": true,
+      "welfare_impact": 1.6e-05,
+      "welfare_bar": 0.05
+    },
+    "findings": {
+      "neglect_stress_delta": 0.00682,
+      "care_stress_delta": 0.0,
+      "care_absorbs_dirt_pressure": true,
+      "switchboard_need_balance_on": 0.789142,
+      "switchboard_need_balance_committed": 0.789129,
+      "neglect_final_cleanliness": 0.8636,
+      "care_final_cleanliness_uncleaned": 0.628
+    },
+    "engine": {
+      "off_switchboard": {
+        "survival_ticks": 72,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.789129,
+        "final_state": {
+          "hunger": 0.6004,
+          "energy": 0.484,
+          "stress": 0.0,
+          "bond": 0.993,
+          "grid_stability": 1.0
+        }
+      },
+      "off_idle": {
+        "survival_ticks": 11,
+        "alive": false,
+        "death_cause": "starvation",
+        "need_balance": 0.121004,
+        "final_state": {
+          "hunger": 1.0,
+          "energy": 0.24,
+          "stress": 0.55004,
+          "bond": 0.4395,
+          "grid_stability": 0.927
+        }
+      },
+      "per_action_delta": {
+        "feed": {
+          "hunger": -0.2799,
+          "energy": -0.018,
+          "stress": -0.02176,
+          "bond": 0.016,
+          "grid_stability": -0.001
+        },
+        "play": {
+          "hunger": 0.0751,
+          "energy": -0.098,
+          "stress": -0.03226,
+          "bond": 0.0685,
+          "grid_stability": -0.001
+        },
+        "sleep": {
+          "hunger": 0.0651,
+          "energy": 0.312,
+          "stress": -0.11476,
+          "bond": -0.007,
+          "grid_stability": 0.009
+        },
+        "idle": {
+          "hunger": 0.0601,
+          "energy": -0.04,
+          "stress": 0.03074,
+          "bond": -0.016,
+          "grid_stability": -0.003
+        },
+        "mutate": {
+          "hunger": 0.0601,
+          "energy": -0.073,
+          "stress": 0.06274,
+          "bond": 0.011,
+          "grid_stability": -0.056
+        }
+      },
+      "care_cleanliness_series": [
+        0.9876,
+        0.9752,
+        0.9628,
+        0.9504,
+        0.938,
+        0.9256,
+        0.9132,
+        0.9008,
+        0.8884,
+        0.876,
+        0.8636,
+        0.8512,
+        0.8388,
+        0.8264,
+        0.814,
+        0.8016,
+        0.7892,
+        0.7768,
+        0.7644,
+        0.752,
+        0.7396,
+        0.7272,
+        0.7148,
+        0.7024,
+        0.69,
+        0.6776,
+        0.6652,
+        0.6528,
+        0.6404,
+        0.628
+      ],
+      "care_alive": true,
+      "dirty_value": 0.628,
+      "cleaned_value": 0.9356,
+      "neglect_off": {
+        "survival_ticks": 11,
+        "alive": false,
+        "death_cause": "starvation",
+        "need_balance": 0.121004,
+        "final_state": {
+          "hunger": 1.0,
+          "energy": 0.24,
+          "stress": 0.55004,
+          "bond": 0.4395,
+          "grid_stability": 0.927
+        }
+      },
+      "neglect_on": {
+        "survival_ticks": 11,
+        "alive": false,
+        "death_cause": "starvation",
+        "need_balance": 0.120928,
+        "final_state": {
+          "hunger": 1.0,
+          "energy": 0.24,
+          "stress": 0.55686,
+          "bond": 0.4395,
+          "grid_stability": 0.927
+        },
+        "final_cleanliness": 0.8636
+      },
+      "switchboard_on": {
+        "survival_ticks": 72,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.789142,
+        "final_state": {
+          "hunger": 0.6004,
+          "energy": 0.484,
+          "stress": 0.0,
+          "bond": 0.993,
+          "grid_stability": 1.0
+        },
+        "final_cleanliness": 0.1072
+      },
+      "care_off": {
+        "survival_ticks": 72,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.794518,
+        "final_state": {
+          "hunger": 0.1384,
+          "energy": 1.0,
+          "stress": 0.0,
+          "bond": 0.993,
+          "grid_stability": 1.0
+        }
+      },
+      "care_on": {
+        "survival_ticks": 72,
+        "alive": true,
+        "death_cause": null,
+        "need_balance": 0.794519,
+        "final_state": {
+          "hunger": 0.1384,
+          "energy": 1.0,
+          "stress": 0.0,
+          "bond": 0.993,
+          "grid_stability": 1.0
+        },
+        "final_cleanliness": 0.1072
+      }
+    }
+  },
+  "closed_states": [
+    "the seam is byte-identical when off, pinned in the package suite against the committed Stage 0 comparator's own numbers (the M3 lesson: frozen literals, never new-vs-new)",
+    "every mechanic parameter is DERIVED from the incumbent engine, never picked",
+    "the instrument reproduced the committed episodes and N5's committed keeper floor before judging",
+    "the autonomous policies never choose clean \u2014 the companion cannot clean itself, the documented interaction model",
+    "a prediction was recorded BEFORE the run"
+  ],
+  "blocked_states": [
+    "the mechanic is OPT-IN and the default covenant does not enable it: flipping the default is a product decision with its own record and a priced evidence-regeneration cascade, deliberately not taken here",
+    "a SLIP-carried opt-in needs a schema-ladder rung (DR 0012); until then the mechanics keyword is the only author",
+    "cleanliness stays OUT of TARGETS/_need_balance/reward and out of DANGER_THRESHOLDS: the incumbent statistics keep their meaning, and a danger threshold for dirt would be a separate gated decision",
+    "one seed creature and one covenant (the Stage 0 comparator pair); magnitudes would move under other profiles"
+  ],
+  "decision": {
+    "verdict": "adopt",
+    "gates": {
+      "verdict": "adopt",
+      "failed_gates": [],
+      "need_decays": true,
+      "keeper_response": 0.3076,
+      "incumbent_response_floor": 0.0685,
+      "clean_answers": true,
+      "consequence_measurable": true,
+      "survival_unchanged": true,
+      "welfare_impact": 1.6e-05,
+      "welfare_bar": 0.05
+    },
+    "rule": "pre-registered (cycle 26 P3), every verdict first-class. The seam is judged through the package boundary at the documented Stage 0 budget (72 ticks, the committed comparator grid and covenant), with the instrument required to reproduce the committed switchboard and idle episodes and N5's committed keeper-response floor before anything is judged. G1 the need decays (else withhold); G2 the clean verb clears the committed 0.0685 floor from a dirty live state (else withhold); G3a the dirt->stress consequence moves final stress on the neglect stream by more than zero against the incumbent - the engine is deterministic, so the noise floor is exactly zero - else BLOCKED_ON_MECHANIC, the charter's own refusal; G3b the consequence is bounded - survival and death cause unchanged on the neglect stream and under the autonomous switchboard, and |delta need_balance|/incumbent under the documented D6 welfare bar (5%) - else REFUSE_AS_LETHAL_COSMETIC, and the refusals outrank the withholdings; G4 one clean on a dirty live companion raises cleanliness (else withhold). This module builds no UI.",
+    "pre_run_prediction": "Written before the run: ADOPT. The neglect stream is expected to show the measurable consequence (dirt pressure raises final stress above the incumbent's committed 0.55004 by a small exact amount) without moving the starvation death at tick 11; the attentive keeper's care is expected to ABSORB the dirt pressure almost entirely (stress relief from feed and sleep dwarfs the <=0.01-per-tick coupling), recorded as the fairness finding either way; the switchboard's welfare impact is expected well under the 5% bar; and the clean verb's +0.32 restore clears the 0.0685 floor by construction - the gate proves the implementation, not the intent. If the measurement disagrees, the measurement wins.",
+    "prediction_outcome": "prediction_confirmed"
+  },
+  "next_research_step": "If adopted: land the opt-in readout and the clean verb in the game (same slice), record DR 0059, and name the default-covenant decision as its own future record."
+}

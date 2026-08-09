@@ -302,12 +302,12 @@ IDE) recorded as a trap with its rule.
 
 ### Cycle 26 · Phase P — the missing axes earn their sources — OPEN
 
-`sunsetted/TODO.md` is the live queue: **P1, P2 DONE; P3–P6 open.**
-`cleanliness` is now the ONE documented VISIBLE axis with nothing to
-display, and the gap is upstream (it needs a MECHANIC — DR 0048, P3's
-charter); two instruments still owe repairs Phase N named (the
-Q-table's harder baseline, P4; the probe artifacts' committed edges,
-P5). Task detail and sources are in the queue itself.
+`sunsetted/TODO.md` is the live queue: **P1–P3 DONE; P4–P6 open.** The
+axis work is complete — **no documented visible axis lacks an engine
+source any longer** — and what remains is the two instrument repairs
+Phase N named (the Q-table's harder baseline, P4; the probe artifacts'
+committed edges, P5) and the gate. Task detail and sources are in the
+queue itself.
 
 **P1 — DONE 2026-08-08 (no DR; the decisions cited are 0048/0054/0055).**
 **The §1.17 split measured AS SHIPPED, and the founding text now
@@ -339,6 +339,26 @@ different questions, both true. The P1 instrument moved with the
 surface deliberately (regenerated: **7 of 8 visible on screen, 1
 upstream gap, 2 hidden surfaced**); §1.17 carries a dated addendum.
 Game 216 → **228**.
+
+**P3 — DONE 2026-08-09 (DR 0059).** **`cleanliness` earns its MECHANIC
+— the engine's first OPT-IN lifecycle seam — and dirt hurts only the
+neglected.** The one §1.17 gap no display work could close: the seam
+supplies the need, the decay, the keeper `clean` verb and a bounded
+dirt→stress consequence, **byte-identical when off** (proven against
+the committed Stage 0 comparator's own numbers and a frozen key list)
+with **every parameter derived from the incumbent engine**. Five
+pre-registered gates, the charter's refusals first-class
+(`blocked_on_mechanic`, `refuse_as_lethal_cosmetic`): **ADOPT** —
+clean responds +0.3076, the neglect stream shows the exact
+deterministic consequence (+0.00682 stress, the starvation unmoved),
+switchboard welfare impact 1.6e-05 vs the 5% D6 bar — and **an
+attentive keeper's care absorbs the dirt pressure entirely** (care
+delta 0.0), predicted and confirmed. Landed same slice for opted-in
+covenants; the **default-covenant flip is a named future record** with
+its regeneration cascade priced. The split instrument regenerated:
+**7 on screen / 0 absent upstream — no documented visible axis lacks
+an engine source any longer.** Package 299 → **316**; game
+228 → **239**; lifecycle_sim 24 → **43**.
 
 **O1 — DONE (no DR; DR 0054 already made the decision).** The lifecycle
 public surface widens **six names → seven** (`DANGER_THRESHOLDS`),
@@ -478,10 +498,11 @@ the choice has now been made and gated — `health` **is** `danger_margin`
 `DANGER_THRESHOLDS`), the candidate DR 0048 *named* was **refused as a
 euphemism** (it would have read 93% on a starved corpse), and the
 readout is **on the player's screen with its binding axis beside it**.
-~~**Two real gaps remain**~~ *Corrected 2026-08-08 by P2 / DR 0058*:
-**one real gap remains** — `cleanliness` needs a MECHANIC (P3's
-charter). `happiness` now has its CHOSEN definition (`social_warmth`)
-and is on screen. ~~§1.17
+~~**Two real gaps remain**~~ *Corrected 2026-08-08/09 by P2 / DR 0058
+and P3 / DR 0059*: **no §1.17 visible axis lacks an engine source any
+longer.** `happiness` has its CHOSEN definition (`social_warmth`) and
+is on screen; `cleanliness` has its OPT-IN mechanic (not enabled by
+the default covenant — a named future record). ~~§1.17
 itself is also **measurably stale against the shipped client**~~
 *Corrected 2026-08-08 by P1*: the split is now **measured as shipped**
 (`data/game_client/companion_axis_split_stage0.json` — 6/8 visible on
@@ -527,9 +548,9 @@ charters with their sources are in the queue file):
 2. ~~**P2 · `happiness` chooses a definition**~~ — **DONE 2026-08-08
    (DR 0058).** See §3. `social_warmth` adopted; the readout landed
    the same day.
-3. **P3 · `cleanliness` earns a mechanic — or the record says why
-   not** — read the engine first; smallest documented mechanic as an
-   additive seam, byte-identical off; refusal first-class.
+3. ~~**P3 · `cleanliness` earns a mechanic**~~ — **DONE 2026-08-09
+   (DR 0059).** See §3. The opt-in mechanic adopted and landed; the
+   default-covenant flip is a named future record.
 4. **P4 · the Q-table meets the incumbent it actually has to beat** —
    N3's harder comparison, plus F's like-for-like online stump; both
    committed artifacts untouched.

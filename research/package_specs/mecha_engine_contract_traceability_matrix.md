@@ -166,6 +166,14 @@ Future `tests/test_lifecycle_contract.py` must verify:
   `danger_margin` nor `health` appears on the lifecycle surface, so
   whether the margin formula belongs in the engine stays a separate
   decision with its own gate.
+- **the cleanliness mechanic seam (P3, DR 0059) is byte-identical when
+  off**: `mechanics=None` reproduces the committed Stage 0 comparator
+  episodes verbatim and the off-mode state key set matches a frozen
+  literal list; the seam's derived constants (decay 0.0124, mutate mess
+  0.055, clean restore 0.32, dirt-to-stress 0.01) are pinned BY VALUE;
+  `clean` without the mechanic raises the incumbent error verbatim; the
+  mechanic is non-lethal and the autonomous action vocabulary is
+  untouched (`tests/test_lifecycle_cleanliness_seam.py`).
 
 ## Archive Test Obligations
 

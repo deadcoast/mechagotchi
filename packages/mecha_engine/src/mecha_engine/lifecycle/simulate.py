@@ -109,8 +109,55 @@ DEFAULT_POLICY = "switchboard"
 # without an explicit seed stay deterministic (episode acceptance).
 DEFAULT_RNG_SEED = 20260512
 
+# ---------------------------------------------------------------------------
+# The cleanliness mechanic seam (cycle 26 P3, decision record 0059).
+# OPT-IN via the additive ``mechanics`` keyword on ``initial_state`` /
+# ``run_episode``; with ``mechanics=None`` (the default) every surface is
+# byte-identical to the pre-seam engine, pinned against the committed
+# Stage 0 comparator artifact. Every parameter below is DERIVED from the
+# incumbent engine, never picked:
+# - CLEANLINESS_DECAY is the median incumbent per-tick drift magnitude at
+#   the Stage 0 default behavior weights (neediness 0.45, sleepiness 0.5;
+#   the stress term at the hunger target 0.34):
+#   sorted([0.0401, 0.028, 0.0124, 0.004, 0.001])[2] == 0.0124.
+# - CLEANLINESS_MUTATE_MESS is mutate's own grid_stability cost — the one
+#   action the engine already treats as body-disturbing pays the same
+#   magnitude in dirt.
+# - CLEANLINESS_CLEAN_RESTORE is feed's own hunger relief — the incumbent
+#   table's strongest care effect.
+# - CLEANLINESS_STRESS_COEFFICIENT is the engine's own need→stress
+#   coupling coefficient (the hunger term in the stress drift), pointed
+#   at dirt: dirt pressures stress continuously, exactly the way hunger
+#   already does.
+# The mechanic is NON-LETHAL (``_life_status`` untouched), invisible to
+# ``TARGETS``/``_need_balance``/``_snapshot``/reward (the incumbent
+# statistics keep their meaning), and the autonomous policies never
+# choose ``clean`` — the companion cannot clean itself, the same
+# documented interaction model that keeps feeding keeper-mediated.
+SUPPORTED_MECHANICS = ("cleanliness",)
+CLEAN_ACTION = "clean"
+CLEANLINESS_DECAY = 0.0124
+CLEANLINESS_MUTATE_MESS = 0.055
+CLEANLINESS_CLEAN_RESTORE = 0.32
+CLEANLINESS_STRESS_COEFFICIENT = 0.01
 
-def initial_state(grid: dict, slip_profile: dict | None = None) -> dict:
+
+def _mechanic_names(mechanics: object) -> tuple:
+    if mechanics is None:
+        return ()
+    names = tuple(mechanics)
+    for name in names:
+        if name not in SUPPORTED_MECHANICS:
+            raise ValueError(f"unsupported lifecycle mechanic: {name}")
+    return names
+
+
+def initial_state(
+    grid: dict,
+    slip_profile: dict | None = None,
+    *,
+    mechanics: tuple | list | None = None,
+) -> dict:
     """Build a bounded lifecycle state from a valid grid and optional SLIP.
 
     Invalid grids fail through ``mecha_engine.genome.validate_grid`` before
@@ -122,7 +169,13 @@ def initial_state(grid: dict, slip_profile: dict | None = None) -> dict:
     ``risk_tolerance_mutation`` and ``learning_switches`` into the state,
     exactly as the lab lifecycle simulator does; v0.1 states stay
     byte-identical to the frozen baseline.
+
+    ``mechanics`` (cycle 26 P3, decision record 0059): ``None`` — the
+    default — is byte-identical to the pre-seam engine; the tuple
+    ``("cleanliness",)`` opts the state into the cleanliness mechanic
+    (see the seam constants above). Unknown names are refused.
     """
+    mechanic_names = _mechanic_names(mechanics)
     validation = validate_grid(grid) if isinstance(grid, dict) else None
     if validation is None or not validation.ok:
         errors = validation.errors if validation is not None else ["not an object"]
@@ -204,6 +257,11 @@ def initial_state(grid: dict, slip_profile: dict | None = None) -> dict:
         state["deliberation_confidence_threshold"] = float(
             deliberation.get("confidence_threshold", 0.72)
         )
+    # P3 (DR 0059): the opt-in cleanliness mechanic. A fresh companion
+    # is as clean as its body is undamaged — the seed reads the grid's
+    # own mean cell damage, the same field grid_stability already reads.
+    if "cleanliness" in mechanic_names:
+        state["cleanliness"] = round(_clamp(1.0 - cell_damage), 6)
     return state
 
 
@@ -224,7 +282,14 @@ def advance_tick(
     idle/random tick, every no-covenant flow) appends the frozen entry
     byte-identically.
     """
-    if action not in ACTION_EFFECTS:
+    # P3 (DR 0059): `clean` is legal only for a state that carries the
+    # opt-in mechanic; every other caller gets the incumbent error
+    # verbatim. The autonomous policies never choose it — the keeper
+    # cleans, exactly as the keeper feeds.
+    mechanic_on = "cleanliness" in state
+    if action not in ACTION_EFFECTS and not (
+        action == CLEAN_ACTION and mechanic_on
+    ):
         raise ValueError(f"unsupported lifecycle action: {action}")
     next_state = deepcopy(state)
     if not next_state.get("alive", False):
@@ -242,7 +307,16 @@ def advance_tick(
         "bond": -0.004,
         "grid_stability": -0.001,
     }
-    effects = ACTION_EFFECTS[action]
+    if mechanic_on:
+        # Dirt pressures stress continuously, with the engine's own
+        # need→stress coefficient — the exact shape the hunger term
+        # above already has.
+        drift["stress"] += (
+            1.0 - _clamp(next_state["cleanliness"])
+        ) * CLEANLINESS_STRESS_COEFFICIENT
+    # `clean` carries no incumbent-axis effects: cleaning is time spent
+    # (the shared drift), not nourishment.
+    effects = ACTION_EFFECTS.get(action) or {key: 0.0 for key in TARGETS}
     for key in TARGETS:
         next_state[key] = round(
             _clamp(float(next_state[key]) + drift[key] + effects[key]),
@@ -255,6 +329,17 @@ def advance_tick(
         next_state["stress"] = round(_clamp(next_state["stress"] - neediness * 0.01), 6)
     elif action == "sleep":
         next_state["stress"] = round(_clamp(next_state["stress"] - sleepiness * 0.015), 6)
+
+    if mechanic_on:
+        dirt = CLEANLINESS_DECAY
+        if action == "mutate":
+            dirt += CLEANLINESS_MUTATE_MESS
+        restored = (
+            CLEANLINESS_CLEAN_RESTORE if action == CLEAN_ACTION else 0.0
+        )
+        next_state["cleanliness"] = round(
+            _clamp(float(next_state["cleanliness"]) - dirt + restored), 6
+        )
 
     next_state["age_ticks"] = int(next_state.get("age_ticks", 0)) + 1
     next_state["action_counts"][action] = next_state["action_counts"].get(action, 0) + 1
@@ -299,6 +384,8 @@ def run_episode(
     actions: list[str] | None = None,
     ticks: int = DEFAULT_TICKS,
     rng_seed: int | None = None,
+    *,
+    mechanics: tuple | list | None = None,
 ) -> dict:
     """Run a deterministic bounded episode from a valid grid.
 
@@ -322,11 +409,15 @@ def run_episode(
     if isinstance(ticks, bool) or not isinstance(ticks, int) or ticks < 0:
         raise ValueError(f"ticks must be a non-negative integer: {ticks}")
 
+    mechanic_names = _mechanic_names(mechanics)
     action_stream: list[str] | None = None
     if actions is not None:
         action_stream = list(actions)
+        clean_allowed = "cleanliness" in mechanic_names
         for action in action_stream:
-            if action not in ACTION_EFFECTS:
+            if action not in ACTION_EFFECTS and not (
+                action == CLEAN_ACTION and clean_allowed
+            ):
                 raise ValueError(f"unsupported lifecycle action: {action}")
         if len(action_stream) < ticks:
             raise ValueError(
@@ -340,7 +431,7 @@ def run_episode(
             raise ValueError(f"unsupported lifecycle policy: {effective_policy}")
 
     rng = random.Random(DEFAULT_RNG_SEED if rng_seed is None else rng_seed)
-    state = initial_state(grid, slip_profile)
+    state = initial_state(grid, slip_profile, mechanics=mechanics)
     for index in range(ticks):
         if not state["alive"]:
             break
@@ -356,7 +447,7 @@ def run_episode(
     if balances and len(balances) < ticks:
         balances = balances + [0.0] * (ticks - len(balances))
     need_balance = round(mean(balances), 6) if balances else _need_balance(_snapshot(state))
-    return {
+    report = {
         "policy": effective_policy,
         "ticks_requested": ticks,
         # survival_ticks counts ticks entered, including the tick on which
@@ -373,6 +464,12 @@ def run_episode(
         "final_state": _snapshot(state),
         "history": state["history"],
     }
+    # P3 (DR 0059), rung-conditional: episodes that ran the cleanliness
+    # mechanic report its final reading; every other episode's report is
+    # byte-identical to the pre-seam shape.
+    if "cleanliness" in state:
+        report["final_cleanliness"] = state["cleanliness"]
+    return report
 
 
 def reward_for_transition(previous_state: dict, next_state: dict, action: str) -> float:

@@ -147,16 +147,24 @@ class ReportShapeTests(unittest.TestCase):
         self.assertTrue(health["on_screen"]["binding_word"])
         self.assertTrue(health["on_screen"]["labelled_chosen"])
 
-    def test_absences_carry_their_measured_causes(self):
+    def test_dispositions_carry_their_measured_causes(self):
         axes = self.report["metrics"]["axes"]
         self.assertIn(
-            "no clean action",
+            "OPT-IN cleanliness mechanic",
             axes["cleanliness"]["engine_source"]["measured_cause"],
         )
         self.assertIn(
             "no lifecycle field",
             axes["happiness"]["engine_source"]["measured_cause"],
         )
+
+    def test_the_opt_in_mechanic_is_not_shown_by_default(self):
+        cleanliness = self.report["metrics"]["axes"]["cleanliness"]
+        self.assertEqual(
+            cleanliness["engine_source"]["disposition"],
+            "opt_in_mechanic_dr0059",
+        )
+        self.assertFalse(cleanliness["on_screen"]["shown"])
 
 
 class InstrumentCheckTests(unittest.TestCase):
@@ -166,21 +174,27 @@ class InstrumentCheckTests(unittest.TestCase):
     def setUpClass(cls):
         cls.report = build_companion_axis_split_report()
 
-    def test_the_committed_survey_is_reproduced_on_six_of_eight(self):
-        # Two axes now legitimately differ from the committed M5 survey,
-        # each explained by the decision record that moved it — health
-        # (DR 0054, cycle 24) and happiness (DR 0058, this cycle). Any
-        # OTHER difference is instrument drift and the builder raises.
+    def test_the_committed_survey_is_reproduced_on_five_of_eight(self):
+        # Three axes now legitimately differ from the committed M5
+        # survey, each explained by the decision record that moved it —
+        # health (DR 0054), happiness (DR 0058), and cleanliness
+        # (DR 0059, the opt-in mechanic). Any OTHER difference is
+        # instrument drift and the builder raises.
         check = self.report["metrics"]["instrument_check"]
         self.assertTrue(check["reproduced_committed_dispositions"])
-        self.assertEqual(check["matching_axes"], 6)
+        self.assertEqual(check["matching_axes"], 5)
         differences = check["expected_differences"]
-        self.assertEqual(sorted(differences), ["happiness", "health"])
+        self.assertEqual(
+            sorted(differences), ["cleanliness", "happiness", "health"]
+        )
         self.assertEqual(
             differences["health"]["measured"], "chosen_definition_dr0054"
         )
         self.assertEqual(
             differences["happiness"]["measured"], "chosen_definition_dr0058"
+        )
+        self.assertEqual(
+            differences["cleanliness"]["measured"], "opt_in_mechanic_dr0059"
         )
         for entry in differences.values():
             self.assertEqual(entry["committed"], "absent")

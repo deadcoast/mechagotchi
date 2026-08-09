@@ -2905,14 +2905,18 @@ def build_companion_axis_split_report() -> dict:
     axes["cleanliness"] = {
         "documented_split": "visible",
         "engine_source": {
-            "disposition": "absent",
-            "engine_field": None,
+            "disposition": "opt_in_mechanic_dr0059",
+            "engine_field": "cleanliness (opt-in)",
             "engine_function": None,
             "measured_value": None,
             "measured_cause": (
-                "no lifecycle field and no clean action — the live "
-                f"action set is {tuple(ACTIONS)} — and no state "
-                "accumulates dirt; DR 0048: the axis needs a MECHANIC"
+                "the engine now carries an OPT-IN cleanliness mechanic "
+                "(DR 0059: a derived decay, a keeper clean verb, a "
+                "bounded dirt→stress coupling; byte-identical when "
+                "off); the default client does not enable it, so the "
+                "shipped read model shows nothing — an honest opt-in "
+                "absence, no longer a missing mechanic. The autonomous "
+                f"action set is unchanged: {tuple(ACTIONS)}"
             ),
         },
         "on_screen": {"shown": False, "where": None, "label": None},
@@ -2961,18 +2965,27 @@ def build_companion_axis_split_report() -> dict:
         for name in SECTION_117_VISIBLE
         if measured_dispositions[name] != committed_per_axis[name]
     )
-    if mismatched != ["happiness", "health"]:
+    if mismatched != ["cleanliness", "happiness", "health"]:
         raise ValueError(
             "instrument drift: the live dispositions disagree with the "
-            f"committed survey on {mismatched} — only health (DR 0054) "
-            "and happiness (DR 0058) may differ, so the harness refuses "
-            "to write an artifact"
+            f"committed survey on {mismatched} — only health (DR 0054), "
+            "happiness (DR 0058) and cleanliness (DR 0059) may differ, "
+            "so the harness refuses to write an artifact"
         )
     instrument_check = {
         "committed_artifact": COMMITTED_AXIS_SURVEY,
-        "matching_axes": len(SECTION_117_VISIBLE) - 2,
+        "matching_axes": len(SECTION_117_VISIBLE) - 3,
         "reproduced_committed_dispositions": True,
         "expected_differences": {
+            "cleanliness": {
+                "committed": committed_per_axis["cleanliness"],
+                "measured": measured_dispositions["cleanliness"],
+                "explained_by": (
+                    "DR 0059 (the opt-in mechanic adopted through the "
+                    "P3 five-gate study; the default covenant does not "
+                    "enable it) — a decision, not instrument drift"
+                ),
+            },
             "health": {
                 "committed": committed_per_axis["health"],
                 "measured": measured_dispositions["health"],
@@ -3011,8 +3024,9 @@ def build_companion_axis_split_report() -> dict:
             f"{len(visible_shown)} of the eight documented VISIBLE axes "
             "are on the shipped client's read model "
             f"({', '.join(visible_shown)}); the one that is not — "
-            "cleanliness — is absent UPSTREAM of display (a missing "
-            "MECHANIC, DR 0048), not a display gap."
+            "cleanliness — now has an OPT-IN engine mechanic (DR 0059) "
+            "that the default covenant does not enable: an honest "
+            "opt-in absence, no longer a missing mechanic."
         ),
         (
             "health and happiness are VISIBLE under CHOSEN definitions "
@@ -3034,7 +3048,7 @@ def build_companion_axis_split_report() -> dict:
             ("hunger", "energy", "bond", "age", "mood", "health", "happiness")
         ),
         "hidden_surfaced": sorted(("stress", "grid stability")),
-        "matching_axes": 6,
+        "matching_axes": 5,
     }
     measured_outcome = {
         "visible_shown": visible_shown,

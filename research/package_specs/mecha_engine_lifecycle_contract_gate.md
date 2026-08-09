@@ -303,3 +303,59 @@ constant whose numbers can drift is not a contract - plus a coverage
 pin that every lethal axis has a threshold, because a threshold set
 missing one would let a bar read healthy on a dying companion, the
 exact failure DR 0054 refused `grid_stability` for.
+
+## Cleanliness mechanic seam (P3, 2026-08-09 - the opt-in care axis)
+
+The lifecycle gains its first OPT-IN mechanic: **cleanliness**
+(DR 0059), the MECHANIC gap DR 0048 measured for the documented VISIBLE
+axis (*"there is no clean action - and no state accumulates dirt"*).
+The public surface does NOT widen: `__all__` keeps its seven names, and
+the seam rides two existing functions as an additive keyword.
+
+**The opt-in.** `initial_state(grid, slip_profile=None, *,
+mechanics=None)` and `run_episode(..., *, mechanics=None)`.
+`mechanics=None` - the default - is **byte-identical to the pre-seam
+engine**, pinned against the committed Stage 0 comparator's own episode
+numbers and a frozen state-key list (the M3 lesson: never new-vs-new).
+`mechanics=("cleanliness",)` adds exactly one state key; unknown names
+are refused. A SLIP-carried opt-in needs a schema-ladder rung (DR 0012)
+and is deliberately not smuggled here.
+
+**The mechanic, every parameter DERIVED, pinned by value.** The state
+seeds `cleanliness` from the grid's own mean cell damage (a fresh
+companion is as clean as its body is undamaged). Per tick it decays by
+**0.0124** - the median incumbent drift magnitude at the Stage 0
+default weights; `mutate` adds its own grid-stability cost (**0.055**)
+in dirt; the keeper's **`clean`** verb restores by feed's own hunger
+relief (**0.32**) and carries **no incumbent-axis effects** (cleaning
+is time spent - the shared drift - not nourishment); dirt pressures
+stress continuously with the engine's own need-to-stress coefficient
+(**0.01**), the exact shape of the incumbent hunger term.
+
+**What deliberately does not change.** `ACTIONS` is untouched (the
+autonomous policies never choose `clean` - the companion cannot clean
+itself, the documented interaction model); `TARGETS`, `_need_balance`,
+`_snapshot`, the reward, and `_life_status` are untouched (the
+incumbent statistics keep their meaning, and the mechanic is
+NON-LETHAL - a danger threshold for dirt would be a separate gated
+decision); history entries keep their frozen shape. `clean` on a state
+without the mechanic raises the incumbent error verbatim; dead states
+return unchanged, `clean` included. Episodes that ran the mechanic
+report `final_cleanliness` rung-conditionally.
+
+**Adoption evidence.** The five-gate lab study
+(`labs/lifecycle_sim/cleanliness_mechanic_gate.py`,
+`data/lifecycle/cleanliness_mechanic_gate_stage0.json`): the instrument
+reproduced the committed episodes and N5's committed 0.0685 keeper
+floor before judging; the need decays; `clean` responds +0.3076; the
+neglect stream shows the exact deterministic consequence (+0.00682
+final stress) without moving the tick-11 starvation; the autonomous
+switchboard's welfare impact is 1.6e-05 against the documented 5% D6
+bar; and an attentive keeper's care absorbs the dirt pressure entirely
+(care-stream stress delta 0.0) - dirt hurts only the neglected.
+
+**Pinned by**: `packages/mecha_engine/tests/test_lifecycle_cleanliness_seam.py`
+(17 pins - off-mode byte-identity against the committed artifact's own
+numbers and the frozen key list, the derived constants by value, the
+verbatim off-mode refusal, non-lethality, and the corpse rule).
+

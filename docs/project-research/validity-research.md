@@ -556,6 +556,20 @@ This creates a richer simulation while keeping the UI simple.
 > `cleanliness` is the one remaining absence, and it needs a MECHANIC
 > (DR 0048). The measuring artifact above was regenerated under the
 > new surface the same day.
+>
+> **Dated addendum, 2026-08-09 (cycle 26 P3, DR 0059).** `cleanliness`
+> now has its MECHANIC: an **opt-in** lifecycle seam (byte-identical
+> when off; every parameter derived from the incumbent engine — a
+> decay, a keeper `clean` verb, a bounded dirt→stress coupling that an
+> attentive keeper's care absorbs entirely), adopted through a
+> five-gate study
+> (`data/lifecycle/cleanliness_mechanic_gate_stage0.json`) and landed
+> in the client for opted-in covenants. The **default** covenant does
+> not enable it — that is a product decision with its own future
+> record — so the default shipped split stays seven of eight on
+> screen, with the eighth an honest opt-in absence rather than a
+> missing mechanic. No documented visible axis lacks an engine source
+> any longer.
 
 ---
 

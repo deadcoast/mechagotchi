@@ -13,7 +13,9 @@ What Phase O did **not** do — could not do, by DR 0048's own finding —
 is give the two remaining documented VISIBLE axes anything to display:
 **`happiness` has no DEFINITION** (closed by P2, 2026-08-08 —
 DR 0058 chose `social_warmth` and landed the readout) **and
-`cleanliness` has no MECHANIC** (P3, open).
+`cleanliness` has no MECHANIC** (closed by P3, 2026-08-09 — DR 0059
+adopted the opt-in seam; the default-covenant flip is a named future
+record).
 Neither is a display gap; both are upstream-of-display gaps, and the
 O2/DR 0055 pattern (choose by gate, refuse euphemisms, land the readout
 with the adoption so the debt never dangles) is now proven twice over
@@ -103,18 +105,35 @@ two real gaps and the stale split), `0054`/`0055` (the pattern),
   refused, the refusal ships as the finding and §1.17's axis is
   recorded BLOCKED-ON-DEFINITION — a first-class outcome, not a
   failure.
-- [ ] **P3 · `cleanliness` earns a mechanic — or the record says why
-  not.** *(ENGINE gate → GAME landing.)* DR 0048: `cleanliness` needs a
-  MECHANIC — there is nothing in the engine for a bar to read, and
-  DR 0021's first law forbids displaying an invented number. Survey
-  what the engine already carries that a cleanliness mechanic could
-  compose from (cell `damage`/`stress` fields, repair events, lifecycle
-  tick effects — read the engine first, N-cycle discipline), design the
-  **smallest documented mechanic** as an additive seam (byte-identical
-  when off, proven not asserted; the incumbent lifecycle untouched),
-  and gate its adoption on pre-registered welfare/legibility bars
-  derived from committed lifecycle evidence. If adopted, the readout
-  lands in the same slice. Refusal is first-class: if the smallest
+- [x] **P3 · `cleanliness` earns a mechanic — or the record says why
+  not.** DONE 2026-08-09
+  (`2026-08-09-cleanliness-mechanic-gate.md`, **DR 0059**): **the
+  engine's first OPT-IN lifecycle mechanic, ADOPTED — and dirt hurts
+  only the neglected.** The seam (additive `mechanics` keyword;
+  `__all__` unchanged) is **byte-identical when off, proven against
+  the committed Stage 0 comparator's own numbers** and a frozen
+  19-key state list; **every parameter DERIVED, never picked** (decay
+  0.0124 = the median incumbent drift; mutate's mess 0.055 = its own
+  grid cost; clean's restore 0.32 = feed's own hunger relief;
+  dirt→stress 0.01 = the engine's own need→stress coefficient). Five
+  pre-registered gates with the charter's refusals first-class
+  (`blocked_on_mechanic`, `refuse_as_lethal_cosmetic`); instruments
+  reproduced the committed episodes and N5's 0.0685 floor first;
+  **ADOPT** — clean responds **+0.3076**, the neglect stream shows the
+  exact deterministic consequence (**+0.00682** stress, the tick-11
+  starvation unmoved), switchboard welfare impact **1.6e-05** vs the
+  documented 5% D6 bar, and **an attentive keeper's care absorbs the
+  dirt pressure entirely (care-stream delta 0.0)** — predicted and
+  confirmed. Landed same slice for opted-in covenants (needs readout,
+  the `clean` verb, succession + save/resume); a default session is
+  byte-identical, pinned; **the default-covenant flip is a NAMED
+  future record with its regeneration cascade priced**. The P1
+  instrument regenerated: **7 on screen / 0 absent upstream / 2
+  hidden surfaced — no documented visible axis lacks an engine source
+  any longer.** Package 299 → **316**; game 228 → **239**;
+  lifecycle_sim 24 → **43**. The autonomous policies never clean and
+  there is no dirt beg-display — named, not smuggled.
+  *(Original charter, kept:)* Refusal is first-class: if the smallest
   honest mechanic is indistinguishable from noise at the documented
   budgets, record BLOCKED-ON-MECHANIC with the measurement attached.
 - [ ] **P4 · The Q-table meets the incumbent it actually has to beat.**

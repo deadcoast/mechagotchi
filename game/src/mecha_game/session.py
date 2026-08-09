@@ -67,14 +67,19 @@ LOG_LIMIT = 100
 DEFAULT_SUCCESSION_SEED = 20260712
 
 # The needs a keeper reads at a glance (W1's display metadata —
-# values are the state's, verbatim).
+# values are the state's, verbatim). `cleanliness` appears only when a
+# session opts into the engine's mechanic (P3, DR 0059): the needs loop
+# below shows a key only when the state carries it, so a default
+# session's read model is byte-identical to the pre-seam client.
 NEED_DISPLAY = {
     "hunger": {"label": "hunger", "good_when": "low"},
     "energy": {"label": "energy", "good_when": "high"},
     "stress": {"label": "stress", "good_when": "low"},
     "bond": {"label": "bond", "good_when": "high"},
     "grid_stability": {"label": "body stability", "good_when": "high"},
+    "cleanliness": {"label": "cleanliness", "good_when": "high"},
 }
+CLEAN_ACTION = "clean"
 
 
 def load_session_inputs(
@@ -102,10 +107,14 @@ class CompanionSession:
         succession_seed: int = DEFAULT_SUCCESSION_SEED,
         fleet: bool = True,
         origin: str = "founder",
+        mechanics: tuple | list | None = None,
     ) -> None:
         # The engine's own gate judges the adoption (refuses with the
-        # validator's/covenant's verbatim errors).
-        self.state = initial_state(grid, slip_profile)
+        # validator's/covenant's verbatim errors). `mechanics` (P3,
+        # DR 0059) opts the session into engine mechanics — None, the
+        # default, is byte-identical to the pre-seam client.
+        self.mechanics = tuple(mechanics) if mechanics else None
+        self.state = initial_state(grid, slip_profile, mechanics=self.mechanics)
         self.fleet = fleet
         if fleet:
             # The kept fleet opts in (the load-bearing D1 rule: an
@@ -171,7 +180,10 @@ class CompanionSession:
             "begging": self.begging,
             "ui_hints": probe["ui_hints"],
             "generation_count": len(self.lineage),
-            "actions": list(ACTIONS),
+            # The keeper's verbs: the engine vocabulary, plus `clean`
+            # exactly when the session runs the mechanic (P3, DR 0059).
+            "actions": list(ACTIONS)
+            + ([CLEAN_ACTION] if CLEAN_ACTION in self._extra_actions() else []),
             "log": list(self.log[-24:]),
             # The kept threads' signals, verbatim (D1 shape) — the
             # fleet's game-side read model (empty with the fleet off).
@@ -253,7 +265,9 @@ class CompanionSession:
                 f"the companion died of {self.death_cause} at tick "
                 f"{self.state['age_ticks']} — adopt a successor"
             )
-        if player_action is not None and player_action not in ACTIONS:
+        if player_action is not None and player_action not in (
+            tuple(ACTIONS) + self._extra_actions()
+        ):
             raise ValueError(
                 f"unsupported lifecycle action: {player_action}"
             )
@@ -311,7 +325,11 @@ class CompanionSession:
             slip_profile=self.slip_profile,
             rng_seed=self.succession_seed + len(self.lineage),
         )
-        self.state = initial_state(child, self.slip_profile)
+        # The Keeper's opted-in mechanics carry across successions —
+        # they are covenant-level choices, not per-life ones.
+        self.state = initial_state(
+            child, self.slip_profile, mechanics=self.mechanics
+        )
         if self.fleet:
             # The Keeper's fleet stays opted in across successions;
             # thread MEMORY starts fresh — it belonged to the parent
@@ -379,6 +397,11 @@ class CompanionSession:
             "lineage": self.lineage,
             "generation_model": dataclasses.asdict(self.model),
         }
+        # Rung-conditional (the engine's own convention): only sessions
+        # that opted into mechanics carry the key, so a default save is
+        # byte-identical to the pre-seam format.
+        if self.mechanics:
+            payload["mechanics"] = list(self.mechanics)
         path = Path(path)
         path.parent.mkdir(parents=True, exist_ok=True)
         if path.exists():
@@ -410,6 +433,7 @@ class CompanionSession:
         session.name = payload["name"]
         session.succession_seed = payload["succession_seed"]
         session.fleet = payload["fleet"]
+        session.mechanics = tuple(payload["mechanics"]) if payload.get("mechanics") else None
         session._rng = random.Random(0)
         session.session_tick = payload["session_tick"]
         session.begging = payload["begging"]
@@ -434,3 +458,7 @@ class CompanionSession:
             if signal["name"] == name:
                 return signal
         return None
+
+    def _extra_actions(self) -> tuple:
+        """The keeper verbs the opted-in mechanics add (P3, DR 0059)."""
+        return (CLEAN_ACTION,) if "cleanliness" in self.state else ()
