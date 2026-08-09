@@ -544,6 +544,18 @@ This creates a richer simulation while keeping the UI simple.
 > (three real gaps, not five) and N5 / DR 0054 (the split measurably
 > stale). This note supersedes neither — it is the measured state of
 > the shipped client as of its date.
+>
+> **Dated addendum, 2026-08-08 (cycle 26 P2, DR 0058).** `happiness`
+> is now VISIBLE under a CHOSEN definition: **`social_warmth`**, the
+> mean of the engine's own `recent_interactions` window (feed/play,
+> last 5 ticks), adopted through a five-gate study that refused
+> `bond`-under-another-name as a duplicate and withheld the engine's
+> `need_balance` under the measured responsiveness floor
+> (`data/architecture/happiness_definition_gate_stage0.json`). The
+> shipped split is now **seven of eight visible axes on screen**;
+> `cleanliness` is the one remaining absence, and it needs a MECHANIC
+> (DR 0048). The measuring artifact above was regenerated under the
+> new surface the same day.
 
 ---
 

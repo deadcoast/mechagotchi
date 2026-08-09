@@ -1,0 +1,317 @@
+{
+  "artifact_id": "happiness_definition_gate_stage0",
+  "status": "stage0",
+  "date": "2026-08-08",
+  "purpose": "Cycle 26 P2: gate a CHOSEN definition of the documented VISIBLE axis `happiness`, which DR 0048 put out of scope pending a definition. Three candidates read from what the engine already records; five pre-registered gates (N5's four, plus G5 distinct-from-shown); selection among eligibles by the lowest reading on the neglected corpse; refusal first-class.",
+  "source_artifacts": [
+    "data/architecture/companion_state_survey_stage0.json",
+    "data/architecture/health_definition_gate_stage0.json",
+    "data/game_client/companion_axis_split_stage0.json",
+    "data/seed_grids_16x16/mg_seed16_001_beetle.json",
+    "packages/mecha_engine/src/mecha_engine/lifecycle/simulate.py",
+    "research/decision_records/0048-visible-companion-state-axes.md",
+    "research/decision_records/0054-health-definition-danger-margin.md"
+  ],
+  "parameters": {
+    "ticks": 200,
+    "lifecycles": 3,
+    "keeper_actions": [
+      "feed",
+      "play"
+    ],
+    "incumbent_visible_axes": [
+      "hunger",
+      "energy",
+      "bond"
+    ],
+    "shown_readouts_compared": [
+      "hunger",
+      "energy",
+      "stress",
+      "bond",
+      "grid_stability",
+      "danger_margin"
+    ],
+    "candidates": {
+      "bond_rename": {
+        "label": "the naive candidate: bond, surfaced under the name happiness",
+        "reads": [
+          "bond"
+        ],
+        "chosen": true,
+        "rationale": "engine truth that moves under the keeper's verbs \u2014 and it is already on the player's screen under its own accurate name; M5: 'bond is a separate documented axis, not a synonym'"
+      },
+      "need_balance": {
+        "label": "the engine's own per-tick contentment statistic",
+        "reads": [
+          "hunger",
+          "energy",
+          "stress",
+          "bond",
+          "grid_stability"
+        ],
+        "chosen": true,
+        "rationale": "1 - mean(|axis - target|) over the five homeostasis axes, computed and recorded by advance_tick in every history entry since Stage 0 \u2014 the engine already writes this number every tick; nothing is invented"
+      },
+      "social_warmth": {
+        "label": "being tended lately: the recent-interaction window",
+        "reads": [
+          "recent_interactions"
+        ],
+        "chosen": true,
+        "rationale": "the mean of the engine's last-5-tick keeper-care trace (1 when the executed action was feed or play), carried in state and consumed by the switchboard since Stage 0"
+      }
+    },
+    "seed_grid": "data/seed_grids_16x16/mg_seed16_001_beetle.json"
+  },
+  "metrics": {
+    "instrument_check": {
+      "committed_artifact": "data/architecture/health_definition_gate_stage0.json",
+      "committed_floor": 0.0685,
+      "recomputed_floor": 0.0685,
+      "floor_matches_committed": true
+    },
+    "balance_mirror_parity": {
+      "ticks_compared": 633,
+      "max_abs_difference": 0.0
+    },
+    "incumbent_keeper_responses": {
+      "hunger": 0.2799,
+      "energy": 0.098,
+      "bond": 0.0685
+    },
+    "candidates": {
+      "bond_rename": {
+        "keeper_response": {
+          "feed": 0.016,
+          "play": 0.0685
+        },
+        "distress_relief": 0.016,
+        "neglect_final_readings": [
+          0.4315,
+          0.4315,
+          0.4315
+        ],
+        "care_final_readings": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "care_coupled": true,
+        "duplicate_of": "bond",
+        "informative_beside_health": {
+          "candidate_play_response": 0.0685,
+          "health_play_response": -0.075467,
+          "play_raises_it_while_health_falls": true
+        }
+      },
+      "need_balance": {
+        "keeper_response": {
+          "feed": -0.046932,
+          "play": -0.027172
+        },
+        "distress_relief": 0.05929,
+        "neglect_final_readings": [
+          0.646661,
+          0.646661,
+          0.646661
+        ],
+        "care_final_readings": [
+          0.79862,
+          0.79862,
+          0.79862
+        ],
+        "care_coupled": true,
+        "duplicate_of": null,
+        "informative_beside_health": {
+          "candidate_play_response": -0.027172,
+          "health_play_response": -0.075467,
+          "play_raises_it_while_health_falls": false
+        }
+      },
+      "social_warmth": {
+        "keeper_response": {
+          "feed": 0.083333,
+          "play": 0.083333
+        },
+        "distress_relief": 0.2,
+        "neglect_final_readings": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "care_final_readings": [
+          0.8,
+          0.8,
+          0.8
+        ],
+        "care_coupled": true,
+        "duplicate_of": null,
+        "informative_beside_health": {
+          "candidate_play_response": 0.083333,
+          "health_play_response": -0.075467,
+          "play_raises_it_while_health_falls": true
+        }
+      }
+    },
+    "game_mirror_parity_values": [
+      {
+        "window": [
+          1,
+          0,
+          1
+        ],
+        "value": 0.666667
+      },
+      {
+        "window": [
+          1,
+          0,
+          1,
+          1
+        ],
+        "value": 0.75
+      },
+      {
+        "window": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "value": 0.0
+      },
+      {
+        "window": [
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "value": 0.2
+      },
+      {
+        "window": [
+          1,
+          1,
+          0,
+          1,
+          1
+        ],
+        "value": 0.8
+      },
+      {
+        "window": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "value": 1.0
+      },
+      {
+        "window": [],
+        "value": 0.0
+      }
+    ]
+  },
+  "closed_states": [
+    "every definition is declared CHOSEN up front, because validity-research.md names `happiness` and never defines it",
+    "every candidate reads only what the engine already records \u2014 nothing is invented (DR 0021's first law)",
+    "the duplicate question is a REAL GATE with a per-tick identity answer, not a judgement call",
+    "the G2 floor reproduced the committed N5 floor exactly before anything was judged",
+    "the need_balance mirror is pinned tick-for-tick against the engine's own recorded balances",
+    "a prediction was recorded BEFORE the run"
+  ],
+  "blocked_states": [
+    "this module builds no UI: landing the adopted readout is the same P2 slice's game-side change, pinned against this artifact's game_mirror_parity_values",
+    "one seed creature and one SLIP-free lifecycle: the action model is profile-independent but magnitudes would move under other profiles (N5's inherited limit)",
+    "the adopted definition, if any, is CHOSEN \u2014 \u00a71.17 still does not define the axis, and the surface must say chosen (the DR 0055 pattern)",
+    "`cleanliness` stays OUT OF SCOPE (DR 0048): it needs a MECHANIC, and that is P3's charter"
+  ],
+  "decision": {
+    "candidates": {
+      "bond_rename": {
+        "candidate": "bond_rename",
+        "verdict": "refuse_as_duplicate",
+        "failed_gates": [
+          "G5_distinct_from_shown"
+        ],
+        "chosen_definition": true,
+        "reads": [
+          "bond"
+        ],
+        "keeper_action_response": {
+          "feed": 0.016,
+          "play": 0.0685
+        },
+        "best_keeper_response": 0.0685,
+        "incumbent_response_floor": 0.0685,
+        "distress_relief": 0.016,
+        "care_coupled": true,
+        "duplicate_of": "bond",
+        "neglect_final_reading": 0.4315,
+        "care_final_reading": 1.0
+      },
+      "need_balance": {
+        "candidate": "need_balance",
+        "verdict": "withhold",
+        "failed_gates": [
+          "G2_keeper_responsive"
+        ],
+        "chosen_definition": true,
+        "reads": [
+          "hunger",
+          "energy",
+          "stress",
+          "bond",
+          "grid_stability"
+        ],
+        "keeper_action_response": {
+          "feed": -0.046932,
+          "play": -0.027172
+        },
+        "best_keeper_response": 0.046932,
+        "incumbent_response_floor": 0.0685,
+        "distress_relief": 0.05929,
+        "care_coupled": true,
+        "duplicate_of": null,
+        "neglect_final_reading": 0.646661,
+        "care_final_reading": 0.79862
+      },
+      "social_warmth": {
+        "candidate": "social_warmth",
+        "verdict": "adopt",
+        "failed_gates": [],
+        "chosen_definition": true,
+        "reads": [
+          "recent_interactions"
+        ],
+        "keeper_action_response": {
+          "feed": 0.083333,
+          "play": 0.083333
+        },
+        "best_keeper_response": 0.083333,
+        "incumbent_response_floor": 0.0685,
+        "distress_relief": 0.2,
+        "care_coupled": true,
+        "duplicate_of": null,
+        "neglect_final_reading": 0.0,
+        "care_final_reading": 0.8
+      }
+    },
+    "adopted": [
+      "social_warmth"
+    ],
+    "selection_readings": {
+      "social_warmth": 0.0
+    },
+    "rule": "pre-registered (cycle 26 P2), refusal first-class and reachable for every candidate; every definition is declared CHOSEN up front because validity-research.md names `happiness` and never defines it. G1 \u2014 the definition names the engine fields it reads. G2 \u2014 the KEEPER can move it, judged against the player's verbs (feed, play), the bar MEASURED as the smallest response any existing visible axis shows to those verbs, and the recomputed floor must reproduce the committed N5 floor exactly (instrument check \u2014 a mismatch raises instead of judging). G3 \u2014 care-coupled: a cherished life and a neglected life must separate on it. G4 \u2014 the label test: distress relieved by the keeper must RAISE the bar, else refuse_as_euphemism. G5 \u2014 distinct from what is shown: a per-tick identity with a readout already on the player's screen under another name earns refuse_as_duplicate, which OUTRANKS the euphemism verdict (the sharper accusation: nothing about the number is wrong, only the second name). Selection among eligible candidates: the LOWEST final reading on the neglected corpse wins (N5's refusal logic made into the selection statistic), ties to the definition reading fewer engine fields, then by name. At most one adoption; eligible non-winners are recorded eligible_not_selected. This module builds no UI.",
+    "pre_run_prediction": "Written before the run, so it can be wrong on the record: bond_rename is expected to pass G1\u2013G4 and be REFUSED on G5 as a duplicate \u2014 its series is the shown bond readout's by construction, and one number may not wear two visible names. social_warmth is expected to be ELIGIBLE and SELECTED: a neglected companion's window empties, so the corpse reads 0.0 \u2014 the strongest honesty property available \u2014 while feed and play move it well over the floor. need_balance is the deliberate uncertainty, named in advance on two counts: its G2 response from a near-target start may fall under the floor (feeding an un-hungry creature moves the mean distance little), and if it is eligible its neglect-death reading is expected HIGH (~0.7 \u2014 a mean hides the killer axis, the exact property that made health a minimum), which the selection statistic penalizes. If adopted, social_warmth is additionally expected to RISE under play while the health readout falls \u2014 the property that makes happiness informative beside health, recorded as an observation, not a gate. If the measurement disagrees, the measurement wins.",
+    "prediction_outcome": "prediction_confirmed"
+  },
+  "next_research_step": "Land the adopted readout in the game (same slice) with the mirror pinned against this artifact; record the decision as DR 0058; then P3, the cleanliness mechanic gate."
+}

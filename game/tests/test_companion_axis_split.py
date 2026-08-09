@@ -62,10 +62,14 @@ class SnapshotPinTests(unittest.TestCase):
         self.assertEqual(needs["grid_stability"]["label"], "body stability")
 
     def test_snapshot_never_carries_an_invented_axis(self):
+        # `happiness` is no longer invented: DR 0058 adopted a CHOSEN
+        # definition and the readout landed in the same P2 slice, so the
+        # pin's job narrows to the one axis that still has no source —
+        # and to asserting that what IS shown says it is chosen.
         snapshot = _new_session().snapshot()
         flat = json.dumps(snapshot).lower()
-        self.assertNotIn("happiness", flat)
         self.assertNotIn("cleanliness", flat)
+        self.assertTrue(snapshot["happiness"]["chosen"])
 
 
 class ReportShapeTests(unittest.TestCase):
@@ -105,10 +109,12 @@ class ReportShapeTests(unittest.TestCase):
 
     def test_the_shipped_visible_surface_is_measured(self):
         axes = self.report["metrics"]["axes"]
-        for name in ("hunger", "energy", "bond", "age", "mood", "health"):
+        shown = (
+            "hunger", "energy", "bond", "age", "mood", "health", "happiness",
+        )
+        for name in shown:
             self.assertTrue(axes[name]["on_screen"]["shown"], name)
-        for name in ("happiness", "cleanliness"):
-            self.assertFalse(axes[name]["on_screen"]["shown"], name)
+        self.assertFalse(axes["cleanliness"]["on_screen"]["shown"])
 
     def test_no_axis_without_an_engine_source_is_shown(self):
         # DR 0021's first law, measured rather than asserted.
@@ -160,17 +166,33 @@ class InstrumentCheckTests(unittest.TestCase):
     def setUpClass(cls):
         cls.report = build_companion_axis_split_report()
 
-    def test_the_committed_survey_is_reproduced_on_seven_of_eight(self):
+    def test_the_committed_survey_is_reproduced_on_six_of_eight(self):
+        # Two axes now legitimately differ from the committed M5 survey,
+        # each explained by the decision record that moved it — health
+        # (DR 0054, cycle 24) and happiness (DR 0058, this cycle). Any
+        # OTHER difference is instrument drift and the builder raises.
         check = self.report["metrics"]["instrument_check"]
         self.assertTrue(check["reproduced_committed_dispositions"])
-        self.assertEqual(check["matching_axes"], 7)
-        self.assertEqual(check["expected_difference"]["axis"], "health")
-        self.assertEqual(check["expected_difference"]["committed"], "absent")
+        self.assertEqual(check["matching_axes"], 6)
+        differences = check["expected_differences"]
+        self.assertEqual(sorted(differences), ["happiness", "health"])
         self.assertEqual(
-            check["expected_difference"]["measured"],
-            "chosen_definition_dr0054",
+            differences["health"]["measured"], "chosen_definition_dr0054"
         )
-        self.assertIn("0054", check["expected_difference"]["explained_by"])
+        self.assertEqual(
+            differences["happiness"]["measured"], "chosen_definition_dr0058"
+        )
+        for entry in differences.values():
+            self.assertEqual(entry["committed"], "absent")
+
+    def test_happiness_is_shown_as_a_chosen_definition(self):
+        happiness = self.report["metrics"]["axes"]["happiness"]
+        self.assertEqual(
+            happiness["engine_source"]["disposition"],
+            "chosen_definition_dr0058",
+        )
+        self.assertTrue(happiness["on_screen"]["shown"])
+        self.assertTrue(happiness["on_screen"]["labelled_chosen"])
 
     def test_the_rule_and_prediction_are_pre_registered(self):
         self.assertIn("pre-registered", AXIS_SPLIT_RULE.lower())

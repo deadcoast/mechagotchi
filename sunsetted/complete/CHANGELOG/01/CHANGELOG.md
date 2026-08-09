@@ -23,6 +23,58 @@ never rewritten).
 
 ---
 
+## [Unreleased] — Cycle 26 · Phase P — "the missing axes earn their sources"
+
+*In progress. Queue: `sunsetted/TODO.md` (**P1, P2 DONE**; P3–P6 open).*
+Planned from DR 0048's two real gaps (`happiness` needed a DEFINITION,
+`cleanliness` needs a MECHANIC — neither a display gap) and the
+instrument repairs Phase N and O named.
+
+- **P1 — DONE 2026-08-08 (no DR; the decisions cited are
+  0048/0054/0055).** **The §1.17 visible/hidden split measured AS
+  SHIPPED, and the founding text now carries its dated correction.** A
+  live client session, the on-screen half read from `snapshot()` under
+  a pre-registered operationalization (a NAMED READOUT); the
+  engine-source half through the package boundary. Measured: 6 of 8
+  visible axes on screen, 2 absent upstream of display, 2
+  documented-hidden axes surfaced under accurate names — and **no axis
+  without an engine source is shown** (DR 0021's first law, pinned
+  per-axis). The instrument reproduced the committed M5 survey 7/8
+  with `health`'s difference explained by DR 0054; **M5's remainder 2
+  closed in the game's own suite** (snapshot carries age and mood,
+  measured, not cited). Game 200 → 216.
+- **P2 — DONE 2026-08-08 (DR 0058).** **`happiness` is
+  `social_warmth` — the engine's own recent-interaction window — and
+  the readout landed the same day** (the N5 → O2 pattern end to end in
+  one slice). Three CHOSEN candidates, five pre-registered gates
+  (N5's four + **G5 distinct-from-shown**, whose `refuse_as_duplicate`
+  outranks the euphemism verdict); both instrument gates held before
+  judging (N5's committed 0.0685 floor reproduced exactly; the balance
+  mirror matched the engine over 633 ticks at |Δ| 0.0).
+- **`bond_rename` REFUSED as a duplicate** — it passed every
+  behavioural gate and fell on exactly one ground: its per-tick series
+  IS the shown bond readout's. One engine number may not wear two
+  visible names.
+- **`need_balance` WITHHELD** — the engine's own per-tick contentment
+  statistic responds to the keeper's verbs *under* the measured floor
+  and *negatively* from a near-target start, and reads **0.65 on the
+  neglected corpse** (a mean hides the killer axis — the property that
+  made health a minimum). Both liabilities recorded.
+- **`social_warmth` ADOPTED** with the strongest honesty property any
+  candidate showed: **the neglected corpse reads 0.0**; both keeper
+  verbs move it +0.083 (over the floor); relieving a starving
+  companion raises it +0.2. Prediction (recorded first) confirmed,
+  including its deliberately named uncertainty.
+- **Live in the client: `play` RAISES happiness while it LOWERS
+  health** (+0.083 vs −0.075) — two bars answering different questions,
+  both engine truth. The readout carries `chosen: true` and its
+  legibility in the window's own counts (`tended_ticks`/`window_ticks`).
+  The P1 instrument moved with the surface deliberately (regenerated:
+  **7 visible on screen / 1 absent upstream / 2 hidden surfaced**);
+  §1.17 carries a dated addendum. Game 216 → **228**.
+
+---
+
 ## Cycle 25 · Phase O — "the adopted definitions reach the player" — 2026-08-08
 
 **Gate: GREEN.** `research/experiment_reports/2026-08-08-phase-o-gate.md`;

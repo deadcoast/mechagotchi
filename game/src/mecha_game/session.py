@@ -44,6 +44,7 @@ from mecha_engine.lifecycle import (
     initial_state,
 )
 
+from .happiness import happiness_readout
 from .health import health_readout
 
 LINEAGE_FORMAT = "keeper_lineage_v1"
@@ -162,6 +163,11 @@ class CompanionSession:
             # keeper's `play` verb LOWERS it (play costs energy), so the
             # readout has to be able to say why.
             "health": health_readout(self.state),
+            # P2 (DR 0058): the adopted CHOSEN definition of
+            # `happiness` — the engine's own recent-interaction window.
+            # Play RAISES it while it lowers `health`; both are engine
+            # truth and the two bars answer different questions.
+            "happiness": happiness_readout(self.state),
             "begging": self.begging,
             "ui_hints": probe["ui_hints"],
             "generation_count": len(self.lineage),

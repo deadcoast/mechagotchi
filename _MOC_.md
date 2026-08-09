@@ -178,6 +178,7 @@ change updates its documents in the SAME change.**
 | 0054 / 0055 | `health` **is** `danger_margin` (a euphemism refused) → the readout ships **with its binding axis** |
 | 0056 | DR 0042's headline **restated, not retracted** — any *"the loop achieves X"* must name **which arm** |
 | 0057 | Stage 2's generator arms dispositioned **in their documented roles** — CPPN rejected, shape grammar watches, nothing adopted |
+| 0058 | `happiness` **is** `social_warmth` (a duplicate refused, the engine's own statistic withheld) → the readout lands the same day; **play raises happiness while it lowers health, and both are true** |
 
 ### The evidence itself
 

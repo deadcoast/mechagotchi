@@ -2879,20 +2879,28 @@ def build_companion_axis_split_report() -> dict:
             "labelled_chosen": bool(health["chosen"]),
         },
     }
+    happiness = snapshot["happiness"]
     axes["happiness"] = {
         "documented_split": "visible",
         "engine_source": {
-            "disposition": "absent",
+            "disposition": "chosen_definition_dr0058",
             "engine_field": None,
             "engine_function": None,
-            "measured_value": None,
+            "measured_value": happiness["value"],
             "measured_cause": (
-                "no lifecycle field ('happiness' is not among the live "
-                "state keys), no derivation, no documented formula — "
-                "DR 0048: the axis needs a DEFINITION"
+                "still no lifecycle field and no documented formula; "
+                "DR 0058 CHOSE social_warmth — the mean of the engine's "
+                "own recent_interactions window (feed/play, last 5 "
+                "ticks) — and the game mirrors the formula (boundary "
+                "law), parity-pinned against the committed gate artifact"
             ),
         },
-        "on_screen": {"shown": False, "where": None, "label": None},
+        "on_screen": {
+            "shown": True,
+            "where": "snapshot.happiness",
+            "label": happiness["label"],
+            "labelled_chosen": bool(happiness["chosen"]),
+        },
     }
     axes["cleanliness"] = {
         "documented_split": "visible",
@@ -2953,25 +2961,36 @@ def build_companion_axis_split_report() -> dict:
         for name in SECTION_117_VISIBLE
         if measured_dispositions[name] != committed_per_axis[name]
     )
-    if mismatched != ["health"]:
+    if mismatched != ["happiness", "health"]:
         raise ValueError(
             "instrument drift: the live dispositions disagree with the "
-            f"committed survey on {mismatched} — only health may differ "
-            "(DR 0054), so the harness refuses to write an artifact"
+            f"committed survey on {mismatched} — only health (DR 0054) "
+            "and happiness (DR 0058) may differ, so the harness refuses "
+            "to write an artifact"
         )
     instrument_check = {
         "committed_artifact": COMMITTED_AXIS_SURVEY,
-        "matching_axes": len(SECTION_117_VISIBLE) - 1,
+        "matching_axes": len(SECTION_117_VISIBLE) - 2,
         "reproduced_committed_dispositions": True,
-        "expected_difference": {
-            "axis": "health",
-            "committed": committed_per_axis["health"],
-            "measured": measured_dispositions["health"],
-            "explained_by": (
-                "DR 0054 (the definition CHOSEN after the committed "
-                "survey) and DR 0055/O2 (the readout shipped) — a "
-                "decision, not instrument drift"
-            ),
+        "expected_differences": {
+            "health": {
+                "committed": committed_per_axis["health"],
+                "measured": measured_dispositions["health"],
+                "explained_by": (
+                    "DR 0054 (the definition CHOSEN after the committed "
+                    "survey) and DR 0055/O2 (the readout shipped) — a "
+                    "decision, not instrument drift"
+                ),
+            },
+            "happiness": {
+                "committed": committed_per_axis["happiness"],
+                "measured": measured_dispositions["happiness"],
+                "explained_by": (
+                    "DR 0058 (social_warmth CHOSEN through the P2 "
+                    "five-gate study) and the same-slice landing — a "
+                    "decision, not instrument drift"
+                ),
+            },
         },
     }
 
@@ -2989,17 +3008,16 @@ def build_companion_axis_split_report() -> dict:
 
     correction_clauses = [
         (
-            "Six of the eight documented VISIBLE axes are on the shipped "
-            f"client's read model ({', '.join(visible_shown)}); the two "
-            "that are not — happiness and cleanliness — are absent "
-            "UPSTREAM of display (a missing DEFINITION and a missing "
-            "MECHANIC, DR 0048), not display gaps."
+            f"{len(visible_shown)} of the eight documented VISIBLE axes "
+            "are on the shipped client's read model "
+            f"({', '.join(visible_shown)}); the one that is not — "
+            "cleanliness — is absent UPSTREAM of display (a missing "
+            "MECHANIC, DR 0048), not a display gap."
         ),
         (
-            "health is VISIBLE under a CHOSEN definition (danger_margin, "
-            "DR 0054), shown with its binding axis (DR 0055) and "
-            "labelled chosen — not a documented definition, and the "
-            "surface says so."
+            "health and happiness are VISIBLE under CHOSEN definitions "
+            "(danger_margin, DR 0054/0055; social_warmth, DR 0058) — "
+            "not documented definitions, and both surfaces say chosen."
         ),
         (
             "Two documented HIDDEN axes are surfaced under accurate "
@@ -3013,10 +3031,10 @@ def build_companion_axis_split_report() -> dict:
 
     predicted = {
         "visible_shown": sorted(
-            ("hunger", "energy", "bond", "age", "mood", "health")
+            ("hunger", "energy", "bond", "age", "mood", "health", "happiness")
         ),
         "hidden_surfaced": sorted(("stress", "grid stability")),
-        "matching_axes": 7,
+        "matching_axes": 6,
     }
     measured_outcome = {
         "visible_shown": visible_shown,

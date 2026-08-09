@@ -11,7 +11,9 @@ default without touching a committed artifact (O3, DR 0056), and the
 Stage 2 generator program's last disposition debt closed (O4, DR 0057).
 What Phase O did **not** do — could not do, by DR 0048's own finding —
 is give the two remaining documented VISIBLE axes anything to display:
-**`happiness` has no DEFINITION and `cleanliness` has no MECHANIC.**
+**`happiness` has no DEFINITION** (closed by P2, 2026-08-08 —
+DR 0058 chose `social_warmth` and landed the readout) **and
+`cleanliness` has no MECHANIC** (P3, open).
 Neither is a display gap; both are upstream-of-display gaps, and the
 O2/DR 0055 pattern (choose by gate, refuse euphemisms, land the readout
 with the adoption so the debt never dangles) is now proven twice over
@@ -72,22 +74,35 @@ two real gaps and the stale split), `0054`/`0055` (the pattern),
   rewrite the founding vision text. The artifact is the instrument
   future surveys check against, so N5's stale-survey failure mode
   cannot recur silently.
-- [ ] **P2 · `happiness` chooses a definition — or refuses every
-  candidate.** *(ENGINE gate → GAME landing, the proven N5 → O2
-  pattern in one slice.)* DR 0048: `happiness` is the "CHOSEN
-  definition" kind of gap — a definition would have to be chosen from
-  documented axes, and DR 0048 built nothing. Enumerate the candidate
-  definitions the documentation already licenses (documented-hidden
-  axes and engine-derived values only — engine truth, no invented
-  numbers), **pre-register the refusal criteria before measuring**
-  (DR 0054's euphemism test is the precedent: a candidate that reads
-  high on a suffering companion is refused no matter how available it
-  is), and judge every candidate. **If one is adopted, the readout
-  lands in the same slice with its explanatory context** (O2's
-  binding-axis lesson: a bare number that can fall for a legible
-  reason must say why). **If every candidate is refused, the refusal
-  ships as the finding** and §1.17's axis is recorded
-  BLOCKED-ON-DEFINITION — a first-class outcome, not a failure.
+- [x] **P2 · `happiness` chooses a definition — or refuses every
+  candidate.** DONE 2026-08-08
+  (`2026-08-08-happiness-definition-gate.md`, **DR 0058**):
+  **`social_warmth` ADOPTED — the mean of the engine's own
+  recent-interaction window — and the readout landed the same day.**
+  Three candidates, all CHOSEN, all reading only what the engine
+  already records; five pre-registered gates (N5's four + **G5
+  distinct-from-shown**, whose `refuse_as_duplicate` outranks the
+  euphemism verdict); both instrument gates held first (N5's committed
+  **0.0685** floor reproduced exactly; the balance mirror matched the
+  engine over 633 ticks at |Δ| 0.0). **`bond_rename` refused as a
+  duplicate** (its series IS the shown bond readout's, tick for tick);
+  **`need_balance` withheld under the floor** with both liabilities
+  recorded (−0.047/−0.027 keeper responses, negative from a
+  near-target start; corpse reading 0.65 — the mean hides the killer
+  axis); **`social_warmth`'s neglected corpse reads 0.0** — the
+  strongest honesty property shown — with +0.083 under both verbs and
+  +0.2 relief. Prediction (recorded first) confirmed, including its
+  named uncertainty. **The live client reproduces the
+  differentiation: `play` RAISES happiness while it LOWERS health** —
+  two bars, different questions, both true. The P1 instrument moved
+  with the surface deliberately (regenerated: **7/1/2**); §1.17
+  carries a dated addendum. Game 216 → **228**; architecture lab
+  52 → **76**.
+  *(Original charter, kept:)* If one is adopted, the readout lands in
+  the same slice with its explanatory context; if every candidate is
+  refused, the refusal ships as the finding and §1.17's axis is
+  recorded BLOCKED-ON-DEFINITION — a first-class outcome, not a
+  failure.
 - [ ] **P3 · `cleanliness` earns a mechanic — or the record says why
   not.** *(ENGINE gate → GAME landing.)* DR 0048: `cleanliness` needs a
   MECHANIC — there is nothing in the engine for a bar to read, and

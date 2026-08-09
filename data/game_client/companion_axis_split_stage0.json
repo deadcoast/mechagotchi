@@ -136,16 +136,17 @@
       "happiness": {
         "documented_split": "visible",
         "engine_source": {
-          "disposition": "absent",
+          "disposition": "chosen_definition_dr0058",
           "engine_field": null,
           "engine_function": null,
-          "measured_value": null,
-          "measured_cause": "no lifecycle field ('happiness' is not among the live state keys), no derivation, no documented formula \u2014 DR 0048: the axis needs a DEFINITION"
+          "measured_value": 0.75,
+          "measured_cause": "still no lifecycle field and no documented formula; DR 0058 CHOSE social_warmth \u2014 the mean of the engine's own recent_interactions window (feed/play, last 5 ticks) \u2014 and the game mirrors the formula (boundary law), parity-pinned against the committed gate artifact"
         },
         "on_screen": {
-          "shown": false,
-          "where": null,
-          "label": null
+          "shown": true,
+          "where": "snapshot.happiness",
+          "label": "happiness",
+          "labelled_chosen": true
         }
       },
       "cleanliness": {
@@ -286,18 +287,24 @@
     },
     "instrument_check": {
       "committed_artifact": "data/architecture/companion_state_survey_stage0.json",
-      "matching_axes": 7,
+      "matching_axes": 6,
       "reproduced_committed_dispositions": true,
-      "expected_difference": {
-        "axis": "health",
-        "committed": "absent",
-        "measured": "chosen_definition_dr0054",
-        "explained_by": "DR 0054 (the definition CHOSEN after the committed survey) and DR 0055/O2 (the readout shipped) \u2014 a decision, not instrument drift"
+      "expected_differences": {
+        "health": {
+          "committed": "absent",
+          "measured": "chosen_definition_dr0054",
+          "explained_by": "DR 0054 (the definition CHOSEN after the committed survey) and DR 0055/O2 (the readout shipped) \u2014 a decision, not instrument drift"
+        },
+        "happiness": {
+          "committed": "absent",
+          "measured": "chosen_definition_dr0058",
+          "explained_by": "DR 0058 (social_warmth CHOSEN through the P2 five-gate study) and the same-slice landing \u2014 a decision, not instrument drift"
+        }
       }
     },
     "counts": {
-      "visible_on_screen": 6,
-      "visible_absent_upstream": 2,
+      "visible_on_screen": 7,
+      "visible_absent_upstream": 1,
       "hidden_surfaced": 2
     }
   },
@@ -317,21 +324,21 @@
     "prediction": "Recorded before the run: six of the eight documented-visible axes on screen, with happiness and cleanliness absent UPSTREAM of display (DR 0048's two real gaps); stress and grid stability \u2014 both documented hidden \u2014 surfaced under the accurate labels 'stress' and 'body stability'; the other six hidden axes not surfaced; the instrument matching the committed survey 7/8 with health explained by DR 0054/0055. Whatever the measurement says is what ships.",
     "correction_warranted": true,
     "correction_clauses": [
-      "Six of the eight documented VISIBLE axes are on the shipped client's read model (age, bond, energy, health, hunger, mood); the two that are not \u2014 happiness and cleanliness \u2014 are absent UPSTREAM of display (a missing DEFINITION and a missing MECHANIC, DR 0048), not display gaps.",
-      "health is VISIBLE under a CHOSEN definition (danger_margin, DR 0054), shown with its binding axis (DR 0055) and labelled chosen \u2014 not a documented definition, and the surface says so.",
+      "7 of the eight documented VISIBLE axes are on the shipped client's read model (age, bond, energy, happiness, health, hunger, mood); the one that is not \u2014 cleanliness \u2014 is absent UPSTREAM of display (a missing MECHANIC, DR 0048), not a display gap.",
+      "health and happiness are VISIBLE under CHOSEN definitions (danger_margin, DR 0054/0055; social_warmth, DR 0058) \u2014 not documented definitions, and both surfaces say chosen.",
       "Two documented HIDDEN axes are surfaced under accurate names: stress as 'stress' and grid stability as 'body stability'."
     ],
     "visible_shown": [
       "age",
       "bond",
       "energy",
+      "happiness",
       "health",
       "hunger",
       "mood"
     ],
     "visible_absent_upstream": [
-      "cleanliness",
-      "happiness"
+      "cleanliness"
     ],
     "hidden_surfaced": [
       "grid stability",

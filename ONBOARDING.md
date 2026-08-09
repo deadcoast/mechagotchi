@@ -302,12 +302,12 @@ IDE) recorded as a trap with its rule.
 
 ### Cycle 26 · Phase P — the missing axes earn their sources — OPEN
 
-`sunsetted/TODO.md` is the live queue: **P1 DONE; P2–P6 open.** The two
-remaining documented VISIBLE axes have nothing to display and the gap
-is upstream of display (`happiness` needs a DEFINITION, `cleanliness` a
-MECHANIC — DR 0048); and two instruments owe repairs Phase N named (the
-Q-table's harder baseline; the probe artifacts' committed edges). Task
-detail and sources are in the queue itself.
+`sunsetted/TODO.md` is the live queue: **P1, P2 DONE; P3–P6 open.**
+`cleanliness` is now the ONE documented VISIBLE axis with nothing to
+display, and the gap is upstream (it needs a MECHANIC — DR 0048, P3's
+charter); two instruments still owe repairs Phase N named (the
+Q-table's harder baseline, P4; the probe artifacts' committed edges,
+P5). Task detail and sources are in the queue itself.
 
 **P1 — DONE 2026-08-08 (no DR; the decisions cited are 0048/0054/0055).**
 **The §1.17 split measured AS SHIPPED, and the founding text now
@@ -321,6 +321,24 @@ with `health`'s difference explained by DR 0054 — any other mismatch
 raises. **M5's remainder 2 is closed in the game's own suite**
 (snapshot carries age and mood, measured). Prediction confirmed. Game
 200 → **216**.
+
+**P2 — DONE 2026-08-08 (DR 0058).** **`happiness` is `social_warmth` —
+the engine's own recent-interaction window — and the readout landed
+the same day.** The N5 → O2 pattern end to end in one slice: three
+CHOSEN candidates reading only what the engine records; five
+pre-registered gates (N5's four + **G5 distinct-from-shown**, whose
+`refuse_as_duplicate` outranks the euphemism verdict); both instrument
+gates held first. `bond_rename` **refused as a duplicate** (its series
+IS the shown bond readout's, tick for tick); `need_balance` — the
+engine's own statistic — **withheld under the measured floor** with
+its corpse reading 0.65 recorded (a mean hides the killer axis);
+`social_warmth` adopted with **the neglected corpse reading 0.0**.
+Prediction confirmed, including its named uncertainty. **Live in the
+client: `play` raises happiness while it lowers health** — two bars,
+different questions, both true. The P1 instrument moved with the
+surface deliberately (regenerated: **7 of 8 visible on screen, 1
+upstream gap, 2 hidden surfaced**); §1.17 carries a dated addendum.
+Game 216 → **228**.
 
 **O1 — DONE (no DR; DR 0054 already made the decision).** The lifecycle
 public surface widens **six names → seven** (`DANGER_THRESHOLDS`),
@@ -460,8 +478,10 @@ the choice has now been made and gated — `health` **is** `danger_margin`
 `DANGER_THRESHOLDS`), the candidate DR 0048 *named* was **refused as a
 euphemism** (it would have read 93% on a starved corpse), and the
 readout is **on the player's screen with its binding axis beside it**.
-**Two real gaps remain**: `happiness` needs a DEFINITION and
-`cleanliness` needs a MECHANIC — neither is a display gap. ~~§1.17
+~~**Two real gaps remain**~~ *Corrected 2026-08-08 by P2 / DR 0058*:
+**one real gap remains** — `cleanliness` needs a MECHANIC (P3's
+charter). `happiness` now has its CHOSEN definition (`social_warmth`)
+and is on screen. ~~§1.17
 itself is also **measurably stale against the shipped client**~~
 *Corrected 2026-08-08 by P1*: the split is now **measured as shipped**
 (`data/game_client/companion_axis_split_stage0.json` — 6/8 visible on
@@ -504,10 +524,9 @@ charters with their sources are in the queue file):
 1. **P1 · §1.17 earns a dated correction** — measure the visible/hidden
    axis split as shipped, then a dated note beside §1.17 (never a
    rewrite).
-2. **P2 · `happiness` chooses a definition — or refuses every
-   candidate** — the proven N5 → O2 pattern end to end: pre-registered
-   refusal criteria (the euphemism test), and if adopted, the readout
-   lands in the same slice.
+2. ~~**P2 · `happiness` chooses a definition**~~ — **DONE 2026-08-08
+   (DR 0058).** See §3. `social_warmth` adopted; the readout landed
+   the same day.
 3. **P3 · `cleanliness` earns a mechanic — or the record says why
    not** — read the engine first; smallest documented mechanic as an
    additive seam, byte-identical off; refusal first-class.
