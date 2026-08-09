@@ -326,18 +326,19 @@ calibration, live-editor, and evolution claims remain blocked.
 
 ## External References
 
-- W3C PNG specification, Third Edition: https://www.w3.org/TR/png-3/
-- RFC 1950, ZLIB Compressed Data Format: https://www.rfc-editor.org/rfc/rfc1950
-- RFC 1951, DEFLATE Compressed Data Format: https://www.rfc-editor.org/rfc/rfc1951
+- W3C PNG specification, Third Edition: `https://www.w3.org/TR/png-3/`
+- RFC 1950, ZLIB Compressed Data Format: `https://www.rfc-editor.org/rfc/rfc1950`
+- RFC 1951, DEFLATE Compressed Data Format: `https://www.rfc-editor.org/rfc/rfc1951`
 - Aseprite file-format specification:
-  https://github.com/aseprite/aseprite/blob/main/docs/ase-file-specs.md
+  `https://github.com/aseprite/aseprite/blob/main/docs/ase-file-specs.md`
 - Piskel serializer/deserializer sources:
-  https://github.com/piskelapp/piskel/blob/master/src/js/utils/serialization/Serializer.js
-- Pixelorama project documentation: https://pixelorama.org/concepts/project/
-- Illuminating search spaces by mapping elites: https://arxiv.org/abs/1504.04909
-- Avida Digital Evolution Platform: https://avida.devosoft.org/
-- JaxLife, an open-ended agentic simulator: https://arxiv.org/abs/2409.00853
+  `https://github.com/piskelapp/piskel/blob/master/src/js/utils/serialization/Serializer.js`
+- Pixelorama project documentation: `https://pixelorama.org/concepts/project/`
+- Illuminating search spaces by mapping elites: `https://arxiv.org/abs/1504.04909`
+- Avida Digital Evolution Platform: `https://avida.devosoft.org/`
+- JaxLife, an open-ended agentic simulator: `https://arxiv.org/abs/2409.00853`
 - Comparing PCG metrics with human evaluation in Minecraft settlement
-  generation: https://arxiv.org/abs/2107.02457
-- libGDX TexturePacker documentation:
-  https://libgdx.com/wiki/tools/texture-packer
+  generation: `https://arxiv.org/abs/2107.02457`
+- libGDX TexturePacker documentation: `https://libgdx.com/wiki/tools/texture-packer`
+
+---

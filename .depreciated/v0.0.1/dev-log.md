@@ -2800,6 +2800,35 @@ Next is O2 — actually putting health on the player's screen, which means answe
 -------
 ## [18]
 
+O1 and O2 are both committed and pushed — everything on 12821f9, sweep green at 2,245 artifacts, nothing stranded.
+
+Health is on the player's screen
+To answer your question directly one more time, since it turned out to be the crux: the number is the health value itself. The keeper has two buttons, and play moves health −0.075 while feed moves it +0.021. Playing costs energy and works up an appetite, and health is defined as the smallest safety margin across all axes — so playing pushes the tightest axis closer to trouble.
+
+I had three options and two were off the table. Smoothing the number or hiding the drop would both mean the screen shows something the engine doesn't, which the engine-truth law forbids. So the drop ships — and the readout gets what it needs to explain itself: the axis that's binding it.
+
+health 0.62 (tired) costs no new number. The axis is just the argmin of margins already being computed. But it changes an unexplained fall into a sentence.
+
+What convinced me was running the actual game
+A keeper who never sleeps:
+
+tick 2   0.419  tired
+tick 6   0.003  tired
+tick 7   0.000  tired
+         ... died of energy_collapse at tick 10
+The bar named the death cause eight ticks before it happened. A bare number would have shown a line going down and nothing else.
+
+Same creature, a keeper who just does whatever the word says: 0.487 → 0.976, alive and climbing. And you can watch the play-drop behave correctly in that run — tick 8 plays at 0.813, tick 9 reads 0.715 and says "tired". Exactly the scenario that worried DR 0054, explaining itself.
+
+I kept a refusal path open: a test asserts that when the bar drops, the axis it names has to be one that play genuinely worsens. If it hadn't been, the readout would have misled and I wouldn't have shipped it.
+
+Two things to know
+The bar bottoms out at danger, not death. It reads 0.000 while your pet is still alive — three ticks in that first run. Defensible as a warning light that leaves you time to act, but "health" implies zero means dead, and it doesn't. Recorded rather than fixed, because changing the floor is a different definition needing its own gate.
+
+Your tooling committed the two data/slips observation artifacts (e051292). The standing rule is to git checkout those and never commit them, since they're per-run environment observations. I haven't rewritten that history — but expect them to show as modified again on any machine with a different pydantic build.
+
+Next is O3, the migration that restates the 0.8984 coverage headline with deltas explained everywhere it's quoted.
+
 -------
 ## [19]
 

@@ -139,3 +139,4 @@ This is an internal research publication. It completes the v0.2 follow-up
 sequence and defines the evidence-backed handoff from research into MVP package
 design.
 
+---

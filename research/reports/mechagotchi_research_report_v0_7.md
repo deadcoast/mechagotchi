@@ -277,9 +277,9 @@ package, calibration, live-editor, and evolution claims remain blocked.
 
 ## External References
 
-- W3C PNG specification, Third Edition: https://www.w3.org/TR/png-3/
-- RFC 1950, ZLIB Compressed Data Format: https://www.rfc-editor.org/rfc/rfc1950
-- RFC 1951, DEFLATE Compressed Data Format: https://www.rfc-editor.org/rfc/rfc1951
+- W3C PNG specification, Third Edition: `https://www.w3.org/TR/png-3/`
+- RFC 1950, ZLIB Compressed Data Format: `https://www.rfc-editor.org/rfc/rfc1950`
+- RFC 1951, DEFLATE Compressed Data Format: `https://www.rfc-editor.org/rfc/rfc1951`
 - Aseprite file-format specification:
-  https://github.com/aseprite/aseprite/blob/main/docs/ase-file-specs.md
-- Illuminating search spaces by mapping elites: https://arxiv.org/abs/1504.04909
+  `https://github.com/aseprite/aseprite/blob/main/docs/ase-file-specs.md`
+- Illuminating search spaces by mapping elites: `https://arxiv.org/abs/1504.04909`

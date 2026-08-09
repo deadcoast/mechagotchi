@@ -161,12 +161,12 @@ package implementation is explicitly started.
 ## External References
 
 - Python Packaging User Guide, `src` layout vs flat layout:
-  https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/
+  `https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/`
 - Python Packaging User Guide, `pyproject.toml` specification:
-  https://packaging.python.org/en/latest/specifications/pyproject-toml/
+  `https://packaging.python.org/en/latest/specifications/pyproject-toml/`
 - SPDX License Expressions v2.2.2:
-  https://spdx.github.io/spdx-spec/v2.2.2/SPDX-license-expressions/
+  `https://spdx.github.io/spdx-spec/v2.2.2/SPDX-license-expressions/`
 - SPDX License Expressions v3.0.1:
-  https://spdx.github.io/spdx-spec/v3.0.1/annexes/spdx-license-expressions/
+  `https://spdx.github.io/spdx-spec/v3.0.1/annexes/spdx-license-expressions/`
 - REUSE Specification 3.3:
-  https://reuse.software/spec-3.3/
+  `https://reuse.software/spec-3.3/`
