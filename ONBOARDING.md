@@ -302,13 +302,25 @@ IDE) recorded as a trap with its rule.
 
 ### Cycle 26 · Phase P — the missing axes earn their sources — OPEN
 
-`sunsetted/TODO.md` is the live queue: **P1–P6, none started.** The two
+`sunsetted/TODO.md` is the live queue: **P1 DONE; P2–P6 open.** The two
 remaining documented VISIBLE axes have nothing to display and the gap
 is upstream of display (`happiness` needs a DEFINITION, `cleanliness` a
-MECHANIC — DR 0048); §1.17 is measurably stale against the shipped
-client; and two instruments owe repairs Phase N named (the Q-table's
-harder baseline; the probe artifacts' committed edges). Task detail and
-sources are in the queue itself.
+MECHANIC — DR 0048); and two instruments owe repairs Phase N named (the
+Q-table's harder baseline; the probe artifacts' committed edges). Task
+detail and sources are in the queue itself.
+
+**P1 — DONE 2026-08-08 (no DR; the decisions cited are 0048/0054/0055).**
+**The §1.17 split measured AS SHIPPED, and the founding text now
+carries its dated correction.** A live client session, the on-screen
+half read from `snapshot()` under a pre-registered operationalization:
+**6 of 8 visible axes on screen, 2 absent upstream of display, 2
+hidden axes surfaced honestly** ("stress", "body stability"); no axis
+without an engine source is shown (DR 0021's first law, pinned
+per-axis). The instrument reproduced the committed M5 survey **7/8**
+with `health`'s difference explained by DR 0054 — any other mismatch
+raises. **M5's remainder 2 is closed in the game's own suite**
+(snapshot carries age and mood, measured). Prediction confirmed. Game
+200 → **216**.
 
 **O1 — DONE (no DR; DR 0054 already made the decision).** The lifecycle
 public surface widens **six names → seven** (`DANGER_THRESHOLDS`),
@@ -449,9 +461,12 @@ the choice has now been made and gated — `health` **is** `danger_margin`
 euphemism** (it would have read 93% on a starved corpse), and the
 readout is **on the player's screen with its binding axis beside it**.
 **Two real gaps remain**: `happiness` needs a DEFINITION and
-`cleanliness` needs a MECHANIC — neither is a display gap. §1.17 itself
-is also **measurably stale against the shipped client**, which already
-surfaces two documented-HIDDEN axes under accurate names.
+`cleanliness` needs a MECHANIC — neither is a display gap. ~~§1.17
+itself is also **measurably stale against the shipped client**~~
+*Corrected 2026-08-08 by P1*: the split is now **measured as shipped**
+(`data/game_client/companion_axis_split_stage0.json` — 6/8 visible on
+screen, 2 hidden axes surfaced honestly) and §1.17 carries a dated
+correction note quoting the artifact.
 
 Also standing: ~~Stage 2's
 undispositioned generator arms (**shape grammar**, **CPPN**)~~

@@ -1,0 +1,343 @@
+{
+  "artifact_id": "companion_axis_split_stage0",
+  "status": "complete",
+  "date": "2026-08-08",
+  "purpose": "Cycle 26 P1: measure \u00a71.17's visible/hidden companion-axis split AS SHIPPED \u2014 each documented axis mapped to its engine source and its on-screen surface (or its recorded absence) on a live client session \u2014 so the dated correction beside \u00a71.17 quotes a measurement, and so M5's remainder 2 (age/mood display cited by file reference, never measured) closes inside the game's own suite.",
+  "source_artifacts": [
+    "docs/project-research/validity-research.md",
+    "data/architecture/companion_state_survey_stage0.json",
+    "data/architecture/health_definition_gate_stage0.json",
+    "game/src/mecha_game/session.py",
+    "game/src/mecha_game/health.py",
+    "data/seed_grids_16x16/mg_seed16_001_beetle.json",
+    "data/slips/valid/slip_lcd_seed.json",
+    "research/decision_records/0048-visible-companion-state-axes.md",
+    "research/decision_records/0054-health-definition-danger-margin.md",
+    "research/decision_records/0055-health-readout-binding-axis.md"
+  ],
+  "parameters": {
+    "documented_visible_axes": [
+      "hunger",
+      "happiness",
+      "energy",
+      "cleanliness",
+      "mood",
+      "age",
+      "health",
+      "bond"
+    ],
+    "documented_hidden_axes": [
+      "mutation pressure",
+      "lineage fitness",
+      "stress",
+      "novelty decay",
+      "attachment score",
+      "user response confidence",
+      "profile alignment",
+      "grid stability"
+    ],
+    "ticks_advanced": 1,
+    "measurement": "a real CompanionSession from the committed seed and covenant, advanced one autonomous tick; the on-screen half read from snapshot() \u2014 the read model every frame draws from; the engine-source half from the live lifecycle state through the package boundary"
+  },
+  "metrics": {
+    "axes": {
+      "hunger": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "lifecycle_field",
+          "engine_field": "hunger",
+          "engine_function": null,
+          "measured_value": 0.4422,
+          "measured_cause": null
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.needs['hunger']",
+          "label": "hunger"
+        }
+      },
+      "energy": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "lifecycle_field",
+          "engine_field": "energy",
+          "engine_function": null,
+          "measured_value": 0.582,
+          "measured_cause": null
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.needs['energy']",
+          "label": "energy"
+        }
+      },
+      "bond": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "lifecycle_field",
+          "engine_field": "bond",
+          "engine_function": null,
+          "measured_value": 0.6855,
+          "measured_cause": null
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.needs['bond']",
+          "label": "bond"
+        }
+      },
+      "age": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "lifecycle_field",
+          "engine_field": "age_ticks",
+          "engine_function": null,
+          "measured_value": 1,
+          "measured_cause": null
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.age_ticks",
+          "label": "age"
+        }
+      },
+      "mood": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "derived_engine_value",
+          "engine_field": null,
+          "engine_function": "mecha_engine.genome.animation.select_animation_state",
+          "measured_value": "curious",
+          "measured_cause": null
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.mood",
+          "label": "mood"
+        }
+      },
+      "health": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "chosen_definition_dr0054",
+          "engine_field": null,
+          "engine_function": null,
+          "measured_value": 0.4104,
+          "measured_cause": "still no lifecycle field and no engine function; DR 0054 CHOSE danger_margin \u2014 the minimum normalised safety margin over the promoted DANGER_THRESHOLDS \u2014 and the game mirrors the formula (boundary law), parity-pinned against the committed gate artifact"
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.health",
+          "label": "health",
+          "binding_word": "hungry",
+          "labelled_chosen": true
+        }
+      },
+      "happiness": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "absent",
+          "engine_field": null,
+          "engine_function": null,
+          "measured_value": null,
+          "measured_cause": "no lifecycle field ('happiness' is not among the live state keys), no derivation, no documented formula \u2014 DR 0048: the axis needs a DEFINITION"
+        },
+        "on_screen": {
+          "shown": false,
+          "where": null,
+          "label": null
+        }
+      },
+      "cleanliness": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "absent",
+          "engine_field": null,
+          "engine_function": null,
+          "measured_value": null,
+          "measured_cause": "no lifecycle field and no clean action \u2014 the live action set is ('feed', 'play', 'sleep', 'idle', 'mutate') \u2014 and no state accumulates dirt; DR 0048: the axis needs a MECHANIC"
+        },
+        "on_screen": {
+          "shown": false,
+          "where": null,
+          "label": null
+        }
+      },
+      "stress": {
+        "documented_split": "hidden",
+        "engine_source": {
+          "disposition": "lifecycle_field",
+          "engine_field": "stress",
+          "engine_function": null,
+          "measured_value": 0.14768,
+          "measured_cause": null
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.needs['stress']",
+          "label": "stress"
+        }
+      },
+      "grid stability": {
+        "documented_split": "hidden",
+        "engine_source": {
+          "disposition": "lifecycle_field",
+          "engine_field": "grid_stability",
+          "engine_function": null,
+          "measured_value": 0.959,
+          "measured_cause": null
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.needs['grid_stability']",
+          "label": "body stability"
+        }
+      },
+      "mutation pressure": {
+        "documented_split": "hidden",
+        "engine_source": {
+          "disposition": "not_surveyed_here",
+          "engine_field": null,
+          "engine_function": null,
+          "measured_value": null,
+          "measured_cause": "M5's remainder 4 stands: the hidden axes' engine sources need a per-axis survey of their own; this artifact measures only whether the shipped client surfaces them"
+        },
+        "on_screen": {
+          "shown": false,
+          "where": null,
+          "label": null
+        }
+      },
+      "lineage fitness": {
+        "documented_split": "hidden",
+        "engine_source": {
+          "disposition": "not_surveyed_here",
+          "engine_field": null,
+          "engine_function": null,
+          "measured_value": null,
+          "measured_cause": "M5's remainder 4 stands: the hidden axes' engine sources need a per-axis survey of their own; this artifact measures only whether the shipped client surfaces them"
+        },
+        "on_screen": {
+          "shown": false,
+          "where": null,
+          "label": null
+        }
+      },
+      "novelty decay": {
+        "documented_split": "hidden",
+        "engine_source": {
+          "disposition": "not_surveyed_here",
+          "engine_field": null,
+          "engine_function": null,
+          "measured_value": null,
+          "measured_cause": "M5's remainder 4 stands: the hidden axes' engine sources need a per-axis survey of their own; this artifact measures only whether the shipped client surfaces them"
+        },
+        "on_screen": {
+          "shown": false,
+          "where": null,
+          "label": null
+        }
+      },
+      "attachment score": {
+        "documented_split": "hidden",
+        "engine_source": {
+          "disposition": "not_surveyed_here",
+          "engine_field": null,
+          "engine_function": null,
+          "measured_value": null,
+          "measured_cause": "M5's remainder 4 stands: the hidden axes' engine sources need a per-axis survey of their own; this artifact measures only whether the shipped client surfaces them"
+        },
+        "on_screen": {
+          "shown": false,
+          "where": null,
+          "label": null
+        }
+      },
+      "user response confidence": {
+        "documented_split": "hidden",
+        "engine_source": {
+          "disposition": "not_surveyed_here",
+          "engine_field": null,
+          "engine_function": null,
+          "measured_value": null,
+          "measured_cause": "M5's remainder 4 stands: the hidden axes' engine sources need a per-axis survey of their own; this artifact measures only whether the shipped client surfaces them"
+        },
+        "on_screen": {
+          "shown": false,
+          "where": null,
+          "label": null
+        }
+      },
+      "profile alignment": {
+        "documented_split": "hidden",
+        "engine_source": {
+          "disposition": "not_surveyed_here",
+          "engine_field": null,
+          "engine_function": null,
+          "measured_value": null,
+          "measured_cause": "M5's remainder 4 stands: the hidden axes' engine sources need a per-axis survey of their own; this artifact measures only whether the shipped client surfaces them"
+        },
+        "on_screen": {
+          "shown": false,
+          "where": null,
+          "label": null
+        }
+      }
+    },
+    "instrument_check": {
+      "committed_artifact": "data/architecture/companion_state_survey_stage0.json",
+      "matching_axes": 7,
+      "reproduced_committed_dispositions": true,
+      "expected_difference": {
+        "axis": "health",
+        "committed": "absent",
+        "measured": "chosen_definition_dr0054",
+        "explained_by": "DR 0054 (the definition CHOSEN after the committed survey) and DR 0055/O2 (the readout shipped) \u2014 a decision, not instrument drift"
+      }
+    },
+    "counts": {
+      "visible_on_screen": 6,
+      "visible_absent_upstream": 2,
+      "hidden_surfaced": 2
+    }
+  },
+  "closed_states": [
+    "section_117_split_measured_as_shipped (all sixteen axes, live client read model)",
+    "m5_remainder_2_closed (the game-side pin: snapshot carries age and mood, measured in the game's own suite)",
+    "instrument_reproduced_the_committed_survey (7/8; health's difference is DR 0054's decision, not drift)"
+  ],
+  "blocked_states": [
+    "hidden_axis_engine_sources_not_surveyed (M5's remainder 4 stands for the six unsurfaced hidden axes; this artifact measures only the shipped surface)",
+    "happiness_needs_a_definition (DR 0048; P2's charter, not this artifact's)",
+    "cleanliness_needs_a_mechanic (DR 0048; P3's charter, not this artifact's)",
+    "on_screen_measured_at_the_read_model (snapshot(); pixel-level rendering is exercised by the client's own suites, not re-measured here)"
+  ],
+  "decision": {
+    "rule": "PRE-REGISTERED before the run. Each of \u00a71.17's sixteen axes is measured on the live client: the engine-source half through the real lifecycle state and package surfaces, the on-screen half by walking a real session's snapshot \u2014 the read model every frame draws from. ON-SCREEN is operationalized as: presented by the snapshot as a NAMED READOUT (a needs entry, the age/mood readouts, or the health readout); data that merely rides the snapshot for other consumers (the log, thread signals, ui_hints) is not a readout. INSTRUMENT gate (Phase N's law, O4's hard-gate shape): the eight visible-axis engine dispositions must reproduce the committed M5 survey on exactly seven of eight, with health differing only as absent -> chosen_definition_dr0054 \u2014 the decision DR 0054 took AFTER that survey \u2014 and any other mismatch raises instead of writing an artifact. The dated correction beside \u00a71.17 is warranted only if the measured split differs from the documented one, and its clauses quote this artifact.",
+    "prediction": "Recorded before the run: six of the eight documented-visible axes on screen, with happiness and cleanliness absent UPSTREAM of display (DR 0048's two real gaps); stress and grid stability \u2014 both documented hidden \u2014 surfaced under the accurate labels 'stress' and 'body stability'; the other six hidden axes not surfaced; the instrument matching the committed survey 7/8 with health explained by DR 0054/0055. Whatever the measurement says is what ships.",
+    "correction_warranted": true,
+    "correction_clauses": [
+      "Six of the eight documented VISIBLE axes are on the shipped client's read model (age, bond, energy, health, hunger, mood); the two that are not \u2014 happiness and cleanliness \u2014 are absent UPSTREAM of display (a missing DEFINITION and a missing MECHANIC, DR 0048), not display gaps.",
+      "health is VISIBLE under a CHOSEN definition (danger_margin, DR 0054), shown with its binding axis (DR 0055) and labelled chosen \u2014 not a documented definition, and the surface says so.",
+      "Two documented HIDDEN axes are surfaced under accurate names: stress as 'stress' and grid stability as 'body stability'."
+    ],
+    "visible_shown": [
+      "age",
+      "bond",
+      "energy",
+      "health",
+      "hunger",
+      "mood"
+    ],
+    "visible_absent_upstream": [
+      "cleanliness",
+      "happiness"
+    ],
+    "hidden_surfaced": [
+      "grid stability",
+      "stress"
+    ],
+    "prediction_outcome": "prediction_confirmed"
+  },
+  "next_research_step": "Place the dated correction note beside \u00a71.17 quoting this artifact; P2 (a happiness definition) and P3 (a cleanliness mechanic) are the upstream gaps' own gates."
+}

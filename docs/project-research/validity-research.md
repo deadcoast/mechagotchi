@@ -516,6 +516,35 @@ grid stability
 
 This creates a richer simulation while keeping the UI simple.
 
+> **Dated correction, 2026-08-08 (cycle 26 P1).** The split above is the
+> founding intent and stands as written; the SHIPPED state has moved,
+> and is measured — not asserted — by
+> `data/game_client/companion_axis_split_stage0.json` (a live client
+> session; every §1.17 axis mapped to its engine source and its
+> on-screen surface). What the measurement says:
+>
+> 1. **Six of the eight visible axes are on screen** (hunger, energy,
+>    bond, age, mood, health). The two that are not — **happiness** and
+>    **cleanliness** — are absent *upstream* of display: one has no
+>    documented DEFINITION, the other no engine MECHANIC (DR 0048).
+>    Neither is a display gap.
+> 2. **`health` is shown under a CHOSEN definition, not a documented
+>    one**: `danger_margin` (DR 0054, which refused `grid_stability`
+>    under the name "health" as a euphemism), displayed with its
+>    binding axis (DR 0055) and labelled *chosen* on the surface.
+> 3. **Two hidden axes are deliberately surfaced under accurate
+>    names**: `stress` as "stress" and `grid stability` as
+>    "body stability" — engine truth shown honestly, not a euphemism
+>    (DR 0021's first law).
+>
+> The six other hidden axes are not surfaced; their engine sources
+> remain unsurveyed (M5's remainder 4,
+> `research/experiment_reports/2026-07-27-companion-state-survey.md`).
+> Earlier corrections to survey claims about this section: M5 / DR 0048
+> (three real gaps, not five) and N5 / DR 0054 (the split measurably
+> stale). This note supersedes neither — it is the measured state of
+> the shipped client as of its date.
+
 ---
 
 ##  18. <a name='SuggestedEngineArchitecture'></a>1.18. Suggested Engine Architecture

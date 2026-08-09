@@ -18,10 +18,12 @@ with the adoption so the debt never dangles) is now proven twice over
 (N5 → O2).
 
 The cycle also owes its own instruments three standing repairs Phase N
-and O named precisely: §1.17 is **measurably stale against the shipped
-client**; N3's kept Q-table has only beaten a **uniform-random**
-opponent, not the incumbent reactive rule; and N2's two probe artifacts
-still do not carry their edges in their **committed** bodies.
+and O named precisely: §1.17 was **measurably stale against the shipped
+client** (closed by P1, 2026-08-08 — the split is measured and the
+dated note placed); N3's kept Q-table has only beaten a
+**uniform-random** opponent, not the incumbent reactive rule; and N2's
+two probe artifacts still do not carry their edges in their
+**committed** bodies.
 
 **The identity constraint and the anti-periscope rule both apply.**
 P1 is documentation truth (SHARED); P2 and P3 are the two GAME-facing
@@ -43,19 +45,33 @@ two real gaps and the stale split), `0054`/`0055` (the pattern),
 `docs/project-research/validity-research.md` §1.17,
 `research/questions.md`.
 
-- [ ] **P1 · §1.17 earns a dated correction.** *(SHARED · documentation
-  truth.)* The visible/hidden companion-axis split in
-  `docs/project-research/validity-research.md` §1.17 is **measurably
-  stale against the shipped client** — M5/DR 0048 corrected the gap
-  count (five → three), N5/DR 0054 found the client already surfaces
-  two documented-HIDDEN axes under accurate names, and O2 moved
-  `health` from "no source" to "on screen with its binding axis".
-  Build the smallest evidence artifact that measures the split as
-  shipped (each §1.17 axis → its engine source and its on-screen
-  surface, or its recorded absence), then place a **dated correction
-  note beside §1.17** — the correction law: never rewrite the founding
-  vision text. The artifact is the instrument future surveys check
-  against, so N5's stale-survey failure mode cannot recur silently.
+- [x] **P1 · §1.17 earns a dated correction.** DONE 2026-08-08
+  (`2026-08-08-companion-axis-split.md`; no DR — the decisions cited
+  are 0048/0054/0055): **the split measured AS SHIPPED on a live client
+  session — 6 of 8 visible axes on screen, 2 absent upstream of
+  display, 2 hidden axes surfaced honestly — and §1.17 now carries the
+  dated correction note quoting the artifact.** On-screen was
+  pre-registered as a NAMED READOUT on `snapshot()` (the read model
+  every frame draws from); the instrument gate reproduced the committed
+  M5 survey on exactly **7 of 8** visible dispositions with `health`
+  differing only as absent → `chosen_definition_dr0054` (DR 0054's own
+  decision, not drift — any other mismatch raises); measured absences
+  were asserted live first, so a future engine growing `happiness`, a
+  `clean` action, or a `health` field refuses a stale correction.
+  **Measured: no axis without an engine source is shown** (DR 0021's
+  first law, pinned per-axis), and **M5's remainder 2 is CLOSED in the
+  game's own suite** (snapshot carries `age_ticks` and `mood`; the
+  surfaced hidden axes carry their shipped labels). Prediction
+  (recorded first) confirmed. Game 200 → **216**. M5's remainder 4
+  (the six unsurfaced hidden axes' engine sources) stands, carried in
+  the artifact's blocked states.
+  *(Original charter, kept:)* Build the smallest evidence artifact that
+  measures the split as shipped (each §1.17 axis → its engine source
+  and its on-screen surface, or its recorded absence), then place a
+  **dated correction note beside §1.17** — the correction law: never
+  rewrite the founding vision text. The artifact is the instrument
+  future surveys check against, so N5's stale-survey failure mode
+  cannot recur silently.
 - [ ] **P2 · `happiness` chooses a definition — or refuses every
   candidate.** *(ENGINE gate → GAME landing, the proven N5 → O2
   pattern in one slice.)* DR 0048: `happiness` is the "CHOSEN

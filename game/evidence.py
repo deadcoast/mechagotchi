@@ -46,6 +46,7 @@ from mecha_game.session import (  # noqa: E402
     CompanionSession,
     load_session_inputs,
 )
+from mecha_engine.lifecycle import ACTIONS  # noqa: E402
 
 ARTIFACT_ID = "front_end_skeleton_stage0"
 LOOP_ARTIFACT_ID = "companion_loop_stage0"
@@ -2716,6 +2717,416 @@ def write_front_end_skeleton_artifacts(
     return path
 
 
+# ---------------------------------------------------------------------------
+# P1 (cycle 26): the §1.17 axis split, measured as shipped.
+# ---------------------------------------------------------------------------
+
+AXIS_SPLIT_ARTIFACT_ID = "companion_axis_split_stage0"
+AXIS_SPLIT_DATE = "2026-08-08"
+COMMITTED_AXIS_SURVEY = "data/architecture/companion_state_survey_stage0.json"
+
+# §1.17's own lists, names verbatim (spaces included).
+SECTION_117_VISIBLE = (
+    "hunger",
+    "happiness",
+    "energy",
+    "cleanliness",
+    "mood",
+    "age",
+    "health",
+    "bond",
+)
+SECTION_117_HIDDEN = (
+    "mutation pressure",
+    "lineage fitness",
+    "stress",
+    "novelty decay",
+    "attachment score",
+    "user response confidence",
+    "profile alignment",
+    "grid stability",
+)
+
+AXIS_SPLIT_RULE = (
+    "PRE-REGISTERED before the run. Each of §1.17's sixteen axes is "
+    "measured on the live client: the engine-source half through the "
+    "real lifecycle state and package surfaces, the on-screen half by "
+    "walking a real session's snapshot — the read model every frame "
+    "draws from. ON-SCREEN is operationalized as: presented by the "
+    "snapshot as a NAMED READOUT (a needs entry, the age/mood readouts, "
+    "or the health readout); data that merely rides the snapshot for "
+    "other consumers (the log, thread signals, ui_hints) is not a "
+    "readout. INSTRUMENT gate (Phase N's law, O4's hard-gate shape): "
+    "the eight visible-axis engine dispositions must reproduce the "
+    "committed M5 survey on exactly seven of eight, with health "
+    "differing only as absent -> chosen_definition_dr0054 — the "
+    "decision DR 0054 took AFTER that survey — and any other mismatch "
+    "raises instead of writing an artifact. The dated correction beside "
+    "§1.17 is warranted only if the measured split differs from the "
+    "documented one, and its clauses quote this artifact."
+)
+
+AXIS_SPLIT_PREDICTION = (
+    "Recorded before the run: six of the eight documented-visible axes "
+    "on screen, with happiness and cleanliness absent UPSTREAM of "
+    "display (DR 0048's two real gaps); stress and grid stability — "
+    "both documented hidden — surfaced under the accurate labels "
+    "'stress' and 'body stability'; the other six hidden axes not "
+    "surfaced; the instrument matching the committed survey 7/8 with "
+    "health explained by DR 0054/0055. Whatever the measurement says "
+    "is what ships."
+)
+
+
+def build_companion_axis_split_report() -> dict:
+    session = _new_session()
+    session.advance()  # one autonomous tick: a live life, not a mock
+    snapshot = session.snapshot()
+    state = session.state
+    needs = snapshot["needs"]
+
+    committed = json.loads(
+        (ROOT / COMMITTED_AXIS_SURVEY).read_text(encoding="utf-8")
+    )
+    committed_per_axis = committed["decision"]["per_axis"]
+
+    # Measured absences, asserted against the LIVE surfaces before any
+    # disposition is recorded (a survey that asserts is not a survey).
+    for invented in ("happiness", "cleanliness", "health"):
+        if invented in state:
+            raise ValueError(
+                f"the lifecycle state now carries {invented!r} — the "
+                "committed dispositions are stale; re-survey before "
+                "correcting the document"
+            )
+    if "clean" in ACTIONS:
+        raise ValueError(
+            "the action set now carries 'clean' — cleanliness has a "
+            "mechanic; re-survey before correcting the document"
+        )
+
+    def _lifecycle_field(field: str) -> dict:
+        return {
+            "disposition": "lifecycle_field",
+            "engine_field": field,
+            "engine_function": None,
+            "measured_value": state[field],
+            "measured_cause": None,
+        }
+
+    def _needs_readout(state_key: str) -> dict:
+        shown = state_key in needs
+        return {
+            "shown": shown,
+            "where": f"snapshot.needs[{state_key!r}]" if shown else None,
+            "label": needs[state_key]["label"] if shown else None,
+        }
+
+    axes: dict[str, dict] = {}
+    for name in ("hunger", "energy", "bond"):
+        axes[name] = {
+            "documented_split": "visible",
+            "engine_source": _lifecycle_field(name),
+            "on_screen": _needs_readout(name),
+        }
+    axes["age"] = {
+        "documented_split": "visible",
+        "engine_source": _lifecycle_field("age_ticks"),
+        "on_screen": {
+            "shown": "age_ticks" in snapshot,
+            "where": "snapshot.age_ticks",
+            "label": "age",
+        },
+    }
+    axes["mood"] = {
+        "documented_split": "visible",
+        "engine_source": {
+            "disposition": "derived_engine_value",
+            "engine_field": None,
+            "engine_function": (
+                "mecha_engine.genome.animation.select_animation_state"
+            ),
+            "measured_value": snapshot["mood"],
+            "measured_cause": None,
+        },
+        "on_screen": {
+            "shown": "mood" in snapshot,
+            "where": "snapshot.mood",
+            "label": "mood",
+        },
+    }
+    health = snapshot["health"]
+    axes["health"] = {
+        "documented_split": "visible",
+        "engine_source": {
+            "disposition": "chosen_definition_dr0054",
+            "engine_field": None,
+            "engine_function": None,
+            "measured_value": health["value"],
+            "measured_cause": (
+                "still no lifecycle field and no engine function; "
+                "DR 0054 CHOSE danger_margin — the minimum normalised "
+                "safety margin over the promoted DANGER_THRESHOLDS — "
+                "and the game mirrors the formula (boundary law), "
+                "parity-pinned against the committed gate artifact"
+            ),
+        },
+        "on_screen": {
+            "shown": True,
+            "where": "snapshot.health",
+            "label": health["label"],
+            "binding_word": health["binding_word"],
+            "labelled_chosen": bool(health["chosen"]),
+        },
+    }
+    axes["happiness"] = {
+        "documented_split": "visible",
+        "engine_source": {
+            "disposition": "absent",
+            "engine_field": None,
+            "engine_function": None,
+            "measured_value": None,
+            "measured_cause": (
+                "no lifecycle field ('happiness' is not among the live "
+                "state keys), no derivation, no documented formula — "
+                "DR 0048: the axis needs a DEFINITION"
+            ),
+        },
+        "on_screen": {"shown": False, "where": None, "label": None},
+    }
+    axes["cleanliness"] = {
+        "documented_split": "visible",
+        "engine_source": {
+            "disposition": "absent",
+            "engine_field": None,
+            "engine_function": None,
+            "measured_value": None,
+            "measured_cause": (
+                "no lifecycle field and no clean action — the live "
+                f"action set is {tuple(ACTIONS)} — and no state "
+                "accumulates dirt; DR 0048: the axis needs a MECHANIC"
+            ),
+        },
+        "on_screen": {"shown": False, "where": None, "label": None},
+    }
+
+    axes["stress"] = {
+        "documented_split": "hidden",
+        "engine_source": _lifecycle_field("stress"),
+        "on_screen": _needs_readout("stress"),
+    }
+    axes["grid stability"] = {
+        "documented_split": "hidden",
+        "engine_source": _lifecycle_field("grid_stability"),
+        "on_screen": _needs_readout("grid_stability"),
+    }
+    for name in SECTION_117_HIDDEN:
+        if name in axes:
+            continue
+        axes[name] = {
+            "documented_split": "hidden",
+            "engine_source": {
+                "disposition": "not_surveyed_here",
+                "engine_field": None,
+                "engine_function": None,
+                "measured_value": None,
+                "measured_cause": (
+                    "M5's remainder 4 stands: the hidden axes' engine "
+                    "sources need a per-axis survey of their own; this "
+                    "artifact measures only whether the shipped client "
+                    "surfaces them"
+                ),
+            },
+            "on_screen": {
+                "shown": name.replace(" ", "_") in needs,
+                "where": None,
+                "label": None,
+            },
+        }
+
+    measured_dispositions = {
+        name: axes[name]["engine_source"]["disposition"]
+        for name in SECTION_117_VISIBLE
+    }
+    mismatched = sorted(
+        name
+        for name in SECTION_117_VISIBLE
+        if measured_dispositions[name] != committed_per_axis[name]
+    )
+    if mismatched != ["health"]:
+        raise ValueError(
+            "instrument drift: the live dispositions disagree with the "
+            f"committed survey on {mismatched} — only health may differ "
+            "(DR 0054), so the harness refuses to write an artifact"
+        )
+    instrument_check = {
+        "committed_artifact": COMMITTED_AXIS_SURVEY,
+        "matching_axes": len(SECTION_117_VISIBLE) - 1,
+        "reproduced_committed_dispositions": True,
+        "expected_difference": {
+            "axis": "health",
+            "committed": committed_per_axis["health"],
+            "measured": measured_dispositions["health"],
+            "explained_by": (
+                "DR 0054 (the definition CHOSEN after the committed "
+                "survey) and DR 0055/O2 (the readout shipped) — a "
+                "decision, not instrument drift"
+            ),
+        },
+    }
+
+    visible_shown = sorted(
+        name for name in SECTION_117_VISIBLE if axes[name]["on_screen"]["shown"]
+    )
+    visible_absent = sorted(
+        name
+        for name in SECTION_117_VISIBLE
+        if axes[name]["engine_source"]["disposition"] == "absent"
+    )
+    hidden_surfaced = sorted(
+        name for name in SECTION_117_HIDDEN if axes[name]["on_screen"]["shown"]
+    )
+
+    correction_clauses = [
+        (
+            "Six of the eight documented VISIBLE axes are on the shipped "
+            f"client's read model ({', '.join(visible_shown)}); the two "
+            "that are not — happiness and cleanliness — are absent "
+            "UPSTREAM of display (a missing DEFINITION and a missing "
+            "MECHANIC, DR 0048), not display gaps."
+        ),
+        (
+            "health is VISIBLE under a CHOSEN definition (danger_margin, "
+            "DR 0054), shown with its binding axis (DR 0055) and "
+            "labelled chosen — not a documented definition, and the "
+            "surface says so."
+        ),
+        (
+            "Two documented HIDDEN axes are surfaced under accurate "
+            "names: stress as 'stress' and grid stability as "
+            "'body stability'."
+        ),
+    ]
+    correction_warranted = (
+        visible_shown != sorted(SECTION_117_VISIBLE) or bool(hidden_surfaced)
+    )
+
+    predicted = {
+        "visible_shown": sorted(
+            ("hunger", "energy", "bond", "age", "mood", "health")
+        ),
+        "hidden_surfaced": sorted(("stress", "grid stability")),
+        "matching_axes": 7,
+    }
+    measured_outcome = {
+        "visible_shown": visible_shown,
+        "hidden_surfaced": hidden_surfaced,
+        "matching_axes": instrument_check["matching_axes"],
+    }
+    prediction_outcome = (
+        "prediction_confirmed"
+        if measured_outcome == predicted
+        else f"prediction_refuted: predicted {predicted}, measured "
+        f"{measured_outcome}"
+    )
+
+    return {
+        "artifact_id": AXIS_SPLIT_ARTIFACT_ID,
+        "status": "complete",
+        "date": AXIS_SPLIT_DATE,
+        "purpose": (
+            "Cycle 26 P1: measure §1.17's visible/hidden companion-axis "
+            "split AS SHIPPED — each documented axis mapped to its "
+            "engine source and its on-screen surface (or its recorded "
+            "absence) on a live client session — so the dated "
+            "correction beside §1.17 quotes a measurement, and so "
+            "M5's remainder 2 (age/mood display cited by file "
+            "reference, never measured) closes inside the game's own "
+            "suite."
+        ),
+        "source_artifacts": [
+            "docs/project-research/validity-research.md",
+            COMMITTED_AXIS_SURVEY,
+            "data/architecture/health_definition_gate_stage0.json",
+            "game/src/mecha_game/session.py",
+            "game/src/mecha_game/health.py",
+            str(HELLO_SEED).replace("\\", "/"),
+            str(HELLO_SLIP).replace("\\", "/"),
+            "research/decision_records/0048-visible-companion-state-axes.md",
+            "research/decision_records/0054-health-definition-danger-margin.md",
+            "research/decision_records/0055-health-readout-binding-axis.md",
+        ],
+        "parameters": {
+            "documented_visible_axes": list(SECTION_117_VISIBLE),
+            "documented_hidden_axes": list(SECTION_117_HIDDEN),
+            "ticks_advanced": 1,
+            "measurement": (
+                "a real CompanionSession from the committed seed and "
+                "covenant, advanced one autonomous tick; the on-screen "
+                "half read from snapshot() — the read model every frame "
+                "draws from; the engine-source half from the live "
+                "lifecycle state through the package boundary"
+            ),
+        },
+        "metrics": {
+            "axes": axes,
+            "instrument_check": instrument_check,
+            "counts": {
+                "visible_on_screen": len(visible_shown),
+                "visible_absent_upstream": len(visible_absent),
+                "hidden_surfaced": len(hidden_surfaced),
+            },
+        },
+        "closed_states": [
+            "section_117_split_measured_as_shipped (all sixteen axes, "
+            "live client read model)",
+            "m5_remainder_2_closed (the game-side pin: snapshot carries "
+            "age and mood, measured in the game's own suite)",
+            "instrument_reproduced_the_committed_survey (7/8; health's "
+            "difference is DR 0054's decision, not drift)",
+        ],
+        "blocked_states": [
+            "hidden_axis_engine_sources_not_surveyed (M5's remainder 4 "
+            "stands for the six unsurfaced hidden axes; this artifact "
+            "measures only the shipped surface)",
+            "happiness_needs_a_definition (DR 0048; P2's charter, not "
+            "this artifact's)",
+            "cleanliness_needs_a_mechanic (DR 0048; P3's charter, not "
+            "this artifact's)",
+            "on_screen_measured_at_the_read_model (snapshot(); "
+            "pixel-level rendering is exercised by the client's own "
+            "suites, not re-measured here)",
+        ],
+        "decision": {
+            "rule": AXIS_SPLIT_RULE,
+            "prediction": AXIS_SPLIT_PREDICTION,
+            "correction_warranted": correction_warranted,
+            "correction_clauses": correction_clauses,
+            "visible_shown": visible_shown,
+            "visible_absent_upstream": visible_absent,
+            "hidden_surfaced": hidden_surfaced,
+            "prediction_outcome": prediction_outcome,
+        },
+        "next_research_step": (
+            "Place the dated correction note beside §1.17 quoting this "
+            "artifact; P2 (a happiness definition) and P3 (a "
+            "cleanliness mechanic) are the upstream gaps' own gates."
+        ),
+    }
+
+
+def write_companion_axis_split_artifacts(
+    output_dir: str | Path, report: dict
+) -> Path:
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    path = output_dir / f"{AXIS_SPLIT_ARTIFACT_ID}.json"
+    path.write_text(
+        json.dumps(report, indent=2) + "\n", encoding="utf-8"
+    )
+    return path
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -2786,6 +3197,10 @@ if __name__ == "__main__":
     print(f"wrote {written}")
     written = write_density_pressure_artifacts(
         args.output_dir, build_density_pressure_report()
+    )
+    print(f"wrote {written}")
+    written = write_companion_axis_split_artifacts(
+        args.output_dir, build_companion_axis_split_report()
     )
     print(f"wrote {written}")
     release_report = build_installable_release_report()
