@@ -127,6 +127,14 @@ def _condition_switches(
         return {}, False
     if condition == "full_fleet":
         return {name: True for name in names}, True
+    if condition == "qtable_consumer":
+        # Q1 (cycle 27, DR 0060): the full extended fleet PLUS the
+        # opt-in consumer switch — the only delta against `full_fleet`
+        # is the consumer, so the comparison isolates it. Additive:
+        # every existing condition returns byte-identical switches.
+        switches = {name: True for name in names}
+        switches["qtable_consumer"] = True
+        return switches, True
     if condition.startswith("minus_"):
         removed = condition[len("minus_"):]
         if removed not in names:

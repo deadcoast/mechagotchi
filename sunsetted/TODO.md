@@ -35,25 +35,31 @@ shape), `2026-07-27-companion-state-survey.md` (remainder 4, Q4's
 charter), `docs/project-research/validity-research.md` §1.17,
 `research/questions.md`.
 
-- [ ] **Q1 · The Q-table earns its consumer — or the seam stays
-  empty.** *(ENGINE.)* P4's finding is a consumer argument: the frozen
-  reactive rule's per-tick choices carry 0.027851 empirical regret and
-  `qtable_policy` carries 0.015406 on the same states — but regret over
-  replayed histories is not end-to-end welfare, and D6's lesson stands
-  (the decision seam's welfare is near-saturated; ~0 welfare deltas are
-  the expected shape). Gate the consumer decision honestly: wire the
-  kept Q-table's recommendation into the switchboard's additive
-  decision seam as an OPT-IN (byte-identical off, proven against the
-  committed D6/N3 numbers), and pre-register the D6 rule verbatim on
-  the same harness at the same budgets: welfare vs the incumbent
-  switchboard, skill on the same replayed states, and the beg-display
-  interaction (the companion's autonomous `feed` choice is the beg —
-  a learner that begs more is a design change, not a free win; measure
-  it). **Adopt into the default fleet only if the documented 5% bar is
-  cleared on a gated metric; `eligible_not_promoted` is the expected
-  verdict** (the D6 welfare saturation) and ships as the finding with
-  the seam left opt-in. Refusal is first-class; nothing deletes the
-  incumbent rule.
+- [x] **Q1 · The Q-table earns its consumer — or the seam stays
+  empty.** DONE 2026-08-09 (`2026-08-09-qtable-consumer-gate.md`,
+  **DR 0060**): **the prediction was REFUTED in the strong direction —
+  the bar is CLEARED, and it is the learning track's strongest
+  positive result to date.** The seam (explicit-True
+  `qtable_consumer`; follows the thread at its own full-confidence
+  semantics; rung-conditional record; byte-identical off, pinned
+  against the committed scenarios artifact) fired on **59.4%** of
+  ticks and changed ~1 decision in 6; welfare **0.187712 → 0.201518
+  (+7.355%)** over the documented 5% bar — the first D6-style
+  clearance the decision seam has ever produced. **D6's saturation
+  lesson is refuted at the follower: the saturation was additive
+  DILUTION, not the seam** (D6's numbers stand — they measured the
+  blend). **The gain belongs to the good keeper**: attentive
+  0.7276 → 0.7966 while non-responders are unchanged to the sixth
+  decimal (their companions die before the table warms) — the
+  consumer amplifies good keeping and cannot rescue neglect. Begs
+  +236 / answered feeds +243, recorded not gated. **Verdict names
+  ELIGIBILITY only** (pre-registered): the default-fleet promotion is
+  DR 0060's NAMED next record (package seam + game fleet + parity +
+  the beg design question), the N5 → O1 pattern. micro_threads
+  140 → **160**.
+  *(Original charter's expectation, kept because its refutation is the
+  finding:)* `eligible_not_promoted` was the expected verdict (the D6
+  welfare saturation).
 - [ ] **Q2 · The SLIP ladder gains its mechanics rung.** *(ENGINE
   schema.)* DR 0059's opt-in has exactly one author today: a
   constructor keyword. The covenant is the documented author of

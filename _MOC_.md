@@ -180,6 +180,7 @@ change updates its documents in the SAME change.**
 | 0057 | Stage 2's generator arms dispositioned **in their documented roles** — CPPN rejected, shape grammar watches, nothing adopted |
 | 0058 | `happiness` **is** `social_warmth` (a duplicate refused, the engine's own statistic withheld) → the readout lands the same day; **play raises happiness while it lowers health, and both are true** |
 | 0059 | `cleanliness` earns its MECHANIC — the engine's first **opt-in** lifecycle seam, byte-identical off, every parameter derived; **dirt hurts only the neglected**, and the default-covenant flip is a named future record |
+| 0060 | the Q-table's CONSUMER seam — **the bar cleared (+7.355%), D6's saturation refuted at the follower, the gain belongs to the good keeper**; the default-fleet promotion is the named next record |
 
 ### The evidence itself
 

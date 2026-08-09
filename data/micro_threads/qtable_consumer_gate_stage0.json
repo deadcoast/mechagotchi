@@ -1,0 +1,111 @@
+{
+  "artifact_id": "qtable_consumer_gate_stage0",
+  "status": "stage0",
+  "date": "2026-08-09",
+  "purpose": "Cycle 27 Q1: gate the Q-table's CONSUMER \u2014 the opt-in switchboard seam that follows the kept thread's fully-warm recommendation \u2014 end to end by the D6 rule on the D6 harness, against the incumbent full_fleet condition at the committed budget. eligible_not_promoted is the expected verdict and ships as the finding; refusal is first-class.",
+  "source_artifacts": [
+    "data/micro_threads/candidate_learner_ablation_stage0.json",
+    "data/micro_learners/switchboard_stage0.json",
+    "data/micro_threads/harder_skill_baselines_stage0.json",
+    "labs/grid_genome/micro_switchboard.py",
+    "labs/micro_threads/ablation_gates.py",
+    "research/decision_records/0051-micro-learner-conditions-efg.md"
+  ],
+  "parameters": {
+    "lifecycles_per_keeper": 100,
+    "ticks_per_lifecycle": 200,
+    "seed_base": 20260709,
+    "keep_threshold_pct": 5.0,
+    "conditions": [
+      "full_fleet",
+      "qtable_consumer"
+    ],
+    "consumer_semantics": "explicit-True learning switch; follows qtable_policy's best_action only when the thread is warm and reports full confidence (its own committed QTABLE_CONFIDENT_VISITS semantics)"
+  },
+  "metrics": {
+    "instrument_check": {
+      "scenarios_reproduced": true,
+      "committed_scenarios": "data/micro_learners/switchboard_stage0.json",
+      "full_fleet_reproduced": true,
+      "committed_full_fleet_welfare": 0.187712
+    },
+    "incumbent": {
+      "condition": "full_fleet",
+      "welfare": 0.187712,
+      "welfare_by_keeper": {
+        "attentive": 0.727579,
+        "erratic": 0.083001,
+        "exploratory": 0.040663,
+        "neglectful": 0.050266,
+        "punitive": 0.037049
+      },
+      "mean_survival_ticks": 47.944,
+      "beg_ticks": 6475,
+      "keeper_feeds": 4098,
+      "observed_ticks": 23972,
+      "consumer_fired_ticks": 0,
+      "consumer_agreed_ticks": 0
+    },
+    "consumer": {
+      "condition": "qtable_consumer",
+      "welfare": 0.201518,
+      "welfare_by_keeper": {
+        "attentive": 0.796586,
+        "erratic": 0.083023,
+        "exploratory": 0.040663,
+        "neglectful": 0.050266,
+        "punitive": 0.037049
+      },
+      "mean_survival_ticks": 50.526,
+      "beg_ticks": 6711,
+      "keeper_feeds": 4341,
+      "observed_ticks": 25263,
+      "consumer_fired_ticks": 15015,
+      "consumer_agreed_ticks": 11087
+    },
+    "welfare_pct": 7.355,
+    "fired_fraction": 0.594347,
+    "agreement_fraction": 0.738395,
+    "beg_interaction": {
+      "incumbent_beg_ticks": 6475,
+      "consumer_beg_ticks": 6711,
+      "beg_delta": 236,
+      "incumbent_keeper_feeds": 4098,
+      "consumer_keeper_feeds": 4341,
+      "note": "recorded_not_gated \u2014 the companion's autonomous feed choice is the beg display; a learner that begs more is a design change, not a free win, and the adoption record owns this if adoption ever arises"
+    },
+    "judged": {
+      "verdict": "adopt_into_default_candidate",
+      "failed_gates": [],
+      "welfare_pct": 7.355,
+      "fired_fraction": 0.594347,
+      "keep_threshold_pct": 5.0
+    },
+    "wall_clock_s": 10.131
+  },
+  "closed_states": [
+    "the consumer seam exists, opt-in, byte-identical off \u2014 pinned against the committed scenarios artifact on every run of this gate",
+    "the end-to-end question DR 0051 said a promotion needs is now measured by the D6 rule on the D6 harness",
+    "the beg interaction is measured beside the verdict",
+    "a prediction was recorded BEFORE the run"
+  ],
+  "blocked_states": [
+    "adopt_into_default_candidate, if ever measured, names eligibility only: adoption into the default fleet is a decision record plus package work, never this artifact's act",
+    "the consumer follows at FULL thread confidence only \u2014 a graded follow policy (confidence-weighted blending) is a different consumer with its own gate",
+    "one seed corpus, the five documented keepers, the committed budgets (N3's inherited frame)"
+  ],
+  "decision": {
+    "verdict": "adopt_into_default_candidate",
+    "judged": {
+      "verdict": "adopt_into_default_candidate",
+      "failed_gates": [],
+      "welfare_pct": 7.355,
+      "fired_fraction": 0.594347,
+      "keep_threshold_pct": 5.0
+    },
+    "rule": "pre-registered (cycle 27 Q1). G0 instruments before verdicts: the committed switchboard scenarios artifact must reproduce parsed-equal with the seam in the module (always), and at the committed budget the committed N3 full_fleet welfare must reproduce exactly - any mismatch raises. G2 the consumer FIRES under its condition on a nonzero fraction of live ticks, else withhold. G3 the D6 rule verbatim at the documented 5% bar, consumer condition vs the incumbent full_fleet condition on the same harness, seeds and budgets: adopt_into_default_candidate at >= +5% (eligibility only - a decision record and package work would still follow), refuse_as_consumer at <= -5%, eligible_not_promoted between (the seam works and stays opt-in). The beg interaction is measured and recorded beside the verdict, never gated here. Nothing deletes or weakens the incumbent rule.",
+    "pre_run_prediction": "Written before the run: eligible_not_promoted. D6 measured the decision seam's welfare as near-saturated (the attentive keeper dominates welfare and fleet-vs-frozen sits at ~1%), so the consumer's end-to-end welfare delta is expected inside the +-5% band even though its recommendation quality beats the incumbent rule by 44.685% per tick. The consumer is expected to FIRE on a real fraction of mid-to-late-life ticks (warm buckets accumulate with age), and the beg interaction is expected to move only marginally. A welfare delta clearing the bar in either direction refutes this and ships as the finding.",
+    "prediction_outcome": "prediction_refuted: predicted eligible_not_promoted, measured adopt_into_default_candidate"
+  },
+  "next_research_step": "Record the disposition as DR 0060; then Q2 (the SLIP mechanics rung), Q3 (the default-covenant flip record), Q4 (the hidden half of \u00a71.17), Q5 (the Phase-Q gate)."
+}

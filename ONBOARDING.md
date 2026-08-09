@@ -318,13 +318,27 @@ against committed evidence before any new number was trusted.
 
 ### Cycle 27 · Phase Q — the engine's own advice reaches its decisions — OPEN
 
-`sunsetted/TODO.md` is the live queue: **Q1–Q5, none started.** The
-spine is P4's finding made into a consumer gate (the switchboard
-leaves 44.685% per-tick regret on the table and the learner that
-recovers it has no consumer — DR 0051 decision 3), plus the two
-authorship rungs cycle 26 named (the SLIP mechanics rung, DR 0059's
-default-flip record) and the oldest un-surveyed half of §1.17 (M5's
-remainder 4). Task detail and sources are in the queue itself.
+`sunsetted/TODO.md` is the live queue: **Q1 DONE; Q2–Q5 open.** The
+remaining spine: the two authorship rungs cycle 26 named (the SLIP
+mechanics rung, DR 0059's default-flip record), the oldest un-surveyed
+half of §1.17 (M5's remainder 4), and the gate. Task detail and
+sources are in the queue itself.
+
+**Q1 — DONE 2026-08-09 (DR 0060).** **The prediction was REFUTED in
+the strong direction — the Q-table's consumer CLEARS the documented 5%
+bar, the learning track's strongest positive result to date.** The
+opt-in seam (follows the thread at its own full-confidence semantics;
+byte-identical off, pinned against the committed scenarios artifact)
+fired on 59.4% of ticks and changed ~1 decision in 6: welfare
+**0.187712 → 0.201518 (+7.355%)** — the first D6-style clearance the
+decision seam has ever produced. **D6's saturation lesson is refuted
+at the follower — the saturation was additive dilution, not the
+seam.** The gain belongs to the good keeper (attentive
+0.7276 → 0.7966; non-responders unchanged to the sixth decimal — the
+consumer amplifies good keeping and cannot rescue neglect); begs
++236 / answered feeds +243, recorded not gated. **Eligibility only**:
+the default-fleet promotion is DR 0060's named next record.
+micro_threads 140 → **160**.
 
 **P5 — DONE 2026-08-09 (no DR; DR 0050's own named remainder
 executed).** **The last two probe artifacts that could not prove their
@@ -584,11 +598,9 @@ same change, one commit per task naming the task ID. Cycle 27's queue in
 order (cycle 26's closed ladder is in §3 and its gate report; the full
 charters with their sources are in the queue file):
 
-1. **Q1 · the Q-table earns its consumer — or the seam stays empty** —
-   wire the kept learner into the switchboard's additive decision seam
-   as an opt-in (byte-identical off, proven), judged by the D6 rule
-   verbatim; `eligible_not_promoted` is the expected verdict and ships
-   as the finding.
+1. ~~**Q1 · the Q-table earns its consumer**~~ — **DONE 2026-08-09
+   (DR 0060).** See §3. The bar cleared (+7.355%); the promotion is
+   the named next record.
 2. **Q2 · the SLIP ladder gains its mechanics rung** — the covenant
    becomes the mechanic's author (DR 0012's ladder, the DR 0013
    climb), both validators + the pydantic mirror + fixtures both ways.

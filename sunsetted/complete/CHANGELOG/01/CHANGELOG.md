@@ -23,6 +23,45 @@ never rewritten).
 
 ---
 
+## [Unreleased] — Cycle 27 · Phase Q — "the engine's own advice reaches its decisions"
+
+*In progress. Queue: `sunsetted/TODO.md` (**Q1 DONE**; Q2–Q5 open).*
+Planned from P4's finding made into a consumer gate (DR 0051
+decision 3), the two authorship rungs cycle 26 named, and M5's
+remainder 4.
+
+- **Q1 — DONE 2026-08-09 (DR 0060).** **The Q-table earns its
+  consumer — the prediction REFUTED in the strong direction, and the
+  learning track's strongest positive result to date.** The opt-in
+  `qtable_consumer` seam (explicit True; follows the kept thread's
+  recommendation at the thread's own full-confidence semantics —
+  `QTABLE_CONFIDENT_VISITS = 12`, no new constant; rung-conditional
+  record; byte-identical off, pinned against the committed scenarios
+  artifact on every gate run) fired on **59.4%** of ticks and changed
+  roughly one decision in six. **Welfare 0.187712 → 0.201518
+  (+7.355%) — over the documented D6 5% bar, the first D6-style
+  clearance the decision seam has ever produced** (the whole fleet's
+  additive contribution measured +0.965%). The committed N3
+  `full_fleet` numbers reproduced exactly before judging.
+- **D6's saturation lesson is refuted at the follower**: the
+  saturation was a property of additive DILUTION, not of the seam —
+  the same signal that nudges for +0.965% steers for +7.355% when
+  followed. D6's committed numbers stand; they measured the blend.
+- **The gain belongs to the good keeper**: attentive
+  0.7276 → **0.7966** (+2.58 mean survival ticks overall);
+  exploratory/neglectful/punitive unchanged to the sixth decimal —
+  their companions die before the table warms, so the consumer never
+  fires. **It amplifies good keeping and cannot rescue neglect.**
+  Begs +236 / answered feeds +243 — part of the mechanism, recorded,
+  never gated here.
+- **Eligibility only, pre-registered**: the default-fleet promotion is
+  DR 0060's NAMED next record (package seam + game fleet + parity +
+  the beg design question decided on the record — the N5 → O1
+  pattern). micro_threads 140 → **160**; grid_genome unchanged and
+  green (the seam invisible off).
+
+---
+
 ## Cycle 26 · Phase P — "the missing axes earn their sources" — 2026-08-09
 
 **Gate: GREEN.** `research/experiment_reports/2026-08-09-phase-p-gate.md`;

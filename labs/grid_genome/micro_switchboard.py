@@ -169,6 +169,15 @@ SWITCHBOARD_THREADS = [
 ]
 SWITCHBOARD_THREAD_NAMES = [name for name, _ in SWITCHBOARD_THREADS]
 
+# Q1 (cycle 27, DR 0060): the Q-table's CONSUMER seam. An opt-in
+# learning switch (explicit True — the D1 rule) under which the
+# switchboard FOLLOWS the kept `qtable_policy` thread's recommendation
+# whenever the thread itself reports full confidence (its own committed
+# QTABLE_CONFIDENT_VISITS semantics — no new constant). No committed
+# flow sets this switch, so every frozen path's decision dict is
+# byte-identical, pinned against the committed scenarios artifact.
+QTABLE_CONSUMER_SWITCH = "qtable_consumer"
+
 
 def run_switchboard(state: dict) -> dict:
     # SLIP ladder rung T3.3: profile-authored learning switches gate which
@@ -203,6 +212,39 @@ def run_switchboard(state: dict) -> dict:
         "explanation": f"Selected {action} from additive micro-learner utilities.",
     }
 
+    # Q1 (DR 0060): the consumer follows the THREAD — it fires only when
+    # the qtable thread is itself opted in, warm, and fully confident.
+    # The override is recorded rung-conditionally, so off-mode decisions
+    # never gain a key.
+    if switches.get(QTABLE_CONSUMER_SWITCH) is True:
+        qtable = next(
+            (thread for thread in threads if thread["name"] == "qtable_policy"),
+            None,
+        )
+        if (
+            qtable is not None
+            and not qtable["output"].get("cold_start", True)
+            and qtable["confidence"] >= 1.0
+        ):
+            recommended = qtable["output"]["best_action"]
+            decision = {
+                "action": recommended,
+                "confidence": qtable["confidence"],
+                "utilities": decision["utilities"],
+                "threads": threads,
+                "explanation": (
+                    f"Followed the Q-table's recommendation {recommended} "
+                    "(qtable_consumer seam; thread fully warm)."
+                ),
+                "qtable_consumer": {
+                    "followed": True,
+                    "recommended": recommended,
+                    "base_action": action,
+                    "agreed": recommended == action,
+                    "thread_confidence": qtable["confidence"],
+                },
+            }
+
     # R1 (DR 0017): CTM-inspired confidence-gated deliberation — the og
     # "thinking over ticks". Opt-in via SLIP-stashed state keys; no v0.1
     # flow ever sets them, so the frozen path is bit-for-bit. Semantics
@@ -223,7 +265,7 @@ def run_switchboard(state: dict) -> dict:
             aggregate[name] = aggregate.get(name, 0.0) + value * gain
         final_decision = _ctm_decision_from_utilities(aggregate, tick)
         tick_count = tick
-    return {
+    deliberated = {
         "action": final_decision["action"],
         "confidence": final_decision["confidence"],
         "utilities": final_decision["utilities"],
@@ -237,6 +279,12 @@ def run_switchboard(state: dict) -> dict:
             "confidence_threshold": threshold,
         },
     }
+    # Q1: the consumer record rides through deliberation
+    # rung-conditionally (a followed decision enters at full confidence,
+    # so deliberation never overturns it; off-mode never has the key).
+    if "qtable_consumer" in decision:
+        deliberated["qtable_consumer"] = decision["qtable_consumer"]
+    return deliberated
 
 
 def run_scenarios() -> dict:
