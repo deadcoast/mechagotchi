@@ -2832,6 +2832,23 @@ Next is O3, the migration that restates the 0.8984 coverage headline with deltas
 -------
 ## [19]
 
+O3's study is running (~1 hour, ten documented seeds, resumable). While it works, here's the shape of the task and one design call I made.
+
+The charter said "restate", and DR 0053's own rule decided how. Rule 2 from last cycle: a measurement does not improve — it's reproduced, or superseded by a new measurement answering a new question. "What does the loop achieve under the adopted default" is a new question. So this writes a new artifact and leaves both committed incumbent artifacts exactly as they are. Nothing gets overwritten.
+
+That also shrank the compute by about three quarters. The E4 gates are documented as ten paired seeds — twenty full-scale runs, roughly two hours per arm. But:
+
+The incumbent runs are committed evidence that rule 2 forbids re-running.
+The GA control takes no slip_admission at all — it's structurally unaffected by the arm, so re-running it would spend an hour reproducing numbers that cannot have moved.
+DR 0042's headline is already measured on both sides — the incumbent in its own artifact, and insertion at that same seed in N4's.
+So the only genuinely new measurement is the MAP-Elites arm under insertion. Ten runs, not forty.
+
+The gate that can fail is whether any documented E4 gate that passed under the incumbent now fails. That would be a blocking finding needing its own record, not something a restatement gets to absorb. I've deliberately separated that from gates that were already failing — DR 0032's GA-advantage clause has been refuted three times, and blaming the new arm for it would be a false accusation. A gate that recovers gets recorded but never offsets a regression.
+
+judge_gates is imported rather than re-implemented, so the adopted arm is scored by exactly the rule the incumbent was held to.
+
+The headline number itself is already known from committed evidence: coverage 0.898438 → 0.880859 at DR 0042's own seed, a delta of −0.017579. What the run decides is whether the documented gates survive that.
+
 -------
 ## [20]
 
