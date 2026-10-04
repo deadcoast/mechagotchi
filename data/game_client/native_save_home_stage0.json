@@ -1,0 +1,138 @@
+{
+  "artifact_id": "native_save_home_stage0",
+  "date": "2026-10-04",
+  "status": "native_windows_observed",
+  "purpose": "New frozen saves belong to the user; existing bundled companions continue without migration.",
+  "source_artifacts": [
+    "game/src/mecha_game/app.py",
+    "labs/game_loop/verify_save_home_release.py"
+  ],
+  "metrics": {
+    "checks": {
+      "new_native_save_uses_user_home": true,
+      "user_home_resume": true,
+      "legacy_continues_in_place": true,
+      "existing_user_home_wins_without_touching_legacy": true,
+      "explicit_directory_wins": true
+    },
+    "runs": [
+      {
+        "label": "fresh-user-home",
+        "returncode": 0,
+        "command": [
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\Mechagotchi.exe",
+          "--tick-frames",
+          "1",
+          "--fps",
+          "0",
+          "--scale",
+          "2",
+          "--ticks",
+          "2",
+          "--learning-policy",
+          "qtable"
+        ],
+        "stderr": ""
+      },
+      {
+        "label": "resume-user-home",
+        "returncode": 0,
+        "command": [
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\Mechagotchi.exe",
+          "--tick-frames",
+          "1",
+          "--fps",
+          "0",
+          "--scale",
+          "2",
+          "--ticks",
+          "1"
+        ],
+        "stderr": ""
+      },
+      {
+        "label": "create-isolated-legacy-fixture",
+        "returncode": 0,
+        "command": [
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\Mechagotchi.exe",
+          "--tick-frames",
+          "1",
+          "--fps",
+          "0",
+          "--scale",
+          "2",
+          "--keeper-dir",
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\_internal\\keeper",
+          "--ticks",
+          "2"
+        ],
+        "stderr": ""
+      },
+      {
+        "label": "resume-legacy-default",
+        "returncode": 0,
+        "command": [
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\Mechagotchi.exe",
+          "--tick-frames",
+          "1",
+          "--fps",
+          "0",
+          "--scale",
+          "2",
+          "--ticks",
+          "1"
+        ],
+        "stderr": ""
+      },
+      {
+        "label": "both-save-homes",
+        "returncode": 0,
+        "command": [
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\Mechagotchi.exe",
+          "--tick-frames",
+          "1",
+          "--fps",
+          "0",
+          "--scale",
+          "2",
+          "--ticks",
+          "1"
+        ],
+        "stderr": ""
+      },
+      {
+        "label": "explicit-directory",
+        "returncode": 0,
+        "command": [
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\Mechagotchi.exe",
+          "--tick-frames",
+          "1",
+          "--fps",
+          "0",
+          "--scale",
+          "2",
+          "--keeper-dir",
+          "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mechagotchi-native-home-v1pznfvl\\explicit",
+          "--ticks",
+          "2"
+        ],
+        "stderr": ""
+      }
+    ],
+    "native_executable_sha256": "fe89eacecb4e07d7a375f6cd466f4ef1d6416892bb2aa04e6aa170a771bff635"
+  },
+  "closed_states": [
+    "new_native_save_uses_user_home",
+    "user_home_resume",
+    "legacy_continues_in_place",
+    "existing_user_home_wins_without_touching_legacy",
+    "explicit_directory_wins"
+  ],
+  "blocked_states": [
+    "remote CI/signing unverified"
+  ],
+  "decision": {
+    "verdict": "verified"
+  },
+  "next_research_step": "Consolidate Cycle 28, retain incumbent default and experimental opt-in."
+}

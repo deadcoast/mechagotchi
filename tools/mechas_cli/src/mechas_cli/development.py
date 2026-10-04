@@ -52,10 +52,13 @@ def _inventory(root: Path) -> dict[str, str]:
     return result
 
 
+def _verified_files(inventory: dict[str, str]) -> dict[str, str]:
+    return {name: value for name, value in inventory.items()
+            if not (name.endswith('.md') and not name.startswith(('data/', 'docs/development/')))}
+
+
 def _fingerprint(inventory: dict[str, str]) -> str:
-    executable = {name: value for name, value in inventory.items()
-                  if not (name.endswith('.md') and not name.startswith(('data/', 'docs/development/')))}
-    return hashlib.sha256(json.dumps(executable, sort_keys=True).encode()).hexdigest()
+    return hashlib.sha256(json.dumps(_verified_files(inventory), sort_keys=True).encode()).hexdigest()
 
 
 def _identity(root: Path) -> dict:
@@ -130,18 +133,55 @@ def status(root: Path) -> dict:
                             'Resume the recorded phase; run focused/full verification after source changes.')}
 
 
+def _incoming_registration(root: Path, state: dict, name: str, spec: dict) -> list[str] | None:
+    """A new contract cannot retroactively invalidate an unchanged full pass.
+
+    This exception admits only registration metadata, never unverified source,
+    changed prior contracts, failed gates or inherited success for the new slice.
+    """
+    if state['phase'] != 'polish' or state.get('running') or name == state['slice']:
+        return None
+    full = [r for r in state['verifications'] if r['mode'] == 'full']
+    if not full or not _current(state, full[-1]['source_fingerprint'], 'full'):
+        return None
+    if (spec['spec'] == state['spec']['spec'] or
+            not spec['spec'].startswith('docs/development/') or not spec['spec'].endswith('.md')):
+        return None
+    try:
+        result = json.loads(_path(root, f".development/runs/{full[-1]['run_id']}/result.json").read_text(encoding='utf-8'))
+        baseline = result['inventory']
+        if not isinstance(baseline, dict) or not result['passed'] or _fingerprint(baseline) != full[-1]['source_fingerprint']:
+            return None
+        current = _inventory(root)
+        prior_contract = state['spec']['spec']
+        config = json.loads(_path(root, 'docs/development/workflow.json').read_text(encoding='utf-8'))
+        if (config['slices'].get(state['slice']) != state['spec'] or
+                current.get(prior_contract) != baseline.get(prior_contract)):
+            return None
+        before, after = _verified_files(baseline), _verified_files(current)
+        changed = sorted(path for path in set(before) | set(after) if before.get(path) != after.get(path))
+        allowed = {'docs/development/workflow.json', spec['spec']}
+        return changed if set(changed) <= allowed else None
+    except (OSError, ValueError, KeyError, TypeError):
+        return None
+
+
 def begin(root: Path, name: str) -> dict:
     spec = _spec(root, name)
     previous = status(root)
+    registration_changes = []
     if previous['started']:
         if not previous['local_complete']:
-            raise WorkflowError('An unfinished slice already exists; resume with --status or --checkpoint.')
+            registration_changes = _incoming_registration(root, _load(root), name, spec)
+            if registration_changes is None:
+                raise WorkflowError('An unfinished slice already exists; resume with --status or --checkpoint.')
         history = _path(root, f'.development/history/{previous["cycle_id"]}.json')
         history.parent.mkdir(parents=True, exist_ok=True)
         history.write_text(json.dumps(_load(root), indent=2) + '\n', encoding='utf-8')
     state = {'schema_version': 1, **_identity(root), 'cycle_id': uuid.uuid4().hex,
              'slice': name, 'spec': spec, 'phase': 'review', 'started_at': _now(),
              'initial_inventory': _inventory(root), 'checkpoints': [], 'verifications': [],
+             'registration_changes': registration_changes,
              'publication_gate': dict(PUBLICATION_GATE), 'running': None}
     _save(root, state)
     return status(root)

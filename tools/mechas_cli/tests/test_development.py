@@ -182,5 +182,45 @@ print('real-subprocess-evidence')
         self.assertIsNone(cycle.status(self.root)['running'])
 
 
+
+    def complete_then_register(self):
+        self.start()
+        self.assertTrue(cycle.verify(self.root, 'full', sys.executable)['passed'])
+        cycle.advance(self.root, 'enhance', 'Full baseline verified.')
+        cycle.advance(self.root, 'polish', 'Reviewed completed slice.')
+        config=json.loads((self.root/'docs/development/workflow.json').read_text())
+        config['slices']['third']={'spec':'docs/development/third.md','purpose':'New work','suites':['cli']}
+        self.write('docs/development/third.md','Preregistered next contract\n')
+        self.write('docs/development/workflow.json',json.dumps(config))
+        return config
+
+    def test_next_contract_registration_preserves_completed_full_evidence(self):
+        self.complete_then_register()
+        before=cycle._load(self.root)
+        new=cycle.begin(self.root,'third')
+        self.assertEqual('third',new['slice'])
+        self.assertEqual([],new['verifications'])
+        self.assertFalse(new['local_complete'])
+        self.assertEqual(['docs/development/third.md','docs/development/workflow.json'],new['registration_changes'])
+        archived=json.loads(next((self.root/'.development/history').glob('*.json')).read_text())
+        self.assertEqual(before,archived)
+
+    def test_registration_cannot_hide_unverified_source_edits(self):
+        self.complete_then_register()
+        self.write('source.py','VALUE = 2\n')
+        with self.assertRaises(cycle.WorkflowError): cycle.begin(self.root,'third')
+        self.assertEqual('first',cycle._load(self.root)['slice'])
+
+    def test_registration_cannot_change_previous_contract_or_scope(self):
+        config=self.complete_then_register()
+        config['slices']['first']['suites']=['cli']
+        self.write('docs/development/workflow.json',json.dumps(config))
+        with self.assertRaises(cycle.WorkflowError): cycle.begin(self.root,'third')
+        config['slices']['first']['suites']=['cli','ci']
+        self.write('docs/development/workflow.json',json.dumps(config))
+        self.write('docs/first.md','Changed previous contract\n')
+        with self.assertRaises(cycle.WorkflowError): cycle.begin(self.root,'third')
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -168,3 +168,13 @@ If only the legacy bundled directory has an existing companion/campaign,
 continue there without migrating or deleting it. When both have saves, prefer
 the user home and leave legacy bytes untouched. Explicit --keeper-dir wins.
 Verify real native launches with isolated user homes and legacy fixtures.
+
+## Existing pipeline repair
+
+The R1 admission attempt exposed a registration deadlock. Before its RED test,
+permit next-slice registration only when the prior slice has a completed full
+pass in POLISH and the sole verification-relevant changes are the incoming
+contract and workflow registry. The prior contract and registry entry must
+remain identical. Reject code/data edits, failed/incomplete prior runs and
+prior-contract changes. Archive original evidence; a new slice starts with
+no passing verification. This repairs the existing front door, not its gates.

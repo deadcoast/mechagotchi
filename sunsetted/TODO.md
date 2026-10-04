@@ -1,6 +1,6 @@
 # Development TODO — Cycle 28: ENGINE → GAME / Phase R
 
-**ACTIVE.** Q5 reviewed; R1/R2 implemented and in full local verification.
+**ACTIVE.** Q5 reviewed; R1/R2 locally complete (2,509 tests); R3/R4 active.
 DR 0060 promotion debt is being exercised through the actual playable client. The completed
 cycle 27 charter is archived at `sunsetted/complete/TODO/27/TODO.md`.
 
@@ -10,11 +10,11 @@ the original five-thread incumbent remains the default. Lab
 eligibility (+7.355%) is not a measured current-game gain. Do not enable an
 invalid SLIP key or silently adopt the extended lab roster.
 
-- [ ] **R1 · Package producer + consumer parity, defaults off (ENGINE).**
+- [x] **R1 · Package producer + consumer parity, defaults off (ENGINE).**
   Port the bounded existing Q-table and follower together. Pin complete
   lab/public decisions, thread state, off/cold/warm/floor/tie/deliberation cases,
   original instruments and no input mutation. Keep schema/defaults unchanged.
-- [ ] **R2 · Explicit playable opt-in and honest saves (GAME).**
+- [x] **R2 · Explicit playable opt-in and honest saves (GAME).**
   Wire only the required thread/consumer beside the five kept threads. Deliver
   app and launcher choice, save/resume/succession/fleet-off/refusal checks;
   old saves stay incumbent and only the keeper feeds.

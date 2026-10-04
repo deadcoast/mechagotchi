@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
 from mecha_engine.generation import train_generation_model
@@ -69,7 +70,18 @@ COMPANION_FILENAME = "companion.json"
 def default_keeper_dir(start: Path | None = None) -> Path:
     """The save home: `keeper/` at the repo root in a dev checkout
     (gitignored — a live pet is not evidence), else the user's own
-    `~/.mechagotchi`."""
+    `~/.mechagotchi`. Frozen bundles retain an existing legacy save in
+    `_internal/keeper` only when the user home has no existing save."""
+    if getattr(sys, "frozen", False):
+        home = Path.home() / ".mechagotchi"
+        bundle = Path(getattr(sys, "_MEIPASS", Path(sys.executable).parent / "_internal"))
+        legacy = bundle / "keeper"
+        saved_names = (COMPANION_FILENAME, LINEAGE_FILENAME, "campaign_state.json", "campaign.sqlite3")
+        has_home = any((home / name).is_file() for name in saved_names)
+        has_legacy = any((legacy / name).is_file() for name in saved_names)
+        # Continue older bundled companions in place. Never silently copy,
+        # migrate, or overwrite a second save when both homes contain lives.
+        return legacy if has_legacy and not has_home else home
     origin = (start or Path(__file__)).resolve()
     for base in (origin, *origin.parents):
         if (base / "data" / "seed_grids_16x16").is_dir():

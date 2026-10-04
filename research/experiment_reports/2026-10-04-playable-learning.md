@@ -56,7 +56,18 @@ sweep so the same admission problem does not recur.
 
 ## Remaining gates
 
-Full sweep and preservation audit for this source increment are pending.
+R1/R2 full sweep passed: `.development/runs/20261004T155004-f33ec4a2/result.json`,
+2,509 tests across 24 suites, two documented DR 0034 skips, 2,271 valid JSON
+artifacts, no file mutations. Preservation audit checked 3,298 existing
+scientific files unchanged and retained the original Q4 executable hash.
+Actual app screenshots in `.development/r2-ui/` show a tick-22 followed feed
+where the additive choice was play; wrapping and paging were inspected.
+Four additional native launches preserved covenant/campaign continuity
+(`.development/r2-default-continuity.json`). An external owner commit
+`03ec951269984be95f94254aba6b0ae8a313c0b9` appeared during the sweep and
+contains the unchanged verified bytes; the agent performed no Git mutations.
+The runner advanced REPAIR -> ENHANCE -> POLISH and successfully started
+`r3-r4-product-release` from the preregistered scope.
 R3 preregistration records a real corpus incompatibility: the current covenant
 rejects forty of Q1's fifty palette variants. Preserve that finding; do not
 repaint or filter the corpus to manufacture adoption. R4 repairs frozen-release
