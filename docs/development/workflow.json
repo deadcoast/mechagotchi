@@ -5,12 +5,33 @@
     "local-workflow": {
       "spec": "docs/development/local-cycle.md",
       "purpose": "Resumable local verification and evidence capture after the CI repair",
-      "suites": ["cli", "ci"]
+      "suites": [
+        "cli",
+        "ci"
+      ]
     },
     "q2-mechanics": {
       "spec": "docs/development/q2-mechanics-rung.md",
       "purpose": "Cycle 27 Q2: covenant-authored optional cleanliness across validators, engine and game",
-      "suites": ["lab:grid_genome", "lab:slip_validator", "lab:lifecycle_sim", "package", "game", "cli"]
+      "suites": [
+        "lab:grid_genome",
+        "lab:slip_validator",
+        "lab:lifecycle_sim",
+        "package",
+        "game",
+        "cli"
+      ]
+    },
+    "q3-default-covenant": {
+      "spec": "docs/development/q3-default-covenant.md",
+      "purpose": "Cycle 27 Q3: measure default adoption and complete covenant continuity in the playable product",
+      "suites": [
+        "lab:game_loop",
+        "lab:lifecycle_sim",
+        "package",
+        "game",
+        "cli"
+      ]
     }
   }
 }

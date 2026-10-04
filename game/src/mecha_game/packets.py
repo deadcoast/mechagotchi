@@ -18,11 +18,14 @@ from pathlib import Path
 from mecha_engine.genome import clip_frame_count, render_packet_v2
 from mecha_engine.lifecycle import initial_state
 
-# The default hello pair: the first 16x16 corpus creature under the
+# The frozen F1 research hello pair: the first 16x16 corpus creature under the
 # LCD seed covenant — the engine accepts the pair (pinned by the F1
 # tests over the real fixtures, never assumed).
 HELLO_SEED = Path("data") / "seed_grids_16x16" / "mg_seed16_001_beetle.json"
 HELLO_SLIP = Path("data") / "slips" / "valid" / "slip_lcd_seed.json"
+# Q3 / DR 0064: new product lives use the measured adopted covenant.
+# HELLO_SLIP remains the explicit historical experiment input.
+DEFAULT_SLIP = Path("data") / "slips" / "valid" / "slip_v2_cleanliness.json"
 HELLO_CLIP = "idle"
 
 
@@ -56,13 +59,13 @@ def data_search_origins(start: Path | None = None) -> list[Path]:
 
 
 def default_fixture_paths(start: Path | None = None) -> tuple[Path, Path]:
-    """Resolve the hello fixtures by walking up from the known origins
+    """Resolve the current product fixtures by walking up from the known origins
     (the dev checkout, or the frozen bundle's own data). An installed
     client may still pass explicit ``--seed``/``--slip``."""
     for origin in data_search_origins(start):
         for base in (origin, *origin.parents):
             seed = base / HELLO_SEED
-            slip = base / HELLO_SLIP
+            slip = base / DEFAULT_SLIP
             if seed.is_file() and slip.is_file():
                 return seed, slip
     raise FileNotFoundError(

@@ -82,7 +82,7 @@ charter), `docs/project-research/validity-research.md` §1.17,
   `research/experiment_reports/2026-10-04-slip-mechanics-authorship.md`.
   Default covenant and Q-table promotion are unchanged; native cloud CI
   remains unverified while publication is blocked.
-- [ ] **Q3 · The default-covenant flip gets its record — ADOPT or
+- [x] **Q3 · The default-covenant flip gets its record — ADOPT or
   REFUSE, priced either way.** *(GAME.)* DR 0059 named this decision
   and priced its costs (the session-built evidence artifacts
   regenerate; the default play feel changes). Decide it as a gated
@@ -97,6 +97,12 @@ charter), `docs/project-research/validity-research.md` §1.17,
   legitimate product stance if the record says why; if adopted, the
   regeneration cascade ships in the same slice with every delta
   explained (DR 0053 discipline).
+  **DONE locally 2026-10-04, DR 0064**: ADOPT for new lives after the
+  preregistered candidate gate; attentive 400 ticks / 79 feeds, unchanged
+  tick-10 neglect, 72-tick scripted care with two cleans. New campaign
+  covenant continuity, launcher options and the actual Windows bundle are
+  verified. Existing saves and historical artifacts remain unchanged.
+  See `research/experiment_reports/2026-10-04-default-covenant-gate.md`.
 - [ ] **Q4 · The hidden half of §1.17 earns its survey.** *(SHARED ·
   documentation truth.)* M5's remainder 4 has stood since cycle 23:
   the six unsurfaced HIDDEN axes (`mutation pressure`,

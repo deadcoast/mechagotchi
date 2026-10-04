@@ -1049,3 +1049,22 @@ do not reset owner files to hide it.
 - `research/decision_records/0062-local-development-cycle.md`
 - `research/decision_records/0063-covenant-mechanics-authorship.md`
 - `sunsetted/TODO.md`, `docs/development/local-cycle.md`
+
+## 2026-10-04: Q3 adopted for new lives (DR 0064)
+
+The measured Q3 gate adopts cleanliness for new default companions and new
+campaigns. Existing saves keep their covenants. A new campaign now starts under
+the companion's selected covenant; the launcher exposes --slip and --keeper-dir.
+Both covenants are bundled and the actual Windows executable was verified for
+new/resumed lives and campaigns. Historical experiment inputs remain explicitly
+frozen; no old artifact was regenerated. See the Q3 report for exact evidence.
+
+Q1-Q3 are complete locally; Q4's hidden-axis survey and Q5's consolidation are
+next. Native remote CI remains unmet and publication must not be retried or
+bypassed. The earlier dated default notes describe their historical states.
+
+## Sources for this update
+
+- `research/decision_records/0064-default-covenant-cleanliness.md`
+- `research/experiment_reports/2026-10-04-default-covenant-gate.md`
+- `sunsetted/TODO.md`

@@ -1,0 +1,122 @@
+{
+  "artifact_id": "default_covenant_gate_stage0",
+  "date": "2026-10-04",
+  "status": "candidate_measured_before_default_flip",
+  "purpose": "Price and judge default cleanliness under unchanged scientific definitions and preserved historical inputs.",
+  "source_artifacts": [
+    "data/slips/valid/slip_v2_cleanliness.json",
+    "data/seed_grids_16x16/mg_seed16_001_beetle.json",
+    "data/slips/valid/slip_lcd_seed.json",
+    "data/game_client/companion_loop_stage0.json",
+    "data/lifecycle/cleanliness_mechanic_gate_stage0.json",
+    "docs/development/q3-default-covenant.md"
+  ],
+  "metrics": {
+    "instrument_reproduced": true,
+    "candidate_attentive": {
+      "alive": true,
+      "age_ticks": 400,
+      "death_cause": null,
+      "keeper_feeds": 79,
+      "final_cleanliness": 0.0,
+      "final_stress": 0.0
+    },
+    "candidate_neglect": {
+      "alive": false,
+      "age_ticks": 10,
+      "death_cause": "starvation",
+      "keeper_feeds": 0,
+      "final_cleanliness": 0.876,
+      "final_stress": 0.12612
+    },
+    "scripted_care": {
+      "alive": true,
+      "age_ticks": 72,
+      "clean_count": 2,
+      "clean_events": [
+        {
+          "tick": 27,
+          "before": 0.6776,
+          "after": 0.9852,
+          "health_binding_before": "tired"
+        },
+        {
+          "tick": 53,
+          "before": 0.6752,
+          "after": 0.9828,
+          "health_binding_before": "hungry"
+        }
+      ],
+      "clean_threshold": 0.6799999999999999,
+      "final_health": {
+        "label": "health",
+        "value": 0.976,
+        "good_when": "high",
+        "binding_axis": "energy",
+        "binding_word": "tired",
+        "definition": "danger_margin",
+        "chosen": true
+      },
+      "final_cleanliness": 0.7472
+    },
+    "window": {
+      "fresh_exit": 0,
+      "resume_exit": 0,
+      "fresh_age": 2,
+      "resumed_age": 4,
+      "clean_count": 1,
+      "clean_lines": [
+        "cleanliness 1.00   G clean"
+      ],
+      "clean_line_widths": [
+        181
+      ],
+      "window_size": [
+        384,
+        668
+      ],
+      "engine_value_shown": true,
+      "same_profile": true,
+      "clean_control_fits": true
+    },
+    "checks": {
+      "instrument_reproduced": true,
+      "attentive_survives": true,
+      "neglect_unchanged": true,
+      "scripted_care_survives": true,
+      "clean_answers": true,
+      "window_contract": true
+    }
+  },
+  "artifact_plan": {
+    "regenerated_historical_artifacts": [],
+    "new_current_default_artifact": "data/game_client/default_covenant_gate_stage0.json",
+    "new_release_observation": "data/game_client/default_covenant_release_stage0.json",
+    "frozen_bindings": [
+      "game/evidence.py::_new_session -> HELLO_SLIP",
+      "game/evidence.py::_campaign_inputs -> HELLO_SLIP",
+      "game/evidence.py::build_front_end_skeleton_report -> HELLO_SLIP",
+      "labs/game_loop/session_runner.py -> slip_lcd_seed.json",
+      "labs/game_loop/replay_recorder.py -> slip_lcd_seed.json"
+    ]
+  },
+  "closed_states": [
+    "attentive_survives",
+    "clean_answers",
+    "instrument_reproduced",
+    "neglect_unchanged",
+    "scripted_care_survives",
+    "window_contract"
+  ],
+  "blocked_states": [
+    "human_usability_unmeasured",
+    "native_remote_ci_unverified",
+    "qtable_default_not_promoted"
+  ],
+  "decision": {
+    "verdict": "ADOPT",
+    "failed_checks": [],
+    "rule": "Every preregistered candidate acceptance check must pass; no metric or threshold is retuned."
+  },
+  "next_research_step": "Land only if ADOPT, verify session/campaign/bundle continuity, then Q4 hidden-axis source survey."
+}

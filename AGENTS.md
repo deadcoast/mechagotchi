@@ -18,11 +18,11 @@ contain actual results and resume notes; inspect them before repeating work.
 Make cohesive development decisions across the affected modules and documents.
 Select the next existing queue item, preregister its contract before RED tests,
 and continue within authorized scope without module-by-module permission stops.
-Q2 is complete locally (`docs/development/q2-mechanics-rung.md`). The next
-queue item is Q3; preregister its criteria and exact artifact cascade before
-implementation or measurement. Q3's
-default-covenant ADOPT/REFUSE decision and Q1's Q-table eligibility are separate
-scientific gates. Do not silently promote either default.
+Q2 and Q3 are complete locally. The next queue item is Q4's hidden-axis
+source survey; preregister its source/derived/absent criteria and reproduce
+the committed visible-axis split before measurement. Q5 consolidates the cycle.
+Q3's adopted new-life covenant does not migrate existing saves. Q1's Q-table
+eligibility remains separate from default promotion.
 
 Focused verification is for iteration. A local slice closes only after the
 full sweep, artifact checks, preservation audit and diff review. Record the

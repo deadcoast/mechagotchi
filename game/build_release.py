@@ -26,6 +26,7 @@ GAME_SRC = ROOT / "game" / "src"
 BUNDLED_DATA = [
     ("data/seed_grids_16x16", "data/seed_grids_16x16"),
     ("data/slips/valid/slip_lcd_seed.json", "data/slips/valid"),
+    ("data/slips/valid/slip_v2_cleanliness.json", "data/slips/valid"),
     (
         "data/readability_benchmark/adopted_readability_model.json",
         "data/readability_benchmark",

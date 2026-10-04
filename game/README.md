@@ -113,3 +113,30 @@ directory separates this trial from ordinary `keeper/` play. For code consumers,
 - `research/decision_records/0063-covenant-mechanics-authorship.md`
 - `game/tests/test_slip_mechanics.py`
 - `data/slips/valid/slip_v2_cleanliness.json`
+
+## 2026-10-04: New default companions can be cleaned (DR 0064)
+
+New lives now use the measured v0.2 cleanliness covenant. **G** cleans on the
+next lifecycle tick; the footer shows the engine's value. Feeding, playing and
+sleeping still matter; cleaning takes time and does not feed the companion.
+Existing saves and existing campaigns retain their own covenants.
+
+The normal launcher now supports authored profiles and separate save homes:
+
+```powershell
+mechas game --play
+mechas game --play --new --slip data/slips/valid/slip_v2_cleanliness.json --keeper-dir keeper/cleanliness-example
+mechas game --play --keeper-dir keeper/cleanliness-example
+```
+
+The last command resumes that example. A supplied --slip applies to a new
+companion; if that directory already contains a save, choose --new explicitly
+or a separate directory. A new evolution campaign starts under that companion's
+covenant. A resumed campaign keeps its saved, possibly earned/spent covenant.
+The earlier Q2 default note above describes the state before this gated flip.
+
+## Sources for Q3
+
+- `research/decision_records/0064-default-covenant-cleanliness.md`
+- `research/experiment_reports/2026-10-04-default-covenant-gate.md`
+- `data/game_client/default_covenant_gate_stage0.json`, `default_covenant_release_stage0.json`

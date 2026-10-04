@@ -287,9 +287,11 @@ def default_campaign_paths(start: Path | None = None) -> dict:
 
 
 def _campaign_paths_under(origin: Path) -> dict | None:
+    from mecha_game.packets import DEFAULT_SLIP
+
     for base in (origin, *origin.parents):
         seed_dir = base / "data" / "seed_grids_16x16"
-        slip = base / "data" / "slips" / "valid" / "slip_lcd_seed.json"
+        slip = base / DEFAULT_SLIP
         adopted = (
             base
             / "data"

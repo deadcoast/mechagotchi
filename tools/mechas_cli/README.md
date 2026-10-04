@@ -23,3 +23,13 @@ python -B -m unittest discover -s tools/mechas_cli/tests -p "test_*.py"
 uv sync --group lab --group cli   # BOTH groups — uv sync is exact (audit A2)
 .venv\Scripts\python -B -m unittest discover -s tools/mechas_cli/tests -p "test_*.py"
 ```
+
+## Q3 authored companions (2026-10-04)
+
+`mechas game --play --new --slip <profile.json> --keeper-dir <save-directory>`
+launches an authored companion in its own save home. Omit --new and --slip to
+resume it. Paths containing spaces stay single subprocess arguments. --play,
+--build and --evidence are mutually exclusive; player options require --play.
+The client rejects silently ignoring --slip when a save already exists.
+
+Source: `game/README.md`, `research/decision_records/0064-default-covenant-cleanliness.md`.

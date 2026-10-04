@@ -1264,3 +1264,18 @@ unchanged. Profile inheritance and explicit disable persist through save/resume
 and succession. Conditional **G clean** reaches the actual client. Corpus grows
 4/14 to 5/15 without rewriting historical observations. Q3 default adoption,
 Q-table promotion and native remote CI remain separate unclosed decisions/gates.
+
+## 2026-10-04: Default covenant adopted for new lives (Q3 / DR 0064)
+
+- `research/experiment_reports/2026-10-04-default-covenant-gate.md`
+- `research/algorithm_cards/default_covenant_gate.md`
+- `research/decision_records/0064-default-covenant-cleanliness.md`
+- `labs/game_loop/default_covenant_gate.py`, `verify_default_release.py`
+- `data/game_client/default_covenant_gate_stage0.json`, `default_covenant_release_stage0.json`
+
+ADOPT after six preregistered checks: attentive 400 ticks / 79 feeds; neglect
+tick-10 starvation unchanged; 72-tick scripted care survives with two cleans;
+actual window and native bundle continuity verified. New campaigns inherit
+the companion's covenant; saved campaigns retain theirs. Historical builders
+keep explicit LCD inputs, so zero historical artifacts are regenerated.
+Q4/Q5 and native remote CI remain open; Q-table promotion remains separate.

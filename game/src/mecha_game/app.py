@@ -60,7 +60,7 @@ WINDOW_TITLE = "Mechagotchi"
 DEFAULT_CELL_PX = 24
 DEFAULT_FPS = 8  # the LCD heartbeat (render frames)
 DEFAULT_TICK_FRAMES = 12  # lifecycle tick every N frames (1.5 s at 8 fps)
-FOOTER_PX = 140  # the casing's text area (chrome, not LCD)
+FOOTER_PX = 184  # eight 22px rows plus margins: needs, covenant and notice
 LINEAGE_FILENAME = "lineage.json"
 COMPANION_FILENAME = "companion.json"
 
@@ -94,7 +94,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--slip",
         type=Path,
         default=None,
-        help="SLIP covenant JSON (default: the LCD seed profile)",
+        help="covenant for a new companion (default: LCD with cleanliness; existing saves resume their own covenant)",
     )
     parser.add_argument(
         "--scale",
@@ -168,11 +168,13 @@ class _EraBench:
         cache_dir: Path | None = None,
         state_path: Path | None = None,
         ledger_path: Path | None = None,
+        initial_profile: dict | None = None,
     ) -> None:
         self.era_scale = era_scale
         self.cache_dir = cache_dir
         self.state_path = state_path
         self.ledger_path = ledger_path
+        self.initial_profile = json.loads(json.dumps(initial_profile)) if initial_profile is not None else None
         self.campaign: KeeperCampaign | None = None
         self.weather_index = 0
         self.message = ""
@@ -211,6 +213,10 @@ class _EraBench:
                     f"{self.campaign.era_offset}"
                 )
             else:
+                # Q3: a new bloodline starts under the companion's covenant.
+                # A recorded campaign above remains its own authority.
+                if self.initial_profile is not None:
+                    inputs = dict(inputs, slip_profile=json.loads(json.dumps(self.initial_profile)))
                 self.campaign = KeeperCampaign(
                     inputs,
                     era_config=TINY_ERA_CONFIG if tiny else ERA_CONFIG,
@@ -365,7 +371,8 @@ def _footer_lines(snapshot: dict, queued: str | None) -> list[str]:
 
 
 def run(argv: list[str] | None = None) -> int:
-    args = build_parser().parse_args(argv)
+    parser = build_parser()
+    args = parser.parse_args(argv)
     import pygame  # the window layer's dependency, paid only here
 
     seed, slip = args.seed, args.slip
@@ -377,18 +384,22 @@ def run(argv: list[str] | None = None) -> int:
     lineage_path = keeper_dir / LINEAGE_FILENAME
     companion_path = keeper_dir / COMPANION_FILENAME
     campaign_ledger = keeper_dir / "campaign.sqlite3"
-    bench = _EraBench(
-        args.era_scale,
-        cache_dir=keeper_dir / "model_cache",
-        state_path=keeper_dir / "campaign_state.json",
-        ledger_path=campaign_ledger,
-    )
+    if args.slip is not None and companion_path.is_file() and not args.new:
+        parser.error("--slip selects a new companion; use --new or a separate --keeper-dir to preserve the existing save")
     # Quit and come back (F5): the save file resumes unless --new.
     if companion_path.is_file() and not args.new:
         session = CompanionSession.load(companion_path)
     else:
         grid, slip_profile, model = load_session_inputs(seed, slip)
         session = CompanionSession(grid, slip_profile, model=model)
+
+    bench = _EraBench(
+        args.era_scale,
+        cache_dir=keeper_dir / "model_cache",
+        state_path=keeper_dir / "campaign_state.json",
+        ledger_path=campaign_ledger,
+        initial_profile=session.slip_profile,
+    )
 
     width, height = session.grid["grid_size"]
     panel_px = height * args.scale

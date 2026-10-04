@@ -1,0 +1,52 @@
+{
+  "artifact_id": "default_covenant_release_stage0",
+  "date": "2026-10-04",
+  "status": "observed_native_windows_bundle",
+  "purpose": "Verify the actual built current-default client, old save compatibility and campaign covenant continuity outside the repository cwd.",
+  "source_artifacts": [
+    "game/build_release.py",
+    "game/src/mecha_game/app.py",
+    "labs/game_loop/verify_default_release.py",
+    "data/game_client/default_covenant_gate_stage0.json"
+  ],
+  "metrics": {
+    "launch_exit_codes": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "fresh_age": 4,
+    "resumed_age": 7,
+    "campaign_eras": [
+      1,
+      2
+    ],
+    "checks": {
+      "fresh_default_enabled": true,
+      "same_life_resumed": true,
+      "explicit_old_profile_stays_off": true,
+      "new_campaign_uses_selected_profile": true,
+      "campaign_resume_keeps_profile": true
+    },
+    "executable_sha256": "e664e70c34c9c5be6c35fbb5a31163ab34a7f3ff61e9a04facc4a67ed751bbfc",
+    "executable_bytes": 3236700
+  },
+  "closed_states": [
+    "campaign_resume_keeps_profile",
+    "explicit_old_profile_stays_off",
+    "fresh_default_enabled",
+    "new_campaign_uses_selected_profile",
+    "same_life_resumed"
+  ],
+  "blocked_states": [
+    "native_remote_ci_unverified",
+    "signing_and_other_platform_builds_not_observed",
+    "human_usability_unmeasured"
+  ],
+  "decision": {
+    "verdict": "local_release_verified",
+    "failed_checks": []
+  },
+  "next_research_step": "Q4 hidden-axis source survey; independent exact-SHA native remote CI when publication is allowed."
+}

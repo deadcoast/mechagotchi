@@ -132,3 +132,16 @@ Decision 3's default flip remains Q3, separately preregistered and gated.
 - `research/decision_records/0063-covenant-mechanics-authorship.md`
 - `research/experiment_reports/2026-10-04-slip-mechanics-authorship.md`
 - `game/src/mecha_game/app.py`, `game/tests/test_slip_mechanics.py`
+
+## 2026-10-04: Q3 default record completed (DR 0064)
+
+The preregistered candidate gate returns ADOPT for new product lives; existing
+stored covenants remain authoritative. The predicted blanket artifact cascade
+does not occur: historical builders already bind HELLO_SLIP explicitly. Those
+bindings remain frozen; two new Q3 artifacts record the new default and its
+built release. No original artifact or scientific definition is rewritten.
+
+## Sources for Q3
+
+- `research/decision_records/0064-default-covenant-cleanliness.md`
+- `research/experiment_reports/2026-10-04-default-covenant-gate.md`

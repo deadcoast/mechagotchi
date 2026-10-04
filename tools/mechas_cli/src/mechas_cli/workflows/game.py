@@ -32,6 +32,7 @@ def game(
     ticks: int | None = typer.Option(
         None,
         "--ticks",
+        min=1,
         help="Bounded verification run (with --play): quit after N "
         "lifecycle ticks.",
     ),
@@ -39,6 +40,14 @@ def game(
         False,
         "--new",
         help="Start a fresh companion instead of resuming the save.",
+    ),
+    slip: Path | None = typer.Option(
+        None, "--slip", exists=True, dir_okay=False, resolve_path=True,
+        help="SLIP covenant for a new companion; use --new or a separate save directory.",
+    ),
+    keeper_dir: Path | None = typer.Option(
+        None, "--keeper-dir", file_okay=False, resolve_path=True,
+        help="Save directory for this companion and campaign (with --play).",
     ),
     build: bool = typer.Option(
         False,
@@ -58,6 +67,12 @@ def game(
     ),
 ) -> None:
     """Play, build, or verify the Mechagotchi game client."""
+    if sum((play, build, evidence)) > 1:
+        raise typer.BadParameter("Choose one of --play, --build, or --evidence.")
+    if (slip is not None or keeper_dir is not None or new or ticks is not None) and not play:
+        raise typer.BadParameter("Companion options require --play.")
+    if windowed and not build:
+        raise typer.BadParameter("--windowed requires --build.")
     console = theme.console()
     root = find_workspace_root()
     python = _workspace_python(root)
@@ -79,6 +94,10 @@ def game(
             command += ["--ticks", str(ticks)]
         if new:
             command.append("--new")
+        if slip is not None:
+            command += ["--slip", str(slip)]
+        if keeper_dir is not None:
+            command += ["--keeper-dir", str(keeper_dir)]
         console.print(theme.banner("game — launching the client"))
         result = subprocess.run(command, cwd=root)
         raise typer.Exit(result.returncode)

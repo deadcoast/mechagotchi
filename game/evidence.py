@@ -170,6 +170,8 @@ def build_front_end_skeleton_report(
 
 
 def _new_session(fleet: bool = True) -> CompanionSession:
+    # DR 0064: historical studies keep their named LCD input when the
+    # product default changes. Current-default evidence is a new Q3 artifact.
     grid, slip_profile, model = load_session_inputs(
         ROOT / HELLO_SEED, ROOT / HELLO_SLIP
     )
@@ -2499,6 +2501,7 @@ CAMPAIGN_ARTIFACT_ID = "keeper_campaign_stage0"
 
 
 def _campaign_inputs(session_scale: bool) -> dict:
+    # Historical campaign studies explicitly retain HELLO_SLIP (DR 0053/0064).
     return load_campaign_inputs(
         ROOT / "data" / "seed_grids_16x16",
         ROOT / HELLO_SLIP,
