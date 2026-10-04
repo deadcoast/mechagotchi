@@ -1,0 +1,576 @@
+{
+  "artifact_id": "hidden_axis_source_survey_stage0",
+  "status": "measured",
+  "date": "2026-10-04",
+  "purpose": "Survey six unsurfaced hidden-axis source candidates through promoted APIs without inventing definitions or displays.",
+  "source_artifacts": [
+    "docs/development/q4-hidden-axes-controls.md",
+    "docs/project-research/validity-research.md",
+    "data/game_client/companion_axis_split_stage0.json",
+    "data/seed_grids_16x16/mg_seed16_001_beetle.json",
+    "data/slips/valid/slip_lcd_seed.json",
+    "data/cubff_real_ingest/callback_states/callback_states_compact.json",
+    "packages/mecha_engine/src/mecha_engine/runtime/evolve.py",
+    "packages/mecha_engine/src/mecha_engine/learning/threads.py",
+    "packages/mecha_engine/src/mecha_engine/archive/scoring.py",
+    "packages/mecha_engine/src/mecha_engine/slip/authority.py"
+  ],
+  "parameters": {
+    "generations": 2,
+    "population": 2,
+    "damage_cycles": 1,
+    "ticks": 3,
+    "repair_epochs": 2,
+    "runtime_seed": 20260512,
+    "runtime_dropout": 0.2,
+    "action_probe_ticks": 6,
+    "measurement": "Bounded source/availability census; no quality or survival inference."
+  },
+  "instrument": {
+    "observed_visible_axes": {
+      "hunger": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "lifecycle_field",
+          "engine_field": "hunger",
+          "engine_function": null,
+          "measured_value": 0.4422,
+          "measured_cause": null
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.needs['hunger']",
+          "label": "hunger"
+        }
+      },
+      "happiness": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "chosen_definition_dr0058",
+          "engine_field": null,
+          "engine_function": null,
+          "measured_value": 0.75,
+          "measured_cause": "still no lifecycle field and no documented formula; DR 0058 CHOSE social_warmth \u2014 the mean of the engine's own recent_interactions window (feed/play, last 5 ticks) \u2014 and the game mirrors the formula (boundary law), parity-pinned against the committed gate artifact"
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.happiness",
+          "label": "happiness",
+          "labelled_chosen": true
+        }
+      },
+      "energy": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "lifecycle_field",
+          "engine_field": "energy",
+          "engine_function": null,
+          "measured_value": 0.582,
+          "measured_cause": null
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.needs['energy']",
+          "label": "energy"
+        }
+      },
+      "cleanliness": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "opt_in_mechanic_dr0059",
+          "engine_field": "cleanliness (opt-in)",
+          "engine_function": null,
+          "measured_value": null,
+          "measured_cause": "the engine now carries an OPT-IN cleanliness mechanic (DR 0059: a derived decay, a keeper clean verb, a bounded dirt\u2192stress coupling; byte-identical when off); the default client does not enable it, so the shipped read model shows nothing \u2014 an honest opt-in absence, no longer a missing mechanic. The autonomous action set is unchanged: ('feed', 'play', 'sleep', 'idle', 'mutate')"
+        },
+        "on_screen": {
+          "shown": false,
+          "where": null,
+          "label": null
+        }
+      },
+      "mood": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "derived_engine_value",
+          "engine_field": null,
+          "engine_function": "mecha_engine.genome.animation.select_animation_state",
+          "measured_value": "curious",
+          "measured_cause": null
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.mood",
+          "label": "mood"
+        }
+      },
+      "age": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "lifecycle_field",
+          "engine_field": "age_ticks",
+          "engine_function": null,
+          "measured_value": 1,
+          "measured_cause": null
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.age_ticks",
+          "label": "age"
+        }
+      },
+      "health": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "chosen_definition_dr0054",
+          "engine_field": null,
+          "engine_function": null,
+          "measured_value": 0.4104,
+          "measured_cause": "still no lifecycle field and no engine function; DR 0054 CHOSE danger_margin \u2014 the minimum normalised safety margin over the promoted DANGER_THRESHOLDS \u2014 and the game mirrors the formula (boundary law), parity-pinned against the committed gate artifact"
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.health",
+          "label": "health",
+          "binding_word": "hungry",
+          "labelled_chosen": true
+        }
+      },
+      "bond": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "lifecycle_field",
+          "engine_field": "bond",
+          "engine_function": null,
+          "measured_value": 0.6855,
+          "measured_cause": null
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.needs['bond']",
+          "label": "bond"
+        }
+      }
+    },
+    "committed_visible_axes": {
+      "hunger": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "lifecycle_field",
+          "engine_field": "hunger",
+          "engine_function": null,
+          "measured_value": 0.4422,
+          "measured_cause": null
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.needs['hunger']",
+          "label": "hunger"
+        }
+      },
+      "happiness": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "chosen_definition_dr0058",
+          "engine_field": null,
+          "engine_function": null,
+          "measured_value": 0.75,
+          "measured_cause": "still no lifecycle field and no documented formula; DR 0058 CHOSE social_warmth \u2014 the mean of the engine's own recent_interactions window (feed/play, last 5 ticks) \u2014 and the game mirrors the formula (boundary law), parity-pinned against the committed gate artifact"
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.happiness",
+          "label": "happiness",
+          "labelled_chosen": true
+        }
+      },
+      "energy": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "lifecycle_field",
+          "engine_field": "energy",
+          "engine_function": null,
+          "measured_value": 0.582,
+          "measured_cause": null
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.needs['energy']",
+          "label": "energy"
+        }
+      },
+      "cleanliness": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "opt_in_mechanic_dr0059",
+          "engine_field": "cleanliness (opt-in)",
+          "engine_function": null,
+          "measured_value": null,
+          "measured_cause": "the engine now carries an OPT-IN cleanliness mechanic (DR 0059: a derived decay, a keeper clean verb, a bounded dirt\u2192stress coupling; byte-identical when off); the default client does not enable it, so the shipped read model shows nothing \u2014 an honest opt-in absence, no longer a missing mechanic. The autonomous action set is unchanged: ('feed', 'play', 'sleep', 'idle', 'mutate')"
+        },
+        "on_screen": {
+          "shown": false,
+          "where": null,
+          "label": null
+        }
+      },
+      "mood": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "derived_engine_value",
+          "engine_field": null,
+          "engine_function": "mecha_engine.genome.animation.select_animation_state",
+          "measured_value": "curious",
+          "measured_cause": null
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.mood",
+          "label": "mood"
+        }
+      },
+      "age": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "lifecycle_field",
+          "engine_field": "age_ticks",
+          "engine_function": null,
+          "measured_value": 1,
+          "measured_cause": null
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.age_ticks",
+          "label": "age"
+        }
+      },
+      "health": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "chosen_definition_dr0054",
+          "engine_field": null,
+          "engine_function": null,
+          "measured_value": 0.4104,
+          "measured_cause": "still no lifecycle field and no engine function; DR 0054 CHOSE danger_margin \u2014 the minimum normalised safety margin over the promoted DANGER_THRESHOLDS \u2014 and the game mirrors the formula (boundary law), parity-pinned against the committed gate artifact"
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.health",
+          "label": "health",
+          "binding_word": "hungry",
+          "labelled_chosen": true
+        }
+      },
+      "bond": {
+        "documented_split": "visible",
+        "engine_source": {
+          "disposition": "lifecycle_field",
+          "engine_field": "bond",
+          "engine_function": null,
+          "measured_value": 0.6855,
+          "measured_cause": null
+        },
+        "on_screen": {
+          "shown": true,
+          "where": "snapshot.needs['bond']",
+          "label": "bond"
+        }
+      }
+    }
+  },
+  "metrics": {
+    "visible_instrument_reproduced": true,
+    "axes": {
+      "mutation pressure": {
+        "disposition": "derived_engine_value",
+        "source": "mecha_engine.runtime.evolve -> report.cubff_pressure.by_generation[*].mutation_pressure",
+        "value": [
+          0.293387,
+          0.543925
+        ],
+        "cause": "The runtime derives pressure from supplied CuBFF snapshots and reports it only when that seam is active.",
+        "scope": "Generation/environment signal; absent from the off report and companion lifecycle state."
+      },
+      "lineage fitness": {
+        "disposition": "absent",
+        "source": null,
+        "value": null,
+        "cause": "Candidate fitness and generation mean fitness exist, but neither is a dedicated lineage-aggregated fitness definition. No lineage fitness is manufactured from ancestry or candidate scores.",
+        "scope": "Reviewed promoted surfaces and observed records; not a proof about future implementations.",
+        "related_observation": {
+          "candidate_fitness": [
+            0.719691,
+            0.71073,
+            0.710993,
+            0.710729
+          ],
+          "generation_mean_fitness": [
+            0.71521,
+            0.710861
+          ],
+          "elite_record_keys": [
+            "descriptor",
+            "fitness",
+            "fitness_components",
+            "grid",
+            "grid_id",
+            "provenance",
+            "validation"
+          ]
+        }
+      },
+      "novelty decay": {
+        "disposition": "derived_engine_value",
+        "source": "mecha_engine.learning.fleet_signals -> boredom_novelty.output.boredom",
+        "value": {
+          "repeat": {
+            "boredom": 0.833333,
+            "predicted_repeat_probability": 0.974677
+          },
+          "varied": {
+            "boredom": 0.5,
+            "predicted_repeat_probability": 0.057432
+          }
+        },
+        "cause": "The existing thread explicitly describes novelty decay over the action stream and derives boredom from distinct actions in its bounded window. Its repeat learner uses decayed counts.",
+        "scope": "Opt-in thread, cold start has no boredom value; this is its existing signal, not a new scalar called novelty_decay or a default-roster promotion."
+      },
+      "attachment score": {
+        "disposition": "absent",
+        "source": null,
+        "value": null,
+        "cause": "The lifecycle carries bond, already a separate documented visible axis. No independent attachment definition or attachment score is exported; renaming bond would assert an unchosen synonym.",
+        "scope": "Reviewed promoted surfaces and observed records; not a proof about future implementations.",
+        "related_observation": {
+          "bond": 0.6155
+        }
+      },
+      "user response confidence": {
+        "disposition": "derived_engine_value",
+        "source": "mecha_engine.learning.fleet_signals -> attention_forecast.confidence",
+        "value": {
+          "confidence": 0.079494,
+          "output": {
+            "predicted_interaction_probability": 0.757381
+          }
+        },
+        "cause": "The existing attention-hazard thread returns confidence beside predicted interaction probability; these are distinct values. The reactive attention thread has a separate history-count confidence.",
+        "scope": "An opt-in prediction-specific source candidate, not calibrated human confidence and not an adopted canonical definition for the prose axis."
+      },
+      "profile alignment": {
+        "disposition": "derived_engine_value",
+        "source": "mecha_engine.slip.is_grid_aligned(grid, slip_profile)",
+        "value": {
+          "valid": {
+            "ok": true,
+            "errors": []
+          },
+          "invalid": {
+            "ok": false,
+            "errors": [
+              "palette not_in_this_covenant not allowed by SLIP"
+            ]
+          }
+        },
+        "cause": "The promoted authority computes a constraint verdict and reasons. Archive scoring also records alignment; a Boolean covenant verdict is not a continuous similarity score.",
+        "scope": "Explicit grid/covenant pair; no new companion state field."
+      }
+    },
+    "probe": {
+      "state_keys": [
+        "action_counts",
+        "action_rewards",
+        "age_ticks",
+        "alive",
+        "body_mass",
+        "bond",
+        "curiosity",
+        "death_cause",
+        "energy",
+        "grid_id",
+        "grid_stability",
+        "history",
+        "hunger",
+        "neediness",
+        "recent_interactions",
+        "recovery_events",
+        "sleepiness",
+        "slip_profile_id",
+        "stress"
+      ],
+      "bond": 0.6155,
+      "fleet_off": [],
+      "novelty_cold": {
+        "name": "boredom_novelty",
+        "input": {
+          "window_length": 0
+        },
+        "output": {
+          "boredom": null,
+          "predicted_repeat_probability": null
+        },
+        "confidence": 0.0,
+        "explanation": "Cold start: no action stream observed yet.",
+        "effects": {}
+      },
+      "novelty_repeat": {
+        "name": "boredom_novelty",
+        "input": {
+          "window_length": 6,
+          "last_action": "idle"
+        },
+        "output": {
+          "boredom": 0.833333,
+          "predicted_repeat_probability": 0.974677
+        },
+        "confidence": 0.675955,
+        "explanation": "Novelty decay over the companion's own action stream; boredom seeks play.",
+        "effects": {
+          "play": 0.125
+        }
+      },
+      "novelty_varied": {
+        "name": "boredom_novelty",
+        "input": {
+          "window_length": 6,
+          "last_action": "sleep"
+        },
+        "output": {
+          "boredom": 0.5,
+          "predicted_repeat_probability": 0.057432
+        },
+        "confidence": 0.587599,
+        "explanation": "Novelty decay over the companion's own action stream; boredom seeks play.",
+        "effects": {
+          "play": 0.075
+        }
+      },
+      "attention_cold": {
+        "name": "attention_forecast",
+        "input": {
+          "observations": 0
+        },
+        "output": {
+          "predicted_interaction_probability": null
+        },
+        "confidence": 0.0,
+        "explanation": "Cold start: no attention history observed yet.",
+        "effects": {}
+      },
+      "attention_warm": {
+        "name": "attention_forecast",
+        "input": {
+          "observations": 6,
+          "ticks_since_interaction": 1
+        },
+        "output": {
+          "predicted_interaction_probability": 0.757381
+        },
+        "confidence": 0.079494,
+        "explanation": "Interaction-hazard estimate predicts near-term user attention.",
+        "effects": {
+          "play": 0.113607
+        }
+      },
+      "recent_interaction_thread": {
+        "name": "recent_interaction_ewma",
+        "input": {
+          "recent_interactions": [
+            1,
+            0,
+            1,
+            1,
+            0
+          ]
+        },
+        "output": 0.424803,
+        "confidence": 1.0,
+        "explanation": "Recent user attention raises play utility; low attention raises idle utility.",
+        "effects": {
+          "play": 0.106201,
+          "idle": 0.08628
+        }
+      },
+      "pressure_off_keys": [
+        "damage_cycles",
+        "decision",
+        "dropout_rate",
+        "generations",
+        "generations_requested",
+        "lab_id",
+        "population",
+        "readability",
+        "rng_seed",
+        "seed_corpus_size",
+        "seed_pool_size",
+        "summary",
+        "ticks"
+      ],
+      "pressure_on": [
+        {
+          "snapshot_id": "callback_early_control_0000002050",
+          "mutation_pressure": 0.293387,
+          "dropout_multiplier": 0.772726
+        },
+        {
+          "snapshot_id": "callback_post_takeover_late_0000032770",
+          "mutation_pressure": 0.543925,
+          "dropout_multiplier": 1.048318
+        }
+      ],
+      "candidate_fitness": [
+        0.719691,
+        0.71073,
+        0.710993,
+        0.710729
+      ],
+      "generation_mean_fitness": [
+        0.71521,
+        0.710861
+      ],
+      "archive_elite_keys": [
+        "descriptor",
+        "fitness",
+        "fitness_components",
+        "grid",
+        "grid_id",
+        "provenance",
+        "validation"
+      ],
+      "alignment_valid": {
+        "ok": true,
+        "errors": []
+      },
+      "alignment_invalid": {
+        "ok": false,
+        "errors": [
+          "palette not_in_this_covenant not allowed by SLIP"
+        ]
+      },
+      "source_inputs_unchanged": true
+    }
+  },
+  "closed_states": [
+    "six_hidden_source_dispositions",
+    "historical_visible_instrument_reproduced",
+    "off_cold_warm_and_negative_alignment_observed"
+  ],
+  "blocked_states": [
+    "dedicated_lineage_fitness_definition_absent",
+    "independent_attachment_definition_absent",
+    "attention_axis_canonical_definition_not_adopted",
+    "human_calibration_unmeasured",
+    "hidden_axes_not_displayed",
+    "native_remote_ci_unverified"
+  ],
+  "decision": {
+    "verdict": "survey_only_no_adoption",
+    "counts": {
+      "field": 0,
+      "derived_engine_value": 4,
+      "absent": 2
+    },
+    "scope": "Four existing source candidates with explicit bounds; two absent dedicated definitions. No engine or UI number is created."
+  },
+  "next_research_step": "Q5 consolidate Phase Q; future definitions require their own gates, never silent aliases."
+}

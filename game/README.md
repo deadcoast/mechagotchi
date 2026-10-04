@@ -140,3 +140,12 @@ The earlier Q2 default note above describes the state before this gated flip.
 - `research/decision_records/0064-default-covenant-cleanliness.md`
 - `research/experiment_reports/2026-10-04-default-covenant-gate.md`
 - `data/game_client/default_covenant_gate_stage0.json`, `default_covenant_release_stage0.json`
+
+## Readable controls (Q4)
+
+F1 opens the full controls and pauses lifecycle care. Escape closes help first;
+PgUp/PgDn or the wheel browse wrapped casing pages. New notices and mode changes
+return to page one. Small LCD scales retain a 384-pixel window width.
+The local Windows bundle is `game/dist/q4-controls/Mechagotchi/Mechagotchi.exe`;
+keep its adjacent `_internal` folder. Built/tested with this repo Python 3.13.9.
+See DR 0065 for scripted verification and its limits.

@@ -878,3 +878,13 @@ And it is strong.
 [2]: https://cdn.aaai.org/ojs/12708/12708-52-16225-1-2-20201228.pdf?utm_source=chatgpt.com "Generating Maps Using Markov Chains"
 [3]: https://members.loria.fr/jbmouret/qd.html?utm_source=chatgpt.com "Quality Diversity Algorithms"
 [4]: https://github.com/topics/tamagotchi-game?o=asc&s=forks&utm_source=chatgpt.com "tamagotchi-game"
+
+### 2026-10-04 addendum to section 1.17: hidden source survey
+
+The complete P1 visible instrument reproduces. Mutation pressure, the opt-in
+novelty/boredom signal, prediction-specific attention confidence and Boolean
+profile alignment have bounded derived source candidates. Dedicated lineage
+fitness and independent attachment definitions are absent from reviewed public
+surfaces; candidate fitness and bond are not aliases. No hidden display or
+canonical adoption follows. See DR 0065 and the six-row measured table in
+`research/experiment_reports/2026-10-04-hidden-axis-sources-and-readable-controls.md`.

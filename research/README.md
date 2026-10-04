@@ -1279,3 +1279,10 @@ actual window and native bundle continuity verified. New campaigns inherit
 the companion's covenant; saved campaigns retain theirs. Historical builders
 keep explicit LCD inputs, so zero historical artifacts are regenerated.
 Q4/Q5 and native remote CI remain open; Q-table promotion remains separate.
+
+## 2026-10-04: Q4 hidden sources and readable controls (DR 0065)
+
+See `experiment_reports/2026-10-04-hidden-axis-sources-and-readable-controls.md`,
+`algorithm_cards/hidden_axis_source_survey.md` and DR 0065. Four bounded source
+candidates and two absent dedicated definitions; no adoption. Existing controls
+wrap and page; F1 pauses care. Full local gate pending; Q5 remains open.

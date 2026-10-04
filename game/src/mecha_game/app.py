@@ -44,6 +44,7 @@ from mecha_game.covenant import (
     spend_next_palette,
     spend_population_to_cap,
 )
+from mecha_game.footer import FooterPager, HELP_LINES
 from mecha_game.hud import HUD_HEIGHT, render_hud
 from mecha_game.packets import default_fixture_paths
 from mecha_game.rasterize import (
@@ -404,7 +405,7 @@ def run(argv: list[str] | None = None) -> int:
     width, height = session.grid["grid_size"]
     panel_px = height * args.scale
     hud_px = HUD_HEIGHT * args.scale
-    window_size = (width * args.scale, panel_px + hud_px + FOOTER_PX)
+    window_size = (max(384, width * args.scale), panel_px + hud_px + FOOTER_PX)
 
     key_actions = {
         pygame.K_f: "feed",
@@ -431,6 +432,9 @@ def run(argv: list[str] | None = None) -> int:
         queued: str | None = None
         displayed_clip: str | None = None
         covenant_mode = False
+        help_mode = False
+        footer_pager = FooterPager()
+        footer_context = None
         pending_releases: list[dict] = []
         hatch_count = 0
         review: ReplayPlayer | None = None
@@ -446,8 +450,23 @@ def run(argv: list[str] | None = None) -> int:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+                elif event.type == pygame.MOUSEWHEEL:
+                    footer_pager.move(-event.y)
                 elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
+                    if event.key == pygame.K_F1:
+                        help_mode = not help_mode
+                    elif help_mode:
+                        if event.key == pygame.K_ESCAPE:
+                            help_mode = False
+                        elif event.key == pygame.K_PAGEUP:
+                            footer_pager.move(-1)
+                        elif event.key == pygame.K_PAGEDOWN:
+                            footer_pager.move(1)
+                    elif event.key == pygame.K_PAGEUP:
+                        footer_pager.move(-1)
+                    elif event.key == pygame.K_PAGEDOWN:
+                        footer_pager.move(1)
+                    elif event.key == pygame.K_ESCAPE:
                         running = False
                     elif event.key == pygame.K_g and session.alive and "cleanliness" in session.state:
                         queued = "clean"
@@ -712,7 +731,8 @@ def run(argv: list[str] | None = None) -> int:
                             bench.message += "   adopted!"
 
             if (
-                review is None
+                not help_mode
+                and review is None
                 and browser is None
                 and session.alive
                 and frame % args.tick_frames == 0
@@ -805,9 +825,11 @@ def run(argv: list[str] | None = None) -> int:
                 "RGB",
             )
             window.fill((16, 18, 16))
-            window.blit(surface, (0, 0))
+            window.blit(surface, ((window_size[0] - width * args.scale) // 2, 0))
             footer = _footer_lines(snapshot, queued)
-            if story is not None:
+            if help_mode:
+                footer = list(HELP_LINES)
+            elif story is not None:
                 footer = [
                     "LINEAGE  " + story.caption(),
                     *story.detail_lines(),
@@ -831,14 +853,19 @@ def run(argv: list[str] | None = None) -> int:
                 footer.extend(bench.budget_lines())
             else:
                 footer.append(
-                    f"E: run era [{bench.weather}]  1-5: weather "
-                    "(4=REAL 5=CALLBACK)  C: covenant  H: hatch  "
-                    "R: release  W: workshop  V: review  B: "
-                    "repertoire  L: lineage  X/I: covenant io  K: pack"
+                    f"F1 controls   E era [{bench.weather}]   C covenant"
                 )
-            if bench.message:
-                footer.append(bench.message)
-            for index, line in enumerate(footer):
+            if bench.message and not help_mode:
+                footer.insert(0, bench.message)
+            context = ('help' if help_mode else 'lineage' if story is not None else
+                       'repertoire' if browser is not None else 'review' if review is not None else
+                       'covenant' if covenant_mode else 'play', bench.message)
+            if context != footer_context:
+                footer_pager.reset()
+                footer_context = context
+            rows = (FOOTER_PX - 12 - font.get_height()) // 22 + 1
+            page = footer_pager.layout(footer, lambda text: font.size(text)[0], window_size[0] - 16, rows)
+            for index, line in enumerate(page.lines):
                 if line:
                     window.blit(
                         font.render(line, True, (200, 230, 200)),

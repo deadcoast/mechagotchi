@@ -1068,3 +1068,11 @@ bypassed. The earlier dated default notes describe their historical states.
 - `research/decision_records/0064-default-covenant-cleanliness.md`
 - `research/experiment_reports/2026-10-04-default-covenant-gate.md`
 - `sunsetted/TODO.md`
+
+## Current local resume (2026-10-04)
+
+Q4 is in progress at 97db227c with actual-repository Python 3.13.9. Writes now
+work after direct approval. Follow pombi local development direction; owner
+retains commits/sync/push. No source mirrors or environment replacement.
+Preregistration: `docs/development/q4-hidden-axes-controls.md`; findings:
+`research/experiment_reports/2026-10-04-hidden-axis-sources-and-readable-controls.md`.

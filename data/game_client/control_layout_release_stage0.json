@@ -1,0 +1,52 @@
+{
+  "artifact_id": "control_layout_release_stage0",
+  "date": "2026-10-04",
+  "status": "observed_native_windows_bundle",
+  "purpose": "Actual Q4 controls bundle continuity; source SDL pixel/event checks are separate.",
+  "source_artifacts": [
+    "docs/development/q4-hidden-axes-controls.md",
+    "game/src/mecha_game/footer.py",
+    "game/tests/test_footer_layout.py",
+    "research/decision_records/0065-hidden-axis-sources-and-readable-controls.md"
+  ],
+  "metrics": {
+    "launch_exit_codes": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "fresh_age": 4,
+    "resumed_age": 7,
+    "campaign_eras": [
+      1,
+      2
+    ],
+    "checks": {
+      "fresh_default_enabled": true,
+      "same_life_resumed": true,
+      "explicit_old_profile_stays_off": true,
+      "new_campaign_uses_selected_profile": true,
+      "campaign_resume_keeps_profile": true
+    },
+    "executable_sha256": "edd3908839989c3ad7955424232c941a2342cea5b10108bfc2fe01e648ad4bf0",
+    "executable_bytes": 3046259
+  },
+  "closed_states": [
+    "campaign_resume_keeps_profile",
+    "explicit_old_profile_stays_off",
+    "fresh_default_enabled",
+    "new_campaign_uses_selected_profile",
+    "same_life_resumed"
+  ],
+  "blocked_states": [
+    "native_remote_ci_unverified",
+    "signing_and_other_platform_builds_not_observed",
+    "human_usability_unmeasured"
+  ],
+  "decision": {
+    "verdict": "local_release_verified",
+    "failed_checks": []
+  },
+  "next_research_step": "Q4 hidden-axis source survey; independent exact-SHA native remote CI when publication is allowed."
+}

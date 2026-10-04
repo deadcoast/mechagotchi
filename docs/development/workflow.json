@@ -32,6 +32,16 @@
         "game",
         "cli"
       ]
+    },
+    "q4-hidden-axes-controls": {
+      "spec": "docs/development/q4-hidden-axes-controls.md",
+      "purpose": "Survey engine sources and make existing game controls readable",
+      "suites": [
+        "lab:architecture",
+        "lab:game_loop",
+        "package",
+        "game"
+      ]
     }
   }
 }

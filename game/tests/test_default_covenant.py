@@ -110,6 +110,9 @@ class DefaultCovenantTests(unittest.TestCase):
                     def __init__(self, *args, **kwargs):
                         self.font = original_font(*args, **kwargs)
 
+                    def __getattr__(self, name):
+                        return getattr(self.font, name)
+
                     def render(self, text, *args, **kwargs):
                         rendered = self.font.render(text, *args, **kwargs)
                         if text == notice:

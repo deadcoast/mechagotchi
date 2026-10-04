@@ -42,3 +42,11 @@ This is an agent-operated, foreground workflow. No hidden service, unattended
 agent, scheduler or persistent credentials are installed. At a bounded stopping
 point, checkpoint the findings, remaining gates, and exact next action so the
 next active agent resumes from evidence rather than inventing a new backlog.
+
+## Current local authority (2026-10-04)
+
+Follow pombi as the user-designated local development lead. Use this actual
+repository and its `.venv/Scripts/python.exe` (3.13.9) for current work. Do not
+create source mirrors or new environments. The owner alone commits, syncs and
+pushes; leave current changes uncommitted. These session instructions supersede
+older agent commit-per-task guidance. Preserve existing modifications.
