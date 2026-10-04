@@ -10,10 +10,14 @@ The agent makes the implementation decisions; this command captures scope,
 executes verification, and refuses unsupported completion claims. It does not
 invent features, spawn another agent, install dependencies, commit, or publish.
 
-The next product slice is cycle 27 Q2, not a new backlog. Q3 is a separate
-default-covenant ADOPT/REFUSE decision; Q4 is a measured hidden-axis survey;
-Q5 consolidates those findings. Q1's eligibility does not promote the Q-table.
-The current queue and standing scientific rules remain in `sunsetted/TODO.md`.
+Current resume (2026-10-04): Q1-Q5 are locally complete. Read the existing
+`q5-consolidation` state and Phase-Q report to resume from verified closure.
+A fresh session alone is not a reason to repeat a current passing gate. Do not
+replace completed evidence or treat an admitted task as verified. Cycle 28 is
+planned in `sunsetted/TODO.md` and
+`docs/development/cycle-28-learning-consumer.md`; it must wait for Q5 review.
+Q1 eligibility remains separate from Q-table promotion. The latest recovery
+delegation reserves commit/sync/push to the user.
 
 ## Preregistered workflow contract
 
@@ -75,17 +79,31 @@ No background service, credentials, or schedule is installed.
 
 ## Commands and resume
 
-Provision all groups using the existing lock if needed. The normal command is
-`mechas develop`; from source, without changing the installed CLI:
+Reuse the authoritative repository and its existing Python 3.13.9 environment.
+The normal command is `mechas develop`; the exact read-only source resume is:
 
 ```powershell
+Set-Location -LiteralPath 'C:\Users\ryanf\github\_shelved\mechagotchi'
 $env:PYTHONPATH = (Resolve-Path tools/mechas_cli/src).Path
 & .\.venv\Scripts\python.exe -B -m mechas_cli.app develop --status
-& .\.venv\Scripts\python.exe -B -m mechas_cli.app develop --start q2-mechanics
-& .\.venv\Scripts\python.exe -B -m mechas_cli.app develop --checkpoint 'Reviewed Q2; next: strict validator regression matrix.'
-& .\.venv\Scripts\python.exe -B -m mechas_cli.app develop --advance repair --note 'Preregistered Q2 contract; begin RED cases.'
-& .\.venv\Scripts\python.exe -B -m mechas_cli.app develop --verify focused
 ```
+
+For Q5, expect `phase=polish`, `full_current=true`, `local_complete=true`, and
+`running=null`. Read the latest checkpoint and
+`research/experiment_reports/2026-10-04-phase-q-gate.md`; do not reopen or rerun
+Q5 when that evidence is current. If a verification is running, inspect its run
+logs. If source, data, configuration or a preregistered contract has changed,
+follow the recorded phase and reverify as required; never relabel stale evidence.
+Report-only updates outside the fingerprint do not require a fresh sweep.
+
+R1 is planned but **not registered** in `docs/development/workflow.json`; no R1
+start command is runnable yet. After Q5 review, the next legitimate preparation
+is to preregister that existing bounded package producer/consumer parity scope,
+its defaults-off controls and suite selection in the same workflow. Registration
+and next-task execution are not performed by this Q5 resume example. Do not begin
+the next task's RED before committing the previous completed task. This preserves
+the AGENTS rule without barring reading or preregistration before that commit.
+Commits, sync and pushes remain the user's actions.
 
 `--python` selects an already provisioned interpreter explicitly. The output
 always names the actual root, HEAD and branch so an isolated checkout cannot
@@ -108,7 +126,8 @@ focused verification, never a full-sweep claim.
 ## Sources
 
 - `CLAUDE.md`, `ONBOARDING.md`, `sunsetted/TODO.md`
-- `docs/development/workflow.json`, `docs/development/q2-mechanics-rung.md`
+- `docs/development/workflow.json`, `docs/development/q5-consolidation.md`
+- `docs/development/cycle-28-learning-consumer.md`
 - `research/decision_records/0061-portable-provenance-and-ci-evidence.md`
 - `research/decision_records/0062-local-development-cycle.md`
 - `tools/ci/run_sweep.py`, `tools/mechas_cli/src/mechas_cli/development.py`

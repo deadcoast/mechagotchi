@@ -1296,3 +1296,23 @@ source/CLI/native launches are checked separately. Cycle 27 is archived at
 `sunsetted/complete/TODO/27/TODO.md`; cycle 28 remains PLANNED in
 `docs/development/cycle-28-learning-consumer.md`, with package producer/consumer
 parity, playable opt-in/persistence and an actual-game default gate.
+
+Q5 closed locally through the existing development workflow, full run
+`20261004T142630-8769408e`: 2493 tests / 24 suites, two named DR 0034 skips,
+2269 valid JSON artifacts and no source mutations. Eight source/CLI checks and
+four native launches/five continuity checks passed. The scientific/application
+source and all data bytes match Q4. Launch guidance now uses an explicit native
+save directory; the existing bundled resolver's `_internal/keeper` location is
+a recorded release limitation. Cycle 28 awaits Q5 review; publishing remains
+with the user and exact-SHA remote CI remains unmet.
+
+Q5 review polish corrected the closure-first resume example and narrowed the
+commit prerequisite to the next RED. Contract-file revalidation
+`20261004T145131-9f5720de` passed the same 2493 tests / 24 suites, two DR 0034
+skips and 2269 JSON artifacts without source mutations. Earlier run evidence
+remains intact. R1 registration is pending; no cycle-28 work was started.
+
+## Cycle 28 implementation (2026-10-04)
+
+- [Playable learning integration](experiment_reports/2026-10-04-playable-learning.md): R1/R2 source and native behavior implemented; full local closure pending.
+- [DR 0066](decision_records/0066-playable-qtable-opt-in.md): experimental option, incumbent unchanged; actual-game adoption remains a separate gate.

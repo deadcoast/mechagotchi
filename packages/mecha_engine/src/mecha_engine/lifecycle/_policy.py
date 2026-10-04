@@ -37,6 +37,7 @@ profiles, exactly as the lab lifecycle does. The lab-side parity pin is
 from __future__ import annotations
 
 import random
+from collections.abc import Callable
 
 # Stage 0 first action set. Order is load-bearing: the switchboard utility
 # table and the bandit-thread means iterate in this order, so deterministic
@@ -52,7 +53,8 @@ def choose_action(policy: str, state: dict, rng: random.Random) -> str:
 
 
 def choose_action_detailed(
-    policy: str, state: dict, rng: random.Random
+    policy: str, state: dict, rng: random.Random,
+    *, decision_function: Callable[[dict], dict] | None = None,
 ) -> tuple[str, dict | None]:
     """(action, deliberation record | None) — F1, the seen thought.
 
@@ -75,8 +77,13 @@ def choose_action_detailed(
         return "feed", None
     if state["stress"] > 0.72:
         return "idle", None
-    decision = run_switchboard(state)
-    return decision["action"], decision.get("deliberation")
+    # An explicit evaluator lets a consumer use promoted learning without
+    # changing the frozen comparator or bypassing its engine-owned reflexes.
+    decision = (decision_function or run_switchboard)(state)
+    thought = decision.get("deliberation")
+    if "qtable_consumer" in decision:
+        thought = {**(thought or {}), "qtable_consumer": decision["qtable_consumer"]}
+    return decision["action"], thought
 
 
 def _ctm_state_pressure(state: dict) -> dict[str, float]:

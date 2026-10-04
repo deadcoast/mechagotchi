@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import dataclasses
 import json
+import math
 import random
 from pathlib import Path
 
@@ -36,7 +37,7 @@ from mecha_engine.generation import (
     train_generation_model,
 )
 from mecha_engine.genome import clip_frame_count, render_packet_v2
-from mecha_engine.learning import fleet_signals, observe_fleet
+from mecha_engine.learning import decide, fleet_signals, observe_fleet
 from mecha_engine.lifecycle import (
     ACTIONS,
     advance_tick,
@@ -80,6 +81,47 @@ NEED_DISPLAY = {
     "cleanliness": {"label": "cleanliness", "good_when": "high"},
 }
 CLEAN_ACTION = "clean"
+LEARNING_POLICIES = ("incumbent", "qtable")
+
+
+def _validate_learning_policy(policy: object) -> str:
+    if not isinstance(policy, str) or policy not in LEARNING_POLICIES:
+        raise ValueError("learning policy must be incumbent or qtable")
+    return policy
+
+
+def _validate_saved_qtable(state: dict, policy: str, fleet: bool) -> None:
+    """Reject inconsistent or malformed experimental state before resuming."""
+    if not isinstance(state, dict):
+        raise ValueError("invalid saved learning state")
+    switches = state.get("learning_switches") or {}
+    states = state.get("thread_states") or {}
+    if not isinstance(switches, dict) or not isinstance(states, dict):
+        raise ValueError("invalid saved Q-table learning state")
+    expected = policy == "qtable" and fleet
+    if any((switches.get(key) is True) != expected
+           for key in ("qtable_policy", "qtable_consumer")):
+        raise ValueError("saved learning policy conflicts with its Q-table switches")
+    thread = states.get("qtable_policy")
+    if thread is None:
+        return
+    if not expected or not isinstance(thread, dict):
+        raise ValueError("invalid saved Q-table state")
+    table = thread.get("q", {})
+    buckets = {f"{h}{e}" for h in range(3) for e in range(3)}
+    keys = {f"{bucket}|{action}" for bucket in buckets for action in ACTIONS}
+    if not isinstance(table, dict) or not set(table).issubset(keys):
+        raise ValueError("invalid saved Q-table entries")
+    pending = thread.get("pending_bucket")
+    if pending is not None and (not isinstance(pending, str) or pending not in buckets):
+        raise ValueError("invalid saved Q-table pending bucket")
+    for record in table.values():
+        if not isinstance(record, dict):
+            raise ValueError("invalid saved Q-table reward")
+        count, value = record.get("n"), record.get("mean")
+        if (type(count) is not int or count < 1 or type(value) not in (int, float)
+                or not math.isfinite(value) or not 0 <= value <= 1):
+            raise ValueError("invalid saved Q-table reward")
 
 
 def load_session_inputs(
@@ -108,11 +150,13 @@ class CompanionSession:
         fleet: bool = True,
         origin: str = "founder",
         mechanics: tuple | list | None = None,
+        learning_policy: str = "incumbent",
     ) -> None:
         # The engine's own gate judges the adoption (refuses with the
         # validator's/covenant's verbatim errors). `mechanics` (P3,
         # DR 0059 / DR 0063) overrides covenant mechanics. None inherits;
         # an explicit empty sequence disables. Ordinary off-mode is unchanged.
+        self.learning_policy = _validate_learning_policy(learning_policy)
         self.mechanics = None if mechanics is None else tuple(mechanics)
         self.state = initial_state(grid, slip_profile, mechanics=self.mechanics)
         self.fleet = fleet
@@ -122,6 +166,8 @@ class CompanionSession:
             self.state["learning_switches"] = {
                 **(self.state.get("learning_switches") or {}),
                 **{name: True for name in KEPT_THREADS},
+                **({"qtable_policy": True, "qtable_consumer": True}
+                   if self.learning_policy == "qtable" else {}),
             }
         self.grid = json.loads(json.dumps(grid))
         self.slip_profile = json.loads(json.dumps(slip_profile))
@@ -156,6 +202,8 @@ class CompanionSession:
         probe = self._probe_packet()
         return {
             "name": self.name,
+            **({"learning_policy": self.learning_policy, "learning_active": self.fleet}
+               if self.learning_policy == "qtable" else {}),
             "alive": self.alive,
             "death_cause": self.death_cause,
             "age_ticks": self.state["age_ticks"],
@@ -279,7 +327,9 @@ class CompanionSession:
             )
             self.state["thread_states"] = observe_fleet(self.state)
         decision, thought = choose_action_detailed(
-            "switchboard", self.state, self._rng
+            "switchboard", self.state, self._rng,
+            **({"decision_function": decide}
+               if self.fleet and self.learning_policy == "qtable" else {}),
         )
         begging = decision == "feed"
         if player_action is not None:
@@ -337,6 +387,8 @@ class CompanionSession:
             self.state["learning_switches"] = {
                 **(self.state.get("learning_switches") or {}),
                 **{name: True for name in KEPT_THREADS},
+                **({"qtable_policy": True, "qtable_consumer": True}
+                   if self.learning_policy == "qtable" else {}),
             }
         self.grid = child
         self.begging = False
@@ -355,6 +407,8 @@ class CompanionSession:
             "lineage": json.loads(json.dumps(grid.get("lineage"))),
             "born_session_tick": self.session_tick,
             "origin": origin,
+            **({"learning_policy": self.learning_policy}
+               if self.learning_policy == "qtable" else {}),
         }
 
     def lineage_document(self) -> dict:
@@ -397,6 +451,8 @@ class CompanionSession:
             "lineage": self.lineage,
             "generation_model": dataclasses.asdict(self.model),
         }
+        if self.learning_policy != "incumbent":
+            payload["learning_policy"] = self.learning_policy
         # Rung-conditional (the engine's own convention): only sessions
         # that opted into mechanics carry the key, so a default save is
         # byte-identical to the pre-seam format.
@@ -417,7 +473,7 @@ class CompanionSession:
         return path
 
     @classmethod
-    def load(cls, path: str | Path) -> "CompanionSession":
+    def load(cls, path: str | Path, *, learning_policy: str | None = None) -> "CompanionSession":
         """Resume a saved session exactly where it stopped. The fixed
         RNG instance is recreated fresh — the switchboard path never
         draws from it, so a resumed life continues byte-identically
@@ -428,7 +484,12 @@ class CompanionSession:
                 "not a keeper session save: "
                 f"{payload.get('session_format')!r}"
             )
+        saved_policy = _validate_learning_policy(payload.get("learning_policy", "incumbent"))
+        if learning_policy is not None and _validate_learning_policy(learning_policy) != saved_policy:
+            raise ValueError("learning policy conflicts with the saved companion; use --new or a separate --keeper-dir")
+        _validate_saved_qtable(payload["state"], saved_policy, payload["fleet"])
         session = cls.__new__(cls)
+        session.learning_policy = saved_policy
         session.state = payload["state"]
         session.grid = payload["grid"]
         session.slip_profile = payload["slip_profile"]

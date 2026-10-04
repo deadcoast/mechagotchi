@@ -29,3 +29,17 @@ class GameLaunchOptionsTests(unittest.TestCase):
                 result = CliRunner().invoke(app, ['game', *args])
                 self.assertEqual(2, result.exit_code)
                 launch.assert_not_called()
+
+    def test_experimental_learning_policy_reaches_the_client(self):
+        with patch('mechas_cli.workflows.game.subprocess.run', return_value=SimpleNamespace(returncode=0)) as launch:
+            result = CliRunner().invoke(app, ['game', '--play', '--learning-policy', 'qtable'])
+        self.assertEqual(0, result.exit_code, result.output)
+        args=launch.call_args.args[0]
+        self.assertEqual('qtable',args[args.index('--learning-policy')+1])
+
+    def test_invalid_or_misplaced_policy_does_not_launch(self):
+        for args in (['--play','--learning-policy','unknown'],['--learning-policy','qtable']):
+            with self.subTest(args=args), patch('mechas_cli.workflows.game.subprocess.run') as launch:
+                result=CliRunner().invoke(app,['game',*args])
+                self.assertEqual(2,result.exit_code)
+                launch.assert_not_called()

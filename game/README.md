@@ -63,16 +63,40 @@ import a community pack from `keeper/packs/pack_import.json`
 companion begs when it wants food — only you can feed it; neglect
 starves it (measured: ~10 ticks).
 
+## Experimental learning policy
+
+The current default remains `incumbent`. Try the bounded Q-table learner in
+a separate save directory; the choice and learned state survive quit/resume.
+Successors retain the choice and learn afresh. Only you can feed the companion.
+The casing pages show its actual recommendation and followed decision.
+
+```powershell
+.venv/Scripts/python.exe -B game/run_game.py --new --learning-policy qtable --keeper-dir "$env:USERPROFILE/.mechagotchi-qtable"
+# Resume without repeating the policy:
+.venv/Scripts/python.exe -B game/run_game.py --keeper-dir "$env:USERPROFILE/.mechagotchi-qtable"
+# Supportive source CLI (with tools/mechas_cli/src on PYTHONPATH):
+.venv/Scripts/python.exe -B -m mechas_cli.app game --play --new --learning-policy qtable --keeper-dir "$env:USERPROFILE/.mechagotchi-qtable-example"
+```
+
+An explicit policy conflicting with a saved companion is refused before writes.
+`--learning-policy incumbent` selects the original behavior for a new life.
+The locally verified native build is
+`game/dist/r2-learning/Mechagotchi/Mechagotchi.exe`; keep `_internal` beside it.
+Use the same policy and explicit absolute save-directory arguments there.
+
 ## Install it (F5)
 
 ```powershell
 .venv/Scripts/python.exe -B game/build_release.py --windowed
-.\game\dist\Mechagotchi\Mechagotchi.exe        # install-free bundle: launch and play
+.\game\dist\Mechagotchi\Mechagotchi.exe --keeper-dir "$env:USERPROFILE\.mechagotchi"
 ```
 
 Quit and come back: the client auto-resumes your companion from the
 save file (`--new` starts a fresh one). Saves live in `keeper/` in a
-checkout, `~/.mechagotchi` for the installed build.
+checkout. For the current native bundle, choose an absolute `--keeper-dir`
+(as above): its bundled-data resolver otherwise selects `_internal/keeper`.
+An explicit directory does not migrate existing saves. Q5 records this release
+limitation; the standalone installed-package fallback remains `~/.mechagotchi`.
 
 ## Test it
 

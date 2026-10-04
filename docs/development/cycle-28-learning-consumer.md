@@ -1,6 +1,6 @@
 # Cycle 28 / Phase R: the measured learner reaches the playable companion
 
-Status: PLANNED, NOT STARTED. Prepared at Q5 on 2026-10-04.
+Status: R1/R2 implementation active. Q5 reviewed on 2026-10-04.
 Track: ENGINE first, then GAME. Review this completed consolidation before R1.
 Source: DR 0060, Q1's unchanged artifact, DR 0063–0065, and the Phase-Q report.
 Use the authoritative repository and its existing Python 3.13.9 environment.
@@ -94,14 +94,17 @@ explicit study call-site bindings. Enumerate the exact affected artifact set;
 old defect/eligibility measurements are never regenerated onto new semantics.
 Verify readable controls/provenance, care, help pause, long notices, actual
 launcher examples, independent saves, and the one-folder native release outside
-repo cwd. No dependency/environment churn unless capability evidence requires it.
+repo cwd. Q5 found the existing bundled default resolves under `_internal/keeper`;
+preregister any save-home correction and preserve previously saved companions.
+Until then, document an explicit absolute `--keeper-dir`. No dependency or
+environment churn unless capability evidence requires it.
 
 ## R5 — close the evidence, preserve the next question (SHARED)
 
 One consolidated report, complete full sweep/artifact/preservation audit and
 cycle archive. Record scientific remainders separately from remote CI/signing
-and owner-deferred human work. Commits and current-branch pushes follow the
-user's 2026-10-04 authorization after verification; no history rewrite.
+and owner-deferred human work. The latest 2026-10-04 recovery delegation reserves
+commit/sync/push to the user; no history rewrite.
 
 ## Explicitly outside this cycle
 
@@ -110,3 +113,58 @@ claim, new health/happiness definition, default autonomous grooming, animation
 roster promotion, archive-loop changes, hosted registry, broad UI redesign,
 new agent service or background automation. Those retain their named records.
 The live queue is this plan, not permission to start before Q5 is reviewed.
+
+## Active R1/R2 contract (2026-10-04, before RED)
+
+Q5 is reviewed. The user explicitly directed development without committing
+in response to the sequencing-waiver question. Preserve all Q5 edits; Git
+mutations remain reserved to the user. This is the existing R1/R2 scope above.
+
+Parity vectors: committed off-mode switchboard scenarios; explicit switches
+absent/false/0/1/string/True; cold table; bucket boundaries .34/.67; reward
+visits 2/3/11/12/13; tied action values; missing producer; follower action
+differing from additive action; deliberation provenance; full bounded episodes
+with executed-action credit and input immutability. Compare complete public
+and lab decisions and thread states, and reproduce the unchanged Q1 instrument.
+
+Playable policy values: incumbent (default) and qtable (experimental).
+Persist qtable only when selected; absent old-save mode means incumbent.
+Explicit conflicting resume choices and invalid/corrupt saved modes fail before
+writes. Fleet-off leaves this learning inert. Succession retains the chosen
+mode, records parent policy provenance and starts a cold child table. Keep
+feed decisions keeper-mediated and display actual consumer provenance.
+
+Focused suites: lab:micro_threads, lab:grid_genome, package, game, cli.
+Run actual isolated source launches for new/resume/conflict and session loops
+for cold-to-warm, succession and fleet-off. Full sweep closes the slice after
+integrated code and evidence; no repetition for report-only updates.
+
+## R3/R4 execution pins (before RED and measurement)
+
+R1/R2 inspection found the shipped incumbent's lifecycle evaluator is frozen:
+the five kept threads observe and display, but its additive evaluator does not
+consume their signals. Preserve this actual baseline. B uses the explicit
+promoted evaluator with the five kept threads plus Q-table additive signal;
+C is identical to B with the follower enabled. C vs B isolates the follower;
+C vs A includes the newly connected promoted evaluator. Engine reflexes remain
+first in every arm. Keeper response uses the previous displayed beg, as a real
+CompanionSession does; use the unchanged ablation_gates.keeper_respond function,
+no extra cleaning or invented keeper actions. Count clean separately (possibly
+zero), and report every executed action, beg, follower decision and refusal.
+
+Use build_seed_grids() in original order, index modulo 50, five KEEPER_IDS,
+100 attempted lifecycles each, 200 requested ticks, paired RNG seed
+20260709 + keeper_index*100000 + lifecycle_index. The current cleanliness
+covenant admits only the ten lcd_green members; the other forty fail its
+palette gate. Do not repaint genomes, broaden the covenant or silently filter
+the corpus. Record refused attempts separately, run all admitted trials,
+label admitted-subset welfare as diagnostic, and REFUSE default adoption when
+the complete inherited corpus is not comparable. Also retain the +5% vs both
+A/B requirement and the candidate Q3 400-tick attentive/neglect controls.
+
+R4 save-home repair: a frozen release starts new saves under the user's
+`.mechagotchi` directory (spelled `.mechagotchi` in code), not _internal/keeper.
+If only the legacy bundled directory has an existing companion/campaign,
+continue there without migrating or deleting it. When both have saves, prefer
+the user home and leave legacy bytes untouched. Explicit --keeper-dir wins.
+Verify real native launches with isolated user homes and legacy fixtures.

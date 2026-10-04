@@ -52,6 +52,27 @@
         "cli",
         "ci"
       ]
+    },
+    "r1-r2-playable-qtable": {
+      "spec": "docs/development/cycle-28-learning-consumer.md",
+      "purpose": "Promote the bounded Q-table and make its defaults-off consumer playable with honest persistence",
+      "suites": [
+        "lab:micro_threads",
+        "lab:grid_genome",
+        "package",
+        "game",
+        "cli"
+      ]
+    },
+    "r3-r4-product-release": {
+      "spec": "docs/development/cycle-28-learning-consumer.md",
+      "purpose": "Measure actual-game default adoption and repair native save-home continuity",
+      "suites": [
+        "lab:game_loop",
+        "package",
+        "game",
+        "cli"
+      ]
     }
   }
 }

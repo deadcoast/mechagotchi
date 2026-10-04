@@ -607,8 +607,8 @@ actual game arms with begging priced explicitly. Review completed Q5 first.
 
 Use this repository's existing `.venv/Scripts/python.exe` (Python 3.13.9).
 Preserve user/external work. Follow pombi development direction. The direct user
-instruction of 2026-10-04 now assigns verified requested commits and pushes to
-the development agent; it supersedes the earlier session no-agent-Git rule.
+recovery delegation of 2026-10-04 reserves commit/sync/push to the user; it
+supersedes earlier agent publishing authorization for this recovery.
 No history rewrite, new source checkout/environment or automatic next-cycle
 start is authorized here. Earlier dated state notes remain historical snapshots.
 
@@ -1067,7 +1067,7 @@ bypassed. The earlier dated default notes describe their historical states.
 - `research/experiment_reports/2026-10-04-default-covenant-gate.md`
 - `sunsetted/TODO.md`
 
-## Current local resume (2026-10-04)
+## Earlier local resume snapshot (2026-10-04, Q4; retained history)
 
 Q4 is in progress at 97db227c with actual-repository Python 3.13.9. Writes now
 work after direct approval. Follow pombi local development direction; owner
@@ -1078,3 +1078,28 @@ Preregistration: `docs/development/q4-hidden-axes-controls.md`; findings:
 Q4 closing gate passed: 2493 tests / 24 suites, two named DR 0034 zlib skips,
 2269 JSON artifacts. Owner-side commit e1bcf9f landed during the run without
 source byte changes. Completion notes remain uncommitted; Q5 is next.
+
+## Current local resume (2026-10-04, Q5 recovery)
+
+Authoritative root: C:/Users/ryanf/github/_shelved/mechagotchi; existing Python
+3.13.9. External HEAD 8145b4aa is preserved. Q5 closed locally through the existing
+`mechas develop` workflow: review-polish full run `20261004T145131-9f5720de`, 2493 tests / 24
+suites, two named DR 0034 skips, 2269 valid JSON artifacts, no source mutations.
+Read `--status` and `research/experiment_reports/2026-10-04-phase-q-gate.md` for
+the evidence. Earlier Q2/Q4 resume notes above are history.
+Ordinary sandbox writes failed; supported scoped escalation successfully wrote
+the recovery checkpoint. No security settings, source checkout or environment
+were changed. Actual source/CLI and native launches passed with isolated saves.
+Use an explicit absolute native `--keeper-dir`; the existing bundled default
+resolves under `_internal/keeper` (source-resolver observation).
+
+Next action: review this completed Q5 report and its uncommitted documentation
+corrections. Cycle 28 remains planned and must not start before Q5 review. R1 is
+not registered in `docs/development/workflow.json`; no R1 start command is runnable
+yet. After review, preregister the existing bounded package producer/consumer
+parity scope, defaults-off controls and suite selection in the same workflow.
+Do not begin the next task's RED before committing the previous completed task.
+Reading and preregistration do not require that commit; commit/sync/push remain
+the user's actions. The exact read-only resume command sequence is in
+`docs/development/local-cycle.md`. Remote exact-SHA CI, signing and human usability
+remain independent unmet gates.

@@ -44,6 +44,9 @@ from .threads import fleet_signals
 ACTIONS: list[str] = ["feed", "play", "sleep", "idle", "mutate"]
 
 
+QTABLE_CONSUMER_SWITCH = "qtable_consumer"
+
+
 def decide(state: dict) -> dict:
     """Return the micro-switchboard decision for one lifecycle state.
 
@@ -86,6 +89,39 @@ def decide(state: dict) -> dict:
         "explanation": f"Selected {action} from additive micro-learner utilities.",
     }
 
+    # Q1 (DR 0060): the consumer follows the THREAD — it fires only when
+    # the qtable thread is itself opted in, warm, and fully confident.
+    # The override is recorded rung-conditionally, so off-mode decisions
+    # never gain a key.
+    if switches.get(QTABLE_CONSUMER_SWITCH) is True:
+        qtable = next(
+            (thread for thread in threads if thread["name"] == "qtable_policy"),
+            None,
+        )
+        if (
+            qtable is not None
+            and not qtable["output"].get("cold_start", True)
+            and qtable["confidence"] >= 1.0
+        ):
+            recommended = qtable["output"]["best_action"]
+            decision = {
+                "action": recommended,
+                "confidence": qtable["confidence"],
+                "utilities": decision["utilities"],
+                "threads": threads,
+                "explanation": (
+                    f"Followed the Q-table's recommendation {recommended} "
+                    "(qtable_consumer seam; thread fully warm)."
+                ),
+                "qtable_consumer": {
+                    "followed": True,
+                    "recommended": recommended,
+                    "base_action": action,
+                    "agreed": recommended == action,
+                    "thread_confidence": qtable["confidence"],
+                },
+            }
+
     # R1 (DR 0017): CTM-inspired confidence-gated deliberation — the og
     # "thinking over ticks". Opt-in via SLIP-stashed state keys; no v0.1
     # flow ever sets them, so the frozen path is bit-for-bit. Semantics
@@ -106,7 +142,7 @@ def decide(state: dict) -> dict:
             aggregate[name] = aggregate.get(name, 0.0) + value * gain
         final_decision = _ctm_decision_from_utilities(aggregate, tick)
         tick_count = tick
-    return {
+    deliberated = {
         "action": final_decision["action"],
         "confidence": final_decision["confidence"],
         "utilities": final_decision["utilities"],
@@ -119,6 +155,47 @@ def decide(state: dict) -> dict:
             "max_ticks": int(max_ticks),
             "confidence_threshold": threshold,
         },
+    }
+
+    if "qtable_consumer" in decision:
+        deliberated["qtable_consumer"] = decision["qtable_consumer"]
+    return deliberated
+
+
+def _ctm_state_pressure(state: dict) -> dict[str, float]:
+    """Mirrored verbatim from labs/ctm_ticks/ctm_inspired_ticks.py
+    (_state_pressure) — pinned by the R1 live-vs-lab parity test."""
+    hunger = _clamp(state.get("hunger", 0.5))
+    energy = _clamp(state.get("energy", 0.5))
+    bond = _clamp(state.get("bond", 0.5))
+    stress = _clamp(state.get("stress", 0.0))
+    stability = _clamp(state.get("grid_stability", 0.5))
+    interaction = 0.0
+    for event in state.get("recent_interactions", []):
+        interaction = 0.45 * _clamp(event) + 0.55 * interaction
+    interaction = round(interaction, 6)
+    return {
+        "feed": round(hunger * 0.22, 6),
+        "sleep": round((1 - energy) * 0.22, 6),
+        "play": round(bond * 0.12 + interaction * 0.18 + (1 - stress) * 0.05, 6),
+        "idle": round(stress * 0.14 + (1 - interaction) * 0.05, 6),
+        "mutate": round((stability - stress) * 0.12, 6),
+    }
+
+
+def _ctm_decision_from_utilities(utilities: dict[str, float], tick: int) -> dict:
+    """Mirrored verbatim from labs/ctm_ticks (_decision_from_utilities)."""
+    sorted_actions = sorted(utilities.items(), key=lambda item: item[1], reverse=True)
+    action, top_score = sorted_actions[0]
+    next_score = sorted_actions[1][1] if len(sorted_actions) > 1 else 0.0
+    margin = top_score - next_score
+    return {
+        "action": action,
+        "confidence": round(_clamp(0.5 + margin), 6),
+        "utilities": {key: round(value, 6) for key, value in sorted(utilities.items())},
+        "explanation": (
+            f"Selected {action} after {tick} confidence-gated internal ticks."
+        ),
     }
 
 

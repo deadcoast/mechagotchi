@@ -40,3 +40,20 @@ After preregistration and entrypoint observations, the user explicitly assigned
 verified requested commits/pushes to this agent. This supersedes the earlier
 no-Git instruction for publication only. Measurement/preservation gates and
 the prohibition on starting cycle 28 before review remain unchanged.
+
+## Recovery execution authority and launch audit (2026-10-04)
+
+The latest recovery delegation again reserves commit/sync/push to the user.
+Use the supported runtime escalation path for scoped Q5 writes and verification;
+do not change security settings or bypass a review denial. External commits
+7f5b3ad0 and 8145b4aa are preserved. Ordinary sandbox attempts failed writing the
+checkpoint and creating temporary files; these are recorded failed attempts,
+not failed scientific gates or proof that an escalated request was denied.
+
+Audit the native save-home claim as part of actual launch guidance. Inspect
+its source resolver against the existing bundled data layout, labeling that
+observation separately from actual executable launches with isolated saves.
+Preserve all existing saves; do not create or migrate a user default home for
+this audit. Keep runtime observations and document an explicit absolute
+--keeper-dir launch. Save-home behavior changes require a later release record;
+Q5 changes no application semantics and never silently relocates a companion.

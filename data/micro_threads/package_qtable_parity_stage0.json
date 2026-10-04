@@ -1,0 +1,104 @@
+{
+  "artifact_id": "package_qtable_parity_stage0",
+  "date": "2026-10-04",
+  "status": "package_parity_verified_defaults_off",
+  "purpose": "Promote the bounded producer and follower without changing the Q1 instrument or incumbent runtime defaults.",
+  "source_artifacts": [
+    "data/micro_threads/qtable_consumer_gate_stage0.json",
+    "labs/micro_threads/test_package_qtable_parity.py",
+    "packages/mecha_engine/src/mecha_engine/learning/threads.py",
+    "packages/mecha_engine/src/mecha_engine/learning/_switchboard.py"
+  ],
+  "parameters": {
+    "lifecycles_per_keeper": 100,
+    "ticks_per_lifecycle": 200,
+    "seed_base": 20260709,
+    "keep_threshold_pct": 5.0,
+    "conditions": [
+      "full_fleet",
+      "qtable_consumer"
+    ],
+    "consumer_semantics": "explicit-True learning switch; follows qtable_policy's best_action only when the thread is warm and reports full confidence (its own committed QTABLE_CONFIDENT_VISITS semantics)"
+  },
+  "metrics": {
+    "package_parity_tests": 5,
+    "parity_output": "test_committed_off_mode_instrument (test_package_qtable_parity.PackageQtableParityTests.test_committed_off_mode_instrument) ... ok\ntest_complete_episodes_execute_and_credit_same_actions (test_package_qtable_parity.PackageQtableParityTests.test_complete_episodes_execute_and_credit_same_actions) ... ok\ntest_floor_boundaries_ties_and_deliberation (test_package_qtable_parity.PackageQtableParityTests.test_floor_boundaries_ties_and_deliberation) ... ok\ntest_follower_can_override_additive_action (test_package_qtable_parity.PackageQtableParityTests.test_follower_can_override_additive_action) ... ok\ntest_switches_cold_and_missing_producer (test_package_qtable_parity.PackageQtableParityTests.test_switches_cold_and_missing_producer) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.356s\n\nOK\n",
+    "complete_q1_record_reproduced": true,
+    "original_q1_sha256": "ae999ea3cfbf1f8805e683da9997decc74af4f82d33ea8a3fe34d428e55908c7",
+    "q1_reproduced_metrics": {
+      "instrument_check": {
+        "scenarios_reproduced": true,
+        "committed_scenarios": "data/micro_learners/switchboard_stage0.json",
+        "full_fleet_reproduced": true,
+        "committed_full_fleet_welfare": 0.187712
+      },
+      "incumbent": {
+        "condition": "full_fleet",
+        "welfare": 0.187712,
+        "welfare_by_keeper": {
+          "attentive": 0.727579,
+          "erratic": 0.083001,
+          "exploratory": 0.040663,
+          "neglectful": 0.050266,
+          "punitive": 0.037049
+        },
+        "mean_survival_ticks": 47.944,
+        "beg_ticks": 6475,
+        "keeper_feeds": 4098,
+        "observed_ticks": 23972,
+        "consumer_fired_ticks": 0,
+        "consumer_agreed_ticks": 0
+      },
+      "consumer": {
+        "condition": "qtable_consumer",
+        "welfare": 0.201518,
+        "welfare_by_keeper": {
+          "attentive": 0.796586,
+          "erratic": 0.083023,
+          "exploratory": 0.040663,
+          "neglectful": 0.050266,
+          "punitive": 0.037049
+        },
+        "mean_survival_ticks": 50.526,
+        "beg_ticks": 6711,
+        "keeper_feeds": 4341,
+        "observed_ticks": 25263,
+        "consumer_fired_ticks": 15015,
+        "consumer_agreed_ticks": 11087
+      },
+      "welfare_pct": 7.355,
+      "fired_fraction": 0.594347,
+      "agreement_fraction": 0.738395,
+      "beg_interaction": {
+        "incumbent_beg_ticks": 6475,
+        "consumer_beg_ticks": 6711,
+        "beg_delta": 236,
+        "incumbent_keeper_feeds": 4098,
+        "consumer_keeper_feeds": 4341,
+        "note": "recorded_not_gated \u2014 the companion's autonomous feed choice is the beg display; a learner that begs more is a design change, not a free win, and the adoption record owns this if adoption ever arises"
+      },
+      "judged": {
+        "verdict": "adopt_into_default_candidate",
+        "failed_gates": [],
+        "welfare_pct": 7.355,
+        "fired_fraction": 0.594347,
+        "keep_threshold_pct": 5.0
+      },
+      "wall_clock_s": 15.727
+    }
+  },
+  "closed_states": [
+    "producer and full decision parity",
+    "pure inputs",
+    "cold/warm and confidence floor",
+    "deliberation provenance",
+    "complete Q1 record reproduced"
+  ],
+  "blocked_states": [
+    "current game default adoption requires R3"
+  ],
+  "decision": {
+    "verdict": "promote_explicit_opt_in_only"
+  },
+  "next_research_step": "R2 playable persistence and R3 actual-game adoption comparison."
+}

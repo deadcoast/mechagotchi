@@ -55,7 +55,7 @@ from mecha_game.rasterize import (
     scale_buffer,
     stack_buffers,
 )
-from mecha_game.session import CompanionSession, load_session_inputs
+from mecha_game.session import CompanionSession, LEARNING_POLICIES, load_session_inputs
 
 WINDOW_TITLE = "Mechagotchi"
 DEFAULT_CELL_PX = 24
@@ -151,6 +151,10 @@ def build_parser() -> argparse.ArgumentParser:
         "--new",
         action="store_true",
         help="start a fresh companion (default: resume the save file)",
+    )
+    parser.add_argument(
+        "--learning-policy", choices=LEARNING_POLICIES, default=None,
+        help="new companion policy: incumbent (default) or experimental qtable; resumes preserve their saved policy",
     )
     return parser
 
@@ -368,6 +372,20 @@ def _footer_lines(snapshot: dict, queued: str | None) -> list[str]:
     lines = [line, controls, detail, felt]
     if "cleanliness" in needs and "clean" in snapshot.get("actions", []):
         lines.append(f"cleanliness {needs['cleanliness']['value']:.2f}   G clean")
+    if snapshot.get("learning_policy") == "qtable":
+        policy_line = "Experimental Q-table"
+        signal = threads.get("qtable_policy")
+        if not snapshot.get("learning_active"):
+            policy_line += ": inactive (fleet off)"
+        elif not signal or signal["output"].get("cold_start", True):
+            policy_line += ": learning from care"
+        else:
+            policy_line += f": recommends {signal['output']['best_action']} (confidence {signal['confidence']:.2f})"
+        lines.append(policy_line)
+        last = (snapshot.get("log") or [{}])[-1]
+        consumer = (last.get("thought") or {}).get("qtable_consumer")
+        if consumer:
+            lines.append(f"Last followed {consumer['recommended']}; additive suggested {consumer['base_action']}. Only you feed.")
     return lines
 
 
@@ -389,10 +407,14 @@ def run(argv: list[str] | None = None) -> int:
         parser.error("--slip selects a new companion; use --new or a separate --keeper-dir to preserve the existing save")
     # Quit and come back (F5): the save file resumes unless --new.
     if companion_path.is_file() and not args.new:
-        session = CompanionSession.load(companion_path)
+        try:
+            session = CompanionSession.load(companion_path, learning_policy=args.learning_policy)
+        except ValueError as error:
+            parser.error(str(error))
     else:
         grid, slip_profile, model = load_session_inputs(seed, slip)
-        session = CompanionSession(grid, slip_profile, model=model)
+        session = CompanionSession(grid, slip_profile, model=model,
+                                   learning_policy=args.learning_policy or "incumbent")
 
     bench = _EraBench(
         args.era_scale,
@@ -501,6 +523,7 @@ def run(argv: list[str] | None = None) -> int:
                             ),
                             name=hatched["grid"]["grid_id"],
                             origin="hatched",
+                            learning_policy=session.learning_policy,
                         )
                         ghost = None
                         driver = ClipDriver(driver.frame_counts)
@@ -725,6 +748,7 @@ def run(argv: list[str] | None = None) -> int:
                                 model=session.model,
                                 name=elite["grid_id"],
                                 origin="era_elite",
+                                learning_policy=session.learning_policy,
                             )
                             ghost = None
                             driver = ClipDriver(driver.frame_counts)

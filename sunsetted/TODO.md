@@ -1,12 +1,12 @@
 # Development TODO — Cycle 28: ENGINE → GAME / Phase R
 
-**PLANNED, NOT STARTED.** Prepared from the Phase-Q gate and DR 0060's named
-promotion debt. Q5 must be reviewed before this cycle starts. The completed
+**ACTIVE.** Q5 reviewed; R1/R2 implemented and in full local verification.
+DR 0060 promotion debt is being exercised through the actual playable client. The completed
 cycle 27 charter is archived at `sunsetted/complete/TODO/27/TODO.md`.
 
 The complete contract is `docs/development/cycle-28-learning-consumer.md`.
-The product gap is concrete: the package lacks Q-table observe/signal and its
-full-confidence follower; the game still uses five incumbent threads. Lab
+The package producer/follower and explicit playable option are implemented;
+the original five-thread incumbent remains the default. Lab
 eligibility (+7.355%) is not a measured current-game gain. Do not enable an
 invalid SLIP key or silently adopt the extended lab roster.
 
@@ -34,9 +34,9 @@ invalid SLIP key or silently adopt the extended lab roster.
 No hidden-axis displays or invented definitions; no graded follower, autonomous
 cleaning, reward/threshold retuning, archive default change, human-preference
 claim or unrequested hosting. Human studies remain prepared-not-blocking.
-Follow pombi's authorized local development direction. The user's 2026-10-04
-instruction assigns verified commits/pushes to the development agent; preserve
-external work and never rewrite history. No new source copies or environment.
+Follow pombi's authorized local development direction. The latest 2026-10-04
+recovery delegation reserves commit/sync/push to the user. Preserve external work
+and never rewrite history. No new source copies or environment.
 
 ## Sources
 

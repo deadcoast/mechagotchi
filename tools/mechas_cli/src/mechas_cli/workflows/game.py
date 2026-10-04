@@ -49,6 +49,10 @@ def game(
         None, "--keeper-dir", file_okay=False, resolve_path=True,
         help="Save directory for this companion and campaign (with --play).",
     ),
+    learning_policy: str | None = typer.Option(
+        None, "--learning-policy",
+        help="New companion policy: incumbent or experimental qtable; saved choices persist.",
+    ),
     build: bool = typer.Option(
         False,
         "--build",
@@ -69,7 +73,9 @@ def game(
     """Play, build, or verify the Mechagotchi game client."""
     if sum((play, build, evidence)) > 1:
         raise typer.BadParameter("Choose one of --play, --build, or --evidence.")
-    if (slip is not None or keeper_dir is not None or new or ticks is not None) and not play:
+    if learning_policy is not None and learning_policy not in ("incumbent", "qtable"):
+        raise typer.BadParameter("Learning policy must be incumbent or qtable.")
+    if (slip is not None or keeper_dir is not None or new or ticks is not None or learning_policy is not None) and not play:
         raise typer.BadParameter("Companion options require --play.")
     if windowed and not build:
         raise typer.BadParameter("--windowed requires --build.")
@@ -98,6 +104,8 @@ def game(
             command += ["--slip", str(slip)]
         if keeper_dir is not None:
             command += ["--keeper-dir", str(keeper_dir)]
+        if learning_policy is not None:
+            command += ["--learning-policy", learning_policy]
         console.print(theme.banner("game — launching the client"))
         result = subprocess.run(command, cwd=root)
         raise typer.Exit(result.returncode)

@@ -826,6 +826,108 @@ def lineage_survival_signal(thread_state: dict, lifecycle_state: dict) -> dict:
     )
 
 
+# R1: bounded, explicit-opt-in Q-table; identical to the lab producer.
+QTABLE_TERCILES = (0.34, 0.67)
+QTABLE_MIN_VISITS = 3
+QTABLE_CONFIDENT_VISITS = 12
+QTABLE_EFFECT_SCALE = 0.30
+_CREDITABLE_ACTIONS = ("feed", "play", "sleep", "idle", "mutate")
+
+
+def _tercile(value: object) -> int:
+    number = _clamp(value)
+    if number < QTABLE_TERCILES[0]:
+        return 0
+    if number < QTABLE_TERCILES[1]:
+        return 1
+    return 2
+
+
+def _qtable_bucket(lifecycle_state: dict) -> str:
+    """The tightly scoped discrete state: 3 hunger x 3 energy = 9."""
+    return (
+        f"{_tercile(lifecycle_state.get('hunger'))}"
+        f"{_tercile(lifecycle_state.get('energy'))}"
+    )
+
+
+def _last_executed(lifecycle_state: dict) -> tuple[str, float] | None:
+    """The action the tick ACTUALLY ran, and the balance it returned.
+
+    The keeper can override the companion's choice, so a learner that
+    credited its own recommendation would be learning a policy the
+    world never executed.
+    """
+    history = lifecycle_state.get("history") or []
+    if not history:
+        return None
+    entry = history[-1]
+    action = entry.get("action")
+    if action not in _CREDITABLE_ACTIONS:
+        return None
+    try:
+        return action, float(entry.get("balance", 0.0))
+    except (TypeError, ValueError):
+        return None
+
+
+def _running_update(store: dict, key: str, value: float) -> None:
+    record = store.get(key) or {"mean": 0.0, "n": 0}
+    count = int(record["n"]) + 1
+    mean = float(record["mean"]) + (value - float(record["mean"])) / count
+    store[key] = {"mean": round(mean, 6), "n": count}
+
+
+def qtable_policy_observe(thread_state: dict, lifecycle_state: dict) -> dict:
+    """E — tabular value estimate over (bucket, EXECUTED action)."""
+    table = {key: dict(value) for key, value in (thread_state.get("q") or {}).items()}
+    pending = thread_state.get("pending_bucket")
+    executed = _last_executed(lifecycle_state)
+    if pending is not None and executed is not None:
+        action, reward = executed
+        _running_update(table, f"{pending}|{action}", reward)
+    return {"q": table, "pending_bucket": _qtable_bucket(lifecycle_state)}
+
+
+def qtable_policy_signal(thread_state: dict, lifecycle_state: dict) -> dict:
+    bucket = _qtable_bucket(lifecycle_state)
+    table = thread_state.get("q") or {}
+    seen = {
+        key.split("|", 1)[1]: value
+        for key, value in table.items()
+        if key.startswith(f"{bucket}|") and int(value.get("n", 0)) >= QTABLE_MIN_VISITS
+    }
+    if not seen:
+        return _thread(
+            "qtable_policy",
+            {"bucket": bucket, "visited_actions": 0},
+            {"best_action": None, "cold_start": True},
+            0.0,
+            "Q-table cold: this bucket has not been visited enough to act.",
+            {},
+        )
+    best_action = max(seen, key=lambda action: float(seen[action]["mean"]))
+    best_value = float(seen[best_action]["mean"])
+    visits = sum(int(value["n"]) for value in seen.values())
+    confidence = min(1.0, visits / QTABLE_CONFIDENT_VISITS)
+    effects = {}
+    if best_value > 0:
+        effects[best_action] = round(best_value * QTABLE_EFFECT_SCALE, 6)
+    return _thread(
+        "qtable_policy",
+        {"bucket": bucket, "visited_actions": len(seen)},
+        {
+            "best_action": best_action,
+            "best_value": round(best_value, 6),
+            "cold_start": False,
+        },
+        confidence,
+        f"Q-table over 3x3 hunger/energy buckets; bucket {bucket} favours {best_action}.",
+        effects,
+    )
+
+
+
 # The fleet registry: (name, observe, signal), execution order fixed.
 FLEET_THREADS = [
     ("hunger_forecast", hunger_forecast_observe, hunger_forecast_signal),
@@ -842,6 +944,11 @@ FLEET_THREADS = [
 ]
 FLEET_THREAD_NAMES = [name for name, _observe, _signal in FLEET_THREADS]
 
+# Preserve the historical fleet registry; only this measured candidate is promoted.
+EXTENDED_FLEET_THREADS = FLEET_THREADS + [
+    ("qtable_policy", qtable_policy_observe, qtable_policy_signal),
+]
+
 
 def observe_fleet(lifecycle_state: dict) -> dict:
     """One observe step for every OPTED-IN fleet thread.
@@ -854,7 +961,7 @@ def observe_fleet(lifecycle_state: dict) -> dict:
     switches = lifecycle_state.get("learning_switches") or {}
     thread_states = dict(lifecycle_state.get("thread_states") or {})
     updated: dict = {}
-    for name, observe, _signal in FLEET_THREADS:
+    for name, observe, _signal in EXTENDED_FLEET_THREADS:
         if switches.get(name) is True:
             updated[name] = observe(thread_states.get(name) or {}, lifecycle_state)
     return updated
@@ -866,7 +973,7 @@ def fleet_signals(lifecycle_state: dict) -> list[dict]:
     thread_states = lifecycle_state.get("thread_states") or {}
     return [
         signal(thread_states.get(name) or {}, lifecycle_state)
-        for name, _observe, signal in FLEET_THREADS
+        for name, _observe, signal in EXTENDED_FLEET_THREADS
         if switches.get(name) is True
     ]
 

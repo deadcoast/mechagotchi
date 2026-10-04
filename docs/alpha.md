@@ -70,7 +70,17 @@ A covenant option selects a new life, never replaces an existing save silently:
 A new campaign inherits that companion's covenant; a resumed campaign retains
 its saved covenant. The demonstrated local Windows bundle is
 `game/dist/q4-controls/Mechagotchi/Mechagotchi.exe`; keep `_internal` beside it.
-Launch it from any cwd; it uses bundled inputs and its player save home.
+From the repository root, launch with an explicit save directory. An absolute
+executable path also works from another cwd:
+
+```powershell
+.\game\dist\q4-controls\Mechagotchi\Mechagotchi.exe --keeper-dir "$env:USERPROFILE\.mechagotchi"
+```
+
+The current bundled-data resolver selects `_internal/keeper` when no save
+directory is supplied. The explicit path above keeps saves separate from the
+bundle; it does not migrate an existing companion. This save-home limitation
+is recorded at Q5 for the later release gate.
 This is an unsigned local one-folder build, not hosted distribution or proof of
 remote CI. The `mechagotchi` console entry point belongs to an installed game
 package; it is not present in this dependency-only workspace.

@@ -178,7 +178,10 @@ run awaits a push that is never made unasked.
 ## Q5 closing record (2026-10-04)
 
 Original cycle charter and measured refutations retained above. The consolidated
-record is `research/experiment_reports/2026-10-04-phase-q-gate.md`; final Q5
-verification is pending in this working draft. Cycle 28 is planned separately
-and has not started. Latest user authorization permits agent commits/pushes
-after verification; older session publication instructions do not override it.
+record is `research/experiment_reports/2026-10-04-phase-q-gate.md`. Q5 full run
+`20261004T142630-8769408e` passed: 2493 tests / 24 suites, two DR 0034 skips,
+2269 valid JSON artifacts, no source mutations. Actual source/CLI and native
+launch checks passed; the existing scientific data and source bytes are intact.
+Cycle 28 is planned separately and has not started; review Q5 first. The latest
+recovery delegation reserves commit/sync/push to the user. Native remote CI,
+signing and human usability remain unmet.
