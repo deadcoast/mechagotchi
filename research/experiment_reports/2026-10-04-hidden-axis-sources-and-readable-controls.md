@@ -65,3 +65,22 @@ pending until the measured local gate closes.
 - labs/architecture/hidden_axis_source_survey.py
 - game/src/mecha_game/footer.py; game/tests/test_footer_layout.py
 - docs/development/q4-hidden-axes-controls.md
+
+## Closing gate observed 2026-10-04
+
+Full run 20261004T115335-988ff686 passed: 2493 tests across all 24 suites,
+2269 JSON artifacts valid. Python 3.13.9 / zlib 1.3.1, authoritative repo .venv.
+Two DR 0034 skips are specifically the committed foreign fixture byte-identity
+and manifest byte-identity pins in lab:workshop_editor; content gates still ran.
+Required dependency groups were present. Runtime: approximately 9m24s.
+Verification changed_files is empty. All incumbent data hashes match the
+preregistered inventory. Actual 384x712 play/covenant/three-page help captures
+were visually inspected; no displayed line clips. Human usability remains open.
+
+HEAD changed externally during the sweep from 97db227c to
+ e1bcf9fea988e9426d67c1457848ac816f9de6b3, committing exactly these 18 Q4 files.
+This agent performed no commit, staging, syncing or push. File bytes did not
+change during verification, so the result covers the externally committed source.
+Completion documentation added afterward remains uncommitted. Q4 is locally
+complete; Q5 consolidation/archive/planning remains the next separate milestone.
+Native remote CI, signing and hidden-axis canonical adoption remain unverified.

@@ -103,7 +103,7 @@ charter), `docs/project-research/validity-research.md` §1.17,
   covenant continuity, launcher options and the actual Windows bundle are
   verified. Existing saves and historical artifacts remain unchanged.
   See `research/experiment_reports/2026-10-04-default-covenant-gate.md`.
-- [ ] **Q4 · The hidden half of §1.17 earns its survey.** *(SHARED ·
+- [x] **Q4 · The hidden half of §1.17 earns its survey.** *(SHARED ·
   documentation truth.)* M5's remainder 4 has stood since cycle 23:
   the six unsurfaced HIDDEN axes (`mutation pressure`,
   `lineage fitness`, `novelty decay`, `attachment score`,

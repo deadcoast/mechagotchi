@@ -1285,4 +1285,5 @@ Q4/Q5 and native remote CI remain open; Q-table promotion remains separate.
 See `experiment_reports/2026-10-04-hidden-axis-sources-and-readable-controls.md`,
 `algorithm_cards/hidden_axis_source_survey.md` and DR 0065. Four bounded source
 candidates and two absent dedicated definitions; no adoption. Existing controls
-wrap and page; F1 pauses care. Full local gate pending; Q5 remains open.
+wrap and page; F1 pauses care. Full local gate passed: 2493 tests / 24 suites, two DR 0034 skips,
+2269 valid JSON artifacts; Q5 remains open.

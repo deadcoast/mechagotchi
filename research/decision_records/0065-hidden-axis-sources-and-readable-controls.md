@@ -1,6 +1,6 @@
 # Decision Record 0065: Hidden sources and readable controls
 
-Date: 2026-10-04. Q4. Status: source survey accepted; local closing gate pending.
+Date: 2026-10-04. Q4. Status: source survey accepted; local closing gate passed (2493 tests, two DR 0034 skips).
 
 Accept the measured survey_only_no_adoption disposition: zero stored fields,
 four bounded derived source candidates, two absent dedicated definitions.

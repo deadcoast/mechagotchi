@@ -1076,3 +1076,7 @@ work after direct approval. Follow pombi local development direction; owner
 retains commits/sync/push. No source mirrors or environment replacement.
 Preregistration: `docs/development/q4-hidden-axes-controls.md`; findings:
 `research/experiment_reports/2026-10-04-hidden-axis-sources-and-readable-controls.md`.
+
+Q4 closing gate passed: 2493 tests / 24 suites, two named DR 0034 zlib skips,
+2269 JSON artifacts. Owner-side commit e1bcf9f landed during the run without
+source byte changes. Completion notes remain uncommitted; Q5 is next.
