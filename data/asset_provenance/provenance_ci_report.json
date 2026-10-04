@@ -1,6 +1,6 @@
 {
   "report_version": "0.1.0",
-  "generated_date": "2026-05-12",
+  "generated_date": "2026-10-04",
   "ok": true,
   "checks": {
     "ledger_validation_ok": true,

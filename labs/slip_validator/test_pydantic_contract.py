@@ -1,5 +1,6 @@
 import json
 import unittest
+import tempfile
 from pathlib import Path
 
 from pydantic_contract import (
@@ -104,21 +105,16 @@ class SlipPydanticContractTests(unittest.TestCase):
         )
 
     def test_contract_artifacts_are_written(self):
-        report = write_pydantic_contract_artifacts(
-            valid_paths=VALID_PROFILE_PATHS,
-            failure_paths=FAILURE_CASE_PATHS,
-            example_paths=EXAMPLE_PROFILE_PATHS,
-        )
-
-        self.assertEqual(CONTRACT_STATUS, report["status"])
-        self.assertTrue(REPORT_PATH.exists())
-        self.assertTrue(GENERATED_SCHEMA_PATH.exists())
-        self.assertEqual(
-            report["artifact_id"],
-            json.loads(REPORT_PATH.read_text(encoding="utf-8"))["artifact_id"],
-        )
-        generated_schema = json.loads(GENERATED_SCHEMA_PATH.read_text(encoding="utf-8"))
-        self.assertEqual("Mechagotchi SLIP Pydantic Contract", generated_schema["title"])
+        before = {p: p.read_bytes() for p in (REPORT_PATH, GENERATED_SCHEMA_PATH)}
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / 'nested/report.json'
+            schema = Path(temporary) / 'schema/generated.json'
+            report = write_pydantic_contract_artifacts(VALID_PROFILE_PATHS, FAILURE_CASE_PATHS, EXAMPLE_PROFILE_PATHS, report_path=output, schema_path=schema)
+            self.assertEqual(CONTRACT_STATUS, report['status'])
+            self.assertEqual(report, json.loads(output.read_text(encoding='utf-8')))
+            generated = json.loads(schema.read_text(encoding='utf-8'))
+            self.assertEqual('Mechagotchi SLIP Pydantic Contract', generated['title'])
+        self.assertEqual(before, {p: p.read_bytes() for p in before})
 
 
 if __name__ == "__main__":

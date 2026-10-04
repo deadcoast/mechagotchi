@@ -145,11 +145,13 @@ def _oracle_tree_hash(directory: Path) -> str:
     """Restated sha256-tree contract, built independently as one byte stream:
     for each child file, its POSIX path relative to the hashed directory and
     its sha256 content digest, NUL-separated. Child order restates the
-    contract's deterministic relative-path sort exactly as the Stage 0
-    reference defines it (Python path ordering, pinned by the committed
-    seed-grid corpus hash)."""
+    corrected contract's case-sensitive relative POSIX-string order
+    (DR 0061); the lab also pins an independently enumerated mixed-case corpus."""
     stream = bytearray()
-    for child in sorted(item for item in directory.rglob("*") if item.is_file()):
+    for child in sorted(
+        (item for item in directory.rglob("*") if item.is_file()),
+        key=lambda item: item.relative_to(directory).as_posix(),
+    ):
         stream += child.relative_to(directory).as_posix().encode("utf-8")
         stream += b"\0"
         stream += hashlib.sha256(child.read_bytes()).hexdigest().encode("ascii")

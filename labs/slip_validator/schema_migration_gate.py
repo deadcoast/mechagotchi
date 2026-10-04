@@ -159,10 +159,10 @@ def evaluate_migration_request(profile: dict) -> dict:
     }
 
 
-def write_schema_migration_dependency_report() -> dict:
+def write_schema_migration_dependency_report(*, report_path: Path = REPORT_PATH) -> dict:
     report = build_schema_migration_dependency_report()
-    REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    REPORT_PATH.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+    report_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     return report
 
 

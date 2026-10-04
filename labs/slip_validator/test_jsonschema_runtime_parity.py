@@ -1,6 +1,7 @@
 import importlib.util
 import json
 import unittest
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -52,17 +53,15 @@ class JsonschemaRuntimeParityTests(unittest.TestCase):
         )
 
     def test_report_artifact_is_written(self):
-        report = write_parity_report(
-            VALID_PROFILE_PATHS, FAILURE_CASE_PATHS, EXAMPLE_PROFILE_PATHS
-        )
-
-        self.assertTrue(REPORT_PATH.exists())
-        persisted = json.loads(REPORT_PATH.read_text(encoding="utf-8"))
-        self.assertEqual(report["artifact_id"], persisted["artifact_id"])
-        self.assertIn("lab_runtime_jsonschema_validation", persisted["closed_states"])
-        self.assertIn(
-            "package_runtime_jsonschema_validation", persisted["blocked_states"]
-        )
+        before = REPORT_PATH.read_bytes()
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / 'nested/report.json'
+            report = write_parity_report(VALID_PROFILE_PATHS, FAILURE_CASE_PATHS, EXAMPLE_PROFILE_PATHS, report_path=output)
+            persisted = json.loads(output.read_text(encoding='utf-8'))
+            self.assertEqual(report, persisted)
+            self.assertIn('lab_runtime_jsonschema_validation', persisted['closed_states'])
+            self.assertIn('package_runtime_jsonschema_validation', persisted['blocked_states'])
+        self.assertEqual(before, REPORT_PATH.read_bytes())
 
 
 if __name__ == "__main__":

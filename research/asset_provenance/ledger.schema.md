@@ -81,6 +81,16 @@ Mechagotchi should default to internally generated or hand-authored seed assets.
 External assets are allowed for research, benchmarking, palette exploration, and
 interoperability tests only when provenance is explicit.
 
+
+## Correction, 2026-10-04: checkout portability
+
+The original local provenance pass did not prove fresh-checkout portability.
+DR 0061 identifies the working-tree line-ending and native-path-sort assumptions.
+The original artifacts remain under `data/asset_provenance/baselines/stage0-windows/`;
+the current ledger is explicitly restated under `raw-bytes-posix-lexical-v1`.
+See `research/experiment_reports/2026-10-04-ci-portability-repair.md` and
+`data/asset_provenance/portability_restatement_stage0.json` for measured deltas.
+
 ## Sources
 
 - https://spdx.org/licenses/

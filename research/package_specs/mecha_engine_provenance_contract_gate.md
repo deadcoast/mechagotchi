@@ -253,6 +253,16 @@ Expected implementation-stage result:
 - No full SPDX License List ingestion.
 - No SBOM generation.
 
+
+## Correction, 2026-10-04: checkout portability
+
+The original local provenance pass did not prove fresh-checkout portability.
+DR 0061 identifies the working-tree line-ending and native-path-sort assumptions.
+The original artifacts remain under `data/asset_provenance/baselines/stage0-windows/`;
+the current ledger is explicitly restated under `raw-bytes-posix-lexical-v1`.
+See `research/experiment_reports/2026-10-04-ci-portability-repair.md` and
+`data/asset_provenance/portability_restatement_stage0.json` for measured deltas.
+
 ## Sources
 
 - `research/package_specs/mecha_engine_module_interfaces.md`

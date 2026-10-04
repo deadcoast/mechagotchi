@@ -1,0 +1,124 @@
+{
+  "report_version": "0.1.0",
+  "generated_date": "2026-05-12",
+  "ok": true,
+  "checks": {
+    "ledger_validation_ok": true,
+    "spdx_expressions_ok": true,
+    "reuse_licenses_ok": true,
+    "included_hashes_ok": true,
+    "decision_record_gate_ok": true
+  },
+  "errors": [],
+  "warnings": [],
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "summary": {
+      "asset_count": 7,
+      "included_count": 3,
+      "reference_only_count": 4,
+      "attribution_required_count": 3
+    }
+  },
+  "spdx_summary": {
+    "expression_count": 7,
+    "parsed_expression_count": 7,
+    "license_ids": [
+      "Apache-2.0",
+      "GPL-2.0-only",
+      "LicenseRef-Mechagotchi-Internal-Research",
+      "LicenseRef-Reference-Only",
+      "MIT"
+    ],
+    "exception_ids": [],
+    "operators": []
+  },
+  "spdx_results": [
+    {
+      "asset_id": "internal_seed_grid_corpus_v1",
+      "expression": "LicenseRef-Mechagotchi-Internal-Research",
+      "ok": true,
+      "license_ids": [
+        "LicenseRef-Mechagotchi-Internal-Research"
+      ],
+      "exception_ids": [],
+      "operators": [],
+      "contains_copyleft": false,
+      "errors": []
+    },
+    {
+      "asset_id": "cubff_synthetic_snapshot_corpus_stage0",
+      "expression": "LicenseRef-Mechagotchi-Internal-Research",
+      "ok": true,
+      "license_ids": [
+        "LicenseRef-Mechagotchi-Internal-Research"
+      ],
+      "exception_ids": [],
+      "operators": [],
+      "contains_copyleft": false,
+      "errors": []
+    },
+    {
+      "asset_id": "workshop_editor_stage0_export",
+      "expression": "LicenseRef-Mechagotchi-Internal-Research",
+      "ok": true,
+      "license_ids": [
+        "LicenseRef-Mechagotchi-Internal-Research"
+      ],
+      "exception_ids": [],
+      "operators": [],
+      "contains_copyleft": false,
+      "errors": []
+    },
+    {
+      "asset_id": "piskel_reference_only",
+      "expression": "Apache-2.0",
+      "ok": true,
+      "license_ids": [
+        "Apache-2.0"
+      ],
+      "exception_ids": [],
+      "operators": [],
+      "contains_copyleft": false,
+      "errors": []
+    },
+    {
+      "asset_id": "pixelorama_reference_only",
+      "expression": "MIT",
+      "ok": true,
+      "license_ids": [
+        "MIT"
+      ],
+      "exception_ids": [],
+      "operators": [],
+      "contains_copyleft": false,
+      "errors": []
+    },
+    {
+      "asset_id": "libresprite_reference_only",
+      "expression": "GPL-2.0-only",
+      "ok": true,
+      "license_ids": [
+        "GPL-2.0-only"
+      ],
+      "exception_ids": [],
+      "operators": [],
+      "contains_copyleft": true,
+      "errors": []
+    },
+    {
+      "asset_id": "opengameart_policy_reference",
+      "expression": "LicenseRef-Reference-Only",
+      "ok": true,
+      "license_ids": [
+        "LicenseRef-Reference-Only"
+      ],
+      "exception_ids": [],
+      "operators": [],
+      "contains_copyleft": false,
+      "errors": []
+    }
+  ]
+}

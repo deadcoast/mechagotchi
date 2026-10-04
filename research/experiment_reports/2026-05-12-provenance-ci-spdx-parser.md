@@ -106,3 +106,17 @@ expressions.
 Adopt the provenance CI report for research artifacts. Do not treat this as full
 release compliance until repository-wide REUSE scanning and legal-review
 workflow are added.
+
+
+## Correction, 2026-10-04: checkout portability
+
+The original local provenance pass did not prove fresh-checkout portability.
+DR 0061 identifies the working-tree line-ending and native-path-sort assumptions.
+The original artifacts remain under `data/asset_provenance/baselines/stage0-windows/`;
+the current ledger is explicitly restated under `raw-bytes-posix-lexical-v1`.
+See `research/experiment_reports/2026-10-04-ci-portability-repair.md` and
+`data/asset_provenance/portability_restatement_stage0.json` for measured deltas.
+
+## Sources
+
+- `research/decision_records/0061-portable-provenance-and-ci-evidence.md`

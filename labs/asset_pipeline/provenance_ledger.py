@@ -92,7 +92,10 @@ def hash_included_path(path: Path) -> dict:
         }
     if path.is_dir():
         digest = hashlib.sha256()
-        for child in sorted(item for item in path.rglob("*") if item.is_file()):
+        for child in sorted(
+            (item for item in path.rglob("*") if item.is_file()),
+            key=lambda item: item.relative_to(path).as_posix(),
+        ):
             digest.update(child.relative_to(path).as_posix().encode("utf-8"))
             digest.update(b"\0")
             digest.update(hashlib.sha256(child.read_bytes()).hexdigest().encode("ascii"))
@@ -109,7 +112,8 @@ def parse_spdx_expression(expression: str) -> dict:
 def build_stage0_ledger(repo_root: Path) -> dict:
     return {
         "ledger_version": "0.1.0",
-        "generated_date": "2026-05-12",
+        "generated_date": "2026-10-04",
+        "hash_policy": "raw-bytes-posix-lexical-v1",
         "policy": {
             "default_shipping_rule": "internal_or_approved_permissive_only",
             "reference_only_rule": "external research references are not shipped",

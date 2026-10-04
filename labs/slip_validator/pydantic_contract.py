@@ -406,16 +406,19 @@ def write_pydantic_contract_artifacts(
     valid_paths: list[Path],
     failure_paths: list[Path],
     example_paths: list[Path],
+    *,
+    schema_path: Path = GENERATED_SCHEMA_PATH,
+    report_path: Path = REPORT_PATH,
 ) -> dict:
     generated_schema = _generated_schema()
-    GENERATED_SCHEMA_PATH.parent.mkdir(parents=True, exist_ok=True)
-    GENERATED_SCHEMA_PATH.write_text(
+    schema_path.parent.mkdir(parents=True, exist_ok=True)
+    schema_path.write_text(
         json.dumps(generated_schema, indent=2) + "\n",
         encoding="utf-8",
     )
     report = build_pydantic_contract_report(valid_paths, failure_paths, example_paths)
-    REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    REPORT_PATH.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+    report_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     return report
 
 

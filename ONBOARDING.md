@@ -865,6 +865,28 @@ mechas session --open
 
 ## 9. Traps that have bitten before
 
+### CI repair addendum, 2026-10-04 (DR 0061)
+
+Provision all three groups from the lock with the intended interpreter:
+`uv sync --locked --python <interpreter> --group lab --group cli --group game`.
+Then `uv run --no-sync python -B tools/ci/run_sweep.py` retains per-suite logs
+and `summary.json` under `.ci-logs/`. The sweep includes its own CI instrument
+tests. A local green result is not a native Ubuntu result; inspect both GitHub
+jobs on the exact published SHA before closing a CI repair.
+
+SLIP writer tests now target temporary paths and preserve committed observations.
+The older instruction below to restore those artifacts after a sweep is
+historical; never use blanket checkout/reset as test cleanup. Report unexpected
+changes and preserve any owner work.
+
+Original provenance artifacts are preserved under
+`data/asset_provenance/baselines/stage0-windows/`. Their mixed Windows bytes and
+native path ordering were not portable. The dated current restatement pins LF
+checkout bytes and relative POSIX-string ordering; hashing never normalizes
+input bytes.
+
+### Earlier lessons (retained)
+
 - **The 64-char `grid_id` cap** — reassign ids per cycle; never
   accumulate suffixes. This has bitten TWICE (once a study harness
   measured its own bug as biology).

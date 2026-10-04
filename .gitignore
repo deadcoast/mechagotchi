@@ -3,6 +3,9 @@
 __pycache__/
 *.pyc
 
+# CI diagnostics are retained as workflow artifacts, never source.
+/.ci-logs/
+
 # Local environments
 .venv/
 

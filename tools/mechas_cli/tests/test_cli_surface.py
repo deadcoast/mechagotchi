@@ -1,4 +1,5 @@
 import os
+import subprocess
 import sys
 import unittest
 from pathlib import Path
@@ -8,15 +9,15 @@ SRC = Path(__file__).resolve().parents[1] / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-# Ambient FORCE_COLOR/NO_COLOR (CI shells, wrappers) would toggle ANSI
-# codes into captured help output and break the plain-substring
-# assertions; pin the capture environment to plain text.
+# Limit ambient colors; GitHub can still force bold/dim ANSI styling.
+# Semantic help assertions therefore decode ANSI (DR 0061).
 os.environ.pop("FORCE_COLOR", None)
 os.environ["NO_COLOR"] = "1"
 
 try:
     import typer  # noqa: F401
     from typer.testing import CliRunner
+    from rich.text import Text
 
     _CLI_DEPS = True
 except ModuleNotFoundError:
@@ -43,9 +44,10 @@ class MechasCliSurfaceTests(unittest.TestCase):
     def test_game_help_lists_the_modes(self):
         result = self.runner.invoke(self.app, ["game", "--help"])
         self.assertEqual(0, result.exit_code)
-        self.assertIn("--play", result.output)
-        self.assertIn("--build", result.output)
-        self.assertIn("--evidence", result.output)
+        plain = Text.from_ansi(result.output).plain
+        self.assertIn("--play", plain)
+        self.assertIn("--build", plain)
+        self.assertIn("--evidence", plain)
 
     def test_game_without_a_mode_guides(self):
         result = self.runner.invoke(self.app, ["game"])
@@ -74,7 +76,7 @@ class MechasCliSurfaceTests(unittest.TestCase):
             "--ingest",
             "--reviewer",
         ):
-            self.assertIn(flag, result.output)
+            self.assertIn(flag, Text.from_ansi(result.output).plain)
 
     def test_rate_status_reports_progress(self):
         result = self.runner.invoke(self.app, ["rate", "--status"])
@@ -90,7 +92,7 @@ class MechasCliSurfaceTests(unittest.TestCase):
         result = self.runner.invoke(self.app, ["workshop", "--help"])
         self.assertEqual(0, result.exit_code)
         for flag in ("--editor", "--slip", "--preview", "--inspect", "--release", "--port", "--no-browser"):
-            self.assertIn(flag, result.output)
+            self.assertIn(flag, Text.from_ansi(result.output).plain)
 
     def test_workshop_targets_include_the_slip_creator(self):
         result = self.runner.invoke(self.app, ["workshop"])
@@ -110,7 +112,21 @@ class MechasCliSurfaceTests(unittest.TestCase):
         result = self.runner.invoke(self.app, ["session", "--help"])
         self.assertEqual(0, result.exit_code)
         for flag in ("--open", "--era", "--status", "--new", "--port"):
-            self.assertIn(flag, result.output)
+            self.assertIn(flag, Text.from_ansi(result.output).plain)
+
+    def test_help_assertions_survive_plain_and_github_terminals(self):
+        methods = ['test_game_help_lists_the_modes', 'test_rate_help_documents_the_flags',
+                   'test_session_help_documents_the_flags', 'test_workshop_help_documents_the_flags']
+        for term in ('dumb', 'xterm-256color'):
+            with self.subTest(term=term):
+                env = dict(os.environ, TERM=term, GITHUB_ACTIONS='true', NO_COLOR='1')
+                env.pop('_TYPER_FORCE_DISABLE_TERMINAL', None)
+                result = subprocess.run(
+                    [sys.executable, '-B', str(Path(__file__).resolve()),
+                     *['MechasCliSurfaceTests.' + method for method in methods]],
+                    env=env, capture_output=True, text=True, timeout=30,
+                )
+                self.assertEqual(0, result.returncode, result.stdout + result.stderr)
 
     def test_root_help_lists_session(self):
         result = self.runner.invoke(self.app, ["--help"])

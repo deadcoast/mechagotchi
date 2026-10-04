@@ -1,5 +1,6 @@
 import json
 import unittest
+import tempfile
 from pathlib import Path
 
 from schema_migration_gate import (
@@ -88,16 +89,16 @@ class SlipSchemaMigrationGateTests(unittest.TestCase):
         self.assertEqual("reject_before_validation", unknown_result["action"])
 
     def test_report_artifact_is_written(self):
-        report = write_schema_migration_dependency_report()
-
-        self.assertTrue(REPORT_PATH.exists())
-        persisted = json.loads(REPORT_PATH.read_text(encoding="utf-8"))
-        self.assertEqual(report["artifact_id"], persisted["artifact_id"])
-        self.assertIn("schema_migration_policy", persisted["closed_states"])
-        self.assertIn("lab_runtime_jsonschema_validation", persisted["closed_states"])
-        self.assertIn(
-            "package_runtime_jsonschema_validation", persisted["blocked_states"]
-        )
+        before = REPORT_PATH.read_bytes()
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / 'nested/report.json'
+            report = write_schema_migration_dependency_report(report_path=output)
+            persisted = json.loads(output.read_text(encoding='utf-8'))
+            self.assertEqual(report, persisted)
+            self.assertIn('schema_migration_policy', persisted['closed_states'])
+            self.assertIn('lab_runtime_jsonschema_validation', persisted['closed_states'])
+            self.assertIn('package_runtime_jsonschema_validation', persisted['blocked_states'])
+        self.assertEqual(before, REPORT_PATH.read_bytes())
 
 
 if __name__ == "__main__":

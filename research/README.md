@@ -1228,3 +1228,13 @@ Stage 0 and Stage 1 established:
 
 No algorithm should graduate into `packages/` until it has an algorithm card,
 an experiment report, a metric report, and a decision record.
+
+
+## 2026-10-04: CI portability correction (DR 0061)
+
+- `research/experiment_reports/2026-10-04-ci-portability-repair.md`
+- `research/decision_records/0061-portable-provenance-and-ci-evidence.md`
+- `research/algorithm_cards/provenance_ci_spdx.md` (dated correction)
+- `data/asset_provenance/portability_restatement_stage0.json`
+- `labs/asset_pipeline/test_provenance_portability.py`
+- `tools/ci/run_sweep.py`, `tools/ci/tests/test_run_sweep.py`

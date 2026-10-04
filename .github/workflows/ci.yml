@@ -41,12 +41,25 @@ jobs:
       - name: Provision the dependency groups (the runner's own CPython)
         env:
           UV_PYTHON: ${{ steps.cpython.outputs.python-path }}
-        run: uv sync --group lab --group cli --group game
+        run: uv sync --locked --group lab --group cli --group game
 
       - name: Report the interpreter's zlib build (DR 0034 provenance)
-        run: uv run python -c "import sys, zlib; print(sys.version); print('zlib:', zlib.ZLIB_RUNTIME_VERSION)"
+        run: uv run --no-sync python -c "import sys, zlib; print(sys.version); print('zlib:', zlib.ZLIB_RUNTIME_VERSION)"
 
       - name: Run the sweep
         env:
           SDL_VIDEODRIVER: dummy
-        run: uv run python -B tools/ci/run_sweep.py
+        run: uv run --no-sync python -B tools/ci/run_sweep.py
+
+      - name: Verify tests preserve committed evidence
+        if: always()
+        run: git diff --exit-code
+
+      - name: Retain sweep diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sweep-${{ matrix.os }}-${{ github.sha }}
+          path: .ci-logs/
+          include-hidden-files: true
+          retention-days: 14

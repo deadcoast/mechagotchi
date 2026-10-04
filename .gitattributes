@@ -1,0 +1,6 @@
+# DR 0061: raw-byte provenance requires identical checkout bytes on every OS.
+/data/seed_grids/** text eol=lf
+/data/cubff_transducer/synthetic_snapshots.json text eol=lf
+/data/workshop_editor/workshop_export_stage0.json text eol=lf
+# Historical evidence is retained as its exact Git blob, without conversion.
+/data/asset_provenance/baselines/** -text
