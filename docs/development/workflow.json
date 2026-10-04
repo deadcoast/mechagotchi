@@ -42,6 +42,16 @@
         "package",
         "game"
       ]
+    },
+    "q5-consolidation": {
+      "spec": "docs/development/q5-consolidation.md",
+      "purpose": "Close Phase Q, verify playable entrypoints, and plan the missing learning consumer",
+      "suites": [
+        "package",
+        "game",
+        "cli",
+        "ci"
+      ]
     }
   }
 }

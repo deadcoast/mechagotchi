@@ -31,14 +31,15 @@ imported in-process, packets consumed verbatim). The first law
 ## Run it (dev checkout)
 
 ```powershell
-uv sync --group game
-uv run python -B game/run_game.py            # play until ESC/close
-uv run python -B game/run_game.py --ticks 24 # bounded verification run
+# Reuse the provisioned repository environment (Python 3.13.9 here).
+.venv/Scripts/python.exe -B game/run_game.py            # play until ESC/close
+.venv/Scripts/python.exe -B game/run_game.py --ticks 24 # bounded verification run
 ```
 
-Controls: **F** feed · **P** play · **S** sleep (queued for the next
+Controls: **F1** full controls / care pause · **PgUp/PgDn** or wheel casing pages ·
+**G** clean when enabled · **F** feed · **P** play · **S** sleep (queued for the next
 lifecycle tick) · **ENTER** adopt the successor when the companion
-dies · **E** run an evolution era (**1/2/3** pick the weather) ·
+dies · **E** run an evolution era (**1–5** pick the weather) ·
 **A** adopt the era's best elite as your companion · **C** covenant
 mode (**1/2/3/4** spend earned unlocks: palette / thinking /
 population / generations) · **H** hatch a new founder under your
@@ -57,7 +58,7 @@ authority judges it; an import is a new species contract) · **K**
 import a community pack from `keeper/packs/pack_import.json`
 (covenants and creatures staged into the inboxes, verdicts shown;
 `data/packs/mechagotchi_starter_pack.json` is the committed example) ·
-**ESC**/close quit. Saves land in
+**ESC** closes help first; in play it quits. Close always quits. Saves land in
 `keeper/` (gitignored) — quit and come back, the client resumes. The
 companion begs when it wants food — only you can feed it; neglect
 starves it (measured: ~10 ticks).
@@ -65,7 +66,7 @@ starves it (measured: ~10 ticks).
 ## Install it (F5)
 
 ```powershell
-uv run python -B game/build_release.py
+.venv/Scripts/python.exe -B game/build_release.py --windowed
 .\game\dist\Mechagotchi\Mechagotchi.exe        # install-free bundle: launch and play
 ```
 
@@ -76,7 +77,7 @@ checkout, `~/.mechagotchi` for the installed build.
 ## Test it
 
 ```powershell
-uv run python -B -m unittest discover -s game/tests -p "test_*.py"
+.venv/Scripts/python.exe -B -m unittest discover -s game/tests -p "test_*.py"
 ```
 
 ## Sources
@@ -149,3 +150,14 @@ return to page one. Small LCD scales retain a 384-pixel window width.
 The local Windows bundle is `game/dist/q4-controls/Mechagotchi/Mechagotchi.exe`;
 keep its adjacent `_internal` folder. Built/tested with this repo Python 3.13.9.
 See DR 0065 for scripted verification and its limits.
+
+## Phase-Q consolidation (2026-10-04)
+
+The actual direct/source-CLI launch examples, isolated save continuity and
+existing native bundle passed Q5 checks; see
+`research/experiment_reports/2026-10-04-phase-q-gate.md`.
+Q2/Q3 notes above remain dated history. The current default supports G clean;
+old saves keep their own covenant. Q-table eligibility is lab-tier: the package
+producer/consumer and playable opt-in are the planned cycle-28 work, not shipped
+default behavior. The dependency-only workspace has no installed `mechagotchi`
+console script; use the source launcher or one-folder native executable.

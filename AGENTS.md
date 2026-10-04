@@ -18,9 +18,10 @@ contain actual results and resume notes; inspect them before repeating work.
 Make cohesive development decisions across the affected modules and documents.
 Select the next existing queue item, preregister its contract before RED tests,
 and continue within authorized scope without module-by-module permission stops.
-Q2 and Q3 are complete locally. The next queue item is Q4's hidden-axis
-source survey; preregister its source/derived/absent criteria and reproduce
-the committed visible-axis split before measurement. Q5 consolidates the cycle.
+Q1–Q4 are complete locally. Q5 consolidates their measured limits, real launch
+paths and preserved evidence. Cycle 28 is planned in the live queue and
+`docs/development/cycle-28-learning-consumer.md`; do not start it before the
+completed Q5 result is reviewed.
 Q3's adopted new-life covenant does not migrate existing saves. Q1's Q-table
 eligibility remains separate from default promotion.
 
@@ -47,6 +48,9 @@ next active agent resumes from evidence rather than inventing a new backlog.
 
 Follow pombi as the user-designated local development lead. Use this actual
 repository and its `.venv/Scripts/python.exe` (3.13.9) for current work. Do not
-create source mirrors or new environments. The owner alone commits, syncs and
-pushes; leave current changes uncommitted. These session instructions supersede
-older agent commit-per-task guidance. Preserve existing modifications.
+create source mirrors or new environments. The later direct user instruction
+on 2026-10-04 assigns commits and current-branch pushes of verified requested
+changes to this development agent. It supersedes the earlier owner-only Git
+rule. Preserve external edits/commits; stage explicit requested paths and never
+rewrite history. Review Q5 before starting cycle 28. No Git operation requires
+a redundant conversational approval within that authorized scope.

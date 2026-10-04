@@ -38,25 +38,26 @@ ladder (0.1 → 0.3) and Phase G's gates are recorded in
 
 ## Where the project is
 
-**Verified 2026-08-09** — `python -B tools/ci/run_sweep.py` →
-**SWEEP GREEN**. One runner covers every surface, and nothing is claimed
-without it:
+**Locally verified 2026-10-04** — actual repository Python 3.13.9:
+**2,493 tests across 24 suites**, two named DR 0034 zlib byte-identity skips,
+**2,269 valid JSON artifacts**. The package has 324 contract tests, the game
+257, workshop 92, CLI 37, CI runner 4, plus 19 research lab suites. Required
+dependency groups were present; content gates still run on classic zlib.
+The current ledger has 287 experiment reports, 83 cards and 65 decision records.
 
-| surface | state |
-| --- | --- |
-| ENGINE (`packages/mecha_engine/`) | 10 promoted modules · **316** contract tests |
-| GAME (`game/`) | the playable client · **239** tests |
-| workshop (authoring) | **92** tests |
-| `mechas` CLI (support) | **23** tests |
-| labs | **19** suites — every algorithm proven here first |
-| evidence | **2,253** JSON artifacts, 0 invalid |
-| ledger | **280** experiment reports · **79** algorithm cards · **59** decision records |
+Q2–Q4 deliver covenant-authored cleaning, a measured new-life default with saved
+campaign continuity, and readable wrapped/paged controls. F1 opens the complete
+controls and pauses care; G cleans when the saved covenant supports it.
+The Phase-Q consolidated report is
+`research/experiment_reports/2026-10-04-phase-q-gate.md`. Q1's Q-table result is
+lab-tier eligibility; it is still absent from the game's default fleet.
+Remote native CI, signing and human usability are separate verification states.
 
 Every documented phase **A–G is complete and gated** (the public-alpha
 gate went green 2026-07-12, retiring `docs/gap-analysis.md` per its own
 charter). Development since then runs in **cycles**, each planned from
 the still-unmet documentation and from the remainders the previous
-cycle's own records name — currently **cycle 27 · Phase Q**. The live
+cycle's own records name — currently **cycle 28 · Phase R, planned and not started**. The live
 queue is `sunsetted/TODO.md`; the changelog
 (`sunsetted/complete/CHANGELOG/01/CHANGELOG.md`) is the cycle-by-cycle
 summary; `_MOC_.md` maps the whole repository.

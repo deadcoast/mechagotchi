@@ -1287,3 +1287,12 @@ See `experiment_reports/2026-10-04-hidden-axis-sources-and-readable-controls.md`
 candidates and two absent dedicated definitions; no adoption. Existing controls
 wrap and page; F1 pauses care. Full local gate passed: 2493 tests / 24 suites, two DR 0034 skips,
 2269 valid JSON artifacts; Q5 remains open.
+
+## 2026-10-04: Phase-Q consolidation (Q5)
+
+`experiment_reports/2026-10-04-phase-q-gate.md` consolidates the existing Q1–Q4
+triads without new scientific measurements or artifact regeneration. Actual
+source/CLI/native launches are checked separately. Cycle 27 is archived at
+`sunsetted/complete/TODO/27/TODO.md`; cycle 28 remains PLANNED in
+`docs/development/cycle-28-learning-consumer.md`, with package producer/consumer
+parity, playable opt-in/persistence and an actual-game default gate.

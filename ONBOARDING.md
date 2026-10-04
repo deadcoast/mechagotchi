@@ -1,3 +1,6 @@
+<!-- Current operational snapshot: section 4 and the Phase-Q gate, 2026-10-04.
+Earlier dated science and owner rulings are retained; latest direct session
+instructions govern authorized Git actions. -->
 # ONBOARDING.md — start here, next session
 
 Written **2026-07-21** by the outgoing session, completed
@@ -591,28 +594,23 @@ first green CLOUD CI run, which awaits a push never made unasked.
 
 ---
 
-## 4. WHAT TO DO NEXT
+## 4. WHAT TO DO NEXT (2026-10-04 Q5 snapshot)
 
-**Work `sunsetted/TODO.md` task by task** — RED first, triad docs in the
-same change, one commit per task naming the task ID. Cycle 27's queue in
-order (cycle 26's closed ladder is in §3 and its gate report; the full
-charters with their sources are in the queue file):
+Q1–Q4 are locally complete; Q5's consolidated gate is
+`research/experiment_reports/2026-10-04-phase-q-gate.md`. Cycle 27's original
+charter is archived at `sunsetted/complete/TODO/27/TODO.md`.
+The live queue is cycle 28 / Phase R, PLANNED and NOT STARTED. Its complete
+contract is `docs/development/cycle-28-learning-consumer.md`: promote the
+missing bounded Q-table producer and consumer with defaults off, deliver an
+explicit playable choice and save semantics, then gate ADOPT/REFUSE against
+actual game arms with begging priced explicitly. Review completed Q5 first.
 
-1. ~~**Q1 · the Q-table earns its consumer**~~ — **DONE 2026-08-09
-   (DR 0060).** See §3. The bar cleared (+7.355%); the promotion is
-   the named next record.
-2. **Q2 · the SLIP ladder gains its mechanics rung** — the covenant
-   becomes the mechanic's author (DR 0012's ladder, the DR 0013
-   climb), both validators + the pydantic mirror + fixtures both ways.
-3. **Q3 · the default-covenant flip gets its record** — adopt or
-   refuse, priced either way; refusing is first-class; if adopted, the
-   regeneration cascade ships in the same slice.
-4. **Q4 · the hidden half of §1.17 earns its survey** — the six
-   unsurfaced hidden axes' engine sources, measured (M5's remainder 4,
-   standing since cycle 23); a survey, not a build.
-5. **Q5 · the Phase-Q gate** — then archive to
-   `sunsetted/complete/TODO/27/` and plan cycle 28 from the
-   documentation. **Do not ask which direction.**
+Use this repository's existing `.venv/Scripts/python.exe` (Python 3.13.9).
+Preserve user/external work. Follow pombi development direction. The direct user
+instruction of 2026-10-04 now assigns verified requested commits and pushes to
+the development agent; it supersedes the earlier session no-agent-Git rule.
+No history rewrite, new source checkout/environment or automatic next-cycle
+start is authorized here. Earlier dated state notes remain historical snapshots.
 
 ## 5. The map — what each directory IS
 

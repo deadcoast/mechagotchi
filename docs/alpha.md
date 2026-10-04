@@ -1,6 +1,7 @@
 # The M7 Public Alpha — Reproduce Everything From This Document
 
-Cycle 17 G6 (Phase G). Both builds — the ENGINE and the GAME — from a
+Established in cycle 17 G6 (Phase G); launch guidance refreshed at Q5,
+2026-10-04. Both builds — the ENGINE and the GAME — from a
 fresh clone, on the repo's own evidence discipline. Every claim below
 is backed by a committed stage-0 artifact or a test suite; nothing is
 asserted without a gate.
@@ -14,28 +15,65 @@ asserted without a gate.
 - **[uv](https://docs.astral.sh/uv/)** (dependency groups + the venv).
 
 ```powershell
-uv sync --group lab --group cli --group game
+uv sync --locked --group lab --group cli --group game
 ```
+
+For a fresh checkout, the command above provisions dependencies. For this
+already provisioned Windows checkout, keep its existing Python 3.13.9 environment;
+all commands below reuse `.venv/Scripts/python.exe`. On Unix the interpreter
+path is `.venv/bin/python`. No environment replacement is needed for play/tests.
 
 ## 1. Verify the whole workspace (the sweep)
 
 One runner, the same locally and in CI (`.github/workflows/ci.yml`):
 
 ```powershell
-uv run python -B tools/ci/run_sweep.py          # full (~4 min)
-uv run python -B tools/ci/run_sweep.py --quick  # skips the 2-min workshop suite
+.venv/Scripts/python.exe -B tools/ci/run_sweep.py          # full, all 24 suites
+.venv/Scripts/python.exe -B tools/ci/run_sweep.py --quick  # local diagnosis, not a full gate
 ```
 
-Green means: 19 lab suites, the 295-test engine package, the
-workshop, the CLI, the game suite, and JSON validation over every
-committed data artifact.
+A full gate covers 19 lab suites plus package, CLI, game, workshop and CI-runner
+suites, with JSON validation over every data artifact. Current verified scope
+is 2,493 tests and 2,269 JSON artifacts; two named DR 0034 pins skip on zlib 1.3.1.
+Runtime depends on the machine (the observed Q4 full run took about 9m24s).
 
 ## 2. Play the game (the second build)
 
 ```powershell
-uv run python -B game/run_game.py        # or: mechas game --play
-uv run python -B game/build_release.py   # the installable bundle -> game/dist/Mechagotchi/
+.venv/Scripts/python.exe -B game/run_game.py
+.venv/Scripts/python.exe -B game/run_game.py --new --keeper-dir keeper/example
+.venv/Scripts/python.exe -B game/run_game.py --keeper-dir keeper/example
+.venv/Scripts/python.exe -B game/build_release.py --windowed # -> game/dist/Mechagotchi/
 ```
+
+New companions use the measured cleanliness covenant. **G** cleans only when
+the companion's covenant supports it; existing saves retain their covenant.
+**F1** shows all controls and pauses care, **PgUp/PgDn** or the wheel browse
+long casing text, and **Escape** closes help before quitting. Only the keeper
+feeds; the companion's autonomous feed decision is a beg. No Q-table default
+promotion has occurred.
+
+The supportive CLI can also launch from this source checkout:
+
+```powershell
+$env:PYTHONPATH = (Resolve-Path tools/mechas_cli/src).Path
+.venv/Scripts/python.exe -B -m mechas_cli.app game --play --new --keeper-dir keeper/cli-example
+.venv/Scripts/python.exe -B -m mechas_cli.app game --play --keeper-dir keeper/cli-example
+```
+
+A covenant option selects a new life, never replaces an existing save silently:
+
+```powershell
+.venv/Scripts/python.exe -B game/run_game.py --new --slip data/slips/valid/slip_lcd_seed.json --keeper-dir keeper/incumbent-example
+```
+
+A new campaign inherits that companion's covenant; a resumed campaign retains
+its saved covenant. The demonstrated local Windows bundle is
+`game/dist/q4-controls/Mechagotchi/Mechagotchi.exe`; keep `_internal` beside it.
+Launch it from any cwd; it uses bundled inputs and its player save home.
+This is an unsigned local one-folder build, not hosted distribution or proof of
+remote CI. The `mechagotchi` console entry point belongs to an installed game
+package; it is not present in this dependency-only workspace.
 
 Controls and the whole loop (companion → eras → covenant spending →
 hatchery → contribute → review → repertoire/lineage → packs):
@@ -49,8 +87,13 @@ Quit and relaunch — the companion AND the campaign resume.
 ## 3. Regenerate the game's evidence (optional, deliberate)
 
 ```powershell
-uv run python -B game/evidence.py   # 16 stage-0 artifacts under data/game_client/
+.venv/Scripts/python.exe -B game/evidence.py   # 16 stage-0 artifacts under data/game_client/
 ```
+
+The historical evidence builders retain explicit HELLO_SLIP bindings and
+answer their original questions; this command does not measure the new default.
+Do not migrate an old measurement onto a new definition or casually overwrite
+committed evidence. New questions get new artifacts and records.
 
 Evidence regeneration is a deliberate act, not a CI job (the G1
 report records this decision): CI verifies the suites per push; the
@@ -90,3 +133,9 @@ its full protocol and per-state results.
 - `research/experiment_reports/2026-07-21-callback-forecast.md` + `research/decision_records/0043-callback-forecast-adoption.md` (forecast key 5 and the sixteenth game artifact), `research/experiment_reports/2026-07-26-phase-k-gate.md` (the freshness pass that corrected the artifact count)
 - `research/decision_records/0034-ci-and-zlib-conditional-pins.md`, `0035-pack-distribution-at-alpha.md`
 - `tools/ci/run_sweep.py`, `.github/workflows/ci.yml`, `game/README.md`
+
+## Current consolidation
+
+`research/experiment_reports/2026-10-04-phase-q-gate.md` records actual source,
+CLI and native launch checks. Cycle 27 is archived; cycle 28 is planned in
+`docs/development/cycle-28-learning-consumer.md` and has not started.
