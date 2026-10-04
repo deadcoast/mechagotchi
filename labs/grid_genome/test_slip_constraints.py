@@ -67,9 +67,9 @@ class SlipConstraintTests(unittest.TestCase):
         self.assertIn("behavior curiosity outside 0..1: 1.2", result.errors)
 
     def test_validate_slip_agrees_with_authoritative_validator_on_full_corpus(self):
-        self.assertEqual(14, len(FAILURE_CASE_PATHS))
-        self.assertEqual(4, len(VALID_PROFILE_PATHS))
-        self.assertEqual(4, len(EXAMPLE_PROFILE_PATHS))
+        self.assertEqual(15, len(FAILURE_CASE_PATHS))
+        self.assertEqual(5, len(VALID_PROFILE_PATHS))
+        self.assertEqual(5, len(EXAMPLE_PROFILE_PATHS))
 
         for path in VALID_PROFILE_PATHS + FAILURE_CASE_PATHS + EXAMPLE_PROFILE_PATHS:
             with self.subTest(path=str(path)):

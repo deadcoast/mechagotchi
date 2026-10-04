@@ -30,9 +30,9 @@ class JsonschemaRuntimeParityTests(unittest.TestCase):
             VALID_PROFILE_PATHS, FAILURE_CASE_PATHS, EXAMPLE_PROFILE_PATHS
         )
 
-        self.assertEqual(4, report["layered_outcomes"]["valid_accepted"])
-        self.assertEqual(4, report["layered_outcomes"]["examples_accepted"])
-        self.assertEqual(14, report["layered_outcomes"]["failures_rejected"])
+        self.assertEqual(5, report["layered_outcomes"]["valid_accepted"])
+        self.assertEqual(5, report["layered_outcomes"]["examples_accepted"])
+        self.assertEqual(15, report["layered_outcomes"]["failures_rejected"])
 
     def test_only_the_documented_semantic_gap_separates_the_validators(self):
         report = build_parity_report(

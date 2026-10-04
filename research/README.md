@@ -1248,3 +1248,19 @@ an experiment report, a metric report, and a decision record.
 - `data/development/local_development_cycle_stage0.json`
 - `tools/mechas_cli/src/mechas_cli/development.py`, `tools/mechas_cli/tests/test_development.py`
 - `docs/development/local-cycle.md`, `docs/development/q2-mechanics-rung.md`
+
+## 2026-10-04: Covenant mechanics authorship (cycle 27 Q2 / DR 0063)
+
+- `research/experiment_reports/2026-10-04-slip-mechanics-authorship.md`
+- `research/algorithm_cards/slip_mechanics_authorship.md`
+- `research/decision_records/0063-covenant-mechanics-authorship.md`
+- `labs/lifecycle_sim/slip_mechanics_gate.py`, `labs/slip_validator/mechanics_contract.py`
+- `data/lifecycle/slip_mechanics_authorship_stage0.json`
+- `data/lifecycle/slip_mechanics_incumbent_baseline.json`, `data/slips/mechanics_cases_stage0.json`
+
+**adopt_authorship**: 32 strict cases / 192 authority verdicts; four incumbent
+profiles retain canonical state/episode/game/save outputs; DR 0059 reproduces
+unchanged. Profile inheritance and explicit disable persist through save/resume
+and succession. Conditional **G clean** reaches the actual client. Corpus grows
+4/14 to 5/15 without rewriting historical observations. Q3 default adoption,
+Q-table promotion and native remote CI remain separate unclosed decisions/gates.

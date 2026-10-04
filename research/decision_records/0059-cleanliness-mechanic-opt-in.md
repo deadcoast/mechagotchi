@@ -116,3 +116,19 @@ attentive keeper nothing but the cleaning tick itself.
 - `research/decision_records/0048-visible-companion-state-axes.md`, `0021-game-loop.md`, `0053-admission-policy-belongs-at-the-call-site.md`, `0012-slip-schema-extension-ladder.md`
 - `docs/project-research/validity-research.md` §1.17 (the P3 dated addendum)
 - `sunsetted/TODO.md` (cycle 26 P3)
+
+## 2026-10-04: Q2 authorship and client correction
+
+DR 0063 completes decision 4's named SLIP rung and preserves this record's
+metrics, thresholds and decision. Source review also found that decision 2's
+session clean action/readout had no binding in the actual pygame window.
+Q2 adds conditional **G clean** and the engine value in the footer, proven by
+failing-then-passing footer and real headless event-loop tests. The prior
+session-level evidence remains intact; it did not prove a keyboard binding.
+Decision 3's default flip remains Q3, separately preregistered and gated.
+
+## Sources for this correction
+
+- `research/decision_records/0063-covenant-mechanics-authorship.md`
+- `research/experiment_reports/2026-10-04-slip-mechanics-authorship.md`
+- `game/src/mecha_game/app.py`, `game/tests/test_slip_mechanics.py`

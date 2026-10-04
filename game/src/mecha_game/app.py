@@ -6,7 +6,8 @@ bars and ui_hints icons), with a text footer for mood/age/lineage —
 every displayed number a state field, a packet field, or a lineage
 record (DR 0021 first law). Pygame touches ONLY this layer.
 
-Controls: F feed · P play · S sleep (queued for the next lifecycle
+Controls: F feed · P play · S sleep · G clean (when the covenant opts in;
+queued for the next lifecycle
 tick — the keeper answers the tick, mashing keys does not accelerate
 time) · ENTER adopt the successor when the companion dies · ESC or
 close to quit (the lineage file is saved on death and on quit).
@@ -357,7 +358,10 @@ def _footer_lines(snapshot: dict, queued: str | None) -> list[str]:
         )
         if forecast["effects"].get("feed"):
             felt += "   begs soon"
-    return [line, controls, detail, felt]
+    lines = [line, controls, detail, felt]
+    if "cleanliness" in needs and "clean" in snapshot.get("actions", []):
+        lines.append(f"cleanliness {needs['cleanliness']['value']:.2f}   G clean")
+    return lines
 
 
 def run(argv: list[str] | None = None) -> int:
@@ -434,6 +438,8 @@ def run(argv: list[str] | None = None) -> int:
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         running = False
+                    elif event.key == pygame.K_g and session.alive and "cleanliness" in session.state:
+                        queued = "clean"
                     elif event.key in key_actions and session.alive:
                         queued = key_actions[event.key]
                     elif (

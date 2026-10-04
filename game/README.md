@@ -85,3 +85,31 @@ uv run python -B -m unittest discover -s game/tests -p "test_*.py"
 - `research/experiment_reports/2026-07-12-front-end-client-skeleton.md`
 - `research/decision_records/0021-game-loop.md` (the design input)
 - `docs/gap-analysis.md` (Phase F)
+
+## Covenant-authored cleaning (Q2, 2026-10-04)
+
+A v0.2 covenant can opt into cleanliness with
+`"mechanics": {"cleanliness": true}`. The game shows the engine's value in
+the footer and **G** queues a clean action for the next lifecycle tick.
+Cleaning takes a tick; it does not feed the companion. The default covenant
+stays unchanged. Opt-in survives quitting, resuming, and succession.
+
+Try the authored example in a separate save directory:
+
+```powershell
+uv sync --locked --group lab --group cli --group game
+uv run --no-sync python -B game/run_game.py --new --slip data/slips/valid/slip_v2_cleanliness.json --keeper-dir keeper/cleanliness-example
+# Resume that same companion (omit --new):
+uv run --no-sync python -B game/run_game.py --keeper-dir keeper/cleanliness-example
+```
+
+`--new` replaces the companion in the selected keeper directory. The example
+directory separates this trial from ordinary `keeper/` play. For code consumers,
+`CompanionSession(..., mechanics=None)` inherits the covenant; an explicit
+`mechanics=()` disables it, and that override survives save/load/succession.
+
+## Sources for Q2
+
+- `research/decision_records/0063-covenant-mechanics-authorship.md`
+- `game/tests/test_slip_mechanics.py`
+- `data/slips/valid/slip_v2_cleanliness.json`

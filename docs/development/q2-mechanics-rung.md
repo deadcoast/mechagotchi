@@ -53,6 +53,16 @@ belongs to Q3 and cannot be smuggled into Q2.
 5. Focused suites: grid_genome, slip_validator, lifecycle_sim, package, game,
    CLI. Then full sweep, artifact audit, and separate exact-SHA native CI.
 
+## Pre-implementation client correction (2026-10-04)
+
+Source review found the P3 session's clean action/readout was not wired to the
+actual window's keyboard/footer. Before measuring that client change, require
+an opted-in **G clean** control and the engine's cleanliness value in a compact
+footer line. Off-mode controls and footer stay unchanged. G has no incumbent
+binding; C remains covenant mode. A real headless event-loop test must prove
+G reaches the session only when enabled. This is Q2 usability polish, not a
+new mechanic, threshold, default adoption or autonomous grooming policy.
+
 ## Sources
 
 - `sunsetted/TODO.md` Q2-Q5

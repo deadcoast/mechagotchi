@@ -112,8 +112,9 @@ DEFAULT_RNG_SEED = 20260512
 # ---------------------------------------------------------------------------
 # The cleanliness mechanic seam (cycle 26 P3, decision record 0059).
 # OPT-IN via the additive ``mechanics`` keyword on ``initial_state`` /
-# ``run_episode``; with ``mechanics=None`` (the default) every surface is
-# byte-identical to the pre-seam engine, pinned against the committed
+# ``run_episode``; Q2 also permits validated covenant opt-in. With no
+# covenant opt-in or keyword override, every surface is byte-identical to
+# the pre-seam engine, pinned against the committed
 # Stage 0 comparator artifact. Every parameter below is DERIVED from the
 # incumbent engine, never picked:
 # - CLEANLINESS_DECAY is the median incumbent per-tick drift magnitude at
@@ -170,10 +171,11 @@ def initial_state(
     exactly as the lab lifecycle simulator does; v0.1 states stay
     byte-identical to the frozen baseline.
 
-    ``mechanics`` (cycle 26 P3, decision record 0059): ``None`` — the
-    default — is byte-identical to the pre-seam engine; the tuple
-    ``("cleanliness",)`` opts the state into the cleanliness mechanic
-    (see the seam constants above). Unknown names are refused.
+    ``mechanics`` (DR 0059 / DR 0063): ``None`` inherits a validated
+    v0.2 covenant mechanics block. Without that opt-in, the state remains
+    byte-identical to the pre-seam engine. An explicit sequence wins over
+    the covenant: ``()`` disables; ``("cleanliness",)`` enables. Unknown
+    names and invalid covenants are refused.
     """
     mechanic_names = _mechanic_names(mechanics)
     validation = validate_grid(grid) if isinstance(grid, dict) else None
@@ -193,6 +195,12 @@ def initial_state(
             raise ValueError(
                 "grid is not aligned with SLIP: " + "; ".join(alignment.errors)
             )
+
+    # Q2 / DR 0063: a validated covenant supplies the default; an explicit
+    # keyword sequence (including empty) remains the caller's override.
+    if mechanics is None and slip_profile is not None:
+        if slip_profile.get("mechanics", {}).get("cleanliness") is True:
+            mechanic_names = ("cleanliness",)
 
     cells = grid.get("cells", [])
     cell_stress = mean([float(cell.get("stress", 0)) for cell in cells]) if cells else 0.0
@@ -409,11 +417,11 @@ def run_episode(
     if isinstance(ticks, bool) or not isinstance(ticks, int) or ticks < 0:
         raise ValueError(f"ticks must be a non-negative integer: {ticks}")
 
-    mechanic_names = _mechanic_names(mechanics)
+    state = initial_state(grid, slip_profile, mechanics=mechanics)
     action_stream: list[str] | None = None
     if actions is not None:
         action_stream = list(actions)
-        clean_allowed = "cleanliness" in mechanic_names
+        clean_allowed = "cleanliness" in state
         for action in action_stream:
             if action not in ACTION_EFFECTS and not (
                 action == CLEAN_ACTION and clean_allowed
@@ -431,7 +439,6 @@ def run_episode(
             raise ValueError(f"unsupported lifecycle policy: {effective_policy}")
 
     rng = random.Random(DEFAULT_RNG_SEED if rng_seed is None else rng_seed)
-    state = initial_state(grid, slip_profile, mechanics=mechanics)
     for index in range(ticks):
         if not state["alive"]:
             break

@@ -17,7 +17,7 @@ Contract sources:
 ``validate_slip`` judges a profile against the ratified schema
 (v0.1 baseline + every v0.2 ladder rung: forbidden_traits,
 risk_tolerances, learning_switches, lineage_preferences, species_class,
-visual_grammar, deliberation); ``is_grid_aligned`` judges a grid
+visual_grammar, deliberation, mechanics); ``is_grid_aligned`` judges a grid
 against a profile (palettes, body mass, required organ roles, material
 grammar). Pure stdlib; deterministic; inputs never mutated.
 """
@@ -56,6 +56,7 @@ LADDER_KEYS = {
     "species_class",
     "visual_grammar",
     "deliberation",
+    "mechanics",
 }
 DELIBERATION_KEYS = {"max_ticks", "confidence_threshold"}
 VISUAL_GRAMMAR_KEYS = {"allowed_materials", "animation_vocab"}
@@ -162,6 +163,8 @@ def validate_slip(profile: dict) -> SlipResult:
         _validate_visual_grammar(profile, errors)
     if "deliberation" in profile:
         _validate_deliberation(profile, errors)
+    if "mechanics" in profile:
+        _validate_mechanics(profile, errors)
     _require_string(profile, "profile_id", errors)
     _require_string(profile, "name", errors)
     profile_id = profile.get("profile_id")
@@ -327,6 +330,17 @@ def is_grid_aligned(grid: dict, profile: dict) -> SlipResult:
             errors.append(f"forbidden material present in grid: {material}")
 
     return SlipResult(not errors, errors)
+
+
+def _validate_mechanics(profile: dict, errors: list[str]) -> None:
+    mechanics = profile["mechanics"]
+    if not isinstance(mechanics, dict):
+        errors.append("mechanics must be an object")
+        return
+    for key in sorted(set(mechanics) - {"cleanliness"}):
+        errors.append(f"mechanics has unexpected key: {key}")
+    if "cleanliness" in mechanics and not isinstance(mechanics["cleanliness"], bool):
+        errors.append("mechanics cleanliness must be a boolean")
 
 
 def _validate_deliberation(profile: dict, errors: list[str]) -> None:

@@ -59,3 +59,33 @@ Published artifacts:
   contract: exact key sets, boolean/pattern/uniqueness checks, typed
   misalignment errors, and a pinned cross-validator agreement test over the
   full corpus (review findings H-02, M-05, M-06).
+
+## 2026-10-04: Covenant mechanics rung (DR 0063)
+
+Only SLIP `0.2.0` accepts the optional `mechanics` object:
+
+```json
+"mechanics": {"cleanliness": true}
+```
+
+Its only supported key is `cleanliness`, a strict JSON boolean. Absence, `{}`,
+or false means off. Null, unknown keys, numbers and strings are invalid.
+Frozen `0.1.0` rejects the whole block, including `{}`. The engine's optional
+`mechanics` keyword overrides the validated profile: None inherits, an empty
+sequence disables, and `("cleanliness",)` enables. Invalid profiles are still
+refused when an override is supplied.
+
+Current fixture census: **5 valid / 15 malformed / 5 examples**. Earlier
+reports retain their measured corpus sizes; this rung does not regenerate
+their observations. The new matrix tests 32 cases across the authored schema,
+committed generated schema, Pydantic and all three stdlib validators.
+The game entry point and isolated-save example are in `game/README.md`.
+
+## Sources
+
+- `research/decision_records/0063-covenant-mechanics-authorship.md`
+- `research/experiment_reports/2026-10-04-slip-mechanics-authorship.md`
+- `data/slips/mechanics_cases_stage0.json`
+- `data/slips/valid/slip_v2_cleanliness.json`
+- `data/slips/failure_cases/slip_mechanics_numeric_boolean.json`
+- `labs/slip_validator/mechanics_contract.py`

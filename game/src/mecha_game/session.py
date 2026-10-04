@@ -111,9 +111,9 @@ class CompanionSession:
     ) -> None:
         # The engine's own gate judges the adoption (refuses with the
         # validator's/covenant's verbatim errors). `mechanics` (P3,
-        # DR 0059) opts the session into engine mechanics — None, the
-        # default, is byte-identical to the pre-seam client.
-        self.mechanics = tuple(mechanics) if mechanics else None
+        # DR 0059 / DR 0063) overrides covenant mechanics. None inherits;
+        # an explicit empty sequence disables. Ordinary off-mode is unchanged.
+        self.mechanics = None if mechanics is None else tuple(mechanics)
         self.state = initial_state(grid, slip_profile, mechanics=self.mechanics)
         self.fleet = fleet
         if fleet:
@@ -400,7 +400,10 @@ class CompanionSession:
         # Rung-conditional (the engine's own convention): only sessions
         # that opted into mechanics carry the key, so a default save is
         # byte-identical to the pre-seam format.
-        if self.mechanics:
+        # An explicit empty override needs persistence only when it disables
+        # a covenant-carried opt-in. Ordinary off-mode saves retain their shape.
+        profile_enabled = self.slip_profile.get("mechanics", {}).get("cleanliness") is True
+        if self.mechanics or (self.mechanics is not None and profile_enabled):
             payload["mechanics"] = list(self.mechanics)
         path = Path(path)
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -433,7 +436,7 @@ class CompanionSession:
         session.name = payload["name"]
         session.succession_seed = payload["succession_seed"]
         session.fleet = payload["fleet"]
-        session.mechanics = tuple(payload["mechanics"]) if payload.get("mechanics") else None
+        session.mechanics = tuple(payload["mechanics"]) if "mechanics" in payload else None
         session._rng = random.Random(0)
         session.session_tick = payload["session_tick"]
         session.begging = payload["begging"]

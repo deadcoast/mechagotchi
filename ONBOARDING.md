@@ -1022,3 +1022,30 @@ Q2 is the next preregistered product slice; Q3 defaults and Q1 promotion remain
 separate decisions. A local full pass cannot satisfy native Windows/Ubuntu CI
 on a published SHA. A blocked publication gate does not stop independent
 authorized local work.
+
+## 2026-10-04: Q2 completed locally (DR 0063)
+
+Q2 now authors cleanliness through strict SLIP v0.2 mechanics. The keyword
+still overrides (empty disables); save/resume/succession preserve that choice;
+the window has conditional G clean and an engine-value footer. Incumbent
+canonical outputs and the original DR 0059 metrics reproduce. The dated report
+`research/experiment_reports/2026-10-04-slip-mechanics-authorship.md` records
+the completed verification and preservation evidence.
+
+Q1/Q2 are complete; **Q3-Q5 remain planned**. Next, preregister Q3's default
+experience criteria and exact artifact cascade before any measurement. Q-table
+eligibility remains separate from promotion. The default covenant is unchanged.
+This local milestone does not close remote CI; no alternative push route is
+authorized by a blocked publication attempt.
+
+The old instruction to restore SLIP observation artifacts after tests is
+superseded by DR 0061's isolated writers and DR 0062's preservation audit.
+Tests must not change source artifacts. If they do, inspect the failure;
+do not reset owner files to hide it.
+
+## Sources for this update
+
+- `research/decision_records/0061-portable-provenance-and-ci-evidence.md`
+- `research/decision_records/0062-local-development-cycle.md`
+- `research/decision_records/0063-covenant-mechanics-authorship.md`
+- `sunsetted/TODO.md`, `docs/development/local-cycle.md`

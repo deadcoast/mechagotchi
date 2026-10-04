@@ -1,0 +1,512 @@
+{
+  "artifact_id": "slip_mechanics_authorship_stage0",
+  "status": "q2_contract_gate",
+  "date": "2026-10-04",
+  "purpose": "Measure covenant authorship without changing the adopted mechanic, defaults or scientific thresholds.",
+  "source_artifacts": [
+    "data/lifecycle/slip_mechanics_incumbent_baseline.json",
+    "data/slips/mechanics_cases_stage0.json",
+    "data/lifecycle/cleanliness_mechanic_gate_stage0.json",
+    "docs/development/q2-mechanics-rung.md",
+    "research/decision_records/0063-covenant-mechanics-authorship.md"
+  ],
+  "metrics": {
+    "authority_cases": 32,
+    "authority_votes": 192,
+    "incumbent_profiles": 4,
+    "incumbent_engine_mismatches": [],
+    "incumbent_game_mismatches": [],
+    "valid_fixtures": 5,
+    "off_forms_identical": true,
+    "example_profiles": 5,
+    "failure_fixtures": 15,
+    "checks": {
+      "all_authorities_agree": true,
+      "package_matrix": true,
+      "profile_only_clean": true,
+      "explicit_disable": true,
+      "explicit_enable": true,
+      "invalid_profile_refused": true,
+      "inputs_preserved": true,
+      "incumbent_engine": true,
+      "incumbent_game": true,
+      "dr0059_reproduced": true,
+      "game_persistence": true,
+      "player_footer": true,
+      "clean_answers": true
+    },
+    "clean_response": {
+      "before": 0.9256,
+      "after": 1.0
+    },
+    "persistence": [
+      {
+        "override": "inherit",
+        "enabled": true,
+        "resume_matches_uninterrupted": true,
+        "save_override_preserved": true,
+        "succession_matches": true,
+        "player_footer_matches": true
+      },
+      {
+        "override": "explicit_empty",
+        "enabled": false,
+        "resume_matches_uninterrupted": true,
+        "save_override_preserved": true,
+        "succession_matches": true,
+        "player_footer_matches": true
+      }
+    ],
+    "dr0059_instrument": {
+      "switchboard_reproduced": true,
+      "idle_reproduced": true,
+      "committed_need_balance": 0.789129,
+      "committed_keeper_floor": 0.0685,
+      "recomputed_keeper_floor": 0.0685
+    }
+  },
+  "authority_matrix": [
+    {
+      "case": "0.1.0_absent",
+      "expected": true,
+      "votes": {
+        "authored_schema": true,
+        "generated_schema": true,
+        "pydantic": true,
+        "package": true,
+        "grid_lab": true,
+        "standalone_lab": true
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.1.0_empty",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.1.0_enabled",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.1.0_disabled",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.1.0_null",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.1.0_array",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.1.0_bool",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.1.0_string",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.1.0_value_null",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.1.0_value_string",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.1.0_value_one",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.1.0_value_zero",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.1.0_value_float",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.1.0_value_array",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.1.0_unknown",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.1.0_mixed_unknown",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.2.0_absent",
+      "expected": true,
+      "votes": {
+        "authored_schema": true,
+        "generated_schema": true,
+        "pydantic": true,
+        "package": true,
+        "grid_lab": true,
+        "standalone_lab": true
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.2.0_empty",
+      "expected": true,
+      "votes": {
+        "authored_schema": true,
+        "generated_schema": true,
+        "pydantic": true,
+        "package": true,
+        "grid_lab": true,
+        "standalone_lab": true
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.2.0_enabled",
+      "expected": true,
+      "votes": {
+        "authored_schema": true,
+        "generated_schema": true,
+        "pydantic": true,
+        "package": true,
+        "grid_lab": true,
+        "standalone_lab": true
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.2.0_disabled",
+      "expected": true,
+      "votes": {
+        "authored_schema": true,
+        "generated_schema": true,
+        "pydantic": true,
+        "package": true,
+        "grid_lab": true,
+        "standalone_lab": true
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.2.0_null",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.2.0_array",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.2.0_bool",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.2.0_string",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.2.0_value_null",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.2.0_value_string",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.2.0_value_one",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.2.0_value_zero",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.2.0_value_float",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.2.0_value_array",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.2.0_unknown",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    },
+    {
+      "case": "0.2.0_mixed_unknown",
+      "expected": false,
+      "votes": {
+        "authored_schema": false,
+        "generated_schema": false,
+        "pydantic": false,
+        "package": false,
+        "grid_lab": false,
+        "standalone_lab": false
+      },
+      "inputs_preserved": true
+    }
+  ],
+  "closed_states": [
+    "all_authorities_agree",
+    "clean_answers",
+    "dr0059_reproduced",
+    "explicit_disable",
+    "explicit_enable",
+    "game_persistence",
+    "incumbent_engine",
+    "incumbent_game",
+    "inputs_preserved",
+    "invalid_profile_refused",
+    "package_matrix",
+    "player_footer",
+    "profile_only_clean"
+  ],
+  "blocked_states": [
+    "native_remote_ci_unverified",
+    "default_covenant_adoption_requires_Q3",
+    "qtable_default_promotion_requires_its_separate_record"
+  ],
+  "decision": {
+    "verdict": "adopt_authorship",
+    "failed_checks": [],
+    "rule": "All preregistered authority, precedence, persistence, incumbent and player-readout checks must pass."
+  },
+  "next_research_step": "Q3: preregister the default-covenant ADOPT/REFUSE measurement and exact evidence cascade."
+}

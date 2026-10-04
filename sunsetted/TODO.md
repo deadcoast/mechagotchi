@@ -60,7 +60,7 @@ charter), `docs/project-research/validity-research.md` §1.17,
   *(Original charter's expectation, kept because its refutation is the
   finding:)* `eligible_not_promoted` was the expected verdict (the D6
   welfare saturation).
-- [ ] **Q2 · The SLIP ladder gains its mechanics rung.** *(ENGINE
+- [x] **Q2 · The SLIP ladder gains its mechanics rung.** *(ENGINE
   schema.)* DR 0059's opt-in has exactly one author today: a
   constructor keyword. The covenant is the documented author of
   behavior (SLIP: *"user-authored constraint profile … governs
@@ -75,6 +75,13 @@ charter), `docs/project-research/validity-research.md` §1.17,
   opted-in profile; `failure_cases/` gains a malformed one). The game
   session then honors a covenant-carried opt-in with no constructor
   change — the authorship DR 0059 deferred, delivered.
+  **DONE locally 2026-10-04, DR 0063**: 32 strict cases / 192 verdicts,
+  explicit empty override retained, save/resume/succession pinned, four
+  incumbent canonical baselines and DR 0059 reproduced. The actual window
+  now exposes conditional G clean. See
+  `research/experiment_reports/2026-10-04-slip-mechanics-authorship.md`.
+  Default covenant and Q-table promotion are unchanged; native cloud CI
+  remains unverified while publication is blocked.
 - [ ] **Q3 · The default-covenant flip gets its record — ADOPT or
   REFUSE, priced either way.** *(GAME.)* DR 0059 named this decision
   and priced its costs (the session-built evidence artifacts

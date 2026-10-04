@@ -30,7 +30,7 @@ class SlipValidatorTests(unittest.TestCase):
         self.assertIn("mutation", schema["required"])
 
     def test_all_current_valid_profiles_pass_schema_and_semantic_validation(self):
-        self.assertEqual(4, len(VALID_PROFILE_PATHS))
+        self.assertEqual(5, len(VALID_PROFILE_PATHS))
 
         for path in VALID_PROFILE_PATHS:
             with self.subTest(path=str(path)):
@@ -82,7 +82,7 @@ class SlipValidatorTests(unittest.TestCase):
         self.assertIn("semantic_numeric_bool", result["error_families"])
 
     def test_research_plan_slip_examples_are_valid_schema_examples(self):
-        self.assertEqual(4, len(EXAMPLE_PROFILE_PATHS))
+        self.assertEqual(5, len(EXAMPLE_PROFILE_PATHS))
 
         expected_ids = {
             json.loads(path.read_text(encoding="utf-8"))["profile_id"]

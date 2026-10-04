@@ -206,6 +206,18 @@
       "title": "LineagePreferencesContract",
       "type": "object"
     },
+    "MechanicsContract": {
+      "additionalProperties": false,
+      "properties": {
+        "cleanliness": {
+          "default": false,
+          "title": "Cleanliness",
+          "type": "boolean"
+        }
+      },
+      "title": "MechanicsContract",
+      "type": "object"
+    },
     "MutationContract": {
       "additionalProperties": false,
       "properties": {
@@ -461,6 +473,9 @@
       ],
       "default": null
     },
+    "mechanics": {
+      "$ref": "#/$defs/MechanicsContract"
+    },
     "learning_switches": {
       "anyOf": [
         {
@@ -492,6 +507,24 @@
   ],
   "title": "Mechagotchi SLIP Pydantic Contract",
   "type": "object",
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "slip_version": {
+            "const": "0.1.0"
+          }
+        }
+      },
+      "then": {
+        "not": {
+          "required": [
+            "mechanics"
+          ]
+        }
+      }
+    }
+  ],
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://mechagotchi.local/schema/slip/pydantic/0.1.0"
 }

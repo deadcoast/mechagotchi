@@ -1,0 +1,73 @@
+{
+  "artifact_id": "slip_mechanics_incumbent_baseline",
+  "date": "2026-10-04",
+  "source_commit": "2cb9bd18a4ac82c3d421c13222e5dd03fd696d6a",
+  "status": "captured_before_q2_implementation",
+  "serialization": "UTF-8 JSON, sorted keys, compact separators, ensure_ascii=False",
+  "purpose": "Freeze all four incumbent valid profiles plus the default game covenant before Q2; this is an instrument check, not a new scientific threshold.",
+  "ticks": 72,
+  "rng_seed": 123,
+  "game_actions": [
+    "feed",
+    "play",
+    "sleep"
+  ],
+  "observations": [
+    {
+      "profile_path": "data/slips/valid/slip_amber_social.json",
+      "grid_path": "data/seed_grids/mg_seed_003.json",
+      "profile_hash": "d4f57e7f4ef6197584e7044301de12beabda703b309b6db0dddd3241b2b8655c",
+      "grid_hash": "03ac4c83ecfa6fb5f5e0d3c5cf03b32a5ed50984670ad418681e4a9aab7ba537",
+      "initial_state_hash": "a259702e4ceb4a4f98ba9d680f482703ead77ed07ed76c70171eaacc806f9a37",
+      "episode_hashes": {
+        "idle": "02f020897fcdde06e67c2bc8f3216ec893961bc20f08e70db9d2ecac2fd2b562",
+        "switchboard": "c06158c945ce3977695236e5205dc2259546215f58682bb31022ac9353f80076",
+        "random": "85c91bccd018890b5ac5c9deb3b512c4ab271e26f731ead88b6c981ccc888540"
+      },
+      "game_snapshot_hash": "51415e627bb7dafc9944d57aa620d49043fb6946ce0ab4c8fd48f840a3f426e1",
+      "game_save_hash": "4e3c0fe880ba2a50d4ed96cd8f0da6d19ca9c19ab1c4782fe71dea0f6bf64f39"
+    },
+    {
+      "profile_path": "data/slips/valid/slip_gray_stable.json",
+      "grid_path": "data/seed_grids/mg_seed_002.json",
+      "profile_hash": "94881f9e4c63f91b3c85862d8ff8a0dc5e177d1211e67335984ca3f2b47f9b63",
+      "grid_hash": "82519546157c6465f69334b0f3595a752be1a60bd505e76237e68d93193bbef7",
+      "initial_state_hash": "354c80824891a71472dadd48424ce28d54ac03b4f0aded5694794199897eaaad",
+      "episode_hashes": {
+        "idle": "d29e9965e1aa2bbda66de6fa8b50b60cd10302eb8e40b64be22042b176f32060",
+        "switchboard": "ce0d32aaddc4d7fef0645bb9f372efcaecaf8ebd0d7860eab06c4894a17a26ef",
+        "random": "43d9ce3da07b131e3fbc2f0ae7996418e4228e1100fecb6f63a496ab9d4f817c"
+      },
+      "game_snapshot_hash": "8b1d91102f3778ee5842b0f0786b4c7fa46a61ecef69918c34ae9785deb030ef",
+      "game_save_hash": "743344ee5fa8da73f300e2cdf67c412ac3673b919e7a858b593dd9fb557e7073"
+    },
+    {
+      "profile_path": "data/slips/valid/slip_lcd_seed.json",
+      "grid_path": "data/seed_grids_16x16/mg_seed16_001_beetle.json",
+      "profile_hash": "58f14a0d36a2394b08070ef4333febf4bebde3bf558e500cb93b1c0b59f241ae",
+      "grid_hash": "172b09adfe424cc5a1c4da767c0b03dafee57daecd4f458627925983b06bb849",
+      "initial_state_hash": "d90a74b139a5e089a9b24766537a19fa913574c7958fd123798cefeb1520795d",
+      "episode_hashes": {
+        "idle": "f201ba16f3a5835d58035340d3131b757742c0279939ac46cc32bc7432ad39c6",
+        "switchboard": "1adbaffb13f21a30f9ebaf29e7365db207ee6009f8cba2186ffc3a27106a8ac4",
+        "random": "517c431ddaeb6883e851380001cdf3f1d704daa54966f85a2f78af4ac29077fd"
+      },
+      "game_snapshot_hash": "37671cd5dad1e341b7f667b22f45ccdb0fff6aa642266f5719c25d921f4fb9cb",
+      "game_save_hash": "9077319465dd163c7335efb9e7a20e558e04e362c734c8a91eda032ec3dc0c96"
+    },
+    {
+      "profile_path": "data/slips/valid/slip_v2_no_shell.json",
+      "grid_path": "data/seed_grids/mg_seed_001.json",
+      "profile_hash": "e8a830b1a024dfc134dcd79bcc223cff2b33ae6af6e56ec966ef97b0ad570936",
+      "grid_hash": "dfef9bdc3f64cc7344dcedcae515c7729cb0d919aa67b98525404389aaf27e0b",
+      "initial_state_hash": "d7f3460cb256df12af6d838a7a9147db33abb73d31b14e62a45bcb61f2532f9d",
+      "episode_hashes": {
+        "idle": "f201ba16f3a5835d58035340d3131b757742c0279939ac46cc32bc7432ad39c6",
+        "switchboard": "531ff77200e0e7c00a0f021ef356014a52e5adee6bd5bd493a7412d9c3bf16b8",
+        "random": "517c431ddaeb6883e851380001cdf3f1d704daa54966f85a2f78af4ac29077fd"
+      },
+      "game_snapshot_hash": "1b8b1b3a32f560c7169207a7f95e1cfe241a32c37ba5265a52a41943bef3a126",
+      "game_save_hash": "f02703010b3419157e19db8f5d9070927d4bee0b32dd456447332b5f432be8fe"
+    }
+  ]
+}

@@ -359,3 +359,24 @@ bar; and an attentive keeper's care absorbs the dirt pressure entirely
 numbers and the frozen key list, the derived constants by value, the
 verbatim off-mode refusal, non-lethality, and the corpse rule).
 
+## Covenant-authored mechanics (Q2, 2026-10-04; DR 0063)
+
+The P3 seam above now inherits `mechanics.cleanliness` from a validated v0.2
+SLIP when the keyword is None. An explicit sequence retains caller authority:
+empty tuple/list disables, `("cleanliness",)` enables. Profile validation
+still runs under an override. `run_episode` resolves the initial state before
+allowing a clean action stream; simultaneous invalid arguments may therefore
+report a profile/grid error before an action/policy error.
+
+Absent, empty-object and false mechanics leave incumbent behavior unchanged.
+No public exports, dynamics, rewards, thresholds or autonomous actions change.
+Four preimplementation profiles pin initial states and 72-tick idle,
+switchboard and seed-123 random episodes using canonical JSON SHA256.
+The original DR 0059 metrics and decision are reproduced unchanged.
+
+## Sources for Q2
+
+- `research/decision_records/0063-covenant-mechanics-authorship.md`
+- `packages/mecha_engine/tests/test_slip_mechanics.py`
+- `data/lifecycle/slip_mechanics_incumbent_baseline.json`
+- `data/lifecycle/slip_mechanics_authorship_stage0.json`

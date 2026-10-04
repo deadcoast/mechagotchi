@@ -50,6 +50,7 @@ LADDER_KEYS = {
     "species_class",
     "visual_grammar",
     "deliberation",
+    "mechanics",
 }
 DELIBERATION_KEYS = {"max_ticks", "confidence_threshold"}
 VISUAL_GRAMMAR_KEYS = {"allowed_materials", "animation_vocab"}
@@ -118,6 +119,11 @@ def validate_profile(profile: dict, source_path: Path | None = None) -> dict:
                 [key],
                 f"{key} requires slip_version 0.2.0",
             )
+    if "mechanics" in profile:
+        mechanics = profile["mechanics"]
+        _validate_object(mechanics, ["mechanics"], set(), {"cleanliness"}, errors)
+        if isinstance(mechanics, dict) and "cleanliness" in mechanics and not isinstance(mechanics["cleanliness"], bool):
+            _add(errors, "schema_type", ["mechanics", "cleanliness"], "mechanics.cleanliness must be a boolean")
     if "forbidden_traits" in profile:
         _validate_forbidden_traits(profile, errors)
     if "risk_tolerances" in profile:

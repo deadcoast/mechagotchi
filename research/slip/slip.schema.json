@@ -312,6 +312,16 @@
         "confidence_threshold"
       ],
       "additionalProperties": false
+    },
+    "mechanics": {
+      "type": "object",
+      "description": "Q2 / DR 0063: opt-in lifecycle mechanics authored by a v0.2 covenant. Absence, empty object or false keeps cleanliness off; constructor overrides take precedence.",
+      "properties": {
+        "cleanliness": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
     }
   },
   "$defs": {
@@ -366,6 +376,11 @@
             {
               "required": [
                 "deliberation"
+              ]
+            },
+            {
+              "required": [
+                "mechanics"
               ]
             }
           ]

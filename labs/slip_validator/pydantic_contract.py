@@ -254,6 +254,12 @@ class SurvivalWeightsContract(BaseModel):
         return _reject_numeric_bool(value)
 
 
+class MechanicsContract(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    cleanliness: Annotated[bool, Field(strict=True)] = False
+
+
 class SLIPProfile(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
@@ -276,6 +282,7 @@ class SLIPProfile(BaseModel):
     ) = None
     visual_grammar: VisualGrammarContract | None = None
     deliberation: DeliberationContract | None = None
+    mechanics: MechanicsContract | None = None
     learning_switches: (
         Annotated[dict[SwitchboardThread, bool], Field(min_length=1)] | None
     ) = None
@@ -286,8 +293,17 @@ class SLIPProfile(BaseModel):
         "body_core": ForbiddableRole.body,
     }
 
+    @field_validator("mechanics", mode="before")
+    @classmethod
+    def reject_explicit_null_mechanics(cls, value: object) -> object:
+        if value is None:
+            raise ValueError("mechanics must be an object")
+        return value
+
     @model_validator(mode="after")
     def ladder_fields_require_v2(self) -> "SLIPProfile":
+        if self.mechanics is not None and self.slip_version != "0.2.0":
+            raise ValueError("mechanics requires slip_version 0.2.0")
         if self.risk_tolerances is not None and self.slip_version != "0.2.0":
             raise ValueError("risk_tolerances requires slip_version 0.2.0")
         if self.learning_switches is not None and self.slip_version != "0.2.0":
@@ -512,6 +528,11 @@ def _error_family(error_type: str, message: str) -> str:
 
 def _generated_schema() -> dict:
     schema = SLIPProfile.model_json_schema(mode="validation")
+    # Field validators/version gates are not emitted by Pydantic's schema generator.
+    # Preserve optional absence while rejecting explicit null and the frozen v0.1 rung.
+    schema["properties"]["mechanics"] = {"$ref": "#/$defs/MechanicsContract"}
+    schema["allOf"] = [{"if": {"properties": {"slip_version": {"const": "0.1.0"}}},
+                        "then": {"not": {"required": ["mechanics"]}}}]
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
     schema["$id"] = "https://mechagotchi.local/schema/slip/pydantic/0.1.0"
     return schema

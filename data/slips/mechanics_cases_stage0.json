@@ -1,0 +1,303 @@
+{
+  "artifact_id": "mechanics_cases_stage0",
+  "date": "2026-10-04",
+  "purpose": "Preregistered strict mechanics authority matrix; expected verdicts fixed before implementation.",
+  "cases": [
+    {
+      "name": "0.1.0_absent",
+      "profile_patch": {
+        "slip_version": "0.1.0"
+      },
+      "expected": true
+    },
+    {
+      "name": "0.1.0_empty",
+      "profile_patch": {
+        "slip_version": "0.1.0",
+        "mechanics": {}
+      },
+      "expected": false
+    },
+    {
+      "name": "0.1.0_enabled",
+      "profile_patch": {
+        "slip_version": "0.1.0",
+        "mechanics": {
+          "cleanliness": true
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "0.1.0_disabled",
+      "profile_patch": {
+        "slip_version": "0.1.0",
+        "mechanics": {
+          "cleanliness": false
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "0.1.0_null",
+      "profile_patch": {
+        "slip_version": "0.1.0",
+        "mechanics": null
+      },
+      "expected": false
+    },
+    {
+      "name": "0.1.0_array",
+      "profile_patch": {
+        "slip_version": "0.1.0",
+        "mechanics": []
+      },
+      "expected": false
+    },
+    {
+      "name": "0.1.0_bool",
+      "profile_patch": {
+        "slip_version": "0.1.0",
+        "mechanics": true
+      },
+      "expected": false
+    },
+    {
+      "name": "0.1.0_string",
+      "profile_patch": {
+        "slip_version": "0.1.0",
+        "mechanics": "cleanliness"
+      },
+      "expected": false
+    },
+    {
+      "name": "0.1.0_value_null",
+      "profile_patch": {
+        "slip_version": "0.1.0",
+        "mechanics": {
+          "cleanliness": null
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "0.1.0_value_string",
+      "profile_patch": {
+        "slip_version": "0.1.0",
+        "mechanics": {
+          "cleanliness": "true"
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "0.1.0_value_one",
+      "profile_patch": {
+        "slip_version": "0.1.0",
+        "mechanics": {
+          "cleanliness": 1
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "0.1.0_value_zero",
+      "profile_patch": {
+        "slip_version": "0.1.0",
+        "mechanics": {
+          "cleanliness": 0
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "0.1.0_value_float",
+      "profile_patch": {
+        "slip_version": "0.1.0",
+        "mechanics": {
+          "cleanliness": 1.0
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "0.1.0_value_array",
+      "profile_patch": {
+        "slip_version": "0.1.0",
+        "mechanics": {
+          "cleanliness": []
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "0.1.0_unknown",
+      "profile_patch": {
+        "slip_version": "0.1.0",
+        "mechanics": {
+          "unknown": true
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "0.1.0_mixed_unknown",
+      "profile_patch": {
+        "slip_version": "0.1.0",
+        "mechanics": {
+          "cleanliness": true,
+          "unknown": false
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "0.2.0_absent",
+      "profile_patch": {
+        "slip_version": "0.2.0"
+      },
+      "expected": true
+    },
+    {
+      "name": "0.2.0_empty",
+      "profile_patch": {
+        "slip_version": "0.2.0",
+        "mechanics": {}
+      },
+      "expected": true
+    },
+    {
+      "name": "0.2.0_enabled",
+      "profile_patch": {
+        "slip_version": "0.2.0",
+        "mechanics": {
+          "cleanliness": true
+        }
+      },
+      "expected": true
+    },
+    {
+      "name": "0.2.0_disabled",
+      "profile_patch": {
+        "slip_version": "0.2.0",
+        "mechanics": {
+          "cleanliness": false
+        }
+      },
+      "expected": true
+    },
+    {
+      "name": "0.2.0_null",
+      "profile_patch": {
+        "slip_version": "0.2.0",
+        "mechanics": null
+      },
+      "expected": false
+    },
+    {
+      "name": "0.2.0_array",
+      "profile_patch": {
+        "slip_version": "0.2.0",
+        "mechanics": []
+      },
+      "expected": false
+    },
+    {
+      "name": "0.2.0_bool",
+      "profile_patch": {
+        "slip_version": "0.2.0",
+        "mechanics": true
+      },
+      "expected": false
+    },
+    {
+      "name": "0.2.0_string",
+      "profile_patch": {
+        "slip_version": "0.2.0",
+        "mechanics": "cleanliness"
+      },
+      "expected": false
+    },
+    {
+      "name": "0.2.0_value_null",
+      "profile_patch": {
+        "slip_version": "0.2.0",
+        "mechanics": {
+          "cleanliness": null
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "0.2.0_value_string",
+      "profile_patch": {
+        "slip_version": "0.2.0",
+        "mechanics": {
+          "cleanliness": "true"
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "0.2.0_value_one",
+      "profile_patch": {
+        "slip_version": "0.2.0",
+        "mechanics": {
+          "cleanliness": 1
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "0.2.0_value_zero",
+      "profile_patch": {
+        "slip_version": "0.2.0",
+        "mechanics": {
+          "cleanliness": 0
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "0.2.0_value_float",
+      "profile_patch": {
+        "slip_version": "0.2.0",
+        "mechanics": {
+          "cleanliness": 1.0
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "0.2.0_value_array",
+      "profile_patch": {
+        "slip_version": "0.2.0",
+        "mechanics": {
+          "cleanliness": []
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "0.2.0_unknown",
+      "profile_patch": {
+        "slip_version": "0.2.0",
+        "mechanics": {
+          "unknown": true
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "0.2.0_mixed_unknown",
+      "profile_patch": {
+        "slip_version": "0.2.0",
+        "mechanics": {
+          "cleanliness": true,
+          "unknown": false
+        }
+      },
+      "expected": false
+    }
+  ]
+}

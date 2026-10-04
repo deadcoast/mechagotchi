@@ -104,3 +104,22 @@ python -m json.tool .\data\slips\slip_schema_validation_stage0.json
 - `data/slips/failure_cases/`
 - JSON Schema Draft 2020-12: https://json-schema.org/draft/2020-12
 - Pydantic JSON Schema docs: https://docs.pydantic.dev/latest/concepts/json_schema/
+
+## 2026-10-04: Mechanics corpus extension (DR 0063)
+
+The v0.2 mechanics rung adds one valid opt-in and one invalid numeric-boolean
+fixture: current census **5 valid / 15 malformed / 5 examples**. Historical
+counts and blocked-state observations above describe their dated studies.
+The authored schema, Pydantic model, generated schema, package authority and
+both lab validators now agree on the 32-case strict mechanics matrix.
+An absent/empty/false block is off; null, unknown keys and non-booleans fail;
+v0.1 rejects the block. The generated schema explicitly represents the null
+and version rules that model validators do not emit. Its committed body is
+pinned against current generation. Original observations are not overwritten.
+
+## Sources
+
+- `research/decision_records/0063-covenant-mechanics-authorship.md`
+- `research/experiment_reports/2026-10-04-slip-mechanics-authorship.md`
+- `data/slips/mechanics_cases_stage0.json`
+- `labs/slip_validator/test_mechanics_contract.py`

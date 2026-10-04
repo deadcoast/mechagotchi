@@ -23,22 +23,21 @@ EXAMPLE_PROFILE_PATHS = sorted((ROOT / "research/slip/slip_examples").glob("*.js
 
 class SlipPydanticContractTests(unittest.TestCase):
     def test_pydantic_model_accepts_current_valid_profiles_and_examples(self):
-        self.assertEqual(4, len(VALID_PROFILE_PATHS))
-        self.assertEqual(4, len(EXAMPLE_PROFILE_PATHS))
+        self.assertEqual(5, len(VALID_PROFILE_PATHS))
+        self.assertEqual(5, len(EXAMPLE_PROFILE_PATHS))
 
         for path in VALID_PROFILE_PATHS + EXAMPLE_PROFILE_PATHS:
             with self.subTest(path=str(path)):
                 payload = json.loads(path.read_text(encoding="utf-8"))
                 model = SLIPProfile.model_validate(payload)
                 self.assertEqual(payload["profile_id"], model.profile_id)
-                # Ladder fields (DR 0012) are optional-additive: they dump only
-            # when set, so the roundtrip excludes unset Nones.
-            self.assertEqual(
-                payload, model.model_dump(mode="json", exclude_none=True)
-            )
+                # Optional ladder fields preserve every fixture roundtrip.
+                self.assertEqual(
+                    payload, model.model_dump(mode="json", exclude_none=True)
+                )
 
     def test_pydantic_model_rejects_expanded_failure_corpus(self):
-        self.assertEqual(14, len(FAILURE_CASE_PATHS))
+        self.assertEqual(15, len(FAILURE_CASE_PATHS))
 
         report = build_pydantic_contract_report(
             valid_paths=VALID_PROFILE_PATHS,
@@ -47,9 +46,9 @@ class SlipPydanticContractTests(unittest.TestCase):
         )
 
         self.assertEqual(CONTRACT_STATUS, report["status"])
-        self.assertEqual(4, report["accepted_valid_profiles"])
-        self.assertEqual(4, report["accepted_example_profiles"])
-        self.assertEqual(14, report["rejected_failure_cases"])
+        self.assertEqual(5, report["accepted_valid_profiles"])
+        self.assertEqual(5, report["accepted_example_profiles"])
+        self.assertEqual(15, report["rejected_failure_cases"])
         self.assertEqual([], report["unexpected_valid_rejections"])
         self.assertEqual([], report["unexpected_example_rejections"])
         self.assertEqual([], report["unexpected_failure_acceptances"])

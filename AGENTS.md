@@ -18,7 +18,9 @@ contain actual results and resume notes; inspect them before repeating work.
 Make cohesive development decisions across the affected modules and documents.
 Select the next existing queue item, preregister its contract before RED tests,
 and continue within authorized scope without module-by-module permission stops.
-The next product slice is Q2 (`docs/development/q2-mechanics-rung.md`). Q3's
+Q2 is complete locally (`docs/development/q2-mechanics-rung.md`). The next
+queue item is Q3; preregister its criteria and exact artifact cascade before
+implementation or measurement. Q3's
 default-covenant ADOPT/REFUSE decision and Q1's Q-table eligibility are separate
 scientific gates. Do not silently promote either default.
 
