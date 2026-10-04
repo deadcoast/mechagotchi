@@ -1,0 +1,526 @@
+{
+  "artifact_id": "product_release_stage0",
+  "date": "2026-10-04",
+  "status": "native_windows_verified",
+  "purpose": "Verify the final opt-in learning release with unchanged incumbent, honest saves and corrected native save homes.",
+  "source_artifacts": [
+    "data/game_client/playable_learning_gate_stage0.json",
+    "data/game_client/native_save_home_stage0.json",
+    "labs/game_loop/verify_learning_release.py",
+    "labs/game_loop/verify_default_release.py",
+    "game/src/mecha_game/app.py"
+  ],
+  "metrics": {
+    "learning": {
+      "checks": {
+        "source_new_and_resume": true,
+        "source_conflict_preserves_all_save_bytes": true,
+        "source_invalid_preserves_all_save_bytes": true,
+        "cli_new_and_resume": true,
+        "cli_conflict_preserves_all_save_bytes": true,
+        "cli_invalid_preserves_all_save_bytes": true,
+        "native_new_and_resume": true,
+        "native_conflict_preserves_all_save_bytes": true,
+        "native_invalid_preserves_all_save_bytes": true,
+        "incumbent_default_shape": true,
+        "native_succession": true,
+        "warm_state_survives_native_resume": true,
+        "corrupt_save_refused_without_writes": true
+      },
+      "runs": [
+        {
+          "label": "source-new",
+          "returncode": 0,
+          "expected": 0,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.venv\\Scripts\\python.exe",
+            "-B",
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\run_game.py",
+            "--tick-frames",
+            "1",
+            "--fps",
+            "0",
+            "--scale",
+            "2",
+            "--keeper-dir",
+            "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mechagotchi-learning-driishli\\source",
+            "--new",
+            "--learning-policy",
+            "qtable",
+            "--ticks",
+            "2"
+          ],
+          "stderr": ""
+        },
+        {
+          "label": "source-resume",
+          "returncode": 0,
+          "expected": 0,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.venv\\Scripts\\python.exe",
+            "-B",
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\run_game.py",
+            "--tick-frames",
+            "1",
+            "--fps",
+            "0",
+            "--scale",
+            "2",
+            "--keeper-dir",
+            "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mechagotchi-learning-driishli\\source",
+            "--ticks",
+            "2"
+          ],
+          "stderr": ""
+        },
+        {
+          "label": "source-conflict",
+          "returncode": 2,
+          "expected": 2,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.venv\\Scripts\\python.exe",
+            "-B",
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\run_game.py",
+            "--tick-frames",
+            "1",
+            "--fps",
+            "0",
+            "--scale",
+            "2",
+            "--keeper-dir",
+            "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mechagotchi-learning-driishli\\source",
+            "--learning-policy",
+            "incumbent",
+            "--ticks",
+            "1"
+          ],
+          "stderr": "usage: mechagotchi [-h] [--seed SEED] [--slip SLIP] [--scale SCALE]\n                   [--fps FPS] [--tick-frames TICK_FRAMES] [--ticks TICKS]\n                   [--auto-succeed] [--keeper-dir KEEPER_DIR] [--eras ERAS]\n                   [--era-scale {session,tiny}] [--new]\n                   [--learning-policy {incumbent,qtable}]\nmechagotchi: error: learning policy conflicts with the saved companion; use --new or a separate --keeper-dir\n"
+        },
+        {
+          "label": "source-invalid",
+          "returncode": 2,
+          "expected": 2,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.venv\\Scripts\\python.exe",
+            "-B",
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\run_game.py",
+            "--tick-frames",
+            "1",
+            "--fps",
+            "0",
+            "--scale",
+            "2",
+            "--keeper-dir",
+            "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mechagotchi-learning-driishli\\source",
+            "--learning-policy",
+            "unknown",
+            "--ticks",
+            "1"
+          ],
+          "stderr": "usage: mechagotchi [-h] [--seed SEED] [--slip SLIP] [--scale SCALE]\n                   [--fps FPS] [--tick-frames TICK_FRAMES] [--ticks TICKS]\n                   [--auto-succeed] [--keeper-dir KEEPER_DIR] [--eras ERAS]\n                   [--era-scale {session,tiny}] [--new]\n                   [--learning-policy {incumbent,qtable}]\nmechagotchi: error: argument --learning-policy: invalid choice: 'unknown' (choose from incumbent, qtable)\n"
+        },
+        {
+          "label": "cli-new",
+          "returncode": 0,
+          "expected": 0,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.venv\\Scripts\\python.exe",
+            "-B",
+            "-m",
+            "mechas_cli.app",
+            "game",
+            "--play",
+            "--keeper-dir",
+            "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mechagotchi-learning-driishli\\cli",
+            "--new",
+            "--learning-policy",
+            "qtable",
+            "--ticks",
+            "2"
+          ],
+          "stderr": ""
+        },
+        {
+          "label": "cli-resume",
+          "returncode": 0,
+          "expected": 0,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.venv\\Scripts\\python.exe",
+            "-B",
+            "-m",
+            "mechas_cli.app",
+            "game",
+            "--play",
+            "--keeper-dir",
+            "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mechagotchi-learning-driishli\\cli",
+            "--ticks",
+            "2"
+          ],
+          "stderr": ""
+        },
+        {
+          "label": "cli-conflict",
+          "returncode": 2,
+          "expected": 2,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.venv\\Scripts\\python.exe",
+            "-B",
+            "-m",
+            "mechas_cli.app",
+            "game",
+            "--play",
+            "--keeper-dir",
+            "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mechagotchi-learning-driishli\\cli",
+            "--learning-policy",
+            "incumbent",
+            "--ticks",
+            "1"
+          ],
+          "stderr": "usage: mechagotchi [-h] [--seed SEED] [--slip SLIP] [--scale SCALE]\n                   [--fps FPS] [--tick-frames TICK_FRAMES] [--ticks TICKS]\n                   [--auto-succeed] [--keeper-dir KEEPER_DIR] [--eras ERAS]\n                   [--era-scale {session,tiny}] [--new]\n                   [--learning-policy {incumbent,qtable}]\nmechagotchi: error: learning policy conflicts with the saved companion; use --new or a separate --keeper-dir\n"
+        },
+        {
+          "label": "cli-invalid",
+          "returncode": 2,
+          "expected": 2,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.venv\\Scripts\\python.exe",
+            "-B",
+            "-m",
+            "mechas_cli.app",
+            "game",
+            "--play",
+            "--keeper-dir",
+            "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mechagotchi-learning-driishli\\cli",
+            "--learning-policy",
+            "unknown",
+            "--ticks",
+            "1"
+          ],
+          "stderr": "Usage: python -m mechas_cli.app game [OPTIONS]\nTry 'python -m mechas_cli.app game --help' for help.\n\u250c\u2500 Error \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 Invalid value: Learning policy must be incumbent or qtable.                 \u2502\n\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n"
+        },
+        {
+          "label": "native-new",
+          "returncode": 0,
+          "expected": 0,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\Mechagotchi.exe",
+            "--tick-frames",
+            "1",
+            "--fps",
+            "0",
+            "--scale",
+            "2",
+            "--keeper-dir",
+            "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mechagotchi-learning-driishli\\native",
+            "--new",
+            "--learning-policy",
+            "qtable",
+            "--ticks",
+            "2"
+          ],
+          "stderr": ""
+        },
+        {
+          "label": "native-resume",
+          "returncode": 0,
+          "expected": 0,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\Mechagotchi.exe",
+            "--tick-frames",
+            "1",
+            "--fps",
+            "0",
+            "--scale",
+            "2",
+            "--keeper-dir",
+            "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mechagotchi-learning-driishli\\native",
+            "--ticks",
+            "2"
+          ],
+          "stderr": ""
+        },
+        {
+          "label": "native-conflict",
+          "returncode": 2,
+          "expected": 2,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\Mechagotchi.exe",
+            "--tick-frames",
+            "1",
+            "--fps",
+            "0",
+            "--scale",
+            "2",
+            "--keeper-dir",
+            "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mechagotchi-learning-driishli\\native",
+            "--learning-policy",
+            "incumbent",
+            "--ticks",
+            "1"
+          ],
+          "stderr": "usage: mechagotchi [-h] [--seed SEED] [--slip SLIP] [--scale SCALE]\n                   [--fps FPS] [--tick-frames TICK_FRAMES] [--ticks TICKS]\n                   [--auto-succeed] [--keeper-dir KEEPER_DIR] [--eras ERAS]\n                   [--era-scale {session,tiny}] [--new]\n                   [--learning-policy {incumbent,qtable}]\nmechagotchi: error: learning policy conflicts with the saved companion; use --new or a separate --keeper-dir\n"
+        },
+        {
+          "label": "native-invalid",
+          "returncode": 2,
+          "expected": 2,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\Mechagotchi.exe",
+            "--tick-frames",
+            "1",
+            "--fps",
+            "0",
+            "--scale",
+            "2",
+            "--keeper-dir",
+            "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mechagotchi-learning-driishli\\native",
+            "--learning-policy",
+            "unknown",
+            "--ticks",
+            "1"
+          ],
+          "stderr": "usage: mechagotchi [-h] [--seed SEED] [--slip SLIP] [--scale SCALE]\n                   [--fps FPS] [--tick-frames TICK_FRAMES] [--ticks TICKS]\n                   [--auto-succeed] [--keeper-dir KEEPER_DIR] [--eras ERAS]\n                   [--era-scale {session,tiny}] [--new]\n                   [--learning-policy {incumbent,qtable}]\nmechagotchi: error: argument --learning-policy: invalid choice: 'unknown' (choose from incumbent, qtable)\n"
+        },
+        {
+          "label": "native-incumbent",
+          "returncode": 0,
+          "expected": 0,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\Mechagotchi.exe",
+            "--tick-frames",
+            "1",
+            "--fps",
+            "0",
+            "--scale",
+            "2",
+            "--keeper-dir",
+            "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mechagotchi-learning-driishli\\native",
+            "--new",
+            "--learning-policy",
+            "incumbent",
+            "--ticks",
+            "2"
+          ],
+          "stderr": ""
+        },
+        {
+          "label": "native-succession",
+          "returncode": 0,
+          "expected": 0,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\Mechagotchi.exe",
+            "--tick-frames",
+            "1",
+            "--fps",
+            "0",
+            "--scale",
+            "2",
+            "--keeper-dir",
+            "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mechagotchi-learning-driishli\\native",
+            "--new",
+            "--learning-policy",
+            "qtable",
+            "--auto-succeed",
+            "--ticks",
+            "14"
+          ],
+          "stderr": ""
+        },
+        {
+          "label": "native-warm-resume",
+          "returncode": 0,
+          "expected": 0,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\Mechagotchi.exe",
+            "--tick-frames",
+            "1",
+            "--fps",
+            "0",
+            "--scale",
+            "2",
+            "--keeper-dir",
+            "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mechagotchi-learning-driishli\\warm",
+            "--ticks",
+            "1"
+          ],
+          "stderr": ""
+        },
+        {
+          "label": "native-corrupt-save",
+          "returncode": 2,
+          "expected": 2,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\Mechagotchi.exe",
+            "--tick-frames",
+            "1",
+            "--fps",
+            "0",
+            "--scale",
+            "2",
+            "--keeper-dir",
+            "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mechagotchi-learning-driishli\\warm",
+            "--ticks",
+            "1"
+          ],
+          "stderr": "usage: mechagotchi [-h] [--seed SEED] [--slip SLIP] [--scale SCALE]\n                   [--fps FPS] [--tick-frames TICK_FRAMES] [--ticks TICKS]\n                   [--auto-succeed] [--keeper-dir KEEPER_DIR] [--eras ERAS]\n                   [--era-scale {session,tiny}] [--new]\n                   [--learning-policy {incumbent,qtable}]\nmechagotchi: error: learning policy must be incumbent or qtable\n"
+        }
+      ],
+      "native_executable_sha256": "fe89eacecb4e07d7a375f6cd466f4ef1d6416892bb2aa04e6aa170a771bff635"
+    },
+    "covenant": {
+      "launch_exit_codes": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "fresh_age": 4,
+      "resumed_age": 7,
+      "campaign_eras": [
+        1,
+        2
+      ],
+      "checks": {
+        "fresh_default_enabled": true,
+        "same_life_resumed": true,
+        "explicit_old_profile_stays_off": true,
+        "new_campaign_uses_selected_profile": true,
+        "campaign_resume_keeps_profile": true
+      },
+      "executable_sha256": "fe89eacecb4e07d7a375f6cd466f4ef1d6416892bb2aa04e6aa170a771bff635",
+      "executable_bytes": 3058311
+    },
+    "save_home": {
+      "checks": {
+        "new_native_save_uses_user_home": true,
+        "user_home_resume": true,
+        "legacy_continues_in_place": true,
+        "existing_user_home_wins_without_touching_legacy": true,
+        "explicit_directory_wins": true
+      },
+      "runs": [
+        {
+          "label": "fresh-user-home",
+          "returncode": 0,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\Mechagotchi.exe",
+            "--tick-frames",
+            "1",
+            "--fps",
+            "0",
+            "--scale",
+            "2",
+            "--ticks",
+            "2",
+            "--learning-policy",
+            "qtable"
+          ],
+          "stderr": ""
+        },
+        {
+          "label": "resume-user-home",
+          "returncode": 0,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\Mechagotchi.exe",
+            "--tick-frames",
+            "1",
+            "--fps",
+            "0",
+            "--scale",
+            "2",
+            "--ticks",
+            "1"
+          ],
+          "stderr": ""
+        },
+        {
+          "label": "create-isolated-legacy-fixture",
+          "returncode": 0,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\Mechagotchi.exe",
+            "--tick-frames",
+            "1",
+            "--fps",
+            "0",
+            "--scale",
+            "2",
+            "--keeper-dir",
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\_internal\\keeper",
+            "--ticks",
+            "2"
+          ],
+          "stderr": ""
+        },
+        {
+          "label": "resume-legacy-default",
+          "returncode": 0,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\Mechagotchi.exe",
+            "--tick-frames",
+            "1",
+            "--fps",
+            "0",
+            "--scale",
+            "2",
+            "--ticks",
+            "1"
+          ],
+          "stderr": ""
+        },
+        {
+          "label": "both-save-homes",
+          "returncode": 0,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\Mechagotchi.exe",
+            "--tick-frames",
+            "1",
+            "--fps",
+            "0",
+            "--scale",
+            "2",
+            "--ticks",
+            "1"
+          ],
+          "stderr": ""
+        },
+        {
+          "label": "explicit-directory",
+          "returncode": 0,
+          "command": [
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\r4-learning\\Mechagotchi\\Mechagotchi.exe",
+            "--tick-frames",
+            "1",
+            "--fps",
+            "0",
+            "--scale",
+            "2",
+            "--keeper-dir",
+            "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mechagotchi-native-home-v1pznfvl\\explicit",
+            "--ticks",
+            "2"
+          ],
+          "stderr": ""
+        }
+      ],
+      "native_executable_sha256": "fe89eacecb4e07d7a375f6cd466f4ef1d6416892bb2aa04e6aa170a771bff635"
+    },
+    "total_process_launches": 26,
+    "checks_passed": 23,
+    "native_executable_sha256": "fe89eacecb4e07d7a375f6cd466f4ef1d6416892bb2aa04e6aa170a771bff635"
+  },
+  "closed_states": [
+    "policy and warm-save continuity",
+    "current and old covenants",
+    "campaign resume",
+    "user and legacy save homes"
+  ],
+  "blocked_states": [
+    "R3 refused default adoption",
+    "remote CI/signing unverified",
+    "human usability unmeasured"
+  ],
+  "decision": {
+    "verdict": "local_release_verified_incumbent_default"
+  },
+  "next_research_step": "Review the complete Cycle 28 result; retain the corpus comparability refusal before any future default study."
+}

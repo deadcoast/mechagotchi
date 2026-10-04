@@ -164,3 +164,21 @@ rating system remains the fallback and calibration check. Pins:
 `labs/runtime_integration/test_readability_selection_parity.py`
 (record-for-record lab parity + the promoted-surface A/B) and the
 `readability_selection` probe in the contract driver.
+
+## Observational evolution progress (DR 0073, 2026-10-04)
+
+`evolve` additionally accepts keyword-only
+`progress_callback: Callable[[int, int], None] | None = None`. A supplied
+observer receives `(0, generations * population)` before evaluation, then
+`(completed_candidates, requested_candidate_budget)` after each fully recorded
+candidate. Values are integers; no mutable engine state is exposed. Exceptions
+propagate for caller-owned cancellation. An extinct archive may end below the
+budget. No completion percentage, wall-clock estimate or callback data enters
+the report. None and observational callbacks preserve complete seeded outputs.
+
+The authoritative lab proved this before promotion.
+`labs/runtime_integration/test_evolution_progress.py` pins full off/on equality,
+lab/package records and counts, propagated cancellation, input preservation and
+early extinction. Existing contract signature assertions include the additive
+default-off argument; no scientific threshold changes. The application owns
+threading, rendering, cancellation policy and its persistence boundary.

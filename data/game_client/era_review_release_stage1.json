@@ -1,0 +1,1078 @@
+{
+  "artifact_id": "era_review_release_stage1",
+  "date": "2026-10-04",
+  "status": "observed_native_and_source",
+  "purpose": "Make recorded outcomes and earned progression readable after restart without changing engine state.",
+  "source_artifacts": [
+    "game/src/mecha_game/era_review.py",
+    "game/src/mecha_game/app.py",
+    "labs/game_loop/verify_era_review.py"
+  ],
+  "metrics": {
+    "checks": {
+      "native_two_recorded_eras": true,
+      "native_default_remains_incumbent": true,
+      "native_resume_preserves_campaign_ledger": true,
+      "native_resume_appends_era_without_replacing_history": true,
+      "review_and_quit_preserve_all_native_keeper_bytes": true,
+      "era_navigation_and_help_return": true,
+      "paging_reaches_weather_record": true,
+      "close_review_advances_one_care_tick_without_queued_input": true,
+      "review_opens_current_covenant": true,
+      "interactive_next_era_opens_new_report_without_care_tick": true,
+      "empty_view_names_first_era_without_creating_campaign": true,
+      "unavailable_view_preserves_corrupt_source": true,
+      "all_real_flows_exit_cleanly_and_fit": true
+    },
+    "launches": [
+      {
+        "label": "native_new_two_eras",
+        "command": [
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\t1-era-review\\Mechagotchi\\Mechagotchi.exe",
+          "--keeper-dir",
+          "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mechagotchi-era-review-do696n2k\\native-history",
+          "--ticks",
+          "1",
+          "--tick-frames",
+          "1",
+          "--fps",
+          "0",
+          "--era-scale",
+          "tiny",
+          "--new",
+          "--eras",
+          "2"
+        ],
+        "returncode": 0,
+        "stdout": "pygame-ce 2.5.7 (SDL 2.32.10, Python 3.13.9)\n",
+        "stderr": ""
+      },
+      {
+        "label": "native_resume_without_era",
+        "command": [
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\t1-era-review\\Mechagotchi\\Mechagotchi.exe",
+          "--keeper-dir",
+          "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mechagotchi-era-review-do696n2k\\native-history",
+          "--ticks",
+          "1",
+          "--tick-frames",
+          "1",
+          "--fps",
+          "0",
+          "--era-scale",
+          "tiny"
+        ],
+        "returncode": 0,
+        "stdout": "pygame-ce 2.5.7 (SDL 2.32.10, Python 3.13.9)\n",
+        "stderr": ""
+      },
+      {
+        "label": "native_next_era",
+        "command": [
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\t1-era-review\\Mechagotchi\\Mechagotchi.exe",
+          "--keeper-dir",
+          "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mechagotchi-era-review-do696n2k\\native-history",
+          "--ticks",
+          "1",
+          "--tick-frames",
+          "1",
+          "--fps",
+          "0",
+          "--era-scale",
+          "tiny",
+          "--eras",
+          "1"
+        ],
+        "returncode": 0,
+        "stdout": "pygame-ce 2.5.7 (SDL 2.32.10, Python 3.13.9)\n",
+        "stderr": ""
+      }
+    ],
+    "interactive": [
+      {
+        "label": "saved-history",
+        "frames": 9,
+        "returncode": 0,
+        "screenshots": [
+          ".development/t1-ui-final/saved-history-01.png",
+          ".development/t1-ui-final/saved-history-02.png",
+          ".development/t1-ui-final/saved-history-03.png",
+          ".development/t1-ui-final/saved-history-04.png",
+          ".development/t1-ui-final/saved-history-05.png",
+          ".development/t1-ui-final/saved-history-06.png",
+          ".development/t1-ui-final/saved-history-07.png",
+          ".development/t1-ui-final/saved-history-08.png",
+          ".development/t1-ui-final/saved-history-09.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 2 [calm]   3/3",
+              "Your companion is paused. [ ] eras   T close",
+              "E next era   C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8   coverage 0.000",
+              "QD 5.858   lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "FOUNDERS: 9 admitted; 0 refused",
+              "These are recorded era results; viewing them does not run the soup."
+            ],
+            "visible": [
+              "ERA 2 [calm] 3/3",
+              "Your companion is paused. [ ] eras T close",
+              "E next era C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8 coverage 0.000",
+              "QD 5.858 lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 1,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 2 [calm]   3/3",
+              "Your companion is paused. [ ] eras   T close",
+              "E next era   C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8   coverage 0.000",
+              "QD 5.858   lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "FOUNDERS: 9 admitted; 0 refused",
+              "These are recorded era results; viewing them does not run the soup."
+            ],
+            "visible": [
+              "No new unlocks. Previously earned tiers remain",
+              "available.",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage",
+              "still applies.",
+              "FOUNDERS: 9 admitted; 0 refused",
+              "These are recorded era results; viewing them does",
+              "PgUp/PgDn \u00b7 wheel   2/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 2,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 2 [calm]   3/3",
+              "Your companion is paused. [ ] eras   T close",
+              "E next era   C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8   coverage 0.000",
+              "QD 5.858   lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "FOUNDERS: 9 admitted; 0 refused",
+              "These are recorded era results; viewing them does not run the soup."
+            ],
+            "visible": [
+              "not run the soup.",
+              "PgUp/PgDn \u00b7 wheel   3/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 4,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 1 [calm]   2/3",
+              "Your companion is paused. [ ] eras   T close",
+              "E next era   C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 9   coverage 0.000",
+              "QD 6.588   lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "FOUNDERS: 12 admitted; 0 refused",
+              "These are recorded era results; viewing them does not run the soup."
+            ],
+            "visible": [
+              "ERA 1 [calm] 2/3",
+              "Your companion is paused. [ ] eras T close",
+              "E next era C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 9 coverage 0.000",
+              "QD 6.588 lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 5,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 2 [calm]   3/3",
+              "Your companion is paused. [ ] eras   T close",
+              "E next era   C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8   coverage 0.000",
+              "QD 5.858   lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "FOUNDERS: 9 admitted; 0 refused",
+              "These are recorded era results; viewing them does not run the soup."
+            ],
+            "visible": [
+              "ERA 2 [calm] 3/3",
+              "Your companion is paused. [ ] eras T close",
+              "E next era C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8 coverage 0.000",
+              "QD 5.858 lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 6,
+            "page": 0,
+            "page_count": 4,
+            "all_lines": [
+              "HELP \u2014 companion time is paused",
+              "F feed   P play   S sleep   G clean when enabled",
+              "Ctrl+S save now; after a save failure, retry the save",
+              "Save failure pauses care; Ctrl+Q quits without saving",
+              "Enter adopt successor after death",
+              "T era reports (care paused): [ ] era, PgUp/PgDn pages",
+              "In reports: E next era, C current covenant, T/Escape close",
+              "E run an era   C covenant budget   H hatch founder",
+              "1\u20135 weather: calm / stable soup / storm / real / callback",
+              "A adopt selected elite, or the latest era\u2019s best",
+              "R release companion   W gather workshop creatures",
+              "V review replay: Space play/pause, . step, , back",
+              "B repertoire: . next, , previous, [ / ] era",
+              "L lineage: . next life, , previous life",
+              "X export covenant   I import covenant   K import pack",
+              "F1 or Escape close help   Escape in play quits",
+              "PgUp / PgDn or mouse wheel browse long casing text"
+            ],
+            "visible": [
+              "HELP \u2014 companion time is paused",
+              "F feed P play S sleep G clean when enabled",
+              "Ctrl+S save now; after a save failure, retry the save",
+              "Save failure pauses care; Ctrl+Q quits without",
+              "saving",
+              "Enter adopt successor after death",
+              "T era reports (care paused): [ ] era, PgUp/PgDn",
+              "PgUp/PgDn \u00b7 wheel   1/4"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 7,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 2 [calm]   3/3",
+              "Your companion is paused. [ ] eras   T close",
+              "E next era   C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8   coverage 0.000",
+              "QD 5.858   lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "FOUNDERS: 9 admitted; 0 refused",
+              "These are recorded era results; viewing them does not run the soup."
+            ],
+            "visible": [
+              "ERA 2 [calm] 3/3",
+              "Your companion is paused. [ ] eras T close",
+              "E next era C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8 coverage 0.000",
+              "QD 5.858 lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 8,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 2 [calm]   3/3",
+              "Your companion is paused. [ ] eras   T close",
+              "E next era   C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8   coverage 0.000",
+              "QD 5.858   lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "FOUNDERS: 9 admitted; 0 refused",
+              "These are recorded era results; viewing them does not run the soup."
+            ],
+            "visible": [
+              "ERA 2 [calm] 3/3",
+              "Your companion is paused. [ ] eras T close",
+              "E next era C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8 coverage 0.000",
+              "QD 5.858 lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 9,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 2 [calm]   3/3",
+              "Your companion is paused. [ ] eras   T close",
+              "E next era   C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8   coverage 0.000",
+              "QD 5.858   lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "FOUNDERS: 9 admitted; 0 refused",
+              "These are recorded era results; viewing them does not run the soup."
+            ],
+            "visible": [
+              "ERA 2 [calm] 3/3",
+              "Your companion is paused. [ ] eras T close",
+              "E next era C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8 coverage 0.000",
+              "QD 5.858 lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "stderr": ""
+      },
+      {
+        "label": "return-to-care",
+        "frames": 4,
+        "returncode": 0,
+        "screenshots": [
+          ".development/t1-ui-final/return-to-care-01.png",
+          ".development/t1-ui-final/return-to-care-02.png",
+          ".development/t1-ui-final/return-to-care-03.png",
+          ".development/t1-ui-final/return-to-care-04.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 2 [calm]   3/3",
+              "Your companion is paused. [ ] eras   T close",
+              "E next era   C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8   coverage 0.000",
+              "QD 5.858   lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "FOUNDERS: 9 admitted; 0 refused",
+              "These are recorded era results; viewing them does not run the soup."
+            ],
+            "visible": [
+              "ERA 2 [calm] 3/3",
+              "Your companion is paused. [ ] eras T close",
+              "E next era C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8 coverage 0.000",
+              "QD 5.858 lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 2 [calm]   3/3",
+              "Your companion is paused. [ ] eras   T close",
+              "E next era   C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8   coverage 0.000",
+              "QD 5.858   lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "FOUNDERS: 9 admitted; 0 refused",
+              "These are recorded era results; viewing them does not run the soup."
+            ],
+            "visible": [
+              "ERA 2 [calm] 3/3",
+              "Your companion is paused. [ ] eras T close",
+              "E next era C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8 coverage 0.000",
+              "QD 5.858 lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 0,
+            "page_count": 1,
+            "all_lines": [
+              "health 0.05 (tired)   mood hungry   age 4   gen 1",
+              "F feed  P play  S sleep",
+              "stress 0.06   bond 0.90",
+              "felt curious (0.77)   hunger\u21920.66   begs soon",
+              "Policy: incumbent",
+              "cleanliness 0.95   G clean",
+              "F1 controls   Ctrl+S save   T era report   E era [calm]   C covenant"
+            ],
+            "visible": [
+              "health 0.05 (tired) mood hungry age 4 gen 1",
+              "F feed P play S sleep",
+              "stress 0.06 bond 0.90",
+              "felt curious (0.77) hunger\u21920.66 begs soon",
+              "Policy: incumbent",
+              "cleanliness 0.95 G clean",
+              "F1 controls Ctrl+S save T era report E era [calm] C",
+              "covenant"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 4,
+            "page": 0,
+            "page_count": 1,
+            "all_lines": [
+              "health 0.05 (tired)   mood hungry   age 4   gen 1",
+              "F feed  P play  S sleep",
+              "stress 0.06   bond 0.90",
+              "felt curious (0.77)   hunger\u21920.66   begs soon",
+              "Policy: incumbent",
+              "cleanliness 0.95   G clean",
+              "F1 controls   Ctrl+S save   T era report   E era [calm]   C covenant"
+            ],
+            "visible": [
+              "health 0.05 (tired) mood hungry age 4 gen 1",
+              "F feed P play S sleep",
+              "stress 0.06 bond 0.90",
+              "felt curious (0.77) hunger\u21920.66 begs soon",
+              "Policy: incumbent",
+              "cleanliness 0.95 G clean",
+              "F1 controls Ctrl+S save T era report E era [calm] C",
+              "covenant"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "stderr": ""
+      },
+      {
+        "label": "review-to-covenant",
+        "frames": 4,
+        "returncode": 0,
+        "screenshots": [
+          ".development/t1-ui-final/review-to-covenant-01.png",
+          ".development/t1-ui-final/review-to-covenant-02.png",
+          ".development/t1-ui-final/review-to-covenant-03.png",
+          ".development/t1-ui-final/review-to-covenant-04.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 2 [calm]   3/3",
+              "Your companion is paused. [ ] eras   T close",
+              "E next era   C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8   coverage 0.000",
+              "QD 5.858   lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "FOUNDERS: 9 admitted; 0 refused",
+              "These are recorded era results; viewing them does not run the soup."
+            ],
+            "visible": [
+              "ERA 2 [calm] 3/3",
+              "Your companion is paused. [ ] eras T close",
+              "E next era C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8 coverage 0.000",
+              "QD 5.858 lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "campaign resumed at era 3",
+              "health 0.00 (tired)   mood hungry   age 5   gen 1   BEGGING",
+              "F feed  P play  S sleep",
+              "stress 0.09   bond 0.88",
+              "felt curious (0.73)   hunger\u21920.74   begs soon",
+              "Policy: incumbent",
+              "cleanliness 0.94   G clean",
+              "COVENANT   palettes 1/1   thinking 0/2   pop 6/12   gens 2/4",
+              "1 palette  2 thinking  3 population  4 generations  C close"
+            ],
+            "visible": [
+              "campaign resumed at era 3",
+              "health 0.00 (tired) mood hungry age 5 gen 1",
+              "BEGGING",
+              "F feed P play S sleep",
+              "stress 0.09 bond 0.88",
+              "felt curious (0.73) hunger\u21920.74 begs soon",
+              "Policy: incumbent",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "campaign resumed at era 3",
+              "health 0.00 (tired)   mood hungry   age 6   gen 1   BEGGING",
+              "F feed  P play  S sleep",
+              "stress 0.12   bond 0.86",
+              "felt curious (0.40)   hunger\u21920.80   begs soon",
+              "Policy: incumbent",
+              "cleanliness 0.93   G clean",
+              "F1 controls   Ctrl+S save   T era report   E era [calm]   C covenant"
+            ],
+            "visible": [
+              "campaign resumed at era 3",
+              "health 0.00 (tired) mood hungry age 6 gen 1",
+              "BEGGING",
+              "F feed P play S sleep",
+              "stress 0.12 bond 0.86",
+              "felt curious (0.40) hunger\u21920.80 begs soon",
+              "Policy: incumbent",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 4,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "campaign resumed at era 3",
+              "health 0.00 (tired)   mood hungry   age 6   gen 1   BEGGING",
+              "F feed  P play  S sleep",
+              "stress 0.12   bond 0.86",
+              "felt curious (0.40)   hunger\u21920.80   begs soon",
+              "Policy: incumbent",
+              "cleanliness 0.93   G clean",
+              "F1 controls   Ctrl+S save   T era report   E era [calm]   C covenant"
+            ],
+            "visible": [
+              "campaign resumed at era 3",
+              "health 0.00 (tired) mood hungry age 6 gen 1",
+              "BEGGING",
+              "F feed P play S sleep",
+              "stress 0.12 bond 0.86",
+              "felt curious (0.40) hunger\u21920.80 begs soon",
+              "Policy: incumbent",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "stderr": ""
+      },
+      {
+        "label": "next-era",
+        "frames": 3,
+        "returncode": 0,
+        "screenshots": [
+          ".development/t1-ui-final/next-era-01.png",
+          ".development/t1-ui-final/next-era-02.png",
+          ".development/t1-ui-final/next-era-03.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 2 [calm]   3/3",
+              "Your companion is paused. [ ] eras   T close",
+              "E next era   C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8   coverage 0.000",
+              "QD 5.858   lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "FOUNDERS: 9 admitted; 0 refused",
+              "These are recorded era results; viewing them does not run the soup."
+            ],
+            "visible": [
+              "ERA 2 [calm] 3/3",
+              "Your companion is paused. [ ] eras T close",
+              "E next era C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8 coverage 0.000",
+              "QD 5.858 lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 3 [calm]   4/4",
+              "Your companion is paused. [ ] eras   T close",
+              "E next era   C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8   coverage 0.000",
+              "QD 5.854   lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "FOUNDERS: 8 admitted; 0 refused",
+              "These are recorded era results; viewing them does not run the soup."
+            ],
+            "visible": [
+              "ERA 3 [calm] 4/4",
+              "Your companion is paused. [ ] eras T close",
+              "E next era C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8 coverage 0.000",
+              "QD 5.854 lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 3 [calm]   4/4",
+              "Your companion is paused. [ ] eras   T close",
+              "E next era   C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8   coverage 0.000",
+              "QD 5.854   lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "FOUNDERS: 8 admitted; 0 refused",
+              "These are recorded era results; viewing them does not run the soup."
+            ],
+            "visible": [
+              "ERA 3 [calm] 4/4",
+              "Your companion is paused. [ ] eras T close",
+              "E next era C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 8 coverage 0.000",
+              "QD 5.854 lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "stderr": ""
+      },
+      {
+        "label": "empty-history",
+        "frames": 2,
+        "returncode": 0,
+        "screenshots": [
+          ".development/t1-ui-final/empty-history-01.png",
+          ".development/t1-ui-final/empty-history-02.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 1,
+            "all_lines": [
+              "ERA REVIEW",
+              "Your companion is paused.",
+              "No era has been recorded for this bloodline yet.",
+              "E run the first era   T or Escape returns to care."
+            ],
+            "visible": [
+              "ERA REVIEW",
+              "Your companion is paused.",
+              "No era has been recorded for this bloodline yet.",
+              "E run the first era T or Escape returns to care."
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 1,
+            "all_lines": [
+              "ERA REVIEW",
+              "Your companion is paused.",
+              "No era has been recorded for this bloodline yet.",
+              "E run the first era   T or Escape returns to care."
+            ],
+            "visible": [
+              "ERA REVIEW",
+              "Your companion is paused.",
+              "No era has been recorded for this bloodline yet.",
+              "E run the first era T or Escape returns to care."
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "stderr": ""
+      },
+      {
+        "label": "unavailable-history",
+        "frames": 3,
+        "returncode": 0,
+        "screenshots": [
+          ".development/t1-ui-final/unavailable-history-01.png",
+          ".development/t1-ui-final/unavailable-history-02.png",
+          ".development/t1-ui-final/unavailable-history-03.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 1,
+            "all_lines": [
+              "ERA REVIEW unavailable",
+              "Your companion is paused.",
+              "Expecting value: line 1 column 1 (char 0)",
+              "T or Escape returns to care."
+            ],
+            "visible": [
+              "ERA REVIEW unavailable",
+              "Your companion is paused.",
+              "Expecting value: line 1 column 1 (char 0)",
+              "T or Escape returns to care."
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 1,
+            "all_lines": [
+              "ERA REVIEW unavailable",
+              "Your companion is paused.",
+              "Expecting value: line 1 column 1 (char 0)",
+              "T or Escape returns to care."
+            ],
+            "visible": [
+              "ERA REVIEW unavailable",
+              "Your companion is paused.",
+              "Expecting value: line 1 column 1 (char 0)",
+              "T or Escape returns to care."
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 0,
+            "page_count": 1,
+            "all_lines": [
+              "ERA REVIEW unavailable",
+              "Your companion is paused.",
+              "Expecting value: line 1 column 1 (char 0)",
+              "T or Escape returns to care."
+            ],
+            "visible": [
+              "ERA REVIEW unavailable",
+              "Your companion is paused.",
+              "Expecting value: line 1 column 1 (char 0)",
+              "T or Escape returns to care."
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "stderr": ""
+      }
+    ],
+    "recorded_eras": [
+      {
+        "era_index": 0,
+        "rng_seed": 20260707,
+        "summary": {
+          "archive": {
+            "coverage": 0.000154,
+            "filled_niches": 12,
+            "qd_score": 9.014228
+          },
+          "archived_creature_count": 12,
+          "candidate_valid_rate": 1.0,
+          "creature_count": 12,
+          "generation_count": 2,
+          "guard_substitution_total": 27,
+          "max_lineage_generation": 2,
+          "mean_fitness_by_generation": [
+            0.770289,
+            0.732083
+          ],
+          "mean_position_restoration": 1.0,
+          "mean_token_restoration": 0.920572,
+          "slip_alignment_retention_rate": 1.0,
+          "total_damage_events": 12
+        },
+        "earned": [
+          {
+            "campaign_id": "keeper_campaign",
+            "axis": "bloodline_depth",
+            "tier": 1,
+            "earned_era_index": 0,
+            "metric_path": "report.summary.max_lineage_generation",
+            "metric_value": 2,
+            "threshold": 2
+          },
+          {
+            "campaign_id": "keeper_campaign",
+            "axis": "quality_diversity",
+            "tier": 1,
+            "earned_era_index": 0,
+            "metric_path": "report.summary.archive.qd_score",
+            "metric_value": 9.014228,
+            "threshold": 9.0
+          }
+        ],
+        "lines": [
+          "ERA 0 [calm]   1/4",
+          "Your companion is paused. [ ] eras   T close",
+          "E next era   C current covenant",
+          "bloodline continued; generations 2/2",
+          "Niches 12   coverage 0.000",
+          "QD 9.014   lineage depth 2",
+          "UNLOCKS EARNED THIS ERA: 2",
+          "Bloodline depth tier 1: 2 met threshold 2",
+          "Quality-diversity tier 1: 9.014228 met threshold 9.0",
+          "WEATHER RECORD",
+          "No CuBFF multiplier recorded; base era damage still applies.",
+          "These are recorded era results; viewing them does not run the soup."
+        ]
+      },
+      {
+        "era_index": 1,
+        "rng_seed": 21260707,
+        "summary": {
+          "archive": {
+            "coverage": 0.000115,
+            "filled_niches": 9,
+            "qd_score": 6.587847
+          },
+          "archived_creature_count": 12,
+          "candidate_valid_rate": 1.0,
+          "creature_count": 12,
+          "generation_count": 2,
+          "guard_substitution_total": 18,
+          "max_lineage_generation": 2,
+          "mean_fitness_by_generation": [
+            0.732029,
+            0.73182
+          ],
+          "mean_position_restoration": 1.0,
+          "mean_token_restoration": 0.942099,
+          "slip_alignment_retention_rate": 1.0,
+          "total_damage_events": 12
+        },
+        "earned": [],
+        "lines": [
+          "ERA 1 [calm]   2/4",
+          "Your companion is paused. [ ] eras   T close",
+          "E next era   C current covenant",
+          "bloodline continued; generations 2/2",
+          "Niches 9   coverage 0.000",
+          "QD 6.588   lineage depth 2",
+          "UNLOCKS EARNED THIS ERA: 0",
+          "No new unlocks. Previously earned tiers remain available.",
+          "WEATHER RECORD",
+          "No CuBFF multiplier recorded; base era damage still applies.",
+          "FOUNDERS: 12 admitted; 0 refused",
+          "These are recorded era results; viewing them does not run the soup."
+        ]
+      },
+      {
+        "era_index": 2,
+        "rng_seed": 22260707,
+        "summary": {
+          "archive": {
+            "coverage": 0.000102,
+            "filled_niches": 8,
+            "qd_score": 5.857894
+          },
+          "archived_creature_count": 12,
+          "candidate_valid_rate": 1.0,
+          "creature_count": 12,
+          "generation_count": 2,
+          "guard_substitution_total": 14,
+          "max_lineage_generation": 2,
+          "mean_fitness_by_generation": [
+            0.732039,
+            0.732207
+          ],
+          "mean_position_restoration": 1.0,
+          "mean_token_restoration": 0.945703,
+          "slip_alignment_retention_rate": 1.0,
+          "total_damage_events": 12
+        },
+        "earned": [],
+        "lines": [
+          "ERA 2 [calm]   3/4",
+          "Your companion is paused. [ ] eras   T close",
+          "E next era   C current covenant",
+          "bloodline continued; generations 2/2",
+          "Niches 8   coverage 0.000",
+          "QD 5.858   lineage depth 2",
+          "UNLOCKS EARNED THIS ERA: 0",
+          "No new unlocks. Previously earned tiers remain available.",
+          "WEATHER RECORD",
+          "No CuBFF multiplier recorded; base era damage still applies.",
+          "FOUNDERS: 9 admitted; 0 refused",
+          "These are recorded era results; viewing them does not run the soup."
+        ]
+      },
+      {
+        "era_index": 3,
+        "rng_seed": 23260707,
+        "summary": {
+          "archive": {
+            "coverage": 0.000102,
+            "filled_niches": 8,
+            "qd_score": 5.854318
+          },
+          "archived_creature_count": 12,
+          "candidate_valid_rate": 1.0,
+          "creature_count": 12,
+          "generation_count": 2,
+          "guard_substitution_total": 13,
+          "max_lineage_generation": 2,
+          "mean_fitness_by_generation": [
+            0.73183,
+            0.731684
+          ],
+          "mean_position_restoration": 1.0,
+          "mean_token_restoration": 0.958253,
+          "slip_alignment_retention_rate": 1.0,
+          "total_damage_events": 12
+        },
+        "earned": [],
+        "lines": [
+          "ERA 3 [calm]   4/4",
+          "Your companion is paused. [ ] eras   T close",
+          "E next era   C current covenant",
+          "bloodline continued; generations 2/2",
+          "Niches 8   coverage 0.000",
+          "QD 5.854   lineage depth 2",
+          "UNLOCKS EARNED THIS ERA: 0",
+          "No new unlocks. Previously earned tiers remain available.",
+          "WEATHER RECORD",
+          "No CuBFF multiplier recorded; base era damage still applies.",
+          "FOUNDERS: 8 admitted; 0 refused",
+          "These are recorded era results; viewing them does not run the soup."
+        ]
+      }
+    ],
+    "native_executable_sha256": "9783aff209cc09873fc4f60fbc5109ae561fa5771ea829387f2584b67f531f54"
+  },
+  "closed_states": [
+    "native_two_recorded_eras",
+    "native_default_remains_incumbent",
+    "native_resume_preserves_campaign_ledger",
+    "native_resume_appends_era_without_replacing_history",
+    "review_and_quit_preserve_all_native_keeper_bytes",
+    "era_navigation_and_help_return",
+    "paging_reaches_weather_record",
+    "close_review_advances_one_care_tick_without_queued_input",
+    "review_opens_current_covenant",
+    "interactive_next_era_opens_new_report_without_care_tick",
+    "empty_view_names_first_era_without_creating_campaign",
+    "unavailable_view_preserves_corrupt_source",
+    "all_real_flows_exit_cleanly_and_fit"
+  ],
+  "blocked_states": [
+    "Native keyboard interactions were not automated; source pygame inputs used native-created records.",
+    "Historical replays and archive bodies remain outside this report-only scope.",
+    "Full local closing gate and exact-published-SHA Windows/Ubuntu CI are separate gates."
+  ],
+  "decision": {
+    "verdict": "verified"
+  },
+  "next_research_step": "Complete the full local gate and preserve all earlier scientific observations before closure."
+}

@@ -104,6 +104,7 @@ def evolve(
     founder_grids: list[dict] | None = None,
     cubff_pressure_source: list[dict] | None = None,
     readability_selection: dict | None = None,
+    progress_callback: Callable[[int, int], None] | None = None,
 ) -> tuple[dict, dict]:
     """Run multi-generation evolution through the composed engine.
 
@@ -114,6 +115,10 @@ def evolve(
     ``readability_scorer`` is a deterministic callable ``grid ->``
     readability record (or bare proxy score) — the injected "equivalent
     metrics hook"; the archive keeps its manual-rating status visible.
+    ``progress_callback(completed, budget)`` is optional observation: zero
+    before evaluation, then one call after each fully recorded candidate.
+    Exceptions propagate for caller-owned cancellation; early extinction may
+    finish below the requested budget. No output field or seed changes.
     Deterministic end to end; never mutates ``seed_grids``,
     ``slip_profile``, the models, or any caller-owned input.
 
@@ -250,6 +255,9 @@ def evolve(
     )
     readability_means: list[float] = []
 
+    # DR 0073: the lab-proven observer changes neither RNG nor report fields.
+    if progress_callback is not None:
+        progress_callback(0, generations * population)
     for generation_index in range(generations):
         generation_dropout = dropout_rate
         if cubff:
@@ -429,6 +437,9 @@ def evolve(
                     "archive_decision": decision,
                 }
             )
+
+            if progress_callback is not None:
+                progress_callback(generation_index * population + index + 1, generations * population)
 
         summary_after = archive_summary(archive)
         if readability:

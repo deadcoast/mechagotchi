@@ -118,3 +118,15 @@ archive entries) — user assets compete, they are not granted
 survival. The wire also exposed a latent gate gap (episodes gated on
 alignment only) now hardened to `valid and aligned` with the
 `skipped_invalid` outcome; pinned artifacts unchanged.
+
+## Observational progress, 2026-10-04 (DR 0073)
+
+An optional `progress_callback(completed, budget)` observes zero and then each
+fully recorded candidate; its exceptions propagate. This changes neither the
+algorithm nor report schema, RNG arithmetic, admission, scoring or selection.
+The lab's complete report is equal with the observer off/on; promoted-package
+records/counts match it. Cancellation leaves caller inputs unchanged and yields
+no partial report. Early extinction keeps its actual count below the requested
+budget. See `test_evolution_progress.py`, the runtime interface specification and
+`research/experiment_reports/2026-10-04-era-responsiveness.md`. Historical
+measurements and their thresholds remain intact.

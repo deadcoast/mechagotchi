@@ -1,6 +1,6 @@
 # DR 0066: promote the measured learner as an explicit playable option
 
-Date: 2026-10-04. Status: implemented; default adoption remains gated by R3.
+Date: 2026-10-04. Status: implemented; R3 REFUSES default adoption.
 
 Port the lab's bounded Q-table observe/signal and full-confidence follower into
 promoted learning, preserving all constants, rounding, ties and explicit-True
@@ -20,4 +20,15 @@ gain. Fix the public learner's missing CTM helpers, revealed by cold/warm
 parity vectors, using the existing lab math.
 
 Evidence: `research/experiment_reports/2026-10-04-playable-learning.md`.
-Next: actual-game paired adoption gate; refusal retains this useful opt-in.
+R3 completed 1,500 attempts. The current covenant rejects 80% of the inherited
+corpus, so full-corpus welfare is incomparable and adoption is REFUSED. The
+admitted-subset gains (+17.717% / +18.239%) are diagnostic only. Incumbent
+remains the new-life default; old saves retain their recorded choice.
+
+R4 fixes native save-home selection: new saves belong to the user, legacy
+bundled lives continue in place when alone, explicit directories win, and
+no migration occurs. Final local release evidence is
+`data/game_client/product_release_stage0.json` (26 launches, 23 checks).
+
+Next: review Cycle 28; a future adoption claim needs its own preregistered
+product-compatible corpus without relabeling this refusal.

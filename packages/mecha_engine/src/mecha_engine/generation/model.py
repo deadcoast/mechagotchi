@@ -104,6 +104,41 @@ class GenerationModel:
     total_pairs: int
     metadata: dict
 
+    def __post_init__(self) -> None:
+        self.validate_for()
+
+    def validate_for(self, grid_size=None) -> None:
+        """Validate serialized evidence without changing its learned counts."""
+        if any(type(value) is not int or value <= 0 for value in (self.width, self.height)):
+            raise ValueError("invalid generation model dimensions")
+        if grid_size is not None and tuple(grid_size) != (self.width, self.height):
+            raise ValueError("generation model dimensions do not match the companion grid")
+        allowed = set(TOKENS)
+
+        def counts(values, label):
+            if (not isinstance(values, dict) or not set(values) <= allowed or
+                    any(type(value) is not int or value < 0 for value in values.values())):
+                raise ValueError(f"invalid generation model {label}")
+            return sum(values.values())
+
+        if counts(self.token_counts, "token counts") <= 0:
+            raise ValueError("generation model contains no observed tokens")
+        if not isinstance(self.adjacency, dict) or set(self.adjacency) != {"right", "down"}:
+            raise ValueError("invalid generation model adjacency directions")
+        pairs = 0
+        for direction, sources in self.adjacency.items():
+            if not isinstance(sources, dict) or not set(sources) <= allowed:
+                raise ValueError("invalid generation model adjacency tokens")
+            for values in sources.values():
+                pairs += counts(values, f"{direction} adjacency counts")
+        if type(self.total_pairs) is not int or self.total_pairs < 0 or pairs != self.total_pairs:
+            raise ValueError("invalid generation model pair total")
+        if not isinstance(self.metadata, dict):
+            raise ValueError("invalid generation model metadata")
+        if (self.metadata.get("strategy", GENERATOR_STRATEGY) != GENERATOR_STRATEGY or
+                self.metadata.get("proposal_source", PROPOSAL_SOURCE) != PROPOSAL_SOURCE):
+            raise ValueError("incompatible generation model strategy")
+
 
 def matrix_from_grid(grid: dict) -> list[list[str]]:
     """Project a grid genome onto the token matrix used for training.

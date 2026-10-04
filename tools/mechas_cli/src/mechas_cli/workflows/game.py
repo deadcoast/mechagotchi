@@ -53,6 +53,9 @@ def game(
         None, "--learning-policy",
         help="New companion policy: incumbent or experimental qtable; saved choices persist.",
     ),
+    recover_backup: bool = typer.Option(
+        False, "--recover-backup", help="Restore a validated prior companion save while retaining the current file.",
+    ),
     build: bool = typer.Option(
         False,
         "--build",
@@ -73,9 +76,11 @@ def game(
     """Play, build, or verify the Mechagotchi game client."""
     if sum((play, build, evidence)) > 1:
         raise typer.BadParameter("Choose one of --play, --build, or --evidence.")
+    if recover_backup and (new or slip is not None):
+        raise typer.BadParameter("--recover-backup cannot be combined with --new or --slip.")
     if learning_policy is not None and learning_policy not in ("incumbent", "qtable"):
         raise typer.BadParameter("Learning policy must be incumbent or qtable.")
-    if (slip is not None or keeper_dir is not None or new or ticks is not None or learning_policy is not None) and not play:
+    if (slip is not None or keeper_dir is not None or new or ticks is not None or learning_policy is not None or recover_backup) and not play:
         raise typer.BadParameter("Companion options require --play.")
     if windowed and not build:
         raise typer.BadParameter("--windowed requires --build.")
@@ -106,6 +111,8 @@ def game(
             command += ["--keeper-dir", str(keeper_dir)]
         if learning_policy is not None:
             command += ["--learning-policy", learning_policy]
+        if recover_backup:
+            command.append("--recover-backup")
         console.print(theme.banner("game — launching the client"))
         result = subprocess.run(command, cwd=root)
         raise typer.Exit(result.returncode)

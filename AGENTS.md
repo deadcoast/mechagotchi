@@ -19,17 +19,19 @@ Make cohesive development decisions across the affected modules and documents.
 Select the next existing queue item, preregister its contract before RED tests,
 and continue within authorized scope without module-by-module permission stops.
 Q1-Q5 are complete locally. Q5's report records the full closing run, actual
-launch checks and preserved evidence. Cycle 28 is planned in the live queue and
-`docs/development/cycle-28-learning-consumer.md`; do not start it before the
-completed Q5 result is reviewed.
+launch checks and preserved evidence. Q5 was reviewed. Cycle 28's playable
+learning and native save-home work is implemented; read the live queue,
+`docs/development/cycle-28-learning-consumer.md` and the latest runner state.
+R3 REFUSES default adoption; the experimental option remains available.
 Q3's adopted new-life covenant does not migrate existing saves. Q1's Q-table
 eligibility remains separate from default promotion.
 
 Focused verification is for iteration. A local slice closes only after the
 full sweep, artifact checks, preservation audit and diff review. Record the
 actual RED/GREEN commands in the report and keep the code/card/report/metric
-artifact/ledger together. Do not begin the next task's RED before committing
-the previous completed task. Scientific controls and negative findings survive
+artifact/ledger together. The user explicitly waived commit-before-next-RED
+sequencing for this 2026-10-04 recovery; commits/sync/push remain theirs.
+Scientific controls and negative findings survive
 every repair; test changes cannot weaken the acceptance threshold.
 
 Keep local completion separate from publication. Native Windows and Ubuntu
@@ -53,4 +55,4 @@ create source mirrors or new environments. The latest recovery delegation on
 agent publishing authorization for this work. Preserve external edits/commits.
 Scoped repository checkpoints, corrections and verification may use the runtime's
 supported escalation path; never change security settings or evade a denial.
-Review Q5 before starting cycle 28.
+Q5 is reviewed. Review the completed Cycle 28 result before preregistering further scope.

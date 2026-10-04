@@ -10,21 +10,30 @@ The agent makes the implementation decisions; this command captures scope,
 executes verification, and refuses unsupported completion claims. It does not
 invent features, spawn another agent, install dependencies, commit, or publish.
 
-Current resume (2026-10-04): Q1-Q5 are locally complete. Read the existing
-`q5-consolidation` state and Phase-Q report to resume from verified closure.
-A fresh session alone is not a reason to repeat a current passing gate. Do not
-replace completed evidence or treat an admitted task as verified. Cycle 28 is
-planned in `sunsetted/TODO.md` and
-`docs/development/cycle-28-learning-consumer.md`; it must wait for Q5 review.
-Q1 eligibility remains separate from Q-table promotion. The latest recovery
-delegation reserves commit/sync/push to the user.
+Current resume (2026-10-04): Q1-Q5, Cycles 28/29 and T1-T3 completed full
+local gates. T3 passed `20261004T192757-866fdf0f`: 2,576 tests / 24 suites,
+two documented skips, 2,283 JSON files, no mutations. The active integrated
+milestone is `t4-durable-era-plan`: preserve explicit preparation, finish a
+recorded era after interrupted persistence, and connect real outcomes to the
+existing archive/adoption/replay loop. Contract:
+`docs/development/cycle-30-durable-era-plan.md`; exact phase/results remain in
+`.development/state.json`. Read `research/experiment_reports/2026-10-04-keeper-loop.md`
+for its code/queue handoff, observations and remaining gates. Do not repeat prior
+unchanged gates. Only the full current gate closes this final changed milestone.
+Q-table default adoption remains refused. Native keyboard interaction is not
+available here: the installed skill requires an unexposed node_repl/@oai/sky runtime.
+The current delegation reserves commit/sync/push to the user and explicitly
+waives the prior commit-before-next-RED sequencing rule for this recovery.
 
 ## Preregistered workflow contract
 
 1. `mechas develop --start local-workflow` records the repository path, HEAD,
    branch, dirty-file inventory, reviewed contract, and source fingerprints.
    A second start cannot discard unfinished state. Starting the next slice is
-   allowed after local completion even if publication is blocked.
+   allowed after local completion even if publication is blocked. Incoming
+   Markdown contract/registry changes alone may be admitted against the prior
+   full-pass inventory; prior scope/contract bytes and all other verified
+   source must match. The new slice inherits no passing verification.
 2. REVIEW reads CLAUDE.md, ONBOARDING.md, the queue, relevant decision records,
    consumers, and tests. Record the concrete failure/remaining requirement with
    `--checkpoint`. Scope must exist in `docs/development/workflow.json`, with
@@ -88,22 +97,18 @@ $env:PYTHONPATH = (Resolve-Path tools/mechas_cli/src).Path
 & .\.venv\Scripts\python.exe -B -m mechas_cli.app develop --status
 ```
 
-For Q5, expect `phase=polish`, `full_current=true`, `local_complete=true`, and
-`running=null`. Read the latest checkpoint and
-`research/experiment_reports/2026-10-04-phase-q-gate.md`; do not reopen or rerun
-Q5 when that evidence is current. If a verification is running, inspect its run
-logs. If source, data, configuration or a preregistered contract has changed,
-follow the recorded phase and reverify as required; never relabel stale evidence.
-Report-only updates outside the fingerprint do not require a fresh sweep.
+Read the active `t5-responsive-eras` phase, checkpoint and latest run.
+A completed local gate has `phase=polish`, `full_current=true`,
+`local_complete=true`, and `running=null`. If verification is running, inspect
+its retained logs; do not launch another sweep. Relevant source/data/config or
+contract changes require fresh verification. Report-only updates outside the
+fingerprint do not. Never relabel stale evidence.
 
-R1 is planned but **not registered** in `docs/development/workflow.json`; no R1
-start command is runnable yet. After Q5 review, the next legitimate preparation
-is to preregister that existing bounded package producer/consumer parity scope,
-its defaults-off controls and suite selection in the same workflow. Registration
-and next-task execution are not performed by this Q5 resume example. Do not begin
-the next task's RED before committing the previous completed task. This preserves
-the AGENTS rule without barring reading or preregistration before that commit.
-Commits, sync and pushes remain the user's actions.
+R1/R2 passed the full run `20261004T155004-f33ec4a2`; R3 refused default adoption,
+and the R4 native release is implemented. The consolidated record is
+`research/experiment_reports/2026-10-04-playable-learning.md`. Review the completed
+Cycle 28 result before preregistering a further scope. The user explicitly waived
+commit sequencing for this recovery; commits, sync and pushes remain theirs.
 
 `--python` selects an already provisioned interpreter explicitly. The output
 always names the actual root, HEAD and branch so an isolated checkout cannot

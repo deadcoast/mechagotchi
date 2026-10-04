@@ -27,6 +27,9 @@ from __future__ import annotations
 
 import dataclasses
 import json
+import hashlib
+import os
+import tempfile
 import math
 import random
 from pathlib import Path
@@ -122,6 +125,28 @@ def _validate_saved_qtable(state: dict, policy: str, fleet: bool) -> None:
         if (type(count) is not int or count < 1 or type(value) not in (int, float)
                 or not math.isfinite(value) or not 0 <= value <= 1):
             raise ValueError("invalid saved Q-table reward")
+
+
+def _write_bytes_atomic(path: Path, data: bytes) -> None:
+    """Replace one save only after its complete bytes have reached a sibling file."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(dir=path.parent, prefix=f".{path.name}-", suffix=".tmp", delete=False) as stream:
+            temporary = Path(stream.name)
+            stream.write(data)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary, path)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
+
+
+def _document_bytes(document: dict) -> bytes:
+    # Match the established platform text-file convention, while preserving
+    # existing backup/archive bytes verbatim instead of decoding them.
+    return (json.dumps(document, indent=2) + "\n").replace("\n", os.linesep).encode("utf-8")
 
 
 def load_session_inputs(
@@ -420,23 +445,44 @@ class CompanionSession:
 
     def save_lineage(self, path: str | Path) -> Path:
         path = Path(path)
-        path.parent.mkdir(parents=True, exist_ok=True)
+        data = _document_bytes(self.lineage_document())
         if path.exists():
-            path.with_suffix(".bak.json").write_text(
-                path.read_text(encoding="utf-8"), encoding="utf-8"
-            )
-        path.write_text(
-            json.dumps(self.lineage_document(), indent=2) + "\n",
-            encoding="utf-8",
-        )
+            _write_bytes_atomic(path.with_suffix(".bak.json"), path.read_bytes())
+        _write_bytes_atomic(path, data)
         return path
+
+    def sync_lineage_export(self, path: str | Path) -> bool:
+        """Repair the derived export from this validated companion, preserving old bytes."""
+        path = Path(path)
+        if path.exists() and path.read_bytes() == _document_bytes(self.lineage_document()):
+            return False
+        self.save_lineage(path)
+        return True
+
+    def save_checkpoint(self, path: str | Path) -> str | None:
+        """Commit the complete pet first; an export failure cannot discard progress.
+
+        The companion already embeds its lineage. A stale standalone export is
+        repaired on resume, including after explicit S1 backup recovery.
+        """
+        path = Path(path)
+        self.save(path, only_if_changed=True)
+        try:
+            self.sync_lineage_export(path.with_name("lineage.json"))
+        except OSError as error:
+            reason = error.strerror or str(error)
+            return f"Companion saved. Lineage export unavailable: {reason}. It will retry on resume."
+        return None
 
     # -- save / resume (F5 — quit and come back) ---------------------------
 
-    def save(self, path: str | Path) -> Path:
+    def save(self, path: str | Path, *, only_if_changed: bool = False) -> Path:
         """Persist the LIVE session (state, log, lineage, and the
         succession model verbatim) with the W1 backup-before-overwrite
         pattern. A live pet is play state, never evidence."""
+        self.model.validate_for(self.grid["grid_size"])
+        _validate_learning_policy(self.learning_policy)
+        _validate_saved_qtable(self.state, self.learning_policy, self.fleet)
         payload = {
             "session_format": SESSION_FORMAT,
             "name": self.name,
@@ -462,15 +508,38 @@ class CompanionSession:
         if self.mechanics or (self.mechanics is not None and profile_enabled):
             payload["mechanics"] = list(self.mechanics)
         path = Path(path)
-        path.parent.mkdir(parents=True, exist_ok=True)
+        data = _document_bytes(payload)
+        if only_if_changed and path.is_file() and path.read_bytes() == data:
+            return path
         if path.exists():
-            path.with_suffix(".bak.json").write_text(
-                path.read_text(encoding="utf-8"), encoding="utf-8"
-            )
-        path.write_text(
-            json.dumps(payload, indent=2) + "\n", encoding="utf-8"
-        )
+            _write_bytes_atomic(path.with_suffix(".bak.json"), path.read_bytes())
+        _write_bytes_atomic(path, data)
         return path
+
+    @classmethod
+    def recover_backup(cls, path: str | Path, *, learning_policy: str | None = None):
+        """Explicitly restore a validated backup, retaining the previous primary."""
+        path = Path(path)
+        backup = path.with_suffix(".bak.json")
+        if not backup.is_file():
+            raise ValueError("no companion backup is available to recover")
+        restored_bytes = backup.read_bytes()
+        session = cls._from_payload(json.loads(restored_bytes.decode("utf-8")), learning_policy=learning_policy)
+        archive = None
+        if path.exists():
+            previous = path.read_bytes()
+            digest = hashlib.sha256(previous).hexdigest()[:16]
+            archive = path.with_name(f"{path.stem}.before-recovery-{digest}{path.suffix}")
+            try:
+                with archive.open("xb") as stream:
+                    stream.write(previous)
+                    stream.flush()
+                    os.fsync(stream.fileno())
+            except FileExistsError:
+                if archive.read_bytes() != previous:
+                    raise ValueError("recovery archive already exists with different contents")
+        _write_bytes_atomic(path, restored_bytes)
+        return session, archive
 
     @classmethod
     def load(cls, path: str | Path, *, learning_policy: str | None = None) -> "CompanionSession":
@@ -479,11 +548,46 @@ class CompanionSession:
         draws from it, so a resumed life continues byte-identically
         (pinned by test against a never-saved twin)."""
         payload = json.loads(Path(path).read_text(encoding="utf-8"))
+        return cls._from_payload(payload, learning_policy=learning_policy)
+
+    @classmethod
+    def _from_payload(cls, payload, *, learning_policy: str | None = None):
+        """Validate one exact read snapshot; never reread different backup bytes."""
+        if not isinstance(payload, dict):
+            raise ValueError("invalid companion save: expected an object")
         if payload.get("session_format") != SESSION_FORMAT:
             raise ValueError(
                 "not a keeper session save: "
                 f"{payload.get('session_format')!r}"
             )
+        required = {"state": dict, "grid": dict, "slip_profile": dict, "generation_model": dict,
+                    "name": str, "succession_seed": int, "session_tick": int, "fleet": bool,
+                    "begging": bool, "log": list, "lineage": list}
+        for name, expected in required.items():
+            if type(payload.get(name)) is not expected:
+                raise ValueError(f"invalid companion save field: {name}")
+        if "mechanics" in payload and (not isinstance(payload["mechanics"], list) or
+                any(not isinstance(name, str) for name in payload["mechanics"])):
+            raise ValueError("invalid companion save mechanics")
+        try:
+            mechanics = tuple(payload["mechanics"]) if "mechanics" in payload else None
+            # Validate the body/covenant through the existing engine gate;
+            # never replace or reset the saved lifecycle/learning state.
+            initial_state(payload["grid"], payload["slip_profile"], mechanics=mechanics)
+            model = GenerationModel(**payload["generation_model"])
+            model.validate_for(payload["grid"]["grid_size"])
+        except (KeyError, TypeError, AttributeError) as error:
+            raise ValueError("invalid companion save body, covenant or generation model") from error
+        state = payload["state"]
+        if (type(state.get("alive")) is not bool or type(state.get("age_ticks")) is not int or
+                state["age_ticks"] < 0 or payload["session_tick"] < state["age_ticks"] or
+                not isinstance(state.get("history"), list) or
+                any(not isinstance(row, dict) for row in state["history"])):
+            raise ValueError("invalid saved lifecycle state")
+        for name in ("hunger", "energy", "stress", "bond", "grid_stability"):
+            value = state.get(name)
+            if type(value) not in (int, float) or not math.isfinite(value) or not 0 <= value <= 1:
+                raise ValueError(f"invalid saved lifecycle need: {name}")
         saved_policy = _validate_learning_policy(payload.get("learning_policy", "incumbent"))
         if learning_policy is not None and _validate_learning_policy(learning_policy) != saved_policy:
             raise ValueError("learning policy conflicts with the saved companion; use --new or a separate --keeper-dir")
@@ -493,16 +597,22 @@ class CompanionSession:
         session.state = payload["state"]
         session.grid = payload["grid"]
         session.slip_profile = payload["slip_profile"]
-        session.model = GenerationModel(**payload["generation_model"])
+        session.model = model
         session.name = payload["name"]
         session.succession_seed = payload["succession_seed"]
         session.fleet = payload["fleet"]
-        session.mechanics = tuple(payload["mechanics"]) if "mechanics" in payload else None
+        session.mechanics = mechanics
         session._rng = random.Random(0)
         session.session_tick = payload["session_tick"]
         session.begging = payload["begging"]
         session.log = payload["log"]
         session.lineage = payload["lineage"]
+        try:
+            session.snapshot()
+            if session.fleet:
+                observe_fleet(session.state)  # pure validation; discard the proposed update
+        except (KeyError, TypeError, AttributeError, ValueError) as error:
+            raise ValueError("invalid saved companion display or learning state") from error
         return session
 
     # -- internals -------------------------------------------------------

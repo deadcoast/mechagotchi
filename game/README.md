@@ -58,7 +58,7 @@ authority judges it; an import is a new species contract) · **K**
 import a community pack from `keeper/packs/pack_import.json`
 (covenants and creatures staged into the inboxes, verdicts shown;
 `data/packs/mechagotchi_starter_pack.json` is the committed example) ·
-**ESC** closes help first; in play it quits. Close always quits. Saves land in
+**ESC** closes help first; in play it requests quit. Close requests quit; failed saves pause for retry. Saves land in
 `keeper/` (gitignored) — quit and come back, the client resumes. The
 companion begs when it wants food — only you can feed it; neglect
 starves it (measured: ~10 ticks).
@@ -80,9 +80,157 @@ The casing pages show its actual recommendation and followed decision.
 
 An explicit policy conflicting with a saved companion is refused before writes.
 `--learning-policy incumbent` selects the original behavior for a new life.
-The locally verified native build is
-`game/dist/r2-learning/Mechagotchi/Mechagotchi.exe`; keep `_internal` beside it.
-Use the same policy and explicit absolute save-directory arguments there.
+The latest locally closed T5 native build is
+`game/dist/t5-responsive-eras/Mechagotchi/Mechagotchi.exe`; keep `_internal` beside it.
+Use the same policy arguments there. New native saves use
+`$env:USERPROFILE/.mechagotchi`; an explicit `--keeper-dir` selects another
+home. Existing bundled `_internal/keeper` lives continue in place when no
+user-home save exists. If both exist, the user-home save wins and the bundled
+save remains untouched. The experimental policy was not adopted as default:
+the inherited research corpus does not fully match the current covenant.
+
+## Recover an earlier companion save
+
+Invalid saved model data is refused before play. If `companion.bak.json` exists,
+explicitly restore it with the same save directory:
+
+```powershell
+.venv/Scripts/python.exe -B game/run_game.py --keeper-dir keeper --recover-backup
+# Supportive source CLI:
+.venv/Scripts/python.exe -B -m mechas_cli.app game --play --keeper-dir keeper --recover-backup
+```
+
+The native executable accepts the same `--recover-backup` option. Recovery
+validates the backup first, keeps the old primary byte-for-byte as
+`companion.before-recovery-<digest>.json`, then resumes the earlier save. Its
+policy, learned state and age come from that backup. The recovery notice names
+the archive; the casing pages show the active policy. Recovery rolls back to
+the prior save, so progress after that save is not included in the resumed life.
+
+A missing primary with an existing backup requires `--recover-backup` or an
+explicit `--new`; it never silently starts a replacement pet. Bad backups and
+conflicting new-life/policy options are refused without writes. Saves use
+atomic replacement of each file. The companion and lineage files are separate
+writes, not a transactional pair; recovery restores the companion save and its
+embedded lineage. The app reconciles the derived export from that validated
+save before play, preserving replaced export bytes in its backup.
+
+## Save during play and retry a failed save
+
+**Ctrl+S** saves now without queuing sleep. Death, succession, hatch/adoption and
+normal quit checkpoint the companion, including its embedded lineage and
+learning state. Repeated unchanged checkpoints keep the prior recovery backup.
+
+If the companion cannot be saved, care pauses and the current pet stays in
+memory. Fix the write problem, then press **Ctrl+S** to retry; if you were
+quitting, a successful retry closes the window. **Ctrl+Q** explicitly quits
+without saving those in-memory changes. The earlier on-disk companion remains.
+A bounded `--ticks` run reports the error and exits nonzero instead of hanging.
+
+`companion.json` is the save authority. Failure to update the separate lineage
+export warns you but still saves the pet. Missing/stale lineage exports are
+repaired on resume, including after explicit backup recovery. This also repairs
+exports left inconsistent by older app versions; it does not merge newer data
+from an export into an older companion.
+
+The S2 checkpoint build is `game/dist/s2-safe-checkpoints/Mechagotchi/Mechagotchi.exe`
+with its adjacent `_internal`. Actual source/CLI/native fault checks passed;
+its full closing gate passed 2,537 tests; details are recorded in the
+`research/experiment_reports/2026-10-04-safe-checkpoints.md` report.
+
+## Review recorded eras (T1)
+
+**T** opens the latest recorded era for the current bloodline, including after
+restarting. The companion stays visible and care pauses. **[ / ]** (or comma /
+period) moves between eras; **PgUp/PgDn** or the wheel pages wrapped details.
+The view shows stored outcomes, coverage/QD, generations, earned unlock values
+and thresholds, weather snapshots and founder admission facts.
+
+**T** or **Escape** returns to care. **F1** opens help and returns to the report.
+**C** opens the current covenant; **E** runs the next era and opens its report.
+Only reading history performs no training or evolution. No prior campaign is
+created by an empty view; unreadable records show an unavailable notice.
+**Ctrl+S** and save-failure retry/discard keep their existing behavior.
+
+T1 build: `game/dist/t1-era-review/Mechagotchi/Mechagotchi.exe`, with adjacent
+`_internal`. Verification and limits are in
+`research/experiment_reports/2026-10-04-era-review.md`. T1 is the report browser;
+T2 adds saved archive access; T3 below reopens recorded lives after restart.
+
+## Browse and adopt saved creatures (T2)
+
+**B** opens the latest saved archive after restarting. From a **T** era report,
+B opens that selected era. **Comma/period** selects creatures; **[ / ]** selects
+eras; **PgUp/PgDn** or the wheel pages their recorded details. Bodies are rendered
+from their stored grids under that era's covenant. Care pauses while browsing;
+care keys are ignored. **F1** help returns to the same selection.
+
+**T** opens the selected era's report. **B** or **Escape** returns to the report
+or care you entered from. **A** adopts the selected creature under the current
+covenant, preserves your chosen learning policy, checkpoints and returns to care.
+A refused adoption keeps your pet and names the engine's refusal. Empty/corrupt
+archives are explicit; a corrupt archive cannot start further planning actions.
+An empty history can still run its first era with **E**.
+
+**C** budget and spending controls now appear before care status on the first
+small-window page. Covenant mode keeps its existing live care timing; F1 pauses
+care while reading help. The incumbent policy remains the default.
+
+Locally closed build: `game/dist/t2-saved-archive/Mechagotchi/Mechagotchi.exe`, retain its
+adjacent `_internal`. Evidence and full-gate status:
+`research/experiment_reports/2026-10-04-saved-archive.md`.
+
+## Replay recorded lives (T3)
+
+**V** opens the latest era's saved recording, or the selected era from **T**,
+after restart. **Space** plays/pauses, **comma/period** steps within the saved
+frames. Care pauses and care/planning keys are ignored. **F1** pauses playback
+and returns to the same frame. **V/Escape** returns to the entry report or care;
+**T** opens that recording's era report. Existing Ctrl+S retry/discard remains.
+
+These are real **post-era recorded lives at the era seed**, as the visible label
+states. They are not recordings of the original in-era evaluation. An older
+era with no recording stays explicitly unavailable. Missing, malformed or
+hash-mismatched artifacts are not rebuilt or replaced. During the current run,
+**E**, then **V** can make the existing post-era recording once while its
+covenant/parameters still match; later V reads that saved artifact.
+
+Locally closed T3 build: `game/dist/t3-saved-replays/Mechagotchi/Mechagotchi.exe`, with
+adjacent `_internal`. Its implementation evidence and passed full gate are
+in `research/experiment_reports/2026-10-04-saved-replays.md`.
+
+## Keep the next-era plan (T4)
+
+**R** stages a copy of the current companion's genome; your companion stays
+with you. **W** gathers released workshop creatures. Exact repeats stage once;
+**Backspace** unstages copies without deleting creatures. **1-5** selects weather
+outside covenant mode. These choices save immediately and survive restart.
+They also work while a **T** report keeps care paused. The next-era line shows
+the saved weather and staged count; **F1** lists preparation controls.
+
+**C** spending and **I** covenant imports save successful changes immediately.
+Inside C, **1-4** still spends the earned budget. Covenant mode retains its
+existing live-care timing; F1 pauses it. New state retains the original budget
+base so repeated restart does not increase an already spent cap. Old states
+without that field keep their established interpretation.
+
+**E** runs the prepared next era of the current bloodline, including when you
+are viewing an older report. The engine admits or refuses contributions through
+its existing gates. The resulting report shows outcome, niche count and QD on
+page one, then full admitted IDs and verbatim refusal reasons. **B**, **A** and
+**V** continue into archive, adoption and honest post-era replay as described above.
+An adopted companion can be contributed to a later era through the same R flow.
+
+If saving an already computed era fails, its journal retains the result. **E**
+retries saving that result; it does not run another era. This works after restart.
+Preparation changes remain paused until completion, and staged contributions
+clear only after the ledger and state are saved. Care and recorded-history views
+remain available. Corrupt preparation or conflicting external state is preserved
+and reported. No offline evolution or new default policy is introduced.
+
+Locally closed build: `game/dist/t4-keeper-loop/Mechagotchi/Mechagotchi.exe`, with adjacent
+`_internal`. Exact verification/closure status is in
+`research/experiment_reports/2026-10-04-keeper-loop.md`.
 
 ## Install it (F5)
 
@@ -93,10 +241,10 @@ Use the same policy and explicit absolute save-directory arguments there.
 
 Quit and come back: the client auto-resumes your companion from the
 save file (`--new` starts a fresh one). Saves live in `keeper/` in a
-checkout. For the current native bundle, choose an absolute `--keeper-dir`
-(as above): its bundled-data resolver otherwise selects `_internal/keeper`.
-An explicit directory does not migrate existing saves. Q5 records this release
-limitation; the standalone installed-package fallback remains `~/.mechagotchi`.
+checkout. The current native bundle starts new saves in `~/.mechagotchi`.
+An existing bundled `_internal/keeper` save continues there if no user-home
+save exists. Explicit `--keeper-dir` overrides discovery and never migrates
+an existing companion. R4 repaired the save-home limitation recorded at Q5.
 
 ## Test it
 
@@ -171,7 +319,7 @@ The earlier Q2 default note above describes the state before this gated flip.
 F1 opens the full controls and pauses lifecycle care. Escape closes help first;
 PgUp/PgDn or the wheel browse wrapped casing pages. New notices and mode changes
 return to page one. Small LCD scales retain a 384-pixel window width.
-The local Windows bundle is `game/dist/q4-controls/Mechagotchi/Mechagotchi.exe`;
+The preserved Q4 Windows bundle is `game/dist/q4-controls/Mechagotchi/Mechagotchi.exe`;
 keep its adjacent `_internal` folder. Built/tested with this repo Python 3.13.9.
 See DR 0065 for scripted verification and its limits.
 
@@ -181,7 +329,25 @@ The actual direct/source-CLI launch examples, isolated save continuity and
 existing native bundle passed Q5 checks; see
 `research/experiment_reports/2026-10-04-phase-q-gate.md`.
 Q2/Q3 notes above remain dated history. The current default supports G clean;
-old saves keep their own covenant. Q-table eligibility is lab-tier: the package
-producer/consumer and playable opt-in are the planned cycle-28 work, not shipped
-default behavior. The dependency-only workspace has no installed `mechagotchi`
+old saves keep their own covenant. Cycle 28 now provides the package
+producer/consumer and explicit playable opt-in. Its actual-game adoption gate
+REFUSED the default because the inherited corpus is not fully compatible with
+the current covenant; the incumbent remains the default. The dependency-only workspace has no installed `mechagotchi`
 console script; use the source launcher or one-folder native executable.
+
+## Responsive era execution (T5 locally closed)
+
+During an interactive **E** era, care and the held creature pause while the
+existing casing reports preparation, completed candidate evaluations and saving.
+**F1** opens the era's help. **Escape** closes that help first, then cancels
+uncommitted computation; staged inputs and the next seed remain available.
+Cancellation during a cold model load waits for that phase to finish, while the
+window continues responding. Other care, preparation and repeated-E commands
+received during work are ignored instead of executing later.
+
+Closing the window requests cancellation and waits for work to stop before the
+normal companion checkpoint. Once saving a completed result starts, it finishes
+that attempt; T4's retained result/journal can still recover from save failure.
+Headless `--eras` remains synchronous. Exact measurements, tested scale limits
+and native-build status are in
+`research/experiment_reports/2026-10-04-era-responsiveness.md`.

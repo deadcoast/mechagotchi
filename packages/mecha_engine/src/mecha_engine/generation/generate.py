@@ -131,6 +131,7 @@ def generate_candidate(
             "parent grid failed package genome validation before proposal "
             "generation: " + "; ".join(errors)
         )
+    model.validate_for(parent_grid["grid_size"])
     if slip_profile is not None:
         profile_result = validate_slip(slip_profile)
         if not profile_result.ok:

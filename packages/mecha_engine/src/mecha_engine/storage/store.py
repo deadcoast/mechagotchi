@@ -278,6 +278,23 @@ def load_replay_rows(
     ]
 
 
+def load_era_elites(
+    conn: sqlite3.Connection, campaign_id: str, era_index: int
+) -> list[dict]:
+    """Complete recorded elites in niche order, with no derived recomputation.
+
+    The blob remains authoritative for grid/fitness/descriptor values; the
+    primary-key niche is the only field stored outside that blob (DR 0022).
+    Missing campaigns/eras return an empty selection without creating records.
+    """
+    rows = conn.execute(
+        "SELECT niche_key, elite_json FROM elites WHERE campaign_id = ?"
+        " AND era_index = ? ORDER BY niche_key",
+        (campaign_id, era_index),
+    ).fetchall()
+    return [{**json.loads(row[1]), "niche_key": row[0]} for row in rows]
+
+
 def load_founder_pool(
     conn: sqlite3.Connection,
     campaign_id: str,

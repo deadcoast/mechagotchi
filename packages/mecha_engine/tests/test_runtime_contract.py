@@ -71,6 +71,8 @@ REQUIRED_EVOLVE_DEFAULTS = {
     "cubff_pressure_source": "None",
     # DR 0025 (C1): the R3 readability arm defaults to None (frozen).
     "readability_selection": "None",
+    # DR 0073: observational progress remains off by default.
+    "progress_callback": "None",
 }
 REQUIRED_CYCLE_FIELDS = [
     "aligned",
@@ -161,6 +163,7 @@ class MechaEngineRuntimeContractTests(unittest.TestCase):
                 "cubff_pressure_source",
                 # DR 0025 (C1): the promoted R3 readability arm.
                 "readability_selection",
+                "progress_callback",
             ],
             keyword_only["evolve"],
         )

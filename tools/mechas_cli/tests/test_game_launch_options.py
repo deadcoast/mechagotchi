@@ -43,3 +43,18 @@ class GameLaunchOptionsTests(unittest.TestCase):
                 result=CliRunner().invoke(app,['game',*args])
                 self.assertEqual(2,result.exit_code)
                 launch.assert_not_called()
+
+    def test_explicit_recovery_is_forwarded_without_forcing_policy(self):
+        with patch('mechas_cli.workflows.game.subprocess.run',return_value=SimpleNamespace(returncode=0)) as launch:
+            result=CliRunner().invoke(app,['game','--play','--recover-backup'])
+        self.assertEqual(0,result.exit_code,result.output)
+        self.assertIn('--recover-backup',launch.call_args.args[0])
+        self.assertNotIn('--learning-policy',launch.call_args.args[0])
+
+    def test_recovery_conflicts_do_not_launch(self):
+        for args in (['--recover-backup'],['--play','--recover-backup','--new'],
+                     ['--play','--recover-backup','--slip',str(ROOT/'data/slips/valid/slip_v2_cleanliness.json')]):
+            with self.subTest(args=args),patch('mechas_cli.workflows.game.subprocess.run') as launch:
+                result=CliRunner().invoke(app,['game',*args])
+                self.assertEqual(2,result.exit_code,result.output)
+                launch.assert_not_called()

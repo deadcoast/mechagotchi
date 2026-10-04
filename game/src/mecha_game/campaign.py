@@ -511,7 +511,8 @@ class KeeperCampaign:
     # -- the loop --------------------------------------------------------
 
     def advance_era(
-        self, weather: str, *, released_grids: list[dict] | None = None
+        self, weather: str, *, released_grids: list[dict] | None = None,
+        progress_callback=None,
     ) -> dict:
         """Advance the living bloodline by exactly one era (the lab's
         `advance_campaign` semantics: founders = the previous era's
@@ -560,6 +561,7 @@ class KeeperCampaign:
                 "blend": legibility_blend_for(self.unlock_state()),
             },
             **self.era_config,
+            **({"progress_callback": progress_callback} if progress_callback is not None else {}),
         )
         # The archive's elites in niche-key order — the same
         # deterministic ordering evolve uses for elite parents
@@ -791,11 +793,9 @@ class KeeperCampaign:
 
     STATE_FORMAT = "keeper_campaign_state_v1"
 
-    def save_state(self, path: str | Path) -> Path:
-        """The ACTIVE campaign state (the spent covenant included) as
-        play state — the ledger keeps the evidence; this file keeps
-        the Keeper's place."""
-        payload = {
+    def state_payload(self) -> dict:
+        """The exact active state; shared by normal saves and completed-era recovery."""
+        return {
             "state_format": self.STATE_FORMAT,
             "campaign_id": self.campaign["campaign_id"],
             "keeper_label": self.campaign["keeper_label"],
@@ -811,16 +811,19 @@ class KeeperCampaign:
             "base_profile": self.base_profile,
             "slip_profile": self.campaign["slip_profile"],
             "era_config": self.era_config,
+            "base_parameters": self.base_parameters,
         }
+    def save_state(self, path: str | Path) -> Path:
+        """Atomically checkpoint the active covenant and era position."""
+        from mecha_game.session import _document_bytes, _write_bytes_atomic
         path = Path(path)
-        path.parent.mkdir(parents=True, exist_ok=True)
+        data = _document_bytes(self.state_payload())
         if path.exists():
-            path.with_suffix(".bak.json").write_text(
-                path.read_text(encoding="utf-8"), encoding="utf-8"
-            )
-        path.write_text(
-            json.dumps(payload, indent=2) + "\n", encoding="utf-8"
-        )
+            old = path.read_bytes()
+            if old == data:
+                return path
+            _write_bytes_atomic(path.with_suffix('.bak.json'), old)
+        _write_bytes_atomic(path, data)
         return path
 
     @classmethod
@@ -859,6 +862,7 @@ class KeeperCampaign:
         campaign.campaign["status"] = payload["status"]
         campaign.campaign["unlocks"] = payload["unlocks"]
         campaign.base_profile = payload["base_profile"]
+        campaign.base_parameters = payload.get("base_parameters", campaign.base_parameters)
         campaign.campaign["slip_profile"] = payload["slip_profile"]
         campaign.era_offset = payload["era_count"]
         if campaign.era_offset:

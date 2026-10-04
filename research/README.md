@@ -1314,5 +1314,23 @@ remains intact. R1 registration is pending; no cycle-28 work was started.
 
 ## Cycle 28 implementation (2026-10-04)
 
-- [Playable learning integration](experiment_reports/2026-10-04-playable-learning.md): R1/R2 source and native behavior implemented; full local closure pending.
+- [Playable learning integration](experiment_reports/2026-10-04-playable-learning.md): R1/R2 passed 2,509 tests; R3 default adoption REFUSED on corpus comparability; R4 native save-home repair verified; final full gate passed 2,516 tests. Cycle 28 archived.
 - [DR 0066](decision_records/0066-playable-qtable-opt-in.md): experimental option, incumbent unchanged; actual-game adoption remains a separate gate.
+
+## Cycle 29 safe resume (2026-10-04)
+
+- [Safe companion resume](experiment_reports/2026-10-04-safe-resume.md): model validation, explicit backup recovery with retained primary, atomic saves and visible policy; 48 actual source/CLI/native launch checks. Decision DR 0067; artifact `data/game_client/safe_resume_release_stage0.json`. The report and local runner distinguish implemented behavior from the full closing gate.
+
+- [Durable play checkpoints](experiment_reports/2026-10-04-safe-checkpoints.md) (S2): actual save-failure defect repaired through a single authoritative companion, derived-lineage reconciliation and interactive save/retry/discard. DR 0068; `data/game_client/safe_checkpoints_release_stage0.json`. Full closing status remains in the report/runner.
+
+## Cycle 30 recorded era review (2026-10-04)
+
+- [Recorded era review](experiment_reports/2026-10-04-era-review.md): T opens stored outcomes, earned facts and weather after restart while care pauses; C current covenant / E next era. DR 0069, preregistered `cycle-30-era-review.md`, independent native/source observations. The report and runner hold the actual closing gate; no scientific/default-policy adoption changed.
+
+- [Saved archive consumer](experiment_reports/2026-10-04-saved-archive.md) (T2): the F13/F17 restart remainder reaches B/T/A play through lab-first load_era_elites, stored packets and current-covenant adoption; C controls brought forward after actual small-window review. DR 0070; no schema/math/default-policy changes. Full-gate status remains in the report and runner.
+
+- [Saved replay review](experiment_reports/2026-10-04-saved-replays.md) (T3): existing post-era recordings reopen after restart/from selected reports; read-only pointer/hash validation, paused playback/help and explicit unavailable history. DR 0071; no engine or default-policy change. Full `20261004T192757-866fdf0f` passed 2,576 tests / 24 suites, two documented skips and 2,283 JSON artifacts without mutations; locally complete.
+
+- [Durable Keeper loop](experiment_reports/2026-10-04-keeper-loop.md) (T4): saved preparation, immediate covenant persistence, idempotent completion of real era outputs, and connected report/archive/adoption/replay behavior. DR 0072; pre-repair loss preserved separately, no engine math/default-policy change. Full `20261004T202052-aaa63dd1` passed 2,590 tests / 24 suites, two documented skips and 2,286 JSON artifacts without mutations; locally complete. Final status is in the report and runner.
+
+- [Era responsiveness](experiment_reports/2026-10-04-era-responsiveness.md) (T5, DR 0073): bounded source measurements exposed event starvation; a lab-proven optional observer preserves complete engine outputs while joined foreground work keeps pygame responsive. Cancellation preserves uncommitted preparation and T4 completed-result recovery. Full `20261004T214405-8fe7b9f8` passed 2,606 tests / 24 suites, two documented skips and 2,288 JSON artifacts without mutations; locally complete. The report consolidates the playable checkpoint and established remainder, preserving scale/native-keyboard limits.

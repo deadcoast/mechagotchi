@@ -1,0 +1,122 @@
+{
+  "artifact_id": "era_responsiveness_review_stage0",
+  "date": "2026-10-04",
+  "status": "measured_defect",
+  "purpose": "Measure normal and earned larger-era event starvation before T5 repair",
+  "source_artifacts": [
+    "game/src/mecha_game/app.py",
+    "game/src/mecha_game/campaign.py",
+    "labs/game_loop/measure_era_responsiveness.py"
+  ],
+  "metrics": {
+    "cases": [
+      {
+        "case": "normal",
+        "command": [
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.venv\\Scripts\\python.exe",
+          "-B",
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\labs\\game_loop\\measure_era_responsiveness.py",
+          "--worker",
+          "normal",
+          "--keeper",
+          ".development\\t5-bounded-baseline-keeper",
+          "--output",
+          ".development\\t5-bounded-baseline-normal.json"
+        ],
+        "returncode": 0,
+        "limit_hit": null,
+        "elapsed_limit_s": 90,
+        "working_set_limit_mib": 512,
+        "memory_scope": "actual Python worker; venv launcher excluded; sampled every 50ms",
+        "peak_working_set_mib": 64.555,
+        "elapsed_s": 9.898262099944986,
+        "observation": {
+          "case": "normal",
+          "returncode": 0,
+          "elapsed_s": 9.510338900028728,
+          "era_call_s": 9.31311399990227,
+          "max_poll_gap_s": 9.327110399957746,
+          "max_frame_gap_s": 9.337442800053395,
+          "help_input_latency_s": 9.221050100051798,
+          "polls": 3,
+          "frames": 3,
+          "era_count": 1,
+          "era_index": 0,
+          "rng_seed": 20260707,
+          "config": {
+            "generations": 6,
+            "population": 16,
+            "damage_cycles": 2,
+            "ticks": 16,
+            "dropout_rate": 0.2
+          },
+          "actual_evaluations": 96,
+          "report_sha256": "f64fd5671f0ade11fe384b79b29c84b1788939120c5244b61e851f15e64e1116",
+          "pending": null,
+          "keyboard_scope": "source pygame events, SDL dummy; no native keyboard"
+        }
+      },
+      {
+        "case": "larger",
+        "command": [
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.venv\\Scripts\\python.exe",
+          "-B",
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\labs\\game_loop\\measure_era_responsiveness.py",
+          "--worker",
+          "larger",
+          "--keeper",
+          ".development\\t5-bounded-baseline-keeper",
+          "--output",
+          ".development\\t5-bounded-baseline-larger.json"
+        ],
+        "returncode": 0,
+        "limit_hit": null,
+        "elapsed_limit_s": 90,
+        "working_set_limit_mib": 512,
+        "memory_scope": "actual Python worker; venv launcher excluded; sampled every 50ms",
+        "peak_working_set_mib": 75.043,
+        "elapsed_s": 12.538243099930696,
+        "observation": {
+          "case": "larger",
+          "returncode": 0,
+          "elapsed_s": 12.062599100056104,
+          "era_call_s": 11.845444499980658,
+          "max_poll_gap_s": 11.865774699952453,
+          "max_frame_gap_s": 11.874903199961409,
+          "help_input_latency_s": 11.760113499942236,
+          "polls": 3,
+          "frames": 3,
+          "era_count": 2,
+          "era_index": 1,
+          "rng_seed": 21260707,
+          "config": {
+            "generations": 12,
+            "population": 32,
+            "damage_cycles": 2,
+            "ticks": 16,
+            "dropout_rate": 0.2
+          },
+          "actual_evaluations": 384,
+          "report_sha256": "20d513416fa8c7ea463691785a6b806e7c8c6331f374e3bb54bc9c5cbf4cf474",
+          "pending": null,
+          "keyboard_scope": "source pygame events, SDL dummy; no native keyboard"
+        }
+      }
+    ],
+    "limits": "90 seconds and 512 MiB per source process; <=384 candidate evaluations per era"
+  },
+  "closed_states": [
+    "normal_and_earned_larger_workload_measured",
+    "complete_era_results_and_continuity_retained"
+  ],
+  "blocked_states": [
+    "Source event polling and rendering stop for the entire era call.",
+    "Native keyboard not observed.",
+    "Preliminary t5-baseline memory readings sampled the venv launcher; authoritative t5-bounded-baseline samples the actual Python worker."
+  ],
+  "decision": {
+    "verdict": "repair",
+    "reason": "Normal/larger input delays of 9.221s/11.760s exceed the preregistered responsive target."
+  },
+  "next_research_step": "Implement foreground-owned work with real progress and safe cancellation; preserve baseline output hashes."
+}

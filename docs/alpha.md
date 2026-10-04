@@ -1,9 +1,10 @@
 # The M7 Public Alpha — Reproduce Everything From This Document
 
-Established in cycle 17 G6 (Phase G); launch guidance refreshed at Q5,
+Established in cycle 17 G6 (Phase G); launch guidance refreshed through Cycle 30 T5,
 2026-10-04. Both builds — the ENGINE and the GAME — from a
 fresh clone, on the repo's own evidence discipline. Every claim below
-is backed by a committed stage-0 artifact or a test suite; nothing is
+is backed by a retained artifact or a test suite; current recovery changes
+remain uncommitted for the user. Nothing is
 asserted without a gate.
 
 ## 0. Prerequisites
@@ -34,8 +35,10 @@ One runner, the same locally and in CI (`.github/workflows/ci.yml`):
 
 A full gate covers 19 lab suites plus package, CLI, game, workshop and CI-runner
 suites, with JSON validation over every data artifact. Current verified scope
-is 2,493 tests and 2,269 JSON artifacts; two named DR 0034 pins skip on zlib 1.3.1.
-Runtime depends on the machine (the observed Q4 full run took about 9m24s).
+is 2,606 tests and 2,288 JSON artifacts (T5 full run
+`20261004T214405-8fe7b9f8`); two named DR 0034 pins skip on zlib 1.3.1.
+All 24 suites passed without source mutations. Runtime depends on the machine.
+The historical Q4 gate was 2,493 tests / 2,269 JSON artifacts.
 
 ## 2. Play the game (the second build)
 
@@ -69,18 +72,20 @@ A covenant option selects a new life, never replaces an existing save silently:
 
 A new campaign inherits that companion's covenant; a resumed campaign retains
 its saved covenant. The demonstrated local Windows bundle is
-`game/dist/q4-controls/Mechagotchi/Mechagotchi.exe`; keep `_internal` beside it.
+`game/dist/t5-responsive-eras/Mechagotchi/Mechagotchi.exe`; keep `_internal` beside it.
 From the repository root, launch with an explicit save directory. An absolute
 executable path also works from another cwd:
 
 ```powershell
-.\game\dist\q4-controls\Mechagotchi\Mechagotchi.exe --keeper-dir "$env:USERPROFILE\.mechagotchi"
+.\game\dist\t5-responsive-eras\Mechagotchi\Mechagotchi.exe --keeper-dir "$env:USERPROFILE\.mechagotchi"
 ```
 
-The current bundled-data resolver selects `_internal/keeper` when no save
-directory is supplied. The explicit path above keeps saves separate from the
-bundle; it does not migrate an existing companion. This save-home limitation
-is recorded at Q5 for the later release gate.
+Without an explicit directory, the current native build starts new saves in
+`~/.mechagotchi`. Existing `_internal/keeper` lives continue in place when no
+user-home save exists; when both exist, the user-home save wins and the legacy
+bytes remain untouched. No migration is performed. Add `--learning-policy qtable`
+with `--new` and a separate save home to try experimental learning; resume keeps
+that choice. The incumbent remains the default after the R3 comparability refusal.
 This is an unsigned local one-folder build, not hosted distribution or proof of
 remote CI. The `mechagotchi` console entry point belongs to an installed game
 package; it is not present in this dependency-only workspace.
@@ -92,7 +97,11 @@ G2-ingested run; a checkout is required for the real forecast); key
 **5** selects the callback forecast — the first weather whose
 harshness channels are LIT, sourced from the committed I3 callback
 records (decision record 0043).
-Quit and relaunch — the companion AND the campaign resume.
+Quit and relaunch — the companion AND the campaign resume. Interactive E keeps
+the casing responsive with real progress while care pauses; Escape cancels
+uncommitted work, and close waits for cancellation or completed-result saving.
+Cold model loading cancels at its next boundary. See the T5 responsiveness report
+for the measured 96/384-evaluation limits and unchanged engine results.
 
 ## 3. Regenerate the game's evidence (optional, deliberate)
 
@@ -147,5 +156,7 @@ its full protocol and per-state results.
 ## Current consolidation
 
 `research/experiment_reports/2026-10-04-phase-q-gate.md` records actual source,
-CLI and native launch checks. Cycle 27 is archived; cycle 28 is planned in
-`docs/development/cycle-28-learning-consumer.md` and has not started.
+CLI and native launch checks. Cycle 28's implemented learning option, measured
+default refusal and native save-home repair are recorded in
+`research/experiment_reports/2026-10-04-playable-learning.md`; consult the live
+runner for its final full gate and the live queue for the bounded next action.

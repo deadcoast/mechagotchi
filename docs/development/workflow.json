@@ -73,6 +73,71 @@
         "game",
         "cli"
       ]
+    },
+    "s1-safe-resume": {
+      "spec": "docs/development/cycle-29-safe-resume.md",
+      "purpose": "Validate saved models and preserve companions through explicit backup recovery",
+      "suites": [
+        "package",
+        "game",
+        "cli"
+      ]
+    },
+    "s2-safe-checkpoints": {
+      "spec": "docs/development/cycle-29-safe-checkpoints.md",
+      "purpose": "Preserve play progress on save failure and reconcile lineage from the authoritative companion",
+      "suites": [
+        "game",
+        "package",
+        "cli"
+      ]
+    },
+    "t1-era-review": {
+      "spec": "docs/development/cycle-30-era-review.md",
+      "purpose": "Expose saved era outcomes and earned progression in a paused player review screen",
+      "suites": [
+        "game",
+        "package",
+        "cli"
+      ]
+    },
+    "t2-saved-archive": {
+      "spec": "docs/development/cycle-30-saved-archive.md",
+      "purpose": "Browse and adopt recorded archive creatures after restart through existing engine truth and covenant gates",
+      "suites": [
+        "lab:game_loop",
+        "package",
+        "game",
+        "cli"
+      ]
+    },
+    "t3-saved-replays": {
+      "spec": "docs/development/cycle-30-saved-replays.md",
+      "purpose": "Reopen recorded post-era lives after restart and from selected era reports without reconstructing missing history",
+      "suites": [
+        "game",
+        "package",
+        "cli"
+      ]
+    },
+    "t4-durable-era-plan": {
+      "spec": "docs/development/cycle-30-durable-era-plan.md",
+      "purpose": "Keep Keeper preparation and completed era persistence coherent across care, outcomes, adoption and replay",
+      "suites": [
+        "game",
+        "package",
+        "cli"
+      ]
+    },
+    "t5-responsive-eras": {
+      "spec": "docs/development/cycle-30-responsive-eras.md",
+      "purpose": "Measure and preserve foreground responsiveness during normal and earned larger eras",
+      "suites": [
+        "lab:runtime_integration",
+        "package",
+        "game",
+        "cli"
+      ]
     }
   }
 }

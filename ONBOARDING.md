@@ -1079,27 +1079,103 @@ Q4 closing gate passed: 2493 tests / 24 suites, two named DR 0034 zlib skips,
 2269 JSON artifacts. Owner-side commit e1bcf9f landed during the run without
 source byte changes. Completion notes remain uncommitted; Q5 is next.
 
-## Current local resume (2026-10-04, Q5 recovery)
+## Current local resume (2026-10-04, playable learning)
 
-Authoritative root: C:/Users/ryanf/github/_shelved/mechagotchi; existing Python
-3.13.9. External HEAD 8145b4aa is preserved. Q5 closed locally through the existing
-`mechas develop` workflow: review-polish full run `20261004T145131-9f5720de`, 2493 tests / 24
-suites, two named DR 0034 skips, 2269 valid JSON artifacts, no source mutations.
-Read `--status` and `research/experiment_reports/2026-10-04-phase-q-gate.md` for
-the evidence. Earlier Q2/Q4 resume notes above are history.
-Ordinary sandbox writes failed; supported scoped escalation successfully wrote
-the recovery checkpoint. No security settings, source checkout or environment
-were changed. Actual source/CLI and native launches passed with isolated saves.
-Use an explicit absolute native `--keeper-dir`; the existing bundled default
-resolves under `_internal/keeper` (source-resolver observation).
+Use C:/Users/ryanf/github/_shelved/mechagotchi and its existing Python 3.13.9.
+Q5 was reviewed. R1/R2 implemented the bounded producer/follower and persistent
+playable option; full run `20261004T155004-f33ec4a2` passed 2,509 tests in 24
+suites, two named DR 0034 skips and 2,271 JSON artifacts with no source mutations.
+External owner commits 03ec951 and d1ebd03 are preserved; the agent performs no
+commit/sync/push. The user explicitly waived commit-before-next-RED sequencing
+for this recovery after being told the conflict. Do not reintroduce that stop.
 
-Next action: review this completed Q5 report and its uncommitted documentation
-corrections. Cycle 28 remains planned and must not start before Q5 review. R1 is
-not registered in `docs/development/workflow.json`; no R1 start command is runnable
-yet. After review, preregister the existing bounded package producer/consumer
-parity scope, defaults-off controls and suite selection in the same workflow.
-Do not begin the next task's RED before committing the previous completed task.
-Reading and preregistration do not require that commit; commit/sync/push remain
-the user's actions. The exact read-only resume command sequence is in
-`docs/development/local-cycle.md`. Remote exact-SHA CI, signing and human usability
-remain independent unmet gates.
+R3 REFUSES default adoption: the current covenant rejects forty of the inherited
+fifty corpus members; admitted-subset gains do not repair that comparability
+failure. The experimental option remains usable and the incumbent stays default.
+R4 fixes frozen save-home selection, preserves legacy saves without migration,
+and has 26 real process launches / 23 checks on the final Windows bundle at
+`game/dist/r4-learning/Mechagotchi/Mechagotchi.exe` (keep `_internal` adjacent).
+
+Resume with the exact read-only source command in `docs/development/local-cycle.md`.
+Cycle 28 passed full run `20261004T162036-b03ceece`: 2,516 tests, two named
+skips, no source mutations. It is reviewed and archived. S1 (`s1-safe-resume`) covered validated model reload, explicit backup recovery,
+atomic file replacement and actual policy status. Its source/CLI/native harness
+passed 48 launch checks for both saved policies; the new native bundle is
+`game/dist/s1-safe-resume/Mechagotchi/Mechagotchi.exe` (keep `_internal` adjacent).
+Read `research/experiment_reports/2026-10-04-safe-resume.md` and the runner's
+current full-gate status before claiming local closure or repeating tests.
+S1 closed with `20261004T170013-413498d4`: 2,528 tests / 24 suites, two
+documented skips, 2,275 valid JSON files, no source mutations.
+Remote exact-SHA CI, signing and human usability remain separate unmet gates.
+Scoped runtime escalation works; no security settings, source checkout,
+environment, background service or scheduler were installed.
+
+S2 closed in full run `20261004T173915-19f22122`: 2,537 tests / 24 suites,
+two documented skips, 2,276 valid JSON artifacts, no source mutations. It is
+reviewed and archived in `sunsetted/complete/TODO/29/TODO.md`. Its authoritative
+companion checkpoints, derived-export reconciliation and save retry/discard
+remain intact; read `research/experiment_reports/2026-10-04-safe-checkpoints.md`.
+
+Cycle 30 T1 closed at `20261004T181855-269f5dbc`: 2,548 tests / 24 suites,
+two documented skips, 2,279 valid JSON artifacts and no source mutations.
+Repeated navigation, 24 real eras, restart, empty histories and 384-pixel windows
+passed additional observations. Read `research/experiment_reports/2026-10-04-era-review.md`.
+
+T2 locally closed the explicit F13/F17 remainder
+in repertoire.py. B browses stored creatures after restart, or the selected era
+from T. Historical packets use the recorded covenant; A adopts only through the
+current covenant's existing gate and keeps the learning-policy choice. Viewing
+pauses care, ignores care inputs and does not train, evolve or write the keeper.
+T opens the selected report; B/Escape returns to the entry report or care.
+C's budget/spending controls now precede care status without changing its timing.
+
+Read `research/experiment_reports/2026-10-04-saved-archive.md`, the live queue and
+runner state for actual verification and the exact next action. Candidate:
+`game/dist/t2-saved-archive/Mechagotchi/Mechagotchi.exe`, keep adjacent `_internal`.
+T2 full `20261004T185738-2f3b4168` passed 2,563 tests / 24 suites, two
+documented skips and 2,282 JSON artifacts with no mutations. Native
+keyboard remains unavailable because node_repl/@oai/sky is not exposed here;
+packaged subprocess and source pygame interaction evidence are distinguished.
+No Git mutations, security changes, new environment or background service.
+
+T3 `t3-saved-replays` is locally complete: V reopens indexed recordings after
+restart or from the selected T era, with paused care and honest post-era labels.
+The existing producer records only a current-run era with matching inputs;
+missing/corrupt old history is explicit and is never reconstructed. Read
+`research/experiment_reports/2026-10-04-saved-replays.md` and runner status for
+exact verification and closure. Full `20261004T192757-866fdf0f` passed
+2,576 tests / 24 suites, two documented skips and 2,283 valid JSON artifacts
+with no source mutations. Native build: `game/dist/t3-saved-replays/Mechagotchi/Mechagotchi.exe`, retain
+`_internal`. No engine/default-policy changes or Git mutations.
+
+Locally closed T4 joins the existing DR 0021 loop: next-era weather and
+R/W contribution copies persist immediately; successful covenant changes persist
+without waiting for an era. E journals the real completed result before ledger/
+state writes, allowing foreground retry/restart to finish it without re-evolution.
+Recorded outcomes show actual admitted IDs; archive/adoption/replay semantics
+remain. Backspace unstages copies, and T supports paused preparation. Engine
+rules/default policy remain unchanged. Read the precise code/queue handoff and
+verification in `research/experiment_reports/2026-10-04-keeper-loop.md` and
+`develop --status`. Full `20261004T202052-aaa63dd1` passed 2,590 tests / 24
+suites, two documented skips and 2,286 JSON artifacts without mutations. Then-current
+locally closed build: `game/dist/t4-keeper-loop/Mechagotchi/Mechagotchi.exe`,
+with adjacent `_internal`. All four contracted Cycle 30 tasks are locally closed.
+Legacy saves without budget-base metadata retain their prior interpretation;
+no historical values are inferred. Native keyboard remains unavailable.
+
+T5 is the directly delegated responsiveness investigation after T4's closure.
+Normal/larger source eras demonstrated 9-12 seconds of event starvation; the
+repair uses one joined foreground-owned worker, real candidate progress and an
+atomic cancellation/save boundary. Headless runs retain their prior contract.
+Read `research/experiment_reports/2026-10-04-era-responsiveness.md`, DR 0073 and
+`develop --status` for actual closing gates. No new environment, service,
+scheduler or Git mutation; original scientific results/defaults remain intact.
+
+T5 is locally closed: full `20261004T214405-8fe7b9f8` passed 2,606 tests /
+24 suites, two documented DR 0034 skips and 2,288 JSON artifacts with no
+mutations. Current locally verified build:
+`game/dist/t5-responsive-eras/Mechagotchi/Mechagotchi.exe`, adjacent `_internal`
+required. No active worker. Read the responsiveness report for the consolidated
+product checkpoint, measured scale limits and established recording/family/hosting
+remainder; `.development/t5-live-handoff.json` holds the exact restart context.
+The next action is read-only `develop --status`, not another unchanged gate.

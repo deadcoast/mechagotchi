@@ -551,6 +551,7 @@ def run_mecha_engine_evolution_loop(
     slip_profile: dict | None = None,
     cubff_pressure_source: list[dict] | None = None,
     readability_selection: dict | None = None,
+    progress_callback=None,
 ) -> dict:
     """Multi-generation evolution through the composed engine.
 
@@ -672,6 +673,9 @@ def run_mecha_engine_evolution_loop(
     generation_reports = []
     max_lineage_generation = 0
 
+    # DR 0073: observation only; exceptions cancel before any caller persists.
+    if progress_callback is not None:
+        progress_callback(0, generations * population)
     for generation_index in range(generations):
         generation_dropout = dropout_rate
         if cubff:
@@ -909,6 +913,8 @@ def run_mecha_engine_evolution_loop(
                 )
                 creature_record["ancestor_ids"] = ancestor_ids
             creatures.append(creature_record)
+            if progress_callback is not None:
+                progress_callback(generation_index * population + index + 1, generations * population)
 
         summary_after = archive_summary(archive)
         if readability:

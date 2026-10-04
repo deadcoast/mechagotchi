@@ -1,6 +1,7 @@
 # Cycle 28 / Phase R: the measured learner reaches the playable companion
 
-Status: R1/R2 implementation active. Q5 reviewed on 2026-10-04.
+Status: R1-R4 implemented and measured; R3 REFUSE. Consult the live runner and
+report for the final full gate. Q5 reviewed on 2026-10-04.
 Track: ENGINE first, then GAME. Review this completed consolidation before R1.
 Source: DR 0060, Q1's unchanged artifact, DR 0063–0065, and the Phase-Q report.
 Use the authoritative repository and its existing Python 3.13.9 environment.
@@ -163,7 +164,7 @@ the complete inherited corpus is not comparable. Also retain the +5% vs both
 A/B requirement and the candidate Q3 400-tick attentive/neglect controls.
 
 R4 save-home repair: a frozen release starts new saves under the user's
-`.mechagotchi` directory (spelled `.mechagotchi` in code), not _internal/keeper.
+`.mechagotchi` directory, not _internal/keeper.
 If only the legacy bundled directory has an existing companion/campaign,
 continue there without migrating or deleting it. When both have saves, prefer
 the user home and leave legacy bytes untouched. Explicit --keeper-dir wins.

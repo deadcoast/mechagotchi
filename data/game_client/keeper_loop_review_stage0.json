@@ -1,0 +1,548 @@
+{
+  "artifact_id": "keeper_loop_review_stage0",
+  "date": "2026-10-04",
+  "status": "observed_pre_repair",
+  "purpose": "Observe DR 0021 preparation across actual T3 save/restart before changing the loop.",
+  "source_artifacts": [
+    "game/src/mecha_game/app.py",
+    "research/decision_records/0021-game-loop.md",
+    "research/decision_records/0022-storage-module.md"
+  ],
+  "metrics": {
+    "source_head": "d1ebd033d13938f2a3732282cc6fe6b8ad8255c5",
+    "native_returncode": 0,
+    "pet_grid_id": "mg_seed16_001_beetle",
+    "staging_pages": [
+      {
+        "frame": 1,
+        "page": 0,
+        "page_count": 2,
+        "all_lines": [
+          "released mg_seed16_001_beetle to the next era (1 pending)",
+          "health 0.31 (hungry)   mood curious   age 2   gen 1",
+          "F feed  P play  S sleep",
+          "stress 0.12   bond 0.76",
+          "felt curious (0.39)   hunger\u21920.52",
+          "Policy: incumbent",
+          "cleanliness 0.98   G clean",
+          "F1 controls   Ctrl+S save   T era report   E era [calm]   C covenant"
+        ],
+        "visible": [
+          "released mg_seed16_001_beetle to the next era (1",
+          "pending)",
+          "health 0.31 (hungry) mood curious age 2 gen 1",
+          "F feed P play S sleep",
+          "stress 0.12 bond 0.76",
+          "felt curious (0.39) hunger\u21920.52",
+          "Policy: incumbent",
+          "PgUp/PgDn \u00b7 wheel   1/2"
+        ],
+        "width": 368,
+        "fits": true
+      },
+      {
+        "frame": 2,
+        "page": 0,
+        "page_count": 2,
+        "all_lines": [
+          "released mg_seed16_001_beetle to the next era (1 pending)",
+          "health 0.18 (tired)   mood curious   age 3   gen 1",
+          "F feed  P play  S sleep",
+          "stress 0.09   bond 0.83",
+          "felt curious (0.59)   hunger\u21920.59   begs soon",
+          "Policy: incumbent",
+          "cleanliness 0.96   G clean",
+          "F1 controls   Ctrl+S save   T era report   E era [storm]   C covenant"
+        ],
+        "visible": [
+          "released mg_seed16_001_beetle to the next era (1",
+          "pending)",
+          "health 0.18 (tired) mood curious age 3 gen 1",
+          "F feed P play S sleep",
+          "stress 0.09 bond 0.83",
+          "felt curious (0.59) hunger\u21920.59 begs soon",
+          "Policy: incumbent",
+          "PgUp/PgDn \u00b7 wheel   1/2"
+        ],
+        "width": 368,
+        "fits": true
+      },
+      {
+        "frame": 3,
+        "page": 0,
+        "page_count": 2,
+        "all_lines": [
+          "Saved companion at age 3.",
+          "health 0.05 (tired)   mood hungry   age 4   gen 1",
+          "F feed  P play  S sleep",
+          "stress 0.06   bond 0.90",
+          "felt curious (0.77)   hunger\u21920.66   begs soon",
+          "Policy: incumbent",
+          "cleanliness 0.95   G clean",
+          "F1 controls   Ctrl+S save   T era report   E era [storm]   C covenant"
+        ],
+        "visible": [
+          "Saved companion at age 3.",
+          "health 0.05 (tired) mood hungry age 4 gen 1",
+          "F feed P play S sleep",
+          "stress 0.06 bond 0.90",
+          "felt curious (0.77) hunger\u21920.66 begs soon",
+          "Policy: incumbent",
+          "cleanliness 0.95 G clean",
+          "PgUp/PgDn \u00b7 wheel   1/2"
+        ],
+        "width": 368,
+        "fits": true
+      },
+      {
+        "frame": 4,
+        "page": 0,
+        "page_count": 2,
+        "all_lines": [
+          "Saved companion at age 3.",
+          "health 0.05 (tired)   mood hungry   age 4   gen 1",
+          "F feed  P play  S sleep",
+          "stress 0.06   bond 0.90",
+          "felt curious (0.77)   hunger\u21920.66   begs soon",
+          "Policy: incumbent",
+          "cleanliness 0.95   G clean",
+          "F1 controls   Ctrl+S save   T era report   E era [storm]   C covenant"
+        ],
+        "visible": [
+          "Saved companion at age 3.",
+          "health 0.05 (tired) mood hungry age 4 gen 1",
+          "F feed P play S sleep",
+          "stress 0.06 bond 0.90",
+          "felt curious (0.77) hunger\u21920.66 begs soon",
+          "Policy: incumbent",
+          "cleanliness 0.95 G clean",
+          "PgUp/PgDn \u00b7 wheel   1/2"
+        ],
+        "width": 368,
+        "fits": true
+      }
+    ],
+    "files_after_staging": [
+      "campaign.sqlite3",
+      "campaign_state.json",
+      "companion.bak.json",
+      "companion.json",
+      "lineage.json",
+      "model_cache\\repair_model_e84ecc9ba09d9475.json"
+    ],
+    "next_era_weather": {
+      "forecast": "calm",
+      "snapshot_ids": []
+    },
+    "next_era_founders": {
+      "admitted_ids": [
+        "gen_7fb78fb90f4fc25c_c01",
+        "gen_64239f61a5184ee0_c01",
+        "gen_7cd711fcb7fd4b07_c01",
+        "gen_2642fff20af1431f_c01",
+        "gen_e1154e103845d449_c01",
+        "gen_1b4abce013125f00_c01",
+        "gen_b4dbff4dfd13e6e1_c01",
+        "gen_6befcac227a80a72_c01",
+        "gen_97fb426e5aa736f4_c01",
+        "gen_23c074d5963a2cce_c01",
+        "gen_0f81d7329a8f5403_c01",
+        "gen_d579b2a6e7020043_c01"
+      ],
+      "rejected": []
+    },
+    "spending_pages": [
+      {
+        "frame": 1,
+        "page": 0,
+        "page_count": 2,
+        "all_lines": [
+          "campaign resumed at era 2",
+          "COVENANT   palettes 1/1   thinking 0/2   pop 6/12   gens 2/4",
+          "1 palette  2 thinking  3 population  4 generations  C close",
+          "health 0.00 (tired)   mood hungry   age 5   gen 1   BEGGING",
+          "F feed  P play  S sleep",
+          "stress 0.09   bond 0.88",
+          "felt curious (0.73)   hunger\u21920.74   begs soon",
+          "Policy: incumbent",
+          "cleanliness 0.94   G clean"
+        ],
+        "visible": [
+          "campaign resumed at era 2",
+          "COVENANT palettes 1/1 thinking 0/2 pop 6/12 gens",
+          "2/4",
+          "1 palette 2 thinking 3 population 4 generations C",
+          "close",
+          "health 0.00 (tired) mood hungry age 5 gen 1",
+          "BEGGING",
+          "PgUp/PgDn \u00b7 wheel   1/2"
+        ],
+        "width": 368,
+        "fits": true
+      },
+      {
+        "frame": 2,
+        "page": 0,
+        "page_count": 2,
+        "all_lines": [
+          "no unspent palette in the earned budget",
+          "COVENANT   palettes 1/1   thinking 0/2   pop 6/12   gens 2/4",
+          "1 palette  2 thinking  3 population  4 generations  C close",
+          "health 0.00 (tired)   mood hungry   age 6   gen 1   BEGGING",
+          "F feed  P play  S sleep",
+          "stress 0.12   bond 0.86",
+          "felt curious (0.40)   hunger\u21920.80   begs soon",
+          "Policy: incumbent",
+          "cleanliness 0.93   G clean"
+        ],
+        "visible": [
+          "no unspent palette in the earned budget",
+          "COVENANT palettes 1/1 thinking 0/2 pop 6/12 gens",
+          "2/4",
+          "1 palette 2 thinking 3 population 4 generations C",
+          "close",
+          "health 0.00 (tired) mood hungry age 6 gen 1",
+          "BEGGING",
+          "PgUp/PgDn \u00b7 wheel   1/2"
+        ],
+        "width": 368,
+        "fits": true
+      },
+      {
+        "frame": 3,
+        "page": 0,
+        "page_count": 2,
+        "all_lines": [
+          "no unspent palette in the earned budget",
+          "COVENANT   palettes 1/1   thinking 0/2   pop 6/12   gens 2/4",
+          "1 palette  2 thinking  3 population  4 generations  C close",
+          "health 0.00 (tired)   mood hungry   age 6   gen 1   BEGGING",
+          "F feed  P play  S sleep",
+          "stress 0.12   bond 0.86",
+          "felt curious (0.40)   hunger\u21920.80   begs soon",
+          "Policy: incumbent",
+          "cleanliness 0.93   G clean"
+        ],
+        "visible": [
+          "no unspent palette in the earned budget",
+          "COVENANT palettes 1/1 thinking 0/2 pop 6/12 gens",
+          "2/4",
+          "1 palette 2 thinking 3 population 4 generations C",
+          "close",
+          "health 0.00 (tired) mood hungry age 6 gen 1",
+          "BEGGING",
+          "PgUp/PgDn \u00b7 wheel   1/2"
+        ],
+        "width": 368,
+        "fits": true
+      }
+    ],
+    "campaign_state_unchanged_after_spend": true,
+    "flows": [
+      {
+        "label": "stage-weather-release",
+        "frames": 4,
+        "returncode": 0,
+        "screenshots": [
+          ".development/t4-review-ui/stage-weather-release-01.png",
+          ".development/t4-review-ui/stage-weather-release-02.png",
+          ".development/t4-review-ui/stage-weather-release-03.png",
+          ".development/t4-review-ui/stage-weather-release-04.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "released mg_seed16_001_beetle to the next era (1 pending)",
+              "health 0.31 (hungry)   mood curious   age 2   gen 1",
+              "F feed  P play  S sleep",
+              "stress 0.12   bond 0.76",
+              "felt curious (0.39)   hunger\u21920.52",
+              "Policy: incumbent",
+              "cleanliness 0.98   G clean",
+              "F1 controls   Ctrl+S save   T era report   E era [calm]   C covenant"
+            ],
+            "visible": [
+              "released mg_seed16_001_beetle to the next era (1",
+              "pending)",
+              "health 0.31 (hungry) mood curious age 2 gen 1",
+              "F feed P play S sleep",
+              "stress 0.12 bond 0.76",
+              "felt curious (0.39) hunger\u21920.52",
+              "Policy: incumbent",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "released mg_seed16_001_beetle to the next era (1 pending)",
+              "health 0.18 (tired)   mood curious   age 3   gen 1",
+              "F feed  P play  S sleep",
+              "stress 0.09   bond 0.83",
+              "felt curious (0.59)   hunger\u21920.59   begs soon",
+              "Policy: incumbent",
+              "cleanliness 0.96   G clean",
+              "F1 controls   Ctrl+S save   T era report   E era [storm]   C covenant"
+            ],
+            "visible": [
+              "released mg_seed16_001_beetle to the next era (1",
+              "pending)",
+              "health 0.18 (tired) mood curious age 3 gen 1",
+              "F feed P play S sleep",
+              "stress 0.09 bond 0.83",
+              "felt curious (0.59) hunger\u21920.59 begs soon",
+              "Policy: incumbent",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "Saved companion at age 3.",
+              "health 0.05 (tired)   mood hungry   age 4   gen 1",
+              "F feed  P play  S sleep",
+              "stress 0.06   bond 0.90",
+              "felt curious (0.77)   hunger\u21920.66   begs soon",
+              "Policy: incumbent",
+              "cleanliness 0.95   G clean",
+              "F1 controls   Ctrl+S save   T era report   E era [storm]   C covenant"
+            ],
+            "visible": [
+              "Saved companion at age 3.",
+              "health 0.05 (tired) mood hungry age 4 gen 1",
+              "F feed P play S sleep",
+              "stress 0.06 bond 0.90",
+              "felt curious (0.77) hunger\u21920.66 begs soon",
+              "Policy: incumbent",
+              "cleanliness 0.95 G clean",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 4,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "Saved companion at age 3.",
+              "health 0.05 (tired)   mood hungry   age 4   gen 1",
+              "F feed  P play  S sleep",
+              "stress 0.06   bond 0.90",
+              "felt curious (0.77)   hunger\u21920.66   begs soon",
+              "Policy: incumbent",
+              "cleanliness 0.95   G clean",
+              "F1 controls   Ctrl+S save   T era report   E era [storm]   C covenant"
+            ],
+            "visible": [
+              "Saved companion at age 3.",
+              "health 0.05 (tired) mood hungry age 4 gen 1",
+              "F feed P play S sleep",
+              "stress 0.06 bond 0.90",
+              "felt curious (0.77) hunger\u21920.66 begs soon",
+              "Policy: incumbent",
+              "cleanliness 0.95 G clean",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "stderr": ""
+      },
+      {
+        "label": "restart-run",
+        "frames": 2,
+        "returncode": 0,
+        "screenshots": [
+          ".development/t4-review-ui/restart-run-01.png",
+          ".development/t4-review-ui/restart-run-02.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 1 [calm]   2/2",
+              "Your companion is paused. [ ] eras   T close",
+              "B archive   V replay   E next era   C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 9   coverage 0.000115",
+              "QD 6.587847   lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "FOUNDERS: 12 admitted; 0 refused",
+              "These are recorded era results; viewing them does not run the soup."
+            ],
+            "visible": [
+              "ERA 1 [calm] 2/2",
+              "Your companion is paused. [ ] eras T close",
+              "B archive V replay E next era C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 9 coverage 0.000115",
+              "QD 6.587847 lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 1 [calm]   2/2",
+              "Your companion is paused. [ ] eras   T close",
+              "B archive   V replay   E next era   C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 9   coverage 0.000115",
+              "QD 6.587847   lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "FOUNDERS: 12 admitted; 0 refused",
+              "These are recorded era results; viewing them does not run the soup."
+            ],
+            "visible": [
+              "ERA 1 [calm] 2/2",
+              "Your companion is paused. [ ] eras T close",
+              "B archive V replay E next era C current covenant",
+              "bloodline continued; generations 2/2",
+              "Niches 9 coverage 0.000115",
+              "QD 6.587847 lineage depth 2",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "stderr": ""
+      },
+      {
+        "label": "spend-quit",
+        "frames": 3,
+        "returncode": 0,
+        "screenshots": [
+          ".development/t4-review-ui/spend-quit-01.png",
+          ".development/t4-review-ui/spend-quit-02.png",
+          ".development/t4-review-ui/spend-quit-03.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "campaign resumed at era 2",
+              "COVENANT   palettes 1/1   thinking 0/2   pop 6/12   gens 2/4",
+              "1 palette  2 thinking  3 population  4 generations  C close",
+              "health 0.00 (tired)   mood hungry   age 5   gen 1   BEGGING",
+              "F feed  P play  S sleep",
+              "stress 0.09   bond 0.88",
+              "felt curious (0.73)   hunger\u21920.74   begs soon",
+              "Policy: incumbent",
+              "cleanliness 0.94   G clean"
+            ],
+            "visible": [
+              "campaign resumed at era 2",
+              "COVENANT palettes 1/1 thinking 0/2 pop 6/12 gens",
+              "2/4",
+              "1 palette 2 thinking 3 population 4 generations C",
+              "close",
+              "health 0.00 (tired) mood hungry age 5 gen 1",
+              "BEGGING",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "no unspent palette in the earned budget",
+              "COVENANT   palettes 1/1   thinking 0/2   pop 6/12   gens 2/4",
+              "1 palette  2 thinking  3 population  4 generations  C close",
+              "health 0.00 (tired)   mood hungry   age 6   gen 1   BEGGING",
+              "F feed  P play  S sleep",
+              "stress 0.12   bond 0.86",
+              "felt curious (0.40)   hunger\u21920.80   begs soon",
+              "Policy: incumbent",
+              "cleanliness 0.93   G clean"
+            ],
+            "visible": [
+              "no unspent palette in the earned budget",
+              "COVENANT palettes 1/1 thinking 0/2 pop 6/12 gens",
+              "2/4",
+              "1 palette 2 thinking 3 population 4 generations C",
+              "close",
+              "health 0.00 (tired) mood hungry age 6 gen 1",
+              "BEGGING",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "no unspent palette in the earned budget",
+              "COVENANT   palettes 1/1   thinking 0/2   pop 6/12   gens 2/4",
+              "1 palette  2 thinking  3 population  4 generations  C close",
+              "health 0.00 (tired)   mood hungry   age 6   gen 1   BEGGING",
+              "F feed  P play  S sleep",
+              "stress 0.12   bond 0.86",
+              "felt curious (0.40)   hunger\u21920.80   begs soon",
+              "Policy: incumbent",
+              "cleanliness 0.93   G clean"
+            ],
+            "visible": [
+              "no unspent palette in the earned budget",
+              "COVENANT palettes 1/1 thinking 0/2 pop 6/12 gens",
+              "2/4",
+              "1 palette 2 thinking 3 population 4 generations C",
+              "close",
+              "health 0.00 (tired) mood hungry age 6 gen 1",
+              "BEGGING",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "stderr": ""
+      }
+    ]
+  },
+  "closed_states": [
+    "Native T3 create and actual source preparation/restart observed."
+  ],
+  "blocked_states": [
+    "Staged cared-for genome and selected storm were lost before the resumed era.",
+    "The palette spend in this observation was refused; successful-spend durability was separately pinned by T4 RED."
+  ],
+  "decision": {
+    "verdict": "repair_preparation_continuity"
+  },
+  "next_research_step": "Complete T4 connected-loop implementation and final native/source/full gates; retain this pre-repair observation unchanged."
+}
