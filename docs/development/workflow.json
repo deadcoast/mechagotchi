@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "queue": "sunsetted/TODO.md",
+  "slices": {
+    "local-workflow": {
+      "spec": "docs/development/local-cycle.md",
+      "purpose": "Resumable local verification and evidence capture after the CI repair",
+      "suites": ["cli", "ci"]
+    },
+    "q2-mechanics": {
+      "spec": "docs/development/q2-mechanics-rung.md",
+      "purpose": "Cycle 27 Q2: covenant-authored optional cleanliness across validators, engine and game",
+      "suites": ["lab:grid_genome", "lab:slip_validator", "lab:lifecycle_sim", "package", "game", "cli"]
+    }
+  }
+}

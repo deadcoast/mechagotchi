@@ -1238,3 +1238,13 @@ an experiment report, a metric report, and a decision record.
 - `data/asset_provenance/portability_restatement_stage0.json`
 - `labs/asset_pipeline/test_provenance_portability.py`
 - `tools/ci/run_sweep.py`, `tools/ci/tests/test_run_sweep.py`
+
+
+## 2026-10-04: Resumable local development (DR 0062)
+
+- `research/experiment_reports/2026-10-04-local-development-cycle.md`
+- `research/algorithm_cards/local_development_cycle.md`
+- `research/decision_records/0062-local-development-cycle.md`
+- `data/development/local_development_cycle_stage0.json`
+- `tools/mechas_cli/src/mechas_cli/development.py`, `tools/mechas_cli/tests/test_development.py`
+- `docs/development/local-cycle.md`, `docs/development/q2-mechanics-rung.md`

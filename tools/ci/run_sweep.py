@@ -92,6 +92,7 @@ def main() -> int:
     parser.add_argument('--log-dir', type=Path, default=ROOT / '.ci-logs')
     parser.add_argument('--suite-timeout', type=float, default=900,
                         help='seconds per suite (more than twice the measured slowest CI suite)')
+    parser.add_argument('--suite', action='append', default=[], help='Run only this named suite (repeatable; local focused checks).')
     args = parser.parse_args()
     if args.suite_timeout <= 0:
         parser.error('--suite-timeout must be positive')
@@ -99,7 +100,12 @@ def main() -> int:
     plan = [(f'lab:{lab.name}', lab) for lab in sorted((ROOT / 'labs').iterdir())
             if lab.is_dir() and any(lab.glob('test_*.py'))]
     plan += [(name, path) for name, path in SUITES if not (args.quick and name == 'workshop')]
-    summary = {'environment': environment_report(), 'quick': args.quick, 'suites': [], 'complete': False}
+    if args.suite:
+        unknown = set(args.suite) - {name for name, _ in plan}
+        if unknown:
+            parser.error('Unknown or excluded suites: ' + ', '.join(sorted(unknown)))
+        plan = [(name, path) for name, path in plan if name in args.suite]
+    summary = {'environment': environment_report(), 'quick': args.quick, 'selected_suites': args.suite, 'suites': [], 'complete': False}
     def persist():
         (args.log_dir / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n', encoding='utf-8', newline='\n')
     persist()

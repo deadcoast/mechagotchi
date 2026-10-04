@@ -35,3 +35,6 @@ game/uv.lock
 # built, never committed
 game/dist*/
 game/release_work/
+
+# Resumable local development runs; committed research evidence stays under data/.
+/.development/

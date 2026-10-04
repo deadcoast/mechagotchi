@@ -1005,3 +1005,20 @@ Every cycle-23 slice ran this loop; copy it:
   `-harder-skill-baselines.md`, `-probe-artifact-restatement.md`
   (cycle 26's P1–P5)
 - `tools/ci/run_sweep.py`
+
+
+## 2026-10-04: Local development cycle (DR 0062)
+
+A new root `AGENTS.md` is the operating entry point for the local cycle; it
+is not the historical file in the owner archive. The original archived-file
+notes above retain their historical meaning. Use `mechas develop --status`
+(or the source invocation in `docs/development/local-cycle.md`) to inspect
+the actual root/branch/HEAD and resume state. Specifications and suite scopes
+are under `docs/development/`; runtime logs are in ignored `.development/`.
+
+REVIEW -> REPAIR -> ENHANCE -> POLISH is operated by the active agent. No
+hidden agent, scheduler, new credentials or automatic publishing is installed.
+Q2 is the next preregistered product slice; Q3 defaults and Q1 promotion remain
+separate decisions. A local full pass cannot satisfy native Windows/Ubuntu CI
+on a published SHA. A blocked publication gate does not stop independent
+authorized local work.

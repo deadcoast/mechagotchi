@@ -52,5 +52,21 @@ class SweepTests(unittest.TestCase):
         self.assertEqual(0, result['tests_run'])
 
 
+    def test_focused_selection_is_explicit_and_unknown_suite_is_refused(self):
+        self.fixture("        self.assertTrue(True)\n")
+        (self.root / 'labs').mkdir()
+        (self.root / 'data').mkdir()
+        with patch.object(sweep, 'ROOT', self.root), patch.object(sweep, 'SUITES', [('chosen', self.suite), ('omitted', self.root / 'missing')]), contextlib.redirect_stdout(io.StringIO()):
+            with patch.object(sys, 'argv', ['sweep', '--log-dir', str(self.logs), '--suite', 'chosen']):
+                self.assertEqual(0, sweep.main())
+                summary = json.loads((self.logs / 'summary.json').read_text())
+                self.assertEqual(['chosen'], summary['selected_suites'])
+                self.assertEqual(['chosen'], [r['name'] for r in summary['suites']])
+            with patch.object(sys, 'argv', ['sweep', '--suite', 'unknown']), contextlib.redirect_stderr(io.StringIO()):
+                with self.assertRaises(SystemExit) as error:
+                    sweep.main()
+                self.assertEqual(2, error.exception.code)
+
+
 if __name__ == '__main__':
     unittest.main()

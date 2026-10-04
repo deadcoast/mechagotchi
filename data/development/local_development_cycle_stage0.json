@@ -1,0 +1,51 @@
+{
+  "artifact_id": "local_development_cycle_stage0",
+  "status": "local_focused_verified_remote_unmet",
+  "date": "2026-10-04",
+  "purpose": "Measure the executable local operating instrument, not autonomous feature quality or cloud CI.",
+  "source_artifacts": [
+    "docs/development/local-cycle.md",
+    "docs/development/workflow.json",
+    "tools/mechas_cli/tests/test_development.py",
+    "tools/ci/tests/test_run_sweep.py",
+    "research/experiment_reports/2026-10-04-local-development-cycle.md"
+  ],
+  "baseline_commit": "7a48886141ec4b1323ee30bb42ee1809e98149a0",
+  "local_run_id": "20261004T072558-645c11db",
+  "metrics": {
+    "focused_suites": 2,
+    "focused_tests": 39,
+    "workflow_regressions": 11,
+    "sweep_instrument_tests": 4,
+    "changed_source_files": 0,
+    "json_artifacts_at_focused_run": "2259 JSON artifacts valid"
+  },
+  "environment": {
+    "python": "3.14.3 (tags/v3.14.3:323c59a, Feb  3 2026, 16:04:56) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "zlib": "1.3.1.zlib-ng",
+    "dependencies": {
+      "pydantic": "2.13.4",
+      "jsonschema": "4.26.0",
+      "typer": "0.26.8",
+      "rich": "15.0.0",
+      "pygame-ce": "2.5.7",
+      "pyinstaller": "6.21.0"
+    }
+  },
+  "closed_states": [
+    "real subprocess failure output retained",
+    "stale and revoked verification refused",
+    "incomplete full suite sets refused",
+    "source mutation detected without restoration",
+    "resume and completed-cycle history verified",
+    "timeout partial output retained",
+    "CLI resolves and reports actual repository"
+  ],
+  "blocked_states": [
+    "native Windows and Ubuntu CI on the published commit unverified",
+    "Q2 feature implementation not yet performed"
+  ],
+  "decision": "adopt_local_instrument_after_full_sweep; native publication gate remains separate",
+  "next_research_step": "Resume Q2 mechanics authorship from its preregistered strict-authority and persistence contract."
+}

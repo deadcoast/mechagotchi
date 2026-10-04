@@ -8,6 +8,7 @@ import typer
 
 from mechas_cli import __version__, theme
 from mechas_cli.workspace import WorkspaceNotFoundError, find_workspace_root
+from mechas_cli.workflows.develop import develop
 from mechas_cli.workflows.game import game
 from mechas_cli.workflows.rate import rate
 from mechas_cli.workflows.session import session
@@ -36,6 +37,7 @@ app.command(name="rate")(rate)
 app.command(name="session")(session)
 app.command(name="workshop")(workshop)
 app.command(name="game")(game)
+app.command(name="develop")(develop)
 
 
 @app.command()
