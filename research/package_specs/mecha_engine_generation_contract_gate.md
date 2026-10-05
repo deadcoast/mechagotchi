@@ -182,3 +182,35 @@ Expected implementation-stage result:
   https://www.pcgbook.com/
 - WaveFunctionCollapse reference implementation:
   https://github.com/mxgmn/WaveFunctionCollapse
+
+
+## W4 observational WFC trace (2026-10-05, DR0079)
+
+`generate_wfc_grid(model, *, grid_id, rng_seed, max_restarts=8, trace=None)`
+accepts an optional caller-owned list. This adds no export or generator default.
+DR0042 keeps constrained generation as the evolution default; WFC remains its
+distinct additive arm. A traced call returns the exact untraced grid (no new
+metadata), consumes identical randomness, preserves inputs and raises the same
+errors. Observations survive failure in the supplied list. No observer callback
+can steer a decision. Callers wanting a fresh trace pass a fresh empty list.
+
+Each call appends `generation_started` with `trace_format=wfc_trace_v1`, grid ID,
+seed and restart budget. Events are ordered detached JSON-native dictionaries:
+`attempt_started`; `wave_started` (dimensions, weighted candidate cells, training
+IDs); `cell_collapsed` (position, original counts, sampled token); `propagated`
+(source/target/direction, before and applied remaining counts); `contradiction`
+(empty proposed remaining counts, not applied); `collapsed` (actual matrix);
+`finish_rejected` (actual reason, floor/count when relevant); `finished` (actual
+matrix, normalized anchors, retained/dropped core, chosen anchor and floor);
+`attempt_rejected`; `palette_selected`; `generated` or `exhausted`.
+
+Counters report actual attempts. Exhaustion retains the final reason and
+original ValueError; zero attempts contains no invented wave. Invalid models
+may raise earlier as before; no synthetic completion is appended. This is an
+observational interface, not a validator, probability model, fitness result or
+historical trace reconstruction. UI cancellation waits for the bounded call,
+then discards its session-only view; it never changes engine decisions.
+
+Evidence: `labs/wfc_grid/test_wfc_trace.py` pins 68 pre-edit output/error/RNG
+cases, JSON round trips and exact lab/package events. Existing parity and
+scientific gates remain unchanged. See the W4 report for closing results.

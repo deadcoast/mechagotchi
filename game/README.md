@@ -1,5 +1,21 @@
 # Mechagotchi — the Game Client
 
+## Current W5 integrated finish (2026-10-05)
+
+Full `20261005T143932-8940eb33` passed **2,707 tests / 24 suites**, 2 documented DR0034 zlib skips and **2302 JSON artifacts valid**, with no source mutations.
+84 application checks / 17 source flows / 239 frames / four native launches passed.
+
+Readers preserve care on their closing frame, help restores the reading page,
+and inboxes remember their selected filename within a session. Contextual help
+matches covenant spending keys; malformed campaign loads remain readable.
+Lineage exposes all recorded fields; archive/history Back and Help are visible.
+Measured report: `research/experiment_reports/2026-10-05-integrated-finish.md`.
+Release candidate: `game/dist/w5-integrated-finish-release/Mechagotchi/Mechagotchi.exe`
+with adjacent `_internal`. Read `.development/w5-live-handoff.json` and actual
+runner state for closure. Native keyboard/remote/published-SHA CI remain unobserved.
+Earlier dated evidence below is retained; this is the current application entry.
+
+
 The second of the two builds (`docs/gap-analysis.md` §0): the playable
 desktop client showcasing the Mechagotchi Computational Life Engine.
 Technology decided by decision record 0033 (pygame-ce — the engine
@@ -42,8 +58,9 @@ lifecycle tick) · **ENTER** adopt the successor when the companion
 dies · **E** run an evolution era (**1–5** pick the weather) ·
 **A** adopt the era's best elite as your companion · **C** covenant
 mode (**1/2/3/4** spend earned unlocks: palette / thinking /
-population / generations) · **H** hatch a new founder under your
-covenant and adopt it (its origin trace shows) · **R** release your
+population / generations) · **H** preview a founder under your active
+covenant; **Enter** explicitly adopts, **N** requests another, **H/Escape**
+returns without adoption. **O** reads the current companion's saved origin · **R** release your
 companion's genome as a founder for the next era · **W** gather the
 workshop's released creatures for the next era (the engine admits or
 rejects them — the verdict shows) · **V** review the last era's best
@@ -79,8 +96,8 @@ The casing pages show its actual recommendation and followed decision.
 
 An explicit policy conflicting with a saved companion is refused before writes.
 `--learning-policy incumbent` selects the original behavior for a new life.
-The latest locally closed W1 native build is
-`game/dist/w1-import-inboxes-final/Mechagotchi/Mechagotchi.exe`; keep `_internal` beside it.
+The latest locally closed W2 native build is
+`game/dist/w2-responsive-preparation/Mechagotchi/Mechagotchi.exe`; keep `_internal` beside it.
 Use the same policy arguments there. New native saves use
 `$env:USERPROFILE/.mechagotchi`; an explicit `--keeper-dir` selects another
 home. Existing bundled `_internal/keeper` lives continue in place when no
@@ -433,3 +450,87 @@ W1 full `20261005T115738-611ddb0c` passed 2,656 tests / 24 suites, two documente
 zlib skips and 2,294 valid JSON artifacts without source mutations. Application
 evidence covers 28 checks, four native launches, twelve source flows and 75
 rendered frames. Keep `_internal` beside the native executable named above.
+
+## Responsive preparation (W2)
+
+Covenant viewing, imports and hatching no longer train evolution models first.
+E prepares those models in its existing responsive loading screen: care pauses,
+F1 explains the controls, and Escape/close requests cancellation at the next
+load/candidate boundary. No new thread or service stays alive after the app.
+The normal-session one/256-file source measurements and both-policy retry flows
+are in `research/experiment_reports/2026-10-05-responsive-preparation.md`.
+The current constrained hatch explanation remains distinct from era-side WFC.
+
+W2 is locally closed: full `20261005T123344-a9435c5a` passed 2,666 tests /
+24 suites, two documented skips and 2,297 valid JSON artifacts without mutations.
+The final application observation passed 76 checks, four native launches and
+14 source flows / 560 rendered frames. The native executable named above needs
+its adjacent `_internal`; native keyboard and maximum scale remain unobserved.
+
+
+## Constrained hatch preview and saved origin (W3)
+
+H pauses care and previews a generated founder under the active covenant,
+including one chosen through I. Enter replaces the current companion with
+that displayed founder; N requests another candidate, H/Escape returns without
+adopting. O opens the saved companion birth genome and its full recorded origin,
+including after restart. Space plays/pauses engine animation, comma/period step,
+and brackets select permitted clips. Animation does not simulate a new life.
+PgUp/PgDn reads every trace field; F1 preserves the candidate and pauses playback.
+Missing traces are explicit. This is the constrained generator's trace; the
+era-side WFC generator currently has no collapse/restart explanation interface.
+Report: `research/experiment_reports/2026-10-05-hatch-preview.md`.
+
+
+W3 locally closed: Full `20261005T130951-59a1cc56` passed **2,679 tests / 24 suites**, 2 documented DR0034 zlib skips; **2298 JSON artifacts valid**. No source mutations; local completion only.
+48 application checks / 10 source flows / 208 rendered frames / four native
+load/resume launches passed. Current candidate:
+`game/dist/w3-hatch-preview-final/Mechagotchi/Mechagotchi.exe` with `_internal`.
+Exact restart: `.development/w3-live-handoff.json`. WFC collapse/restart tracing
+is a separate unregistered seam; native keyboard, remote executor and
+published-SHA CI remain unclaimed. Do not repeat unchanged verification.
+
+
+## Cycle 36 W4 - distinct WFC inspection (2026-10-05)
+
+Tab in H preview captures and inspects the optional WFC arm. Space plays its
+real events; comma/period steps, brackets move attempts, Home/End select
+endpoints. V shows the actual final body/animation when available. Tab/Escape
+returns to the unchanged constrained hatch candidate; N captures another WFC.
+The inspector is read-only and session-only: it does not adopt a creature,
+write saves or claim the active covenant constrains WFC. Help and paging pause
+playback. Failed/cancelled captures retain honest outcomes; cancellation waits
+for the current bounded call and joins its worker before returning.
+
+Current science correction: DR0042 superseded DR0031's evolution-default clause.
+Constrained remains the default; WFC remains a distinct additive arm. Earlier
+F8/W3 wording about WFC as current production/default is stale and is retained
+as dated evidence, not current authority. No generator decisions or defaults
+changed in W4. Read `research/experiment_reports/2026-10-05-wfc-trace.md`, DR0079,
+the W4 metric/baseline artifacts and `.development/w4-live-handoff.json` for
+measured closure and exact restart. No Git mutations or remote executor claim.
+
+
+W4 locally closed: Full `20261005T135504-94a410b6` passed **2,694 tests / 24 suites**, 2 documented DR0034 zlib skips and **2300 JSON artifacts valid**, with no source mutations.
+The 68 pre-edit RNG/output/error cases and exact lab/package traces pass;
+80 application checks / 12 source flows / 162 frames / four native smoke
+launches pass. Current candidate:
+`game/dist/w4-wfc-trace-release/Mechagotchi/Mechagotchi.exe` with `_internal`.
+Exact restart: `.development/w4-live-handoff.json`. No next scope is registered;
+no active worker or Git mutation. Native WFC keyboard, maximal-scale observations,
+remote executor and exact-published-SHA CI remain unclaimed.
+
+### Connected source example
+
+Use the existing `.venv/Scripts/python.exe -B game/run_game.py` with a separate
+`--keeper-dir` for demonstration saves. K selects a pack; Enter stages its
+items. I chooses a staged covenant; Enter applies it to future hatches/eras.
+Escape returns, H previews a constrained founder, and Tab inspects distinct
+read-only WFC decisions. Escape returns through the views. Enter in H explicitly
+adopts the displayed founder. F1 shows the controls for the current context.
+
+T opens saved reports, B their archive, N exact niche occurrences, and V a
+saved recording when one exists. O reads the current companion's saved origin.
+C exposes earned unlock spending; close C before using 1-5 for weather.
+R stages the current genome, W gathers workshop creatures and E runs the prepared
+era. Viewing history never reconstructs missing recordings or ancestry.

@@ -62,7 +62,7 @@ class FooterLayoutTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory, patch('pygame.event.get',side_effect=get_events), patch('pygame.display.flip',side_effect=lambda:frames.append(pygame.display.get_surface().copy())):
             self.assertEqual(0,run(['--new','--keeper-dir',directory,'--ticks','2','--tick-frames','1','--fps','0']))
             saved=json.loads((Path(directory)/'companion.json').read_text())
-        self.assertEqual(2,saved['state']['age_ticks'])
+        self.assertEqual(1,saved['state']['age_ticks'])  # Only the frame after closing advances.
         self.assertNotEqual(pygame.image.tobytes(frames[1],'RGB'),pygame.image.tobytes(frames[2],'RGB'))
         self.assertEqual(0,saved['state']['action_counts'].get('feed',0))
 

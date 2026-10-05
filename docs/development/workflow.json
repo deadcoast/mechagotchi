@@ -177,6 +177,37 @@
         "cli",
         "lab:game_loop"
       ]
+    },
+    "w3-hatch-preview": {
+      "spec": "docs/development/cycle-35-hatch-preview.md",
+      "purpose": "Preview actual constrained hatch candidates and inspect their durable origin before explicit adoption",
+      "suites": [
+        "game",
+        "package",
+        "cli",
+        "lab:game_loop"
+      ]
+    },
+    "w4-wfc-trace": {
+      "spec": "docs/development/cycle-36-wfc-trace.md",
+      "purpose": "Observe genuine WFC decisions and retries without scientific drift and inspect them in a paused distinct client view",
+      "suites": [
+        "lab:wfc_grid",
+        "package",
+        "game",
+        "cli",
+        "lab:game_loop"
+      ]
+    },
+    "w5-integrated-finish": {
+      "spec": "docs/development/cycle-37-integrated-finish.md",
+      "purpose": "Repair demonstrated navigation, reading, selection and preparation failures across the existing application",
+      "suites": [
+        "game",
+        "package",
+        "cli",
+        "lab:game_loop"
+      ]
     }
   }
 }

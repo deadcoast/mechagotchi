@@ -11,8 +11,8 @@ generator for the same corpus and seeds.
 
 This is an ADDITIVE seam: the constrained stabilizer
 (``generate_candidate``/``generate_batch``) is untouched and remains the
-4-token parent-based path; WFC is the rich-alphabet production
-generator. Position-channel overlapping WFC: per-cell observed-token
+parent-based path. DR0038 later made that path vocabulary-complete and
+DR0042 made it the evolution default; WFC remains a distinct optional arm. Position-channel overlapping WFC: per-cell observed-token
 candidate sets plus observed right/down adjacency, minimum-entropy
 collapse with arc-consistent propagation, bounded deterministic
 restarts, and the documented stabilizer finishing (largest-core
@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import random
 from collections import deque
+from copy import deepcopy
 
 from mecha_engine.genome.validation import body_core_min_cells
 
@@ -136,21 +137,36 @@ def generate_wfc_grid(
     grid_id: str,
     rng_seed: int,
     max_restarts: int = MAX_RESTARTS,
+    trace: list[dict] | None = None,
 ) -> dict:
-    """Collapse one creature; deterministic per (grid_id, rng_seed)."""
+    """Collapse one creature; deterministic per (grid_id, rng_seed).
+
+    Optional trace receives detached JSON observations, including failed
+    attempts. It consumes no randomness and never changes returned metadata.
+    Errors still raise with their original type/message; prior observations
+    remain available. Each call appends a wfc_trace_v1 generation boundary.
+    """
     rng = random.Random(f"{rng_seed}:{grid_id}")
     last_error: str | None = None
-    for _ in range(max_restarts):
-        matrix = _collapse(model, rng)
+    attempts_run = 0
+    _trace_event(trace, 'generation_started', trace_format='wfc_trace_v1',
+                 grid_id=grid_id, rng_seed=rng_seed, max_restarts=max_restarts)
+    for attempt in range(max_restarts):
+        attempts_run = attempt + 1
+        _trace_event(trace, 'attempt_started', attempt=attempt + 1)
+        matrix = _collapse(model, rng, trace=trace)
         if matrix is None:
             last_error = "wave contradiction"
+            _trace_event(trace, 'attempt_rejected', attempt=attempt + 1, reason=last_error)
             continue
-        matrix, finish_error = _finish(matrix, rng)
+        matrix, finish_error = _finish(matrix, rng, trace=trace)
         if matrix is None:
             last_error = finish_error
+            _trace_event(trace, 'attempt_rejected', attempt=attempt + 1, reason=last_error)
             continue
         palette_id = rng.choice(sorted(PALETTES))
-        return _grid_from_rich_matrix(
+        _trace_event(trace, 'palette_selected', palette_id=palette_id)
+        grid = _grid_from_rich_matrix(
             grid_id,
             ["".join(row) for row in matrix],
             palette_id,
@@ -158,6 +174,9 @@ def generate_wfc_grid(
             source="wfc_grid_lab",
             mutation_events=["wfc_wave_collapsed"],
         )
+        _trace_event(trace, 'generated', attempt=attempt + 1, grid_id=grid_id)
+        return grid
+    _trace_event(trace, 'exhausted', attempts=attempts_run, max_restarts=max_restarts, reason=last_error)
     raise ValueError(
         f"WFC could not collapse {grid_id} (rng_seed {rng_seed}) in "
         f"{max_restarts} attempts: {last_error}"
@@ -201,13 +220,23 @@ def _allowed_neighbors(
     return allowed
 
 
-def _collapse(model: dict, rng: random.Random) -> list[list[str]] | None:
+def _trace_event(trace, event, **fields):
+    if trace is not None:
+        trace.append({'event': event, **deepcopy(fields)})
+
+
+def _collapse(model: dict, rng: random.Random, *, trace=None) -> list[list[str]] | None:
     width, height = model["width"], model["height"]
     wave: dict[tuple[int, int], dict[str, int]] = {
         (x, y): dict(model["position_candidates"][f"{x},{y}"])
         for y in range(height)
         for x in range(width)
     }
+
+    if trace is not None:
+        _trace_event(trace, 'wave_started', width=width, height=height,
+                     cells={f'{x},{y}': candidates for (x, y), candidates in wave.items()},
+                     training_grid_ids=model.get('training_grid_ids'))
 
     def propagate(start: tuple[int, int]) -> bool:
         queue: deque[tuple[int, int]] = deque([start])
@@ -227,7 +256,11 @@ def _collapse(model: dict, rng: random.Random) -> list[list[str]] | None:
                 }
                 if len(filtered) != len(neighbor):
                     if not filtered:
+                        _trace_event(trace, 'contradiction', source=[x, y], target=[nx, ny],
+                                     direction=direction, before=neighbor, remaining=filtered)
                         return False
+                    _trace_event(trace, 'propagated', source=[x, y], target=[nx, ny],
+                                 direction=direction, before=neighbor, remaining=filtered)
                     wave[(nx, ny)] = filtered
                     queue.append((nx, ny))
         return True
@@ -242,6 +275,7 @@ def _collapse(model: dict, rng: random.Random) -> list[list[str]] | None:
             break
         _, _, _, position = min(undetermined)
         token = _weighted_sample(wave[position], rng)
+        _trace_event(trace, 'cell_collapsed', position=list(position), choices=wave[position], token=token)
         wave[position] = {token: 1}
         if not propagate(position):
             return None
@@ -249,11 +283,13 @@ def _collapse(model: dict, rng: random.Random) -> list[list[str]] | None:
     matrix = [["." for _ in range(width)] for _ in range(height)]
     for (x, y), candidates in wave.items():
         matrix[y][x] = next(iter(candidates))
+    if trace is not None:
+        _trace_event(trace, 'collapsed', matrix=[''.join(row) for row in matrix])
     return matrix
 
 
 def _finish(
-    matrix: list[list[str]], rng: random.Random
+    matrix: list[list[str]], rng: random.Random, *, trace=None
 ) -> tuple[list[list[str]] | None, str]:
     """The documented post-generator stabilizer pass + global constraints.
 
@@ -275,20 +311,29 @@ def _finish(
             if token == "E":
                 has_eye = True
     if not core:
+        _trace_event(trace, 'finish_rejected', reason='no core cells')
         return None, "no core cells"
     if not has_eye:
+        _trace_event(trace, 'finish_rejected', reason='no eye cells')
         return None, "no eye cells"
 
     largest = _largest_component(core)
     height = len(normalized)
     floor = max(4, 18 * len(normalized[0]) * height // 256)
     if len(largest) < floor:
+        _trace_event(trace, 'finish_rejected', reason=f'largest core component below the ratified floor {floor}',
+                     retained_core_count=len(largest), floor=floor)
         return None, f"largest core component below the ratified floor {floor}"
     for x, y in core - largest:
         normalized[y][x] = "."
 
     anchor_x, anchor_y = rng.choice(sorted(largest))
     normalized[anchor_y][anchor_x] = "A"
+    if trace is not None:
+        _trace_event(trace, 'finished', matrix=[''.join(row) for row in normalized],
+                     anchor=[anchor_x, anchor_y], retained_core=[list(point) for point in sorted(largest)],
+                     dropped_core=[list(point) for point in sorted(core - largest)], floor=floor,
+                     normalized_anchors=[[x, y] for y, row in enumerate(matrix) for x, token in enumerate(row) if token == 'A'])
     return normalized, ""
 
 

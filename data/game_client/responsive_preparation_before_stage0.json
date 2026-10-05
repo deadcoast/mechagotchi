@@ -1,0 +1,663 @@
+{
+  "artifact_id": "responsive_preparation_before_stage0",
+  "date": "2026-10-05",
+  "head": "0fda2dc646eaa87c9a13b1c6c935126791e01a33",
+  "purpose": "Cold normal-session import timing before W2; preserve original eager model/result hashes.",
+  "measurements": [
+    {
+      "case": "valid-normal",
+      "inbox_files": 1,
+      "era_config": {
+        "generations": 6,
+        "population": 16,
+        "damage_cycles": 2,
+        "ticks": 16,
+        "dropout_rate": 0.2
+      },
+      "code": 0,
+      "elapsed_s": 4.347550600068644,
+      "import_s": [
+        4.194347399985418
+      ],
+      "max_poll_gap_s": 4.197503600036725,
+      "max_frame_gap_s": 4.1974976999918,
+      "pages": [
+        {
+          "all": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "1/1  choice_000.json",
+            "Covenant: choice_000",
+            "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+            "Engine validation and seed compatibility are checked on import.",
+            "Folder: .development\\w2-before-keepers\\valid-normal\\covenants",
+            "Home/End first/last; PgUp/PgDn or wheel pages details"
+          ],
+          "visible": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "1/1 choice_000.json",
+            "Covenant: choice_000",
+            "Applies to future eras/hatches/adoptions; your pet",
+            "keeps its covenant.",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ]
+        },
+        {
+          "all": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "1/1  choice_000.json",
+            "Covenant: choice_000",
+            "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+            "Engine validation and seed compatibility are checked on import.",
+            "Folder: .development\\w2-before-keepers\\valid-normal\\covenants",
+            "Home/End first/last; PgUp/PgDn or wheel pages details"
+          ],
+          "visible": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "1/1 choice_000.json",
+            "Covenant: choice_000",
+            "Applies to future eras/hatches/adoptions; your pet",
+            "keeps its covenant.",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ]
+        },
+        {
+          "all": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; import complete",
+            "I/Escape back; F5 refresh; F1 help",
+            "Covenant imported (10 seeds).",
+            "Future eras use it; your current pet is unchanged.",
+            "1/1  choice_000.json",
+            "Covenant: choice_000",
+            "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+            "Engine validation and seed compatibility are checked on import.",
+            "Already imported here. Choose another file or return.",
+            "Folder: .development\\w2-before-keepers\\valid-normal\\covenants",
+            "Home/End first/last; PgUp/PgDn or wheel pages details"
+          ],
+          "visible": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; import complete",
+            "I/Escape back; F5 refresh; F1 help",
+            "Covenant imported (10 seeds).",
+            "Future eras use it; your current pet is unchanged.",
+            "1/1 choice_000.json",
+            "Covenant: choice_000",
+            "PgUp/PgDn \u00b7 wheel   1/3"
+          ]
+        },
+        {
+          "all": [
+            "campaign resumed at era 0",
+            "health 0.49 (lonely)   mood curious   age 0   gen 1",
+            "F feed  P play  S sleep",
+            "stress 0.18   bond 0.62",
+            "",
+            "Policy: incumbent",
+            "cleanliness 1.00   G clean",
+            "NEXT ERA [calm]: 0 staged",
+            "F1 controls  Ctrl+S save  T report  E era  C covenant",
+            "1-5 weather   R stage current pet   W gather   Backspace unstage"
+          ],
+          "visible": [
+            "campaign resumed at era 0",
+            "health 0.49 (lonely) mood curious age 0 gen 1",
+            "F feed P play S sleep",
+            "stress 0.18 bond 0.62",
+            "Policy: incumbent",
+            "cleanliness 1.00 G clean",
+            "NEXT ERA [calm]: 0 staged",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ]
+        },
+        {
+          "all": [
+            "campaign resumed at era 0",
+            "health 0.49 (lonely)   mood curious   age 0   gen 1",
+            "F feed  P play  S sleep",
+            "stress 0.18   bond 0.62",
+            "",
+            "Policy: incumbent",
+            "cleanliness 1.00   G clean",
+            "NEXT ERA [calm]: 0 staged",
+            "F1 controls  Ctrl+S save  T report  E era  C covenant",
+            "1-5 weather   R stage current pet   W gather   Backspace unstage"
+          ],
+          "visible": [
+            "campaign resumed at era 0",
+            "health 0.49 (lonely) mood curious age 0 gen 1",
+            "F feed P play S sleep",
+            "stress 0.18 bond 0.62",
+            "Policy: incumbent",
+            "cleanliness 1.00 G clean",
+            "NEXT ERA [calm]: 0 staged",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ]
+        }
+      ],
+      "changed_files": [
+        "campaign_state.json",
+        "campaign_state.bak.json"
+      ],
+      "cache_files": [
+        "repair_model_88ce51dee14a8e93.json"
+      ],
+      "companion_unchanged": true
+    },
+    {
+      "case": "valid-larger",
+      "inbox_files": 256,
+      "era_config": {
+        "generations": 6,
+        "population": 16,
+        "damage_cycles": 2,
+        "ticks": 16,
+        "dropout_rate": 0.2
+      },
+      "code": 0,
+      "elapsed_s": 4.574080199934542,
+      "import_s": [
+        4.4007446999894455
+      ],
+      "max_poll_gap_s": 4.403984900098294,
+      "max_frame_gap_s": 4.4039803999476135,
+      "pages": [
+        {
+          "all": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "1/256  choice_000.json",
+            "Covenant: choice_000",
+            "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+            "Engine validation and seed compatibility are checked on import.",
+            "Folder: .development\\w2-before-keepers\\valid-larger\\covenants",
+            "Home/End first/last; PgUp/PgDn or wheel pages details"
+          ],
+          "visible": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "1/256 choice_000.json",
+            "Covenant: choice_000",
+            "Applies to future eras/hatches/adoptions; your pet",
+            "keeps its covenant.",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ]
+        },
+        {
+          "all": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "256/256  choice_255.json",
+            "Covenant: choice_255",
+            "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+            "Engine validation and seed compatibility are checked on import.",
+            "Folder: .development\\w2-before-keepers\\valid-larger\\covenants",
+            "Home/End first/last; PgUp/PgDn or wheel pages details"
+          ],
+          "visible": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "256/256 choice_255.json",
+            "Covenant: choice_255",
+            "Applies to future eras/hatches/adoptions; your pet",
+            "keeps its covenant.",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ]
+        },
+        {
+          "all": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; import complete",
+            "I/Escape back; F5 refresh; F1 help",
+            "Covenant imported (10 seeds).",
+            "Future eras use it; your current pet is unchanged.",
+            "256/256  choice_255.json",
+            "Covenant: choice_255",
+            "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+            "Engine validation and seed compatibility are checked on import.",
+            "Already imported here. Choose another file or return.",
+            "Folder: .development\\w2-before-keepers\\valid-larger\\covenants",
+            "Home/End first/last; PgUp/PgDn or wheel pages details"
+          ],
+          "visible": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; import complete",
+            "I/Escape back; F5 refresh; F1 help",
+            "Covenant imported (10 seeds).",
+            "Future eras use it; your current pet is unchanged.",
+            "256/256 choice_255.json",
+            "Covenant: choice_255",
+            "PgUp/PgDn \u00b7 wheel   1/3"
+          ]
+        },
+        {
+          "all": [
+            "campaign resumed at era 0",
+            "health 0.49 (lonely)   mood curious   age 0   gen 1",
+            "F feed  P play  S sleep",
+            "stress 0.18   bond 0.62",
+            "",
+            "Policy: incumbent",
+            "cleanliness 1.00   G clean",
+            "NEXT ERA [calm]: 0 staged",
+            "F1 controls  Ctrl+S save  T report  E era  C covenant",
+            "1-5 weather   R stage current pet   W gather   Backspace unstage"
+          ],
+          "visible": [
+            "campaign resumed at era 0",
+            "health 0.49 (lonely) mood curious age 0 gen 1",
+            "F feed P play S sleep",
+            "stress 0.18 bond 0.62",
+            "Policy: incumbent",
+            "cleanliness 1.00 G clean",
+            "NEXT ERA [calm]: 0 staged",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ]
+        },
+        {
+          "all": [
+            "campaign resumed at era 0",
+            "health 0.49 (lonely)   mood curious   age 0   gen 1",
+            "F feed  P play  S sleep",
+            "stress 0.18   bond 0.62",
+            "",
+            "Policy: incumbent",
+            "cleanliness 1.00   G clean",
+            "NEXT ERA [calm]: 0 staged",
+            "F1 controls  Ctrl+S save  T report  E era  C covenant",
+            "1-5 weather   R stage current pet   W gather   Backspace unstage"
+          ],
+          "visible": [
+            "campaign resumed at era 0",
+            "health 0.49 (lonely) mood curious age 0 gen 1",
+            "F feed P play S sleep",
+            "stress 0.18 bond 0.62",
+            "Policy: incumbent",
+            "cleanliness 1.00 G clean",
+            "NEXT ERA [calm]: 0 staged",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ]
+        }
+      ],
+      "changed_files": [
+        "campaign_state.json",
+        "campaign_state.bak.json"
+      ],
+      "cache_files": [
+        "repair_model_88ce51dee14a8e93.json"
+      ],
+      "companion_unchanged": true
+    },
+    {
+      "case": "invalid-cold",
+      "inbox_files": 1,
+      "era_config": {
+        "generations": 6,
+        "population": 16,
+        "damage_cycles": 2,
+        "ticks": 16,
+        "dropout_rate": 0.2
+      },
+      "code": 0,
+      "elapsed_s": 4.511782899964601,
+      "import_s": [
+        4.379673299961723
+      ],
+      "max_poll_gap_s": 4.38333139999304,
+      "max_frame_gap_s": 4.383326100069098,
+      "pages": [
+        {
+          "all": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "1/1  choice_000.json",
+            "Covenant: not recorded",
+            "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+            "Engine validation and seed compatibility are checked on import.",
+            "Folder: .development\\w2-before-keepers\\invalid-cold\\covenants",
+            "Home/End first/last; PgUp/PgDn or wheel pages details"
+          ],
+          "visible": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "1/1 choice_000.json",
+            "Covenant: not recorded",
+            "Applies to future eras/hatches/adoptions; your pet",
+            "keeps its covenant.",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ]
+        },
+        {
+          "all": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "1/1  choice_000.json",
+            "Covenant: not recorded",
+            "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+            "Engine validation and seed compatibility are checked on import.",
+            "Folder: .development\\w2-before-keepers\\invalid-cold\\covenants",
+            "Home/End first/last; PgUp/PgDn or wheel pages details"
+          ],
+          "visible": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "1/1 choice_000.json",
+            "Covenant: not recorded",
+            "Applies to future eras/hatches/adoptions; your pet",
+            "keeps its covenant.",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ]
+        },
+        {
+          "all": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "Covenant not changed.",
+            "the authority rejects the covenant: profile behavior is required",
+            "the authority rejects the covenant: profile grid is required",
+            "the authority rejects the covenant: profile mutation is required",
+            "the authority rejects the covenant: profile name is required",
+            "the authority rejects the covenant: profile profile_id is required",
+            "the authority rejects the covenant: profile slip_version is required",
+            "the authority rejects the covenant: profile survival_weights is required",
+            "the authority rejects the covenant: slip_version must be one of 0.1.0, 0.2.0",
+            "the authority rejects the covenant: profile_id must be a non-empty string",
+            "the authority rejects the covenant: name must be a non-empty string",
+            "the authority rejects the covenant: grid must be an object",
+            "the authority rejects the covenant: grid allowed_palettes must be a non-empty array",
+            "the authority rejects the covenant: grid body mass bounds must be integers",
+            "the authority rejects the covenant: grid required_organ_roles must be a non-empty array",
+            "the authority rejects the covenant: behavior curiosity is required",
+            "the authority rejects the covenant: behavior neediness is required",
+            "the authority rejects the covenant: behavior sleepiness is required",
+            "the authority rejects the covenant: survival_weights bond is required",
+            "the authority rejects the covenant: survival_weights novelty is required",
+            "the authority rejects the covenant: survival_weights stability is required",
+            "the authority rejects the covenant: mutation cell_mutation_rate_max is required",
+            "the authority rejects the covenant: mutation organ_shift_rate_max is required",
+            "the authority rejects the covenant: mutation palette_shift_rate_max is required",
+            "the authority rejects the covenant: mutation symmetry_break_rate_max is required",
+            "the authority rejects the covenant: mutation cell_mutation_rate_max must be a number",
+            "the authority rejects the covenant: mutation organ_shift_rate_max must be a number",
+            "the authority rejects the covenant: mutation palette_shift_rate_max must be a number",
+            "the authority rejects the covenant: mutation symmetry_break_rate_max must be a number",
+            "1/1  choice_000.json",
+            "Covenant: not recorded",
+            "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+            "Engine validation and seed compatibility are checked on import.",
+            "Folder: .development\\w2-before-keepers\\invalid-cold\\covenants",
+            "Home/End first/last; PgUp/PgDn or wheel pages details"
+          ],
+          "visible": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "Covenant not changed.",
+            "the authority rejects the covenant: profile behavior",
+            "is required",
+            "the authority rejects the covenant: profile grid is",
+            "PgUp/PgDn \u00b7 wheel   1/11"
+          ]
+        },
+        {
+          "all": [
+            "campaign resumed at era 0",
+            "health 0.49 (lonely)   mood curious   age 0   gen 1",
+            "F feed  P play  S sleep",
+            "stress 0.18   bond 0.62",
+            "",
+            "Policy: incumbent",
+            "cleanliness 1.00   G clean",
+            "NEXT ERA [calm]: 0 staged",
+            "F1 controls  Ctrl+S save  T report  E era  C covenant",
+            "1-5 weather   R stage current pet   W gather   Backspace unstage"
+          ],
+          "visible": [
+            "campaign resumed at era 0",
+            "health 0.49 (lonely) mood curious age 0 gen 1",
+            "F feed P play S sleep",
+            "stress 0.18 bond 0.62",
+            "Policy: incumbent",
+            "cleanliness 1.00 G clean",
+            "NEXT ERA [calm]: 0 staged",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ]
+        },
+        {
+          "all": [
+            "campaign resumed at era 0",
+            "health 0.49 (lonely)   mood curious   age 0   gen 1",
+            "F feed  P play  S sleep",
+            "stress 0.18   bond 0.62",
+            "",
+            "Policy: incumbent",
+            "cleanliness 1.00   G clean",
+            "NEXT ERA [calm]: 0 staged",
+            "F1 controls  Ctrl+S save  T report  E era  C covenant",
+            "1-5 weather   R stage current pet   W gather   Backspace unstage"
+          ],
+          "visible": [
+            "campaign resumed at era 0",
+            "health 0.49 (lonely) mood curious age 0 gen 1",
+            "F feed P play S sleep",
+            "stress 0.18 bond 0.62",
+            "Policy: incumbent",
+            "cleanliness 1.00 G clean",
+            "NEXT ERA [calm]: 0 staged",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ]
+        }
+      ],
+      "changed_files": [],
+      "cache_files": [
+        "repair_model_88ce51dee14a8e93.json"
+      ],
+      "companion_unchanged": true
+    },
+    {
+      "case": "stale-cold",
+      "inbox_files": 1,
+      "era_config": {
+        "generations": 6,
+        "population": 16,
+        "damage_cycles": 2,
+        "ticks": 16,
+        "dropout_rate": 0.2
+      },
+      "code": 0,
+      "elapsed_s": 4.537752900039777,
+      "import_s": [
+        4.4044387000612915
+      ],
+      "max_poll_gap_s": 4.408438100013882,
+      "max_frame_gap_s": 4.408432400086895,
+      "pages": [
+        {
+          "all": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "1/1  choice_000.json",
+            "Covenant: choice_000",
+            "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+            "Engine validation and seed compatibility are checked on import.",
+            "Folder: .development\\w2-before-keepers\\stale-cold\\covenants",
+            "Home/End first/last; PgUp/PgDn or wheel pages details"
+          ],
+          "visible": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "1/1 choice_000.json",
+            "Covenant: choice_000",
+            "Applies to future eras/hatches/adoptions; your pet",
+            "keeps its covenant.",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ]
+        },
+        {
+          "all": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "1/1  choice_000.json",
+            "Covenant: choice_000",
+            "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+            "Engine validation and seed compatibility are checked on import.",
+            "Folder: .development\\w2-before-keepers\\stale-cold\\covenants",
+            "Home/End first/last; PgUp/PgDn or wheel pages details"
+          ],
+          "visible": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "1/1 choice_000.json",
+            "Covenant: choice_000",
+            "Applies to future eras/hatches/adoptions; your pet",
+            "keeps its covenant.",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ]
+        },
+        {
+          "all": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "Covenant not changed.",
+            "unreadable covenant file: File changed since preview. F5 refresh before importing.",
+            "1/1  choice_000.json",
+            "Covenant: choice_000",
+            "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+            "Engine validation and seed compatibility are checked on import.",
+            "Folder: .development\\w2-before-keepers\\stale-cold\\covenants",
+            "Home/End first/last; PgUp/PgDn or wheel pages details"
+          ],
+          "visible": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "Covenant not changed.",
+            "unreadable covenant file: File changed since",
+            "preview. F5 refresh before importing.",
+            "1/1 choice_000.json",
+            "PgUp/PgDn \u00b7 wheel   1/3"
+          ]
+        },
+        {
+          "all": [
+            "campaign resumed at era 0",
+            "health 0.49 (lonely)   mood curious   age 0   gen 1",
+            "F feed  P play  S sleep",
+            "stress 0.18   bond 0.62",
+            "",
+            "Policy: incumbent",
+            "cleanliness 1.00   G clean",
+            "NEXT ERA [calm]: 0 staged",
+            "F1 controls  Ctrl+S save  T report  E era  C covenant",
+            "1-5 weather   R stage current pet   W gather   Backspace unstage"
+          ],
+          "visible": [
+            "campaign resumed at era 0",
+            "health 0.49 (lonely) mood curious age 0 gen 1",
+            "F feed P play S sleep",
+            "stress 0.18 bond 0.62",
+            "Policy: incumbent",
+            "cleanliness 1.00 G clean",
+            "NEXT ERA [calm]: 0 staged",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ]
+        },
+        {
+          "all": [
+            "campaign resumed at era 0",
+            "health 0.49 (lonely)   mood curious   age 0   gen 1",
+            "F feed  P play  S sleep",
+            "stress 0.18   bond 0.62",
+            "",
+            "Policy: incumbent",
+            "cleanliness 1.00   G clean",
+            "NEXT ERA [calm]: 0 staged",
+            "F1 controls  Ctrl+S save  T report  E era  C covenant",
+            "1-5 weather   R stage current pet   W gather   Backspace unstage"
+          ],
+          "visible": [
+            "campaign resumed at era 0",
+            "health 0.49 (lonely) mood curious age 0 gen 1",
+            "F feed P play S sleep",
+            "stress 0.18 bond 0.62",
+            "Policy: incumbent",
+            "cleanliness 1.00 G clean",
+            "NEXT ERA [calm]: 0 staged",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ]
+        }
+      ],
+      "changed_files": [
+        "covenants/choice_000.json"
+      ],
+      "cache_files": [
+        "repair_model_88ce51dee14a8e93.json"
+      ],
+      "companion_unchanged": true
+    }
+  ],
+  "eager_reference": {
+    "tiny": {
+      "model_digests": {
+        "seed_grids": "eccc523ef999e5dd0e159c8997720666331a90323e8180ceda322f85d18e48b3",
+        "slip_profile": "48f937d429fd81d05fa8473d2e21b38c2afaa47b363bb03790b238941020cb57",
+        "generation_model": "c13238ffc05c1e2ddf8fde843a949939c6e16853cefb636a27165fc59e09ec45",
+        "repair_model": "90205465857db23f4f3dcd7f139af61b50eddb13a3f890087da9855f9aa6f804",
+        "legibility_model": "db00eee33180e860d93fdaeb38f9be37828951c1cf9d34212a7b0e779236ab82"
+      },
+      "load_seconds": 0.2726677000755444,
+      "era_config": {
+        "generations": 2,
+        "population": 6,
+        "damage_cycles": 1,
+        "ticks": 8,
+        "dropout_rate": 0.2
+      },
+      "era_sha256": "8a474e6d28077da11b20be8b81436f06825f7d0d0a2ea9cf75fc2aada3819178",
+      "recording_sha256": "d287c8d3fb2181d87c7f8be98ee9cb5aa9559091fd2be8c14dbeb3f9a0c827a4",
+      "era_seconds": 0.2006929999915883
+    },
+    "session": {
+      "model_digests": {
+        "seed_grids": "de54064f17fab1737673cd508b7161865717a982788e9e8f870ec6d99afc4322",
+        "slip_profile": "48f937d429fd81d05fa8473d2e21b38c2afaa47b363bb03790b238941020cb57",
+        "generation_model": "116f77a2b90fdec61bb3c4760ba4f0401e55b678ba9381db490b9b953b21d330",
+        "repair_model": "f869fa2a63c6340fcf80e661aae0e6d197f28ebef1181f1ee37cf3091e41126c",
+        "legibility_model": "db00eee33180e860d93fdaeb38f9be37828951c1cf9d34212a7b0e779236ab82"
+      },
+      "load_seconds": 4.181877400027588,
+      "era_config": {
+        "generations": 6,
+        "population": 16,
+        "damage_cycles": 2,
+        "ticks": 16,
+        "dropout_rate": 0.2
+      },
+      "era_sha256": "638a431bd1a496368a8ed9fee922c1925d7c6f4f2506f8784d0a7b467b7505cf",
+      "recording_sha256": "820703475d2253d6edffdb299b28ea9092029e8bc7afc0d5854722e361f3191f",
+      "era_seconds": 2.130538300029002
+    }
+  }
+}

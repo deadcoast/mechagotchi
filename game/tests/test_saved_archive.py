@@ -130,7 +130,7 @@ class SavedArchiveTests(unittest.TestCase):
             self.assertEqual(0,code)
             self.assertIn('REPERTOIRE  era 0',' '.join(pages[2]['all']))
             self.assertTrue(pages[4]['all'][0].startswith('ERA 0 '))
-            self.assertEqual(1,CompanionSession.load(keeper/'companion.json').state['age_ticks'])
+            self.assertEqual(0,CompanionSession.load(keeper/'companion.json').state['age_ticks'])
 
     def test_browser_t_opens_its_selected_report(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -173,7 +173,7 @@ class SavedArchiveTests(unittest.TestCase):
             code,pages=self.events(keeper,[[key(pygame.K_b)],[key(pygame.K_s)],[key(pygame.K_ESCAPE)],[pygame.event.Event(pygame.QUIT)]])
             self.assertEqual(0,code)
             self.assertIn('No recorded eras',' '.join(pages[0]['all']))
-            self.assertEqual(1,CompanionSession.load(keeper/'companion.json').state['age_ticks'])
+            self.assertEqual(0,CompanionSession.load(keeper/'companion.json').state['age_ticks'])
             self.assertFalse((keeper/'campaign.sqlite3').exists())
             code,pages=self.events(keeper,[[key(pygame.K_c)],[pygame.event.Event(pygame.QUIT)]])
             lines=pages[0]['all']

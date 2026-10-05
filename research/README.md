@@ -1,5 +1,21 @@
 # Mechagotchi Research
 
+## Current W5 integrated finish (2026-10-05)
+
+Full `20261005T143932-8940eb33` passed **2,707 tests / 24 suites**, 2 documented DR0034 zlib skips and **2302 JSON artifacts valid**, with no source mutations.
+84 application checks / 17 source flows / 239 frames / four native launches passed.
+
+Readers preserve care on their closing frame, help restores the reading page,
+and inboxes remember their selected filename within a session. Contextual help
+matches covenant spending keys; malformed campaign loads remain readable.
+Lineage exposes all recorded fields; archive/history Back and Help are visible.
+Measured report: `research/experiment_reports/2026-10-05-integrated-finish.md`.
+Release candidate: `game/dist/w5-integrated-finish-release/Mechagotchi/Mechagotchi.exe`
+with adjacent `_internal`. Read `.development/w5-live-handoff.json` and actual
+runner state for closure. Native keyboard/remote/published-SHA CI remain unobserved.
+Earlier dated evidence below is retained; this is the current application entry.
+
+
 This folder is the active research workspace defined by
 `docs/02-research_plan.md`.
 
@@ -1355,3 +1371,70 @@ suites, two documented zlib skips and 2,294 valid JSON artifacts without source
 mutations. Twenty-eight application checks, four native launches and twelve
 source flows retain separate coverage. The report and `.development/w1-live-handoff.json`
 hold preservation results, measured limits and exact restart context.
+
+## Cycle 34 responsive preparation (2026-10-05)
+
+- [Responsive covenant preparation](experiment_reports/2026-10-05-responsive-preparation.md)
+  (W2, DR0077): measured cold import starvation repaired by deferring evolution
+  models to E's joined worker. Existing gates, model/result parity and prior W1
+  closure survive. [Card](algorithm_cards/responsive_preparation.md),
+  `labs/game_loop/verify_preparation_responsiveness.py` and the three
+  `data/game_client/responsive_preparation_*` artifacts retain negative and final
+  observations. Read the report/runner for actual local closure.
+
+W2 locally closed: full `20261005T123344-a9435c5a` passed 2,666 tests / 24 suites,
+two documented zlib skips and 2,297 valid JSON artifacts without mutations.
+Seventy-six application checks, four native launches and 14 source flows / 560
+frames support the bounded responsiveness result. Existing files and scientific
+controls survive; the report and `.development/w2-live-handoff.json` hold the
+exact restart and remaining native-keyboard/scale/publication limits.
+
+
+## Cycle 35 W3 - constrained hatch preview (2026-10-05)
+
+W3 implements paused H preview, explicit Enter adoption and O saved-origin
+inspection. Engine animation and complete recorded trace remain distinct from
+WFC collapse/restart events, which the current engine does not expose.
+Read `research/experiment_reports/2026-10-05-hatch-preview.md`, its DR0078/card,
+and `.development/w3-live-handoff.json` for actual closure and exact restart.
+Active contract: `docs/development/cycle-35-hatch-preview.md`. No Git mutations;
+native keyboard, remote executor and published-SHA CI remain unclaimed.
+
+
+W3 locally closed: Full `20261005T130951-59a1cc56` passed **2,679 tests / 24 suites**, 2 documented DR0034 zlib skips; **2298 JSON artifacts valid**. No source mutations; local completion only.
+48 application checks / 10 source flows / 208 rendered frames / four native
+load/resume launches passed. Current candidate:
+`game/dist/w3-hatch-preview-final/Mechagotchi/Mechagotchi.exe` with `_internal`.
+Exact restart: `.development/w3-live-handoff.json`. WFC collapse/restart tracing
+is a separate unregistered seam; native keyboard, remote executor and
+published-SHA CI remain unclaimed. Do not repeat unchanged verification.
+
+
+## Cycle 36 W4 - distinct WFC inspection (2026-10-05)
+
+Tab in H preview captures and inspects the optional WFC arm. Space plays its
+real events; comma/period steps, brackets move attempts, Home/End select
+endpoints. V shows the actual final body/animation when available. Tab/Escape
+returns to the unchanged constrained hatch candidate; N captures another WFC.
+The inspector is read-only and session-only: it does not adopt a creature,
+write saves or claim the active covenant constrains WFC. Help and paging pause
+playback. Failed/cancelled captures retain honest outcomes; cancellation waits
+for the current bounded call and joins its worker before returning.
+
+Current science correction: DR0042 superseded DR0031's evolution-default clause.
+Constrained remains the default; WFC remains a distinct additive arm. Earlier
+F8/W3 wording about WFC as current production/default is stale and is retained
+as dated evidence, not current authority. No generator decisions or defaults
+changed in W4. Read `research/experiment_reports/2026-10-05-wfc-trace.md`, DR0079,
+the W4 metric/baseline artifacts and `.development/w4-live-handoff.json` for
+measured closure and exact restart. No Git mutations or remote executor claim.
+
+
+W4 locally closed: Full `20261005T135504-94a410b6` passed **2,694 tests / 24 suites**, 2 documented DR0034 zlib skips and **2300 JSON artifacts valid**, with no source mutations.
+The 68 pre-edit RNG/output/error cases and exact lab/package traces pass;
+80 application checks / 12 source flows / 162 frames / four native smoke
+launches pass. Current candidate:
+`game/dist/w4-wfc-trace-release/Mechagotchi/Mechagotchi.exe` with `_internal`.
+Exact restart: `.development/w4-live-handoff.json`. No next scope is registered;
+no active worker or Git mutation. Native WFC keyboard, maximal-scale observations,
+remote executor and exact-published-SHA CI remain unclaimed.

@@ -10,6 +10,8 @@ record field, absent fields stay absent.
 
 from __future__ import annotations
 
+import json
+
 
 class LineageBrowser:
     """Scrub the bloodline's lives, newest first on open."""
@@ -60,19 +62,14 @@ class LineageBrowser:
         ]
         ancestors = block.get("ancestor_ids") or []
         if ancestors:
-            shown = " > ".join(str(a) for a in ancestors[-4:])
-            prefix = "... > " if len(ancestors) > 4 else ""
-            lines.append(f"ancestors {prefix}{shown}")
+            lines.append(f"Recorded ancestors ({len(ancestors)}), in stored order:")
+            lines.extend(f"{index + 1}. {ancestor}" for index, ancestor in enumerate(ancestors))
         events = block.get("mutation_events") or []
         if events:
-            last = events[-1]
-            # The schema allows string or object events; show either
-            # verbatim, truncated for the footer.
-            if isinstance(last, dict):
-                label = last.get("kind") or last.get("type") or str(last)
-            else:
-                label = str(last)
-            lines.append(
-                f"mutation events {len(events)}   latest: {label[:48]}"
-            )
+            lines.append(f"Recorded mutation events ({len(events)}):")
+            # FooterPager makes the complete original fields reachable, including
+            # object payloads; do not invent a label or discard earlier events.
+            lines.extend(f"{index + 1}. " + (event if isinstance(event, str) else
+                         json.dumps(event, ensure_ascii=False, sort_keys=True))
+                         for index, event in enumerate(events))
         return lines

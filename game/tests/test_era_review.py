@@ -184,7 +184,7 @@ class EraReviewTests(unittest.TestCase):
                  patch.object(CompanionSession,'advance',advance):
                 code = self.run_events(directory, [[key(pygame.K_t)],[key(pygame.K_f),key(pygame.K_s),key(pygame.K_g)],
                     [key(pygame.K_LEFTBRACKET)],[key(pygame.K_F1)],[key(pygame.K_PAGEDOWN)],
-                    [key(pygame.K_ESCAPE)],[key(pygame.K_t)],[pygame.event.Event(pygame.QUIT)]])
+                    [key(pygame.K_ESCAPE)],[key(pygame.K_t)],[],[pygame.event.Event(pygame.QUIT)]])
             self.assertEqual(0,code)
             self.assertEqual([None],advances)
             resumed=CompanionSession.load(keeper/'companion.json')

@@ -40,7 +40,9 @@ from mecha_game.contribute import founders_verdict, gather_releases
 from mecha_game.covenant_io import export_covenant, import_covenant
 from mecha_game.packs import import_pack
 from mecha_game.inbox import InboxPicker
-from mecha_game.hatchery import hatch_founders, origin_summary
+from mecha_game.hatchery import hatch_founders
+from mecha_game.generation_view import GenerationView
+from mecha_game import wfc_trace
 from mecha_game.lineage import LineageBrowser
 from mecha_game.repertoire import RepertoireBrowser
 from mecha_game.replay import ReplayPlayer, overlay_wounds
@@ -189,8 +191,8 @@ def _frame_bytes(pixels: Buffer) -> bytes:
 
 
 class _EraBench:
-    """The Keeper's evolution bench, lazily trained on first use
-    (model training costs seconds — never paid by pure companion play)."""
+    """The Keeper's preparation bench; evolution models load only for an era.
+    Covenant actions and companion play never pay that training cost."""
 
     def __init__(
         self,
@@ -217,7 +219,7 @@ class _EraBench:
     def weather(self) -> str:
         return WEATHER_NAMES[self.weather_index]
 
-    def ensure(self, *, models=False) -> KeeperCampaign:
+    def ensure(self, *, models: bool = False) -> KeeperCampaign:
         if self.campaign is None:
             paths = default_campaign_paths()
             tiny = self.era_scale == "tiny"
@@ -265,8 +267,13 @@ class _EraBench:
     def budget_lines(self) -> list[str]:
         """The covenant mode's display — every number the campaign's
         own budget/covenant, verbatim (F7)."""
-        campaign = self.ensure()
-        budget = campaign.budget()
+        try:
+            campaign = self.ensure()
+            budget = campaign.budget()
+        except (OSError, ValueError, sqlite3.Error) as error:
+            return [f'Covenant unavailable: {error}',
+                    'Saved campaign unchanged. Correct the file and reopen C.',
+                    'C close   F1 help; care continues outside help.']
         profile = campaign.campaign["slip_profile"]
         active_palettes = profile["grid"]["allowed_palettes"]
         thinking = profile.get("deliberation", {}).get("max_ticks", 0)
@@ -281,7 +288,9 @@ class _EraBench:
                 f"{budget['generation_cap']}"
             ),
             "1 palette  2 thinking  3 population  4 generations  C close",
+            "Care continues here; F1 pauses. Close C for weather keys.",
             "I choose covenant   K choose pack   X export",
+            "H hatch preview   O saved origin   F1 controls",
         ]
 
     def require_preparation(self):
@@ -586,7 +595,13 @@ def run(argv: list[str] | None = None) -> int:
         displayed_clip: str | None = None
         covenant_mode = False
         help_mode = False
+        help_bookmark = None
+        reading_closed = False
+        inboxes: dict[str, InboxPicker] = {}
         inbox: InboxPicker | None = None
+        generation: GenerationView | None = None
+        wfc: wfc_trace.WfcTraceView | None = None
+        wfc_count = 0
         footer_pager = FooterPager()
         footer_context = None
         hatch_count = 0
@@ -604,6 +619,82 @@ def run(argv: list[str] | None = None) -> int:
         running = True
         save_failed = False
         quit_after_retry = False
+
+        def finish_reading():
+            # The closing key belongs to the reader, including the rest of its
+            # retrieved batch. Resume care on the next frame, never this one.
+            nonlocal reading_closed, queued
+            reading_closed = True
+            queued = None
+
+        def toggle_help():
+            nonlocal help_mode, help_bookmark, footer_pager, footer_context
+            if help_mode:
+                help_mode = False
+                footer_pager, footer_context = help_bookmark
+                help_bookmark = None
+                finish_reading()
+            else:
+                help_bookmark = (footer_pager, footer_context)
+                footer_pager, footer_context = FooterPager(), None
+                help_mode = True
+
+        def selected_inbox(kind):
+            if kind not in inboxes:
+                inboxes[kind] = InboxPicker(keeper_dir, kind)
+            else:
+                inboxes[kind].refresh()
+            return inboxes[kind]
+
+        def help_lines():
+            if wfc is not None:
+                return wfc.help_lines()
+            if generation is not None:
+                return generation.help_lines()
+            if inbox is not None:
+                return inbox.help_lines()
+            common = ['F1/Escape returns to the same reading page',
+                      'PgUp/PgDn or wheel pages this help; Ctrl+S saves']
+            if era_review is not None:
+                return ['REPORT HELP - care paused', *common,
+                        '[ ] or , . select era; Ctrl+[ ] recorded campaigns',
+                        'B selected archive; V original recording when saved',
+                        'T/Escape closes reports; C active covenant; E next era',
+                        '1-5 weather; R stage pet; W gather; Backspace unstage',
+                        'Preparation applies to the active campaign.',
+                        'Unavailable reports permit reading and navigation only.',
+                        'Campaign links do not infer ancestry.']
+            if browser is not None:
+                return [('NICHE HISTORY HELP' if isinstance(browser, NicheHistory) else 'ARCHIVE HELP') + ' - care paused',
+                        *common, ', . select occurrences' if isinstance(browser, NicheHistory) else ', . select creatures; [ ] select era',
+                        '[ ] also selects occurrences' if isinstance(browser, NicheHistory) else 'N exact seven-axis niche history',
+                        'A adopts selected creature with the current covenant',
+                        'V saved original recording; T selected report',
+                        'N/B/Escape back to archive' if isinstance(browser, NicheHistory) else 'B/Escape back',
+                        'Missing recordings are not reconstructed.',
+                        'Matching niche labels do not infer ancestry.']
+            if review is not None:
+                return ['REPLAY HELP - care and playback paused', *common,
+                        'Space play/pause; . next frame; , previous frame',
+                        'V/Escape back; T selected report',
+                        'This is the saved recording with its original provenance.']
+            if story is not None:
+                return ['LINEAGE HELP - care paused', *common,
+                        '. newer life; , older life; L/Escape back',
+                        'T recorded campaign story',
+                        'PgUp/PgDn reads all stored ancestors and mutation fields.',
+                        'These are recorded facts; missing ancestry is not inferred.']
+            if covenant_mode:
+                return ['COVENANT HELP - care paused while help is open', *common,
+                        '1 palette; 2 thinking; 3 population; 4 generations',
+                        'Spends use earned unlocks and save immediately.',
+                        '5 has no action here. C closes; then 1-5 selects weather.',
+                        'Care continues in covenant mode; F1 pauses it.',
+                        'I covenant inbox; K pack inbox; X export active covenant',
+                        'H constrained hatch preview; O saved origin',
+                        'F feed; P play; S sleep; G clean when enabled',
+                        'Escape outside help quits and saves.']
+            return list(HELP_LINES)
 
         def checkpoint(*, announce=False):
             nonlocal save_failed, queued, help_mode
@@ -653,6 +744,9 @@ def run(argv: list[str] | None = None) -> int:
         def open_archive():
             nonlocal recording_status_cache
             recording_status_cache = None
+            # The completed era has a saved report. Its transient notice must
+            # not bury navigation in a newly opened archive.
+            bench.message = None
             nonlocal browser, era_review, archive_return, review, story, covenant_mode, queued
             entry = era_review
             campaign_id = bench.campaign.campaign["campaign_id"] if bench.campaign else None
@@ -671,6 +765,7 @@ def run(argv: list[str] | None = None) -> int:
 
         def close_archive():
             nonlocal browser, era_review, archive_return, queued
+            finish_reading()
             if isinstance(browser, NicheHistory):
                 browser = browser.origin
                 queued = None
@@ -745,6 +840,7 @@ def run(argv: list[str] | None = None) -> int:
 
         def close_review():
             nonlocal review, review_context, review_return, era_review, queued, browser, review_archive_return
+            finish_reading()
             review = None
             era_review = review_return
             browser = review_archive_return
@@ -794,6 +890,90 @@ def run(argv: list[str] | None = None) -> int:
             except (OSError, ValueError, sqlite3.Error) as error:
                 inbox.result_lines = [f'Import not completed: {error}', 'Fix the problem; Enter retries.']
             footer_pager.reset()
+
+        def open_hatch():
+            nonlocal generation, hatch_count, queued
+            queued = None
+            try:
+                bench.require_preparation()
+                bench.ensure()
+                bench.check_current_state()
+                hatch_count += 1
+                hatched = bench.hatch(20260713 + hatch_count)
+                generation = GenerationView(hatched['grid'], bench.active_covenant(), adoptable=True)
+            except (OSError, ValueError, sqlite3.Error) as error:
+                generation = GenerationView(adoptable=True, error=f'Hatch unavailable: {error}. N retries.')
+            footer_pager.reset()
+
+        def open_wfc(initial_events=()):
+            nonlocal wfc, wfc_count, running, queued
+            queued = None
+            wfc_count += 1
+            work = wfc_trace.WfcWork(lambda events: wfc_trace.capture_wfc(
+                bench.ensure().inputs['seed_grids'], f'mg_wfc_preview_{wfc_count:03}', 20261005 + wfc_count, events))
+            busy_help = False
+            pending = list(initial_events)
+            work.start()
+            try:
+                while True:
+                    event = pygame.event.poll()
+                    while event.type != pygame.NOEVENT:
+                        pending.append(event)
+                        event = pygame.event.poll()
+                    for event in pending:
+                        if event.type == pygame.QUIT:
+                            running = False
+                            work.cancel()
+                        elif event.type == pygame.KEYDOWN:
+                            if event.key in (pygame.K_ESCAPE, pygame.K_TAB):
+                                work.cancel()
+                            elif event.key == pygame.K_F1:
+                                busy_help = not busy_help
+                    pending = []
+                    window.fill((16, 18, 16))
+                    lines = ['WFC CAPTURE - care paused', f'{len(work.events)} engine events captured',
+                             'Finishing current call before closing.' if work.cancelled else 'Escape cancels this view; close quits.',
+                             'Closing waits for the worker; saves stay unchanged.',
+                             'F1: read-only observations; no RNG or generator decisions changed.' if busy_help else 'F1 capture help']
+                    page = FooterPager().layout(lines, lambda text: font.size(text)[0], window_size[0] - 16, 7)
+                    for index, line in enumerate(page.lines):
+                        window.blit(font.render(line, True, (200, 230, 200)), (8, panel_px + hud_px + 6 + index * 22))
+                    pygame.display.flip()
+                    if work.done.is_set():
+                        break
+                    clock.tick(60)
+            finally:
+                work.join()
+            if not work.cancelled and running:
+                wfc = wfc_trace.WfcTraceView(work.grid, work.events, error=work.error)
+            footer_pager.reset()
+
+        def adopt_hatch():
+            nonlocal generation, session, ghost, driver, queued, covenant_mode
+            if not generation.adoptable or generation.grid is None or generation.error:
+                return
+            try:
+                bench.require_preparation()
+                bench.check_current_state()
+                if bench.active_covenant() != generation.profile:
+                    raise ValueError('Covenant changed since preview; N generates a new candidate.')
+                candidate = CompanionSession(generation.grid, generation.profile,
+                    model=train_generation_model([generation.grid]), name=generation.grid['grid_id'],
+                    origin='hatched', learning_policy=session.learning_policy)
+            except (OSError, ValueError, sqlite3.Error) as error:
+                generation.notice = f'Adoption refused: {error}'
+                footer_pager.reset()
+                return
+            if not checkpoint():
+                return
+            session = candidate
+            generation = None
+            queued = ghost = None
+            covenant_mode = False
+            driver = ClipDriver(driver.frame_counts)
+            pygame.display.set_caption(f"{WINDOW_TITLE} - {session.name}")
+            bench.message = f'Adopted hatched founder {session.name}. O reads its saved origin.'
+            checkpoint()
 
         era_ran_frame = False
 
@@ -918,14 +1098,20 @@ def run(argv: list[str] | None = None) -> int:
                     print(bench.message,file=sys.stderr)
                     return 2
         while running:
+            reading_closed = False
             era_ran_frame = False
             help_was_open = help_mode
             inbox_was_open = inbox is not None
+            generation_was_open = generation is not None
+            wfc_was_open = wfc is not None
+            generation_touched = generation_was_open
             event_batch = pygame.event.get()
             for event_index, event in enumerate(event_batch):
                 if event.type == pygame.QUIT:
                     running = False
                 elif event.type == pygame.MOUSEWHEEL:
+                    if wfc is not None:
+                        wfc.playing = False
                     footer_pager.move(-event.y)
                 elif event.type == pygame.KEYDOWN:
                     control = bool(getattr(event, "mod", 0) & pygame.KMOD_CTRL)
@@ -937,21 +1123,69 @@ def run(argv: list[str] | None = None) -> int:
                         return 1
                     elif save_failed and event.key not in (pygame.K_F1, pygame.K_ESCAPE, pygame.K_PAGEUP, pygame.K_PAGEDOWN):
                         continue
+                    elif reading_closed:
+                        continue
                     elif event.key == pygame.K_F1:
-                        help_mode = not help_mode
+                        toggle_help()
                     elif help_mode:
                         if event.key == pygame.K_ESCAPE:
-                            help_mode = False
+                            toggle_help()
                         elif event.key == pygame.K_PAGEUP:
                             footer_pager.move(-1)
                         elif event.key == pygame.K_PAGEDOWN:
                             footer_pager.move(1)
+                    elif wfc is not None:
+                        if event.key in (pygame.K_ESCAPE, pygame.K_TAB):
+                            wfc = None
+                            finish_reading()
+                        elif event.key == pygame.K_n and not getattr(event, 'repeat', False):
+                            open_wfc(event_batch[event_index + 1:])
+                            break
+                        elif event.key == pygame.K_SPACE:
+                            wfc.playing = not wfc.playing
+                        elif event.key in (pygame.K_COMMA, pygame.K_PERIOD):
+                            wfc.playing = False
+                            wfc.step(-1 if event.key == pygame.K_COMMA else 1)
+                        elif event.key in (pygame.K_LEFTBRACKET, pygame.K_RIGHTBRACKET):
+                            wfc.move_attempt(-1 if event.key == pygame.K_LEFTBRACKET else 1)
+                        elif event.key in (pygame.K_HOME, pygame.K_END):
+                            wfc.playing = False
+                            wfc.index = 0 if event.key == pygame.K_HOME else max(0, len(wfc.events) - 1)
+                        elif event.key == pygame.K_v:
+                            wfc.toggle_final()
+                        elif event.key in (pygame.K_PAGEUP, pygame.K_PAGEDOWN):
+                            wfc.playing = False
+                            footer_pager.move(-1 if event.key == pygame.K_PAGEUP else 1)
+                    elif wfc_was_open:
+                        continue
+                    elif generation is not None:
+                        if event.key == pygame.K_ESCAPE or event.key == (pygame.K_h if generation.adoptable else pygame.K_o):
+                            generation = None
+                            finish_reading()
+                        elif event.key == pygame.K_TAB and generation.adoptable:
+                            open_wfc(event_batch[event_index + 1:])
+                            break
+                        elif event.key == pygame.K_RETURN and not getattr(event, 'repeat', False):
+                            adopt_hatch()
+                        elif event.key == pygame.K_n and generation.adoptable and not getattr(event, 'repeat', False):
+                            open_hatch()
+                        elif event.key == pygame.K_SPACE:
+                            generation.playing = not generation.playing
+                        elif event.key in (pygame.K_COMMA, pygame.K_PERIOD):
+                            generation.playing = False
+                            generation.step(-1 if event.key == pygame.K_COMMA else 1)
+                        elif event.key in (pygame.K_LEFTBRACKET, pygame.K_RIGHTBRACKET):
+                            generation.move_clip(-1 if event.key == pygame.K_LEFTBRACKET else 1)
+                        elif event.key in (pygame.K_PAGEUP, pygame.K_PAGEDOWN):
+                            footer_pager.move(-1 if event.key == pygame.K_PAGEUP else 1)
+                    elif generation_touched:
+                        continue  # No care/adoption leaks out of a closed preview batch.
                     elif inbox is not None:
                         if event.key == pygame.K_ESCAPE or event.key == (pygame.K_i if inbox.kind == 'covenant' else pygame.K_k):
                             inbox = None
-                            queued = None
+                            finish_reading()
                         elif event.key in (pygame.K_i, pygame.K_k):
-                            inbox = InboxPicker(keeper_dir, 'covenant' if event.key == pygame.K_i else 'pack')
+                            inbox = selected_inbox('covenant' if event.key == pygame.K_i else 'pack')
                         elif event.key in (pygame.K_COMMA, pygame.K_LEFT, pygame.K_UP):
                             inbox.move(-1)
                         elif event.key in (pygame.K_PERIOD, pygame.K_RIGHT, pygame.K_DOWN):
@@ -990,6 +1224,7 @@ def run(argv: list[str] | None = None) -> int:
                             open_era_review()
                         else:
                             era_review = None
+                            finish_reading()
                     elif review is not None and event.key == pygame.K_ESCAPE:
                         close_review()
                     elif review is not None and event.key not in (
@@ -1026,10 +1261,12 @@ def run(argv: list[str] | None = None) -> int:
                         era_review.move(1)
                     elif era_review is not None and event.key == pygame.K_ESCAPE:
                         era_review = None
+                        finish_reading()
                     elif era_review is not None and event.key == pygame.K_c:
                         if not era_review.error:
                             era_review = None
                             covenant_mode = True
+                            finish_reading()
                     elif era_review is not None and event.key == pygame.K_e:
                         if not era_review.error:
                             run_prepared_era(event_batch[event_index + 1:])
@@ -1043,7 +1280,7 @@ def run(argv: list[str] | None = None) -> int:
                         continue
                     elif story is not None and event.key == pygame.K_ESCAPE:
                         story = None
-                        queued = None
+                        finish_reading()
                     elif story is not None and event.key not in (
                         pygame.K_l, pygame.K_PERIOD, pygame.K_COMMA, pygame.K_PAGEUP, pygame.K_PAGEDOWN,
                     ):
@@ -1072,29 +1309,13 @@ def run(argv: list[str] | None = None) -> int:
                         run_prepared_era(event_batch[event_index + 1:])
                         break  # The waiting loop consumed the rest of this batch.
                     elif event.key == pygame.K_h:
-                        # Hatch a founder under the ACTIVE covenant
-                        # and adopt it; its origin is the engine's own
-                        # generation trace (F8).
-                        if not checkpoint():
-                            continue
-                        hatch_count += 1
-                        hatched = bench.hatch(20260713 + hatch_count)
-                        session = CompanionSession(
-                            hatched["grid"],
-                            bench.active_covenant(),
-                            model=train_generation_model(
-                                [hatched["grid"]]
-                            ),
-                            name=hatched["grid"]["grid_id"],
-                            origin="hatched",
-                            learning_policy=session.learning_policy,
-                        )
-                        ghost = None
-                        driver = ClipDriver(driver.frame_counts)
-                        bench.message = "hatched: " + origin_summary(
-                            hatched["explanation"]
-                        )
-                        checkpoint()
+                        generation_touched = True
+                        open_hatch()
+                    elif event.key == pygame.K_o:
+                        generation_touched = True
+                        generation = GenerationView(session.grid, session.slip_profile)
+                        queued = None
+                        footer_pager.reset()
                     elif review is not None and event.key == pygame.K_SPACE:
                         review_playing = not review_playing
                     elif review is not None and event.key == pygame.K_PERIOD:
@@ -1106,6 +1327,8 @@ def run(argv: list[str] | None = None) -> int:
                     elif event.key == pygame.K_l:
                         # The lineage browser (F14): the Keeper's
                         # whole story, life by life.
+                        if story is not None:
+                            finish_reading()
                         story = (
                             None
                             if story is not None
@@ -1131,20 +1354,20 @@ def run(argv: list[str] | None = None) -> int:
                     ):
                         browser.next_era()
                     elif event.key == pygame.K_k:
-                        inbox = InboxPicker(keeper_dir, 'pack')
+                        inbox = selected_inbox('pack')
                         queued = None
                     elif event.key == pygame.K_x:
                         # Export the ACTIVE covenant (spends included)
                         # as a shareable SLIP file (F15).
-                        exported = export_covenant(
-                            bench.ensure(),
-                            keeper_dir
-                            / "covenants"
-                            / "covenant_export.json",
-                        )
-                        bench.message = f"covenant exported: {exported.name}"
+                        try:
+                            exported = export_covenant(bench.ensure(),
+                                keeper_dir / "covenants" / "covenant_export.json")
+                            bench.message = f"covenant exported: {exported.name}"
+                        except (OSError, ValueError, sqlite3.Error) as error:
+                            bench.message = f"Export not completed: {error}"
+                        footer_pager.reset()
                     elif event.key == pygame.K_i:
-                        inbox = InboxPicker(keeper_dir, 'covenant')
+                        inbox = selected_inbox('covenant')
                         queued = None
                     elif event.key == pygame.K_BACKSPACE:
                         prepare(bench.unstage)
@@ -1155,7 +1378,7 @@ def run(argv: list[str] | None = None) -> int:
                     elif event.key == pygame.K_c:
                         if browser is not None:
                             browser = archive_return = None
-                            queued = None
+                            finish_reading()
                         covenant_mode = not covenant_mode
                     elif covenant_mode and event.key in (
                         pygame.K_1,
@@ -1164,7 +1387,7 @@ def run(argv: list[str] | None = None) -> int:
                         pygame.K_4,
                     ):
                         prepare(lambda: bench.spend(event.key - pygame.K_1))
-                    elif event.key in (
+                    elif not covenant_mode and event.key in (
                         pygame.K_1,
                         pygame.K_2,
                         pygame.K_3,
@@ -1185,13 +1408,13 @@ def run(argv: list[str] | None = None) -> int:
                         if elite is None:
                             bench.message = "No elite to adopt in this era."
                             continue
-                        campaign = bench.ensure()
                         try:
+                            campaign = bench.ensure()
                             adopted = CompanionSession(
                                 elite, campaign.campaign['slip_profile'], model=session.model,
                                 name=elite['grid_id'], origin='era_elite', learning_policy=session.learning_policy,
                             )
-                        except ValueError as error:
+                        except (OSError, ValueError, sqlite3.Error) as error:
                             bench.message = "Adoption refused: " + str(error)
                             continue
                         if not checkpoint():
@@ -1207,9 +1430,12 @@ def run(argv: list[str] | None = None) -> int:
             if (
                 running
                 and not era_ran_frame
+                and not reading_closed
                 and not save_failed
                 and not help_mode
                 and inbox is None
+                and generation is None
+                and not generation_touched
                 and not inbox_was_open
                 and era_review is None
                 and review is None
@@ -1237,7 +1463,28 @@ def run(argv: list[str] | None = None) -> int:
                 if ticks_run == args.ticks:
                     running = False
 
-            if browser is not None:
+            if wfc is not None:
+                if wfc.playing and not help_mode and not help_was_open and wfc_was_open and frame % 2 == 0:
+                    wfc.step(1)
+                if wfc.final:
+                    pixels = compose_frame(wfc.packet(), previous_ghost=None, cell_px=args.scale).pixels
+                else:
+                    pixels = wfc.pixels(args.scale)
+                panel = fit_recorded_panel(pixels, width, height, args.scale)
+                blank_hud = tuple(tuple((16, 18, 16) for _ in range(width * args.scale)) for _ in range(hud_px))
+                lcd = stack_buffers(panel, blank_hud)
+                snapshot = session.snapshot()
+            elif generation is not None:
+                if generation.playing and not help_mode and not help_was_open and generation_was_open and frame % 2 == 0:
+                    generation.step(1)
+                packet = generation.packet()
+                pixels = (compose_frame(packet, previous_ghost=None, cell_px=args.scale).pixels
+                          if packet is not None else tuple(tuple((16, 18, 16) for _ in range(width)) for _ in range(height)))
+                panel = fit_recorded_panel(pixels, width, height, args.scale)
+                blank_hud = tuple(tuple((16, 18, 16) for _ in range(width * args.scale)) for _ in range(hud_px))
+                lcd = stack_buffers(panel, blank_hud)
+                snapshot = session.snapshot()
+            elif browser is not None:
                 # The repertoire window: the elite's real packet under
                 # the campaign's covenant, statically composed.
                 packet = browser.packet()
@@ -1310,7 +1557,11 @@ def run(argv: list[str] | None = None) -> int:
             window.blit(surface, ((window_size[0] - width * args.scale) // 2, 0))
             footer = _footer_lines(snapshot, queued)
             if help_mode:
-                footer = inbox.help_lines() if inbox is not None else list(HELP_LINES)
+                footer = help_lines()
+            elif wfc is not None:
+                footer = wfc.lines()
+            elif generation is not None:
+                footer = generation.lines()
             elif inbox is not None:
                 footer = inbox.lines()
             elif era_review is not None:
@@ -1336,13 +1587,13 @@ def run(argv: list[str] | None = None) -> int:
             elif story is not None:
                 footer = [
                     "LINEAGE  " + story.caption(),
-                    *story.detail_lines(),
-                    ". older→newer  , newer→older  L close",
+                    ". newer  , older  L/Escape back   F1 help",
                     "Care paused. T recorded campaign story",
+                    *story.detail_lines(),
                 ]
             elif browser is not None:
                 footer = [("NICHE HISTORY  " if isinstance(browser, NicheHistory) else "REPERTOIRE  ") + browser.caption()]
-                footer.append("N back to archive; , . occurrences" if isinstance(browser, NicheHistory) else "N niche history   campaign " + str(browser.campaign_id))
+                footer.append("N/B/Escape back; F1 help; , . occurrences" if isinstance(browser, NicheHistory) else "N niche history   B/Escape back   F1 help")
                 if isinstance(browser, NicheHistory) and browser.warnings:
                     footer.append(f'{len(browser.warnings)} history notices; PgDn for missing/incompatible records.')
                 if browser.current() is None:
@@ -1354,7 +1605,7 @@ def run(argv: list[str] | None = None) -> int:
                         "Care paused. , . occurrences   [ ] occurrences" if isinstance(browser, NicheHistory) else "Care paused. , . creatures   [ ] eras",
                         "A adopt with current covenant   V recording",
                         browser.replay_notice or recording_status(browser.campaign_id, browser.selected_era, browser.current()),
-                        "T selected report   B/Escape back",
+                        "T selected report   campaign " + str(browser.campaign_id),
                         browser.axes_line(), browser.components_line(),
                     ])
                 if isinstance(browser, NicheHistory):
@@ -1371,14 +1622,15 @@ def run(argv: list[str] | None = None) -> int:
                 footer = [*bench.budget_lines(), bench.preparation_line(), *footer]
             else:
                 footer.extend([bench.preparation_line(),
-                    "F1 controls  Ctrl+S save  T report  E era  C covenant",
+                    "H hatch preview   O saved origin   F1 controls",
+                    "Ctrl+S save  T report  E era  C covenant",
                     bench.preparation_controls()])
-            if bench.message and not help_mode and (inbox is None or save_failed) and ((era_review is None and review is None) or save_failed):
+            if bench.message and not help_mode and (inbox is None or save_failed) and (generation is None or save_failed) and ((era_review is None and review is None) or save_failed):
                 footer.insert(0, bench.message)
-            context = ('help' if help_mode else 'inbox' if inbox is not None else 'era_report' if era_review is not None else 'lineage' if story is not None else
+            context = ('help' if help_mode else 'wfc' if wfc is not None else 'generation' if generation is not None else 'inbox' if inbox is not None else 'era_report' if era_review is not None else 'lineage' if story is not None else
                        'repertoire' if browser is not None else 'review' if review is not None else
-                       'covenant' if covenant_mode else 'play', bench.message, (inbox.kind, inbox.index, inbox.digest, inbox.error, tuple(inbox.result_lines)) if inbox is not None else era_review.index if era_review is not None else
-                       (browser.campaign_id, browser.era_index, browser.index, isinstance(browser, NicheHistory)) if browser is not None else None)
+                       'covenant' if covenant_mode else 'play', bench.message, (id(wfc), wfc.final, None if wfc.final else wfc.index) if wfc is not None else (id(generation), generation.notice) if generation is not None else (inbox.kind, inbox.index, inbox.digest, inbox.error, tuple(inbox.result_lines)) if inbox is not None else era_review.index if era_review is not None else
+                       (browser.campaign_id, browser.era_index, browser.index, isinstance(browser, NicheHistory)) if browser is not None else story.index if story is not None else None)
             if context != footer_context:
                 footer_pager.reset()
                 footer_context = context

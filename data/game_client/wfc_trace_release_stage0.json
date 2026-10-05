@@ -1,0 +1,8650 @@
+{
+  "artifact_id": "wfc_trace_release_stage0",
+  "date": "2026-10-05",
+  "checks": {
+    "incumbent-import-inspect_rendered_and_exit": true,
+    "incumbent-import-inspect_joined": true,
+    "incumbent-import-inspect_bounded_outer_poll_gap": true,
+    "incumbent-import-inspect_direct_engine_grid_events_exact": true,
+    "incumbent-import-inspect_post_import_all_bytes_unchanged": true,
+    "incumbent-import-inspect_companion_unchanged": true,
+    "incumbent-import-inspect_trace_final_help_visible": true,
+    "incumbent-import-inspect_original_candidate_retained": true,
+    "incumbent-restart_rendered_and_exit": true,
+    "incumbent-restart_joined": true,
+    "incumbent-restart_bounded_outer_poll_gap": true,
+    "incumbent_restart_fresh_deterministic": true,
+    "incumbent_native_load": true,
+    "incumbent_native_resume": true,
+    "incumbent-failed-retry_rendered_and_exit": true,
+    "incumbent-failed-retry_joined": true,
+    "incumbent-failed-retry_bounded_outer_poll_gap": true,
+    "incumbent-failed-retry_retained_failure_then_success": true,
+    "incumbent-failed-retry_actual_attempt_count": true,
+    "incumbent-failed-retry_all_bytes_unchanged": true,
+    "incumbent-empty-retry_rendered_and_exit": true,
+    "incumbent-empty-retry_joined": true,
+    "incumbent-empty-retry_bounded_outer_poll_gap": true,
+    "incumbent-empty-retry_retained_failure_then_success": true,
+    "incumbent-empty-retry_actual_attempt_count": true,
+    "incumbent-empty-retry_all_bytes_unchanged": true,
+    "incumbent-cancel_rendered_and_exit": true,
+    "incumbent-cancel_joined": true,
+    "incumbent-cancel_bounded_outer_poll_gap": true,
+    "incumbent-cancel_cancelled_discarded": true,
+    "incumbent-cancel_engine_still_exact": true,
+    "incumbent-cancel_polled_during_call": true,
+    "incumbent-cancel_all_bytes_unchanged": true,
+    "incumbent-close_rendered_and_exit": true,
+    "incumbent-close_joined": true,
+    "incumbent-close_bounded_outer_poll_gap": true,
+    "incumbent-close_cancelled_discarded": true,
+    "incumbent-close_engine_still_exact": true,
+    "incumbent-close_polled_during_call": true,
+    "incumbent-close_all_bytes_unchanged": true,
+    "qtable-import-inspect_rendered_and_exit": true,
+    "qtable-import-inspect_joined": true,
+    "qtable-import-inspect_bounded_outer_poll_gap": true,
+    "qtable-import-inspect_direct_engine_grid_events_exact": true,
+    "qtable-import-inspect_post_import_all_bytes_unchanged": true,
+    "qtable-import-inspect_companion_unchanged": true,
+    "qtable-import-inspect_trace_final_help_visible": true,
+    "qtable-import-inspect_original_candidate_retained": true,
+    "qtable-restart_rendered_and_exit": true,
+    "qtable-restart_joined": true,
+    "qtable-restart_bounded_outer_poll_gap": true,
+    "qtable_restart_fresh_deterministic": true,
+    "qtable_native_load": true,
+    "qtable_native_resume": true,
+    "qtable-failed-retry_rendered_and_exit": true,
+    "qtable-failed-retry_joined": true,
+    "qtable-failed-retry_bounded_outer_poll_gap": true,
+    "qtable-failed-retry_retained_failure_then_success": true,
+    "qtable-failed-retry_actual_attempt_count": true,
+    "qtable-failed-retry_all_bytes_unchanged": true,
+    "qtable-empty-retry_rendered_and_exit": true,
+    "qtable-empty-retry_joined": true,
+    "qtable-empty-retry_bounded_outer_poll_gap": true,
+    "qtable-empty-retry_retained_failure_then_success": true,
+    "qtable-empty-retry_actual_attempt_count": true,
+    "qtable-empty-retry_all_bytes_unchanged": true,
+    "qtable-cancel_rendered_and_exit": true,
+    "qtable-cancel_joined": true,
+    "qtable-cancel_bounded_outer_poll_gap": true,
+    "qtable-cancel_cancelled_discarded": true,
+    "qtable-cancel_engine_still_exact": true,
+    "qtable-cancel_polled_during_call": true,
+    "qtable-cancel_all_bytes_unchanged": true,
+    "qtable-close_rendered_and_exit": true,
+    "qtable-close_joined": true,
+    "qtable-close_bounded_outer_poll_gap": true,
+    "qtable-close_cancelled_discarded": true,
+    "qtable-close_engine_still_exact": true,
+    "qtable-close_polled_during_call": true,
+    "qtable-close_all_bytes_unchanged": true
+  },
+  "examples": {
+    "normal": {
+      "grid": {
+        "grid_id": "mg_wfc_preview_001",
+        "schema_version": "0.1.0",
+        "parent_grid_id": null,
+        "grid_size": [
+          16,
+          16
+        ],
+        "cells": [
+          {
+            "x": 8,
+            "y": 1,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 1,
+            "y": 2,
+            "visual": "#7e5aa6",
+            "role": "limb",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "limbs",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 8,
+            "y": 2,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 5,
+            "y": 3,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 6,
+            "y": 3,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 7,
+            "y": 3,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 8,
+            "y": 3,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 9,
+            "y": 3,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 10,
+            "y": 3,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 3,
+            "y": 4,
+            "visual": "#7e5aa6",
+            "role": "limb",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "limbs",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 4,
+            "y": 4,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 5,
+            "y": 4,
+            "visual": "#7e5aa6",
+            "role": "limb",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "limbs",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 6,
+            "y": 4,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 7,
+            "y": 4,
+            "visual": "#f2dcff",
+            "role": "mouth",
+            "material": "soft",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "expression",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 8,
+            "y": 4,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 9,
+            "y": 4,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 10,
+            "y": 4,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 2,
+            "y": 5,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 4,
+            "y": 5,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": true,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 5,
+            "y": 5,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 6,
+            "y": 5,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 7,
+            "y": 5,
+            "visual": "#f2dcff",
+            "role": "mouth",
+            "material": "soft",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "expression",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 8,
+            "y": 5,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 9,
+            "y": 5,
+            "visual": "#f2dcff",
+            "role": "eye",
+            "material": "glass",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "sensors",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 10,
+            "y": 5,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 11,
+            "y": 5,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 12,
+            "y": 5,
+            "visual": "#7e5aa6",
+            "role": "limb",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "limbs",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 2,
+            "y": 6,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 3,
+            "y": 6,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 4,
+            "y": 6,
+            "visual": "#7e5aa6",
+            "role": "limb",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "limbs",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 5,
+            "y": 6,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 6,
+            "y": 6,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 7,
+            "y": 6,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 8,
+            "y": 6,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 9,
+            "y": 6,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 10,
+            "y": 6,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 12,
+            "y": 6,
+            "visual": "#7e5aa6",
+            "role": "limb",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "limbs",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 3,
+            "y": 7,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 4,
+            "y": 7,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 6,
+            "y": 7,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 8,
+            "y": 7,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 9,
+            "y": 7,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 10,
+            "y": 7,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 11,
+            "y": 7,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 8,
+            "y": 8,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 10,
+            "y": 8,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 12,
+            "y": 8,
+            "visual": "#7e5aa6",
+            "role": "limb",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "limbs",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 9,
+            "y": 9,
+            "visual": "#7e5aa6",
+            "role": "limb",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "limbs",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 10,
+            "y": 9,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 13,
+            "y": 9,
+            "visual": "#7e5aa6",
+            "role": "limb",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "limbs",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 5,
+            "y": 10,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 6,
+            "y": 10,
+            "visual": "#7e5aa6",
+            "role": "limb",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "limbs",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 9,
+            "y": 10,
+            "visual": "#7e5aa6",
+            "role": "limb",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "limbs",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 5,
+            "y": 11,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 7,
+            "y": 11,
+            "visual": "#7e5aa6",
+            "role": "shell",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "carapace",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 10,
+            "y": 11,
+            "visual": "#7e5aa6",
+            "role": "shell",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "carapace",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 6,
+            "y": 12,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          },
+          {
+            "x": 5,
+            "y": 13,
+            "visual": "#7e5aa6",
+            "role": "body",
+            "material": "hard",
+            "mutation_weight": 0.1,
+            "animation_anchor": false,
+            "organ": "core",
+            "stress": 0,
+            "damage": 0,
+            "locked": false
+          }
+        ],
+        "organs": {
+          "core": {
+            "role": "body_core",
+            "cells": [
+              [
+                8,
+                1
+              ],
+              [
+                8,
+                2
+              ],
+              [
+                5,
+                3
+              ],
+              [
+                6,
+                3
+              ],
+              [
+                7,
+                3
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                9,
+                3
+              ],
+              [
+                10,
+                3
+              ],
+              [
+                4,
+                4
+              ],
+              [
+                6,
+                4
+              ],
+              [
+                8,
+                4
+              ],
+              [
+                9,
+                4
+              ],
+              [
+                10,
+                4
+              ],
+              [
+                2,
+                5
+              ],
+              [
+                3,
+                5
+              ],
+              [
+                4,
+                5
+              ],
+              [
+                5,
+                5
+              ],
+              [
+                6,
+                5
+              ],
+              [
+                8,
+                5
+              ],
+              [
+                10,
+                5
+              ],
+              [
+                11,
+                5
+              ],
+              [
+                2,
+                6
+              ],
+              [
+                3,
+                6
+              ],
+              [
+                5,
+                6
+              ],
+              [
+                6,
+                6
+              ],
+              [
+                7,
+                6
+              ],
+              [
+                8,
+                6
+              ],
+              [
+                9,
+                6
+              ],
+              [
+                10,
+                6
+              ],
+              [
+                3,
+                7
+              ],
+              [
+                4,
+                7
+              ],
+              [
+                6,
+                7
+              ],
+              [
+                7,
+                7
+              ],
+              [
+                8,
+                7
+              ],
+              [
+                9,
+                7
+              ],
+              [
+                10,
+                7
+              ],
+              [
+                11,
+                7
+              ],
+              [
+                5,
+                8
+              ],
+              [
+                7,
+                8
+              ],
+              [
+                8,
+                8
+              ],
+              [
+                10,
+                8
+              ],
+              [
+                3,
+                9
+              ],
+              [
+                4,
+                9
+              ],
+              [
+                5,
+                9
+              ],
+              [
+                10,
+                9
+              ],
+              [
+                5,
+                10
+              ],
+              [
+                5,
+                11
+              ],
+              [
+                6,
+                12
+              ],
+              [
+                5,
+                13
+              ]
+            ],
+            "required": true
+          },
+          "limbs": {
+            "role": "locomotion",
+            "cells": [
+              [
+                1,
+                2
+              ],
+              [
+                3,
+                4
+              ],
+              [
+                5,
+                4
+              ],
+              [
+                12,
+                5
+              ],
+              [
+                4,
+                6
+              ],
+              [
+                12,
+                6
+              ],
+              [
+                12,
+                8
+              ],
+              [
+                9,
+                9
+              ],
+              [
+                13,
+                9
+              ],
+              [
+                6,
+                10
+              ],
+              [
+                9,
+                10
+              ]
+            ],
+            "required": false
+          },
+          "expression": {
+            "role": "expression",
+            "cells": [
+              [
+                7,
+                4
+              ],
+              [
+                7,
+                5
+              ]
+            ],
+            "required": false
+          },
+          "sensors": {
+            "role": "sensor",
+            "cells": [
+              [
+                9,
+                5
+              ]
+            ],
+            "required": true
+          },
+          "carapace": {
+            "role": "body_core",
+            "cells": [
+              [
+                7,
+                11
+              ],
+              [
+                10,
+                11
+              ]
+            ],
+            "required": false
+          }
+        },
+        "palette": {
+          "palette_id": "pocket_plum",
+          "colors": [
+            "#160e1f",
+            "#7e5aa6",
+            "#f2dcff"
+          ],
+          "background_index": 0
+        },
+        "mutation": {
+          "cell_mutation_rate": 0.05,
+          "organ_shift_rate": 0.02,
+          "palette_shift_rate": 0.01,
+          "symmetry_break_rate": 0.01
+        },
+        "lineage": {
+          "generation": 0,
+          "ancestor_ids": [],
+          "mutation_events": [
+            "wfc_wave_collapsed"
+          ]
+        },
+        "metadata": {
+          "source": "wfc_grid_lab"
+        }
+      },
+      "events": [
+        {
+          "event": "generation_started",
+          "trace_format": "wfc_trace_v1",
+          "grid_id": "mg_wfc_preview_001",
+          "rng_seed": 20261006,
+          "max_restarts": 8
+        },
+        {
+          "event": "attempt_started",
+          "attempt": 1
+        },
+        {
+          "event": "wave_started",
+          "width": 16,
+          "height": 16,
+          "cells": {
+            "0,0": {
+              ".": 50
+            },
+            "1,0": {
+              ".": 50
+            },
+            "2,0": {
+              ".": 47,
+              "B": 2,
+              "D": 1
+            },
+            "3,0": {
+              ".": 48,
+              "B": 2
+            },
+            "4,0": {
+              ".": 47,
+              "F": 1,
+              "D": 1,
+              "B": 1
+            },
+            "5,0": {
+              ".": 48,
+              "D": 1,
+              "B": 1
+            },
+            "6,0": {
+              ".": 48,
+              "B": 1,
+              "D": 1
+            },
+            "7,0": {
+              ".": 47,
+              "B": 2,
+              "D": 1
+            },
+            "8,0": {
+              ".": 47,
+              "B": 2,
+              "D": 1
+            },
+            "9,0": {
+              ".": 50
+            },
+            "10,0": {
+              ".": 49,
+              "B": 1
+            },
+            "11,0": {
+              ".": 49,
+              "B": 1
+            },
+            "12,0": {
+              ".": 48,
+              "B": 2
+            },
+            "13,0": {
+              ".": 48,
+              "B": 1,
+              "D": 1
+            },
+            "14,0": {
+              ".": 50
+            },
+            "15,0": {
+              ".": 50
+            },
+            "0,1": {
+              ".": 50
+            },
+            "1,1": {
+              ".": 49,
+              "L": 1
+            },
+            "2,1": {
+              ".": 41,
+              "E": 3,
+              "L": 1,
+              "B": 5
+            },
+            "3,1": {
+              ".": 35,
+              "E": 2,
+              "N": 5,
+              "L": 1,
+              "B": 6,
+              "D": 1
+            },
+            "4,1": {
+              "P": 1,
+              ".": 36,
+              "N": 3,
+              "E": 2,
+              "B": 5,
+              "D": 1,
+              "F": 1,
+              "S": 1
+            },
+            "5,1": {
+              ".": 37,
+              "E": 2,
+              "B": 8,
+              "S": 2,
+              "D": 1
+            },
+            "6,1": {
+              ".": 32,
+              "E": 4,
+              "F": 2,
+              "B": 9,
+              "D": 1,
+              "S": 2
+            },
+            "7,1": {
+              ".": 31,
+              "B": 14,
+              "D": 2,
+              "S": 2,
+              "N": 1
+            },
+            "8,1": {
+              ".": 32,
+              "B": 13,
+              "D": 2,
+              "S": 2,
+              "N": 1
+            },
+            "9,1": {
+              ".": 34,
+              "E": 4,
+              "F": 2,
+              "B": 7,
+              "D": 1,
+              "S": 2
+            },
+            "10,1": {
+              ".": 42,
+              "B": 5,
+              "S": 2,
+              "D": 1
+            },
+            "11,1": {
+              "P": 1,
+              ".": 39,
+              "N": 3,
+              "E": 2,
+              "B": 3,
+              "D": 1,
+              "S": 1
+            },
+            "12,1": {
+              ".": 41,
+              "N": 4,
+              "E": 1,
+              "L": 1,
+              "B": 2,
+              "D": 1
+            },
+            "13,1": {
+              ".": 48,
+              "L": 1,
+              "B": 1
+            },
+            "14,1": {
+              ".": 49,
+              "L": 1
+            },
+            "15,1": {
+              ".": 50
+            },
+            "0,2": {
+              ".": 50
+            },
+            "1,2": {
+              ".": 45,
+              "B": 3,
+              "L": 2
+            },
+            "2,2": {
+              ".": 40,
+              "B": 5,
+              "D": 1,
+              "N": 2,
+              "L": 1,
+              "E": 1
+            },
+            "3,2": {
+              ".": 35,
+              "B": 7,
+              "D": 1,
+              "N": 2,
+              "L": 2,
+              "E": 2,
+              "S": 1
+            },
+            "4,2": {
+              ".": 25,
+              "N": 5,
+              "B": 12,
+              "P": 1,
+              "L": 1,
+              "E": 2,
+              "S": 2,
+              "D": 2
+            },
+            "5,2": {
+              "N": 4,
+              ".": 23,
+              "B": 17,
+              "F": 2,
+              "D": 1,
+              "S": 2,
+              "E": 1
+            },
+            "6,2": {
+              ".": 23,
+              "F": 1,
+              "B": 20,
+              "N": 2,
+              "E": 2,
+              "S": 2
+            },
+            "7,2": {
+              ".": 23,
+              "M": 4,
+              "B": 20,
+              "F": 1,
+              "S": 2
+            },
+            "8,2": {
+              ".": 23,
+              "M": 4,
+              "B": 19,
+              "S": 3,
+              "F": 1
+            },
+            "9,2": {
+              ".": 24,
+              "F": 1,
+              "B": 18,
+              "N": 2,
+              "S": 3,
+              "E": 2
+            },
+            "10,2": {
+              "N": 2,
+              ".": 29,
+              "B": 14,
+              "S": 3,
+              "D": 1,
+              "F": 1
+            },
+            "11,2": {
+              ".": 30,
+              "N": 5,
+              "B": 8,
+              "P": 1,
+              "L": 1,
+              "S": 3,
+              "D": 2
+            },
+            "12,2": {
+              ".": 42,
+              "B": 3,
+              "N": 1,
+              "L": 2,
+              "S": 2
+            },
+            "13,2": {
+              ".": 48,
+              "L": 1,
+              "B": 1
+            },
+            "14,2": {
+              ".": 48,
+              "L": 2
+            },
+            "15,2": {
+              ".": 50
+            },
+            "0,3": {
+              ".": 50
+            },
+            "1,3": {
+              ".": 44,
+              "B": 3,
+              "S": 1,
+              "L": 1,
+              "M": 1
+            },
+            "2,3": {
+              ".": 32,
+              "A": 1,
+              "S": 2,
+              "N": 1,
+              "B": 9,
+              "L": 2,
+              "E": 1,
+              "M": 2
+            },
+            "3,3": {
+              ".": 33,
+              "B": 11,
+              "S": 3,
+              "E": 2,
+              "M": 1
+            },
+            "4,3": {
+              "S": 4,
+              ".": 17,
+              "E": 4,
+              "B": 21,
+              "F": 1,
+              "L": 1,
+              "N": 1,
+              "D": 1
+            },
+            "5,3": {
+              "S": 3,
+              ".": 8,
+              "B": 28,
+              "E": 7,
+              "M": 1,
+              "N": 1,
+              "D": 2
+            },
+            "6,3": {
+              "S": 3,
+              ".": 10,
+              "B": 30,
+              "M": 1,
+              "E": 5,
+              "D": 1
+            },
+            "7,3": {
+              "S": 3,
+              "E": 1,
+              "B": 33,
+              ".": 8,
+              "A": 1,
+              "M": 3,
+              "D": 1
+            },
+            "8,3": {
+              "S": 4,
+              "E": 1,
+              "B": 33,
+              ".": 8,
+              "M": 3,
+              "D": 1
+            },
+            "9,3": {
+              "S": 4,
+              ".": 10,
+              "B": 28,
+              "D": 2,
+              "M": 1,
+              "E": 5
+            },
+            "10,3": {
+              "S": 4,
+              ".": 12,
+              "B": 24,
+              "E": 7,
+              "D": 3
+            },
+            "11,3": {
+              "S": 6,
+              ".": 23,
+              "E": 3,
+              "B": 15,
+              "L": 1,
+              "N": 1,
+              "D": 1
+            },
+            "12,3": {
+              ".": 41,
+              "B": 6,
+              "S": 3
+            },
+            "13,3": {
+              ".": 43,
+              "B": 5,
+              "L": 2
+            },
+            "14,3": {
+              ".": 49,
+              "L": 1
+            },
+            "15,3": {
+              ".": 50
+            },
+            "0,4": {
+              ".": 49,
+              "N": 1
+            },
+            "1,4": {
+              ".": 39,
+              "B": 7,
+              "S": 2,
+              "M": 1,
+              "L": 1
+            },
+            "2,4": {
+              ".": 28,
+              "B": 12,
+              "S": 3,
+              "L": 3,
+              "D": 1,
+              "J": 1,
+              "E": 2
+            },
+            "3,4": {
+              "S": 6,
+              ".": 21,
+              "B": 17,
+              "D": 1,
+              "L": 3,
+              "E": 2
+            },
+            "4,4": {
+              "S": 3,
+              ".": 16,
+              "B": 29,
+              "E": 2
+            },
+            "5,4": {
+              "B": 34,
+              ".": 7,
+              "E": 6,
+              "L": 1,
+              "M": 1,
+              "D": 1
+            },
+            "6,4": {
+              "B": 35,
+              ".": 6,
+              "E": 5,
+              "S": 1,
+              "M": 2,
+              "A": 1
+            },
+            "7,4": {
+              "B": 34,
+              "M": 6,
+              ".": 7,
+              "S": 2,
+              "A": 1
+            },
+            "8,4": {
+              "B": 35,
+              "M": 6,
+              ".": 7,
+              "S": 1,
+              "D": 1
+            },
+            "9,4": {
+              "B": 33,
+              ".": 8,
+              "S": 2,
+              "E": 5,
+              "M": 2
+            },
+            "10,4": {
+              "B": 29,
+              ".": 10,
+              "E": 6,
+              "S": 2,
+              "L": 1,
+              "M": 1,
+              "D": 1
+            },
+            "11,4": {
+              "S": 4,
+              ".": 19,
+              "B": 24,
+              "E": 2,
+              "D": 1
+            },
+            "12,4": {
+              "S": 7,
+              ".": 27,
+              "B": 12,
+              "D": 1,
+              "L": 3
+            },
+            "13,4": {
+              ".": 38,
+              "B": 6,
+              "L": 3,
+              "D": 1,
+              "J": 1,
+              "S": 1
+            },
+            "14,4": {
+              ".": 47,
+              "B": 2,
+              "L": 1
+            },
+            "15,4": {
+              ".": 50
+            },
+            "0,5": {
+              ".": 47,
+              "B": 1,
+              "S": 1,
+              "L": 1
+            },
+            "1,5": {
+              ".": 37,
+              "L": 3,
+              "S": 4,
+              "B": 4,
+              "M": 2
+            },
+            "2,5": {
+              "S": 6,
+              ".": 25,
+              "B": 9,
+              "L": 7,
+              "A": 1,
+              "N": 1,
+              "M": 1
+            },
+            "3,5": {
+              "S": 5,
+              ".": 16,
+              "B": 20,
+              "L": 6,
+              "D": 1,
+              "E": 1,
+              "M": 1
+            },
+            "4,5": {
+              "B": 34,
+              ".": 8,
+              "J": 1,
+              "E": 2,
+              "L": 2,
+              "D": 1,
+              "M": 1,
+              "S": 1
+            },
+            "5,5": {
+              "B": 41,
+              ".": 4,
+              "E": 3,
+              "A": 1,
+              "D": 1
+            },
+            "6,5": {
+              "E": 3,
+              "B": 35,
+              ".": 3,
+              "J": 1,
+              "S": 2,
+              "A": 1,
+              "M": 3,
+              "D": 2
+            },
+            "7,5": {
+              "B": 31,
+              "A": 6,
+              ".": 4,
+              "S": 2,
+              "M": 6,
+              "D": 1
+            },
+            "8,5": {
+              "B": 35,
+              ".": 4,
+              "D": 3,
+              "M": 6,
+              "A": 2
+            },
+            "9,5": {
+              "E": 3,
+              "B": 35,
+              ".": 4,
+              "J": 1,
+              "D": 4,
+              "M": 3
+            },
+            "10,5": {
+              "B": 37,
+              ".": 6,
+              "E": 3,
+              "S": 2,
+              "D": 2
+            },
+            "11,5": {
+              "B": 29,
+              ".": 12,
+              "J": 1,
+              "E": 2,
+              "L": 2,
+              "S": 3,
+              "D": 1
+            },
+            "12,5": {
+              "S": 7,
+              ".": 22,
+              "B": 13,
+              "L": 7,
+              "D": 1
+            },
+            "13,5": {
+              "S": 4,
+              ".": 34,
+              "B": 5,
+              "L": 7
+            },
+            "14,5": {
+              ".": 43,
+              "L": 4,
+              "S": 2,
+              "B": 1
+            },
+            "15,5": {
+              ".": 47,
+              "B": 1,
+              "S": 1,
+              "L": 1
+            },
+            "0,6": {
+              ".": 47,
+              "L": 3
+            },
+            "1,6": {
+              ".": 35,
+              "L": 6,
+              "B": 5,
+              "S": 4
+            },
+            "2,6": {
+              "S": 6,
+              ".": 31,
+              "L": 5,
+              "B": 8
+            },
+            "3,6": {
+              "B": 22,
+              ".": 19,
+              "L": 5,
+              "S": 2,
+              "E": 1,
+              "D": 1
+            },
+            "4,6": {
+              "B": 35,
+              ".": 9,
+              "L": 2,
+              "J": 1,
+              "M": 1,
+              "A": 1,
+              "S": 1
+            },
+            "5,6": {
+              "B": 44,
+              ".": 3,
+              "M": 1,
+              "E": 1,
+              "D": 1
+            },
+            "6,6": {
+              "B": 41,
+              ".": 2,
+              "D": 2,
+              "J": 1,
+              "S": 1,
+              "M": 1,
+              "A": 1,
+              "E": 1
+            },
+            "7,6": {
+              "B": 21,
+              "M": 4,
+              "A": 20,
+              ".": 2,
+              "D": 2,
+              "S": 1
+            },
+            "8,6": {
+              "B": 40,
+              "M": 4,
+              ".": 3,
+              "S": 2,
+              "D": 1
+            },
+            "9,6": {
+              "B": 40,
+              ".": 3,
+              "D": 2,
+              "J": 1,
+              "S": 2,
+              "M": 1,
+              "E": 1
+            },
+            "10,6": {
+              "B": 39,
+              ".": 5,
+              "D": 3,
+              "M": 1,
+              "S": 1,
+              "E": 1
+            },
+            "11,6": {
+              "B": 31,
+              ".": 12,
+              "L": 2,
+              "J": 1,
+              "S": 3,
+              "M": 1
+            },
+            "12,6": {
+              "B": 14,
+              ".": 25,
+              "L": 6,
+              "S": 5
+            },
+            "13,6": {
+              "S": 4,
+              ".": 35,
+              "L": 7,
+              "B": 3,
+              "D": 1
+            },
+            "14,6": {
+              ".": 40,
+              "L": 6,
+              "S": 2,
+              "D": 1,
+              "B": 1
+            },
+            "15,6": {
+              ".": 48,
+              "L": 2
+            },
+            "0,7": {
+              ".": 48,
+              "L": 2
+            },
+            "1,7": {
+              ".": 40,
+              "L": 4,
+              "B": 1,
+              "M": 2,
+              "S": 3
+            },
+            "2,7": {
+              "S": 4,
+              ".": 33,
+              "L": 4,
+              "A": 1,
+              "B": 8
+            },
+            "3,7": {
+              "B": 16,
+              ".": 27,
+              "L": 6,
+              "S": 1
+            },
+            "4,7": {
+              "B": 31,
+              ".": 15,
+              "D": 1,
+              "E": 1,
+              "S": 1,
+              "N": 1
+            },
+            "5,7": {
+              "B": 40,
+              ".": 9,
+              "S": 1
+            },
+            "6,7": {
+              "A": 1,
+              ".": 5,
+              "B": 38,
+              "L": 1,
+              "D": 1,
+              "S": 2,
+              "M": 2
+            },
+            "7,7": {
+              "B": 33,
+              "M": 6,
+              "A": 5,
+              ".": 3,
+              "S": 3
+            },
+            "8,7": {
+              "B": 37,
+              "M": 6,
+              ".": 4,
+              "D": 1,
+              "S": 2
+            },
+            "9,7": {
+              "B": 37,
+              ".": 5,
+              "L": 1,
+              "D": 2,
+              "M": 2,
+              "S": 2,
+              "N": 1
+            },
+            "10,7": {
+              "B": 36,
+              ".": 11,
+              "S": 3
+            },
+            "11,7": {
+              "B": 27,
+              ".": 18,
+              "D": 1,
+              "S": 3,
+              "E": 1
+            },
+            "12,7": {
+              "B": 9,
+              ".": 32,
+              "L": 7,
+              "S": 2
+            },
+            "13,7": {
+              "S": 3,
+              ".": 40,
+              "L": 4,
+              "B": 3
+            },
+            "14,7": {
+              ".": 43,
+              "L": 4,
+              "S": 2,
+              "D": 1
+            },
+            "15,7": {
+              ".": 49,
+              "L": 1
+            },
+            "0,8": {
+              ".": 49,
+              "L": 1
+            },
+            "1,8": {
+              ".": 45,
+              "B": 2,
+              "J": 1,
+              "L": 1,
+              "S": 1
+            },
+            "2,8": {
+              "S": 3,
+              ".": 37,
+              "L": 5,
+              "B": 3,
+              "J": 1,
+              "E": 1
+            },
+            "3,8": {
+              "B": 13,
+              ".": 29,
+              "J": 1,
+              "L": 5,
+              "S": 1,
+              "E": 1
+            },
+            "4,8": {
+              "B": 26,
+              ".": 20,
+              "D": 1,
+              "J": 1,
+              "L": 2
+            },
+            "5,8": {
+              "B": 33,
+              ".": 13,
+              "J": 2,
+              "A": 1,
+              "D": 1
+            },
+            "6,8": {
+              "B": 35,
+              "D": 4,
+              ".": 8,
+              "L": 2,
+              "M": 1
+            },
+            "7,8": {
+              "M": 2,
+              ".": 10,
+              "B": 35,
+              "A": 2,
+              "S": 1
+            },
+            "8,8": {
+              "M": 2,
+              ".": 9,
+              "B": 38,
+              "S": 1
+            },
+            "9,8": {
+              "B": 34,
+              "D": 4,
+              ".": 8,
+              "L": 2,
+              "S": 1,
+              "M": 1
+            },
+            "10,8": {
+              "B": 30,
+              ".": 17,
+              "J": 1,
+              "S": 1,
+              "D": 1
+            },
+            "11,8": {
+              "B": 19,
+              ".": 26,
+              "D": 1,
+              "S": 1,
+              "J": 1,
+              "L": 2
+            },
+            "12,8": {
+              "B": 7,
+              ".": 35,
+              "J": 1,
+              "L": 6,
+              "S": 1
+            },
+            "13,8": {
+              "S": 3,
+              ".": 41,
+              "L": 5,
+              "B": 1
+            },
+            "14,8": {
+              ".": 47,
+              "J": 1,
+              "L": 1,
+              "S": 1
+            },
+            "15,8": {
+              ".": 49,
+              "L": 1
+            },
+            "0,9": {
+              ".": 50
+            },
+            "1,9": {
+              ".": 45,
+              "B": 2,
+              "L": 3
+            },
+            "2,9": {
+              "S": 3,
+              ".": 40,
+              "L": 5,
+              "B": 2
+            },
+            "3,9": {
+              "S": 4,
+              ".": 36,
+              "B": 6,
+              "D": 1,
+              "L": 3
+            },
+            "4,9": {
+              "B": 16,
+              ".": 26,
+              "S": 1,
+              "J": 1,
+              "L": 4,
+              "D": 1,
+              "A": 1
+            },
+            "5,9": {
+              "B": 25,
+              ".": 21,
+              "D": 1,
+              "S": 1,
+              "L": 2
+            },
+            "6,9": {
+              "B": 30,
+              ".": 14,
+              "L": 4,
+              "S": 1,
+              "D": 1
+            },
+            "7,9": {
+              "B": 26,
+              ".": 17,
+              "D": 3,
+              "M": 2,
+              "S": 1,
+              "L": 1
+            },
+            "8,9": {
+              "B": 27,
+              ".": 18,
+              "D": 1,
+              "M": 2,
+              "S": 1,
+              "L": 1
+            },
+            "9,9": {
+              "B": 30,
+              ".": 15,
+              "L": 3,
+              "S": 1,
+              "D": 1
+            },
+            "10,9": {
+              "B": 22,
+              ".": 25,
+              "D": 1,
+              "S": 1,
+              "L": 1
+            },
+            "11,9": {
+              "B": 15,
+              ".": 29,
+              "S": 1,
+              "J": 1,
+              "L": 4
+            },
+            "12,9": {
+              "S": 4,
+              ".": 41,
+              "L": 2,
+              "D": 1,
+              "B": 2
+            },
+            "13,9": {
+              "S": 3,
+              ".": 43,
+              "L": 4
+            },
+            "14,9": {
+              ".": 48,
+              "L": 2
+            },
+            "15,9": {
+              ".": 50
+            },
+            "0,10": {
+              ".": 50
+            },
+            "1,10": {
+              ".": 47,
+              "L": 2,
+              "B": 1
+            },
+            "2,10": {
+              ".": 43,
+              "L": 4,
+              "B": 3
+            },
+            "3,10": {
+              "S": 3,
+              ".": 38,
+              "L": 3,
+              "B": 6
+            },
+            "4,10": {
+              "S": 3,
+              ".": 31,
+              "L": 5,
+              "B": 10,
+              "F": 1
+            },
+            "5,10": {
+              "B": 15,
+              ".": 26,
+              "J": 1,
+              "L": 5,
+              "D": 1,
+              "S": 1,
+              "F": 1
+            },
+            "6,10": {
+              "B": 16,
+              ".": 27,
+              "D": 1,
+              "L": 5,
+              "S": 1
+            },
+            "7,10": {
+              "B": 17,
+              ".": 30,
+              "D": 1,
+              "S": 1,
+              "F": 1
+            },
+            "8,10": {
+              "B": 17,
+              ".": 28,
+              "L": 1,
+              "D": 1,
+              "S": 1,
+              "J": 1,
+              "F": 1
+            },
+            "9,10": {
+              "B": 15,
+              ".": 27,
+              "D": 1,
+              "L": 6,
+              "S": 1
+            },
+            "10,10": {
+              "B": 13,
+              ".": 28,
+              "J": 1,
+              "L": 5,
+              "D": 1,
+              "S": 1,
+              "F": 1
+            },
+            "11,10": {
+              "S": 3,
+              ".": 34,
+              "B": 8,
+              "F": 1,
+              "L": 4
+            },
+            "12,10": {
+              "S": 3,
+              ".": 42,
+              "B": 3,
+              "L": 2
+            },
+            "13,10": {
+              ".": 45,
+              "L": 4,
+              "B": 1
+            },
+            "14,10": {
+              ".": 48,
+              "L": 2
+            },
+            "15,10": {
+              ".": 50
+            },
+            "0,11": {
+              ".": 50
+            },
+            "1,11": {
+              ".": 46,
+              "L": 3,
+              "B": 1
+            },
+            "2,11": {
+              ".": 46,
+              "L": 2,
+              "J": 1,
+              "B": 1
+            },
+            "3,11": {
+              ".": 41,
+              "L": 5,
+              "B": 4
+            },
+            "4,11": {
+              "S": 2,
+              ".": 36,
+              "L": 4,
+              "F": 1,
+              "B": 7
+            },
+            "5,11": {
+              "S": 2,
+              ".": 35,
+              "L": 5,
+              "D": 1,
+              "J": 1,
+              "B": 6
+            },
+            "6,11": {
+              "S": 2,
+              ".": 38,
+              "L": 3,
+              "B": 6,
+              "D": 1
+            },
+            "7,11": {
+              "S": 2,
+              ".": 38,
+              "B": 7,
+              "A": 1,
+              "L": 1,
+              "D": 1
+            },
+            "8,11": {
+              "S": 2,
+              ".": 37,
+              "L": 1,
+              "B": 8,
+              "J": 1,
+              "D": 1
+            },
+            "9,11": {
+              "S": 2,
+              ".": 38,
+              "L": 4,
+              "B": 6
+            },
+            "10,11": {
+              "S": 2,
+              ".": 37,
+              "L": 4,
+              "D": 1,
+              "J": 1,
+              "B": 5
+            },
+            "11,11": {
+              "S": 2,
+              ".": 39,
+              "B": 5,
+              "L": 3,
+              "F": 1
+            },
+            "12,11": {
+              ".": 44,
+              "B": 3,
+              "L": 3
+            },
+            "13,11": {
+              ".": 45,
+              "B": 2,
+              "L": 2,
+              "J": 1
+            },
+            "14,11": {
+              ".": 47,
+              "L": 2,
+              "B": 1
+            },
+            "15,11": {
+              ".": 50
+            },
+            "0,12": {
+              ".": 50
+            },
+            "1,12": {
+              ".": 48,
+              "L": 2
+            },
+            "2,12": {
+              ".": 48,
+              "L": 2
+            },
+            "3,12": {
+              "J": 1,
+              ".": 44,
+              "L": 3,
+              "B": 2
+            },
+            "4,12": {
+              ".": 46,
+              "L": 2,
+              "B": 2
+            },
+            "5,12": {
+              ".": 44,
+              "L": 2,
+              "B": 4
+            },
+            "6,12": {
+              "J": 2,
+              ".": 43,
+              "L": 1,
+              "F": 1,
+              "B": 3
+            },
+            "7,12": {
+              ".": 44,
+              "B": 3,
+              "A": 1,
+              "L": 2
+            },
+            "8,12": {
+              ".": 45,
+              "B": 3,
+              "L": 2
+            },
+            "9,12": {
+              "J": 2,
+              ".": 44,
+              "L": 1,
+              "F": 1,
+              "B": 2
+            },
+            "10,12": {
+              ".": 46,
+              "B": 3,
+              "L": 1
+            },
+            "11,12": {
+              ".": 46,
+              "B": 3,
+              "L": 1
+            },
+            "12,12": {
+              "J": 1,
+              ".": 47,
+              "B": 1,
+              "L": 1
+            },
+            "13,12": {
+              ".": 48,
+              "L": 2
+            },
+            "14,12": {
+              ".": 49,
+              "L": 1
+            },
+            "15,12": {
+              ".": 50
+            },
+            "0,13": {
+              ".": 50
+            },
+            "1,13": {
+              ".": 49,
+              "L": 1
+            },
+            "2,13": {
+              ".": 49,
+              "L": 1
+            },
+            "3,13": {
+              "L": 1,
+              ".": 49
+            },
+            "4,13": {
+              ".": 47,
+              "B": 3
+            },
+            "5,13": {
+              ".": 47,
+              "B": 3
+            },
+            "6,13": {
+              "L": 2,
+              ".": 45,
+              "D": 1,
+              "B": 2
+            },
+            "7,13": {
+              ".": 46,
+              "B": 3,
+              "D": 1
+            },
+            "8,13": {
+              ".": 48,
+              "B": 2
+            },
+            "9,13": {
+              "L": 2,
+              ".": 46,
+              "B": 2
+            },
+            "10,13": {
+              ".": 48,
+              "B": 2
+            },
+            "11,13": {
+              ".": 50
+            },
+            "12,13": {
+              "L": 1,
+              ".": 49
+            },
+            "13,13": {
+              ".": 49,
+              "L": 1
+            },
+            "14,13": {
+              ".": 49,
+              "L": 1
+            },
+            "15,13": {
+              ".": 50
+            },
+            "0,14": {
+              ".": 50
+            },
+            "1,14": {
+              ".": 50
+            },
+            "2,14": {
+              ".": 50
+            },
+            "3,14": {
+              "L": 1,
+              ".": 49
+            },
+            "4,14": {
+              ".": 50
+            },
+            "5,14": {
+              ".": 49,
+              "D": 1
+            },
+            "6,14": {
+              "L": 1,
+              ".": 48,
+              "D": 1
+            },
+            "7,14": {
+              ".": 50
+            },
+            "8,14": {
+              ".": 50
+            },
+            "9,14": {
+              "L": 1,
+              ".": 49
+            },
+            "10,14": {
+              ".": 50
+            },
+            "11,14": {
+              ".": 50
+            },
+            "12,14": {
+              "L": 1,
+              ".": 49
+            },
+            "13,14": {
+              ".": 50
+            },
+            "14,14": {
+              ".": 50
+            },
+            "15,14": {
+              ".": 50
+            },
+            "0,15": {
+              ".": 50
+            },
+            "1,15": {
+              ".": 50
+            },
+            "2,15": {
+              ".": 50
+            },
+            "3,15": {
+              ".": 50
+            },
+            "4,15": {
+              ".": 50
+            },
+            "5,15": {
+              ".": 50
+            },
+            "6,15": {
+              ".": 50
+            },
+            "7,15": {
+              ".": 50
+            },
+            "8,15": {
+              ".": 50
+            },
+            "9,15": {
+              ".": 50
+            },
+            "10,15": {
+              ".": 50
+            },
+            "11,15": {
+              ".": 50
+            },
+            "12,15": {
+              ".": 50
+            },
+            "13,15": {
+              ".": 50
+            },
+            "14,15": {
+              ".": 50
+            },
+            "15,15": {
+              ".": 50
+            }
+          },
+          "training_grid_ids": [
+            "mg_seed16_001_beetle",
+            "mg_seed16_002_wisp",
+            "mg_seed16_003_crab",
+            "mg_seed16_004_moth",
+            "mg_seed16_005_serpent",
+            "mg_seed16_006_turtle",
+            "mg_seed16_007_strider",
+            "mg_seed16_008_jelly",
+            "mg_seed16_009_owl",
+            "mg_seed16_010_golem",
+            "mg_seed16_011_mantis",
+            "mg_seed16_012_snail",
+            "mg_seed16_013_sprout",
+            "mg_seed16_014_hopper",
+            "mg_seed16_015_drone",
+            "mg_seed16_016_lantern",
+            "mg_seed16_017_pupfish",
+            "mg_seed16_018_warden",
+            "mg_seed16_019_bat",
+            "mg_seed16_020_scorpion",
+            "mg_seed16_021_hermit",
+            "mg_seed16_022_rat",
+            "mg_seed16_023_hornbeetle",
+            "mg_seed16_024_automaton",
+            "mg_seed16_025_spider",
+            "mg_seed16_026_mole",
+            "mg_seed16_027_scarab",
+            "mg_seed16_028_cobra",
+            "mg_seed16_029_ant",
+            "mg_seed16_030_fennec",
+            "mg_seed16_031_sandworm",
+            "mg_seed16_032_cat",
+            "mg_seed16_033_ember",
+            "mg_seed16_034_obelisk",
+            "mg_seed16_035_squid",
+            "mg_seed16_036_anglerfish",
+            "mg_seed16_037_crane",
+            "mg_seed16_038_nautilus",
+            "mg_seed16_039_frostbot",
+            "mg_seed16_040_ray",
+            "mg_seed16_041_seahorse",
+            "mg_seed16_042_beacon",
+            "mg_seed16_043_bunny",
+            "mg_seed16_044_lunamoth",
+            "mg_seed16_045_imp",
+            "mg_seed16_046_fungus",
+            "mg_seed16_047_ghost",
+            "mg_seed16_048_weaver",
+            "mg_seed16_049_koi",
+            "mg_seed16_050_shrine"
+          ]
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            3,
+            0
+          ],
+          "choices": {
+            ".": 48,
+            "B": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            10,
+            0
+          ],
+          "choices": {
+            ".": 49,
+            "B": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            11,
+            0
+          ],
+          "choices": {
+            ".": 49,
+            "B": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            12,
+            0
+          ],
+          "choices": {
+            ".": 48,
+            "B": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            1,
+            1
+          ],
+          "choices": {
+            ".": 49,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            14,
+            1
+          ],
+          "choices": {
+            ".": 49,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            14,
+            2
+          ],
+          "choices": {
+            ".": 48,
+            "L": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            14,
+            3
+          ],
+          "choices": {
+            ".": 49,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            0,
+            4
+          ],
+          "choices": {
+            ".": 49,
+            "N": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            0,
+            6
+          ],
+          "choices": {
+            ".": 47,
+            "L": 3
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            15,
+            6
+          ],
+          "choices": {
+            ".": 48,
+            "L": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            0,
+            7
+          ],
+          "choices": {
+            ".": 48,
+            "L": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            15,
+            7
+          ],
+          "choices": {
+            ".": 49,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            0,
+            8
+          ],
+          "choices": {
+            ".": 49,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            15,
+            8
+          ],
+          "choices": {
+            ".": 49,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            14,
+            9
+          ],
+          "choices": {
+            ".": 48,
+            "L": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            14,
+            10
+          ],
+          "choices": {
+            ".": 48,
+            "L": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            1,
+            12
+          ],
+          "choices": {
+            ".": 48,
+            "L": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            2,
+            12
+          ],
+          "choices": {
+            ".": 48,
+            "L": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            13,
+            12
+          ],
+          "choices": {
+            ".": 48,
+            "L": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            14,
+            12
+          ],
+          "choices": {
+            ".": 49,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            1,
+            13
+          ],
+          "choices": {
+            ".": 49,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            2,
+            13
+          ],
+          "choices": {
+            ".": 49,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            3,
+            13
+          ],
+          "choices": {
+            "L": 1,
+            ".": 49
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            4,
+            13
+          ],
+          "choices": {
+            ".": 47,
+            "B": 3
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            5,
+            13
+          ],
+          "choices": {
+            ".": 47,
+            "B": 3
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            8,
+            13
+          ],
+          "choices": {
+            ".": 48,
+            "B": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            10,
+            13
+          ],
+          "choices": {
+            ".": 48,
+            "B": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            12,
+            13
+          ],
+          "choices": {
+            "L": 1,
+            ".": 49
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            13,
+            13
+          ],
+          "choices": {
+            ".": 49,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            14,
+            13
+          ],
+          "choices": {
+            ".": 49,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            3,
+            14
+          ],
+          "choices": {
+            "L": 1,
+            ".": 49
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            5,
+            14
+          ],
+          "choices": {
+            ".": 49,
+            "D": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            9,
+            14
+          ],
+          "choices": {
+            "L": 1,
+            ".": 49
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            12,
+            14
+          ],
+          "choices": {
+            "L": 1,
+            ".": 49
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            2,
+            0
+          ],
+          "choices": {
+            ".": 47,
+            "B": 2,
+            "D": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            5,
+            0
+          ],
+          "choices": {
+            ".": 48,
+            "D": 1,
+            "B": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            6,
+            0
+          ],
+          "choices": {
+            ".": 48,
+            "B": 1,
+            "D": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            7,
+            0
+          ],
+          "choices": {
+            ".": 47,
+            "B": 2,
+            "D": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            8,
+            0
+          ],
+          "choices": {
+            ".": 47,
+            "B": 2,
+            "D": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            13,
+            0
+          ],
+          "choices": {
+            ".": 48,
+            "B": 1,
+            "D": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            13,
+            1
+          ],
+          "choices": {
+            ".": 48,
+            "L": 1,
+            "B": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            1,
+            2
+          ],
+          "choices": {
+            ".": 45,
+            "B": 3,
+            "L": 2
+          },
+          "token": "L"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            1,
+            2
+          ],
+          "target": [
+            2,
+            2
+          ],
+          "direction": "right",
+          "before": {
+            ".": 40,
+            "B": 5,
+            "D": 1,
+            "N": 2,
+            "L": 1,
+            "E": 1
+          },
+          "remaining": {
+            ".": 40,
+            "B": 5,
+            "L": 1
+          }
+        },
+        {
+          "event": "propagated",
+          "source": [
+            1,
+            2
+          ],
+          "target": [
+            1,
+            3
+          ],
+          "direction": "down",
+          "before": {
+            ".": 44,
+            "B": 3,
+            "S": 1,
+            "L": 1,
+            "M": 1
+          },
+          "remaining": {
+            ".": 44,
+            "B": 3,
+            "L": 1
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            2,
+            2
+          ],
+          "choices": {
+            ".": 40,
+            "B": 5,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            13,
+            2
+          ],
+          "choices": {
+            ".": 48,
+            "L": 1,
+            "B": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            1,
+            3
+          ],
+          "choices": {
+            ".": 44,
+            "B": 3,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "propagated",
+          "source": [
+            1,
+            3
+          ],
+          "target": [
+            2,
+            3
+          ],
+          "direction": "right",
+          "before": {
+            ".": 32,
+            "A": 1,
+            "S": 2,
+            "N": 1,
+            "B": 9,
+            "L": 2,
+            "E": 1,
+            "M": 2
+          },
+          "remaining": {
+            ".": 32,
+            "S": 2,
+            "N": 1,
+            "B": 9,
+            "L": 2,
+            "E": 1,
+            "M": 2
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            12,
+            3
+          ],
+          "choices": {
+            ".": 41,
+            "B": 6,
+            "S": 3
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            13,
+            3
+          ],
+          "choices": {
+            ".": 43,
+            "B": 5,
+            "L": 2
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            14,
+            4
+          ],
+          "choices": {
+            ".": 47,
+            "B": 2,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            5,
+            7
+          ],
+          "choices": {
+            "B": 40,
+            ".": 9,
+            "S": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "propagated",
+          "source": [
+            5,
+            7
+          ],
+          "target": [
+            6,
+            7
+          ],
+          "direction": "right",
+          "before": {
+            "A": 1,
+            ".": 5,
+            "B": 38,
+            "L": 1,
+            "D": 1,
+            "S": 2,
+            "M": 2
+          },
+          "remaining": {
+            ".": 5,
+            "B": 38,
+            "L": 1,
+            "D": 1,
+            "S": 2,
+            "M": 2
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            10,
+            7
+          ],
+          "choices": {
+            "B": 36,
+            ".": 11,
+            "S": 3
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            1,
+            9
+          ],
+          "choices": {
+            ".": 45,
+            "B": 2,
+            "L": 3
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            13,
+            9
+          ],
+          "choices": {
+            "S": 3,
+            ".": 43,
+            "L": 4
+          },
+          "token": "L"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            13,
+            9
+          ],
+          "target": [
+            12,
+            9
+          ],
+          "direction": "left",
+          "before": {
+            "S": 4,
+            ".": 41,
+            "L": 2,
+            "D": 1,
+            "B": 2
+          },
+          "remaining": {
+            ".": 41,
+            "L": 2,
+            "B": 2
+          }
+        },
+        {
+          "event": "propagated",
+          "source": [
+            13,
+            9
+          ],
+          "target": [
+            13,
+            8
+          ],
+          "direction": "up",
+          "before": {
+            "S": 3,
+            ".": 41,
+            "L": 5,
+            "B": 1
+          },
+          "remaining": {
+            ".": 41,
+            "L": 5,
+            "B": 1
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            13,
+            8
+          ],
+          "choices": {
+            ".": 41,
+            "L": 5,
+            "B": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            12,
+            9
+          ],
+          "choices": {
+            ".": 41,
+            "L": 2,
+            "B": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            1,
+            10
+          ],
+          "choices": {
+            ".": 47,
+            "L": 2,
+            "B": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            2,
+            10
+          ],
+          "choices": {
+            ".": 43,
+            "L": 4,
+            "B": 3
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            13,
+            10
+          ],
+          "choices": {
+            ".": 45,
+            "L": 4,
+            "B": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            1,
+            11
+          ],
+          "choices": {
+            ".": 46,
+            "L": 3,
+            "B": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            3,
+            11
+          ],
+          "choices": {
+            ".": 41,
+            "L": 5,
+            "B": 4
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            12,
+            11
+          ],
+          "choices": {
+            ".": 44,
+            "B": 3,
+            "L": 3
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            14,
+            11
+          ],
+          "choices": {
+            ".": 47,
+            "L": 2,
+            "B": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            4,
+            12
+          ],
+          "choices": {
+            ".": 46,
+            "L": 2,
+            "B": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            5,
+            12
+          ],
+          "choices": {
+            ".": 44,
+            "L": 2,
+            "B": 4
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            8,
+            12
+          ],
+          "choices": {
+            ".": 45,
+            "B": 3,
+            "L": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "propagated",
+          "source": [
+            8,
+            12
+          ],
+          "target": [
+            7,
+            12
+          ],
+          "direction": "left",
+          "before": {
+            ".": 44,
+            "B": 3,
+            "A": 1,
+            "L": 2
+          },
+          "remaining": {
+            ".": 44,
+            "B": 3,
+            "L": 2
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            7,
+            12
+          ],
+          "choices": {
+            ".": 44,
+            "B": 3,
+            "L": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "propagated",
+          "source": [
+            7,
+            12
+          ],
+          "target": [
+            7,
+            11
+          ],
+          "direction": "up",
+          "before": {
+            "S": 2,
+            ".": 38,
+            "B": 7,
+            "A": 1,
+            "L": 1,
+            "D": 1
+          },
+          "remaining": {
+            "S": 2,
+            ".": 38,
+            "B": 7,
+            "L": 1,
+            "D": 1
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            10,
+            12
+          ],
+          "choices": {
+            ".": 46,
+            "B": 3,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            11,
+            12
+          ],
+          "choices": {
+            ".": 46,
+            "B": 3,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            7,
+            13
+          ],
+          "choices": {
+            ".": 46,
+            "B": 3,
+            "D": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            9,
+            13
+          ],
+          "choices": {
+            "L": 2,
+            ".": 46,
+            "B": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            6,
+            14
+          ],
+          "choices": {
+            "L": 1,
+            ".": 48,
+            "D": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            4,
+            0
+          ],
+          "choices": {
+            ".": 47,
+            "F": 1,
+            "D": 1,
+            "B": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            2,
+            1
+          ],
+          "choices": {
+            ".": 41,
+            "E": 3,
+            "L": 1,
+            "B": 5
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            10,
+            1
+          ],
+          "choices": {
+            ".": 42,
+            "B": 5,
+            "S": 2,
+            "D": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            4,
+            4
+          ],
+          "choices": {
+            "S": 3,
+            ".": 16,
+            "B": 29,
+            "E": 2
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            0,
+            5
+          ],
+          "choices": {
+            ".": 47,
+            "B": 1,
+            "S": 1,
+            "L": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            13,
+            5
+          ],
+          "choices": {
+            "S": 4,
+            ".": 34,
+            "B": 5,
+            "L": 7
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            14,
+            5
+          ],
+          "choices": {
+            ".": 43,
+            "L": 4,
+            "S": 2,
+            "B": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            15,
+            5
+          ],
+          "choices": {
+            ".": 47,
+            "B": 1,
+            "S": 1,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            1,
+            6
+          ],
+          "choices": {
+            ".": 35,
+            "L": 6,
+            "B": 5,
+            "S": 4
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            2,
+            6
+          ],
+          "choices": {
+            "S": 6,
+            ".": 31,
+            "L": 5,
+            "B": 8
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            12,
+            6
+          ],
+          "choices": {
+            "B": 14,
+            ".": 25,
+            "L": 6,
+            "S": 5
+          },
+          "token": "L"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            12,
+            6
+          ],
+          "target": [
+            13,
+            6
+          ],
+          "direction": "right",
+          "before": {
+            "S": 4,
+            ".": 35,
+            "L": 7,
+            "B": 3,
+            "D": 1
+          },
+          "remaining": {
+            ".": 35,
+            "L": 7,
+            "B": 3
+          }
+        },
+        {
+          "event": "propagated",
+          "source": [
+            12,
+            6
+          ],
+          "target": [
+            11,
+            6
+          ],
+          "direction": "left",
+          "before": {
+            "B": 31,
+            ".": 12,
+            "L": 2,
+            "J": 1,
+            "S": 3,
+            "M": 1
+          },
+          "remaining": {
+            "B": 31,
+            ".": 12,
+            "L": 2
+          }
+        },
+        {
+          "event": "propagated",
+          "source": [
+            12,
+            6
+          ],
+          "target": [
+            12,
+            7
+          ],
+          "direction": "down",
+          "before": {
+            "B": 9,
+            ".": 32,
+            "L": 7,
+            "S": 2
+          },
+          "remaining": {
+            "B": 9,
+            ".": 32,
+            "L": 7
+          }
+        },
+        {
+          "event": "propagated",
+          "source": [
+            12,
+            6
+          ],
+          "target": [
+            12,
+            5
+          ],
+          "direction": "up",
+          "before": {
+            "S": 7,
+            ".": 22,
+            "B": 13,
+            "L": 7,
+            "D": 1
+          },
+          "remaining": {
+            ".": 22,
+            "B": 13,
+            "L": 7
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            12,
+            5
+          ],
+          "choices": {
+            ".": 22,
+            "B": 13,
+            "L": 7
+          },
+          "token": "L"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            12,
+            5
+          ],
+          "target": [
+            11,
+            5
+          ],
+          "direction": "left",
+          "before": {
+            "B": 29,
+            ".": 12,
+            "J": 1,
+            "E": 2,
+            "L": 2,
+            "S": 3,
+            "D": 1
+          },
+          "remaining": {
+            "B": 29,
+            ".": 12,
+            "L": 2
+          }
+        },
+        {
+          "event": "propagated",
+          "source": [
+            12,
+            5
+          ],
+          "target": [
+            12,
+            4
+          ],
+          "direction": "up",
+          "before": {
+            "S": 7,
+            ".": 27,
+            "B": 12,
+            "D": 1,
+            "L": 3
+          },
+          "remaining": {
+            ".": 27,
+            "B": 12,
+            "L": 3
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            12,
+            4
+          ],
+          "choices": {
+            ".": 27,
+            "B": 12,
+            "L": 3
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            11,
+            5
+          ],
+          "choices": {
+            "B": 29,
+            ".": 12,
+            "L": 2
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            11,
+            6
+          ],
+          "choices": {
+            "B": 31,
+            ".": 12,
+            "L": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            13,
+            6
+          ],
+          "choices": {
+            ".": 35,
+            "L": 7,
+            "B": 3
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            12,
+            7
+          ],
+          "choices": {
+            "B": 9,
+            ".": 32,
+            "L": 7
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            3,
+            7
+          ],
+          "choices": {
+            "B": 16,
+            ".": 27,
+            "L": 6,
+            "S": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            13,
+            7
+          ],
+          "choices": {
+            "S": 3,
+            ".": 40,
+            "L": 4,
+            "B": 3
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            14,
+            7
+          ],
+          "choices": {
+            ".": 43,
+            "L": 4,
+            "S": 2,
+            "D": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            8,
+            8
+          ],
+          "choices": {
+            "M": 2,
+            ".": 9,
+            "B": 38,
+            "S": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            14,
+            8
+          ],
+          "choices": {
+            ".": 47,
+            "J": 1,
+            "L": 1,
+            "S": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            2,
+            9
+          ],
+          "choices": {
+            "S": 3,
+            ".": 40,
+            "L": 5,
+            "B": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            3,
+            10
+          ],
+          "choices": {
+            "S": 3,
+            ".": 38,
+            "L": 3,
+            "B": 6
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            12,
+            10
+          ],
+          "choices": {
+            "S": 3,
+            ".": 42,
+            "B": 3,
+            "L": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            2,
+            11
+          ],
+          "choices": {
+            ".": 46,
+            "L": 2,
+            "J": 1,
+            "B": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            9,
+            11
+          ],
+          "choices": {
+            "S": 2,
+            ".": 38,
+            "L": 4,
+            "B": 6
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            13,
+            11
+          ],
+          "choices": {
+            ".": 45,
+            "B": 2,
+            "L": 2,
+            "J": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            3,
+            12
+          ],
+          "choices": {
+            "J": 1,
+            ".": 44,
+            "L": 3,
+            "B": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            12,
+            12
+          ],
+          "choices": {
+            "J": 1,
+            ".": 47,
+            "B": 1,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            6,
+            13
+          ],
+          "choices": {
+            "L": 2,
+            ".": 45,
+            "D": 1,
+            "B": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            5,
+            1
+          ],
+          "choices": {
+            ".": 37,
+            "E": 2,
+            "B": 8,
+            "S": 2,
+            "D": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            7,
+            1
+          ],
+          "choices": {
+            ".": 31,
+            "B": 14,
+            "D": 2,
+            "S": 2,
+            "N": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            8,
+            1
+          ],
+          "choices": {
+            ".": 32,
+            "B": 13,
+            "D": 2,
+            "S": 2,
+            "N": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            8,
+            1
+          ],
+          "target": [
+            9,
+            1
+          ],
+          "direction": "right",
+          "before": {
+            ".": 34,
+            "E": 4,
+            "F": 2,
+            "B": 7,
+            "D": 1,
+            "S": 2
+          },
+          "remaining": {
+            ".": 34,
+            "E": 4,
+            "B": 7,
+            "D": 1,
+            "S": 2
+          }
+        },
+        {
+          "event": "propagated",
+          "source": [
+            8,
+            1
+          ],
+          "target": [
+            8,
+            2
+          ],
+          "direction": "down",
+          "before": {
+            ".": 23,
+            "M": 4,
+            "B": 19,
+            "S": 3,
+            "F": 1
+          },
+          "remaining": {
+            ".": 23,
+            "M": 4,
+            "B": 19,
+            "S": 3
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            8,
+            2
+          ],
+          "choices": {
+            ".": 23,
+            "M": 4,
+            "B": 19,
+            "S": 3
+          },
+          "token": "B"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            8,
+            2
+          ],
+          "target": [
+            9,
+            2
+          ],
+          "direction": "right",
+          "before": {
+            ".": 24,
+            "F": 1,
+            "B": 18,
+            "N": 2,
+            "S": 3,
+            "E": 2
+          },
+          "remaining": {
+            ".": 24,
+            "B": 18,
+            "N": 2,
+            "S": 3,
+            "E": 2
+          }
+        },
+        {
+          "event": "propagated",
+          "source": [
+            8,
+            2
+          ],
+          "target": [
+            7,
+            2
+          ],
+          "direction": "left",
+          "before": {
+            ".": 23,
+            "M": 4,
+            "B": 20,
+            "F": 1,
+            "S": 2
+          },
+          "remaining": {
+            ".": 23,
+            "M": 4,
+            "B": 20,
+            "S": 2
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            7,
+            2
+          ],
+          "choices": {
+            ".": 23,
+            "M": 4,
+            "B": 20,
+            "S": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            9,
+            1
+          ],
+          "choices": {
+            ".": 34,
+            "E": 4,
+            "B": 7,
+            "D": 1,
+            "S": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            9,
+            2
+          ],
+          "choices": {
+            ".": 24,
+            "B": 18,
+            "N": 2,
+            "S": 3,
+            "E": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            12,
+            2
+          ],
+          "choices": {
+            ".": 42,
+            "B": 3,
+            "N": 1,
+            "L": 2,
+            "S": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            3,
+            3
+          ],
+          "choices": {
+            ".": 33,
+            "B": 11,
+            "S": 3,
+            "E": 2,
+            "M": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            10,
+            3
+          ],
+          "choices": {
+            "S": 4,
+            ".": 12,
+            "B": 24,
+            "E": 7,
+            "D": 3
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            1,
+            4
+          ],
+          "choices": {
+            ".": 39,
+            "B": 7,
+            "S": 2,
+            "M": 1,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            7,
+            4
+          ],
+          "choices": {
+            "B": 34,
+            "M": 6,
+            ".": 7,
+            "S": 2,
+            "A": 1
+          },
+          "token": "M"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            7,
+            4
+          ],
+          "target": [
+            8,
+            4
+          ],
+          "direction": "right",
+          "before": {
+            "B": 35,
+            "M": 6,
+            ".": 7,
+            "S": 1,
+            "D": 1
+          },
+          "remaining": {
+            "B": 35,
+            "M": 6,
+            ".": 7
+          }
+        },
+        {
+          "event": "propagated",
+          "source": [
+            7,
+            4
+          ],
+          "target": [
+            6,
+            4
+          ],
+          "direction": "left",
+          "before": {
+            "B": 35,
+            ".": 6,
+            "E": 5,
+            "S": 1,
+            "M": 2,
+            "A": 1
+          },
+          "remaining": {
+            "B": 35,
+            ".": 6,
+            "M": 2
+          }
+        },
+        {
+          "event": "propagated",
+          "source": [
+            7,
+            4
+          ],
+          "target": [
+            7,
+            5
+          ],
+          "direction": "down",
+          "before": {
+            "B": 31,
+            "A": 6,
+            ".": 4,
+            "S": 2,
+            "M": 6,
+            "D": 1
+          },
+          "remaining": {
+            "B": 31,
+            "A": 6,
+            ".": 4,
+            "M": 6
+          }
+        },
+        {
+          "event": "propagated",
+          "source": [
+            7,
+            4
+          ],
+          "target": [
+            7,
+            3
+          ],
+          "direction": "up",
+          "before": {
+            "S": 3,
+            "E": 1,
+            "B": 33,
+            ".": 8,
+            "A": 1,
+            "M": 3,
+            "D": 1
+          },
+          "remaining": {
+            "E": 1,
+            "B": 33,
+            ".": 8,
+            "A": 1,
+            "M": 3
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            6,
+            4
+          ],
+          "choices": {
+            "B": 35,
+            ".": 6,
+            "M": 2
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            8,
+            4
+          ],
+          "choices": {
+            "B": 35,
+            "M": 6,
+            ".": 7
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            7,
+            5
+          ],
+          "choices": {
+            "B": 31,
+            "A": 6,
+            ".": 4,
+            "M": 6
+          },
+          "token": "M"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            7,
+            5
+          ],
+          "target": [
+            8,
+            5
+          ],
+          "direction": "right",
+          "before": {
+            "B": 35,
+            ".": 4,
+            "D": 3,
+            "M": 6,
+            "A": 2
+          },
+          "remaining": {
+            "B": 35,
+            ".": 4,
+            "M": 6
+          }
+        },
+        {
+          "event": "propagated",
+          "source": [
+            7,
+            5
+          ],
+          "target": [
+            6,
+            5
+          ],
+          "direction": "left",
+          "before": {
+            "E": 3,
+            "B": 35,
+            ".": 3,
+            "J": 1,
+            "S": 2,
+            "A": 1,
+            "M": 3,
+            "D": 2
+          },
+          "remaining": {
+            "B": 35,
+            ".": 3,
+            "M": 3
+          }
+        },
+        {
+          "event": "propagated",
+          "source": [
+            7,
+            5
+          ],
+          "target": [
+            7,
+            6
+          ],
+          "direction": "down",
+          "before": {
+            "B": 21,
+            "M": 4,
+            "A": 20,
+            ".": 2,
+            "D": 2,
+            "S": 1
+          },
+          "remaining": {
+            "B": 21,
+            "M": 4,
+            "A": 20,
+            ".": 2
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            6,
+            5
+          ],
+          "choices": {
+            "B": 35,
+            ".": 3,
+            "M": 3
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            8,
+            5
+          ],
+          "choices": {
+            "B": 35,
+            ".": 4,
+            "M": 6
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            7,
+            6
+          ],
+          "choices": {
+            "B": 21,
+            "M": 4,
+            "A": 20,
+            ".": 2
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            7,
+            3
+          ],
+          "choices": {
+            "E": 1,
+            "B": 33,
+            ".": 8,
+            "A": 1,
+            "M": 3
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            9,
+            4
+          ],
+          "choices": {
+            "B": 33,
+            ".": 8,
+            "S": 2,
+            "E": 5,
+            "M": 2
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            11,
+            4
+          ],
+          "choices": {
+            "S": 4,
+            ".": 19,
+            "B": 24,
+            "E": 2,
+            "D": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            1,
+            5
+          ],
+          "choices": {
+            ".": 37,
+            "L": 3,
+            "S": 4,
+            "B": 4,
+            "M": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "propagated",
+          "source": [
+            1,
+            5
+          ],
+          "target": [
+            2,
+            5
+          ],
+          "direction": "right",
+          "before": {
+            "S": 6,
+            ".": 25,
+            "B": 9,
+            "L": 7,
+            "A": 1,
+            "N": 1,
+            "M": 1
+          },
+          "remaining": {
+            "S": 6,
+            ".": 25,
+            "B": 9,
+            "L": 7,
+            "N": 1,
+            "M": 1
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            5,
+            5
+          ],
+          "choices": {
+            "B": 41,
+            ".": 4,
+            "E": 3,
+            "A": 1,
+            "D": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            10,
+            5
+          ],
+          "choices": {
+            "B": 37,
+            ".": 6,
+            "E": 3,
+            "S": 2,
+            "D": 2
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            5,
+            6
+          ],
+          "choices": {
+            "B": 44,
+            ".": 3,
+            "M": 1,
+            "E": 1,
+            "D": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            8,
+            6
+          ],
+          "choices": {
+            "B": 40,
+            "M": 4,
+            ".": 3,
+            "S": 2,
+            "D": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            14,
+            6
+          ],
+          "choices": {
+            ".": 40,
+            "L": 6,
+            "S": 2,
+            "D": 1,
+            "B": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            1,
+            7
+          ],
+          "choices": {
+            ".": 40,
+            "L": 4,
+            "B": 1,
+            "M": 2,
+            "S": 3
+          },
+          "token": "."
+        },
+        {
+          "event": "propagated",
+          "source": [
+            1,
+            7
+          ],
+          "target": [
+            2,
+            7
+          ],
+          "direction": "right",
+          "before": {
+            "S": 4,
+            ".": 33,
+            "L": 4,
+            "A": 1,
+            "B": 8
+          },
+          "remaining": {
+            "S": 4,
+            ".": 33,
+            "L": 4,
+            "B": 8
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            2,
+            7
+          ],
+          "choices": {
+            "S": 4,
+            ".": 33,
+            "L": 4,
+            "B": 8
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            7,
+            7
+          ],
+          "choices": {
+            "B": 33,
+            "M": 6,
+            "A": 5,
+            ".": 3,
+            "S": 3
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            8,
+            7
+          ],
+          "choices": {
+            "B": 37,
+            "M": 6,
+            ".": 4,
+            "D": 1,
+            "S": 2
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            11,
+            7
+          ],
+          "choices": {
+            "B": 27,
+            ".": 18,
+            "D": 1,
+            "S": 3,
+            "E": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            1,
+            8
+          ],
+          "choices": {
+            ".": 45,
+            "B": 2,
+            "J": 1,
+            "L": 1,
+            "S": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            4,
+            8
+          ],
+          "choices": {
+            "B": 26,
+            ".": 20,
+            "D": 1,
+            "J": 1,
+            "L": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "propagated",
+          "source": [
+            4,
+            8
+          ],
+          "target": [
+            5,
+            8
+          ],
+          "direction": "right",
+          "before": {
+            "B": 33,
+            ".": 13,
+            "J": 2,
+            "A": 1,
+            "D": 1
+          },
+          "remaining": {
+            "B": 33,
+            ".": 13,
+            "J": 2,
+            "D": 1
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            5,
+            8
+          ],
+          "choices": {
+            "B": 33,
+            ".": 13,
+            "J": 2,
+            "D": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            6,
+            8
+          ],
+          "choices": {
+            "B": 35,
+            "D": 4,
+            ".": 8,
+            "L": 2,
+            "M": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "propagated",
+          "source": [
+            6,
+            8
+          ],
+          "target": [
+            7,
+            8
+          ],
+          "direction": "right",
+          "before": {
+            "M": 2,
+            ".": 10,
+            "B": 35,
+            "A": 2,
+            "S": 1
+          },
+          "remaining": {
+            "M": 2,
+            ".": 10,
+            "B": 35,
+            "S": 1
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            7,
+            8
+          ],
+          "choices": {
+            "M": 2,
+            ".": 10,
+            "B": 35,
+            "S": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            10,
+            8
+          ],
+          "choices": {
+            "B": 30,
+            ".": 17,
+            "J": 1,
+            "S": 1,
+            "D": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            12,
+            8
+          ],
+          "choices": {
+            "B": 7,
+            ".": 35,
+            "J": 1,
+            "L": 6,
+            "S": 1
+          },
+          "token": "L"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            12,
+            8
+          ],
+          "target": [
+            11,
+            8
+          ],
+          "direction": "left",
+          "before": {
+            "B": 19,
+            ".": 26,
+            "D": 1,
+            "S": 1,
+            "J": 1,
+            "L": 2
+          },
+          "remaining": {
+            "B": 19,
+            ".": 26,
+            "L": 2
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            11,
+            8
+          ],
+          "choices": {
+            "B": 19,
+            ".": 26,
+            "L": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            3,
+            9
+          ],
+          "choices": {
+            "S": 4,
+            ".": 36,
+            "B": 6,
+            "D": 1,
+            "L": 3
+          },
+          "token": "B"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            3,
+            9
+          ],
+          "target": [
+            3,
+            8
+          ],
+          "direction": "up",
+          "before": {
+            "B": 13,
+            ".": 29,
+            "J": 1,
+            "L": 5,
+            "S": 1,
+            "E": 1
+          },
+          "remaining": {
+            "B": 13,
+            ".": 29,
+            "L": 5,
+            "S": 1,
+            "E": 1
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            3,
+            8
+          ],
+          "choices": {
+            "B": 13,
+            ".": 29,
+            "L": 5,
+            "S": 1,
+            "E": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            5,
+            9
+          ],
+          "choices": {
+            "B": 25,
+            ".": 21,
+            "D": 1,
+            "S": 1,
+            "L": 2
+          },
+          "token": "B"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            5,
+            9
+          ],
+          "target": [
+            5,
+            10
+          ],
+          "direction": "down",
+          "before": {
+            "B": 15,
+            ".": 26,
+            "J": 1,
+            "L": 5,
+            "D": 1,
+            "S": 1,
+            "F": 1
+          },
+          "remaining": {
+            "B": 15,
+            ".": 26,
+            "J": 1,
+            "L": 5,
+            "D": 1,
+            "S": 1
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            6,
+            9
+          ],
+          "choices": {
+            "B": 30,
+            ".": 14,
+            "L": 4,
+            "S": 1,
+            "D": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            9,
+            9
+          ],
+          "choices": {
+            "B": 30,
+            ".": 15,
+            "L": 3,
+            "S": 1,
+            "D": 1
+          },
+          "token": "L"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            9,
+            9
+          ],
+          "target": [
+            10,
+            9
+          ],
+          "direction": "right",
+          "before": {
+            "B": 22,
+            ".": 25,
+            "D": 1,
+            "S": 1,
+            "L": 1
+          },
+          "remaining": {
+            "B": 22,
+            ".": 25,
+            "L": 1
+          }
+        },
+        {
+          "event": "propagated",
+          "source": [
+            9,
+            9
+          ],
+          "target": [
+            8,
+            9
+          ],
+          "direction": "left",
+          "before": {
+            "B": 27,
+            ".": 18,
+            "D": 1,
+            "M": 2,
+            "S": 1,
+            "L": 1
+          },
+          "remaining": {
+            "B": 27,
+            ".": 18,
+            "L": 1
+          }
+        },
+        {
+          "event": "propagated",
+          "source": [
+            9,
+            9
+          ],
+          "target": [
+            9,
+            10
+          ],
+          "direction": "down",
+          "before": {
+            "B": 15,
+            ".": 27,
+            "D": 1,
+            "L": 6,
+            "S": 1
+          },
+          "remaining": {
+            "B": 15,
+            ".": 27,
+            "L": 6
+          }
+        },
+        {
+          "event": "propagated",
+          "source": [
+            9,
+            9
+          ],
+          "target": [
+            9,
+            8
+          ],
+          "direction": "up",
+          "before": {
+            "B": 34,
+            "D": 4,
+            ".": 8,
+            "L": 2,
+            "S": 1,
+            "M": 1
+          },
+          "remaining": {
+            "B": 34,
+            ".": 8,
+            "L": 2,
+            "M": 1
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            8,
+            9
+          ],
+          "choices": {
+            "B": 27,
+            ".": 18,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            10,
+            9
+          ],
+          "choices": {
+            "B": 22,
+            ".": 25,
+            "L": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            10,
+            9
+          ],
+          "target": [
+            10,
+            10
+          ],
+          "direction": "down",
+          "before": {
+            "B": 13,
+            ".": 28,
+            "J": 1,
+            "L": 5,
+            "D": 1,
+            "S": 1,
+            "F": 1
+          },
+          "remaining": {
+            "B": 13,
+            ".": 28,
+            "J": 1,
+            "L": 5,
+            "D": 1,
+            "S": 1
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            9,
+            10
+          ],
+          "choices": {
+            "B": 15,
+            ".": 27,
+            "L": 6
+          },
+          "token": "L"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            9,
+            10
+          ],
+          "target": [
+            10,
+            10
+          ],
+          "direction": "right",
+          "before": {
+            "B": 13,
+            ".": 28,
+            "J": 1,
+            "L": 5,
+            "D": 1,
+            "S": 1
+          },
+          "remaining": {
+            "B": 13,
+            ".": 28,
+            "L": 5
+          }
+        },
+        {
+          "event": "propagated",
+          "source": [
+            9,
+            10
+          ],
+          "target": [
+            8,
+            10
+          ],
+          "direction": "left",
+          "before": {
+            "B": 17,
+            ".": 28,
+            "L": 1,
+            "D": 1,
+            "S": 1,
+            "J": 1,
+            "F": 1
+          },
+          "remaining": {
+            "B": 17,
+            ".": 28,
+            "L": 1
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            8,
+            10
+          ],
+          "choices": {
+            "B": 17,
+            ".": 28,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            10,
+            10
+          ],
+          "choices": {
+            "B": 13,
+            ".": 28,
+            "L": 5
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            9,
+            8
+          ],
+          "choices": {
+            "B": 34,
+            ".": 8,
+            "L": 2,
+            "M": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            11,
+            9
+          ],
+          "choices": {
+            "B": 15,
+            ".": 29,
+            "S": 1,
+            "J": 1,
+            "L": 4
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            4,
+            10
+          ],
+          "choices": {
+            "S": 3,
+            ".": 31,
+            "L": 5,
+            "B": 10,
+            "F": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "propagated",
+          "source": [
+            4,
+            10
+          ],
+          "target": [
+            4,
+            9
+          ],
+          "direction": "up",
+          "before": {
+            "B": 16,
+            ".": 26,
+            "S": 1,
+            "J": 1,
+            "L": 4,
+            "D": 1,
+            "A": 1
+          },
+          "remaining": {
+            "B": 16,
+            ".": 26,
+            "S": 1,
+            "J": 1,
+            "L": 4,
+            "D": 1
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            6,
+            10
+          ],
+          "choices": {
+            "B": 16,
+            ".": 27,
+            "D": 1,
+            "L": 5,
+            "S": 1
+          },
+          "token": "L"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            6,
+            10
+          ],
+          "target": [
+            7,
+            10
+          ],
+          "direction": "right",
+          "before": {
+            "B": 17,
+            ".": 30,
+            "D": 1,
+            "S": 1,
+            "F": 1
+          },
+          "remaining": {
+            "B": 17,
+            ".": 30
+          }
+        },
+        {
+          "event": "propagated",
+          "source": [
+            6,
+            10
+          ],
+          "target": [
+            5,
+            10
+          ],
+          "direction": "left",
+          "before": {
+            "B": 15,
+            ".": 26,
+            "J": 1,
+            "L": 5,
+            "D": 1,
+            "S": 1
+          },
+          "remaining": {
+            "B": 15,
+            ".": 26,
+            "L": 5
+          }
+        },
+        {
+          "event": "propagated",
+          "source": [
+            6,
+            10
+          ],
+          "target": [
+            6,
+            11
+          ],
+          "direction": "down",
+          "before": {
+            "S": 2,
+            ".": 38,
+            "L": 3,
+            "B": 6,
+            "D": 1
+          },
+          "remaining": {
+            ".": 38,
+            "L": 3,
+            "B": 6
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            7,
+            10
+          ],
+          "choices": {
+            "B": 17,
+            ".": 30
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            5,
+            10
+          ],
+          "choices": {
+            "B": 15,
+            ".": 26,
+            "L": 5
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            6,
+            11
+          ],
+          "choices": {
+            ".": 38,
+            "L": 3,
+            "B": 6
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            11,
+            10
+          ],
+          "choices": {
+            "S": 3,
+            ".": 34,
+            "B": 8,
+            "F": 1,
+            "L": 4
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            4,
+            11
+          ],
+          "choices": {
+            "S": 2,
+            ".": 36,
+            "L": 4,
+            "F": 1,
+            "B": 7
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            7,
+            11
+          ],
+          "choices": {
+            "S": 2,
+            ".": 38,
+            "B": 7,
+            "L": 1,
+            "D": 1
+          },
+          "token": "S"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            7,
+            11
+          ],
+          "target": [
+            8,
+            11
+          ],
+          "direction": "right",
+          "before": {
+            "S": 2,
+            ".": 37,
+            "L": 1,
+            "B": 8,
+            "J": 1,
+            "D": 1
+          },
+          "remaining": {
+            "S": 2,
+            ".": 37,
+            "B": 8,
+            "D": 1
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            8,
+            11
+          ],
+          "choices": {
+            "S": 2,
+            ".": 37,
+            "B": 8,
+            "D": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            11,
+            11
+          ],
+          "choices": {
+            "S": 2,
+            ".": 39,
+            "B": 5,
+            "L": 3,
+            "F": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            6,
+            12
+          ],
+          "choices": {
+            "J": 2,
+            ".": 43,
+            "L": 1,
+            "F": 1,
+            "B": 3
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            9,
+            12
+          ],
+          "choices": {
+            "J": 2,
+            ".": 44,
+            "L": 1,
+            "F": 1,
+            "B": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            3,
+            1
+          ],
+          "choices": {
+            ".": 35,
+            "E": 2,
+            "N": 5,
+            "L": 1,
+            "B": 6,
+            "D": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            6,
+            1
+          ],
+          "choices": {
+            ".": 32,
+            "E": 4,
+            "F": 2,
+            "B": 9,
+            "D": 1,
+            "S": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            12,
+            1
+          ],
+          "choices": {
+            ".": 41,
+            "N": 4,
+            "E": 1,
+            "L": 1,
+            "B": 2,
+            "D": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            6,
+            2
+          ],
+          "choices": {
+            ".": 23,
+            "F": 1,
+            "B": 20,
+            "N": 2,
+            "E": 2,
+            "S": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            10,
+            2
+          ],
+          "choices": {
+            "N": 2,
+            ".": 29,
+            "B": 14,
+            "S": 3,
+            "D": 1,
+            "F": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            6,
+            3
+          ],
+          "choices": {
+            "S": 3,
+            ".": 10,
+            "B": 30,
+            "M": 1,
+            "E": 5,
+            "D": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            8,
+            3
+          ],
+          "choices": {
+            "S": 4,
+            "E": 1,
+            "B": 33,
+            ".": 8,
+            "M": 3,
+            "D": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            9,
+            3
+          ],
+          "choices": {
+            "S": 4,
+            ".": 10,
+            "B": 28,
+            "D": 2,
+            "M": 1,
+            "E": 5
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            3,
+            4
+          ],
+          "choices": {
+            "S": 6,
+            ".": 21,
+            "B": 17,
+            "D": 1,
+            "L": 3,
+            "E": 2
+          },
+          "token": "L"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            3,
+            4
+          ],
+          "target": [
+            2,
+            4
+          ],
+          "direction": "left",
+          "before": {
+            ".": 28,
+            "B": 12,
+            "S": 3,
+            "L": 3,
+            "D": 1,
+            "J": 1,
+            "E": 2
+          },
+          "remaining": {
+            ".": 28,
+            "B": 12,
+            "L": 3
+          }
+        },
+        {
+          "event": "propagated",
+          "source": [
+            3,
+            4
+          ],
+          "target": [
+            3,
+            5
+          ],
+          "direction": "down",
+          "before": {
+            "S": 5,
+            ".": 16,
+            "B": 20,
+            "L": 6,
+            "D": 1,
+            "E": 1,
+            "M": 1
+          },
+          "remaining": {
+            ".": 16,
+            "B": 20,
+            "L": 6
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            2,
+            4
+          ],
+          "choices": {
+            ".": 28,
+            "B": 12,
+            "L": 3
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            3,
+            5
+          ],
+          "choices": {
+            ".": 16,
+            "B": 20,
+            "L": 6
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            5,
+            4
+          ],
+          "choices": {
+            "B": 34,
+            ".": 7,
+            "E": 6,
+            "L": 1,
+            "M": 1,
+            "D": 1
+          },
+          "token": "L"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            5,
+            4
+          ],
+          "target": [
+            5,
+            3
+          ],
+          "direction": "up",
+          "before": {
+            "S": 3,
+            ".": 8,
+            "B": 28,
+            "E": 7,
+            "M": 1,
+            "N": 1,
+            "D": 2
+          },
+          "remaining": {
+            ".": 8,
+            "B": 28,
+            "M": 1
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            5,
+            3
+          ],
+          "choices": {
+            ".": 8,
+            "B": 28,
+            "M": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            5,
+            3
+          ],
+          "target": [
+            4,
+            3
+          ],
+          "direction": "left",
+          "before": {
+            "S": 4,
+            ".": 17,
+            "E": 4,
+            "B": 21,
+            "F": 1,
+            "L": 1,
+            "N": 1,
+            "D": 1
+          },
+          "remaining": {
+            "S": 4,
+            ".": 17,
+            "E": 4,
+            "B": 21,
+            "L": 1,
+            "N": 1,
+            "D": 1
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            13,
+            4
+          ],
+          "choices": {
+            ".": 38,
+            "B": 6,
+            "L": 3,
+            "D": 1,
+            "J": 1,
+            "S": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            2,
+            5
+          ],
+          "choices": {
+            "S": 6,
+            ".": 25,
+            "B": 9,
+            "L": 7,
+            "N": 1,
+            "M": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            9,
+            5
+          ],
+          "choices": {
+            "E": 3,
+            "B": 35,
+            ".": 4,
+            "J": 1,
+            "D": 4,
+            "M": 3
+          },
+          "token": "E"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            9,
+            5
+          ],
+          "target": [
+            9,
+            6
+          ],
+          "direction": "down",
+          "before": {
+            "B": 40,
+            ".": 3,
+            "D": 2,
+            "J": 1,
+            "S": 2,
+            "M": 1,
+            "E": 1
+          },
+          "remaining": {
+            "B": 40,
+            ".": 3,
+            "M": 1,
+            "E": 1
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            9,
+            6
+          ],
+          "choices": {
+            "B": 40,
+            ".": 3,
+            "M": 1,
+            "E": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            3,
+            6
+          ],
+          "choices": {
+            "B": 22,
+            ".": 19,
+            "L": 5,
+            "S": 2,
+            "E": 1,
+            "D": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            10,
+            6
+          ],
+          "choices": {
+            "B": 39,
+            ".": 5,
+            "D": 3,
+            "M": 1,
+            "S": 1,
+            "E": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            4,
+            7
+          ],
+          "choices": {
+            "B": 31,
+            ".": 15,
+            "D": 1,
+            "E": 1,
+            "S": 1,
+            "N": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            4,
+            7
+          ],
+          "target": [
+            4,
+            6
+          ],
+          "direction": "up",
+          "before": {
+            "B": 35,
+            ".": 9,
+            "L": 2,
+            "J": 1,
+            "M": 1,
+            "A": 1,
+            "S": 1
+          },
+          "remaining": {
+            "B": 35,
+            ".": 9,
+            "L": 2,
+            "M": 1,
+            "A": 1,
+            "S": 1
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            4,
+            6
+          ],
+          "choices": {
+            "B": 35,
+            ".": 9,
+            "L": 2,
+            "M": 1,
+            "A": 1,
+            "S": 1
+          },
+          "token": "L"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            4,
+            6
+          ],
+          "target": [
+            4,
+            5
+          ],
+          "direction": "up",
+          "before": {
+            "B": 34,
+            ".": 8,
+            "J": 1,
+            "E": 2,
+            "L": 2,
+            "D": 1,
+            "M": 1,
+            "S": 1
+          },
+          "remaining": {
+            "B": 34,
+            ".": 8,
+            "J": 1,
+            "L": 2,
+            "M": 1
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            4,
+            5
+          ],
+          "choices": {
+            "B": 34,
+            ".": 8,
+            "J": 1,
+            "L": 2,
+            "M": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            6,
+            7
+          ],
+          "choices": {
+            ".": 5,
+            "B": 38,
+            "L": 1,
+            "D": 1,
+            "S": 2,
+            "M": 2
+          },
+          "token": "B"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            6,
+            7
+          ],
+          "target": [
+            6,
+            6
+          ],
+          "direction": "up",
+          "before": {
+            "B": 41,
+            ".": 2,
+            "D": 2,
+            "J": 1,
+            "S": 1,
+            "M": 1,
+            "A": 1,
+            "E": 1
+          },
+          "remaining": {
+            "B": 41,
+            ".": 2,
+            "D": 2,
+            "S": 1,
+            "M": 1,
+            "A": 1,
+            "E": 1
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            2,
+            8
+          ],
+          "choices": {
+            "S": 3,
+            ".": 37,
+            "L": 5,
+            "B": 3,
+            "J": 1,
+            "E": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            4,
+            9
+          ],
+          "choices": {
+            "B": 16,
+            ".": 26,
+            "S": 1,
+            "J": 1,
+            "L": 4,
+            "D": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            7,
+            9
+          ],
+          "choices": {
+            "B": 26,
+            ".": 17,
+            "D": 3,
+            "M": 2,
+            "S": 1,
+            "L": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            5,
+            11
+          ],
+          "choices": {
+            "S": 2,
+            ".": 35,
+            "L": 5,
+            "D": 1,
+            "J": 1,
+            "B": 6
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            10,
+            11
+          ],
+          "choices": {
+            "S": 2,
+            ".": 37,
+            "L": 4,
+            "D": 1,
+            "J": 1,
+            "B": 5
+          },
+          "token": "S"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            11,
+            1
+          ],
+          "choices": {
+            "P": 1,
+            ".": 39,
+            "N": 3,
+            "E": 2,
+            "B": 3,
+            "D": 1,
+            "S": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            3,
+            2
+          ],
+          "choices": {
+            ".": 35,
+            "B": 7,
+            "D": 1,
+            "N": 2,
+            "L": 2,
+            "E": 2,
+            "S": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "propagated",
+          "source": [
+            3,
+            2
+          ],
+          "target": [
+            4,
+            2
+          ],
+          "direction": "right",
+          "before": {
+            ".": 25,
+            "N": 5,
+            "B": 12,
+            "P": 1,
+            "L": 1,
+            "E": 2,
+            "S": 2,
+            "D": 2
+          },
+          "remaining": {
+            ".": 25,
+            "N": 5,
+            "B": 12,
+            "L": 1,
+            "E": 2,
+            "S": 2,
+            "D": 2
+          }
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            4,
+            2
+          ],
+          "choices": {
+            ".": 25,
+            "N": 5,
+            "B": 12,
+            "L": 1,
+            "E": 2,
+            "S": 2,
+            "D": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            5,
+            2
+          ],
+          "choices": {
+            "N": 4,
+            ".": 23,
+            "B": 17,
+            "F": 2,
+            "D": 1,
+            "S": 2,
+            "E": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            11,
+            2
+          ],
+          "choices": {
+            ".": 30,
+            "N": 5,
+            "B": 8,
+            "P": 1,
+            "L": 1,
+            "S": 3,
+            "D": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            2,
+            3
+          ],
+          "choices": {
+            ".": 32,
+            "S": 2,
+            "N": 1,
+            "B": 9,
+            "L": 2,
+            "E": 1,
+            "M": 2
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            4,
+            3
+          ],
+          "choices": {
+            "S": 4,
+            ".": 17,
+            "E": 4,
+            "B": 21,
+            "L": 1,
+            "N": 1,
+            "D": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            11,
+            3
+          ],
+          "choices": {
+            "S": 6,
+            ".": 23,
+            "E": 3,
+            "B": 15,
+            "L": 1,
+            "N": 1,
+            "D": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            10,
+            4
+          ],
+          "choices": {
+            "B": 29,
+            ".": 10,
+            "E": 6,
+            "S": 2,
+            "L": 1,
+            "M": 1,
+            "D": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            6,
+            6
+          ],
+          "choices": {
+            "B": 41,
+            ".": 2,
+            "D": 2,
+            "S": 1,
+            "M": 1,
+            "A": 1,
+            "E": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            9,
+            7
+          ],
+          "choices": {
+            "B": 37,
+            ".": 5,
+            "L": 1,
+            "D": 2,
+            "M": 2,
+            "S": 2,
+            "N": 1
+          },
+          "token": "B"
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            4,
+            1
+          ],
+          "choices": {
+            "P": 1,
+            ".": 36,
+            "N": 3,
+            "E": 2,
+            "B": 5,
+            "D": 1,
+            "F": 1,
+            "S": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "collapsed",
+          "matrix": [
+            "................",
+            "........B.......",
+            ".L.B....B.......",
+            ".....BBBBBB..B..",
+            "...LBLBMBBB.....",
+            "B.BBBBBMBEBBL...",
+            "..BBLBBBBBB.L...",
+            "...BB.BBBBBB....",
+            ".....B.BB.B.L...",
+            "...BBB...LB..L..",
+            ".....BL..L......",
+            ".....B.S..SB....",
+            "......B.........",
+            ".....B..........",
+            "................",
+            "................"
+          ]
+        },
+        {
+          "event": "finished",
+          "matrix": [
+            "................",
+            "........B.......",
+            ".L......B.......",
+            ".....BBBBBB.....",
+            "...LBLBMBBB.....",
+            "..BBABBMBEBBL...",
+            "..BBLBBBBBB.L...",
+            "...BB.BBBBBB....",
+            ".....B.BB.B.L...",
+            "...BBB...LB..L..",
+            ".....BL..L......",
+            ".....B.S..S.....",
+            "......B.........",
+            ".....B..........",
+            "................",
+            "................"
+          ],
+          "anchor": [
+            4,
+            5
+          ],
+          "retained_core": [
+            [
+              2,
+              5
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              3,
+              9
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              4,
+              7
+            ],
+            [
+              4,
+              9
+            ],
+            [
+              5,
+              3
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              5,
+              8
+            ],
+            [
+              5,
+              9
+            ],
+            [
+              5,
+              10
+            ],
+            [
+              5,
+              11
+            ],
+            [
+              5,
+              13
+            ],
+            [
+              6,
+              3
+            ],
+            [
+              6,
+              4
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              6,
+              6
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              6,
+              12
+            ],
+            [
+              7,
+              3
+            ],
+            [
+              7,
+              6
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              8,
+              1
+            ],
+            [
+              8,
+              2
+            ],
+            [
+              8,
+              3
+            ],
+            [
+              8,
+              4
+            ],
+            [
+              8,
+              5
+            ],
+            [
+              8,
+              6
+            ],
+            [
+              8,
+              7
+            ],
+            [
+              8,
+              8
+            ],
+            [
+              9,
+              3
+            ],
+            [
+              9,
+              4
+            ],
+            [
+              9,
+              6
+            ],
+            [
+              9,
+              7
+            ],
+            [
+              10,
+              3
+            ],
+            [
+              10,
+              4
+            ],
+            [
+              10,
+              5
+            ],
+            [
+              10,
+              6
+            ],
+            [
+              10,
+              7
+            ],
+            [
+              10,
+              8
+            ],
+            [
+              10,
+              9
+            ],
+            [
+              11,
+              5
+            ],
+            [
+              11,
+              7
+            ]
+          ],
+          "dropped_core": [
+            [
+              0,
+              5
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              3
+            ]
+          ],
+          "floor": 18,
+          "normalized_anchors": []
+        },
+        {
+          "event": "palette_selected",
+          "palette_id": "pocket_plum"
+        },
+        {
+          "event": "generated",
+          "attempt": 1,
+          "grid_id": "mg_wfc_preview_001"
+        }
+      ]
+    },
+    "failed": {
+      "error": "WFC could not collapse mg_wfc_preview_001 (rng_seed 20261006) in 8 attempts: wave contradiction",
+      "events": [
+        {
+          "event": "generation_started",
+          "trace_format": "wfc_trace_v1",
+          "grid_id": "mg_wfc_preview_001",
+          "rng_seed": 20261006,
+          "max_restarts": 8
+        },
+        {
+          "event": "attempt_started",
+          "attempt": 1
+        },
+        {
+          "event": "wave_started",
+          "width": 4,
+          "height": 4,
+          "cells": {
+            "0,0": {
+              ".": 1,
+              "E": 1
+            },
+            "1,0": {
+              ".": 1
+            },
+            "2,0": {
+              ".": 1
+            },
+            "3,0": {
+              ".": 1
+            },
+            "0,1": {
+              ".": 1
+            },
+            "1,1": {
+              "B": 1
+            },
+            "2,1": {
+              "B": 1
+            },
+            "3,1": {
+              ".": 1
+            },
+            "0,2": {
+              ".": 1
+            },
+            "1,2": {
+              "B": 1
+            },
+            "2,2": {
+              "B": 1
+            },
+            "3,2": {
+              ".": 1
+            },
+            "0,3": {
+              ".": 1
+            },
+            "1,3": {
+              ".": 1
+            },
+            "2,3": {
+              ".": 1
+            },
+            "3,3": {
+              ".": 1
+            }
+          },
+          "training_grid_ids": [
+            "diagnostic_not_scientific_corpus"
+          ]
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            0,
+            0
+          ],
+          "choices": {
+            ".": 1,
+            "E": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "contradiction",
+          "source": [
+            0,
+            0
+          ],
+          "target": [
+            1,
+            0
+          ],
+          "direction": "right",
+          "before": {
+            ".": 1
+          },
+          "remaining": {}
+        },
+        {
+          "event": "attempt_rejected",
+          "attempt": 1,
+          "reason": "wave contradiction"
+        },
+        {
+          "event": "attempt_started",
+          "attempt": 2
+        },
+        {
+          "event": "wave_started",
+          "width": 4,
+          "height": 4,
+          "cells": {
+            "0,0": {
+              ".": 1,
+              "E": 1
+            },
+            "1,0": {
+              ".": 1
+            },
+            "2,0": {
+              ".": 1
+            },
+            "3,0": {
+              ".": 1
+            },
+            "0,1": {
+              ".": 1
+            },
+            "1,1": {
+              "B": 1
+            },
+            "2,1": {
+              "B": 1
+            },
+            "3,1": {
+              ".": 1
+            },
+            "0,2": {
+              ".": 1
+            },
+            "1,2": {
+              "B": 1
+            },
+            "2,2": {
+              "B": 1
+            },
+            "3,2": {
+              ".": 1
+            },
+            "0,3": {
+              ".": 1
+            },
+            "1,3": {
+              ".": 1
+            },
+            "2,3": {
+              ".": 1
+            },
+            "3,3": {
+              ".": 1
+            }
+          },
+          "training_grid_ids": [
+            "diagnostic_not_scientific_corpus"
+          ]
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            0,
+            0
+          ],
+          "choices": {
+            ".": 1,
+            "E": 1
+          },
+          "token": "E"
+        },
+        {
+          "event": "contradiction",
+          "source": [
+            0,
+            0
+          ],
+          "target": [
+            1,
+            0
+          ],
+          "direction": "right",
+          "before": {
+            ".": 1
+          },
+          "remaining": {}
+        },
+        {
+          "event": "attempt_rejected",
+          "attempt": 2,
+          "reason": "wave contradiction"
+        },
+        {
+          "event": "attempt_started",
+          "attempt": 3
+        },
+        {
+          "event": "wave_started",
+          "width": 4,
+          "height": 4,
+          "cells": {
+            "0,0": {
+              ".": 1,
+              "E": 1
+            },
+            "1,0": {
+              ".": 1
+            },
+            "2,0": {
+              ".": 1
+            },
+            "3,0": {
+              ".": 1
+            },
+            "0,1": {
+              ".": 1
+            },
+            "1,1": {
+              "B": 1
+            },
+            "2,1": {
+              "B": 1
+            },
+            "3,1": {
+              ".": 1
+            },
+            "0,2": {
+              ".": 1
+            },
+            "1,2": {
+              "B": 1
+            },
+            "2,2": {
+              "B": 1
+            },
+            "3,2": {
+              ".": 1
+            },
+            "0,3": {
+              ".": 1
+            },
+            "1,3": {
+              ".": 1
+            },
+            "2,3": {
+              ".": 1
+            },
+            "3,3": {
+              ".": 1
+            }
+          },
+          "training_grid_ids": [
+            "diagnostic_not_scientific_corpus"
+          ]
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            0,
+            0
+          ],
+          "choices": {
+            ".": 1,
+            "E": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "contradiction",
+          "source": [
+            0,
+            0
+          ],
+          "target": [
+            1,
+            0
+          ],
+          "direction": "right",
+          "before": {
+            ".": 1
+          },
+          "remaining": {}
+        },
+        {
+          "event": "attempt_rejected",
+          "attempt": 3,
+          "reason": "wave contradiction"
+        },
+        {
+          "event": "attempt_started",
+          "attempt": 4
+        },
+        {
+          "event": "wave_started",
+          "width": 4,
+          "height": 4,
+          "cells": {
+            "0,0": {
+              ".": 1,
+              "E": 1
+            },
+            "1,0": {
+              ".": 1
+            },
+            "2,0": {
+              ".": 1
+            },
+            "3,0": {
+              ".": 1
+            },
+            "0,1": {
+              ".": 1
+            },
+            "1,1": {
+              "B": 1
+            },
+            "2,1": {
+              "B": 1
+            },
+            "3,1": {
+              ".": 1
+            },
+            "0,2": {
+              ".": 1
+            },
+            "1,2": {
+              "B": 1
+            },
+            "2,2": {
+              "B": 1
+            },
+            "3,2": {
+              ".": 1
+            },
+            "0,3": {
+              ".": 1
+            },
+            "1,3": {
+              ".": 1
+            },
+            "2,3": {
+              ".": 1
+            },
+            "3,3": {
+              ".": 1
+            }
+          },
+          "training_grid_ids": [
+            "diagnostic_not_scientific_corpus"
+          ]
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            0,
+            0
+          ],
+          "choices": {
+            ".": 1,
+            "E": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "contradiction",
+          "source": [
+            0,
+            0
+          ],
+          "target": [
+            1,
+            0
+          ],
+          "direction": "right",
+          "before": {
+            ".": 1
+          },
+          "remaining": {}
+        },
+        {
+          "event": "attempt_rejected",
+          "attempt": 4,
+          "reason": "wave contradiction"
+        },
+        {
+          "event": "attempt_started",
+          "attempt": 5
+        },
+        {
+          "event": "wave_started",
+          "width": 4,
+          "height": 4,
+          "cells": {
+            "0,0": {
+              ".": 1,
+              "E": 1
+            },
+            "1,0": {
+              ".": 1
+            },
+            "2,0": {
+              ".": 1
+            },
+            "3,0": {
+              ".": 1
+            },
+            "0,1": {
+              ".": 1
+            },
+            "1,1": {
+              "B": 1
+            },
+            "2,1": {
+              "B": 1
+            },
+            "3,1": {
+              ".": 1
+            },
+            "0,2": {
+              ".": 1
+            },
+            "1,2": {
+              "B": 1
+            },
+            "2,2": {
+              "B": 1
+            },
+            "3,2": {
+              ".": 1
+            },
+            "0,3": {
+              ".": 1
+            },
+            "1,3": {
+              ".": 1
+            },
+            "2,3": {
+              ".": 1
+            },
+            "3,3": {
+              ".": 1
+            }
+          },
+          "training_grid_ids": [
+            "diagnostic_not_scientific_corpus"
+          ]
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            0,
+            0
+          ],
+          "choices": {
+            ".": 1,
+            "E": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "contradiction",
+          "source": [
+            0,
+            0
+          ],
+          "target": [
+            1,
+            0
+          ],
+          "direction": "right",
+          "before": {
+            ".": 1
+          },
+          "remaining": {}
+        },
+        {
+          "event": "attempt_rejected",
+          "attempt": 5,
+          "reason": "wave contradiction"
+        },
+        {
+          "event": "attempt_started",
+          "attempt": 6
+        },
+        {
+          "event": "wave_started",
+          "width": 4,
+          "height": 4,
+          "cells": {
+            "0,0": {
+              ".": 1,
+              "E": 1
+            },
+            "1,0": {
+              ".": 1
+            },
+            "2,0": {
+              ".": 1
+            },
+            "3,0": {
+              ".": 1
+            },
+            "0,1": {
+              ".": 1
+            },
+            "1,1": {
+              "B": 1
+            },
+            "2,1": {
+              "B": 1
+            },
+            "3,1": {
+              ".": 1
+            },
+            "0,2": {
+              ".": 1
+            },
+            "1,2": {
+              "B": 1
+            },
+            "2,2": {
+              "B": 1
+            },
+            "3,2": {
+              ".": 1
+            },
+            "0,3": {
+              ".": 1
+            },
+            "1,3": {
+              ".": 1
+            },
+            "2,3": {
+              ".": 1
+            },
+            "3,3": {
+              ".": 1
+            }
+          },
+          "training_grid_ids": [
+            "diagnostic_not_scientific_corpus"
+          ]
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            0,
+            0
+          ],
+          "choices": {
+            ".": 1,
+            "E": 1
+          },
+          "token": "E"
+        },
+        {
+          "event": "contradiction",
+          "source": [
+            0,
+            0
+          ],
+          "target": [
+            1,
+            0
+          ],
+          "direction": "right",
+          "before": {
+            ".": 1
+          },
+          "remaining": {}
+        },
+        {
+          "event": "attempt_rejected",
+          "attempt": 6,
+          "reason": "wave contradiction"
+        },
+        {
+          "event": "attempt_started",
+          "attempt": 7
+        },
+        {
+          "event": "wave_started",
+          "width": 4,
+          "height": 4,
+          "cells": {
+            "0,0": {
+              ".": 1,
+              "E": 1
+            },
+            "1,0": {
+              ".": 1
+            },
+            "2,0": {
+              ".": 1
+            },
+            "3,0": {
+              ".": 1
+            },
+            "0,1": {
+              ".": 1
+            },
+            "1,1": {
+              "B": 1
+            },
+            "2,1": {
+              "B": 1
+            },
+            "3,1": {
+              ".": 1
+            },
+            "0,2": {
+              ".": 1
+            },
+            "1,2": {
+              "B": 1
+            },
+            "2,2": {
+              "B": 1
+            },
+            "3,2": {
+              ".": 1
+            },
+            "0,3": {
+              ".": 1
+            },
+            "1,3": {
+              ".": 1
+            },
+            "2,3": {
+              ".": 1
+            },
+            "3,3": {
+              ".": 1
+            }
+          },
+          "training_grid_ids": [
+            "diagnostic_not_scientific_corpus"
+          ]
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            0,
+            0
+          ],
+          "choices": {
+            ".": 1,
+            "E": 1
+          },
+          "token": "E"
+        },
+        {
+          "event": "contradiction",
+          "source": [
+            0,
+            0
+          ],
+          "target": [
+            1,
+            0
+          ],
+          "direction": "right",
+          "before": {
+            ".": 1
+          },
+          "remaining": {}
+        },
+        {
+          "event": "attempt_rejected",
+          "attempt": 7,
+          "reason": "wave contradiction"
+        },
+        {
+          "event": "attempt_started",
+          "attempt": 8
+        },
+        {
+          "event": "wave_started",
+          "width": 4,
+          "height": 4,
+          "cells": {
+            "0,0": {
+              ".": 1,
+              "E": 1
+            },
+            "1,0": {
+              ".": 1
+            },
+            "2,0": {
+              ".": 1
+            },
+            "3,0": {
+              ".": 1
+            },
+            "0,1": {
+              ".": 1
+            },
+            "1,1": {
+              "B": 1
+            },
+            "2,1": {
+              "B": 1
+            },
+            "3,1": {
+              ".": 1
+            },
+            "0,2": {
+              ".": 1
+            },
+            "1,2": {
+              "B": 1
+            },
+            "2,2": {
+              "B": 1
+            },
+            "3,2": {
+              ".": 1
+            },
+            "0,3": {
+              ".": 1
+            },
+            "1,3": {
+              ".": 1
+            },
+            "2,3": {
+              ".": 1
+            },
+            "3,3": {
+              ".": 1
+            }
+          },
+          "training_grid_ids": [
+            "diagnostic_not_scientific_corpus"
+          ]
+        },
+        {
+          "event": "cell_collapsed",
+          "position": [
+            0,
+            0
+          ],
+          "choices": {
+            ".": 1,
+            "E": 1
+          },
+          "token": "."
+        },
+        {
+          "event": "contradiction",
+          "source": [
+            0,
+            0
+          ],
+          "target": [
+            1,
+            0
+          ],
+          "direction": "right",
+          "before": {
+            ".": 1
+          },
+          "remaining": {}
+        },
+        {
+          "event": "attempt_rejected",
+          "attempt": 8,
+          "reason": "wave contradiction"
+        },
+        {
+          "event": "exhausted",
+          "attempts": 8,
+          "max_restarts": 8,
+          "reason": "wave contradiction"
+        }
+      ]
+    }
+  },
+  "native_launches": [
+    {
+      "policy": "incumbent",
+      "action": "load",
+      "returncode": 0,
+      "stdout": "pygame-ce 2.5.7 (SDL 2.32.10, Python 3.13.9)\n",
+      "stderr": "",
+      "age": 1
+    },
+    {
+      "policy": "incumbent",
+      "action": "resume",
+      "returncode": 0,
+      "stdout": "pygame-ce 2.5.7 (SDL 2.32.10, Python 3.13.9)\n",
+      "stderr": "",
+      "age": 2
+    },
+    {
+      "policy": "qtable",
+      "action": "load",
+      "returncode": 0,
+      "stdout": "pygame-ce 2.5.7 (SDL 2.32.10, Python 3.13.9)\n",
+      "stderr": "",
+      "age": 1
+    },
+    {
+      "policy": "qtable",
+      "action": "resume",
+      "returncode": 0,
+      "stdout": "pygame-ce 2.5.7 (SDL 2.32.10, Python 3.13.9)\n",
+      "stderr": "",
+      "age": 2
+    }
+  ],
+  "source_sha256": {
+    "game/src/mecha_game/app.py": "3cbeff5832a458789ddc6ade698e1246a0e471138f6b5f9601265e7d9842b163",
+    "game/src/mecha_game/wfc_trace.py": "f9f9f6262440ccee3c57217a70d0f721e8c0c8f3fa2c1c12ebb86ab6999a4926",
+    "game/src/mecha_game/generation_view.py": "9bee0479b788a2b37454f6d3b23adee4409f68582bdf96793398f9d15658eafa",
+    "game/src/mecha_game/footer.py": "4957e7b3e49df10a4d6c0001a99e2114e773d9fa7254a1ffb01af49ab2759db8",
+    "packages/mecha_engine/src/mecha_engine/generation/wfc.py": "5b55c8bc7f15f6906316f670d69e9708b835f857468005a0b726710afd805aed",
+    "packages/mecha_engine/src/mecha_engine/generation/__init__.py": "1dcb5bba4f435c3507ce90c851a23e28ab37c5ac6ec43bf54312c0a8a37755b8",
+    "labs/wfc_grid/wfc_grid.py": "7cb6dda2aadd8d719b6661e23f5f6df2362a19086db10842d7e08510ab5507b9",
+    "labs/wfc_grid/test_wfc_trace.py": "9518dbc026ac1eae2807408758d9ded301c79232912ca46a69f80c27dd1820a1",
+    "game/tests/test_wfc_trace_view.py": "b714465ce3cdd6143951df1832ec6eacb886d442929c805ffce3d01ffdb490a7",
+    "labs/game_loop/verify_wfc_trace.py": "e0882154b22ce6d42dac03b79ba3c35e1cc33277e7d623aedbfa525b87aa57be"
+  },
+  "native_sha256": "2196d55c91761bc133146a71f3534818c426e9bcc5dd536d4b1a5b54405a38ca",
+  "boundaries": [
+    "WFC remains a distinct optional arm; constrained is the DR0042 evolution default.",
+    "Source pygame keys/rendering observed; native launch/resume smoke separately observed; native WFC keyboard unobserved.",
+    "Wave rendering depicts observed choices; final body uses engine packets. No adoption or save writes.",
+    "Cancel discards after joined bounded call; engine decisions still finish unchanged.",
+    "Traces session-only; restart explicitly captures anew."
+  ],
+  "status": "application_checks_passed",
+  "flows": [
+    {
+      "label": "incumbent-import-inspect",
+      "code": 0,
+      "frames": 23,
+      "screenshots": [
+        ".development/w4-release-ui/incumbent-import-inspect-00.png",
+        ".development/w4-release-ui/incumbent-import-inspect-01.png",
+        ".development/w4-release-ui/incumbent-import-inspect-02.png",
+        ".development/w4-release-ui/incumbent-import-inspect-03.png",
+        ".development/w4-release-ui/incumbent-import-inspect-04.png",
+        ".development/w4-release-ui/incumbent-import-inspect-05.png",
+        ".development/w4-release-ui/incumbent-import-inspect-06.png",
+        ".development/w4-release-ui/incumbent-import-inspect-07.png",
+        ".development/w4-release-ui/incumbent-import-inspect-08.png",
+        ".development/w4-release-ui/incumbent-import-inspect-09.png"
+      ],
+      "max_poll_gap_s": 0.05784769996535033,
+      "max_frame_gap_s": 0.05078059993684292,
+      "captures": [
+        {
+          "event_count": 266,
+          "events_sha256": "125482fba2770f469cbaaf91668899f5280f2957fd9d3be04d0c33e6bbb00fc3",
+          "grid_sha256": "fc4c6e75b48930ecdc59b60288e50763a05b3fea2632f0c9c5945813d58a3a87",
+          "error": null,
+          "cancelled": false,
+          "alive_after_join": false,
+          "attempts": 1
+        }
+      ],
+      "busy_polls": 2,
+      "max_busy_poll_gap_s": 0.012088400078937411
+    },
+    {
+      "label": "incumbent-restart",
+      "code": 0,
+      "frames": 8,
+      "screenshots": [
+        ".development/w4-release-ui/incumbent-restart-00.png",
+        ".development/w4-release-ui/incumbent-restart-01.png",
+        ".development/w4-release-ui/incumbent-restart-02.png",
+        ".development/w4-release-ui/incumbent-restart-03.png",
+        ".development/w4-release-ui/incumbent-restart-04.png",
+        ".development/w4-release-ui/incumbent-restart-05.png",
+        ".development/w4-release-ui/incumbent-restart-06.png",
+        ".development/w4-release-ui/incumbent-restart-07.png"
+      ],
+      "max_poll_gap_s": 0.05373199994210154,
+      "max_frame_gap_s": 0.03704440000001341,
+      "captures": [
+        {
+          "event_count": 266,
+          "events_sha256": "125482fba2770f469cbaaf91668899f5280f2957fd9d3be04d0c33e6bbb00fc3",
+          "grid_sha256": "fc4c6e75b48930ecdc59b60288e50763a05b3fea2632f0c9c5945813d58a3a87",
+          "error": null,
+          "cancelled": false,
+          "alive_after_join": false,
+          "attempts": 1
+        }
+      ],
+      "busy_polls": 2,
+      "max_busy_poll_gap_s": 0.010149499983526766
+    },
+    {
+      "label": "incumbent-failed-retry",
+      "code": 0,
+      "frames": 11,
+      "screenshots": [
+        ".development/w4-release-ui/incumbent-failed-retry-00.png",
+        ".development/w4-release-ui/incumbent-failed-retry-01.png",
+        ".development/w4-release-ui/incumbent-failed-retry-02.png",
+        ".development/w4-release-ui/incumbent-failed-retry-03.png",
+        ".development/w4-release-ui/incumbent-failed-retry-04.png",
+        ".development/w4-release-ui/incumbent-failed-retry-05.png",
+        ".development/w4-release-ui/incumbent-failed-retry-06.png",
+        ".development/w4-release-ui/incumbent-failed-retry-07.png",
+        ".development/w4-release-ui/incumbent-failed-retry-08.png",
+        ".development/w4-release-ui/incumbent-failed-retry-09.png"
+      ],
+      "max_poll_gap_s": 0.053867199923843145,
+      "max_frame_gap_s": 0.03627710009459406,
+      "captures": [
+        {
+          "event_count": 42,
+          "events_sha256": "c104ef07ef53f28e052a3ddf5c244496ae9e34a59fbd9c6ca6abbc7cc441e92b",
+          "grid_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "error": "WFC could not collapse mg_wfc_preview_001 (rng_seed 20261006) in 8 attempts: wave contradiction",
+          "cancelled": false,
+          "alive_after_join": false,
+          "attempts": 8
+        },
+        {
+          "event_count": 281,
+          "events_sha256": "65293fe69c6ea9854051dc382443cfd0b2f5018d9c0d2e4d0080487670e8b7d4",
+          "grid_sha256": "3353f9ba16092f04ed3029b564f9f3b947288ec5227c2de2ab5abc7d8bf74c83",
+          "error": null,
+          "cancelled": false,
+          "alive_after_join": false,
+          "attempts": 1
+        }
+      ],
+      "busy_polls": 3,
+      "max_busy_poll_gap_s": 0.07146420003846288
+    },
+    {
+      "label": "incumbent-empty-retry",
+      "code": 0,
+      "frames": 11,
+      "screenshots": [
+        ".development/w4-release-ui/incumbent-empty-retry-00.png",
+        ".development/w4-release-ui/incumbent-empty-retry-01.png",
+        ".development/w4-release-ui/incumbent-empty-retry-02.png",
+        ".development/w4-release-ui/incumbent-empty-retry-03.png",
+        ".development/w4-release-ui/incumbent-empty-retry-04.png",
+        ".development/w4-release-ui/incumbent-empty-retry-05.png",
+        ".development/w4-release-ui/incumbent-empty-retry-06.png",
+        ".development/w4-release-ui/incumbent-empty-retry-07.png",
+        ".development/w4-release-ui/incumbent-empty-retry-08.png",
+        ".development/w4-release-ui/incumbent-empty-retry-09.png"
+      ],
+      "max_poll_gap_s": 0.05456409999169409,
+      "max_frame_gap_s": 0.03775280003901571,
+      "captures": [
+        {
+          "event_count": 0,
+          "events_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "grid_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "error": "observed unavailable corpus",
+          "cancelled": false,
+          "alive_after_join": false,
+          "attempts": 0
+        },
+        {
+          "event_count": 281,
+          "events_sha256": "65293fe69c6ea9854051dc382443cfd0b2f5018d9c0d2e4d0080487670e8b7d4",
+          "grid_sha256": "3353f9ba16092f04ed3029b564f9f3b947288ec5227c2de2ab5abc7d8bf74c83",
+          "error": null,
+          "cancelled": false,
+          "alive_after_join": false,
+          "attempts": 1
+        }
+      ],
+      "busy_polls": 3,
+      "max_busy_poll_gap_s": 0.12035860004834831
+    },
+    {
+      "label": "incumbent-cancel",
+      "code": 0,
+      "frames": 15,
+      "screenshots": [
+        ".development/w4-release-ui/incumbent-cancel-00.png",
+        ".development/w4-release-ui/incumbent-cancel-01.png",
+        ".development/w4-release-ui/incumbent-cancel-02.png",
+        ".development/w4-release-ui/incumbent-cancel-03.png",
+        ".development/w4-release-ui/incumbent-cancel-04.png",
+        ".development/w4-release-ui/incumbent-cancel-05.png",
+        ".development/w4-release-ui/incumbent-cancel-06.png",
+        ".development/w4-release-ui/incumbent-cancel-07.png",
+        ".development/w4-release-ui/incumbent-cancel-08.png",
+        ".development/w4-release-ui/incumbent-cancel-09.png",
+        ".development/w4-release-ui/incumbent-cancel-10.png",
+        ".development/w4-release-ui/incumbent-cancel-11.png"
+      ],
+      "max_poll_gap_s": 0.19981579994782805,
+      "max_frame_gap_s": 0.025339600048027933,
+      "captures": [
+        {
+          "event_count": 266,
+          "events_sha256": "125482fba2770f469cbaaf91668899f5280f2957fd9d3be04d0c33e6bbb00fc3",
+          "grid_sha256": "fc4c6e75b48930ecdc59b60288e50763a05b3fea2632f0c9c5945813d58a3a87",
+          "error": null,
+          "cancelled": true,
+          "alive_after_join": false,
+          "attempts": 1
+        }
+      ],
+      "busy_polls": 12,
+      "max_busy_poll_gap_s": 0.022991899983026087
+    },
+    {
+      "label": "incumbent-close",
+      "code": 0,
+      "frames": 13,
+      "screenshots": [
+        ".development/w4-release-ui/incumbent-close-00.png",
+        ".development/w4-release-ui/incumbent-close-01.png",
+        ".development/w4-release-ui/incumbent-close-02.png",
+        ".development/w4-release-ui/incumbent-close-03.png",
+        ".development/w4-release-ui/incumbent-close-04.png",
+        ".development/w4-release-ui/incumbent-close-05.png",
+        ".development/w4-release-ui/incumbent-close-06.png",
+        ".development/w4-release-ui/incumbent-close-07.png",
+        ".development/w4-release-ui/incumbent-close-08.png",
+        ".development/w4-release-ui/incumbent-close-09.png",
+        ".development/w4-release-ui/incumbent-close-10.png",
+        ".development/w4-release-ui/incumbent-close-11.png"
+      ],
+      "max_poll_gap_s": 0.05523009994067252,
+      "max_frame_gap_s": 0.025602000067010522,
+      "captures": [
+        {
+          "event_count": 266,
+          "events_sha256": "125482fba2770f469cbaaf91668899f5280f2957fd9d3be04d0c33e6bbb00fc3",
+          "grid_sha256": "fc4c6e75b48930ecdc59b60288e50763a05b3fea2632f0c9c5945813d58a3a87",
+          "error": null,
+          "cancelled": true,
+          "alive_after_join": false,
+          "attempts": 1
+        }
+      ],
+      "busy_polls": 12,
+      "max_busy_poll_gap_s": 0.02363900002092123
+    },
+    {
+      "label": "qtable-import-inspect",
+      "code": 0,
+      "frames": 23,
+      "screenshots": [
+        ".development/w4-release-ui/qtable-import-inspect-00.png",
+        ".development/w4-release-ui/qtable-import-inspect-01.png",
+        ".development/w4-release-ui/qtable-import-inspect-02.png",
+        ".development/w4-release-ui/qtable-import-inspect-03.png",
+        ".development/w4-release-ui/qtable-import-inspect-04.png",
+        ".development/w4-release-ui/qtable-import-inspect-05.png",
+        ".development/w4-release-ui/qtable-import-inspect-06.png",
+        ".development/w4-release-ui/qtable-import-inspect-07.png",
+        ".development/w4-release-ui/qtable-import-inspect-08.png",
+        ".development/w4-release-ui/qtable-import-inspect-09.png"
+      ],
+      "max_poll_gap_s": 0.05328160000499338,
+      "max_frame_gap_s": 0.04915089998394251,
+      "captures": [
+        {
+          "event_count": 266,
+          "events_sha256": "125482fba2770f469cbaaf91668899f5280f2957fd9d3be04d0c33e6bbb00fc3",
+          "grid_sha256": "fc4c6e75b48930ecdc59b60288e50763a05b3fea2632f0c9c5945813d58a3a87",
+          "error": null,
+          "cancelled": false,
+          "alive_after_join": false,
+          "attempts": 1
+        }
+      ],
+      "busy_polls": 2,
+      "max_busy_poll_gap_s": 0.010444700019434094
+    },
+    {
+      "label": "qtable-restart",
+      "code": 0,
+      "frames": 8,
+      "screenshots": [
+        ".development/w4-release-ui/qtable-restart-00.png",
+        ".development/w4-release-ui/qtable-restart-01.png",
+        ".development/w4-release-ui/qtable-restart-02.png",
+        ".development/w4-release-ui/qtable-restart-03.png",
+        ".development/w4-release-ui/qtable-restart-04.png",
+        ".development/w4-release-ui/qtable-restart-05.png",
+        ".development/w4-release-ui/qtable-restart-06.png",
+        ".development/w4-release-ui/qtable-restart-07.png"
+      ],
+      "max_poll_gap_s": 0.05400719994213432,
+      "max_frame_gap_s": 0.0370699999621138,
+      "captures": [
+        {
+          "event_count": 266,
+          "events_sha256": "125482fba2770f469cbaaf91668899f5280f2957fd9d3be04d0c33e6bbb00fc3",
+          "grid_sha256": "fc4c6e75b48930ecdc59b60288e50763a05b3fea2632f0c9c5945813d58a3a87",
+          "error": null,
+          "cancelled": false,
+          "alive_after_join": false,
+          "attempts": 1
+        }
+      ],
+      "busy_polls": 2,
+      "max_busy_poll_gap_s": 0.010835799970664084
+    },
+    {
+      "label": "qtable-failed-retry",
+      "code": 0,
+      "frames": 11,
+      "screenshots": [
+        ".development/w4-release-ui/qtable-failed-retry-00.png",
+        ".development/w4-release-ui/qtable-failed-retry-01.png",
+        ".development/w4-release-ui/qtable-failed-retry-02.png",
+        ".development/w4-release-ui/qtable-failed-retry-03.png",
+        ".development/w4-release-ui/qtable-failed-retry-04.png",
+        ".development/w4-release-ui/qtable-failed-retry-05.png",
+        ".development/w4-release-ui/qtable-failed-retry-06.png",
+        ".development/w4-release-ui/qtable-failed-retry-07.png",
+        ".development/w4-release-ui/qtable-failed-retry-08.png",
+        ".development/w4-release-ui/qtable-failed-retry-09.png"
+      ],
+      "max_poll_gap_s": 0.05434619996231049,
+      "max_frame_gap_s": 0.03782619989942759,
+      "captures": [
+        {
+          "event_count": 42,
+          "events_sha256": "c104ef07ef53f28e052a3ddf5c244496ae9e34a59fbd9c6ca6abbc7cc441e92b",
+          "grid_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "error": "WFC could not collapse mg_wfc_preview_001 (rng_seed 20261006) in 8 attempts: wave contradiction",
+          "cancelled": false,
+          "alive_after_join": false,
+          "attempts": 8
+        },
+        {
+          "event_count": 281,
+          "events_sha256": "65293fe69c6ea9854051dc382443cfd0b2f5018d9c0d2e4d0080487670e8b7d4",
+          "grid_sha256": "3353f9ba16092f04ed3029b564f9f3b947288ec5227c2de2ab5abc7d8bf74c83",
+          "error": null,
+          "cancelled": false,
+          "alive_after_join": false,
+          "attempts": 1
+        }
+      ],
+      "busy_polls": 3,
+      "max_busy_poll_gap_s": 0.07090719998814166
+    },
+    {
+      "label": "qtable-empty-retry",
+      "code": 0,
+      "frames": 11,
+      "screenshots": [
+        ".development/w4-release-ui/qtable-empty-retry-00.png",
+        ".development/w4-release-ui/qtable-empty-retry-01.png",
+        ".development/w4-release-ui/qtable-empty-retry-02.png",
+        ".development/w4-release-ui/qtable-empty-retry-03.png",
+        ".development/w4-release-ui/qtable-empty-retry-04.png",
+        ".development/w4-release-ui/qtable-empty-retry-05.png",
+        ".development/w4-release-ui/qtable-empty-retry-06.png",
+        ".development/w4-release-ui/qtable-empty-retry-07.png",
+        ".development/w4-release-ui/qtable-empty-retry-08.png",
+        ".development/w4-release-ui/qtable-empty-retry-09.png"
+      ],
+      "max_poll_gap_s": 0.05545700003858656,
+      "max_frame_gap_s": 0.03897029999643564,
+      "captures": [
+        {
+          "event_count": 0,
+          "events_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "grid_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "error": "observed unavailable corpus",
+          "cancelled": false,
+          "alive_after_join": false,
+          "attempts": 0
+        },
+        {
+          "event_count": 281,
+          "events_sha256": "65293fe69c6ea9854051dc382443cfd0b2f5018d9c0d2e4d0080487670e8b7d4",
+          "grid_sha256": "3353f9ba16092f04ed3029b564f9f3b947288ec5227c2de2ab5abc7d8bf74c83",
+          "error": null,
+          "cancelled": false,
+          "alive_after_join": false,
+          "attempts": 1
+        }
+      ],
+      "busy_polls": 3,
+      "max_busy_poll_gap_s": 0.12372889998368919
+    },
+    {
+      "label": "qtable-cancel",
+      "code": 0,
+      "frames": 15,
+      "screenshots": [
+        ".development/w4-release-ui/qtable-cancel-00.png",
+        ".development/w4-release-ui/qtable-cancel-01.png",
+        ".development/w4-release-ui/qtable-cancel-02.png",
+        ".development/w4-release-ui/qtable-cancel-03.png",
+        ".development/w4-release-ui/qtable-cancel-04.png",
+        ".development/w4-release-ui/qtable-cancel-05.png",
+        ".development/w4-release-ui/qtable-cancel-06.png",
+        ".development/w4-release-ui/qtable-cancel-07.png",
+        ".development/w4-release-ui/qtable-cancel-08.png",
+        ".development/w4-release-ui/qtable-cancel-09.png",
+        ".development/w4-release-ui/qtable-cancel-10.png",
+        ".development/w4-release-ui/qtable-cancel-11.png"
+      ],
+      "max_poll_gap_s": 0.19217419996857643,
+      "max_frame_gap_s": 0.02650590008124709,
+      "captures": [
+        {
+          "event_count": 266,
+          "events_sha256": "125482fba2770f469cbaaf91668899f5280f2957fd9d3be04d0c33e6bbb00fc3",
+          "grid_sha256": "fc4c6e75b48930ecdc59b60288e50763a05b3fea2632f0c9c5945813d58a3a87",
+          "error": null,
+          "cancelled": true,
+          "alive_after_join": false,
+          "attempts": 1
+        }
+      ],
+      "busy_polls": 12,
+      "max_busy_poll_gap_s": 0.017417300026863813
+    },
+    {
+      "label": "qtable-close",
+      "code": 0,
+      "frames": 13,
+      "screenshots": [
+        ".development/w4-release-ui/qtable-close-00.png",
+        ".development/w4-release-ui/qtable-close-01.png",
+        ".development/w4-release-ui/qtable-close-02.png",
+        ".development/w4-release-ui/qtable-close-03.png",
+        ".development/w4-release-ui/qtable-close-04.png",
+        ".development/w4-release-ui/qtable-close-05.png",
+        ".development/w4-release-ui/qtable-close-06.png",
+        ".development/w4-release-ui/qtable-close-07.png",
+        ".development/w4-release-ui/qtable-close-08.png",
+        ".development/w4-release-ui/qtable-close-09.png",
+        ".development/w4-release-ui/qtable-close-10.png",
+        ".development/w4-release-ui/qtable-close-11.png"
+      ],
+      "max_poll_gap_s": 0.04654640005901456,
+      "max_frame_gap_s": 0.025238299975171685,
+      "captures": [
+        {
+          "event_count": 266,
+          "events_sha256": "125482fba2770f469cbaaf91668899f5280f2957fd9d3be04d0c33e6bbb00fc3",
+          "grid_sha256": "fc4c6e75b48930ecdc59b60288e50763a05b3fea2632f0c9c5945813d58a3a87",
+          "error": null,
+          "cancelled": true,
+          "alive_after_join": false,
+          "attempts": 1
+        }
+      ],
+      "busy_polls": 12,
+      "max_busy_poll_gap_s": 0.017723599914461374
+    }
+  ],
+  "source_observations": {
+    "checks": 80,
+    "flows": 12,
+    "frames": 162,
+    "max_outer_poll_gap_s": 0.19981579994782805,
+    "native_launches": 4
+  },
+  "parity": {
+    "baseline": "data/game_client/wfc_trace_before_stage0.json",
+    "cases": 68,
+    "lab_package_events_equal": true,
+    "pre_edit_outputs_errors_rng_states_equal": true,
+    "logs": [
+      ".development/w4-lab-red.log",
+      ".development/w4-lab-green.log",
+      ".development/w4-parity-final.log",
+      ".development/w4-ui-red.log",
+      ".development/w4-ui-adverse-red.log",
+      ".development/w4-ui-green2.log"
+    ]
+  }
+}

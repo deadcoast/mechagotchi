@@ -177,7 +177,7 @@ class SavedReplayTests(unittest.TestCase):
                 [key(pygame.K_ESCAPE)], [pygame.event.Event(pygame.QUIT)]])
             self.assertTrue(pages[3][0].startswith('ERA 0 ['))
             self.assertTrue(pages[5][0].startswith('ERA 0 ['))
-            self.events(keeper, [[key(pygame.K_v)], [key(pygame.K_f)], [key(pygame.K_ESCAPE)], [pygame.event.Event(pygame.QUIT)]])
+            self.events(keeper, [[key(pygame.K_v)], [key(pygame.K_f)], [key(pygame.K_ESCAPE)], [], [pygame.event.Event(pygame.QUIT)]])
             pet = CompanionSession.load(keeper / 'companion.json')
             self.assertEqual(1, pet.state['age_ticks'])
             self.assertEqual('companion', pet.log[-1]['actor'])

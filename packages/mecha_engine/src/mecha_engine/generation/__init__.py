@@ -11,12 +11,16 @@ research/package_specs/mecha_engine_generation_contract_gate.md:
 - ``explain_generation(candidate) -> dict``
 
 WFC surface (cycle 10 B3, DR 0031 — the bake-off winner, the
-rich-alphabet production generator; an additive seam, the constrained
+rich-alphabet generator, optional since DR0042; an additive seam, the constrained
 stabilizer above is untouched):
 
 - ``train_wfc_model(train_grids) -> dict``
-- ``generate_wfc_grid(model, *, grid_id, rng_seed) -> dict``
+- ``generate_wfc_grid(model, *, grid_id, rng_seed, max_restarts=8, trace=None) -> dict``
 - ``build_wfc_corpus(model, *, count, rng_seed) -> list[dict]``
+
+W4 adds optional detached observational trace events to WFC; outputs, RNG
+consumption and failures are unchanged. DR0042 keeps constrained generation
+as the evolution default. WFC remains a distinct additive arm.
 
 Raw Markov-style local adjacency statistics are a proposal source only; the
 production paths are validator-gated constrained stabilization and the

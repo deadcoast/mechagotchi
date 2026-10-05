@@ -10,17 +10,15 @@ The agent makes the implementation decisions; this command captures scope,
 executes verification, and refuses unsupported completion claims. It does not
 invent features, spawn another agent, install dependencies, commit, or publish.
 
-Current resume (2026-10-04): U1 original-evaluation capture and playback is
-locally complete and reviewed. Full `20261004T224746-6ccc82b0` passed 2,624 tests /
-24 suites, two documented skips and 2,290 JSON artifacts without mutations.
-The parent selected V1 recorded seven-axis niche history and recorded campaign
-story navigation after the bounded family review. It consumes existing records,
-not E5 projections or inferred founders. Active contract:
-`docs/development/cycle-32-niche-history.md`; code/evidence report:
-`research/experiment_reports/2026-10-04-niche-history.md`. Read actual phase/results
-in `.development/state.json` before resuming. Do not repeat unchanged prior gates.
-Q-table default adoption remains refused. Native keyboard interaction is not
-available here: the installed skill requires an unexposed node_repl/@oai/sky runtime.
+Current resume (2026-10-05): W4 closed in full run
+`20261005T135504-94a410b6` (2,694 tests, 24 suites, two documented skips,
+2,300 valid JSON artifacts). Current W5 integrated finish follows the direct
+delegation and observed existing-screen defects. Active contract:
+`docs/development/cycle-37-integrated-finish.md`; measured report:
+`research/experiment_reports/2026-10-05-integrated-finish.md`. Read actual
+runner results and `.development/w5-live-handoff.json` for closing status.
+Scientific defaults/history remain unchanged. Do not repeat unchanged gates.
+Native keyboard, remote execution and published-SHA CI remain unobserved.
 The current delegation reserves commit/sync/push to the user and explicitly
 waives the prior commit-before-next-RED sequencing rule for this recovery.
 
@@ -96,7 +94,7 @@ $env:PYTHONPATH = (Resolve-Path tools/mechas_cli/src).Path
 & .\.venv\Scripts\python.exe -B -m mechas_cli.app develop --status
 ```
 
-Read the active `v1-niche-history` phase, checkpoint and latest run.
+Read the active `w5-integrated-finish` phase, checkpoint and latest run.
 A completed local gate has `phase=polish`, `full_current=true`,
 `local_complete=true`, and `running=null`. If verification is running, inspect
 its retained logs; do not launch another sweep. Relevant source/data/config or
