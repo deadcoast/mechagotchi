@@ -79,8 +79,8 @@ The casing pages show its actual recommendation and followed decision.
 
 An explicit policy conflicting with a saved companion is refused before writes.
 `--learning-policy incumbent` selects the original behavior for a new life.
-The latest locally closed V1 native build is
-`game/dist/v1-niche-history/Mechagotchi/Mechagotchi.exe`; keep `_internal` beside it.
+The latest locally closed W1 native build is
+`game/dist/w1-import-inboxes-final/Mechagotchi/Mechagotchi.exe`; keep `_internal` beside it.
 Use the same policy arguments there. New native saves use
 `$env:USERPROFILE/.mechagotchi`; an explicit `--keeper-dir` selects another
 home. Existing bundled `_internal/keeper` lives continue in place when no
@@ -428,3 +428,8 @@ and can be retried after fixing the problem.
 
 Verification: `research/experiment_reports/2026-10-05-import-inboxes.md`.
 Native keyboard interaction and maximum-inbox performance remain unobserved.
+
+W1 full `20261005T115738-611ddb0c` passed 2,656 tests / 24 suites, two documented
+zlib skips and 2,294 valid JSON artifacts without source mutations. Application
+evidence covers 28 checks, four native launches, twelve source flows and 75
+rendered frames. Keep `_internal` beside the native executable named above.

@@ -1,7 +1,7 @@
 # The M7 Public Alpha — Reproduce Everything From This Document
 
-Established in cycle 17 G6 (Phase G); launch guidance refreshed through Cycle 32 V1,
-2026-10-04. Both builds — the ENGINE and the GAME — from a
+Established in cycle 17 G6 (Phase G); launch guidance refreshed through Cycle 33 W1,
+2026-10-05. Both builds — the ENGINE and the GAME — from a
 fresh clone, on the repo's own evidence discipline. Every claim below
 is backed by a retained artifact or a test suite; current recovery changes
 remain uncommitted for the user. Nothing is
@@ -35,8 +35,8 @@ One runner, the same locally and in CI (`.github/workflows/ci.yml`):
 
 A full gate covers 19 lab suites plus package, CLI, game, workshop and CI-runner
 suites, with JSON validation over every data artifact. Current verified scope
-is 2,636 tests and 2,292 JSON artifacts (V1 full run
-`20261004T234803-5750f659`); two named DR 0034 pins skip on zlib 1.3.1.
+is 2,656 tests and 2,294 JSON artifacts (W1 full run
+`20261005T115738-611ddb0c`); two named DR 0034 pins skip on zlib 1.3.1.
 All 24 suites passed without source mutations. Runtime depends on the machine.
 The historical Q4 gate was 2,493 tests / 2,269 JSON artifacts.
 
@@ -72,12 +72,12 @@ A covenant option selects a new life, never replaces an existing save silently:
 
 A new campaign inherits that companion's covenant; a resumed campaign retains
 its saved covenant. The demonstrated local Windows bundle is
-`game/dist/v1-niche-history/Mechagotchi/Mechagotchi.exe`; keep `_internal` beside it.
+`game/dist/w1-import-inboxes-final/Mechagotchi/Mechagotchi.exe`; keep `_internal` beside it.
 From the repository root, launch with an explicit save directory. An absolute
 executable path also works from another cwd:
 
 ```powershell
-.\game\dist\v1-niche-history\Mechagotchi\Mechagotchi.exe --keeper-dir "$env:USERPROFILE\.mechagotchi"
+.\game\dist\w1-import-inboxes-final\Mechagotchi\Mechagotchi.exe --keeper-dir "$env:USERPROFILE\.mechagotchi"
 ```
 
 Without an explicit directory, the current native build starts new saves in
@@ -130,9 +130,13 @@ contents (build refuses invalid, import re-judges and stages, era
 admission judges again at run):
 
 - Export your covenant: **X** in the client → `keeper/covenants/`.
-- Import a pack: put it at `keeper/packs/pack_import.json`, press
-  **K**. The committed example:
-  `data/packs/mechagotchi_starter_pack.json`.
+- Import a pack: copy `data/packs/mechagotchi_starter_pack.json` into
+  `<save directory>/packs/`, press **K**, select it and press **Enter**.
+- Press **I** to select a staged covenant and **Enter** to apply it to future
+  eras/hatches/adoptions. The current companion keeps its covenant and policy.
+  Close the picker before **W** gathers staged creatures for **E**; each still
+  faces engine admission. **F1** explains the active inbox and **F5** refreshes
+  changed files. Existing filenames work without renaming.
 
 ## 5. Reproduce the real CuBFF corpus (optional; Linux/WSL)
 
@@ -177,4 +181,12 @@ in T for recorded predecessor campaigns. T/V/A retain the selected historical
 context and current-covenant adoption; missing history is explicit and care is
 paused. This is recorded-fact navigation, with no E5/family or founder inference.
 Read `research/experiment_reports/2026-10-04-niche-history.md` and
-`.development/v1-live-handoff.json` for the current build, evidence and restart.
+`.development/v1-live-handoff.json` for its then-current build, evidence and restart.
+
+Cycle 33 W1 connects named packs and covenant inboxes with paused previews,
+explicit Enter, stale-file checks, safe per-item staging and contextual help.
+The latest local build is `game/dist/w1-import-inboxes-final/Mechagotchi/Mechagotchi.exe`
+with adjacent `_internal`. Read `research/experiment_reports/2026-10-05-import-inboxes.md`
+and `.development/w1-live-handoff.json` for exact source/native evidence and restart.
+This local closure does not claim native keyboard, maximum inbox scale or
+published-SHA CI verification.

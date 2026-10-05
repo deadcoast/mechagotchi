@@ -316,8 +316,13 @@ def load_campaign_inputs(
     rng_seed: int = 20260707,
     seed_limit: int | None = None,
     cache_dir: str | Path | None = None,
+    with_models: bool = True,
 ) -> dict:
-    """Load the corpus, the covenant, and train the promoted models.
+    """Load the corpus/covenant; eager evolution models remain the default.
+
+    ``with_models=False`` reads only the preparation inputs. Covenant review,
+    import and constrained hatching do not need evolution models. The game
+    prepares those later in its foreground-owned era worker.
 
     The legibility model is the COMMITTED adopted artifact (DR 0019 —
     the learned signal is primary); its absence is a hard error, never
@@ -346,6 +351,25 @@ def load_campaign_inputs(
         "weights": adopted["weights"],
         "reference_features": adopted["reference_features"],
     }
+    inputs = {"seed_grids": seed_grids, "slip_profile": slip_profile,
+              "legibility_model": legibility_model}
+    return (prepare_campaign_models(inputs, repair_epochs=repair_epochs,
+            rng_seed=rng_seed, cache_dir=cache_dir) if with_models else inputs)
+
+
+def prepare_campaign_models(
+    inputs: dict, *, repair_epochs: int = 40, rng_seed: int = 20260707,
+    cache_dir: str | Path | None = None,
+) -> dict:
+    """Return complete evolution inputs; failures leave the caller unchanged.
+
+    Use the already loaded corpus and the original trainer/cache contract.
+    Publishing both models together permits safe retry after a failed load.
+    No campaign state, covenant, scientific parameter or saved result changes.
+    """
+    if "generation_model" in inputs and "repair_model" in inputs:
+        return inputs
+    seed_grids = inputs["seed_grids"]
     generation_model = train_generation_model(seed_grids)
     repair_model = None
     cache_path = None
@@ -382,13 +406,7 @@ def load_campaign_inputs(
             cache_path.write_text(
                 json.dumps(repair_model) + "\n", encoding="utf-8"
             )
-    return {
-        "seed_grids": seed_grids,
-        "slip_profile": slip_profile,
-        "generation_model": generation_model,
-        "repair_model": repair_model,
-        "legibility_model": legibility_model,
-    }
+    return {**inputs, "generation_model": generation_model, "repair_model": repair_model}
 
 
 class KeeperCampaign:

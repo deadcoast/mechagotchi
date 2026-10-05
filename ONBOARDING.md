@@ -1208,3 +1208,22 @@ Read `research/experiment_reports/2026-10-04-niche-history.md` and
 the completed result; no active worker or next RED. E5 projection, new role/weather
 mechanics and hosting remain deferred. Native keyboard, maximum-history behavior
 and exact-published-SHA CI remain unverified. Git actions belong to the user.
+
+Cycle 33 W1 is locally closed (2026-10-05): I/K browse named covenant/pack
+files in the chosen save home's inboxes; explicit Enter imports, F5 refreshes,
+and context-specific help and refusal details remain paused and pageable.
+The committed starter pack now connects to named covenant choice and the next
+era without renaming. Stale previews and conflicting existing files refuse;
+equal staged JSON preserves its bytes. Current companion, both policy fixtures,
+predecessor history and every prior scientific artifact remain intact.
+Full `20261005T115738-611ddb0c`: 2,656 tests / 24 suites, two documented zlib
+skips and 2,294 valid JSON artifacts without mutations. Application evidence:
+28 checks, four native launches, twelve source flows / 75 rendered frames.
+Current local build: `game/dist/w1-import-inboxes-final/Mechagotchi/Mechagotchi.exe`,
+with adjacent `_internal`. Read `research/experiment_reports/2026-10-05-import-inboxes.md`
+and `.development/w1-live-handoff.json`; the active runner slice is
+`w1-import-inboxes`. Next: read-only source `develop --status` and W1 review,
+then source-backed investigation before another preregistered slice. No active
+worker or next RED. Native keyboard, maximum inbox scale and cold covenant
+model-load responsiveness remain unmeasured. Publication and remote setup are
+separate; commits, synchronization and pushes remain reserved to the user.

@@ -57,7 +57,9 @@ is separate from native keyboard or human-usability evidence.
 
 ## Decision
 
-Adopt subject to the preregistered local gate; no hosted-distribution decision.
+Adopt locally: full 2,656 tests / 24 suites, two documented zlib skips,
+2,294 valid JSON artifacts and 28 application checks passed. See the report for
+exact runs and preserved evidence. No hosted-distribution decision.
 
 ## Go-No-Go gate
 

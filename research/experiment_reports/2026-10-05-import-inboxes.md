@@ -1,6 +1,6 @@
 # Connected import inboxes - W1
 
-2026-10-05. Implementation in progress; no completion claim.
+2026-10-05. Locally complete. Full closing evidence follows the chronological implementation record.
 
 REVIEW: V1 full_current verified at c12df2ab4d39 with preserved owner work.
 F16 pack staging creates named covenant files unreachable through the fixed I
@@ -79,3 +79,50 @@ Full local gates are pending at this point in the chronological record.
 - research/algorithm_cards/import_inboxes.md
 - data/game_client/import_inboxes_release_stage0.json
 - data/game_client/import_inboxes_release_stage1.json
+
+## Local closure
+
+Focused `20261005T115442-0a47b5d7` passed **760 tests** (package 324, CLI 44,
+game 392). Full `20261005T115738-611ddb0c` passed **2,656 tests / 24 suites**,
+the two named DR 0034 zlib skips, and **2,294 valid JSON artifacts**. All suites
+passed; no tracked or untracked source file changed during either run.
+The existing Python 3.13.9 interpreter ran both checks. Exact commands:
+
+```powershell
+$env:PYTHONPATH = (Resolve-Path tools/mechas_cli/src).Path
+& .\.venv\Scripts\python.exe -B -m mechas_cli.app develop --verify focused
+& .\.venv\Scripts\python.exe -B -m mechas_cli.app develop --verify full
+& .\.venv\Scripts\python.exe -B .development/w1-audit.py
+git diff --check
+```
+
+The final executable SHA256 is
+`c3bfd5dc748eca391d0b01539af0201ed609bfbd867e711df1ef4cd67cf9ab7b`.
+Its 28 application checks, four native launches, twelve source flows and 75
+rendered frames are distinct from the full regression sweep. Full results:
+`.development/w1-full.json` and its run directory; preservation:
+`.development/w1-preservation.json`. The preservation audit compares 4,144
+baseline source files and confirms all 3,339 prior lab/data files, 77 engine
+files, 40 existing game test files, 16 prior native builds and two live keeper
+files retain their original hashes. New tests add coverage; no existing test
+or scientific threshold was changed. Final source diff review covers picker
+event routing, digest-bound validation, exclusive per-item staging, error/help
+states and connected application evidence. `git diff --check` passes.
+
+The full run started at `0c4e5c065e16d5532835f48d5e0d1b6de2d5fc1b`.
+An additional owner/external commit, `0fda2dc646eaa87c9a13b1c6c935126791e01a33`,
+recorded the remaining implementation and observation bytes. Read-only runner
+status confirms the exact verified source fingerprint remains current at this
+HEAD; no repeat of unchanged tests is warranted. The agent made neither commit.
+
+Closure is `.development/w1-closed.json`; `.development/w1-live-handoff.json`
+records exact HEAD, dirty-file hashes, candidate identity and runner state.
+Restart with the existing source CLI's read-only `develop --status`, then review
+this result and actual source before preregistering another cohesive slice.
+Do not rerun unchanged gates. The completed F15/F16 import connection creates
+no new scientific scope. Ordinary covenant application still uses the existing
+synchronous model-loading path; its cold-load responsiveness is not measured
+here. Native keyboard/human usability and maximum inbox scale remain unobserved.
+Windows/Ubuntu Actions on an exact published SHA remain unmet. No remote
+executor is configured or claimed. No agent commit, synchronization, push,
+service or credential installation occurred; Git operations remain the user's.

@@ -33,6 +33,7 @@ from mecha_game.campaign import (
     KeeperCampaign,
     default_campaign_paths,
     load_campaign_inputs,
+    prepare_campaign_models,
 )
 from mecha_game.clips import TRANSITIONS, ClipDriver
 from mecha_game.contribute import founders_verdict, gather_releases
@@ -216,7 +217,7 @@ class _EraBench:
     def weather(self) -> str:
         return WEATHER_NAMES[self.weather_index]
 
-    def ensure(self) -> KeeperCampaign:
+    def ensure(self, *, models=False) -> KeeperCampaign:
         if self.campaign is None:
             paths = default_campaign_paths()
             tiny = self.era_scale == "tiny"
@@ -229,6 +230,7 @@ class _EraBench:
                 # F11: the slow trainer caches to the keeper dir —
                 # byte-equal to fresh training, pinned by test.
                 cache_dir=self.cache_dir,
+                with_models=models,
             )
             # F17: resume the campaign exactly where it stopped (the
             # spent covenant included; founders from the ledger).
@@ -255,6 +257,9 @@ class _EraBench:
                     era_config=TINY_ERA_CONFIG if tiny else ERA_CONFIG,
                 )
             self._loaded_state_digest = state_digest(self.state_path)
+        if models:
+            self.campaign.inputs = prepare_campaign_models(self.campaign.inputs,
+                repair_epochs=6 if self.era_scale == "tiny" else 40, cache_dir=self.cache_dir)
         return self.campaign
 
     def budget_lines(self) -> list[str]:
@@ -366,7 +371,7 @@ class _EraBench:
             return era
         if self._completed_work is None:
             if work is not None: work.phase("Loading models")
-            current = self.ensure()
+            current = self.ensure(models=True)
             self.check_current_state()
             campaign = copy.deepcopy(current)
             if campaign.status != 'active': campaign = campaign.successor()

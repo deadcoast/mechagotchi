@@ -1349,3 +1349,9 @@ selection. [DR0076](decision_records/0076-connected-import-inboxes.md),
 [card](algorithm_cards/import_inboxes.md), `labs/game_loop/verify_import_inboxes.py`
 and `data/game_client/import_inboxes_release_stage0.json` / `import_inboxes_release_stage1.json` retain the observations.
 No scientific redefinition, default-policy adoption or hosted distribution.
+
+W1 is locally closed: full `20261005T115738-611ddb0c` passed 2,656 tests / 24
+suites, two documented zlib skips and 2,294 valid JSON artifacts without source
+mutations. Twenty-eight application checks, four native launches and twelve
+source flows retain separate coverage. The report and `.development/w1-live-handoff.json`
+hold preservation results, measured limits and exact restart context.

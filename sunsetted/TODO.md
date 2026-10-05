@@ -123,8 +123,28 @@ RED or Git action. E5 projection, new mechanics and hosting remain deferred.
 
 ## Cycle 33 - Connected import inboxes
 
-- [ ] **W1 - Select and apply named covenant/pack files.** Current delegation
+- [x] **W1 - Select and apply named covenant/pack files.** Locally complete. Current delegation
   authorizes development after V1 review. F15's named picker remainder closes
   the observed F16 pack-to-covenant disconnect. Contract:
   `docs/development/cycle-33-import-inboxes.md`. Preserve all prior results,
   native builds, live saves and scientific definitions. No Git actions.
+
+W1 focused `20261005T115442-0a47b5d7` passed 760 tests. Full
+`20261005T115738-611ddb0c` passed 2,656 tests / 24 suites, two documented zlib
+skips and 2,294 valid JSON artifacts without mutations. The final application
+demonstration passed 28 checks, four native launches and twelve source flows /
+75 frames, on both policies. Report: `research/experiment_reports/2026-10-05-import-inboxes.md`;
+closure: `.development/w1-closed.json`; exact restart: `.development/w1-live-handoff.json`.
+Next: read-only source `develop --status`, review W1, then investigate actual
+source-backed gaps before preregistering another slice. No running worker or
+next RED. Cold covenant-model loading, native keyboard and maximum-inbox scale
+are not measured by W1. Git actions remain the user's; no remote executor or
+published-SHA CI pass is claimed.
+
+## Cycle 34 - Responsive covenant preparation
+
+- [ ] **W2 - Cold import and preparation responsiveness.** Directly delegated
+  after W1 review. Source measurements exposed 4.2-4.4s event starvation while
+  evolution-only models trained. Contract: `docs/development/cycle-34-responsive-preparation.md`.
+  Defer models to the existing E worker; preserve model/output parity, import
+  safety and W1 closure. No Git operations or WFC scientific extension.

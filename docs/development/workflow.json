@@ -167,6 +167,16 @@
         "package",
         "cli"
       ]
+    },
+    "w2-responsive-preparation": {
+      "spec": "docs/development/cycle-34-responsive-preparation.md",
+      "purpose": "Remove evolution-model training from covenant preparation while preserving scientific results and responsive era cancellation",
+      "suites": [
+        "game",
+        "package",
+        "cli",
+        "lab:game_loop"
+      ]
     }
   }
 }
