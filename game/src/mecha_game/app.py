@@ -38,6 +38,7 @@ from mecha_game.clips import TRANSITIONS, ClipDriver
 from mecha_game.contribute import founders_verdict, gather_releases
 from mecha_game.covenant_io import export_covenant, import_covenant
 from mecha_game.packs import import_pack
+from mecha_game.inbox import InboxPicker
 from mecha_game.hatchery import hatch_founders, origin_summary
 from mecha_game.lineage import LineageBrowser
 from mecha_game.repertoire import RepertoireBrowser
@@ -50,6 +51,7 @@ from mecha_game.covenant import (
 )
 from mecha_game.footer import FooterPager, HELP_LINES
 from mecha_game.era_review import EraReview
+from mecha_game.niche_history import CampaignStory, NicheHistory
 from mecha_game.era_plan import EraPlan, state_digest
 from mecha_game.era_work import EraCancelled, EraWork
 from mecha_game.recorded_review import fit_recorded_panel, load_saved_replay
@@ -274,6 +276,7 @@ class _EraBench:
                 f"{budget['generation_cap']}"
             ),
             "1 palette  2 thinking  3 population  4 generations  C close",
+            "I choose covenant   K choose pack   X export",
         ]
 
     def require_preparation(self):
@@ -370,6 +373,7 @@ class _EraBench:
             previous_state = state_digest(self.state_path)
             era = campaign.advance_era(self.weather,released_grids=(
                 released_grids if released_grids is not None else self.plan.releases) or None,
+                record_original=True,
                 **({"progress_callback": work.progress} if work is not None else {}))
             if work is not None: work.begin_commit()
             self._completed_work = campaign
@@ -577,6 +581,7 @@ def run(argv: list[str] | None = None) -> int:
         displayed_clip: str | None = None
         covenant_mode = False
         help_mode = False
+        inbox: InboxPicker | None = None
         footer_pager = FooterPager()
         footer_context = None
         hatch_count = 0
@@ -584,9 +589,12 @@ def run(argv: list[str] | None = None) -> int:
         review_playing = False
         review_context: EraReview | None = None
         review_return: EraReview | None = None
+        review_archive_return: RepertoireBrowser | None = None
+        recording_status_cache = None
         browser: RepertoireBrowser | None = None
         story: LineageBrowser | None = None
         era_review: EraReview | None = None
+        campaign_story: CampaignStory | None = None
         archive_return: EraReview | None = None
         running = True
         save_failed = False
@@ -614,17 +622,23 @@ def run(argv: list[str] | None = None) -> int:
                 bench.message = f"Saved companion at age {session.state['age_ticks']}."
             return True
 
-        def open_era_review(era_index=None):
+        def open_era_review(era_index=None, selected_campaign_id=None):
+            nonlocal campaign_story
+            nonlocal recording_status_cache
+            recording_status_cache = None
             nonlocal era_review, review, browser, story, covenant_mode, queued, archive_return, review_context, review_return
             campaign_id = bench.campaign.campaign["campaign_id"] if bench.campaign else None
             try:
-                era_review = EraReview.load(keeper_dir, campaign_id=campaign_id)
+                campaign_story = CampaignStory.load(keeper_dir, campaign_id=campaign_id)
+                era_review = (campaign_story.select(selected_campaign_id) if selected_campaign_id is not None
+                              else campaign_story.current)
                 if era_index is not None:
                     for index, era in enumerate(era_review.history['eras']):
                         if era['era_index'] == era_index:
                             era_review.index = index
                             break
             except (OSError, ValueError) as error:
+                campaign_story = None
                 era_review = EraReview(error=str(error))
             review = browser = story = archive_return = review_context = review_return = None
             covenant_mode = False
@@ -632,9 +646,13 @@ def run(argv: list[str] | None = None) -> int:
             footer_pager.reset()
 
         def open_archive():
+            nonlocal recording_status_cache
+            recording_status_cache = None
             nonlocal browser, era_review, archive_return, review, story, covenant_mode, queued
             entry = era_review
             campaign_id = bench.campaign.campaign["campaign_id"] if bench.campaign else None
+            if entry is not None:
+                campaign_id = entry.history.get('campaign_id', campaign_id)
             era_index = entry.current['era_index'] if entry is not None and entry.current is not None else None
             try:
                 browser = RepertoireBrowser.load(keeper_dir, campaign_id=campaign_id, era_index=era_index)
@@ -648,64 +666,84 @@ def run(argv: list[str] | None = None) -> int:
 
         def close_archive():
             nonlocal browser, era_review, archive_return, queued
+            if isinstance(browser, NicheHistory):
+                browser = browser.origin
+                queued = None
+                footer_pager.reset()
+                return
             browser = None
             era_review = archive_return
             archive_return = None
             queued = None
             footer_pager.reset()
 
+        def recording_status(campaign_id, selected, elite=None):
+            nonlocal recording_status_cache
+            if selected is None or campaign_id is None:
+                return 'Not recorded: no selected era.'
+            key = (campaign_id, selected['era_index'], elite.get('niche_key') if elite else None)
+            if recording_status_cache is not None and recording_status_cache[0] == key:
+                return recording_status_cache[1]
+            try:
+                saved = load_saved_replay(keeper_dir, campaign_id, selected['era_index'],
+                    expected_seed=selected['rng_seed'], selected_elite=elite)
+                label = ('Original best-elite evaluation recorded.' if saved and 'evaluation' in saved else
+                         'Legacy post-era recording; not original footage.' if saved else
+                         'Not recorded: no saved replay for this era.')
+            except (OSError, ValueError) as error:
+                label = f'Replay unavailable: {error}'
+            recording_status_cache = (key, label)
+            return label
+
         def open_review():
             nonlocal review, review_playing, review_context, review_return, era_review, story, covenant_mode, queued
-            entry = era_review
+            nonlocal browser, review_archive_return
+            entry, archive_entry = era_review, browser
             context = entry
             try:
                 if context is None:
-                    campaign_id = bench.campaign.campaign['campaign_id'] if bench.campaign else None
+                    campaign_id = (archive_entry.campaign_id if archive_entry is not None else
+                        bench.campaign.campaign['campaign_id'] if bench.campaign else None)
                     context = EraReview.load(keeper_dir, campaign_id=campaign_id)
                 if context.error:
                     raise ValueError(context.error)
+                if archive_entry is not None:
+                    selected_era = archive_entry.selected_era
+                    if selected_era is None or archive_entry.current() is None:
+                        raise ValueError('No selected elite; original evaluation not recorded.')
+                    context.index = next(i for i, era in enumerate(context.history['eras'])
+                                         if era['era_index'] == selected_era['era_index'])
                 selected = context.current
                 if selected is None:
                     raise ValueError('No era has been recorded yet. E runs the first era.')
                 campaign_id = context.history['campaign_id']
-                replay = load_saved_replay(keeper_dir, campaign_id, selected['era_index'], expected_seed=selected['rng_seed'])
+                replay = load_saved_replay(keeper_dir, campaign_id, selected['era_index'],
+                    expected_seed=selected['rng_seed'],
+                    selected_elite=archive_entry.current() if archive_entry is not None else None)
                 if replay is None:
-                    # Keep the original current-run producer. A resumed history
-                    # has no live eras and must never be silently reconstructed.
-                    campaign = bench.campaign
-                    index = next((i for i, era in enumerate(campaign.eras)
-                                  if era['era_index'] == selected['era_index']), None) if campaign else None
-                    if index is None:
-                        raise ValueError('No recording was saved for this era. Its report remains available.')
-                    if (campaign.campaign['slip_profile'] != selected['slip_profile'] or
-                        any(campaign.era_config[name] != selected['report'].get(name)
-                            for name in ('damage_cycles', 'ticks', 'dropout_rate'))):
-                        raise ValueError('The current covenant or parameters differ from this era; no recording was made.')
-                    target = keeper_dir / 'replays' / f"{campaign_id}_era{selected['era_index']}.json"
-                    if not target.resolve().is_relative_to((keeper_dir / 'replays').resolve()):
-                        raise ValueError('The recording name leaves its recordings directory.')
-                    if target.exists():
-                        raise ValueError('An unindexed recording already exists; it was not replaced.')
-                    replay = campaign.record_review_replay(index)
-                    campaign.save_review_replay(replay, keeper_dir, campaign_ledger)
-                    replay = load_saved_replay(keeper_dir, campaign_id, selected['era_index'], expected_seed=selected['rng_seed'])
+                    raise ValueError('Original evaluation not recorded for this historical era; its report remains available.')
                 review = ReplayPlayer(replay)
                 review_playing = True
                 review_context, review_return = context, entry
-                era_review = None
+                review_archive_return = archive_entry
+                era_review = browser = None
             except (OSError, ValueError) as error:
-                era_review = context or EraReview(error=str(error))
-                era_review.notice = f'Replay unavailable: {error}'
+                if archive_entry is not None:
+                    archive_entry.replay_notice = f'Replay unavailable: {error}'
+                else:
+                    era_review = context or EraReview(error=str(error))
+                    era_review.notice = f'Replay unavailable: {error}'
             story = None
             covenant_mode = False
             queued = None
             footer_pager.reset()
 
         def close_review():
-            nonlocal review, review_context, review_return, era_review, queued
+            nonlocal review, review_context, review_return, era_review, queued, browser, review_archive_return
             review = None
             era_review = review_return
-            review_context = review_return = None
+            browser = review_archive_return
+            review_context = review_return = review_archive_return = None
             queued = None
             footer_pager.reset()
 
@@ -718,6 +756,38 @@ def run(argv: list[str] | None = None) -> int:
                 notice = bench.message
             if era_review is not None:
                 era_review.notice = notice
+            footer_pager.reset()
+
+        def import_selected():
+            if inbox.selected is None or inbox.error or inbox.completed:
+                return
+            try:
+                if inbox.kind == 'covenant':
+                    result = bench.change_covenant(lambda campaign: import_covenant(
+                        campaign, inbox.selected, expected_digest=inbox.digest))
+                    inbox.result_lines = ([f"Covenant imported ({result['aligned_seeds']} seeds).",
+                        'Future eras use it; your current pet is unchanged.'] if result['ok'] else
+                        ['Covenant not changed.', *result['violations']])
+                else:
+                    result = import_pack(keeper_dir, inbox.selected, expected_digest=inbox.digest)
+                    if result['ok']:
+                        slips, creatures = result['slips'], result['creatures']
+                        inbox.result_lines = [
+                            f"Pack processed: {sum(e['ok'] for e in slips)}/{len(slips)} covenants; "
+                            f"{sum(e['ok'] for e in creatures)}/{len(creatures)} creatures ready.",
+                            'I choose a staged covenant; K/Escape back.']
+                        for kind, entries in (('covenant', slips), ('creature', creatures)):
+                            for entry in entries:
+                                identity = entry.get('profile_id', entry.get('grid_id'))
+                                outcome = ('already staged' if entry.get('already_staged') else 'staged') if entry['ok'] else 'refused'
+                                inbox.result_lines.append(f'{kind} {identity}: {outcome}')
+                                inbox.result_lines.extend(entry['violations'])
+                    else:
+                        inbox.result_lines = ['Pack not imported.', *result['violations']]
+                inbox.completed = result['ok'] and (inbox.kind == 'covenant' or
+                    all(entry['ok'] for field in ('slips', 'creatures') for entry in result[field]))
+            except (OSError, ValueError, sqlite3.Error) as error:
+                inbox.result_lines = [f'Import not completed: {error}', 'Fix the problem; Enter retries.']
             footer_pager.reset()
 
         era_ran_frame = False
@@ -845,6 +915,7 @@ def run(argv: list[str] | None = None) -> int:
         while running:
             era_ran_frame = False
             help_was_open = help_mode
+            inbox_was_open = inbox is not None
             event_batch = pygame.event.get()
             for event_index, event in enumerate(event_batch):
                 if event.type == pygame.QUIT:
@@ -870,7 +941,30 @@ def run(argv: list[str] | None = None) -> int:
                             footer_pager.move(-1)
                         elif event.key == pygame.K_PAGEDOWN:
                             footer_pager.move(1)
-                    elif event.key == pygame.K_v and browser is None:
+                    elif inbox is not None:
+                        if event.key == pygame.K_ESCAPE or event.key == (pygame.K_i if inbox.kind == 'covenant' else pygame.K_k):
+                            inbox = None
+                            queued = None
+                        elif event.key in (pygame.K_i, pygame.K_k):
+                            inbox = InboxPicker(keeper_dir, 'covenant' if event.key == pygame.K_i else 'pack')
+                        elif event.key in (pygame.K_COMMA, pygame.K_LEFT, pygame.K_UP):
+                            inbox.move(-1)
+                        elif event.key in (pygame.K_PERIOD, pygame.K_RIGHT, pygame.K_DOWN):
+                            inbox.move(1)
+                        elif event.key == pygame.K_HOME:
+                            inbox.select(0)
+                        elif event.key == pygame.K_END:
+                            inbox.select(len(inbox.files)-1)
+                        elif event.key == pygame.K_F5:
+                            inbox.refresh()
+                            footer_pager.reset()
+                        elif event.key == pygame.K_RETURN and not getattr(event, 'repeat', False):
+                            import_selected()
+                        elif event.key in (pygame.K_PAGEUP, pygame.K_PAGEDOWN):
+                            footer_pager.move(-1 if event.key == pygame.K_PAGEUP else 1)
+                    elif inbox_was_open:
+                        continue  # A closing key cannot leak care/preparation from its batch.
+                    elif event.key == pygame.K_v:
                         if review is not None:
                             close_review()
                         else:
@@ -883,10 +977,10 @@ def run(argv: list[str] | None = None) -> int:
                     elif event.key == pygame.K_t:
                         if review is not None:
                             selected = review_context.current
-                            open_era_review(selected["era_index"])
+                            open_era_review(selected["era_index"], review_context.history["campaign_id"])
                         elif browser is not None:
                             selected = browser.selected_era
-                            open_era_review(selected['era_index'] if selected else None)
+                            open_era_review(selected['era_index'] if selected else None, browser.campaign_id)
                         elif era_review is None:
                             open_era_review()
                         else:
@@ -897,6 +991,17 @@ def run(argv: list[str] | None = None) -> int:
                         pygame.K_SPACE, pygame.K_PERIOD, pygame.K_COMMA, pygame.K_PAGEUP, pygame.K_PAGEDOWN,
                     ):
                         continue
+                    elif browser is not None and event.key == pygame.K_n:
+                        if isinstance(browser, NicheHistory):
+                            close_archive()
+                        else:
+                            try:
+                                root_id = bench.campaign.campaign['campaign_id'] if bench.campaign else None
+                                browser = NicheHistory.load(keeper_dir, browser, campaign_id=root_id)
+                            except (OSError, ValueError) as error:
+                                browser.replay_notice = f'Niche history unavailable: {error}'
+                            queued = None
+                            footer_pager.reset()
                     elif browser is not None and event.key == pygame.K_ESCAPE:
                         close_archive()
                     elif browser is not None and not browser.allow_planning and event.key in (pygame.K_c, pygame.K_e):
@@ -906,6 +1011,10 @@ def run(argv: list[str] | None = None) -> int:
                         pygame.K_a, pygame.K_c, pygame.K_e, pygame.K_PAGEUP, pygame.K_PAGEDOWN,
                     ):
                         continue
+                    elif era_review is not None and campaign_story is not None and getattr(event, 'mod', 0) & pygame.KMOD_CTRL and event.key in (pygame.K_LEFTBRACKET, pygame.K_RIGHTBRACKET):
+                        era_review = campaign_story.move(-1 if event.key == pygame.K_LEFTBRACKET else 1)
+                        queued = None
+                        footer_pager.reset()
                     elif era_review is not None and event.key in (pygame.K_LEFTBRACKET, pygame.K_COMMA):
                         era_review.move(-1)
                     elif era_review is not None and event.key in (pygame.K_RIGHTBRACKET, pygame.K_PERIOD):
@@ -920,10 +1029,19 @@ def run(argv: list[str] | None = None) -> int:
                         if not era_review.error:
                             run_prepared_era(event_batch[event_index + 1:])
                             break  # The waiting loop consumed the rest of this batch.
+                    elif era_review is not None and event.key in (pygame.K_PAGEUP, pygame.K_PAGEDOWN):
+                        footer_pager.move(-1 if event.key == pygame.K_PAGEUP else 1)
                     elif era_review is not None and (era_review.error or event.key not in (
                         pygame.K_PAGEUP, pygame.K_PAGEDOWN, pygame.K_r, pygame.K_w, pygame.K_BACKSPACE,
                         pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5,
                     )):
+                        continue
+                    elif story is not None and event.key == pygame.K_ESCAPE:
+                        story = None
+                        queued = None
+                    elif story is not None and event.key not in (
+                        pygame.K_l, pygame.K_PERIOD, pygame.K_COMMA, pygame.K_PAGEUP, pygame.K_PAGEDOWN,
+                    ):
                         continue
                     elif event.key == pygame.K_PAGEUP:
                         footer_pager.move(-1)
@@ -988,6 +1106,7 @@ def run(argv: list[str] | None = None) -> int:
                             if story is not None
                             else LineageBrowser(session.lineage)
                         )
+                        queued = None
                     elif story is not None and event.key == pygame.K_PERIOD:
                         story.step()
                     elif story is not None and event.key == pygame.K_COMMA:
@@ -1007,41 +1126,8 @@ def run(argv: list[str] | None = None) -> int:
                     ):
                         browser.next_era()
                     elif event.key == pygame.K_k:
-                        # Import a community pack (F16): the format's
-                        # contents judged item by item and staged into
-                        # the inboxes; verdicts shown. (K — P is the
-                        # companion's play action.)
-                        pack_path = (
-                            keeper_dir / "packs" / "pack_import.json"
-                        )
-                        if not pack_path.is_file():
-                            bench.message = (
-                                "place a pack at keeper/packs/"
-                                "pack_import.json to import"
-                            )
-                            continue
-                        report = import_pack(keeper_dir, pack_path)
-                        if not report["ok"]:
-                            bench.message = "; ".join(
-                                report["violations"]
-                            )
-                        else:
-                            ok_slips = sum(
-                                1 for s in report["slips"] if s["ok"]
-                            )
-                            ok_creatures = sum(
-                                1
-                                for c in report["creatures"]
-                                if c["ok"]
-                            )
-                            bench.message = (
-                                f"pack {report['pack_id']}: "
-                                f"{ok_slips}/{len(report['slips'])} "
-                                f"covenants and {ok_creatures}/"
-                                f"{len(report['creatures'])} creatures "
-                                "staged (I imports a covenant; W "
-                                "gathers the creatures)"
-                            )
+                        inbox = InboxPicker(keeper_dir, 'pack')
+                        queued = None
                     elif event.key == pygame.K_x:
                         # Export the ACTIVE covenant (spends included)
                         # as a shareable SLIP file (F15).
@@ -1053,31 +1139,8 @@ def run(argv: list[str] | None = None) -> int:
                         )
                         bench.message = f"covenant exported: {exported.name}"
                     elif event.key == pygame.K_i:
-                        # Import a covenant through the engine's gates
-                        # (F15): keeper/covenants/covenant_import.json.
-                        import_path = (
-                            keeper_dir
-                            / "covenants"
-                            / "covenant_import.json"
-                        )
-                        if not import_path.is_file():
-                            bench.message = (
-                                f"place a SLIP at {import_path.name} "
-                                "under keeper/covenants/ to import"
-                            )
-                        else:
-                            try:
-                                result = bench.change_covenant(lambda campaign: import_covenant(campaign,import_path))
-                            except (OSError,ValueError,sqlite3.Error) as error:
-                                bench.message = f'Covenant not changed: {error}'
-                                continue
-                            bench.message = (
-                                "covenant imported "
-                                f"({result['aligned_seeds']} seeds "
-                                "satisfy it) — the new species contract"
-                                if result["ok"]
-                                else "; ".join(result["violations"])
-                            )
+                        inbox = InboxPicker(keeper_dir, 'covenant')
+                        queued = None
                     elif event.key == pygame.K_BACKSPACE:
                         prepare(bench.unstage)
                     elif event.key == pygame.K_w:
@@ -1141,9 +1204,12 @@ def run(argv: list[str] | None = None) -> int:
                 and not era_ran_frame
                 and not save_failed
                 and not help_mode
+                and inbox is None
+                and not inbox_was_open
                 and era_review is None
                 and review is None
                 and browser is None
+                and story is None
                 and session.alive
                 and frame % args.tick_frames == 0
             ):
@@ -1239,9 +1305,20 @@ def run(argv: list[str] | None = None) -> int:
             window.blit(surface, ((window_size[0] - width * args.scale) // 2, 0))
             footer = _footer_lines(snapshot, queued)
             if help_mode:
-                footer = list(HELP_LINES)
+                footer = inbox.help_lines() if inbox is not None else list(HELP_LINES)
+            elif inbox is not None:
+                footer = inbox.lines()
             elif era_review is not None:
                 footer = era_review.lines()
+                if campaign_story is not None:
+                    footer[1:1] = campaign_story.lines()[:1]
+                    footer.extend(campaign_story.lines()[1:])
+                    footer = [line.replace('Your companion is paused. [ ] eras   T close',
+                        'Care paused. [ ] eras; Ctrl+[ ] campaigns; T close') for line in footer]
+                    if campaign_story.index != len(campaign_story.views) - 1:
+                        footer.append('C/E preparation uses the active campaign, not this historical selection.')
+                if era_review.current is not None and not era_review.error:
+                    footer.append(recording_status(era_review.history["campaign_id"], era_review.current))
                 if not era_review.error:
                     actions = next((i for i,line in enumerate(footer) if line.startswith('B archive')),len(footer))
                     if bench.plan.pending is not None or bench._completed_work is not None:
@@ -1256,20 +1333,27 @@ def run(argv: list[str] | None = None) -> int:
                     "LINEAGE  " + story.caption(),
                     *story.detail_lines(),
                     ". older→newer  , newer→older  L close",
+                    "Care paused. T recorded campaign story",
                 ]
             elif browser is not None:
-                footer = ["REPERTOIRE  " + browser.caption()]
+                footer = [("NICHE HISTORY  " if isinstance(browser, NicheHistory) else "REPERTOIRE  ") + browser.caption()]
+                footer.append("N back to archive; , . occurrences" if isinstance(browser, NicheHistory) else "N niche history   campaign " + str(browser.campaign_id))
+                if isinstance(browser, NicheHistory) and browser.warnings:
+                    footer.append(f'{len(browser.warnings)} history notices; PgDn for missing/incompatible records.')
                 if browser.current() is None:
                     footer.extend(["Care paused. No creature selected.",
                                    "[ ] other eras" if browser.selected_era is not None else "",
                                    "T era report   B/Escape back"])
                 else:
                     footer.extend([
-                        "Care paused. , . creatures   [ ] eras",
-                        "A adopt with current covenant",
+                        "Care paused. , . occurrences   [ ] occurrences" if isinstance(browser, NicheHistory) else "Care paused. , . creatures   [ ] eras",
+                        "A adopt with current covenant   V recording",
+                        browser.replay_notice or recording_status(browser.campaign_id, browser.selected_era, browser.current()),
                         "T selected report   B/Escape back",
                         browser.axes_line(), browser.components_line(),
                     ])
+                if isinstance(browser, NicheHistory):
+                    footer.extend(browser.history_lines())
             elif review is not None:
                 footer = [
                     f"REVIEW ERA {review_context.current['era_index']}  {review.replay['creature']['grid_id']}",
@@ -1284,12 +1368,12 @@ def run(argv: list[str] | None = None) -> int:
                 footer.extend([bench.preparation_line(),
                     "F1 controls  Ctrl+S save  T report  E era  C covenant",
                     bench.preparation_controls()])
-            if bench.message and not help_mode and ((era_review is None and review is None) or save_failed):
+            if bench.message and not help_mode and (inbox is None or save_failed) and ((era_review is None and review is None) or save_failed):
                 footer.insert(0, bench.message)
-            context = ('help' if help_mode else 'era_report' if era_review is not None else 'lineage' if story is not None else
+            context = ('help' if help_mode else 'inbox' if inbox is not None else 'era_report' if era_review is not None else 'lineage' if story is not None else
                        'repertoire' if browser is not None else 'review' if review is not None else
-                       'covenant' if covenant_mode else 'play', bench.message, era_review.index if era_review is not None else
-                       (browser.era_index, browser.index) if browser is not None else None)
+                       'covenant' if covenant_mode else 'play', bench.message, (inbox.kind, inbox.index, inbox.digest, inbox.error, tuple(inbox.result_lines)) if inbox is not None else era_review.index if era_review is not None else
+                       (browser.campaign_id, browser.era_index, browser.index, isinstance(browser, NicheHistory)) if browser is not None else None)
             if context != footer_context:
                 footer_pager.reset()
                 footer_context = context

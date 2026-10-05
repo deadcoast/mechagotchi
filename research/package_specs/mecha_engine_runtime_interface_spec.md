@@ -182,3 +182,21 @@ lab/package records and counts, propagated cancellation, input preservation and
 early extinction. Existing contract signature assertions include the additive
 default-off argument; no scientific threshold changes. The application owns
 threading, rendering, cancellation policy and its persistence boundary.
+
+
+## Original evaluation observation (DR 0074, 2026-10-04)
+
+`evolve` accepts optional keyword-only `recording_callback=None`. An inserted or
+replaced candidate that is now best by the existing `(fitness, niche_key)` order
+emits one isolated mapping: original candidate grid, actual `live_cycle` output
+with DR0023 frames, era and candidate seeds, zero-based generation/candidate
+indices, niche/fitness, effective dropout and that generation's recorded weather.
+No extra generation, damage, repair, lifecycle, scoring or RNG call is made.
+The archive/report remain exactly equal with observation off/on; frame blocks
+stay out of the scientific report. Callback exceptions propagate, and callback
+mutation cannot alter engine inputs or the returned archive/report.
+
+This is a caller-owned observation channel, not engine retention policy. The
+playable consumer retains the latest best record only, with preregistered frame
+and byte limits. It never calls the legacy post-era recorder to manufacture
+missing original footage. See the U1 contract/report and original-recording tests.

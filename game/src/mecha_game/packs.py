@@ -22,6 +22,7 @@ from pathlib import Path
 
 from mecha_engine.genome import validate_grid
 from mecha_engine.slip import validate_slip
+from mecha_game.covenant_io import read_import_file
 
 PACK_FORMAT = "mechagotchi_pack_v1"
 
@@ -72,72 +73,74 @@ def load_pack(path: str | Path) -> dict:
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
 
-def import_pack(keeper_dir: str | Path, path: str | Path) -> dict:
-    """Judge and stage a pack's contents (per-item verdicts)."""
+def _filename_part(value) -> bool:
+    return (isinstance(value, str) and bool(value.strip()) and value not in ('.', '..')
+            and not any(c in '<>:"/\\|?*' or ord(c) < 32 for c in value))
+
+
+def _stage_item(target: Path, value: dict) -> bool:
+    """Create once; equal JSON is a no-op, existing bytes always stay untouched."""
+    payload = (json.dumps(value, indent=2) + '\n').encode('utf-8')
+    target.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        with target.open('xb') as stream:
+            try:
+                stream.write(payload)
+            except OSError:
+                stream.close()
+                target.unlink()  # Only this call's exclusive, incomplete creation.
+                raise
+    except FileExistsError:
+        existing = target.read_bytes()
+        same = existing == payload
+        if not same:
+            try:
+                same = json.dumps(json.loads(existing.decode('utf-8')), sort_keys=True) == json.dumps(value, sort_keys=True)
+            except (ValueError, UnicodeError):
+                pass
+        if not same:
+            raise ValueError(f'{target.name} already exists with different content; existing file preserved.')
+        return True
+    return False
+
+
+def import_pack(keeper_dir: str | Path, path: str | Path, *, expected_digest: str | None = None) -> dict:
+    """Judge/stage items independently and retain explicit retryable verdicts."""
     keeper_dir = Path(keeper_dir)
     try:
-        pack = load_pack(path)
-    except (OSError, json.JSONDecodeError) as error:
-        return {
-            "ok": False,
-            "violations": [f"unreadable pack file: {error}"],
-        }
-    if pack.get("pack_format") != PACK_FORMAT:
-        return {
-            "ok": False,
-            "violations": [
-                f"not a {PACK_FORMAT} file: "
-                f"{pack.get('pack_format')!r}"
-            ],
-        }
+        pack, _ = read_import_file(path, expected_digest=expected_digest)
+        if pack.get('pack_format') != PACK_FORMAT:
+            raise ValueError(f"not a {PACK_FORMAT} file: {pack.get('pack_format')!r}")
+        if not _filename_part(pack.get('pack_id')):
+            raise ValueError('pack_id must be a nonempty filename component without path separators.')
+        for field in ('slips', 'creatures'):
+            if not isinstance(pack.get(field, []), list):
+                raise ValueError(f'{field} must be a list.')
+    except (OSError, ValueError, UnicodeError) as error:
+        return {'ok': False, 'violations': [f'unreadable pack file: {error}']}
 
-    slip_reports: list[dict] = []
-    for index, slip in enumerate(pack.get("slips") or []):
-        verdict = validate_slip(slip)
-        entry = {
-            "profile_id": slip.get("profile_id"),
-            "ok": verdict.ok,
-            "violations": list(verdict.errors),
-        }
-        if verdict.ok:
-            name = slip.get("profile_id") or f"slip_{index}"
-            target = (
-                keeper_dir / "covenants" / f"pack_{pack['pack_id']}_{name}.json"
-            )
-            target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_text(
-                json.dumps(slip, indent=2) + "\n", encoding="utf-8"
-            )
-            entry["staged"] = target.name
-        slip_reports.append(entry)
-
-    creature_reports: list[dict] = []
-    for creature in pack.get("creatures") or []:
-        verdict = validate_grid(creature)
-        entry = {
-            "grid_id": creature.get("grid_id"),
-            "ok": verdict.ok,
-            "violations": list(verdict.errors),
-        }
-        if verdict.ok:
-            target = (
-                keeper_dir
-                / "released"
-                / f"pack_{pack['pack_id']}_{creature['grid_id']}.json"
-            )
-            target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_text(
-                json.dumps(creature, indent=2) + "\n",
-                encoding="utf-8",
-            )
-            entry["staged"] = target.name
-        creature_reports.append(entry)
-
-    return {
-        "ok": True,
-        "pack_id": pack["pack_id"],
-        "title": pack.get("title"),
-        "provenance": pack.get("provenance"),
-        "slips": slip_reports,
-        "creatures": creature_reports,
-    }
+    report = {'ok': True, 'pack_id': pack['pack_id'], 'title': pack.get('title'),
+              'provenance': pack.get('provenance'), 'slips': [], 'creatures': []}
+    for field, id_key, folder, validator in (
+        ('slips', 'profile_id', 'covenants', validate_slip),
+        ('creatures', 'grid_id', 'released', validate_grid),
+    ):
+        for index, item in enumerate(pack.get(field, [])):
+            identity = item.get(id_key) if isinstance(item, dict) else None
+            entry = {id_key: identity, 'ok': False, 'violations': []}
+            try:
+                if not isinstance(item, dict):
+                    raise ValueError('Item must be a JSON object.')
+                verdict = validator(item)
+                entry['violations'] = list(verdict.errors)
+                if verdict.ok:
+                    name = identity or f'slip_{index}'
+                    if not _filename_part(name):
+                        raise ValueError(f'{id_key} cannot be used as an inbox filename.')
+                    target = keeper_dir / folder / f"pack_{pack['pack_id']}_{name}.json"
+                    already = _stage_item(target, item)
+                    entry.update(ok=True, staged=target.name, already_staged=already)
+            except (OSError, ValueError, TypeError, KeyError, AttributeError) as error:
+                entry['violations'].append(str(error))
+            report[field].append(entry)
+    return report

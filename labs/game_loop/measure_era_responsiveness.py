@@ -80,7 +80,13 @@ def observe(case,keeper,target):
     current=history['eras'][-1]
     report=current['report']
     evaluations=sum(len(g.get('creatures',[])) for g in report['generations'])
-    result=dict(case=case,returncode=code,setup=setup,elapsed_s=time.perf_counter()-started,
+    from mecha_game.recorded_review import load_saved_replay
+    recorded = load_saved_replay(keeper, history['campaign_id'], current['era_index'], expected_seed=current['rng_seed'])
+    artifact = keeper / 'replays' / f"{history['campaign_id']}_era{current['era_index']}.json"
+    recording = dict(bytes=artifact.stat().st_size, sha256=hashlib.sha256(artifact.read_bytes()).hexdigest(),
+                     frame_count=recorded['frame_count'], provenance=recorded['evaluation'],
+                     parameters=recorded['parameters'])
+    result=dict(case=case,returncode=code,setup=setup,original_recording=recording,elapsed_s=time.perf_counter()-started,
         era_call_s=timing['era_returned']-timing['era_entered'],max_poll_gap_s=max(b-a for a,b in zip(polls,polls[1:])),
         max_frame_gap_s=max(b-a for a,b in zip(flips,flips[1:])),
         help_input_latency_s=timing.get('help_polled',timing['era_returned'])-timing['help_posted'],

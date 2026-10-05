@@ -26,6 +26,7 @@ manual-rating status visible (calibration is deferred by owner decision).
 """
 
 import argparse
+from copy import deepcopy
 import json
 import sys
 from pathlib import Path
@@ -552,6 +553,7 @@ def run_mecha_engine_evolution_loop(
     cubff_pressure_source: list[dict] | None = None,
     readability_selection: dict | None = None,
     progress_callback=None,
+    recording_callback=None,
 ) -> dict:
     """Multi-generation evolution through the composed engine.
 
@@ -768,6 +770,7 @@ def run_mecha_engine_evolution_loop(
 
             current = candidate
             cycles = []
+            recorded_cycles = []
             all_valid = True
             all_aligned = True
             for cycle in range(1, damage_cycles + 1):
@@ -818,6 +821,14 @@ def run_mecha_engine_evolution_loop(
                         else None,
                     }
                 )
+                if recording_callback is not None:
+                    recorded = deepcopy(cycles[-1])
+                    recorded["frames"] = {
+                        "removed_cells": deepcopy(damaged["metadata"]["removed_cells"]),
+                        "repaired_grid": deepcopy(repaired),
+                        "episode_history": deepcopy(episode["history"]) if episode is not None else None,
+                    }
+                    recorded_cycles.append(recorded)
                 if not aligned:
                     break
                 current = repaired
@@ -913,6 +924,29 @@ def run_mecha_engine_evolution_loop(
                 )
                 creature_record["ancestor_ids"] = ancestor_ids
             creatures.append(creature_record)
+            # DR0074: retain only successive actual overall-best evaluations.
+            # No observation enters the scientific report or changes selection.
+            if recording_callback is not None and decision in ("inserted", "replaced"):
+                best_niche = max(archive["elites"], key=lambda n: (archive["elites"][n]["fitness"], n))
+                if archive["elites"][best_niche]["grid"] == current:
+                    recording_callback(deepcopy({
+                        "era_seed": rng_seed, "run_seed": run_seed,
+                        "generation_index": generation_index, "candidate_index": index,
+                        "effective_dropout_rate": generation_dropout,
+                        "generation_weather": cubff_by_generation[-1] if cubff else None,
+                        "damage_cycles": damage_cycles, "ticks": ticks,
+                        "niche_key": best_niche, "fitness": archive["elites"][best_niche]["fitness"],
+                        "candidate_grid": candidate,
+                        "lived": {
+                            "grid_id": candidate["grid_id"], "rng_seed": run_seed,
+                            "damage_source": "internal_synthesizer", "cycles_requested": damage_cycles,
+                            "cycles": recorded_cycles, "all_cycles_valid": all_valid,
+                            "all_cycles_aligned": all_aligned, "final_grid": current,
+                            "final_state": {"grid_id": current["grid_id"], "cycles_completed": len(cycles),
+                                "live_cell_count": len(current.get("cells", [])),
+                                "valid": validate_grid(current).ok, "aligned": is_grid_aligned(current, slip_profile).ok},
+                        },
+                    }))
             if progress_callback is not None:
                 progress_callback(generation_index * population + index + 1, generations * population)
 

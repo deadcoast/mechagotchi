@@ -1,0 +1,324 @@
+{
+  "artifact_id": "original_recordings_release_stage0",
+  "date": "2026-10-04",
+  "status": "observed_native_and_source",
+  "source_head": "c12df2ab4d39dd019f65f61d4a583c6450702ed3",
+  "purpose": "Replay the actual final best elite evaluation without reconstructed footage or changed engine outcomes.",
+  "source_artifacts": [
+    "docs/development/cycle-31-original-recordings.md",
+    "research/decision_records/0074-original-best-elite-recording.md",
+    "game/src/mecha_game/original_recording.py",
+    "game/src/mecha_game/replay.py",
+    "game/src/mecha_game/recorded_review.py",
+    "game/src/mecha_game/era_plan.py",
+    "game/src/mecha_game/app.py",
+    "game/src/mecha_game/campaign.py",
+    "packages/mecha_engine/src/mecha_engine/runtime/evolve.py",
+    "labs/runtime_integration/mecha_engine_runtime_loop.py"
+  ],
+  "metrics": {
+    "selection": "final best elite by existing (fitness,niche_key)",
+    "retention_limits": {
+      "max_frames_per_era": 2048,
+      "max_encoded_bytes_per_era": 8388608,
+      "automatic_historical_deletion": false
+    },
+    "measurements": [
+      {
+        "case": "normal",
+        "actual_evaluations": 96,
+        "era_call_s": 7.880501999985427,
+        "max_poll_gap_s": 0.04536029999144375,
+        "max_frame_gap_s": 0.0453609999967739,
+        "help_input_latency_s": 0.033649399993009865,
+        "frames": 209,
+        "report_sha256": "f64fd5671f0ade11fe384b79b29c84b1788939120c5244b61e851f15e64e1116",
+        "peak_working_set_mib": 65.891,
+        "recording_bytes": 36928,
+        "recording_frames": 37,
+        "recording_sha256": "335eccf356358af170052943652319313fa6221e29e67183e584ae9bf3fd8dae",
+        "complete_report_equal_to_T5": true
+      },
+      {
+        "case": "larger",
+        "actual_evaluations": 384,
+        "era_call_s": 9.847505799960345,
+        "max_poll_gap_s": 0.04113679996225983,
+        "max_frame_gap_s": 0.041106199962086976,
+        "help_input_latency_s": 0.028045800048857927,
+        "frames": 259,
+        "report_sha256": "20d513416fa8c7ea463691785a6b806e7c8c6331f374e3bb54bc9c5cbf4cf474",
+        "peak_working_set_mib": 76.316,
+        "recording_bytes": 36245,
+        "recording_frames": 37,
+        "recording_sha256": "a8fb71d895a026d4821015c57c93414d233f2c04b9c77d3b9f471a752565c6d8",
+        "complete_report_equal_to_T5": true
+      }
+    ],
+    "connected_checks": {
+      "incumbent_weather_and_single_contribution_persist_from_report": true,
+      "incumbent_earned_covenant_spend_persisted_with_original_base": true,
+      "incumbent_native_resume_keeps_preparation_and_covenant": true,
+      "incumbent_prepared_storm_runs_once_and_shows_real_admission": true,
+      "incumbent_report_replay_archive_adoption_and_next_contribution_connect": true,
+      "incumbent_recording_is_original_era_evaluation": true,
+      "incumbent_adopted_creature_enters_next_native_era_without_repeating_prior_release": true,
+      "incumbent_previous_recorded_reports_preserved": true,
+      "incumbent_history_archive_replay_stay_read_only_after_native_execution": true,
+      "incumbent_native_capture_preserves_actual_candidate_seed_weather_and_cycles": true,
+      "incumbent_selected_original_replay_returns_to_archive_without_writes": true,
+      "incumbent_other_selected_elite_explicitly_not_recorded_without_writes": true,
+      "incumbent_unstage_preserves_all_original_creature_and_campaign_bytes": true,
+      "incumbent_incompatible_policy_refused_without_writes": true,
+      "qtable_weather_and_single_contribution_persist_from_report": true,
+      "qtable_earned_covenant_spend_persisted_with_original_base": true,
+      "qtable_native_resume_keeps_preparation_and_covenant": true,
+      "qtable_prepared_storm_runs_once_and_shows_real_admission": true,
+      "qtable_report_replay_archive_adoption_and_next_contribution_connect": true,
+      "qtable_recording_is_original_era_evaluation": true,
+      "qtable_adopted_creature_enters_next_native_era_without_repeating_prior_release": true,
+      "qtable_previous_recorded_reports_preserved": true,
+      "qtable_history_archive_replay_stay_read_only_after_native_execution": true,
+      "qtable_native_capture_preserves_actual_candidate_seed_weather_and_cycles": true,
+      "qtable_selected_original_replay_returns_to_archive_without_writes": true,
+      "qtable_other_selected_elite_explicitly_not_recorded_without_writes": true,
+      "qtable_unstage_preserves_all_original_creature_and_campaign_bytes": true,
+      "qtable_incompatible_policy_refused_without_writes": true,
+      "interrupted_state_write_keeps_completed_result_and_staged_inputs": true,
+      "legacy_native_refuses_pending_original_journal_without_writes": true,
+      "native_restart_finishes_recorded_era_without_an_extra_era": true,
+      "native_restart_finishes_the_exact_journaled_original_recording": true,
+      "all_actual_source_flows_exit_and_fit": true
+    },
+    "native_launches": 11,
+    "native_executable_sha256": "cbefbc232231229be5e4dde58864ee62d53f4ed2f56516c76c4fee839297e41c",
+    "source_flows": 25,
+    "source_rendered_frames": 1365,
+    "safety": [
+      {
+        "case": "cancel-loading",
+        "policy": "incumbent",
+        "checks": {
+          "source_exit": true,
+          "event_latency_within_half_second": true,
+          "rendering_within_half_second": true,
+          "companion_unchanged": true,
+          "policy_preserved": true,
+          "no_detached_worker": true,
+          "casing_fits": true,
+          "cancel_preserves_every_saved_file": true,
+          "cancellation_accepted": true
+        },
+        "request_to_stop_s": 4.831898899981752,
+        "max_poll_gap_s": 0.04039529990404844,
+        "max_frame_gap_s": 0.04059109999798238
+      },
+      {
+        "case": "cancel-evaluation",
+        "policy": "incumbent",
+        "checks": {
+          "source_exit": true,
+          "event_latency_within_half_second": true,
+          "rendering_within_half_second": true,
+          "companion_unchanged": true,
+          "policy_preserved": true,
+          "no_detached_worker": true,
+          "casing_fits": true,
+          "cancel_preserves_every_saved_file": true,
+          "cancellation_accepted": true
+        },
+        "request_to_stop_s": 0.03741680004168302,
+        "max_poll_gap_s": 0.04109899990726262,
+        "max_frame_gap_s": 0.04128609993495047
+      },
+      {
+        "case": "help-cancel",
+        "policy": "incumbent",
+        "checks": {
+          "source_exit": true,
+          "event_latency_within_half_second": true,
+          "rendering_within_half_second": true,
+          "companion_unchanged": true,
+          "policy_preserved": true,
+          "no_detached_worker": true,
+          "casing_fits": true,
+          "cancel_preserves_every_saved_file": true,
+          "cancellation_accepted": true,
+          "first_escape_closes_help_without_cancelling": true,
+          "help_was_rendered": true
+        },
+        "request_to_stop_s": 0.2696841999422759,
+        "max_poll_gap_s": 0.039695900049991906,
+        "max_frame_gap_s": 0.03984729992225766
+      },
+      {
+        "case": "close-evaluation",
+        "policy": "incumbent",
+        "checks": {
+          "source_exit": true,
+          "event_latency_within_half_second": true,
+          "rendering_within_half_second": true,
+          "companion_unchanged": true,
+          "policy_preserved": true,
+          "no_detached_worker": true,
+          "casing_fits": true,
+          "cancel_preserves_every_saved_file": true,
+          "cancellation_accepted": true
+        },
+        "request_to_stop_s": 0.012660600012168288,
+        "max_poll_gap_s": 0.03855719999410212,
+        "max_frame_gap_s": 0.039199399994686246
+      },
+      {
+        "case": "close-commit",
+        "policy": "incumbent",
+        "checks": {
+          "source_exit": true,
+          "event_latency_within_half_second": true,
+          "rendering_within_half_second": true,
+          "companion_unchanged": true,
+          "policy_preserved": true,
+          "no_detached_worker": true,
+          "casing_fits": true,
+          "completed_result_saved_once": true,
+          "no_pending_result": true,
+          "commit_refuses_cancellation": true
+        },
+        "request_to_stop_s": 0.13787139998748899,
+        "max_poll_gap_s": 0.041250100010074675,
+        "max_frame_gap_s": 0.041131500038318336
+      },
+      {
+        "case": "cancel-loading",
+        "policy": "qtable",
+        "checks": {
+          "source_exit": true,
+          "event_latency_within_half_second": true,
+          "rendering_within_half_second": true,
+          "companion_unchanged": true,
+          "policy_preserved": true,
+          "no_detached_worker": true,
+          "casing_fits": true,
+          "cancel_preserves_every_saved_file": true,
+          "cancellation_accepted": true
+        },
+        "request_to_stop_s": 4.741635499987751,
+        "max_poll_gap_s": 0.04004760005045682,
+        "max_frame_gap_s": 0.040045700035989285
+      },
+      {
+        "case": "cancel-evaluation",
+        "policy": "qtable",
+        "checks": {
+          "source_exit": true,
+          "event_latency_within_half_second": true,
+          "rendering_within_half_second": true,
+          "companion_unchanged": true,
+          "policy_preserved": true,
+          "no_detached_worker": true,
+          "casing_fits": true,
+          "cancel_preserves_every_saved_file": true,
+          "cancellation_accepted": true
+        },
+        "request_to_stop_s": 0.03563199995551258,
+        "max_poll_gap_s": 0.03854570002295077,
+        "max_frame_gap_s": 0.03854099998716265
+      },
+      {
+        "case": "help-cancel",
+        "policy": "qtable",
+        "checks": {
+          "source_exit": true,
+          "event_latency_within_half_second": true,
+          "rendering_within_half_second": true,
+          "companion_unchanged": true,
+          "policy_preserved": true,
+          "no_detached_worker": true,
+          "casing_fits": true,
+          "cancel_preserves_every_saved_file": true,
+          "cancellation_accepted": true,
+          "first_escape_closes_help_without_cancelling": true,
+          "help_was_rendered": true
+        },
+        "request_to_stop_s": 0.26189299998804927,
+        "max_poll_gap_s": 0.039032300002872944,
+        "max_frame_gap_s": 0.03923320001922548
+      },
+      {
+        "case": "close-evaluation",
+        "policy": "qtable",
+        "checks": {
+          "source_exit": true,
+          "event_latency_within_half_second": true,
+          "rendering_within_half_second": true,
+          "companion_unchanged": true,
+          "policy_preserved": true,
+          "no_detached_worker": true,
+          "casing_fits": true,
+          "cancel_preserves_every_saved_file": true,
+          "cancellation_accepted": true
+        },
+        "request_to_stop_s": 0.036377400043420494,
+        "max_poll_gap_s": 0.0386461999733001,
+        "max_frame_gap_s": 0.038704699953086674
+      },
+      {
+        "case": "close-commit",
+        "policy": "qtable",
+        "checks": {
+          "source_exit": true,
+          "event_latency_within_half_second": true,
+          "rendering_within_half_second": true,
+          "companion_unchanged": true,
+          "policy_preserved": true,
+          "no_detached_worker": true,
+          "casing_fits": true,
+          "completed_result_saved_once": true,
+          "no_pending_result": true,
+          "commit_refuses_cancellation": true
+        },
+        "request_to_stop_s": 0.1391925000352785,
+        "max_poll_gap_s": 0.04195790004450828,
+        "max_frame_gap_s": 0.04223899997305125
+      }
+    ],
+    "sample": {
+      "source": ".development/u1-measure-keeper/replays/keeper_campaign_era0.json",
+      "artifact": "data/game_client/original_evaluation_sample_stage0.json",
+      "sha256": "335eccf356358af170052943652319313fa6221e29e67183e584ae9bf3fd8dae",
+      "bytes": 36928
+    }
+  },
+  "raw_observations": [
+    ".development/u1-connected-final.json",
+    ".development/u1-measure.json",
+    ".development/u1-safety.json"
+  ],
+  "preserved_prior_observations": [
+    ".development/u1-connected.json",
+    ".development/u1-game-regression.log",
+    ".development/u1-game-regression-green.log",
+    ".development/u1-red-legacy-journal.log",
+    ".development/u1-green-game-faults.log"
+  ],
+  "closed_states": [
+    "actual_evaluation_capture",
+    "unchanged_complete_scientific_reports",
+    "lab_package_original_capture_parity",
+    "legacy_labels_and_no_historical_backfill",
+    "wrong_selected_elite_not_recorded",
+    "versioned_pending_journal_refused_by_old_native",
+    "current_native_finishes_exact_recorded_result",
+    "cancel_preserves_saved_bytes",
+    "bounded_normal_and_earned_larger_observations"
+  ],
+  "blocked_states": [
+    "Native keyboard and human usability not observed; native SDL-dummy launches and source pygame events only.",
+    "96/384 evaluations measured, not maximum scale or arbitrary custom saves.",
+    "Per-era retention is bounded; accumulated campaign history is not automatically deleted.",
+    "Full closing gate and published-SHA Windows/Ubuntu CI are separate."
+  ],
+  "decision": {
+    "verdict": "application_observations_passed_full_gate_pending"
+  }
+}

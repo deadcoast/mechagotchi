@@ -47,16 +47,15 @@ covenant and adopt it (its origin trace shows) · **R** release your
 companion's genome as a founder for the next era · **W** gather the
 workshop's released creatures for the next era (the engine admits or
 rejects them — the verdict shows) · **V** review the last era's best
-elite living one recorded life (SPACE play/pause, **.** step, **,**
+elite's recorded original evaluation (SPACE play/pause, **.** step, **,**
 back) · **B** browse the repertoire — your bloodline's whole archive,
 niche by niche (**.**/**,** page, **[**/**]** switch eras, **A**
 adopt the one you're looking at) · **L** read your bloodline's story,
 life by life (origins, death causes, the growing ancestor chain) ·
-**X** export your covenant as a shareable SLIP file / **I** import
-one from `keeper/covenants/covenant_import.json` (the engine's
-authority judges it; an import is a new species contract) · **K**
-import a community pack from `keeper/packs/pack_import.json`
-(covenants and creatures staged into the inboxes, verdicts shown;
+**X** exports your covenant as a shareable SLIP file. **I** opens the
+covenant inbox; **K** opens the pack inbox. Select with arrows or comma/period,
+then **Enter** imports the previewed file through the engine's gates.
+Covenants and creatures from packs stage into the inboxes with item verdicts;
 `data/packs/mechagotchi_starter_pack.json` is the committed example) ·
 **ESC** closes help first; in play it requests quit. Close requests quit; failed saves pause for retry. Saves land in
 `keeper/` (gitignored) — quit and come back, the client resumes. The
@@ -80,8 +79,8 @@ The casing pages show its actual recommendation and followed decision.
 
 An explicit policy conflicting with a saved companion is refused before writes.
 `--learning-policy incumbent` selects the original behavior for a new life.
-The latest locally closed T5 native build is
-`game/dist/t5-responsive-eras/Mechagotchi/Mechagotchi.exe`; keep `_internal` beside it.
+The latest locally closed V1 native build is
+`game/dist/v1-niche-history/Mechagotchi/Mechagotchi.exe`; keep `_internal` beside it.
 Use the same policy arguments there. New native saves use
 `$env:USERPROFILE/.mechagotchi`; an explicit `--keeper-dir` selects another
 home. Existing bundled `_internal/keeper` lives continue in place when no
@@ -188,12 +187,11 @@ frames. Care pauses and care/planning keys are ignored. **F1** pauses playback
 and returns to the same frame. **V/Escape** returns to the entry report or care;
 **T** opens that recording's era report. Existing Ctrl+S retry/discard remains.
 
-These are real **post-era recorded lives at the era seed**, as the visible label
-states. They are not recordings of the original in-era evaluation. An older
-era with no recording stays explicitly unavailable. Missing, malformed or
-hash-mismatched artifacts are not rebuilt or replaced. During the current run,
-**E**, then **V** can make the existing post-era recording once while its
-covenant/parameters still match; later V reads that saved artifact.
+The preserved T3 build made **post-era recorded lives at the era seed**;
+those saved artifacts remain clearly labelled legacy recordings. Current U1
+source captures the original best-elite evaluation during E, as described below.
+Missing, malformed or hash-mismatched artifacts are never reconstructed or
+replaced. V only reads a saved recording.
 
 Locally closed T3 build: `game/dist/t3-saved-replays/Mechagotchi/Mechagotchi.exe`, with
 adjacent `_internal`. Its implementation evidence and passed full gate are
@@ -218,7 +216,7 @@ without that field keep their established interpretation.
 are viewing an older report. The engine admits or refuses contributions through
 its existing gates. The resulting report shows outcome, niche count and QD on
 page one, then full admitted IDs and verbatim refusal reasons. **B**, **A** and
-**V** continue into archive, adoption and honest post-era replay as described above.
+**V** continue into archive, adoption and saved replay with explicit provenance as described above.
 An adopted companion can be contributed to a later era through the same R flow.
 
 If saving an already computed era fails, its journal retains the result. **E**
@@ -351,3 +349,82 @@ that attempt; T4's retained result/journal can still recover from save failure.
 Headless `--eras` remains synchronous. Exact measurements, tested scale limits
 and native-build status are in
 `research/experiment_reports/2026-10-04-era-responsiveness.md`.
+
+
+## Original evaluation recording (U1 locally closed)
+
+New E eras save the actual damage/repair evaluation of their final best elite.
+V from care or a selected T report plays those recorded frames; V in B opens
+only that matching selected elite. Other selections explicitly say not recorded.
+Playback keeps care paused and returns to the entry report/archive. Existing
+post-era recordings remain labelled as legacy footage; missing historical
+originals are never reconstructed. Later covenant or parameter changes do not
+change already recorded footage.
+
+Capture retains one best record, limited to 2,048 frames and 8 MiB per era.
+Exceeding a bound leaves an explicit unavailable reason; it does not truncate
+footage or alter the era result. Earlier recordings are not deleted. Interrupted
+completion retains the captured bytes in a versioned journal: use the current
+client to finish saving; older clients refuse that pending format safely.
+Current source/native verification is recorded in
+`research/experiment_reports/2026-10-04-original-era-recordings.md`.
+
+Full U1 `20261004T224746-6ccc82b0` passed 2,624 tests / 24 suites, two
+documented zlib skips and 2,290 JSON artifacts without mutations. Eleven native
+launches and 25 source flows covered the connected loop and recovery; native
+keyboard and maximum-scale behavior remain unobserved. Local completion does
+not claim hosted distribution or exact-published-SHA Windows/Ubuntu CI.
+
+## Recorded niche history (V1 locally closed)
+
+In **B**, press **N** to browse saved occurrences of the selected exact seven-axis
+niche. **, / .** or **[ / ]** move through occurrences; each shows its recorded
+campaign, era and body. **T** opens that occurrence's report, **V** its saved
+recording, and **A** adopts under the current active covenant. **N**, **B** or
+**Escape** returns to the original archive selection.
+
+In **T**, **Ctrl+[ / Ctrl+]** follow saved predecessor-campaign links; the usual
+**[ / ]** still select eras. **L** keeps the companion-life story and links to
+campaign story through **T**. Care pauses in these views. Historical navigation
+does not switch the active campaign; preparation and new eras still use it.
+
+History compares saved bin labels, not families or ancestry. Historical
+calibration is not recorded. Missing links, cycles, incomplete archives and
+incompatible axes are explicit; use casing pages for notices. Only the active
+campaign's recorded predecessor chain is searched. No E5 regrouping or repair-
+parent founder inference is performed. Actual verification and closure are in
+`research/experiment_reports/2026-10-04-niche-history.md`.
+
+Full V1 `20261004T234803-5750f659` passed 2,636 tests / 24 suites, two
+documented zlib skips and 2,292 valid JSON artifacts without mutations. The final
+application demonstration passed 21 checks, four native launches and seven
+source pygame flows / 59 frames. Native keyboard and maximum-history performance
+remain unobserved; the local result does not claim published-SHA cloud CI.
+
+## Named import inboxes (W1)
+
+Put covenant JSON files in `<save directory>/covenants/` and pack JSON files in
+`<save directory>/packs/`; files can keep their names. **I** and **K** open paused
+selectors. **Comma/period** or arrows select, **Home/End** go to the first/last
+file, **Enter** imports, **F5** refreshes, and **Escape** returns. **F1** explains
+the active inbox; **PgUp/PgDn** or the wheel reaches full names and verdicts.
+The actual folder path appears in the details. Backup files are excluded.
+
+For the committed example, copy `data/packs/mechagotchi_starter_pack.json` to
+your save directory's `packs/` folder. Press **K**, select it, then **Enter**.
+Press **I** to choose a staged covenant and **Enter** to apply it. Close the
+picker before **W** gathers staged creatures; **E** then uses the prepared era.
+Each creature still faces the engine's era-admission gates. No renaming to
+`covenant_import.json` or `pack_import.json` is required. Those filenames still
+work as ordinary selectable files.
+
+Imports govern future eras, hatches and adoptions; your current pet keeps its
+covenant and learning policy. Successful imports save immediately. Refusals
+show their actual reasons, and care remains paused while you read them. Files
+changed after preview require F5 before import. Repeated pack items with equal
+JSON are already staged without rewriting the file; different existing content
+is preserved and reported as a conflict. Partial failures show each outcome
+and can be retried after fixing the problem.
+
+Verification: `research/experiment_reports/2026-10-05-import-inboxes.md`.
+Native keyboard interaction and maximum-inbox performance remain unobserved.

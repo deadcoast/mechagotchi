@@ -73,6 +73,8 @@ REQUIRED_EVOLVE_DEFAULTS = {
     "readability_selection": "None",
     # DR 0073: observational progress remains off by default.
     "progress_callback": "None",
+    # DR 0074: original evaluation observation remains off by default.
+    "recording_callback": "None",
 }
 REQUIRED_CYCLE_FIELDS = [
     "aligned",
@@ -164,6 +166,7 @@ class MechaEngineRuntimeContractTests(unittest.TestCase):
                 # DR 0025 (C1): the promoted R3 readability arm.
                 "readability_selection",
                 "progress_callback",
+                "recording_callback",
             ],
             keyword_only["evolve"],
         )

@@ -15,6 +15,7 @@ choice, never silently).
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -37,21 +38,34 @@ def export_covenant(keeper_campaign, path: str | Path) -> Path:
     return path
 
 
-def import_covenant(keeper_campaign, path: str | Path) -> dict:
+def read_import_file(path: str | Path, *, expected_digest: str | None = None) -> tuple[dict, str]:
+    """Read exactly the bytes previewed by a picker, never silently a replacement."""
+    raw = Path(path).read_bytes()
+    digest = hashlib.sha256(raw).hexdigest()
+    if expected_digest is not None and digest != expected_digest:
+        raise ValueError("File changed since preview. F5 refresh before importing.")
+    value = json.loads(raw.decode("utf-8"))
+    if not isinstance(value, dict):
+        raise ValueError("Expected a JSON object.")
+    return value, digest
+
+
+def import_covenant(keeper_campaign, path: str | Path, *, expected_digest: str | None = None) -> dict:
     """Import a covenant through the engine's gates.
 
     Returns ``{"ok": True, "covenant": …, "aligned_seeds": n}`` or
     ``{"ok": False, "violations": […]}`` with nothing applied."""
     try:
-        profile = json.loads(
-            Path(path).read_text(encoding="utf-8")
-        )
-    except (OSError, json.JSONDecodeError) as error:
+        profile, _ = read_import_file(path, expected_digest=expected_digest)
+    except (OSError, ValueError, UnicodeError) as error:
         return {
             "ok": False,
             "violations": [f"unreadable covenant file: {error}"],
         }
-    verdict = validate_slip(profile)
+    try:
+        verdict = validate_slip(profile)
+    except (TypeError, ValueError, KeyError, AttributeError) as error:
+        return {'ok': False, 'violations': [f'the authority could not read the covenant: {error}']}
     if not verdict.ok:
         return {
             "ok": False,

@@ -16,6 +16,7 @@ from mecha_game.campaign import ERA_SEED_STRIDE, WEATHER_NAMES, KeeperCampaign
 from mecha_game.session import _document_bytes, _write_bytes_atomic
 
 FORMAT = 'mechagotchi_era_plan_v1'
+RECORDING_FORMAT = 'mechagotchi_era_plan_v2'
 
 
 def _digest(value):
@@ -48,7 +49,7 @@ class EraPlan:
 
     @staticmethod
     def _validate(payload):
-        if payload['format'] != FORMAT or payload['weather'] not in WEATHER_NAMES:
+        if payload['format'] not in (FORMAT, RECORDING_FORMAT) or payload['weather'] not in WEATHER_NAMES:
             raise ValueError('unsupported preparation format or weather')
         if not isinstance(payload['releases'],list):
             raise ValueError('staged contributions are not a list')
@@ -61,6 +62,8 @@ class EraPlan:
                 raise ValueError('Invalid staged genome: ' + '; '.join(verdict.errors))
             ids.add(grid['grid_id'])
         pending = payload['pending']
+        if payload['format'] == RECORDING_FORMAT and (not isinstance(pending, dict) or pending.get('recording') is None):
+            raise ValueError('Recording-bearing journal is missing its completed footage status.')
         if pending is not None:
             body = {k:v for k,v in pending.items() if k != 'sha256'}
             if _digest(body) != pending['sha256']:
@@ -71,6 +74,9 @@ class EraPlan:
                 era['rng_seed'] != state['base_seed'] + era['era_index'] * ERA_SEED_STRIDE or
                 not isinstance(era['report'],dict) or not isinstance(era['elites'],list)):
                 raise ValueError('inconsistent completed-era journal')
+            if pending.get('recording') is not None:
+                from mecha_game.original_recording import validate_recording
+                validate_recording(pending['recording'], state['campaign_id'], era, state['slip_profile'])
 
     def require_ready(self, *, allow_pending=False):
         if self.error: raise ValueError(self.error)
@@ -109,8 +115,11 @@ class EraPlan:
     def begin(self, campaign, era, previous_state):
         self.require_ready()
         pending = dict(state=campaign.state_payload(),era=era,previous_state=previous_state)
+        if campaign.last_original_recording is not None:
+            pending['recording'] = copy.deepcopy(campaign.last_original_recording)
         pending['sha256'] = _digest(pending)
-        self._write({**self.document,'pending':pending})
+        format_name = RECORDING_FORMAT if pending.get('recording') is not None else FORMAT
+        self._write({**self.document,'format':format_name,'pending':pending})
 
     def finish(self, ledger_path, state_path):
         """Commit an already recorded result; never train, evolve or infer history."""
@@ -152,6 +161,9 @@ class EraPlan:
         saved.campaign.update(status=state['status'],slip_profile=state['slip_profile'],unlocks=state['unlocks'],eras=[era])
         saved.era_offset = era['era_index']
         saved.save(ledger_path)
+        if pending.get('recording') is not None:
+            from mecha_game.original_recording import save_original_recording
+            save_original_recording(pending['recording'], Path(ledger_path).parent, ledger_path)
         if state_path is not None: saved.save_state(state_path)
-        self._write({**self.document,'pending':None,'releases':[]})
+        self._write({**self.document,'format':FORMAT,'pending':None,'releases':[]})
         return era

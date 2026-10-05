@@ -138,6 +138,35 @@
         "game",
         "cli"
       ]
+    },
+    "u1-original-recordings": {
+      "spec": "docs/development/cycle-31-original-recordings.md",
+      "purpose": "Capture and replay the actual final best elite evaluation with bounded storage and recoverable provenance",
+      "suites": [
+        "lab:runtime_integration",
+        "lab:game_loop",
+        "package",
+        "game",
+        "cli"
+      ]
+    },
+    "v1-niche-history": {
+      "spec": "docs/development/cycle-32-niche-history.md",
+      "purpose": "Browse exact saved seven-axis niche occurrences and recorded predecessor campaigns without scientific reinterpretation",
+      "suites": [
+        "game",
+        "package",
+        "cli"
+      ]
+    },
+    "w1-import-inboxes": {
+      "spec": "docs/development/cycle-33-import-inboxes.md",
+      "purpose": "Connect named pack and covenant inbox selection to existing validation and durable preparation",
+      "suites": [
+        "game",
+        "package",
+        "cli"
+      ]
     }
   }
 }

@@ -36,6 +36,8 @@ class RepertoireBrowser:
         self.allow_planning = error is None
         self.era_index = max(0, len(self.eras) - 1)
         self.index = 0
+        self.campaign_id = keeper_campaign.campaign["campaign_id"] if keeper_campaign is not None else None
+        self.replay_notice = None
 
     @classmethod
     def unavailable(cls, message, *, allow_planning=False):
@@ -57,6 +59,7 @@ class RepertoireBrowser:
                 if expected is not None and expected != len(era['elites']):
                     raise ValueError("The saved archive does not match its recorded niche count.")
             browser = cls(None, eras=history['eras'])
+            browser.campaign_id = history['campaign_id']
             # Validate displayable saved records before navigation can encounter
             # a broken older blob. These are render reads, never lifecycle ticks.
             for position in range(len(browser.eras)):
@@ -98,20 +101,24 @@ class RepertoireBrowser:
         return self.elites[self.index] if self.elites else None
 
     def step(self) -> int:
+        self.replay_notice = None
         self.index = max(0, min(self.count - 1, self.index + 1))
         return self.index
 
     def back(self) -> int:
+        self.replay_notice = None
         self.index = max(0, self.index - 1)
         return self.index
 
     def next_era(self) -> int:
+        self.replay_notice = None
         if self.era_index < len(self.eras) - 1:
             self.era_index += 1
             self.index = 0
         return self.era_index
 
     def previous_era(self) -> int:
+        self.replay_notice = None
         if self.era_index > 0:
             self.era_index -= 1
             self.index = 0

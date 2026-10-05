@@ -192,7 +192,7 @@ class SavedReplayTests(unittest.TestCase):
                 self.assertIn('Replay unavailable:', ' '.join(pages[0]))
                 self.assertEqual(before, inventory(keeper))
 
-    def test_new_era_records_once_through_existing_producer(self):
+    def test_new_era_records_actual_evaluation_without_post_era_producer(self):
         with tempfile.TemporaryDirectory() as directory:
             keeper = Path(directory); self.seed(keeper, recordings=False)
             original = KeeperCampaign.record_review_replay
@@ -203,13 +203,14 @@ class SavedReplayTests(unittest.TestCase):
             with patch.object(KeeperCampaign, 'record_review_replay', record):
                 pages = self.events(keeper, [[key(pygame.K_e)], [key(pygame.K_v)],
                     [key(pygame.K_v)], [key(pygame.K_v)], [pygame.event.Event(pygame.QUIT)]], read_only=False)
-            self.assertEqual([0], calls)
+            self.assertEqual([], calls)
+            self.assertIn("Original era evaluation", " ".join(pages[1]))
             self.assertTrue(pages[1][0].startswith('REVIEW ERA 2'))
             before = inventory(keeper)
             self.events(keeper, [[key(pygame.K_v)], [pygame.event.Event(pygame.QUIT)]])
             self.assertEqual(before, inventory(keeper))
 
-    def test_current_run_refuses_changed_parameters_and_unindexed_file(self):
+    def test_recorded_original_ignores_current_parameters_but_refuses_tampering(self):
         for problem in ('parameters', 'unindexed'):
             with self.subTest(problem=problem), tempfile.TemporaryDirectory() as directory:
                 keeper = Path(directory); self.seed(keeper, recordings=False)
@@ -226,7 +227,11 @@ class SavedReplayTests(unittest.TestCase):
                 with patch.object(_EraBench, 'run_era', run_era), \
                      patch.object(KeeperCampaign, 'record_review_replay', side_effect=AssertionError('refusal must not record')):
                     pages = self.events(keeper, [[key(pygame.K_e)], [key(pygame.K_v)], [pygame.event.Event(pygame.QUIT)]], read_only=False)
-                self.assertIn('Replay unavailable:', ' '.join(pages[1]))
+                if problem == 'parameters':
+                    self.assertTrue(pages[1][0].startswith('REVIEW ERA 2'))
+                    self.assertIn('Original era evaluation', ' '.join(pages[1]))
+                else:
+                    self.assertIn('Replay unavailable:', ' '.join(pages[1]))
                 if problem == 'unindexed':
                     self.assertEqual(b'preserve unindexed recording', existing.read_bytes())
 

@@ -1173,9 +1173,38 @@ scheduler or Git mutation; original scientific results/defaults remain intact.
 
 T5 is locally closed: full `20261004T214405-8fe7b9f8` passed 2,606 tests /
 24 suites, two documented DR 0034 skips and 2,288 JSON artifacts with no
-mutations. Current locally verified build:
+mutations. Then-current locally verified build:
 `game/dist/t5-responsive-eras/Mechagotchi/Mechagotchi.exe`, adjacent `_internal`
 required. No active worker. Read the responsiveness report for the consolidated
 product checkpoint, measured scale limits and established recording/family/hosting
 remainder; `.development/t5-live-handoff.json` holds the exact restart context.
 The next action is read-only `develop --status`, not another unchanged gate.
+
+Cycle 31 U1 is locally closed. New E eras retain their actual final-best
+evaluation with exact candidate seed, generation, weather and original/final
+identity. V from care/T or the matching B selection reads saved frames; other
+elites and missing originals explicitly say not recorded. Legacy labels remain.
+Versioned completed-result journals preserve footage across failed saves; no
+re-simulation or default-policy change. Full `20261004T224746-6ccc82b0` passed
+2,624 tests / 24 suites, two documented zlib skips and 2,290 JSON artifacts
+without mutations. Then-current locally verified build:
+`game/dist/u1-original-recordings/Mechagotchi/Mechagotchi.exe`, with `_internal`.
+Read `research/experiment_reports/2026-10-04-original-era-recordings.md` and
+`.development/u1-live-handoff.json` for evidence, limits and exact restart.
+The original-recording remainder above is now closed; morphological families
+and hosted sharing remain separate. Next: read-only `develop --status`; no
+active worker or next RED. Git actions remain reserved to the user.
+
+Cycle 32 V1 is locally closed: exact saved seven-axis niche history (N in B),
+recorded predecessor-campaign navigation (Ctrl+[ / Ctrl+] in T), and connected
+report/archive/original recording/current-covenant adoption. L links to campaign
+story and pauses care. Missing/incompatible records are explicit; equal labels
+are not calibration or biological-family evidence. Both E5 cohorts survive.
+Full `20261004T234803-5750f659` passed 2,636 tests / 24 suites, two documented
+zlib skips and 2,292 valid JSON artifacts without mutations. Current local build:
+`game/dist/v1-niche-history/Mechagotchi/Mechagotchi.exe`, with adjacent `_internal`.
+Read `research/experiment_reports/2026-10-04-niche-history.md` and
+`.development/v1-live-handoff.json`. Next: read-only `develop --status` and review
+the completed result; no active worker or next RED. E5 projection, new role/weather
+mechanics and hosting remain deferred. Native keyboard, maximum-history behavior
+and exact-published-SHA CI remain unverified. Git actions belong to the user.

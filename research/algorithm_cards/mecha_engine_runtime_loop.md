@@ -130,3 +130,15 @@ no partial report. Early extinction keeps its actual count below the requested
 budget. See `test_evolution_progress.py`, the runtime interface specification and
 `research/experiment_reports/2026-10-04-era-responsiveness.md`. Historical
 measurements and their thresholds remain intact.
+
+
+## Original best-evaluation observation, 2026-10-04 (DR 0074)
+
+The optional `recording_callback` observes actual damage/repair/lifecycle frames
+for successive overall best archive entries. It does not rerun evaluation or
+change the archive, RNG, scoring, seed arithmetic, admission or report. Lab and
+package capture match, including effective CuBFF dropout and actual candidate
+seeds; off/None/on scientific reports are equal. Only isolated copies cross the
+callback. Existing controls, negative findings and thresholds remain unchanged.
+See `labs/runtime_integration/test_original_recording.py` and
+`research/experiment_reports/2026-10-04-original-era-recordings.md`.

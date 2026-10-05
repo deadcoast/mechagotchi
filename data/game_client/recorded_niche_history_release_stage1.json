@@ -1,0 +1,2242 @@
+{
+  "artifact_id": "recorded_niche_history_release_stage1",
+  "date": "2026-10-04",
+  "status": "observed_source_and_native",
+  "purpose": "Exact saved seven-axis niche history and recorded predecessor-campaign navigation, without family or ancestry inference.",
+  "source_artifacts": [
+    "game/src/mecha_game/niche_history.py",
+    "game/src/mecha_game/app.py",
+    "labs/game_loop/verify_niche_history.py"
+  ],
+  "metrics": {
+    "checks": {
+      "incumbent_native_resume_keeps_all_campaigns": true,
+      "incumbent_story_archive_niche_report_connect": true,
+      "incumbent_story_and_history_preserve_all_saved_bytes": true,
+      "incumbent_history_labels_limits_and_occurrences": true,
+      "incumbent_original_replay_and_return_from_history": true,
+      "incumbent_playback_preserves_all_saved_bytes": true,
+      "incumbent_historical_adoption_keeps_active_campaign_and_policy": true,
+      "incumbent_native_resumes_historical_adoption": true,
+      "qtable_native_resume_keeps_all_campaigns": true,
+      "qtable_story_archive_niche_report_connect": true,
+      "qtable_story_and_history_preserve_all_saved_bytes": true,
+      "qtable_history_labels_limits_and_occurrences": true,
+      "qtable_original_replay_and_return_from_history": true,
+      "qtable_playback_preserves_all_saved_bytes": true,
+      "qtable_historical_adoption_keeps_active_campaign_and_policy": true,
+      "qtable_native_resumes_historical_adoption": true,
+      "incomplete_records_visible_while_valid_occurrences_remain": true,
+      "missing_campaign_link_visible_and_returnable": true,
+      "unavailable_campaign_details_can_be_paged": true,
+      "incomplete_history_never_rewritten": true,
+      "all_source_flows_exit_and_fit": true
+    },
+    "launches": [
+      {
+        "label": "incumbent-resume-24-eras",
+        "command": [
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\v1-niche-history\\Mechagotchi\\Mechagotchi.exe",
+          "--keeper-dir",
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\v1-complete-keepers\\incumbent",
+          "--ticks",
+          "1",
+          "--tick-frames",
+          "1",
+          "--fps",
+          "0"
+        ],
+        "returncode": 0,
+        "stdout": "pygame-ce 2.5.7 (SDL 2.32.10, Python 3.13.9)\n",
+        "stderr": ""
+      },
+      {
+        "label": "incumbent-resume-adopted-history",
+        "command": [
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\v1-niche-history\\Mechagotchi\\Mechagotchi.exe",
+          "--keeper-dir",
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\v1-complete-keepers\\incumbent",
+          "--ticks",
+          "1",
+          "--tick-frames",
+          "1",
+          "--fps",
+          "0"
+        ],
+        "returncode": 0,
+        "stdout": "pygame-ce 2.5.7 (SDL 2.32.10, Python 3.13.9)\n",
+        "stderr": ""
+      },
+      {
+        "label": "qtable-resume-24-eras",
+        "command": [
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\v1-niche-history\\Mechagotchi\\Mechagotchi.exe",
+          "--keeper-dir",
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\v1-complete-keepers\\qtable",
+          "--ticks",
+          "1",
+          "--tick-frames",
+          "1",
+          "--fps",
+          "0"
+        ],
+        "returncode": 0,
+        "stdout": "pygame-ce 2.5.7 (SDL 2.32.10, Python 3.13.9)\n",
+        "stderr": ""
+      },
+      {
+        "label": "qtable-resume-adopted-history",
+        "command": [
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\v1-niche-history\\Mechagotchi\\Mechagotchi.exe",
+          "--keeper-dir",
+          "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\v1-complete-keepers\\qtable",
+          "--ticks",
+          "1",
+          "--tick-frames",
+          "1",
+          "--fps",
+          "0"
+        ],
+        "returncode": 0,
+        "stdout": "pygame-ce 2.5.7 (SDL 2.32.10, Python 3.13.9)\n",
+        "stderr": ""
+      }
+    ],
+    "interactive": [
+      {
+        "label": "incumbent-story-and-niche",
+        "frames": 10,
+        "returncode": 0,
+        "screenshots": [
+          ".development/v1-complete-ui/incumbent-story-and-niche-01.png",
+          ".development/v1-complete-ui/incumbent-story-and-niche-02.png",
+          ".development/v1-complete-ui/incumbent-story-and-niche-03.png",
+          ".development/v1-complete-ui/incumbent-story-and-niche-04.png",
+          ".development/v1-complete-ui/incumbent-story-and-niche-05.png",
+          ".development/v1-complete-ui/incumbent-story-and-niche-06.png",
+          ".development/v1-complete-ui/incumbent-story-and-niche-07.png",
+          ".development/v1-complete-ui/incumbent-story-and-niche-08.png",
+          ".development/v1-complete-ui/incumbent-story-and-niche-09.png",
+          ".development/v1-complete-ui/incumbent-story-and-niche-10.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 1,
+            "all_lines": [
+              "LINEAGE  life 1/1  mg_seed16_001_beetle  [founder]  alive",
+              "parent None   generation 0   born tick 0",
+              ". older\u2192newer  , newer\u2192older  L close",
+              "Care paused. T recorded campaign story"
+            ],
+            "visible": [
+              "LINEAGE life 1/1 mg_seed16_001_beetle [founder]",
+              "alive",
+              "parent None generation 0 born tick 0",
+              ". older\u2192newer , newer\u2192older L close",
+              "Care paused. T recorded campaign story"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 1,
+            "all_lines": [
+              "LINEAGE  life 1/1  mg_seed16_001_beetle  [founder]  alive",
+              "parent None   generation 0   born tick 0",
+              ". older\u2192newer  , newer\u2192older  L close",
+              "Care paused. T recorded campaign story"
+            ],
+            "visible": [
+              "LINEAGE life 1/1 mg_seed16_001_beetle [founder]",
+              "alive",
+              "parent None generation 0 born tick 0",
+              ". older\u2192newer , newer\u2192older L close",
+              "Care paused. T recorded campaign story"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 0,
+            "page_count": 5,
+            "all_lines": [
+              "ERA 7 [storm]   8/8",
+              "CAMPAIGN campaign-03  3/3",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 7   coverage 9e-05",
+              "QD 5.12189   lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "B archive   V replay   C covenant   E era",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "6 unlock facts inherited from earlier bloodlines.",
+              "WEATHER RECORD",
+              "Generation 0: dropout x1.170205 / weather_storm_000",
+              "Generation 1: dropout x1.170205 / weather_storm_001",
+              "FOUNDERS: 8 admitted; 0 refused",
+              "ADMITTED: gen_452e8ab2351378af_c01",
+              "ADMITTED: gen_abff4f8ea8469aaf_c01",
+              "ADMITTED: gen_003e780b4921081f_c01",
+              "ADMITTED: gen_b2f5717a5d9396e0_c01",
+              "ADMITTED: gen_fd5d68ceae9d9bbc_c01",
+              "ADMITTED: gen_97fe685016012fdb_c01",
+              "ADMITTED: gen_67d3e0068a099950_c01",
+              "ADMITTED: gen_bd54f3af59e6bc7c_c01",
+              "These are recorded era results; viewing them does not run the soup.",
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: campaign-02",
+              "Original best-elite evaluation recorded.",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "ERA 7 [storm] 8/8",
+              "CAMPAIGN campaign-03 3/3",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 7 coverage 9e-05",
+              "QD 5.12189 lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "PgUp/PgDn \u00b7 wheel   1/5"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 4,
+            "page": 0,
+            "page_count": 5,
+            "all_lines": [
+              "ERA 7 [storm]   8/8",
+              "CAMPAIGN campaign-02  2/3",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 7   coverage 9e-05",
+              "QD 5.12189   lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "B archive   V replay   C covenant   E era",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "3 unlock facts inherited from earlier bloodlines.",
+              "WEATHER RECORD",
+              "Generation 0: dropout x1.170205 / weather_storm_000",
+              "Generation 1: dropout x1.170205 / weather_storm_001",
+              "FOUNDERS: 8 admitted; 0 refused",
+              "ADMITTED: gen_452e8ab2351378af_c01",
+              "ADMITTED: gen_abff4f8ea8469aaf_c01",
+              "ADMITTED: gen_003e780b4921081f_c01",
+              "ADMITTED: gen_b2f5717a5d9396e0_c01",
+              "ADMITTED: gen_fd5d68ceae9d9bbc_c01",
+              "ADMITTED: gen_97fe685016012fdb_c01",
+              "ADMITTED: gen_67d3e0068a099950_c01",
+              "ADMITTED: gen_bd54f3af59e6bc7c_c01",
+              "These are recorded era results; viewing them does not run the soup.",
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: campaign-01",
+              "C/E preparation uses the active campaign, not this historical selection.",
+              "Original best-elite evaluation recorded.",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "ERA 7 [storm] 8/8",
+              "CAMPAIGN campaign-02 2/3",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 7 coverage 9e-05",
+              "QD 5.12189 lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "PgUp/PgDn \u00b7 wheel   1/5"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 5,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "REPERTOIRE  era 7 [storm]  1/7  gen_46aa515ca499e518_c01  fitness 0.732  gen 1",
+              "N niche history   campaign campaign-02",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 7 [storm] 1/7",
+              "gen_46aa515ca499e518_c01 fitness 0.732 gen 1",
+              "N niche history campaign campaign-02",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "recorded; only the final best elite has original",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 6,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "NICHE HISTORY  12/18 occurrences; campaign-02; era 7 [storm]  1/1  gen_46aa515ca499e518_c01  fitness 0.732  gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences   [ ] occurrences",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000",
+              "Same saved niche: 0,2,2,0,4,3,2",
+              "Matches recorded bin labels; historical calibration is not recorded.",
+              "0 history notices; only recorded campaign links searched."
+            ],
+            "visible": [
+              "NICHE HISTORY 12/18 occurrences; campaign-02;",
+              "era 7 [storm] 1/1 gen_46aa515ca499e518_c01",
+              "fitness 0.732 gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences [ ] occurrences",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 7,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "NICHE HISTORY  11/18 occurrences; campaign-02; era 6 [calm]  1/1  gen_452e8ab2351378af_c01  fitness 0.732  gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences   [ ] occurrences",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000",
+              "Same saved niche: 0,2,2,0,4,3,2",
+              "Matches recorded bin labels; historical calibration is not recorded.",
+              "0 history notices; only recorded campaign links searched."
+            ],
+            "visible": [
+              "NICHE HISTORY 11/18 occurrences; campaign-02;",
+              "era 6 [calm] 1/1 gen_452e8ab2351378af_c01 fitness",
+              "0.732 gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences [ ] occurrences",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 8,
+            "page": 0,
+            "page_count": 5,
+            "all_lines": [
+              "ERA 6 [calm]   7/8",
+              "CAMPAIGN campaign-02  2/3",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 8   coverage 0.000102",
+              "QD 5.853449   lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "B archive   V replay   C covenant   E era",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "3 unlock facts inherited from earlier bloodlines.",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "FOUNDERS: 9 admitted; 0 refused",
+              "ADMITTED: gen_101d43e10c5a168f_c01",
+              "ADMITTED: gen_9aab09d05f228804_c01",
+              "ADMITTED: gen_e07eaa3c5e8e0819_c01",
+              "ADMITTED: gen_c392cc2db51f18e2_c01",
+              "ADMITTED: gen_2a60a130da394806_c01",
+              "ADMITTED: gen_ecad59025ac9f80f_c01",
+              "ADMITTED: gen_d0121bd56b2985da_c01",
+              "ADMITTED: gen_976c0423fb431420_c01",
+              "ADMITTED: gen_760dc82144dd8252_c01",
+              "These are recorded era results; viewing them does not run the soup.",
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: campaign-01",
+              "C/E preparation uses the active campaign, not this historical selection.",
+              "Original best-elite evaluation recorded.",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "ERA 6 [calm] 7/8",
+              "CAMPAIGN campaign-02 2/3",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 8 coverage 0.000102",
+              "QD 5.853449 lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "PgUp/PgDn \u00b7 wheel   1/5"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 9,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "REPERTOIRE  era 6 [calm]  1/8  gen_452e8ab2351378af_c01  fitness 0.732  gen 1",
+              "N niche history   campaign campaign-02",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 6 [calm] 1/8",
+              "gen_452e8ab2351378af_c01 fitness 0.732 gen 1",
+              "N niche history campaign campaign-02",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "recorded; only the final best elite has original",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 10,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "REPERTOIRE  era 6 [calm]  1/8  gen_452e8ab2351378af_c01  fitness 0.732  gen 1",
+              "N niche history   campaign campaign-02",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 6 [calm] 1/8",
+              "gen_452e8ab2351378af_c01 fitness 0.732 gen 1",
+              "N niche history campaign campaign-02",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "recorded; only the final best elite has original",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "busy_pages": [],
+        "rendered_frames": 10,
+        "stderr": ""
+      },
+      {
+        "label": "incumbent-history-playback",
+        "frames": 9,
+        "returncode": 0,
+        "screenshots": [
+          ".development/v1-complete-ui/incumbent-history-playback-01.png",
+          ".development/v1-complete-ui/incumbent-history-playback-02.png",
+          ".development/v1-complete-ui/incumbent-history-playback-03.png",
+          ".development/v1-complete-ui/incumbent-history-playback-04.png",
+          ".development/v1-complete-ui/incumbent-history-playback-05.png",
+          ".development/v1-complete-ui/incumbent-history-playback-06.png",
+          ".development/v1-complete-ui/incumbent-history-playback-07.png",
+          ".development/v1-complete-ui/incumbent-history-playback-08.png",
+          ".development/v1-complete-ui/incumbent-history-playback-09.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "REPERTOIRE  era 7 [storm]  1/7  gen_46aa515ca499e518_c01  fitness 0.732  gen 1",
+              "N niche history   campaign campaign-03",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 7 [storm] 1/7",
+              "gen_46aa515ca499e518_c01 fitness 0.732 gen 1",
+              "N niche history campaign campaign-03",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "recorded; only the final best elite has original",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "REPERTOIRE  era 7 [storm]  2/7  gen_3c5428ae380f467c_c01  fitness 0.732  gen 1",
+              "N niche history   campaign campaign-03",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Original best-elite evaluation recorded.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 3  symmetry 1  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.001  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 7 [storm] 2/7",
+              "gen_3c5428ae380f467c_c01 fitness 0.732 gen 1",
+              "N niche history campaign campaign-03",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Original best-elite evaluation recorded.",
+              "T selected report B/Escape back",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "NICHE HISTORY  9/9 occurrences; campaign-03; era 7 [storm]  1/1  gen_3c5428ae380f467c_c01  fitness 0.732  gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences   [ ] occurrences",
+              "A adopt with current covenant   V recording",
+              "Original best-elite evaluation recorded.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 3  symmetry 1  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.001  slip_alignment 1.000  survival 1.000  validity 1.000",
+              "Same saved niche: 0,3,1,0,4,3,2",
+              "Matches recorded bin labels; historical calibration is not recorded.",
+              "0 history notices; only recorded campaign links searched."
+            ],
+            "visible": [
+              "NICHE HISTORY 9/9 occurrences; campaign-03;",
+              "era 7 [storm] 1/1 gen_3c5428ae380f467c_c01",
+              "fitness 0.732 gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences [ ] occurrences",
+              "A adopt with current covenant V recording",
+              "Original best-elite evaluation recorded.",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 4,
+            "page": 0,
+            "page_count": 1,
+            "all_lines": [
+              "REVIEW ERA 7  gen_3c5428ae380f467c",
+              "frame 0/10  birth  cycle 0",
+              "Care paused. SPACE play/pause  . step  , back",
+              "V/Escape back   T selected report   F1 controls",
+              "Original era evaluation: actual damage, repair and lifecycle ticks; final best elite."
+            ],
+            "visible": [
+              "REVIEW ERA 7 gen_3c5428ae380f467c",
+              "frame 0/10 birth cycle 0",
+              "Care paused. SPACE play/pause . step , back",
+              "V/Escape back T selected report F1 controls",
+              "Original era evaluation: actual damage, repair and",
+              "lifecycle ticks; final best elite."
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 5,
+            "page": 0,
+            "page_count": 7,
+            "all_lines": [
+              "HELP \u2014 companion time is paused",
+              "F feed   P play   S sleep   G clean when enabled",
+              "Ctrl+S save now; after a save failure, retry the save",
+              "Save failure pauses care; Ctrl+Q quits without saving",
+              "Enter adopt successor after death",
+              "T era reports (care paused): [ ] era, PgUp/PgDn pages",
+              "In reports: B archive, E next era, C covenant, T/Escape close",
+              "E run an era   C covenant budget   H hatch founder",
+              "1\u20135 weather: calm / stable soup / storm / real / callback",
+              "A adopt selected elite, or the latest era\u2019s best",
+              "R stage current pet genome; your companion stays with you",
+              "W gather workshop creatures; exact repeats stage only once",
+              "Backspace unstages contributions; source creatures stay intact",
+              "Weather, staged creatures and covenant changes save immediately",
+              "E runs the prepared era, or finishes saving its completed result",
+              "During eras: care pauses; Escape cancels before saving; F1 help",
+              "Era counts are real completed work; close waits for safe shutdown",
+              "V saved replay (care paused): Space play/pause, . step, , back",
+              "Replay: V/Escape back, T selected report; F1 pauses playback",
+              "B saved archive (care paused): . next, , previous, [ / ] era",
+              "In archives: N exact saved niche history; N/B/Escape returns",
+              "History: , . occurrences; T selected report, V saved recording, A adopt",
+              "In archives: A adopt, T selected report, B/Escape back",
+              "T campaign story: Ctrl+[ / Ctrl+] recorded predecessor campaigns",
+              "Campaign links and matching niche labels do not infer ancestry",
+              "L lineage: . next life, , previous life",
+              "X export covenant   I import covenant   K import pack",
+              "F1 or Escape close help   Escape in play quits",
+              "PgUp / PgDn or mouse wheel browse long casing text"
+            ],
+            "visible": [
+              "HELP \u2014 companion time is paused",
+              "F feed P play S sleep G clean when enabled",
+              "Ctrl+S save now; after a save failure, retry the save",
+              "Save failure pauses care; Ctrl+Q quits without",
+              "saving",
+              "Enter adopt successor after death",
+              "T era reports (care paused): [ ] era, PgUp/PgDn",
+              "PgUp/PgDn \u00b7 wheel   1/7"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 6,
+            "page": 0,
+            "page_count": 1,
+            "all_lines": [
+              "REVIEW ERA 7  gen_3c5428ae380f467c",
+              "frame 0/10  birth  cycle 0",
+              "Care paused. SPACE play/pause  . step  , back",
+              "V/Escape back   T selected report   F1 controls",
+              "Original era evaluation: actual damage, repair and lifecycle ticks; final best elite."
+            ],
+            "visible": [
+              "REVIEW ERA 7 gen_3c5428ae380f467c",
+              "frame 0/10 birth cycle 0",
+              "Care paused. SPACE play/pause . step , back",
+              "V/Escape back T selected report F1 controls",
+              "Original era evaluation: actual damage, repair and",
+              "lifecycle ticks; final best elite."
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 7,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "NICHE HISTORY  9/9 occurrences; campaign-03; era 7 [storm]  1/1  gen_3c5428ae380f467c_c01  fitness 0.732  gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences   [ ] occurrences",
+              "A adopt with current covenant   V recording",
+              "Original best-elite evaluation recorded.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 3  symmetry 1  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.001  slip_alignment 1.000  survival 1.000  validity 1.000",
+              "Same saved niche: 0,3,1,0,4,3,2",
+              "Matches recorded bin labels; historical calibration is not recorded.",
+              "0 history notices; only recorded campaign links searched."
+            ],
+            "visible": [
+              "NICHE HISTORY 9/9 occurrences; campaign-03;",
+              "era 7 [storm] 1/1 gen_3c5428ae380f467c_c01",
+              "fitness 0.732 gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences [ ] occurrences",
+              "A adopt with current covenant V recording",
+              "Original best-elite evaluation recorded.",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 8,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "REPERTOIRE  era 7 [storm]  2/7  gen_3c5428ae380f467c_c01  fitness 0.732  gen 1",
+              "N niche history   campaign campaign-03",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Original best-elite evaluation recorded.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 3  symmetry 1  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.001  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 7 [storm] 2/7",
+              "gen_3c5428ae380f467c_c01 fitness 0.732 gen 1",
+              "N niche history campaign campaign-03",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Original best-elite evaluation recorded.",
+              "T selected report B/Escape back",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 9,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "REPERTOIRE  era 7 [storm]  2/7  gen_3c5428ae380f467c_c01  fitness 0.732  gen 1",
+              "N niche history   campaign campaign-03",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Original best-elite evaluation recorded.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 3  symmetry 1  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.001  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 7 [storm] 2/7",
+              "gen_3c5428ae380f467c_c01 fitness 0.732 gen 1",
+              "N niche history campaign campaign-03",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Original best-elite evaluation recorded.",
+              "T selected report B/Escape back",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "busy_pages": [],
+        "rendered_frames": 9,
+        "stderr": ""
+      },
+      {
+        "label": "incumbent-history-adoption",
+        "frames": 5,
+        "returncode": 0,
+        "screenshots": [
+          ".development/v1-complete-ui/incumbent-history-adoption-01.png",
+          ".development/v1-complete-ui/incumbent-history-adoption-02.png",
+          ".development/v1-complete-ui/incumbent-history-adoption-03.png",
+          ".development/v1-complete-ui/incumbent-history-adoption-04.png",
+          ".development/v1-complete-ui/incumbent-history-adoption-05.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "REPERTOIRE  era 7 [storm]  1/7  gen_46aa515ca499e518_c01  fitness 0.732  gen 1",
+              "N niche history   campaign campaign-03",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 7 [storm] 1/7",
+              "gen_46aa515ca499e518_c01 fitness 0.732 gen 1",
+              "N niche history campaign campaign-03",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "recorded; only the final best elite has original",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "NICHE HISTORY  18/18 occurrences; campaign-03; era 7 [storm]  1/1  gen_46aa515ca499e518_c01  fitness 0.732  gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences   [ ] occurrences",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000",
+              "Same saved niche: 0,2,2,0,4,3,2",
+              "Matches recorded bin labels; historical calibration is not recorded.",
+              "0 history notices; only recorded campaign links searched."
+            ],
+            "visible": [
+              "NICHE HISTORY 18/18 occurrences; campaign-03;",
+              "era 7 [storm] 1/1 gen_46aa515ca499e518_c01",
+              "fitness 0.732 gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences [ ] occurrences",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "NICHE HISTORY  17/18 occurrences; campaign-03; era 6 [calm]  1/1  gen_452e8ab2351378af_c01  fitness 0.732  gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences   [ ] occurrences",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000",
+              "Same saved niche: 0,2,2,0,4,3,2",
+              "Matches recorded bin labels; historical calibration is not recorded.",
+              "0 history notices; only recorded campaign links searched."
+            ],
+            "visible": [
+              "NICHE HISTORY 17/18 occurrences; campaign-03;",
+              "era 6 [calm] 1/1 gen_452e8ab2351378af_c01 fitness",
+              "0.732 gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences [ ] occurrences",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 4,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "Adopted gen_452e8ab2351378af_c01.",
+              "health 0.41 (hungry)   mood curious   age 1   gen 1",
+              "F feed  P play  S sleep",
+              "stress 0.15   bond 0.69",
+              "felt curious (0.16)",
+              "Policy: incumbent",
+              "cleanliness 0.99   G clean",
+              "NEXT ERA [calm]: 0 staged",
+              "F1 controls  Ctrl+S save  T report  E era  C covenant",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "Adopted gen_452e8ab2351378af_c01.",
+              "health 0.41 (hungry) mood curious age 1 gen 1",
+              "F feed P play S sleep",
+              "stress 0.15 bond 0.69",
+              "felt curious (0.16)",
+              "Policy: incumbent",
+              "cleanliness 0.99 G clean",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 5,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "Adopted gen_452e8ab2351378af_c01.",
+              "health 0.41 (hungry)   mood curious   age 1   gen 1",
+              "F feed  P play  S sleep",
+              "stress 0.15   bond 0.69",
+              "felt curious (0.16)",
+              "Policy: incumbent",
+              "cleanliness 0.99   G clean",
+              "NEXT ERA [calm]: 0 staged",
+              "F1 controls  Ctrl+S save  T report  E era  C covenant",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "Adopted gen_452e8ab2351378af_c01.",
+              "health 0.41 (hungry) mood curious age 1 gen 1",
+              "F feed P play S sleep",
+              "stress 0.15 bond 0.69",
+              "felt curious (0.16)",
+              "Policy: incumbent",
+              "cleanliness 0.99 G clean",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "busy_pages": [],
+        "rendered_frames": 5,
+        "stderr": ""
+      },
+      {
+        "label": "qtable-story-and-niche",
+        "frames": 10,
+        "returncode": 0,
+        "screenshots": [
+          ".development/v1-complete-ui/qtable-story-and-niche-01.png",
+          ".development/v1-complete-ui/qtable-story-and-niche-02.png",
+          ".development/v1-complete-ui/qtable-story-and-niche-03.png",
+          ".development/v1-complete-ui/qtable-story-and-niche-04.png",
+          ".development/v1-complete-ui/qtable-story-and-niche-05.png",
+          ".development/v1-complete-ui/qtable-story-and-niche-06.png",
+          ".development/v1-complete-ui/qtable-story-and-niche-07.png",
+          ".development/v1-complete-ui/qtable-story-and-niche-08.png",
+          ".development/v1-complete-ui/qtable-story-and-niche-09.png",
+          ".development/v1-complete-ui/qtable-story-and-niche-10.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 1,
+            "all_lines": [
+              "LINEAGE  life 1/1  mg_seed16_001_beetle  [founder]  alive",
+              "parent None   generation 0   born tick 0",
+              ". older\u2192newer  , newer\u2192older  L close",
+              "Care paused. T recorded campaign story"
+            ],
+            "visible": [
+              "LINEAGE life 1/1 mg_seed16_001_beetle [founder]",
+              "alive",
+              "parent None generation 0 born tick 0",
+              ". older\u2192newer , newer\u2192older L close",
+              "Care paused. T recorded campaign story"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 1,
+            "all_lines": [
+              "LINEAGE  life 1/1  mg_seed16_001_beetle  [founder]  alive",
+              "parent None   generation 0   born tick 0",
+              ". older\u2192newer  , newer\u2192older  L close",
+              "Care paused. T recorded campaign story"
+            ],
+            "visible": [
+              "LINEAGE life 1/1 mg_seed16_001_beetle [founder]",
+              "alive",
+              "parent None generation 0 born tick 0",
+              ". older\u2192newer , newer\u2192older L close",
+              "Care paused. T recorded campaign story"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 0,
+            "page_count": 5,
+            "all_lines": [
+              "ERA 7 [storm]   8/8",
+              "CAMPAIGN campaign-03  3/3",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 7   coverage 9e-05",
+              "QD 5.12189   lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "B archive   V replay   C covenant   E era",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "6 unlock facts inherited from earlier bloodlines.",
+              "WEATHER RECORD",
+              "Generation 0: dropout x1.170205 / weather_storm_000",
+              "Generation 1: dropout x1.170205 / weather_storm_001",
+              "FOUNDERS: 8 admitted; 0 refused",
+              "ADMITTED: gen_452e8ab2351378af_c01",
+              "ADMITTED: gen_abff4f8ea8469aaf_c01",
+              "ADMITTED: gen_003e780b4921081f_c01",
+              "ADMITTED: gen_b2f5717a5d9396e0_c01",
+              "ADMITTED: gen_fd5d68ceae9d9bbc_c01",
+              "ADMITTED: gen_97fe685016012fdb_c01",
+              "ADMITTED: gen_67d3e0068a099950_c01",
+              "ADMITTED: gen_bd54f3af59e6bc7c_c01",
+              "These are recorded era results; viewing them does not run the soup.",
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: campaign-02",
+              "Original best-elite evaluation recorded.",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "ERA 7 [storm] 8/8",
+              "CAMPAIGN campaign-03 3/3",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 7 coverage 9e-05",
+              "QD 5.12189 lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "PgUp/PgDn \u00b7 wheel   1/5"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 4,
+            "page": 0,
+            "page_count": 5,
+            "all_lines": [
+              "ERA 7 [storm]   8/8",
+              "CAMPAIGN campaign-02  2/3",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 7   coverage 9e-05",
+              "QD 5.12189   lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "B archive   V replay   C covenant   E era",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "3 unlock facts inherited from earlier bloodlines.",
+              "WEATHER RECORD",
+              "Generation 0: dropout x1.170205 / weather_storm_000",
+              "Generation 1: dropout x1.170205 / weather_storm_001",
+              "FOUNDERS: 8 admitted; 0 refused",
+              "ADMITTED: gen_452e8ab2351378af_c01",
+              "ADMITTED: gen_abff4f8ea8469aaf_c01",
+              "ADMITTED: gen_003e780b4921081f_c01",
+              "ADMITTED: gen_b2f5717a5d9396e0_c01",
+              "ADMITTED: gen_fd5d68ceae9d9bbc_c01",
+              "ADMITTED: gen_97fe685016012fdb_c01",
+              "ADMITTED: gen_67d3e0068a099950_c01",
+              "ADMITTED: gen_bd54f3af59e6bc7c_c01",
+              "These are recorded era results; viewing them does not run the soup.",
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: campaign-01",
+              "C/E preparation uses the active campaign, not this historical selection.",
+              "Original best-elite evaluation recorded.",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "ERA 7 [storm] 8/8",
+              "CAMPAIGN campaign-02 2/3",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 7 coverage 9e-05",
+              "QD 5.12189 lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "PgUp/PgDn \u00b7 wheel   1/5"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 5,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "REPERTOIRE  era 7 [storm]  1/7  gen_46aa515ca499e518_c01  fitness 0.732  gen 1",
+              "N niche history   campaign campaign-02",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 7 [storm] 1/7",
+              "gen_46aa515ca499e518_c01 fitness 0.732 gen 1",
+              "N niche history campaign campaign-02",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "recorded; only the final best elite has original",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 6,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "NICHE HISTORY  12/18 occurrences; campaign-02; era 7 [storm]  1/1  gen_46aa515ca499e518_c01  fitness 0.732  gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences   [ ] occurrences",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000",
+              "Same saved niche: 0,2,2,0,4,3,2",
+              "Matches recorded bin labels; historical calibration is not recorded.",
+              "0 history notices; only recorded campaign links searched."
+            ],
+            "visible": [
+              "NICHE HISTORY 12/18 occurrences; campaign-02;",
+              "era 7 [storm] 1/1 gen_46aa515ca499e518_c01",
+              "fitness 0.732 gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences [ ] occurrences",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 7,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "NICHE HISTORY  11/18 occurrences; campaign-02; era 6 [calm]  1/1  gen_452e8ab2351378af_c01  fitness 0.732  gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences   [ ] occurrences",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000",
+              "Same saved niche: 0,2,2,0,4,3,2",
+              "Matches recorded bin labels; historical calibration is not recorded.",
+              "0 history notices; only recorded campaign links searched."
+            ],
+            "visible": [
+              "NICHE HISTORY 11/18 occurrences; campaign-02;",
+              "era 6 [calm] 1/1 gen_452e8ab2351378af_c01 fitness",
+              "0.732 gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences [ ] occurrences",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 8,
+            "page": 0,
+            "page_count": 5,
+            "all_lines": [
+              "ERA 6 [calm]   7/8",
+              "CAMPAIGN campaign-02  2/3",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 8   coverage 0.000102",
+              "QD 5.853449   lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "B archive   V replay   C covenant   E era",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "3 unlock facts inherited from earlier bloodlines.",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "FOUNDERS: 9 admitted; 0 refused",
+              "ADMITTED: gen_101d43e10c5a168f_c01",
+              "ADMITTED: gen_9aab09d05f228804_c01",
+              "ADMITTED: gen_e07eaa3c5e8e0819_c01",
+              "ADMITTED: gen_c392cc2db51f18e2_c01",
+              "ADMITTED: gen_2a60a130da394806_c01",
+              "ADMITTED: gen_ecad59025ac9f80f_c01",
+              "ADMITTED: gen_d0121bd56b2985da_c01",
+              "ADMITTED: gen_976c0423fb431420_c01",
+              "ADMITTED: gen_760dc82144dd8252_c01",
+              "These are recorded era results; viewing them does not run the soup.",
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: campaign-01",
+              "C/E preparation uses the active campaign, not this historical selection.",
+              "Original best-elite evaluation recorded.",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "ERA 6 [calm] 7/8",
+              "CAMPAIGN campaign-02 2/3",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 8 coverage 0.000102",
+              "QD 5.853449 lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "PgUp/PgDn \u00b7 wheel   1/5"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 9,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "REPERTOIRE  era 6 [calm]  1/8  gen_452e8ab2351378af_c01  fitness 0.732  gen 1",
+              "N niche history   campaign campaign-02",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 6 [calm] 1/8",
+              "gen_452e8ab2351378af_c01 fitness 0.732 gen 1",
+              "N niche history campaign campaign-02",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "recorded; only the final best elite has original",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 10,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "REPERTOIRE  era 6 [calm]  1/8  gen_452e8ab2351378af_c01  fitness 0.732  gen 1",
+              "N niche history   campaign campaign-02",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 6 [calm] 1/8",
+              "gen_452e8ab2351378af_c01 fitness 0.732 gen 1",
+              "N niche history campaign campaign-02",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "recorded; only the final best elite has original",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "busy_pages": [],
+        "rendered_frames": 10,
+        "stderr": ""
+      },
+      {
+        "label": "qtable-history-playback",
+        "frames": 9,
+        "returncode": 0,
+        "screenshots": [
+          ".development/v1-complete-ui/qtable-history-playback-01.png",
+          ".development/v1-complete-ui/qtable-history-playback-02.png",
+          ".development/v1-complete-ui/qtable-history-playback-03.png",
+          ".development/v1-complete-ui/qtable-history-playback-04.png",
+          ".development/v1-complete-ui/qtable-history-playback-05.png",
+          ".development/v1-complete-ui/qtable-history-playback-06.png",
+          ".development/v1-complete-ui/qtable-history-playback-07.png",
+          ".development/v1-complete-ui/qtable-history-playback-08.png",
+          ".development/v1-complete-ui/qtable-history-playback-09.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "REPERTOIRE  era 7 [storm]  1/7  gen_46aa515ca499e518_c01  fitness 0.732  gen 1",
+              "N niche history   campaign campaign-03",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 7 [storm] 1/7",
+              "gen_46aa515ca499e518_c01 fitness 0.732 gen 1",
+              "N niche history campaign campaign-03",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "recorded; only the final best elite has original",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "REPERTOIRE  era 7 [storm]  2/7  gen_3c5428ae380f467c_c01  fitness 0.732  gen 1",
+              "N niche history   campaign campaign-03",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Original best-elite evaluation recorded.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 3  symmetry 1  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.001  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 7 [storm] 2/7",
+              "gen_3c5428ae380f467c_c01 fitness 0.732 gen 1",
+              "N niche history campaign campaign-03",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Original best-elite evaluation recorded.",
+              "T selected report B/Escape back",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "NICHE HISTORY  9/9 occurrences; campaign-03; era 7 [storm]  1/1  gen_3c5428ae380f467c_c01  fitness 0.732  gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences   [ ] occurrences",
+              "A adopt with current covenant   V recording",
+              "Original best-elite evaluation recorded.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 3  symmetry 1  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.001  slip_alignment 1.000  survival 1.000  validity 1.000",
+              "Same saved niche: 0,3,1,0,4,3,2",
+              "Matches recorded bin labels; historical calibration is not recorded.",
+              "0 history notices; only recorded campaign links searched."
+            ],
+            "visible": [
+              "NICHE HISTORY 9/9 occurrences; campaign-03;",
+              "era 7 [storm] 1/1 gen_3c5428ae380f467c_c01",
+              "fitness 0.732 gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences [ ] occurrences",
+              "A adopt with current covenant V recording",
+              "Original best-elite evaluation recorded.",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 4,
+            "page": 0,
+            "page_count": 1,
+            "all_lines": [
+              "REVIEW ERA 7  gen_3c5428ae380f467c",
+              "frame 0/10  birth  cycle 0",
+              "Care paused. SPACE play/pause  . step  , back",
+              "V/Escape back   T selected report   F1 controls",
+              "Original era evaluation: actual damage, repair and lifecycle ticks; final best elite."
+            ],
+            "visible": [
+              "REVIEW ERA 7 gen_3c5428ae380f467c",
+              "frame 0/10 birth cycle 0",
+              "Care paused. SPACE play/pause . step , back",
+              "V/Escape back T selected report F1 controls",
+              "Original era evaluation: actual damage, repair and",
+              "lifecycle ticks; final best elite."
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 5,
+            "page": 0,
+            "page_count": 7,
+            "all_lines": [
+              "HELP \u2014 companion time is paused",
+              "F feed   P play   S sleep   G clean when enabled",
+              "Ctrl+S save now; after a save failure, retry the save",
+              "Save failure pauses care; Ctrl+Q quits without saving",
+              "Enter adopt successor after death",
+              "T era reports (care paused): [ ] era, PgUp/PgDn pages",
+              "In reports: B archive, E next era, C covenant, T/Escape close",
+              "E run an era   C covenant budget   H hatch founder",
+              "1\u20135 weather: calm / stable soup / storm / real / callback",
+              "A adopt selected elite, or the latest era\u2019s best",
+              "R stage current pet genome; your companion stays with you",
+              "W gather workshop creatures; exact repeats stage only once",
+              "Backspace unstages contributions; source creatures stay intact",
+              "Weather, staged creatures and covenant changes save immediately",
+              "E runs the prepared era, or finishes saving its completed result",
+              "During eras: care pauses; Escape cancels before saving; F1 help",
+              "Era counts are real completed work; close waits for safe shutdown",
+              "V saved replay (care paused): Space play/pause, . step, , back",
+              "Replay: V/Escape back, T selected report; F1 pauses playback",
+              "B saved archive (care paused): . next, , previous, [ / ] era",
+              "In archives: N exact saved niche history; N/B/Escape returns",
+              "History: , . occurrences; T selected report, V saved recording, A adopt",
+              "In archives: A adopt, T selected report, B/Escape back",
+              "T campaign story: Ctrl+[ / Ctrl+] recorded predecessor campaigns",
+              "Campaign links and matching niche labels do not infer ancestry",
+              "L lineage: . next life, , previous life",
+              "X export covenant   I import covenant   K import pack",
+              "F1 or Escape close help   Escape in play quits",
+              "PgUp / PgDn or mouse wheel browse long casing text"
+            ],
+            "visible": [
+              "HELP \u2014 companion time is paused",
+              "F feed P play S sleep G clean when enabled",
+              "Ctrl+S save now; after a save failure, retry the save",
+              "Save failure pauses care; Ctrl+Q quits without",
+              "saving",
+              "Enter adopt successor after death",
+              "T era reports (care paused): [ ] era, PgUp/PgDn",
+              "PgUp/PgDn \u00b7 wheel   1/7"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 6,
+            "page": 0,
+            "page_count": 1,
+            "all_lines": [
+              "REVIEW ERA 7  gen_3c5428ae380f467c",
+              "frame 0/10  birth  cycle 0",
+              "Care paused. SPACE play/pause  . step  , back",
+              "V/Escape back   T selected report   F1 controls",
+              "Original era evaluation: actual damage, repair and lifecycle ticks; final best elite."
+            ],
+            "visible": [
+              "REVIEW ERA 7 gen_3c5428ae380f467c",
+              "frame 0/10 birth cycle 0",
+              "Care paused. SPACE play/pause . step , back",
+              "V/Escape back T selected report F1 controls",
+              "Original era evaluation: actual damage, repair and",
+              "lifecycle ticks; final best elite."
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 7,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "NICHE HISTORY  9/9 occurrences; campaign-03; era 7 [storm]  1/1  gen_3c5428ae380f467c_c01  fitness 0.732  gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences   [ ] occurrences",
+              "A adopt with current covenant   V recording",
+              "Original best-elite evaluation recorded.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 3  symmetry 1  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.001  slip_alignment 1.000  survival 1.000  validity 1.000",
+              "Same saved niche: 0,3,1,0,4,3,2",
+              "Matches recorded bin labels; historical calibration is not recorded.",
+              "0 history notices; only recorded campaign links searched."
+            ],
+            "visible": [
+              "NICHE HISTORY 9/9 occurrences; campaign-03;",
+              "era 7 [storm] 1/1 gen_3c5428ae380f467c_c01",
+              "fitness 0.732 gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences [ ] occurrences",
+              "A adopt with current covenant V recording",
+              "Original best-elite evaluation recorded.",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 8,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "REPERTOIRE  era 7 [storm]  2/7  gen_3c5428ae380f467c_c01  fitness 0.732  gen 1",
+              "N niche history   campaign campaign-03",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Original best-elite evaluation recorded.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 3  symmetry 1  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.001  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 7 [storm] 2/7",
+              "gen_3c5428ae380f467c_c01 fitness 0.732 gen 1",
+              "N niche history campaign campaign-03",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Original best-elite evaluation recorded.",
+              "T selected report B/Escape back",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 9,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "REPERTOIRE  era 7 [storm]  2/7  gen_3c5428ae380f467c_c01  fitness 0.732  gen 1",
+              "N niche history   campaign campaign-03",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Original best-elite evaluation recorded.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 3  symmetry 1  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.001  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 7 [storm] 2/7",
+              "gen_3c5428ae380f467c_c01 fitness 0.732 gen 1",
+              "N niche history campaign campaign-03",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Original best-elite evaluation recorded.",
+              "T selected report B/Escape back",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "busy_pages": [],
+        "rendered_frames": 9,
+        "stderr": ""
+      },
+      {
+        "label": "qtable-history-adoption",
+        "frames": 5,
+        "returncode": 0,
+        "screenshots": [
+          ".development/v1-complete-ui/qtable-history-adoption-01.png",
+          ".development/v1-complete-ui/qtable-history-adoption-02.png",
+          ".development/v1-complete-ui/qtable-history-adoption-03.png",
+          ".development/v1-complete-ui/qtable-history-adoption-04.png",
+          ".development/v1-complete-ui/qtable-history-adoption-05.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "REPERTOIRE  era 7 [storm]  1/7  gen_46aa515ca499e518_c01  fitness 0.732  gen 1",
+              "N niche history   campaign campaign-03",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 7 [storm] 1/7",
+              "gen_46aa515ca499e518_c01 fitness 0.732 gen 1",
+              "N niche history campaign campaign-03",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "recorded; only the final best elite has original",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "NICHE HISTORY  18/18 occurrences; campaign-03; era 7 [storm]  1/1  gen_46aa515ca499e518_c01  fitness 0.732  gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences   [ ] occurrences",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000",
+              "Same saved niche: 0,2,2,0,4,3,2",
+              "Matches recorded bin labels; historical calibration is not recorded.",
+              "0 history notices; only recorded campaign links searched."
+            ],
+            "visible": [
+              "NICHE HISTORY 18/18 occurrences; campaign-03;",
+              "era 7 [storm] 1/1 gen_46aa515ca499e518_c01",
+              "fitness 0.732 gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences [ ] occurrences",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "NICHE HISTORY  17/18 occurrences; campaign-03; era 6 [calm]  1/1  gen_452e8ab2351378af_c01  fitness 0.732  gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences   [ ] occurrences",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000",
+              "Same saved niche: 0,2,2,0,4,3,2",
+              "Matches recorded bin labels; historical calibration is not recorded.",
+              "0 history notices; only recorded campaign links searched."
+            ],
+            "visible": [
+              "NICHE HISTORY 17/18 occurrences; campaign-03;",
+              "era 6 [calm] 1/1 gen_452e8ab2351378af_c01 fitness",
+              "0.732 gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences [ ] occurrences",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 4,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "Adopted gen_452e8ab2351378af_c01.",
+              "health 0.41 (hungry)   mood curious   age 1   gen 1",
+              "F feed  P play  S sleep",
+              "stress 0.15   bond 0.69",
+              "felt curious (0.16)",
+              "cleanliness 0.99   G clean",
+              "Experimental Q-table: learning from care",
+              "NEXT ERA [calm]: 0 staged",
+              "F1 controls  Ctrl+S save  T report  E era  C covenant",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "Adopted gen_452e8ab2351378af_c01.",
+              "health 0.41 (hungry) mood curious age 1 gen 1",
+              "F feed P play S sleep",
+              "stress 0.15 bond 0.69",
+              "felt curious (0.16)",
+              "cleanliness 0.99 G clean",
+              "Experimental Q-table: learning from care",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 5,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "Adopted gen_452e8ab2351378af_c01.",
+              "health 0.41 (hungry)   mood curious   age 1   gen 1",
+              "F feed  P play  S sleep",
+              "stress 0.15   bond 0.69",
+              "felt curious (0.16)",
+              "cleanliness 0.99   G clean",
+              "Experimental Q-table: learning from care",
+              "NEXT ERA [calm]: 0 staged",
+              "F1 controls  Ctrl+S save  T report  E era  C covenant",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "Adopted gen_452e8ab2351378af_c01.",
+              "health 0.41 (hungry) mood curious age 1 gen 1",
+              "F feed P play S sleep",
+              "stress 0.15 bond 0.69",
+              "felt curious (0.16)",
+              "cleanliness 0.99 G clean",
+              "Experimental Q-table: learning from care",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "busy_pages": [],
+        "rendered_frames": 5,
+        "stderr": ""
+      },
+      {
+        "label": "incomplete-history",
+        "frames": 11,
+        "returncode": 0,
+        "screenshots": [
+          ".development/v1-complete-ui/incomplete-history-01.png",
+          ".development/v1-complete-ui/incomplete-history-02.png",
+          ".development/v1-complete-ui/incomplete-history-03.png",
+          ".development/v1-complete-ui/incomplete-history-04.png",
+          ".development/v1-complete-ui/incomplete-history-05.png",
+          ".development/v1-complete-ui/incomplete-history-06.png",
+          ".development/v1-complete-ui/incomplete-history-07.png",
+          ".development/v1-complete-ui/incomplete-history-08.png",
+          ".development/v1-complete-ui/incomplete-history-09.png",
+          ".development/v1-complete-ui/incomplete-history-10.png",
+          ".development/v1-complete-ui/incomplete-history-11.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "REPERTOIRE  era 7 [storm]  1/7  gen_46aa515ca499e518_c01  fitness 0.732  gen 1",
+              "N niche history   campaign campaign-03",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 7 [storm] 1/7",
+              "gen_46aa515ca499e518_c01 fitness 0.732 gen 1",
+              "N niche history campaign campaign-03",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "recorded; only the final best elite has original",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 7,
+            "all_lines": [
+              "NICHE HISTORY  12/12 occurrences; campaign-03; era 7 [storm]  1/1  gen_46aa515ca499e518_c01  fitness 0.732  gen 1",
+              "N back to archive; , . occurrences",
+              "10 history notices; PgDn for missing/incompatible records.",
+              "Care paused. , . occurrences   [ ] occurrences",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000",
+              "Same saved niche: 0,2,2,0,4,3,2",
+              "Matches recorded bin labels; historical calibration is not recorded.",
+              "10 history notices; only recorded campaign links searched.",
+              "Campaign missing-campaign unavailable: Recorded era history is unavailable: 'no such campaign: missing-campaign'",
+              "campaign-01 era 0: 12 incompatible niche records excluded.",
+              "campaign-01 era 1: 10 incompatible niche records excluded.",
+              "campaign-01 era 2: 9 incompatible niche records excluded.",
+              "campaign-01 era 3: 6 incompatible niche records excluded.",
+              "campaign-01 era 4: 7 incompatible niche records excluded.",
+              "campaign-01 era 5: 9 incompatible niche records excluded.",
+              "campaign-01 era 6: 8 incompatible niche records excluded.",
+              "campaign-01 era 7: 7 incompatible niche records excluded.",
+              "campaign-02 era 0: missing/incomplete archive; 0 of 12 records."
+            ],
+            "visible": [
+              "NICHE HISTORY 12/12 occurrences; campaign-03;",
+              "era 7 [storm] 1/1 gen_46aa515ca499e518_c01",
+              "fitness 0.732 gen 1",
+              "N back to archive; , . occurrences",
+              "10 history notices; PgDn for missing/incompatible",
+              "records.",
+              "Care paused. , . occurrences [ ] occurrences",
+              "PgUp/PgDn \u00b7 wheel   1/7"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 1,
+            "page_count": 7,
+            "all_lines": [
+              "NICHE HISTORY  12/12 occurrences; campaign-03; era 7 [storm]  1/1  gen_46aa515ca499e518_c01  fitness 0.732  gen 1",
+              "N back to archive; , . occurrences",
+              "10 history notices; PgDn for missing/incompatible records.",
+              "Care paused. , . occurrences   [ ] occurrences",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000",
+              "Same saved niche: 0,2,2,0,4,3,2",
+              "Matches recorded bin labels; historical calibration is not recorded.",
+              "10 history notices; only recorded campaign links searched.",
+              "Campaign missing-campaign unavailable: Recorded era history is unavailable: 'no such campaign: missing-campaign'",
+              "campaign-01 era 0: 12 incompatible niche records excluded.",
+              "campaign-01 era 1: 10 incompatible niche records excluded.",
+              "campaign-01 era 2: 9 incompatible niche records excluded.",
+              "campaign-01 era 3: 6 incompatible niche records excluded.",
+              "campaign-01 era 4: 7 incompatible niche records excluded.",
+              "campaign-01 era 5: 9 incompatible niche records excluded.",
+              "campaign-01 era 6: 8 incompatible niche records excluded.",
+              "campaign-01 era 7: 7 incompatible niche records excluded.",
+              "campaign-02 era 0: missing/incomplete archive; 0 of 12 records."
+            ],
+            "visible": [
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "recorded; only the final best elite has original",
+              "footage.",
+              "T selected report B/Escape back",
+              "body_mass 0 sensor_count 2 symmetry 2",
+              "readability 0 lifecycle_survival 4 mutation_stability",
+              "PgUp/PgDn \u00b7 wheel   2/7"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 4,
+            "page": 2,
+            "page_count": 7,
+            "all_lines": [
+              "NICHE HISTORY  12/12 occurrences; campaign-03; era 7 [storm]  1/1  gen_46aa515ca499e518_c01  fitness 0.732  gen 1",
+              "N back to archive; , . occurrences",
+              "10 history notices; PgDn for missing/incompatible records.",
+              "Care paused. , . occurrences   [ ] occurrences",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 2  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 2",
+              "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000",
+              "Same saved niche: 0,2,2,0,4,3,2",
+              "Matches recorded bin labels; historical calibration is not recorded.",
+              "10 history notices; only recorded campaign links searched.",
+              "Campaign missing-campaign unavailable: Recorded era history is unavailable: 'no such campaign: missing-campaign'",
+              "campaign-01 era 0: 12 incompatible niche records excluded.",
+              "campaign-01 era 1: 10 incompatible niche records excluded.",
+              "campaign-01 era 2: 9 incompatible niche records excluded.",
+              "campaign-01 era 3: 6 incompatible niche records excluded.",
+              "campaign-01 era 4: 7 incompatible niche records excluded.",
+              "campaign-01 era 5: 9 incompatible niche records excluded.",
+              "campaign-01 era 6: 8 incompatible niche records excluded.",
+              "campaign-01 era 7: 7 incompatible niche records excluded.",
+              "campaign-02 era 0: missing/incomplete archive; 0 of 12 records."
+            ],
+            "visible": [
+              "3 behavior_neediness 2",
+              "bond 1.000 mutation_stability 0.717 readability",
+              "0.000 slip_alignment 1.000 survival 1.000 validity",
+              "1.000",
+              "Same saved niche: 0,2,2,0,4,3,2",
+              "Matches recorded bin labels; historical calibration",
+              "is not recorded.",
+              "PgUp/PgDn \u00b7 wheel   3/7"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 5,
+            "page": 0,
+            "page_count": 5,
+            "all_lines": [
+              "ERA 7 [storm]   8/8",
+              "CAMPAIGN campaign-03  4/4",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 7   coverage 9e-05",
+              "QD 5.12189   lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "B archive   V replay   C covenant   E era",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "6 unlock facts inherited from earlier bloodlines.",
+              "WEATHER RECORD",
+              "Generation 0: dropout x1.170205 / weather_storm_000",
+              "Generation 1: dropout x1.170205 / weather_storm_001",
+              "FOUNDERS: 8 admitted; 0 refused",
+              "ADMITTED: gen_452e8ab2351378af_c01",
+              "ADMITTED: gen_abff4f8ea8469aaf_c01",
+              "ADMITTED: gen_003e780b4921081f_c01",
+              "ADMITTED: gen_b2f5717a5d9396e0_c01",
+              "ADMITTED: gen_fd5d68ceae9d9bbc_c01",
+              "ADMITTED: gen_97fe685016012fdb_c01",
+              "ADMITTED: gen_67d3e0068a099950_c01",
+              "ADMITTED: gen_bd54f3af59e6bc7c_c01",
+              "These are recorded era results; viewing them does not run the soup.",
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: campaign-02",
+              "Original best-elite evaluation recorded.",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "ERA 7 [storm] 8/8",
+              "CAMPAIGN campaign-03 4/4",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 7 coverage 9e-05",
+              "QD 5.12189 lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "PgUp/PgDn \u00b7 wheel   1/5"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 6,
+            "page": 0,
+            "page_count": 5,
+            "all_lines": [
+              "ERA 7 [storm]   8/8",
+              "CAMPAIGN campaign-02  3/4",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 7   coverage 9e-05",
+              "QD 5.12189   lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "B archive   V replay   C covenant   E era",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "3 unlock facts inherited from earlier bloodlines.",
+              "WEATHER RECORD",
+              "Generation 0: dropout x1.170205 / weather_storm_000",
+              "Generation 1: dropout x1.170205 / weather_storm_001",
+              "FOUNDERS: 8 admitted; 0 refused",
+              "ADMITTED: gen_452e8ab2351378af_c01",
+              "ADMITTED: gen_abff4f8ea8469aaf_c01",
+              "ADMITTED: gen_003e780b4921081f_c01",
+              "ADMITTED: gen_b2f5717a5d9396e0_c01",
+              "ADMITTED: gen_fd5d68ceae9d9bbc_c01",
+              "ADMITTED: gen_97fe685016012fdb_c01",
+              "ADMITTED: gen_67d3e0068a099950_c01",
+              "ADMITTED: gen_bd54f3af59e6bc7c_c01",
+              "These are recorded era results; viewing them does not run the soup.",
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: campaign-01",
+              "C/E preparation uses the active campaign, not this historical selection.",
+              "Original best-elite evaluation recorded.",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "ERA 7 [storm] 8/8",
+              "CAMPAIGN campaign-02 3/4",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 7 coverage 9e-05",
+              "QD 5.12189 lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "PgUp/PgDn \u00b7 wheel   1/5"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 7,
+            "page": 0,
+            "page_count": 5,
+            "all_lines": [
+              "ERA 7 [storm]   8/8",
+              "CAMPAIGN campaign-01  2/4",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 7   coverage 9e-05",
+              "QD 5.12189   lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "B archive   V replay   C covenant   E era",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "WEATHER RECORD",
+              "Generation 0: dropout x1.170205 / weather_storm_000",
+              "Generation 1: dropout x1.170205 / weather_storm_001",
+              "FOUNDERS: 8 admitted; 0 refused",
+              "ADMITTED: gen_452e8ab2351378af_c01",
+              "ADMITTED: gen_abff4f8ea8469aaf_c01",
+              "ADMITTED: gen_003e780b4921081f_c01",
+              "ADMITTED: gen_b2f5717a5d9396e0_c01",
+              "ADMITTED: gen_fd5d68ceae9d9bbc_c01",
+              "ADMITTED: gen_97fe685016012fdb_c01",
+              "ADMITTED: gen_67d3e0068a099950_c01",
+              "ADMITTED: gen_bd54f3af59e6bc7c_c01",
+              "These are recorded era results; viewing them does not run the soup.",
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: missing-campaign",
+              "C/E preparation uses the active campaign, not this historical selection.",
+              "Original best-elite evaluation recorded.",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "ERA 7 [storm] 8/8",
+              "CAMPAIGN campaign-01 2/4",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 7 coverage 9e-05",
+              "QD 5.12189 lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "PgUp/PgDn \u00b7 wheel   1/5"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 8,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "ERA REVIEW unavailable",
+              "CAMPAIGN missing-campaign  1/4",
+              "Your companion is paused.",
+              "Campaign missing-campaign unavailable: Recorded era history is unavailable: 'no such campaign: missing-campaign'",
+              "T or Escape returns to care.",
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: not recorded",
+              "C/E preparation uses the active campaign, not this historical selection."
+            ],
+            "visible": [
+              "ERA REVIEW unavailable",
+              "CAMPAIGN missing-campaign 1/4",
+              "Your companion is paused.",
+              "Campaign missing-campaign unavailable:",
+              "Recorded era history is unavailable: 'no such",
+              "campaign: missing-campaign'",
+              "T or Escape returns to care.",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 9,
+            "page": 1,
+            "page_count": 2,
+            "all_lines": [
+              "ERA REVIEW unavailable",
+              "CAMPAIGN missing-campaign  1/4",
+              "Your companion is paused.",
+              "Campaign missing-campaign unavailable: Recorded era history is unavailable: 'no such campaign: missing-campaign'",
+              "T or Escape returns to care.",
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: not recorded",
+              "C/E preparation uses the active campaign, not this historical selection."
+            ],
+            "visible": [
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: not recorded",
+              "C/E preparation uses the active campaign, not this",
+              "historical selection.",
+              "PgUp/PgDn \u00b7 wheel   2/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 10,
+            "page": 0,
+            "page_count": 5,
+            "all_lines": [
+              "ERA 7 [storm]   8/8",
+              "CAMPAIGN campaign-01  2/4",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 7   coverage 9e-05",
+              "QD 5.12189   lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "B archive   V replay   C covenant   E era",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "WEATHER RECORD",
+              "Generation 0: dropout x1.170205 / weather_storm_000",
+              "Generation 1: dropout x1.170205 / weather_storm_001",
+              "FOUNDERS: 8 admitted; 0 refused",
+              "ADMITTED: gen_452e8ab2351378af_c01",
+              "ADMITTED: gen_abff4f8ea8469aaf_c01",
+              "ADMITTED: gen_003e780b4921081f_c01",
+              "ADMITTED: gen_b2f5717a5d9396e0_c01",
+              "ADMITTED: gen_fd5d68ceae9d9bbc_c01",
+              "ADMITTED: gen_97fe685016012fdb_c01",
+              "ADMITTED: gen_67d3e0068a099950_c01",
+              "ADMITTED: gen_bd54f3af59e6bc7c_c01",
+              "These are recorded era results; viewing them does not run the soup.",
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: missing-campaign",
+              "C/E preparation uses the active campaign, not this historical selection.",
+              "Original best-elite evaluation recorded.",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "ERA 7 [storm] 8/8",
+              "CAMPAIGN campaign-01 2/4",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 7 coverage 9e-05",
+              "QD 5.12189 lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "PgUp/PgDn \u00b7 wheel   1/5"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 11,
+            "page": 0,
+            "page_count": 5,
+            "all_lines": [
+              "ERA 7 [storm]   8/8",
+              "CAMPAIGN campaign-01  2/4",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 7   coverage 9e-05",
+              "QD 5.12189   lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "B archive   V replay   C covenant   E era",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "WEATHER RECORD",
+              "Generation 0: dropout x1.170205 / weather_storm_000",
+              "Generation 1: dropout x1.170205 / weather_storm_001",
+              "FOUNDERS: 8 admitted; 0 refused",
+              "ADMITTED: gen_452e8ab2351378af_c01",
+              "ADMITTED: gen_abff4f8ea8469aaf_c01",
+              "ADMITTED: gen_003e780b4921081f_c01",
+              "ADMITTED: gen_b2f5717a5d9396e0_c01",
+              "ADMITTED: gen_fd5d68ceae9d9bbc_c01",
+              "ADMITTED: gen_97fe685016012fdb_c01",
+              "ADMITTED: gen_67d3e0068a099950_c01",
+              "ADMITTED: gen_bd54f3af59e6bc7c_c01",
+              "These are recorded era results; viewing them does not run the soup.",
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: missing-campaign",
+              "C/E preparation uses the active campaign, not this historical selection.",
+              "Original best-elite evaluation recorded.",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "ERA 7 [storm] 8/8",
+              "CAMPAIGN campaign-01 2/4",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 7 coverage 9e-05",
+              "QD 5.12189 lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "PgUp/PgDn \u00b7 wheel   1/5"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "busy_pages": [],
+        "rendered_frames": 11,
+        "stderr": ""
+      }
+    ],
+    "observed": {
+      "fixture": {
+        "campaigns": [
+          {
+            "campaign_id": "campaign-01",
+            "predecessor": null,
+            "eras": 8,
+            "elites": 68
+          },
+          {
+            "campaign_id": "campaign-02",
+            "predecessor": "campaign-01",
+            "eras": 8,
+            "elites": 68
+          },
+          {
+            "campaign_id": "campaign-03",
+            "predecessor": "campaign-02",
+            "eras": 8,
+            "elites": 68
+          }
+        ],
+        "scope": "24 actual tiny eras, three explicit saved campaign links; deterministic seeds repeat by campaign, not an independent recurrence experiment."
+      },
+      "incumbent_history": {
+        "occurrences": 18,
+        "load_seconds": 0.0315616000443697,
+        "selected_niche": [
+          0,
+          2,
+          2,
+          0,
+          4,
+          3,
+          2
+        ],
+        "selected_campaign": "campaign-02",
+        "selected_era": 6
+      },
+      "qtable_history": {
+        "occurrences": 18,
+        "load_seconds": 0.030124600045382977,
+        "selected_niche": [
+          0,
+          2,
+          2,
+          0,
+          4,
+          3,
+          2
+        ],
+        "selected_campaign": "campaign-02",
+        "selected_era": 6
+      }
+    },
+    "native_executable_sha256": "674e5c051f1ca9defbbc83f4752bd960cc90ac91355b90407a91b51f8f670954"
+  },
+  "closed_states": [
+    "incumbent_native_resume_keeps_all_campaigns",
+    "incumbent_story_archive_niche_report_connect",
+    "incumbent_story_and_history_preserve_all_saved_bytes",
+    "incumbent_history_labels_limits_and_occurrences",
+    "incumbent_original_replay_and_return_from_history",
+    "incumbent_playback_preserves_all_saved_bytes",
+    "incumbent_historical_adoption_keeps_active_campaign_and_policy",
+    "incumbent_native_resumes_historical_adoption",
+    "qtable_native_resume_keeps_all_campaigns",
+    "qtable_story_archive_niche_report_connect",
+    "qtable_story_and_history_preserve_all_saved_bytes",
+    "qtable_history_labels_limits_and_occurrences",
+    "qtable_original_replay_and_return_from_history",
+    "qtable_playback_preserves_all_saved_bytes",
+    "qtable_historical_adoption_keeps_active_campaign_and_policy",
+    "qtable_native_resumes_historical_adoption",
+    "incomplete_records_visible_while_valid_occurrences_remain",
+    "missing_campaign_link_visible_and_returnable",
+    "unavailable_campaign_details_can_be_paged",
+    "incomplete_history_never_rewritten",
+    "all_source_flows_exit_and_fit"
+  ],
+  "blocked_states": [
+    "Native keyboard/human usability unobserved; native subprocesses use SDL dummy and source pygame consumes actual events.",
+    "Matching bin labels do not establish unrecorded historical calibration equivalence or biological relationships.",
+    "Only the active campaign and recorded predecessor chain are searched; unlinked campaigns are not inferred.",
+    "24 tiny eras across three linked campaigns tested, not arbitrary/maximal histories.",
+    "Full local gate and exact-published-SHA CI are separate; hosted sharing/signing excluded."
+  ],
+  "decision": {
+    "verdict": "application_observations_passed_full_gate_pending"
+  },
+  "source_head": "c12df2ab4d39dd019f65f61d4a583c6450702ed3",
+  "preserved_prior_observations": {
+    "stage0": "data/game_client/recorded_niche_history_release_stage0.json",
+    "first_native": "game/dist/v1-niche-history-stage0/Mechagotchi/Mechagotchi.exe",
+    "second_native": "game/dist/v1-niche-history-stage1/Mechagotchi/Mechagotchi.exe",
+    "additional_paging_RED": ".development/v1-red-missing-link-paging.log"
+  }
+}

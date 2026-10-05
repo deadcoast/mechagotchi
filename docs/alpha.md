@@ -1,6 +1,6 @@
 # The M7 Public Alpha — Reproduce Everything From This Document
 
-Established in cycle 17 G6 (Phase G); launch guidance refreshed through Cycle 30 T5,
+Established in cycle 17 G6 (Phase G); launch guidance refreshed through Cycle 32 V1,
 2026-10-04. Both builds — the ENGINE and the GAME — from a
 fresh clone, on the repo's own evidence discipline. Every claim below
 is backed by a retained artifact or a test suite; current recovery changes
@@ -35,8 +35,8 @@ One runner, the same locally and in CI (`.github/workflows/ci.yml`):
 
 A full gate covers 19 lab suites plus package, CLI, game, workshop and CI-runner
 suites, with JSON validation over every data artifact. Current verified scope
-is 2,606 tests and 2,288 JSON artifacts (T5 full run
-`20261004T214405-8fe7b9f8`); two named DR 0034 pins skip on zlib 1.3.1.
+is 2,636 tests and 2,292 JSON artifacts (V1 full run
+`20261004T234803-5750f659`); two named DR 0034 pins skip on zlib 1.3.1.
 All 24 suites passed without source mutations. Runtime depends on the machine.
 The historical Q4 gate was 2,493 tests / 2,269 JSON artifacts.
 
@@ -72,12 +72,12 @@ A covenant option selects a new life, never replaces an existing save silently:
 
 A new campaign inherits that companion's covenant; a resumed campaign retains
 its saved covenant. The demonstrated local Windows bundle is
-`game/dist/t5-responsive-eras/Mechagotchi/Mechagotchi.exe`; keep `_internal` beside it.
+`game/dist/v1-niche-history/Mechagotchi/Mechagotchi.exe`; keep `_internal` beside it.
 From the repository root, launch with an explicit save directory. An absolute
 executable path also works from another cwd:
 
 ```powershell
-.\game\dist\t5-responsive-eras\Mechagotchi\Mechagotchi.exe --keeper-dir "$env:USERPROFILE\.mechagotchi"
+.\game\dist\v1-niche-history\Mechagotchi\Mechagotchi.exe --keeper-dir "$env:USERPROFILE\.mechagotchi"
 ```
 
 Without an explicit directory, the current native build starts new saves in
@@ -101,7 +101,12 @@ Quit and relaunch — the companion AND the campaign resume. Interactive E keeps
 the casing responsive with real progress while care pauses; Escape cancels
 uncommitted work, and close waits for cancellation or completed-result saving.
 Cold model loading cancels at its next boundary. See the T5 responsiveness report
-for the measured 96/384-evaluation limits and unchanged engine results.
+for the original responsiveness investigation. U1 preserves those scientific
+results while recording the actual final-best evaluation, with measured 96/384
+evaluations. V reads saved original footage from care/T or its matching B elite;
+other selections say not recorded. Legacy footage keeps its original label.
+Read `research/experiment_reports/2026-10-04-original-era-recordings.md` for
+current measurements, bounded retention and interrupted-recording recovery.
 
 ## 3. Regenerate the game's evidence (optional, deliberate)
 
@@ -160,3 +165,16 @@ CLI and native launch checks. Cycle 28's implemented learning option, measured
 default refusal and native save-home repair are recorded in
 `research/experiment_reports/2026-10-04-playable-learning.md`; consult the live
 runner for its final full gate and the live queue for the bounded next action.
+
+Cycle 31 U1 closes original final-best evaluation capture and saved playback.
+Its report, DR 0074, immutable observation/sample artifacts and
+`.development/u1-live-handoff.json` identify its then-current local build and restart.
+The full gate is local; native keyboard, maximum-scale observations and
+exact-published-SHA Windows/Ubuntu Actions remain outside the verified claims.
+
+Cycle 32 V1 adds N in B for exact saved niche occurrences and Ctrl+[ / Ctrl+]
+in T for recorded predecessor campaigns. T/V/A retain the selected historical
+context and current-covenant adoption; missing history is explicit and care is
+paused. This is recorded-fact navigation, with no E5/family or founder inference.
+Read `research/experiment_reports/2026-10-04-niche-history.md` and
+`.development/v1-live-handoff.json` for the current build, evidence and restart.

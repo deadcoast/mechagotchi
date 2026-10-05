@@ -52,6 +52,12 @@ def build_replay(
         record_frames=True,
     )
 
+    return replay_from_lived(grid, slip_profile, lived, damage_cycles=damage_cycles,
+                             ticks=ticks, dropout_rate=dropout_rate, rng_seed=rng_seed)
+
+
+def replay_from_lived(grid, slip_profile, lived, *, damage_cycles, ticks, dropout_rate, rng_seed):
+    """Lay out already captured engine frames; never simulate or consume RNG."""
     frames: list[dict] = []
     birth_packet, birth_errors = packet_or_errors(grid)
     frames.append(

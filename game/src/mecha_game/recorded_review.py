@@ -6,7 +6,7 @@ import json
 import sqlite3
 from pathlib import Path
 
-from mecha_engine.storage import SCHEMA_VERSION, load_replay_rows
+from mecha_engine.storage import SCHEMA_VERSION, load_replay_rows, campaign_history, load_era_elites
 from mecha_game.rasterize import rasterize_cells
 from mecha_game.replay import REPLAY_FORMAT, ReplayPlayer, overlay_wounds
 
@@ -55,7 +55,7 @@ def _validate(replay, expected_seed):
         raise ValueError('The recording is missing its birth frame.')
 
 
-def load_saved_replay(keeper_dir, campaign_id, era_index, *, expected_seed):
+def load_saved_replay(keeper_dir, campaign_id, era_index, *, expected_seed, selected_elite=None):
     """Return the exact indexed recording, None if none exists, or an explicit error.
 
     Hash normalized UTF-8 text as the existing writer/loader do. In particular,
@@ -71,6 +71,8 @@ def load_saved_replay(keeper_dir, campaign_id, era_index, *, expected_seed):
             if conn.execute('PRAGMA user_version').fetchone()[0] != SCHEMA_VERSION:
                 raise ValueError('Unsupported campaign-ledger schema version.')
             rows = [row for row in load_replay_rows(conn, campaign_id) if row['era_index'] == era_index]
+            era = next((row for row in campaign_history(conn, campaign_id)['eras'] if row['era_index'] == era_index), None)
+            elites = load_era_elites(conn, campaign_id, era_index) if rows else []
         finally:
             conn.close()
         if not rows:
@@ -87,7 +89,24 @@ def load_saved_replay(keeper_dir, campaign_id, era_index, *, expected_seed):
         if hashlib.sha256(payload.encode('utf-8')).hexdigest() != row['artifact_sha256']:
             raise ValueError('The saved recording fails its recorded SHA256; it was not replaced.')
         replay = json.loads(payload)
-        _validate(replay, expected_seed)
+        if 'recording_format' in replay:
+            from mecha_game.original_recording import validate_recording
+            if era is None or era['rng_seed'] != expected_seed:
+                raise ValueError('Original recording does not match the selected era.')
+            era = dict(era, elites=elites)
+            validate_recording(replay, campaign_id, era, era['slip_profile'])
+            if replay['status'] != 'recorded':
+                raise ValueError('Original evaluation not recorded: ' + replay['reason'])
+            replay = replay['replay']
+            _validate(replay, replay['parameters']['rng_seed'])
+            if selected_elite is not None and (
+                selected_elite['grid'] != replay['evaluation']['final_grid'] or
+                selected_elite['niche_key'] != replay['evaluation']['niche_key']):
+                raise ValueError('This selected elite was not recorded; only the final best elite has original footage.')
+        else:
+            _validate(replay, expected_seed)
+            if selected_elite is not None and selected_elite['grid_id'] != replay['creature']['grid_id']:
+                raise ValueError('This selected elite was not recorded in the legacy post-era replay.')
         return replay
     except (OSError, sqlite3.Error, KeyError, TypeError, AttributeError, IndexError, UnicodeError) as error:
         raise ValueError('The saved recording cannot be read or displayed.') from error

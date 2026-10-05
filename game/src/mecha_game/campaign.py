@@ -426,6 +426,7 @@ class KeeperCampaign:
         # and the resumed first era's founders come from the ledger.
         self.era_offset = 0
         self.resume_founders: list[dict] | None = None
+        self.last_original_recording = None
         self.campaign = {
             "campaign_id": campaign_id,
             "keeper_label": keeper_label,
@@ -512,7 +513,7 @@ class KeeperCampaign:
 
     def advance_era(
         self, weather: str, *, released_grids: list[dict] | None = None,
-        progress_callback=None,
+        progress_callback=None, record_original=False,
     ) -> dict:
         """Advance the living bloodline by exactly one era (the lab's
         `advance_campaign` semantics: founders = the previous era's
@@ -546,6 +547,13 @@ class KeeperCampaign:
         def scorer(grid: dict) -> float:
             return learned_readability_score(grid, legibility_model)
 
+        recorder = None
+        self.last_original_recording = None
+        if record_original:
+            from mecha_game.original_recording import BestEvaluationRecording
+            recorder = BestEvaluationRecording(self.campaign['campaign_id'], era_index,
+                self.campaign['base_seed'] + era_index * ERA_SEED_STRIDE,
+                self.campaign['slip_profile'], weather, self.era_config)
         archive, report = evolve(
             self.inputs["seed_grids"],
             self.campaign["slip_profile"],
@@ -562,6 +570,7 @@ class KeeperCampaign:
             },
             **self.era_config,
             **({"progress_callback": progress_callback} if progress_callback is not None else {}),
+            **({"recording_callback": recorder.capture} if recorder is not None and recorder.enabled else {}),
         )
         # The archive's elites in niche-key order — the same
         # deterministic ordering evolve uses for elite parents
@@ -625,6 +634,8 @@ class KeeperCampaign:
                 "elite_mean_learned_readability": legibility,
             },
         }
+        if recorder is not None:
+            self.last_original_recording = recorder.finish(era_record)
         self.campaign["eras"].append(era_record)
         self.campaign["unlocks"].extend(
             evaluate_unlocks(era_record, self.campaign["unlocks"])
@@ -634,12 +645,12 @@ class KeeperCampaign:
         return era_record
 
     def record_review_replay(self, era_index: int = -1) -> dict:
-        """The Review step's window (F10): the era's best elite lives
-        one RECORDED life at the era's own seed and parameters —
-        honest label per the lab: a real recorded life of a real era
-        creature, replayed post-era (the in-era lives ran without
-        frame recording; threading record_frames through evolve
-        remains the engine's named future seam)."""
+        """Legacy explicit post-era recorder, retained for compatibility.
+
+        This starts a new life at the era seed. The playable E path instead
+        captures the actual evaluation through recording_callback (DR0074).
+        Never use this method to backfill missing original footage.
+        """
         from mecha_game.replay import build_replay
 
         if not self.eras:

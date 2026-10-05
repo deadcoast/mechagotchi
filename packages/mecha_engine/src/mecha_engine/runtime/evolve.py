@@ -35,6 +35,7 @@ strings, are the lab's own.
 from __future__ import annotations
 
 from collections.abc import Callable
+from copy import deepcopy
 
 from mecha_engine.archive import (
     archive_summary,
@@ -105,6 +106,7 @@ def evolve(
     cubff_pressure_source: list[dict] | None = None,
     readability_selection: dict | None = None,
     progress_callback: Callable[[int, int], None] | None = None,
+    recording_callback: Callable[[dict], None] | None = None,
 ) -> tuple[dict, dict]:
     """Run multi-generation evolution through the composed engine.
 
@@ -119,6 +121,9 @@ def evolve(
     before evaluation, then one call after each fully recorded candidate.
     Exceptions propagate for caller-owned cancellation; early extinction may
     finish below the requested budget. No output field or seed changes.
+    ``recording_callback`` receives isolated original live-cycle records when
+    an inserted/replaced candidate becomes the overall best (fitness, niche).
+    It never re-simulates; frame data stays outside the scientific result.
     Deterministic end to end; never mutates ``seed_grids``,
     ``slip_profile``, the models, or any caller-owned input.
 
@@ -356,8 +361,10 @@ def evolve(
                 ticks=ticks,
                 dropout_rate=generation_dropout,
                 rng_seed=run_seed,
+                **({"record_frames": True} if recording_callback is not None else {}),
             )
-            cycles = lived["cycles"]
+            cycles = ([{k: v for k, v in cycle.items() if k != "frames"}
+                       for cycle in lived["cycles"]] if recording_callback is not None else lived["cycles"])
             current = lived["final_grid"]
             stages["all_cycles_valid"] = lived["all_cycles_valid"]
             stages["all_cycles_aligned"] = lived["all_cycles_aligned"]
@@ -438,6 +445,19 @@ def evolve(
                 }
             )
 
+            # DR0074: lab-proven original evaluation observation, no RNG or selection change.
+            if recording_callback is not None and decision in ("inserted", "replaced"):
+                best_niche = max(archive["elites"], key=lambda n: (archive["elites"][n]["fitness"], n))
+                if archive["elites"][best_niche]["grid"] == current:
+                    recording_callback(deepcopy({
+                        "era_seed": rng_seed, "run_seed": run_seed,
+                        "generation_index": generation_index, "candidate_index": index,
+                        "effective_dropout_rate": generation_dropout,
+                        "generation_weather": cubff_by_generation[-1] if cubff else None,
+                        "damage_cycles": damage_cycles, "ticks": ticks,
+                        "niche_key": best_niche, "fitness": archive["elites"][best_niche]["fitness"],
+                        "candidate_grid": candidate, "lived": lived,
+                    }))
             if progress_callback is not None:
                 progress_callback(generation_index * population + index + 1, generations * population)
 

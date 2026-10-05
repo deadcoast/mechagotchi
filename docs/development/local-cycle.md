@@ -10,16 +10,15 @@ The agent makes the implementation decisions; this command captures scope,
 executes verification, and refuses unsupported completion claims. It does not
 invent features, spawn another agent, install dependencies, commit, or publish.
 
-Current resume (2026-10-04): Q1-Q5, Cycles 28/29 and T1-T3 completed full
-local gates. T3 passed `20261004T192757-866fdf0f`: 2,576 tests / 24 suites,
-two documented skips, 2,283 JSON files, no mutations. The active integrated
-milestone is `t4-durable-era-plan`: preserve explicit preparation, finish a
-recorded era after interrupted persistence, and connect real outcomes to the
-existing archive/adoption/replay loop. Contract:
-`docs/development/cycle-30-durable-era-plan.md`; exact phase/results remain in
-`.development/state.json`. Read `research/experiment_reports/2026-10-04-keeper-loop.md`
-for its code/queue handoff, observations and remaining gates. Do not repeat prior
-unchanged gates. Only the full current gate closes this final changed milestone.
+Current resume (2026-10-04): U1 original-evaluation capture and playback is
+locally complete and reviewed. Full `20261004T224746-6ccc82b0` passed 2,624 tests /
+24 suites, two documented skips and 2,290 JSON artifacts without mutations.
+The parent selected V1 recorded seven-axis niche history and recorded campaign
+story navigation after the bounded family review. It consumes existing records,
+not E5 projections or inferred founders. Active contract:
+`docs/development/cycle-32-niche-history.md`; code/evidence report:
+`research/experiment_reports/2026-10-04-niche-history.md`. Read actual phase/results
+in `.development/state.json` before resuming. Do not repeat unchanged prior gates.
 Q-table default adoption remains refused. Native keyboard interaction is not
 available here: the installed skill requires an unexposed node_repl/@oai/sky runtime.
 The current delegation reserves commit/sync/push to the user and explicitly
@@ -97,7 +96,7 @@ $env:PYTHONPATH = (Resolve-Path tools/mechas_cli/src).Path
 & .\.venv\Scripts\python.exe -B -m mechas_cli.app develop --status
 ```
 
-Read the active `t5-responsive-eras` phase, checkpoint and latest run.
+Read the active `v1-niche-history` phase, checkpoint and latest run.
 A completed local gate has `phase=polish`, `full_current=true`,
 `local_complete=true`, and `running=null`. If verification is running, inspect
 its retained logs; do not launch another sweep. Relevant source/data/config or

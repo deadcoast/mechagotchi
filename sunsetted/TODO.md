@@ -1,4 +1,4 @@
-# Development TODO - Cycle 30: the connected Keeper loop
+# Development TODO - Cycles 30-32: connected Keeper and recorded history
 
 Cycle 29 S1/S2 are locally complete and reviewed. Archive:
 `sunsetted/complete/TODO/29/TODO.md`. S2's single full gate
@@ -84,3 +84,47 @@ No next RED or competing process has been started.
   `.development/t5-closed.json`, `.development/t5-live-handoff.json`. All five
   accepted Cycle 30 contracts are locally closed; no next scope or Git action.
   The T5 report consolidates the current build and established design remainder.
+
+## Cycle 31 - Original evaluation review
+
+- [x] **U1 - Original best-elite recording and playback.** Locally complete. Parent selected one
+  final best elite per era. Capture actual evaluation, explicit provenance and
+  unavailable other selections; preserve science, T4 journal and T5 cancellation.
+  Contract: `docs/development/cycle-31-original-recordings.md`.
+  Report: `research/experiment_reports/2026-10-04-original-era-recordings.md`.
+  Morphological family/hosted sharing remain separate. No Git mutations.
+
+U1 focused `20261004T224313-a113b1ed` passed 895 tests. Full
+`20261004T224746-6ccc82b0` passed 2,624 tests / 24 suites, two documented zlib
+skips and 2,290 valid JSON artifacts with no mutations. Actual observations:
+33 connected checks, eleven native launches, 25 source flows / 1,365 frames.
+Closure: `.development/u1-closed.json`; exact restart:
+`.development/u1-live-handoff.json`. Read-only `develop --status` is next;
+do not rerun unchanged gates or start another RED. The U1 report distinguishes
+the completed recording seam from family/hosting scope and measured limits.
+
+## Cycle 32 - Recorded niche history
+
+- [x] **V1 - Recorded niche history and campaign story.** Locally complete. Parent selected exact
+  saved seven-axis occurrences across eras and recorded predecessor campaigns;
+  preserve missing/incompatible history explicitly, current-covenant adoption
+  and U1 replay provenance. Contract: `docs/development/cycle-32-niche-history.md`.
+  Report: `research/experiment_reports/2026-10-04-niche-history.md`.
+  No E5 projection, inferred founders, new mechanics or Git mutations.
+
+V1 focused `20261004T234239-c31e7659` passed 740 tests. Full
+`20261004T234803-5750f659` passed 2,636 tests / 24 suites, two documented zlib
+skips and 2,292 valid JSON artifacts with no source mutations. Demonstration:
+21 checks, four native launches, seven source flows / 59 frames over 24 actual
+tiny eras, three linked campaigns and 204 elites, on both policy fixtures.
+Closure: `.development/v1-closed.json`; restart: `.development/v1-live-handoff.json`.
+Next: read-only `develop --status` and review this result. No active worker, next
+RED or Git action. E5 projection, new mechanics and hosting remain deferred.
+
+## Cycle 33 - Connected import inboxes
+
+- [ ] **W1 - Select and apply named covenant/pack files.** Current delegation
+  authorizes development after V1 review. F15's named picker remainder closes
+  the observed F16 pack-to-covenant disconnect. Contract:
+  `docs/development/cycle-33-import-inboxes.md`. Preserve all prior results,
+  native builds, live saves and scientific definitions. No Git actions.
