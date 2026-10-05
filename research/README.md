@@ -1342,3 +1342,10 @@ remains intact. R1 registration is pending; no cycle-28 work was started.
 ## Cycle 32 recorded niche history (2026-10-04)
 
 - [Recorded niche history and campaign story](experiment_reports/2026-10-04-niche-history.md): exact saved seven-axis occurrences, recorded predecessor-campaign navigation and connected archive/report/replay/current-covenant adoption. DR 0075; [consumer card](algorithm_cards/recorded_niche_history.md). Preserves E5 cohorts and separates recorded labels from family/ancestry inference. Full `20261004T234803-5750f659` passed 2,636 tests / 24 suites, two documented skips and 2,292 valid JSON artifacts without mutations. Twenty-one application checks, four native launches and seven source flows / 59 frames demonstrate the saved history. Locally closed; exact restart and remaining limits are in `.development/v1-live-handoff.json` and the report.
+
+2026-10-05 W1: [Connected import inboxes](experiment_reports/2026-10-05-import-inboxes.md)
+implements F15's named picker remainder and connects F16 packs to covenant
+selection. [DR0076](decision_records/0076-connected-import-inboxes.md),
+[card](algorithm_cards/import_inboxes.md), `labs/game_loop/verify_import_inboxes.py`
+and `data/game_client/import_inboxes_release_stage0.json` / `import_inboxes_release_stage1.json` retain the observations.
+No scientific redefinition, default-policy adoption or hosted distribution.

@@ -50,6 +50,7 @@ def verify(bundle, fixtures, screenshots):
                 [key(pygame.K_F1)],[key(pygame.K_ESCAPE)],[key(pygame.K_ESCAPE)],
                 [key(pygame.K_i)],[key(pygame.K_ESCAPE)],[pygame.event.Event(pygame.QUIT)]])
         checks[policy+'_browse_cancel_and_help_preserve_all_files']=before==inventory(keeper)
+        checks[policy+'_active_inbox_help_is_specific']='F5 refresh' in ' '.join(pages[2]['visible']) and 'F feed' not in ' '.join(pages[2]['visible'])
         checks[policy+'_named_pack_and_empty_inbox_visible']=('starter_choices.json' in ' '.join(pages[0]['visible']) and
             pages[0]['all_lines']==pages[3]['all_lines'] and 'No JSON files' in ' '.join(pages[5]['visible']))
         pet=(keeper/'companion.json').read_bytes()
@@ -57,6 +58,7 @@ def verify(bundle, fixtures, screenshots):
             [key(pygame.K_PAGEDOWN)],[key(pygame.K_PAGEDOWN)],[pygame.event.Event(pygame.QUIT)]])
         checks[policy+'_starter_pack_all_items_staged']=('4/4 covenants; 4/4 creatures ready.' in ' '.join(pages[1]['all_lines']) and
             len(list((keeper/'covenants').glob('*.json')))==4 and len(list((keeper/'released').glob('*.json')))==4)
+        checks[policy+'_completed_import_action_is_clear']='import complete' in ' '.join(pages[1]['visible']) and 'Enter imports' not in ' '.join(pages[1]['visible'])
         picker=InboxPicker(keeper,'covenant')
         position=next(i for i,p in enumerate(picker.files) if p.name.endswith('_slip_lcd_seed.json'))
         events=[[key(pygame.K_i)]]+[[key(pygame.K_PERIOD)]]*position
@@ -99,6 +101,7 @@ def verify(bundle, fixtures, screenshots):
     pages=play(keeper,'long-invalid',[[key(pygame.K_i)],[key(pygame.K_RETURN)],
         [key(pygame.K_PAGEDOWN)],[key(pygame.K_PAGEDOWN)],[key(pygame.K_F1)],[key(pygame.K_ESCAPE)],
         [key(pygame.K_DOWN)],[key(pygame.K_HOME)],[pygame.event.Event(pygame.QUIT)]])
+    checks['long_filename_keeps_unreadable_notice_on_first_page']='File unreadable' in ' '.join(pages[0]['visible']) and 'Enter imports' not in ' '.join(pages[0]['visible'])
     checks['invalid_file_has_full_name_and_recovery_without_writes']=('unreadable' in ' '.join(pages[0]['all_lines']) and
         long_name in ' '.join(pages[0]['all_lines']) and before==inventory(keeper))
     checks['all_source_flows_exit_and_fit']=all(f['returncode']==0 and all(p['fits'] for p in f['pages']) for f in flows)
@@ -107,7 +110,8 @@ def verify(bundle, fixtures, screenshots):
         source_artifacts=['data/packs/mechagotchi_starter_pack.json','game/src/mecha_game/inbox.py',
             'game/src/mecha_game/covenant_io.py','game/src/mecha_game/packs.py','labs/game_loop/verify_import_inboxes.py'],
         metrics=dict(checks=checks,launches=launches,interactive=flows,observed=observed,
-            native_executable_sha256=hashlib.sha256(executable.read_bytes()).hexdigest()),
+            native_executable_sha256=hashlib.sha256(executable.read_bytes()).hexdigest(),
+            source_sha256={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in ('game/src/mecha_game/app.py','game/src/mecha_game/inbox.py','game/src/mecha_game/covenant_io.py','game/src/mecha_game/packs.py')}),
         closed_states=[k for k,v in checks.items() if v],
         blocked_states=['Native keyboard/human usability unobserved: native SDL-dummy processes and source pygame events are distinct.',
             'Bounded starter-pack and long-file observations, not maximum-size import performance.',

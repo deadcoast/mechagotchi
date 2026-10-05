@@ -1,0 +1,2882 @@
+{
+  "artifact_id": "import_inboxes_release_stage1",
+  "date": "2026-10-05",
+  "status": "observed_source_and_native",
+  "purpose": "Connect the existing starter pack, named covenant choice and durable next-era preparation.",
+  "source_artifacts": [
+    "data/packs/mechagotchi_starter_pack.json",
+    "game/src/mecha_game/inbox.py",
+    "game/src/mecha_game/covenant_io.py",
+    "game/src/mecha_game/packs.py",
+    "labs/game_loop/verify_import_inboxes.py"
+  ],
+  "metrics": {
+    "checks": {
+      "incumbent_browse_cancel_and_help_preserve_all_files": true,
+      "incumbent_active_inbox_help_is_specific": true,
+      "incumbent_named_pack_and_empty_inbox_visible": true,
+      "incumbent_starter_pack_all_items_staged": true,
+      "incumbent_completed_import_action_is_clear": true,
+      "incumbent_selected_named_covenant_imported": true,
+      "incumbent_import_and_duplicate_enter_preserve_pet": true,
+      "incumbent_import_changes_future_covenant_not_historical_era": true,
+      "incumbent_native_next_era_uses_imported_covenant_and_keeps_history": true,
+      "incumbent_native_resume_keeps_policy": true,
+      "incumbent_staged_creatures_receive_real_era_verdicts": true,
+      "incumbent_new_history_connects_to_archive_and_niche_without_writes": true,
+      "qtable_browse_cancel_and_help_preserve_all_files": true,
+      "qtable_active_inbox_help_is_specific": true,
+      "qtable_named_pack_and_empty_inbox_visible": true,
+      "qtable_starter_pack_all_items_staged": true,
+      "qtable_completed_import_action_is_clear": true,
+      "qtable_selected_named_covenant_imported": true,
+      "qtable_import_and_duplicate_enter_preserve_pet": true,
+      "qtable_import_changes_future_covenant_not_historical_era": true,
+      "qtable_native_next_era_uses_imported_covenant_and_keeps_history": true,
+      "qtable_native_resume_keeps_policy": true,
+      "qtable_staged_creatures_receive_real_era_verdicts": true,
+      "qtable_new_history_connects_to_archive_and_niche_without_writes": true,
+      "mixed_pack_retains_full_refusal_and_valid_items": true,
+      "long_filename_keeps_unreadable_notice_on_first_page": true,
+      "invalid_file_has_full_name_and_recovery_without_writes": true,
+      "all_source_flows_exit_and_fit": true
+    },
+    "launches": [
+      {
+        "label": "incumbent-new",
+        "command": [
+          "game/dist/w1-import-inboxes-final/Mechagotchi/Mechagotchi.exe",
+          "--keeper-dir",
+          ".development/w1-final-keepers/incumbent",
+          "--ticks",
+          "1",
+          "--tick-frames",
+          "1",
+          "--fps",
+          "0",
+          "--era-scale",
+          "tiny",
+          "--new",
+          "--learning-policy",
+          "incumbent",
+          "--eras",
+          "1"
+        ],
+        "returncode": 0,
+        "stdout": "pygame-ce 2.5.7 (SDL 2.32.10, Python 3.13.9)\n",
+        "stderr": ""
+      },
+      {
+        "label": "incumbent-resume-next-era",
+        "command": [
+          "game/dist/w1-import-inboxes-final/Mechagotchi/Mechagotchi.exe",
+          "--keeper-dir",
+          ".development/w1-final-keepers/incumbent",
+          "--ticks",
+          "1",
+          "--tick-frames",
+          "1",
+          "--fps",
+          "0",
+          "--era-scale",
+          "tiny",
+          "--eras",
+          "1"
+        ],
+        "returncode": 0,
+        "stdout": "pygame-ce 2.5.7 (SDL 2.32.10, Python 3.13.9)\n",
+        "stderr": ""
+      },
+      {
+        "label": "qtable-new",
+        "command": [
+          "game/dist/w1-import-inboxes-final/Mechagotchi/Mechagotchi.exe",
+          "--keeper-dir",
+          ".development/w1-final-keepers/qtable",
+          "--ticks",
+          "1",
+          "--tick-frames",
+          "1",
+          "--fps",
+          "0",
+          "--era-scale",
+          "tiny",
+          "--new",
+          "--learning-policy",
+          "qtable",
+          "--eras",
+          "1"
+        ],
+        "returncode": 0,
+        "stdout": "pygame-ce 2.5.7 (SDL 2.32.10, Python 3.13.9)\n",
+        "stderr": ""
+      },
+      {
+        "label": "qtable-resume-next-era",
+        "command": [
+          "game/dist/w1-import-inboxes-final/Mechagotchi/Mechagotchi.exe",
+          "--keeper-dir",
+          ".development/w1-final-keepers/qtable",
+          "--ticks",
+          "1",
+          "--tick-frames",
+          "1",
+          "--fps",
+          "0",
+          "--era-scale",
+          "tiny",
+          "--eras",
+          "1"
+        ],
+        "returncode": 0,
+        "stdout": "pygame-ce 2.5.7 (SDL 2.32.10, Python 3.13.9)\n",
+        "stderr": ""
+      }
+    ],
+    "interactive": [
+      {
+        "label": "incumbent-browse-cancel",
+        "frames": 8,
+        "returncode": 0,
+        "screenshots": [
+          ".development/w1-final-ui/incumbent-browse-cancel-01.png",
+          ".development/w1-final-ui/incumbent-browse-cancel-02.png",
+          ".development/w1-final-ui/incumbent-browse-cancel-03.png",
+          ".development/w1-final-ui/incumbent-browse-cancel-04.png",
+          ".development/w1-final-ui/incumbent-browse-cancel-05.png",
+          ".development/w1-final-ui/incumbent-browse-cancel-06.png",
+          ".development/w1-final-ui/incumbent-browse-cancel-07.png",
+          ".development/w1-final-ui/incumbent-browse-cancel-08.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "1/1  starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\incumbent\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "1/1 starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "1/1  starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\incumbent\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "1/1 starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "HELP - pack inbox; care paused",
+              ", . / arrows select; Home/End first/last",
+              "F5 refreshes files and their preview",
+              "Enter imports the displayed selection once",
+              "K/Escape returns without importing",
+              "F1/Escape closes help; selection stays",
+              "PgUp/PgDn or wheel pages full details",
+              "Care and era keys are ignored in this inbox.",
+              "An imported covenant governs future eras, hatches and adoptions; your pet keeps its covenant.",
+              "Pack items stage separately. I chooses staged covenants; W gathers creatures after closing.",
+              "Refused items and existing-file conflicts stay visible. Fix the file or write problem, then retry.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\incumbent\\packs"
+            ],
+            "visible": [
+              "HELP - pack inbox; care paused",
+              ", . / arrows select; Home/End first/last",
+              "F5 refreshes files and their preview",
+              "Enter imports the displayed selection once",
+              "K/Escape returns without importing",
+              "F1/Escape closes help; selection stays",
+              "PgUp/PgDn or wheel pages full details",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 4,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "1/1  starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\incumbent\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "1/1 starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 5,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "health 0.41 (hungry)   mood curious   age 1   gen 1",
+              "F feed  P play  S sleep",
+              "stress 0.15   bond 0.69",
+              "felt curious (0.16)",
+              "Policy: incumbent",
+              "cleanliness 0.99   G clean",
+              "NEXT ERA [calm]: 0 staged",
+              "F1 controls  Ctrl+S save  T report  E era  C covenant",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "health 0.41 (hungry) mood curious age 1 gen 1",
+              "F feed P play S sleep",
+              "stress 0.15 bond 0.69",
+              "felt curious (0.16)",
+              "Policy: incumbent",
+              "cleanliness 0.99 G clean",
+              "NEXT ERA [calm]: 0 staged",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 6,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; no file selected",
+              "I/Escape back; F5 refresh; F1 help",
+              "No JSON files. Add a file here, then F5 refresh.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\incumbent\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; no file selected",
+              "I/Escape back; F5 refresh; F1 help",
+              "No JSON files. Add a file here, then F5 refresh.",
+              "Folder:",
+              ".devel",
+              "opment\\w1-final-keepers\\incumbent\\covenants",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 7,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "health 0.41 (hungry)   mood curious   age 1   gen 1",
+              "F feed  P play  S sleep",
+              "stress 0.15   bond 0.69",
+              "felt curious (0.16)",
+              "Policy: incumbent",
+              "cleanliness 0.99   G clean",
+              "NEXT ERA [calm]: 0 staged",
+              "F1 controls  Ctrl+S save  T report  E era  C covenant",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "health 0.41 (hungry) mood curious age 1 gen 1",
+              "F feed P play S sleep",
+              "stress 0.15 bond 0.69",
+              "felt curious (0.16)",
+              "Policy: incumbent",
+              "cleanliness 0.99 G clean",
+              "NEXT ERA [calm]: 0 staged",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 8,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "health 0.41 (hungry)   mood curious   age 1   gen 1",
+              "F feed  P play  S sleep",
+              "stress 0.15   bond 0.69",
+              "felt curious (0.16)",
+              "Policy: incumbent",
+              "cleanliness 0.99   G clean",
+              "NEXT ERA [calm]: 0 staged",
+              "F1 controls  Ctrl+S save  T report  E era  C covenant",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "health 0.41 (hungry) mood curious age 1 gen 1",
+              "F feed P play S sleep",
+              "stress 0.15 bond 0.69",
+              "felt curious (0.16)",
+              "Policy: incumbent",
+              "cleanliness 0.99 G clean",
+              "NEXT ERA [calm]: 0 staged",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "busy_pages": [],
+        "rendered_frames": 8,
+        "stderr": ""
+      },
+      {
+        "label": "incumbent-stage-starter",
+        "frames": 5,
+        "returncode": 0,
+        "screenshots": [
+          ".development/w1-final-ui/incumbent-stage-starter-01.png",
+          ".development/w1-final-ui/incumbent-stage-starter-02.png",
+          ".development/w1-final-ui/incumbent-stage-starter-03.png",
+          ".development/w1-final-ui/incumbent-stage-starter-04.png",
+          ".development/w1-final-ui/incumbent-stage-starter-05.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "1/1  starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\incumbent\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "1/1 starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 4,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; import complete",
+              "K/Escape back; F5 refresh; F1 help",
+              "Pack processed: 4/4 covenants; 4/4 creatures ready.",
+              "I choose a staged covenant; K/Escape back.",
+              "covenant slip_amber_social: staged",
+              "covenant slip_gray_stable: staged",
+              "covenant slip_lcd_seed: staged",
+              "covenant slip_v2_no_shell: staged",
+              "creature released_glow_lantern: staged",
+              "creature released_tall_wisp: staged",
+              "creature released_wide_sentinel: staged",
+              "creature mg_seed16_001_beetle: staged",
+              "1/1  starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Already imported here. Choose another file or return.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\incumbent\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; import complete",
+              "K/Escape back; F5 refresh; F1 help",
+              "Pack processed: 4/4 covenants; 4/4 creatures",
+              "ready.",
+              "I choose a staged covenant; K/Escape back.",
+              "covenant slip_amber_social: staged",
+              "PgUp/PgDn \u00b7 wheel   1/4"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 1,
+            "page_count": 4,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; import complete",
+              "K/Escape back; F5 refresh; F1 help",
+              "Pack processed: 4/4 covenants; 4/4 creatures ready.",
+              "I choose a staged covenant; K/Escape back.",
+              "covenant slip_amber_social: staged",
+              "covenant slip_gray_stable: staged",
+              "covenant slip_lcd_seed: staged",
+              "covenant slip_v2_no_shell: staged",
+              "creature released_glow_lantern: staged",
+              "creature released_tall_wisp: staged",
+              "creature released_wide_sentinel: staged",
+              "creature mg_seed16_001_beetle: staged",
+              "1/1  starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Already imported here. Choose another file or return.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\incumbent\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "covenant slip_gray_stable: staged",
+              "covenant slip_lcd_seed: staged",
+              "covenant slip_v2_no_shell: staged",
+              "creature released_glow_lantern: staged",
+              "creature released_tall_wisp: staged",
+              "creature released_wide_sentinel: staged",
+              "creature mg_seed16_001_beetle: staged",
+              "PgUp/PgDn \u00b7 wheel   2/4"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 4,
+            "page": 2,
+            "page_count": 4,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; import complete",
+              "K/Escape back; F5 refresh; F1 help",
+              "Pack processed: 4/4 covenants; 4/4 creatures ready.",
+              "I choose a staged covenant; K/Escape back.",
+              "covenant slip_amber_social: staged",
+              "covenant slip_gray_stable: staged",
+              "covenant slip_lcd_seed: staged",
+              "covenant slip_v2_no_shell: staged",
+              "creature released_glow_lantern: staged",
+              "creature released_tall_wisp: staged",
+              "creature released_wide_sentinel: staged",
+              "creature mg_seed16_001_beetle: staged",
+              "1/1  starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Already imported here. Choose another file or return.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\incumbent\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "1/1 starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W",
+              "gathers creatures after closing.",
+              "Already imported here. Choose another file or",
+              "PgUp/PgDn \u00b7 wheel   3/4"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 5,
+            "page": 2,
+            "page_count": 4,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; import complete",
+              "K/Escape back; F5 refresh; F1 help",
+              "Pack processed: 4/4 covenants; 4/4 creatures ready.",
+              "I choose a staged covenant; K/Escape back.",
+              "covenant slip_amber_social: staged",
+              "covenant slip_gray_stable: staged",
+              "covenant slip_lcd_seed: staged",
+              "covenant slip_v2_no_shell: staged",
+              "creature released_glow_lantern: staged",
+              "creature released_tall_wisp: staged",
+              "creature released_wide_sentinel: staged",
+              "creature mg_seed16_001_beetle: staged",
+              "1/1  starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Already imported here. Choose another file or return.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\incumbent\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "1/1 starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W",
+              "gathers creatures after closing.",
+              "Already imported here. Choose another file or",
+              "PgUp/PgDn \u00b7 wheel   3/4"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "busy_pages": [],
+        "rendered_frames": 5,
+        "stderr": ""
+      },
+      {
+        "label": "incumbent-choose-covenant",
+        "frames": 8,
+        "returncode": 0,
+        "screenshots": [
+          ".development/w1-final-ui/incumbent-choose-covenant-01.png",
+          ".development/w1-final-ui/incumbent-choose-covenant-02.png",
+          ".development/w1-final-ui/incumbent-choose-covenant-03.png",
+          ".development/w1-final-ui/incumbent-choose-covenant-04.png",
+          ".development/w1-final-ui/incumbent-choose-covenant-05.png",
+          ".development/w1-final-ui/incumbent-choose-covenant-06.png",
+          ".development/w1-final-ui/incumbent-choose-covenant-07.png",
+          ".development/w1-final-ui/incumbent-choose-covenant-08.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "I/Escape back; F5 refresh; F1 help",
+              "1/4  pack_mechagotchi_starter_slip_amber_social.json",
+              "Covenant: slip_amber_social",
+              "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+              "Engine validation and seed compatibility are checked on import.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\incumbent\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "I/Escape back; F5 refresh; F1 help",
+              "1/4",
+              "pack_mechagotchi_starter_slip_amber_social.json",
+              "Covenant: slip_amber_social",
+              "Applies to future eras/hatches/adoptions; your pet",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "I/Escape back; F5 refresh; F1 help",
+              "2/4  pack_mechagotchi_starter_slip_gray_stable.json",
+              "Covenant: slip_gray_stable",
+              "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+              "Engine validation and seed compatibility are checked on import.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\incumbent\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "I/Escape back; F5 refresh; F1 help",
+              "2/4",
+              "pack_mechagotchi_starter_slip_gray_stable.json",
+              "Covenant: slip_gray_stable",
+              "Applies to future eras/hatches/adoptions; your pet",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "I/Escape back; F5 refresh; F1 help",
+              "3/4  pack_mechagotchi_starter_slip_lcd_seed.json",
+              "Covenant: slip_lcd_seed",
+              "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+              "Engine validation and seed compatibility are checked on import.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\incumbent\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "I/Escape back; F5 refresh; F1 help",
+              "3/4 pack_mechagotchi_starter_slip_lcd_seed.json",
+              "Covenant: slip_lcd_seed",
+              "Applies to future eras/hatches/adoptions; your pet",
+              "keeps its covenant.",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 4,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "HELP - covenant inbox; care paused",
+              ", . / arrows select; Home/End first/last",
+              "F5 refreshes files and their preview",
+              "Enter imports the displayed selection once",
+              "I/Escape returns without importing",
+              "F1/Escape closes help; selection stays",
+              "PgUp/PgDn or wheel pages full details",
+              "Care and era keys are ignored in this inbox.",
+              "An imported covenant governs future eras, hatches and adoptions; your pet keeps its covenant.",
+              "Pack items stage separately. I chooses staged covenants; W gathers creatures after closing.",
+              "Refused items and existing-file conflicts stay visible. Fix the file or write problem, then retry.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\incumbent\\covenants"
+            ],
+            "visible": [
+              "HELP - covenant inbox; care paused",
+              ", . / arrows select; Home/End first/last",
+              "F5 refreshes files and their preview",
+              "Enter imports the displayed selection once",
+              "I/Escape returns without importing",
+              "F1/Escape closes help; selection stays",
+              "PgUp/PgDn or wheel pages full details",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 5,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "I/Escape back; F5 refresh; F1 help",
+              "3/4  pack_mechagotchi_starter_slip_lcd_seed.json",
+              "Covenant: slip_lcd_seed",
+              "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+              "Engine validation and seed compatibility are checked on import.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\incumbent\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "I/Escape back; F5 refresh; F1 help",
+              "3/4 pack_mechagotchi_starter_slip_lcd_seed.json",
+              "Covenant: slip_lcd_seed",
+              "Applies to future eras/hatches/adoptions; your pet",
+              "keeps its covenant.",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 6,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import complete",
+              "I/Escape back; F5 refresh; F1 help",
+              "Covenant imported (4 seeds).",
+              "Future eras use it; your current pet is unchanged.",
+              "3/4  pack_mechagotchi_starter_slip_lcd_seed.json",
+              "Covenant: slip_lcd_seed",
+              "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+              "Engine validation and seed compatibility are checked on import.",
+              "Already imported here. Choose another file or return.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\incumbent\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import complete",
+              "I/Escape back; F5 refresh; F1 help",
+              "Covenant imported (4 seeds).",
+              "Future eras use it; your current pet is unchanged.",
+              "3/4 pack_mechagotchi_starter_slip_lcd_seed.json",
+              "Covenant: slip_lcd_seed",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 7,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import complete",
+              "I/Escape back; F5 refresh; F1 help",
+              "Covenant imported (4 seeds).",
+              "Future eras use it; your current pet is unchanged.",
+              "3/4  pack_mechagotchi_starter_slip_lcd_seed.json",
+              "Covenant: slip_lcd_seed",
+              "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+              "Engine validation and seed compatibility are checked on import.",
+              "Already imported here. Choose another file or return.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\incumbent\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import complete",
+              "I/Escape back; F5 refresh; F1 help",
+              "Covenant imported (4 seeds).",
+              "Future eras use it; your current pet is unchanged.",
+              "3/4 pack_mechagotchi_starter_slip_lcd_seed.json",
+              "Covenant: slip_lcd_seed",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 8,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import complete",
+              "I/Escape back; F5 refresh; F1 help",
+              "Covenant imported (4 seeds).",
+              "Future eras use it; your current pet is unchanged.",
+              "3/4  pack_mechagotchi_starter_slip_lcd_seed.json",
+              "Covenant: slip_lcd_seed",
+              "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+              "Engine validation and seed compatibility are checked on import.",
+              "Already imported here. Choose another file or return.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\incumbent\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import complete",
+              "I/Escape back; F5 refresh; F1 help",
+              "Covenant imported (4 seeds).",
+              "Future eras use it; your current pet is unchanged.",
+              "3/4 pack_mechagotchi_starter_slip_lcd_seed.json",
+              "Covenant: slip_lcd_seed",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "busy_pages": [],
+        "rendered_frames": 8,
+        "stderr": ""
+      },
+      {
+        "label": "incumbent-prepare-restart",
+        "frames": 3,
+        "returncode": 0,
+        "screenshots": [
+          ".development/w1-final-ui/incumbent-prepare-restart-01.png",
+          ".development/w1-final-ui/incumbent-prepare-restart-02.png",
+          ".development/w1-final-ui/incumbent-prepare-restart-03.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 0 [calm]   1/1",
+              "CAMPAIGN keeper_campaign  1/1",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 12   coverage 0.000154",
+              "QD 9.014228   lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "B archive   V replay   C covenant   E era",
+              "UNLOCKS EARNED THIS ERA: 2",
+              "Bloodline depth tier 1: 2 met threshold 2",
+              "Quality-diversity tier 1: 9.014228 met threshold 9.0",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "These are recorded era results; viewing them does not run the soup.",
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: none",
+              "Original best-elite evaluation recorded.",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "ERA 0 [calm] 1/1",
+              "CAMPAIGN keeper_campaign 1/1",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 12 coverage 0.000154",
+              "QD 9.014228 lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 0 [calm]   1/1",
+              "CAMPAIGN keeper_campaign  1/1",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 12   coverage 0.000154",
+              "QD 9.014228   lineage depth 2",
+              "NEXT ERA [calm]: 4 staged",
+              "B archive   V replay   C covenant   E era",
+              "UNLOCKS EARNED THIS ERA: 2",
+              "Bloodline depth tier 1: 2 met threshold 2",
+              "Quality-diversity tier 1: 9.014228 met threshold 9.0",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "These are recorded era results; viewing them does not run the soup.",
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: none",
+              "Original best-elite evaluation recorded.",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "ERA 0 [calm] 1/1",
+              "CAMPAIGN keeper_campaign 1/1",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 12 coverage 0.000154",
+              "QD 9.014228 lineage depth 2",
+              "NEXT ERA [calm]: 4 staged",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 0 [calm]   1/1",
+              "CAMPAIGN keeper_campaign  1/1",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 12   coverage 0.000154",
+              "QD 9.014228   lineage depth 2",
+              "NEXT ERA [calm]: 4 staged",
+              "B archive   V replay   C covenant   E era",
+              "UNLOCKS EARNED THIS ERA: 2",
+              "Bloodline depth tier 1: 2 met threshold 2",
+              "Quality-diversity tier 1: 9.014228 met threshold 9.0",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "These are recorded era results; viewing them does not run the soup.",
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: none",
+              "Original best-elite evaluation recorded.",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "ERA 0 [calm] 1/1",
+              "CAMPAIGN keeper_campaign 1/1",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 12 coverage 0.000154",
+              "QD 9.014228 lineage depth 2",
+              "NEXT ERA [calm]: 4 staged",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "busy_pages": [],
+        "rendered_frames": 3,
+        "stderr": ""
+      },
+      {
+        "label": "incumbent-restarted-archive",
+        "frames": 5,
+        "returncode": 0,
+        "screenshots": [
+          ".development/w1-final-ui/incumbent-restarted-archive-01.png",
+          ".development/w1-final-ui/incumbent-restarted-archive-02.png",
+          ".development/w1-final-ui/incumbent-restarted-archive-03.png",
+          ".development/w1-final-ui/incumbent-restarted-archive-04.png",
+          ".development/w1-final-ui/incumbent-restarted-archive-05.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 6,
+            "all_lines": [
+              "ERA 1 [calm]   2/2",
+              "CAMPAIGN keeper_campaign  1/1",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 8   coverage 0.000102",
+              "QD 5.944088   lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "B archive   V replay   C covenant   E era",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "FOUNDERS: 14 admitted; 2 refused",
+              "ADMITTED: released_glow_lantern",
+              "ADMITTED: mg_seed16_001_beetle",
+              "ADMITTED: gen_7fb78fb90f4fc25c_c01",
+              "ADMITTED: gen_64239f61a5184ee0_c01",
+              "ADMITTED: gen_7cd711fcb7fd4b07_c01",
+              "ADMITTED: gen_2642fff20af1431f_c01",
+              "ADMITTED: gen_e1154e103845d449_c01",
+              "ADMITTED: gen_1b4abce013125f00_c01",
+              "ADMITTED: gen_b4dbff4dfd13e6e1_c01",
+              "ADMITTED: gen_6befcac227a80a72_c01",
+              "ADMITTED: gen_97fb426e5aa736f4_c01",
+              "ADMITTED: gen_23c074d5963a2cce_c01",
+              "ADMITTED: gen_0f81d7329a8f5403_c01",
+              "ADMITTED: gen_d579b2a6e7020043_c01",
+              "released_tall_wisp: founder grid is 8x8 but the era runs at 16x16",
+              "released_wide_sentinel: founder grid is 8x8 but the era runs at 16x16",
+              "These are recorded era results; viewing them does not run the soup.",
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: none",
+              "Original best-elite evaluation recorded.",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "ERA 1 [calm] 2/2",
+              "CAMPAIGN keeper_campaign 1/1",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 8 coverage 0.000102",
+              "QD 5.944088 lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "PgUp/PgDn \u00b7 wheel   1/6"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "REPERTOIRE  era 1 [calm]  1/8  gen_19d785614e84508d_c01  fitness 0.733  gen 1",
+              "N niche history   campaign keeper_campaign",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 0  symmetry 3  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 1",
+              "bond 1.000  mutation_stability 0.717  readability 0.004  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 1 [calm] 1/8",
+              "gen_19d785614e84508d_c01 fitness 0.733 gen 1",
+              "N niche history campaign keeper_campaign",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "recorded; only the final best elite has original",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "NICHE HISTORY  2/2 occurrences; keeper_campaign; era 1 [calm]  1/1  gen_19d785614e84508d_c01  fitness 0.733  gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences   [ ] occurrences",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 0  symmetry 3  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 1",
+              "bond 1.000  mutation_stability 0.717  readability 0.004  slip_alignment 1.000  survival 1.000  validity 1.000",
+              "Same saved niche: 0,0,3,0,4,3,1",
+              "Matches recorded bin labels; historical calibration is not recorded.",
+              "0 history notices; only recorded campaign links searched."
+            ],
+            "visible": [
+              "NICHE HISTORY 2/2 occurrences;",
+              "keeper_campaign; era 1 [calm] 1/1",
+              "gen_19d785614e84508d_c01 fitness 0.733 gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences [ ] occurrences",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 4,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "REPERTOIRE  era 1 [calm]  1/8  gen_19d785614e84508d_c01  fitness 0.733  gen 1",
+              "N niche history   campaign keeper_campaign",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 0  symmetry 3  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 1",
+              "bond 1.000  mutation_stability 0.717  readability 0.004  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 1 [calm] 1/8",
+              "gen_19d785614e84508d_c01 fitness 0.733 gen 1",
+              "N niche history campaign keeper_campaign",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "recorded; only the final best elite has original",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 5,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "REPERTOIRE  era 1 [calm]  1/8  gen_19d785614e84508d_c01  fitness 0.733  gen 1",
+              "N niche history   campaign keeper_campaign",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 0  symmetry 3  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 1",
+              "bond 1.000  mutation_stability 0.717  readability 0.004  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 1 [calm] 1/8",
+              "gen_19d785614e84508d_c01 fitness 0.733 gen 1",
+              "N niche history campaign keeper_campaign",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "recorded; only the final best elite has original",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "busy_pages": [],
+        "rendered_frames": 5,
+        "stderr": ""
+      },
+      {
+        "label": "qtable-browse-cancel",
+        "frames": 8,
+        "returncode": 0,
+        "screenshots": [
+          ".development/w1-final-ui/qtable-browse-cancel-01.png",
+          ".development/w1-final-ui/qtable-browse-cancel-02.png",
+          ".development/w1-final-ui/qtable-browse-cancel-03.png",
+          ".development/w1-final-ui/qtable-browse-cancel-04.png",
+          ".development/w1-final-ui/qtable-browse-cancel-05.png",
+          ".development/w1-final-ui/qtable-browse-cancel-06.png",
+          ".development/w1-final-ui/qtable-browse-cancel-07.png",
+          ".development/w1-final-ui/qtable-browse-cancel-08.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "1/1  starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\qtable\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "1/1 starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "1/1  starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\qtable\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "1/1 starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "HELP - pack inbox; care paused",
+              ", . / arrows select; Home/End first/last",
+              "F5 refreshes files and their preview",
+              "Enter imports the displayed selection once",
+              "K/Escape returns without importing",
+              "F1/Escape closes help; selection stays",
+              "PgUp/PgDn or wheel pages full details",
+              "Care and era keys are ignored in this inbox.",
+              "An imported covenant governs future eras, hatches and adoptions; your pet keeps its covenant.",
+              "Pack items stage separately. I chooses staged covenants; W gathers creatures after closing.",
+              "Refused items and existing-file conflicts stay visible. Fix the file or write problem, then retry.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\qtable\\packs"
+            ],
+            "visible": [
+              "HELP - pack inbox; care paused",
+              ", . / arrows select; Home/End first/last",
+              "F5 refreshes files and their preview",
+              "Enter imports the displayed selection once",
+              "K/Escape returns without importing",
+              "F1/Escape closes help; selection stays",
+              "PgUp/PgDn or wheel pages full details",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 4,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "1/1  starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\qtable\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "1/1 starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 5,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "health 0.41 (hungry)   mood curious   age 1   gen 1",
+              "F feed  P play  S sleep",
+              "stress 0.15   bond 0.69",
+              "felt curious (0.16)",
+              "cleanliness 0.99   G clean",
+              "Experimental Q-table: learning from care",
+              "NEXT ERA [calm]: 0 staged",
+              "F1 controls  Ctrl+S save  T report  E era  C covenant",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "health 0.41 (hungry) mood curious age 1 gen 1",
+              "F feed P play S sleep",
+              "stress 0.15 bond 0.69",
+              "felt curious (0.16)",
+              "cleanliness 0.99 G clean",
+              "Experimental Q-table: learning from care",
+              "NEXT ERA [calm]: 0 staged",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 6,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; no file selected",
+              "I/Escape back; F5 refresh; F1 help",
+              "No JSON files. Add a file here, then F5 refresh.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\qtable\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; no file selected",
+              "I/Escape back; F5 refresh; F1 help",
+              "No JSON files. Add a file here, then F5 refresh.",
+              "Folder:",
+              ".devel",
+              "opment\\w1-final-keepers\\qtable\\covenants",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 7,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "health 0.41 (hungry)   mood curious   age 1   gen 1",
+              "F feed  P play  S sleep",
+              "stress 0.15   bond 0.69",
+              "felt curious (0.16)",
+              "cleanliness 0.99   G clean",
+              "Experimental Q-table: learning from care",
+              "NEXT ERA [calm]: 0 staged",
+              "F1 controls  Ctrl+S save  T report  E era  C covenant",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "health 0.41 (hungry) mood curious age 1 gen 1",
+              "F feed P play S sleep",
+              "stress 0.15 bond 0.69",
+              "felt curious (0.16)",
+              "cleanliness 0.99 G clean",
+              "Experimental Q-table: learning from care",
+              "NEXT ERA [calm]: 0 staged",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 8,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "health 0.41 (hungry)   mood curious   age 1   gen 1",
+              "F feed  P play  S sleep",
+              "stress 0.15   bond 0.69",
+              "felt curious (0.16)",
+              "cleanliness 0.99   G clean",
+              "Experimental Q-table: learning from care",
+              "NEXT ERA [calm]: 0 staged",
+              "F1 controls  Ctrl+S save  T report  E era  C covenant",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "health 0.41 (hungry) mood curious age 1 gen 1",
+              "F feed P play S sleep",
+              "stress 0.15 bond 0.69",
+              "felt curious (0.16)",
+              "cleanliness 0.99 G clean",
+              "Experimental Q-table: learning from care",
+              "NEXT ERA [calm]: 0 staged",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "busy_pages": [],
+        "rendered_frames": 8,
+        "stderr": ""
+      },
+      {
+        "label": "qtable-stage-starter",
+        "frames": 5,
+        "returncode": 0,
+        "screenshots": [
+          ".development/w1-final-ui/qtable-stage-starter-01.png",
+          ".development/w1-final-ui/qtable-stage-starter-02.png",
+          ".development/w1-final-ui/qtable-stage-starter-03.png",
+          ".development/w1-final-ui/qtable-stage-starter-04.png",
+          ".development/w1-final-ui/qtable-stage-starter-05.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "1/1  starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\qtable\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "1/1 starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 4,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; import complete",
+              "K/Escape back; F5 refresh; F1 help",
+              "Pack processed: 4/4 covenants; 4/4 creatures ready.",
+              "I choose a staged covenant; K/Escape back.",
+              "covenant slip_amber_social: staged",
+              "covenant slip_gray_stable: staged",
+              "covenant slip_lcd_seed: staged",
+              "covenant slip_v2_no_shell: staged",
+              "creature released_glow_lantern: staged",
+              "creature released_tall_wisp: staged",
+              "creature released_wide_sentinel: staged",
+              "creature mg_seed16_001_beetle: staged",
+              "1/1  starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Already imported here. Choose another file or return.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\qtable\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; import complete",
+              "K/Escape back; F5 refresh; F1 help",
+              "Pack processed: 4/4 covenants; 4/4 creatures",
+              "ready.",
+              "I choose a staged covenant; K/Escape back.",
+              "covenant slip_amber_social: staged",
+              "PgUp/PgDn \u00b7 wheel   1/4"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 1,
+            "page_count": 4,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; import complete",
+              "K/Escape back; F5 refresh; F1 help",
+              "Pack processed: 4/4 covenants; 4/4 creatures ready.",
+              "I choose a staged covenant; K/Escape back.",
+              "covenant slip_amber_social: staged",
+              "covenant slip_gray_stable: staged",
+              "covenant slip_lcd_seed: staged",
+              "covenant slip_v2_no_shell: staged",
+              "creature released_glow_lantern: staged",
+              "creature released_tall_wisp: staged",
+              "creature released_wide_sentinel: staged",
+              "creature mg_seed16_001_beetle: staged",
+              "1/1  starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Already imported here. Choose another file or return.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\qtable\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "covenant slip_gray_stable: staged",
+              "covenant slip_lcd_seed: staged",
+              "covenant slip_v2_no_shell: staged",
+              "creature released_glow_lantern: staged",
+              "creature released_tall_wisp: staged",
+              "creature released_wide_sentinel: staged",
+              "creature mg_seed16_001_beetle: staged",
+              "PgUp/PgDn \u00b7 wheel   2/4"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 4,
+            "page": 2,
+            "page_count": 4,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; import complete",
+              "K/Escape back; F5 refresh; F1 help",
+              "Pack processed: 4/4 covenants; 4/4 creatures ready.",
+              "I choose a staged covenant; K/Escape back.",
+              "covenant slip_amber_social: staged",
+              "covenant slip_gray_stable: staged",
+              "covenant slip_lcd_seed: staged",
+              "covenant slip_v2_no_shell: staged",
+              "creature released_glow_lantern: staged",
+              "creature released_tall_wisp: staged",
+              "creature released_wide_sentinel: staged",
+              "creature mg_seed16_001_beetle: staged",
+              "1/1  starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Already imported here. Choose another file or return.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\qtable\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "1/1 starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W",
+              "gathers creatures after closing.",
+              "Already imported here. Choose another file or",
+              "PgUp/PgDn \u00b7 wheel   3/4"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 5,
+            "page": 2,
+            "page_count": 4,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; import complete",
+              "K/Escape back; F5 refresh; F1 help",
+              "Pack processed: 4/4 covenants; 4/4 creatures ready.",
+              "I choose a staged covenant; K/Escape back.",
+              "covenant slip_amber_social: staged",
+              "covenant slip_gray_stable: staged",
+              "covenant slip_lcd_seed: staged",
+              "covenant slip_v2_no_shell: staged",
+              "creature released_glow_lantern: staged",
+              "creature released_tall_wisp: staged",
+              "creature released_wide_sentinel: staged",
+              "creature mg_seed16_001_beetle: staged",
+              "1/1  starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Already imported here. Choose another file or return.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\qtable\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "1/1 starter_choices.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W",
+              "gathers creatures after closing.",
+              "Already imported here. Choose another file or",
+              "PgUp/PgDn \u00b7 wheel   3/4"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "busy_pages": [],
+        "rendered_frames": 5,
+        "stderr": ""
+      },
+      {
+        "label": "qtable-choose-covenant",
+        "frames": 8,
+        "returncode": 0,
+        "screenshots": [
+          ".development/w1-final-ui/qtable-choose-covenant-01.png",
+          ".development/w1-final-ui/qtable-choose-covenant-02.png",
+          ".development/w1-final-ui/qtable-choose-covenant-03.png",
+          ".development/w1-final-ui/qtable-choose-covenant-04.png",
+          ".development/w1-final-ui/qtable-choose-covenant-05.png",
+          ".development/w1-final-ui/qtable-choose-covenant-06.png",
+          ".development/w1-final-ui/qtable-choose-covenant-07.png",
+          ".development/w1-final-ui/qtable-choose-covenant-08.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "I/Escape back; F5 refresh; F1 help",
+              "1/4  pack_mechagotchi_starter_slip_amber_social.json",
+              "Covenant: slip_amber_social",
+              "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+              "Engine validation and seed compatibility are checked on import.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\qtable\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "I/Escape back; F5 refresh; F1 help",
+              "1/4",
+              "pack_mechagotchi_starter_slip_amber_social.json",
+              "Covenant: slip_amber_social",
+              "Applies to future eras/hatches/adoptions; your pet",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "I/Escape back; F5 refresh; F1 help",
+              "2/4  pack_mechagotchi_starter_slip_gray_stable.json",
+              "Covenant: slip_gray_stable",
+              "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+              "Engine validation and seed compatibility are checked on import.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\qtable\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "I/Escape back; F5 refresh; F1 help",
+              "2/4",
+              "pack_mechagotchi_starter_slip_gray_stable.json",
+              "Covenant: slip_gray_stable",
+              "Applies to future eras/hatches/adoptions; your pet",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "I/Escape back; F5 refresh; F1 help",
+              "3/4  pack_mechagotchi_starter_slip_lcd_seed.json",
+              "Covenant: slip_lcd_seed",
+              "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+              "Engine validation and seed compatibility are checked on import.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\qtable\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "I/Escape back; F5 refresh; F1 help",
+              "3/4 pack_mechagotchi_starter_slip_lcd_seed.json",
+              "Covenant: slip_lcd_seed",
+              "Applies to future eras/hatches/adoptions; your pet",
+              "keeps its covenant.",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 4,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "HELP - covenant inbox; care paused",
+              ", . / arrows select; Home/End first/last",
+              "F5 refreshes files and their preview",
+              "Enter imports the displayed selection once",
+              "I/Escape returns without importing",
+              "F1/Escape closes help; selection stays",
+              "PgUp/PgDn or wheel pages full details",
+              "Care and era keys are ignored in this inbox.",
+              "An imported covenant governs future eras, hatches and adoptions; your pet keeps its covenant.",
+              "Pack items stage separately. I chooses staged covenants; W gathers creatures after closing.",
+              "Refused items and existing-file conflicts stay visible. Fix the file or write problem, then retry.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\qtable\\covenants"
+            ],
+            "visible": [
+              "HELP - covenant inbox; care paused",
+              ", . / arrows select; Home/End first/last",
+              "F5 refreshes files and their preview",
+              "Enter imports the displayed selection once",
+              "I/Escape returns without importing",
+              "F1/Escape closes help; selection stays",
+              "PgUp/PgDn or wheel pages full details",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 5,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "I/Escape back; F5 refresh; F1 help",
+              "3/4  pack_mechagotchi_starter_slip_lcd_seed.json",
+              "Covenant: slip_lcd_seed",
+              "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+              "Engine validation and seed compatibility are checked on import.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\qtable\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "I/Escape back; F5 refresh; F1 help",
+              "3/4 pack_mechagotchi_starter_slip_lcd_seed.json",
+              "Covenant: slip_lcd_seed",
+              "Applies to future eras/hatches/adoptions; your pet",
+              "keeps its covenant.",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 6,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import complete",
+              "I/Escape back; F5 refresh; F1 help",
+              "Covenant imported (4 seeds).",
+              "Future eras use it; your current pet is unchanged.",
+              "3/4  pack_mechagotchi_starter_slip_lcd_seed.json",
+              "Covenant: slip_lcd_seed",
+              "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+              "Engine validation and seed compatibility are checked on import.",
+              "Already imported here. Choose another file or return.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\qtable\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import complete",
+              "I/Escape back; F5 refresh; F1 help",
+              "Covenant imported (4 seeds).",
+              "Future eras use it; your current pet is unchanged.",
+              "3/4 pack_mechagotchi_starter_slip_lcd_seed.json",
+              "Covenant: slip_lcd_seed",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 7,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import complete",
+              "I/Escape back; F5 refresh; F1 help",
+              "Covenant imported (4 seeds).",
+              "Future eras use it; your current pet is unchanged.",
+              "3/4  pack_mechagotchi_starter_slip_lcd_seed.json",
+              "Covenant: slip_lcd_seed",
+              "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+              "Engine validation and seed compatibility are checked on import.",
+              "Already imported here. Choose another file or return.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\qtable\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import complete",
+              "I/Escape back; F5 refresh; F1 help",
+              "Covenant imported (4 seeds).",
+              "Future eras use it; your current pet is unchanged.",
+              "3/4 pack_mechagotchi_starter_slip_lcd_seed.json",
+              "Covenant: slip_lcd_seed",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 8,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import complete",
+              "I/Escape back; F5 refresh; F1 help",
+              "Covenant imported (4 seeds).",
+              "Future eras use it; your current pet is unchanged.",
+              "3/4  pack_mechagotchi_starter_slip_lcd_seed.json",
+              "Covenant: slip_lcd_seed",
+              "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+              "Engine validation and seed compatibility are checked on import.",
+              "Already imported here. Choose another file or return.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\qtable\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import complete",
+              "I/Escape back; F5 refresh; F1 help",
+              "Covenant imported (4 seeds).",
+              "Future eras use it; your current pet is unchanged.",
+              "3/4 pack_mechagotchi_starter_slip_lcd_seed.json",
+              "Covenant: slip_lcd_seed",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "busy_pages": [],
+        "rendered_frames": 8,
+        "stderr": ""
+      },
+      {
+        "label": "qtable-prepare-restart",
+        "frames": 3,
+        "returncode": 0,
+        "screenshots": [
+          ".development/w1-final-ui/qtable-prepare-restart-01.png",
+          ".development/w1-final-ui/qtable-prepare-restart-02.png",
+          ".development/w1-final-ui/qtable-prepare-restart-03.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 0 [calm]   1/1",
+              "CAMPAIGN keeper_campaign  1/1",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 12   coverage 0.000154",
+              "QD 9.014228   lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "B archive   V replay   C covenant   E era",
+              "UNLOCKS EARNED THIS ERA: 2",
+              "Bloodline depth tier 1: 2 met threshold 2",
+              "Quality-diversity tier 1: 9.014228 met threshold 9.0",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "These are recorded era results; viewing them does not run the soup.",
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: none",
+              "Original best-elite evaluation recorded.",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "ERA 0 [calm] 1/1",
+              "CAMPAIGN keeper_campaign 1/1",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 12 coverage 0.000154",
+              "QD 9.014228 lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 0 [calm]   1/1",
+              "CAMPAIGN keeper_campaign  1/1",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 12   coverage 0.000154",
+              "QD 9.014228   lineage depth 2",
+              "NEXT ERA [calm]: 4 staged",
+              "B archive   V replay   C covenant   E era",
+              "UNLOCKS EARNED THIS ERA: 2",
+              "Bloodline depth tier 1: 2 met threshold 2",
+              "Quality-diversity tier 1: 9.014228 met threshold 9.0",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "These are recorded era results; viewing them does not run the soup.",
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: none",
+              "Original best-elite evaluation recorded.",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "ERA 0 [calm] 1/1",
+              "CAMPAIGN keeper_campaign 1/1",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 12 coverage 0.000154",
+              "QD 9.014228 lineage depth 2",
+              "NEXT ERA [calm]: 4 staged",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "ERA 0 [calm]   1/1",
+              "CAMPAIGN keeper_campaign  1/1",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 12   coverage 0.000154",
+              "QD 9.014228   lineage depth 2",
+              "NEXT ERA [calm]: 4 staged",
+              "B archive   V replay   C covenant   E era",
+              "UNLOCKS EARNED THIS ERA: 2",
+              "Bloodline depth tier 1: 2 met threshold 2",
+              "Quality-diversity tier 1: 9.014228 met threshold 9.0",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "These are recorded era results; viewing them does not run the soup.",
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: none",
+              "Original best-elite evaluation recorded.",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "ERA 0 [calm] 1/1",
+              "CAMPAIGN keeper_campaign 1/1",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 12 coverage 0.000154",
+              "QD 9.014228 lineage depth 2",
+              "NEXT ERA [calm]: 4 staged",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "busy_pages": [],
+        "rendered_frames": 3,
+        "stderr": ""
+      },
+      {
+        "label": "qtable-restarted-archive",
+        "frames": 5,
+        "returncode": 0,
+        "screenshots": [
+          ".development/w1-final-ui/qtable-restarted-archive-01.png",
+          ".development/w1-final-ui/qtable-restarted-archive-02.png",
+          ".development/w1-final-ui/qtable-restarted-archive-03.png",
+          ".development/w1-final-ui/qtable-restarted-archive-04.png",
+          ".development/w1-final-ui/qtable-restarted-archive-05.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 6,
+            "all_lines": [
+              "ERA 1 [calm]   2/2",
+              "CAMPAIGN keeper_campaign  1/1",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 8   coverage 0.000102",
+              "QD 5.944088   lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "B archive   V replay   C covenant   E era",
+              "UNLOCKS EARNED THIS ERA: 0",
+              "No new unlocks. Previously earned tiers remain available.",
+              "WEATHER RECORD",
+              "No CuBFF multiplier recorded; base era damage still applies.",
+              "FOUNDERS: 14 admitted; 2 refused",
+              "ADMITTED: released_glow_lantern",
+              "ADMITTED: mg_seed16_001_beetle",
+              "ADMITTED: gen_7fb78fb90f4fc25c_c01",
+              "ADMITTED: gen_64239f61a5184ee0_c01",
+              "ADMITTED: gen_7cd711fcb7fd4b07_c01",
+              "ADMITTED: gen_2642fff20af1431f_c01",
+              "ADMITTED: gen_e1154e103845d449_c01",
+              "ADMITTED: gen_1b4abce013125f00_c01",
+              "ADMITTED: gen_b4dbff4dfd13e6e1_c01",
+              "ADMITTED: gen_6befcac227a80a72_c01",
+              "ADMITTED: gen_97fb426e5aa736f4_c01",
+              "ADMITTED: gen_23c074d5963a2cce_c01",
+              "ADMITTED: gen_0f81d7329a8f5403_c01",
+              "ADMITTED: gen_d579b2a6e7020043_c01",
+              "released_tall_wisp: founder grid is 8x8 but the era runs at 16x16",
+              "released_wide_sentinel: founder grid is 8x8 but the era runs at 16x16",
+              "These are recorded era results; viewing them does not run the soup.",
+              "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+              "Recorded predecessor: none",
+              "Original best-elite evaluation recorded.",
+              "1-5 weather   R stage current pet   W gather   Backspace unstage"
+            ],
+            "visible": [
+              "ERA 1 [calm] 2/2",
+              "CAMPAIGN keeper_campaign 1/1",
+              "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+              "bloodline continued; generations 2/2",
+              "Niches 8 coverage 0.000102",
+              "QD 5.944088 lineage depth 2",
+              "NEXT ERA [calm]: 0 staged",
+              "PgUp/PgDn \u00b7 wheel   1/6"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "REPERTOIRE  era 1 [calm]  1/8  gen_19d785614e84508d_c01  fitness 0.733  gen 1",
+              "N niche history   campaign keeper_campaign",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 0  symmetry 3  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 1",
+              "bond 1.000  mutation_stability 0.717  readability 0.004  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 1 [calm] 1/8",
+              "gen_19d785614e84508d_c01 fitness 0.733 gen 1",
+              "N niche history campaign keeper_campaign",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "recorded; only the final best elite has original",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "NICHE HISTORY  2/2 occurrences; keeper_campaign; era 1 [calm]  1/1  gen_19d785614e84508d_c01  fitness 0.733  gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences   [ ] occurrences",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 0  symmetry 3  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 1",
+              "bond 1.000  mutation_stability 0.717  readability 0.004  slip_alignment 1.000  survival 1.000  validity 1.000",
+              "Same saved niche: 0,0,3,0,4,3,1",
+              "Matches recorded bin labels; historical calibration is not recorded.",
+              "0 history notices; only recorded campaign links searched."
+            ],
+            "visible": [
+              "NICHE HISTORY 2/2 occurrences;",
+              "keeper_campaign; era 1 [calm] 1/1",
+              "gen_19d785614e84508d_c01 fitness 0.733 gen 1",
+              "N back to archive; , . occurrences",
+              "Care paused. , . occurrences [ ] occurrences",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 4,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "REPERTOIRE  era 1 [calm]  1/8  gen_19d785614e84508d_c01  fitness 0.733  gen 1",
+              "N niche history   campaign keeper_campaign",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 0  symmetry 3  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 1",
+              "bond 1.000  mutation_stability 0.717  readability 0.004  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 1 [calm] 1/8",
+              "gen_19d785614e84508d_c01 fitness 0.733 gen 1",
+              "N niche history campaign keeper_campaign",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "recorded; only the final best elite has original",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 5,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "REPERTOIRE  era 1 [calm]  1/8  gen_19d785614e84508d_c01  fitness 0.733  gen 1",
+              "N niche history   campaign keeper_campaign",
+              "Care paused. , . creatures   [ ] eras",
+              "A adopt with current covenant   V recording",
+              "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+              "T selected report   B/Escape back",
+              "body_mass 0  sensor_count 0  symmetry 3  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 1",
+              "bond 1.000  mutation_stability 0.717  readability 0.004  slip_alignment 1.000  survival 1.000  validity 1.000"
+            ],
+            "visible": [
+              "REPERTOIRE era 1 [calm] 1/8",
+              "gen_19d785614e84508d_c01 fitness 0.733 gen 1",
+              "N niche history campaign keeper_campaign",
+              "Care paused. , . creatures [ ] eras",
+              "A adopt with current covenant V recording",
+              "Replay unavailable: This selected elite was not",
+              "recorded; only the final best elite has original",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "busy_pages": [],
+        "rendered_frames": 5,
+        "stderr": ""
+      },
+      {
+        "label": "mixed-refusals",
+        "frames": 8,
+        "returncode": 0,
+        "screenshots": [
+          ".development/w1-final-ui/mixed-refusals-01.png",
+          ".development/w1-final-ui/mixed-refusals-02.png",
+          ".development/w1-final-ui/mixed-refusals-03.png",
+          ".development/w1-final-ui/mixed-refusals-04.png",
+          ".development/w1-final-ui/mixed-refusals-05.png",
+          ".development/w1-final-ui/mixed-refusals-06.png",
+          ".development/w1-final-ui/mixed-refusals-07.png",
+          ".development/w1-final-ui/mixed-refusals-08.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 2,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "1/2  aaa_mixed.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\mixed-refusals\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "1/2 aaa_mixed.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "PgUp/PgDn \u00b7 wheel   1/2"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 4,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "Pack processed: 3/4 covenants; 4/4 creatures ready.",
+              "I choose a staged covenant; K/Escape back.",
+              "covenant slip_amber_social: refused",
+              "slip_version must be one of 0.1.0, 0.2.0",
+              "covenant slip_gray_stable: staged",
+              "covenant slip_lcd_seed: staged",
+              "covenant slip_v2_no_shell: staged",
+              "creature released_glow_lantern: staged",
+              "creature released_tall_wisp: staged",
+              "creature released_wide_sentinel: staged",
+              "creature mg_seed16_001_beetle: staged",
+              "1/2  aaa_mixed.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\mixed-refusals\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "Pack processed: 3/4 covenants; 4/4 creatures",
+              "ready.",
+              "I choose a staged covenant; K/Escape back.",
+              "covenant slip_amber_social: refused",
+              "PgUp/PgDn \u00b7 wheel   1/4"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 1,
+            "page_count": 4,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "Pack processed: 3/4 covenants; 4/4 creatures ready.",
+              "I choose a staged covenant; K/Escape back.",
+              "covenant slip_amber_social: refused",
+              "slip_version must be one of 0.1.0, 0.2.0",
+              "covenant slip_gray_stable: staged",
+              "covenant slip_lcd_seed: staged",
+              "covenant slip_v2_no_shell: staged",
+              "creature released_glow_lantern: staged",
+              "creature released_tall_wisp: staged",
+              "creature released_wide_sentinel: staged",
+              "creature mg_seed16_001_beetle: staged",
+              "1/2  aaa_mixed.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\mixed-refusals\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "slip_version must be one of 0.1.0, 0.2.0",
+              "covenant slip_gray_stable: staged",
+              "covenant slip_lcd_seed: staged",
+              "covenant slip_v2_no_shell: staged",
+              "creature released_glow_lantern: staged",
+              "creature released_tall_wisp: staged",
+              "creature released_wide_sentinel: staged",
+              "PgUp/PgDn \u00b7 wheel   2/4"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 4,
+            "page": 2,
+            "page_count": 4,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "Pack processed: 3/4 covenants; 4/4 creatures ready.",
+              "I choose a staged covenant; K/Escape back.",
+              "covenant slip_amber_social: refused",
+              "slip_version must be one of 0.1.0, 0.2.0",
+              "covenant slip_gray_stable: staged",
+              "covenant slip_lcd_seed: staged",
+              "covenant slip_v2_no_shell: staged",
+              "creature released_glow_lantern: staged",
+              "creature released_tall_wisp: staged",
+              "creature released_wide_sentinel: staged",
+              "creature mg_seed16_001_beetle: staged",
+              "1/2  aaa_mixed.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\mixed-refusals\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "creature mg_seed16_001_beetle: staged",
+              "1/2 aaa_mixed.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W",
+              "gathers creatures after closing.",
+              "PgUp/PgDn \u00b7 wheel   3/4"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 5,
+            "page": 3,
+            "page_count": 4,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "Pack processed: 3/4 covenants; 4/4 creatures ready.",
+              "I choose a staged covenant; K/Escape back.",
+              "covenant slip_amber_social: refused",
+              "slip_version must be one of 0.1.0, 0.2.0",
+              "covenant slip_gray_stable: staged",
+              "covenant slip_lcd_seed: staged",
+              "covenant slip_v2_no_shell: staged",
+              "creature released_glow_lantern: staged",
+              "creature released_tall_wisp: staged",
+              "creature released_wide_sentinel: staged",
+              "creature mg_seed16_001_beetle: staged",
+              "1/2  aaa_mixed.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\mixed-refusals\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "Folder:",
+              ".devel",
+              "opment\\w1-final-keepers\\mixed-refusals\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages",
+              "details",
+              "PgUp/PgDn \u00b7 wheel   4/4"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 6,
+            "page": 3,
+            "page_count": 4,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "Pack processed: 3/4 covenants; 4/4 creatures ready.",
+              "I choose a staged covenant; K/Escape back.",
+              "covenant slip_amber_social: refused",
+              "slip_version must be one of 0.1.0, 0.2.0",
+              "covenant slip_gray_stable: staged",
+              "covenant slip_lcd_seed: staged",
+              "covenant slip_v2_no_shell: staged",
+              "creature released_glow_lantern: staged",
+              "creature released_tall_wisp: staged",
+              "creature released_wide_sentinel: staged",
+              "creature mg_seed16_001_beetle: staged",
+              "1/2  aaa_mixed.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\mixed-refusals\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "Folder:",
+              ".devel",
+              "opment\\w1-final-keepers\\mixed-refusals\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages",
+              "details",
+              "PgUp/PgDn \u00b7 wheel   4/4"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 7,
+            "page": 3,
+            "page_count": 4,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "Pack processed: 3/4 covenants; 4/4 creatures ready.",
+              "I choose a staged covenant; K/Escape back.",
+              "covenant slip_amber_social: refused",
+              "slip_version must be one of 0.1.0, 0.2.0",
+              "covenant slip_gray_stable: staged",
+              "covenant slip_lcd_seed: staged",
+              "covenant slip_v2_no_shell: staged",
+              "creature released_glow_lantern: staged",
+              "creature released_tall_wisp: staged",
+              "creature released_wide_sentinel: staged",
+              "creature mg_seed16_001_beetle: staged",
+              "1/2  aaa_mixed.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\mixed-refusals\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "Folder:",
+              ".devel",
+              "opment\\w1-final-keepers\\mixed-refusals\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages",
+              "details",
+              "PgUp/PgDn \u00b7 wheel   4/4"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 8,
+            "page": 3,
+            "page_count": 4,
+            "all_lines": [
+              "PACK INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "K/Escape back; F5 refresh; F1 help",
+              "Pack processed: 3/4 covenants; 4/4 creatures ready.",
+              "I choose a staged covenant; K/Escape back.",
+              "covenant slip_amber_social: refused",
+              "slip_version must be one of 0.1.0, 0.2.0",
+              "covenant slip_gray_stable: staged",
+              "covenant slip_lcd_seed: staged",
+              "covenant slip_v2_no_shell: staged",
+              "creature released_glow_lantern: staged",
+              "creature released_tall_wisp: staged",
+              "creature released_wide_sentinel: staged",
+              "creature mg_seed16_001_beetle: staged",
+              "1/2  aaa_mixed.json",
+              "Pack: The Mechagotchi Starter Pack",
+              "4 covenants declared",
+              "4 creatures declared",
+              "Stages accepted items; I chooses a covenant, W gathers creatures after closing.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\mixed-refusals\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "Folder:",
+              ".devel",
+              "opment\\w1-final-keepers\\mixed-refusals\\packs",
+              "Home/End first/last; PgUp/PgDn or wheel pages",
+              "details",
+              "PgUp/PgDn \u00b7 wheel   4/4"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "busy_pages": [],
+        "rendered_frames": 8,
+        "stderr": ""
+      },
+      {
+        "label": "long-invalid",
+        "frames": 9,
+        "returncode": 0,
+        "screenshots": [
+          ".development/w1-final-ui/long-invalid-01.png",
+          ".development/w1-final-ui/long-invalid-02.png",
+          ".development/w1-final-ui/long-invalid-03.png",
+          ".development/w1-final-ui/long-invalid-04.png",
+          ".development/w1-final-ui/long-invalid-05.png",
+          ".development/w1-final-ui/long-invalid-06.png",
+          ".development/w1-final-ui/long-invalid-07.png",
+          ".development/w1-final-ui/long-invalid-08.png",
+          ".development/w1-final-ui/long-invalid-09.png"
+        ],
+        "pages": [
+          {
+            "frame": 1,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import unavailable",
+              "I/Escape back; F5 refresh; F1 help",
+              "File unreadable; fix it, then F5 refresh.",
+              "1/5  a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_.json",
+              "File unreadable: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte. Fix it, then F5 refresh.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\long-invalid\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import unavailable",
+              "I/Escape back; F5 refresh; F1 help",
+              "File unreadable; fix it, then F5 refresh.",
+              "1/5",
+              "a_unreadable_a_unreadable_a_unreadable_a_unre",
+              "adable_a_unreadable_a_unreadable_a_unreadable",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 2,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import unavailable",
+              "I/Escape back; F5 refresh; F1 help",
+              "File unreadable; fix it, then F5 refresh.",
+              "1/5  a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_.json",
+              "File unreadable: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte. Fix it, then F5 refresh.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\long-invalid\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import unavailable",
+              "I/Escape back; F5 refresh; F1 help",
+              "File unreadable; fix it, then F5 refresh.",
+              "1/5",
+              "a_unreadable_a_unreadable_a_unreadable_a_unre",
+              "adable_a_unreadable_a_unreadable_a_unreadable",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 3,
+            "page": 1,
+            "page_count": 3,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import unavailable",
+              "I/Escape back; F5 refresh; F1 help",
+              "File unreadable; fix it, then F5 refresh.",
+              "1/5  a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_.json",
+              "File unreadable: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte. Fix it, then F5 refresh.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\long-invalid\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "_a_unreadable_a_unreadable_a_unreadable_a_unr",
+              "eadable_a_unreadable_a_unreadable_a_unreadabl",
+              "e_.json",
+              "File unreadable: 'utf-8' codec can't decode byte",
+              "0xff in position 0: invalid start byte. Fix it, then F5",
+              "refresh.",
+              "Folder:",
+              "PgUp/PgDn \u00b7 wheel   2/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 4,
+            "page": 2,
+            "page_count": 3,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import unavailable",
+              "I/Escape back; F5 refresh; F1 help",
+              "File unreadable; fix it, then F5 refresh.",
+              "1/5  a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_.json",
+              "File unreadable: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte. Fix it, then F5 refresh.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\long-invalid\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              ".devel",
+              "opment\\w1-final-keepers\\long-invalid\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages",
+              "details",
+              "PgUp/PgDn \u00b7 wheel   3/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 5,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "HELP - covenant inbox; care paused",
+              ", . / arrows select; Home/End first/last",
+              "F5 refreshes files and their preview",
+              "Enter imports the displayed selection once",
+              "I/Escape returns without importing",
+              "F1/Escape closes help; selection stays",
+              "PgUp/PgDn or wheel pages full details",
+              "Care and era keys are ignored in this inbox.",
+              "An imported covenant governs future eras, hatches and adoptions; your pet keeps its covenant.",
+              "Pack items stage separately. I chooses staged covenants; W gathers creatures after closing.",
+              "Refused items and existing-file conflicts stay visible. Fix the file or write problem, then retry.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\long-invalid\\covenants"
+            ],
+            "visible": [
+              "HELP - covenant inbox; care paused",
+              ", . / arrows select; Home/End first/last",
+              "F5 refreshes files and their preview",
+              "Enter imports the displayed selection once",
+              "I/Escape returns without importing",
+              "F1/Escape closes help; selection stays",
+              "PgUp/PgDn or wheel pages full details",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 6,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import unavailable",
+              "I/Escape back; F5 refresh; F1 help",
+              "File unreadable; fix it, then F5 refresh.",
+              "1/5  a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_.json",
+              "File unreadable: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte. Fix it, then F5 refresh.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\long-invalid\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import unavailable",
+              "I/Escape back; F5 refresh; F1 help",
+              "File unreadable; fix it, then F5 refresh.",
+              "1/5",
+              "a_unreadable_a_unreadable_a_unreadable_a_unre",
+              "adable_a_unreadable_a_unreadable_a_unreadable",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 7,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "I/Escape back; F5 refresh; F1 help",
+              "2/5  pack_mechagotchi_starter_slip_amber_social.json",
+              "Covenant: slip_amber_social",
+              "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+              "Engine validation and seed compatibility are checked on import.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\long-invalid\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; Enter imports",
+              "I/Escape back; F5 refresh; F1 help",
+              "2/5",
+              "pack_mechagotchi_starter_slip_amber_social.json",
+              "Covenant: slip_amber_social",
+              "Applies to future eras/hatches/adoptions; your pet",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 8,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import unavailable",
+              "I/Escape back; F5 refresh; F1 help",
+              "File unreadable; fix it, then F5 refresh.",
+              "1/5  a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_.json",
+              "File unreadable: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte. Fix it, then F5 refresh.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\long-invalid\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import unavailable",
+              "I/Escape back; F5 refresh; F1 help",
+              "File unreadable; fix it, then F5 refresh.",
+              "1/5",
+              "a_unreadable_a_unreadable_a_unreadable_a_unre",
+              "adable_a_unreadable_a_unreadable_a_unreadable",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          },
+          {
+            "frame": 9,
+            "page": 0,
+            "page_count": 3,
+            "all_lines": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import unavailable",
+              "I/Escape back; F5 refresh; F1 help",
+              "File unreadable; fix it, then F5 refresh.",
+              "1/5  a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_a_unreadable_.json",
+              "File unreadable: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte. Fix it, then F5 refresh.",
+              "Folder: C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\w1-final-keepers\\long-invalid\\covenants",
+              "Home/End first/last; PgUp/PgDn or wheel pages details"
+            ],
+            "visible": [
+              "COVENANT INBOX - care paused",
+              ", . / arrows select; import unavailable",
+              "I/Escape back; F5 refresh; F1 help",
+              "File unreadable; fix it, then F5 refresh.",
+              "1/5",
+              "a_unreadable_a_unreadable_a_unreadable_a_unre",
+              "adable_a_unreadable_a_unreadable_a_unreadable",
+              "PgUp/PgDn \u00b7 wheel   1/3"
+            ],
+            "width": 368,
+            "fits": true
+          }
+        ],
+        "busy_pages": [],
+        "rendered_frames": 9,
+        "stderr": ""
+      }
+    ],
+    "observed": {
+      "incumbent": {
+        "selected_file": "pack_mechagotchi_starter_slip_lcd_seed.json",
+        "imported_profile": "slip_lcd_seed",
+        "staged_count": 4,
+        "founders": {
+          "admitted_ids": [
+            "released_glow_lantern",
+            "mg_seed16_001_beetle",
+            "gen_7fb78fb90f4fc25c_c01",
+            "gen_64239f61a5184ee0_c01",
+            "gen_7cd711fcb7fd4b07_c01",
+            "gen_2642fff20af1431f_c01",
+            "gen_e1154e103845d449_c01",
+            "gen_1b4abce013125f00_c01",
+            "gen_b4dbff4dfd13e6e1_c01",
+            "gen_6befcac227a80a72_c01",
+            "gen_97fb426e5aa736f4_c01",
+            "gen_23c074d5963a2cce_c01",
+            "gen_0f81d7329a8f5403_c01",
+            "gen_d579b2a6e7020043_c01"
+          ],
+          "rejected": [
+            {
+              "errors": [
+                "founder grid is 8x8 but the era runs at 16x16"
+              ],
+              "grid_id": "released_tall_wisp"
+            },
+            {
+              "errors": [
+                "founder grid is 8x8 but the era runs at 16x16"
+              ],
+              "grid_id": "released_wide_sentinel"
+            }
+          ]
+        },
+        "era_count": 2
+      },
+      "qtable": {
+        "selected_file": "pack_mechagotchi_starter_slip_lcd_seed.json",
+        "imported_profile": "slip_lcd_seed",
+        "staged_count": 4,
+        "founders": {
+          "admitted_ids": [
+            "released_glow_lantern",
+            "mg_seed16_001_beetle",
+            "gen_7fb78fb90f4fc25c_c01",
+            "gen_64239f61a5184ee0_c01",
+            "gen_7cd711fcb7fd4b07_c01",
+            "gen_2642fff20af1431f_c01",
+            "gen_e1154e103845d449_c01",
+            "gen_1b4abce013125f00_c01",
+            "gen_b4dbff4dfd13e6e1_c01",
+            "gen_6befcac227a80a72_c01",
+            "gen_97fb426e5aa736f4_c01",
+            "gen_23c074d5963a2cce_c01",
+            "gen_0f81d7329a8f5403_c01",
+            "gen_d579b2a6e7020043_c01"
+          ],
+          "rejected": [
+            {
+              "errors": [
+                "founder grid is 8x8 but the era runs at 16x16"
+              ],
+              "grid_id": "released_tall_wisp"
+            },
+            {
+              "errors": [
+                "founder grid is 8x8 but the era runs at 16x16"
+              ],
+              "grid_id": "released_wide_sentinel"
+            }
+          ]
+        },
+        "era_count": 2
+      }
+    },
+    "native_executable_sha256": "c3bfd5dc748eca391d0b01539af0201ed609bfbd867e711df1ef4cd67cf9ab7b",
+    "source_sha256": {
+      "game/src/mecha_game/app.py": "a09eada0b834490c4ac34dca1f9981c44a6e253628376d58724bca0a3353993f",
+      "game/src/mecha_game/inbox.py": "932bfe8409aad029e06bec424594bd0005e9b6729404580d90b8abea35d8f0e1",
+      "game/src/mecha_game/covenant_io.py": "44e4b52146e55ca704935dbd61c8dbed13b09243e50c95590ce3f794dcf39875",
+      "game/src/mecha_game/packs.py": "3b31b1609c05ea122226892d676b806b63da26bfb42f82330126f9e90c2a21dd"
+    }
+  },
+  "closed_states": [
+    "incumbent_browse_cancel_and_help_preserve_all_files",
+    "incumbent_active_inbox_help_is_specific",
+    "incumbent_named_pack_and_empty_inbox_visible",
+    "incumbent_starter_pack_all_items_staged",
+    "incumbent_completed_import_action_is_clear",
+    "incumbent_selected_named_covenant_imported",
+    "incumbent_import_and_duplicate_enter_preserve_pet",
+    "incumbent_import_changes_future_covenant_not_historical_era",
+    "incumbent_native_next_era_uses_imported_covenant_and_keeps_history",
+    "incumbent_native_resume_keeps_policy",
+    "incumbent_staged_creatures_receive_real_era_verdicts",
+    "incumbent_new_history_connects_to_archive_and_niche_without_writes",
+    "qtable_browse_cancel_and_help_preserve_all_files",
+    "qtable_active_inbox_help_is_specific",
+    "qtable_named_pack_and_empty_inbox_visible",
+    "qtable_starter_pack_all_items_staged",
+    "qtable_completed_import_action_is_clear",
+    "qtable_selected_named_covenant_imported",
+    "qtable_import_and_duplicate_enter_preserve_pet",
+    "qtable_import_changes_future_covenant_not_historical_era",
+    "qtable_native_next_era_uses_imported_covenant_and_keeps_history",
+    "qtable_native_resume_keeps_policy",
+    "qtable_staged_creatures_receive_real_era_verdicts",
+    "qtable_new_history_connects_to_archive_and_niche_without_writes",
+    "mixed_pack_retains_full_refusal_and_valid_items",
+    "long_filename_keeps_unreadable_notice_on_first_page",
+    "invalid_file_has_full_name_and_recovery_without_writes",
+    "all_source_flows_exit_and_fit"
+  ],
+  "blocked_states": [
+    "Native keyboard/human usability unobserved: native SDL-dummy processes and source pygame events are distinct.",
+    "Bounded starter-pack and long-file observations, not maximum-size import performance.",
+    "Exact-published-SHA Windows/Ubuntu CI remains unverified."
+  ],
+  "decision": {
+    "verdict": "verified"
+  },
+  "next_research_step": "Finish preservation, visual/diff review and focused/full local gates before local closure."
+}

@@ -56,7 +56,7 @@ life by life (origins, death causes, the growing ancestor chain) ·
 covenant inbox; **K** opens the pack inbox. Select with arrows or comma/period,
 then **Enter** imports the previewed file through the engine's gates.
 Covenants and creatures from packs stage into the inboxes with item verdicts;
-`data/packs/mechagotchi_starter_pack.json` is the committed example) ·
+`data/packs/mechagotchi_starter_pack.json` is the committed example.
 **ESC** closes help first; in play it requests quit. Close requests quit; failed saves pause for retry. Saves land in
 `keeper/` (gitignored) — quit and come back, the client resumes. The
 companion begs when it wants food — only you can feed it; neglect

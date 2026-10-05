@@ -73,7 +73,7 @@ class InboxPicker:
                 f'{shortcut}/Escape returns without importing',
                 'F1/Escape closes help; selection stays',
                 'PgUp/PgDn or wheel pages full details',
-                'Care and era commands wait until you leave the inbox.',
+                'Care and era keys are ignored in this inbox.',
                 'An imported covenant governs future eras, hatches and adoptions; your pet keeps its covenant.',
                 'Pack items stage separately. I chooses staged covenants; W gathers creatures after closing.',
                 'Refused items and existing-file conflicts stay visible. Fix the file or write problem, then retry.',
