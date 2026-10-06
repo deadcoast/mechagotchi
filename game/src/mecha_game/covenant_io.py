@@ -38,7 +38,7 @@ def export_covenant(keeper_campaign, path: str | Path) -> Path:
     return path
 
 
-def read_import_file(path: str | Path, *, expected_digest: str | None = None) -> tuple[dict, str]:
+def read_import_file(path: str | Path, *, expected_digest: str | None = None, with_bytes=False) -> tuple[dict, str] | tuple[dict, str, bytes]:
     """Read exactly the bytes previewed by a picker, never silently a replacement."""
     raw = Path(path).read_bytes()
     digest = hashlib.sha256(raw).hexdigest()
@@ -47,7 +47,7 @@ def read_import_file(path: str | Path, *, expected_digest: str | None = None) ->
     value = json.loads(raw.decode("utf-8"))
     if not isinstance(value, dict):
         raise ValueError("Expected a JSON object.")
-    return value, digest
+    return (value, digest, raw) if with_bytes else (value, digest)
 
 
 def import_covenant(keeper_campaign, path: str | Path, *, expected_digest: str | None = None) -> dict:
@@ -56,7 +56,7 @@ def import_covenant(keeper_campaign, path: str | Path, *, expected_digest: str |
     Returns ``{"ok": True, "covenant": …, "aligned_seeds": n}`` or
     ``{"ok": False, "violations": […]}`` with nothing applied."""
     try:
-        profile, _ = read_import_file(path, expected_digest=expected_digest)
+        profile, _, raw = read_import_file(path, expected_digest=expected_digest, with_bytes=True)
     except (OSError, ValueError, UnicodeError) as error:
         return {
             "ok": False,
@@ -90,6 +90,9 @@ def import_covenant(keeper_campaign, path: str | Path, *, expected_digest: str |
         }
     # The new species contract: base AND active covenant; the earned
     # budget recomputes from it, spends re-apply by choice.
+    from mecha_game.execution import source_record
+    keeper_campaign.base_covenant_source = source_record(raw, role='base_covenant',
+        source_kind='imported_file', label=Path(path).name)
     keeper_campaign.base_profile = json.loads(json.dumps(profile))
     keeper_campaign.campaign["slip_profile"] = json.loads(
         json.dumps(profile)

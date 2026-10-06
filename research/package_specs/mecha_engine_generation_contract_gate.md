@@ -214,3 +214,35 @@ then discards its session-only view; it never changes engine decisions.
 Evidence: `labs/wfc_grid/test_wfc_trace.py` pins 68 pre-edit output/error/RNG
 cases, JSON round trips and exact lab/package events. Existing parity and
 scientific gates remain unchanged. See the W4 report for closing results.
+
+## X6 experimental operative permissions (2026-10-06)
+
+`generate_candidate` and `generate_batch` now accept the additive keyword
+`mutation_arm="legacy" | "operative_permissions_v1"`. Omission is exactly legacy;
+unknown values refuse. This low-level research seam is experimental, pending
+DR0085 qualification. No Workshop, hatch, succession or campaign consumer selects
+it, and no default changes. The separate WFC option remains unchanged.
+
+The operative arm deep-copies rich parent data, inherits the mutation probability
+vector and permission fields, samples eligible sources by positive weights, and
+atomically validates actual proposals. Zero rates suppress their operators;
+locked cells and mutation-locked organs protect original payloads throughout the
+call. Symmetry-breaking permission cannot authorize cell/organ changes on its own.
+Rates/caps, weights, inherited locks and physical damage have the exact separate
+meanings in the pre-RED X6 contract. A successful low-level call does not establish
+permission retention through current runtime damage/repair reconstruction.
+
+`explain_generation` conditionally exposes the recorded operative events, rates,
+rounds, operator opportunities and outcome counts. Proposal attempts count actual
+nonempty proposals; suppressed rate gates and no-op opportunities are separate.
+Accepted and rejected proposals sum to those attempts. Accepted trace deltas can
+reconstruct the actual intermediate changes; lineage change events record only
+accepted edits. Legacy explanations and outputs retain their previous shape.
+
+## Sources for the X6 addition
+
+- docs/development/cycle-38-operative-mutation-permissions.md.
+- research/decision_records/0085-operative-mutation-permissions.md.
+- research/experiment_reports/2026-10-06-operative-mutation-permissions.md.
+- labs/grid_genome/operative_permissions.py; labs/grid_genome/operative_mutation_gate.py.
+- packages/mecha_engine/tests/test_operative_permissions_contract.py.

@@ -16,6 +16,7 @@ from corpus_builder import build_seed_grids
 from micro_switchboard import ACTIONS, run_switchboard
 from slip import is_grid_aligned
 from validator import validate_grid
+from body_response import project_body_workload, validate_body_response, workload_for_state
 
 
 TARGETS = {
@@ -73,7 +74,9 @@ ACTION_EFFECTS = {
 }
 
 
-def initial_lifecycle_state(grid: dict, slip_profile: dict | None = None) -> dict:
+def initial_lifecycle_state(grid: dict, slip_profile: dict | None = None, *,
+                            body_response: str = "legacy") -> dict:
+    response = validate_body_response(body_response)
     validation = validate_grid(grid)
     if not validation.ok:
         raise ValueError(f"invalid grid for lifecycle simulation: {validation.errors}")
@@ -144,6 +147,9 @@ def initial_lifecycle_state(grid: dict, slip_profile: dict | None = None) -> dic
         state["deliberation_confidence_threshold"] = float(
             deliberation.get("confidence_threshold", 0.72)
         )
+    if response == "workload-v1":
+        state["body_response"] = response
+        state["body_workload"] = project_body_workload(grid)
     return state
 
 
@@ -152,6 +158,7 @@ def advance_tick(
 ) -> dict:
     if action not in ACTION_EFFECTS:
         raise ValueError(f"unsupported lifecycle action: {action}")
+    workload = workload_for_state(state)
     next_state = deepcopy(state)
     if not next_state.get("alive", False):
         return next_state
@@ -169,6 +176,8 @@ def advance_tick(
         "grid_stability": -0.001,
     }
     effects = ACTION_EFFECTS[action]
+    if workload is not None and action == "play":
+        effects = {**effects, "energy": -workload["play_energy_cost"]}
     for key in TARGETS:
         next_state[key] = round(
             _clamp(float(next_state[key]) + drift[key] + effects[key]),
@@ -212,6 +221,10 @@ def advance_tick(
     # F1 (the seen thought): rung-conditional — only ticks where the
     # switchboard actually deliberated carry the record, so every
     # frozen flow's history stays byte-identical.
+    if workload is not None:
+        entry.update(body_response="workload-v1",
+                     play_energy_cost=workload["play_energy_cost"],
+                     action_energy_effect=effects["energy"])
     if deliberation is not None:
         entry["deliberation"] = deliberation
     next_state["history"].append(entry)
@@ -225,9 +238,10 @@ def run_lifecycle_simulation(
     ticks: int = 72,
     policy: str = "switchboard",
     rng_seed: int = 20260512,
+    body_response: str = "legacy",
 ) -> dict:
     rng = random.Random(rng_seed)
-    state = initial_lifecycle_state(grid, slip_profile)
+    state = initial_lifecycle_state(grid, slip_profile, body_response=body_response)
     for _ in range(ticks):
         if not state["alive"]:
             break
@@ -238,7 +252,7 @@ def run_lifecycle_simulation(
     if balances and len(balances) < ticks:
         balances = balances + [0.0] * (ticks - len(balances))
     need_balance = round(mean(balances), 6) if balances else _need_balance(_snapshot(state))
-    return {
+    report = {
         "policy": policy,
         "ticks_requested": ticks,
         # survival_ticks counts ticks entered, including the tick on which
@@ -255,6 +269,10 @@ def run_lifecycle_simulation(
         "final_state": _snapshot(state),
         "history": state["history"],
     }
+    if "body_response" in state:
+        report["body_response"] = state["body_response"]
+        report["body_workload"] = deepcopy(state["body_workload"])
+    return report
 
 
 def run_lifecycle_lab(*, ticks: int = 72, rng_seed: int = 20260512) -> dict:

@@ -39,7 +39,7 @@ class PNGEmbeddedSidecarError(ValueError):
         self.message = message
 
 
-def export_png_with_embedded_sidecar(grid: dict, slip_profile: dict) -> dict:
+def export_png_with_embedded_sidecar(grid: dict, slip_profile: dict, *, authoring_document: dict | None = None) -> dict:
     canonical = export_standard_png_with_sidecar(grid, slip_profile)
     canonical_png_bytes = canonical["png_bytes"]
     sidecar = deepcopy(canonical["sidecar"])
@@ -49,6 +49,12 @@ def export_png_with_embedded_sidecar(grid: dict, slip_profile: dict) -> dict:
         "Asset binding hashes the canonical visual PNG without the embedded sidecar chunk to avoid self-referential hashing.",
         "PNG pixels remain the visual carrier; Mechagotchi semantics come from the embedded sidecar.",
     ]
+    # X2 additive arm: retain the complete authoring input; legacy default
+    # output remains byte-identical. Workshop verifies overlay agreement.
+    if authoring_document is not None:
+        from external_metadata_sidecar import authoring_document_digest
+        sidecar['authoring_document'] = deepcopy(authoring_document)
+        sidecar['authoring_document_digest'] = authoring_document_digest(authoring_document)
     embedded_png_bytes = embed_sidecar_in_png_text_chunk(canonical_png_bytes, sidecar)
     return {
         "canonical_png_bytes": canonical_png_bytes,

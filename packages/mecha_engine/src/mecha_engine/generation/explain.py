@@ -38,7 +38,7 @@ def explain_generation(candidate: dict) -> dict:
     mutation_events = (
         list(lineage.get("mutation_events", [])) if isinstance(lineage, dict) else []
     )
-    return {
+    result = {
         "grid_id": candidate.get("grid_id"),
         "parent_grid_id": trace.get("parent_grid_id"),
         "generator_strategy": trace.get("generator_strategy"),
@@ -56,3 +56,8 @@ def explain_generation(candidate: dict) -> dict:
         "rejected_proposals": trace.get("rejected_proposals"),
         "model": deepcopy(trace.get("model")),
     }
+
+    if trace.get("mutation_arm") == "operative_permissions_v1":
+        for key in ("mutation_arm", "proposal_rounds", "operator_opportunities", "outcome_counts", "inherited_rates", "operator_events"):
+            result[key] = deepcopy(trace.get(key))
+    return result

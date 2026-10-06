@@ -118,5 +118,42 @@ class SlipAuthorityParityTests(unittest.TestCase):
         self.assertGreater(aligned_pairs, 0)
 
 
+    def test_optional_allowed_roles_have_exact_validation_and_alignment_parity(self):
+        base = json.loads((REPO_ROOT / "data/slips/valid/slip_v2_cleanliness.json").read_text())
+        roles = ["body_core", "sensor", "expression", "locomotion", "ornament", "effect"]
+        values = [roles[:3], roles[:4], roles[:5], roles, None, [], {}, "sensor",
+                  ["unknown"], [True], [["sensor"]], roles + ["sensor"], ["sensor"]]
+        grids = build_seed_grids_16()
+        for allowed in values:
+            profile = json.loads(json.dumps(base))
+            profile["grid"]["allowed_organ_roles"] = allowed
+            for version in ("0.1.0", "0.2.0"):
+                profile["slip_version"] = version
+                with self.subTest(allowed=allowed, version=version):
+                    lab = lab_slip.validate_slip(profile)
+                    package = package_slip.validate_slip(profile)
+                    self.assertEqual(lab.ok, package.ok)
+                    self.assertEqual(lab.errors, package.errors)
+                    for grid in grids:
+                        lab = lab_slip.is_grid_aligned(grid, profile)
+                        package = package_slip.is_grid_aligned(grid, profile)
+                        self.assertEqual(lab.ok, package.ok)
+                        self.assertEqual(lab.errors, package.errors)
+
+    def test_malformed_optional_role_admission_errors_match_exactly(self):
+        profile = json.loads((REPO_ROOT / "data/slips/valid/slip_v2_cleanliness.json").read_text())
+        profile["grid"]["allowed_organ_roles"] = ["body_core", "sensor", "expression", "locomotion"]
+        original = json.loads((REPO_ROOT / "data/seed_grids_16x16/mg_seed16_001_beetle.json").read_text())
+        for bad in (None, True, 42, [], {}):
+            grid = json.loads(json.dumps(original))
+            grid["organs"]["bad"] = {"role": bad}
+            grid["organs"]["forbidden"] = {"role": "effect"}
+            lab = lab_slip.is_grid_aligned(grid, profile)
+            package = package_slip.is_grid_aligned(grid, profile)
+            self.assertFalse(lab.ok)
+            self.assertEqual(lab.ok, package.ok)
+            self.assertEqual(lab.errors, package.errors)
+
+
 if __name__ == "__main__":
     unittest.main()

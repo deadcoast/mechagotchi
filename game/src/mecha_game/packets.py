@@ -42,35 +42,24 @@ class HelloCreature:
 
 
 def data_search_origins(start: Path | None = None) -> list[Path]:
-    """Where a `data/` corpus may live: an explicit start, this file's
-    repo checkout, and — in a frozen release (F5) — the PyInstaller
-    bundle directory and the executable's home."""
-    import sys
-
-    origins = []
-    if start is not None:
-        origins.append(Path(start).resolve())
-    origins.append(Path(__file__).resolve())
-    bundle_dir = getattr(sys, "_MEIPASS", None)
-    if bundle_dir:
-        origins.append(Path(bundle_dir))
-        origins.append(Path(sys.executable).resolve().parent)
-    return origins
+    """Compatibility facade: exact declared roots, never ancestor searches."""
+    from mecha_game.runtime_resources import resource_roots
+    return resource_roots(start)
 
 
 def default_fixture_paths(start: Path | None = None) -> tuple[Path, Path]:
-    """Resolve the current product fixtures by walking up from the known origins
-    (the dev checkout, or the frozen bundle's own data). An installed
-    client may still pass explicit ``--seed``/``--slip``."""
-    for origin in data_search_origins(start):
-        for base in (origin, *origin.parents):
-            seed = base / HELLO_SEED
-            slip = base / DEFAULT_SLIP
-            if seed.is_file() and slip.is_file():
-                return seed, slip
+    """Resolve new-life fixtures only in this source checkout/native payload."""
+    from mecha_game.runtime_resources import validate_resource
+    for base in data_search_origins(start):
+        seed = base / HELLO_SEED
+        slip = base / DEFAULT_SLIP
+        if seed.is_file() and slip.is_file():
+            validate_resource(seed)
+            validate_resource(slip)
+            return seed, slip
     raise FileNotFoundError(
-        f"no {HELLO_SEED.as_posix()} corpus near this installation — "
-        "pass explicit seed/slip paths"
+        f"no {HELLO_SEED.as_posix()} corpus in this installation - "
+        "use a complete Windows release or pass explicit seed/slip paths"
     )
 
 

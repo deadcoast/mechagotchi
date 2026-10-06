@@ -247,6 +247,13 @@ class CampaignTests(unittest.TestCase):
             self.inputs, era_config=TINY_ERA, campaign_id="twin"
         )
         era = twin.advance_era("calm")
+        self.assertEqual(self.first_era['report'], era['report'])
+        self.assertEqual(self.first_era['elites'], era['elites'])
+        self.assertEqual('test_campaign', self.first_era['execution']['manifest']['campaign_id'])
+        self.assertEqual('twin', era['execution']['manifest']['campaign_id'])
+        # Campaign identity is new evidence, not an evolution parameter. Every
+        # other result and immutable input byte still compares in full.
+        era['execution']['manifest']['campaign_id'] = 'test_campaign'
         self.assertEqual(
             json.dumps(self.first_era, sort_keys=True),
             json.dumps(era, sort_keys=True),

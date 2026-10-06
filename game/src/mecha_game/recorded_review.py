@@ -6,7 +6,7 @@ import json
 import sqlite3
 from pathlib import Path
 
-from mecha_engine.storage import SCHEMA_VERSION, load_replay_rows, campaign_history, load_era_elites
+from mecha_engine.storage import SUPPORTED_READ_SCHEMA_VERSIONS, load_replay_rows, campaign_history, load_era_elites
 from mecha_game.rasterize import rasterize_cells
 from mecha_game.replay import REPLAY_FORMAT, ReplayPlayer, overlay_wounds
 
@@ -68,7 +68,7 @@ def load_saved_replay(keeper_dir, campaign_id, era_index, *, expected_seed, sele
     try:
         conn = sqlite3.connect(ledger.resolve().as_uri() + '?mode=ro', uri=True)
         try:
-            if conn.execute('PRAGMA user_version').fetchone()[0] != SCHEMA_VERSION:
+            if conn.execute('PRAGMA user_version').fetchone()[0] not in SUPPORTED_READ_SCHEMA_VERSIONS:
                 raise ValueError('Unsupported campaign-ledger schema version.')
             rows = [row for row in load_replay_rows(conn, campaign_id) if row['era_index'] == era_index]
             era = next((row for row in campaign_history(conn, campaign_id)['eras'] if row['era_index'] == era_index), None)

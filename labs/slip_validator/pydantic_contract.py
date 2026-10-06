@@ -36,6 +36,15 @@ class OrganRole(str, Enum):
     body_core = "body_core"
 
 
+class AllowedOrganRole(str, Enum):
+    body_core = "body_core"
+    sensor = "sensor"
+    expression = "expression"
+    locomotion = "locomotion"
+    ornament = "ornament"
+    effect = "effect"
+
+
 class ForbiddableRole(str, Enum):
     body = "body"
     shell = "shell"
@@ -182,6 +191,34 @@ class GridContract(BaseModel):
         Field(min_length=1, json_schema_extra={"uniqueItems": True}),
     ]
 
+    allowed_organ_roles: (
+        Annotated[list[AllowedOrganRole], Field(min_length=1, json_schema_extra={"uniqueItems": True})]
+        | None
+    ) = None
+
+    @field_validator("allowed_organ_roles", mode="before")
+    @classmethod
+    def reject_null_allowed_roles(cls, value: object) -> object:
+        if value is None:
+            raise ValueError("allowed_organ_roles must be an array")
+        return value
+
+    @field_validator("allowed_organ_roles")
+    @classmethod
+    def allowed_roles_unique(cls, value):
+        if len(value) != len(set(value)):
+            raise ValueError("array items must be unique")
+        return value
+
+    @model_validator(mode="after")
+    def required_roles_are_allowed(self) -> "GridContract":
+        if self.allowed_organ_roles is not None:
+            allowed = {role.value for role in self.allowed_organ_roles}
+            for role in self.required_organ_roles:
+                if role.value not in allowed:
+                    raise ValueError(f"required organ role is not allowed by SLIP: {role.value}")
+        return self
+
     @field_validator("body_mass_min", "body_mass_max", mode="before")
     @classmethod
     def reject_bool_for_body_mass(cls, value: object) -> object:
@@ -302,6 +339,8 @@ class SLIPProfile(BaseModel):
 
     @model_validator(mode="after")
     def ladder_fields_require_v2(self) -> "SLIPProfile":
+        if self.grid.allowed_organ_roles is not None and self.slip_version != "0.2.0":
+            raise ValueError("grid.allowed_organ_roles requires slip_version 0.2.0")
         if self.mechanics is not None and self.slip_version != "0.2.0":
             raise ValueError("mechanics requires slip_version 0.2.0")
         if self.risk_tolerances is not None and self.slip_version != "0.2.0":
@@ -533,6 +572,21 @@ def _generated_schema() -> dict:
     schema["properties"]["mechanics"] = {"$ref": "#/$defs/MechanicsContract"}
     schema["allOf"] = [{"if": {"properties": {"slip_version": {"const": "0.1.0"}}},
                         "then": {"not": {"required": ["mechanics"]}}}]
+    grid = schema["$defs"]["GridContract"]
+    grid["properties"]["allowed_organ_roles"] = {
+        "type": "array", "minItems": 1, "uniqueItems": True,
+        "items": {"$ref": "#/$defs/AllowedOrganRole"},
+    }
+    grid["allOf"] = [
+        {"if": {"required": ["allowed_organ_roles"], "properties": {
+            "required_organ_roles": {"contains": {"const": role}}}},
+         "then": {"properties": {"allowed_organ_roles": {"contains": {"const": role}}}}}
+        for role in ("body_core", "sensor", "expression")
+    ]
+    schema["allOf"].append({
+        "if": {"properties": {"slip_version": {"const": "0.1.0"}}},
+        "then": {"properties": {"grid": {"not": {"required": ["allowed_organ_roles"]}}}},
+    })
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
     schema["$id"] = "https://mechagotchi.local/schema/slip/pydantic/0.1.0"
     return schema

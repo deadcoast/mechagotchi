@@ -52,6 +52,8 @@ from ._cubff import extract_cubff_features, features_to_traits
 from ._readability import learned_readability_score
 from mecha_engine.slip import is_grid_aligned
 from .live import live_cycle
+from .care import (CARE_POLICIES, CARE_EVALUATORS, care_context_sha256,
+                   care_grid_sha256, select_care_successor, validate_care_context)
 
 REPORT_ID = "mecha_engine_runtime_evolve"
 
@@ -107,6 +109,16 @@ def evolve(
     readability_selection: dict | None = None,
     progress_callback: Callable[[int, int], None] | None = None,
     recording_callback: Callable[[dict], None] | None = None,
+    admission_callback: Callable[[dict], None] | None = None,
+    founder_care_contexts: list[dict | None] | None = None,
+    care_selection_policy: str = "off",
+    care_evaluator: str = "archive_morphology_probe_v1",
+    population_policy: str = "legacy_archive",
+    founder_start_mode: str | None = None,
+    survival_regime: str = "sheltered",
+    cubff_density_pressure: bool = False,
+    evaluation_callback: Callable[[dict], None] | None = None,
+    body_response: str = "legacy",
 ) -> tuple[dict, dict]:
     """Run multi-generation evolution through the composed engine.
 
@@ -124,6 +136,11 @@ def evolve(
     ``recording_callback`` receives isolated original live-cycle records when
     an inserted/replaced candidate becomes the overall best (fitness, niche).
     It never re-simulates; frame data stays outside the scientific result.
+    ``admission_callback`` observes every actual founder verdict in submission
+    order, including duplicate IDs. Its isolated dictionary carries
+    ``submission_index``, ``grid_id``, ``admitted`` and ``rejection_errors``
+    (None on admission). Exceptions propagate for foreground cancellation;
+    no scientific output fields, admission rules or RNG draws change.
     Deterministic end to end; never mutates ``seed_grids``,
     ``slip_profile``, the models, or any caller-owned input.
 
@@ -151,7 +168,37 @@ def evolve(
     block with per-generation mean learned readability over candidates.
     The manual rating system remains the fallback; ``None`` is
     byte-identical.
+
+    ``population_policy='generation_survivors_v1'`` requires explicit
+    ``founder_start_mode='bootstrap'|'continue'``. Its living population is
+    separate from the historical archive. Continuation never adds corpus seeds;
+    an explicit empty list yields a recorded empty continuation. A breeder must
+    be alive at the horizon of every independent cycle and final scoring episode.
+    This is a designed generational mechanism, not continuous individual aging.
+    ``survival_regime='stress_probe'`` applies the contracted morphology load to
+    evaluation copies; ``cubff_density_pressure=True`` requires weather input.
+    ``evaluation_callback`` receives detached original per-candidate observations,
+    including actual final episode and cycle frames. It never resimulates.
     """
+    if body_response not in ("legacy", "workload-v1"):
+        raise ValueError("unsupported body response")
+    # X8: opt-in lab-proven policy; the omitted legacy algorithm below is retained.
+    # The observer captures actual final episodes without adding report fields.
+    if (population_policy != "legacy_archive" or founder_start_mode not in (None, "bootstrap")
+            or survival_regime != "sheltered" or cubff_density_pressure is not False
+            or body_response != "legacy"):
+        from ._survival_population import evolve as evolve_population
+        return evolve_population(seed_grids, slip_profile, generation_model, repair_model,
+            readability_scorer=readability_scorer, generations=generations,
+            population=population, damage_cycles=damage_cycles, ticks=ticks,
+            dropout_rate=dropout_rate, rng_seed=rng_seed, founder_grids=founder_grids,
+            cubff_pressure_source=cubff_pressure_source, readability_selection=readability_selection,
+            progress_callback=progress_callback, recording_callback=recording_callback,
+            admission_callback=admission_callback, founder_care_contexts=founder_care_contexts,
+            care_selection_policy=care_selection_policy, care_evaluator=care_evaluator,
+            population_policy=population_policy, founder_start_mode=founder_start_mode,
+            survival_regime=survival_regime, cubff_density_pressure=cubff_density_pressure,
+            evaluation_callback=evaluation_callback, body_response=body_response)
     if not isinstance(seed_grids, list) or not seed_grids:
         raise ValueError("seed_grids must be a non-empty list of grid genomes")
     if not callable(readability_scorer):
@@ -177,6 +224,25 @@ def evolve(
             "model's 'weights' (DR 0019)"
         )
 
+    if care_selection_policy not in ("off", *CARE_POLICIES):
+        raise ValueError("care selection policy must be off or " + " or ".join(CARE_POLICIES))
+    if care_evaluator not in CARE_EVALUATORS:
+        raise ValueError("unsupported care evaluator: " + str(care_evaluator))
+    care_contexts = None
+    if founder_care_contexts is not None:
+        if (not isinstance(founder_care_contexts, list)
+                or (founder_grids is None and founder_care_contexts != [])
+                or len(founder_care_contexts) != len(founder_grids or [])):
+            raise ValueError("founder care contexts must match ordered founder occurrences")
+        care_contexts = [validate_care_context(value) if value is not None else None
+                         for value in founder_care_contexts]
+    if any(value is not None and value.get("body_response", "legacy") != body_response
+           for value in care_contexts or []):
+        raise ValueError("founder care body response differs from era model")
+    care_active = care_contexts is not None and any(value is not None for value in care_contexts)
+    admitted_care: list[dict | None] = []
+    archive_care: dict[str, dict | None] = {}
+
     # T3.4 (decision record 0013): a v0.2 profile's lineage preference
     # steers elite parenting; v0.1 profiles never carry the field. The
     # version guard mirrors the lab loop's own reading of the profile.
@@ -192,7 +258,7 @@ def evolve(
     if founder_grids is not None:
         if not isinstance(founder_grids, list):
             raise ValueError("founder_grids must be a list of grid genomes")
-        for founder in founder_grids:
+        for submission_index, founder in enumerate(founder_grids):
             errors: list[str] = []
             validation = validate_grid(founder)
             errors.extend(validation.errors)
@@ -227,6 +293,16 @@ def evolve(
                 )
             else:
                 admitted_founders.append(founder)
+                context = care_contexts[submission_index] if care_contexts is not None else None
+                admitted_care.append({"context": context, "founder_submission_index": submission_index}
+                                     if context is not None else None)
+            if admission_callback is not None:
+                admission_callback(deepcopy({
+                    "submission_index": submission_index,
+                    "grid_id": founder.get("grid_id"),
+                    "admitted": not errors,
+                    "rejection_errors": errors if errors else None,
+                }))
 
     seed_pool = [
         seed for seed in seed_grids if is_grid_aligned(seed, slip_profile).ok
@@ -283,9 +359,11 @@ def evolve(
                 # Founders lead so the round-robin always exercises the
                 # wire deterministically (decision record 0016).
                 parents = admitted_founders + seed_pool
+                parent_care = admitted_care + [None] * len(seed_pool)
                 parent_source = "founders_plus_seed_pool"
             else:
                 parents = seed_pool
+                parent_care = [None] * len(seed_pool)
                 parent_source = "seed_pool"
         else:
             elites = archive["elites"]
@@ -326,10 +404,10 @@ def evolve(
                 parents = [elites[niche]["grid"] for niche in ordered]
                 parent_source = "archive_elites_fitness_weighted"
             else:
-                parents = [
-                    elites[niche]["grid"] for niche in sorted(elites)
-                ]
+                ordered = sorted(elites)
+                parents = [elites[niche]["grid"] for niche in ordered]
                 parent_source = "archive_elites"
+            parent_care = [archive_care.get(niche) for niche in ordered]
             if not parents:
                 break  # measured, not asserted: an empty archive ends evolution
 
@@ -337,12 +415,21 @@ def evolve(
         generation_readability: list[float] = []
         for index in range(population):
             parent = parents[index % len(parents)]
+            care_origin = parent_care[index % len(parents)]
+            care_receipt = None
             run_seed = rng_seed + generation_index * 100000 + index
             stages: dict[str, bool] = {}
 
-            candidate = generate_candidate(
-                parent, generation_model, slip_profile, rng_seed=run_seed
-            )
+            if care_origin is not None and care_selection_policy != "off":
+                candidate, care_receipt = select_care_successor(
+                    parent, generation_model, slip_profile, rng_seed=run_seed,
+                    context=care_origin["context"], policy=care_selection_policy,
+                    evaluator=care_evaluator,
+                )
+            else:
+                candidate = generate_candidate(
+                    parent, generation_model, slip_profile, rng_seed=run_seed
+                )
             if readability:
                 generation_readability.append(
                     learned_readability_score(candidate, readability_model)
@@ -361,15 +448,16 @@ def evolve(
                 ticks=ticks,
                 dropout_rate=generation_dropout,
                 rng_seed=run_seed,
-                **({"record_frames": True} if recording_callback is not None else {}),
+                **({"record_frames": True} if recording_callback is not None or evaluation_callback is not None else {}),
             )
             cycles = ([{k: v for k, v in cycle.items() if k != "frames"}
-                       for cycle in lived["cycles"]] if recording_callback is not None else lived["cycles"])
+                       for cycle in lived["cycles"]] if recording_callback is not None or evaluation_callback is not None else lived["cycles"])
             current = lived["final_grid"]
             stages["all_cycles_valid"] = lived["all_cycles_valid"]
             stages["all_cycles_aligned"] = lived["all_cycles_aligned"]
 
             score_digest = None
+            final_episode = None
             # Verbatim lab semantics (T1, commit d382805; promotion-drift
             # fix 2026-07-07): an aligned-but-invalid creature is
             # "skipped_invalid", and scoring requires every cycle valid
@@ -422,6 +510,9 @@ def evolve(
                     if len(archive["insertion_log"]) > before_log
                     else "unlogged"
                 )
+                if event.startswith(("inserted", "replaced")):
+                    niche = archive["insertion_log"][before_log]["niche"]
+                    archive_care[niche] = deepcopy(care_origin)
                 if event.startswith("inserted"):
                     decision = "inserted"
                 elif event.startswith("replaced"):
@@ -442,8 +533,25 @@ def evolve(
                     "cycles": cycles,
                     "score": score_digest,
                     "archive_decision": decision,
+                    **({"care_context_origin": {
+                        "founder_submission_index": care_origin["founder_submission_index"],
+                        "context_sha256": care_context_sha256(care_origin["context"]),
+                    }} if care_origin is not None else {}),
+                    **({"care_selection": care_receipt} if care_receipt is not None else {}),
                 }
             )
+
+            # X8: observe the retained legacy algorithm itself. No rerun or
+            # helper dispatch is needed to expose its actual scoring endpoint.
+            if evaluation_callback is not None:
+                evaluation_callback(deepcopy({
+                    "generation_index": generation_index, "candidate_index": index,
+                    "run_seed": run_seed, "parent_grid": parent, "candidate_grid": candidate,
+                    "final_grid": current, "effective_dropout_rate": generation_dropout,
+                    "generation_weather": cubff_by_generation[-1] if cubff else None,
+                    "cycles": [{**cycle, "damage_seed": run_seed * 10 + cycle["cycle"]} for cycle in lived["cycles"]],
+                    "final_episode": final_episode, "creature": creatures[-1],
+                }))
 
             # DR0074: lab-proven original evaluation observation, no RNG or selection change.
             if recording_callback is not None and decision in ("inserted", "replaced"):
@@ -558,6 +666,18 @@ def evolve(
                 readability_model["reference_features"]
             ),
             "mean_learned_readability_by_generation": readability_means,
+        }
+    if care_active:
+        elite_order = sorted(archive["elites"])
+        report["care_selection"] = {
+            "policy": care_selection_policy, "evaluator": care_evaluator,
+            "founder_contexts": deepcopy(care_contexts),
+            "elite_contexts": [deepcopy(archive_care[niche]["context"])
+                               if archive_care.get(niche) is not None else None
+                               for niche in elite_order],
+            "elite_origins": [{"founder_submission_index": archive_care[niche]["founder_submission_index"],
+                               "context_sha256": care_context_sha256(archive_care[niche]["context"])}
+                              if archive_care.get(niche) is not None else None for niche in elite_order],
         }
     return archive, report
 

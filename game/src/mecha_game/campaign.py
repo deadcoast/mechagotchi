@@ -1,4 +1,4 @@
-"""The Keeper's campaign — eras of the soup, in the client (F4).
+"""The Keeper's campaign â€” eras of the soup, in the client (F4).
 
 DR 0021's core loop as a PRODUCT surface, mirroring the proven G2/G4
 session lab (`labs/game_loop/session_runner.py`) without importing it
@@ -8,12 +8,12 @@ persistence spine); unlock FACTS are earned from era-report metrics
 against the lab's A4-calibrated thresholds (tuning data, falsifiable
 by test); an extinct bloodline's successor starts fresh from seeds
 carrying ONLY the Keeper's unlocks (roguelite stakes); the campaign
-persists through `mecha_engine.storage`'s ledger (DR 0022 —
+persists through `mecha_engine.storage`'s ledger (DR 0022 â€”
 blob-authoritative, one era per transaction).
 
 One DOCUMENTED divergence from the lab session: the game injects the
 LEARNED readability scorer (`runtime.learned_readability_score` over
-the committed adopted model) as `evolve`'s readability hook — the lab
+the committed adopted model) as `evolve`'s readability hook â€” the lab
 session injected the historical proxy. DR 0019 makes the learned
 signal primary; the client never re-implements an engine number.
 
@@ -24,6 +24,8 @@ and real exports drop into the same seam with no client change.
 
 from __future__ import annotations
 
+from collections import Counter
+import copy
 import json
 from pathlib import Path
 
@@ -31,23 +33,25 @@ from mecha_engine.generation import (
     GenerationModel,
     train_generation_model,
 )
+from mecha_game.compatibility import campaign_writer
 from mecha_engine.repair import train_repair_model
 from mecha_engine.runtime import evolve, learned_readability_score
 from mecha_engine.storage import (
     campaign_history,
+    canonical_json,
     open_ledger,
     record_campaign,
     record_era,
 )
 
-# Mirrored session-lab constants (labs/game_loop/session_runner.py —
+# Mirrored session-lab constants (labs/game_loop/session_runner.py â€”
 # tuning data plus the DR 0021 structure, cited not imported).
 ERA_SEED_STRIDE = 1_000_000
 SUCCESSOR_SEED_OFFSET = 50_000_000
 # "real" (G4): the G2-ingested REAL CuBFF snapshots as the pressure
-# source — the documented upgrade, zero seam changes. "callback"
+# source â€” the documented upgrade, zero seam changes. "callback"
 # (K4, DR 0043): the I3 compact records with the replication channel
-# LIT — the first forecast whose harshness channels carry measured
+# LIT â€” the first forecast whose harshness channels carry measured
 # biology; same seam, zero engine changes.
 WEATHER_NAMES = ("calm", "stable_soup", "storm", "real", "callback")
 REAL_INGEST_REPORT = (
@@ -97,6 +101,34 @@ UNLOCK_THRESHOLDS: dict[str, dict] = {
 }
 
 
+def _founder_records(founders, released_count, report, *, population_policy='legacy_archive'):
+    """Project uniquely attributable inputs into the existing unordered table.
+
+    Duplicate IDs remain untouched in evolution and its verbatim report. The
+    table cannot identify their individual inputs, so every such row is omitted.
+    """
+    submitted = Counter(grid.get('grid_id') for grid in founders)
+    outcomes = {}
+    for grid_id in report.get('founders', {}).get('admitted_ids', []):
+        outcomes.setdefault(grid_id, []).append((True, None))
+    for row in report.get('founders', {}).get('rejected', []):
+        outcomes.setdefault(row['grid_id'], []).append((False, row['errors']))
+    records = []
+    for index, grid in enumerate(founders):
+        # Ordered execution occurrences retain breeders; the historical SQL table
+        # cannot truthfully represent their source kind. Never label them elites.
+        if population_policy == 'generation_survivors_v1' and index >= released_count:
+            continue
+        grid_id = grid.get('grid_id')
+        verdicts = outcomes.get(grid_id, [])
+        if not isinstance(grid_id, str) or not grid_id or submitted[grid_id] != 1 or len(verdicts) != 1:
+            continue
+        admitted, errors = verdicts[0]
+        records.append(dict(grid_id=grid_id, source='workshop_release' if index < released_count else 'era_elite',
+            admitted=admitted, rejection_errors=copy.deepcopy(errors), grid=copy.deepcopy(grid)))
+    return records
+
+
 def _stable_snapshot(index: int) -> dict:
     """A calmly replicating soup (the session lab's synthetic weather)."""
     tape = [7, 7, 7, 8, 7, 7, 7, 8] * 8
@@ -129,59 +161,71 @@ def _chaotic_snapshot(index: int) -> dict:
     }
 
 
-def load_real_weather_source(start: Path | None = None) -> list[dict]:
+def load_real_weather_source(start: Path | None = None, *, source_records=None) -> list[dict]:
     """The G2-ingested REAL snapshot records, VERBATIM from the
-    committed ingest report, in epoch order — the documented upgrade
+    committed ingest report, in epoch order â€” the documented upgrade
     path (DR 0021: 'real exports drop in with no seam changes')."""
     from mecha_game.packets import data_search_origins
 
-    for origin in data_search_origins(start):
-        for base in (origin, *origin.parents):
-            report_path = base / REAL_INGEST_REPORT
-            if report_path.is_file():
-                report = json.loads(
-                    report_path.read_text(encoding="utf-8")
+    from mecha_game.runtime_resources import validate_resource
+
+    for base in data_search_origins(start):
+        report_path = base / REAL_INGEST_REPORT
+        if report_path.is_file():
+            validate_resource(report_path)
+            raw = report_path.read_bytes()
+            report = json.loads(raw)
+            if source_records is not None:
+                from mecha_game.execution import source_record
+                source_records.append(source_record(raw, role='weather', source_position=0,
+                    label=REAL_INGEST_REPORT.as_posix()))
+            records = report.get("ingested_snapshots") or []
+            if not records:
+                raise ValueError(
+                    "the real-ingest gate holds no snapshots "
+                    f"(status: {report.get('status')})"
                 )
-                records = report.get("ingested_snapshots") or []
-                if not records:
-                    raise ValueError(
-                        "the real-ingest gate holds no snapshots "
-                        f"(status: {report.get('status')})"
-                    )
-                return sorted(records, key=lambda r: r["epoch"])
+            return sorted(records, key=lambda r: r["epoch"])
     raise FileNotFoundError(
-        "no real-ingest report near this installation"
+        "no real-ingest report in this installation"
     )
 
 
-def load_callback_weather_source(start: Path | None = None) -> list[dict]:
-    """The I3 callback compact records, VERBATIM in epoch order —
+
+def load_callback_weather_source(start: Path | None = None, *, source_records=None) -> list[dict]:
+    """The I3 callback compact records, VERBATIM in epoch order â€”
     the replication channel LIT (DR 0043; the committed evidence is
     self-verifying: tape + soup hash + all per-program scores). A
     missing or empty record file refuses with a named error, never a
     silent fallback (the G4/load_real_weather_source pattern)."""
     from mecha_game.packets import data_search_origins
 
-    for origin in data_search_origins(start):
-        for base in (origin, *origin.parents):
-            states_path = base / CALLBACK_STATES_PATH
-            if states_path.is_file():
-                payload = json.loads(
-                    states_path.read_text(encoding="utf-8")
+    from mecha_game.runtime_resources import validate_resource
+
+    for base in data_search_origins(start):
+        states_path = base / CALLBACK_STATES_PATH
+        if states_path.is_file():
+            validate_resource(states_path)
+            raw = states_path.read_bytes()
+            payload = json.loads(raw)
+            if source_records is not None:
+                from mecha_game.execution import source_record
+                source_records.append(source_record(raw, role='weather', source_position=0,
+                    label=CALLBACK_STATES_PATH.as_posix()))
+            records = payload.get("records") or []
+            if not records:
+                raise ValueError(
+                    "the callback state file holds no records"
                 )
-                records = payload.get("records") or []
-                if not records:
-                    raise ValueError(
-                        "the callback state file holds no records"
-                    )
-                return sorted(records, key=lambda r: r["epoch"])
+            return sorted(records, key=lambda r: r["epoch"])
     raise FileNotFoundError(
-        "no callback weather states near this installation "
+        "no callback weather states in this installation "
         "(data/cubff_real_ingest/callback_states)"
     )
 
 
-def build_weather_source(name: str) -> list[dict] | None:
+
+def build_weather_source(name: str, *, source_records=None) -> list[dict] | None:
     """Forecast name -> CuBFF pressure source for the promoted evolve
     (``calm`` = the byte-identical no-source default)."""
     if name == "calm":
@@ -191,9 +235,9 @@ def build_weather_source(name: str) -> list[dict] | None:
     if name == "storm":
         return [_chaotic_snapshot(i) for i in range(6)]
     if name == "real":
-        return load_real_weather_source()
+        return load_real_weather_source(source_records=source_records)
     if name == "callback":
-        return load_callback_weather_source()
+        return load_callback_weather_source(source_records=source_records)
     raise ValueError(f"unknown weather forecast: {name}")
 
 
@@ -273,7 +317,7 @@ TINY_ERA_CONFIG = {
 
 def default_campaign_paths(start: Path | None = None) -> dict:
     """Resolve the campaign inputs from a repo checkout or a frozen
-    bundle (the same walk-up rule as the hello fixtures)."""
+    bundle (the same explicit root as the hello fixtures)."""
     from mecha_game.packets import data_search_origins
 
     for origin in data_search_origins(start):
@@ -281,29 +325,22 @@ def default_campaign_paths(start: Path | None = None) -> dict:
         if found is not None:
             return found
     raise FileNotFoundError(
-        "no campaign fixture corpus near this installation — "
+        "no campaign fixture corpus near this installation â€” "
         "pass explicit paths"
     )
 
 
 def _campaign_paths_under(origin: Path) -> dict | None:
     from mecha_game.packets import DEFAULT_SLIP
+    from mecha_game.runtime_resources import validate_resource
 
-    for base in (origin, *origin.parents):
-        seed_dir = base / "data" / "seed_grids_16x16"
-        slip = base / DEFAULT_SLIP
-        adopted = (
-            base
-            / "data"
-            / "readability_benchmark"
-            / "adopted_readability_model.json"
-        )
-        if seed_dir.is_dir() and slip.is_file() and adopted.is_file():
-            return {
-                "seed_dir": seed_dir,
-                "slip_path": slip,
-                "adopted_model_path": adopted,
-            }
+    seed_dir = origin / "data/seed_grids_16x16"
+    slip = origin / DEFAULT_SLIP
+    adopted = origin / "data/readability_benchmark/adopted_readability_model.json"
+    if seed_dir.is_dir() and slip.is_file() and adopted.is_file():
+        for path in (seed_dir, slip, adopted):
+            validate_resource(path)
+        return {"seed_dir": seed_dir, "slip_path": slip, "adopted_model_path": adopted}
     return None
 
 
@@ -324,35 +361,38 @@ def load_campaign_inputs(
     import and constrained hatching do not need evolution models. The game
     prepares those later in its foreground-owned era worker.
 
-    The legibility model is the COMMITTED adopted artifact (DR 0019 —
+    The legibility model is the COMMITTED adopted artifact (DR 0019 â€”
     the learned signal is primary); its absence is a hard error, never
     a silent fallback.
 
-    ``cache_dir`` (F11): the repair model — the slow trainer — caches
-    to a file keyed on the corpus's grid ids + epochs + seed; a cached
-    load is byte-equal to fresh training (the trainer is deterministic
-    in its inputs), PINNED by test. ``None`` always trains."""
+    ``cache_dir`` (F11): the repair model â€” the slow trainer â€” caches
+    to a versioned file keyed on full ordered training contents, source
+    bytes, trainer options and implementation identity. Corrupt cache bytes
+    refuse without replacement. ``None`` always trains."""
     seed_paths = sorted(Path(seed_dir).glob("mg_seed16_*.json"))
     if seed_limit is not None:
         seed_paths = seed_paths[:seed_limit]
-    seed_grids = [
-        json.loads(path.read_text(encoding="utf-8"))
-        for path in seed_paths
-    ]
+    from mecha_game.execution import source_record
+    sources = []
+    seed_grids = []
+    for index, path in enumerate(seed_paths):
+        raw = path.read_bytes()
+        seed_grids.append(json.loads(raw))
+        sources.append(source_record(raw, role='seed_corpus', source_position=index, label=path.name))
     if not seed_grids:
         raise FileNotFoundError(f"no 16x16 seed corpus under {seed_dir}")
-    slip_profile = json.loads(
-        Path(slip_path).read_text(encoding="utf-8")
-    )
-    adopted = json.loads(
-        Path(adopted_model_path).read_text(encoding="utf-8")
-    )
+    raw = Path(slip_path).read_bytes()
+    slip_profile = json.loads(raw)
+    sources.append(source_record(raw, role='covenant', label=Path(slip_path).name))
+    raw = Path(adopted_model_path).read_bytes()
+    adopted = json.loads(raw)
+    sources.append(source_record(raw, role='readability_model', label=Path(adopted_model_path).name))
     legibility_model = {
         "weights": adopted["weights"],
         "reference_features": adopted["reference_features"],
     }
     inputs = {"seed_grids": seed_grids, "slip_profile": slip_profile,
-              "legibility_model": legibility_model}
+              "legibility_model": legibility_model, "input_sources": sources}
     return (prepare_campaign_models(inputs, repair_epochs=repair_epochs,
             rng_seed=rng_seed, cache_dir=cache_dir) if with_models else inputs)
 
@@ -369,44 +409,64 @@ def prepare_campaign_models(
     """
     if "generation_model" in inputs and "repair_model" in inputs:
         return inputs
+    from mecha_game.execution import ordered_json_bytes, runtime_identity, sha256
+    import base64
+
     seed_grids = inputs["seed_grids"]
+    training_grids = copy.deepcopy(seed_grids[:REPAIR_TRAINING_COUNT])
     generation_model = train_generation_model(seed_grids)
+    options = dict(dropout_rates=[0.1, 0.2, 0.3, 0.4], damage_instances=1,
+        epochs=repair_epochs, learning_rate=1.5, live_class_weight=3.0,
+        rng_seed=rng_seed, vocabulary='legacy')
+    source_ids = [dict(source_position=row.get('source_position'),
+        raw_sha256=sha256(base64.b64decode(row['data_base64'], validate=True)))
+        for row in inputs.get('input_sources', []) if row.get('role') == 'seed_corpus'
+        and type(row.get('source_position')) is int and row['source_position'] < len(training_grids)
+        and 'data_base64' in row]
+    identity = runtime_identity()
+    material = dict(contract='mechagotchi_repair_training_v2',
+        ordered_training_sha256=sha256(ordered_json_bytes(training_grids)),
+        source_identities=source_ids, trainer_options=options, runtime=identity)
+    key = sha256(ordered_json_bytes(material))
     repair_model = None
     cache_path = None
     if cache_dir is not None:
-        import hashlib
-
-        key_material = json.dumps(
-            {
-                "grid_ids": [
-                    grid["grid_id"]
-                    for grid in seed_grids[:REPAIR_TRAINING_COUNT]
-                ],
-                "epochs": repair_epochs,
-                "rng_seed": rng_seed,
-            },
-            sort_keys=True,
-        )
-        key = hashlib.sha256(key_material.encode("utf-8")).hexdigest()[
-            :16
-        ]
-        cache_path = Path(cache_dir) / f"repair_model_{key}.json"
-        if cache_path.is_file():
-            repair_model = json.loads(
-                cache_path.read_text(encoding="utf-8")
-            )
+        if not identity['available']:
+            raise ValueError('Repair cache implementation identity unavailable; existing cache preserved.')
+        cache_path = Path(cache_dir) / f"repair_model_v2_{key}.json"
+        if cache_path.exists():
+            try:
+                envelope = json.loads(cache_path.read_bytes())
+                raw_model = base64.b64decode(envelope['model_data_base64'], validate=True)
+                if (envelope['format'] != 'mechagotchi_repair_cache_v2' or envelope['key'] != key
+                        or envelope['key_material'] != material or sha256(raw_model) != envelope['model_sha256']):
+                    raise ValueError('cache identity or model digest mismatch')
+                repair_model = json.loads(raw_model)
+                if not isinstance(repair_model, dict):
+                    raise ValueError('cached repair model is not an object')
+            except (ValueError, KeyError, TypeError, UnicodeError) as error:
+                raise ValueError(f'Invalid repair cache {cache_path.name}: {error}; existing bytes preserved.') from error
     if repair_model is None:
-        repair_model = train_repair_model(
-            seed_grids[:REPAIR_TRAINING_COUNT],
-            epochs=repair_epochs,
-            rng_seed=rng_seed,
-        )
+        repair_model = train_repair_model(training_grids, **options)
         if cache_path is not None:
+            raw_model = ordered_json_bytes(repair_model)
+            envelope = dict(format='mechagotchi_repair_cache_v2', key=key, key_material=material,
+                model_sha256=sha256(raw_model), model_data_base64=base64.b64encode(raw_model).decode('ascii'))
+            raw_cache = ordered_json_bytes(envelope) + b'\n'
             cache_path.parent.mkdir(parents=True, exist_ok=True)
-            cache_path.write_text(
-                json.dumps(repair_model) + "\n", encoding="utf-8"
-            )
-    return {**inputs, "generation_model": generation_model, "repair_model": repair_model}
+            # Exclusive creation prevents an intervening writer from being lost.
+            try:
+                with cache_path.open('xb') as handle:
+                    handle.write(raw_cache)
+            except FileExistsError:
+                if cache_path.read_bytes() != raw_cache:
+                    raise ValueError('Conflicting repair cache appeared; both model and existing bytes preserved.') from None
+    training = dict(training_contract=material['contract'], trainer_options=options,
+        ordered_training_sha256=material['ordered_training_sha256'], training_grids=training_grids,
+        source_identities=source_ids)
+    return {**inputs, "generation_model": generation_model, "repair_model": repair_model,
+            "repair_training": training}
+
 
 
 class KeeperCampaign:
@@ -423,14 +483,32 @@ class KeeperCampaign:
         predecessor_campaign_id: str | None = None,
         era_config: dict | None = None,
         inherited_unlocks: list[dict] | None = None,
+        population_policy: str = 'legacy_archive',
+        body_response: str = 'legacy',
     ) -> None:
+        if population_policy not in ('legacy_archive', 'generation_survivors_v1'):
+            raise ValueError('Unsupported campaign population policy.')
+        from mecha_game.body_response import validate_body_response
+        self._body_response = validate_body_response(body_response)
+        self._population_policy = population_policy
+        self._population_continuation = dict(founder_start_mode='bootstrap', era_index=None, ordered_breeders_sha256=None)
+        self.resume_breeders: list[dict] | None = None
         self.inputs = inputs
         self.era_config = {**ERA_CONFIG, **(era_config or {})}
         # The BASE covenant and base parameters the budget computes
-        # from (spends never compound against themselves — F7).
+        # from (spends never compound against themselves â€” F7).
         self.base_profile = json.loads(
             json.dumps(inputs["slip_profile"])
         )
+        self.base_covenant_source = None
+        from mecha_game.execution import validate_source_records
+        import base64
+        for source in inputs.get('input_sources', []):
+            if source.get('role') in ('covenant', 'base_covenant') and 'data_base64' in source:
+                validate_source_records([source])
+                if canonical_json(json.loads(base64.b64decode(source['data_base64'], validate=True))) == canonical_json(self.base_profile):
+                    self.base_covenant_source = {**copy.deepcopy(source), 'role': 'base_covenant'}
+                    break
         self.base_parameters = {
             "population": self.era_config["population"],
             "generations": self.era_config["generations"],
@@ -444,6 +522,7 @@ class KeeperCampaign:
         # and the resumed first era's founders come from the ledger.
         self.era_offset = 0
         self.resume_founders: list[dict] | None = None
+        self.resume_founder_sources: list[dict] | None = None
         self.last_original_recording = None
         self.campaign = {
             "campaign_id": campaign_id,
@@ -458,6 +537,14 @@ class KeeperCampaign:
         }
 
     # -- read model ------------------------------------------------------
+
+    @property
+    def body_response(self) -> str:
+        return self._body_response
+
+    @property
+    def population_policy(self) -> str:
+        return self._population_policy
 
     @property
     def status(self) -> str:
@@ -478,7 +565,7 @@ class KeeperCampaign:
         return self.inherited_unlocks + self.campaign["unlocks"]
 
     def budget(self) -> dict:
-        """The spendable covenant budget (F7 — DR 0021's table)."""
+        """The spendable covenant budget (F7 â€” DR 0021's table)."""
         from mecha_game.covenant import covenant_budget
 
         return covenant_budget(
@@ -487,7 +574,7 @@ class KeeperCampaign:
 
     def species_memory(self) -> dict:
         """What the Keeper reviews: the last era's repertoire and the
-        campaign's earned facts — report fields verbatim."""
+        campaign's earned facts â€” report fields verbatim."""
         if not self.eras:
             return {
                 "eras_run": 0,
@@ -517,7 +604,7 @@ class KeeperCampaign:
         }
 
     def best_elite_grid(self) -> dict | None:
-        """The last era's best elite — the adoption handoff (the
+        """The last era's best elite â€” the adoption handoff (the
         companion loop adopts it through the engine's own gate)."""
         if not self.eras or not self.eras[-1]["elites"]:
             return None
@@ -531,13 +618,15 @@ class KeeperCampaign:
 
     def advance_era(
         self, weather: str, *, released_grids: list[dict] | None = None,
-        progress_callback=None, record_original=False,
+        progress_callback=None, record_original=False, released_sources=None,
+        care_selection_policy='off', care_evaluator='archive_morphology_probe_v1',
+        survival_regime='sheltered', cubff_density_pressure=False,
     ) -> dict:
         """Advance the living bloodline by exactly one era (the lab's
         `advance_campaign` semantics: founders = the previous era's
         elites; unlock facts accumulate; extinction ends the chain).
 
-        ``released_grids`` (the lab's E5 seam — DR 0021's Contribute):
+        ``released_grids`` (the lab's E5 seam â€” DR 0021's Contribute):
         the Keeper's released creatures LEAD the founder pool, ahead
         of the prior era's elites (the T1/DR 0016 founders-lead rule);
         admission or verbatim rejection is the engine's own judgment
@@ -545,11 +634,27 @@ class KeeperCampaign:
         if self.campaign["status"] != "active":
             raise ValueError(
                 f"campaign {self.campaign['campaign_id']!r} is "
-                f"{self.campaign['status']} — an ended bloodline cannot "
+                f"{self.campaign['status']} â€” an ended bloodline cannot "
                 "run another era (successor() starts the next)"
             )
         era_index = self.era_offset + len(self.eras)
-        if self.eras:
+        from mecha_game.execution import (validate_population_inputs, POPULATION_INPUT_FORMAT,
+            population_arguments, population_ended, breeder_sources, validate_breeder_continuation)
+        survivor = self.population_policy == 'generation_survivors_v1'
+        start = ('bootstrap' if era_index == 0 else 'continue') if survivor else None
+        population_inputs = dict(population_policy=self.population_policy, founder_start_mode=start,
+            survival_regime=survival_regime, cubff_density_pressure=cubff_density_pressure)
+        validate_population_inputs(dict(format=POPULATION_INPUT_FORMAT, **population_inputs))
+        if cubff_density_pressure and not self.budget().get('cubff_density_pressure_allowed', False):
+            raise ValueError('Density pressure has not been earned for this campaign.')
+        previous_breeders = None
+        if survivor:
+            previous_breeders = (self.eras[-1]['report']['living_population']['final_breeders'] if self.eras
+                                 else self.resume_breeders if era_index else [])
+            if not isinstance(previous_breeders, list):
+                raise ValueError('Living continuation evidence is unavailable; historical elites cannot refill it.')
+            chain = [copy.deepcopy(row['grid']) for row in previous_breeders]
+        elif self.eras:
             chain = [
                 elite["grid"] for elite in self.eras[-1]["elites"]
             ]
@@ -558,9 +663,62 @@ class KeeperCampaign:
             chain = self.resume_founders
         else:
             chain = []
-        founder_pool = list(released_grids or []) + chain
-        founder_grids = founder_pool or None
-        legibility_model = self.inputs["legibility_model"]
+        from mecha_game.execution import (capture_execution, decode_execution_inputs,
+            finalize_execution, validate_source_records, elite_care_sources, care_arguments, body_arguments)
+        releases = list(released_grids or [])
+        validate_source_records(released_sources if released_sources is not None else [None] * len(releases), count=len(releases))
+        founder_pool = releases + chain
+        founder_grids = founder_pool if survivor else founder_pool or None
+        sources = [copy.deepcopy(row) for row in self.inputs.get('input_sources', [])
+                   if row.get('role') not in ('covenant', 'base_covenant')]
+        base_source = copy.deepcopy(self.base_covenant_source) if self.base_covenant_source is not None else dict(
+            source_kind='in_memory', source_position=None)
+        sources.append({**base_source, 'role': 'base_covenant',
+                        'matches_effective_covenant': canonical_json(self.base_profile) == canonical_json(self.campaign['slip_profile'])})
+        for role in ('seed_corpus', 'readability_model', 'generation_model', 'repair_model'):
+            if not any(row.get('role') == role for row in sources):
+                sources.append(dict(role=role, source_kind='in_memory', source_position=None))
+        if survivor:
+            chain_sources = breeder_sources({'living_population': {'final_breeders': previous_breeders}},
+                self.campaign['campaign_id'], era_index-1) if era_index else []
+        elif self.eras:
+            chain_sources = elite_care_sources(self.eras[-1]['report'], self.eras[-1]['elites'],
+                self.campaign['campaign_id'], self.eras[-1]['era_index'])
+        elif self.resume_founder_sources is not None:
+            chain_sources = self.resume_founder_sources
+        else:
+            chain_sources = [None] * len(chain)
+        founder_sources = list(released_sources or [None] * len(releases)) + list(chain_sources)
+        if survivor:
+            validate_breeder_continuation(founder_grids, founder_sources, previous_breeders,
+                self.campaign['campaign_id'], era_index, start)
+        for ordinal, source in enumerate(founder_sources):
+            sources.append({**copy.deepcopy(source or dict(source_kind='in_memory', source_position=None)),
+                            'role': 'founder', 'founder_ordinal': ordinal})
+        contexts = [copy.deepcopy(row.get('care_context')) for row in sources if row.get('role') == 'founder']
+        care_inputs = dict(founder_care_contexts=contexts, care_selection_policy=care_selection_policy,
+            care_evaluator=care_evaluator) if any(context is not None for context in contexts) or care_selection_policy != 'off' else {}
+        if care_selection_policy not in ('off', 'observed_care_selection_v1', 'observed_care_selection_v2') or care_evaluator not in ('pristine', 'archive_morphology_probe_v1'):
+            raise ValueError('Unsupported care selection policy or evaluator.')
+        weather_source = build_weather_source(weather, source_records=sources)
+        if cubff_density_pressure and not weather_source:
+            raise ValueError('Density pressure needs an actual weather source.')
+        if weather not in ('real', 'callback'):
+            sources.append(dict(role='weather', source_kind='generated' if weather_source is not None else 'none', source_position=None))
+        snapshot = capture_execution(self.campaign['campaign_id'], era_index, dict(
+            seed_grids=self.inputs['seed_grids'], slip_profile=self.campaign['slip_profile'],
+            generation_model=self.inputs['generation_model'], repair_model=self.inputs['repair_model'],
+            legibility_model=self.inputs['legibility_model'],
+            readability_selection={**self.inputs['legibility_model'], 'blend': legibility_blend_for(self.unlock_state())},
+            repair_training=self.inputs.get('repair_training'), founder_grids=founder_grids,
+            cubff_pressure_source=weather_source, rng_seed=self.campaign['base_seed'] + era_index * ERA_SEED_STRIDE,
+            effective_config=self.era_config, **care_inputs, **population_inputs,
+            **({'body_response': self.body_response} if self.body_response != 'legacy' else {})), sources)
+        captured = decode_execution_inputs(snapshot)
+        founder_grids = captured['founder_grids']
+        submitted_snapshot = copy.deepcopy(founder_grids or [])
+        legibility_model = captured['legibility_model']
+        admissions = []
 
         def scorer(grid: dict) -> float:
             return learned_readability_score(grid, legibility_model)
@@ -571,36 +729,24 @@ class KeeperCampaign:
             from mecha_game.original_recording import BestEvaluationRecording
             recorder = BestEvaluationRecording(self.campaign['campaign_id'], era_index,
                 self.campaign['base_seed'] + era_index * ERA_SEED_STRIDE,
-                self.campaign['slip_profile'], weather, self.era_config)
+                captured['slip_profile'], weather, captured['effective_config'])
         archive, report = evolve(
-            self.inputs["seed_grids"],
-            self.campaign["slip_profile"],
-            self.inputs["generation_model"],
-            self.inputs["repair_model"],
-            readability_scorer=scorer,
-            rng_seed=self.campaign["base_seed"]
-            + era_index * ERA_SEED_STRIDE,
-            founder_grids=founder_grids,
-            cubff_pressure_source=build_weather_source(weather),
-            readability_selection={
-                **legibility_model,
-                "blend": legibility_blend_for(self.unlock_state()),
-            },
-            **self.era_config,
+            captured['seed_grids'], captured['slip_profile'], captured['generation_model'], captured['repair_model'],
+            readability_scorer=scorer, rng_seed=captured['rng_seed'], founder_grids=founder_grids,
+            cubff_pressure_source=captured['cubff_pressure_source'], readability_selection=captured['readability_selection'],
+            admission_callback=admissions.append, **captured['effective_config'], **care_arguments(snapshot),
+            **population_arguments(snapshot), **body_arguments(snapshot),
             **({"progress_callback": progress_callback} if progress_callback is not None else {}),
             **({"recording_callback": recorder.capture} if recorder is not None and recorder.enabled else {}),
         )
-        # The archive's elites in niche-key order — the same
+        # The archive's elites in niche-key order â€” the same
         # deterministic ordering evolve uses for elite parents
         # (the lab's `_era_elites`, records spread VERBATIM).
         elites = [
             {"niche_key": niche, **archive["elites"][niche]}
             for niche in sorted(archive["elites"])
         ]
-        went_extinct = (
-            len(report["generations"]) < report["generations_requested"]
-            or not elites
-        )
+        went_extinct = population_ended(report, elites, self.population_policy)
         multipliers = [
             entry["dropout_multiplier"]
             for entry in report.get("cubff_pressure", {}).get(
@@ -639,6 +785,8 @@ class KeeperCampaign:
                 if founder_grids is not None
                 else []
             ),
+            "founder_records": _founder_records(submitted_snapshot, len(released_grids or []), report,
+                population_policy=self.population_policy),
             "report": report,
             "elites": elites,
             "derived": {
@@ -652,9 +800,13 @@ class KeeperCampaign:
                 "elite_mean_learned_readability": legibility,
             },
         }
+        era_record['execution'] = finalize_execution(snapshot, admissions, report, elites)
         if recorder is not None:
             self.last_original_recording = recorder.finish(era_record)
         self.campaign["eras"].append(era_record)
+        if survivor:
+            self._population_continuation = dict(founder_start_mode='continue', era_index=era_index,
+                ordered_breeders_sha256=era_record['execution']['manifest']['ordered_breeders_sha256'])
         self.campaign["unlocks"].extend(
             evaluate_unlocks(era_record, self.campaign["unlocks"])
         )
@@ -690,6 +842,7 @@ class KeeperCampaign:
             ticks=self.era_config["ticks"],
             dropout_rate=self.era_config["dropout_rate"],
             rng_seed=era["rng_seed"],
+            **({"body_response": self.body_response} if self.body_response != "legacy" else {}),
         )
         replay["honest_label"] = (
             "a real recorded life of a real era creature, replayed "
@@ -715,19 +868,22 @@ class KeeperCampaign:
         plan = self.plan_succession()
         if plan is None:
             raise ValueError(
-                "the bloodline lives — succession is extinction's door"
+                "the bloodline lives â€” succession is extinction's door"
             )
-        return KeeperCampaign(
-            self.inputs,
-            # Roguelite: the successor carries ONLY the unlocks — the
+        child = KeeperCampaign(
+            {**self.inputs, "slip_profile": json.loads(json.dumps(self.base_profile))},
+            # Roguelite: the successor carries ONLY the unlocks â€” the
             # spent covenant and caps reset to base; the fresh
             # bloodline spends again from its inherited budget.
             era_config={**self.era_config, **self.base_parameters},
             inherited_unlocks=self.unlock_state(),
+            population_policy=self.population_policy, body_response=self.body_response,
             **plan,
         )
+        child.base_covenant_source = copy.deepcopy(self.base_covenant_source)
+        return child
 
-    # -- replay persistence (F17 — DR 0022's pointer rule) -----------------
+    # -- replay persistence (F17 â€” DR 0022's pointer rule) -----------------
 
     def save_review_replay(
         self,
@@ -814,17 +970,110 @@ class KeeperCampaign:
         if digest != row["artifact_sha256"]:
             raise ValueError(
                 f"replay artifact {row['artifact_path']} fails its "
-                f"recorded sha256 — refusing a tampered recording"
+                f"recorded sha256 â€” refusing a tampered recording"
             )
         return json.loads(payload)
 
     # -- campaign state resume (F17) ----------------------------------------
 
     STATE_FORMAT = "keeper_campaign_state_v1"
+    POPULATION_STATE_FORMAT = "keeper_campaign_state_v2"
+
+    @classmethod
+    def validate_state_payload(cls, payload: object) -> None:
+        """Validate saved facts without defaults, migration or reconstruction."""
+        import math
+        from mecha_engine.slip import validate_slip
+
+        if not isinstance(payload, dict) or payload.get("state_format") not in (cls.STATE_FORMAT, cls.POPULATION_STATE_FORMAT):
+            raise ValueError("Not a supported keeper campaign state.")
+        from mecha_game.body_response import saved_body_response
+        saved_body_response(payload)
+        required = {"campaign_id": str, "keeper_label": str, "created_date": str,
+                    "status": str, "base_seed": int, "era_count": int,
+                    "unlocks": list, "inherited_unlocks": list, "base_profile": dict,
+                    "slip_profile": dict, "era_config": dict}
+        for name, expected in required.items():
+            if type(payload.get(name)) is not expected:
+                raise ValueError(f"Invalid campaign state field: {name}.")
+        for name in ("campaign_id", "keeper_label", "created_date"):
+            if not payload[name].strip():
+                raise ValueError(f"Empty campaign state field: {name}.")
+        if "predecessor_campaign_id" not in payload:
+            raise ValueError("Missing campaign predecessor identity.")
+        predecessor = payload["predecessor_campaign_id"]
+        if predecessor is not None and (not isinstance(predecessor, str) or not predecessor or
+                                        predecessor == payload["campaign_id"]):
+            raise ValueError("Invalid campaign predecessor identity.")
+        if payload["status"] not in ("active", "extinct", "retired") or payload["era_count"] < 0:
+            raise ValueError("Invalid campaign status or era count.")
+        if payload['state_format'] == cls.POPULATION_STATE_FORMAT:
+            if payload.get('population_policy') != 'generation_survivors_v1':
+                raise ValueError('Unsupported saved population policy.')
+            continuation = payload.get('population_continuation')
+            if not isinstance(continuation, dict) or set(continuation) != {'founder_start_mode', 'era_index', 'ordered_breeders_sha256'}:
+                raise ValueError('Saved campaign is missing its explicit population continuation.')
+            if payload['era_count'] == 0:
+                if continuation != dict(founder_start_mode='bootstrap', era_index=None, ordered_breeders_sha256=None):
+                    raise ValueError('New population campaign must explicitly bootstrap.')
+            else:
+                digest = continuation['ordered_breeders_sha256']
+                if (continuation['founder_start_mode'] != 'continue' or type(continuation['era_index']) is not int
+                        or continuation['era_index'] != payload['era_count']-1 or not isinstance(digest, str)
+                        or len(digest) != 64 or any(c not in '0123456789abcdef' for c in digest)):
+                    raise ValueError('Saved living continuation requires its exact prior breeder identity.')
+        elif 'population_policy' in payload or 'population_continuation' in payload:
+            raise ValueError('Population state requires its versioned format.')
+        config = payload["era_config"]
+        for name in ("generations", "population", "damage_cycles", "ticks"):
+            if type(config.get(name)) is not int or config[name] < 1:
+                raise ValueError(f"Invalid campaign configuration: {name}.")
+        rate = config.get("dropout_rate")
+        if type(rate) not in (int, float) or not math.isfinite(rate) or not 0 <= rate <= 1:
+            raise ValueError("Invalid campaign dropout rate.")
+        if "base_parameters" in payload:
+            base = payload["base_parameters"]
+            if not isinstance(base, dict) or any(type(base.get(name)) is not int or base[name] < 1
+                                                for name in ("population", "generations")):
+                raise ValueError("Invalid campaign base parameters.")
+        for name in ("base_profile", "slip_profile"):
+            try:
+                verdict = validate_slip(payload[name])
+            except (TypeError, KeyError, AttributeError) as error:
+                raise ValueError(f"Invalid campaign covenant: {name}.") from error
+            if not verdict.ok:
+                raise ValueError(f"Invalid campaign covenant {name}: " + "; ".join(verdict.errors))
+        if payload.get('base_covenant_source') is not None:
+            from mecha_game.execution import validate_source_records
+            import base64
+            source = payload['base_covenant_source']
+            validate_source_records([source])
+            if source.get('role') != 'base_covenant' or 'data_base64' not in source:
+                raise ValueError('Invalid saved base covenant source.')
+            if canonical_json(json.loads(base64.b64decode(source['data_base64'], validate=True))) != canonical_json(payload['base_profile']):
+                raise ValueError('Saved base covenant source disagrees with its profile.')
+        for name in ("unlocks", "inherited_unlocks"):
+            seen = set()
+            for fact in payload[name]:
+                if not isinstance(fact, dict):
+                    raise ValueError(f"Invalid campaign {name} fact.")
+                axis, tier = fact.get("axis"), fact.get("tier")
+                if (not isinstance(axis, str) or axis not in UNLOCK_THRESHOLDS or
+                    type(tier) is not int or not 1 <= tier <= len(UNLOCK_THRESHOLDS[axis]["tiers"]) or
+                    type(fact.get("earned_era_index")) is not int or fact["earned_era_index"] < 0 or
+                    not isinstance(fact.get("metric_path"), str) or not fact["metric_path"]):
+                    raise ValueError(f"Invalid campaign {name} fact.")
+                for key in ("metric_value", "threshold"):
+                    value = fact.get(key)
+                    if type(value) not in (int, float) or not math.isfinite(value):
+                        raise ValueError(f"Invalid campaign {name} {key}.")
+                if name == "unlocks" and ((axis, tier) in seen or fact["earned_era_index"] >= payload["era_count"]):
+                    raise ValueError("Duplicate or misplaced campaign unlock fact.")
+                seen.add((axis, tier))
 
     def state_payload(self) -> dict:
         """The exact active state; shared by normal saves and completed-era recovery."""
-        return {
+        payload = {
             "state_format": self.STATE_FORMAT,
             "campaign_id": self.campaign["campaign_id"],
             "keeper_label": self.campaign["keeper_label"],
@@ -838,10 +1087,18 @@ class KeeperCampaign:
             "unlocks": self.campaign["unlocks"],
             "inherited_unlocks": self.inherited_unlocks,
             "base_profile": self.base_profile,
+            "base_covenant_source": copy.deepcopy(self.base_covenant_source),
             "slip_profile": self.campaign["slip_profile"],
             "era_config": self.era_config,
             "base_parameters": self.base_parameters,
         }
+        if self.body_response != 'legacy': payload['body_response'] = self.body_response
+        if self.population_policy == 'generation_survivors_v1':
+            payload.update(state_format=self.POPULATION_STATE_FORMAT, population_policy=self.population_policy,
+                           population_continuation=copy.deepcopy(self._population_continuation))
+        return payload
+
+    @campaign_writer
     def save_state(self, path: str | Path) -> Path:
         """Atomically checkpoint the active covenant and era position."""
         from mecha_game.session import _document_bytes, _write_bytes_atomic
@@ -866,48 +1123,49 @@ class KeeperCampaign:
         covenant and earned facts from the state file, the era chain's
         founders from the LEDGER's own pool (pinned: a resumed
         continuation matches the unbroken run byte for byte)."""
-        from mecha_engine.storage import load_founder_pool, open_ledger
+        from mecha_game.campaign_recovery import require_no_restore, validate_ledger_state
 
-        payload = json.loads(
-            Path(state_path).read_text(encoding="utf-8")
-        )
-        if payload.get("state_format") != cls.STATE_FORMAT:
-            raise ValueError(
-                "not a keeper campaign state: "
-                f"{payload.get('state_format')!r}"
-            )
+        require_no_restore(state_path)
+        try:
+            payload = json.loads(Path(state_path).read_text(encoding="utf-8"))
+        except (ValueError, UnicodeError) as error:
+            raise ValueError("Campaign state is unreadable; existing files preserved.") from error
+        cls.validate_state_payload(payload)
+        history = validate_ledger_state(payload, ledger_path)
         campaign = cls(
             inputs,
             campaign_id=payload["campaign_id"],
             keeper_label=payload["keeper_label"],
             created_date=payload["created_date"],
-            predecessor_campaign_id=payload[
-                "predecessor_campaign_id"
-            ],
+            predecessor_campaign_id=payload["predecessor_campaign_id"],
             base_seed=payload["base_seed"],
             era_config=payload["era_config"],
             inherited_unlocks=payload["inherited_unlocks"],
+            population_policy=payload.get('population_policy', 'legacy_archive'),
+            body_response=payload.get('body_response', 'legacy'),
         )
         campaign.campaign["status"] = payload["status"]
         campaign.campaign["unlocks"] = payload["unlocks"]
         campaign.base_profile = payload["base_profile"]
+        # Missing old source evidence stays missing; current defaults are not history.
+        campaign.base_covenant_source = copy.deepcopy(payload.get('base_covenant_source'))
+        # This optional field retains the established interpretation of legacy saves.
         campaign.base_parameters = payload.get("base_parameters", campaign.base_parameters)
         campaign.campaign["slip_profile"] = payload["slip_profile"]
         campaign.era_offset = payload["era_count"]
+        if campaign.population_policy == 'generation_survivors_v1':
+            campaign._population_continuation = copy.deepcopy(payload['population_continuation'])
+            campaign.resume_breeders = copy.deepcopy(history['resume_breeders'])
         if campaign.era_offset:
-            conn = open_ledger(Path(ledger_path))
-            try:
-                campaign.resume_founders = load_founder_pool(
-                    conn, payload["campaign_id"]
-                )
-            finally:
-                conn.close()
+            campaign.resume_founders = history["resume_founders"]
+            campaign.resume_founder_sources = history['resume_founder_sources']
         return campaign
 
     # -- persistence (DR 0022) --------------------------------------------
 
+    @campaign_writer
     def save(self, ledger_path: str | Path) -> Path:
-        """Persist the campaign into the storage module's ledger —
+        """Persist the campaign into the storage module's ledger â€”
         blob-authoritative, one era per transaction; re-saving updates
         the status row and appends only unseen eras."""
         ledger_path = Path(ledger_path)
@@ -926,7 +1184,15 @@ class KeeperCampaign:
                 recorded = set()
             for era in self.eras:
                 if era["era_index"] in recorded:
+                    from mecha_engine.storage import load_era_execution
+                    if canonical_json(load_era_execution(conn, self.campaign['campaign_id'], era['era_index'])) != canonical_json(era.get('execution')):
+                        raise ValueError('Conflicting immutable execution already occupies this era; existing evidence preserved.')
                     continue
+                era_profile = self.campaign['slip_profile']
+                if era.get('execution') is not None:
+                    from mecha_game.execution import blob_json
+                    bundle = era['execution']
+                    era_profile = blob_json(bundle, bundle['manifest']['inputs']['covenant_sha256'])
                 record_era(
                     conn,
                     self.campaign["campaign_id"],
@@ -934,8 +1200,9 @@ class KeeperCampaign:
                     # top-level (DR 0022 schema); the record itself
                     # stays verbatim.
                     {**era, "went_extinct": era["derived"]["went_extinct"]},
-                    self.campaign["slip_profile"],
-                    founders=None,
+                    era_profile,
+                    founders=era.get("founder_records"),
+                    execution=era.get("execution"),
                     unlocks=[
                         fact
                         for fact in self.unlocks

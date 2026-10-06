@@ -61,6 +61,7 @@ def export_apng_with_sidecar(
     slip_profile: dict,
     *,
     clip_frames: dict | None = None,
+    authoring_document: dict | None = None,
 ) -> dict:
     """The APNG carrier. Without ``clip_frames`` this is the historical
     two-frame pulse, unchanged. With ``clip_frames`` (H3, cycle 18:
@@ -105,6 +106,12 @@ def export_apng_with_sidecar(
         uri=f"generated://workshop/apng-sidecar-decoder/{grid['grid_id']}.png",
     )
     sidecar = build_sidecar_for_grid(grid, slip_profile, asset)
+    # X2 additive arm: retain the complete authoring input; legacy default
+    # output remains byte-identical. Workshop verifies overlay agreement.
+    if authoring_document is not None:
+        from external_metadata_sidecar import authoring_document_digest
+        sidecar['authoring_document'] = deepcopy(authoring_document)
+        sidecar['authoring_document_digest'] = authoring_document_digest(authoring_document)
     sidecar["sidecar_id"] = f"{grid['grid_id']}_apng_sidecar"
     sidecar["apng_binding"] = {
         "binding_model": "apng_sidecar_decoder_v1",

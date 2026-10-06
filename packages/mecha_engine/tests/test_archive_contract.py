@@ -46,6 +46,7 @@ REQUIRED_PUBLIC_SURFACE = [
     "build_archive",
     "descriptor_for_candidate",
     "insert_candidate",
+    "lifecycle_probe_grid",
     "score_candidate",
 ]
 EXTENDED_DESCRIPTOR_NAMES = [

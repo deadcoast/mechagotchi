@@ -53,8 +53,8 @@ class MechaEngineStorageContractTests(unittest.TestCase):
     def setUpClass(cls):
         cls.report = _run_driver()
 
-    def test_schema_version_is_one(self):
-        self.assertEqual(1, self.report["schema_version"])
+    def test_schema_version_is_two(self):
+        self.assertEqual(2, self.report["schema_version"])
 
     def test_interim_migration_counts(self):
         self.assertEqual(

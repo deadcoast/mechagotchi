@@ -152,7 +152,10 @@ class SessionLoopTests(unittest.TestCase):
             if second.alive:
                 second.advance()
         self.assertEqual(first.state, second.state)
-        self.assertEqual(first.log, second.log)
+        # Each actual life has its own identity; all behavioral facts remain deterministic.
+        self.assertNotEqual(first.log[0]["life_id"], second.log[0]["life_id"])
+        self.assertEqual([{key: value for key, value in row.items() if key != "life_id"} for row in first.log],
+                         [{key: value for key, value in row.items() if key != "life_id"} for row in second.log])
 
     def test_history_trim_does_not_change_decisions(self):
         # The D5-measured hotspot: advance_tick deepcopies history.

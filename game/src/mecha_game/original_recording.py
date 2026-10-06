@@ -80,6 +80,9 @@ def validate_recording(document, campaign_id, era, covenant):
     if type(generation) is not int or type(index) is not int or generation < 0 or index < 0:
         raise ValueError('Invalid original evaluation position.')
     report = era['report']
+    from mecha_game.body_response import saved_body_response
+    if saved_body_response(params) != saved_body_response(report):
+        raise ValueError('Original recording body response differs from its recorded era.')
     try: creature = report['generations'][generation]['creatures'][index]
     except IndexError as error: raise ValueError('Original evaluation is outside the saved report.') from error
     best = max(era['elites'], key=lambda item: (item['fitness'], item['niche_key']))

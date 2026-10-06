@@ -8,6 +8,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -40,6 +41,108 @@ def digest(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode()).hexdigest()
 
 
+def legacy_game_save_projection(payload: dict) -> dict:
+    """Preserve Q2's complete old payload while judging X1/X7 metadata separately.
+
+    This instrument is deliberately limited to its incumbent single living
+    founder vectors. Only enumerated additive X1 fields can be removed; unknown
+    fields refuse. X7 life/body and thought identities are validated before
+    projecting only those registered fields. No grid, profile, state, learning, model, behavioral log or original
+    lineage field is projected away, and the committed hashes never change.
+    """
+    def require(condition, field):
+        if not condition:
+            raise ValueError('Q2 incumbent save projection refused: ' + field)
+
+    legacy_keys = {
+        'session_format', 'name', 'grid', 'slip_profile', 'state',
+        'session_tick', 'begging', 'fleet', 'succession_seed', 'log',
+        'lineage', 'generation_model',
+    }
+    legacy_life_keys = {'grid_id', 'parent_grid_id', 'lineage',
+                        'born_session_tick', 'origin'}
+    added_life_keys = {'life_id', 'last_age_ticks', 'last_session_tick',
+                       'outcome', 'care_summary', 'events', 'events_omitted', 'name'}
+    require(isinstance(payload, dict) and
+            set(payload) == legacy_keys | {'chronicle', 'succession_index'}, 'top-level fields')
+    require(payload['succession_index'] == 1, 'single founder succession index')
+    require(isinstance(payload['lineage'], list) and len(payload['lineage']) == 1,
+            'single founder lineage')
+    record = payload['lineage'][0]
+    body_keys = {"grid_sha256", "grid_structure_sha256"}
+    if isinstance(record, dict) and body_keys & set(record):
+        from mecha_game.care_history import care_grid_digest, care_structure_digest
+        require(body_keys.issubset(record) and
+                record["grid_sha256"] == care_grid_digest(payload["grid"]) and
+                record["grid_structure_sha256"] == care_structure_digest(payload["grid"]), "observed body identity")
+        added_life_keys |= body_keys
+    require(isinstance(record, dict) and set(record) == legacy_life_keys | added_life_keys,
+            'per-life fields')
+    chronicle = payload['chronicle']
+    require(isinstance(chronicle, dict) and set(chronicle) == {
+        'chronicle_format', 'keeper_id', 'identity_origin', 'prior_history', 'campaign_id', 'campaign_links',
+    }, 'chronicle fields')
+    require(isinstance(chronicle['keeper_id'], str) and
+            re.fullmatch(r'keeper-[0-9a-f]{32}', chronicle['keeper_id']) is not None, 'Keeper identity')
+    require({
+        'chronicle_format': 'keeper_chronicle_v1', 'identity_origin': 'new_keeper',
+        'prior_history': 'none', 'campaign_id': None, 'campaign_links': [],
+    } == {key: value for key, value in chronicle.items() if key != 'keeper_id'}, 'new Keeper facts')
+    require(isinstance(record['life_id'], str) and
+            re.fullmatch(r'keeper-[0-9a-f]{32}:life-[0-9a-f]{32}', record['life_id']) is not None and
+            record['life_id'].startswith(chronicle['keeper_id'] + ':life-'), 'life identity')
+    # Full current save validation is separate from the historical projection.
+    # This read-only constructor preserves lifecycle/learning state verbatim.
+    CompanionSession._from_payload(payload)
+    require(record['last_age_ticks'] == payload['state']['age_ticks'] and
+            record['last_session_tick'] == payload['session_tick'] and
+            record['name'] == payload['name'] and record['outcome'] == 'alive' and
+            record['events_omitted'] == 0 and record['events'] == payload['log'], 'observed life facts')
+    expected_summary = {
+        'history': 'complete', 'from_age_ticks': 0,
+        'ticks_observed': len(payload['log']), 'keeper_actions': {},
+        'companion_actions': {}, 'beg_requests': 0,
+    }
+    for entry in payload['log']:
+        counts = expected_summary[entry['actor'] + '_actions']
+        counts[entry['action']] = counts.get(entry['action'], 0) + 1
+        expected_summary['beg_requests'] += int(entry['begging'])
+    require(record['care_summary'] == expected_summary, 'complete observed care totals')
+    return {
+        **{key: value for key, value in payload.items()
+           if key not in {'chronicle', 'succession_index'}},
+        'log': [{key: value for key, value in entry.items() if key != 'life_id'} for entry in payload['log']],
+        'lineage': [{key: value for key, value in record.items()
+                     if key not in added_life_keys}],
+    }
+
+
+def legacy_game_snapshot_projection(snapshot: dict) -> dict:
+    """Remove only validated X7 identities from the Q2 single-founder readout."""
+    def require(condition, field):
+        if not condition:
+            raise ValueError('Q2 incumbent snapshot projection refused: ' + field)
+    legacy_keys = {'name', 'alive', 'death_cause', 'age_ticks', 'session_tick', 'needs',
+                   'mood', 'health', 'happiness', 'begging', 'ui_hints', 'generation_count',
+                   'actions', 'log', 'threads'}
+    require(isinstance(snapshot, dict) and set(snapshot) == legacy_keys | {'life_id', 'born_session_tick'},
+            'registered fields')
+    require(isinstance(snapshot['life_id'], str) and
+            re.fullmatch(r'keeper-[0-9a-f]{32}:life-[0-9a-f]{32}', snapshot['life_id']) is not None,
+            'actual life identity')
+    require(type(snapshot['born_session_tick']) is int and snapshot['born_session_tick'] == 0 and
+            snapshot['generation_count'] == 1 and snapshot['age_ticks'] == snapshot['session_tick'],
+            'single founder boundary')
+    event_keys = {'tick', 'session_tick', 'actor', 'action', 'begging', 'alive', 'death_cause'}
+    require(isinstance(snapshot['log'], list), 'observed log')
+    for event in snapshot['log']:
+        require(isinstance(event, dict) and
+                set(event) in (event_keys | {'life_id'}, event_keys | {'life_id', 'thought'}) and
+                event['life_id'] == snapshot['life_id'], 'observed event identity or fields')
+    return {**{key: value for key, value in snapshot.items() if key not in {'life_id', 'born_session_tick'}},
+            'log': [{key: value for key, value in event.items() if key != 'life_id'} for event in snapshot['log']]}
+
+
 def judge(checks: dict[str, bool]) -> dict:
     failed = sorted(name for name in REQUIRED_CHECKS | checks.keys() if checks.get(name) is not True)
     return {'verdict': 'withhold' if failed else 'adopt_authorship', 'failed_checks': failed,
@@ -63,7 +166,12 @@ def build_report() -> dict:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / 'session.json'
             session.save(path)
-            if digest(json.loads(path.read_text())) != row['game_save_hash'] or digest(session.snapshot()) != row['game_snapshot_hash']:
+            try:
+                historical_payload = legacy_game_save_projection(json.loads(path.read_text()))
+            except ValueError:
+                game_mismatches.append(row['profile_path'])
+                continue
+            if digest(historical_payload) != row['game_save_hash'] or digest(legacy_game_snapshot_projection(session.snapshot())) != row['game_snapshot_hash']:
                 game_mismatches.append(row['profile_path'])
     grid = read('data/seed_grids/mg_seed_001.json')
     profile = read('data/slips/valid/slip_v2_cleanliness.json')

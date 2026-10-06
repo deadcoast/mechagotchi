@@ -1,6 +1,6 @@
 """mecha_engine.storage — the campaign ledger (decision record 0022).
 
-The ninth promoted module: DR 0022's SQLite schema v1 as a deterministic,
+The ninth promoted module: DR 0022's SQLite schema v2 (with unchanged v1 tables) as a deterministic,
 transactional store of engine truth. Contract sources:
 
 - research/decision_records/0022-storage-module.md (the design and the
@@ -24,10 +24,14 @@ randomness).
 from mecha_engine.storage.store import (
     INTERIM_SCHEMA,
     SCHEMA_VERSION,
+    SUPPORTED_READ_SCHEMA_VERSIONS,
+    load_era_execution,
+    validate_execution,
     campaign_history,
     canonical_json,
     ingest_session_artifacts,
     load_era_elites,
+    load_era_breeders,
     load_founder_pool,
     load_replay_rows,
     load_unlock_state,
@@ -40,10 +44,14 @@ from mecha_engine.storage.store import (
 __all__ = [
     "INTERIM_SCHEMA",
     "SCHEMA_VERSION",
+    "SUPPORTED_READ_SCHEMA_VERSIONS",
+    "load_era_execution",
+    "validate_execution",
     "campaign_history",
     "canonical_json",
     "ingest_session_artifacts",
     "load_era_elites",
+    "load_era_breeders",
     "load_founder_pool",
     "load_replay_rows",
     "load_unlock_state",

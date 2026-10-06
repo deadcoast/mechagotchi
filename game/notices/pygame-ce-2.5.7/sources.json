@@ -1,0 +1,183 @@
+{
+  "font": {
+    "sha256": "bf9251269f11e4b35582a99376096deee3d0c4973a459cbd97b0bebc01f440ad",
+    "source": "installed pygame-ce 2.5.7 freesansbold.ttf name table"
+  },
+  "format": "mechagotchi_dependency_notices_v1",
+  "installed_files": {
+    "SDL2.dll": "b37740a72a7a9706216df9f0134894bb7a850b356fd149398c67d874cbcfacb4",
+    "SDL2_image.dll": "a7b1372f19f558ac451224d80e066d008cb3903b4819bc151fc0f01350dae1a2",
+    "SDL2_mixer.dll": "79d84ea27b2b0402b5506bc6883e71fbca2874f983c727106fa26abb11b7f5b5",
+    "SDL2_ttf.dll": "86febaf2ca137e417808a646b5920cdd10d7093b30a2071abde40b012c923c3d",
+    "freetype.dll": "1c487392d6d06970ba3c7b52705881f1fb069f607243499276c2f0c033c7df6f",
+    "libjpeg-62.dll": "87f3ace17e1e1ddbda80c7aced0d6128c28cfc4ec1764a8ededb2cc89886f6d8",
+    "libogg-0.dll": "2faf08f27f1008ca602039e199fdf671df0962923836351eade6ceb6c88e49e4",
+    "libopus-0.dll": "9c09ad462d201d13c9aebfb4f31d1537ef071128b1ce9bb0f8b79f52090ffe1c",
+    "libopusfile-0.dll": "6760d02f10ed90708504eb08fadb4cda9ead438893996f13d0a09925d126e338",
+    "libpng16-16.dll": "2194c93f229022079673ccdce6987c6a9109318ca494b1be85d7b9216a3712ea",
+    "libtiff-5.dll": "217d47ef36418c31b6eb25e3764542c4fae206a2caac5bd310a03f4826474b79",
+    "libwavpack-1.dll": "463fb7ead77a9a68641940c478970de8ee487a807b42e8d120e04773d7d45d44",
+    "libwebp-7.dll": "6f9a53679ef7b9b55cd479bc5ef840e196368630e7930b8669bd3a1a6c0ddc75",
+    "libwebpdemux-2.dll": "53645d4daf4379e8e454d28d6eaaf2949ab0f1686b2fc3edf529b5f2560dd971",
+    "libxmp.dll": "d0504d742581e2d38220ca1f37a3a6f09ebd7cb8df592a07d0833ed261e35ed0",
+    "portmidi.dll": "c9f8d9043ac1570b10f104f2d00aec791f56261c84ee40773be73d0a3822e013"
+  },
+  "installed_versions": {
+    "FreeType": [
+      2,
+      11,
+      1
+    ],
+    "SDL": [
+      2,
+      32,
+      10
+    ],
+    "SDL_image": [
+      2,
+      8,
+      8
+    ],
+    "SDL_mixer": [
+      2,
+      8,
+      1
+    ],
+    "SDL_ttf": [
+      2,
+      24,
+      0
+    ],
+    "WavPack": "5.6.0 (installed DLL version resource)",
+    "libxmp": "4.6.1",
+    "pygame_ce": "2.5.7"
+  },
+  "scope": "Exact installed pygame-ce DLL/font inventory; tagged upstream notice texts. Unknown transitive versions are not inferred from tag. No independent legal-compliance claim.",
+  "source_files": [
+    {
+      "file": "LGPL.txt",
+      "sha256": "a190dc9c8043755d90f8b0a75fa66b9e42d4af4c980bf5ddc633f0124db3cee7",
+      "size": 26430,
+      "url": "https://raw.githubusercontent.com/pygame-community/pygame-ce/2.5.7/docs/LGPL.txt"
+    },
+    {
+      "file": "LICENSE.freetype.txt",
+      "sha256": "650737ec7589c35600de73b0db88dafb314f7e32e7e3cf38d0c87ceb1a7ed31b",
+      "size": 6912,
+      "url": "https://raw.githubusercontent.com/pygame-community/pygame-ce/2.5.7/docs/licenses/LICENSE.freetype.txt"
+    },
+    {
+      "file": "LICENSE.jpeg.txt",
+      "sha256": "2899a194cc43af0cfbeff33cdecfad20de8bbf784155b0cd0217d27c37609a28",
+      "size": 3021,
+      "url": "https://raw.githubusercontent.com/pygame-community/pygame-ce/2.5.7/docs/licenses/LICENSE.jpeg.txt"
+    },
+    {
+      "file": "LICENSE.libxmp.txt",
+      "selection": "Complete LICENSE section from tagged README",
+      "sha256": "2e562beb39d4287bc5958c9c8c72e642324e71025f19d6362625d31cf3c4c121",
+      "size": 1122,
+      "upstream_document_sha256": "8c8788a928222f9e69377255bc97c00204658bca3f9958d813bd28ae2d5e1729",
+      "url": "https://raw.githubusercontent.com/libxmp/libxmp/libxmp-4.6.1/README"
+    },
+    {
+      "file": "LICENSE.ogg-vorbis.txt",
+      "sha256": "776b6f6ab87afa263d534ad4061b6180149de0fed90e2e18e1592992922327ce",
+      "size": 1498,
+      "url": "https://raw.githubusercontent.com/pygame-community/pygame-ce/2.5.7/docs/licenses/LICENSE.ogg-vorbis.txt"
+    },
+    {
+      "file": "LICENSE.opus.txt",
+      "sha256": "fde149f902d124a8c02a218527c440ee2fab6884323f180061b1405fb06af60e",
+      "size": 1972,
+      "url": "https://raw.githubusercontent.com/pygame-community/pygame-ce/2.5.7/docs/licenses/LICENSE.opus.txt"
+    },
+    {
+      "file": "LICENSE.opusfile.txt",
+      "sha256": "54e125c8250361407b34322e0f328f6bdf7fd30cd4f2941a321e47b41f9c159d",
+      "size": 1515,
+      "url": "https://raw.githubusercontent.com/pygame-community/pygame-ce/2.5.7/docs/licenses/LICENSE.opusfile.txt"
+    },
+    {
+      "file": "LICENSE.png.txt",
+      "sha256": "0ad3bfee8be10e5519949e7af492e36bc349376b75fbeb412229a5967e3e9434",
+      "size": 5479,
+      "url": "https://raw.githubusercontent.com/pygame-community/pygame-ce/2.5.7/docs/licenses/LICENSE.png.txt"
+    },
+    {
+      "file": "LICENSE.portmidi.txt",
+      "sha256": "eb5d0724b2ae76a94ae804c44b3d6cfaaca822b7d42907aefa9256cb93db6fe0",
+      "size": 11342,
+      "url": "https://raw.githubusercontent.com/pygame-community/pygame-ce/2.5.7/docs/licenses/LICENSE.portmidi.txt"
+    },
+    {
+      "file": "LICENSE.sdl2.txt",
+      "sha256": "ae4df3759a726538607b84c00ab8f8a5567d9f38ad5397486eb9b5c5f626caef",
+      "size": 930,
+      "url": "https://raw.githubusercontent.com/pygame-community/pygame-ce/2.5.7/docs/licenses/LICENSE.sdl2.txt"
+    },
+    {
+      "file": "LICENSE.sdl2_image.txt",
+      "sha256": "45079362e2230154205413a6940544ca94e3479ccf76205c71c4f542a6815d25",
+      "size": 996,
+      "url": "https://raw.githubusercontent.com/pygame-community/pygame-ce/2.5.7/docs/licenses/LICENSE.sdl2_image.txt"
+    },
+    {
+      "file": "LICENSE.sdl2_mixer.txt",
+      "sha256": "113727180e7956cb9718b03b41da85b63ea54743a33047071a623bf672895a10",
+      "size": 994,
+      "url": "https://raw.githubusercontent.com/pygame-community/pygame-ce/2.5.7/docs/licenses/LICENSE.sdl2_mixer.txt"
+    },
+    {
+      "file": "LICENSE.sdl2_ttf.txt",
+      "sha256": "7826eca0a0f7e591f38dd844e207a200aac81a59b20d8a30c3af8c6282af13e6",
+      "size": 878,
+      "url": "https://raw.githubusercontent.com/libsdl-org/SDL_ttf/release-2.24.0/LICENSE.txt"
+    },
+    {
+      "file": "LICENSE.sdl_gfx.txt",
+      "sha256": "63744690fa28ecf2a9dedacafb08d1209031e7eff1820430d952264f678a1bcf",
+      "size": 191,
+      "url": "https://raw.githubusercontent.com/pygame-community/pygame-ce/2.5.7/docs/licenses/LICENSE.sdl_gfx.txt"
+    },
+    {
+      "file": "LICENSE.tiff.txt",
+      "sha256": "8eeab3915f97f6f7b62a8008bf77e7ac3bfbb034b04d93cd63aafa10b2dd6614",
+      "size": 1160,
+      "url": "https://raw.githubusercontent.com/pygame-community/pygame-ce/2.5.7/docs/licenses/LICENSE.tiff.txt"
+    },
+    {
+      "file": "LICENSE.wavpack.txt",
+      "sha256": "275d65ec11a78d552d078b9c26d950e3075892bca895a415ceaaec33bcfabff9",
+      "size": 1557,
+      "url": "https://raw.githubusercontent.com/dbry/WavPack/5.6.0/license.txt"
+    },
+    {
+      "file": "LICENSE.webp.txt",
+      "sha256": "17c029a902ad45a199dfe8e3a1c39305ab28d302b0703360c4a27351a4673dcb",
+      "size": 1526,
+      "url": "https://raw.githubusercontent.com/pygame-community/pygame-ce/2.5.7/docs/licenses/LICENSE.webp.txt"
+    },
+    {
+      "file": "LICENSE.zlib.txt",
+      "sha256": "31010e0bc26df3001c7bb3c1b7a7094a8972bf6d37a5d0c59d3d3c98fbfaf463",
+      "size": 1562,
+      "url": "https://raw.githubusercontent.com/pygame-community/pygame-ce/2.5.7/docs/licenses/LICENSE.zlib.txt"
+    },
+    {
+      "file": "GNU-GPL-2.0.txt",
+      "selection": "GNU license texts accompany actual embedded font notice, which does not specify a version or font exception.",
+      "sha256": "edaef632cbb643e4e7a221717a6c441a4c1a7c918e6e4d56debc3d8739b233f6",
+      "size": 17984,
+      "url": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt"
+    },
+    {
+      "file": "GNU-GPL-3.0.txt",
+      "selection": "GNU license texts accompany actual embedded font notice, which does not specify a version or font exception.",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "size": 35149,
+      "url": "https://www.gnu.org/licenses/gpl-3.0.txt"
+    }
+  ],
+  "upstream_tag": "pygame-ce/2.5.7"
+}

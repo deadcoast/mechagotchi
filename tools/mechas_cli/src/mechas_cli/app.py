@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import json
-
 import typer
 
 from mechas_cli import __version__, theme
@@ -27,8 +25,8 @@ app = typer.Typer(
         "and tells you what to do next."
     ),
     epilog=(
-        "Start with [bold #5dbb63]mechas rate --creatures[/] to rate the "
-        "creature samples, or [bold #5dbb63]mechas status[/] to see where "
+        "Start with [bold #5dbb63]mechas game --play[/] to open the "
+        "native application, or [bold #5dbb63]mechas status[/] to see where "
         "the project stands."
     ),
 )
@@ -41,53 +39,11 @@ app.command(name="develop")(develop)
 
 
 @app.command()
-def status() -> None:
-    """Where the project stands: modules, gates, and open human tasks."""
-    console = theme.console()
-    root = find_workspace_root()
-    console.print(theme.banner("status — the workspace at a glance"))
-
-    entries: list[tuple[str, str, str]] = []
-    promotion = (
-        root
-        / "data"
-        / "package_promotion"
-        / "mecha_engine_package_promotion_gate_stage0.json"
-    )
-    if promotion.exists():
-        summary = json.loads(promotion.read_text(encoding="utf-8")).get(
-            "summary", {}
-        )
-        entries.append(
-            (
-                "engine modules",
-                f"{summary.get('promotion_ready_count', '?')} promotion-ready "
-                f"of {summary.get('candidate_count', '?')} candidates",
-                "mechas.ok",
-            )
-        )
-    calibration = (
-        root
-        / "data"
-        / "readability"
-        / "slip_readability_calibration_gate_stage0.json"
-    )
-    if calibration.exists():
-        gate = json.loads(calibration.read_text(encoding="utf-8"))
-        ready = bool(gate.get("manual_readability_calibration_ready"))
-        entries.append(
-            (
-                "readability calibration",
-                "ready" if ready else "waiting on human ratings — "
-                "run [bold]mechas rate --creatures[/]",
-                "mechas.ok" if ready else "mechas.warn",
-            )
-        )
-    if not entries:
-        entries.append(
-            ("workspace", "no gate artifacts found yet", "mechas.warn")
-        )
-    console.print(theme.kv_table(entries))
+def status(artifact_report: str | None = typer.Option(None, '--artifact-report', help='Inspect a recorded detached Windows artifact report; does not rerun verification.')) -> None:
+    """Application, local checks, packaged evidence and separate research calibration."""
+    from pathlib import Path
+    from mechas_cli.workflows.status import show_status
+    show_status(find_workspace_root(), Path(artifact_report) if artifact_report else None)
 
 
 @app.callback(invoke_without_command=True)

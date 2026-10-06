@@ -110,6 +110,7 @@ def generate_candidate(
     rng_seed: int | None = None,
     *,
     resample_temperature: float | None = None,
+    mutation_arm: str = "legacy",
 ) -> dict:
     """Generate one valid child candidate from an explicit parent grid.
 
@@ -120,8 +121,10 @@ def generate_candidate(
     deterministic. The returned candidate passes package genome validation,
     preserves lineage (parent id, generation number, ancestor ids, mutation
     events), and carries the generation trace used by
-    ``explain_generation``.
+    ``explain_generation``. ``mutation_arm="operative_permissions_v1"`` opts
+    into experimental inherited permissions; the default retains legacy behavior.
     """
+    _validate_mutation_arm(mutation_arm)
     if not isinstance(model, GenerationModel):
         raise ValueError("model must be a GenerationModel from train_generation_model")
     parent_result = validate_grid(parent_grid) if isinstance(parent_grid, dict) else None
@@ -146,6 +149,9 @@ def generate_candidate(
     attempts = _proposal_attempts(resample_temperature)
     seed = DEFAULT_RNG_SEED if rng_seed is None else rng_seed
     grid_id = _candidate_grid_id(parent_grid["grid_id"], seed)
+    if mutation_arm != "legacy":
+        grid_id = _candidate_grid_id(parent_grid["grid_id"] + ":" + mutation_arm, seed)
+        return _operative_candidate(parent_grid, model, grid_id, seed, slip_profile, attempts)
     rng = random.Random(f"{seed}:{grid_id}")
     return _stabilize(
         parent_grid,
@@ -166,6 +172,7 @@ def generate_batch(
     rng_seed: int | None = None,
     *,
     resample_temperature: float | None = None,
+    mutation_arm: str = "legacy",
 ) -> list[dict]:
     """Generate exactly ``count`` valid, traceable candidates from seeds.
 
@@ -176,6 +183,7 @@ def generate_batch(
     inputs and RNG seed. Every returned candidate passes
     ``mecha_engine.genome.validate_grid``.
     """
+    _validate_mutation_arm(mutation_arm)
     if isinstance(count, bool) or not isinstance(count, int) or count < 0:
         raise ValueError(f"count must be a non-negative integer: {count}")
     attempts = _proposal_attempts(resample_temperature)
@@ -193,6 +201,11 @@ def generate_batch(
         grid_id = BATCH_GRID_ID_TEMPLATE.format(index=index)
         rng = random.Random(f"{seed}:{grid_id}")
         parent = rng.choice(parent_pool)
+        if mutation_arm != "legacy":
+            candidates.append(_operative_candidate(
+                parent, model, f"mg_operative_{index:03d}", seed, slip_profile, attempts
+            ))
+            continue
         candidates.append(
             _stabilize(
                 parent,
@@ -206,6 +219,28 @@ def generate_batch(
             )
         )
     return candidates
+
+
+def _validate_mutation_arm(mutation_arm: str) -> None:
+    if mutation_arm not in ("legacy", "operative_permissions_v1"):
+        raise ValueError("mutation_arm must be legacy or operative_permissions_v1")
+
+
+def _operative_candidate(parent, model, grid_id, rng_seed, slip, attempts):
+    # Experimental named arm; no product default or scientific promotion implied.
+    from ._operative_permissions import operative_descendant
+    candidate = operative_descendant(
+        parent, grid_id=grid_id, rng_seed=rng_seed, slip_profile=slip,
+        token_counts=model.token_counts, adjacency=model.adjacency,
+        token_specs=RICH_TOKENS, organ_specs=RICH_ORGAN_ROLES, palettes=PALETTES,
+        validate=validate_grid, align=is_grid_aligned, proposal_rounds=attempts,
+    )
+    candidate["metadata"][TRACE_METADATA_KEY]["model"] = {
+        "strategy": model.metadata.get("strategy"),
+        "seed_count": model.metadata.get("seed_count"),
+        "seed_corpus_sha256": model.metadata.get("seed_corpus_sha256"),
+    }
+    return candidate
 
 
 def _filter_seed_pool(seed_grids: list[dict], slip: dict | None) -> list[dict]:

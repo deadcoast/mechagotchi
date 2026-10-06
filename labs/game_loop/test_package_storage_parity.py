@@ -31,6 +31,9 @@ TABLES = (
     "founders",
     "unlocks",
     "replays",
+    "execution_blobs",
+    "era_executions",
+    "founder_occurrences",
 )
 
 
@@ -49,7 +52,7 @@ class StorageSourceParityTests(unittest.TestCase):
             encoding="utf-8"
         )
         surface = lab_source[
-            lab_source.index("SCHEMA_VERSION = 1") : lab_source.index(
+            lab_source.index("SCHEMA_VERSION =") : lab_source.index(
                 "def _sha256"
             )
         ].rstrip()
@@ -60,6 +63,38 @@ class StorageSourceParityTests(unittest.TestCase):
 
 
 class StorageBehaviorParityTests(unittest.TestCase):
+    def test_execution_rows_and_loaded_bundles_match_exactly(self):
+        from test_execution_store import probes
+        campaign, profile, era, bundle = probes.fixture()
+        connections = [store.open_ledger(":memory:") for store in (lab_store, package_store)]
+        try:
+            for store, conn in zip((lab_store, package_store), connections, strict=True):
+                store.record_campaign(conn, campaign)
+                store.record_era(conn, campaign["campaign_id"], era, profile, execution=bundle)
+                self.assertEqual(bundle, store.load_era_execution(conn, campaign["campaign_id"], 0))
+            self.assertEqual(_dump(connections[0]), _dump(connections[1]))
+        finally:
+            for conn in connections:
+                conn.close()
+
+    def test_living_cohort_and_complete_continuation_match_exactly(self):
+        from test_population_store import probes
+        campaign, profile, era, bundle = probes.fixture(cared=True)
+        later, continuation = probes.continuation(era, bundle, cared=True)
+        connections = [store.open_ledger(":memory:") for store in (lab_store, package_store)]
+        try:
+            for store, conn in zip((lab_store, package_store), connections, strict=True):
+                store.record_campaign(conn, campaign)
+                store.record_era(conn, campaign["campaign_id"], era, profile, execution=bundle)
+                store.record_era(conn, campaign["campaign_id"], later, profile, execution=continuation)
+                self.assertEqual(later["report"]["living_population"]["final_breeders"],
+                    store.load_era_breeders(conn, campaign["campaign_id"], 1))
+                self.assertEqual(continuation, store.load_era_execution(conn, campaign["campaign_id"], 1))
+            self.assertEqual(_dump(connections[0]), _dump(connections[1]))
+        finally:
+            for conn in connections:
+                conn.close()
+
     def test_both_stores_ingest_the_real_interim_identically(self):
         lab_conn = lab_store.open_ledger(":memory:")
         package_conn = package_store.open_ledger(":memory:")

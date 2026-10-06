@@ -166,7 +166,10 @@ class LaunchTests(unittest.TestCase):
 
             conn = open_ledger(ledger)
             try:
-                history = campaign_history(conn, "keeper_campaign")
+                from mecha_game.session import CompanionSession
+                pet = CompanionSession.load(Path(tmp) / 'companion.json')
+                self.assertEqual(pet.keeper_id, pet.campaign_id)
+                history = campaign_history(conn, pet.campaign_id)
             finally:
                 conn.close()
             self.assertEqual(2, len(history["eras"]))

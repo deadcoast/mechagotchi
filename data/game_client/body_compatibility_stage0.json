@@ -1,0 +1,55 @@
+{
+  "format": "body_compatibility_stage0_v1",
+  "scope": "operational persistence repair, not an outcome trial",
+  "branch": "phase-l-gate",
+  "head": "d4b4337d0dacbdfa816d990297c03a5da2d0cdca",
+  "native_red": {
+    "tests": 8,
+    "failing_subcases": 11,
+    "log": ".development/body-compatibility/native-red-corrected.log"
+  },
+  "workshop_red": {
+    "failing_subcases": 17,
+    "log": ".development/body-compatibility/workshop-red.log"
+  },
+  "native_focused_green": {
+    "new_tests": 13,
+    "existing_continuity_tests": 11,
+    "passed": true,
+    "log": ".development/body-compatibility/native-green-final.log"
+  },
+  "workshop_focused_green": {
+    "new_tests": 10,
+    "existing_context_tests": 16,
+    "frontend_contract_tests": 1,
+    "passed": true
+  },
+  "independent_source_review": "PASS_SOURCE_READY_FOR_FREEZE",
+  "delivery": {
+    "build": "game/dist/body-compatibility-01/Mechagotchi/Mechagotchi.exe",
+    "report": ".development/body-compatibility/delivery-baseline-01/report.json",
+    "passed": true,
+    "checks_passed": 45,
+    "checks_total": 45,
+    "source_reproduction": "MATCHED",
+    "artifact": {
+      "bundle": "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\body-compatibility-01\\Mechagotchi",
+      "exe_sha256": "342dc2730858f87d90e5905777b41d553a8ba1dfbf7deb364b104abf7b3c98ed",
+      "manifest_sha256": "658e27c1c41f7b69e48ab122d4fc2458f2338b4654f1d9a2b93bee72d6b662a2",
+      "content_id": "ccd0e901c4279634d79ac34bd4a5ce8de6aeca776c480a0c40340b008082ec4e",
+      "runtime_content_id": "04210ebf46341c5823a3cc69c3fcf50a35976590bb4c6a61e99159e62103d94f",
+      "frozen_application_files": 102
+    }
+  },
+  "final_gate": ".development/body-compatibility/closing.json",
+  "preserved_scientific_disposition": {
+    "overall_care": "REFUSE",
+    "pristine_joint_changes": 9,
+    "morphology_structure_changes": 4,
+    "extinction": "OPEN",
+    "new_outcome_trials": 0,
+    "default_body_response": "legacy",
+    "default_care_selection": "off"
+  },
+  "publication": "No commits, sync or push; exact-published-SHA Windows/Ubuntu CI unobserved"
+}

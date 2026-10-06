@@ -22,6 +22,13 @@ dependencies = [
     "mecha-engine",
 ]
 
+# The complete player distribution is the Windows x64 PyInstaller onedir
+# artifact from build_release.py. A standalone wheel has code only; source-mode
+# resource discovery requires the actual checkout. These existing lab advisory
+# dependencies are included in the native Workshop payload.
+[project.optional-dependencies]
+creator-advisory = ["pydantic>=2.12", "jsonschema>=4.26"]
+
 [project.scripts]
 mechagotchi = "mecha_game.app:run"
 

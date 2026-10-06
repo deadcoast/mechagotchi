@@ -37,6 +37,35 @@ def _max_tier(unlock_state: list[dict], axis: str) -> int:
     )
 
 
+# X8 explicit role permissions; absent base fields remain unrestricted.
+STARTER_ORGAN_ROLES = ('body_core', 'sensor', 'expression', 'locomotion')
+ORGAN_ROLE_UNLOCK_ORDER = ('ornament', 'effect')
+ALL_ORGAN_ROLES = (*STARTER_ORGAN_ROLES, *ORGAN_ROLE_UNLOCK_ORDER)
+
+
+def _role_budget(base_profile, niche_tier):
+    roles = base_profile['grid'].get('allowed_organ_roles')
+    if roles is None:
+        return None
+    return [*roles, *(role for role in ORGAN_ROLE_UNLOCK_ORDER[:niche_tier]
+                     if role not in roles)]
+
+
+def _role_spend_violations(roles, budget, profile):
+    if not isinstance(roles, list) or not roles or not all(isinstance(role, str) for role in roles):
+        return ['allowed_organ_roles must be a nonempty role list']
+    errors = []
+    if len(set(roles)) != len(roles):
+        errors.append('allowed_organ_roles contains duplicate roles')
+    allowed = budget['allowed_organ_roles']
+    for role in roles:
+        if role not in ALL_ORGAN_ROLES or (allowed is not None and role not in allowed):
+            errors.append(f'role {role} is not in the earned budget')
+    if not set(profile['grid'].get('required_organ_roles', [])).issubset(roles):
+        errors.append('allowed_organ_roles must retain all required roles')
+    return errors
+
+
 def covenant_budget(
     base_profile: dict,
     base_engine_parameters: dict,
@@ -55,6 +84,8 @@ def covenant_budget(
     ]
     return {
         "allowed_palettes": base_palettes + unlocked,
+        "allowed_organ_roles": _role_budget(base_profile, niche_tier),
+        "cubff_density_pressure_allowed": _max_tier(unlock_state, "storm_record") >= 1,
         # The authority's deliberation floor is 2 ticks (R1's schema):
         # tier 1 unlocks the minimum thinking depth, each further tier
         # deepens it by one — DR 0021's "+1 per tier" on the real floor.
@@ -68,12 +99,12 @@ def covenant_budget(
         "legibility_blend": legibility_blend_for(unlock_state),
         "deferred": {
             "organ_role_budget": (
-                "awaiting an allowed_roles SLIP field (DR 0011 ladder "
-                "candidate) — the axis unlocks palettes only for now"
+                "Unrestricted base; no role spend is needed."
+                if 'allowed_organ_roles' not in base_profile['grid'] else
+                "Ornament at niche tier 1; effect at tier 2. Explicit spend required."
             ),
             "harsher_forecasts": (
-                "storm_record tiers await weather sources beyond the "
-                "three shipped forecasts (real CuBFF exports included)"
+                "Density pressure requires storm-record tier 1 and a recorded weather source."
             ),
         },
     }
@@ -83,6 +114,7 @@ def apply_covenant_change(
     keeper_campaign,
     *,
     allowed_palettes: list[str] | None = None,
+    allowed_organ_roles: list[str] | None = None,
     deliberation_max_ticks: int | None = None,
     population: int | None = None,
     generations: int | None = None,
@@ -96,6 +128,8 @@ def apply_covenant_change(
     """
     budget = keeper_campaign.budget()
     violations: list[str] = []
+    if allowed_organ_roles is not None:
+        violations.extend(_role_spend_violations(allowed_organ_roles, budget, keeper_campaign.campaign['slip_profile']))
     if allowed_palettes is not None:
         for palette in allowed_palettes:
             if palette not in budget["allowed_palettes"]:
@@ -136,6 +170,8 @@ def apply_covenant_change(
     )
     if allowed_palettes is not None:
         profile["grid"]["allowed_palettes"] = list(allowed_palettes)
+    if allowed_organ_roles is not None:
+        profile['grid']['allowed_organ_roles'] = list(allowed_organ_roles)
     if deliberation_max_ticks is not None:
         if deliberation_max_ticks == 0:
             profile.pop("deliberation", None)
@@ -245,3 +281,24 @@ def spend_generations_to_cap(keeper_campaign) -> dict:
     return apply_covenant_change(
         keeper_campaign, generations=budget["generation_cap"]
     )
+
+
+def starter_role_covenant(base_profile: dict) -> dict:
+    """Explicit optional new base; never silently applied to an existing life."""
+    profile = json.loads(json.dumps(base_profile))
+    profile['grid']['allowed_organ_roles'] = list(STARTER_ORGAN_ROLES)
+    verdict = validate_slip(profile)
+    if not verdict.ok:
+        raise ValueError('Starter role covenant refused: ' + '; '.join(verdict.errors))
+    return profile
+
+
+def spend_next_organ_role(keeper_campaign) -> dict:
+    budget = keeper_campaign.budget()
+    current = keeper_campaign.campaign['slip_profile']['grid'].get('allowed_organ_roles')
+    if current is None:
+        return {'ok': False, 'violations': ['This base covenant has unrestricted roles.'], 'budget': budget}
+    for role in budget['allowed_organ_roles']:
+        if role not in current:
+            return apply_covenant_change(keeper_campaign, allowed_organ_roles=[*current, role])
+    return {'ok': False, 'violations': ['No unspent organ role in the earned budget.'], 'budget': budget}

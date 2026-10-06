@@ -12,6 +12,15 @@ The workshop layer may import both the package and the labs (it is
 application content, not package code); nothing here reimplements a
 validator that could drift.
 
+X2 authoring requests may instead carry a complete
+``document={format: "mecha_workshop_document_v1", grid, profile?, layers?}``
+and ``draft_revision``. The same document drives validation, preview, save,
+export and inline release. JSON responses identify the document and revision;
+binary exports carry equivalent headers. Modern saves compare
+``expected_disk_revision`` against the grid plus authoring-sidecar bytes;
+releases compare ``expected_release_revision`` before a preserved overwrite.
+Legacy requests and absent-arm codec outputs remain supported.
+
 Endpoints:
 
 - GET  /                    the grid editor page
@@ -115,6 +124,8 @@ Launched by `mechas workshop --editor` with the workspace interpreter.
 """
 
 import argparse
+from copy import deepcopy
+from contextlib import contextmanager, nullcontext
 import base64
 import functools
 import json
@@ -125,12 +136,16 @@ import time
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
+import authoring as authoring_docs
+import drafts as draft_store
+
 
 ROOT = Path(__file__).resolve().parents[2]
 import sys  # noqa: E402
 
 for path in [
     ROOT / "packages" / "mecha_engine" / "src",
+    ROOT / "game" / "src",
     ROOT / "labs" / "grid_genome",
     ROOT / "labs" / "cellular_automata",
     ROOT / "labs" / "workshop_editor",
@@ -165,8 +180,12 @@ from mecha_engine.slip import is_grid_aligned, validate_slip  # noqa: E402
 from aseprite_user_data_chunk_writer import (  # noqa: E402
     export_aseprite_user_data_project,
     import_aseprite_user_data_project,
+    extract_aseprite_user_data_sidecar,
 )
-from png_apng_sidecar_decoder import export_apng_with_sidecar  # noqa: E402
+from png_apng_sidecar_decoder import (  # noqa: E402
+    export_apng_with_sidecar,
+    import_apng_with_sidecar,
+)
 from spritesheet_sidecar_decoder import (  # noqa: E402
     export_spritesheet_with_sidecar,
     import_spritesheet_with_sidecar,
@@ -174,6 +193,8 @@ from spritesheet_sidecar_decoder import (  # noqa: E402
 from png_embedded_sidecar_writer import (  # noqa: E402
     export_png_with_embedded_sidecar,
     import_png_with_embedded_sidecar,
+    extract_embedded_sidecar_from_png,
+    embed_sidecar_in_png_text_chunk,
 )
 from mecha_engine.runtime import live_cycle  # noqa: E402
 from replay_recorder import build_replay  # noqa: E402
@@ -208,7 +229,7 @@ DEFAULT_METRICS_DIR = ROOT / "data" / "workshop" / "metrics"
 # never overwrites the committed game_loop stage-0 evidence artifacts.
 DEFAULT_SESSION_DIR = ROOT / "data" / "game_loop" / "keeper"
 SLIP_VALID_DIR = ROOT / "data" / "slips" / "valid"
-TOKENS = {".", "B", "A", "E", "M"}
+TOKENS = authoring_docs.TOKENS
 # DR 0029 (cycle 09 A2): the canvas is size-parametric across the two
 # ratified scales — 8x8 (Stage 0) and 16x16 (the proven default target).
 ALLOWED_GRID_SIZES = (8, 16)
@@ -234,9 +255,8 @@ def _check_matrix(matrix: object) -> str | None:
     ):
         allowed = " or ".join(f"{size}x{size}" for size in ALLOWED_GRID_SIZES)
         return f"matrix must be {allowed}"
-    bad = sorted(
-        {token for row in matrix for token in row if token not in TOKENS}
-    )
+    bad = sorted({str(token) for row in matrix for token in row
+                  if not isinstance(token, str) or token not in TOKENS})
     if bad:
         return f"unknown tokens: {', '.join(map(str, bad))}"
     return None
@@ -305,26 +325,10 @@ LAYER_STRATA = ("body", "organs", "decoration", "effects")
 def _merge_layers(layers: list[dict]) -> tuple[list[list[str]] | None, str | None]:
     """Merge the four strata (last non-empty token wins) or name the
     shape problem."""
-    if [layer.get("name") for layer in layers] != list(LAYER_STRATA):
-        return None, (
-            "layers must be exactly the four semantic strata in order: "
-            + ", ".join(LAYER_STRATA)
-        )
-    matrices = [layer.get("matrix") for layer in layers]
-    first = matrices[0]
-    if not isinstance(first, list) or not first:
-        return None, "layer matrices must be non-empty grids"
-    height, width = len(first), len(first[0])
-    for matrix in matrices:
-        if len(matrix) != height or any(len(row) != width for row in matrix):
-            return None, "layer matrices must share one canvas size"
-    merged = [["." for _ in range(width)] for _ in range(height)]
-    for matrix in matrices:  # stratum order = precedence order
-        for y, row in enumerate(matrix):
-            for x, token in enumerate(row):
-                if token != ".":
-                    merged[y][x] = token
-    return merged, None
+    try:
+        return authoring_docs.merge_layers(layers), None
+    except ValueError as error:
+        return None, str(error)
 
 
 def _build_grid(matrix: list[list[str]], palette_id: str, grid_id: str) -> dict:
@@ -434,6 +438,10 @@ def _safe_name(name: str) -> str:
     return slug[:48] or "unnamed"
 
 
+class _ContextRefused(Exception):
+    """The HTTP refusal has already been sent; stop before publication."""
+
+
 class WorkshopServer(ThreadingHTTPServer):
     daemon_threads = True
     allow_reuse_address = False
@@ -446,8 +454,16 @@ class WorkshopServer(ThreadingHTTPServer):
         released_dir: Path,
         metrics_dir: Path,
         session_dir: Path | None = None,
+        keeper_dir: Path | None = None,
     ) -> None:
+        self.keeper_dir = Path(keeper_dir).resolve() if keeper_dir is not None else None
+        if self.keeper_dir is not None:
+            project = self.keeper_dir / "workshop"
+            grids_dir, slips_dir, metrics_dir = project/"grids", project/"slips", project/"metrics"
+            released_dir = self.keeper_dir/"released"
+        self.drafts_dir = Path(grids_dir).parent/"drafts"
         self.grids_dir = grids_dir
+        self.authoring_lock = threading.RLock()
         self.slips_dir = slips_dir
         self.released_dir = released_dir
         self.metrics_dir = metrics_dir
@@ -476,17 +492,65 @@ class WorkshopServer(ThreadingHTTPServer):
         # Both ratified corpora (DR 0029): 8x8 keeps every historical
         # surface; 16x16 is the default scale for new sessions. Models
         # are per-scale (generation and repair both derive their layout
-        # from their corpus since A3); the 8x8 pair trains eagerly as it
-        # always did, the 16x16 pair lazily on first use.
+        # from their corpus since A3). Browser-lab 8x8 stays eager; native
+        # context and 16x16 train only when a model-backed preview needs them.
         self.seed_grids = build_seed_grids()
         self.seed_grids_16 = build_seed_grids_16()
-        self.repair_model = train_repair_model(self.seed_grids)
-        self.generation_model = train_generation_model(self.seed_grids)
-        self._models_by_scale: dict[int, tuple] = {
-            8: (self.generation_model, self.repair_model)
-        }
+        self._models_lock = threading.RLock()
+        self._models_by_scale: dict[int, tuple] = {}
+        self.repair_model = self.generation_model = None
+        if self.keeper_dir is None:
+            # Preserve the established browser-lab eager models exactly. Native
+            # context inspection does not need training before its window opens.
+            self.repair_model = train_repair_model(self.seed_grids)
+            self.generation_model = train_generation_model(self.seed_grids)
+            self._models_by_scale[8] = (self.generation_model,self.repair_model)
         handler = functools.partial(_Handler, directory=str(WORKSHOP_DIR))
         super().__init__(address, handler)
+
+    @contextmanager
+    def mutation_lock(self):
+        from mecha_game.compatibility import keeper_write_lock
+        with self.authoring_lock:
+            with keeper_write_lock(self.keeper_dir) if self.keeper_dir is not None else nullcontext():
+                yield
+
+    def selected_context(self):
+        from mecha_game.keeper_context import context_id, read_keeper
+        if self.keeper_dir is not None:
+            result=read_keeper(self.keeper_dir)
+            if result['context']['available']:
+                for file, grid in authoring_docs.grid_files(self.grids_dir):
+                    try: doc,revision=authoring_docs.load_document(file)
+                    except (OSError,ValueError): continue
+                    result['creatures'].append(dict(ref=dict(source='workshop',name=file.stem,disk_revision=revision),label=file.stem,
+                        source='workshop',grid_id=grid['grid_id'],document=doc,document_digest=authoring_docs.digest(doc),disk_revision=revision))
+            return result
+        identity = context_id(self.grids_dir.parent, 'browser_lab')
+        result = {'context': dict(kind='browser_lab',context_id=identity,context_revision=identity,
+            available=True,reason='Browser lab history is separate from native Keeper saves.',
+            keeper_dir=None,keeper_id=None,campaign_id=None,covenant=None,budget=None,
+            capabilities=dict(authoring=True,release=True,pack_import=False,lab_session=True)),
+            'creatures':[], 'lineage':{'campaigns':[],'lives':[]}}
+        for grid in [*self.seed_grids_16,*self.seed_grids]:
+            doc=dict(format=authoring_docs.FORMAT,grid=deepcopy(grid))
+            result['creatures'].append(dict(ref=dict(source='seed',grid_id=grid['grid_id']),label=grid['grid_id'],source='seed',
+                grid_id=grid['grid_id'],document=doc,document_digest=authoring_docs.digest(doc)))
+        for source,folder in (('workshop',self.grids_dir),('released',self.released_dir)):
+            for file,grid in authoring_docs.grid_files(folder):
+                try: doc,revision=authoring_docs.load_document(file)
+                except (OSError,ValueError): continue
+                result['creatures'].append(dict(ref=dict(source=source,name=file.stem,disk_revision=revision),label=file.stem,source=source,
+                    grid_id=grid['grid_id'],document=doc,document_digest=authoring_docs.digest(doc),disk_revision=revision))
+        return result
+
+    def close_workshop(self):
+        """Owned foreground lifetime; compatible with shutdown/server_close callers."""
+        self.shutdown()
+        self.server_close()
+        thread = getattr(self, 'workshop_thread', None)
+        if thread is not None and thread is not threading.current_thread():
+            thread.join(timeout=5)
 
     def seeds_for_scale(self, scale: int) -> list[dict]:
         return self.seed_grids if scale == 8 else self.seed_grids_16
@@ -495,13 +559,21 @@ class WorkshopServer(ThreadingHTTPServer):
         """(generation_model, repair_model) matching the grid's scale."""
         grid_size = grid.get("grid_size", [8, 8])
         scale = grid_size[0] if isinstance(grid_size, list) and grid_size else 8
-        if scale not in self._models_by_scale:
-            seeds = self.seeds_for_scale(scale)
-            self._models_by_scale[scale] = (
-                train_generation_model(seeds),
-                train_repair_model(seeds[:40]),
-            )
-        return self._models_by_scale[scale]
+        with self._models_lock:
+            if scale not in self._models_by_scale:
+                seeds = self.seeds_for_scale(scale)
+                # The historical 8x8 eager arm uses the complete corpus. Keep
+                # that input and the 16x16 first-40 policy unchanged when lazy.
+                if scale == 8:
+                    repair = train_repair_model(seeds)
+                    generation = train_generation_model(seeds)
+                else:
+                    generation = train_generation_model(seeds)
+                    repair = train_repair_model(seeds[:40])
+                self._models_by_scale[scale] = (generation,repair)
+                if scale == 8:
+                    self.generation_model,self.repair_model = generation,repair
+            return self._models_by_scale[scale]
 
     def legibility_model(self) -> dict:
         if self._legibility_model is None:
@@ -528,8 +600,9 @@ class WorkshopServer(ThreadingHTTPServer):
             return None
         if source == "workshop":
             file = self.grids_dir / (_safe_name(name) + ".json")
-            if file.exists():
-                return json.loads(file.read_text(encoding="utf-8"))
+            for candidate, grid in authoring_docs.grid_files(self.grids_dir):
+                if candidate == file:
+                    return grid
         return None
 
     def all_profiles(self) -> dict[str, dict]:
@@ -558,6 +631,7 @@ class _Handler(SimpleHTTPRequestHandler):
         pass
 
     def _json(self, status: int, payload: dict) -> None:
+        payload = {**getattr(self, '_response_context', {}), **payload}
         body = json.dumps(payload).encode("utf-8")
         self.send_response(status)
         self.send_header("Content-Type", "application/json")
@@ -579,23 +653,218 @@ class _Handler(SimpleHTTPRequestHandler):
         self.send_header(
             "Content-Disposition", 'attachment; filename="' + filename + '"'
         )
+        self._revision_headers()
         self.send_header("Content-Length", str(len(data)))
         self.end_headers()
         self.wfile.write(data)
 
     def _png(self, data: bytes, filename: str) -> None:
-        self.send_response(200)
-        self.send_header("Content-Type", "image/png")
-        self.send_header(
-            "Content-Disposition", 'attachment; filename="' + filename + '"'
-        )
-        self.send_header("Content-Length", str(len(data)))
-        self.end_headers()
-        self.wfile.write(data)
+        self._file(data, filename, 'image/png')
+
+    def _revision_headers(self) -> None:
+        context = getattr(self, '_response_context', {})
+        if context.get('draft_revision') is not None:
+            self.send_header('X-Workshop-Draft-Revision', str(context['draft_revision']))
+        if context.get('pack_digest'):
+            self.send_header('X-Workshop-Pack-Digest', context['pack_digest'])
+        if context.get('document_digest'):
+            self.send_header('X-Workshop-Document-Digest', context['document_digest'])
+
+    def _bind_document(self, document: dict, payload: dict | None = None) -> dict:
+        revision = getattr(self, '_response_context', {}).get('draft_revision')
+        self._response_context = {'document': document,
+            'document_digest': authoring_docs.digest(document)}
+        if payload is not None and 'draft_revision' in payload:
+            revision = payload['draft_revision']
+        if revision is not None:
+            self._response_context['draft_revision'] = revision
+        return document
+
+    def _request_document(self, payload: dict, *, grid_id: str = 'workshop_draft',
+                          profile_only: bool = False) -> dict | None:
+        try:
+            if 'document' in payload:
+                doc = authoring_docs.document(payload['document'],
+                    require_grid=not profile_only, require_profile=profile_only)
+            elif profile_only:
+                doc = authoring_docs.document({'format': authoring_docs.FORMAT,
+                    'profile': payload.get('profile')}, require_profile=True)
+            else:
+                matrix = payload.get('matrix')
+                problem = _check_matrix(matrix)
+                if problem:
+                    raise ValueError(problem)
+                palette_id = payload.get('palette_id', 'lcd_green')
+                if palette_id not in PALETTES:
+                    raise ValueError('unknown palette')
+                grid = _build_grid(matrix, palette_id, grid_id)
+                overrides = payload.get('cell_overrides') or {}
+                if not isinstance(overrides, dict):
+                    raise ValueError('cell_overrides must be an object')
+                if overrides:
+                    errors = _apply_cell_overrides(grid, overrides)
+                    if errors:
+                        raise ValueError('; '.join(errors))
+                doc = {'format': authoring_docs.FORMAT, 'grid': grid}
+                if payload.get('layers') is not None:
+                    # Legacy layers describe the posted token canvas. Rich
+                    # trait changes are projected only in the modern document.
+                    layers = payload['layers']
+                    if authoring_docs.merge_layers(layers) != matrix:
+                        raise ValueError('layers do not merge to the posted matrix - the sidecar may not lie about the grid')
+                    doc['layers'] = deepcopy(layers)
+            return self._bind_document(doc, payload)
+        except (ValueError, TypeError) as error:
+            self._json(400, {'ok': False, 'error': str(error), 'errors': [str(error)]})
+            return None
+
+    def _profile_for(self, payload: dict, doc: dict | None = None) -> dict | None:
+        if doc is not None and 'profile' in doc:
+            return doc['profile']
+        return self.server.all_profiles().get(str(payload.get('profile_id', '')))
+
+    def _profile_errors(self, doc: dict) -> list[str]:
+        if 'profile' not in doc:
+            return []
+        try:
+            return list(validate_slip(doc['profile']).errors)
+        except (TypeError, ValueError, KeyError, AttributeError) as error:
+            return ['malformed profile: ' + str(error)]
+
+    def _grid_errors(self, doc: dict) -> list[str]:
+        try:
+            errors = list(validate_grid(doc['grid']).errors)
+            errors.extend(self._profile_errors(doc))
+            return errors
+        except (TypeError, ValueError, KeyError, AttributeError) as error:
+            return ['malformed semantic document: ' + str(error)]
+
+    def _conflict(self, payload: dict, key: str, current: str | None) -> bool:
+        if ((current is not None and key not in payload) or
+                (key in payload and payload[key] != current)):
+            self._json(409, {'ok': False, 'error': 'file changed or already exists; review it before replacing',
+                             'current_revision': current})
+            return True
+        return False
 
     # ------------------------------------------------------------- GET
+    def _context_guard(self, payload, capability='authoring'):
+        context = self.server.selected_context()['context']
+        if self.server.keeper_dir is None:
+            self._response_context.update(context_id=context['context_id'],context_revision=context['context_revision'])
+            return context
+        if (payload.get('context_id') != context['context_id'] or
+                payload.get('expected_context_revision') != context['context_revision']):
+            self._json(409,dict(ok=False,error='Selected Keeper context changed; refresh before writing.',
+                error_code='context_changed',context=context,current_context_revision=context['context_revision']))
+            return None
+        if not (context['available'] if capability=='inspection' else context['capabilities'].get(capability)):
+            self._json(409,dict(ok=False,error=context['reason'] or 'Selected Keeper context is unavailable.',
+                error_code='context_unavailable',context=context,current_context_revision=context['context_revision']))
+            return None
+        if capability!='inspection':
+            from mecha_game.compatibility import require_keeper_writable
+            try: require_keeper_writable(self.server.keeper_dir)
+            except ValueError as error:
+                self._json(409,dict(ok=False,error=str(error),error_code='context_unavailable',context=context,
+                    current_context_revision=context['context_revision']))
+                return None
+        self._response_context.update(context_id=context['context_id'],context_revision=context['context_revision'])
+        return context
+
+    def _require_write_context(self,payload,capability='authoring'):
+        if self._context_guard(payload,capability) is None:
+            raise _ContextRefused()
+
+    def _x3_get(self, path):
+        from urllib.parse import parse_qs, urlparse
+        if path == '/packs':
+            self.path='/packs/packs.html'; super().do_GET(); return True
+        if self.server.keeper_dir is not None and path in ('/api/session/state','/api/session/replay','/api/companion'):
+            self._json(403,dict(ok=False,error='Lab history is separate. Use the native Keeper application for care and eras.')); return True
+        relevant = path.startswith('/api/context') or path.startswith('/api/drafts/') or (
+            self.server.keeper_dir is not None and path in ('/api/covenant/budget','/api/lineage'))
+        if not relevant: return False
+        with self.server.authoring_lock:
+            selected=self.server.selected_context(); context=selected['context']
+            self._response_context.update(context_id=context['context_id'],context_revision=context['context_revision'])
+            if path == '/api/context': self._json(200,dict(ok=True,**context))
+            elif path == '/api/covenant/budget':
+                self._json(200,dict(ok=True,**context,active_campaign_id=context['campaign_id']))
+            elif path == '/api/context/creatures':
+                self._json(200,dict(ok=True,available=context['available'],reason=context['reason'],
+                    creatures=[{key:value for key,value in row.items() if key!='document'} for row in selected['creatures']],
+                    release_errors=selected.get('release_errors',[])))
+            elif path in ('/api/context/lineage','/api/lineage'):
+                self._json(200,dict(ok=True,available=context['available'],reason=context['reason'],**selected['lineage']))
+            elif path.startswith('/api/drafts/'):
+                slot=parse_qs(urlparse(self.path).query).get('slot',['current'])[0]
+                try: body=draft_store.read(self.server.drafts_dir,path.rsplit('/',1)[-1],context['context_id'],slot=slot)
+                except draft_store.DraftError as error: self._json(error.status,error.body)
+                else: self._json(200,body)
+            else: self._json(404,dict(ok=False,error='Unknown context endpoint.'))
+        return True
+
+    def _x3_post(self,path,payload):
+        if path == '/api/context/document':
+            with self.server.authoring_lock:
+                context=self._context_guard(payload,'inspection')
+                if context is None: return
+                selected=self.server.selected_context()
+                if selected['context']['context_revision']!=context['context_revision']:
+                    self._context_guard(payload,'inspection'); return
+                row=next((row for row in selected['creatures'] if row['ref']==payload.get('ref')),None)
+                if row is None: self._json(404,dict(ok=False,error='This selected creature is no longer available. Refresh the context.'))
+                else: self._json(200,dict(ok=True,**row))
+            return
+        if path.startswith('/api/drafts/'):
+            with self.server.mutation_lock():
+                context=self._context_guard(payload)
+                if context is None: return
+                try: result=draft_store.write(self.server.drafts_dir,path.rsplit('/',1)[-1],context['context_id'],payload,
+                    before_write=lambda:self._require_write_context(payload))
+                except draft_store.DraftError as error: self._json(error.status,error.body)
+                else: self._json(200,result)
+            return
+        from mecha_game.packs import build_pack, preview_pack, export_pack_bytes, import_pack_document, pack_digest
+        action=path.rsplit('/',1)[-1]
+        with self.server.mutation_lock() if action=='import' else self.server.authoring_lock:
+            context=self._context_guard(payload, 'pack_import' if action=='import' else 'inspection')
+            if context is None: return
+            if action=='import' and self.server.keeper_dir is None:
+                self._json(403,dict(ok=False,error='Select a native Keeper explicitly before importing a pack.')); return
+            if action in ('build','export'):
+                pack=build_pack(**{key:payload[key] for key in ('pack_id','title','provenance','slips','creatures')})
+            else: pack=payload['pack']
+            if action=='export':
+                data=export_pack_bytes(pack)
+                self._response_context['pack_digest']=pack_digest(pack)
+                self._file(data,'mechagotchi-pack_'+_safe_name(pack['pack_id'])+'.json','application/json')
+                return
+            if action=='import':
+                report=import_pack_document(self.server.keeper_dir,pack,expected_pack_digest=payload.get('expected_pack_digest'),
+                    before_write=lambda:self._require_write_context(payload,'pack_import'))
+            else: report=preview_pack(None if action=='build' else self.server.keeper_dir,pack)
+            if not report.get('ok'):
+                status=409 if action=='import' and payload.get('expected_pack_digest')!=report.get('pack_digest') else 400
+                self._json(status,dict(report,error='; '.join(report.get('violations',[])) or 'Pack request refused.',error_code='pack_refused'))
+                return
+            if context.get('covenant') is not None:
+                for entry in report.get('creatures',[]):
+                    if entry.get('ok'):
+                        item=pack['creatures'][entry['index']]
+                        verdict=is_grid_aligned(item,context['covenant'])
+                        entry['compatibility']=dict(scope='active_covenant_alignment',ok=verdict.ok,errors=list(verdict.errors),
+                            notice='Staging is not admission; the native era engine makes the final decision.')
+            self._json(200,dict(report,**({'pack':pack} if action=='build' else {})))
+
     def do_GET(self) -> None:  # noqa: N802
+        self._response_context = {}
         path = self.path.split("?")[0]
+        try:
+            if self._x3_get(path): return
+        except (OSError, ValueError, TypeError, KeyError, AttributeError) as error:
+            self._json(400,dict(ok=False,error=str(error))); return
         if path == "/":
             self.path = "/grid_editor/grid_editor.html"
             return super().do_GET()
@@ -650,10 +919,7 @@ class _Handler(SimpleHTTPRequestHandler):
         if path == "/api/lineage":
             released = []
             if self.server.released_dir.exists():
-                for file in sorted(self.server.released_dir.glob("*.json")):
-                    if file.name.endswith(".bak.json"):
-                        continue
-                    grid = json.loads(file.read_text(encoding="utf-8"))
+                for file, grid in authoring_docs.grid_files(self.server.released_dir):
                     released.append(
                         {
                             "name": file.stem,
@@ -700,9 +966,7 @@ class _Handler(SimpleHTTPRequestHandler):
         if path == "/api/preview/creatures":
             creatures = []
             if self.server.grids_dir.exists():
-                for file in sorted(self.server.grids_dir.glob("*.json")):
-                    if file.name.endswith(".bak.json"):
-                        continue
+                for file, _grid in authoring_docs.grid_files(self.server.grids_dir):
                     creatures.append(
                         {"source": "workshop", "name": file.stem}
                     )
@@ -813,10 +1077,7 @@ class _Handler(SimpleHTTPRequestHandler):
             return
         if path == "/api/grids":
             grids = []
-            for file in sorted(self.server.grids_dir.glob("*.json")):
-                if file.name.endswith(".bak.json"):
-                    continue
-                payload = json.loads(file.read_text(encoding="utf-8"))
+            for file, payload in authoring_docs.grid_files(self.server.grids_dir):
                 grids.append(
                     {
                         "name": file.stem,
@@ -831,10 +1092,7 @@ class _Handler(SimpleHTTPRequestHandler):
         if path == "/api/released":
             released = []
             if self.server.released_dir.exists():
-                for file in sorted(self.server.released_dir.glob("*.json")):
-                    if file.name.endswith(".bak.json"):
-                        continue
-                    payload = json.loads(file.read_text(encoding="utf-8"))
+                for file, payload in authoring_docs.grid_files(self.server.released_dir):
                     released.append(
                         {
                             "name": file.stem,
@@ -874,11 +1132,19 @@ class _Handler(SimpleHTTPRequestHandler):
             return
         if path.startswith("/api/slips/"):
             wanted = path.rsplit("/", 1)[-1]
-            profiles = self.server.all_profiles()
-            if wanted not in profiles:
-                self._json(404, {"ok": False, "error": "no such profile"})
-                return
-            self._json(200, {"ok": True, "profile": profiles[wanted]})
+            # The semantic snapshot and its CAS token are one read. A
+            # concurrent save must not pair an older profile with a new token.
+            with self.server.authoring_lock:
+                profiles = self.server.all_profiles()
+                if wanted not in profiles:
+                    self._json(404, {"ok": False, "error": "no such profile"})
+                    return
+                target = self.server.slips_dir / (_safe_name(wanted) + '.json')
+                doc = {'format': authoring_docs.FORMAT, 'profile': profiles[wanted]}
+                revision = authoring_docs.disk_revision(target)
+            self._bind_document(doc)
+            self._json(200, {'ok': True, 'profile': profiles[wanted],
+                'disk_revision': revision})
             return
         if path.startswith("/api/grids/"):
             name = _safe_name(path.rsplit("/", 1)[-1])
@@ -886,28 +1152,56 @@ class _Handler(SimpleHTTPRequestHandler):
             if not file.exists():
                 self._json(404, {"ok": False, "error": "no such grid"})
                 return
-            grid = json.loads(file.read_text(encoding="utf-8"))
-            response = {
-                "ok": True,
-                "name": name,
-                "matrix": matrix_from_grid(grid),
-                "palette_id": grid.get("palette", {}).get("palette_id"),
-                "grid_id": grid.get("grid_id"),
-            }
-            # H2: the authoring sidecar reloads with the draft.
-            sidecar = self.server.grids_dir / f"{name}.layers.json"
-            if sidecar.exists():
-                response["layers"] = json.loads(
-                    sidecar.read_text(encoding="utf-8")
-                )["layers"]
+            try:
+                with self.server.authoring_lock:
+                    doc, revision = authoring_docs.load_document(file)
+                grid = doc['grid']
+                response = {'ok': True, 'name': name,
+                    'matrix': authoring_docs.project_grid(grid),
+                    'palette_id': grid.get('palette', {}).get('palette_id'),
+                    'grid_id': grid.get('grid_id'), 'disk_revision': revision}
+                if 'layers' in doc:
+                    response['layers'] = doc['layers']
+                self._bind_document(doc)
+            except (OSError, ValueError, TypeError) as error:
+                self._json(409, {'ok': False, 'error': str(error)})
+                return
             self._json(200, response)
             return
         return super().do_GET()
 
     # ------------------------------------------------------------ POST
     def do_POST(self) -> None:  # noqa: N802
+        self._response_context = {}
+        try:
+            self._post_request()
+        except _ContextRefused:
+            return
+        except OSError as error:
+            self._json(500, {'ok': False, 'error': 'local file operation failed; retain the draft and retry: ' + str(error)})
+        except (TypeError, ValueError, KeyError, AttributeError) as error:
+            self._json(400, {'ok': False, 'error': 'invalid request or carrier: ' + str(error), 'errors': [str(error)]})
+
+    def _post_request(self) -> None:
+        raw_revision = self.headers.get('X-Workshop-Draft-Revision')
+        if raw_revision is not None:
+            try:
+                revision = json.loads(raw_revision)
+            except ValueError:
+                revision = raw_revision
+            if (type(revision) not in (str, int) or len(str(revision)) > 120
+                    or not str(revision).isascii()
+                    or any(c in str(revision) for c in '\r\n')):
+                self._json(400, {'ok': False, 'error': 'invalid draft revision header'})
+                return
+            self._response_context['draft_revision'] = revision
         path = self.path.split("?")[0]
+        if self.server.keeper_dir is not None and path.startswith(("/api/session/", "/api/companion/")):
+            self._json(403,dict(ok=False,error="Lab mutation APIs are unavailable for a native Keeper. Use the native application.")); return
         if path not in (
+            "/api/context/document",
+            "/api/drafts/grid", "/api/drafts/slip",
+            "/api/packs/build", "/api/packs/preview", "/api/packs/export", "/api/packs/import",
             "/api/validate",
             "/api/save",
             "/api/slip/validate",
@@ -940,16 +1234,31 @@ class _Handler(SimpleHTTPRequestHandler):
             self._import_png(self._read_bytes())
             return
         if path == "/api/import/aseprite":
-            self._import_result(
-                import_aseprite_user_data_project(self._read_bytes())
-            )
+            data = self._read_bytes()
+            result = import_aseprite_user_data_project(data)
+            sidecar = extract_aseprite_user_data_sidecar(data)['sidecar'] if result.get('ok') else None
+            self._import_result(result, sidecar)
             return
         try:
             payload = self._read_json()
-        except json.JSONDecodeError:
+        except (json.JSONDecodeError, UnicodeDecodeError):
             self._json(400, {"ok": False, "error": "invalid JSON"})
             return
+        if not isinstance(payload, dict):
+            self._json(400, {'ok': False, 'error': 'request must be an object'})
+            return
+        revision = payload.get('draft_revision')
+        if revision is not None and (type(revision) not in (str, int) or
+                len(str(revision)) > 120 or not str(revision).isascii() or any(c in str(revision) for c in '\r\n')):
+            self._json(400, {'ok': False, 'error': 'draft_revision must be a short string or integer'})
+            return
+        if revision is not None:
+            self._response_context['draft_revision'] = revision
 
+        if path.startswith(("/api/context/", "/api/drafts/", "/api/packs/")):
+            self._x3_post(path,payload); return
+        if path in ("/api/save","/api/slip/save","/api/release","/api/metrics/flush"):
+            if self._context_guard(payload) is None: return
         if path == "/api/slip/validate":
             self._slip_validate(payload)
             return
@@ -969,156 +1278,133 @@ class _Handler(SimpleHTTPRequestHandler):
             self._import_spritesheet(payload)
             return
         if path == "/api/metrics/flush":
-            self.server.metrics_dir.mkdir(parents=True, exist_ok=True)
             stamp = time.strftime("%Y%m%d-%H%M%S")
             record = dict(self.server.session_metrics)
             record["provenance"] = "instrumented_pipeline_no_human_study_data"
             target = self.server.metrics_dir / f"session_{stamp}.json"
-            target.write_text(
-                json.dumps(record, indent=2) + "\n", encoding="utf-8"
-            )
+            data = (json.dumps(record, indent=2) + "\n").encode("utf-8")
+            with self.server.mutation_lock():
+                self._require_write_context(payload)
+                authoring_docs.atomic_bytes(target,data)
             self._json(200, {"ok": True, "file": target.name})
             return
         if path == "/api/release":
+            if self.server.keeper_dir is not None and "document" not in payload:
+                self._json(400,dict(ok=False,error="Native release requires the complete selected authoring document.")); return
             self.server.session_metrics["releases"] += 1
-            status, result = release_creature(
-                self.server.grids_dir,
-                self.server.released_dir,
-                str(payload.get("name", "")),
-            )
+            if 'document' in payload:
+                self._release_document(payload)
+                return
+            with self.server.authoring_lock:
+                source = self.server.grids_dir / (_safe_name(str(payload.get('name', ''))) + '.json')
+                if 'expected_disk_revision' in payload and self._conflict(payload, 'expected_disk_revision',
+                        authoring_docs.disk_revision(source, source.with_name(source.stem + '.layers.json'))):
+                    return
+                status, result = release_creature(self.server.grids_dir,
+                    self.server.released_dir, str(payload.get('name', '')))
             self._json(status, result)
             return
         if path.startswith("/api/export/"):
             self.server.session_metrics["exports"] += 1
             self._export(path.rsplit("/", 1)[-1], payload)
             return
-        matrix = payload.get("matrix")
-        problem = _check_matrix(matrix)
-        if problem:
-            self._json(400, {"ok": False, "error": problem})
+        name = _safe_name(str(payload.get('name', '')))
+        doc = self._request_document(payload, grid_id=(f'workshop_{name}' if path == '/api/save'
+                    else payload.get('grid_id') or 'workshop_draft'))
+        if doc is None:
             return
-        palette_id = payload.get("palette_id", "lcd_green")
-        if palette_id not in PALETTES:
-            self._json(400, {"ok": False, "error": "unknown palette"})
-            return
-
-        if path == "/api/validate":
-            grid = _build_grid(
-                matrix, palette_id, payload.get("grid_id") or "workshop_draft"
-            )
-            overrides = payload.get("cell_overrides") or {}
-            if overrides:
-                problems = _apply_cell_overrides(grid, overrides)
-                if problems:
-                    self._json(400, {"ok": False, "errors": problems})
-                    return
-            validation = validate_grid(grid)
+        grid = doc['grid']
+        errors = self._grid_errors(doc)
+        if path == '/api/validate':
             metrics = self.server.session_metrics
-            metrics["validations"] += 1
-            if not validation.ok:
-                metrics["invalid_verdicts"] += 1
-                for error in validation.errors:
-                    metrics["validator_error_counts"][error] = (
-                        metrics["validator_error_counts"].get(error, 0) + 1
-                    )
-            elif metrics["first_valid_at"] is None:
-                metrics["first_valid_at"] = time.strftime(
-                    "%Y-%m-%dT%H:%M:%S"
-                )
-            alignment = {
-                profile_id: {
-                    "ok": (result := is_grid_aligned(grid, profile)).ok,
-                    "errors": list(result.errors),
-                }
-                for profile_id, profile in self.server.all_profiles().items()
-            }
-            self._json(
-                200,
-                {
-                    "ok": True,
-                    "valid": validation.ok,
-                    "errors": list(validation.errors),
-                    "alignment": alignment,
-                    "stats": _morphology_stats(grid),
-                    "grid_cells": grid.get("cells", []),
-                },
-            )
+            metrics['validations'] += 1
+            if errors:
+                metrics['invalid_verdicts'] += 1
+                for error in errors:
+                    metrics['validator_error_counts'][error] = metrics['validator_error_counts'].get(error, 0) + 1
+            elif metrics['first_valid_at'] is None:
+                metrics['first_valid_at'] = time.strftime('%Y-%m-%dT%H:%M:%S')
+            # Invalid structures still get the authority's errors; derived
+            # statistics are unavailable when their inputs cannot be read.
+            try:
+                stats = _morphology_stats(grid)
+                alignment = {profile_id: {'ok': (result := is_grid_aligned(grid, profile)).ok,
+                    'errors': list(result.errors)} for profile_id, profile in self.server.all_profiles().items()}
+            except (TypeError, ValueError, KeyError, AttributeError):
+                stats, alignment = None, {}
+            self._json(200, {'ok': True, 'valid': not errors, 'errors': errors,
+                'alignment': alignment, 'stats': stats, 'grid_cells': grid.get('cells', []),
+                'selected_profile_valid': (not self._profile_errors(doc)) if 'profile' in doc else None,
+                'selected_profile_errors': self._profile_errors(doc)})
             return
+        if errors:
+            self._json(400, {'ok': False, 'error': 'the engine rejects this grid or profile; fix it first', 'errors': errors})
+            return
+        target = self.server.grids_dir / (name + '.json')
+        sidecar = self.server.grids_dir / (name + '.layers.json')
+        with self.server.mutation_lock():
+            if self._context_guard(payload) is None: return
+            if 'document' in payload and self._conflict(payload, 'expected_disk_revision',
+                    authoring_docs.disk_revision(target, sidecar)):
+                return
+            extra = {'document': doc, **({'layers': doc['layers']} if 'layers' in doc else {})} if 'document' in payload else (
+                    {'layers': doc['layers']} if 'layers' in doc else None)
+            try:
+                backups = authoring_docs.preserved_write([(target, authoring_docs.json_bytes(grid)),
+                    (sidecar, authoring_docs.json_bytes(extra) if extra is not None else None)],
+                    before_write=lambda:self._require_write_context(payload))
+            except OSError as error:
+                self._json(500, {'ok': False, 'error': 'save failed; draft retained: ' + str(error)})
+                return
+            revision = authoring_docs.disk_revision(target, sidecar)
+        self.server.session_metrics['saves'] += 1
+        self._json(200, {'ok': True, 'file': target.name, 'backup': backups.get(target.name),
+            'backups': backups, 'disk_revision': revision})
 
-        # /api/save — strict per the charter's 4-W pillar: the workshop
-        # never writes a grid the engine would reject.
-        name = _safe_name(payload.get("name", ""))
-        layers = payload.get("layers")
-        if layers is not None:
-            merged, problem = _merge_layers(layers)
-            if problem is not None:
-                self._json(400, {"ok": False, "error": problem})
-                return
-            if merged != matrix:
-                self._json(
-                    400,
-                    {
-                        "ok": False,
-                        "error": "layers do not merge to the posted "
-                        "matrix — the sidecar may not lie about the "
-                        "grid",
-                    },
-                )
-                return
-        grid = _build_grid(matrix, palette_id, f"workshop_{name}")
-        overrides = payload.get("cell_overrides") or {}
-        if overrides:
-            problems = _apply_cell_overrides(grid, overrides)
-            if problems:
-                self._json(400, {"ok": False, "errors": problems})
-                return
-        validation = validate_grid(grid)
-        if not validation.ok:
-            self._json(
-                400,
-                {
-                    "ok": False,
-                    "error": "the engine rejects this grid; fix it first",
-                    "errors": list(validation.errors),
-                },
-            )
+    def _release_document(self, payload: dict) -> None:
+        doc = self._request_document(payload)
+        if doc is None:
             return
-        self.server.session_metrics["saves"] += 1
-        self.server.grids_dir.mkdir(parents=True, exist_ok=True)
-        target = self.server.grids_dir / f"{name}.json"
-        backup = None
-        if target.exists():
-            stamp = time.strftime("%Y%m%d-%H%M%S")
-            backup = target.with_name(f"{name}.{stamp}.bak.json")
-            backup.write_bytes(target.read_bytes())
-        target.write_text(
-            json.dumps(grid, indent=2) + "\n", encoding="utf-8"
-        )
-        # H2: the layers sidecar is authoring state — written with the
-        # grid, DELETED when a save arrives without layers (a stale
-        # sidecar would lie about the grid).
-        sidecar = self.server.grids_dir / f"{name}.layers.json"
-        if layers is not None:
-            sidecar.write_text(
-                json.dumps({"layers": layers}, indent=2) + "\n",
-                encoding="utf-8",
-            )
-        elif sidecar.exists():
-            sidecar.unlink()
-        self._json(
-            200,
-            {
-                "ok": True,
-                "file": target.name,
-                "backup": backup.name if backup else None,
-            },
-        )
+        errors = self._grid_errors(doc)
+        if errors:
+            self._json(400, {'ok': False, 'error': 'the engine rejects this creature; fix it first', 'errors': errors})
+            return
+        released = deepcopy(doc)
+        grid = released['grid']
+        events = grid.setdefault('lineage', {}).setdefault('mutation_events', [])
+        if 'released_into_ecosystem' not in events:
+            events.append('released_into_ecosystem')
+        grid.setdefault('metadata', {})['workshop_source_document_digest'] = authoring_docs.digest(doc)
+        target = self.server.released_dir / (_safe_name(str(payload.get('name', ''))) + '.json')
+        sidecar=target.with_name(target.stem+'.authoring.json') if self.server.keeper_dir is not None else None
+        with self.server.mutation_lock():
+            context=self._context_guard(payload, 'release')
+            if context is None: return
+            if self.server.keeper_dir is not None:
+                grid['metadata']['workshop_release_context'] = {key:context[key] for key in ('keeper_id','campaign_id','context_id','context_revision')}
+            if self._conflict(payload, 'expected_release_revision', authoring_docs.disk_revision(target,sidecar)):
+                return
+            try:
+                changes=[(target,authoring_docs.json_bytes(grid))]
+                if sidecar is not None: changes.append((sidecar,authoring_docs.json_bytes({'document':released})))
+                backups = authoring_docs.preserved_write(changes,before_write=lambda:self._require_write_context(payload,'release'))
+            except OSError as error:
+                self._json(500, {'ok': False, 'error': 'release failed; draft retained: ' + str(error)})
+                return
+            revision = authoring_docs.disk_revision(target,sidecar)
+        self._json(200, {'ok': True, 'file': target.name, 'backup': backups.get(target.name),
+            'release_revision': revision, 'backups':backups, 'source_document_digest': authoring_docs.digest(doc),
+            'released_document': released, 'released_document_digest': authoring_docs.digest(released),
+            'transform': 'released_into_ecosystem', 'status':'staged',
+            'released_grid_digest':authoring_docs.digest(grid),
+            'release_provenance':grid.get('metadata',{}).get('workshop_release_context'),
+            'admission':'The selected native era engine will judge this candidate when gathered and run.'})
 
     def _slip_validate(self, payload: dict) -> None:
-        profile = payload.get("profile")
-        if not isinstance(profile, dict):
-            self._json(400, {"ok": False, "error": "profile must be an object"})
+        doc = self._request_document(payload, profile_only=True)
+        if doc is None:
             return
+        profile = doc['profile']
         verdict = validate_slip(profile)
         aligned = 0
         aligned_16 = 0
@@ -1131,10 +1417,7 @@ class _Handler(SimpleHTTPRequestHandler):
                     aligned_16 += 1
         workshop_grids = []
         if verdict.ok and self.server.grids_dir.exists():
-            for file in sorted(self.server.grids_dir.glob("*.json")):
-                if file.name.endswith(".bak.json"):
-                    continue
-                grid = json.loads(file.read_text(encoding="utf-8"))
+            for file, grid in authoring_docs.grid_files(self.server.grids_dir):
                 result = is_grid_aligned(grid, profile)
                 workshop_grids.append(
                     {
@@ -1170,10 +1453,13 @@ class _Handler(SimpleHTTPRequestHandler):
         )
 
     def _slip_save(self, payload: dict) -> None:
-        profile = payload.get("profile")
-        if not isinstance(profile, dict):
-            self._json(400, {"ok": False, "error": "profile must be an object"})
+        doc = self._request_document(payload, profile_only=True)
+        if doc is None:
             return
+        if set(doc) != {'format', 'profile'}:
+            self._json(400, {'ok': False, 'error': 'save the complete creature document through the grid editor; profile-only save cannot discard its grid or layers'})
+            return
+        profile = doc['profile']
         verdict = validate_slip(profile)
         if not verdict.ok:
             self._json(
@@ -1197,59 +1483,35 @@ class _Handler(SimpleHTTPRequestHandler):
                 },
             )
             return
-        self.server.slips_dir.mkdir(parents=True, exist_ok=True)
-        target = self.server.slips_dir / (_safe_name(profile_id) + ".json")
-        backup = None
-        if target.exists():
-            stamp = time.strftime("%Y%m%d-%H%M%S")
-            backup = target.with_name(target.stem + "." + stamp + ".bak.json")
-            backup.write_bytes(target.read_bytes())
-        target.write_text(
-            json.dumps(profile, indent=2) + "\n", encoding="utf-8"
-        )
-        self._json(
-            200,
-            {
-                "ok": True,
-                "file": target.name,
-                "backup": backup.name if backup else None,
-            },
-        )
+        target = self.server.slips_dir / (_safe_name(profile_id) + '.json')
+        with self.server.mutation_lock():
+            if self._context_guard(payload) is None: return
+            if 'document' in payload and self._conflict(payload, 'expected_disk_revision', authoring_docs.disk_revision(target)):
+                return
+            try:
+                backups = authoring_docs.preserved_write([(target, authoring_docs.json_bytes(profile))],
+                    before_write=lambda:self._require_write_context(payload))
+            except OSError as error:
+                self._json(500, {'ok': False, 'error': 'save failed; draft retained: ' + str(error)})
+                return
+            revision = authoring_docs.disk_revision(target)
+        self._json(200, {'ok': True, 'file': target.name, 'backup': backups.get(target.name), 'disk_revision': revision})
 
     def _preview(self, kind: str, payload: dict) -> None:
-        matrix = payload.get("matrix")
-        if kind == "clip" and matrix is not None:
-            # H3 (cycle 18): the timeline scrubs the UNSAVED draft — the
-            # authoring loop must not force a save to see motion. The
-            # engine judges the posted matrix first; an invalid draft
-            # gets the validator's words, never frames.
-            problem = _check_matrix(matrix)
-            if problem:
-                self._json(400, {"ok": False, "errors": [problem]})
+        doc = None
+        if 'document' in payload or payload.get('matrix') is not None:
+            doc = self._request_document(payload, grid_id='workshop_draft_preview')
+            if doc is None:
                 return
-            palette_id = payload.get("palette_id", "lcd_green")
-            if palette_id not in PALETTES:
-                self._json(400, {"ok": False, "errors": ["unknown palette"]})
-                return
-            grid = _build_grid(matrix, palette_id, "workshop_draft_preview")
-            overrides = payload.get("cell_overrides") or {}
-            if overrides:
-                # The trait editor's motion-role choices (antenna sway,
-                # effect flicker — DR 0015 vocabulary) ride the scrub.
-                problems = _apply_cell_overrides(grid, overrides)
-                if problems:
-                    self._json(400, {"ok": False, "errors": problems})
-                    return
-            validation = validate_grid(grid)
-            if not validation.ok:
-                self._json(400, {"ok": False, "errors": list(validation.errors)})
+            grid = doc['grid']
+            errors = self._grid_errors(doc)
+            if errors:
+                self._json(400, {'ok': False, 'errors': errors})
                 return
         else:
-            grid = self.server.resolve_creature(
-                str(payload.get("source", "")), str(payload.get("name", ""))
-            )
+            grid = self.server.resolve_creature(str(payload.get('source', '')), str(payload.get('name', '')))
             if grid is None:
-                self._json(404, {"ok": False, "error": "no such creature"})
+                self._json(404, {'ok': False, 'error': 'no such creature'})
                 return
 
         if kind == "render":
@@ -1260,9 +1522,7 @@ class _Handler(SimpleHTTPRequestHandler):
             # the lab builder here. The species' profile bounds the
             # portrait vocabulary and honestly idles unsupported states.
             animation = payload.get("animation")
-            profile = self.server.all_profiles().get(
-                str(payload.get("profile_id", ""))
-            )
+            profile = self._profile_for(payload, doc)
             try:
                 packet = render_packet_v2(
                     grid, None, animation=animation, slip_profile=profile
@@ -1279,9 +1539,7 @@ class _Handler(SimpleHTTPRequestHandler):
             # is a render_packet_v2 whose animation field is the
             # dossier's block (clip/frame_index/frame_count/anchors).
             clip = str(payload.get("clip", "idle"))
-            profile = self.server.all_profiles().get(
-                str(payload.get("profile_id", ""))
-            )
+            profile = self._profile_for(payload, doc)
             try:
                 count = clip_frame_count(clip)
                 frames = [
@@ -1309,8 +1567,7 @@ class _Handler(SimpleHTTPRequestHandler):
             )
             return
 
-        profiles = self.server.all_profiles()
-        profile = profiles.get(str(payload.get("profile_id", "")))
+        profile = self._profile_for(payload, doc)
         if profile is None:
             self._json(404, {"ok": False, "error": "no such profile"})
             return
@@ -1675,27 +1932,25 @@ class _Handler(SimpleHTTPRequestHandler):
 
     def _export(self, kind: str, payload: dict) -> None:
         """Strict per the 4-W pillar: exports carry the engine's word."""
-        matrix = payload.get("matrix")
-        problem = _check_matrix(matrix)
-        if problem:
-            self._json(400, {"ok": False, "errors": [problem]})
+        grid_id = _safe_name(str(payload.get('name') or 'workshop_export'))
+        doc = self._request_document(payload, grid_id='workshop_' + grid_id)
+        if doc is None:
             return
-        palette_id = payload.get("palette_id", "lcd_green")
-        if palette_id not in PALETTES:
-            self._json(400, {"ok": False, "errors": ["unknown palette"]})
-            return
-        profile = self.server.all_profiles().get(
-            str(payload.get("profile_id", ""))
-        )
+        profile = self._profile_for(payload, doc)
         if profile is None:
-            self._json(400, {"ok": False, "errors": ["no such profile"]})
+            self._json(400, {'ok': False, 'errors': ['no such profile']})
             return
-        grid_id = _safe_name(payload.get("name") or "workshop_export")
-        grid = _build_grid(matrix, palette_id, "workshop_" + grid_id)
-        validation = validate_grid(grid)
-        if not validation.ok:
-            self._json(400, {"ok": False, "errors": list(validation.errors)})
+        grid = doc['grid']
+        errors = self._grid_errors(doc)
+        if 'profile' not in doc:
+            errors.extend(self._profile_errors({'profile': profile}))
+        if errors:
+            self._json(400, {'ok': False, 'errors': errors})
             return
+        modern = 'document' in payload
+        if modern and 'profile' not in doc:
+            doc = self._bind_document({**doc, 'profile': deepcopy(profile)}, payload)
+        carrier = {'authoring_document': doc} if modern else {}
         alignment = is_grid_aligned(grid, profile)
         if not alignment.ok:
             self._json(400, {"ok": False, "errors": list(alignment.errors)})
@@ -1745,17 +2000,20 @@ class _Handler(SimpleHTTPRequestHandler):
                 ],
             }
         if kind == "png":
-            exported = export_png_with_embedded_sidecar(grid, profile)
+            exported = export_png_with_embedded_sidecar(grid, profile, **carrier)
             self._png(exported["embedded_png_bytes"], grid_id + ".png")
             return
         if kind == "apng":
             exported = export_apng_with_sidecar(
-                grid, profile, clip_frames=clip_frames
+                grid, profile, clip_frames=clip_frames, **carrier
             )
-            self._png(exported["png_bytes"], grid_id + ".apng.png")
+            data = exported['png_bytes']
+            if modern:
+                data = embed_sidecar_in_png_text_chunk(data, exported['sidecar'])
+            self._png(data, grid_id + '.apng.png')
             return
         if kind == "aseprite":
-            exported = export_aseprite_user_data_project(grid, profile)
+            exported = export_aseprite_user_data_project(grid, profile, **carrier)
             self._file(
                 exported["project_bytes"],
                 grid_id + ".aseprite",
@@ -1764,7 +2022,7 @@ class _Handler(SimpleHTTPRequestHandler):
             return
         if kind == "spritesheet":
             exported = export_spritesheet_with_sidecar(
-                grid, profile, clip_frames=clip_frames
+                grid, profile, clip_frames=clip_frames, **carrier
             )
             self._json(
                 200,
@@ -1782,7 +2040,17 @@ class _Handler(SimpleHTTPRequestHandler):
         self._json(404, {"ok": False, "errors": ["unknown export"]})
 
     def _import_png(self, data: bytes) -> None:
-        self._import_result(import_png_with_embedded_sidecar(data))
+        try:
+            extracted = extract_embedded_sidecar_from_png(data)
+        except (ValueError, TypeError, KeyError):
+            self._import_result(import_png_with_embedded_sidecar(data))
+            return
+        sidecar = extracted['sidecar']
+        if 'apng_binding' in sidecar:
+            result = import_apng_with_sidecar(extracted['canonical_png_bytes'], sidecar)
+        else:
+            result = import_png_with_embedded_sidecar(data)
+        self._import_result(result, sidecar)
 
     def _import_spritesheet(self, payload: dict) -> None:
         sidecar = payload.get("sidecar")
@@ -1803,10 +2071,10 @@ class _Handler(SimpleHTTPRequestHandler):
             )
             return
         self._import_result(
-            import_spritesheet_with_sidecar(png_bytes, sidecar)
+            import_spritesheet_with_sidecar(png_bytes, sidecar), sidecar
         )
 
-    def _import_result(self, result: dict) -> None:
+    def _import_result(self, result: dict, sidecar: dict | None = None) -> None:
         """Permissive on import: the codec's own failure families come
         back verbatim; nothing is written."""
         if not result.get("ok"):
@@ -1822,17 +2090,28 @@ class _Handler(SimpleHTTPRequestHandler):
                 },
             )
             return
-        restored = result["restored_grid"]
-        self._json(
-            200,
-            {
-                "ok": True,
-                "matrix": matrix_from_grid(restored),
-                "palette_id": restored.get("palette", {}).get("palette_id"),
-                "grid_id": restored.get("grid_id"),
-                "engine_valid": validate_grid(restored).ok,
-            },
-        )
+        restored = result['restored_grid']
+        sidecar = sidecar or result.get('sidecar')
+        try:
+            doc = authoring_docs.carrier_document(sidecar) if sidecar else None
+            if doc is None:
+                doc = {'format': authoring_docs.FORMAT, 'grid': restored}
+                if sidecar and isinstance(sidecar.get('slip_binding', {}).get('profile_snapshot'), dict):
+                    doc['profile'] = deepcopy(sidecar['slip_binding']['profile_snapshot'])
+            errors = self._grid_errors(doc)
+            if errors:
+                raise ValueError('; '.join(errors))
+            self._bind_document(doc)
+            restored = doc['grid']
+            response = {'ok': True, 'matrix': authoring_docs.project_grid(restored),
+                'palette_id': restored.get('palette', {}).get('palette_id'),
+                'grid_id': restored.get('grid_id'), 'engine_valid': True}
+            if 'layers' in doc:
+                response['layers'] = doc['layers']
+            self._json(200, response)
+        except (ValueError, TypeError, KeyError) as error:
+            self._json(400, {'ok': False, 'errors': [str(error)], 'families': ['authoring_document_conflict']})
+
 
 
 def release_creature(
@@ -1865,19 +2144,13 @@ def release_creature(
     )
     if "released_into_ecosystem" not in events:
         events.append("released_into_ecosystem")
-    released_dir.mkdir(parents=True, exist_ok=True)
     target = released_dir / source.name
-    backup = None
-    if target.exists():
-        stamp = time.strftime("%Y%m%d-%H%M%S")
-        backup = target.with_name(f"{target.stem}.{stamp}.bak.json")
-        backup.write_bytes(target.read_bytes())
-    target.write_text(json.dumps(grid, indent=2) + "\n", encoding="utf-8")
-    return 200, {
-        "ok": True,
-        "file": target.name,
-        "backup": backup.name if backup else None,
-    }
+    try:
+        backups = authoring_docs.preserved_write([(target, authoring_docs.json_bytes(grid))])
+    except OSError as error:
+        return 500, {'ok': False, 'error': 'release failed: ' + str(error)}
+    return 200, {'ok': True, 'file': target.name, 'backup': backups.get(target.name)}
+
 
 
 def _authoring_review(profile: dict) -> dict:
@@ -1916,6 +2189,7 @@ def start_workshop_server(
     released_dir: Path = DEFAULT_RELEASED_DIR,
     metrics_dir: Path = DEFAULT_METRICS_DIR,
     session_dir: Path | None = None,
+    keeper_dir: Path | None = None,
 ) -> WorkshopServer:
     server = WorkshopServer(
         ("127.0.0.1", port),
@@ -1924,8 +2198,10 @@ def start_workshop_server(
         released_dir,
         metrics_dir,
         session_dir=session_dir,
+        keeper_dir=keeper_dir,
     )
-    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread = threading.Thread(target=server.serve_forever, name="Workshop foreground server")
+    server.workshop_thread = thread
     thread.start()
     return server
 
@@ -1934,6 +2210,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="mecha_workshop server")
     parser.add_argument("--port", type=int, default=0)
     parser.add_argument("--grids-dir", type=Path, default=DEFAULT_GRIDS_DIR)
+    parser.add_argument("--keeper-dir", type=Path, default=None)
     parser.add_argument(
         "--release",
         type=str,
@@ -1942,13 +2219,31 @@ def main() -> None:
         "print the JSON result, exit.",
     )
     args = parser.parse_args()
+    if args.release is not None and args.keeper_dir is not None:
+        import urllib.request
+        import urllib.error
+        server=start_workshop_server(keeper_dir=args.keeper_dir)
+        try:
+            context=server.selected_context()['context']
+            if not context['available']: raise ValueError(context['reason'])
+            doc,_=authoring_docs.load_document(server.grids_dir/(_safe_name(args.release)+'.json'))
+            request=urllib.request.Request(f'http://127.0.0.1:{server.server_address[1]}/api/release',
+                data=json.dumps(dict(document=doc,name=args.release,draft_revision='cli-selected',
+                    context_id=context['context_id'],expected_context_revision=context['context_revision'])).encode(),
+                headers={'Content-Type':'application/json'})
+            try: response=urllib.request.urlopen(request,timeout=30)
+            except urllib.error.HTTPError as error: response=error
+            with response: status,result=response.status,json.loads(response.read())
+        except (OSError,ValueError) as error: status,result=400,dict(ok=False,error=str(error))
+        finally: server.close_workshop()
+        print(json.dumps(result)); raise SystemExit(0 if status==200 else 1)
     if args.release is not None:
         status, result = release_creature(
             args.grids_dir, DEFAULT_RELEASED_DIR, args.release
         )
         print(json.dumps(result))
         raise SystemExit(0 if status == 200 else 1)
-    server = start_workshop_server(port=args.port, grids_dir=args.grids_dir)
+    server = start_workshop_server(port=args.port, grids_dir=args.grids_dir, keeper_dir=args.keeper_dir)
     print(
         f"workshop serving on http://127.0.0.1:{server.server_address[1]}/",
         flush=True,
@@ -1957,7 +2252,9 @@ def main() -> None:
         while True:
             time.sleep(1)
     except KeyboardInterrupt:
-        server.shutdown()
+        pass
+    finally:
+        server.close_workshop()
 
 
 if __name__ == "__main__":

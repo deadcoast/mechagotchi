@@ -125,12 +125,13 @@
   .notice.err { color: var(--danger); }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 </style>
+<link rel="stylesheet" href="/shared/authoring.css">
 </head>
 <body>
 <div class="shell">
   <header class="top">
     <h1>mecha_workshop <span class="dim">/ slip creator</span>
-      <nav style="display:inline"><a href="/">grid editor →</a><a href="/preview">preview →</a></nav>
+      <nav style="display:inline"><a href="/">grid editor →</a><a href="/preview">preview →</a><a href="/inspect">inspector →</a><a href="/packs">packs →</a></nav>
     </h1>
     <span class="verdict-chip" id="verdict-chip">checking…</span>
   </header>
@@ -160,12 +161,12 @@
         <div class="row2" style="margin-top:10px;">
           <div class="slider-row" style="grid-template-columns: 110px 1fr 40px;">
             <span class="name">body mass min</span>
-            <input type="range" id="mass-min" min="1" max="64" value="4">
+            <input type="range" id="mass-min" aria-label="Minimum body mass" min="1" max="256" value="4">
             <output id="mass-min-out">4</output>
           </div>
           <div class="slider-row" style="grid-template-columns: 110px 1fr 40px;">
             <span class="name">body mass max</span>
-            <input type="range" id="mass-max" min="1" max="64" value="24">
+            <input type="range" id="mass-max" aria-label="Maximum body mass" min="1" max="256" value="24">
             <output id="mass-max-out">24</output>
           </div>
         </div>
@@ -182,7 +183,7 @@
         <div class="toggle-group" id="switch-toggles"></div>
         <label class="field">parent selection — how the species breeds from the archive</label>
         <div class="filebar">
-          <select id="parent-selection">
+          <select id="parent-selection" aria-label="Parent selection">
             <option value="">engine default (uniform)</option>
             <option value="uniform">uniform · every elite niche breeds</option>
             <option value="fitness_weighted">fitness weighted · the fittest breed first</option>
@@ -191,7 +192,7 @@
         <label class="field">mutation risk tolerance</label>
         <div class="slider-row" style="grid-template-columns: 150px 1fr 52px;">
           <span class="name">off / tolerance</span>
-          <input type="range" id="risk-tolerance" min="-0.01" max="1" step="0.01" value="-0.01">
+          <input type="range" id="risk-tolerance" aria-label="Mutation risk tolerance" min="-0.01" max="1" step="0.01" value="-0.01">
           <output id="risk-tolerance-out">off</output>
         </div>
         <p class="hint">the risk level at which mutation utility flips negative
@@ -200,6 +201,13 @@
         <p class="hint">selecting any writes the profile as slip_version 0.2.0
         (the schema ladder); leaving all clear keeps 0.1.0 for maximum
         compatibility with the engine's promoted modules</p>
+      </div>
+
+      <div class="panel">
+        <h2>lifecycle mechanics</h2>
+        <label class="field" for="mechanics-cleanliness">cleanliness</label>
+        <select id="mechanics-cleanliness"><option value="">Not authored (engine default)</option><option value="true">Enabled</option><option value="false">Disabled</option></select>
+        <p class="hint">An explicit setting uses SLIP 0.2.0. Loaded mechanics and other valid profile fields stay intact until edited.</p>
       </div>
 
       <div class="panel">
@@ -222,12 +230,12 @@
         <h2>deliberation <span style="text-transform:none;letter-spacing:0;">— how long this species thinks when unsure</span></h2>
         <div class="slider-row" style="grid-template-columns: 150px 1fr 52px;">
           <span class="name">off / max ticks</span>
-          <input type="range" id="delib-ticks" min="1" max="8" step="1" value="1">
+          <input type="range" id="delib-ticks" aria-label="Deliberation maximum ticks" min="1" max="8" step="1" value="1">
           <output id="delib-ticks-out">off</output>
         </div>
         <div class="slider-row" style="grid-template-columns: 150px 1fr 52px;">
           <span class="name">confidence gate</span>
-          <input type="range" id="delib-confidence" min="0" max="1" step="0.01" value="0.72">
+          <input type="range" id="delib-confidence" aria-label="Deliberation confidence threshold" min="0" max="1" step="0.01" value="0.72">
           <output id="delib-confidence-out">0.72</output>
         </div>
         <p class="hint">CTM-inspired confidence-gated thinking (DR 0017): the
@@ -284,7 +292,7 @@
         <h2>save to project</h2>
         <div class="filebar">
           <button class="action primary" id="save-btn" disabled>Save</button>
-          <select id="load-select"><option value="">load…</option></select>
+          <select id="load-select" aria-label="Load saved profile"><option value="">load…</option></select>
           <button class="action" id="new-btn">New</button>
         </div>
         <p class="notice" id="save-notice">the authority must accept the profile before it can be saved</p>
@@ -293,7 +301,15 @@
   </div>
 </div>
 
+<script src="/shared/authoring.js"></script>
 <script>
+const A = WorkshopAuthoring;
+const selectedContext = new A.Context().mount();
+let booting=false;
+let serverDraft=null;
+let profileBase = null, formBaseline = null, documentBase = {format:A.FORMAT};
+let diskId = "", diskRevision = null, authorHistory = null, historyUI = null, busyWrite = false;
+const gate = new A.RequestGate();
 const PALETTE_IDS = ["lcd_green", "gameboy_gray", "amber_terminal", "crt_blue", "pocket_plum"];
 const ROLES = ["sensor", "expression", "body_core"];
 const SLIDERS = {
@@ -342,14 +358,15 @@ let lastVerdict = null;
 
 const $ = (id) => document.getElementById(id);
 
-function buildProfile() {
+function buildProjection() {
   const values = {};
   for (const [section, defs] of Object.entries(SLIDERS)) {
     values[section] = {};
     for (const [key] of defs) values[section][key] = parseFloat($("s-" + key).value);
   }
   const speciesClass = $("species-class").value.trim();
-  const usesLadder = forbiddenRoles.size || forbiddenMaterials.size || riskTolerance !== null || disabledThreads.size || parentSelection !== "" || deliberationTicks !== null || speciesClass !== "" || grammarMaterials.size || grammarVocab.size;
+  const cleanliness = $("mechanics-cleanliness").value;
+  const usesLadder = cleanliness !== "" || forbiddenRoles.size || forbiddenMaterials.size || riskTolerance !== null || disabledThreads.size || parentSelection !== "" || deliberationTicks !== null || speciesClass !== "" || grammarMaterials.size || grammarVocab.size;
   const profile = {
     slip_version: usesLadder ? "0.2.0" : "0.1.0",
     profile_id: $("profile-id").value.trim(),
@@ -399,6 +416,7 @@ function buildProfile() {
         ANIMATION_VOCAB.filter((s) => grammarVocab.has(s));
     }
   }
+  if (cleanliness !== "") profile.mechanics = {cleanliness: cleanliness === "true"};
   return profile;
 }
 
@@ -408,7 +426,8 @@ function renderGrammarToggles() {
     ["grammar-vocab-toggles", ANIMATION_VOCAB, grammarVocab],
   ]) {
     const wrap = $(wrapId);
-    wrap.innerHTML = "";
+    const focused = wrap.contains(document.activeElement) ? document.activeElement.textContent : null;
+    wrap.replaceChildren();
     for (const value of vocab) {
       const btn = document.createElement("button");
       btn.className = "toggle";
@@ -420,14 +439,15 @@ function renderGrammarToggles() {
         renderGrammarToggles();
         scheduleValidate();
       });
-      wrap.appendChild(btn);
+      wrap.appendChild(btn); if (focused === btn.textContent) btn.focus(); if (focused === btn.textContent) btn.focus();
     }
   }
 }
 
 function renderSwitchToggles() {
   const wrap = $("switch-toggles");
-  wrap.innerHTML = "";
+  const focused = wrap.contains(document.activeElement) ? document.activeElement.textContent : null;
+  wrap.replaceChildren();
   for (const name of SWITCHBOARD_THREADS) {
     const btn = document.createElement("button");
     btn.className = "toggle";
@@ -440,7 +460,7 @@ function renderSwitchToggles() {
       renderSwitchToggles();
       scheduleValidate();
     });
-    wrap.appendChild(btn);
+    wrap.appendChild(btn); if (focused === btn.textContent) btn.focus();
   }
 }
 
@@ -450,7 +470,8 @@ function renderForbiddenToggles() {
     ["forbidden-material-toggles", FORBIDDABLE_MATERIALS, forbiddenMaterials],
   ]) {
     const wrap = $(wrapId);
-    wrap.innerHTML = "";
+    const focused = wrap.contains(document.activeElement) ? document.activeElement.textContent : null;
+    wrap.replaceChildren();
     for (const value of vocab) {
       const btn = document.createElement("button");
       btn.className = "toggle";
@@ -462,7 +483,7 @@ function renderForbiddenToggles() {
         renderForbiddenToggles();
         scheduleValidate();
       });
-      wrap.appendChild(btn);
+      wrap.appendChild(btn); if (focused === btn.textContent) btn.focus(); if (focused === btn.textContent) btn.focus();
     }
   }
 }
@@ -470,7 +491,8 @@ function renderForbiddenToggles() {
 /* ---------------- form construction ---------------- */
 function renderPaletteToggles() {
   const wrap = $("palette-toggles");
-  wrap.innerHTML = "";
+  const focused = wrap.contains(document.activeElement) ? document.activeElement.textContent : null;
+  wrap.replaceChildren();
   for (const id of PALETTE_IDS) {
     const btn = document.createElement("button");
     btn.className = "toggle";
@@ -489,13 +511,14 @@ function renderPaletteToggles() {
       renderPaletteToggles();
       scheduleValidate();
     });
-    wrap.appendChild(btn);
+    wrap.appendChild(btn); if (focused === btn.textContent) btn.focus();
   }
 }
 
 function renderRoleToggles() {
   const wrap = $("role-toggles");
-  wrap.innerHTML = "";
+  const focused = wrap.contains(document.activeElement) ? document.activeElement.textContent : null;
+  wrap.replaceChildren();
   for (const role of ROLES) {
     const btn = document.createElement("button");
     btn.className = "toggle";
@@ -507,7 +530,7 @@ function renderRoleToggles() {
       renderRoleToggles();
       scheduleValidate();
     });
-    wrap.appendChild(btn);
+    wrap.appendChild(btn); if (focused === btn.textContent) btn.focus();
   }
 }
 
@@ -515,14 +538,15 @@ function renderSliders() {
   for (const [section, defs] of Object.entries(SLIDERS)) {
     const wrap = $(section === "survival_weights" ? "survival-sliders"
       : section === "behavior" ? "behavior-sliders" : "mutation-sliders");
-    wrap.innerHTML = "";
+    const focused = wrap.contains(document.activeElement) ? document.activeElement.textContent : null;
+    wrap.replaceChildren();
     for (const [key, initial, hint] of defs) {
       const row = document.createElement("div");
       row.className = "slider-row";
-      const name = document.createElement("span");
+      const name = document.createElement("label");
       name.className = "name";
       name.textContent = key.replace(/_/g, " ");
-      name.title = hint;
+      name.title = hint; name.htmlFor = "s-" + key;
       const input = document.createElement("input");
       input.type = "range"; input.min = "0"; input.max = "1"; input.step = "0.01";
       input.value = String(initial); input.id = "s-" + key;
@@ -578,19 +602,17 @@ $("delib-confidence").addEventListener("input", () => {
 let covenantBudget = null;
 
 async function loadCovenantBudget() {
-  try {
-    const response = await fetch("/api/covenant/budget");
-    covenantBudget = await response.json();
-  } catch (error) {
-    covenantBudget = null;
-  }
+  const data=selectedContext.data;
+  if(data?.kind==="browser_lab"){try{covenantBudget=await A.request("/api/covenant/budget");}catch(error){covenantBudget={ok:true,available:false,reason:error.message};}renderBudgetAdvisory();return;}
+  covenantBudget={ok:true,available:!!data?.budget,reason:data?.reason||"No earned budget is available for this context.",active_campaign_id:data?.campaign_id,budget:data?.budget};
   renderBudgetAdvisory();
 }
 
 function renderBudgetAdvisory() {
   const wrap = $("covenant-budget");
   if (!wrap) return;
-  wrap.innerHTML = "";
+  const focused = wrap.contains(document.activeElement) ? document.activeElement.textContent : null;
+  wrap.replaceChildren();
   const note = document.createElement("p");
   note.className = "notice";
   if (!covenantBudget || !covenantBudget.ok) {
@@ -609,7 +631,7 @@ function renderBudgetAdvisory() {
   head.textContent =
     covenantBudget.active_campaign_id
     + " earned: deliberation ticks ≤ " + budget.deliberation_max_ticks
-    + " · palettes " + budget.allowed_palettes.join(", ");
+    + " · palettes " + (budget.allowed_palettes||[]).join(", ");
   wrap.appendChild(head);
   const advisories = [];
   if (deliberationTicks !== null) {
@@ -623,7 +645,7 @@ function renderBudgetAdvisory() {
     }
   }
   const beyond = [...selectedPalettes].filter(
-    (palette) => !budget.allowed_palettes.includes(palette)
+    (palette) => !(budget.allowed_palettes||[]).includes(palette)
   );
   if (beyond.length) {
     advisories.push("palettes beyond the earned set: " + beyond.join(", "));
@@ -635,37 +657,44 @@ function renderBudgetAdvisory() {
   wrap.appendChild(note);
 }
 
-/* ---------------- live authority verdict ---------------- */
-let validateTimer = null;
-function scheduleValidate() {
-  $("verdict-chip").textContent = "checking…";
-  $("verdict-chip").className = "verdict-chip";
-  clearTimeout(validateTimer);
-  validateTimer = setTimeout(validateNow, 250);
-}
 
-async function validateNow() {
-  try {
-    const response = await fetch("/api/slip/validate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ profile: buildProfile() }),
-    });
-    const verdict = await response.json();
-    lastVerdict = verdict;
-    renderVerdict(verdict);
-  } catch (error) {
-    $("verdict-chip").textContent = "authority unreachable";
-    $("verdict-chip").className = "verdict-chip invalid";
-  }
+function buildProfile() {
+  const projection=buildProjection();
+  if(!profileBase)return projection;
+  const result=A.overlay(profileBase,formBaseline,projection);
+  // An adopted or future-valid version is never silently downgraded by a smaller form.
+  if(profileBase.slip_version!=="0.1.0")result.slip_version=profileBase.slip_version;
+  return result;
 }
-
+function buildDocument(){return {...A.clone(documentBase),profile:buildProfile()};}
+function snapshot(){return {document:buildDocument(),diskId,diskRevision};}
+function applySnapshot(state){if(!state?.document?.profile)throw new Error("This draft does not contain a profile.");documentBase=A.clone(state.document);adoptProfile(state.document.profile);diskId=state.diskId||"";diskRevision=state.diskRevision??null;scheduleValidate(false);}
+let validateTimer=null;
+function scheduleValidate(eventOrRecord=true){
+  if(eventOrRecord?.isComposing)return;
+  if(eventOrRecord!==false&&authorHistory)authorHistory.record(snapshot());
+  historyUI?.refresh();lastVerdict=null;gate.cancel("validate");clearTimeout(validateTimer);
+  $("verdict-chip").textContent="checking current draft";$("verdict-chip").className="verdict-chip";
+  $("verdict-body").textContent="Waiting for this revision's authority verdict.";$("compat-seed").textContent="—";$("compat-grids").replaceChildren();$("save-btn").disabled=true;
+  if(!authorHistory?.hasRecovery)validateTimer=setTimeout(validateNow,250);
+}
+async function validateNow(){
+  if(authorHistory.hasRecovery)return;const current=gate.begin("validate",authorHistory.revision);
+  try{const verdict=await A.request("/api/slip/validate",{document:buildDocument(),draft_revision:current.revision},{signal:current.controller.signal});if(!gate.accept(current,authorHistory.revision,verdict.draft_revision))return;lastVerdict=verdict;renderVerdict(verdict);}
+  catch(error){if(!gate.accept(current,authorHistory.revision,current.revision))return;$("verdict-chip").textContent="authority unavailable";$("verdict-chip").className="verdict-chip invalid";A.notice($("verdict-body"),error.message+". Your draft is retained; Retry connection checks it again.","err");$("save-btn").disabled=true;}
+}
+function focusProfileIssue(error){
+  const fieldMap=[["profile_id","profile-id"],["name","profile-name"],["body_mass_min","mass-min"],["body_mass_max","mass-max"],["body mass","mass-min"],["species_class","species-class"],["mechanics","mechanics-cleanliness"],["deliberation","delib-ticks"],["risk_tolerances","risk-tolerance"]];
+  let target=fieldMap.find(([part])=>String(error).includes(part))?.[1];
+  if(!target)for(const defs of Object.values(SLIDERS))for(const [key] of defs)if(String(error).includes(key))target="s-"+key;
+  const field=$(target||"profile-id");field.setAttribute("aria-invalid","true");field.setAttribute("aria-describedby","review-note");A.notice($("review-note"),error,"err");field.focus();
+}
 function renderVerdict(verdict) {
   const chip = $("verdict-chip");
   if (verdict.valid) {
     chip.textContent = "authority: valid";
     chip.className = "verdict-chip valid";
-    $("verdict-body").innerHTML = '<span class="allgood">the Stage 0 authority accepts this profile</span>';
+    const accepted = document.createElement("span"); accepted.className = "allgood"; accepted.textContent = "the authority accepts this profile"; $("verdict-body").replaceChildren(accepted);
   } else {
     chip.textContent = "authority: " + verdict.errors.length + " problem" + (verdict.errors.length === 1 ? "" : "s");
     chip.className = "verdict-chip invalid";
@@ -673,10 +702,10 @@ function renderVerdict(verdict) {
     list.className = "errors";
     for (const error of verdict.errors) {
       const li = document.createElement("li");
-      li.textContent = error;
+      const jump = document.createElement("button"); jump.type = "button"; jump.textContent = error; jump.addEventListener("click", () => focusProfileIssue(error)); li.append(jump);
       list.appendChild(li);
     }
-    $("verdict-body").innerHTML = "";
+    $("verdict-body").replaceChildren();
     $("verdict-body").appendChild(list);
   }
   const review = verdict.authoring_review || {};
@@ -690,7 +719,7 @@ function renderVerdict(verdict) {
     ? compat.seed_corpus.aligned + " / " + compat.seed_corpus.total
     : "–";
   const chips = $("compat-grids");
-  chips.innerHTML = "";
+  chips.replaceChildren();
   for (const grid of (compat.workshop_grids || [])) {
     const chip2 = document.createElement("span");
     chip2.className = "chip " + (grid.ok ? "ok" : "bad");
@@ -702,7 +731,7 @@ function renderVerdict(verdict) {
     ? "your saved workshop creatures, judged against this profile"
     : "save creatures in the grid editor to see them judged here";
 
-  $("save-btn").disabled = !verdict.valid;
+  $("save-btn").disabled = !verdict.valid || busyWrite || authorHistory.hasRecovery;
   $("save-notice").textContent = verdict.valid
     ? "ready to save"
     : "the authority must accept the profile before it can be saved";
@@ -710,45 +739,9 @@ function renderVerdict(verdict) {
   renderBudgetAdvisory();
 }
 
-/* ---------------- save / load ---------------- */
-$("save-btn").addEventListener("click", async () => {
-  const response = await fetch("/api/slip/save", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ profile: buildProfile() }),
-  });
-  const result = await response.json();
-  const notice = $("save-notice");
-  if (response.ok && result.ok) {
-    notice.textContent = "saved to the project as " + result.file + (result.backup ? " (previous version backed up)" : "");
-    notice.className = "notice ok";
-    refreshSlipList();
-  } else {
-    notice.textContent = result.error || "save failed";
-    notice.className = "notice err";
-  }
-});
-
-async function refreshSlipList() {
-  const response = await fetch("/api/slips");
-  const listing = await response.json();
-  const select = $("load-select");
-  select.innerHTML = '<option value="">load…</option>';
-  for (const entry of listing.slips) {
-    const option = document.createElement("option");
-    option.value = entry.profile_id;
-    option.textContent = entry.profile_id + " · " + entry.source;
-    select.appendChild(option);
-  }
-}
-
-$("load-select").addEventListener("change", async () => {
-  const id = $("load-select").value;
-  if (!id) return;
-  const response = await fetch("/api/slips/" + id);
-  const payload = await response.json();
-  if (!payload.ok) return;
-  const profile = payload.profile;
+function adoptProfile(profile) {
+  profileBase = A.clone(profile);
+  $("mechanics-cleanliness").value = typeof profile.mechanics?.cleanliness === "boolean" ? String(profile.mechanics.cleanliness) : "";
   $("profile-id").value = profile.profile_id || "";
   $("profile-name").value = profile.name || "";
   selectedPalettes = new Set(profile.grid?.allowed_palettes || []);
@@ -777,13 +770,15 @@ $("load-select").addEventListener("change", async () => {
   grammarVocab = new Set(profile.visual_grammar?.animation_vocab || []);
   renderGrammarToggles();
   renderForbiddenToggles();
+  $("mass-min").max = String(Math.max(256, profile.grid?.body_mass_min || 0));
+  $("mass-max").max = String(Math.max(256, profile.grid?.body_mass_max || 0));
   $("mass-min").value = profile.grid?.body_mass_min ?? 4;
   $("mass-max").value = profile.grid?.body_mass_max ?? 24;
   $("mass-min-out").textContent = $("mass-min").value;
   $("mass-max-out").textContent = $("mass-max").value;
   for (const [section, defs] of Object.entries(SLIDERS)) {
     for (const [key] of defs) {
-      const value = profile[section]?.[key];
+      const value = profile[section]?.[key] ?? SLIDERS[section].find(d => d[0] === key)[1];
       if (typeof value === "number") {
         $("s-" + key).value = String(value);
         $("s-" + key).nextElementSibling.textContent = value.toFixed(2);
@@ -791,10 +786,13 @@ $("load-select").addEventListener("change", async () => {
     }
   }
   renderPaletteToggles(); renderRoleToggles(); updateSurvivalHint();
-  scheduleValidate();
-});
-
-$("new-btn").addEventListener("click", () => {
+  formBaseline = buildProjection();
+}
+function newProfile() {
+  profileBase = null; documentBase = {format:A.FORMAT}; diskId = ""; diskRevision = null;
+  $("mechanics-cleanliness").value = "";
+  $("mass-min").value = "4"; $("mass-max").value = "24";
+  $("mass-min-out").textContent = "4"; $("mass-max-out").textContent = "24";
   $("profile-id").value = ""; $("profile-name").value = "";
   $("load-select").value = "";
   selectedPalettes = new Set(["lcd_green"]);
@@ -818,32 +816,44 @@ $("new-btn").addEventListener("click", () => {
   grammarVocab = new Set();
   renderPaletteToggles(); renderRoleToggles(); renderForbiddenToggles(); renderSwitchToggles(); renderGrammarToggles(); renderSliders();
   scheduleValidate();
+}
+$("new-btn").addEventListener("click", newProfile);
+
+$("mechanics-cleanliness").addEventListener("change",scheduleValidate);
+for(const id of ["profile-id","profile-name","species-class"]){$(id).addEventListener("input",scheduleValidate);$(id).addEventListener("compositionend",()=>scheduleValidate());}
+for(const id of ["mass-min","mass-max"])$(id).addEventListener("input",()=>{$(id+"-out").textContent=$(id).value;scheduleValidate();});
+document.addEventListener("input",event=>{if(event.target.hasAttribute("aria-invalid"))event.target.removeAttribute("aria-invalid");});
+$("save-btn").addEventListener("click",async()=>{
+  if(busyWrite||!lastVerdict?.valid)return;const selected=snapshot(),revision=authorHistory.revision,id=selected.document.profile.profile_id;
+  busyWrite=true;$("save-btn").disabled=true;$("save-btn").setAttribute("aria-busy","true");A.notice($("save-notice"),"Saving selected profile revision "+revision+"…");
+  try{const result=await A.writeWithConflict("/api/slip/save",{...selectedContext.pins(),document:selected.document,draft_revision:revision,expected_disk_revision:id===diskId?diskRevision:null},"expected_disk_revision");if(!result){A.notice($("save-notice"),"The disk copy was kept. Your profile draft remains editable.");return;}
+    if($("profile-id").value.trim()===id){diskId=id;diskRevision=result.disk_revision;authorHistory.replace(snapshot());}authorHistory.markSaved(selected);refreshSlipList();
+    A.notice($("save-notice"),"Saved profile revision "+revision+" as "+result.file+(result.backup?" · previous files backed up":"")+(authorHistory.revision!==revision?". Newer edits remain in the browser draft.":"."),"ok");
+  }catch(error){A.notice($("save-notice"),error.status?error.message:"Connection ended before confirmation. Your draft is retained. Retry checks the target revision before overwriting anything.","err");}
+  finally{busyWrite=false;$("save-btn").removeAttribute("aria-busy");$("save-btn").disabled=!lastVerdict?.valid;historyUI.refresh();}
 });
-
-for (const id of ["profile-id", "profile-name", "species-class"]) {
-  $(id).addEventListener("input", scheduleValidate);
+async function refreshSlipList(){try{const listing=await A.request("/api/slips"),select=$("load-select"),current=select.value;select.replaceChildren(new Option("Load profile…",""));for(const entry of listing.slips)select.add(new Option(entry.profile_id+" · "+entry.source,entry.profile_id));select.value=current;}catch(error){A.notice($("save-notice"),"Profile list unavailable. Retry connection; your draft is retained.","err");}}
+$("load-select").addEventListener("change",async()=>{const id=$("load-select").value;if(!id)return;const current=gate.begin("load",authorHistory.revision);try{const payload=await A.request("/api/slips/"+encodeURIComponent(id),undefined,{signal:current.controller.signal});if(!gate.accept(current,authorHistory.revision,current.revision)){A.notice($("save-notice"),"The draft changed during loading. Select the profile again to replace it.");return;}documentBase=A.clone(payload.document||{format:A.FORMAT,profile:payload.profile});adoptProfile(documentBase.profile);diskId=id;diskRevision=payload.disk_revision??null;scheduleValidate();A.notice($("save-notice"),"Loaded the full profile, including mechanics. Undo returns to the previous draft.");}catch(error){if(gate.accept(current,authorHistory.revision,current.revision))A.notice($("save-notice"),error.message+". Your current profile is retained.","err");}});
+async function boot(){
+  if(booting)return;booting=true;
+  try{
+    await selectedContext.refresh();
+    if(!authorHistory){
+      authorHistory=new A.History("mecha_workshop_slip_v1:"+selectedContext.data.context_id,snapshot());
+      if(selectedContext.data.kind==="browser_lab")authorHistory.offerLegacy("mecha_workshop_slip_v1");
+      serverDraft=new A.ServerDraft(authorHistory,selectedContext,"slip");
+      historyUI=A.mountHistory(authorHistory,{capture:snapshot,apply:applySnapshot,retry:boot,kind:"profile"});serverDraft.changed=()=>historyUI.refresh();await serverDraft.load();
+      const active=A.element("button","Edit active covenant","action");active.id="context-covenant";active.type="button";active.disabled=!selectedContext.data.covenant;
+      active.addEventListener("click",()=>{if(authorHistory.hasRecovery)return;documentBase={format:A.FORMAT,profile:A.clone(selectedContext.data.covenant)};adoptProfile(documentBase.profile);diskId="";diskRevision=null;scheduleValidate();});selectedContext.panel.append(active);
+    }else if(serverDraft.error)await serverDraft.load();
+    const result=await A.request("/api/palettes");palettesData=result.palettes;renderPaletteToggles();await refreshSlipList();await loadCovenantBudget();scheduleValidate(false);
+  }catch(error){A.notice($("save-notice"),"Connection unavailable: "+error.message+". Retry connection; draft recovery remains available.","err");}
+  finally{booting=false;}
 }
-for (const id of ["mass-min", "mass-max"]) {
-  $(id).addEventListener("input", () => {
-    $(id + "-out").textContent = $(id).value;
-    scheduleValidate();
-  });
-}
 
-/* ---------------- boot ---------------- */
-(async function boot() {
-  const response = await fetch("/api/palettes");
-  palettesData = (await response.json()).palettes;
-  renderPaletteToggles();
-  renderRoleToggles();
-  renderForbiddenToggles();
-  renderSwitchToggles();
-  renderGrammarToggles();
-  renderSliders();
-  refreshSlipList();
-  loadCovenantBudget();
-  scheduleValidate();
-})();
+renderPaletteToggles();renderRoleToggles();renderForbiddenToggles();renderSwitchToggles();renderGrammarToggles();renderSliders();
+selectedContext.onChange=()=>{if(!booting&&(!authorHistory||serverDraft?.error))boot();};
+document.querySelector(".stage").inert=true;boot();
 </script>
 </body>
 </html>

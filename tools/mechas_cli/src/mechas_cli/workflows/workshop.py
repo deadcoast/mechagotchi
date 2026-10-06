@@ -54,6 +54,13 @@ def workshop(
         "--inspect",
         help="Launch the genome inspector + lineage browser.",
     ),
+    packs: bool = typer.Option(
+        False, "--packs", help="Compose, download or import a named creature/covenant pack.",
+    ),
+    keeper_dir: Path | None = typer.Option(
+        None, "--keeper-dir",
+        help="Select this native Keeper explicitly. Without it, use the separate browser-lab project.",
+    ),
     release: str | None = typer.Option(
         None,
         "--release",
@@ -77,14 +84,17 @@ def workshop(
     root = find_workspace_root()
 
     if release is not None:
-        _release(console, root, release)
+        _release(console, root, release, keeper_dir=keeper_dir)
         return
 
-    if not editor and not slip and not preview and not inspect:
+    if not editor and not slip and not preview and not inspect and not packs:
         console.print(theme.banner("workshop — what would you like to open?"))
         console.print(
             theme.kv_table(
                 [
+                    ("context", str(keeper_dir.resolve()) if keeper_dir else "Separate browser-lab project", "mechas.path"),
+                    ("select native", "--keeper-dir <save-folder>", "mechas.accent"),
+                    ("target", "--packs: compose and exchange a named pack", "mechas.accent"),
                     ("target", "--editor", "mechas.accent"),
                     (
                         "what",
@@ -122,8 +132,7 @@ def workshop(
                     ),
                     (
                         "saves to",
-                        "data/workshop/ (validated work only, backup "
-                        "before overwrite)",
+                        str(keeper_dir.resolve() / "workshop") if keeper_dir else "data/workshop/ (separate browser-lab project)",
                         "mechas.path",
                     ),
                 ]
@@ -137,21 +146,24 @@ def workshop(
         return
 
     target_name = (
-        "inspector"
-        if inspect
+        "pack composer"
+        if packs
+        else "inspector" if inspect
         else "preview" if preview else "slip creator" if slip else "grid editor"
     )
     console.print(theme.banner(f"workshop — {target_name}"))
     page = (
-        "inspect"
-        if inspect
+        "packs"
+        if packs
+        else "inspect" if inspect
         else "preview" if preview else "slip" if slip else ""
     )
-    process, page_url = launch_workshop_server(console, root, port, page)
+    process, page_url = launch_workshop_server(console, root, port, page, keeper_dir=keeper_dir)
     console.print(
         theme.kv_table(
             [
                 (target_name, page_url, "mechas.path"),
+                ("context", str(keeper_dir.resolve()) if keeper_dir else "Separate browser-lab project", "mechas.path"),
                 (
                     "validation",
                     "live, from the engine itself — errors are the "
@@ -160,8 +172,8 @@ def workshop(
                 ),
                 (
                     "saving",
-                    "validated work only → data/workshop/ "
-                    "(backup before overwrite)",
+                    (str(keeper_dir.resolve() / "workshop") + " (validated exports; separate recoverable drafts)"
+                     if keeper_dir else "data/workshop/ (separate browser-lab project)"),
                     "mechas.value",
                 ),
             ]
@@ -172,21 +184,36 @@ def workshop(
         "  [mechas.dim]draw in the browser — this window waits. Press "
         "Ctrl+C when you're done.[/]"
     )
-    if open_browser:
-        webbrowser.open(page_url)
-
     try:
+        if open_browser:
+            try:
+                webbrowser.open(page_url)
+            except (OSError, webbrowser.Error):
+                console.print("  Browser could not open automatically. Open the displayed URL; this window still owns the server.")
         while process.poll() is None:
             time.sleep(0.5)
         console.print("  [mechas.warn]the workshop server exited.[/]")
     except KeyboardInterrupt:
-        process.terminate()
+        pass
+    finally:
+        _stop_workshop_process(process)
     console.print()
     console.print("  [mechas.dim]workshop closed.[/]")
 
 
+def _stop_workshop_process(process) -> None:
+    """Only terminate the child this foreground launcher owns."""
+    if process.poll() is None:
+        process.terminate()
+    try:
+        process.wait(timeout=5)
+    except subprocess.TimeoutExpired:
+        process.kill()
+        process.wait()
+
+
 def launch_workshop_server(
-    console, root: Path, port: int, page: str
+    console, root: Path, port: int, page: str, *, keeper_dir: Path | None = None
 ) -> tuple[subprocess.Popen, str]:
     """Start the workshop server in the workspace interpreter and wait
     for it to answer; returns (process, page_url). Shared by
@@ -200,8 +227,11 @@ def launch_workshop_server(
         )
         raise typer.Exit(code=1)
 
+    command = [_workspace_python(root), "-B", str(server_path), "--port", str(port)]
+    if keeper_dir is not None:
+        command.extend(["--keeper-dir", str(keeper_dir.resolve())])
     process = subprocess.Popen(
-        [_workspace_python(root), "-B", str(server_path), "--port", str(port)],
+        command,
         cwd=root,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -210,40 +240,48 @@ def launch_workshop_server(
     # The server announces its real URL (the engine import takes a
     # moment, then the announcement line arrives; port 0 support means
     # the launcher never guesses).
-    url = None
-    announced = process.stdout.readline() if process.stdout else ""
-    if "http://" in announced:
-        url = announced.strip().split()[-1]
-    ready = False
-    if url:
-        for _ in range(40):
-            if process.poll() is not None:
-                break
-            try:
-                with urllib.request.urlopen(url, timeout=0.5):
-                    ready = True
+    stopped = False
+    try:
+        url = None
+        announced = process.stdout.readline() if process.stdout else ""
+        if "http://" in announced:
+            url = announced.strip().split()[-1]
+        ready = False
+        if url:
+            for _ in range(40):
+                if process.poll() is not None:
                     break
-            except (urllib.error.URLError, OSError):
-                time.sleep(0.25)
-    if not ready:
-        stderr = process.stderr.read() if process.stderr else ""
-        process.terminate()
-        if "10048" in stderr or "10013" in stderr:
-            console.print(
-                f"[mechas.err]Port {port} is unavailable[/] (busy, or in a "
-                "Windows-reserved range). Try again without --port to pick "
-                "a free one automatically."
-            )
-        else:
-            console.print(
-                "[mechas.err]The workshop couldn't start.[/] Details:\n"
-                + (stderr or "(no output)")
-            )
-        raise typer.Exit(code=1)
-    return process, url + page
+                try:
+                    with urllib.request.urlopen(url, timeout=0.5):
+                        ready = True
+                        break
+                except (urllib.error.URLError, OSError):
+                    time.sleep(0.25)
+        if not ready:
+            _stop_workshop_process(process)
+            stopped = True
+            stderr = process.stderr.read() if process.stderr else ""
+            if "10048" in stderr or "10013" in stderr:
+                console.print(
+                    f"[mechas.err]Port {port} is unavailable[/] (busy, or in a "
+                    "Windows-reserved range). Try again without --port to pick "
+                    "a free one automatically."
+                )
+            else:
+                console.print(
+                    "[mechas.err]The workshop couldn't start.[/] Details:\n"
+                    + (stderr or "(no output)")
+                )
+            raise typer.Exit(code=1)
+        return process, url + page
+    except BaseException:
+        if not stopped:
+            _stop_workshop_process(process)
+        raise
 
 
-def _release(console, root, name: str) -> None:
+
+def _release(console, root, name: str, *, keeper_dir: Path | None = None) -> None:
     """One-shot release via the workshop server's CLI mode (workspace
     interpreter — the validation is the engine's own)."""
     import json as _json
@@ -256,7 +294,7 @@ def _release(console, root, name: str) -> None:
             str(root / SERVER_SCRIPT),
             "--release",
             name,
-        ],
+        ] + (["--keeper-dir", str(keeper_dir.resolve())] if keeper_dir is not None else []),
         cwd=root,
         capture_output=True,
         text=True,
@@ -276,19 +314,21 @@ def _release(console, root, name: str) -> None:
                     ("released", result["file"], "mechas.ok"),
                     (
                         "lives in",
-                        "data/workshop/released/ — evolution runs breed "
-                        "from this directory",
+                        str(keeper_dir.resolve() / "released") if keeper_dir else "data/workshop/released/",
                         "mechas.path",
                     ),
                 ]
             )
         )
         console.print()
-        console.print(
-            "  [mechas.dim]try:[/]  [mechas.accent]python -B "
-            "labs/runtime_integration/mecha_engine_runtime_loop.py "
-            "--mode evolution --workshop-dir data/workshop/released[/]"
-        )
+        if keeper_dir is not None:
+            console.print("  Release staged. In this Keeper's game, W gathers and E runs an era; the engine records admission or refusal.")
+        else:
+            console.print(
+                "  [mechas.dim]try:[/]  [mechas.accent]python -B "
+                "labs/runtime_integration/mecha_engine_runtime_loop.py "
+                "--mode evolution --workshop-dir data/workshop/released[/]"
+            )
     else:
         console.print(
             "[mechas.err]" + str(result.get("error", "release failed")) + "[/]"

@@ -95,6 +95,7 @@ from wfc_population_throughput import (  # noqa: E402
 )
 
 from slip import is_grid_aligned  # noqa: E402
+from validator import validate_grid  # noqa: E402
 
 from mecha_engine.generation import train_generation_model  # noqa: E402
 
@@ -200,6 +201,8 @@ def run_evaluation_loop(
     # what new work gets, and no committed number moves (proven, not
     # asserted — see `research/experiment_reports/2026-07-28-slip-admission-migration.md`).
     slip_admission: str = "insertion",
+    # X6 named experimental descendant operators; omitted preserves all outputs.
+    mutation_arm: str = "legacy",
 ) -> dict:
     """The full generational loop to the documented evaluation budget.
 
@@ -209,6 +212,10 @@ def run_evaluation_loop(
     archive, the per-generation trajectory, and lean elite records
     (descriptor, axis values, signature hash — E5's clustering inputs).
     """
+    if mutation_arm not in ("legacy", "operative_permissions_v1"):
+        raise ValueError("mutation_arm must be legacy or operative_permissions_v1")
+    if mutation_arm != "legacy" and generation != "constrained":
+        raise ValueError("operative mutation_arm requires generation=constrained")
     if selection not in ("baseline", "novelty_first", "blend"):
         raise ValueError(
             "selection must be baseline | novelty_first | blend: "
@@ -231,6 +238,8 @@ def run_evaluation_loop(
         train_generation_model(seeds) if generation == "constrained" else None
     )
 
+    operator_observation = _new_operator_observation() if mutation_arm != "legacy" else None
+
     def generate_population(
         parents: list[dict], count: int, generation_index: int
     ) -> tuple[list[dict], list[dict]]:
@@ -241,14 +250,19 @@ def run_evaluation_loop(
                 generation_index=generation_index,
                 rng_seed=rng_seed,
             )
-        return constrained_population(
+        candidates, failures = constrained_population(
             parents,
             generation_model,
             population=count,
             generation_index=generation_index,
             rng_seed=rng_seed,
             slip_profile=slip_profile,
+            **({"mutation_arm": mutation_arm} if mutation_arm != "legacy" else {}),
         )
+        if operator_observation is not None:
+            _observe_operative_population(operator_observation, parents, candidates, failures,
+                                          count, generation_index, slip_profile)
+        return candidates, failures
 
     archive = new_scale_archive()
     elite_grids: dict[str, dict] = {}
@@ -344,6 +358,9 @@ def run_evaluation_loop(
     while evaluations < target_evaluations:
         generation_index += 1
         parents = parents_from_archive(archive, elite_grids)
+        if operator_observation is not None and not parents:
+            operator_observation["stop_reason"] = "no_parents"
+            break
         if slip_admission == "parents":
             breedable = [grid for grid in parents if _is_slip_legal(grid)]
             if breedable:
@@ -443,6 +460,9 @@ def run_evaluation_loop(
             if pool_size is not None:
                 entry["pool_size"] = pool_size
         trajectory.append(entry)
+        if operator_observation is not None and not candidates:
+            operator_observation["stop_reason"] = "no_candidates"
+            break
         # Bound the working set: only current elites' grids parent the
         # next generation.
         current_elite_ids = {
@@ -502,6 +522,10 @@ def run_evaluation_loop(
         "generation": generation,
         "elite_role_summary": elite_role_summary,
     }
+    if operator_observation is not None:
+        operator_observation["status"] = ("complete" if evaluations >= target_evaluations else "incomplete")
+        result["mutation_arm"] = mutation_arm
+        result["operator_observation"] = operator_observation
     if slip_admission != "none":
         # M3: arm metadata is RUNG-CONDITIONAL, not unconditional.
         #
@@ -572,6 +596,86 @@ def run_evaluation_loop(
             ],
         }
     return result
+
+
+def _new_operator_observation() -> dict:
+    """Named-arm-only observations; no random draws and no changes to candidates."""
+    counters = (
+        "candidate_generation_attempts", "candidate_returned", "candidate_failures",
+        "descendants_with_accepted_operations", "net_phenotype_changed", "parent_copies",
+        "accepted_operations", "proposal_attempts", "rejected_proposals", "operator_opportunities",
+        "inherited_rate_matches", "inherited_rate_mismatches", "protected_payload_matches",
+        "protected_payload_mismatches", "unknown_parent_outputs", "invalid_outputs",
+        "unaligned_outputs", "missing_operator_trace", "trace_counter_mismatches",
+    )
+    return {**dict.fromkeys(counters, 0), "operation_counts": {}, "outcome_counts": {},
+            "failure_records": [], "status": "running", "stop_reason": None}
+
+
+def _operative_phenotype(grid: dict) -> dict:
+    # Identity, lineage, trace, rates and permission flags are not morphology.
+    cells = [{key: value for key, value in cell.items() if key not in ("locked", "mutation_weight")}
+             for cell in sorted(grid["cells"], key=lambda cell: (cell["y"], cell["x"]))]
+    organs = {name: {**{key: value for key, value in organ.items() if key not in ("cells", "mutation_locked")},
+                     "cells": sorted(organ["cells"])} for name, organ in grid["organs"].items()}
+    return {"cells": cells, "organs": organs, "palette": grid["palette"], "grid_size": grid["grid_size"]}
+
+
+def _protected_payload_retained(parent: dict, child: dict) -> bool:
+    parent_cells = {(cell["x"], cell["y"]): cell for cell in parent["cells"]}
+    child_cells = {(cell["x"], cell["y"]): cell for cell in child["cells"]}
+    protected = {point for point, cell in parent_cells.items() if cell.get("locked") is True}
+    for name, organ in parent["organs"].items():
+        if organ.get("mutation_locked") is True:
+            if child["organs"].get(name) != organ:
+                return False
+            protected.update(tuple(point) for point in organ["cells"])
+    return all(child_cells.get(point) == parent_cells.get(point) for point in protected)
+
+
+def _observe_operative_population(observed, parents, candidates, failures, requested,
+                                 generation_index, slip_profile) -> None:
+    """Count the entire generated pool before novelty selection; preserve failures."""
+    observed["candidate_generation_attempts"] += requested
+    observed["candidate_returned"] += len(candidates)
+    observed["candidate_failures"] += len(failures)
+    observed["failure_records"].extend({"generation_index": generation_index, **deepcopy(failure)}
+                                       for failure in failures)
+    parent_by_id = {parent["grid_id"]: parent for parent in parents}
+    for candidate in candidates:
+        observed["invalid_outputs"] += not validate_grid(candidate).ok
+        observed["unaligned_outputs"] += not is_grid_aligned(candidate, slip_profile).ok
+        parent = parent_by_id.get(candidate.get("parent_grid_id"))
+        if parent is None:
+            observed["unknown_parent_outputs"] += 1
+        else:
+            rates_match = candidate["mutation"] == parent["mutation"]
+            observed["inherited_rate_matches" if rates_match else "inherited_rate_mismatches"] += 1
+            protected_match = _protected_payload_retained(parent, candidate)
+            observed["protected_payload_matches" if protected_match else "protected_payload_mismatches"] += 1
+            changed = _operative_phenotype(parent) != _operative_phenotype(candidate)
+            observed["net_phenotype_changed" if changed else "parent_copies"] += 1
+        trace = candidate.get("metadata", {}).get("generation_trace", {})
+        if trace.get("mutation_arm") != "operative_permissions_v1" or not isinstance(trace.get("operator_events"), list):
+            observed["missing_operator_trace"] += 1
+            continue
+        events = trace["operator_events"]
+        accepted = sum(event.get("outcome") == "accepted" for event in events)
+        attempts = sum(bool(event.get("proposed_delta")) for event in events)
+        rejected = sum(bool(event.get("proposed_delta")) and event.get("outcome") != "accepted" for event in events)
+        observed["descendants_with_accepted_operations"] += accepted > 0
+        observed["accepted_operations"] += accepted
+        observed["proposal_attempts"] += attempts
+        observed["rejected_proposals"] += rejected
+        observed["operator_opportunities"] += len(events)
+        if (trace.get("accepted_proposals"), trace.get("proposal_attempts"), trace.get("rejected_proposals"), trace.get("operator_opportunities")) != (accepted, attempts, rejected, len(events)):
+            observed["trace_counter_mismatches"] += 1
+        for event in events:
+            outcome = event.get("outcome", "missing_outcome")
+            observed["outcome_counts"][outcome] = observed["outcome_counts"].get(outcome, 0) + 1
+            if outcome == "accepted":
+                operation = event.get("operator", "missing_operator")
+                observed["operation_counts"][operation] = observed["operation_counts"].get(operation, 0) + 1
 
 
 def _novelty_first_candidates(

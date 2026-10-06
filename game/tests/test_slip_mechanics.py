@@ -10,10 +10,11 @@ from pathlib import Path
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
-for path in (ROOT / 'packages/mecha_engine/src', ROOT / 'game/src'):
+for path in (ROOT / 'packages/mecha_engine/src', ROOT / 'game/src', ROOT / 'labs/lifecycle_sim'):
     sys.path.insert(0, str(path))
 from mecha_engine.generation import train_generation_model
 from mecha_game.session import CompanionSession
+from slip_mechanics_gate import legacy_game_save_projection, legacy_game_snapshot_projection
 
 
 def read(name):
@@ -72,10 +73,11 @@ class CovenantMechanicsTests(unittest.TestCase):
                 session = CompanionSession(grid, profile, model=train_generation_model([grid]))
                 for action in baseline['game_actions']:
                     session.advance(action)
-                self.assertEqual(row['game_snapshot_hash'], digest(session.snapshot()))
+                self.assertEqual(row['game_snapshot_hash'], digest(legacy_game_snapshot_projection(session.snapshot())))
                 path = Path(directory) / 'save.json'
                 session.save(path)
-                self.assertEqual(row['game_save_hash'], digest(json.loads(path.read_text())))
+                legacy = legacy_game_save_projection(json.loads(path.read_text()))
+                self.assertEqual(row['game_save_hash'], digest(legacy))
 
     def test_explicit_empty_on_incumbent_profile_keeps_old_save_shape(self):
         grid = read('data/seed_grids/mg_seed_001.json')
@@ -85,7 +87,46 @@ class CovenantMechanicsTests(unittest.TestCase):
             a, b = Path(directory) / 'a.json', Path(directory) / 'b.json'
             CompanionSession(grid, profile, model=model).save(a)
             CompanionSession(grid, profile, model=model, mechanics=()).save(b)
-            self.assertEqual(a.read_bytes(), b.read_bytes())
+            first, second = json.loads(a.read_text()), json.loads(b.read_text())
+            self.assertNotEqual(first['chronicle']['keeper_id'], second['chronicle']['keeper_id'])
+            self.assertNotEqual(first['lineage'][0]['life_id'], second['lineage'][0]['life_id'])
+            self.assertEqual(legacy_game_save_projection(first), legacy_game_save_projection(second))
+    def test_historical_projection_rejects_unregistered_metadata_and_false_care(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'session.json'
+            self.session().save(path)
+            original = json.loads(path.read_text())
+            for mutate in (
+                lambda payload: payload.update(unregistered=True),
+                lambda payload: payload['lineage'][0].update(unregistered=True),
+                lambda payload: payload['chronicle'].update(unregistered=True),
+                lambda payload: payload['lineage'][0]['care_summary'].update(ticks_observed=1),
+            ):
+                payload = json.loads(json.dumps(original))
+                mutate(payload)
+                with self.subTest(mutate=mutate), self.assertRaises(ValueError):
+                    legacy_game_save_projection(payload)
+
+    def test_historical_projection_validates_x7_body_and_event_identities(self):
+        session = self.session()
+        session.advance('feed')
+        snapshot = session.snapshot()
+        for mutate in (lambda s: s.update(unregistered=True),
+                       lambda s: s.update(life_id='invented'),
+                       lambda s: s['log'][0].update(life_id='other-life')):
+            corrupt = json.loads(json.dumps(snapshot))
+            mutate(corrupt)
+            with self.assertRaises(ValueError):
+                legacy_game_snapshot_projection(corrupt)
+        with tempfile.TemporaryDirectory() as directory:
+            path = session.save(Path(directory) / 'session.json')
+            payload = json.loads(path.read_text())
+            for field in ('grid_sha256', 'grid_structure_sha256'):
+                corrupt = json.loads(json.dumps(payload))
+                corrupt['lineage'][0][field] = '0' * 64
+                with self.assertRaises(ValueError):
+                    legacy_game_save_projection(corrupt)
+
     def test_footer_exposes_engine_cleanliness_only_when_opted_in(self):
         from mecha_game.app import _footer_lines
         session = self.session()

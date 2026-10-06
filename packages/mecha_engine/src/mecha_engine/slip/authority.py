@@ -113,6 +113,8 @@ MUTATION_KEYS = {
 BEHAVIOR_KEYS = {"curiosity", "neediness", "sleepiness"}
 SURVIVAL_KEYS = {"stability", "novelty", "bond"}
 ORGAN_ROLES = {"sensor", "expression", "body_core"}
+# X8: optional permission vocabulary, separate from the frozen required roles.
+ALLOWED_ORGAN_ROLES = ORGAN_ROLES | {"locomotion", "ornament", "effect"}
 
 
 @dataclass(frozen=True)
@@ -180,7 +182,10 @@ def validate_slip(profile: dict) -> SlipResult:
         errors.append("grid must be an object")
         grid = {}
     else:
-        _require_exact_keys(grid, GRID_KEYS, "grid", errors)
+        _require_exact_keys({key: value for key, value in grid.items()
+                             if key != "allowed_organ_roles"}, GRID_KEYS, "grid", errors)
+        if "allowed_organ_roles" in grid:
+            _validate_allowed_organ_roles(grid, version, errors)
 
     _validate_enum_array(
         grid.get("allowed_palettes"),
@@ -280,12 +285,28 @@ def is_grid_aligned(grid: dict, profile: dict) -> SlipResult:
             f"{min_mass}..{max_mass}"
         )
 
-    present_roles = {
-        organ.get("role") for organ in grid.get("organs", {}).values() if isinstance(organ, dict)
-    }
+    if "allowed_organ_roles" in grid_rules:
+        # Admission also visits structurally invalid founders. Optional role
+        # permissions must refuse malformed roles without masking that receipt.
+        present_roles = set()
+        for organ in grid.get("organs", {}).values():
+            if isinstance(organ, dict):
+                role = organ.get("role")
+                if isinstance(role, str):
+                    present_roles.add(role)
+                else:
+                    errors.append(f"organ role must be a string for SLIP: {role!r}")
+    else:
+        present_roles = {
+            organ.get("role") for organ in grid.get("organs", {}).values() if isinstance(organ, dict)
+        }
     for role in grid_rules["required_organ_roles"]:
         if role not in present_roles:
             errors.append(f"required organ role missing for SLIP: {role}")
+
+    if "allowed_organ_roles" in grid_rules:
+        for role in sorted(present_roles - set(grid_rules["allowed_organ_roles"])):
+            errors.append(f"organ role not allowed by SLIP: {role}")
 
     mutation_limits = profile["mutation"]
     mutation_values = grid.get("mutation", {})
@@ -494,6 +515,20 @@ def _validate_forbidden_traits(profile: dict, errors: list[str]) -> None:
                 f"forbidden role {cell_role} contradicts required organ "
                 f"role {organ_role}"
             )
+
+
+def _validate_allowed_organ_roles(grid: dict, version: str, errors: list[str]) -> None:
+    """X8 organ_role_permissions_v1; optional absence changes no legacy verdict."""
+    allowed = grid["allowed_organ_roles"]
+    if version != "0.2.0":
+        errors.append("grid allowed_organ_roles requires slip_version 0.2.0")
+    _validate_enum_array(allowed, ALLOWED_ORGAN_ROLES, "grid allowed_organ_roles",
+                         "grid allowed organ role", errors)
+    required = grid.get("required_organ_roles")
+    if isinstance(allowed, list) and isinstance(required, list):
+        for role in required:
+            if isinstance(role, str) and role not in allowed:
+                errors.append(f"required organ role is not allowed by SLIP: {role}")
 
 
 def _require_exact_keys(

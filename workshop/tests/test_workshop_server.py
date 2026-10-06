@@ -1,7 +1,6 @@
 import json
 import sys
 import tempfile
-import threading
 import unittest
 import urllib.error
 import urllib.request
@@ -1608,17 +1607,16 @@ class SemanticLayerTests(unittest.TestCase):
             session_dir=base / "game_loop",
             released_dir=cls.released_dir,
         )
-        cls.thread = threading.Thread(
-            target=cls.server.serve_forever, daemon=True
-        )
-        cls.thread.start()
         cls.base = f"http://127.0.0.1:{cls.server.server_address[1]}"
 
     @classmethod
     def tearDownClass(cls):
-        cls.server.shutdown()
-        cls.thread.join(timeout=5)
-        cls.temp.cleanup()
+        try:
+            cls.server.close_workshop()
+            if cls.server.workshop_thread.is_alive():
+                raise AssertionError("Workshop fixture left its owned server running")
+        finally:
+            cls.temp.cleanup()
 
     @staticmethod
     def _layers():

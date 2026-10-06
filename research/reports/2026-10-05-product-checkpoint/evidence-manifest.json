@@ -1,0 +1,75 @@
+{
+  "format": "product_review_evidence_v1",
+  "head": "d4b4337d0dacbdfa816d990297c03a5da2d0cdca",
+  "created_at": "2026-10-05T20:05:07.390632+00:00",
+  "python": "3.13.9, authoritative repository .venv",
+  "scope": "Review diagnostics only, not preregistered experiments, RED/GREEN acceptance tests, new scientific claims or implementation.",
+  "w5_handoff_matches": {
+    "matched": 51,
+    "total": 51
+  },
+  "prior_queue_sha256": "a1e175da2cd2e5f2d9674cce42dc03ba0b84c8c33f750138ae4367b39a5cbd8e",
+  "reproduction_notes": [
+    "Review scripts before rerunning; some embed repository/temp paths and expect retained W5 release/demo files.",
+    "Only the existing repository .venv was used. Do not create mirrors or environments.",
+    "Workshop/campaign diagnostics used temporary fixtures; engine diagnostic used in-memory inputs; detached resolver diagnostic was read-only.",
+    "The exact detached script was executed via stdin; its retained result records execution context. No relocated native interaction is claimed.",
+    "Initial temp/setup attempts are not counted as product failures. Original historical scientific evidence was not changed."
+  ],
+  "files": [
+    {
+      "path": "mecha-workshop-audit.py",
+      "bytes": 3716,
+      "sha256": "2de4c0063ca8c1f7c7be7fe1089e7560613c44ea7f3bc5e028d0a21cf03e99b5",
+      "role": "exact retained diagnostic script"
+    },
+    {
+      "path": "mecha-workshop-audit-result.json",
+      "bytes": 2275,
+      "sha256": "1c4c48aed04c9959aea46df8fdc1b46721906d02d9df42f8d3e655178507f6a9",
+      "role": "retained diagnostic observations"
+    },
+    {
+      "path": "mecha_campaign_audit_probe.py",
+      "bytes": 3952,
+      "sha256": "e32881d1b8c77181407850e312273aeb94076166a06b32e388aaec5e04afbc2c",
+      "role": "exact retained diagnostic script"
+    },
+    {
+      "path": "mecha_campaign_audit_results.jsonl",
+      "bytes": 1736,
+      "sha256": "7019b305e08e42b372884c75c295353aebd3cf810a61914e48a9644bb8e3c268",
+      "role": "retained diagnostic observations"
+    },
+    {
+      "path": "mechagotchi-current-engine-review.py",
+      "bytes": 4887,
+      "sha256": "f7a2add1169e89a5e4065027ff9db48399286d1b4c491aa886b313ce4c92c872",
+      "role": "exact retained diagnostic script"
+    },
+    {
+      "path": "mechagotchi-current-engine-review.json",
+      "bytes": 95568,
+      "sha256": "745b098badbfb90c4202a9b9c09f7755d078863597b52c64f1fe5d44cee6fbb0",
+      "role": "retained diagnostic observations"
+    },
+    {
+      "path": "mechagotchi-detached-resolver-review-exact-stdin.py",
+      "bytes": 1395,
+      "sha256": "bc93cfa1f27749a0ed34a8cdc8839931f0f61f11bd991fec79efbe8fc536df84",
+      "role": "exact retained diagnostic script"
+    },
+    {
+      "path": "mechagotchi-detached-resolver-review-result.txt",
+      "bytes": 1073,
+      "sha256": "8f92339f8a7d37a5035b9f5c686e280e77894e8bbdf01e034bf6069ac79d9bba",
+      "role": "retained diagnostic observations"
+    },
+    {
+      "path": "source-inventory.json",
+      "bytes": 138878,
+      "sha256": "8a45419d3f6b7f40c485bf9c172012321272012bc3cb41b1fe211c602bed0950",
+      "role": "pre-edit tracked source surface inventory; not exhaustive line review"
+    }
+  ]
+}

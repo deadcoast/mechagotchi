@@ -79,6 +79,12 @@ def build_external_asset_stub(grid: dict, format_id: str) -> dict:
     }
 
 
+def authoring_document_digest(document: dict) -> str:
+    """Canonical integrity identity for the optional X2 authoring snapshot."""
+    return hashlib.sha256(json.dumps(document, sort_keys=True, separators=(',', ':'),
+        ensure_ascii=False, allow_nan=False).encode('utf-8')).hexdigest()
+
+
 def build_sidecar_for_grid(grid: dict, slip_profile: dict, asset: dict) -> dict:
     semantic_overlay = {
         "cells": deepcopy(grid.get("cells", [])),
@@ -167,7 +173,14 @@ def validate_sidecar_binding(sidecar: dict, asset: dict) -> dict:
 
     overlay = sidecar.get("semantic_overlay", {})
     profile = sidecar.get("slip_binding", {}).get("profile_snapshot", {})
-    profile_validation = validate_authoring_draft(profile) if profile else {"ok": False}
+    if 'authoring_document' in sidecar:
+        # X2 modern consumer: the promoted current SLIP authority accepts
+        # DR 0063 mechanics. Keep the historical migration-panel verdict
+        # verbatim for carriers without the additive authoring snapshot.
+        from mecha_engine.slip import validate_slip
+        profile_validation = {'ok': validate_slip(profile).ok} if isinstance(profile, dict) else {'ok': False}
+    else:
+        profile_validation = validate_authoring_draft(profile) if profile else {'ok': False}
     if not profile_validation["ok"]:
         errors.append(_error("slip_binding.profile_snapshot", "profile_validation_failed"))
 

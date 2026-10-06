@@ -36,7 +36,9 @@ class HatchPreviewTests(unittest.TestCase):
         campaign=KeeperCampaign(copy.deepcopy(self.inputs),era_config=TINY_ERA_CONFIG,campaign_id='preview_test')
         campaign.save(keeper/'campaign.sqlite3');campaign.save_state(keeper/'campaign_state.json')
         grid,slip,model=self.pet
-        CompanionSession(self.hatched['grid'] if hatched else grid,slip,model=model,learning_policy=policy).save_checkpoint(keeper/'companion.json')
+        session = CompanionSession(self.hatched['grid'] if hatched else grid,slip,model=model,learning_policy=policy)
+        session.bind_campaign(campaign.campaign['campaign_id'])
+        session.save_checkpoint(keeper/'companion.json')
 
     def observe(self,keeper,batches):
         events=iter(batches);pages=[];original=FooterPager.layout

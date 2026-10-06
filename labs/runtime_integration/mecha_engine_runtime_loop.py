@@ -549,11 +549,13 @@ def run_mecha_engine_evolution_loop(
     rng_seed: int = 20260512,
     survival_regime: str = "sheltered",
     workshop_grids_dir: str | Path | None = None,
+    founder_grids: list[dict] | None = None,
     slip_profile: dict | None = None,
     cubff_pressure_source: list[dict] | None = None,
     readability_selection: dict | None = None,
     progress_callback=None,
     recording_callback=None,
+    admission_callback=None,
 ) -> dict:
     """Multi-generation evolution through the composed engine.
 
@@ -592,7 +594,21 @@ def run_mecha_engine_evolution_loop(
     `grid_id`, never the ancestor list). All wire keys are conditional:
     the default `None` path stays byte-identical — the package parity
     pins depend on it.
+
+    `founder_grids` (X5): an optional ordered in-memory list, mutually
+    exclusive with `workshop_grids_dir`. This arm reproduces the promoted
+    package's size-coherent admission gate; the legacy directory arm keeps
+    its original verdicts. None is absent; [] records an empty submission.
+    `admission_callback` observes each actual verdict in submission order,
+    with an isolated dict carrying submission_index, grid_id, admitted and
+    rejection_errors (None on admission). Exceptions propagate. Observation
+    adds no scientific fields or RNG draws and cannot modify engine inputs.
     """
+    if founder_grids is not None:
+        if not isinstance(founder_grids, list):
+            raise ValueError("founder_grids must be a list of grid genomes")
+        if workshop_grids_dir is not None:
+            raise ValueError("founder_grids and workshop_grids_dir are mutually exclusive")
     if survival_regime not in ("sheltered", "stress_probe"):
         raise ValueError(f"unknown survival_regime: {survival_regime}")
     stress = survival_regime == "stress_probe"
@@ -628,23 +644,49 @@ def run_mecha_engine_evolution_loop(
     if not seed_pool:
         raise ValueError("no seed grid satisfies the SLIP profile")
 
-    workshop = workshop_grids_dir is not None
+    workshop = workshop_grids_dir is not None or founder_grids is not None
     workshop_founders: list[dict] = []
     workshop_rejected: list[dict] = []
     founder_ids: set[str] = set()
     released_count = 0
     if workshop:
-        released_dir = Path(workshop_grids_dir)
-        for file in sorted(released_dir.glob("*.json")):
-            if file.name.endswith(".bak.json"):
-                continue
+        if founder_grids is not None:
+            released_grids = iter(founder_grids)
+        else:
+            released_dir = Path(workshop_grids_dir)
+            released_grids = (
+                json.loads(file.read_text(encoding="utf-8"))
+                for file in sorted(released_dir.glob("*.json"))
+                if not file.name.endswith(".bak.json")
+            )
+        for submission_index, grid in enumerate(released_grids):
             released_count += 1
-            grid = json.loads(file.read_text(encoding="utf-8"))
             errors: list[str] = []
             validation = validate_grid(grid)
             errors.extend(validation.errors)
             alignment = is_grid_aligned(grid, slip_profile)
             errors.extend(alignment.errors)
+            # X5 proves the already-promoted DR 0029 gate for direct inputs.
+            # Historical directory results retain their original semantics.
+            founder_grid_size = grid.get("grid_size")
+            era_grid_size = seeds[0].get("grid_size")
+            if founder_grids is not None and not errors and founder_grid_size != era_grid_size:
+                founder_label = (
+                    f"{founder_grid_size[0]}x{founder_grid_size[1]}"
+                    if isinstance(founder_grid_size, list)
+                    and len(founder_grid_size) == 2
+                    else str(founder_grid_size)
+                )
+                era_label = (
+                    f"{era_grid_size[0]}x{era_grid_size[1]}"
+                    if isinstance(era_grid_size, list)
+                    and len(era_grid_size) == 2
+                    else str(era_grid_size)
+                )
+                errors.append(
+                    f"founder grid is {founder_label} but the era runs at "
+                    f"{era_label}"
+                )
             if errors:
                 workshop_rejected.append(
                     {"grid_id": grid.get("grid_id"), "errors": errors}
@@ -652,6 +694,13 @@ def run_mecha_engine_evolution_loop(
             else:
                 workshop_founders.append(grid)
                 founder_ids.add(grid["grid_id"])
+            if admission_callback is not None:
+                admission_callback(deepcopy({
+                    "submission_index": submission_index,
+                    "grid_id": grid.get("grid_id"),
+                    "admitted": not errors,
+                    "rejection_errors": errors if errors else None,
+                }))
 
     cubff = cubff_pressure_source is not None
     cubff_by_generation: list[dict] = []
@@ -1169,9 +1218,11 @@ def run_mecha_engine_evolution_loop(
         result["species_class"] = slip_profile["species_class"]
     if workshop:
         result["workshop_grids_dir"] = (
-            Path(workshop_grids_dir).resolve().relative_to(ROOT).as_posix()
-            if Path(workshop_grids_dir).resolve().is_relative_to(ROOT)
-            else str(workshop_grids_dir)
+            None if workshop_grids_dir is None else (
+                Path(workshop_grids_dir).resolve().relative_to(ROOT).as_posix()
+                if Path(workshop_grids_dir).resolve().is_relative_to(ROOT)
+                else str(workshop_grids_dir)
+            )
         )
         result["purpose"] = (
             "T1, the workshop->engine asset wire: released workshop "
@@ -1310,6 +1361,16 @@ def _evolution_decision(summary: dict) -> dict:
             "deaths_observed": summary["death_count"] > 0,
         }
     return decision
+
+
+def run_frozen_evolution_loop(seed_grids, slip_profile, generation_model, repair_model, **options):
+    """X8 prototype entry using exact captured product inputs, without training.
+
+    The historical wrapper above retains its original corpus/model construction.
+    This two-result entry accepts the same frozen objects as package evolve.
+    """
+    from survival_population import evolve
+    return evolve(seed_grids, slip_profile, generation_model, repair_model, **options)
 
 
 def write_evolution_loop_artifacts(output_dir: Path, report: dict) -> None:

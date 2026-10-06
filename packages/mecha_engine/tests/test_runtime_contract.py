@@ -52,6 +52,9 @@ REQUIRED_LIVE_CYCLE_DEFAULTS = {
     "damage_events": "None",
     # DR 0023 (R5): the replay seam defaults off (byte-identical).
     "record_frames": "False",
+    "population_policy": "'legacy_archive'",
+    "survival_regime": "'sheltered'",
+    "body_response": "'legacy'",
 }
 REQUIRED_EVOLVE_DEFAULTS = {
     "seed_grids": "REQUIRED",
@@ -75,6 +78,17 @@ REQUIRED_EVOLVE_DEFAULTS = {
     "progress_callback": "None",
     # DR 0074: original evaluation observation remains off by default.
     "recording_callback": "None",
+    # X5: ordered admission observation remains off by default.
+    "admission_callback": "None",
+    "founder_care_contexts": "None",
+    "care_selection_policy": "'off'",
+    "care_evaluator": "'archive_morphology_probe_v1'",
+    "population_policy": "'legacy_archive'",
+    "founder_start_mode": "None",
+    "survival_regime": "'sheltered'",
+    "cubff_density_pressure": "False",
+    "evaluation_callback": "None",
+    "body_response": "'legacy'",
 }
 REQUIRED_CYCLE_FIELDS = [
     "aligned",
@@ -147,6 +161,9 @@ class MechaEngineRuntimeContractTests(unittest.TestCase):
                 "damage_events",
                 # DR 0023 (R5): the replay seam.
                 "record_frames",
+                "population_policy",
+                "survival_regime",
+                "body_response",
             ],
             keyword_only["live_cycle"],
         )
@@ -167,6 +184,16 @@ class MechaEngineRuntimeContractTests(unittest.TestCase):
                 "readability_selection",
                 "progress_callback",
                 "recording_callback",
+                "admission_callback",
+                "founder_care_contexts",
+                "care_selection_policy",
+                "care_evaluator",
+                "population_policy",
+                "founder_start_mode",
+                "survival_regime",
+                "cubff_density_pressure",
+                "evaluation_callback",
+                "body_response",
             ],
             keyword_only["evolve"],
         )

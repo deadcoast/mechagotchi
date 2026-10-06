@@ -208,6 +208,130 @@
         "cli",
         "lab:game_loop"
       ]
+    },
+    "x1-x2-continuity-authoring": {
+      "spec": "docs/development/cycle-38-keeper-and-authoring.md",
+      "purpose": "Preserve actual Keeper lives and coherent campaign recovery; make Workshop authoring, draft recovery and carrier exchange faithful to selected revisions",
+      "suites": [
+        "game",
+        "workshop",
+        "lab:workshop_editor",
+        "package",
+        "cli",
+        "lab:game_loop"
+      ]
+    },
+    "x3-selected-keeper-creation": {
+      "spec": "docs/development/cycle-38-selected-keeper-creation.md",
+      "purpose": "Complete explicit selected Keeper authoring, native handoff, durable drafts, actual release provenance and safe named pack exchange",
+      "suites": [
+        "game",
+        "workshop",
+        "cli",
+        "package",
+        "lab:workshop_editor",
+        "lab:game_loop"
+      ]
+    },
+    "x4-windows-delivery": {
+      "spec": "docs/development/cycle-38-windows-delivery.md",
+      "purpose": "Deliver complete Windows runtime resources and native startup/recovery/connected journeys with actual detached artifact examples",
+      "suites": [
+        "game",
+        "workshop",
+        "cli",
+        "package",
+        "lab:game_loop",
+        "ci"
+      ]
+    },
+    "x5-immutable-era-inputs": {
+      "spec": "docs/development/cycle-38-immutable-era-inputs.md",
+      "purpose": "Retain exact ordered era execution inputs and founder admissions in the existing ledger; reproduce complete saved results without mutable source paths",
+      "suites": [
+        "game",
+        "package",
+        "lab:game_loop",
+        "lab:runtime_integration"
+      ]
+    },
+    "x6-operative-mutation-permissions": {
+      "spec": "docs/development/cycle-38-operative-mutation-permissions.md",
+      "purpose": "Define and measure operative inherited mutation permissions with exact legacy parity and explicit qualification/refusal before product consumption",
+      "suites": [
+        "lab:grid_genome",
+        "package",
+        "lab:map_elites_archive",
+        "lab:runtime_integration",
+        "game",
+        "workshop"
+      ]
+    },
+    "x7-lived-care-and-thought": {
+      "spec": "docs/development/cycle-38-lived-care-and-thought.md",
+      "purpose": "Durable founder-associated care, controlled contextual succession, truthful native thoughts and bounded product-compatible learning evidence",
+      "suites": [
+        "game",
+        "package",
+        "lab:game_loop",
+        "lab:runtime_integration",
+        "lab:micro_threads"
+      ]
+    },
+    "x7-terminal-survival-and-rollout": {
+      "spec": "docs/development/cycle-38-terminal-survival-care.md",
+      "purpose": "Correct versioned terminal-survival care and qualify separate holdouts; independently qualify and integrate new-life learning with preserved saved policy",
+      "suites": [
+        "game",
+        "package",
+        "lab:game_loop",
+        "lab:runtime_integration",
+        "lab:micro_threads"
+      ]
+    },
+    "x8-surviving-populations": {
+      "spec": "docs/development/cycle-38-surviving-populations.md",
+      "purpose": "Separate living breeders from historical archives; preserve explicit empty continuation and versioned recovery; qualify earned roles, density and real survival/succession without changing defaults",
+      "suites": [
+        "game",
+        "package",
+        "lab:game_loop",
+        "lab:runtime_integration",
+        "lab:grid_genome",
+        "lab:slip_validator",
+        "lab:cubff_transducer"
+      ]
+    },
+    "x8-earned-preparation": {
+      "spec": "docs/development/cycle-38-earned-preparation.md",
+      "purpose": "Durable earned-role preparation, explicit interrupted-write completion and production density consequences with preserved scientific refusals",
+      "suites": [
+        "game",
+        "package",
+        "lab:game_loop"
+      ]
+    },
+    "x7-x8-body-workload": {
+      "spec": "docs/development/cycle-38-body-workload.md",
+      "purpose": "Shared opt-in body play workload across native life and evaluation, immutable reproduction and bounded care/survival qualification",
+      "suites": [
+        "lab:lifecycle_sim",
+        "lab:runtime_integration",
+        "lab:game_loop",
+        "package",
+        "game"
+      ]
+    },
+    "body-model-compatibility": {
+      "spec": "docs/development/cycle-38-body-compatibility.md",
+      "purpose": "Guard native and Workshop mutations against current Keeper/campaign body-model mismatch, including deferred recovery and stale writers",
+      "suites": [
+        "game",
+        "workshop",
+        "cli",
+        "lab:game_loop",
+        "package"
+      ]
     }
   }
 }

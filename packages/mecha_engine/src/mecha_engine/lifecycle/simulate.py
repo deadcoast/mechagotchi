@@ -40,6 +40,8 @@ from statistics import mean
 
 from mecha_engine.genome import validate_grid
 
+from ._body_response import project_body_workload, validate_body_response, workload_for_state
+
 from ._policy import (
     ACTIONS,
     SUPPORTED_POLICIES,
@@ -158,6 +160,7 @@ def initial_state(
     slip_profile: dict | None = None,
     *,
     mechanics: tuple | list | None = None,
+    body_response: str = "legacy",
 ) -> dict:
     """Build a bounded lifecycle state from a valid grid and optional SLIP.
 
@@ -176,7 +179,12 @@ def initial_state(
     byte-identical to the pre-seam engine. An explicit sequence wins over
     the covenant: ``()`` disables; ``("cleanliness",)`` enables. Unknown
     names and invalid covenants are refused.
+
+    ``body_response="workload-v1"`` opts this life into the registered
+    actual-body play energy law; species preferences remain unchanged. The
+    default ``legacy`` adds no keys and preserves incumbent transitions.
     """
+    response = validate_body_response(body_response)
     mechanic_names = _mechanic_names(mechanics)
     validation = validate_grid(grid) if isinstance(grid, dict) else None
     if validation is None or not validation.ok:
@@ -270,6 +278,9 @@ def initial_state(
     # own mean cell damage, the same field grid_stability already reads.
     if "cleanliness" in mechanic_names:
         state["cleanliness"] = round(_clamp(1.0 - cell_damage), 6)
+    if response == "workload-v1":
+        state["body_response"] = response
+        state["body_workload"] = project_body_workload(grid)
     return state
 
 
@@ -299,6 +310,7 @@ def advance_tick(
         action == CLEAN_ACTION and mechanic_on
     ):
         raise ValueError(f"unsupported lifecycle action: {action}")
+    workload = workload_for_state(state)
     next_state = deepcopy(state)
     if not next_state.get("alive", False):
         return next_state
@@ -325,6 +337,8 @@ def advance_tick(
     # `clean` carries no incumbent-axis effects: cleaning is time spent
     # (the shared drift), not nourishment.
     effects = ACTION_EFFECTS.get(action) or {key: 0.0 for key in TARGETS}
+    if workload is not None and action == "play":
+        effects = {**effects, "energy": -workload["play_energy_cost"]}
     for key in TARGETS:
         next_state[key] = round(
             _clamp(float(next_state[key]) + drift[key] + effects[key]),
@@ -379,6 +393,10 @@ def advance_tick(
     # F1 (the seen thought): rung-conditional — only ticks where the
     # switchboard actually deliberated carry the record, so every
     # frozen flow's history stays byte-identical.
+    if workload is not None:
+        entry.update(body_response="workload-v1",
+                     play_energy_cost=workload["play_energy_cost"],
+                     action_energy_effect=effects["energy"])
     if deliberation is not None:
         entry["deliberation"] = deliberation
     next_state["history"].append(entry)
@@ -394,6 +412,7 @@ def run_episode(
     rng_seed: int | None = None,
     *,
     mechanics: tuple | list | None = None,
+    body_response: str = "legacy",
 ) -> dict:
     """Run a deterministic bounded episode from a valid grid.
 
@@ -417,7 +436,7 @@ def run_episode(
     if isinstance(ticks, bool) or not isinstance(ticks, int) or ticks < 0:
         raise ValueError(f"ticks must be a non-negative integer: {ticks}")
 
-    state = initial_state(grid, slip_profile, mechanics=mechanics)
+    state = initial_state(grid, slip_profile, mechanics=mechanics, body_response=body_response)
     action_stream: list[str] | None = None
     if actions is not None:
         action_stream = list(actions)
@@ -476,6 +495,9 @@ def run_episode(
     # byte-identical to the pre-seam shape.
     if "cleanliness" in state:
         report["final_cleanliness"] = state["cleanliness"]
+    if "body_response" in state:
+        report["body_response"] = state["body_response"]
+        report["body_workload"] = deepcopy(state["body_workload"])
     return report
 
 

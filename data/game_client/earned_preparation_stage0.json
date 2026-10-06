@@ -1,0 +1,230 @@
+{
+  "format": "earned_preparation_stage0_v1",
+  "artifact_id": "earned_preparation_stage0",
+  "date": "2026-10-06",
+  "status": "NARROW_PRODUCT_QUALIFIED_OVERALL_X8_OPEN",
+  "purpose": "Qualify actual native earned role spending and matched production density consequences; preserve refused care/extinction.",
+  "contract": "docs/development/cycle-38-earned-preparation.md",
+  "contract_sha256": "05abfccb62ea53015fdcbde84ffa93db85f0ab551eff6e3ddf9e50ceef336ca8",
+  "source_artifacts": [
+    ".development/x8-v2/study/source-manifest.json",
+    ".development/x8-v2/study/setup/inputs.json",
+    ".development/x8-v2/study/judgment/judgment.json",
+    ".development/x8-v2/budget.json",
+    ".development/x8-v2/study-closed.json",
+    ".development/x8-v2/care-diagnosis.json",
+    ".development/x8-v2/survival-diagnosis.json",
+    ".development/x8-v2/independent-measurement-review.json",
+    ".development/x8-v2/detached-report.json",
+    ".development/x8-v2/native-build-binding.json"
+  ],
+  "metrics": {
+    "role": {
+      "verdict": "QUALIFIED_FIXED_JOURNEY",
+      "checks": {
+        "actual_roles": true,
+        "admitted_evaluated": true,
+        "saved_roles": true
+      },
+      "effects": [
+        {
+          "role": "ornament",
+          "grid_id": "mg_seed16_012_snail",
+          "admissions": [
+            {
+              "admitted": true,
+              "grid_id": "mg_seed16_012_snail",
+              "grid_sha256": "0c1b82bb1f36049da3117bc645f175498479f7ecb26d67de8381d71195ea3628",
+              "label": "released/mg_seed16_012_snail.json",
+              "ordinal": 0,
+              "rejection_errors": null,
+              "source_kind": "workshop_release",
+              "source_position": 0
+            }
+          ],
+          "evaluated_occurrences": [
+            {
+              "generation_index": 0,
+              "candidate_index": 0
+            }
+          ]
+        },
+        {
+          "role": "effect",
+          "grid_id": "mg_seed16_002_wisp",
+          "admissions": [
+            {
+              "admitted": true,
+              "grid_id": "mg_seed16_002_wisp",
+              "grid_sha256": "ef1d5ecd50b0d68fd8496bcfd877e3168189f2196f744e9a596524c2fe3422d5",
+              "label": "released/mg_seed16_002_wisp.json",
+              "ordinal": 0,
+              "rejection_errors": null,
+              "source_kind": "workshop_release",
+              "source_position": 0
+            }
+          ],
+          "evaluated_occurrences": [
+            {
+              "generation_index": 0,
+              "candidate_index": 0
+            }
+          ]
+        }
+      ]
+    },
+    "density": {
+      "verdict": "QUALIFIED_CONSEQUENCE",
+      "checks": {
+        "flags": true,
+        "initial_population": true,
+        "inputs": true
+      },
+      "comparison": {
+        "format": "x8_production_density_comparison_v1",
+        "generations": [
+          {
+            "generation": 0,
+            "comparable": true,
+            "candidates": 16,
+            "first_cycle_difference": 0,
+            "positive_dropout_delta": false,
+            "nonnegative_dropout_deltas": true
+          },
+          {
+            "generation": 1,
+            "comparable": true,
+            "candidates": 16,
+            "first_cycle_difference": 0,
+            "positive_dropout_delta": true,
+            "nonnegative_dropout_deltas": true
+          },
+          {
+            "generation": 2,
+            "comparable": true,
+            "candidates": 16,
+            "first_cycle_difference": 9,
+            "positive_dropout_delta": true,
+            "nonnegative_dropout_deltas": true
+          },
+          {
+            "generation": 3,
+            "comparable": false,
+            "candidates": 16,
+            "first_cycle_difference": null,
+            "positive_dropout_delta": null,
+            "nonnegative_dropout_deltas": null
+          },
+          {
+            "generation": 4,
+            "comparable": false,
+            "candidates": 16,
+            "first_cycle_difference": null,
+            "positive_dropout_delta": null,
+            "nonnegative_dropout_deltas": null
+          },
+          {
+            "generation": 5,
+            "comparable": false,
+            "candidates": 16,
+            "first_cycle_difference": null,
+            "positive_dropout_delta": null,
+            "nonnegative_dropout_deltas": null
+          }
+        ],
+        "comparable_first_cycle_difference": 9,
+        "verdict": "QUALIFIED_CONSEQUENCE",
+        "claim": "Matched production damage consequence only; no survival benefit, difficulty or food claim."
+      }
+    },
+    "eras": 6,
+    "candidate_evaluations": 576,
+    "all_eras_final_breeders": 16,
+    "all_eras_lifecycle_deaths": 0,
+    "immutable_reproductions": 3,
+    "duplicate_raw_observations_exact": true,
+    "stages": 16,
+    "measurement_seconds": 221.11670440004673,
+    "limit_seconds": 1200
+  },
+  "native_build": {
+    "format": "x8_earned_build_binding_v1",
+    "bundle": "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\game\\dist\\x8-earned-preparation-01\\Mechagotchi",
+    "artifact_manifest_sha256": "e832f20ac436e86fc96a62f1473b22d8caff6593557b2ad7dfaf2d2ae01e26c4",
+    "runtime_manifest_sha256": "3dbdf9168238577967d565d85e1ef31004a206078db873601e972488aa1d018f",
+    "source_files": 241,
+    "artifact_files": 353,
+    "source_manifest": "study/source-manifest.json",
+    "detached_report_sha256": "0b895d78036467a62233515fee502b142840b9a1dee42399c60b99506d6b94d5",
+    "detached_checks": 29,
+    "detached_seconds": 23.158439200022258,
+    "native_method": "Windows EXE processes; no OS keyboard/human usability claim"
+  },
+  "operational": {
+    "journal_version": "keeper_preparation_commit_v1",
+    "focused_run": "20261006T100813-1d6718db",
+    "focused_tests": 1405,
+    "retained_failed_focused_run": "20261006T095701-88f5b14f",
+    "full_aggregate_record": ".development/x8-v2/closing.json"
+  },
+  "closed_states": [
+    "Durable exact-target preparation finish and explicit paired recovery",
+    "Native fixed earned ornament/effect spending and parent-bound evaluation",
+    "Matched production density first-cycle damage consequence",
+    "Required immutable reproduction and zero-noise OFF duplicate"
+  ],
+  "blocked_states": [
+    "Meaningful care: original v1/v2 structural difference gates REFUSE",
+    "Genuine environmental extinction, explicit succession, inherited unlocks and next-era operation",
+    "Food-access design answer pending; no dependent implementation/trial",
+    "Published-SHA Windows/Ubuntu CI unobserved"
+  ],
+  "decision": "Retain durable preparation and narrow role/density qualifications; preserve all original refusals and defaults.",
+  "next_research_step": "Resolve explicit food-access design and actual live body/action physiology before a new versioned bounded contract. No additional seed/era hunt authorized.",
+  "evidence": {
+    ".development/x8-v2/study/source-manifest.json": "5d6776315967adaff97433daf00e78e15cc8e8b31c935f326399685732ee83be",
+    ".development/x8-v2/study/setup/inputs.json": "b5fc07a0ebbe2347d03d2781e1915128a770a2b46c96e5db3249ce2d0034186c",
+    ".development/x8-v2/study/judgment/judgment.json": "2bbed0ef2c3da75eb32e8fef5c8978f048c01710d41b12201ad24f4cdf6ece27",
+    ".development/x8-v2/budget.json": "5701f1c230c7f1a23e8100709a5407cdd71e7c11e9d4d1c4c77794c78b94b07c",
+    ".development/x8-v2/study-closed.json": "fb4395fe5b63b291bab194be5609ce0fcbfe53b7ada58b26a905e60ab1d04fe5",
+    ".development/x8-v2/care-diagnosis.json": "a477be9a9433afea02372d187f2ade4220e13903012c76d76a7e5db8b552adaf",
+    ".development/x8-v2/survival-diagnosis.json": "9c4d4a2a79361e0529f927f2610123d3607eb19e3960375535295c80d41367d9",
+    ".development/x8-v2/independent-measurement-review.json": "f01412f9cebfff3f51d8d5c50dcf8b29891abb815a517e83c541d67994c805ba",
+    ".development/x8-v2/detached-report.json": "0b895d78036467a62233515fee502b142840b9a1dee42399c60b99506d6b94d5",
+    ".development/x8-v2/native-build-binding.json": "a8af90a3dcd211927af7f9c0083fdb45670e4f57ece3cb42b554a4b387a92afe"
+  },
+  "terminal_receipts": {
+    ".development/x8-v2/study/density-duplicate/terminal.json": "0ee75c9d7fdecf140bd95c980e1fd8158e5265451fdfe264c0196fcec51499b1",
+    ".development/x8-v2/study/density-earn/terminal.json": "7214cb18bf384eedb4ba0f9fe2b61eaf29b359adeace1b8341908ba37603a4d9",
+    ".development/x8-v2/study/density-off/terminal.json": "4f5ab8af88d7bb7c070643cdef6c824069ae5c2a1ea6af7d40c9407b9223cce1",
+    ".development/x8-v2/study/density-off-reproduce/terminal.json": "b422fd16df72c3a860cd7795dce391d958f399007d06ad649c5a92683fe13f15",
+    ".development/x8-v2/study/density-off-restart/terminal.json": "ffd64e8745a48b33ad2cfced7d201d499cbe8368809e9cc4ccbb986ca6629400",
+    ".development/x8-v2/study/density-on/terminal.json": "427ca7211e7407e5667fbe95aba721d2626f9501944b890e073b3aae4699fc62",
+    ".development/x8-v2/study/density-on-reproduce/terminal.json": "c71b2404226ae37235ae98e58d9ff09807e9897ac5d3d4ebd7da12b3d9420ec7",
+    ".development/x8-v2/study/density-on-restart/terminal.json": "6d8c09a1493c971e26925c279f3672af47735cc9f34532886d53e75ba1cd1cb5",
+    ".development/x8-v2/study/role-0/terminal.json": "d70ca11a92d674324fb5d7c97241543f772d01ce2e17a03d5645e20b610b5f82",
+    ".development/x8-v2/study/role-1/terminal.json": "eb78dde95a6fa6161970c4fbc42367ded9ba5cbdf8c166474cb83113d44788a1",
+    ".development/x8-v2/study/role-2/terminal.json": "163a608ced803a05d9198badb2554e3c0563776c6aa5e92b060138d45e5495f0",
+    ".development/x8-v2/study/role-reproduce/terminal.json": "da303387618a21a8312abbbe89252e08f8255e4038cb1fb65f3a8030ee50f50f",
+    ".development/x8-v2/study/role-restart/terminal.json": "78be866c0e97424c760154fe61c8c66116afc7682c6ce77e06f0b22c6ca9b4e3",
+    ".development/x8-v2/coordinator/receipts/density-duplicate/terminal.json": "38c188fcb9d434e53c814a26d8cb279c850845547a0630f9c2f8a775cd71d1ce",
+    ".development/x8-v2/coordinator/receipts/density-earn/terminal.json": "89051fe0e9a1cab32d923b05f9da771c69d68102ccb604a771abb2fe90cbe41f",
+    ".development/x8-v2/coordinator/receipts/density-fork/terminal.json": "6c8bb9311757ea52a6033f3825d5c716f54b90a72ebc9926478d73bbb6ff0244",
+    ".development/x8-v2/coordinator/receipts/density-off/terminal.json": "458e390780d14e8ac0f3031d79a9a53b7998c8f9f0d155be4d38286dbb160957",
+    ".development/x8-v2/coordinator/receipts/density-off-reproduce/terminal.json": "773b18194eb7f81818b8d4d7a238d31fdd2b3242d3de679e04eef3e442f89fac",
+    ".development/x8-v2/coordinator/receipts/density-off-restart/terminal.json": "3f84b433fbee3b3a9ca7a197a6bc9c2421ca7d06f88184d93205f5249ed65370",
+    ".development/x8-v2/coordinator/receipts/density-on/terminal.json": "f21e5da682fdc640a659e2f2be2178210d02c4407df96cf8d73ab69a4ef7519c",
+    ".development/x8-v2/coordinator/receipts/density-on-reproduce/terminal.json": "1e2a98178f3a1cb9b15a179edc08f6d1bb8e0356f8a424f1ceefbdf00485e84a",
+    ".development/x8-v2/coordinator/receipts/density-on-restart/terminal.json": "0359fdae212b5250f2fb487a2c98c084bdbac7e9d2a9a448e394cb987b0b0932",
+    ".development/x8-v2/coordinator/receipts/judgment/terminal.json": "de0f591c244342bb3cb1735654312a525f0948b9b4e5bdc8ff3936f4a7363b91",
+    ".development/x8-v2/coordinator/receipts/role-0/terminal.json": "79dac6b07ecb7bef7de7ee71ca26bc9f8740d4ba048808dfef40296a22f5d99e",
+    ".development/x8-v2/coordinator/receipts/role-1/terminal.json": "f7d4b1d8771e169e25070e1ea5a82c190c5f27fe425ebc736444d690b7a3d346",
+    ".development/x8-v2/coordinator/receipts/role-2/terminal.json": "95618cfe7e8bce1feea3bbe85ac9fb5d6a894a7aa13958b9f6871926d53a0385",
+    ".development/x8-v2/coordinator/receipts/role-reproduce/terminal.json": "95e832af81d7ace82281f312e59e53807b0a8e4c84409e9483c5308659cbf2ec",
+    ".development/x8-v2/coordinator/receipts/role-restart/terminal.json": "ea75cc8396f8dedb15ee8d20d04cec1ca819b93b6ec977539a14e6ff9e57553d",
+    ".development/x8-v2/coordinator/receipts/setup/terminal.json": "48882ff4bdb10d736f4ec2ffd56450186e160ffcb7187cad62f8c391a263c7ce"
+  },
+  "biological_claims": false,
+  "offline_catchup": false,
+  "git_publication": false
+}

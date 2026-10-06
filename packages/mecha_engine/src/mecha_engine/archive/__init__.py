@@ -33,6 +33,7 @@ ratings are collected. The implementation is self-contained package code
 performs no Stage 0 artifact writes on import.
 """
 
+from ._metrics import lifecycle_probe_grid
 from .descriptors import descriptor_for_candidate
 from .scoring import score_candidate
 from .store import archive_summary, build_archive, insert_candidate
@@ -42,5 +43,6 @@ __all__ = [
     "build_archive",
     "descriptor_for_candidate",
     "insert_candidate",
+    "lifecycle_probe_grid",
     "score_candidate",
 ]

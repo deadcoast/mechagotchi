@@ -1,10 +1,10 @@
 # The full verification sweep as CI (cycle 17 G1, decision record 0034).
 #
 # Two runners, on purpose: windows-latest carries the CPython 3.14
-# build family that generated the foreign-fixture corpus (zlib-ng —
+# build family that generated the foreign-fixture corpus (zlib-ng â€”
 # the byte-identity pins RUN there), and ubuntu-latest carries a
 # classic-zlib build (the pins SKIP with their named DR 0034 reason,
-# everything else runs — the skip path is exercised on every push).
+# everything else runs â€” the skip path is exercised on every push).
 # The venv is built from the RUNNER'S set-up interpreter (UV_PYTHON),
 # never uv's managed python-build-standalone, so the zlib provenance
 # of every run is explicit.
@@ -61,5 +61,40 @@ jobs:
         with:
           name: sweep-${{ matrix.os }}-${{ github.sha }}
           path: .ci-logs/
+          include-hidden-files: true
+          retention-days: 14
+
+  windows-artifact:
+    # Product delivery is a separate measured job; the science matrix above
+    # retains its distinct Windows/zlib-ng and Ubuntu/classic-zlib meanings.
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - id: cpython
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13.9"
+          architecture: x64
+      - uses: astral-sh/setup-uv@v5
+      - name: Provision declared native build dependencies
+        env:
+          UV_PYTHON: ${{ steps.cpython.outputs.python-path }}
+        run: uv sync --locked --group lab --group cli --group game
+      - name: Build Windows x64 windowed delivery
+        run: uv run --no-sync python -B game/build_release.py --windowed --dist game/dist/x4-ci --work game/release_work/x4-ci
+      - name: Verify relocated artifact and packaged examples
+        run: uv run --no-sync python -B labs/game_loop/verify_detached_release.py --bundle game/dist/x4-ci/Mechagotchi --output .ci-logs/detached --expected-head ${{ github.sha }}
+      - name: Preserve committed sources and historical evidence
+        if: always()
+        run: git diff --exit-code
+      - name: Retain native artifact and exact verification receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-x64-native-${{ github.sha }}
+          path: |
+            game/dist/x4-ci/Mechagotchi/
+            .ci-logs/detached/
           include-hidden-files: true
           retention-days: 14

@@ -1,0 +1,290 @@
+{
+  "format": "body_workload_stage0_v1",
+  "artifact_id": "body_workload_stage0",
+  "date": "2026-10-06",
+  "status": "NARROW_MECHANISM_AND_PRISTINE_CARE_QUALIFIED_OVERALL_CARE_REFUSE_EXTINCTION_OPEN",
+  "purpose": "One shared opt-in body/action response, real care-dependent descendants and matched production consequences under preserved food/repair/reset/sampling semantics.",
+  "contract": "docs/development/cycle-38-body-workload.md",
+  "contract_sha256": "333244e48c982e8ebf27379fd5acbcd176cab50d5ec42f24630f02a70bdedff3",
+  "source_artifacts": [
+    ".development/body-workload/attempt-02/source-manifest.json",
+    ".development/body-workload/attempt-02/study/setup/output/inputs.json",
+    ".development/body-workload/attempt-03/source-manifest.json",
+    ".development/body-workload/attempt-03/study/recovery/output/recovery.json",
+    ".development/body-workload/attempt-03/study/analysis/output/summary.json",
+    ".development/body-workload/attempt-03/budget.json",
+    ".development/body-workload/delivery/detached-02/report.json",
+    ".development/body-workload/closing.json"
+  ],
+  "source_manifest_sha256": "2c302825c1f713c377cd742a153ed1885ed8037042391c894fd2bec98a362994",
+  "original_source_manifest_sha256": "43e8d9e9de2b337889abe1a6502e48ab450deb4a06f6dc983f6f10460ec85ca0",
+  "inputs_sha256": "d2e7e0ee5518f734632499370f54529abe2db2a9c4474dae8969eeec984374bf",
+  "metrics": {
+    "care": {
+      "pristine": {
+        "verdict": "QUALIFIED_FIXED_HOLDOUT",
+        "checks": {
+          "complete_fixed_cohort": true,
+          "input_and_pool_invariants": true,
+          "all_original_nonregressions_and_controls": true,
+          "care_dependent_structural_choice_and_ranking": true
+        },
+        "completed_pairs": 30,
+        "structural_different_pairs": 9,
+        "ranking_different_pairs": 9,
+        "joint_different_pairs": 9
+      },
+      "archive_morphology_probe_v1": {
+        "verdict": "REFUSE",
+        "checks": {
+          "complete_fixed_cohort": true,
+          "input_and_pool_invariants": true,
+          "all_original_nonregressions_and_controls": false,
+          "care_dependent_structural_choice_and_ranking": true
+        },
+        "completed_pairs": 30,
+        "structural_different_pairs": 4,
+        "ranking_different_pairs": 10,
+        "joint_different_pairs": 4
+      }
+    },
+    "production_pairs": [
+      {
+        "rng_seed": 20261130,
+        "legacy": {
+          "automatic_feed_actions": 753,
+          "death_causes": {
+            "stress_collapse": 15
+          },
+          "episodes": 261,
+          "history_ticks": 4116,
+          "lifecycle_deaths": 15,
+          "qualifying_extinction": false,
+          "terminal_breeders": 13,
+          "terminal_generation": 5,
+          "terminal_generation_lifecycle_deaths": 3
+        },
+        "workload_v1": {
+          "automatic_feed_actions": 734,
+          "death_causes": {
+            "stress_collapse": 17
+          },
+          "episodes": 256,
+          "history_ticks": 4028,
+          "lifecycle_deaths": 17,
+          "qualifying_extinction": false,
+          "terminal_breeders": 15,
+          "terminal_generation": 5,
+          "terminal_generation_lifecycle_deaths": 1
+        },
+        "actual_consequences": {
+          "shared_occurrences": 96,
+          "legacy_only_occurrences": [],
+          "active_only_occurrences": [],
+          "candidate_structure_differences": 54,
+          "final_structure_differences": 54,
+          "final_archive_structure_multiset_identical": false,
+          "matched_body_episodes": 110,
+          "matched_body_trajectory_differences": 102,
+          "matched_body_action_sequence_differences": 73,
+          "interpretation": "Same repaired/final body and environment isolate episode response; later unmatched structures are descriptive outcomes, not matched causal episode comparisons."
+        }
+      },
+      {
+        "rng_seed": 20261201,
+        "legacy": {
+          "automatic_feed_actions": 770,
+          "death_causes": {
+            "stress_collapse": 14
+          },
+          "episodes": 266,
+          "history_ticks": 4200,
+          "lifecycle_deaths": 14,
+          "qualifying_extinction": false,
+          "terminal_breeders": 14,
+          "terminal_generation": 5,
+          "terminal_generation_lifecycle_deaths": 2
+        },
+        "workload_v1": {
+          "automatic_feed_actions": 775,
+          "death_causes": {
+            "stress_collapse": 13
+          },
+          "episodes": 267,
+          "history_ticks": 4220,
+          "lifecycle_deaths": 13,
+          "qualifying_extinction": false,
+          "terminal_breeders": 15,
+          "terminal_generation": 5,
+          "terminal_generation_lifecycle_deaths": 1
+        },
+        "actual_consequences": {
+          "shared_occurrences": 96,
+          "legacy_only_occurrences": [],
+          "active_only_occurrences": [],
+          "candidate_structure_differences": 20,
+          "final_structure_differences": 20,
+          "final_archive_structure_multiset_identical": false,
+          "matched_body_episodes": 209,
+          "matched_body_trajectory_differences": 197,
+          "matched_body_action_sequence_differences": 158,
+          "interpretation": "Same repaired/final body and environment isolate episode response; later unmatched structures are descriptive outcomes, not matched causal episode comparisons."
+        }
+      },
+      {
+        "rng_seed": 20261202,
+        "legacy": {
+          "automatic_feed_actions": 812,
+          "death_causes": {
+            "stress_collapse": 8
+          },
+          "episodes": 276,
+          "history_ticks": 4384,
+          "lifecycle_deaths": 8,
+          "qualifying_extinction": false,
+          "terminal_breeders": 16,
+          "terminal_generation": 5,
+          "terminal_generation_lifecycle_deaths": 0
+        },
+        "workload_v1": {
+          "automatic_feed_actions": 781,
+          "death_causes": {
+            "stress_collapse": 13
+          },
+          "episodes": 269,
+          "history_ticks": 4252,
+          "lifecycle_deaths": 13,
+          "qualifying_extinction": false,
+          "terminal_breeders": 14,
+          "terminal_generation": 5,
+          "terminal_generation_lifecycle_deaths": 2
+        },
+        "actual_consequences": {
+          "shared_occurrences": 96,
+          "legacy_only_occurrences": [],
+          "active_only_occurrences": [],
+          "candidate_structure_differences": 52,
+          "final_structure_differences": 52,
+          "final_archive_structure_multiset_identical": false,
+          "matched_body_episodes": 121,
+          "matched_body_trajectory_differences": 114,
+          "matched_body_action_sequence_differences": 84,
+          "interpretation": "Same repaired/final body and environment isolate episode response; later unmatched structures are descriptive outcomes, not matched causal episode comparisons."
+        }
+      }
+    ],
+    "causal": {
+      "fixture_valid": true,
+      "input_immutable": true,
+      "legacy_play_null": true,
+      "legacy_v1_exact": true,
+      "legacy_v2_exact": true,
+      "native_no_play_null": true,
+      "native_play_divergence": true,
+      "native_repeat": true,
+      "repair_changed_projection": true,
+      "repair_consumed_projection": true,
+      "repair_play_response_changed": true,
+      "repair_play_response_null": true,
+      "repair_position_restoration": true,
+      "repair_restored_projection_null": true,
+      "same_initial_physiology": true
+    },
+    "active_immutable_reproduction_exact": true,
+    "legacy_duplicate_exact": true,
+    "measurement_seconds_including_retained_failures": 242.00776109995786,
+    "measurement_limit_seconds": 1200,
+    "native_windows_journey": "PASS_SOURCE_SDL_EVENTS",
+    "detached": {
+      "checks_passed": 45,
+      "checks_total": 45,
+      "stages": 10,
+      "seconds": 13.088381799985655,
+      "source_reproduction": "MATCHED",
+      "artifact_preserved": true,
+      "source_keeper_preserved": true
+    }
+  },
+  "refused_care_case": {
+    "pair_index": 28,
+    "founder_index": 28,
+    "seed": 20261127,
+    "evaluator": "archive_morphology_probe_v1",
+    "history": "neglect",
+    "index0_need_balance": 0.702219,
+    "selected_index": 4,
+    "selected_need_balance": 0.644985,
+    "index0_terminal_alive": false,
+    "selected_terminal_alive": true,
+    "both_elapsed_ticks": 10,
+    "interpretation": "Existing terminal-first ranking chooses survival, but separate preregistered welfare nonregression fails. No post hoc threshold change."
+  },
+  "conditional_successor": {
+    "status": "NOT_RUN_NO_QUALIFYING_EXTINCTION",
+    "first_active_trial_index": null
+  },
+  "preserved_failures": [
+    "Original care v1/v2 and X8/X6 refusals unchanged",
+    "Setup01 copied original envelope digest while reading repaired stage1; no histories or outcomes generated",
+    "Production01 old observer omitted evaluated_grid; original error/false check retained; additive pure validation recovered exact observations without era replay",
+    "Build01 parent exited with active descendants; cleanup confirmed; cause unproven; unchanged artifact later independently qualified",
+    "Detached01 verifier schema KeyError after two valid launches; prospective schema repair then detached02 qualified",
+    {
+      "run": "20261006T130949-31acbf23",
+      "kind": "final_full_synthetic_timeout_startup_assertion",
+      "tests": 3622,
+      "suites": 24,
+      "skips": 2,
+      "json_artifacts": 2321,
+      "source_mutations": 0,
+      "scientific_runtime_or_trials_changed": false,
+      "repair": "Tests only: actual child reap/cleanup/wall bound; independent successful logging check. Final receipt in closing.json."
+    },
+    {
+      "kind": "positive_logging_fixture_launcher_descendant_refusal",
+      "owner_log": ".development/body-workload/delivery/timeout-fixture-green.log",
+      "independent_log": ".development/body-workload/review/final-timeout-repair-tests-01.log",
+      "disposition": "Single-process stdlib logging fixture uses the same underlying Python3.13.9 image; driver/timeout/orphan checks retain repo venv. Strict production guard unchanged; transient cause unproven."
+    },
+    {
+      "kind": "same_image_positive_logging_fixture_refusal",
+      "log": ".development/body-workload/delivery/timeout-fixture-green-02.log",
+      "disposition": "Refutes launcher-only explanation; bounded three-probe diagnosis and prospective v2 ownership contract retained. Exact causes of original individual failures remain unproven."
+    }
+  ],
+  "deployment": {
+    "body_response": "workload-v1 opt-in only",
+    "legacy_default_unchanged": true,
+    "care_default_off": true,
+    "food_repair_reset_death_sampling_unchanged": true,
+    "trained_q_inheritance": false,
+    "x6_operative_mutation": "REFUSED_LAB_ONLY",
+    "windows_player": "game/dist/body-workload-01/Mechagotchi/Mechagotchi.exe",
+    "exe_sha256": "3b1f1d1807bc644a3cff5a78785cbd5b873ea8d564ff095c787ef33a5312205f",
+    "local_aggregate_authority": ".development/body-workload/closing.json",
+    "published_exact_sha_windows_ubuntu_ci": "UNOBSERVED",
+    "git_publication": "OWNER_ONLY"
+  },
+  "decision": "Retain experimental model and narrow pristine qualification. Overall care remains REFUSE; genuine population extinction/successor/inherited-era remain OPEN. No further seeds, retries or default promotion.",
+  "next_research_step": "Review the recorded terminal-survival versus welfare tradeoff and remaining-life design before any separate preregistration. Do not change food access, adopted reset/repair/sampling or current thresholds to force qualification.",
+  "delivery_ownership_v2": {
+    "contract": "docs/development/cycle-38-body-workload-windows-ownership.md",
+    "source_manifest_sha256": "244e78b81b50211dca9ff313bef41f09e54799ea67d6c36c2421a14dd75b61ef",
+    "only_existing_frozen_changes": [
+      "labs/game_loop/verify_body_workload_delivery.py",
+      "labs/game_loop/test_verify_body_workload_delivery.py"
+    ],
+    "targeted_tests": 17,
+    "independent_targeted_tests": 17,
+    "report": ".development/body-workload/delivery/detached-03/report.json",
+    "report_sha256": "ab1f2e7e4a7a0197a739286e5374ef99962b565c962e9848a7c2f9ce0449095b",
+    "checks_passed": 45,
+    "stages": 10,
+    "elapsed_seconds": 20.826550900004804,
+    "source_reproduction": "MATCHED",
+    "delivery_complete": true,
+    "artifact_and_source_keeper_preserved": true,
+    "scientific_runtime_or_outcomes_changed": false,
+    "original_budgets_preserved": true
+  }
+}

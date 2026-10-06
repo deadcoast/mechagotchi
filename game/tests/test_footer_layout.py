@@ -82,6 +82,12 @@ class FooterLayoutTests(unittest.TestCase):
             with self.subTest(mode=mode),tempfile.TemporaryDirectory() as directory:
                 renders=[]
                 checked=[]
+                pending_footer=[]
+                original_layout=FooterPager.layout
+                def footer_layout(pager,*args,**kwargs):
+                    page=original_layout(pager,*args,**kwargs)
+                    pending_footer.extend(line for line in page.lines if line)
+                    return page
                 class FontProbe:
                     def __init__(self,*args,**kwargs): self.font=original_font(*args,**kwargs)
                     def __getattr__(self,name): return getattr(self.font,name)
@@ -89,10 +95,15 @@ class FooterLayoutTests(unittest.TestCase):
                         rendered=self.font.render(text,*args,**kwargs)
                         target=pygame.Surface(rendered.get_size())
                         target.fill((16,18,16)); target.blit(rendered,(0,0))
-                        renders.append((text,target))
+                        # Only FooterPager lines belong at x=8 on the ground.
+                        # Native action buttons have separate exact-bound checks.
+                        if text in pending_footer:
+                            pending_footer.remove(text)
+                            renders.append((text,target))
                         return rendered
                 def capture():
                     window=pygame.display.get_surface()
+                    self.assertEqual([],pending_footer,'Every selected footer line must be rendered')
                     for text,target in renders:
                         w,h=target.get_size()
                         self.assertLessEqual(w,window.get_width()-16,text)
@@ -105,7 +116,7 @@ class FooterLayoutTests(unittest.TestCase):
                 events=iter([opening,[pygame.event.Event(pygame.KEYDOWN,key=pygame.K_PAGEDOWN)],
                              [pygame.event.Event(pygame.MOUSEWHEEL,y=-1)],
                              [pygame.event.Event(pygame.KEYDOWN,key=pygame.K_ESCAPE)] if mode=='help' else []])
-                with patch.object(_EraBench,'__init__',initialize),patch.object(_EraBench,'budget_lines',return_value=['COVENANT palettes 123456/234567 thinking 123456/234567 population 123456 generations 234567', '1 palette 2 thinking 3 population 4 generations C close']),patch('pygame.font.Font',FontProbe),patch('pygame.event.get',side_effect=lambda:next(events,[])),patch('pygame.display.flip',side_effect=capture):
+                with patch.object(_EraBench,'__init__',initialize),patch.object(_EraBench,'budget_lines',return_value=['COVENANT palettes 123456/234567 thinking 123456/234567 population 123456 generations 234567', '1 palette 2 thinking 3 population 4 generations C close']),patch('pygame.font.Font',FontProbe),patch.object(FooterPager,'layout',footer_layout),patch('pygame.event.get',side_effect=lambda:next(events,[])),patch('pygame.display.flip',side_effect=capture):
                     self.assertEqual(0,run(['--new','--keeper-dir',directory,'--ticks','4','--tick-frames','1','--fps','0']))
                 self.assertTrue(checked)
                 self.assertTrue(any('PgUp/PgDn' in text for text in checked))

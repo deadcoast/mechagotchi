@@ -34,7 +34,9 @@ class ResponsivePreparationTests(unittest.TestCase):
     def fixture(self, root, policy='incumbent'):
         campaign = api.KeeperCampaign(self.eager, era_config=api.TINY_ERA_CONFIG)
         campaign.save(root/'campaign.sqlite3'); campaign.save_state(root/'campaign_state.json')
-        CompanionSession(self.pet[0],self.pet[1],model=self.pet[2],learning_policy=policy).save_checkpoint(root/'companion.json')
+        session = CompanionSession(self.pet[0],self.pet[1],model=self.pet[2],learning_policy=policy)
+        session.bind_campaign(campaign.campaign['campaign_id'])
+        session.save_checkpoint(root/'companion.json')
         return _EraBench('tiny', root/'model_cache', root/'campaign_state.json', root/'campaign.sqlite3')
 
     def cold(self, **kwargs):
@@ -45,7 +47,7 @@ class ResponsivePreparationTests(unittest.TestCase):
              patch.object(api,'train_generation_model',side_effect=AssertionError('unneeded generation training')), \
              patch.object(api,'train_repair_model',side_effect=AssertionError('unneeded repair training')):
             root=Path(directory); inputs=self.cold(cache_dir=root/'cache')
-            self.assertEqual({'seed_grids','slip_profile','legibility_model'},set(inputs))
+            self.assertEqual({'seed_grids','slip_profile','legibility_model','input_sources'},set(inputs))
             self.assertEqual({k:self.eager[k] for k in inputs},inputs)
             self.assertEqual({},saved(root))
 

@@ -242,19 +242,56 @@ class OriginalRecordingTests(unittest.TestCase):
 
 
     def test_pending_original_journal_is_versioned_against_legacy_data_loss(self):
-        with tempfile.TemporaryDirectory() as name:
-            path = Path(name); bench = self.fixture(path)
-            with patch('mecha_game.original_recording.save_original_recording', side_effect=PermissionError('recording locked')):
-                with self.assertRaises(PermissionError): bench.run_era(path / 'campaign.sqlite3')
-            pending = json.loads((path / 'era_plan.json').read_text(encoding='utf-8'))
-            self.assertEqual('mechagotchi_era_plan_v2', pending['format'])
-            self.assertEqual('recorded', pending['pending']['recording']['status'])
-            resumed = _EraBench('tiny', path / 'model_cache', path / 'campaign_state.json', path / 'campaign.sqlite3')
-            with patch.object(KeeperCampaign, 'advance_era', side_effect=AssertionError('no resimulation')):
-                resumed.run_era(path / 'campaign.sqlite3')
-            idle = json.loads((path / 'era_plan.json').read_text(encoding='utf-8'))
-            self.assertEqual('mechagotchi_era_plan_v1', idle['format'])
-            self.assertIsNone(idle['pending'])
+        import hashlib
+        import sqlite3
+        from mecha_engine.storage import load_era_execution, load_replay_rows
+        from mecha_game.original_recording import encoded
+
+        advance = KeeperCampaign.advance_era
+        for execution_recorded, version in ((True, 'mechagotchi_era_plan_v3'),
+                                             (False, 'mechagotchi_era_plan_v2')):
+            with self.subTest(version=version), tempfile.TemporaryDirectory() as name:
+                path = Path(name); bench = self.fixture(path)
+                prior_execution = copy.deepcopy(bench.campaign.eras[0]['execution'])
+
+                def complete_era(campaign, *args, **kwargs):
+                    era = advance(campaign, *args, **kwargs)
+                    if not execution_recorded:
+                        # Construct the historical recording-only result BEFORE
+                        # journal creation or ledger commit; never erase evidence.
+                        era.pop('execution')
+                    return era
+
+                with patch.object(KeeperCampaign, 'advance_era', complete_era), \
+                     patch('mecha_game.original_recording.save_original_recording', side_effect=PermissionError('recording locked')):
+                    with self.assertRaises(PermissionError): bench.run_era(path / 'campaign.sqlite3')
+                pending = json.loads((path / 'era_plan.json').read_text(encoding='utf-8'))
+                self.assertEqual(version, pending['format'])
+                self.assertEqual('recorded', pending['pending']['recording']['status'])
+                self.assertEqual(execution_recorded, 'execution' in pending['pending']['era'])
+                expected_execution = copy.deepcopy(pending['pending']['era'].get('execution'))
+                expected_recording = copy.deepcopy(pending['pending']['recording'])
+                if execution_recorded:
+                    self.assertEqual(bench._completed_work.eras[-1]['execution'], expected_execution)
+                resumed = _EraBench('tiny', path / 'model_cache', path / 'campaign_state.json', path / 'campaign.sqlite3')
+                with patch.object(KeeperCampaign, 'advance_era', side_effect=AssertionError('no resimulation')), \
+                     patch('mecha_game.replay.live_cycle', side_effect=AssertionError('no reconstruction')):
+                    era = resumed.run_era(path / 'campaign.sqlite3')
+                    before = inventory(path)
+                    replay = load_saved_replay(path, 'original_test', era['era_index'], expected_seed=era['rng_seed'])
+                self.assertEqual(before, inventory(path))
+                self.assertEqual(expected_recording['replay'], replay)
+                recording_bytes = (path / 'replays' / 'original_test_era1.json').read_bytes()
+                self.assertEqual(encoded(expected_recording), recording_bytes)
+                with closing(sqlite3.connect((path / 'campaign.sqlite3').as_uri() + '?mode=ro', uri=True)) as conn:
+                    self.assertEqual(prior_execution, load_era_execution(conn, 'original_test', 0))
+                    self.assertEqual(expected_execution, load_era_execution(conn, 'original_test', 1))
+                    rows = [row for row in load_replay_rows(conn, 'original_test') if row['era_index'] == 1]
+                self.assertEqual(1, len(rows))
+                self.assertEqual(hashlib.sha256(recording_bytes).hexdigest(), rows[0]['artifact_sha256'])
+                idle = json.loads((path / 'era_plan.json').read_text(encoding='utf-8'))
+                self.assertEqual('mechagotchi_era_plan_v1', idle['format'])
+                self.assertIsNone(idle['pending'])
 
 
     def test_unavailable_limit_status_is_durable_without_footage_reconstruction(self):

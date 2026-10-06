@@ -22,6 +22,7 @@ from pathlib import Path
 from mecha_engine.genome import render_packet_v2
 from mecha_engine.storage import load_era_elites
 from mecha_game.era_review import EraReview
+from mecha_game.execution_readout import descendant_lines, execution_lines
 
 
 class RepertoireBrowser:
@@ -38,6 +39,7 @@ class RepertoireBrowser:
         self.index = 0
         self.campaign_id = keeper_campaign.campaign["campaign_id"] if keeper_campaign is not None else None
         self.replay_notice = None
+        self.executions = {}
 
     @classmethod
     def unavailable(cls, message, *, allow_planning=False):
@@ -48,7 +50,8 @@ class RepertoireBrowser:
     @classmethod
     def load(cls, keeper_dir, *, campaign_id=None, era_index=None):
         keeper = Path(keeper_dir)
-        history = EraReview.load(keeper, campaign_id=campaign_id).history
+        view = EraReview.load(keeper, campaign_id=campaign_id)
+        history = view.history
         if not history['eras']:
             return cls.unavailable("No recorded eras. E runs the first era.", allow_planning=True)
         conn = sqlite3.connect((keeper / 'campaign.sqlite3').resolve().as_uri() + '?mode=ro', uri=True)
@@ -60,6 +63,7 @@ class RepertoireBrowser:
                     raise ValueError("The saved archive does not match its recorded niche count.")
             browser = cls(None, eras=history['eras'])
             browser.campaign_id = history['campaign_id']
+            browser.executions = view.executions
             # Validate displayable saved records before navigation can encounter
             # a broken older blob. These are render reads, never lifecycle ticks.
             for position in range(len(browser.eras)):
@@ -86,6 +90,16 @@ class RepertoireBrowser:
     @property
     def selected_era(self):
         return self.eras[self.era_index] if self.eras else None
+
+    @property
+    def execution(self):
+        return self.executions.get(self.selected_era["era_index"]) if self.selected_era is not None else None
+
+    def execution_lines(self):
+        lines = execution_lines(self.execution)
+        if self.current() is not None:
+            lines.extend(descendant_lines(self.execution, self.selected_era["report"], self.current()))
+        return lines
 
     # -- position ---------------------------------------------------------
 

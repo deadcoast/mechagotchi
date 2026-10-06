@@ -1,0 +1,9 @@
+nameID 0: Copyright 2002 Free Software Foundation.
+
+nameID 5: $Revision: 0.4 $
+
+nameID 13: Dovoljena je uporaba v skladu z licenco GNU General Public License.
+
+nameID 13: The use of this font is granted subject to GNU General Public License.
+
+nameID 14: http://www.gnu.org/copyleft/gpl.html

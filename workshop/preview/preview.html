@@ -105,12 +105,13 @@
   button.action:disabled { opacity: 0.45; cursor: not-allowed; }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 </style>
+<link rel="stylesheet" href="/shared/authoring.css">
 </head>
 <body>
 <div class="shell">
   <header class="top">
     <h1>mecha_workshop <span class="dim">/ preview</span>
-      <nav style="display:inline"><a href="/companion">companion →</a><a href="/session">session →</a><a href="/">grid editor →</a><a href="/slip">slip creator →</a></nav>
+      <nav style="display:inline"><a href="/companion">companion →</a><a href="/session">session →</a><a href="/">grid editor →</a><a href="/slip">slip creator →</a><a href="/inspect">inspector →</a><a href="/packs">packs →</a></nav>
     </h1>
   </header>
 
@@ -172,291 +173,62 @@
 </div>
 
 <script src="/shared/draw.js"></script>
+<script src="/shared/authoring.js"></script>
 <script>
-const $ = (id) => document.getElementById(id);
-
-/* E2: the packet drawer is the shared MechaDraw asset; the preview has
-   always outlined damaged cells, so it opts the stroke on. */
+const A=WorkshopAuthoring,$=id=>document.getElementById(id),selectedContext=new A.Context().mount(),gate=new A.RequestGate();
+const PREVIEW_ROUTES={portrait:"/api/preview/render",live:"/api/preview/live",replay:"/api/preview/replay",kids:"/api/preview/offspring"};
+let entries=[],selectedDocument=null,pickRevision=0,portraitAnimation="idle",replayState=null;
 function drawPacket(canvas, packet) {
   MechaDraw.drawPacket(canvas, packet, { showDamage: true });
 }
-
-function deviceWithPacket(packet, tag, size) {
-  const device = document.createElement("div");
-  device.className = "device";
-  const canvas = document.createElement("canvas");
-  canvas.width = size; canvas.height = size;
-  drawPacket(canvas, packet);
-  const label = document.createElement("div");
-  label.className = "tag";
-  label.textContent = tag;
-  device.append(canvas, label);
-  return device;
+function deviceWithPacket(packet,tag,size){const node=A.element("div",undefined,"device"),canvas=A.element("canvas");canvas.width=canvas.height=size;drawPacket(canvas,packet);node.append(canvas,A.element("div",tag,"tag"));return node;}
+function stopReplayTimer(){if(replayState?.timer){clearInterval(replayState.timer);replayState.timer=null;replayState.play.textContent="Play";}}
+function clearResults(){stopReplayTimer();for(const id of ["live-body","replay-body","kids-body"])$(id).replaceChildren(A.element("p","Run this selected document to see new results. Preview does not advance the saved Keeper.","notice"));}
+function ready(enabled){for(const id of ["live-btn","replay-btn","kids-btn"])$(id).disabled=!enabled;}
+function changed(){pickRevision++;for(const key of ["pick","portrait","live","replay","kids"])gate.cancel(key);clearResults();ready(false);}
+async function selectedProfile(document){const id=$("profile-select").value;if(id==="__active__")return A.clone(selectedContext.data.covenant);if(id==="__embedded__")return A.clone(document.profile);if(!id)return null;const result=await A.request("/api/slips/"+encodeURIComponent(id));return result.document?.profile||result.profile;}
+async function chooseCreature(){
+  changed();const current=gate.begin("pick",pickRevision);A.notice($("pick-note"),"Loading exact selected document…");
+  try{
+    let result;const value=$("creature-select").value;
+    if(value==="__draft__"){const saved=await A.request("/api/drafts/grid");if(!saved.exists)throw new Error("No durable creature draft is available. Return to the editor and save recovery first.");result={document:saved.snapshot.document};}
+    else result=await selectedContext.resolve(entries[Number(value)].ref);
+    const document=A.clone(result.document),profile=await selectedProfile(document);if(profile)document.profile=profile;
+    if(!gate.accept(current,pickRevision,current.revision))return;selectedDocument=document;ready(!!document.profile);await refreshPortrait();
+    A.notice($("pick-note"),"Exact selected document · "+(document.profile?.profile_id||"bind a profile for living previews")+" · revision "+pickRevision);
+  }catch(error){if(gate.accept(current,pickRevision,current.revision)){selectedDocument=null;A.notice($("pick-note"),error.message+". Refresh context or select again to retry.","err");}}
 }
-
-function currentPick() {
-  const [source, name] = $("creature-select").value.split("::");
-  return { source, name, profile_id: $("profile-select").value };
+async function preview(kind,params={}){
+  if(!selectedDocument)throw new Error("Select a complete creature first.");const current=gate.begin(kind,pickRevision);
+  const result=await A.request(PREVIEW_ROUTES[kind],{document:A.clone(selectedDocument),draft_revision:current.revision,...params},{signal:current.controller.signal,timeoutMs:120000});
+  return gate.accept(current,pickRevision,result.draft_revision)?result:null;
 }
-
-async function post(url, body) {
-  const response = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
-  return response.json();
+async function refreshPortrait(){
+  try{const result=await preview("portrait",{animation:portraitAnimation});if(!result)return;if(!result.ok){renderEngineErrors($("state-buttons"),result);return;}drawPacket($("portrait"),result.packet);$("portrait-tag").textContent=result.packet.grid_id+" · "+result.packet.animation;$("state-buttons").replaceChildren();for(const state of result.packet.animation_vocabulary||["idle"]){const button=A.element("button",state,"action");button.addEventListener("click",()=>{portraitAnimation=state;refreshPortrait();});$("state-buttons").append(button);}}
+  catch(error){A.notice($("pick-note"),error.message+". The selected document is retained.","err");}
 }
-
-/* ---------------- portrait ---------------- */
-let portraitAnimation = "idle";
-async function refreshPortrait() {
-  const pick = currentPick();
-  const payload = await post("/api/preview/render", { ...pick, animation: portraitAnimation });
-  if (payload.ok) {
-    drawPacket($("portrait"), payload.packet);
-    $("portrait-tag").textContent = payload.packet.grid_id + " · " + payload.packet.palette.palette_id + " · " + payload.packet.animation;
-    const wrap = $("state-buttons");
-    wrap.innerHTML = "";
-    for (const state of payload.packet.animation_vocabulary || ["idle"]) {
-      const btn = document.createElement("button");
-      btn.className = "action";
-      btn.style.fontSize = "0.72rem";
-      btn.style.padding = "3px 10px";
-      if (state === payload.packet.animation) {
-        btn.style.borderColor = "var(--accent)";
-        btn.style.fontWeight = "600";
-      }
-      btn.textContent = state;
-      btn.addEventListener("click", () => { portraitAnimation = state; refreshPortrait(); });
-      wrap.appendChild(btn);
-    }
-  }
-  $("live-body").innerHTML = '<p class="notice">Run to see this creature live under ' + pick.profile_id + '.</p>';
-  if (typeof stopReplayTimer === "function") stopReplayTimer();
-  $("replay-body").innerHTML = '<p class="notice">Record to replay this creature\'s life under ' + pick.profile_id + '.</p>';
-  $("kids-body").innerHTML = '<p class="notice">Generate to meet possible children under ' + pick.profile_id + '.</p>';
+function renderEngineErrors(body,result){body.replaceChildren(A.element("p",result.reason||result.error||"The engine declined this selected document.","notice"));const list=A.element("ul");for(const error of result.errors||[])list.append(A.element("li",error));body.append(list);}
+async function run(kind,buttonId,bodyId,params,render){
+  const revision=pickRevision;$(buttonId).disabled=true;$(bodyId).replaceChildren(A.element("p","The engine is evaluating this selected document. The first living preview can take a minute; changing selection cancels this request.","notice"));
+  try{const result=await preview(kind,params);if(!result)return;if(!result.ok){renderEngineErrors($(bodyId),result);return;}$(bodyId).replaceChildren();render($(bodyId),result);}
+  catch(error){if(revision===pickRevision)$(bodyId).replaceChildren(A.element("p",error.message+". The selected document remains available; use the action again to retry.","notice err"));}
+  finally{if(revision===pickRevision)$(buttonId).disabled=!selectedDocument?.profile;}
 }
-
-/* ---------------- day in the life ---------------- */
-$("live-btn").addEventListener("click", async () => {
-  const pick = currentPick();
-  $("live-btn").disabled = true;
-  $("live-body").innerHTML = '<p class="notice">the engine is living this creature…</p>';
-  const payload = await post("/api/preview/live", {
-    ...pick,
-    cycles: parseInt($("live-cycles").value, 10),
-    ticks: parseInt($("live-ticks").value, 10),
-  });
-  $("live-btn").disabled = false;
-  const body = $("live-body");
-  body.innerHTML = "";
-  if (!payload.ok) {
-    renderEngineErrors(body, payload);
-    return;
-  }
-  const row = document.createElement("div");
-  row.className = "stage3";
-  const sides = document.createElement("div");
-  sides.style.display = "flex"; sides.style.gap = "14px"; sides.style.flexWrap = "wrap";
-  sides.append(
-    deviceWithPacket(payload.before.packet, "before", 160),
-    deviceWithPacket(payload.after.packet, "after " + payload.report.cycles.length + " cycles", 160),
-  );
-  const cycles = document.createElement("div");
-  cycles.className = "cycles";
-  for (const cycle of payload.report.cycles) {
-    const card = document.createElement("div");
-    card.className = "cycle-card";
-    const survived = cycle.episode.alive;
-    card.innerHTML =
-      '<div class="head">cycle ' + cycle.cycle + " — " +
-      (survived ? '<span class="ok-text">survived ' + cycle.episode.survival_ticks + " ticks</span>"
-                : '<span class="bad-text">died at tick ' + cycle.episode.survival_ticks +
-                  (cycle.episode.death_cause ? " (" + cycle.episode.death_cause + ")" : "") + "</span>") +
-      "</div>" +
-      '<span class="k">damage</span><span>' + cycle.removed_cell_count + " cells destroyed</span>" +
-      '<span class="k">repair</span><span>' + Math.round(cycle.position_restoration * 100) + "% of sites restored" +
-      (cycle.guard_substitutions ? " · " + cycle.guard_substitutions + " guard fix" + (cycle.guard_substitutions === 1 ? "" : "es") : "") + "</span>" +
-      '<span class="k">contracts</span><span>' +
-      (cycle.valid ? '<span class="ok-text">valid</span>' : '<span class="bad-text">invalid</span>') + " · " +
-      (cycle.aligned ? '<span class="ok-text">aligned</span>' : '<span class="bad-text">unaligned</span>') + "</span>";
-    cycles.appendChild(card);
-  }
-  row.append(sides, cycles);
-  body.appendChild(row);
-});
-
-/* ---------------- replay: the player's window ---------------- */
-let replayState = null; // { frames, index, timer, canvas, readout, slider, label }
-
-function drawReplayFrame() {
-  const r = replayState;
-  const frame = r.frames[r.index];
-  const packet = MechaDraw.bodyPacketAt(r.frames, r.index);
-  if (packet) {
-    drawPacket(r.canvas, packet);
-  }
-  if (frame.phase === "wound" && packet) {
-    MechaDraw.woundOverlay(r.canvas, packet, frame.removed_cells);
-  }
-  let text = "frame " + frame.frame + " · cycle " + frame.cycle + " · " + frame.phase;
-  if (frame.phase === "repair") {
-    text += frame.valid ? " · valid" : " · INVALID (" + frame.validation_errors.length + " errors)";
-    text += " · " + Math.round(frame.position_restoration * 100) + "% restored";
-  }
-  if (frame.phase === "wound") {
-    text += " · " + frame.removed_cell_count + " cells destroyed";
-  }
-  if (frame.phase === "episode_tick") {
-    const e = frame.entry;
-    text += " · tick " + e.tick + " · " + e.action + " · balance " + e.balance.toFixed(3) +
-      (e.deliberation ? " · thought " + e.deliberation.tick_count + (e.deliberation.tick_count === 1 ? " tick" : " ticks") : "") +
-      (e.alive ? "" : " · DIED" + (e.death_cause ? " (" + e.death_cause + ")" : ""));
-  }
-  r.label.textContent = text;
-  r.slider.value = r.index;
-}
-
-function stopReplayTimer() {
-  if (replayState && replayState.timer) {
-    clearInterval(replayState.timer);
-    replayState.timer = null;
-    replayState.playBtn.textContent = "Play";
-  }
-}
-
-$("replay-btn").addEventListener("click", async () => {
-  const pick = currentPick();
-  $("replay-btn").disabled = true;
-  $("replay-body").innerHTML = '<p class="notice">the engine is living this creature, recorded…</p>';
-  const payload = await post("/api/preview/replay", {
-    ...pick,
-    cycles: parseInt($("replay-cycles").value, 10),
-    ticks: parseInt($("replay-ticks").value, 10),
-  });
-  $("replay-btn").disabled = false;
-  const body = $("replay-body");
-  body.innerHTML = "";
-  if (!payload.ok) {
-    renderEngineErrors(body, payload);
-    return;
-  }
-  stopReplayTimer();
-  const replay = payload.replay;
-  const row = document.createElement("div");
-  row.className = "stage3";
-  const device = document.createElement("div");
-  device.className = "device";
-  const canvas = document.createElement("canvas");
-  canvas.width = 224; canvas.height = 224;
-  const label = document.createElement("div");
-  label.className = "tag";
-  device.append(canvas, label);
-  const controls = document.createElement("div");
-  const slider = document.createElement("input");
-  slider.type = "range";
-  slider.min = 0;
-  slider.max = replay.frames.length - 1;
-  slider.value = 0;
-  slider.style.width = "100%";
-  const playBtn = document.createElement("button");
-  playBtn.className = "action";
-  playBtn.textContent = "Play";
-  const meta = document.createElement("p");
-  meta.className = "notice";
-  meta.textContent = replay.replay_id + " · " + replay.frame_count + " frames (" +
-    replay.tick_frame_count + " ticks) · seed " + replay.parameters.rng_seed +
-    " · " + replay.engine_surface;
-  controls.append(slider, playBtn, meta);
-  row.append(device, controls);
-  body.appendChild(row);
-
-  replayState = { frames: replay.frames, index: 0, timer: null, canvas, slider, label, playBtn };
-  slider.addEventListener("input", () => {
-    stopReplayTimer();
-    replayState.index = parseInt(slider.value, 10);
-    drawReplayFrame();
-  });
-  playBtn.addEventListener("click", () => {
-    if (replayState.timer) { stopReplayTimer(); return; }
-    playBtn.textContent = "Pause";
-    replayState.timer = setInterval(() => {
-      if (replayState.index >= replayState.frames.length - 1) { stopReplayTimer(); return; }
-      replayState.index += 1;
-      drawReplayFrame();
-    }, 125);
-  });
-  drawReplayFrame();
-});
-
-/* ---------------- offspring ---------------- */
-$("kids-btn").addEventListener("click", async () => {
-  const pick = currentPick();
-  $("kids-btn").disabled = true;
-  $("kids-body").innerHTML = '<p class="notice">the generation module is breeding…</p>';
-  const payload = await post("/api/preview/offspring", {
-    ...pick,
-    count: parseInt($("kids-count").value, 10),
-  });
-  $("kids-btn").disabled = false;
-  const body = $("kids-body");
-  body.innerHTML = "";
-  if (!payload.ok) {
-    renderEngineErrors(body, payload);
-    return;
-  }
-  const gallery = document.createElement("div");
-  gallery.className = "gallery";
-  for (const child of payload.children) {
-    gallery.appendChild(deviceWithPacket(child.packet, child.grid_id.slice(-14), 128));
-  }
-  body.appendChild(gallery);
-  const note = document.createElement("p");
-  note.className = "notice";
-  const allGood = payload.children.every((c) => c.valid && c.aligned);
-  note.textContent = allGood
-    ? "every child is engine-valid and belongs to the profile"
-    : "some children failed engine checks — this is recorded, not hidden";
-  body.appendChild(note);
-});
-
-function renderEngineErrors(body, payload) {
-  const note = document.createElement("p");
-  note.className = "notice";
-  note.textContent = payload.reason || "the engine declined";
-  const list = document.createElement("ul");
-  list.className = "errors";
-  for (const error of payload.errors || []) {
-    const li = document.createElement("li");
-    li.textContent = error;
-    list.appendChild(li);
-  }
-  body.append(note, list);
-}
-
-/* ---------------- boot ---------------- */
-(async function boot() {
-  const creatures = (await (await fetch("/api/preview/creatures")).json()).creatures;
-  const creatureSelect = $("creature-select");
-  for (const entry of creatures) {
-    const option = document.createElement("option");
-    option.value = entry.source + "::" + entry.name;
-    option.textContent = entry.name + " · " + entry.source;
-    creatureSelect.appendChild(option);
-  }
-  const slips = (await (await fetch("/api/slips")).json()).slips;
-  const profileSelect = $("profile-select");
-  for (const entry of slips) {
-    const option = document.createElement("option");
-    option.value = entry.profile_id;
-    option.textContent = entry.profile_id + " · " + entry.source;
-    profileSelect.appendChild(option);
-  }
-  creatureSelect.addEventListener("change", refreshPortrait);
-  profileSelect.addEventListener("change", refreshPortrait);
-  refreshPortrait();
-})();
+$("live-btn").addEventListener("click",()=>run("live","live-btn","live-body",{cycles:Number($("live-cycles").value),ticks:Number($("live-ticks").value)},(body,result)=>{
+  const row=A.element("div",undefined,"stage3");row.append(deviceWithPacket(result.before.packet,"before",160),deviceWithPacket(result.after.packet,"after",160));body.append(row);
+  for(const cycle of result.report.cycles){const card=A.element("div",undefined,"cycle-card");card.append(A.element("p",`Cycle ${cycle.cycle}: ${cycle.episode.alive?"survived":"died"} at ${cycle.episode.survival_ticks} ticks${cycle.episode.death_cause?" · "+cycle.episode.death_cause:""}`));card.append(A.element("p",`${cycle.removed_cell_count} cells damaged · ${Math.round(cycle.position_restoration*100)}% sites restored · ${cycle.valid?"valid":"invalid"} · ${cycle.aligned?"aligned":"unaligned"}`));body.append(card);}
+}));
+function drawReplayFrame(){const r=replayState,frame=r.frames[r.index],packet=MechaDraw.bodyPacketAt(r.frames,r.index);if(packet){drawPacket(r.canvas,packet);if(frame.phase==="wound")MechaDraw.woundOverlay(r.canvas,packet,frame.removed_cells);}r.label.textContent=`Frame ${frame.frame} · cycle ${frame.cycle} · ${frame.phase}`;r.slider.value=String(r.index);r.detail.textContent=JSON.stringify(frame,null,2);}
+$("replay-btn").addEventListener("click",()=>run("replay","replay-btn","replay-body",{cycles:Number($("replay-cycles").value),ticks:Number($("replay-ticks").value)},(body,result)=>{
+  stopReplayTimer();const replay=result.replay,row=A.element("div",undefined,"stage3"),device=A.element("div",undefined,"device"),canvas=A.element("canvas"),label=A.element("div",undefined,"tag"),controls=A.element("div"),slider=A.element("input"),play=A.element("button","Play","action"),detail=A.element("pre",undefined,"context-facts");canvas.width=canvas.height=224;device.append(canvas,label);slider.type="range";slider.min="0";slider.max=String(replay.frames.length-1);slider.value="0";slider.setAttribute("aria-label","Recorded preview frame");slider.style.width="100%";
+  controls.append(slider,play,A.element("p",`${replay.replay_id} · ${replay.frame_count} recorded preview frames · seed ${replay.parameters.rng_seed}. This is a new preview run, not original Keeper footage.`,"notice"),detail);row.append(device,controls);body.append(row);replayState={frames:replay.frames,index:0,timer:null,canvas,label,slider,play,detail};
+  slider.addEventListener("input",()=>{stopReplayTimer();replayState.index=Number(slider.value);drawReplayFrame();});play.addEventListener("click",()=>{if(replayState.timer){stopReplayTimer();return;}play.textContent="Pause";replayState.timer=setInterval(()=>{if(replayState.index>=replayState.frames.length-1){stopReplayTimer();return;}replayState.index++;drawReplayFrame();},125);});drawReplayFrame();
+}));
+$("kids-btn").addEventListener("click",()=>run("kids","kids-btn","kids-body",{count:Number($("kids-count").value)},(body,result)=>{const gallery=A.element("div",undefined,"gallery");for(const child of result.children)gallery.append(deviceWithPacket(child.packet,child.grid_id+" · "+(child.valid&&child.aligned?"valid and aligned":"engine checks failed"),128));body.append(gallery,A.element("p","Generated possibilities are preview results, not recorded descendants of the saved Keeper.","notice"));}));
+async function boot(){ready(false);try{await selectedContext.refresh();entries=await selectedContext.inventory();$("creature-select").replaceChildren();entries.forEach((entry,index)=>$("creature-select").add(new Option(entry.label||entry.grid_id,String(index))));if(new URLSearchParams(location.search).has("draft")){$("creature-select").add(new Option("Current durable editor draft","__draft__"));$("creature-select").value="__draft__";}
+  const profiles=await A.request("/api/slips"),select=$("profile-select");select.replaceChildren();if(selectedContext.data.covenant)select.add(new Option("Selected Keeper active covenant","__active__"));select.add(new Option("Creature's embedded profile","__embedded__"));for(const profile of profiles.slips)select.add(new Option(profile.profile_id+" · "+profile.source,profile.profile_id));if(!selectedContext.data.covenant&&profiles.slips.length)select.value=profiles.slips[0].profile_id;if($("creature-select").options.length)await chooseCreature();else A.notice($("pick-note"),"No supported saved creatures are available in this context.");
+}catch(error){A.notice($("pick-note"),error.message+". Refresh selected context to retry.","err");}}
+$("creature-select").addEventListener("change",chooseCreature);$("profile-select").addEventListener("change",chooseCreature);selectedContext.onChange=()=>{if(entries.length)chooseCreature();};boot();
 </script>
 </body>
 </html>

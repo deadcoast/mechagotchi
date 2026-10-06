@@ -5,9 +5,9 @@ Promoted third, in the contract traceability matrix's fixed order
 Public surface per
 research/package_specs/mecha_engine_lifecycle_contract_gate.md:
 
-- ``initial_state(grid, slip_profile=None) -> dict``
+- ``initial_state(grid, slip_profile=None, *, mechanics=None, body_response="legacy") -> dict``
 - ``advance_tick(state, action, deliberation=None) -> dict``
-- ``run_episode(grid, slip_profile=None, policy=None, actions=None, ticks=72, rng_seed=None) -> dict``
+- ``run_episode(grid, slip_profile=None, policy=None, actions=None, ticks=72, rng_seed=None, *, mechanics=None, body_response="legacy") -> dict``
 - ``reward_for_transition(previous_state, next_state, action) -> float``
 - ``choose_action_detailed(policy, state, rng) -> (action, record | None)``
   (F1's seam, exported for W1's living companion: interactive callers

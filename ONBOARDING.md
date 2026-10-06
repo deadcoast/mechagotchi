@@ -1,7 +1,289 @@
+## Cycle 38 current Keeper compatibility repair (2026-10-06)
+
+The approved integration slice is `body-model-compatibility`, registered in
+`docs/development/cycle-38-body-compatibility.md`. Current-model validation now precedes
+native recovery/preparation/era writes and Workshop authoring/release/import, including
+stale or delayed writers. Supported new-life model choices and read-only inspection
+remain. Read `research/experiment_reports/2026-10-06-body-compatibility.md` and
+`.development/body-compatibility/closing.json` / `resume.json` for actual closing gates.
+The previous workload study and its evidence remain unchanged; overall care REFUSE,
+extinction OPEN. The survival/welfare contract is settled, not awaiting reinterpretation.
+No new science, seed hunt, equation change or default promotion is authorized here.
+Owner retains commits/sync/push; exact-published-SHA Windows/Ubuntu CI is unobserved.
+Earlier dated entries remain history, not the active work queue.
+
+## Cycle 38 shared body workload: measured boundary (2026-10-06)
+
+The opt-in workload-v1 body/play response is shared by native life and evaluation,
+versioned through saves/campaigns/immutable eras, and delivered in an additive
+Windows build. Pristine care qualifies narrowly at 9/30 joint structural/ranking
+changes; morphology changes 4/30 structures but fails pair 28 welfare nonregression,
+so overall care remains REFUSE. All three paired production seeds change actions,
+trajectories and descendant/archive structures. Active final breeders 15, 15, 14:
+no extinction; conditional population successor/inherited era NOT_RUN.
+
+Read research/experiment_reports/2026-10-06-body-workload.md and metric
+data/game_client/body_workload_stage0.json. Exact final local gate, preservation,
+retained instrumentation/delivery failures and next action are in
+.development/body-workload/closing.json and resume.json. The player is
+game/dist/body-workload-01/Mechagotchi/Mechagotchi.exe; detached 45 checks and
+source-era reproduction passed on the unchanged artifact.
+
+Food access, full repair, episode reset, automatic evaluator feeding, death limits
+and survivor sampling remain unchanged. Legacy body behavior remains the default; care selection remains off;
+workload is explicit opt-in. No trained-Q inheritance, X6 promotion, extra seed/era
+hunt, continuous aging or finite reproduction. Review the fixed survival/welfare
+tradeoff before a separate preregistration. Prior learning gains apply only to
+incumbent physiology; earned roles/density qualification and all old refusals stay.
+Owner retains commits/sync/push; exact-published-SHA Windows/Ubuntu CI is unobserved.
+Earlier dated entries below are history, not the current work queue.
+
+## Current direction after the earned-preparation study (2026-10-06)
+
+Food access stays unchanged in this implementation. The earlier unanswered food
+question selected nothing; do not add deprivation to obtain extinction. Read
+`research/reports/2026-10-06-remaining-life-mechanisms.md` for exact design passages
+and the supported next boundary: one opt-in, preregistered live body/action response
+shared with evaluation, preserving food, repair, death thresholds and current v1
+population semantics. Continuous aging or finite reproduction are separate scope.
+The prior pending-question text below and stage0 metric are dated study history.
+Current local gate and preservation: `.development/x8-v2/closing.json`; exact next
+action: `.development/x8-v2/resume.json`. Overall care/extinction remain open.
+
+## Cycle 38 X8 earned-preparation continuation (2026-10-06)
+
+The fixed native earned-role journey and production density consequence are now
+qualified narrowly: real play earned 30 niches, spent ornament/effect, and evaluated
+the fixed newly admitted exemplars; matched density ON removed nine extra cells in
+generation 2. Three reproductions and the OFF duplicate matched. All six eras kept
+16 breeders with zero lifecycle deaths. Overall X8 remains OPEN; original care
+v1/v2 and stress-population extinction refusals remain unchanged.
+
+Durable captured preparation now supports explicit finish and preserved paired
+recovery after interrupted covenant/import/successor writes. Read
+`research/experiment_reports/2026-10-06-earned-preparation.md`, metric
+`data/game_client/earned_preparation_stage0.json`, and `.development/x8-v2/resume.json`
+for current evidence, aggregate status and exact next action. The new Windows folder
+build is `game/dist/x8-earned-preparation-01/Mechagotchi/Mechagotchi.exe`.
+The actual runner and `.development/x8-v2/closing.json` govern local completion.
+No extra seed/era hunt. A food-access design answer is pending; care needs an actual
+live morphology/action interaction before another bounded contract. Keep the entire
+original X8 freeze/refusal/failed native attempt, old data, live saves and builds.
+Owner retains commits/sync/push; exact-published-SHA Windows/Ubuntu CI is unobserved.
+Earlier dated entries below are retained historical checkpoints.
+
+## Cycle 38 X8 measured boundary (2026-10-06)
+
+The fixed survival cohort REFUSES product qualification: all ten stress survivor
+seeds retained living breeders; none became extinct. Experimental living cohorts,
+strict empty continuation/recovery, occurrence ancestry, role budgets and explicit
+regime/density inputs are implemented. Role authority and density mechanism passed
+their separate checks. Actual historical earned density selection/restart passed;
+native earned role spending, production density and genuine extinction through
+successor/inherited-era remain OPEN. No default promotion or extra seed/era hunt.
+Read `research/experiment_reports/2026-10-06-surviving-populations.md`, metric
+`data/game_client/surviving_populations_stage0.json`, and `.development/x8/resume.json`
+for the aggregate boundary and exact next action. Keep the original source freeze,
+refusal and failed native receipt attempt. The one I/O repair repeated no era.
+X7 meaningful-care remains REFUSE at 0/30 in both corrected holdouts; narrow native
+learning rollout is independently qualified. Owner retains Git publication.
+Earlier dated checkpoints below are historical, not the current work queue.
+
+## Cycle 38 X8 implementation and qualification (2026-10-06)
+
+The current registered slice is `x8-surviving-populations`, under
+`docs/development/cycle-38-surviving-populations.md`. Follow
+`.development/x8/resume.json` and the actual runner for current gates.
+Versioned living breeders, explicit empty continuation, occurrence ancestry,
+recovery, role budgets, earned density and explicit survival preparation are
+implemented. These are experimental selectable choices; legacy/sheltered
+defaults remain. Historical archives are retained and never refill an empty
+living cohort. Operational tests do not establish real extinction, difficulty,
+earned progression or biological adaptation. Current measurements and remaining
+goals belong in `research/experiment_reports/2026-10-06-surviving-populations.md`.
+
+X7 closed locally at full run `20261006T072923-65fd89a1`: 3,194 tests/24 suites,
+two documented skips, 2,318 valid JSON artifacts. Meaningful care remains OPEN:
+v2 fixes last-tick death ranking but both fresh evaluators REFUSE at 0/30
+structural differences. The narrow native learning rollout is delivered with
+its nonattentive-death and individual-regression limits preserved. Earlier dated
+snapshots below remain historical. Owner retains commits, sync and push; remote
+Windows/Ubuntu CI on the exact published SHA remains unobserved.
+
+## Cycle 38 X7 v2 correction and qualified learning rollout (2026-10-06)
+
+The current registered slice is `x7-terminal-survival-and-rollout`. V2 explicitly
+ranks terminal survival before welfare and elapsed ticks; the retained pair22
+regression is corrected with byte-exact v1 reproduction. Both fresh 30-pair
+evaluators nevertheless REFUSE: zero structural care-dependent descendant
+differences, with all other registered checks passing in 64.428071 seconds.
+Every neglected holdout candidate died and every fed candidate survived, so the
+terminal correction could not distinguish candidates within those pools. Default
+care selection stays off; meaningful-care X7 remains OPEN. No seed hunt or retry.
+
+Independent review of all 1,500 learning receipts supports a narrow native rollout:
+fresh Keepers with built-in inputs use Q-table; custom inputs and valid prior
+Keeper choices retain incumbent/recorded defaults. Native New offers an explicit
+policy choice. Existing lives retain policy and trained state; every newborn is
+cold. The unchanged >=5% comparison passed BOTH comparators; individual regressions,
+additional begging/feeds, all 400 nonattentive deaths per arm, and DR0066's original
+refusal remain documented. No neglect rescue, attachment or trained inheritance.
+
+Read `.development/x7-v2/resume.json`, the actual runner state, and the new reports
+`research/experiment_reports/2026-10-06-terminal-survival-care.md` and
+`research/experiment_reports/2026-10-06-qualified-learning-rollout.md`. These
+reports and the integration owner's checkpoint separate focused implementation,
+native delivery and final aggregate evidence. Prior X1-X7 artifacts/saves/builds
+remain protected. X8 is the next existing scope after this closing gate, under
+its own reviewed contract. Commits, sync and push remain the owner's; published
+Windows/Ubuntu exact-SHA CI is unobserved. Earlier dated snapshots below remain
+historical and do not override this current scientific disposition.
+
+## Cycle 38 X7: verified implementation, open care outcome (2026-10-06 UTC)
+
+Full `20261006T063633-ae80b3aa` passed **3132 tests / 24 suites**, 2 documented DR0034 skips; 2314 JSON artifacts valid, no source mutations.
+Durable care and founder provenance, experimental contextual succession, and native
+current-life thoughts are implemented. Both complete 30-pair care evaluators
+**REFUSE** promotion: neither produced a structural descendant difference.
+Meaningful care-driven descendants remain **OPEN**. Care reaches the evaluator,
+but candidate rankings never change. The retained receipts also show that elapsed
+survival ticks mask death on the final tick. Read the X7 report before further RED.
+
+The separate 1,500-life product learning cohort passes the unchanged scientific
+>=5% gate against BOTH comparators (+11.710698%/+12.071991%). This is qualified new
+evidence; DR0066's historical refusal remains intact. The native default is still
+incumbent. New-life rollout and preservation/release checks remain separate work.
+All 400 nonattentive lives died in each arm. The original failed learning attempt
+remains incomplete/REFUSE; its one prospectively repaired attempt reused the frozen
+inputs and exactly reproduced all 56 previously completed rows.
+
+Resume `.development/x7/resume.json` and
+`research/experiment_reports/2026-10-06-lived-care-and-thought.md`.
+Fresh Windows player: `game/dist/x7-lived-care-01/Mechagotchi/Mechagotchi.exe`.
+X8 remains queued: living breeders separate from archives, explicit empty
+continuation, qualified weather/difficulty/roles, and genuine extinction,
+succession and unlock evidence. No offline catch-up. Commits, sync and push remain
+the owner's. Native Windows/Ubuntu CI on an exact published SHA is unobserved.
+
 <!-- Current operational snapshot: section 4 and the Phase-Q gate, 2026-10-04.
+
+## Cycle 38 X4 execution entry (2026-10-06 UTC)
+
+The current integrated slice is `x4-windows-delivery`, preregistered in
+`docs/development/cycle-38-windows-delivery.md` after measured X3 closure.
+Read `.development/x4/resume.json`, actual runner status and
+`research/experiment_reports/2026-10-06-windows-delivery.md` for current gates.
+DR0083/card records the native payload, guarded startup, visible controls and
+isolated examples. The current source remains the owner's `phase-l-gate` checkout,
+HEAD `d4b4337d0dacbdfa816d990297c03a5da2d0cdca`; retain incoming dirty work.
+No Git publication, registered remote executor, OS keyboard or human usability
+result is implied. Earlier dated checkpoints below remain historical evidence.
 Earlier dated science and owner rulings are retained; latest direct session
 instructions govern authorized Git actions. -->
 # ONBOARDING.md — start here, next session
+
+## Cycle 38 X6 measured refusal (2026-10-06 UTC)
+
+The active slice is `x6-operative-mutation-permissions`. The explicit named lab/
+package operator and constrained evolution seam are implemented under the pre-RED
+contract `docs/development/cycle-38-operative-mutation-permissions.md`.
+G0-G3 STAGED_PASS preceded full evolution. The first full operative run measured
+1,966.830335s, exceeding the unchanged 1,200s/run criterion: product promotion is
+REFUSED. All product consumers and defaults remain legacy. Ordinary-rate candidate
+blocks produced 72%/70% copies; the full operative pool produced 80.33% copies.
+No generic quality benefit or historical lock-rule violation is claimed.
+
+Three legacy controls and one operative run completed. The second operative seed
+was stopped under the explicit bounded-resource instruction; the third was not
+started. The complete-cohort quality comparison is incomplete, not passed or
+inferred from one seed. No automatic resume or rescue measurement is scheduled.
+Read `.development/x6/resume.json`, `data/archives/operative_evolution_stage0.json`,
+DR0085/card and `research/experiment_reports/2026-10-06-operative-mutation-permissions.md`.
+The source runner records current full verification separately from the scientific
+REFUSE. Permission retention through damage/repair and X6 product completion
+remain open. X7/X8 audits are evidence for independent preregistration, not delivery.
+HEAD/branch remain X5's, and all 172 incoming dirty identities matched its handoff
+before edits. Commits, sync and push remain the owner's.
+
+## X5 local closure (2026-10-06 UTC)
+
+Full 20261006T025926-d1272de7 passed **2,983 tests / 24 suites**, 2 documented DR0034 zlib skips, 2307 JSON artifacts valid, with zero source mutations.
+X5 immutable inputs, ordered admission provenance and explicit reproduction are locally
+complete. Source acceptance: 13 checks; relocated native acceptance: 20 checks across
+12 executable invocations, including two normal Windows SDL launches. Full measured
+findings, retained failures and review repairs are in
+`research/experiment_reports/2026-10-06-reproducible-era-inputs.md`;
+`data/game_client/era_execution_stage0.json` binds the delivered artifact and sources.
+
+Resume from `.development/x5/resume.json`, `source-final.json` and
+`preservation-final.json`. Owner HEAD `d4b4337d0dacbdfa816d990297c03a5da2d0cdca`,
+all 144 incoming dirty identities and both live saves are preserved. Existing TODO X6
+is next; review/preregister in fresh context before RED. No repeated X4/X5 sweep,
+Git mutation, remote executor or exact-published-SHA CI result is implied.
+
+
+## Local closure (2026-10-06 UTC)
+
+Full 20261006T015224-25e2b473 passed **2,919 tests / 24 suites**, 2 documented DR0034 zlib skips, 2306 JSON artifacts valid, with zero source mutations.
+Exact completion and JSON artifact counts are recorded in
+.development/runs/20261006T015224-25e2b473/summary.json and result.json.
+The source invocation was .venv/Scripts/python.exe -B -m mechas_cli.app develop
+--verify full, with PYTHONPATH=tools/mechas_cli/src and PYTHONIOENCODING=utf-8;
+.development/x4/full-invocation-02.log retains its output. Supported ENHANCE and
+POLISH transitions use this current pass. Final source, delivered artifact,
+live-save preservation and diff review are .development/x4/preservation-final.json
+and final-source-state.json. The 142 incoming handoff dirty identities survive.
+X4 is locally complete; the original pre-full handoff below remains dated evidence.
+241 detached checks / 43 executable invocations, four actual Windows SDL launches
+and the connected source-event journey remain separate evidence. No OS keyboard,
+human usability, remote execution or exact-published-SHA cloud CI is claimed.
+The complete folder contains 353 files / 61826456 bytes, including the 96496-byte
+artifact-manifest.json. The metric artifact_files/artifact_bytes values describe
+the 352 manifest-covered payload files and exclude that self-describing manifest.
+X5 reproducible inputs is the next approved milestone; Git actions remain the owner's.
+
+
+## Current Cycle 38 X3 closure (2026-10-06 UTC)
+
+X3 selected Keeper creation and exchange is locally complete under
+`docs/development/cycle-38-selected-keeper-creation.md`. Full `20261006T002342-6c33bff8` passed
+**2,842 tests / 24 suites**, 2 documented DR0034 skips, 2304 JSON artifacts valid, with zero source mutations.
+Application evidence: 33 checks, three source flows, two native launch/resume
+processes; 11 real-browser flows plus two startup reconnect flows. Independent
+review repaired five missed X1/X2 cases and verified the integrated save/context,
+release, draft and pack boundaries. Read the measured report
+`research/experiment_reports/2026-10-05-selected-keeper-creation.md`, DR0082/card,
+`.development/x3/resume.json` and actual runner state for exact current evidence.
+All 4220 incoming files are accounted for; live saves and owner HEAD
+`d4b4337d0dacbdfa816d990297c03a5da2d0cdca` are preserved.
+
+X4 is the next dependency-ready milestone; `.development/x3/next-x4-app.json`
+records its source-backed scope. The current native candidate lacks complete
+Workshop/weather resources; detached delivery remains unverified. X5 immutable
+ordered replay inputs also remain queued. No Git mutation, remote executor,
+OS native keyboard automation, human usability or published CI result is claimed.
+Earlier dated checkpoints below are historical; this closure and actual state
+govern resume. Commits/sync/push remain with the owner.
+
+## Current Cycle 38 X1/X2 implementation (2026-10-05)
+
+The owner authorized delegated development after the W5 product review. X1/X2
+now implement durable Keeper lives, coherent explicit campaign recovery and
+faithful recoverable Workshop authoring. The registered contract is
+`docs/development/cycle-38-keeper-and-authoring.md`; measured report is
+`research/experiment_reports/2026-10-05-keeper-and-authoring.md` and DR0081/card
+record the boundaries. Read actual `.development/state.json` and
+`.development/x1-x2/resume.json` for gates and exact restart state. Full `20261005T230645-abc7203e` passed **2,778 tests / 24 suites**, 2 documented DR0034 skips, with no source mutations.
+The local X1/X2 slice is complete; X3 is the next dependency-ready item.
+
+The initial stale W5 inventory was refreshed by full run
+`20261005T222720-12b0da67` (2,707 tests, 24 suites, two documented skips) before
+new scope registration and RED. This is baseline evidence, not X1/X2 closure.
+All 16 incoming review dirty files matched their handoff; owner HEAD remains
+`d4b4337d0dacbdfa816d990297c03a5da2d0cdca`. X3-X8 stay queued; scientific
+refusals, July on-demand absence disposition and historical evidence survive.
+No Git mutation, remote executor or exact-published-SHA CI result is claimed.
+The prior queue remains byte-exact under `sunsetted/complete/TODO/37/`.
 
 ## Current W5 integrated finish (2026-10-05)
 

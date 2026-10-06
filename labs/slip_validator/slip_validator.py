@@ -16,6 +16,7 @@ VALID_PALETTES = {
     "pocket_plum",
 }
 ORGAN_ROLES = {"sensor", "expression", "body_core"}
+ALLOWED_ORGAN_ROLES = ORGAN_ROLES | {"locomotion", "ornament", "effect"}
 TOP_LEVEL_KEYS = {
     "slip_version",
     "profile_id",
@@ -271,8 +272,20 @@ def validate_profile(profile: dict, source_path: Path | None = None) -> dict:
     _validate_string(profile.get("name"), ["name"], errors)
 
     grid = profile.get("grid")
-    _validate_object(grid, ["grid"], GRID_KEYS, GRID_KEYS, errors)
+    _validate_object(grid, ["grid"], GRID_KEYS, GRID_KEYS | {"allowed_organ_roles"}, errors)
     if isinstance(grid, dict):
+        if "allowed_organ_roles" in grid:
+            allowed = grid["allowed_organ_roles"]
+            if version != "0.2.0":
+                _add(errors, "semantic_version_gate", ["grid", "allowed_organ_roles"],
+                     "grid.allowed_organ_roles requires slip_version 0.2.0")
+            _validate_string_array(allowed, ["grid", "allowed_organ_roles"], ALLOWED_ORGAN_ROLES, errors)
+            required = grid.get("required_organ_roles")
+            if isinstance(allowed, list) and isinstance(required, list):
+                for role in required:
+                    if isinstance(role, str) and role not in allowed:
+                        _add(errors, "semantic_allowed_organ_roles", ["grid", "allowed_organ_roles"],
+                             f"required organ role is not allowed by SLIP: {role}")
         _validate_string_array(
             grid.get("allowed_palettes"),
             ["grid", "allowed_palettes"],

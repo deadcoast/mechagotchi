@@ -16,6 +16,7 @@ from __future__ import annotations
 
 from mecha_engine.genome import render_packet_from_grid, validate_grid
 from mecha_engine.runtime import live_cycle
+from mecha_game.thought_view import thought_lines
 
 REPLAY_FORMAT = "mechagotchi_replay_v1"
 
@@ -38,9 +39,12 @@ def build_replay(
     ticks: int = 48,
     dropout_rate: float = 0.2,
     rng_seed: int = 20260707,
+    body_response: str = "legacy",
 ) -> dict:
     """Record one creature's live_cycle as a replay artifact (the
     lab's frame construction, verbatim)."""
+    from mecha_game.body_response import validate_body_response
+    validate_body_response(body_response)
     lived = live_cycle(
         grid,
         slip_profile,
@@ -50,6 +54,7 @@ def build_replay(
         dropout_rate=dropout_rate,
         rng_seed=rng_seed,
         record_frames=True,
+        **({"body_response": body_response} if body_response != "legacy" else {}),
     )
 
     return replay_from_lived(grid, slip_profile, lived, damage_cycles=damage_cycles,
@@ -132,6 +137,7 @@ def replay_from_lived(grid, slip_profile, lived, *, damage_cycles, ticks, dropou
             "ticks": ticks,
             "dropout_rate": dropout_rate,
             "rng_seed": rng_seed,
+            **({"body_response": lived["body_response"]} if "body_response" in lived else {}),
         },
         "live": {
             "cycles": digest_cycles,
@@ -230,3 +236,14 @@ class ReplayPlayer:
         if frame["phase"] == "episode_tick":
             parts.append(f"tick {frame['tick']}")
         return "  ".join(parts)
+
+    def thought_lines(self) -> list[str]:
+        """The selected recorded episode's thought, never an earlier frame's."""
+        frame = self.current()
+        entry = frame.get("entry")
+        if (frame.get("phase") != "episode_tick" or not isinstance(entry, dict)
+                or type(frame.get("tick")) is not int or type(entry.get("tick")) is not int
+                or entry["tick"] != frame["tick"]):
+            return []
+        return thought_lines(entry.get("deliberation"), tick=frame["tick"],
+                             action=entry.get("action"), recorded=True)

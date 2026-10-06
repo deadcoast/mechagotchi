@@ -44,7 +44,9 @@ class ImportInboxTests(unittest.TestCase):
         self.campaign.save(keeper/'campaign.sqlite3')
         self.campaign.save_state(keeper/'campaign_state.json')
         grid, slip, model = self.pet
-        CompanionSession(grid, slip, model=model, learning_policy=policy).save_checkpoint(keeper/'companion.json')
+        session = CompanionSession(grid, slip, model=model, learning_policy=policy)
+        session.bind_campaign(self.campaign.campaign['campaign_id'])
+        session.save_checkpoint(keeper/'companion.json')
 
     def observe(self, keeper, batches, *, no_training=False):
         events=iter(batches); pages=[]; original=FooterPager.layout

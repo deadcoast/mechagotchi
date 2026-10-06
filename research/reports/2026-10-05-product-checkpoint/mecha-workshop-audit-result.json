@@ -1,0 +1,110 @@
+{
+  "source_head": "d4b4337d0dacbdfa816d990297c03a5da2d0cdca",
+  "save": {
+    "ok": true,
+    "file": "trait_probe.json",
+    "backup": null
+  },
+  "load_keys": [
+    "grid_id",
+    "matrix",
+    "name",
+    "ok",
+    "palette_id"
+  ],
+  "before": {
+    "x": 2,
+    "y": 1,
+    "visual": "#5dbb63",
+    "role": "body",
+    "material": "hard",
+    "mutation_weight": 0.91,
+    "animation_anchor": false,
+    "organ": "core",
+    "stress": 0,
+    "damage": 0,
+    "locked": false
+  },
+  "after_unedited_reload_save": {
+    "x": 2,
+    "y": 1,
+    "visual": "#5dbb63",
+    "role": "body",
+    "material": "hard",
+    "mutation_weight": 0.1,
+    "animation_anchor": false,
+    "organ": "core",
+    "stress": 0,
+    "damage": 0,
+    "locked": false
+  },
+  "exported_png_sidecar_cell": {
+    "x": 2,
+    "y": 1,
+    "visual": "#5dbb63",
+    "role": "body",
+    "material": "hard",
+    "mutation_weight": 0.1,
+    "animation_anchor": false,
+    "organ": "core",
+    "stress": 0,
+    "damage": 0,
+    "locked": false
+  },
+  "unchanged": false,
+  "rich_role_reload": {
+    "saved": {
+      "ok": true,
+      "file": "role_probe.json",
+      "backup": null
+    },
+    "token_at_1_0": "N",
+    "validation_after_load": {
+      "http_status": 400,
+      "ok": false,
+      "error": "unknown tokens: N"
+    }
+  },
+  "layered_catalog": {
+    "grids": [
+      {
+        "name": "layered",
+        "grid_id": "workshop_layered",
+        "palette_id": "lcd_green"
+      },
+      {
+        "name": "layered.layers",
+        "grid_id": null,
+        "palette_id": null
+      },
+      {
+        "name": "role_probe",
+        "grid_id": "workshop_role_probe",
+        "palette_id": "lcd_green"
+      },
+      {
+        "name": "trait_probe",
+        "grid_id": "workshop_trait_probe",
+        "palette_id": "lcd_green"
+      }
+    ],
+    "preview_workshop_creatures": [
+      {
+        "source": "workshop",
+        "name": "layered"
+      },
+      {
+        "source": "workshop",
+        "name": "layered.layers"
+      },
+      {
+        "source": "workshop",
+        "name": "role_probe"
+      },
+      {
+        "source": "workshop",
+        "name": "trait_probe"
+      }
+    ]
+  }
+}

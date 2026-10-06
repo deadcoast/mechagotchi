@@ -13,6 +13,18 @@
       "title": "AllowableMaterial",
       "type": "string"
     },
+    "AllowedOrganRole": {
+      "enum": [
+        "body_core",
+        "sensor",
+        "expression",
+        "locomotion",
+        "ornament",
+        "effect"
+      ],
+      "title": "AllowedOrganRole",
+      "type": "string"
+    },
     "AnimationState": {
       "enum": [
         "idle",
@@ -177,6 +189,14 @@
           "title": "Required Organ Roles",
           "type": "array",
           "uniqueItems": true
+        },
+        "allowed_organ_roles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/AllowedOrganRole"
+          }
         }
       },
       "required": [
@@ -186,7 +206,78 @@
         "required_organ_roles"
       ],
       "title": "GridContract",
-      "type": "object"
+      "type": "object",
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "allowed_organ_roles"
+            ],
+            "properties": {
+              "required_organ_roles": {
+                "contains": {
+                  "const": "body_core"
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "allowed_organ_roles": {
+                "contains": {
+                  "const": "body_core"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "allowed_organ_roles"
+            ],
+            "properties": {
+              "required_organ_roles": {
+                "contains": {
+                  "const": "sensor"
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "allowed_organ_roles": {
+                "contains": {
+                  "const": "sensor"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "allowed_organ_roles"
+            ],
+            "properties": {
+              "required_organ_roles": {
+                "contains": {
+                  "const": "expression"
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "allowed_organ_roles": {
+                "contains": {
+                  "const": "expression"
+                }
+              }
+            }
+          }
+        }
+      ]
     },
     "LineagePreferencesContract": {
       "additionalProperties": false,
@@ -521,6 +612,26 @@
           "required": [
             "mechanics"
           ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "slip_version": {
+            "const": "0.1.0"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "grid": {
+            "not": {
+              "required": [
+                "allowed_organ_roles"
+              ]
+            }
+          }
         }
       }
     }

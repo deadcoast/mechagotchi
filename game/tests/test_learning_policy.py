@@ -33,7 +33,7 @@ class LearningPolicyTests(unittest.TestCase):
         self.assertNotIn("qtable_policy",base.state["learning_switches"])
         enabled.advance()
         self.assertEqual(set(KEPT_THREADS)|{"qtable_policy"},set(enabled.state["thread_states"]))
-        self.assertIn("experimental", " ".join(_footer_lines(enabled.snapshot(),None)).lower())
+        self.assertIn("q-table", " ".join(_footer_lines(enabled.snapshot(),None)).lower())
 
     def test_cold_to_warm_and_exact_resume_continuation(self):
         session=companion(learning_policy="qtable")

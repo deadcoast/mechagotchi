@@ -146,8 +146,11 @@ def constrained_population(
     generation_index: int,
     rng_seed: int,
     slip_profile: dict | None = None,
+    mutation_arm: str = "legacy",
 ) -> tuple[list[dict], list[dict]]:
-    """The promoted evolve inner loop, verbatim: round-robin + seed scheme."""
+    """Round-robin + seed scheme; X6 permissions are an explicit additive arm."""
+    if mutation_arm not in ("legacy", "operative_permissions_v1"):
+        raise ValueError("mutation_arm must be legacy or operative_permissions_v1")
     candidates: list[dict] = []
     failures: list[dict] = []
     for index in range(population):
@@ -156,7 +159,8 @@ def constrained_population(
         try:
             candidates.append(
                 generate_candidate(
-                    parent, generation_model, slip_profile, rng_seed=run_seed
+                    parent, generation_model, slip_profile, rng_seed=run_seed,
+                    **({"mutation_arm": mutation_arm} if mutation_arm != "legacy" else {}),
                 )
             )
         except ValueError as error:

@@ -13,6 +13,8 @@ and both shown to the Keeper, never smoothed.
 
 from __future__ import annotations
 
+import base64
+import copy
 import json
 from pathlib import Path
 
@@ -29,19 +31,19 @@ def load_released_grids(released_dir: str | Path | None) -> list[dict]:
         return []
     grids = []
     for file in sorted(released_dir.glob("*.json")):
-        if file.name.endswith(".bak.json"):
+        if file.name.endswith((".bak.json", ".authoring.json", ".layers.json")):
             continue
         grids.append(json.loads(file.read_text(encoding="utf-8")))
     return grids
 
 
 def default_release_inboxes(
-    keeper_dir: str | Path, start: Path | None = None
+    keeper_dir: str | Path, start: Path | None = None, *, include_shared: bool = True
 ) -> list[Path]:
     """The inboxes, in read order: the workshop's release directory
     (when a checkout or bundle carries one) then the player's own."""
     inboxes: list[Path] = []
-    for origin in data_search_origins(start):
+    for origin in data_search_origins(start) if include_shared else ():
         for base in (origin, *origin.parents):
             workshop = base / "data" / "workshop" / "released"
             if workshop.is_dir():
@@ -54,13 +56,50 @@ def default_release_inboxes(
 
 
 def gather_releases(
-    keeper_dir: str | Path, start: Path | None = None
+    keeper_dir: str | Path, start: Path | None = None, *, include_shared: bool = True
 ) -> list[dict]:
-    """Every released creature from every inbox, in inbox order."""
+    """Read chosen inboxes; native selected-Keeper callers disable shared data."""
     grids: list[dict] = []
-    for inbox in default_release_inboxes(keeper_dir, start=start):
+    for inbox in default_release_inboxes(keeper_dir, start=start, include_shared=include_shared):
         grids.extend(load_released_grids(inbox))
     return grids
+
+
+def gather_release_inputs(
+    keeper_dir: str | Path, start: Path | None = None, *, include_shared: bool = True
+) -> tuple[list[dict], list[dict]]:
+    """Capture each selected file once; parse the same bytes retained as evidence."""
+    grids, sources = [], []
+    own_inbox = (Path(keeper_dir) / "released").resolve()
+    for inbox in default_release_inboxes(keeper_dir, start=start, include_shared=include_shared):
+        if not inbox.is_dir():
+            continue
+        for file in sorted(inbox.glob("*.json")):
+            if file.name.endswith((".bak.json", ".authoring.json", ".layers.json")):
+                continue
+            payload = file.read_bytes()
+            grid = json.loads(payload.decode("utf-8"))
+            label_root = "released" if inbox.resolve() == own_inbox else "shared_released"
+            sources.append(dict(role="founder", source_kind="workshop_release",
+                source_position=len(grids), label=f"{label_root}/{file.name}",
+                data_base64=base64.b64encode(payload).decode("ascii")))
+            grids.append(grid)
+    return grids, sources
+
+
+def companion_release_source(session) -> dict:
+    """Record the actual staged life, keeping its earlier origin a separate fact."""
+    from .care_history import capture_care_context
+    context = capture_care_context(session)
+    life = session.lineage[-1]
+    source = dict(role="founder", source_kind="keeper_companion", source_position=0,
+                  keeper_id=session.keeper_id, life_id=life["life_id"], origin=life["origin"],
+                  care_context=context)
+    recorded = life.get("source") or {}
+    for key in ("campaign_id", "era_index", "niche_key"):
+        if key in recorded:
+            source[key] = copy.deepcopy(recorded[key])
+    return source
 
 
 def founders_verdict(era_record: dict) -> dict | None:

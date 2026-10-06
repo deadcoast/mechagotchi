@@ -18,6 +18,8 @@ from __future__ import annotations
 
 import argparse
 import copy
+import hashlib
+from datetime import datetime, timezone
 import sqlite3
 import json
 import sys
@@ -25,6 +27,7 @@ from pathlib import Path
 
 from mecha_engine.generation import train_generation_model
 from mecha_engine.genome import clip_frame_count
+from mecha_engine.runtime.care import CARE_POLICIES, CARE_EVALUATORS
 
 from mecha_game.campaign import (
     ERA_CONFIG,
@@ -36,7 +39,9 @@ from mecha_game.campaign import (
     prepare_campaign_models,
 )
 from mecha_game.clips import TRANSITIONS, ClipDriver
-from mecha_game.contribute import founders_verdict, gather_releases
+from mecha_game.contribute import (founders_verdict, gather_releases,
+                                   gather_release_inputs, companion_release_source)
+from mecha_game.creator_bridge import CreatorBridge
 from mecha_game.covenant_io import export_covenant, import_covenant
 from mecha_game.packs import import_pack
 from mecha_game.inbox import InboxPicker
@@ -51,11 +56,18 @@ from mecha_game.covenant import (
     spend_generations_to_cap,
     spend_next_palette,
     spend_population_to_cap,
+    spend_next_organ_role,
+    starter_role_covenant,
 )
 from mecha_game.footer import FooterPager, HELP_LINES
+from mecha_game.thought_view import LiveThoughtView
 from mecha_game.era_review import EraReview
 from mecha_game.niche_history import CampaignStory, NicheHistory
 from mecha_game.era_plan import EraPlan, state_digest
+from mecha_game.preparation_commit import PreparationCommit
+from mecha_game.preparation_readout import (
+    role_progress_lines, next_era_line, covenant_change_summary, preparation_notice,
+)
 from mecha_game.era_work import EraCancelled, EraWork
 from mecha_game.recorded_review import fit_recorded_panel, load_saved_replay
 from mecha_game.hud import HUD_HEIGHT, render_hud
@@ -95,11 +107,9 @@ def default_keeper_dir(start: Path | None = None) -> Path:
         # Continue older bundled companions in place. Never silently copy,
         # migrate, or overwrite a second save when both homes contain lives.
         return legacy if has_legacy and not has_home else home
-    origin = (start or Path(__file__)).resolve()
-    for base in (origin, *origin.parents):
-        if (base / "data" / "seed_grids_16x16").is_dir():
-            return base / "keeper"
-    return Path.home() / ".mechagotchi"
+    from mecha_game.runtime_resources import source_checkout_root
+    source = source_checkout_root(start)
+    return source / "keeper" if source is not None else Path.home() / ".mechagotchi"
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -179,10 +189,42 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--learning-policy", choices=LEARNING_POLICIES, default=None,
-        help="new companion policy: incumbent (default) or experimental qtable; resumes preserve their saved policy",
+        help="new-life policy: built-in fresh Keeper defaults to qtable; custom inputs default to incumbent; existing Keepers preserve their saved policy",
     )
+    parser.add_argument('--body-response', choices=('legacy', 'workload-v1'), default=None,
+                        help='new-life body response: legacy default or opt-in workload-v1 play energy cost; saved choices remain')
+    parser.add_argument('--care-selection', choices=('off', *CARE_POLICIES), default=None,
+                        help='new-life care selection: off (default) or experimental observed care; saved choices are preserved')
+    parser.add_argument('--care-evaluator', choices=CARE_EVALUATORS, default=None,
+                        help='experimental selection probe (default: archive_morphology_probe_v1); not live personality')
     parser.add_argument("--recover-backup", action="store_true",
                         help="restore the previous companion save; validate it and archive the current save first")
+    parser.add_argument('--startup', action='store_true', help='open the native save/restore/new companion chooser')
+    parser.add_argument('--frames', type=int, default=None, help='quit after N rendered frames, including paused views')
+    parser.add_argument('--creator', action='store_true', help='open the creator for this selected Keeper; care pauses')
+    parser.add_argument('--no-browser', action='store_true', help='with --creator, retain the local URL without opening a browser')
+    parser.add_argument('--launch-info', '--creator-info', type=Path, default=None,
+                        help='write an owned diagnostic receipt to a new file outside your save data')
+    parser.add_argument('--prepare-weather', choices=WEATHER_NAMES, default=None,
+                        help='select and save ordinary era preparation before an optional --eras run')
+    parser.add_argument('--population-policy', choices=('legacy_archive','generation_survivors_v1'), default=None,
+                        help='explicit new campaign only: historical archive continuity or experimental living generations')
+    parser.add_argument('--campaign-seed', type=int, default=None, help='explicit seed for a new campaign; saved campaigns refuse changes')
+    parser.add_argument('--starter-roles', action='store_true', help='explicit new campaign with the optional four-role starter covenant')
+    parser.add_argument('--prepare-survival-regime', choices=('sheltered','stress_probe'), default=None,
+                        help='save the next era survival environment; experimental stress is separate from era scale')
+    parser.add_argument('--prepare-density-pressure', choices=('off','on'), default=None,
+                        help='save earned density pressure for recorded weather; storm-record tier 1 required')
+    parser.add_argument('--create-successor', action='store_true', help='explicitly create the ended campaign successor before an optional era')
+    parser.add_argument('--finish-preparation', action='store_true',
+                        help='explicitly finish a captured covenant/successor save; never runs an era')
+    parser.add_argument('--view', choices=('care','preparation','review','archive'), default='care',
+                        help='open an existing native view after loading the selected companion')
+    parser.add_argument('--example', choices=('care-to-era',), default=None,
+                        help='run the isolated executable example with --output NEW_DIRECTORY')
+    parser.add_argument('--reproduce-era', type=int, default=None, help='explicitly reproduce one saved era from immutable recorded inputs')
+    parser.add_argument('--campaign-id', default=None, help='recorded campaign identity for --reproduce-era')
+    parser.add_argument('--output', type=Path, default=None, help='new output directory for --example or --reproduce-era')
     return parser
 
 
@@ -201,6 +243,7 @@ class _EraBench:
         state_path: Path | None = None,
         ledger_path: Path | None = None,
         initial_profile: dict | None = None,
+        keeper_session: CompanionSession | None = None,
     ) -> None:
         self.era_scale = era_scale
         self.cache_dir = cache_dir
@@ -208,72 +251,217 @@ class _EraBench:
         self.ledger_path = ledger_path
         self.initial_profile = json.loads(json.dumps(initial_profile)) if initial_profile is not None else None
         self.campaign: KeeperCampaign | None = None
+        self.keeper_session = keeper_session
+        self.recovery_offer = None
         self.plan = EraPlan(state_path.with_name('era_plan.json') if state_path is not None else None)
         self.weather_index = WEATHER_NAMES.index(self.plan.weather)
         self._loaded_state_digest = state_digest(state_path)
+        self._loaded_ledger_digest = state_digest(ledger_path)
         self._completed_work = None
         self._completed_previous_state = None
-        self.message = self.plan.error or ""
+        self._pending_preparation_digest = None
+        self.preparation_commit = (PreparationCommit(state_path, ledger_path)
+                                   if state_path is not None and ledger_path is not None else None)
+        self.message = preparation_notice(self.preparation_commit) or self.plan.error or ""
 
     @property
     def weather(self) -> str:
         return WEATHER_NAMES[self.weather_index]
 
+    def _check_binding(self, campaign):
+        """A read verifies a known association without inventing a new one."""
+        self._check_campaign_identity(campaign.state_payload())
+
+    def _check_campaign_identity(self, state):
+        from mecha_game.compatibility import require_campaign_compatibility
+        require_campaign_compatibility(state, keeper_session=self.keeper_session, state_path=self.state_path)
+
+    def bind_current_campaign(self):
+        if self.keeper_session is None or self.campaign is None:
+            return False
+        self._check_binding(self.campaign)
+        return self.keeper_session.bind_campaign(
+            self.campaign.campaign['campaign_id'],
+            predecessor_campaign_id=self.campaign.campaign.get('predecessor_campaign_id'))
+
+    def _remember_files(self):
+        self._loaded_state_digest = state_digest(self.state_path)
+        self._loaded_ledger_digest = state_digest(self.ledger_path)
+
     def ensure(self, *, models: bool = False) -> KeeperCampaign:
         if self.campaign is None:
+            from mecha_game.campaign_recovery import has_campaign_evidence
+            established = (self.state_path is not None and self.ledger_path is not None
+                           and has_campaign_evidence(self.state_path, self.ledger_path))
+            if established and (not self.state_path.is_file() or not self.ledger_path.is_file()):
+                raise ValueError('Campaign state and ledger must both be present. U inspects recovery; nothing was replaced.')
             paths = default_campaign_paths()
-            tiny = self.era_scale == "tiny"
+            tiny = self.era_scale == 'tiny'
             inputs = load_campaign_inputs(
-                paths["seed_dir"],
-                paths["slip_path"],
-                paths["adopted_model_path"],
-                repair_epochs=6 if tiny else 40,
-                seed_limit=12 if tiny else None,
-                # F11: the slow trainer caches to the keeper dir —
-                # byte-equal to fresh training, pinned by test.
-                cache_dir=self.cache_dir,
-                with_models=models,
-            )
-            # F17: resume the campaign exactly where it stopped (the
-            # spent covenant included; founders from the ledger).
-            if (
-                self.state_path is not None
-                and self.state_path.is_file()
-                and self.ledger_path is not None
-                and self.ledger_path.is_file()
-            ):
-                self.campaign = KeeperCampaign.load_state(
-                    inputs, self.state_path, self.ledger_path
-                )
-                self.message = (
-                    f"campaign resumed at era "
-                    f"{self.campaign.era_offset}"
-                )
+                paths['seed_dir'], paths['slip_path'], paths['adopted_model_path'],
+                repair_epochs=6 if tiny else 40, seed_limit=12 if tiny else None,
+                cache_dir=self.cache_dir, with_models=False)
+            if established:
+                candidate = KeeperCampaign.load_state(inputs, self.state_path, self.ledger_path)
             else:
-                # Q3: a new bloodline starts under the companion's covenant.
-                # A recorded campaign above remains its own authority.
                 if self.initial_profile is not None:
-                    inputs = dict(inputs, slip_profile=json.loads(json.dumps(self.initial_profile)))
-                self.campaign = KeeperCampaign(
-                    inputs,
-                    era_config=TINY_ERA_CONFIG if tiny else ERA_CONFIG,
-                )
-            self._loaded_state_digest = state_digest(self.state_path)
+                    inputs = dict(inputs, slip_profile=copy.deepcopy(self.initial_profile))
+                identity = ({'campaign_id': self.keeper_session.keeper_id,
+                             'created_date': datetime.now(timezone.utc).date().isoformat()}
+                            if self.keeper_session is not None else {})
+                candidate = KeeperCampaign(inputs, era_config=TINY_ERA_CONFIG if tiny else ERA_CONFIG,
+                                           body_response=getattr(self.keeper_session, 'body_response', 'legacy'), **identity)
+            self._check_binding(candidate)
+            self.campaign = candidate
+            if established:
+                self.message = f'campaign resumed at era {candidate.era_offset}'
+            self._remember_files()
+        else:
+            self._check_binding(self.campaign)
         if models:
+            self.check_current_state()
             self.campaign.inputs = prepare_campaign_models(self.campaign.inputs,
-                repair_epochs=6 if self.era_scale == "tiny" else 40, cache_dir=self.cache_dir)
+                repair_epochs=6 if self.era_scale == 'tiny' else 40, cache_dir=self.cache_dir)
         return self.campaign
+
+    def new_campaign_available(self):
+        from mecha_game.campaign_recovery import has_campaign_evidence
+        if self.state_path is not None and self.ledger_path is not None and has_campaign_evidence(self.state_path, self.ledger_path):
+            return False
+        return self.campaign is None or (not self.campaign.eras and self.campaign.era_offset == 0
+            and self.campaign.campaign.get('predecessor_campaign_id') is None)
+
+    def choose_new_campaign(self, population_policy, *, starter_roles=False, base_seed=None):
+        self.require_preparation()
+        if not self.new_campaign_available():
+            raise ValueError('A recorded campaign keeps its population policy. Choose a separate new Keeper for a new mode.')
+        if population_policy not in ('legacy_archive', 'generation_survivors_v1') or type(starter_roles) is not bool:
+            raise ValueError('Invalid new campaign choice.')
+        if base_seed is not None and (type(base_seed) is not int or base_seed < 0):
+            raise ValueError('Campaign seed must be a nonnegative integer.')
+        current = self.ensure()
+        self.check_current_state()
+        profile = starter_role_covenant(current.base_profile) if starter_roles else copy.deepcopy(current.base_profile)
+        identity = current.campaign
+        candidate = KeeperCampaign(dict(current.inputs, slip_profile=profile), era_config=current.era_config,
+            campaign_id=identity['campaign_id'], keeper_label=identity['keeper_label'], created_date=identity['created_date'],
+            base_seed=identity['base_seed'] if base_seed is None else base_seed, population_policy=population_policy,
+            body_response=current.body_response)
+        if starter_roles:
+            from mecha_game.execution import source_record
+            raw = (json.dumps(profile, indent=2) + '\n').encode('utf-8')
+            candidate.base_covenant_source = source_record(raw, role='base_covenant',
+                source_kind='designed_covenant', label='Optional starter roles v1')
+        else:
+            candidate.base_covenant_source = copy.deepcopy(current.base_covenant_source)
+        if self.state_path is not None and self.ledger_path is not None:
+            from mecha_game.campaign_recovery import initialize_campaign_checkpoint
+            initialize_campaign_checkpoint(candidate, self.state_path, self.ledger_path)
+        self.campaign = candidate
+        self._remember_files()
+        self.message = ('New experimental living-generation campaign saved.' if population_policy == 'generation_survivors_v1'
+                        else 'New archive-continuity campaign saved.')
+        if starter_roles: self.message += ' Four-role starter selected; earned roles require an explicit spend.'
+
+    def choose_survival_regime(self, regime):
+        self.require_preparation()
+        self.plan.select_survival_regime(regime)
+        self.message = 'Next survival environment saved: ' + ('experimental stress probe.' if regime == 'stress_probe' else 'sheltered.')
+
+    def choose_density_pressure(self, enabled):
+        self.require_preparation()
+        if type(enabled) is not bool:
+            raise ValueError('Density pressure must be on or off.')
+        if enabled:
+            from mecha_game.campaign import build_weather_source
+            campaign = self.ensure()
+            self.check_current_state()
+            if not campaign.budget()['cubff_density_pressure_allowed']:
+                raise ValueError('Density pressure requires earned storm-record tier 1.')
+            if not build_weather_source(self.weather):
+                raise ValueError('Density pressure requires a recorded weather source; calm has none.')
+        self.plan.select_density_pressure(enabled)
+        self.message = 'Next weather density pressure saved: ' + ('on.' if enabled else 'off.')
+
+    def create_successor(self):
+        self.require_preparation()
+        current = self.ensure()
+        self.check_current_state()
+        if current.status != 'extinct':
+            raise ValueError('Only an extinct campaign can create a successor.')
+        candidate = current.successor()
+        self._save_preparation(candidate, current, kind='successor',
+            summary='Create successor with inherited unlocks and its base covenant.')
+        self.message = 'Successor created with inherited unlocks and its base covenant. Choose preparation, then run its first era.'
+
+    def inspect_recovery(self, *, slot="current"):
+        from mecha_game.campaign_recovery import inspect_campaign_backup
+        if self.state_path is None or self.ledger_path is None:
+            raise ValueError('No campaign save home is selected.')
+        offer = inspect_campaign_backup(self.state_path, self.ledger_path, slot=slot)
+        # Inspection may show an incompatible historical model; restore still
+        # requires the current compatibility boundary before any mutation.
+        current = getattr(self.keeper_session, 'campaign_id', None)
+        if current is not None and current not in (offer['state']['campaign_id'], offer['state'].get('predecessor_campaign_id')):
+            raise ValueError('Campaign belongs to a different recorded Keeper history; files preserved.')
+        if self.preparation_commit is not None:
+            self.preparation_commit.refresh()
+        self.recovery_offer = dict(offer, target_state_digest=state_digest(self.state_path),
+                                   target_ledger_digest=state_digest(self.ledger_path),
+                                   preparation_digest=((self.preparation_commit.journal_digest
+                                       if self.preparation_commit is not None else None) or offer.get('preparation_digest')))
+        return self.recovery_offer
+
+    def restore_recovery(self):
+        from mecha_game.campaign_recovery import recover_campaign_backup
+        offer = self.recovery_offer
+        if offer is None:
+            raise ValueError('Inspect the recovery checkpoint before restoring it.')
+        if (offer['target_state_digest'] != state_digest(self.state_path)
+                or offer['target_ledger_digest'] != state_digest(self.ledger_path)):
+            self.recovery_offer = None
+            raise ValueError('Campaign files changed after inspection. U inspects them again; files preserved.')
+        self._check_campaign_identity(offer['state'])
+        recover_campaign_backup(self.state_path, self.ledger_path,
+            expected_manifest_digest=offer['manifest_digest'],
+            expected_campaign_id=offer['state']['campaign_id'], slot=offer['slot'],
+            expected_preparation_digest=offer.get('preparation_digest'))
+        if self.preparation_commit is not None:
+            self.preparation_commit.refresh()
+        self.campaign = None
+        self.recovery_offer = None
+        self._remember_files()
+        self.ensure()
+        self.message = 'Campaign checkpoint restored; previous primary bytes retained.'
+        if self.plan.pending is not None:
+            self.message += ' E finishes the already recorded pending result once.'
+
+    def recovery_lines(self):
+        if self.recovery_offer is None:
+            return ['U inspect latest checkpoint; Y inspect prior. C close, F1 help.']
+        state = self.recovery_offer['state']
+        label = 'latest' if self.recovery_offer['slot'] == 'current' else 'prior'
+        return [f'RECOVERY ({label}): U restore / C cancel',
+                'Care paused. Current primary bytes will be retained.',
+                f"Campaign {state['campaign_id']}: {state['era_count']} recorded eras",
+                ('Captured preparation is archived after this verified restore; no choice is replayed.'
+                 if self.recovery_offer.get('preparation_digest') else 'Pending completed eras stay recorded.'),
+                'Y inspects the prior checkpoint.']
 
     def budget_lines(self) -> list[str]:
         """The covenant mode's display — every number the campaign's
         own budget/covenant, verbatim (F7)."""
+        if self.recovery_offer is not None:
+            return self.recovery_lines()
+        notice = preparation_notice(self.preparation_commit)
+        if notice:
+            return [notice, 'C close; care and recorded history remain available.', *self.recovery_lines()]
         try:
             campaign = self.ensure()
             budget = campaign.budget()
         except (OSError, ValueError, sqlite3.Error) as error:
-            return [f'Covenant unavailable: {error}',
-                    'Saved campaign unchanged. Correct the file and reopen C.',
-                    'C close   F1 help; care continues outside help.']
+            return ['Covenant unavailable', *self.recovery_lines(), str(error),
+                    'Saved campaign unchanged; care remains available.']
         profile = campaign.campaign["slip_profile"]
         active_palettes = profile["grid"]["allowed_palettes"]
         thinking = profile.get("deliberation", {}).get("max_ticks", 0)
@@ -287,24 +475,62 @@ class _EraBench:
                 f"{campaign.era_config['generations']}/"
                 f"{budget['generation_cap']}"
             ),
-            "1 palette  2 thinking  3 population  4 generations  C close",
+            "1 palette  2 thinking  3 population  4 generations  5 organ role",
+            *role_progress_lines(campaign),
+            ('Living generations (experimental): only qualified survivors continue.' if campaign.population_policy == 'generation_survivors_v1'
+             else 'Population: historical archive continuity'),
+            '6 density '+('on' if self.plan.cubff_density_pressure else 'off')+'; 7 survival '+self.plan.survival_regime,
+            ('Density choice earned: select recorded weather.' if budget['cubff_density_pressure_allowed']
+             else 'Density pressure needs storm-record tier 1.'),
+            ('8 start living generations; 9 start with role limits (experimental)' if self.new_campaign_available()
+             else 'N create successor' if campaign.status == 'extinct' else 'Saved population policy stays fixed; archives remain history.'),
+            "C close",
             "Care continues here; F1 pauses. Close C for weather keys.",
             "I choose covenant   K choose pack   X export",
-            "H hatch preview   O saved origin   F1 controls",
+            "H hatch preview   O saved origin   U/Y recovery   F1 controls",
+            *([] if self.recovery_offer is None else self.recovery_lines()),
         ]
 
     def require_preparation(self):
+        from mecha_game.compatibility import require_keeper_writable
+        if self.state_path is not None:
+            require_keeper_writable(self.state_path.parent)
+        if self.campaign is not None:
+            self._check_binding(self.campaign)
+        if self.preparation_commit is not None:
+            self.preparation_commit.require_ready()
         self.plan.require_ready()
         if self._completed_work is not None:
             raise ValueError('E finishes saving the completed era before another preparation change.')
 
     def preparation_line(self):
+        notice = preparation_notice(self.preparation_commit)
+        if notice: return notice
         if self.plan.error: return self.plan.error
         if self.plan.pending is not None or self._completed_work is not None:
             return 'ERA RESULT awaiting save. E retry; no new era runs.'
-        return f'NEXT ERA [{self.weather}]: {len(self.plan.releases)} staged'
+        policy = self.campaign.population_policy if self.campaign is not None else 'legacy_archive'
+        body_response = self.campaign.body_response if self.campaign is not None else getattr(self.keeper_session, 'body_response', 'legacy')
+        if self.campaign is None and self.state_path is not None:
+            try:
+                if self.state_path.exists():
+                    saved = json.loads(self.state_path.read_text(encoding='utf-8'))
+                    KeeperCampaign.validate_state_payload(saved)
+                    policy = saved.get('population_policy', 'legacy_archive')
+                    body_response = saved.get('body_response', 'legacy')
+                elif self.ledger_path is not None:
+                    from mecha_game.campaign_recovery import has_campaign_evidence
+                    if has_campaign_evidence(self.state_path, self.ledger_path):
+                        policy = None
+            except (OSError, ValueError, TypeError, KeyError):
+                policy = None
+        return next_era_line(self.weather, len(self.plan.releases), population_policy=policy,
+                            survival_regime=self.plan.survival_regime, density=self.plan.cubff_density_pressure, body_response=body_response)
 
     def preparation_controls(self):
+        if preparation_notice(self.preparation_commit):
+            return ('C/U inspect recovery; care and recorded history remain available.' if self.preparation_commit.error
+                    else 'C then E finish captured preparation; U inspect recovery; no new era runs.')
         if self.plan.error:
             return 'Preparation unavailable; care and recorded history remain available.'
         if self.plan.pending is not None or self._completed_work is not None:
@@ -313,18 +539,28 @@ class _EraBench:
 
     def choose_weather(self, index):
         self.require_preparation()
+        if self.plan.cubff_density_pressure and WEATHER_NAMES[index] == 'calm':
+            raise ValueError('Turn density pressure off before choosing calm weather.')
         self.plan.select_weather(WEATHER_NAMES[index])
         self.weather_index = index
         self.message = f'Next era weather saved: {self.weather}.'
 
-    def stage_releases(self, grids):
+    def stage_releases(self, grids, sources=None):
         self.require_preparation()
-        added = self.plan.stage(grids)
+        added = self.plan.stage(grids, sources=sources)
         self.message = f'Staged {added}; {len(self.plan.releases)} ready for the next era. Your companion stays with you.'
+        if any(isinstance(source, dict) and source.get('care_context') is not None
+               for source in self.plan.release_sources):
+            self.message += ' Care snapshot frozen; unstage/restage to update.'
 
     def check_current_state(self):
         if state_digest(self.state_path) != self._loaded_state_digest:
             raise ValueError('Campaign state changed outside this session; existing state preserved.')
+        if state_digest(self.ledger_path) != self._loaded_ledger_digest:
+            raise ValueError('Campaign ledger changed outside this session; existing ledger preserved.')
+        if self.state_path is not None and self.state_path.is_file():
+            from mecha_game.campaign_recovery import validate_ledger_state
+            validate_ledger_state(json.loads(self.state_path.read_text(encoding='utf-8')), self.ledger_path)
 
     def unstage(self):
         self.require_preparation()
@@ -338,18 +574,67 @@ class _EraBench:
         candidate = copy.deepcopy(current)
         result = operation(candidate)
         if result['ok']:
-            if self.state_path is not None:
-                candidate.save(self.ledger_path)
-                candidate.save_state(self.state_path)
-                self._loaded_state_digest = state_digest(self.state_path)
-            self.campaign = candidate
+            summary = covenant_change_summary(current.state_payload(), candidate.state_payload())
+            self._save_preparation(candidate, current, kind='covenant', summary=summary)
+            self.message = summary
         return result
+
+    def _save_preparation(self, candidate, current, *, kind, summary):
+        self._pending_preparation_digest = None
+        if self.preparation_commit is not None:
+            self.preparation_commit.begin(candidate, kind=kind, summary=summary,
+                expected_state_digest=self._loaded_state_digest,
+                expected_ledger_digest=self._loaded_ledger_digest,
+                source_campaign_id=current.campaign['campaign_id'])
+            self._pending_preparation_digest = self.preparation_commit.journal_digest
+            self.preparation_commit.finish(expected_journal_digest=self._pending_preparation_digest,
+                expected_campaign_id=current.campaign['campaign_id'])
+            self._pending_preparation_digest = None
+        self.campaign = candidate
+        self._remember_files()
+
+    def finish_preparation(self, *, expected_journal_digest=None):
+        self.plan.require_ready()
+        if self._completed_work is not None:
+            raise ValueError('Finish saving the completed era before another preparation change.')
+        if self.preparation_commit is None:
+            self.message = 'No saved preparation awaits finishing.'
+            return False
+        self.preparation_commit.refresh()
+        if expected_journal_digest is not None and self.preparation_commit.journal_digest != expected_journal_digest:
+            raise ValueError('Captured preparation changed since this import attempt; existing files preserved.')
+        if self.preparation_commit.pending is not None:
+            self._check_campaign_identity(self.preparation_commit.pending['state'])
+        summary = (self.preparation_commit.pending or {}).get('summary', 'Preparation saved.')
+        expected = self.keeper_session.campaign_id if self.keeper_session is not None else None
+        state = self.preparation_commit.finish(expected_journal_digest=(expected_journal_digest or
+            self.preparation_commit.journal_digest), expected_campaign_id=expected)
+        if state is None:
+            self.message = 'No saved preparation awaits finishing.'
+            return False
+        self._pending_preparation_digest = None
+        self.campaign = None
+        self._remember_files()
+        self.ensure()
+        self.message = summary + ' Captured preparation finished; no era ran.'
+        return True
+
+    def preparation_failed(self, error):
+        if self.preparation_commit is not None:
+            self.preparation_commit.refresh()
+        notice = preparation_notice(self.preparation_commit)
+        if notice:
+            self.message = f'{notice} {error}'
+        else:
+            self.message = f'Preparation action not completed: {error}. Inspect saved choices before retrying.'
+        return self.message
 
     def spend(self, key_index: int) -> None:
         spends = {0:spend_next_palette,1:spend_deliberation_to_budget,
-                  2:spend_population_to_cap,3:spend_generations_to_cap}
+                  2:spend_population_to_cap,3:spend_generations_to_cap,4:spend_next_organ_role}
         result = self.change_covenant(spends[key_index])
-        self.message = 'Covenant saved.' if result['ok'] else '; '.join(result['violations'])
+        if not result['ok']:
+            self.message = '; '.join(result['violations'])
 
     def active_covenant(self) -> dict:
         return self.ensure().campaign["slip_profile"]
@@ -366,19 +651,25 @@ class _EraBench:
         )[0]
 
     def run_era(
-        self, ledger_path: Path, released_grids: list[dict] | None = None, *, work=None
+        self, ledger_path: Path, released_grids: list[dict] | None = None, *, released_sources=None, work=None
     ) -> dict:
+        if self.preparation_commit is not None:
+            self.preparation_commit.require_ready()
         self.plan.require_ready(allow_pending=True)
         if self.plan.pending is not None:
+            self._check_campaign_identity(self.plan.pending['state'])
             if work is not None: work.begin_commit()
             era = self.plan.finish(ledger_path,self.state_path)
             # A recovered persisted era is history, not a new current-run era.
             self.campaign = None
-            self._loaded_state_digest = state_digest(self.state_path)
+            self._remember_files()
             self._completed_work = None
             self.message = f"Era {era['era_index']} saved. No additional era ran."
             return era
         if self._completed_work is None:
+            current = self.ensure()
+            if current.status != 'active' and current.population_policy == 'generation_survivors_v1':
+                raise ValueError('This population is extinct. Create its successor explicitly before running another era.')
             if work is not None: work.phase("Loading models")
             current = self.ensure(models=True)
             self.check_current_state()
@@ -387,18 +678,25 @@ class _EraBench:
             previous_state = state_digest(self.state_path)
             era = campaign.advance_era(self.weather,released_grids=(
                 released_grids if released_grids is not None else self.plan.releases) or None,
+                released_sources=(released_sources if released_grids is not None else self.plan.release_sources) or None,
                 record_original=True,
+                **(dict(survival_regime=self.plan.survival_regime,
+                        cubff_density_pressure=self.plan.cubff_density_pressure)
+                   if self.plan.survival_regime != 'sheltered' or self.plan.cubff_density_pressure else {}),
+                care_selection_policy=getattr(self.keeper_session, 'care_selection_policy', 'off'),
+                care_evaluator=getattr(self.keeper_session, 'care_evaluator', 'archive_morphology_probe_v1'),
                 **({"progress_callback": work.progress} if work is not None else {}))
             if work is not None: work.begin_commit()
             self._completed_work = campaign
             self._completed_previous_state = previous_state
         if work is not None: work.begin_commit()
         campaign = self._completed_work
+        self._check_binding(campaign)
         era = campaign.eras[-1]
         self.plan.begin(campaign,era,self._completed_previous_state)
         self.plan.finish(ledger_path,self.state_path)
         self.campaign = campaign
-        self._loaded_state_digest = state_digest(self.state_path)
+        self._remember_files()
         self._completed_work = None
         memory = campaign.species_memory()
         last = memory["last_era"]
@@ -425,14 +723,26 @@ class _EraBench:
         return era
 
 
-def _footer_lines(snapshot: dict, queued: str | None) -> list[str]:
+def _care_selection_lines(snapshot: dict) -> list[str]:
+    from mecha_game.body_response import body_lines
+    details = body_lines(snapshot)
+    if snapshot.get('care_selection_policy', 'off') == 'off':
+        return ['Care selection: off', *details]
+    evaluator = ('pristine control' if snapshot.get('care_evaluator') == 'pristine'
+                 else 'morphology stress probe')
+    return ['Care selection: experimental; benefit unqualified',
+            'Selection evaluator: ' + evaluator + '; not live personality', *details]
+
+
+def _footer_lines(snapshot: dict, queued: str | None, *, thought_lines=()) -> list[str]:
     if not snapshot["alive"]:
         return [
             f"{snapshot['name']} died: {snapshot['death_cause']}"
             f" (age {snapshot['age_ticks']})",
             "ENTER: adopt successor    ESC: quit",
-            ("Policy: experimental Q-table" if snapshot.get("learning_policy") == "qtable"
+            ("Policy: Q-table; learns within this life" if snapshot.get("learning_policy") == "qtable"
              else "Policy: incumbent"),
+            *_care_selection_lines(snapshot),
         ]
     needs = snapshot["needs"]
     # O2 (DR 0054): health is the CHOSEN `danger_margin` definition, and
@@ -448,7 +758,7 @@ def _footer_lines(snapshot: dict, queued: str | None) -> list[str]:
     )
     line = (
         f"{health_text}mood {snapshot['mood']}   age {snapshot['age_ticks']}   "
-        f"gen {snapshot['generation_count']}"
+        f"life {snapshot['generation_count']}"
     )
     if snapshot["begging"]:
         line += "   BEGGING"
@@ -480,13 +790,13 @@ def _footer_lines(snapshot: dict, queued: str | None) -> list[str]:
         )
         if forecast["effects"].get("feed"):
             felt += "   begs soon"
-    lines = [line, controls, detail, felt]
+    lines = [line, *thought_lines, controls, detail, felt]
     if snapshot.get("learning_policy", "incumbent") == "incumbent":
         lines.append("Policy: incumbent")
     if "cleanliness" in needs and "clean" in snapshot.get("actions", []):
         lines.append(f"cleanliness {needs['cleanliness']['value']:.2f}   G clean")
     if snapshot.get("learning_policy") == "qtable":
-        policy_line = "Experimental Q-table"
+        policy_line = "Q-table (within this life)"
         signal = threads.get("qtable_policy")
         if not snapshot.get("learning_active"):
             policy_line += ": inactive (fleet off)"
@@ -495,53 +805,113 @@ def _footer_lines(snapshot: dict, queued: str | None) -> list[str]:
         else:
             policy_line += f": recommends {signal['output']['best_action']} (confidence {signal['confidence']:.2f})"
         lines.append(policy_line)
-        last = (snapshot.get("log") or [{}])[-1]
-        consumer = (last.get("thought") or {}).get("qtable_consumer")
-        if consumer:
-            lines.append(f"Last followed {consumer['recommended']}; additive suggested {consumer['base_action']}. Only you feed.")
+    lines.extend(_care_selection_lines(snapshot))
     return lines
+
+
+def _explicit_new_session(companion_path, grid, slip_profile, model, learning_policy, *, inspection=None,
+                          care_selection_policy=None, care_evaluator=None, body_response=None):
+    # Keep the established application import seam; startup owns captured-byte
+    # inspection and explicit new-life preservation for both entry forms.
+    from mecha_game.startup import explicit_new_session
+    return explicit_new_session(companion_path, grid, slip_profile, model,
+                                learning_policy, inspection=inspection,
+                                care_selection_policy=care_selection_policy, care_evaluator=care_evaluator, body_response=body_response)
 
 
 def run(argv: list[str] | None = None) -> int:
     parser = build_parser()
-    args = parser.parse_args(argv)
+    arguments = list(sys.argv[1:] if argv is None else argv)
+    args = parser.parse_args(arguments)
     if args.recover_backup and (args.new or args.slip is not None or args.seed is not None):
-        parser.error("--recover-backup cannot be combined with --new, --slip or --seed")
-    import pygame  # the window layer's dependency, paid only here
+        parser.error('--recover-backup cannot be combined with --new, --slip or --seed')
+    if args.no_browser and not args.creator:
+        parser.error('--no-browser requires --creator')
+    if args.scale < 1 or args.tick_frames < 1 or args.fps < 0 or (args.frames is not None and args.frames < 1):
+        parser.error('scale, tick-frames and frames must be positive; fps cannot be negative')
+    if args.finish_preparation and (args.eras is not None or args.create_successor or args.new
+            or args.recover_backup or args.creator or args.example or args.reproduce_era is not None
+            or args.seed is not None or args.slip is not None or args.learning_policy is not None
+            or args.care_selection is not None or args.care_evaluator is not None or args.body_response is not None
+            or args.population_policy is not None or args.campaign_seed is not None or args.starter_roles
+            or args.prepare_weather is not None or args.prepare_survival_regime is not None
+            or args.prepare_density_pressure is not None):
+        parser.error('--finish-preparation finishes only its captured choice; run new actions separately')
+    if args.reproduce_era is not None:
+        if args.keeper_dir is None or args.campaign_id is None or args.output is None:
+            parser.error('--reproduce-era requires --keeper-dir DIR --campaign-id ID --output NEW_DIRECTORY')
+        if (args.example or args.new or args.recover_backup or args.creator or args.eras is not None or args.prepare_weather is not None
+                or args.population_policy is not None or args.campaign_seed is not None or args.starter_roles
+                or args.prepare_survival_regime is not None or args.prepare_density_pressure is not None or args.create_successor or args.finish_preparation):
+            parser.error('--reproduce-era cannot be combined with example, companion, creator or era-writing actions')
+        from mecha_game.execution_readout import reproduce_to_directory, comparison_notice
+        try:
+            result = reproduce_to_directory(args.keeper_dir, args.campaign_id, args.reproduce_era, args.output)
+            print(comparison_notice(result))
+            return {'matched': 0, 'mismatch': 1, 'unavailable': 2}[result['status']]
+        except (OSError, ValueError) as error:
+            print(f'Reproduction refused: {error}', file=sys.stderr)
+            return 2
+    if args.campaign_id is not None:
+        parser.error('--campaign-id requires --reproduce-era')
+    if args.example:
+        if args.output is None:
+            parser.error('--example requires --output NEW_DIRECTORY')
+        from mecha_game.examples import run_example
+        command = ([sys.executable] if getattr(sys, 'frozen', False) else
+                   [sys.executable, '-B', str(Path(__file__).resolve().parents[2] / 'run_game.py')])
+        example_scale = args.era_scale if any(a == '--era-scale' or a.startswith('--era-scale=') for a in arguments) else 'tiny'
+        try:
+            result = run_example(command, args.output, weather=args.prepare_weather or 'calm', era_scale=example_scale)
+            return 0 if result['ok'] else 1
+        except (OSError, ValueError) as error:
+            print(f'Example refused: {error}', file=sys.stderr)
+            return 2
+    if args.output is not None:
+        parser.error('--output requires --example or --reproduce-era')
+    from mecha_game.launch_info import LaunchInfo
+    try:
+        receipt = LaunchInfo(args.launch_info)
+    except (OSError, ValueError) as error:
+        print(f'Launch receipt unavailable; existing files preserved: {error}', file=sys.stderr)
+        return 2
+    exit_code = 1
+    try:
+        exit_code = _run_selected(args, parser, receipt)
+        return exit_code
+    except SystemExit as error:
+        exit_code = error.code if isinstance(error.code, int) else 2
+        raise
+    finally:
+        try:
+            receipt.finish(exit_code)
+        except (OSError, ValueError) as error:
+            print(f'Launch receipt could not be finalized; external data preserved: {error}', file=sys.stderr)
 
-    seed, slip = args.seed, args.slip
-    if seed is None or slip is None:
-        default_seed, default_slip = default_fixture_paths()
-        seed = seed or default_seed
-        slip = slip or default_slip
-    keeper_dir = args.keeper_dir or default_keeper_dir()
+
+def _run_selected(args, parser, receipt):
+    import pygame
+    from mecha_game.entry import choose_entry
+    from mecha_game.runtime_resources import inspect_runtime
+    if receipt.path is not None:
+        receipt.update(runtime=inspect_runtime())
+    try:
+        selected, code = choose_entry(args, default_home=default_keeper_dir,
+                                      default_paths=default_fixture_paths,
+                                      new_session=_explicit_new_session, receipt=receipt)
+    except (OSError, ValueError) as error:
+        receipt.update(startup_outcome='refused', reason=str(error))
+        parser.error(f'Cannot resume companion: {error}. Existing files are preserved.')
+    if selected is None:
+        return code
+    session, keeper_dir, recovery_notice = selected.session, selected.home, selected.notice
     lineage_path = keeper_dir / LINEAGE_FILENAME
     companion_path = keeper_dir / COMPANION_FILENAME
-    campaign_ledger = keeper_dir / "campaign.sqlite3"
-    if args.slip is not None and companion_path.is_file() and not args.new:
-        parser.error("--slip selects a new companion; use --new or a separate --keeper-dir to preserve the existing save")
-    recovery_notice = None
-    if companion_path.exists() and not companion_path.is_file():
-        parser.error("companion save path is not a file; choose a separate --keeper-dir")
-    if (not companion_path.exists() and companion_path.with_suffix(".bak.json").is_file()
-            and not args.new and not args.recover_backup):
-        parser.error("primary companion save is missing but a backup exists; use --recover-backup to restore it, or --new for a new life")
-    # Quit and come back; backup recovery is an explicit choice, never fallback.
-    if args.recover_backup:
-        try:
-            session, archive = CompanionSession.recover_backup(companion_path, learning_policy=args.learning_policy)
-        except (ValueError, OSError) as error:
-            parser.error(f"Cannot recover companion backup: {error}")
-        recovery_notice = "Recovered prior save." + (f" Previous primary retained as {archive.name}." if archive else "")
-    elif companion_path.is_file() and not args.new:
-        try:
-            session = CompanionSession.load(companion_path, learning_policy=args.learning_policy)
-        except (ValueError, OSError) as error:
-            parser.error(f"Cannot resume companion: {error}. Save unchanged; --recover-backup explicitly restores a valid prior save.")
-    else:
-        grid, slip_profile, model = load_session_inputs(seed, slip)
-        session = CompanionSession(grid, slip_profile, model=model,
-                                   learning_policy=args.learning_policy or "incumbent")
+    campaign_ledger = keeper_dir / 'campaign.sqlite3'
+    receipt.update(keeper_dir=str(keeper_dir), keeper_id=session.keeper_id,
+                   campaign_id=session.campaign_id, learning_policy=session.learning_policy,
+                   care_selection_policy=session.care_selection_policy, care_evaluator=session.care_evaluator,
+                   **({'body_response': session.body_response, 'body_workload': session.state['body_workload']} if session.body_response != 'legacy' else {}))
 
     bench = _EraBench(
         args.era_scale,
@@ -549,6 +919,7 @@ def run(argv: list[str] | None = None) -> int:
         state_path=keeper_dir / "campaign_state.json",
         ledger_path=campaign_ledger,
         initial_profile=session.slip_profile,
+        keeper_session=session,
     )
 
     if recovery_notice:
@@ -558,6 +929,8 @@ def run(argv: list[str] | None = None) -> int:
     if args.recover_backup or (companion_path.is_file() and not args.new):
         try:
             session.sync_lineage_export(lineage_path)
+        except ValueError as error:
+            parser.error(f'Cannot resume companion: {error}')
         except OSError as error:
             reason = error.strerror or str(error)
             warning = f"Companion loaded. Lineage export unavailable: {reason}."
@@ -565,9 +938,6 @@ def run(argv: list[str] | None = None) -> int:
             print(f"{warning}\n{error}", file=sys.stderr)
 
     width, height = session.grid["grid_size"]
-    panel_px = height * args.scale
-    hud_px = HUD_HEIGHT * args.scale
-    window_size = (max(384, width * args.scale), panel_px + hud_px + FOOTER_PX)
 
     key_actions = {
         pygame.K_f: "feed",
@@ -575,11 +945,23 @@ def run(argv: list[str] | None = None) -> int:
         pygame.K_s: "sleep",
     }
 
+    creator = CreatorBridge(keeper_dir)
     pygame.init()
     try:
-        window = pygame.display.set_mode(window_size)
+        from mecha_game.native_ui import ActionStrip, UiAction, fit_native_layout
+        display = pygame.display.Info()
+        display_bounds = (max(384, display.current_w), max(360, display.current_h))
+        window_size = (min(display_bounds[0], max(640, width * args.scale + 16)),
+                       min(display_bounds[1], max(480, (height + HUD_HEIGHT) * args.scale + FOOTER_PX + 174)))
+        window = pygame.display.set_mode(window_size, pygame.RESIZABLE)
         pygame.display.set_caption(f"{WINDOW_TITLE} — {session.name}")
         font = pygame.font.Font(None, 22)
+        layout = fit_native_layout(window_size, (width, height + HUD_HEIGHT), font.get_height(),
+                                   preferred_scale=args.scale)
+        cell_px = layout.scale
+        panel_px, hud_px = height * cell_px, HUD_HEIGHT * cell_px
+        action_strip = ActionStrip(allow_tab=False)
+        action_keys = {}
         clock = pygame.time.Clock()
         # Live clip driving through the C2 graph (F3): the driver walks
         # frame by frame toward the state's desired clip.
@@ -594,11 +976,16 @@ def run(argv: list[str] | None = None) -> int:
         queued: str | None = None
         displayed_clip: str | None = None
         covenant_mode = False
+        creator_mode = False
+        creator_url = None
+        recovery_inspected_frame = None
         help_mode = False
         help_bookmark = None
+        live_thought = LiveThoughtView()
         reading_closed = False
         inboxes: dict[str, InboxPicker] = {}
         inbox: InboxPicker | None = None
+        inbox_pending_import = None
         generation: GenerationView | None = None
         wfc: wfc_trace.WfcTraceView | None = None
         wfc_count = 0
@@ -620,15 +1007,201 @@ def run(argv: list[str] | None = None) -> int:
         save_failed = False
         quit_after_retry = False
 
+        def resize_native(size):
+            nonlocal window, window_size, layout, cell_px, panel_px, hud_px, ghost
+            window_size = (min(display_bounds[0], max(384, int(size[0]))),
+                           min(display_bounds[1], max(360, int(size[1]))))
+            window = pygame.display.set_mode(window_size, pygame.RESIZABLE)
+            new_layout = fit_native_layout(window_size, (width, height + HUD_HEIGHT), font.get_height())
+            if new_layout.scale != cell_px:
+                ghost = None  # A different raster size cannot reuse pixel ghost buffers.
+            layout = new_layout
+            cell_px = layout.scale
+            panel_px, hud_px = height * cell_px, HUD_HEIGHT * cell_px
+            action_strip._armed = False
+            action_strip._pressed = None
+
+        def resize_event(event):
+            if event.type == pygame.VIDEORESIZE:
+                resize_native((event.w, event.h))
+                return True
+            if event.type == pygame.WINDOWSIZECHANGED:
+                size = window.get_size()
+                if size != window_size:
+                    resize_native(size)
+                    return True
+            return False
+
+        def paint_footer(lines, pager):
+            page = pager.layout(lines, lambda text: font.size(text)[0], layout.footer_rect.width,
+                                layout.footer_rows)
+            for index, line in enumerate(page.lines):
+                if line:
+                    window.blit(font.render(line, True, (200, 230, 200)),
+                                (layout.footer_rect.x, layout.footer_rect.y + 4 + index * layout.line_height))
+            return page
+
+        def native_actions():
+            # These are existing commands, not new care/campaign implementations.
+            nonlocal action_keys
+            action_keys = {}
+            actions = []
+            def add(identity, label, code, *, mod=0, enabled=True, hint='', destructive=False):
+                actions.append(UiAction(identity, label, hint, enabled, destructive))
+                action_keys[identity] = (code, mod)
+            def pages():
+                add('previous_page', 'Text <', pygame.K_PAGEUP)
+                add('next_page', 'Text >', pygame.K_PAGEDOWN)
+            def common():
+                add('help', 'Help [F1]', pygame.K_F1)
+                add('save', 'Save', pygame.K_s, mod=pygame.KMOD_CTRL)
+                add('quit', 'Save and quit', None)
+            preparation_waiting = bool(preparation_notice(bench.preparation_commit))
+            ready = not preparation_waiting and not bench.plan.error and bench.plan.pending is None and bench._completed_work is None
+            if save_failed:
+                add('save', 'Retry save', pygame.K_s, mod=pygame.KMOD_CTRL)
+                add('quit_without_save', 'Quit without saving', pygame.K_q, mod=pygame.KMOD_CTRL, destructive=True)
+                add('help', 'Help [F1]', pygame.K_F1); pages()
+            elif help_mode:
+                add('back', 'Back', pygame.K_ESCAPE); pages()
+            elif creator_mode:
+                add('back', 'Back to care', pygame.K_j)
+                add('reopen_creator', 'Open browser', pygame.K_RETURN); pages(); common()
+            elif bench.recovery_offer is not None:
+                add('back', 'Cancel recovery', pygame.K_c)
+                add('restore_campaign', 'Restore inspected', pygame.K_u, destructive=True)
+                add('prior_checkpoint', 'Inspect prior', pygame.K_y); pages(); common()
+            elif wfc is not None:
+                add('back', 'Back to hatch', pygame.K_TAB)
+                add('playback', 'Pause' if wfc.playing else 'Play', pygame.K_SPACE)
+                add('previous_frame', 'Frame <', pygame.K_COMMA)
+                add('next_frame', 'Frame >', pygame.K_PERIOD)
+                add('previous_attempt', 'Attempt <', pygame.K_LEFTBRACKET)
+                add('next_attempt', 'Attempt >', pygame.K_RIGHTBRACKET)
+                add('final', 'Trace / final', pygame.K_v)
+                add('retry_trace', 'New trace', pygame.K_n); pages(); common()
+            elif generation is not None:
+                add('back', 'Back', pygame.K_ESCAPE)
+                if generation.adoptable:
+                    add('adopt_hatch', 'Adopt founder', pygame.K_RETURN,
+                        enabled=generation.grid is not None and not generation.error, destructive=True)
+                    add('next_hatch', 'Next founder', pygame.K_n)
+                    add('trace', 'WFC trace [Tab]', pygame.K_TAB)
+                add('playback', 'Pause' if generation.playing else 'Play', pygame.K_SPACE)
+                add('previous_frame', 'Frame <', pygame.K_COMMA)
+                add('next_frame', 'Frame >', pygame.K_PERIOD)
+                add('previous_clip', 'Clip <', pygame.K_LEFTBRACKET)
+                add('next_clip', 'Clip >', pygame.K_RIGHTBRACKET); pages(); common()
+            elif inbox is not None:
+                add('back', 'Back', pygame.K_ESCAPE)
+                add('previous_file', 'File <', pygame.K_COMMA, enabled=bool(inbox.files))
+                add('next_file', 'File >', pygame.K_PERIOD, enabled=bool(inbox.files))
+                retry_import = (inbox_pending_import is not None and inbox.kind == 'covenant' and
+                    (str(inbox.selected), inbox.digest) == inbox_pending_import['selection'])
+                add('import_selected', 'Finish captured import' if retry_import else 'Import selected', pygame.K_RETURN,
+                    enabled=inbox.selected is not None and not inbox.error and not inbox.completed)
+                add('refresh', 'Refresh', pygame.K_F5)
+                add('other_inbox', 'Covenant inbox' if inbox.kind == 'pack' else 'Pack inbox',
+                    pygame.K_i if inbox.kind == 'pack' else pygame.K_k); pages(); common()
+            elif review is not None:
+                add('back', 'Back', pygame.K_v)
+                add('playback', 'Pause' if review_playing else 'Play', pygame.K_SPACE)
+                add('previous_frame', 'Frame <', pygame.K_COMMA)
+                add('next_frame', 'Frame >', pygame.K_PERIOD)
+                add('report', 'Selected report', pygame.K_t); pages(); common()
+            elif browser is not None:
+                add('back', 'Back', pygame.K_b)
+                add('previous_creature', 'Creature <', pygame.K_COMMA, enabled=browser.current() is not None)
+                add('next_creature', 'Creature >', pygame.K_PERIOD, enabled=browser.current() is not None)
+                add('previous_era', 'Era <', pygame.K_LEFTBRACKET)
+                add('next_era', 'Era >', pygame.K_RIGHTBRACKET)
+                add('adopt', 'Adopt selected', pygame.K_a, enabled=browser.current() is not None, destructive=True)
+                add('report', 'Selected report', pygame.K_t)
+                add('replay', 'Saved recording', pygame.K_v, enabled=browser.current() is not None)
+                if not isinstance(browser, NicheHistory):
+                    add('reproduce', 'Reproduce [D]', pygame.K_d, enabled=browser.selected_era is not None and not browser.error)
+                add('niche_history', 'Back to archive' if isinstance(browser, NicheHistory) else 'Niche history', pygame.K_n)
+                add('preparation', 'Covenant [C]', pygame.K_c, enabled=browser.allow_planning)
+                add('run_era', 'Next era [E]', pygame.K_e, enabled=browser.allow_planning); pages(); common()
+            elif era_review is not None:
+                add('back', 'Back to care', pygame.K_t)
+                add('previous_era', 'Era <', pygame.K_LEFTBRACKET)
+                add('next_era', 'Era >', pygame.K_RIGHTBRACKET)
+                add('previous_campaign', 'Campaign <', pygame.K_LEFTBRACKET, mod=pygame.KMOD_CTRL)
+                add('next_campaign', 'Campaign >', pygame.K_RIGHTBRACKET, mod=pygame.KMOD_CTRL)
+                add('archive', 'Archive [B]', pygame.K_b)
+                add('replay', 'Saved recording', pygame.K_v, enabled=era_review.current is not None and not era_review.error)
+                add('reproduce', 'Reproduce [D]', pygame.K_d, enabled=era_review.current is not None and not era_review.error)
+                add('preparation', 'Covenant [C]', pygame.K_c, enabled=not era_review.error)
+                add('run_era', 'Next era [E]', pygame.K_e, enabled=not era_review.error); pages(); common()
+            elif story is not None:
+                add('back', 'Back to care', pygame.K_l)
+                add('previous_life', 'Life <', pygame.K_COMMA)
+                add('next_life', 'Life >', pygame.K_PERIOD)
+                add('report', 'Campaign story', pygame.K_t); pages(); common()
+            else:
+                if covenant_mode:
+                    add('back', 'Back to care [C]', pygame.K_c)
+                    if preparation_waiting:
+                        add('finish_preparation', 'Finish saved preparation [E]', pygame.K_e,
+                            enabled=not bench.preparation_commit.error)
+                    for identity, label, code in (('palette','Add palette',pygame.K_1),
+                        ('thinking','Spend thinking',pygame.K_2),('population','Spend population',pygame.K_3),
+                        ('generations','Spend generations',pygame.K_4)):
+                        add(identity,label,code,enabled=ready)
+                    add('organ_role','Spend organ role [5]',pygame.K_5,enabled=ready)
+                    add('density_pressure','Density: '+('on' if bench.plan.cubff_density_pressure else 'off')+' [6]',pygame.K_6,enabled=ready)
+                    add('survival_regime','Survival: '+('stress probe' if bench.plan.survival_regime == 'stress_probe' else 'sheltered')+' [7]',pygame.K_7,enabled=ready)
+                    if bench.new_campaign_available():
+                        add('living_campaign','Start living generations [8]',pygame.K_8,enabled=ready)
+                        add('role_campaign','Start with role limits [9]',pygame.K_9,enabled=ready)
+                    elif bench.campaign is not None and bench.campaign.status == 'extinct':
+                        add('campaign_successor','Create successor [N]',pygame.K_n,enabled=ready)
+                    add('inspect_checkpoint','Inspect checkpoint',pygame.K_u)
+                    add('prior_checkpoint','Inspect prior',pygame.K_y)
+                    add('export_covenant','Export covenant',pygame.K_x)
+                else:
+                    for identity, label, code in (('feed','Feed [F]',pygame.K_f),('play','Play [P]',pygame.K_p),
+                                                  ('sleep','Sleep [S]',pygame.K_s)):
+                        add(identity,label,code,enabled=session.alive)
+                    add('clean','Clean [G]',pygame.K_g,enabled=session.alive and 'cleanliness' in session.state)
+                    if not session.alive:
+                        add('successor','Adopt successor',pygame.K_RETURN,destructive=True)
+                    add('preparation','Covenant [C]',pygame.K_c)
+                add('run_era','Retry era save [E]' if bench.plan.pending is not None or bench._completed_work is not None else 'Run era [E]',pygame.K_e,enabled=not bench.plan.error and not preparation_waiting)
+                add('report','Reports [T]',pygame.K_t)
+                add('archive','Archive [B]',pygame.K_b)
+                add('creator','Creator [J]',pygame.K_j)
+                add('hatch','Hatch [H]',pygame.K_h,enabled=ready)
+                add('origin','Saved origin [O]',pygame.K_o)
+                add('lineage','Keeper lives [L]',pygame.K_l)
+                add('stage_pet','Stage companion',pygame.K_r,enabled=ready)
+                add('gather','Gather releases',pygame.K_w,enabled=ready)
+                add('unstage','Unstage creatures',pygame.K_BACKSPACE,enabled=ready and bool(bench.plan.releases))
+                if not covenant_mode:
+                    for index,name in enumerate(WEATHER_NAMES):
+                        add('weather_'+name,'Weather: '+name.replace('_',' '),pygame.K_1+index,enabled=ready)
+                add('covenant_inbox','Covenant inbox',pygame.K_i)
+                add('pack_inbox','Pack inbox',pygame.K_k); pages(); common()
+            return actions
+
+        def action_event(identity):
+            code, mod = action_keys[identity]
+            if code is None:
+                return pygame.event.Event(pygame.QUIT)
+            return pygame.event.Event(pygame.KEYDOWN, key=code, mod=mod, repeat=False)
+
         def finish_reading():
             # The closing key belongs to the reader, including the rest of its
             # retrieved batch. Resume care on the next frame, never this one.
             nonlocal reading_closed, queued
             reading_closed = True
             queued = None
+            live_thought.clear()
 
         def toggle_help():
             nonlocal help_mode, help_bookmark, footer_pager, footer_context
+            live_thought.clear()
             if help_mode:
                 help_mode = False
                 footer_pager, footer_context = help_bookmark
@@ -640,13 +1213,51 @@ def run(argv: list[str] | None = None) -> int:
                 help_mode = True
 
         def selected_inbox(kind):
+            nonlocal inbox_pending_import
+            inbox_pending_import = None
             if kind not in inboxes:
                 inboxes[kind] = InboxPicker(keeper_dir, kind)
             else:
                 inboxes[kind].refresh()
             return inboxes[kind]
 
+        def open_creator():
+            nonlocal creator_mode, creator_url, queued
+            if not checkpoint():
+                return
+            notice = None
+            try:
+                bench.require_preparation()
+                campaign = bench.ensure()
+                bench.check_current_state()
+                if not bench.state_path.exists():
+                    from mecha_game.campaign_recovery import initialize_campaign_checkpoint
+                    initialize_campaign_checkpoint(campaign, bench.state_path, bench.ledger_path)
+                    bench._remember_files()
+                if bench.bind_current_campaign() and not checkpoint():
+                    return
+            except (OSError, ValueError, sqlite3.Error) as error:
+                # Context inspection remains useful, but the server's own
+                # validators refuse writes to an unavailable campaign.
+                notice = f"Keeper context unavailable: {error}. Return to C/U for recorded checkpoint recovery."
+            try:
+                creator_url = creator.open(open_browser=False) if args.no_browser else creator.open()
+            except (OSError, ValueError, ImportError) as error:
+                bench.message = f"Creator could not open: {error}"
+                return
+            creator_mode = True
+            queued = None
+            footer_pager.reset()
+            bench.message = notice or "Creator opened for this Keeper."
+
         def help_lines():
+            if creator_mode:
+                return ["CREATOR HELP - care paused",
+                        "Edit, preview, release and compose packs in your browser.",
+                        "J or Escape returns to care; the server closes when this game exits.",
+                        "This Keeper's releases are staged; W gathers them and E runs an era.",
+                        "Native care/eras stay here. Browser-lab histories stay separate.",
+                        "F1/Escape closes help; PgUp/PgDn reads this view."]
             if wfc is not None:
                 return wfc.help_lines()
             if generation is not None:
@@ -659,6 +1270,8 @@ def run(argv: list[str] | None = None) -> int:
                 return ['REPORT HELP - care paused', *common,
                         '[ ] or , . select era; Ctrl+[ ] recorded campaigns',
                         'B selected archive; V original recording when saved',
+                        'D explicitly reproduces recorded inputs and compares results.',
+                        'Comparison pauses care; Escape cancels; originals stay unchanged.',
                         'T/Escape closes reports; C active covenant; E next era',
                         '1-5 weather; R stage pet; W gather; Backspace unstage',
                         'Preparation applies to the active campaign.',
@@ -670,6 +1283,7 @@ def run(argv: list[str] | None = None) -> int:
                         '[ ] also selects occurrences' if isinstance(browser, NicheHistory) else 'N exact seven-axis niche history',
                         'A adopts selected creature with the current covenant',
                         'V saved original recording; T selected report',
+                        'D explicitly compares saved inputs in the archive view.',
                         'N/B/Escape back to archive' if isinstance(browser, NicheHistory) else 'B/Escape back',
                         'Missing recordings are not reconstructed.',
                         'Matching niche labels do not infer ancestry.']
@@ -686,9 +1300,17 @@ def run(argv: list[str] | None = None) -> int:
                         'These are recorded facts; missing ancestry is not inferred.']
             if covenant_mode:
                 return ['COVENANT HELP - care paused while help is open', *common,
-                        '1 palette; 2 thinking; 3 population; 4 generations',
+                        '1 palette; 2 thinking; 3 population; 4 generations; 5 organ role',
                         'Spends use earned unlocks and save immediately.',
-                        '5 has no action here. C closes; then 1-5 selects weather.',
+                        'U inspects latest checkpoint; Y inspects prior. U again restores.',
+                        'Recovery inspection pauses care; C cancels without changes.',
+                        'Recovery retains current bytes; C cancels inspection.',
+                        '6 earned density; 7 sheltered/stress preparation.',
+                        '8 new living campaign; 9 also selects four-role starter.',
+                        'N explicitly creates an extinct campaign successor.',
+                        'Pending preparation: E finishes its saved choice; no era runs.',
+                        'U/Y inspect paired recovery before an explicit restore.',
+                        'C closes; then 1-5 selects weather.',
                         'Care continues in covenant mode; F1 pauses it.',
                         'I covenant inbox; K pack inbox; X export active covenant',
                         'H constrained hatch preview; O saved origin',
@@ -852,20 +1474,37 @@ def run(argv: list[str] | None = None) -> int:
             notice = None
             try:
                 operation()
+                if bench.state_path.is_file() and bench.bind_current_campaign():
+                    checkpoint()
             except (OSError,ValueError,sqlite3.Error) as error:
-                bench.message = f'Preparation not changed: {error}'
-                notice = bench.message
+                notice = bench.preparation_failed(error)
             if era_review is not None:
                 era_review.notice = notice
             footer_pager.reset()
 
         def import_selected():
+            nonlocal inbox_pending_import
             if inbox.selected is None or inbox.error or inbox.completed:
                 return
+            attempted_result = None
             try:
                 if inbox.kind == 'covenant':
-                    result = bench.change_covenant(lambda campaign: import_covenant(
-                        campaign, inbox.selected, expected_digest=inbox.digest))
+                    if inbox_pending_import is not None:
+                        if frame <= inbox_pending_import['frame']:
+                            return  # A duplicate Enter cannot retry the same failing write batch.
+                        if (str(inbox.selected), inbox.digest) != inbox_pending_import['selection']:
+                            raise ValueError('A different selection or preview cannot finish the captured import. Escape then C/E inspects its saved choice.')
+                        bench.finish_preparation(expected_journal_digest=inbox_pending_import['journal_digest'])
+                        result = copy.deepcopy(inbox_pending_import['result'])
+                        inbox_pending_import = None
+                    else:
+                        def apply_import(campaign):
+                            nonlocal attempted_result
+                            attempted_result = import_covenant(campaign, inbox.selected, expected_digest=inbox.digest)
+                            return attempted_result
+                        result = bench.change_covenant(apply_import)
+                    if result['ok'] and bench.bind_current_campaign():
+                        checkpoint()
                     inbox.result_lines = ([f"Covenant imported ({result['aligned_seeds']} seeds).",
                         'Future eras use it; your current pet is unchanged.'] if result['ok'] else
                         ['Covenant not changed.', *result['violations']])
@@ -888,7 +1527,25 @@ def run(argv: list[str] | None = None) -> int:
                 inbox.completed = result['ok'] and (inbox.kind == 'covenant' or
                     all(entry['ok'] for field in ('slips', 'creatures') for entry in result[field]))
             except (OSError, ValueError, sqlite3.Error) as error:
-                inbox.result_lines = [f'Import not completed: {error}', 'Fix the problem; Enter retries.']
+                if inbox.kind == 'covenant':
+                    notice = bench.preparation_failed(error)
+                    if (attempted_result is not None and attempted_result['ok'] and
+                            bench._pending_preparation_digest is not None and
+                            bench.preparation_commit.journal_digest == bench._pending_preparation_digest):
+                        inbox_pending_import = dict(selection=(str(inbox.selected), inbox.digest),
+                            journal_digest=bench._pending_preparation_digest,
+                            result=copy.deepcopy(attempted_result), frame=frame)
+                    retry_this_import = (inbox_pending_import is not None and
+                        (str(inbox.selected), inbox.digest) == inbox_pending_import['selection'] and
+                        bench.preparation_commit.journal_digest == inbox_pending_import['journal_digest'] and
+                        not bench.preparation_commit.error)
+                    if retry_this_import:
+                        inbox_pending_import['frame'] = frame
+                    inbox.result_lines = ['Import not completed.',
+                        ('Enter finishes this captured import; no new import or era runs.' if retry_this_import else
+                         'Escape returns; C opens saved preparation and recovery controls.'), notice]
+                else:
+                    inbox.result_lines = [f'Import not completed: {error}', 'Fix the problem; Enter retries.']
             footer_pager.reset()
 
         def open_hatch():
@@ -912,6 +1569,7 @@ def run(argv: list[str] | None = None) -> int:
             work = wfc_trace.WfcWork(lambda events: wfc_trace.capture_wfc(
                 bench.ensure().inputs['seed_grids'], f'mg_wfc_preview_{wfc_count:03}', 20261005 + wfc_count, events))
             busy_help = False
+            busy_strip = ActionStrip([UiAction('cancel_work', 'Cancel capture'), UiAction('help_work', 'Help [F1]')], allow_tab=False)
             pending = list(initial_events)
             work.start()
             try:
@@ -921,6 +1579,20 @@ def run(argv: list[str] | None = None) -> int:
                         pending.append(event)
                         event = pygame.event.poll()
                     for event in pending:
+                        busy_strip.set_actions([UiAction('cancel_work', 'Cancel capture', enabled=not work.cancelled),
+                                                UiAction('help_work', 'Back' if busy_help else 'Help [F1]')])
+                        if resize_event(event):
+                            busy_strip._armed = False
+                            continue
+                        if event.type in (pygame.KEYUP, pygame.WINDOWFOCUSLOST):
+                            action_strip.handle(event)
+                        result = busy_strip.handle(event)
+                        if result.action:
+                            event = pygame.event.Event(pygame.KEYDOWN,
+                                key=pygame.K_ESCAPE if result.action == 'cancel_work' else pygame.K_F1, mod=0)
+                            busy_strip.blur()
+                        elif result.consumed:
+                            continue
                         if event.type == pygame.QUIT:
                             running = False
                             work.cancel()
@@ -935,9 +1607,10 @@ def run(argv: list[str] | None = None) -> int:
                              'Finishing current call before closing.' if work.cancelled else 'Escape cancels this view; close quits.',
                              'Closing waits for the worker; saves stay unchanged.',
                              'F1: read-only observations; no RNG or generator decisions changed.' if busy_help else 'F1 capture help']
-                    page = FooterPager().layout(lines, lambda text: font.size(text)[0], window_size[0] - 16, 7)
-                    for index, line in enumerate(page.lines):
-                        window.blit(font.render(line, True, (200, 230, 200)), (8, panel_px + hud_px + 6 + index * 22))
+                    paint_footer(lines, FooterPager())
+                    busy_strip.set_actions([UiAction('cancel_work', 'Cancel capture', enabled=not work.cancelled),
+                                            UiAction('help_work', 'Back' if busy_help else 'Help [F1]')])
+                    busy_strip.draw(window, font, layout.actions_rect)
                     pygame.display.flip()
                     if work.done.is_set():
                         break
@@ -957,9 +1630,11 @@ def run(argv: list[str] | None = None) -> int:
                 bench.check_current_state()
                 if bench.active_covenant() != generation.profile:
                     raise ValueError('Covenant changed since preview; N generates a new candidate.')
-                candidate = CompanionSession(generation.grid, generation.profile,
+                candidate = session.adopt(generation.grid, generation.profile,
                     model=train_generation_model([generation.grid]), name=generation.grid['grid_id'],
-                    origin='hatched', learning_policy=session.learning_policy)
+                    origin='hatched', source={'campaign_id': bench.ensure().campaign['campaign_id']})
+                candidate.bind_campaign(bench.ensure().campaign['campaign_id'],
+                    predecessor_campaign_id=bench.ensure().campaign.get('predecessor_campaign_id'))
             except (OSError, ValueError, sqlite3.Error) as error:
                 generation.notice = f'Adoption refused: {error}'
                 footer_pager.reset()
@@ -967,6 +1642,7 @@ def run(argv: list[str] | None = None) -> int:
             if not checkpoint():
                 return
             session = candidate
+            bench.keeper_session = session
             generation = None
             queued = ghost = None
             covenant_mode = False
@@ -977,25 +1653,27 @@ def run(argv: list[str] | None = None) -> int:
 
         era_ran_frame = False
 
-        def wait_for_era(work, initial_events):
+        def wait_for_era(work, initial_events, *, reproducing=False):
             """Keep SDL on its main thread while an explicit era owns the bench."""
             nonlocal running
-            still = window.copy()
+            held_surface = window.subsurface(layout.lcd_rect).copy()
             if frame == 0:
                 # E can arrive before the ordinary loop has painted once. Draw
                 # the actual held state without stepping care or the clip clock.
                 packet = session.packet_for(session.desired_clip(), 0)
-                held = compose_frame(packet, previous_ghost=None, cell_px=args.scale)
+                held = compose_frame(packet, previous_ghost=None, cell_px=cell_px)
                 snapshot = session.snapshot()
                 hud = render_hud(session.state, snapshot["ui_hints"], width=width,
                                  palette=packet["palette"], frame=frame)
                 lcd = stack_buffers(held.pixels, apply_scanline(
-                    scale_buffer(hud, args.scale), period=2, opacity=0.12))
-                surface = pygame.image.frombytes(_frame_bytes(lcd),
-                    (width * args.scale, panel_px + hud_px), "RGB")
-                still.fill((16, 18, 16))
-                still.blit(surface, ((window_size[0] - width * args.scale) // 2, 0))
+                    scale_buffer(hud, cell_px), period=2, opacity=0.12))
+                held_surface = pygame.image.frombytes(_frame_bytes(lcd),
+                    (width * cell_px, panel_px + hud_px), "RGB")
             pager = FooterPager()
+            cancel_label = 'Cancel reproduction' if reproducing else 'Cancel era'
+            heading = 'REPRODUCING ERA' if reproducing else 'ERA RUNNING'
+            busy_strip = ActionStrip([UiAction('cancel_work', cancel_label), UiAction('help_work', 'Help [F1]'),
+                                      UiAction('previous_page', 'Text <'), UiAction('next_page', 'Text >')], allow_tab=False)
             busy_help = False
             close_requested = False
             waiting_clock = pygame.time.Clock()
@@ -1008,6 +1686,26 @@ def run(argv: list[str] | None = None) -> int:
                     # Preserve controls already retrieved beside E, then drain SDL.
                     event = next_work_event()
                     while event.type != pygame.NOEVENT:
+                        current_status = work.snapshot()
+                        busy_strip.set_actions([UiAction('cancel_work', 'Back from help' if busy_help else cancel_label,
+                                                enabled=busy_help or (not current_status['cancelling'] and not current_status['committing'])),
+                                                UiAction('help_work', 'Back' if busy_help else 'Help [F1]'),
+                                                UiAction('previous_page', 'Text <'), UiAction('next_page', 'Text >')])
+                        if resize_event(event):
+                            busy_strip._armed = False
+                            event = next_work_event()
+                            continue
+                        if event.type in (pygame.KEYUP, pygame.WINDOWFOCUSLOST):
+                            action_strip.handle(event)
+                        result = busy_strip.handle(event)
+                        if result.action:
+                            event = pygame.event.Event(pygame.KEYDOWN, key={
+                                'cancel_work': pygame.K_ESCAPE, 'help_work': pygame.K_F1,
+                                'previous_page': pygame.K_PAGEUP, 'next_page': pygame.K_PAGEDOWN}[result.action], mod=0)
+                            busy_strip.blur()
+                        elif result.consumed:
+                            event = next_work_event()
+                            continue
                         if event.type == pygame.QUIT:
                             close_requested = True
                             work.cancel()
@@ -1030,7 +1728,7 @@ def run(argv: list[str] | None = None) -> int:
                             # All care/preparation/save/repeated-E input is consumed here.
                         event = next_work_event()
                     status = work.snapshot()
-                    lines = ['ERA RUNNING - care paused', status['phase']]
+                    lines = [heading + ' - care paused', status['phase']]
                     if status['budget'] is not None:
                         lines.append(f"Evaluations {status['completed']}/{status['budget']} completed")
                     if status['cancelling']:
@@ -1040,23 +1738,26 @@ def run(argv: list[str] | None = None) -> int:
                     else:
                         lines.append('Escape cancel   F1 help')
                     if close_requested:
-                        lines.append('Closing after work stops; companion will be saved.')
+                        lines.append('Closing after comparison stops; original results are unchanged.' if reproducing else
+                                     'Closing after work stops; companion will be saved.')
                     if busy_help:
-                        lines = ['ERA RUNNING - help; care paused',
+                        lines = [heading + ' - help; care paused',
                                  'F1/Escape close help; Escape outside help cancels',
                                  'Close cancels computation, waits, then quits',
-                                 'Cancellation waits for model load/current candidate',
-                                 'Completed-result saving cannot be cancelled',
+                                 'Cancellation waits for the current candidate' if reproducing else 'Cancellation waits for model load/current candidate',
+                                 'Comparison never saves or replaces original results' if reproducing else 'Completed-result saving cannot be cancelled',
                                  'Other commands are ignored, never queued',
                                  'Counts are completed candidates, not time estimates']
-                    window.blit(still, (0, 0))
-                    window.fill((16, 18, 16), (0, panel_px + hud_px, window_size[0], FOOTER_PX))
-                    rows = (FOOTER_PX - 12 - font.get_height()) // 22 + 1
-                    page = pager.layout(lines, lambda text: font.size(text)[0], window_size[0] - 16, rows)
-                    for index, line in enumerate(page.lines):
-                        if line:
-                            window.blit(font.render(line, True, (200, 230, 200)),
-                                        (8, panel_px + hud_px + 6 + index * 22))
+                    window.fill((16, 18, 16))
+                    held = (held_surface if held_surface.get_size() == layout.lcd_rect.size else
+                            pygame.transform.scale(held_surface, layout.lcd_rect.size))
+                    window.blit(held, layout.lcd_rect)
+                    paint_footer(lines, pager)
+                    busy_strip.set_actions([UiAction('cancel_work', 'Back from help' if busy_help else cancel_label,
+                                            enabled=busy_help or (not status['cancelling'] and not status['committing'])),
+                                            UiAction('help_work', 'Back' if busy_help else 'Help [F1]'),
+                                            UiAction('previous_page', 'Text <'), UiAction('next_page', 'Text >')])
+                    busy_strip.draw(window, font, layout.actions_rect)
                     pygame.display.flip()
                     if status['done']:
                         break
@@ -1069,6 +1770,33 @@ def run(argv: list[str] | None = None) -> int:
                     running = False
             return work.result()
 
+        def reproduce_selected_era(initial_events=()):
+            nonlocal era_ran_frame, queued
+            from mecha_game.execution_readout import reproduce_saved_era, comparison_notice
+            target = era_review if era_review is not None else browser
+            era = era_review.current if era_review is not None else browser.selected_era
+            if era is None or target.error:
+                return
+            campaign_id = era_review.history['campaign_id'] if era_review is not None else browser.campaign_id
+            era_index = era['era_index']
+            era_ran_frame = True
+            queued = None
+            def operation(work):
+                work.phase('Reading immutable recorded inputs')
+                return reproduce_saved_era(keeper_dir, campaign_id, era_index, progress_callback=work.progress)
+            try:
+                result = wait_for_era(EraWork(operation), initial_events, reproducing=True)
+                notice = comparison_notice(result)
+            except EraCancelled:
+                notice = 'Reproduction cancelled; original results, footage and preparation are unchanged.'
+            except (OSError, ValueError, sqlite3.Error) as error:
+                notice = f'Reproduction unavailable: {error}. Original results and footage are unchanged.'
+            if era_review is not None:
+                era_review.notice = notice
+            else:
+                browser.replay_notice = notice
+            footer_pager.reset()
+
         def run_prepared_era(initial_events=()):
             nonlocal era_ran_frame
             era_ran_frame = True
@@ -1077,13 +1805,19 @@ def run(argv: list[str] | None = None) -> int:
                     bench.run_era(campaign_ledger)
                 else:
                     wait_for_era(EraWork(lambda work: bench.run_era(campaign_ledger, work=work)), initial_events)
+                bench.ensure()
+                if bench.bind_current_campaign() and not checkpoint():
+                    return False
             except EraCancelled as error:
                 bench.message = str(error)
                 if era_review is not None:
                     era_review.notice = bench.message
                 return False
             except (OSError,ValueError,sqlite3.Error) as error:
-                bench.message = f'Era not completed: {error}. E retries; saved progress is retained.'
+                if preparation_notice(bench.preparation_commit):
+                    bench.preparation_failed(error)
+                else:
+                    bench.message = f'Era not completed: {error}. E retries; saved progress is retained.'
                 if era_review is not None:
                     era_review.notice = bench.message
                 return False
@@ -1091,12 +1825,92 @@ def run(argv: list[str] | None = None) -> int:
                 open_era_review()
             return True
 
+        def record_launch():
+            if receipt.path is None:
+                return
+            actual_view = ('creator' if creator_mode else 'review' if era_review is not None else
+                           'archive' if browser is not None else 'preparation' if covenant_mode else 'care')
+            values = dict(view=actual_view, runtime=inspect_runtime(), keeper_id=session.keeper_id,
+                          campaign_id=session.campaign_id, learning_policy=session.learning_policy,
+                          display=dict(driver=pygame.display.get_driver(), size=list(window.get_size()),
+                                       resizable=bool(window.get_flags() & pygame.RESIZABLE)))
+            if era_review is not None:
+                current = era_review.current
+                values['review'] = dict(campaign_id=era_review.history.get('campaign_id'),
+                    era_count=len(era_review.history['eras']), current_era_index=current.get('era_index') if current else None,
+                    weather=current.get('weather') if current else None, lines=era_review.lines())
+                if era_review.error:
+                    values.update(startup_outcome='refused', reason=era_review.error)
+            if browser is not None:
+                values['archive'] = dict(campaign_id=browser.campaign_id, era_index=browser.era_index,
+                                        entry_count=len(browser.elites), error=browser.error)
+                if browser.error:
+                    values.update(startup_outcome='refused', reason=browser.error)
+            if creator_mode:
+                from urllib.request import urlopen
+                values['creator_url'] = creator_url
+                try:
+                    with urlopen(creator_url + 'api/context', timeout=5) as response:
+                        values['context'] = json.load(response)
+                except (OSError, ValueError) as error:
+                    values['context'] = {'available': False, 'reason': str(error)}
+            receipt.update(**values)
+
+        try:
+            if args.finish_preparation:
+                bench.finish_preparation()
+                if bench.bind_current_campaign() and not checkpoint(): return 2
+            if args.population_policy is not None or args.campaign_seed is not None or args.starter_roles:
+                bench.choose_new_campaign(args.population_policy or 'legacy_archive',
+                    starter_roles=args.starter_roles, base_seed=args.campaign_seed)
+                if bench.bind_current_campaign() and not checkpoint(): return 2
+            if args.create_successor:
+                bench.create_successor()
+                if bench.bind_current_campaign() and not checkpoint(): return 2
+            if args.prepare_survival_regime is not None:
+                bench.choose_survival_regime(args.prepare_survival_regime)
+            if args.prepare_density_pressure == 'off':
+                bench.choose_density_pressure(False)
+        except (OSError, ValueError, sqlite3.Error) as error:
+            receipt.update(startup_outcome='refused', reason=str(error))
+            print(f'Preparation refused: {error}', file=sys.stderr)
+            return 2
+
+        if args.prepare_weather is not None:
+            try:
+                bench.choose_weather(WEATHER_NAMES.index(args.prepare_weather))
+            except (OSError, ValueError, sqlite3.Error) as error:
+                receipt.update(startup_outcome='refused', reason=str(error))
+                print(f'Preparation refused: {error}', file=sys.stderr)
+                return 2
+
+        if args.prepare_density_pressure == 'on':
+            try:
+                bench.choose_density_pressure(True)
+            except (OSError, ValueError, sqlite3.Error) as error:
+                receipt.update(startup_outcome='refused', reason=str(error))
+                print(f'Preparation refused: {error}', file=sys.stderr)
+                return 2
+
         # Headless verification: run the requested eras up front.
         if args.eras is not None:
             for _ in range(args.eras):
                 if not run_prepared_era():
                     print(bench.message,file=sys.stderr)
                     return 2
+        if args.creator:
+            open_creator()
+            if not creator_mode:
+                receipt.update(startup_outcome='refused', reason=bench.message)
+                return 2
+        elif args.view == 'review':
+            open_era_review()
+        elif args.view == 'archive':
+            open_archive()
+        elif args.view == 'preparation':
+            covenant_mode = True
+        record_launch()
+        held_preparation_keys = set()
         while running:
             reading_closed = False
             era_ran_frame = False
@@ -1105,8 +1919,35 @@ def run(argv: list[str] | None = None) -> int:
             generation_was_open = generation is not None
             wfc_was_open = wfc is not None
             generation_touched = generation_was_open
+            action_strip.set_actions(native_actions())
+            navigation_paused = action_strip.focus_active
+            navigation_acted = False
             event_batch = pygame.event.get()
             for event_index, event in enumerate(event_batch):
+                from_native_action = False
+                if event.type == pygame.KEYUP:
+                    held_preparation_keys.discard(getattr(event, 'key', None))
+                elif event.type == pygame.WINDOWFOCUSLOST:
+                    held_preparation_keys.clear()
+                # A raw shortcut may have changed modes earlier in this batch.
+                # Reconcile/disarm old drawn controls before any later pointer
+                # activation can reinterpret their key in the new mode.
+                action_strip.set_actions(native_actions())
+                if resize_event(event):
+                    navigation_paused = True
+                    continue
+                if event.type != pygame.QUIT:
+                    result = action_strip.handle(event)
+                    navigation_paused = navigation_paused or result.consumed or result.focus_active
+                    if navigation_acted:
+                        continue
+                    if result.action:
+                        event = action_event(result.action)
+                        from_native_action = True
+                        action_strip.blur()
+                        navigation_acted = True
+                    elif result.consumed or (navigation_paused and event.type == pygame.KEYDOWN):
+                        continue
                 if event.type == pygame.QUIT:
                     running = False
                 elif event.type == pygame.MOUSEWHEEL:
@@ -1134,6 +1975,21 @@ def run(argv: list[str] | None = None) -> int:
                             footer_pager.move(-1)
                         elif event.key == pygame.K_PAGEDOWN:
                             footer_pager.move(1)
+                    elif creator_mode:
+                        if getattr(event, 'repeat', False) and event.key in (pygame.K_j, pygame.K_ESCAPE, pygame.K_RETURN):
+                            continue
+                        if event.key in (pygame.K_j, pygame.K_ESCAPE):
+                            creator_mode = False
+                            finish_reading()
+                        elif event.key == pygame.K_RETURN:
+                            open_creator()
+                        elif event.key in (pygame.K_PAGEUP, pygame.K_PAGEDOWN):
+                            footer_pager.move(-1 if event.key == pygame.K_PAGEUP else 1)
+                    elif bench.recovery_offer is not None and event.key not in (
+                        pygame.K_u, pygame.K_y, pygame.K_c, pygame.K_ESCAPE,
+                        pygame.K_PAGEUP, pygame.K_PAGEDOWN,
+                    ):
+                        continue
                     elif wfc is not None:
                         if event.key in (pygame.K_ESCAPE, pygame.K_TAB):
                             wfc = None
@@ -1231,6 +2087,10 @@ def run(argv: list[str] | None = None) -> int:
                         pygame.K_SPACE, pygame.K_PERIOD, pygame.K_COMMA, pygame.K_PAGEUP, pygame.K_PAGEDOWN,
                     ):
                         continue
+                    elif event.key == pygame.K_d and not getattr(event, 'repeat', False) and (
+                        era_review is not None or (browser is not None and not isinstance(browser, NicheHistory))):
+                        reproduce_selected_era(event_batch[event_index + 1:])
+                        break
                     elif browser is not None and event.key == pygame.K_n:
                         if isinstance(browser, NicheHistory):
                             close_archive()
@@ -1291,6 +2151,8 @@ def run(argv: list[str] | None = None) -> int:
                         footer_pager.move(1)
                     elif event.key == pygame.K_ESCAPE:
                         running = False
+                    elif event.key == pygame.K_j and not getattr(event, 'repeat', False):
+                        open_creator()
                     elif event.key == pygame.K_g and session.alive and "cleanliness" in session.state:
                         queued = "clean"
                     elif event.key in key_actions and session.alive:
@@ -1306,8 +2168,16 @@ def run(argv: list[str] | None = None) -> int:
                         driver = ClipDriver(driver.frame_counts)
                         checkpoint()
                     elif event.key == pygame.K_e:
-                        run_prepared_era(event_batch[event_index + 1:])
-                        break  # The waiting loop consumed the rest of this batch.
+                        if (getattr(event, 'repeat', False) or
+                                (not from_native_action and event.key in held_preparation_keys)):
+                            continue
+                        if covenant_mode:
+                            if not from_native_action:
+                                held_preparation_keys.add(event.key)
+                            prepare(bench.finish_preparation)
+                        else:
+                            run_prepared_era(event_batch[event_index + 1:])
+                            break  # The waiting loop consumed the rest of this batch.
                     elif event.key == pygame.K_h:
                         generation_touched = True
                         open_hatch()
@@ -1332,7 +2202,7 @@ def run(argv: list[str] | None = None) -> int:
                         story = (
                             None
                             if story is not None
-                            else LineageBrowser(session.lineage)
+                            else LineageBrowser(session.lineage, chronicle=session.chronicle)
                         )
                         queued = None
                     elif story is not None and event.key == pygame.K_PERIOD:
@@ -1372,20 +2242,58 @@ def run(argv: list[str] | None = None) -> int:
                     elif event.key == pygame.K_BACKSPACE:
                         prepare(bench.unstage)
                     elif event.key == pygame.K_w:
-                        prepare(lambda: bench.stage_releases(gather_releases(keeper_dir)))
+                        prepare(lambda: bench.stage_releases(*gather_release_inputs(keeper_dir, include_shared=False)))
                     elif event.key == pygame.K_r:
-                        prepare(lambda: bench.stage_releases([session.grid]))
+                        prepare(lambda: bench.stage_releases([session.grid], [companion_release_source(session)]))
                     elif event.key == pygame.K_c:
                         if browser is not None:
                             browser = archive_return = None
                             finish_reading()
                         covenant_mode = not covenant_mode
+                        if bench.recovery_offer is not None:
+                            finish_reading()
+                        bench.recovery_offer = None
+                        recovery_inspected_frame = None
+                    elif covenant_mode and event.key in (pygame.K_u, pygame.K_y) and not getattr(event, 'repeat', False):
+                        try:
+                            if bench.recovery_offer is None or event.key == pygame.K_y:
+                                bench.inspect_recovery(slot='previous' if event.key == pygame.K_y else 'current')
+                                recovery_inspected_frame = frame
+                                bench.message = 'Inspect the recovery checkpoint below; nothing has changed.'
+                            elif recovery_inspected_frame is not None and frame > recovery_inspected_frame:
+                                bench.restore_recovery()
+                                finish_reading()
+                                recovery_inspected_frame = None
+                                if bench.bind_current_campaign():
+                                    checkpoint()
+                        except (OSError, ValueError, sqlite3.Error) as error:
+                            bench.recovery_offer = None
+                            recovery_inspected_frame = None
+                            bench.message = f'Recovery not completed: {error}'
+                            finish_reading()
+                        queued = None
+                        footer_pager.reset()
+                    elif covenant_mode and event.key in (pygame.K_6, pygame.K_7, pygame.K_8, pygame.K_9, pygame.K_n) and not getattr(event, 'repeat', False):
+                        if event.key == pygame.K_6:
+                            prepare(lambda: bench.choose_density_pressure(not bench.plan.cubff_density_pressure))
+                        elif event.key == pygame.K_7:
+                            prepare(lambda: bench.choose_survival_regime('sheltered' if bench.plan.survival_regime == 'stress_probe' else 'stress_probe'))
+                        elif event.key in (pygame.K_8, pygame.K_9):
+                            prepare(lambda: bench.choose_new_campaign('generation_survivors_v1', starter_roles=event.key == pygame.K_9))
+                        else:
+                            prepare(bench.create_successor)
                     elif covenant_mode and event.key in (
                         pygame.K_1,
                         pygame.K_2,
                         pygame.K_3,
                         pygame.K_4,
+                        pygame.K_5,
                     ):
+                        if (getattr(event, 'repeat', False) or
+                                (not from_native_action and event.key in held_preparation_keys)):
+                            continue
+                        if not from_native_action:
+                            held_preparation_keys.add(event.key)
                         prepare(lambda: bench.spend(event.key - pygame.K_1))
                     elif not covenant_mode and event.key in (
                         pygame.K_1,
@@ -1410,16 +2318,25 @@ def run(argv: list[str] | None = None) -> int:
                             continue
                         try:
                             campaign = bench.ensure()
-                            adopted = CompanionSession(
+                            bench.check_current_state()
+                            source = {'campaign_id': (browser.campaign_id if browser is not None
+                                                      else campaign.campaign['campaign_id'])}
+                            if browser is not None and browser.selected_era is not None:
+                                source['era_index'] = browser.selected_era['era_index']
+                            elif browser is None and campaign.eras:
+                                source['era_index'] = campaign.eras[-1]['era_index']
+                            adopted = session.adopt(
                                 elite, campaign.campaign['slip_profile'], model=session.model,
-                                name=elite['grid_id'], origin='era_elite', learning_policy=session.learning_policy,
-                            )
+                                name=elite['grid_id'], origin='era_elite', source=source)
+                            adopted.bind_campaign(campaign.campaign['campaign_id'],
+                                predecessor_campaign_id=campaign.campaign.get('predecessor_campaign_id'))
                         except (OSError, ValueError, sqlite3.Error) as error:
                             bench.message = "Adoption refused: " + str(error)
                             continue
                         if not checkpoint():
                             continue
                         session = adopted
+                        bench.keeper_session = session
                         browser = archive_return = None
                         ghost = None
                         driver = ClipDriver(driver.frame_counts)
@@ -1431,8 +2348,12 @@ def run(argv: list[str] | None = None) -> int:
                 running
                 and not era_ran_frame
                 and not reading_closed
+                and not navigation_paused
+                and not action_strip.focus_active
                 and not save_failed
+                and bench.recovery_offer is None
                 and not help_mode
+                and not creator_mode
                 and inbox is None
                 and generation is None
                 and not generation_touched
@@ -1449,6 +2370,7 @@ def run(argv: list[str] | None = None) -> int:
                 session.advance(
                     player_action=queued, displayed_clip=displayed_clip
                 )
+                live_thought.observe(session.snapshot())
                 ticks_run += 1
                 queued = None
                 if not session.alive:
@@ -1464,24 +2386,24 @@ def run(argv: list[str] | None = None) -> int:
                     running = False
 
             if wfc is not None:
-                if wfc.playing and not help_mode and not help_was_open and wfc_was_open and frame % 2 == 0:
+                if wfc.playing and not help_mode and not help_was_open and not navigation_paused and wfc_was_open and frame % 2 == 0:
                     wfc.step(1)
                 if wfc.final:
-                    pixels = compose_frame(wfc.packet(), previous_ghost=None, cell_px=args.scale).pixels
+                    pixels = compose_frame(wfc.packet(), previous_ghost=None, cell_px=cell_px).pixels
                 else:
-                    pixels = wfc.pixels(args.scale)
-                panel = fit_recorded_panel(pixels, width, height, args.scale)
-                blank_hud = tuple(tuple((16, 18, 16) for _ in range(width * args.scale)) for _ in range(hud_px))
+                    pixels = wfc.pixels(cell_px)
+                panel = fit_recorded_panel(pixels, width, height, cell_px)
+                blank_hud = tuple(tuple((16, 18, 16) for _ in range(width * cell_px)) for _ in range(hud_px))
                 lcd = stack_buffers(panel, blank_hud)
                 snapshot = session.snapshot()
             elif generation is not None:
-                if generation.playing and not help_mode and not help_was_open and generation_was_open and frame % 2 == 0:
+                if generation.playing and not help_mode and not help_was_open and not navigation_paused and generation_was_open and frame % 2 == 0:
                     generation.step(1)
                 packet = generation.packet()
-                pixels = (compose_frame(packet, previous_ghost=None, cell_px=args.scale).pixels
+                pixels = (compose_frame(packet, previous_ghost=None, cell_px=cell_px).pixels
                           if packet is not None else tuple(tuple((16, 18, 16) for _ in range(width)) for _ in range(height)))
-                panel = fit_recorded_panel(pixels, width, height, args.scale)
-                blank_hud = tuple(tuple((16, 18, 16) for _ in range(width * args.scale)) for _ in range(hud_px))
+                panel = fit_recorded_panel(pixels, width, height, cell_px)
+                blank_hud = tuple(tuple((16, 18, 16) for _ in range(width * cell_px)) for _ in range(hud_px))
                 lcd = stack_buffers(panel, blank_hud)
                 snapshot = session.snapshot()
             elif browser is not None:
@@ -1489,15 +2411,15 @@ def run(argv: list[str] | None = None) -> int:
                 # the campaign's covenant, statically composed.
                 packet = browser.packet()
                 if packet is None:
-                    archive_pixels = tuple(tuple((16, 18, 16) for _ in range(width * args.scale))
+                    archive_pixels = tuple(tuple((16, 18, 16) for _ in range(width * cell_px))
                                            for _ in range(panel_px))
                 else:
-                    archive_pixels = compose_frame(packet, previous_ghost=None, cell_px=args.scale).pixels
+                    archive_pixels = compose_frame(packet, previous_ghost=None, cell_px=cell_px).pixels
                 blank_hud = tuple(
                     tuple(
-                        (16, 18, 16) for _ in range(width * args.scale)
+                        (16, 18, 16) for _ in range(width * cell_px)
                     )
-                    for _ in range(HUD_HEIGHT * args.scale)
+                    for _ in range(HUD_HEIGHT * cell_px)
                 )
                 lcd = stack_buffers(archive_pixels, blank_hud)
                 snapshot = session.snapshot()
@@ -1505,7 +2427,7 @@ def run(argv: list[str] | None = None) -> int:
                 # The Review window: recorded body states, raw and
                 # honestly effect-free (v1 packets declare none); the
                 # wound frames wear the damage event's own cells.
-                if review_playing and not help_mode and not help_was_open and frame % 2 == 0:
+                if review_playing and not help_mode and not help_was_open and not navigation_paused and frame % 2 == 0:
                     review.step()
                 body = review.body_packet()
                 raster = (
@@ -1519,10 +2441,10 @@ def run(argv: list[str] | None = None) -> int:
                 wounds = review.wound_cells()
                 if wounds:
                     raster = overlay_wounds(raster, wounds)
-                panel = fit_recorded_panel(raster, width, height, args.scale)
+                panel = fit_recorded_panel(raster, width, height, cell_px)
                 blank_hud = tuple(
-                    tuple((16, 18, 16) for _ in range(width * args.scale))
-                    for _ in range(HUD_HEIGHT * args.scale)
+                    tuple((16, 18, 16) for _ in range(width * cell_px))
+                    for _ in range(HUD_HEIGHT * cell_px)
                 )
                 lcd = stack_buffers(panel, blank_hud)
                 snapshot = session.snapshot()
@@ -1531,7 +2453,7 @@ def run(argv: list[str] | None = None) -> int:
                 displayed_clip = clip
                 packet = session.packet_for(clip, frame_index)
                 composed = compose_frame(
-                    packet, previous_ghost=ghost, cell_px=args.scale
+                    packet, previous_ghost=ghost, cell_px=cell_px
                 )
                 ghost = composed.ghost
                 snapshot = session.snapshot()
@@ -1543,21 +2465,31 @@ def run(argv: list[str] | None = None) -> int:
                     frame=frame,
                 )
                 hud_scaled = apply_scanline(
-                    scale_buffer(hud, args.scale),
+                    scale_buffer(hud, cell_px),
                     period=2,
                     opacity=0.12,
                 )
                 lcd = stack_buffers(composed.pixels, hud_scaled)
             surface = pygame.image.frombytes(
                 _frame_bytes(lcd),
-                (width * args.scale, panel_px + hud_px),
+                (width * cell_px, panel_px + hud_px),
                 "RGB",
             )
             window.fill((16, 18, 16))
-            window.blit(surface, ((window_size[0] - width * args.scale) // 2, 0))
-            footer = _footer_lines(snapshot, queued)
+            window.blit(surface, layout.lcd_rect)
+            if not running or save_failed:
+                live_thought.clear()
+            footer = _footer_lines(snapshot, queued, thought_lines=live_thought.lines(snapshot))
             if help_mode:
                 footer = help_lines()
+            elif creator_mode:
+                footer = ["CREATOR - this Keeper; care paused",
+                          str(keeper_dir.resolve()), creator_url or "No browser URL",
+                          "J/Escape back to care; Enter reopens browser; F1 help",
+                          "Create or remix, preview, release, and exchange named packs.",
+                          "W gathers this Keeper's released creatures after returning.",
+                          "E runs the prepared era; T shows actual admission and results.",
+                          "Workshop closes when this game exits. Unsaved drafts stay here."]
             elif wfc is not None:
                 footer = wfc.lines()
             elif generation is not None:
@@ -1610,10 +2542,13 @@ def run(argv: list[str] | None = None) -> int:
                     ])
                 if isinstance(browser, NicheHistory):
                     footer.extend(browser.history_lines())
+                else:
+                    footer.extend(browser.execution_lines())
             elif review is not None:
                 footer = [
                     f"REVIEW ERA {review_context.current['era_index']}  {review.replay['creature']['grid_id']}",
                     review.caption(),
+                    *review.thought_lines(),
                     "Care paused. SPACE play/pause  . step  , back",
                     "V/Escape back   T selected report   F1 controls",
                     review.replay.get("honest_label", "Saved recording; its original provenance label was not stored."),
@@ -1622,38 +2557,54 @@ def run(argv: list[str] | None = None) -> int:
                 footer = [*bench.budget_lines(), bench.preparation_line(), *footer]
             else:
                 footer.extend([bench.preparation_line(),
-                    "H hatch preview   O saved origin   F1 controls",
+                    "J creator   H hatch preview   O origin   F1 controls",
                     "Ctrl+S save  T report  E era  C covenant",
                     bench.preparation_controls()])
             if bench.message and not help_mode and (inbox is None or save_failed) and (generation is None or save_failed) and ((era_review is None and review is None) or save_failed):
                 footer.insert(0, bench.message)
-            context = ('help' if help_mode else 'wfc' if wfc is not None else 'generation' if generation is not None else 'inbox' if inbox is not None else 'era_report' if era_review is not None else 'lineage' if story is not None else
+            context = ('help' if help_mode else 'creator' if creator_mode else 'wfc' if wfc is not None else 'generation' if generation is not None else 'inbox' if inbox is not None else 'era_report' if era_review is not None else 'lineage' if story is not None else
                        'repertoire' if browser is not None else 'review' if review is not None else
                        'covenant' if covenant_mode else 'play', bench.message, (id(wfc), wfc.final, None if wfc.final else wfc.index) if wfc is not None else (id(generation), generation.notice) if generation is not None else (inbox.kind, inbox.index, inbox.digest, inbox.error, tuple(inbox.result_lines)) if inbox is not None else era_review.index if era_review is not None else
                        (browser.campaign_id, browser.era_index, browser.index, isinstance(browser, NicheHistory)) if browser is not None else story.index if story is not None else None)
             if context != footer_context:
                 footer_pager.reset()
                 footer_context = context
-            rows = (FOOTER_PX - 12 - font.get_height()) // 22 + 1
-            page = footer_pager.layout(footer, lambda text: font.size(text)[0], window_size[0] - 16, rows)
-            for index, line in enumerate(page.lines):
-                if line:
-                    window.blit(
-                        font.render(line, True, (200, 230, 200)),
-                        (8, panel_px + hud_px + 6 + index * 22),
-                    )
+            if navigation_paused or action_strip.focus_active:
+                footer.insert(0, 'NAVIGATION - care paused; Escape returns to the current view.')
+            drawn_footer = paint_footer(footer, footer_pager)
+            action_strip.set_actions(native_actions())
+            action_strip.draw(window, font, layout.actions_rect)
             pygame.display.flip()
+            if receipt.path is not None:
+                # Bounded, explicit diagnostic evidence of text actually drawn;
+                # it is outside save data and never claims OS input observation.
+                observation = dict(life_id=snapshot.get('life_id'), age_ticks=snapshot['age_ticks'],
+                    session_tick=snapshot['session_tick'], view=context[0],
+                    size=list(window.get_size()), footer_lines=list(drawn_footer.lines))
+                observed = list(receipt.document.get('native_readout', []))
+                if not observed or observed[-1] != observation:
+                    omitted = receipt.document.get('native_readout_omitted', 0)
+                    observed.append(observation)
+                    if len(observed) > 32:
+                        observed = observed[-32:]
+                        omitted += 1
+                    receipt.update(native_readout=observed, native_readout_omitted=omitted)
             frame += 1
+            if args.frames is not None and frame >= args.frames:
+                running = False
             clock.tick(args.fps)
-            if save_failed and args.ticks is not None:
+            if save_failed and (args.ticks is not None or args.frames is not None):
                 return 1
             if not running:
                 if checkpoint():
                     return 0
-                if args.ticks is not None:
+                if args.ticks is not None or args.frames is not None:
                     return 1
                 quit_after_retry = True
                 running = True
         return 0
     finally:
-        pygame.quit()
+        try:
+            creator.close()
+        finally:
+            pygame.quit()

@@ -380,3 +380,11 @@ The original DR 0059 metrics and decision are reproduced unchanged.
 - `packages/mecha_engine/tests/test_slip_mechanics.py`
 - `data/lifecycle/slip_mechanics_incumbent_baseline.json`
 - `data/lifecycle/slip_mechanics_authorship_stage0.json`
+
+## Additive body/action response contract (2026-10-06)
+
+`initial_state` and `run_episode` accept an optional keyword `body_response='legacy'`. The active `workload-v1` projection resolves unique occupied semantic body_core/locomotion coordinates and finite cell integrity. Occupied mass M and intact capacity F determine play energy cost `round(0.07*M/max(F,1,M*0.07/0.34),6)`. Species prior fields remain unchanged. All ordinary lifecycle drift, other action effects, clamping, rounding and death checks remain the incumbent; active-only history identifies configured cost and applied action energy effect.
+
+The same implementation consumes native lives and contextual/population evaluations. Each new initial/repaired body receives a fresh projection. Persisted active projections must bind to actual saved/evaluated grids at enclosing load/evidence boundaries; arithmetic consistency alone cannot prove a body identity. Off state/report/history key sets and values remain equal to captured pre-seam evidence. No trained Q-table inheritance, care scoring bias or residual injury is introduced.
+
+Numerical bounds, size/eligibility, causal contrast/nulls, original regressions, fresh holdout criteria and the prototype disposition are specified in `docs/development/cycle-38-body-workload.md`. Actual outcome evidence belongs in `research/experiment_reports/2026-10-06-body-workload.md`; passing this lifecycle contract alone qualifies no care or extinction claim.

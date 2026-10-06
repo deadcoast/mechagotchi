@@ -1,0 +1,65 @@
+{
+  "artifact_id": "learning_rollout_stage1",
+  "date": "2026-10-06",
+  "status": "source_review_repair_verified_pending_final_bundle_and_aggregate",
+  "purpose": "Correct stale-inspection New policy display without changing saved authority or scientific criteria.",
+  "source_artifacts": [
+    "data/game_client/learning_rollout_stage0.json",
+    "game/src/mecha_game/entry.py",
+    "game/tests/test_learning_rollout.py",
+    "docs/development/cycle-38-qualified-learning-rollout.md",
+    "research/experiment_reports/2026-10-06-qualified-learning-rollout.md",
+    "research/algorithm_cards/qualified_native_learning_rollout.md",
+    "research/decision_records/0088-qualified-native-learning-rollout.md",
+    ".development/x7-v2/learning/refresh-red.log",
+    ".development/x7-v2/learning/refresh-green.log"
+  ],
+  "prior_metric_sha256": "87538203fe3d3bc24408bb9b06827d25072bc209848be2f16cdcd159b963fdcb",
+  "source_sha256": {
+    "game/src/mecha_game/entry.py": "fb6f59d3ddadf59498347b87dcc07e474d0e7c1f860408a5c6c2754ccc806478",
+    "game/tests/test_learning_rollout.py": "7bdcd623bf889e08915eb52e828d6d7965b23c346a26d1dcfd4737a6bdfac9ee",
+    "docs/development/cycle-38-qualified-learning-rollout.md": "84b876915f3116e2d32c818e9c9a9405e19bc87a588542490077f1f11755535f",
+    "research/experiment_reports/2026-10-06-qualified-learning-rollout.md": "d1b0a985401abb3c12f6e399508882e209fc719ce54c4110c780c66272bde22a",
+    "research/algorithm_cards/qualified_native_learning_rollout.md": "bcfa308cf6805cb06953fe590d0ea575cee2673ae5fe6c0e2c50de8f2814202b",
+    "research/decision_records/0088-qualified-native-learning-rollout.md": "772a294356ce066798048c65499c9076622761aa41b2cc6054e403a55f7f6b8a",
+    ".development/x7-v2/learning/refresh-red.log": "91a300979cbee538c7dd47e125f0f46c68fe84edad072c0f14b6f8c0002d969a",
+    ".development/x7-v2/learning/refresh-green.log": "307f28797b7f4a02b2fb141a602ba48b122be921abbe01ec078e041afd27d55e"
+  },
+  "metrics": {
+    "red": {
+      "command": ".venv/Scripts/python.exe -B -m unittest discover -s game/tests -p test_learning_rollout.py -v",
+      "tests": 15,
+      "failing_directional_subcases": 2,
+      "log": ".development/x7-v2/learning/refresh-red.log"
+    },
+    "green": {
+      "command": ".venv/Scripts/python.exe -B -m unittest discover -s game/tests -p test_learning_rollout.py -v",
+      "tests": 15,
+      "passed": true,
+      "elapsed_seconds": 2.261,
+      "log": ".development/x7-v2/learning/refresh-green.log"
+    },
+    "checks": {
+      "both_policy_directions": true,
+      "external_save_preserved_on_refusal": true,
+      "refreshed_display_matches_inspected_policy": true,
+      "untouched_new_matches_display": true
+    },
+    "current_focused_tests": 48,
+    "scientific_trials_rerun": 0,
+    "full_source_verifier_rerun": false
+  },
+  "closed_states": [
+    "stale_inspection_display_correction"
+  ],
+  "blocked_states": [
+    "final_fresh_native_bundle_verification",
+    "final_aggregate_and_preservation_review",
+    "exact_published_sha_remote_ci"
+  ],
+  "decision": {
+    "verdict": "VERIFIED_REPAIR",
+    "scope": "Entry exception-driven inspection refresh only."
+  },
+  "next_research_step": "Integration owner validates the fresh final bundle and aggregate source; original stage0 evidence stays unchanged."
+}

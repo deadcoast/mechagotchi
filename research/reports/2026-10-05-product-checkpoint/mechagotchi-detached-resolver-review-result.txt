@@ -1,0 +1,20 @@
+Retained from the read-only audit tool output, not a new execution.
+Source HEAD: d4b4337d0dacbdfa816d990297c03a5da2d0cdca
+Source root: C:\Users\ryanf\github\_shelved\mechagotchi
+Interpreter: source-root .venv\Scripts\python.exe -B
+Probe execution exit code: 0
+
+Probe: actual packaged data; ancestor checkout discovery hidden (not a native relocated launch).
+default_fixtures OK
+default_campaign OK
+real_weather FileNotFoundError no real-ingest report near this installation
+callback_weather FileNotFoundError no callback weather states near this installation (data/cubff_real_ingest/callback_states)
+real_weather_payload_bytes 45622
+callback_payload_bytes 5769937
+No repository files written.
+
+The retained script expresses the same executed stdin probe with formatting and
+an explanatory docstring added. No source code, fixture values, call sequence,
+mocked boundaries, or output behavior changed. This evidence concerns source
+resolution against the existing W5 native bundle's data, not native keyboard
+automation, an installed wheel, or a relocated executable launch.

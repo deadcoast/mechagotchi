@@ -39,7 +39,13 @@ class NicheHistoryTests(unittest.TestCase):
         cls.campaigns = []
         cls.recordings = []
         for name, predecessor in [('older', None), ('middle', 'older'), ('current', 'middle')]:
-            campaign = KeeperCampaign(cls.inputs, campaign_id=name, predecessor_campaign_id=predecessor, era_config=TINY_ERA_CONFIG)
+            # Synthetic history links follow closed prior bloodlines.
+            if predecessor is not None:
+                cls.campaigns[-1].campaign['status'] = 'extinct'
+            # The recorded predecessor link carries its actual earned facts.
+            inherited = cls.campaigns[-1].unlock_state() if predecessor is not None else []
+            campaign = KeeperCampaign(cls.inputs, campaign_id=name, predecessor_campaign_id=predecessor,
+                                      era_config=TINY_ERA_CONFIG, inherited_unlocks=inherited)
             records = []
             for weather in ('calm', 'storm'):
                 campaign.advance_era(weather, record_original=True)

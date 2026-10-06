@@ -65,6 +65,7 @@ def export_spritesheet_with_sidecar(
     *,
     durations_ms: list[int] | None = None,
     clip_frames: dict | None = None,
+    authoring_document: dict | None = None,
 ) -> dict:
     """The horizontal-strip carrier. Without ``clip_frames`` this is the
     historical 3-frame proof, unchanged. With ``clip_frames`` (H3, cycle
@@ -105,6 +106,12 @@ def export_spritesheet_with_sidecar(
         frame_count=len(durations),
     )
     sidecar = build_sidecar_for_grid(grid, slip_profile, asset)
+    # X2 additive arm: retain the complete authoring input; legacy default
+    # output remains byte-identical. Workshop verifies overlay agreement.
+    if authoring_document is not None:
+        from external_metadata_sidecar import authoring_document_digest
+        sidecar['authoring_document'] = deepcopy(authoring_document)
+        sidecar['authoring_document_digest'] = authoring_document_digest(authoring_document)
     sidecar["sidecar_id"] = f"{grid['grid_id']}_spritesheet_sidecar"
     sidecar["animation_binding"] = _animation_binding(
         grid,

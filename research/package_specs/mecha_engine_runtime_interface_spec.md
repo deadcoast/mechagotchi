@@ -200,3 +200,74 @@ This is a caller-owned observation channel, not engine retention policy. The
 playable consumer retains the latest best record only, with preregistered frame
 and byte limits. It never calls the legacy post-era recorder to manufacture
 missing original footage. See the U1 contract/report and original-recording tests.
+
+
+## Ordered admission observation (DR 0084, 2026-10-06)
+
+`evolve` accepts keyword-only `admission_callback: Callable[[dict], None] | None = None`.
+After the actual admission decision, each submitted occurrence emits an isolated deep
+copy with zero-based `submission_index`, original `grid_id`, boolean `admitted`, and
+`rejection_errors` (the actual list for refusal, `None` for admission). Duplicate IDs
+remain separate ordered events. `None` and empty founder lists emit no events.
+Callback exceptions propagate before candidate evaluation; observation adds no RNG
+call, report field, or changed acceptance threshold.
+
+The lab authority additionally accepts an optional direct `founder_grids` list,
+mutually exclusive with `workshop_grids_dir`. This arm uses the already-promoted
+package DR0029 size gate and preserves input order and duplicates. Direct empty
+lists activate the existing empty workshop report projection with
+`workshop_grids_dir=None`; the legacy directory arm keeps its original behavior,
+including backup skipping. The lab/package reports have their established public
+shapes; observer events and scientific results are compared without renaming those
+shapes into an invented equality.
+
+`labs/runtime_integration/test_admission_observer.py` retains pre-edit output pins,
+complete off/on equality, event parity, mutation isolation, empty/None inputs and
+propagated-error controls. The game records these actual decisions alongside immutable
+input bytes under DR0084; it does not infer admission from a duplicate-ID map.
+
+## Contextual care selection (DR0086, experimental/default off)
+
+`evolve` adds `founder_care_contexts=None`, `care_selection_policy="off"`,
+`care_evaluator="archive_morphology_probe_v1"`. Context lists correspond to
+submitted founder occurrences, never grid-ID maps. Actual accepted parent slots
+carry immutable contexts through archive insertion/replacement and output elite
+order. Sources with no care retain no invented history.
+
+The named `observed_care_selection_v1` uses eight legacy fixed-seed candidates
+and a fresh observed-care evaluation within each parent before unchanged
+live_cycle/final archive scoring. `runtime.care` exposes the validated selector
+and evaluator; `archive.lifecycle_probe_grid` exposes the existing calibrated
+probe arithmetic without modification. Pristine is a separate evaluator control.
+Absence preserves full incumbent output; off with supplied facts adds provenance
+only while preserving genetic/fitness outputs. No trained Q is inherited.
+See `docs/development/cycle-38-lived-care-and-thought.md` for registered gates and
+`research/experiment_reports/2026-10-06-lived-care-and-thought.md` for outcomes.
+
+
+## Living population option (DR0089, experimental)
+
+`evolve` adds `population_policy='legacy_archive'`, `founder_start_mode=None`,
+`survival_regime='sheltered'`, `cubff_density_pressure=False`, and read-only
+`evaluation_callback=None`. Omitted defaults preserve the retained legacy path.
+The survivor policy requires explicit bootstrap/continue; continue with `[]`
+stays empty and never assists with seeds. `live_cycle` adds the named population
+and survival inputs with legacy/sheltered defaults. Observer payloads are deep
+copies of actual candidate/parent, cycles, final episode and recorded outcome.
+
+`report.living_population` binds ordered eligible terminal breeders and explicit
+termination, separating lifecycle deaths from structural disqualification and
+unexecuted slots. Breeders may be archive losers. Death at the requested endpoint
+is dead. The separate archive remains historical. Immutable X8 execution output
+binds an exact breeder digest including `[]`; `storage.load_era_breeders` returns
+`None` only for historical absence and refuses invalid new evidence.
+
+## Cycle38 opt-in shared body response (2026-10-06)
+
+The optional `body_response` argument on lifecycle initialization/episodes and runtime live/evolution selects `legacy` (default) or `workload-v1`. Legacy outputs remain pinned to retained pre-seam results. Active episodes use the actual valid evaluated body, including the repaired grid consumed by the evaluator. Only play's energy cost changes; no food, death, repair, independent-episode, mutation or population-sampling rule changes.
+
+The registered law and eligibility are in `docs/development/cycle-38-body-workload.md`. Conditional active state/report fields record `body_response` and `body_workload` (occupied_mass, functional_capacity, capacity_floor, play_energy_cost). History records configured play cost and actual action energy effect. Model identity binds care contexts/candidate receipts, founder occurrences and immutable era execution bytes; unsupported versions and saved/requested conflicts refuse. Default/cold learning rules are preserved, and previously measured learning gains do not qualify this changed physiology.
+
+This is an experimental game mechanism, not default adoption, biological inference, care selection qualification or extinction evidence. Read the new body-workload report for actual verification and outcome status. Historical v1/v2 care and X8 extinction refusals remain retained.
+
+Sources: `docs/development/cycle-38-body-workload.md`; `research/decision_records/0091-shared-body-workload.md`; `research/experiment_reports/2026-10-06-body-workload.md`.

@@ -1,4 +1,84 @@
+## Opt-in body workload implementation (2026-10-06)
+
+Native New includes a Body choice; `--new --body-response workload-v1` selects
+an experimental body-dependent play energy cost in a separate Keeper directory.
+Legacy remains the default. The same lifecycle response runs in companion care,
+care selection and era evaluation. Current care, per-life history, preparation
+and immutable era review identify the model and show its actual play cost.
+Restart/recovery preserve the model; newborns recompute from their own body and
+inherit no trained Q-table. Previous learning gains apply to the original
+physiology, not this new experiment. Food, full repair and death thresholds stay
+unchanged. Contract: `../docs/development/cycle-38-body-workload.md`. Qualification
+and the new build remain subject to that slice's final recorded gates.
+
+## Earned preparation delivery (2026-10-06)
+
+Current candidate: `dist/x8-earned-preparation-01/Mechagotchi/Mechagotchi.exe`,
+with its complete adjacent `_internal` folder and artifact manifest. The player
+guide now explains C/5 role spending, next-era choices and C/E or CLI finishing
+of captured interrupted preparation. Existing imports retain their guarded Enter
+retry; repeated presses cannot spend twice. See `PLAYER-README.txt`.
+
+Actual earned-role and production density journeys passed their fixed criteria;
+care/extinction remain unqualified. Detached Windows verification passed 29 checks.
+Final aggregate/preservation live in `../.development/x8-v2/closing.json` and the
+earned-preparation report. Earlier build notes below are historical.
+
 # Mechagotchi — the Game Client
+
+## Locally verified X5 reproduction (2026-10-06)
+
+Full 20261006T025926-d1272de7 passed **2,983 tests / 24 suites**, 2 documented DR0034 zlib skips, 2307 JSON artifacts valid, with zero source mutations.
+The current Windows player is `game/dist/x5-immutable-era-inputs-02/Mechagotchi/Mechagotchi.exe` with its adjacent `_internal`
+folder and artifact manifest. Keep the complete directory together.
+
+Era/archive review shows ordered founder occurrences and recorded source/admission
+facts. Choose **Reproduce [D]** to compare a saved era against its retained inputs;
+Escape cancels and care stays paused. Historical missing inputs remain unavailable.
+Original results and footage are preserved. The command form and exact output/exit
+rules are in `game/PLAYER-README.txt`; current evidence is
+`research/experiment_reports/2026-10-06-reproducible-era-inputs.md` and
+`data/game_client/era_execution_stage0.json`. Prior dated release evidence below remains historical.
+
+
+## Locally verified X4 Windows delivery (2026-10-06)
+
+X3 is locally complete. X4 standalone delivery, guarded startup and visible native
+controls are implemented. The new candidate is
+game/dist/x4-windows-delivery-02/Mechagotchi/Mechagotchi.exe with its complete folder.
+It passed 241 detached checks and four Windows SDL launches. Full 20261006T015224-25e2b473 passed **2,919 tests / 24 suites**, 2 documented DR0034 zlib skips, 2306 JSON artifacts valid, with zero source mutations. Read
+research/experiment_reports/2026-10-06-windows-delivery.md and
+.development/x4/resume.json for exact gates. Earlier dated candidates below are historical.
+
+The supported complete player is Windows x64 onedir: copy the whole Mechagotchi
+directory, retaining Mechagotchi.exe, _internal and artifact-manifest.json together.
+Default launch opens the native Keeper chooser. Inspection and Cancel write no
+save files. Resume uses the selected self-contained save; backup recovery and
+replacement need explicit confirmation. Choose save directory edits the path in
+the native window. An actual write refusal stays visible for retry or another home.
+
+The developer source entry remains .venv/Scripts/python.exe -B game/run_game.py.
+Use --startup to inspect an explicit --keeper-dir without entering care. --creator
+opens that Keeper's authoring route; --no-browser keeps its owned local server
+available without launching a browser. --view review or --view archive reads saved
+results. --frames N bounds a rendered view; --launch-info NEW_FILE writes an explicit
+diagnostic receipt and refuses existing files. These are operational entrypoints,
+not an OS keyboard or human usability test.
+
+Examples require a new output directory and refuse existing outputs:
+
+```powershell
+# Public promoted engine example; toy assumptions, no calibration claim.
+.venv/Scripts/python.exe -B -m mecha_engine.runtime.examples.seeded --output NEW_ENGINE_OUTPUT --rng-seed 20261006
+# After a measured standalone artifact is available, run its actual player journey.
+.\Mechagotchi.exe --example care-to-era --output NEW_PLAYER_OUTPUT --prepare-weather storm
+```
+
+The player example defaults to a tiny verification era and writes receipts for
+care, preparation/era, saved review/archive and restart in its output. Supported
+weather names are calm, stable_soup, storm, real and callback; they use the original
+source meanings. The standalone Python wheel is a developer/code form, not the
+complete player distribution. Scientific default adoption remains unchanged.
 
 ## Current W5 integrated finish (2026-10-05)
 
@@ -79,31 +159,41 @@ Covenants and creatures from packs stage into the inboxes with item verdicts;
 companion begs when it wants food — only you can feed it; neglect
 starves it (measured: ~10 ticks).
 
-## Experimental learning policy
+## Per-life learning policy
 
-The current default remains `incumbent`. Try the bounded Q-table learner in
-a separate save directory; the choice and learned state survive quit/resume.
-Successors retain the choice and learn afresh. Only you can feed the companion.
-The casing pages show its actual recommendation and followed decision.
+Fresh native Keepers using the built-in starting inputs now use the bounded
+Q-table policy. The New companion confirmation lets you choose incumbent or
+Q-table before creating that life. Existing saves, their successors and adopted
+lives keep their saved choice; New in an existing Keeper also keeps that choice
+unless you select another policy. Every new life learns afresh. Restart preserves
+the current life's trained state. Only you can feed the companion.
+
+Either custom `--seed` or `--slip` keeps the omitted policy incumbent. You can
+explicitly choose either policy for a new life:
 
 ```powershell
+.venv/Scripts/python.exe -B game/run_game.py --new --learning-policy incumbent --keeper-dir "$env:USERPROFILE/.mechagotchi-incumbent"
 .venv/Scripts/python.exe -B game/run_game.py --new --learning-policy qtable --keeper-dir "$env:USERPROFILE/.mechagotchi-qtable"
 # Resume without repeating the policy:
 .venv/Scripts/python.exe -B game/run_game.py --keeper-dir "$env:USERPROFILE/.mechagotchi-qtable"
-# Supportive source CLI (with tools/mechas_cli/src on PYTHONPATH):
-.venv/Scripts/python.exe -B -m mechas_cli.app game --play --new --learning-policy qtable --keeper-dir "$env:USERPROFILE/.mechagotchi-qtable-example"
 ```
 
-An explicit policy conflicting with a saved companion is refused before writes.
-`--learning-policy incumbent` selects the original behavior for a new life.
-The latest locally closed W2 native build is
-`game/dist/w2-responsive-preparation/Mechagotchi/Mechagotchi.exe`; keep `_internal` beside it.
-Use the same policy arguments there. New native saves use
-`$env:USERPROFILE/.mechagotchi`; an explicit `--keeper-dir` selects another
-home. Existing bundled `_internal/keeper` lives continue in place when no
-user-home save exists. If both exist, the user-home save wins and the bundled
-save remains untouched. The experimental policy was not adopted as default:
-the inherited research corpus does not fully match the current covenant.
+An explicit policy conflicting with a saved companion refuses before writes.
+The low-level session constructor retains its incumbent default for historical
+callers. Native fresh-life selection is the qualified product boundary.
+
+The 1,500-life comparison under the standard cleanliness covenant measured
+11.71% higher aggregate welfare than incumbent and 12.07% than additive learning.
+Some individual lives did worse; every nonattentive life died in all three arms.
+The result does not establish neglect rescue, attachment, inherited trained
+tables, or a benefit for custom covenants. The report preserves extra begging and
+Keeper feeds, and DR0066's earlier refusal remains historical evidence.
+See `research/experiment_reports/2026-10-06-qualified-learning-rollout.md`.
+
+New native saves use `$env:USERPROFILE/.mechagotchi`; choose another home in
+startup or with `--keeper-dir`. Existing bundled `_internal/keeper` lives continue
+in place when no user-home save exists. If both exist, the user-home save wins
+and the bundled save remains untouched.
 
 ## Recover an earlier companion save
 
@@ -190,7 +280,7 @@ An empty history can still run its first era with **E**.
 
 **C** budget and spending controls now appear before care status on the first
 small-window page. Covenant mode keeps its existing live care timing; F1 pauses
-care while reading help. The incumbent policy remains the default.
+care while reading help. Existing Keepers retain their saved policy; fresh built-in Keepers use Q-table learning.
 
 Locally closed build: `game/dist/t2-saved-archive/Mechagotchi/Mechagotchi.exe`, retain its
 adjacent `_internal`. Evidence and full-gate status:
@@ -347,7 +437,7 @@ Q2/Q3 notes above remain dated history. The current default supports G clean;
 old saves keep their own covenant. Cycle 28 now provides the package
 producer/consumer and explicit playable opt-in. Its actual-game adoption gate
 REFUSED the default because the inherited corpus is not fully compatible with
-the current covenant; the incumbent remains the default. The dependency-only workspace has no installed `mechagotchi`
+the current covenant; existing Keepers retain their saved policy. The dependency-only workspace has no installed `mechagotchi`
 console script; use the source launcher or one-folder native executable.
 
 ## Responsive era execution (T5 locally closed)
@@ -534,3 +624,19 @@ saved recording when one exists. O reads the current companion's saved origin.
 C exposes earned unlock spending; close C before using 1-5 for weather.
 R stages the current genome, W gathers workshop creatures and E runs the prepared
 era. Viewing history never reconstructs missing recordings or ancestry.
+
+
+### Experimental living populations and earned preparation (X8)
+
+For a fresh Keeper with no recorded campaign, open C. `8` starts experimental
+living generations; `9` also chooses the optional four-role starter covenant.
+Saved campaign policies remain fixed. `5` spends the next actually earned organ
+role; `6` toggles earned density pressure with recorded weather; `7` selects
+sheltered/stress for the next era. Refusals preserve preparation. Existing care
+view 1-5 weather shortcuts retain their meaning. In C, `N` explicitly creates an
+extinct campaign's successor; this is distinct from a companion's next life.
+
+History reports living breeders separately from archived bodies. Empty living
+continuation ends the campaign; archive adoption creates a cared life and cannot
+refill the ended population. These choices remain experimental and defaults
+remain legacy/sheltered. See the X8 report for measured qualifications/limitations.

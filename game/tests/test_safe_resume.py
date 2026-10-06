@@ -170,8 +170,8 @@ class SafeResumeTests(unittest.TestCase):
 
     def test_policy_is_visible_for_both_modes_and_recovery_is_explicit(self):
         self.assertIn("incumbent"," ".join(_footer_lines(pet().snapshot(),None)))
-        self.assertIn("experimental"," ".join(_footer_lines(pet("qtable").snapshot(),None)).lower())
-        for policy, label in (("incumbent", "incumbent"), ("qtable", "experimental")):
+        self.assertIn("q-table"," ".join(_footer_lines(pet("qtable").snapshot(),None)).lower())
+        for policy, label in (("incumbent", "incumbent"), ("qtable", "q-table")):
             snapshot = pet(policy).snapshot()
             snapshot.update(alive=False, death_cause="starvation")
             self.assertIn(label, " ".join(_footer_lines(snapshot, None)).lower())

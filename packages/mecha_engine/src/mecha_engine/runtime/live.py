@@ -49,6 +49,9 @@ def live_cycle(
     rng_seed: int = 20260512,
     damage_events: list[dict] | None = None,
     record_frames: bool = False,
+    population_policy: str = "legacy_archive",
+    survival_regime: str = "sheltered",
+    body_response: str = "legacy",
 ) -> dict:
     """Run one creature through repeated damage/repair/episode cycles.
 
@@ -78,6 +81,14 @@ def live_cycle(
     ran no episode) — the per-tick truth a replay artifact records.
     Default ``False`` is byte-identical to the pre-0023 contract.
     """
+    if body_response not in ("legacy", "workload-v1"):
+        raise ValueError("unsupported body response")
+    if population_policy != "legacy_archive" or survival_regime != "sheltered" or body_response != "legacy":
+        from ._survival_live import live_cycle as population_live_cycle
+        return population_live_cycle(grid, slip_profile, repair_model,
+            damage_cycles=damage_cycles, ticks=ticks, dropout_rate=dropout_rate,
+            rng_seed=rng_seed, damage_events=damage_events, record_frames=record_frames,
+            population_policy=population_policy, survival_regime=survival_regime, body_response=body_response)
     if not isinstance(grid, dict) or not isinstance(grid.get("grid_id"), str):
         raise ValueError("grid must be a grid-genome mapping with a grid_id")
     if isinstance(damage_cycles, bool) or not isinstance(damage_cycles, int) or damage_cycles < 0:

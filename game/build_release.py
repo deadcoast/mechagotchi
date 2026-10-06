@@ -1,92 +1,57 @@
-"""F5 — build the installable Mechagotchi release (DR 0033/PyInstaller).
+"""Build the supported Windows x64 one-directory Mechagotchi player.
 
-One-directory build: the executable plus the bundled data corpus the
-client's walk-up resolution finds through ``sys._MEIPASS`` (the seed
-corpus, the LCD covenant, the adopted readability model). Saves go to
-the player's own ``~/.mechagotchi`` (the keeper-dir default outside a
-repo checkout). Dev harness, repo checkout only:
-
-    uv run python -B game/build_release.py [--dist DIR]
-
-Verify the build the way a player would:
-
-    dist/Mechagotchi/Mechagotchi.exe            # play
-    dist/Mechagotchi/Mechagotchi.exe --ticks 3  # bounded check
+Run with this checkout's .venv Python. The EXE, _internal and artifact manifest
+travel together. Each build requires a new output and work directory; no existing
+release is overwritten. A standalone Python wheel is a code/developer form,
+not this complete player distribution.
 """
-
 from __future__ import annotations
 
 import argparse
-import sys
 from pathlib import Path
+import platform
+import struct
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-GAME_SRC = ROOT / "game" / "src"
-
-BUNDLED_DATA = [
-    ("data/seed_grids_16x16", "data/seed_grids_16x16"),
-    ("data/slips/valid/slip_lcd_seed.json", "data/slips/valid"),
-    ("data/slips/valid/slip_v2_cleanliness.json", "data/slips/valid"),
-    (
-        "data/readability_benchmark/adopted_readability_model.json",
-        "data/readability_benchmark",
-    ),
-]
+GAME_SRC = ROOT / "game/src"
+from release_payload import BUNDLED_DATA, DEPENDENCIES, HELPER_MODULES, HELPER_PATHS, source_identity, stage_payload, write_artifact_manifest
 
 
-def build(
-    dist_dir: Path, work_dir: Path, *, windowed: bool = False
-) -> Path:
-    import PyInstaller.__main__ as pyinstaller
-
+def build(dist_dir: Path, work_dir: Path, *, windowed: bool = False) -> Path:
+    if sys.platform != "win32" or struct.calcsize("P") != 8 or platform.machine().lower() not in {"amd64", "x86_64"}:
+        raise RuntimeError("This player target is Windows x64 one-directory delivery")
+    dist_dir, work_dir = Path(dist_dir).resolve(), Path(work_dir).resolve()
+    bundle = dist_dir / "Mechagotchi"
+    if bundle.exists() or work_dir.exists():
+        raise FileExistsError("Choose new dist/work directories; existing release evidence is preserved")
+    work_dir.mkdir(parents=True)
+    manifest = stage_payload(work_dir / "runtime-payload")
     entry = work_dir / "release_entry.py"
-    work_dir.mkdir(parents=True, exist_ok=True)
-    entry.write_text(
-        "import sys\n"
-        "from mecha_game.app import run\n\n"
-        'if __name__ == "__main__":\n'
-        "    sys.exit(run())\n",
-        encoding="utf-8",
-    )
-    separator = ";" if sys.platform == "win32" else ":"
-    add_data = [
-        f"--add-data={ROOT / source}{separator}{destination}"
-        for source, destination in BUNDLED_DATA
-    ]
-    pyinstaller.run(
-        [
-            str(entry),
-            "--name=Mechagotchi",
-            "--onedir",
-            "--noconfirm",
-            "--clean",
-            f"--distpath={dist_dir}",
-            f"--workpath={work_dir / 'build'}",
-            f"--specpath={work_dir}",
-            f"--paths={GAME_SRC}",
-            f"--paths={ROOT / 'packages' / 'mecha_engine' / 'src'}",
-            # Console stays the default (diagnostics visible — the F5
-            # report's note); --windowed is the player-facing build.
-            "--windowed" if windowed else "--console",
-            *add_data,
-        ]
-    )
-    return dist_dir / "Mechagotchi"
+    entry.write_text("import sys\nfrom mecha_game.app import run\n\nif __name__ == '__main__':\n    sys.exit(run())\n", encoding="utf-8")
+    import PyInstaller.__main__ as pyinstaller
+    pyinstaller.run([
+        str(entry), "--name=Mechagotchi", "--onedir", "--clean", "--noupx",
+        f"--distpath={dist_dir}", f"--workpath={work_dir / 'build'}", f"--specpath={work_dir}",
+        f"--paths={GAME_SRC}", f"--paths={ROOT / 'packages/mecha_engine/src'}",
+        *[f"--paths={folder}" for folder in HELPER_PATHS],
+        *[f"--hidden-import={name}" for name in HELPER_MODULES],
+        *[f"--copy-metadata={name}" for name in DEPENDENCIES if name != "pyinstaller"],
+        "--collect-submodules=mecha_engine",
+        "--windowed" if windowed else "--console",
+        f"--add-data={work_dir / 'runtime-payload'};.",
+    ])
+    after = source_identity()
+    if after["files"] != manifest["source"]["files"] or after["head"] != manifest["source"]["head"]:
+        raise RuntimeError("Runtime sources changed during the build; artifact is not verified. Freeze writers and rebuild to a fresh directory")
+    write_artifact_manifest(bundle, manifest)
+    return bundle
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "--dist", type=Path, default=ROOT / "game" / "dist"
-    )
-    parser.add_argument(
-        "--work", type=Path, default=ROOT / "game" / "release_work"
-    )
-    parser.add_argument(
-        "--windowed",
-        action="store_true",
-        help="build without a console window (the player-facing form)",
-    )
+    parser.add_argument("--dist", type=Path, default=ROOT / "game/dist")
+    parser.add_argument("--work", type=Path, default=ROOT / "game/release_work")
+    parser.add_argument("--windowed", action="store_true", help="build the player without a console window")
     args = parser.parse_args()
-    bundle = build(args.dist, args.work, windowed=args.windowed)
-    print(f"built {bundle}")
+    print(f"built {build(args.dist, args.work, windowed=args.windowed)}")

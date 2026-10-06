@@ -93,7 +93,9 @@ class IntegratedFinishTests(unittest.TestCase):
         pages=self.observe([[key(pygame.K_c)],[key(pygame.K_5)],[key(pygame.K_F1)]])
         joined=' '.join(pages[2]['all'])
         self.assertIn('1 palette',joined);self.assertIn('Care continues',joined)
-        self.assertIn('5 has no action',joined)
+        self.assertIn('5 organ role',joined)
+        self.assertIn('6 earned density',joined)
+        self.assertIn('7 sheltered/stress',joined)
         self.assertEqual('calm',json.loads((self.keeper/'era_plan.json').read_text(encoding='utf-8'))['weather'])
 
     def test_weather_still_works_after_covenant_closes(self):

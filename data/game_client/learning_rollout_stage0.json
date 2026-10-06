@@ -1,0 +1,179 @@
+{
+  "artifact_id": "learning_rollout_stage0",
+  "date": "2026-10-06",
+  "status": "source_verified_pending_final_bundle_and_aggregate",
+  "purpose": "Qualified native fresh built-in policy rollout; historical science and existing policy preserved.",
+  "source_artifacts": [
+    "game/src/mecha_game/startup.py",
+    "game/src/mecha_game/entry.py",
+    "game/tests/test_learning_rollout.py",
+    "labs/game_loop/verify_learning_rollout.py",
+    "docs/development/cycle-38-qualified-learning-rollout.md",
+    "research/experiment_reports/2026-10-06-qualified-learning-rollout.md",
+    "research/algorithm_cards/qualified_native_learning_rollout.md",
+    "research/decision_records/0088-qualified-native-learning-rollout.md",
+    "data/game_client/product_learning_gate_stage0.json",
+    "data/game_client/product_learning_gate_stage1.json"
+  ],
+  "parameters": {
+    "constructor_default": "incumbent",
+    "helper_default": "incumbent",
+    "native_fresh_builtin_default": "qtable",
+    "native_fresh_custom_default": "incumbent",
+    "prior_valid_primary_or_backup_without_override": "preserve_saved",
+    "native_new_toggle": "explicit_new_life_only",
+    "trained_qtable_inheritance": false,
+    "scientific_rerun": false
+  },
+  "metrics": {
+    "scientific_prior": {
+      "stage0": "incomplete REFUSE retained",
+      "stage1": "complete ADOPT retained",
+      "exact_comparisons": {
+        "incumbent": {
+          "candidate_welfare_sum": "93.688618",
+          "baseline_welfare_sum": "83.867185",
+          "candidate_count": 500,
+          "baseline_count": 500,
+          "percent_numerator": "491071.650000",
+          "percent_denominator": "41933.592500",
+          "gain_pct": 11.710698290398087
+        },
+        "additive": {
+          "candidate_welfare_sum": "93.688618",
+          "baseline_welfare_sum": "83.596818",
+          "candidate_count": 500,
+          "baseline_count": 500,
+          "percent_numerator": "504590.000000",
+          "percent_denominator": "41798.409000",
+          "gain_pct": 12.071990587010141
+        }
+      },
+      "source_hashes_matched_at_independent_review": 164,
+      "valid_receipts": {
+        "stage0": 56,
+        "stage1": 1500
+      },
+      "repaired_prefix_exact": true,
+      "frozen_inputs_identical": {
+        "founders": true,
+        "source_corpus": true,
+        "covenant": true,
+        "plan": true,
+        "hatch_seed": true,
+        "budgets": true,
+        "admissions": true
+      },
+      "paired_per_life": {
+        "incumbent": {
+          "paired_identity": true,
+          "improved": 99,
+          "worsened": 3,
+          "same": 398,
+          "follower_died_baseline_alive": 1
+        },
+        "additive": {
+          "paired_identity": true,
+          "improved": 88,
+          "worsened": 2,
+          "same": 410,
+          "follower_died_baseline_alive": 1
+        }
+      },
+      "nonattentive_deaths": {
+        "incumbent": {
+          "(False, 'starvation')": 376,
+          "(False, 'energy_collapse')": 24
+        },
+        "additive": {
+          "(False, 'starvation')": 377,
+          "(False, 'energy_collapse')": 23
+        },
+        "follower": {
+          "(False, 'starvation')": 377,
+          "(False, 'energy_collapse')": 23
+        }
+      },
+      "prior_report_binding_valid": true,
+      "prior_manifest_binding_valid": true
+    },
+    "focused_tests": {
+      "rollout": 14,
+      "startup": 20,
+      "native_entry": 4,
+      "learning_policy": 9,
+      "total": 47
+    },
+    "red": {
+      "tests": 13,
+      "failures": 1,
+      "errors": 12,
+      "log": ".development/x7-v2/learning/red.log"
+    },
+    "green_log": ".development/x7-v2/learning/green-02.log",
+    "source_processes": {
+      "report": ".development/x7-v2/learning/source-02/report.json",
+      "checks": {
+        "builtin_native_default_qtable": true,
+        "saved_qtable_continues": true,
+        "qtable_conflict_preserves_every_file": true,
+        "incumbent_opt_out": true,
+        "saved_incumbent_continues": true,
+        "incumbent_conflict_preserves_every_file": true,
+        "explicit_new_without_override_keeps_prior_policy": true,
+        "custom_omitted_policy_stays_incumbent": true,
+        "custom_explicit_qtable_available": true,
+        "real_no_care_starvation": true,
+        "genuine_death_cold_successor": true,
+        "real_care_trains_current_life": true,
+        "restart_matches_exact_trained_continuation": true,
+        "active_restart_continues_learning": true,
+        "real_display_observed": true,
+        "source_unchanged_during_verification": true
+      },
+      "launches": 12,
+      "successful_windows_sdl_launches": 10,
+      "pre_window_conflict_refusals": 2,
+      "elapsed_seconds": 8.097434499999508,
+      "source_sha256": {
+        "game/src/mecha_game/startup.py": "41ae7f05ee47250ecd7b23326c06986eea1b6faf5c39dafec0a851ac71e453af",
+        "game/src/mecha_game/entry.py": "967246b5f53a35f1a2bb2eaa307c365c5ede4b1925e646da3dcb050d8a1b619c",
+        "game/src/mecha_game/session.py": "265f4d35fa889916223bc41390bdc54c178e2cd9071901cdf6a289cb3bd1e378",
+        "game/src/mecha_game/native_ui.py": "40e6f787d0181b9db80edd6e9ce4458d3e9538358457415142368bab34bf34ed",
+        "game/src/mecha_game/app.py": "23345ef95f1bfd08e0b9b354a49d02145a1f5da604900b76e714f80b62b147fb",
+        "labs/game_loop/verify_learning_rollout.py": "a84716822d31d8813a9922949452077c44ef7873776b4e72f14b4b71e5bac83a"
+      }
+    },
+    "retained_verifier_failure": {
+      "report": ".development/x7-v2/learning/source-01/report.json",
+      "failure": {
+        "type": "AssertionError",
+        "detail": "paused_restart_preserves_exact_trained_state"
+      },
+      "elapsed_seconds": 7.9631092000054196,
+      "diagnosis": "Preparation continues care; corrected verifier compares exact saved-state continuation after one real resumed tick. No product/threshold change."
+    },
+    "cumulative_source_verification_seconds": 16.060543700004928
+  },
+  "closed_states": [
+    "qualified_native_entry",
+    "custom_context_default_bound",
+    "saved_policy_continuity",
+    "cold_new_lives",
+    "trained_restart_exact",
+    "real_no_care_starvation_and_child",
+    "native_new_toggle_consumed"
+  ],
+  "blocked_states": [
+    "final_fresh_native_bundle_verification",
+    "final_aggregate_and_preservation_review",
+    "exact_published_sha_remote_ci",
+    "human_tolerance_unmeasured",
+    "care_descendant_goal_independent"
+  ],
+  "decision": {
+    "verdict": "SOURCE_VERIFIED",
+    "scope": "Built-in fresh native default and explicit New choice only; final release remains separate."
+  },
+  "next_research_step": "Integration owner runs final fresh native verifier, aggregate/artifact/preservation/diff checks without rerunning historical science."
+}

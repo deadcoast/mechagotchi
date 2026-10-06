@@ -1,0 +1,5777 @@
+{
+  "schema_version": 1,
+  "scope": "X3 selected-Keeper source/API and native-process integration",
+  "passed": true,
+  "checks": {
+    "distinct_native_contexts": true,
+    "selected_exact_document_preview": true,
+    "release_is_staging": true,
+    "released_semantics_preserved": true,
+    "release_context_provenance": true,
+    "other_keeper_unchanged_during_authoring": true,
+    "export_exact_composition": true,
+    "all_format_valid_items_staged": true,
+    "incompatibility_reported_before_era": true,
+    "first_keeper_unchanged_by_second_import": true,
+    "tampered_review_refused_without_writes": true,
+    "owned_api_servers_closed": true,
+    "second-keeper-covenant-era_exit_and_fit": true,
+    "second-keeper-covenant-era_workers_joined": true,
+    "first_keeper_unchanged_by_second_era": true,
+    "restart_context_available": true,
+    "imported_covenant_applied": true,
+    "selected_release_actually_admitted": true,
+    "incompatible_release_actually_refused": true,
+    "full_admitted_source_survives_restart": true,
+    "full_refused_source_survives_restart": true,
+    "recorded_elites_inspectable": true,
+    "restart-archive_exit_and_fit": true,
+    "restart-archive_workers_joined": true,
+    "native-source-creator_exit_and_fit": true,
+    "native-source-creator_workers_joined": true,
+    "creator_view_paused_care": true,
+    "restart_exact_elite_selection": true,
+    "http_restart_actual_admission": true,
+    "native_launch": true,
+    "native_resume": true,
+    "first_keeper_unchanged_by_native_second": true,
+    "native_restart_campaign_coherent": true
+  },
+  "flows": [
+    {
+      "label": "second-keeper-covenant-era",
+      "scale": 16,
+      "code": 0,
+      "pages": [
+        {
+          "batch": 0,
+          "all": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "1/1  pack_x3_exchange_x3_shared_covenant.json",
+            "Covenant: x3_shared_covenant",
+            "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+            "Engine validation and seed compatibility are checked on import.",
+            "Folder: .development\\x3\\demo-02\\keepers\\keeper-b\\covenants",
+            "Home/End first/last; PgUp/PgDn or wheel pages details"
+          ],
+          "visible": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; Enter imports",
+            "I/Escape back; F5 refresh; F1 help",
+            "1/1 pack_x3_exchange_x3_shared_covenant.json",
+            "Covenant: x3_shared_covenant",
+            "Applies to future eras/hatches/adoptions; your pet",
+            "keeps its covenant.",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ],
+          "page": 0,
+          "pages": 2,
+          "fits": true
+        },
+        {
+          "batch": 1,
+          "all": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; import complete",
+            "I/Escape back; F5 refresh; F1 help",
+            "Covenant imported (4 seeds).",
+            "Future eras use it; your current pet is unchanged.",
+            "1/1  pack_x3_exchange_x3_shared_covenant.json",
+            "Covenant: x3_shared_covenant",
+            "Applies to future eras/hatches/adoptions; your pet keeps its covenant.",
+            "Engine validation and seed compatibility are checked on import.",
+            "Already imported here. Choose another file or return.",
+            "Folder: .development\\x3\\demo-02\\keepers\\keeper-b\\covenants",
+            "Home/End first/last; PgUp/PgDn or wheel pages details"
+          ],
+          "visible": [
+            "COVENANT INBOX - care paused",
+            ", . / arrows select; import complete",
+            "I/Escape back; F5 refresh; F1 help",
+            "Covenant imported (4 seeds).",
+            "Future eras use it; your current pet is unchanged.",
+            "1/1 pack_x3_exchange_x3_shared_covenant.json",
+            "Covenant: x3_shared_covenant",
+            "PgUp/PgDn \u00b7 wheel   1/3"
+          ],
+          "page": 0,
+          "pages": 3,
+          "fits": true
+        },
+        {
+          "batch": 2,
+          "all": [
+            "campaign resumed at era 1",
+            "health 0.41 (hungry)   mood curious   age 1   life 1",
+            "F feed  P play  S sleep",
+            "stress 0.15   bond 0.69",
+            "felt curious (0.16)",
+            "Policy: incumbent",
+            "cleanliness 0.99   G clean",
+            "NEXT ERA [calm]: 0 staged",
+            "J creator   H hatch preview   O origin   F1 controls",
+            "Ctrl+S save  T report  E era  C covenant",
+            "1-5 weather   R stage current pet   W gather   Backspace unstage"
+          ],
+          "visible": [
+            "campaign resumed at era 1",
+            "health 0.41 (hungry) mood curious age 1 life 1",
+            "F feed P play S sleep",
+            "stress 0.15 bond 0.69",
+            "felt curious (0.16)",
+            "Policy: incumbent",
+            "cleanliness 0.99 G clean",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ],
+          "page": 0,
+          "pages": 2,
+          "fits": true
+        },
+        {
+          "batch": 3,
+          "all": [
+            "Staged 2; 2 ready for the next era. Your companion stays with you.",
+            "health 0.31 (hungry)   mood curious   age 2   life 1",
+            "F feed  P play  S sleep",
+            "stress 0.12   bond 0.76",
+            "felt curious (0.39)   hunger\u21920.52",
+            "Policy: incumbent",
+            "cleanliness 0.98   G clean",
+            "NEXT ERA [calm]: 2 staged",
+            "J creator   H hatch preview   O origin   F1 controls",
+            "Ctrl+S save  T report  E era  C covenant",
+            "1-5 weather   R stage current pet   W gather   Backspace unstage"
+          ],
+          "visible": [
+            "Staged 2; 2 ready for the next era. Your companion",
+            "stays with you.",
+            "health 0.31 (hungry) mood curious age 2 life 1",
+            "F feed P play S sleep",
+            "stress 0.12 bond 0.76",
+            "felt curious (0.39) hunger\u21920.52",
+            "Policy: incumbent",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ],
+          "page": 0,
+          "pages": 2,
+          "fits": true
+        },
+        {
+          "batch": 4,
+          "all": [
+            "ERA RUNNING - care paused",
+            "Loading models",
+            "Escape cancel   F1 help"
+          ],
+          "visible": [
+            "ERA RUNNING - care paused",
+            "Loading models",
+            "Escape cancel F1 help"
+          ],
+          "page": 0,
+          "pages": 1,
+          "fits": true
+        },
+        {
+          "batch": 4,
+          "all": [
+            "ERA RUNNING - care paused",
+            "Loading models",
+            "Escape cancel   F1 help"
+          ],
+          "visible": [
+            "ERA RUNNING - care paused",
+            "Loading models",
+            "Escape cancel F1 help"
+          ],
+          "page": 0,
+          "pages": 1,
+          "fits": true
+        },
+        {
+          "batch": 4,
+          "all": [
+            "ERA RUNNING - care paused",
+            "Evaluating candidates",
+            "Evaluations 0/12 completed",
+            "Escape cancel   F1 help"
+          ],
+          "visible": [
+            "ERA RUNNING - care paused",
+            "Evaluating candidates",
+            "Evaluations 0/12 completed",
+            "Escape cancel F1 help"
+          ],
+          "page": 0,
+          "pages": 1,
+          "fits": true
+        },
+        {
+          "batch": 4,
+          "all": [
+            "ERA RUNNING - care paused",
+            "Evaluating candidates",
+            "Evaluations 0/12 completed",
+            "Escape cancel   F1 help"
+          ],
+          "visible": [
+            "ERA RUNNING - care paused",
+            "Evaluating candidates",
+            "Evaluations 0/12 completed",
+            "Escape cancel F1 help"
+          ],
+          "page": 0,
+          "pages": 1,
+          "fits": true
+        },
+        {
+          "batch": 4,
+          "all": [
+            "ERA RUNNING - care paused",
+            "Evaluating candidates",
+            "Evaluations 4/12 completed",
+            "Escape cancel   F1 help"
+          ],
+          "visible": [
+            "ERA RUNNING - care paused",
+            "Evaluating candidates",
+            "Evaluations 4/12 completed",
+            "Escape cancel F1 help"
+          ],
+          "page": 0,
+          "pages": 1,
+          "fits": true
+        },
+        {
+          "batch": 4,
+          "all": [
+            "ERA RUNNING - care paused",
+            "Evaluating candidates",
+            "Evaluations 6/12 completed",
+            "Escape cancel   F1 help"
+          ],
+          "visible": [
+            "ERA RUNNING - care paused",
+            "Evaluating candidates",
+            "Evaluations 6/12 completed",
+            "Escape cancel F1 help"
+          ],
+          "page": 0,
+          "pages": 1,
+          "fits": true
+        },
+        {
+          "batch": 4,
+          "all": [
+            "ERA RUNNING - care paused",
+            "Evaluating candidates",
+            "Evaluations 8/12 completed",
+            "Escape cancel   F1 help"
+          ],
+          "visible": [
+            "ERA RUNNING - care paused",
+            "Evaluating candidates",
+            "Evaluations 8/12 completed",
+            "Escape cancel F1 help"
+          ],
+          "page": 0,
+          "pages": 1,
+          "fits": true
+        },
+        {
+          "batch": 4,
+          "all": [
+            "ERA RUNNING - care paused",
+            "Evaluating candidates",
+            "Evaluations 9/12 completed",
+            "Escape cancel   F1 help"
+          ],
+          "visible": [
+            "ERA RUNNING - care paused",
+            "Evaluating candidates",
+            "Evaluations 9/12 completed",
+            "Escape cancel F1 help"
+          ],
+          "page": 0,
+          "pages": 1,
+          "fits": true
+        },
+        {
+          "batch": 4,
+          "all": [
+            "ERA RUNNING - care paused",
+            "Evaluating candidates",
+            "Evaluations 10/12 completed",
+            "Escape cancel   F1 help"
+          ],
+          "visible": [
+            "ERA RUNNING - care paused",
+            "Evaluating candidates",
+            "Evaluations 10/12 completed",
+            "Escape cancel F1 help"
+          ],
+          "page": 0,
+          "pages": 1,
+          "fits": true
+        },
+        {
+          "batch": 4,
+          "all": [
+            "ERA RUNNING - care paused",
+            "Evaluating candidates",
+            "Evaluations 12/12 completed",
+            "Escape cancel   F1 help"
+          ],
+          "visible": [
+            "ERA RUNNING - care paused",
+            "Evaluating candidates",
+            "Evaluations 12/12 completed",
+            "Escape cancel F1 help"
+          ],
+          "page": 0,
+          "pages": 1,
+          "fits": true
+        },
+        {
+          "batch": 4,
+          "all": [
+            "ERA RUNNING - care paused",
+            "Saving completed era",
+            "Evaluations 12/12 completed",
+            "Saving result; please wait."
+          ],
+          "visible": [
+            "ERA RUNNING - care paused",
+            "Saving completed era",
+            "Evaluations 12/12 completed",
+            "Saving result; please wait."
+          ],
+          "page": 0,
+          "pages": 1,
+          "fits": true
+        },
+        {
+          "batch": 4,
+          "all": [
+            "ERA RUNNING - care paused",
+            "Saving completed era",
+            "Evaluations 12/12 completed",
+            "Saving result; please wait."
+          ],
+          "visible": [
+            "ERA RUNNING - care paused",
+            "Saving completed era",
+            "Evaluations 12/12 completed",
+            "Saving result; please wait."
+          ],
+          "page": 0,
+          "pages": 1,
+          "fits": true
+        },
+        {
+          "batch": 4,
+          "all": [
+            "ERA RUNNING - care paused",
+            "Saving completed era",
+            "Evaluations 12/12 completed",
+            "Saving result; please wait."
+          ],
+          "visible": [
+            "ERA RUNNING - care paused",
+            "Saving completed era",
+            "Evaluations 12/12 completed",
+            "Saving result; please wait."
+          ],
+          "page": 0,
+          "pages": 1,
+          "fits": true
+        },
+        {
+          "batch": 4,
+          "all": [
+            "ERA RUNNING - care paused",
+            "Saving completed era",
+            "Evaluations 12/12 completed",
+            "Saving result; please wait."
+          ],
+          "visible": [
+            "ERA RUNNING - care paused",
+            "Saving completed era",
+            "Evaluations 12/12 completed",
+            "Saving result; please wait."
+          ],
+          "page": 0,
+          "pages": 1,
+          "fits": true
+        },
+        {
+          "batch": 4,
+          "all": [
+            "ERA RUNNING - care paused",
+            "Saving completed era",
+            "Evaluations 12/12 completed",
+            "Saving result; please wait."
+          ],
+          "visible": [
+            "ERA RUNNING - care paused",
+            "Saving completed era",
+            "Evaluations 12/12 completed",
+            "Saving result; please wait."
+          ],
+          "page": 0,
+          "pages": 1,
+          "fits": true
+        },
+        {
+          "batch": 4,
+          "all": [
+            "ERA RUNNING - care paused",
+            "Saving completed era",
+            "Evaluations 12/12 completed",
+            "Saving result; please wait."
+          ],
+          "visible": [
+            "ERA RUNNING - care paused",
+            "Saving completed era",
+            "Evaluations 12/12 completed",
+            "Saving result; please wait."
+          ],
+          "page": 0,
+          "pages": 1,
+          "fits": true
+        },
+        {
+          "batch": 4,
+          "all": [
+            "ERA RUNNING - care paused",
+            "Saving completed era",
+            "Evaluations 12/12 completed",
+            "Saving result; please wait."
+          ],
+          "visible": [
+            "ERA RUNNING - care paused",
+            "Saving completed era",
+            "Evaluations 12/12 completed",
+            "Saving result; please wait."
+          ],
+          "page": 0,
+          "pages": 1,
+          "fits": true
+        },
+        {
+          "batch": 4,
+          "all": [
+            "ERA 1 [calm]   2/2",
+            "CAMPAIGN keeper-a2b2e232276b475f9b7c77cd2b07065a  1/1",
+            "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+            "bloodline continued; generations 2/2",
+            "Niches 10   coverage 0.000128",
+            "QD 7.538696   lineage depth 2",
+            "NEXT ERA [calm]: 0 staged",
+            "B archive   V replay   C covenant   E era",
+            "UNLOCKS EARNED THIS ERA: 0",
+            "No new unlocks. Previously earned tiers remain available.",
+            "WEATHER RECORD",
+            "No CuBFF multiplier recorded; base era damage still applies.",
+            "FOUNDERS: 13 admitted; 1 refused",
+            "ADMITTED: x3_selected_release",
+            "ADMITTED: gen_7fb78fb90f4fc25c_c01",
+            "ADMITTED: gen_64239f61a5184ee0_c01",
+            "ADMITTED: gen_7cd711fcb7fd4b07_c01",
+            "ADMITTED: gen_2642fff20af1431f_c01",
+            "ADMITTED: gen_e1154e103845d449_c01",
+            "ADMITTED: gen_1b4abce013125f00_c01",
+            "ADMITTED: gen_b4dbff4dfd13e6e1_c01",
+            "ADMITTED: gen_6befcac227a80a72_c01",
+            "ADMITTED: gen_97fb426e5aa736f4_c01",
+            "ADMITTED: gen_23c074d5963a2cce_c01",
+            "ADMITTED: gen_0f81d7329a8f5403_c01",
+            "ADMITTED: gen_d579b2a6e7020043_c01",
+            "x3_valid_but_incompatible: palette gameboy_gray not allowed by SLIP",
+            "These are recorded era results; viewing them does not run the soup.",
+            "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+            "Recorded predecessor: none",
+            "Original best-elite evaluation recorded.",
+            "1-5 weather   R stage current pet   W gather   Backspace unstage"
+          ],
+          "visible": [
+            "ERA 1 [calm] 2/2",
+            "CAMPAIGN",
+            "keeper-a2b2e232276b475f9b7c77cd2b07065a 1/1",
+            "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+            "bloodline continued; generations 2/2",
+            "Niches 10 coverage 0.000128",
+            "QD 7.538696 lineage depth 2",
+            "PgUp/PgDn \u00b7 wheel   1/6"
+          ],
+          "page": 0,
+          "pages": 6,
+          "fits": true
+        },
+        {
+          "batch": 5,
+          "all": [
+            "REPORT HELP - care paused",
+            "F1/Escape returns to the same reading page",
+            "PgUp/PgDn or wheel pages this help; Ctrl+S saves",
+            "[ ] or , . select era; Ctrl+[ ] recorded campaigns",
+            "B selected archive; V original recording when saved",
+            "T/Escape closes reports; C active covenant; E next era",
+            "1-5 weather; R stage pet; W gather; Backspace unstage",
+            "Preparation applies to the active campaign.",
+            "Unavailable reports permit reading and navigation only.",
+            "Campaign links do not infer ancestry."
+          ],
+          "visible": [
+            "REPORT HELP - care paused",
+            "F1/Escape returns to the same reading page",
+            "PgUp/PgDn or wheel pages this help; Ctrl+S saves",
+            "[ ] or , . select era; Ctrl+[ ] recorded campaigns",
+            "B selected archive; V original recording when",
+            "saved",
+            "T/Escape closes reports; C active covenant; E next",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ],
+          "page": 0,
+          "pages": 2,
+          "fits": true
+        },
+        {
+          "batch": 6,
+          "all": [
+            "ERA 1 [calm]   2/2",
+            "CAMPAIGN keeper-a2b2e232276b475f9b7c77cd2b07065a  1/1",
+            "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+            "bloodline continued; generations 2/2",
+            "Niches 10   coverage 0.000128",
+            "QD 7.538696   lineage depth 2",
+            "NEXT ERA [calm]: 0 staged",
+            "B archive   V replay   C covenant   E era",
+            "UNLOCKS EARNED THIS ERA: 0",
+            "No new unlocks. Previously earned tiers remain available.",
+            "WEATHER RECORD",
+            "No CuBFF multiplier recorded; base era damage still applies.",
+            "FOUNDERS: 13 admitted; 1 refused",
+            "ADMITTED: x3_selected_release",
+            "ADMITTED: gen_7fb78fb90f4fc25c_c01",
+            "ADMITTED: gen_64239f61a5184ee0_c01",
+            "ADMITTED: gen_7cd711fcb7fd4b07_c01",
+            "ADMITTED: gen_2642fff20af1431f_c01",
+            "ADMITTED: gen_e1154e103845d449_c01",
+            "ADMITTED: gen_1b4abce013125f00_c01",
+            "ADMITTED: gen_b4dbff4dfd13e6e1_c01",
+            "ADMITTED: gen_6befcac227a80a72_c01",
+            "ADMITTED: gen_97fb426e5aa736f4_c01",
+            "ADMITTED: gen_23c074d5963a2cce_c01",
+            "ADMITTED: gen_0f81d7329a8f5403_c01",
+            "ADMITTED: gen_d579b2a6e7020043_c01",
+            "x3_valid_but_incompatible: palette gameboy_gray not allowed by SLIP",
+            "These are recorded era results; viewing them does not run the soup.",
+            "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+            "Recorded predecessor: none",
+            "Original best-elite evaluation recorded.",
+            "1-5 weather   R stage current pet   W gather   Backspace unstage"
+          ],
+          "visible": [
+            "ERA 1 [calm] 2/2",
+            "CAMPAIGN",
+            "keeper-a2b2e232276b475f9b7c77cd2b07065a 1/1",
+            "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+            "bloodline continued; generations 2/2",
+            "Niches 10 coverage 0.000128",
+            "QD 7.538696 lineage depth 2",
+            "PgUp/PgDn \u00b7 wheel   1/6"
+          ],
+          "page": 0,
+          "pages": 6,
+          "fits": true
+        },
+        {
+          "batch": 7,
+          "all": [
+            "ERA 1 [calm]   2/2",
+            "CAMPAIGN keeper-a2b2e232276b475f9b7c77cd2b07065a  1/1",
+            "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+            "bloodline continued; generations 2/2",
+            "Niches 10   coverage 0.000128",
+            "QD 7.538696   lineage depth 2",
+            "NEXT ERA [calm]: 0 staged",
+            "B archive   V replay   C covenant   E era",
+            "UNLOCKS EARNED THIS ERA: 0",
+            "No new unlocks. Previously earned tiers remain available.",
+            "WEATHER RECORD",
+            "No CuBFF multiplier recorded; base era damage still applies.",
+            "FOUNDERS: 13 admitted; 1 refused",
+            "ADMITTED: x3_selected_release",
+            "ADMITTED: gen_7fb78fb90f4fc25c_c01",
+            "ADMITTED: gen_64239f61a5184ee0_c01",
+            "ADMITTED: gen_7cd711fcb7fd4b07_c01",
+            "ADMITTED: gen_2642fff20af1431f_c01",
+            "ADMITTED: gen_e1154e103845d449_c01",
+            "ADMITTED: gen_1b4abce013125f00_c01",
+            "ADMITTED: gen_b4dbff4dfd13e6e1_c01",
+            "ADMITTED: gen_6befcac227a80a72_c01",
+            "ADMITTED: gen_97fb426e5aa736f4_c01",
+            "ADMITTED: gen_23c074d5963a2cce_c01",
+            "ADMITTED: gen_0f81d7329a8f5403_c01",
+            "ADMITTED: gen_d579b2a6e7020043_c01",
+            "x3_valid_but_incompatible: palette gameboy_gray not allowed by SLIP",
+            "These are recorded era results; viewing them does not run the soup.",
+            "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+            "Recorded predecessor: none",
+            "Original best-elite evaluation recorded.",
+            "1-5 weather   R stage current pet   W gather   Backspace unstage"
+          ],
+          "visible": [
+            "ERA 1 [calm] 2/2",
+            "CAMPAIGN",
+            "keeper-a2b2e232276b475f9b7c77cd2b07065a 1/1",
+            "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+            "bloodline continued; generations 2/2",
+            "Niches 10 coverage 0.000128",
+            "QD 7.538696 lineage depth 2",
+            "PgUp/PgDn \u00b7 wheel   1/6"
+          ],
+          "page": 0,
+          "pages": 6,
+          "fits": true
+        }
+      ],
+      "frames": 25,
+      "screenshots": [
+        ".development/x3/demo-02/screenshots/second-keeper-covenant-era-00.png",
+        ".development/x3/demo-02/screenshots/second-keeper-covenant-era-01.png",
+        ".development/x3/demo-02/screenshots/second-keeper-covenant-era-02.png",
+        ".development/x3/demo-02/screenshots/second-keeper-covenant-era-03.png",
+        ".development/x3/demo-02/screenshots/second-keeper-covenant-era-04.png",
+        ".development/x3/demo-02/screenshots/second-keeper-covenant-era-05.png",
+        ".development/x3/demo-02/screenshots/second-keeper-covenant-era-06.png",
+        ".development/x3/demo-02/screenshots/second-keeper-covenant-era-07.png"
+      ],
+      "joins": [
+        {
+          "kind": "era",
+          "alive": false,
+          "status": {
+            "phase": "Saving completed era",
+            "completed": 12,
+            "budget": 12,
+            "committing": true,
+            "cancelling": false,
+            "done": true
+          }
+        },
+        {
+          "kind": "era",
+          "alive": false,
+          "status": {
+            "phase": "Saving completed era",
+            "completed": 12,
+            "budget": 12,
+            "committing": true,
+            "cancelling": false,
+            "done": true
+          }
+        }
+      ],
+      "busy_polls": 17,
+      "max_busy_poll_gap_s": 0.040111999958753586,
+      "max_outer_poll_gap_s": 0.6511280999984592
+    },
+    {
+      "label": "restart-archive",
+      "scale": 16,
+      "code": 0,
+      "pages": [
+        {
+          "batch": 0,
+          "all": [
+            "ERA 1 [calm]   2/2",
+            "CAMPAIGN keeper-a2b2e232276b475f9b7c77cd2b07065a  1/1",
+            "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+            "bloodline continued; generations 2/2",
+            "Niches 10   coverage 0.000128",
+            "QD 7.538696   lineage depth 2",
+            "NEXT ERA [calm]: 0 staged",
+            "B archive   V replay   C covenant   E era",
+            "UNLOCKS EARNED THIS ERA: 0",
+            "No new unlocks. Previously earned tiers remain available.",
+            "WEATHER RECORD",
+            "No CuBFF multiplier recorded; base era damage still applies.",
+            "FOUNDERS: 13 admitted; 1 refused",
+            "ADMITTED: x3_selected_release",
+            "ADMITTED: gen_7fb78fb90f4fc25c_c01",
+            "ADMITTED: gen_64239f61a5184ee0_c01",
+            "ADMITTED: gen_7cd711fcb7fd4b07_c01",
+            "ADMITTED: gen_2642fff20af1431f_c01",
+            "ADMITTED: gen_e1154e103845d449_c01",
+            "ADMITTED: gen_1b4abce013125f00_c01",
+            "ADMITTED: gen_b4dbff4dfd13e6e1_c01",
+            "ADMITTED: gen_6befcac227a80a72_c01",
+            "ADMITTED: gen_97fb426e5aa736f4_c01",
+            "ADMITTED: gen_23c074d5963a2cce_c01",
+            "ADMITTED: gen_0f81d7329a8f5403_c01",
+            "ADMITTED: gen_d579b2a6e7020043_c01",
+            "x3_valid_but_incompatible: palette gameboy_gray not allowed by SLIP",
+            "These are recorded era results; viewing them does not run the soup.",
+            "Ctrl+[ / Ctrl+] recorded campaigns; [ ] eras",
+            "Recorded predecessor: none",
+            "Original best-elite evaluation recorded.",
+            "1-5 weather   R stage current pet   W gather   Backspace unstage"
+          ],
+          "visible": [
+            "ERA 1 [calm] 2/2",
+            "CAMPAIGN",
+            "keeper-a2b2e232276b475f9b7c77cd2b07065a 1/1",
+            "Care paused. [ ] eras; Ctrl+[ ] campaigns; T close",
+            "bloodline continued; generations 2/2",
+            "Niches 10 coverage 0.000128",
+            "QD 7.538696 lineage depth 2",
+            "PgUp/PgDn \u00b7 wheel   1/6"
+          ],
+          "page": 0,
+          "pages": 6,
+          "fits": true
+        },
+        {
+          "batch": 1,
+          "all": [
+            "REPERTOIRE  era 1 [calm]  1/10  gen_ed8d36b76874ce4f_c01  fitness 0.732  gen 1",
+            "N niche history   B/Escape back   F1 help",
+            "Care paused. , . creatures   [ ] eras",
+            "A adopt with current covenant   V recording",
+            "Replay unavailable: This selected elite was not recorded; only the final best elite has original footage.",
+            "T selected report   campaign keeper-a2b2e232276b475f9b7c77cd2b07065a",
+            "body_mass 0  sensor_count 0  symmetry 2  readability 0  lifecycle_survival 4  mutation_stability 3  behavior_neediness 1",
+            "bond 1.000  mutation_stability 0.717  readability 0.000  slip_alignment 1.000  survival 1.000  validity 1.000"
+          ],
+          "visible": [
+            "REPERTOIRE era 1 [calm] 1/10",
+            "gen_ed8d36b76874ce4f_c01 fitness 0.732 gen 1",
+            "N niche history B/Escape back F1 help",
+            "Care paused. , . creatures [ ] eras",
+            "A adopt with current covenant V recording",
+            "Replay unavailable: This selected elite was not",
+            "recorded; only the final best elite has original",
+            "PgUp/PgDn \u00b7 wheel   1/3"
+          ],
+          "page": 0,
+          "pages": 3,
+          "fits": true
+        },
+        {
+          "batch": 2,
+          "all": [
+            "ARCHIVE HELP - care paused",
+            "F1/Escape returns to the same reading page",
+            "PgUp/PgDn or wheel pages this help; Ctrl+S saves",
+            ", . select creatures; [ ] select era",
+            "N exact seven-axis niche history",
+            "A adopts selected creature with the current covenant",
+            "V saved original recording; T selected report",
+            "B/Escape back",
+            "Missing recordings are not reconstructed.",
+            "Matching niche labels do not infer ancestry."
+          ],
+          "visible": [
+            "ARCHIVE HELP - care paused",
+            "F1/Escape returns to the same reading page",
+            "PgUp/PgDn or wheel pages this help; Ctrl+S saves",
+            ", . select creatures; [ ] select era",
+            "N exact seven-axis niche history",
+            "A adopts selected creature with the current",
+            "covenant",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ],
+          "page": 0,
+          "pages": 2,
+          "fits": true
+        },
+        {
+          "batch": 3,
+          "all": [
+            "ARCHIVE HELP - care paused",
+            "F1/Escape returns to the same reading page",
+            "PgUp/PgDn or wheel pages this help; Ctrl+S saves",
+            ", . select creatures; [ ] select era",
+            "N exact seven-axis niche history",
+            "A adopts selected creature with the current covenant",
+            "V saved original recording; T selected report",
+            "B/Escape back",
+            "Missing recordings are not reconstructed.",
+            "Matching niche labels do not infer ancestry."
+          ],
+          "visible": [
+            "ARCHIVE HELP - care paused",
+            "F1/Escape returns to the same reading page",
+            "PgUp/PgDn or wheel pages this help; Ctrl+S saves",
+            ", . select creatures; [ ] select era",
+            "N exact seven-axis niche history",
+            "A adopts selected creature with the current",
+            "covenant",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ],
+          "page": 0,
+          "pages": 2,
+          "fits": true
+        }
+      ],
+      "frames": 4,
+      "screenshots": [
+        ".development/x3/demo-02/screenshots/restart-archive-00.png",
+        ".development/x3/demo-02/screenshots/restart-archive-01.png",
+        ".development/x3/demo-02/screenshots/restart-archive-02.png",
+        ".development/x3/demo-02/screenshots/restart-archive-03.png"
+      ],
+      "joins": [],
+      "busy_polls": 0,
+      "max_busy_poll_gap_s": 0,
+      "max_outer_poll_gap_s": 0.06228199996985495
+    },
+    {
+      "label": "native-source-creator",
+      "scale": 16,
+      "code": 0,
+      "pages": [
+        {
+          "batch": 0,
+          "all": [
+            "Creator opened for this Keeper.",
+            "CREATOR - this Keeper; care paused",
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\x3\\demo-02\\keepers\\keeper-b",
+            "http://127.0.0.1:12204/",
+            "J/Escape back to care; Enter reopens browser; F1 help",
+            "Create or remix, preview, release, and exchange named packs.",
+            "W gathers this Keeper's released creatures after returning.",
+            "E runs the prepared era; T shows actual admission and results.",
+            "Workshop closes when this game exits. Unsaved drafts stay here."
+          ],
+          "visible": [
+            "Creator opened for this Keeper.",
+            "CREATOR - this Keeper; care paused",
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.devel",
+            "opment\\x3\\demo-02\\keepers\\keeper-b",
+            "http://127.0.0.1:12204/",
+            "J/Escape back to care; Enter reopens browser; F1",
+            "help",
+            "PgUp/PgDn \u00b7 wheel   1/3"
+          ],
+          "page": 0,
+          "pages": 3,
+          "fits": true
+        },
+        {
+          "batch": 1,
+          "all": [
+            "Creator opened for this Keeper.",
+            "CREATOR - this Keeper; care paused",
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.development\\x3\\demo-02\\keepers\\keeper-b",
+            "http://127.0.0.1:12204/",
+            "J/Escape back to care; Enter reopens browser; F1 help",
+            "Create or remix, preview, release, and exchange named packs.",
+            "W gathers this Keeper's released creatures after returning.",
+            "E runs the prepared era; T shows actual admission and results.",
+            "Workshop closes when this game exits. Unsaved drafts stay here."
+          ],
+          "visible": [
+            "Creator opened for this Keeper.",
+            "CREATOR - this Keeper; care paused",
+            "C:\\Users\\ryanf\\github\\_shelved\\mechagotchi\\.devel",
+            "opment\\x3\\demo-02\\keepers\\keeper-b",
+            "http://127.0.0.1:12204/",
+            "J/Escape back to care; Enter reopens browser; F1",
+            "help",
+            "PgUp/PgDn \u00b7 wheel   1/3"
+          ],
+          "page": 0,
+          "pages": 3,
+          "fits": true
+        },
+        {
+          "batch": 2,
+          "all": [
+            "Creator opened for this Keeper.",
+            "health 0.31 (hungry)   mood curious   age 2   life 1",
+            "F feed  P play  S sleep",
+            "stress 0.12   bond 0.76",
+            "felt curious (0.39)   hunger\u21920.52",
+            "Policy: incumbent",
+            "cleanliness 0.98   G clean",
+            "NEXT ERA [calm]: 0 staged",
+            "J creator   H hatch preview   O origin   F1 controls",
+            "Ctrl+S save  T report  E era  C covenant",
+            "1-5 weather   R stage current pet   W gather   Backspace unstage"
+          ],
+          "visible": [
+            "Creator opened for this Keeper.",
+            "health 0.31 (hungry) mood curious age 2 life 1",
+            "F feed P play S sleep",
+            "stress 0.12 bond 0.76",
+            "felt curious (0.39) hunger\u21920.52",
+            "Policy: incumbent",
+            "cleanliness 0.98 G clean",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ],
+          "page": 0,
+          "pages": 2,
+          "fits": true
+        },
+        {
+          "batch": 3,
+          "all": [
+            "Creator opened for this Keeper.",
+            "health 0.31 (hungry)   mood curious   age 2   life 1",
+            "F feed  P play  S sleep",
+            "stress 0.12   bond 0.76",
+            "felt curious (0.39)   hunger\u21920.52",
+            "Policy: incumbent",
+            "cleanliness 0.98   G clean",
+            "NEXT ERA [calm]: 0 staged",
+            "J creator   H hatch preview   O origin   F1 controls",
+            "Ctrl+S save  T report  E era  C covenant",
+            "1-5 weather   R stage current pet   W gather   Backspace unstage"
+          ],
+          "visible": [
+            "Creator opened for this Keeper.",
+            "health 0.31 (hungry) mood curious age 2 life 1",
+            "F feed P play S sleep",
+            "stress 0.12 bond 0.76",
+            "felt curious (0.39) hunger\u21920.52",
+            "Policy: incumbent",
+            "cleanliness 0.98 G clean",
+            "PgUp/PgDn \u00b7 wheel   1/2"
+          ],
+          "page": 0,
+          "pages": 2,
+          "fits": true
+        }
+      ],
+      "frames": 4,
+      "screenshots": [
+        ".development/x3/demo-02/screenshots/native-source-creator-00.png",
+        ".development/x3/demo-02/screenshots/native-source-creator-01.png",
+        ".development/x3/demo-02/screenshots/native-source-creator-02.png",
+        ".development/x3/demo-02/screenshots/native-source-creator-03.png"
+      ],
+      "joins": [],
+      "busy_polls": 0,
+      "max_busy_poll_gap_s": 0,
+      "max_outer_poll_gap_s": 0.0900156000861898
+    }
+  ],
+  "responses": {
+    "release": {
+      "document": {
+        "format": "mecha_workshop_document_v1",
+        "grid": {
+          "grid_id": "x3_selected_release",
+          "schema_version": "0.1.0",
+          "parent_grid_id": null,
+          "grid_size": [
+            16,
+            16
+          ],
+          "cells": [
+            {
+              "x": 4,
+              "y": 1,
+              "visual": "#d8ffd6",
+              "role": "sensor",
+              "material": "signal",
+              "mutation_weight": 0.613,
+              "animation_anchor": false,
+              "organ": "antennae",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 11,
+              "y": 1,
+              "visual": "#d8ffd6",
+              "role": "sensor",
+              "material": "signal",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "antennae",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 2,
+              "visual": "#d8ffd6",
+              "role": "antenna",
+              "material": "signal",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "antennae",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 10,
+              "y": 2,
+              "visual": "#d8ffd6",
+              "role": "antenna",
+              "material": "signal",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "antennae",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 7,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 8,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 10,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 11,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 7,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 8,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 10,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 11,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 12,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 5,
+              "visual": "#d8ffd6",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 7,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 8,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 5,
+              "visual": "#d8ffd6",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 10,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 11,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 12,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 13,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 7,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 8,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 10,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 11,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 12,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 13,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": true,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 7,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 8,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 10,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 11,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 12,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 13,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 8,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 8,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 8,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 8,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 8,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 7,
+              "y": 8,
+              "visual": "#d8ffd6",
+              "role": "mouth",
+              "material": "soft",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "expression",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "visual": "#d8ffd6",
+              "role": "mouth",
+              "material": "soft",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "expression",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 8,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 10,
+              "y": 8,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 11,
+              "y": 8,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 12,
+              "y": 8,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 13,
+              "y": 8,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 7,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 8,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 10,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 11,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 12,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 13,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 10,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 10,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 10,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 10,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 7,
+              "y": 10,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 8,
+              "y": 10,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 10,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 10,
+              "y": 10,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 11,
+              "y": 10,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 12,
+              "y": 10,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 11,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 11,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 11,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 7,
+              "y": 11,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 8,
+              "y": 11,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 11,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 10,
+              "y": 11,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 11,
+              "y": 11,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 12,
+              "visual": "#5dbb63",
+              "role": "joint",
+              "material": "joint",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "joints",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 12,
+              "visual": "#5dbb63",
+              "role": "joint",
+              "material": "joint",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "joints",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 12,
+              "visual": "#5dbb63",
+              "role": "joint",
+              "material": "joint",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "joints",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 12,
+              "y": 12,
+              "visual": "#5dbb63",
+              "role": "joint",
+              "material": "joint",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "joints",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 13,
+              "visual": "#5dbb63",
+              "role": "limb",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "limbs",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 13,
+              "visual": "#5dbb63",
+              "role": "limb",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "limbs",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 13,
+              "visual": "#5dbb63",
+              "role": "limb",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "limbs",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 12,
+              "y": 13,
+              "visual": "#5dbb63",
+              "role": "limb",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "limbs",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 14,
+              "visual": "#5dbb63",
+              "role": "limb",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "limbs",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 14,
+              "visual": "#5dbb63",
+              "role": "limb",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "limbs",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 14,
+              "visual": "#5dbb63",
+              "role": "limb",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "limbs",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 12,
+              "y": 14,
+              "visual": "#5dbb63",
+              "role": "limb",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "limbs",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            }
+          ],
+          "organs": {
+            "antennae": {
+              "role": "sensor",
+              "cells": [
+                [
+                  4,
+                  1
+                ],
+                [
+                  11,
+                  1
+                ],
+                [
+                  5,
+                  2
+                ],
+                [
+                  10,
+                  2
+                ]
+              ],
+              "required": false
+            },
+            "carapace": {
+              "role": "body_core",
+              "cells": [
+                [
+                  4,
+                  3
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  6,
+                  3
+                ],
+                [
+                  7,
+                  3
+                ],
+                [
+                  8,
+                  3
+                ],
+                [
+                  9,
+                  3
+                ],
+                [
+                  10,
+                  3
+                ],
+                [
+                  11,
+                  3
+                ],
+                [
+                  3,
+                  4
+                ],
+                [
+                  4,
+                  4
+                ],
+                [
+                  11,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  2,
+                  5
+                ],
+                [
+                  3,
+                  5
+                ],
+                [
+                  12,
+                  5
+                ],
+                [
+                  13,
+                  5
+                ],
+                [
+                  2,
+                  6
+                ],
+                [
+                  13,
+                  6
+                ],
+                [
+                  2,
+                  7
+                ],
+                [
+                  13,
+                  7
+                ],
+                [
+                  2,
+                  8
+                ],
+                [
+                  13,
+                  8
+                ],
+                [
+                  2,
+                  9
+                ],
+                [
+                  3,
+                  9
+                ],
+                [
+                  12,
+                  9
+                ],
+                [
+                  13,
+                  9
+                ],
+                [
+                  3,
+                  10
+                ],
+                [
+                  4,
+                  10
+                ],
+                [
+                  11,
+                  10
+                ],
+                [
+                  12,
+                  10
+                ],
+                [
+                  4,
+                  11
+                ],
+                [
+                  5,
+                  11
+                ],
+                [
+                  6,
+                  11
+                ],
+                [
+                  7,
+                  11
+                ],
+                [
+                  8,
+                  11
+                ],
+                [
+                  9,
+                  11
+                ],
+                [
+                  10,
+                  11
+                ],
+                [
+                  11,
+                  11
+                ]
+              ],
+              "required": false
+            },
+            "core": {
+              "role": "body_core",
+              "cells": [
+                [
+                  5,
+                  4
+                ],
+                [
+                  6,
+                  4
+                ],
+                [
+                  7,
+                  4
+                ],
+                [
+                  8,
+                  4
+                ],
+                [
+                  9,
+                  4
+                ],
+                [
+                  10,
+                  4
+                ],
+                [
+                  4,
+                  5
+                ],
+                [
+                  5,
+                  5
+                ],
+                [
+                  7,
+                  5
+                ],
+                [
+                  8,
+                  5
+                ],
+                [
+                  10,
+                  5
+                ],
+                [
+                  11,
+                  5
+                ],
+                [
+                  3,
+                  6
+                ],
+                [
+                  4,
+                  6
+                ],
+                [
+                  5,
+                  6
+                ],
+                [
+                  6,
+                  6
+                ],
+                [
+                  7,
+                  6
+                ],
+                [
+                  8,
+                  6
+                ],
+                [
+                  9,
+                  6
+                ],
+                [
+                  10,
+                  6
+                ],
+                [
+                  11,
+                  6
+                ],
+                [
+                  12,
+                  6
+                ],
+                [
+                  3,
+                  7
+                ],
+                [
+                  4,
+                  7
+                ],
+                [
+                  5,
+                  7
+                ],
+                [
+                  6,
+                  7
+                ],
+                [
+                  7,
+                  7
+                ],
+                [
+                  8,
+                  7
+                ],
+                [
+                  9,
+                  7
+                ],
+                [
+                  10,
+                  7
+                ],
+                [
+                  11,
+                  7
+                ],
+                [
+                  12,
+                  7
+                ],
+                [
+                  3,
+                  8
+                ],
+                [
+                  4,
+                  8
+                ],
+                [
+                  5,
+                  8
+                ],
+                [
+                  6,
+                  8
+                ],
+                [
+                  9,
+                  8
+                ],
+                [
+                  10,
+                  8
+                ],
+                [
+                  11,
+                  8
+                ],
+                [
+                  12,
+                  8
+                ],
+                [
+                  4,
+                  9
+                ],
+                [
+                  5,
+                  9
+                ],
+                [
+                  6,
+                  9
+                ],
+                [
+                  7,
+                  9
+                ],
+                [
+                  8,
+                  9
+                ],
+                [
+                  9,
+                  9
+                ],
+                [
+                  10,
+                  9
+                ],
+                [
+                  11,
+                  9
+                ],
+                [
+                  5,
+                  10
+                ],
+                [
+                  6,
+                  10
+                ],
+                [
+                  7,
+                  10
+                ],
+                [
+                  8,
+                  10
+                ],
+                [
+                  9,
+                  10
+                ],
+                [
+                  10,
+                  10
+                ]
+              ],
+              "required": true
+            },
+            "sensors": {
+              "role": "sensor",
+              "cells": [
+                [
+                  6,
+                  5
+                ],
+                [
+                  9,
+                  5
+                ]
+              ],
+              "required": true
+            },
+            "expression": {
+              "role": "expression",
+              "cells": [
+                [
+                  7,
+                  8
+                ],
+                [
+                  8,
+                  8
+                ]
+              ],
+              "required": false
+            },
+            "joints": {
+              "role": "locomotion",
+              "cells": [
+                [
+                  3,
+                  12
+                ],
+                [
+                  6,
+                  12
+                ],
+                [
+                  9,
+                  12
+                ],
+                [
+                  12,
+                  12
+                ]
+              ],
+              "required": false
+            },
+            "limbs": {
+              "role": "locomotion",
+              "cells": [
+                [
+                  3,
+                  13
+                ],
+                [
+                  6,
+                  13
+                ],
+                [
+                  9,
+                  13
+                ],
+                [
+                  12,
+                  13
+                ],
+                [
+                  3,
+                  14
+                ],
+                [
+                  6,
+                  14
+                ],
+                [
+                  9,
+                  14
+                ],
+                [
+                  12,
+                  14
+                ]
+              ],
+              "required": false
+            }
+          },
+          "palette": {
+            "palette_id": "lcd_green",
+            "colors": [
+              "#07140d",
+              "#5dbb63",
+              "#d8ffd6"
+            ],
+            "background_index": 0
+          },
+          "mutation": {
+            "cell_mutation_rate": 0.05,
+            "organ_shift_rate": 0.02,
+            "palette_shift_rate": 0.01,
+            "symmetry_break_rate": 0.01
+          },
+          "lineage": {
+            "generation": 0,
+            "ancestor_ids": [],
+            "mutation_events": []
+          },
+          "metadata": {
+            "source": "stage0_hand_authored_blueprint_16x16",
+            "creator_note": "Exact selected Keeper specimen"
+          }
+        },
+        "profile": {
+          "slip_version": "0.2.0",
+          "profile_id": "slip_v2_cleanliness",
+          "name": "LCD Companion with Cleanliness",
+          "grid": {
+            "allowed_palettes": [
+              "lcd_green"
+            ],
+            "body_mass_min": 4,
+            "body_mass_max": 24,
+            "required_organ_roles": [
+              "sensor",
+              "expression"
+            ]
+          },
+          "mutation": {
+            "cell_mutation_rate_max": 0.15,
+            "organ_shift_rate_max": 0.05,
+            "palette_shift_rate_max": 0.05,
+            "symmetry_break_rate_max": 0.05
+          },
+          "behavior": {
+            "curiosity": 0.6,
+            "neediness": 0.4,
+            "sleepiness": 0.5
+          },
+          "survival_weights": {
+            "stability": 0.5,
+            "novelty": 0.25,
+            "bond": 0.25
+          },
+          "mechanics": {
+            "cleanliness": true
+          }
+        }
+      },
+      "document_digest": "016764906147679961fabba53219afefee4759dda625e180ccd514b3df5cddd1",
+      "draft_revision": 1,
+      "context_id": "1b5a08237d07bc2a4f097899cbbe335c925bb0a3afa9ba53f3fde1b170494851",
+      "context_revision": "3e3da75be00e6655fedd43f90aad2582399f7cffc3f0ed3d4d42b3c3ed2226f7",
+      "ok": true,
+      "file": "x3_selected_release.json",
+      "backup": null,
+      "release_revision": "4938f05529ead500a2b36a041f9d14a489062f3e94cbcf346cff8f8e7ec2dddd",
+      "backups": {},
+      "source_document_digest": "016764906147679961fabba53219afefee4759dda625e180ccd514b3df5cddd1",
+      "released_document": {
+        "format": "mecha_workshop_document_v1",
+        "grid": {
+          "grid_id": "x3_selected_release",
+          "schema_version": "0.1.0",
+          "parent_grid_id": null,
+          "grid_size": [
+            16,
+            16
+          ],
+          "cells": [
+            {
+              "x": 4,
+              "y": 1,
+              "visual": "#d8ffd6",
+              "role": "sensor",
+              "material": "signal",
+              "mutation_weight": 0.613,
+              "animation_anchor": false,
+              "organ": "antennae",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 11,
+              "y": 1,
+              "visual": "#d8ffd6",
+              "role": "sensor",
+              "material": "signal",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "antennae",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 2,
+              "visual": "#d8ffd6",
+              "role": "antenna",
+              "material": "signal",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "antennae",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 10,
+              "y": 2,
+              "visual": "#d8ffd6",
+              "role": "antenna",
+              "material": "signal",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "antennae",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 7,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 8,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 10,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 11,
+              "y": 3,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 7,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 8,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 10,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 11,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 12,
+              "y": 4,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 5,
+              "visual": "#d8ffd6",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 7,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 8,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 5,
+              "visual": "#d8ffd6",
+              "role": "eye",
+              "material": "glass",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "sensors",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 10,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 11,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 12,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 13,
+              "y": 5,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 7,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 8,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 10,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 11,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 12,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 13,
+              "y": 6,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": true,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 7,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 8,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 10,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 11,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 12,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 13,
+              "y": 7,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 8,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 8,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 8,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 8,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 8,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 7,
+              "y": 8,
+              "visual": "#d8ffd6",
+              "role": "mouth",
+              "material": "soft",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "expression",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "visual": "#d8ffd6",
+              "role": "mouth",
+              "material": "soft",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "expression",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 8,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 10,
+              "y": 8,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 11,
+              "y": 8,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 12,
+              "y": 8,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 13,
+              "y": 8,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 2,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 7,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 8,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 10,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 11,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 12,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 13,
+              "y": 9,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 10,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 10,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 10,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 10,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 7,
+              "y": 10,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 8,
+              "y": 10,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 10,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 10,
+              "y": 10,
+              "visual": "#5dbb63",
+              "role": "body",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "core",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 11,
+              "y": 10,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 12,
+              "y": 10,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 4,
+              "y": 11,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 5,
+              "y": 11,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 11,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 7,
+              "y": 11,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 8,
+              "y": 11,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 11,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 10,
+              "y": 11,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 11,
+              "y": 11,
+              "visual": "#5dbb63",
+              "role": "shell",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "carapace",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 12,
+              "visual": "#5dbb63",
+              "role": "joint",
+              "material": "joint",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "joints",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 12,
+              "visual": "#5dbb63",
+              "role": "joint",
+              "material": "joint",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "joints",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 12,
+              "visual": "#5dbb63",
+              "role": "joint",
+              "material": "joint",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "joints",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 12,
+              "y": 12,
+              "visual": "#5dbb63",
+              "role": "joint",
+              "material": "joint",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "joints",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 13,
+              "visual": "#5dbb63",
+              "role": "limb",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "limbs",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 13,
+              "visual": "#5dbb63",
+              "role": "limb",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "limbs",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 13,
+              "visual": "#5dbb63",
+              "role": "limb",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "limbs",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 12,
+              "y": 13,
+              "visual": "#5dbb63",
+              "role": "limb",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "limbs",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 3,
+              "y": 14,
+              "visual": "#5dbb63",
+              "role": "limb",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "limbs",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 6,
+              "y": 14,
+              "visual": "#5dbb63",
+              "role": "limb",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "limbs",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 9,
+              "y": 14,
+              "visual": "#5dbb63",
+              "role": "limb",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "limbs",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            },
+            {
+              "x": 12,
+              "y": 14,
+              "visual": "#5dbb63",
+              "role": "limb",
+              "material": "hard",
+              "mutation_weight": 0.1,
+              "animation_anchor": false,
+              "organ": "limbs",
+              "stress": 0,
+              "damage": 0,
+              "locked": false
+            }
+          ],
+          "organs": {
+            "antennae": {
+              "role": "sensor",
+              "cells": [
+                [
+                  4,
+                  1
+                ],
+                [
+                  11,
+                  1
+                ],
+                [
+                  5,
+                  2
+                ],
+                [
+                  10,
+                  2
+                ]
+              ],
+              "required": false
+            },
+            "carapace": {
+              "role": "body_core",
+              "cells": [
+                [
+                  4,
+                  3
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  6,
+                  3
+                ],
+                [
+                  7,
+                  3
+                ],
+                [
+                  8,
+                  3
+                ],
+                [
+                  9,
+                  3
+                ],
+                [
+                  10,
+                  3
+                ],
+                [
+                  11,
+                  3
+                ],
+                [
+                  3,
+                  4
+                ],
+                [
+                  4,
+                  4
+                ],
+                [
+                  11,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  2,
+                  5
+                ],
+                [
+                  3,
+                  5
+                ],
+                [
+                  12,
+                  5
+                ],
+                [
+                  13,
+                  5
+                ],
+                [
+                  2,
+                  6
+                ],
+                [
+                  13,
+                  6
+                ],
+                [
+                  2,
+                  7
+                ],
+                [
+                  13,
+                  7
+                ],
+                [
+                  2,
+                  8
+                ],
+                [
+                  13,
+                  8
+                ],
+                [
+                  2,
+                  9
+                ],
+                [
+                  3,
+                  9
+                ],
+                [
+                  12,
+                  9
+                ],
+                [
+                  13,
+                  9
+                ],
+                [
+                  3,
+                  10
+                ],
+                [
+                  4,
+                  10
+                ],
+                [
+                  11,
+                  10
+                ],
+                [
+                  12,
+                  10
+                ],
+                [
+                  4,
+                  11
+                ],
+                [
+                  5,
+                  11
+                ],
+                [
+                  6,
+                  11
+                ],
+                [
+                  7,
+                  11
+                ],
+                [
+                  8,
+                  11
+                ],
+                [
+                  9,
+                  11
+                ],
+                [
+                  10,
+                  11
+                ],
+                [
+                  11,
+                  11
+                ]
+              ],
+              "required": false
+            },
+            "core": {
+              "role": "body_core",
+              "cells": [
+                [
+                  5,
+                  4
+                ],
+                [
+                  6,
+                  4
+                ],
+                [
+                  7,
+                  4
+                ],
+                [
+                  8,
+                  4
+                ],
+                [
+                  9,
+                  4
+                ],
+                [
+                  10,
+                  4
+                ],
+                [
+                  4,
+                  5
+                ],
+                [
+                  5,
+                  5
+                ],
+                [
+                  7,
+                  5
+                ],
+                [
+                  8,
+                  5
+                ],
+                [
+                  10,
+                  5
+                ],
+                [
+                  11,
+                  5
+                ],
+                [
+                  3,
+                  6
+                ],
+                [
+                  4,
+                  6
+                ],
+                [
+                  5,
+                  6
+                ],
+                [
+                  6,
+                  6
+                ],
+                [
+                  7,
+                  6
+                ],
+                [
+                  8,
+                  6
+                ],
+                [
+                  9,
+                  6
+                ],
+                [
+                  10,
+                  6
+                ],
+                [
+                  11,
+                  6
+                ],
+                [
+                  12,
+                  6
+                ],
+                [
+                  3,
+                  7
+                ],
+                [
+                  4,
+                  7
+                ],
+                [
+                  5,
+                  7
+                ],
+                [
+                  6,
+                  7
+                ],
+                [
+                  7,
+                  7
+                ],
+                [
+                  8,
+                  7
+                ],
+                [
+                  9,
+                  7
+                ],
+                [
+                  10,
+                  7
+                ],
+                [
+                  11,
+                  7
+                ],
+                [
+                  12,
+                  7
+                ],
+                [
+                  3,
+                  8
+                ],
+                [
+                  4,
+                  8
+                ],
+                [
+                  5,
+                  8
+                ],
+                [
+                  6,
+                  8
+                ],
+                [
+                  9,
+                  8
+                ],
+                [
+                  10,
+                  8
+                ],
+                [
+                  11,
+                  8
+                ],
+                [
+                  12,
+                  8
+                ],
+                [
+                  4,
+                  9
+                ],
+                [
+                  5,
+                  9
+                ],
+                [
+                  6,
+                  9
+                ],
+                [
+                  7,
+                  9
+                ],
+                [
+                  8,
+                  9
+                ],
+                [
+                  9,
+                  9
+                ],
+                [
+                  10,
+                  9
+                ],
+                [
+                  11,
+                  9
+                ],
+                [
+                  5,
+                  10
+                ],
+                [
+                  6,
+                  10
+                ],
+                [
+                  7,
+                  10
+                ],
+                [
+                  8,
+                  10
+                ],
+                [
+                  9,
+                  10
+                ],
+                [
+                  10,
+                  10
+                ]
+              ],
+              "required": true
+            },
+            "sensors": {
+              "role": "sensor",
+              "cells": [
+                [
+                  6,
+                  5
+                ],
+                [
+                  9,
+                  5
+                ]
+              ],
+              "required": true
+            },
+            "expression": {
+              "role": "expression",
+              "cells": [
+                [
+                  7,
+                  8
+                ],
+                [
+                  8,
+                  8
+                ]
+              ],
+              "required": false
+            },
+            "joints": {
+              "role": "locomotion",
+              "cells": [
+                [
+                  3,
+                  12
+                ],
+                [
+                  6,
+                  12
+                ],
+                [
+                  9,
+                  12
+                ],
+                [
+                  12,
+                  12
+                ]
+              ],
+              "required": false
+            },
+            "limbs": {
+              "role": "locomotion",
+              "cells": [
+                [
+                  3,
+                  13
+                ],
+                [
+                  6,
+                  13
+                ],
+                [
+                  9,
+                  13
+                ],
+                [
+                  12,
+                  13
+                ],
+                [
+                  3,
+                  14
+                ],
+                [
+                  6,
+                  14
+                ],
+                [
+                  9,
+                  14
+                ],
+                [
+                  12,
+                  14
+                ]
+              ],
+              "required": false
+            }
+          },
+          "palette": {
+            "palette_id": "lcd_green",
+            "colors": [
+              "#07140d",
+              "#5dbb63",
+              "#d8ffd6"
+            ],
+            "background_index": 0
+          },
+          "mutation": {
+            "cell_mutation_rate": 0.05,
+            "organ_shift_rate": 0.02,
+            "palette_shift_rate": 0.01,
+            "symmetry_break_rate": 0.01
+          },
+          "lineage": {
+            "generation": 0,
+            "ancestor_ids": [],
+            "mutation_events": [
+              "released_into_ecosystem"
+            ]
+          },
+          "metadata": {
+            "source": "stage0_hand_authored_blueprint_16x16",
+            "creator_note": "Exact selected Keeper specimen",
+            "workshop_source_document_digest": "016764906147679961fabba53219afefee4759dda625e180ccd514b3df5cddd1",
+            "workshop_release_context": {
+              "keeper_id": "keeper-6c5bb9a266e44799b20554ead9f6e669",
+              "campaign_id": "keeper-6c5bb9a266e44799b20554ead9f6e669",
+              "context_id": "1b5a08237d07bc2a4f097899cbbe335c925bb0a3afa9ba53f3fde1b170494851",
+              "context_revision": "3e3da75be00e6655fedd43f90aad2582399f7cffc3f0ed3d4d42b3c3ed2226f7"
+            }
+          }
+        },
+        "profile": {
+          "slip_version": "0.2.0",
+          "profile_id": "slip_v2_cleanliness",
+          "name": "LCD Companion with Cleanliness",
+          "grid": {
+            "allowed_palettes": [
+              "lcd_green"
+            ],
+            "body_mass_min": 4,
+            "body_mass_max": 24,
+            "required_organ_roles": [
+              "sensor",
+              "expression"
+            ]
+          },
+          "mutation": {
+            "cell_mutation_rate_max": 0.15,
+            "organ_shift_rate_max": 0.05,
+            "palette_shift_rate_max": 0.05,
+            "symmetry_break_rate_max": 0.05
+          },
+          "behavior": {
+            "curiosity": 0.6,
+            "neediness": 0.4,
+            "sleepiness": 0.5
+          },
+          "survival_weights": {
+            "stability": 0.5,
+            "novelty": 0.25,
+            "bond": 0.25
+          },
+          "mechanics": {
+            "cleanliness": true
+          }
+        }
+      },
+      "released_document_digest": "ccc61158754255ddc06396028237e6838b35c1c1ba2badd682a7c1800fc3e01d",
+      "transform": "released_into_ecosystem",
+      "status": "staged",
+      "released_grid_digest": "0a3e4294aad2be95607bc623b01b03ed77fccafa25d26bd5a3d27b57b31350cb",
+      "release_provenance": {
+        "keeper_id": "keeper-6c5bb9a266e44799b20554ead9f6e669",
+        "campaign_id": "keeper-6c5bb9a266e44799b20554ead9f6e669",
+        "context_id": "1b5a08237d07bc2a4f097899cbbe335c925bb0a3afa9ba53f3fde1b170494851",
+        "context_revision": "3e3da75be00e6655fedd43f90aad2582399f7cffc3f0ed3d4d42b3c3ed2226f7"
+      },
+      "admission": "The selected native era engine will judge this candidate when gathered and run."
+    },
+    "export_filename": "attachment; filename=\"mechagotchi-pack_x3_exchange.json\"",
+    "import": {
+      "draft_revision": 4,
+      "context_id": "88f03a0acd6f61b85f6d5e3b0aa82b4839ddc3fb2c4592d6b975c85d86a4edbe",
+      "context_revision": "7a5e4163e81b9f22cb844cedc8644173f421efaee7360a4aa171ab286054a6ad",
+      "ok": true,
+      "pack_id": "x3_exchange",
+      "title": "Selected Keeper exchange",
+      "provenance": {
+        "keeper_id": "keeper-6c5bb9a266e44799b20554ead9f6e669",
+        "source": "Supported selected-Keeper API demonstration"
+      },
+      "pack_digest": "999764fd96ac44f646055021debd8203ea3d25b6d87c9fbeaac22b819ad18e38",
+      "violations": [],
+      "slips": [
+        {
+          "index": 0,
+          "profile_id": "x3_shared_covenant",
+          "ok": true,
+          "violations": [],
+          "status": "staged",
+          "item_digest": "b41dbd00d98f8761775479e645cf9454b2ab6d20c43326f5adb384c773529b2b",
+          "target": "pack_x3_exchange_x3_shared_covenant.json",
+          "staged": "pack_x3_exchange_x3_shared_covenant.json",
+          "already_staged": false
+        }
+      ],
+      "creatures": [
+        {
+          "index": 0,
+          "grid_id": "x3_selected_release",
+          "ok": true,
+          "violations": [],
+          "status": "staged",
+          "item_digest": "0a3e4294aad2be95607bc623b01b03ed77fccafa25d26bd5a3d27b57b31350cb",
+          "target": "pack_x3_exchange_x3_selected_release.json",
+          "staged": "pack_x3_exchange_x3_selected_release.json",
+          "already_staged": false,
+          "compatibility": {
+            "scope": "active_covenant_alignment",
+            "ok": true,
+            "errors": [],
+            "notice": "Staging is not admission; the native era engine makes the final decision."
+          }
+        },
+        {
+          "index": 1,
+          "grid_id": "x3_valid_but_incompatible",
+          "ok": true,
+          "violations": [],
+          "status": "staged",
+          "item_digest": "e511d5c37cab579dd57a307baf5a34be324c979b08b671cd87a1d3e6513bddd9",
+          "target": "pack_x3_exchange_x3_valid_but_incompatible.json",
+          "staged": "pack_x3_exchange_x3_valid_but_incompatible.json",
+          "already_staged": false,
+          "compatibility": {
+            "scope": "active_covenant_alignment",
+            "ok": false,
+            "errors": [
+              "palette gameboy_gray not allowed by SLIP"
+            ],
+            "notice": "Staging is not admission; the native era engine makes the final decision."
+          }
+        }
+      ],
+      "accepted_count": 3,
+      "refused_count": 0,
+      "all_accepted": true,
+      "partial": false,
+      "receipt": {
+        "file": "received_999764fd96ac44f646055021debd8203ea3d25b6d87c9fbeaac22b819ad18e38.json",
+        "already_retained": false,
+        "pack_digest": "999764fd96ac44f646055021debd8203ea3d25b6d87c9fbeaac22b819ad18e38"
+      }
+    },
+    "tampered_review": {
+      "draft_revision": 5,
+      "context_id": "88f03a0acd6f61b85f6d5e3b0aa82b4839ddc3fb2c4592d6b975c85d86a4edbe",
+      "context_revision": "7a5e4163e81b9f22cb844cedc8644173f421efaee7360a4aa171ab286054a6ad",
+      "ok": false,
+      "violations": [
+        "Pack changed since preview. Preview again before importing."
+      ],
+      "slips": [],
+      "creatures": [],
+      "pack_digest": "77b8395d9e13f9ef4963c601cf0cc9a679aa81c7d9301f75bf4dc375ff111a7d",
+      "accepted_count": 0,
+      "refused_count": 0,
+      "all_accepted": false,
+      "partial": false,
+      "error": "Pack changed since preview. Preview again before importing.",
+      "error_code": "pack_refused"
+    },
+    "recorded_founder_verdict": {
+      "admitted_ids": [
+        "x3_selected_release",
+        "gen_7fb78fb90f4fc25c_c01",
+        "gen_64239f61a5184ee0_c01",
+        "gen_7cd711fcb7fd4b07_c01",
+        "gen_2642fff20af1431f_c01",
+        "gen_e1154e103845d449_c01",
+        "gen_1b4abce013125f00_c01",
+        "gen_b4dbff4dfd13e6e1_c01",
+        "gen_6befcac227a80a72_c01",
+        "gen_97fb426e5aa736f4_c01",
+        "gen_23c074d5963a2cce_c01",
+        "gen_0f81d7329a8f5403_c01",
+        "gen_d579b2a6e7020043_c01"
+      ],
+      "rejected": [
+        {
+          "errors": [
+            "palette gameboy_gray not allowed by SLIP"
+          ],
+          "grid_id": "x3_valid_but_incompatible"
+        }
+      ]
+    },
+    "recorded_era_index": 1,
+    "recorded_genetic_relations": [
+      {
+        "grid_id": "gen_ed8d36b76874ce4f_c01",
+        "lineage": {
+          "ancestor_ids": [
+            "gen_ed8d36b76874ce4f_stochastic_damage_01"
+          ],
+          "generation": 1,
+          "mutation_events": [
+            "ca_damage_observed",
+            "learned_wound_site_softmax_repair"
+          ]
+        },
+        "parent_grid_id": "gen_ed8d36b76874ce4f_stochastic_damage_01"
+      },
+      {
+        "grid_id": "gen_9ae99dc554e1e1ed_c01",
+        "lineage": {
+          "ancestor_ids": [
+            "gen_9ae99dc554e1e1ed_stochastic_damage_01"
+          ],
+          "generation": 1,
+          "mutation_events": [
+            "ca_damage_observed",
+            "learned_wound_site_softmax_repair"
+          ]
+        },
+        "parent_grid_id": "gen_9ae99dc554e1e1ed_stochastic_damage_01"
+      },
+      {
+        "grid_id": "gen_b8089a48a8554133_c01",
+        "lineage": {
+          "ancestor_ids": [
+            "gen_b8089a48a8554133_stochastic_damage_01"
+          ],
+          "generation": 1,
+          "mutation_events": [
+            "ca_damage_observed",
+            "learned_wound_site_softmax_repair"
+          ]
+        },
+        "parent_grid_id": "gen_b8089a48a8554133_stochastic_damage_01"
+      },
+      {
+        "grid_id": "gen_94b095d81558f219_c01",
+        "lineage": {
+          "ancestor_ids": [
+            "gen_94b095d81558f219_stochastic_damage_01"
+          ],
+          "generation": 1,
+          "mutation_events": [
+            "ca_damage_observed",
+            "learned_wound_site_softmax_repair"
+          ]
+        },
+        "parent_grid_id": "gen_94b095d81558f219_stochastic_damage_01"
+      },
+      {
+        "grid_id": "gen_2322fb2bd5c018f7_c01",
+        "lineage": {
+          "ancestor_ids": [
+            "gen_2322fb2bd5c018f7_stochastic_damage_01"
+          ],
+          "generation": 1,
+          "mutation_events": [
+            "ca_damage_observed",
+            "learned_wound_site_softmax_repair"
+          ]
+        },
+        "parent_grid_id": "gen_2322fb2bd5c018f7_stochastic_damage_01"
+      },
+      {
+        "grid_id": "gen_ad9908c1ffcbbe49_c01",
+        "lineage": {
+          "ancestor_ids": [
+            "gen_ad9908c1ffcbbe49_stochastic_damage_01"
+          ],
+          "generation": 1,
+          "mutation_events": [
+            "ca_damage_observed",
+            "learned_wound_site_softmax_repair"
+          ]
+        },
+        "parent_grid_id": "gen_ad9908c1ffcbbe49_stochastic_damage_01"
+      },
+      {
+        "grid_id": "gen_3cdbd65355c34a2f_c01",
+        "lineage": {
+          "ancestor_ids": [
+            "gen_3cdbd65355c34a2f_stochastic_damage_01"
+          ],
+          "generation": 1,
+          "mutation_events": [
+            "ca_damage_observed",
+            "learned_wound_site_softmax_repair"
+          ]
+        },
+        "parent_grid_id": "gen_3cdbd65355c34a2f_stochastic_damage_01"
+      },
+      {
+        "grid_id": "gen_e4b106bcaf5988f6_c01",
+        "lineage": {
+          "ancestor_ids": [
+            "gen_e4b106bcaf5988f6_stochastic_damage_01"
+          ],
+          "generation": 1,
+          "mutation_events": [
+            "ca_damage_observed",
+            "learned_wound_site_softmax_repair"
+          ]
+        },
+        "parent_grid_id": "gen_e4b106bcaf5988f6_stochastic_damage_01"
+      },
+      {
+        "grid_id": "gen_1b33f0c517de29ca_c01",
+        "lineage": {
+          "ancestor_ids": [
+            "gen_1b33f0c517de29ca_stochastic_damage_01"
+          ],
+          "generation": 1,
+          "mutation_events": [
+            "ca_damage_observed",
+            "learned_wound_site_softmax_repair"
+          ]
+        },
+        "parent_grid_id": "gen_1b33f0c517de29ca_stochastic_damage_01"
+      },
+      {
+        "grid_id": "gen_f53ddea621cf1858_c01",
+        "lineage": {
+          "ancestor_ids": [
+            "gen_f53ddea621cf1858_stochastic_damage_01"
+          ],
+          "generation": 1,
+          "mutation_events": [
+            "ca_damage_observed",
+            "learned_wound_site_softmax_repair"
+          ]
+        },
+        "parent_grid_id": "gen_f53ddea621cf1858_stochastic_damage_01"
+      }
+    ]
+  },
+  "native_launches": [
+    {
+      "action": "launch",
+      "passed": true,
+      "returncode": 0,
+      "seconds": 1.2717417000094429
+    },
+    {
+      "action": "resume",
+      "passed": true,
+      "returncode": 0,
+      "seconds": 0.4090202000224963
+    }
+  ],
+  "bundle": "game\\dist\\x3-selected-keeper\\Mechagotchi\\Mechagotchi.exe",
+  "bundle_sha256": "aad51e51a146c1e5203c7c8ac80f57c904d402d26339a64a42a8f68d2d578b68",
+  "fixtures": ".development\\x3\\demo-02\\keepers",
+  "limits": [
+    "Source events are injected; native process launches do not prove OS keyboard automation.",
+    "Named pack API exchange complements the independent real browser UI composition/download/import evidence.",
+    "Recorded genotype relations are shown verbatim; missing ancestry and historical founder sources are not inferred.",
+    "Tiny eras are integration observations, not new scientific adoption or performance evidence.",
+    "Detached resource delivery and packaged creator availability remain X4 gates."
+  ],
+  "source_hashes": {
+    "game/src/mecha_game/app.py": "b263c6f299cb1b180073c5087b85496cb3c4f9916a5152d87f0eb5f3b04f6b9e",
+    "game/src/mecha_game/campaign.py": "63962136d7cbec241a7830cb27191d1238a00a033ad01ef51ee1923eb9339f4e",
+    "game/src/mecha_game/campaign_recovery.py": "95f9265af88907109e964f28e333b94e3308aa13593cb79103b75f7130141d1c",
+    "game/src/mecha_game/chronicle.py": "0ac73f2d07a7d6e4f69693fb5f39876da51ef5414fd976a02bada387ddc5baaf",
+    "game/src/mecha_game/clips.py": "1a6ccea9fe19994619472a31f8a8283b11d4cd681402f971dcd49c5ce7ca8001",
+    "game/src/mecha_game/contribute.py": "de42ceddb30b0d85b81012a1a7089fa55af8feeaa752350350dd86430bcc02a2",
+    "game/src/mecha_game/covenant.py": "7614cd2c859334d1dfdfa7d9f08f63c63f3126b9ee64df41e32ee1cda655e3e9",
+    "game/src/mecha_game/covenant_io.py": "44e4b52146e55ca704935dbd61c8dbed13b09243e50c95590ce3f794dcf39875",
+    "game/src/mecha_game/creator_bridge.py": "72631cb0b978278fe2aca837caba927abe17e3dc414c9bc0080e32b77d65e9ea",
+    "game/src/mecha_game/era_plan.py": "7381823e439626af451ea9dc47cc49afc684244eb3763fbfadadf97f4c173a45",
+    "game/src/mecha_game/era_review.py": "46b35be8cc33c41e34d3cb4eb0682cc1bbea2188363ddbee047708918141f149",
+    "game/src/mecha_game/era_work.py": "02961d0086b6b511c6ffce59322cd767e979114745c3024e13957e88bf205a2a",
+    "game/src/mecha_game/footer.py": "092cbb46716b13298a18b0a47893fddd5b3eaf714f5771544630aaf4f7c3a813",
+    "game/src/mecha_game/generation_view.py": "9bee0479b788a2b37454f6d3b23adee4409f68582bdf96793398f9d15658eafa",
+    "game/src/mecha_game/happiness.py": "b989af23caa3a70c31d33eac31ecd1d1b080bd4919f91c082f61b3bf124f491b",
+    "game/src/mecha_game/hatchery.py": "a9f260c56d4eae70617298be1fa306e1bcb8f7aec48c2f7238477ccfaaa9e66f",
+    "game/src/mecha_game/health.py": "ce92078127bb9d44092e5117340934389c8490214a160d84cc9d59dfde1c3ae6",
+    "game/src/mecha_game/hud.py": "642197214d86a710f12c78affa19788ac2a3b09e8aaacbc8ffbb7595f6d32662",
+    "game/src/mecha_game/inbox.py": "932bfe8409aad029e06bec424594bd0005e9b6729404580d90b8abea35d8f0e1",
+    "game/src/mecha_game/keeper_context.py": "b1f67427d782014d59348bf1f65ce6b5969763008ccc3fba42c780c4fd4d7c6c",
+    "game/src/mecha_game/lineage.py": "ec9ffe028ff216fe921413b01f03b16ed43e0c9c17a0431b1ffb3060b65cdd17",
+    "game/src/mecha_game/niche_history.py": "7f6db1aaea666134947ddc03b358568ab40158623e7bda79d50f98f2ef3bd65e",
+    "game/src/mecha_game/original_recording.py": "746db1d4bf7d141a2d334ebedac21afcff22d1c7b3d202dc733c80fbafc3b6db",
+    "game/src/mecha_game/packets.py": "1c946ed8969b9f13de3d769f3a84d483e34f84f83e886a63eb27ba7a2a168d2a",
+    "game/src/mecha_game/packs.py": "f7e73a00a1f1d4211169d84304c8f5eeb72e4f9994550c53904453a9b18f2f66",
+    "game/src/mecha_game/rasterize.py": "2aaa72150e5aedd9bc194712efb7f991505ecab912eb69532e8d28c53ae029cd",
+    "game/src/mecha_game/recorded_review.py": "c9fba94ab38dd18233a308fb1e780d10ebdd2ed4f9930bcc9bb97356fd752270",
+    "game/src/mecha_game/repertoire.py": "0dc9c5065832735dc22c322381617470e70e7231e3654bed05a027bf3414fc47",
+    "game/src/mecha_game/replay.py": "218579d3764b9621144e6df31f86ebc2761b2463837c693869cce0a17f44a44d",
+    "game/src/mecha_game/session.py": "ec5d06d4f22d2e791c8105131f79adf615164d5be1b74c89c77e063a5911ecf7",
+    "game/src/mecha_game/wfc_trace.py": "f9f9f6262440ccee3c57217a70d0f721e8c0c8f3fa2c1c12ebb86ab6999a4926",
+    "game/src/mecha_game/__init__.py": "4f08a15e67f3f301c0f3590a7c1f6945b3a2d52c5ee4064eb07f9bbb4e3ee407",
+    "game/src/mecha_game/__main__.py": "c4d36d05b9e6fa3e897ddbab3154c243ba191e4563f1c464d90747ad38e0c33b",
+    "packages/mecha_engine/src/mecha_engine/__init__.py": "671b85f4f6b2a128bfd7a0369af05ab8a80ec4bcd08feb1a8dc2ead656efb0a8",
+    "packages/mecha_engine/src/mecha_engine/archive/descriptors.py": "077ef4b8580aea80fd30e88aaaaaa5366476d0cad1f3de7c69e336825279dbfa",
+    "packages/mecha_engine/src/mecha_engine/archive/scoring.py": "b3bae23549450e47014dc168ad7587d29586cbe7c91049021a3238d09444fa18",
+    "packages/mecha_engine/src/mecha_engine/archive/store.py": "417504838bacaf0802127a93e9b24edea2dedc0d0e57403665bd243d3e8384fb",
+    "packages/mecha_engine/src/mecha_engine/archive/_metrics.py": "0319b85fa6a70e199f1722ceb3c6c9b32ba4415d7a6cb617dda68fefc07f0aaf",
+    "packages/mecha_engine/src/mecha_engine/archive/__init__.py": "af9de9ea56a66f744eea96bde2d5e1c1d7adc503fa220312e513a05d9b6ac8b0",
+    "packages/mecha_engine/src/mecha_engine/generation/explain.py": "2325ab838ae20e1b135b16123eab53a3f3c7135808464b9e251600d18fb57838",
+    "packages/mecha_engine/src/mecha_engine/generation/generate.py": "8a47807be63191c05bb065864ba3d0278ac32cb864a9b29e00f9c823c8cabdbd",
+    "packages/mecha_engine/src/mecha_engine/generation/model.py": "f2534dc63417a675bd6afe5ed581d4abd243a4c7e818c903b6e4aca7b3a97a97",
+    "packages/mecha_engine/src/mecha_engine/generation/wfc.py": "5b55c8bc7f15f6906316f670d69e9708b835f857468005a0b726710afd805aed",
+    "packages/mecha_engine/src/mecha_engine/generation/__init__.py": "1dcb5bba4f435c3507ce90c851a23e28ab37c5ac6ec43bf54312c0a8a37755b8",
+    "packages/mecha_engine/src/mecha_engine/genome/animation.py": "dde7981648fa8fc263b35a22214312fff84fa5b23b14d1e8aac82388a486d4e7",
+    "packages/mecha_engine/src/mecha_engine/genome/render.py": "a545a083e4a734894d7516f3c9606361010d213f61c7e8ef043e3652d6477c77",
+    "packages/mecha_engine/src/mecha_engine/genome/signature.py": "8afaebb968e047219e88c43065b836d803ea6cd394aed9c90c9a370377e8cfb1",
+    "packages/mecha_engine/src/mecha_engine/genome/validation.py": "ba10477f3d95cca9f33d83c519bf05ed464843d891a3880d670f723dcf9b1571",
+    "packages/mecha_engine/src/mecha_engine/genome/__init__.py": "fa22a02aa8c0afccfea3e151ea1b09c49757da5c33d9ab721c2a13ac9eb9de90",
+    "packages/mecha_engine/src/mecha_engine/learning/episode.py": "30d70bafe57b3afe243f5a8a433e6a4797a924b1c919f16b886faf0bd0403fa0",
+    "packages/mecha_engine/src/mecha_engine/learning/threads.py": "f0b9fbe839ddb3496fd135f89a21a93505b7bc711fed8ef436a5b4e7b6c7ea23",
+    "packages/mecha_engine/src/mecha_engine/learning/_switchboard.py": "8e9810c8ea697c5c1fc841d52dbe1c8baf673e25030f770b65d452bc7a33bebd",
+    "packages/mecha_engine/src/mecha_engine/learning/__init__.py": "5271bde4b483c589fb23b26d5ad3e47b81d827996b994ac7865ce294e20ab943",
+    "packages/mecha_engine/src/mecha_engine/lifecycle/simulate.py": "a38d1969528b559de8454c47beb93d45e0658cf041c01886c953e8ed093f3571",
+    "packages/mecha_engine/src/mecha_engine/lifecycle/_policy.py": "e5b7e5d4e7ab39871fec91c959739ffc3b509a1fb2ffafeaa78775418a0b1687",
+    "packages/mecha_engine/src/mecha_engine/lifecycle/__init__.py": "2e09868026252295561810ad337682fe4f35a844089ccbe40d7d15b7d9b39173",
+    "packages/mecha_engine/src/mecha_engine/provenance/hashing.py": "4e2145662a428b6aae50b1f042d67e3b8d3f84ba2d411c4006999a7a01356275",
+    "packages/mecha_engine/src/mecha_engine/provenance/ledger.py": "4bbea0b6c3407c6b04c534829f9d91790e8f53e286ee9c275b635fdaedf18b0c",
+    "packages/mecha_engine/src/mecha_engine/provenance/report.py": "d8b25dd370bd11181b03d807d2e5ce637c8e0ad8a7f6dcc256364e6c99e0c46c",
+    "packages/mecha_engine/src/mecha_engine/provenance/spdx.py": "1115f83359f0718bb9c7b303d6910ad3710d2e41968c1d5d5cea7eb72f7a55d3",
+    "packages/mecha_engine/src/mecha_engine/provenance/__init__.py": "d3d84890bd2d8fab9dd78031fee63dbf705cd937d4d3931f0c1b1dbdf4fc49f7",
+    "packages/mecha_engine/src/mecha_engine/repair/blind.py": "f751c4805d4ce7fbfcfe169544962fcfa478c43caffea6713619ccae0487b3af",
+    "packages/mecha_engine/src/mecha_engine/repair/train.py": "ea82f216226ede72c3d40bb950be25533dd5e3f0d6c34b2c73a18b397956b698",
+    "packages/mecha_engine/src/mecha_engine/repair/wound.py": "7a1bbc48105464fe48f46bdd21037865ffd2c195211b0bb05395e8e4270196b3",
+    "packages/mecha_engine/src/mecha_engine/repair/_damage.py": "1ae64b2a411aefd6938d869c149f82da9ce5041e4f7c67d4a77e9b8702bf79bd",
+    "packages/mecha_engine/src/mecha_engine/repair/_features.py": "e8bcc38d8f37f7898d49a931ccca7dcee1a1f319aef4e3ab0d4f684c85c09ad2",
+    "packages/mecha_engine/src/mecha_engine/repair/_grids.py": "be62d29e602bf3857b90f517b886f1d654e44d8559fe97eeafd093e880ceed72",
+    "packages/mecha_engine/src/mecha_engine/repair/__init__.py": "fbeeaf66ce9fb5ff7cee6f9ef602245421d8a454bddf5f40c7c92bf941bad88a",
+    "packages/mecha_engine/src/mecha_engine/runtime/evolve.py": "62ffbd907d2641c7f20b80ef9eb94702ae211569ea07298921b49de774bf7619",
+    "packages/mecha_engine/src/mecha_engine/runtime/live.py": "78475379379f16f0309fa2a4753a9b05aa8f0489ca344b654f9f96088c78397b",
+    "packages/mecha_engine/src/mecha_engine/runtime/_cubff.py": "436f5b599bd56f70c252478cc73b2a89df5fdc92592a9933e9b907cafc82b35d",
+    "packages/mecha_engine/src/mecha_engine/runtime/_damage.py": "4f1a9c6cd57966e7b6749d31ca6aa69565d69853e7b083c52b338cef41f8d141",
+    "packages/mecha_engine/src/mecha_engine/runtime/_grids.py": "695626093f4a60e10cff70d502a7d884aa6f849989a15c688eb4b70857ccad71",
+    "packages/mecha_engine/src/mecha_engine/runtime/_readability.py": "34d5db66a319a3730ba795f527011637a88c6c98471404ca5d2debee6488d391",
+    "packages/mecha_engine/src/mecha_engine/runtime/__init__.py": "0c05dec22dc164cf2255e1f363ad3ddc06f136aab25e3db85a69656df7a6a7db",
+    "packages/mecha_engine/src/mecha_engine/slip/authority.py": "4b81f7bcd0cd06c954d3cd7914d65f6f841824bc07b98059b49e57d3e38f4fa5",
+    "packages/mecha_engine/src/mecha_engine/slip/__init__.py": "a00eae163c1b576cc6f711f8c88dd8975632938671a9208a7ba1e5e78c097cdf",
+    "packages/mecha_engine/src/mecha_engine/storage/store.py": "a19a8b8adb709b6d11c1c1b82491b20692ac1a12f8ec59dd4c6f838e6e9a51c5",
+    "packages/mecha_engine/src/mecha_engine/storage/__init__.py": "323b7a4b2a8c43c1abc338b2522e4ca9bc654a3b97b4077a89bdfe6081a4df9e"
+  },
+  "source_integration_evidence": ".development/x3/demo-02/result.json",
+  "owner_head": "d4b4337d0dacbdfa816d990297c03a5da2d0cdca",
+  "browser_evidence": {
+    "path": ".development/x3/frontend/browser-20261006000235024/result.json",
+    "result": {
+      "status": "passed",
+      "checks": [
+        "selected native context shows actual Keeper, campaign, covenant and earned caps",
+        "visibility and keyboard painting preserve full layer siblings and source order",
+        "author exact unsaved traits and preview the durable draft under active covenant",
+        "stale native context refuses release and fresh selected context stages exact draft",
+        "server restart on a different port offers exact full draft without blank overwrite",
+        "native SLIP uses actual active profile and durable full-profile recovery",
+        "named pack composition and validated file download use selected actual creatures and covenant",
+        "second selected Keeper imports downloaded pack with visible per-item outcomes and retry",
+        "partially accepted file review exposes each refusal without hiding accepted items",
+        "inspector treats file provenance as literal text and keeps actual lives separate",
+        "narrow pack and inspector surfaces retain reachable controls; lab context stays explicit"
+      ],
+      "exceptions": [],
+      "browser": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "scope": "Actual headless browser DOM and CDP keyboard; no native game keyboard claim",
+      "fixture_directory": "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mecha-x3-browser-LILf0A\\data",
+      "keepers": [
+        "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mecha-x3-browser-LILf0A\\data\\first",
+        "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mecha-x3-browser-LILf0A\\data\\second"
+      ],
+      "pack_file": "C:\\Users\\ryanf\\AppData\\Local\\Temp\\mecha-x3-browser-LILf0A\\downloads\\mechagotchi-pack_x3_browser_exchange.json",
+      "final_first_url": "http://127.0.0.1:5541"
+    }
+  },
+  "independent_native_source_review": {
+    "path": ".development/x3/review-main/result.json",
+    "result": {
+      "scope": "Independent final X3 initializer and native J integration review",
+      "command": ".\\.venv\\Scripts\\python.exe -B .development/x3/review-main/probe.py",
+      "source_sha256_before": {
+        "game/src/mecha_game/app.py": "b263c6f299cb1b180073c5087b85496cb3c4f9916a5152d87f0eb5f3b04f6b9e",
+        "game/src/mecha_game/campaign_recovery.py": "95f9265af88907109e964f28e333b94e3308aa13593cb79103b75f7130141d1c",
+        "game/src/mecha_game/creator_bridge.py": "72631cb0b978278fe2aca837caba927abe17e3dc414c9bc0080e32b77d65e9ea",
+        "game/src/mecha_game/keeper_context.py": "b1f67427d782014d59348bf1f65ce6b5969763008ccc3fba42c780c4fd4d7c6c",
+        "workshop/server/workshop_server.py": "bbffd3db669a1aa40f50e7b57106d24c8e0283c09d26d87d45c7491d9b783bff",
+        "game/tests/test_campaign_initialization.py": "eeeb4e105df66e4005c81bb9e8f89b71465e637869cf4e27cc94bfb2b71c99b7"
+      },
+      "checks": [
+        {
+          "name": "snapshot: unpublished owned failure fully retryable"
+        },
+        {
+          "name": "snapshot: retry materializes verified genesis"
+        },
+        {
+          "name": "manifest: unpublished owned failure fully retryable"
+        },
+        {
+          "name": "manifest: retry materializes verified genesis"
+        },
+        {
+          "name": "hard interruption: unpublished snapshot preserved and primaries absent"
+        },
+        {
+          "name": "hard interruption: automatic retry refuses unknown evidence without changing it"
+        },
+        {
+          "name": "fresh-J: bounded source event loop",
+          "frame": 0
+        },
+        {
+          "name": "fresh J begins without an existing campaign"
+        },
+        {
+          "name": "fresh-J: bounded source event loop",
+          "frame": 1
+        },
+        {
+          "name": "fresh-J: actual bridge opened"
+        },
+        {
+          "name": "fresh-J: HTTP context matches exact selected Keeper"
+        },
+        {
+          "name": "fresh J: actual HTTP authoring context available"
+        },
+        {
+          "name": "fresh-J: bounded source event loop",
+          "frame": 2
+        },
+        {
+          "name": "fresh-J: bounded source event loop",
+          "frame": 3
+        },
+        {
+          "name": "fresh J: repeated creator keys did not reopen or close"
+        },
+        {
+          "name": "fresh-J: bounded source event loop",
+          "frame": 4
+        },
+        {
+          "name": "fresh-J: app clean exit",
+          "exit_code": 0
+        },
+        {
+          "name": "fresh-J: owned server port closed"
+        },
+        {
+          "name": "fresh-J: care stayed paused",
+          "ticks": 0
+        },
+        {
+          "name": "fresh-J: one campaign and zero fabricated eras",
+          "campaigns": 1,
+          "eras": 0
+        },
+        {
+          "name": "fresh-J: companion binding matches pair"
+        },
+        {
+          "name": "fresh-J: no pending restore marker"
+        },
+        {
+          "name": "fresh-J-restart: bounded source event loop",
+          "frame": 0
+        },
+        {
+          "name": "fresh-J-restart: bounded source event loop",
+          "frame": 1
+        },
+        {
+          "name": "fresh-J-restart: actual bridge opened"
+        },
+        {
+          "name": "fresh-J-restart: HTTP context matches exact selected Keeper"
+        },
+        {
+          "name": "restart: actual HTTP context available"
+        },
+        {
+          "name": "fresh-J-restart: bounded source event loop",
+          "frame": 2
+        },
+        {
+          "name": "fresh-J-restart: app clean exit",
+          "exit_code": 0
+        },
+        {
+          "name": "fresh-J-restart: owned server port closed"
+        },
+        {
+          "name": "fresh-J-restart: care stayed paused",
+          "ticks": 0
+        },
+        {
+          "name": "fresh-J-restart: one campaign and zero fabricated eras",
+          "campaigns": 1,
+          "eras": 0
+        },
+        {
+          "name": "fresh-J-restart: companion binding matches pair"
+        },
+        {
+          "name": "fresh-J-restart: no pending restore marker"
+        },
+        {
+          "name": "fresh J restart preserves exact identity and campaign state"
+        },
+        {
+          "name": "fresh J restart leaves campaign primary bytes unchanged"
+        },
+        {
+          "name": "interrupted-J-C-U: bounded source event loop",
+          "frame": 0
+        },
+        {
+          "name": "interrupted-J-C-U: bounded source event loop",
+          "frame": 1
+        },
+        {
+          "name": "interrupted-J-C-U: actual bridge opened"
+        },
+        {
+          "name": "interrupted-J-C-U: HTTP context matches exact selected Keeper"
+        },
+        {
+          "name": "interrupted J: actual HTTP context unavailable and writes disabled"
+        },
+        {
+          "name": "interrupted J: published authority and restore marker precede missing primary"
+        },
+        {
+          "name": "interrupted-J-C-U: bounded source event loop",
+          "frame": 2
+        },
+        {
+          "name": "interrupted-J-C-U: bounded source event loop",
+          "frame": 3
+        },
+        {
+          "name": "interrupted-J-C-U: bounded source event loop",
+          "frame": 4
+        },
+        {
+          "name": "C/U preview plus same-batch U cannot restore"
+        },
+        {
+          "name": "interrupted-J-C-U: bounded source event loop",
+          "frame": 5
+        },
+        {
+          "name": "interrupted-J-C-U: bounded source event loop",
+          "frame": 6
+        },
+        {
+          "name": "later-frame U explicitly finishes original zero-era pair"
+        },
+        {
+          "name": "C/U recovery uses unchanged published manifest"
+        },
+        {
+          "name": "interrupted-J-C-U: bounded source event loop",
+          "frame": 7
+        },
+        {
+          "name": "interrupted-J-C-U: actual bridge opened"
+        },
+        {
+          "name": "interrupted-J-C-U: HTTP context matches exact selected Keeper"
+        },
+        {
+          "name": "recovered J: same actual server now exposes available HTTP context"
+        },
+        {
+          "name": "J reentry reuses owned server"
+        },
+        {
+          "name": "interrupted-J-C-U: bounded source event loop",
+          "frame": 8
+        },
+        {
+          "name": "interrupted-J-C-U: app clean exit",
+          "exit_code": 0
+        },
+        {
+          "name": "interrupted-J-C-U: owned server port closed"
+        },
+        {
+          "name": "interrupted-J-C-U: care stayed paused",
+          "ticks": 0
+        },
+        {
+          "name": "interrupted-J-C-U: one campaign and zero fabricated eras",
+          "campaigns": 1,
+          "eras": 0
+        },
+        {
+          "name": "interrupted-J-C-U: companion binding matches pair"
+        },
+        {
+          "name": "interrupted-J-C-U: no pending restore marker"
+        },
+        {
+          "name": "recovered-J-restart: bounded source event loop",
+          "frame": 0
+        },
+        {
+          "name": "recovered-J-restart: bounded source event loop",
+          "frame": 1
+        },
+        {
+          "name": "recovered-J-restart: actual bridge opened"
+        },
+        {
+          "name": "recovered-J-restart: HTTP context matches exact selected Keeper"
+        },
+        {
+          "name": "restart: actual HTTP context available"
+        },
+        {
+          "name": "recovered-J-restart: bounded source event loop",
+          "frame": 2
+        },
+        {
+          "name": "recovered-J-restart: app clean exit",
+          "exit_code": 0
+        },
+        {
+          "name": "recovered-J-restart: owned server port closed"
+        },
+        {
+          "name": "recovered-J-restart: care stayed paused",
+          "ticks": 0
+        },
+        {
+          "name": "recovered-J-restart: one campaign and zero fabricated eras",
+          "campaigns": 1,
+          "eras": 0
+        },
+        {
+          "name": "recovered-J-restart: companion binding matches pair"
+        },
+        {
+          "name": "recovered-J-restart: no pending restore marker"
+        },
+        {
+          "name": "recovered Keeper survives close/restart without new eras or identity change"
+        }
+      ],
+      "native_runs": [
+        {
+          "name": "fresh-J",
+          "frames": 5,
+          "opened_calls": 1,
+          "unique_servers": 1,
+          "injected_primary_state_failures": 0,
+          "keeper_id": "keeper-a26b81ce558f460d88e752e2cee8f4fe",
+          "campaign_id": "keeper-a26b81ce558f460d88e752e2cee8f4fe",
+          "care_ticks": 0,
+          "eras": 0
+        },
+        {
+          "name": "fresh-J-restart",
+          "frames": 3,
+          "opened_calls": 1,
+          "unique_servers": 1,
+          "injected_primary_state_failures": 0,
+          "keeper_id": "keeper-a26b81ce558f460d88e752e2cee8f4fe",
+          "campaign_id": "keeper-a26b81ce558f460d88e752e2cee8f4fe",
+          "care_ticks": 0,
+          "eras": 0
+        },
+        {
+          "name": "interrupted-J-C-U",
+          "frames": 9,
+          "opened_calls": 2,
+          "unique_servers": 1,
+          "injected_primary_state_failures": 1,
+          "keeper_id": "keeper-da9ff6d6662942ec9d8d09ddad47408a",
+          "campaign_id": "keeper-da9ff6d6662942ec9d8d09ddad47408a",
+          "care_ticks": 0,
+          "eras": 0
+        },
+        {
+          "name": "recovered-J-restart",
+          "frames": 3,
+          "opened_calls": 1,
+          "unique_servers": 1,
+          "injected_primary_state_failures": 0,
+          "keeper_id": "keeper-da9ff6d6662942ec9d8d09ddad47408a",
+          "campaign_id": "keeper-da9ff6d6662942ec9d8d09ddad47408a",
+          "care_ticks": 0,
+          "eras": 0
+        }
+      ],
+      "limits": [
+        "SDL dummy display and injected source events; no OS keyboard or visual usability claim.",
+        "webbrowser.open suppressed; actual app, CreatorBridge, loopback server and HTTP context exercised.",
+        "Disposable Keeper directories only; no live saves or tracked source writes.",
+        "No full sweep, publication or cloud CI claim."
+      ],
+      "status": "PASS",
+      "source_sha256_after": {
+        "game/src/mecha_game/app.py": "b263c6f299cb1b180073c5087b85496cb3c4f9916a5152d87f0eb5f3b04f6b9e",
+        "game/src/mecha_game/campaign_recovery.py": "95f9265af88907109e964f28e333b94e3308aa13593cb79103b75f7130141d1c",
+        "game/src/mecha_game/creator_bridge.py": "72631cb0b978278fe2aca837caba927abe17e3dc414c9bc0080e32b77d65e9ea",
+        "game/src/mecha_game/keeper_context.py": "b1f67427d782014d59348bf1f65ce6b5969763008ccc3fba42c780c4fd4d7c6c",
+        "workshop/server/workshop_server.py": "bbffd3db669a1aa40f50e7b57106d24c8e0283c09d26d87d45c7491d9b783bff",
+        "game/tests/test_campaign_initialization.py": "eeeb4e105df66e4005c81bb9e8f89b71465e637869cf4e27cc94bfb2b71c99b7"
+      },
+      "evaluated_source_unchanged": true
+    }
+  }
+}

@@ -1,0 +1,3444 @@
+{
+  "format": "checkpoint_source_review_diagnostic_v1",
+  "head": "d4b4337d0dacbdfa816d990297c03a5da2d0cdca",
+  "python": "3.13.9 (main, Oct 14 2025, 21:22:32) [MSC v.1944 64 bit (AMD64)]",
+  "profile_id": "slip_v2_cleanliness",
+  "profile_sha256": "6c7497f5dcf82d8e347e888d0910a4007d5631fdf2d1c36966f11158faa3514c",
+  "evidence_limits": [
+    "Read-only in-memory probes, not preregistered science/adoption gates.",
+    "No default, artifact, source, save or scientific claim changed.",
+    "Lock semantics are not fully defined by the schema; measured behavior is factual, normative gap needs a decision record.",
+    "Matched lifecycle trajectories do not refute measured morphology/survival archive selection."
+  ],
+  "same_covenant_trajectories": {
+    "aligned_seed_count": 10,
+    "distinct_need_trajectories": 1,
+    "keeper_rule": "feed if hunger>.6 else play when index%9==0 else autonomous; at most25 ticks",
+    "results": [
+      {
+        "grid_id": "mg_seed_001",
+        "input_sha256": "4a665fda4ddca0e1f950e5e667e8cbec3d11ff26d5eec58292d16b24400c137e",
+        "trajectory_sha256": "cbfa4fc80af06d0b4d7273010cdf1aae865c8697c1ad891c1217857a7575665b",
+        "rows": [
+          {
+            "age_ticks": 1,
+            "hunger": 0.4422,
+            "energy": 0.582,
+            "stress": 0.14768,
+            "bond": 0.6855,
+            "grid_stability": 0.959,
+            "alive": true
+          },
+          {
+            "age_ticks": 2,
+            "hunger": 0.5164,
+            "energy": 0.484,
+            "stress": 0.116226,
+            "bond": 0.7555,
+            "grid_stability": 0.958,
+            "alive": true
+          },
+          {
+            "age_ticks": 3,
+            "hunger": 0.5906,
+            "energy": 0.386,
+            "stress": 0.085638,
+            "bond": 0.8255,
+            "grid_stability": 0.957,
+            "alive": true
+          },
+          {
+            "age_ticks": 4,
+            "hunger": 0.6648,
+            "energy": 0.288,
+            "stress": 0.055916,
+            "bond": 0.8955,
+            "grid_stability": 0.956,
+            "alive": true
+          },
+          {
+            "age_ticks": 5,
+            "hunger": 0.384,
+            "energy": 0.27,
+            "stress": 0.03806,
+            "bond": 0.9115,
+            "grid_stability": 0.955,
+            "alive": true
+          },
+          {
+            "age_ticks": 6,
+            "hunger": 0.4582,
+            "energy": 0.172,
+            "stress": 0.00652,
+            "bond": 0.9815,
+            "grid_stability": 0.954,
+            "alive": true
+          },
+          {
+            "age_ticks": 7,
+            "hunger": 0.5224,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.9745,
+            "grid_stability": 0.963,
+            "alive": true
+          },
+          {
+            "age_ticks": 8,
+            "hunger": 0.5966,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.962,
+            "alive": true
+          },
+          {
+            "age_ticks": 9,
+            "hunger": 0.6708,
+            "energy": 0.288,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.961,
+            "alive": true
+          },
+          {
+            "age_ticks": 10,
+            "hunger": 0.39,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.96,
+            "alive": true
+          },
+          {
+            "age_ticks": 11,
+            "hunger": 0.4642,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.959,
+            "alive": true
+          },
+          {
+            "age_ticks": 12,
+            "hunger": 0.5284,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.968,
+            "alive": true
+          },
+          {
+            "age_ticks": 13,
+            "hunger": 0.6026,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.967,
+            "alive": true
+          },
+          {
+            "age_ticks": 14,
+            "hunger": 0.3218,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.966,
+            "alive": true
+          },
+          {
+            "age_ticks": 15,
+            "hunger": 0.396,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.965,
+            "alive": true
+          },
+          {
+            "age_ticks": 16,
+            "hunger": 0.4702,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.964,
+            "alive": true
+          },
+          {
+            "age_ticks": 17,
+            "hunger": 0.5344,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.973,
+            "alive": true
+          },
+          {
+            "age_ticks": 18,
+            "hunger": 0.6086,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.972,
+            "alive": true
+          },
+          {
+            "age_ticks": 19,
+            "hunger": 0.3278,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.971,
+            "alive": true
+          },
+          {
+            "age_ticks": 20,
+            "hunger": 0.402,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.97,
+            "alive": true
+          },
+          {
+            "age_ticks": 21,
+            "hunger": 0.4762,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.969,
+            "alive": true
+          },
+          {
+            "age_ticks": 22,
+            "hunger": 0.5404,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.978,
+            "alive": true
+          },
+          {
+            "age_ticks": 23,
+            "hunger": 0.6146,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.977,
+            "alive": true
+          },
+          {
+            "age_ticks": 24,
+            "hunger": 0.3338,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.976,
+            "alive": true
+          },
+          {
+            "age_ticks": 25,
+            "hunger": 0.408,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.975,
+            "alive": true
+          }
+        ]
+      },
+      {
+        "grid_id": "mg_seed_006",
+        "input_sha256": "5f1f8d2915984844b5e02644d70b279556d746edb974f947643d222b409ac084",
+        "trajectory_sha256": "cbfa4fc80af06d0b4d7273010cdf1aae865c8697c1ad891c1217857a7575665b",
+        "rows": [
+          {
+            "age_ticks": 1,
+            "hunger": 0.4422,
+            "energy": 0.582,
+            "stress": 0.14768,
+            "bond": 0.6855,
+            "grid_stability": 0.959,
+            "alive": true
+          },
+          {
+            "age_ticks": 2,
+            "hunger": 0.5164,
+            "energy": 0.484,
+            "stress": 0.116226,
+            "bond": 0.7555,
+            "grid_stability": 0.958,
+            "alive": true
+          },
+          {
+            "age_ticks": 3,
+            "hunger": 0.5906,
+            "energy": 0.386,
+            "stress": 0.085638,
+            "bond": 0.8255,
+            "grid_stability": 0.957,
+            "alive": true
+          },
+          {
+            "age_ticks": 4,
+            "hunger": 0.6648,
+            "energy": 0.288,
+            "stress": 0.055916,
+            "bond": 0.8955,
+            "grid_stability": 0.956,
+            "alive": true
+          },
+          {
+            "age_ticks": 5,
+            "hunger": 0.384,
+            "energy": 0.27,
+            "stress": 0.03806,
+            "bond": 0.9115,
+            "grid_stability": 0.955,
+            "alive": true
+          },
+          {
+            "age_ticks": 6,
+            "hunger": 0.4582,
+            "energy": 0.172,
+            "stress": 0.00652,
+            "bond": 0.9815,
+            "grid_stability": 0.954,
+            "alive": true
+          },
+          {
+            "age_ticks": 7,
+            "hunger": 0.5224,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.9745,
+            "grid_stability": 0.963,
+            "alive": true
+          },
+          {
+            "age_ticks": 8,
+            "hunger": 0.5966,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.962,
+            "alive": true
+          },
+          {
+            "age_ticks": 9,
+            "hunger": 0.6708,
+            "energy": 0.288,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.961,
+            "alive": true
+          },
+          {
+            "age_ticks": 10,
+            "hunger": 0.39,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.96,
+            "alive": true
+          },
+          {
+            "age_ticks": 11,
+            "hunger": 0.4642,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.959,
+            "alive": true
+          },
+          {
+            "age_ticks": 12,
+            "hunger": 0.5284,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.968,
+            "alive": true
+          },
+          {
+            "age_ticks": 13,
+            "hunger": 0.6026,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.967,
+            "alive": true
+          },
+          {
+            "age_ticks": 14,
+            "hunger": 0.3218,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.966,
+            "alive": true
+          },
+          {
+            "age_ticks": 15,
+            "hunger": 0.396,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.965,
+            "alive": true
+          },
+          {
+            "age_ticks": 16,
+            "hunger": 0.4702,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.964,
+            "alive": true
+          },
+          {
+            "age_ticks": 17,
+            "hunger": 0.5344,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.973,
+            "alive": true
+          },
+          {
+            "age_ticks": 18,
+            "hunger": 0.6086,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.972,
+            "alive": true
+          },
+          {
+            "age_ticks": 19,
+            "hunger": 0.3278,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.971,
+            "alive": true
+          },
+          {
+            "age_ticks": 20,
+            "hunger": 0.402,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.97,
+            "alive": true
+          },
+          {
+            "age_ticks": 21,
+            "hunger": 0.4762,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.969,
+            "alive": true
+          },
+          {
+            "age_ticks": 22,
+            "hunger": 0.5404,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.978,
+            "alive": true
+          },
+          {
+            "age_ticks": 23,
+            "hunger": 0.6146,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.977,
+            "alive": true
+          },
+          {
+            "age_ticks": 24,
+            "hunger": 0.3338,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.976,
+            "alive": true
+          },
+          {
+            "age_ticks": 25,
+            "hunger": 0.408,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.975,
+            "alive": true
+          }
+        ]
+      },
+      {
+        "grid_id": "mg_seed_011",
+        "input_sha256": "832179d5bc881c7e9fc3488e7d34b536e146096904999f1e5873492fbcf44a50",
+        "trajectory_sha256": "cbfa4fc80af06d0b4d7273010cdf1aae865c8697c1ad891c1217857a7575665b",
+        "rows": [
+          {
+            "age_ticks": 1,
+            "hunger": 0.4422,
+            "energy": 0.582,
+            "stress": 0.14768,
+            "bond": 0.6855,
+            "grid_stability": 0.959,
+            "alive": true
+          },
+          {
+            "age_ticks": 2,
+            "hunger": 0.5164,
+            "energy": 0.484,
+            "stress": 0.116226,
+            "bond": 0.7555,
+            "grid_stability": 0.958,
+            "alive": true
+          },
+          {
+            "age_ticks": 3,
+            "hunger": 0.5906,
+            "energy": 0.386,
+            "stress": 0.085638,
+            "bond": 0.8255,
+            "grid_stability": 0.957,
+            "alive": true
+          },
+          {
+            "age_ticks": 4,
+            "hunger": 0.6648,
+            "energy": 0.288,
+            "stress": 0.055916,
+            "bond": 0.8955,
+            "grid_stability": 0.956,
+            "alive": true
+          },
+          {
+            "age_ticks": 5,
+            "hunger": 0.384,
+            "energy": 0.27,
+            "stress": 0.03806,
+            "bond": 0.9115,
+            "grid_stability": 0.955,
+            "alive": true
+          },
+          {
+            "age_ticks": 6,
+            "hunger": 0.4582,
+            "energy": 0.172,
+            "stress": 0.00652,
+            "bond": 0.9815,
+            "grid_stability": 0.954,
+            "alive": true
+          },
+          {
+            "age_ticks": 7,
+            "hunger": 0.5224,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.9745,
+            "grid_stability": 0.963,
+            "alive": true
+          },
+          {
+            "age_ticks": 8,
+            "hunger": 0.5966,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.962,
+            "alive": true
+          },
+          {
+            "age_ticks": 9,
+            "hunger": 0.6708,
+            "energy": 0.288,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.961,
+            "alive": true
+          },
+          {
+            "age_ticks": 10,
+            "hunger": 0.39,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.96,
+            "alive": true
+          },
+          {
+            "age_ticks": 11,
+            "hunger": 0.4642,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.959,
+            "alive": true
+          },
+          {
+            "age_ticks": 12,
+            "hunger": 0.5284,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.968,
+            "alive": true
+          },
+          {
+            "age_ticks": 13,
+            "hunger": 0.6026,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.967,
+            "alive": true
+          },
+          {
+            "age_ticks": 14,
+            "hunger": 0.3218,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.966,
+            "alive": true
+          },
+          {
+            "age_ticks": 15,
+            "hunger": 0.396,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.965,
+            "alive": true
+          },
+          {
+            "age_ticks": 16,
+            "hunger": 0.4702,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.964,
+            "alive": true
+          },
+          {
+            "age_ticks": 17,
+            "hunger": 0.5344,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.973,
+            "alive": true
+          },
+          {
+            "age_ticks": 18,
+            "hunger": 0.6086,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.972,
+            "alive": true
+          },
+          {
+            "age_ticks": 19,
+            "hunger": 0.3278,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.971,
+            "alive": true
+          },
+          {
+            "age_ticks": 20,
+            "hunger": 0.402,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.97,
+            "alive": true
+          },
+          {
+            "age_ticks": 21,
+            "hunger": 0.4762,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.969,
+            "alive": true
+          },
+          {
+            "age_ticks": 22,
+            "hunger": 0.5404,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.978,
+            "alive": true
+          },
+          {
+            "age_ticks": 23,
+            "hunger": 0.6146,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.977,
+            "alive": true
+          },
+          {
+            "age_ticks": 24,
+            "hunger": 0.3338,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.976,
+            "alive": true
+          },
+          {
+            "age_ticks": 25,
+            "hunger": 0.408,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.975,
+            "alive": true
+          }
+        ]
+      },
+      {
+        "grid_id": "mg_seed_016",
+        "input_sha256": "1d4fd1c0984643540542914fafd4de2a3274ba112dc1260f93d937eab8663aa5",
+        "trajectory_sha256": "cbfa4fc80af06d0b4d7273010cdf1aae865c8697c1ad891c1217857a7575665b",
+        "rows": [
+          {
+            "age_ticks": 1,
+            "hunger": 0.4422,
+            "energy": 0.582,
+            "stress": 0.14768,
+            "bond": 0.6855,
+            "grid_stability": 0.959,
+            "alive": true
+          },
+          {
+            "age_ticks": 2,
+            "hunger": 0.5164,
+            "energy": 0.484,
+            "stress": 0.116226,
+            "bond": 0.7555,
+            "grid_stability": 0.958,
+            "alive": true
+          },
+          {
+            "age_ticks": 3,
+            "hunger": 0.5906,
+            "energy": 0.386,
+            "stress": 0.085638,
+            "bond": 0.8255,
+            "grid_stability": 0.957,
+            "alive": true
+          },
+          {
+            "age_ticks": 4,
+            "hunger": 0.6648,
+            "energy": 0.288,
+            "stress": 0.055916,
+            "bond": 0.8955,
+            "grid_stability": 0.956,
+            "alive": true
+          },
+          {
+            "age_ticks": 5,
+            "hunger": 0.384,
+            "energy": 0.27,
+            "stress": 0.03806,
+            "bond": 0.9115,
+            "grid_stability": 0.955,
+            "alive": true
+          },
+          {
+            "age_ticks": 6,
+            "hunger": 0.4582,
+            "energy": 0.172,
+            "stress": 0.00652,
+            "bond": 0.9815,
+            "grid_stability": 0.954,
+            "alive": true
+          },
+          {
+            "age_ticks": 7,
+            "hunger": 0.5224,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.9745,
+            "grid_stability": 0.963,
+            "alive": true
+          },
+          {
+            "age_ticks": 8,
+            "hunger": 0.5966,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.962,
+            "alive": true
+          },
+          {
+            "age_ticks": 9,
+            "hunger": 0.6708,
+            "energy": 0.288,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.961,
+            "alive": true
+          },
+          {
+            "age_ticks": 10,
+            "hunger": 0.39,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.96,
+            "alive": true
+          },
+          {
+            "age_ticks": 11,
+            "hunger": 0.4642,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.959,
+            "alive": true
+          },
+          {
+            "age_ticks": 12,
+            "hunger": 0.5284,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.968,
+            "alive": true
+          },
+          {
+            "age_ticks": 13,
+            "hunger": 0.6026,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.967,
+            "alive": true
+          },
+          {
+            "age_ticks": 14,
+            "hunger": 0.3218,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.966,
+            "alive": true
+          },
+          {
+            "age_ticks": 15,
+            "hunger": 0.396,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.965,
+            "alive": true
+          },
+          {
+            "age_ticks": 16,
+            "hunger": 0.4702,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.964,
+            "alive": true
+          },
+          {
+            "age_ticks": 17,
+            "hunger": 0.5344,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.973,
+            "alive": true
+          },
+          {
+            "age_ticks": 18,
+            "hunger": 0.6086,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.972,
+            "alive": true
+          },
+          {
+            "age_ticks": 19,
+            "hunger": 0.3278,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.971,
+            "alive": true
+          },
+          {
+            "age_ticks": 20,
+            "hunger": 0.402,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.97,
+            "alive": true
+          },
+          {
+            "age_ticks": 21,
+            "hunger": 0.4762,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.969,
+            "alive": true
+          },
+          {
+            "age_ticks": 22,
+            "hunger": 0.5404,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.978,
+            "alive": true
+          },
+          {
+            "age_ticks": 23,
+            "hunger": 0.6146,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.977,
+            "alive": true
+          },
+          {
+            "age_ticks": 24,
+            "hunger": 0.3338,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.976,
+            "alive": true
+          },
+          {
+            "age_ticks": 25,
+            "hunger": 0.408,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.975,
+            "alive": true
+          }
+        ]
+      },
+      {
+        "grid_id": "mg_seed_021",
+        "input_sha256": "5c6c75c671f06afe4695f65f45f71b3348fdc22f26aea0cc2e854ec9f5f52011",
+        "trajectory_sha256": "cbfa4fc80af06d0b4d7273010cdf1aae865c8697c1ad891c1217857a7575665b",
+        "rows": [
+          {
+            "age_ticks": 1,
+            "hunger": 0.4422,
+            "energy": 0.582,
+            "stress": 0.14768,
+            "bond": 0.6855,
+            "grid_stability": 0.959,
+            "alive": true
+          },
+          {
+            "age_ticks": 2,
+            "hunger": 0.5164,
+            "energy": 0.484,
+            "stress": 0.116226,
+            "bond": 0.7555,
+            "grid_stability": 0.958,
+            "alive": true
+          },
+          {
+            "age_ticks": 3,
+            "hunger": 0.5906,
+            "energy": 0.386,
+            "stress": 0.085638,
+            "bond": 0.8255,
+            "grid_stability": 0.957,
+            "alive": true
+          },
+          {
+            "age_ticks": 4,
+            "hunger": 0.6648,
+            "energy": 0.288,
+            "stress": 0.055916,
+            "bond": 0.8955,
+            "grid_stability": 0.956,
+            "alive": true
+          },
+          {
+            "age_ticks": 5,
+            "hunger": 0.384,
+            "energy": 0.27,
+            "stress": 0.03806,
+            "bond": 0.9115,
+            "grid_stability": 0.955,
+            "alive": true
+          },
+          {
+            "age_ticks": 6,
+            "hunger": 0.4582,
+            "energy": 0.172,
+            "stress": 0.00652,
+            "bond": 0.9815,
+            "grid_stability": 0.954,
+            "alive": true
+          },
+          {
+            "age_ticks": 7,
+            "hunger": 0.5224,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.9745,
+            "grid_stability": 0.963,
+            "alive": true
+          },
+          {
+            "age_ticks": 8,
+            "hunger": 0.5966,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.962,
+            "alive": true
+          },
+          {
+            "age_ticks": 9,
+            "hunger": 0.6708,
+            "energy": 0.288,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.961,
+            "alive": true
+          },
+          {
+            "age_ticks": 10,
+            "hunger": 0.39,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.96,
+            "alive": true
+          },
+          {
+            "age_ticks": 11,
+            "hunger": 0.4642,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.959,
+            "alive": true
+          },
+          {
+            "age_ticks": 12,
+            "hunger": 0.5284,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.968,
+            "alive": true
+          },
+          {
+            "age_ticks": 13,
+            "hunger": 0.6026,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.967,
+            "alive": true
+          },
+          {
+            "age_ticks": 14,
+            "hunger": 0.3218,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.966,
+            "alive": true
+          },
+          {
+            "age_ticks": 15,
+            "hunger": 0.396,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.965,
+            "alive": true
+          },
+          {
+            "age_ticks": 16,
+            "hunger": 0.4702,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.964,
+            "alive": true
+          },
+          {
+            "age_ticks": 17,
+            "hunger": 0.5344,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.973,
+            "alive": true
+          },
+          {
+            "age_ticks": 18,
+            "hunger": 0.6086,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.972,
+            "alive": true
+          },
+          {
+            "age_ticks": 19,
+            "hunger": 0.3278,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.971,
+            "alive": true
+          },
+          {
+            "age_ticks": 20,
+            "hunger": 0.402,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.97,
+            "alive": true
+          },
+          {
+            "age_ticks": 21,
+            "hunger": 0.4762,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.969,
+            "alive": true
+          },
+          {
+            "age_ticks": 22,
+            "hunger": 0.5404,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.978,
+            "alive": true
+          },
+          {
+            "age_ticks": 23,
+            "hunger": 0.6146,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.977,
+            "alive": true
+          },
+          {
+            "age_ticks": 24,
+            "hunger": 0.3338,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.976,
+            "alive": true
+          },
+          {
+            "age_ticks": 25,
+            "hunger": 0.408,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.975,
+            "alive": true
+          }
+        ]
+      },
+      {
+        "grid_id": "mg_seed_026",
+        "input_sha256": "2aca9575d45a67539076f771468ca5f2c3278beac23d2e4c45a10c84f0b5994b",
+        "trajectory_sha256": "cbfa4fc80af06d0b4d7273010cdf1aae865c8697c1ad891c1217857a7575665b",
+        "rows": [
+          {
+            "age_ticks": 1,
+            "hunger": 0.4422,
+            "energy": 0.582,
+            "stress": 0.14768,
+            "bond": 0.6855,
+            "grid_stability": 0.959,
+            "alive": true
+          },
+          {
+            "age_ticks": 2,
+            "hunger": 0.5164,
+            "energy": 0.484,
+            "stress": 0.116226,
+            "bond": 0.7555,
+            "grid_stability": 0.958,
+            "alive": true
+          },
+          {
+            "age_ticks": 3,
+            "hunger": 0.5906,
+            "energy": 0.386,
+            "stress": 0.085638,
+            "bond": 0.8255,
+            "grid_stability": 0.957,
+            "alive": true
+          },
+          {
+            "age_ticks": 4,
+            "hunger": 0.6648,
+            "energy": 0.288,
+            "stress": 0.055916,
+            "bond": 0.8955,
+            "grid_stability": 0.956,
+            "alive": true
+          },
+          {
+            "age_ticks": 5,
+            "hunger": 0.384,
+            "energy": 0.27,
+            "stress": 0.03806,
+            "bond": 0.9115,
+            "grid_stability": 0.955,
+            "alive": true
+          },
+          {
+            "age_ticks": 6,
+            "hunger": 0.4582,
+            "energy": 0.172,
+            "stress": 0.00652,
+            "bond": 0.9815,
+            "grid_stability": 0.954,
+            "alive": true
+          },
+          {
+            "age_ticks": 7,
+            "hunger": 0.5224,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.9745,
+            "grid_stability": 0.963,
+            "alive": true
+          },
+          {
+            "age_ticks": 8,
+            "hunger": 0.5966,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.962,
+            "alive": true
+          },
+          {
+            "age_ticks": 9,
+            "hunger": 0.6708,
+            "energy": 0.288,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.961,
+            "alive": true
+          },
+          {
+            "age_ticks": 10,
+            "hunger": 0.39,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.96,
+            "alive": true
+          },
+          {
+            "age_ticks": 11,
+            "hunger": 0.4642,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.959,
+            "alive": true
+          },
+          {
+            "age_ticks": 12,
+            "hunger": 0.5284,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.968,
+            "alive": true
+          },
+          {
+            "age_ticks": 13,
+            "hunger": 0.6026,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.967,
+            "alive": true
+          },
+          {
+            "age_ticks": 14,
+            "hunger": 0.3218,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.966,
+            "alive": true
+          },
+          {
+            "age_ticks": 15,
+            "hunger": 0.396,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.965,
+            "alive": true
+          },
+          {
+            "age_ticks": 16,
+            "hunger": 0.4702,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.964,
+            "alive": true
+          },
+          {
+            "age_ticks": 17,
+            "hunger": 0.5344,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.973,
+            "alive": true
+          },
+          {
+            "age_ticks": 18,
+            "hunger": 0.6086,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.972,
+            "alive": true
+          },
+          {
+            "age_ticks": 19,
+            "hunger": 0.3278,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.971,
+            "alive": true
+          },
+          {
+            "age_ticks": 20,
+            "hunger": 0.402,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.97,
+            "alive": true
+          },
+          {
+            "age_ticks": 21,
+            "hunger": 0.4762,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.969,
+            "alive": true
+          },
+          {
+            "age_ticks": 22,
+            "hunger": 0.5404,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.978,
+            "alive": true
+          },
+          {
+            "age_ticks": 23,
+            "hunger": 0.6146,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.977,
+            "alive": true
+          },
+          {
+            "age_ticks": 24,
+            "hunger": 0.3338,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.976,
+            "alive": true
+          },
+          {
+            "age_ticks": 25,
+            "hunger": 0.408,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.975,
+            "alive": true
+          }
+        ]
+      },
+      {
+        "grid_id": "mg_seed_031",
+        "input_sha256": "4f8dc2fe4bce64cd8ffdfbc01a9ec84ca51e62150a1057c3e09f48b597f8a366",
+        "trajectory_sha256": "cbfa4fc80af06d0b4d7273010cdf1aae865c8697c1ad891c1217857a7575665b",
+        "rows": [
+          {
+            "age_ticks": 1,
+            "hunger": 0.4422,
+            "energy": 0.582,
+            "stress": 0.14768,
+            "bond": 0.6855,
+            "grid_stability": 0.959,
+            "alive": true
+          },
+          {
+            "age_ticks": 2,
+            "hunger": 0.5164,
+            "energy": 0.484,
+            "stress": 0.116226,
+            "bond": 0.7555,
+            "grid_stability": 0.958,
+            "alive": true
+          },
+          {
+            "age_ticks": 3,
+            "hunger": 0.5906,
+            "energy": 0.386,
+            "stress": 0.085638,
+            "bond": 0.8255,
+            "grid_stability": 0.957,
+            "alive": true
+          },
+          {
+            "age_ticks": 4,
+            "hunger": 0.6648,
+            "energy": 0.288,
+            "stress": 0.055916,
+            "bond": 0.8955,
+            "grid_stability": 0.956,
+            "alive": true
+          },
+          {
+            "age_ticks": 5,
+            "hunger": 0.384,
+            "energy": 0.27,
+            "stress": 0.03806,
+            "bond": 0.9115,
+            "grid_stability": 0.955,
+            "alive": true
+          },
+          {
+            "age_ticks": 6,
+            "hunger": 0.4582,
+            "energy": 0.172,
+            "stress": 0.00652,
+            "bond": 0.9815,
+            "grid_stability": 0.954,
+            "alive": true
+          },
+          {
+            "age_ticks": 7,
+            "hunger": 0.5224,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.9745,
+            "grid_stability": 0.963,
+            "alive": true
+          },
+          {
+            "age_ticks": 8,
+            "hunger": 0.5966,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.962,
+            "alive": true
+          },
+          {
+            "age_ticks": 9,
+            "hunger": 0.6708,
+            "energy": 0.288,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.961,
+            "alive": true
+          },
+          {
+            "age_ticks": 10,
+            "hunger": 0.39,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.96,
+            "alive": true
+          },
+          {
+            "age_ticks": 11,
+            "hunger": 0.4642,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.959,
+            "alive": true
+          },
+          {
+            "age_ticks": 12,
+            "hunger": 0.5284,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.968,
+            "alive": true
+          },
+          {
+            "age_ticks": 13,
+            "hunger": 0.6026,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.967,
+            "alive": true
+          },
+          {
+            "age_ticks": 14,
+            "hunger": 0.3218,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.966,
+            "alive": true
+          },
+          {
+            "age_ticks": 15,
+            "hunger": 0.396,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.965,
+            "alive": true
+          },
+          {
+            "age_ticks": 16,
+            "hunger": 0.4702,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.964,
+            "alive": true
+          },
+          {
+            "age_ticks": 17,
+            "hunger": 0.5344,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.973,
+            "alive": true
+          },
+          {
+            "age_ticks": 18,
+            "hunger": 0.6086,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.972,
+            "alive": true
+          },
+          {
+            "age_ticks": 19,
+            "hunger": 0.3278,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.971,
+            "alive": true
+          },
+          {
+            "age_ticks": 20,
+            "hunger": 0.402,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.97,
+            "alive": true
+          },
+          {
+            "age_ticks": 21,
+            "hunger": 0.4762,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.969,
+            "alive": true
+          },
+          {
+            "age_ticks": 22,
+            "hunger": 0.5404,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.978,
+            "alive": true
+          },
+          {
+            "age_ticks": 23,
+            "hunger": 0.6146,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.977,
+            "alive": true
+          },
+          {
+            "age_ticks": 24,
+            "hunger": 0.3338,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.976,
+            "alive": true
+          },
+          {
+            "age_ticks": 25,
+            "hunger": 0.408,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.975,
+            "alive": true
+          }
+        ]
+      },
+      {
+        "grid_id": "mg_seed_036",
+        "input_sha256": "684ed9c3fbd72c75f12c2c1de446a75cc37afc7a29e6bdb8328acecdc5a128fc",
+        "trajectory_sha256": "cbfa4fc80af06d0b4d7273010cdf1aae865c8697c1ad891c1217857a7575665b",
+        "rows": [
+          {
+            "age_ticks": 1,
+            "hunger": 0.4422,
+            "energy": 0.582,
+            "stress": 0.14768,
+            "bond": 0.6855,
+            "grid_stability": 0.959,
+            "alive": true
+          },
+          {
+            "age_ticks": 2,
+            "hunger": 0.5164,
+            "energy": 0.484,
+            "stress": 0.116226,
+            "bond": 0.7555,
+            "grid_stability": 0.958,
+            "alive": true
+          },
+          {
+            "age_ticks": 3,
+            "hunger": 0.5906,
+            "energy": 0.386,
+            "stress": 0.085638,
+            "bond": 0.8255,
+            "grid_stability": 0.957,
+            "alive": true
+          },
+          {
+            "age_ticks": 4,
+            "hunger": 0.6648,
+            "energy": 0.288,
+            "stress": 0.055916,
+            "bond": 0.8955,
+            "grid_stability": 0.956,
+            "alive": true
+          },
+          {
+            "age_ticks": 5,
+            "hunger": 0.384,
+            "energy": 0.27,
+            "stress": 0.03806,
+            "bond": 0.9115,
+            "grid_stability": 0.955,
+            "alive": true
+          },
+          {
+            "age_ticks": 6,
+            "hunger": 0.4582,
+            "energy": 0.172,
+            "stress": 0.00652,
+            "bond": 0.9815,
+            "grid_stability": 0.954,
+            "alive": true
+          },
+          {
+            "age_ticks": 7,
+            "hunger": 0.5224,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.9745,
+            "grid_stability": 0.963,
+            "alive": true
+          },
+          {
+            "age_ticks": 8,
+            "hunger": 0.5966,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.962,
+            "alive": true
+          },
+          {
+            "age_ticks": 9,
+            "hunger": 0.6708,
+            "energy": 0.288,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.961,
+            "alive": true
+          },
+          {
+            "age_ticks": 10,
+            "hunger": 0.39,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.96,
+            "alive": true
+          },
+          {
+            "age_ticks": 11,
+            "hunger": 0.4642,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.959,
+            "alive": true
+          },
+          {
+            "age_ticks": 12,
+            "hunger": 0.5284,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.968,
+            "alive": true
+          },
+          {
+            "age_ticks": 13,
+            "hunger": 0.6026,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.967,
+            "alive": true
+          },
+          {
+            "age_ticks": 14,
+            "hunger": 0.3218,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.966,
+            "alive": true
+          },
+          {
+            "age_ticks": 15,
+            "hunger": 0.396,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.965,
+            "alive": true
+          },
+          {
+            "age_ticks": 16,
+            "hunger": 0.4702,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.964,
+            "alive": true
+          },
+          {
+            "age_ticks": 17,
+            "hunger": 0.5344,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.973,
+            "alive": true
+          },
+          {
+            "age_ticks": 18,
+            "hunger": 0.6086,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.972,
+            "alive": true
+          },
+          {
+            "age_ticks": 19,
+            "hunger": 0.3278,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.971,
+            "alive": true
+          },
+          {
+            "age_ticks": 20,
+            "hunger": 0.402,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.97,
+            "alive": true
+          },
+          {
+            "age_ticks": 21,
+            "hunger": 0.4762,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.969,
+            "alive": true
+          },
+          {
+            "age_ticks": 22,
+            "hunger": 0.5404,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.978,
+            "alive": true
+          },
+          {
+            "age_ticks": 23,
+            "hunger": 0.6146,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.977,
+            "alive": true
+          },
+          {
+            "age_ticks": 24,
+            "hunger": 0.3338,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.976,
+            "alive": true
+          },
+          {
+            "age_ticks": 25,
+            "hunger": 0.408,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.975,
+            "alive": true
+          }
+        ]
+      },
+      {
+        "grid_id": "mg_seed_041",
+        "input_sha256": "5ceb8a8d56788587d4c5466ba04f6d2bfbd155a56339cfb7e39c7b049074e6d0",
+        "trajectory_sha256": "cbfa4fc80af06d0b4d7273010cdf1aae865c8697c1ad891c1217857a7575665b",
+        "rows": [
+          {
+            "age_ticks": 1,
+            "hunger": 0.4422,
+            "energy": 0.582,
+            "stress": 0.14768,
+            "bond": 0.6855,
+            "grid_stability": 0.959,
+            "alive": true
+          },
+          {
+            "age_ticks": 2,
+            "hunger": 0.5164,
+            "energy": 0.484,
+            "stress": 0.116226,
+            "bond": 0.7555,
+            "grid_stability": 0.958,
+            "alive": true
+          },
+          {
+            "age_ticks": 3,
+            "hunger": 0.5906,
+            "energy": 0.386,
+            "stress": 0.085638,
+            "bond": 0.8255,
+            "grid_stability": 0.957,
+            "alive": true
+          },
+          {
+            "age_ticks": 4,
+            "hunger": 0.6648,
+            "energy": 0.288,
+            "stress": 0.055916,
+            "bond": 0.8955,
+            "grid_stability": 0.956,
+            "alive": true
+          },
+          {
+            "age_ticks": 5,
+            "hunger": 0.384,
+            "energy": 0.27,
+            "stress": 0.03806,
+            "bond": 0.9115,
+            "grid_stability": 0.955,
+            "alive": true
+          },
+          {
+            "age_ticks": 6,
+            "hunger": 0.4582,
+            "energy": 0.172,
+            "stress": 0.00652,
+            "bond": 0.9815,
+            "grid_stability": 0.954,
+            "alive": true
+          },
+          {
+            "age_ticks": 7,
+            "hunger": 0.5224,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.9745,
+            "grid_stability": 0.963,
+            "alive": true
+          },
+          {
+            "age_ticks": 8,
+            "hunger": 0.5966,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.962,
+            "alive": true
+          },
+          {
+            "age_ticks": 9,
+            "hunger": 0.6708,
+            "energy": 0.288,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.961,
+            "alive": true
+          },
+          {
+            "age_ticks": 10,
+            "hunger": 0.39,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.96,
+            "alive": true
+          },
+          {
+            "age_ticks": 11,
+            "hunger": 0.4642,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.959,
+            "alive": true
+          },
+          {
+            "age_ticks": 12,
+            "hunger": 0.5284,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.968,
+            "alive": true
+          },
+          {
+            "age_ticks": 13,
+            "hunger": 0.6026,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.967,
+            "alive": true
+          },
+          {
+            "age_ticks": 14,
+            "hunger": 0.3218,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.966,
+            "alive": true
+          },
+          {
+            "age_ticks": 15,
+            "hunger": 0.396,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.965,
+            "alive": true
+          },
+          {
+            "age_ticks": 16,
+            "hunger": 0.4702,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.964,
+            "alive": true
+          },
+          {
+            "age_ticks": 17,
+            "hunger": 0.5344,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.973,
+            "alive": true
+          },
+          {
+            "age_ticks": 18,
+            "hunger": 0.6086,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.972,
+            "alive": true
+          },
+          {
+            "age_ticks": 19,
+            "hunger": 0.3278,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.971,
+            "alive": true
+          },
+          {
+            "age_ticks": 20,
+            "hunger": 0.402,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.97,
+            "alive": true
+          },
+          {
+            "age_ticks": 21,
+            "hunger": 0.4762,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.969,
+            "alive": true
+          },
+          {
+            "age_ticks": 22,
+            "hunger": 0.5404,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.978,
+            "alive": true
+          },
+          {
+            "age_ticks": 23,
+            "hunger": 0.6146,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.977,
+            "alive": true
+          },
+          {
+            "age_ticks": 24,
+            "hunger": 0.3338,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.976,
+            "alive": true
+          },
+          {
+            "age_ticks": 25,
+            "hunger": 0.408,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.975,
+            "alive": true
+          }
+        ]
+      },
+      {
+        "grid_id": "mg_seed_046",
+        "input_sha256": "e8908ba50bc77c45ec0e49a628ae4e0d30043563e126b4819f1ee4be5b7ae822",
+        "trajectory_sha256": "cbfa4fc80af06d0b4d7273010cdf1aae865c8697c1ad891c1217857a7575665b",
+        "rows": [
+          {
+            "age_ticks": 1,
+            "hunger": 0.4422,
+            "energy": 0.582,
+            "stress": 0.14768,
+            "bond": 0.6855,
+            "grid_stability": 0.959,
+            "alive": true
+          },
+          {
+            "age_ticks": 2,
+            "hunger": 0.5164,
+            "energy": 0.484,
+            "stress": 0.116226,
+            "bond": 0.7555,
+            "grid_stability": 0.958,
+            "alive": true
+          },
+          {
+            "age_ticks": 3,
+            "hunger": 0.5906,
+            "energy": 0.386,
+            "stress": 0.085638,
+            "bond": 0.8255,
+            "grid_stability": 0.957,
+            "alive": true
+          },
+          {
+            "age_ticks": 4,
+            "hunger": 0.6648,
+            "energy": 0.288,
+            "stress": 0.055916,
+            "bond": 0.8955,
+            "grid_stability": 0.956,
+            "alive": true
+          },
+          {
+            "age_ticks": 5,
+            "hunger": 0.384,
+            "energy": 0.27,
+            "stress": 0.03806,
+            "bond": 0.9115,
+            "grid_stability": 0.955,
+            "alive": true
+          },
+          {
+            "age_ticks": 6,
+            "hunger": 0.4582,
+            "energy": 0.172,
+            "stress": 0.00652,
+            "bond": 0.9815,
+            "grid_stability": 0.954,
+            "alive": true
+          },
+          {
+            "age_ticks": 7,
+            "hunger": 0.5224,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.9745,
+            "grid_stability": 0.963,
+            "alive": true
+          },
+          {
+            "age_ticks": 8,
+            "hunger": 0.5966,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.962,
+            "alive": true
+          },
+          {
+            "age_ticks": 9,
+            "hunger": 0.6708,
+            "energy": 0.288,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.961,
+            "alive": true
+          },
+          {
+            "age_ticks": 10,
+            "hunger": 0.39,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.96,
+            "alive": true
+          },
+          {
+            "age_ticks": 11,
+            "hunger": 0.4642,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.959,
+            "alive": true
+          },
+          {
+            "age_ticks": 12,
+            "hunger": 0.5284,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.968,
+            "alive": true
+          },
+          {
+            "age_ticks": 13,
+            "hunger": 0.6026,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.967,
+            "alive": true
+          },
+          {
+            "age_ticks": 14,
+            "hunger": 0.3218,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.966,
+            "alive": true
+          },
+          {
+            "age_ticks": 15,
+            "hunger": 0.396,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.965,
+            "alive": true
+          },
+          {
+            "age_ticks": 16,
+            "hunger": 0.4702,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.964,
+            "alive": true
+          },
+          {
+            "age_ticks": 17,
+            "hunger": 0.5344,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.973,
+            "alive": true
+          },
+          {
+            "age_ticks": 18,
+            "hunger": 0.6086,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.972,
+            "alive": true
+          },
+          {
+            "age_ticks": 19,
+            "hunger": 0.3278,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.971,
+            "alive": true
+          },
+          {
+            "age_ticks": 20,
+            "hunger": 0.402,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.97,
+            "alive": true
+          },
+          {
+            "age_ticks": 21,
+            "hunger": 0.4762,
+            "energy": 0.172,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.969,
+            "alive": true
+          },
+          {
+            "age_ticks": 22,
+            "hunger": 0.5404,
+            "energy": 0.484,
+            "stress": 0.0,
+            "bond": 0.993,
+            "grid_stability": 0.978,
+            "alive": true
+          },
+          {
+            "age_ticks": 23,
+            "hunger": 0.6146,
+            "energy": 0.386,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.977,
+            "alive": true
+          },
+          {
+            "age_ticks": 24,
+            "hunger": 0.3338,
+            "energy": 0.368,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.976,
+            "alive": true
+          },
+          {
+            "age_ticks": 25,
+            "hunger": 0.408,
+            "energy": 0.27,
+            "stress": 0.0,
+            "bond": 1.0,
+            "grid_stability": 0.975,
+            "alive": true
+          }
+        ]
+      }
+    ]
+  },
+  "zero_caps_locked_parent": {
+    "parent_id": "mg_seed_001",
+    "parent_sha256": "337dc7df8ba5787d3df18d45c2d160078adbad3ec643d674cf094829e3901fe6",
+    "parent": {
+      "grid_id": "mg_seed_001",
+      "schema_version": "0.1.0",
+      "parent_grid_id": null,
+      "grid_size": [
+        8,
+        8
+      ],
+      "cells": [
+        {
+          "x": 1,
+          "y": 0,
+          "visual": "#d8ffd6",
+          "role": "eye",
+          "material": "glass",
+          "mutation_weight": 0.1,
+          "animation_anchor": false,
+          "organ": "sensors",
+          "stress": 0,
+          "damage": 0,
+          "locked": true
+        },
+        {
+          "x": 4,
+          "y": 0,
+          "visual": "#d8ffd6",
+          "role": "eye",
+          "material": "glass",
+          "mutation_weight": 0.1,
+          "animation_anchor": false,
+          "organ": "sensors",
+          "stress": 0,
+          "damage": 0,
+          "locked": true
+        },
+        {
+          "x": 2,
+          "y": 1,
+          "visual": "#5dbb63",
+          "role": "body",
+          "material": "hard",
+          "mutation_weight": 0.1,
+          "animation_anchor": false,
+          "organ": "core",
+          "stress": 0,
+          "damage": 0,
+          "locked": true
+        },
+        {
+          "x": 3,
+          "y": 1,
+          "visual": "#5dbb63",
+          "role": "body",
+          "material": "hard",
+          "mutation_weight": 0.1,
+          "animation_anchor": false,
+          "organ": "core",
+          "stress": 0,
+          "damage": 0,
+          "locked": true
+        },
+        {
+          "x": 1,
+          "y": 2,
+          "visual": "#5dbb63",
+          "role": "body",
+          "material": "hard",
+          "mutation_weight": 0.1,
+          "animation_anchor": false,
+          "organ": "core",
+          "stress": 0,
+          "damage": 0,
+          "locked": true
+        },
+        {
+          "x": 2,
+          "y": 2,
+          "visual": "#5dbb63",
+          "role": "body",
+          "material": "hard",
+          "mutation_weight": 0.1,
+          "animation_anchor": true,
+          "organ": "core",
+          "stress": 0,
+          "damage": 0,
+          "locked": true
+        },
+        {
+          "x": 3,
+          "y": 2,
+          "visual": "#5dbb63",
+          "role": "body",
+          "material": "hard",
+          "mutation_weight": 0.1,
+          "animation_anchor": false,
+          "organ": "core",
+          "stress": 0,
+          "damage": 0,
+          "locked": true
+        },
+        {
+          "x": 4,
+          "y": 2,
+          "visual": "#5dbb63",
+          "role": "body",
+          "material": "hard",
+          "mutation_weight": 0.1,
+          "animation_anchor": false,
+          "organ": "core",
+          "stress": 0,
+          "damage": 0,
+          "locked": true
+        },
+        {
+          "x": 2,
+          "y": 3,
+          "visual": "#5dbb63",
+          "role": "body",
+          "material": "hard",
+          "mutation_weight": 0.1,
+          "animation_anchor": false,
+          "organ": "core",
+          "stress": 0,
+          "damage": 0,
+          "locked": true
+        },
+        {
+          "x": 3,
+          "y": 3,
+          "visual": "#5dbb63",
+          "role": "body",
+          "material": "hard",
+          "mutation_weight": 0.1,
+          "animation_anchor": false,
+          "organ": "core",
+          "stress": 0,
+          "damage": 0,
+          "locked": true
+        },
+        {
+          "x": 5,
+          "y": 3,
+          "visual": "#d8ffd6",
+          "role": "mouth",
+          "material": "soft",
+          "mutation_weight": 0.1,
+          "animation_anchor": false,
+          "organ": "expression",
+          "stress": 0,
+          "damage": 0,
+          "locked": true
+        },
+        {
+          "x": 3,
+          "y": 4,
+          "visual": "#5dbb63",
+          "role": "body",
+          "material": "hard",
+          "mutation_weight": 0.1,
+          "animation_anchor": false,
+          "organ": "core",
+          "stress": 0,
+          "damage": 0,
+          "locked": true
+        },
+        {
+          "x": 4,
+          "y": 4,
+          "visual": "#5dbb63",
+          "role": "body",
+          "material": "hard",
+          "mutation_weight": 0.1,
+          "animation_anchor": false,
+          "organ": "core",
+          "stress": 0,
+          "damage": 0,
+          "locked": true
+        }
+      ],
+      "organs": {
+        "core": {
+          "role": "body_core",
+          "cells": [
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              4,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              4,
+              4
+            ]
+          ],
+          "required": true
+        },
+        "sensors": {
+          "role": "sensor",
+          "cells": [
+            [
+              1,
+              0
+            ],
+            [
+              4,
+              0
+            ]
+          ],
+          "required": true
+        },
+        "expression": {
+          "role": "expression",
+          "cells": [
+            [
+              5,
+              3
+            ]
+          ],
+          "required": false
+        }
+      },
+      "palette": {
+        "palette_id": "lcd_green",
+        "colors": [
+          "#07140d",
+          "#5dbb63",
+          "#d8ffd6"
+        ],
+        "background_index": 0
+      },
+      "mutation": {
+        "cell_mutation_rate": 0.0,
+        "organ_shift_rate": 0.0,
+        "palette_shift_rate": 0.0,
+        "symmetry_break_rate": 0.0
+      },
+      "lineage": {
+        "generation": 0,
+        "ancestor_ids": [],
+        "mutation_events": []
+      },
+      "metadata": {
+        "source": "stage0_hand_authored_blueprint"
+      }
+    },
+    "profile": {
+      "slip_version": "0.2.0",
+      "profile_id": "slip_v2_cleanliness",
+      "name": "LCD Companion with Cleanliness",
+      "grid": {
+        "allowed_palettes": [
+          "lcd_green",
+          "gameboy_gray"
+        ],
+        "body_mass_min": 4,
+        "body_mass_max": 24,
+        "required_organ_roles": [
+          "sensor",
+          "expression"
+        ]
+      },
+      "mutation": {
+        "cell_mutation_rate_max": 0.0,
+        "organ_shift_rate_max": 0.0,
+        "palette_shift_rate_max": 0.0,
+        "symmetry_break_rate_max": 0.0
+      },
+      "behavior": {
+        "curiosity": 0.6,
+        "neediness": 0.4,
+        "sleepiness": 0.5
+      },
+      "survival_weights": {
+        "stability": 0.5,
+        "novelty": 0.25,
+        "bond": 0.25
+      },
+      "mechanics": {
+        "cleanliness": true
+      }
+    },
+    "parent_valid": true,
+    "parent_aligned": true,
+    "results": [
+      {
+        "seed": 0,
+        "output_sha256": "f46341ea3487d67c38177e923d0bffd13a53819ac9b66a8ed10a06e526c33ac6",
+        "output_valid": true,
+        "output_aligned": true,
+        "palette_changed": true,
+        "locked_cells_retained": 0,
+        "parent_locked_cells": 13,
+        "mutation": {
+          "cell_mutation_rate": 0.0,
+          "organ_shift_rate": 0.0,
+          "palette_shift_rate": 0.0,
+          "symmetry_break_rate": 0.0
+        },
+        "anchor_changed": true,
+        "generation_trace": {
+          "generator_strategy": "constrained_wfc_style_stabilizer",
+          "proposal_source": "markov_local_adjacency_proposals",
+          "rng_seed": 0,
+          "parent_grid_id": "mg_seed_001",
+          "proposal_attempts": 12,
+          "accepted_proposals": 0,
+          "rejected_proposals": 12,
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "slip_alignment": {
+            "checked": true,
+            "profile_id": "slip_v2_cleanliness",
+            "ok": true,
+            "errors": []
+          },
+          "model": {
+            "strategy": "constrained_wfc_style_stabilizer",
+            "seed_count": 1,
+            "seed_corpus_sha256": "932993cabc618b427c77fc4f9fe8965e6f8aca5e6b523e3a54c0cd27be8420c4"
+          }
+        }
+      },
+      {
+        "seed": 1,
+        "output_sha256": "e4eb4764ab172a323791c513861650581b6418aee0525d1cf20d4b7ccd58cc31",
+        "output_valid": true,
+        "output_aligned": true,
+        "palette_changed": false,
+        "locked_cells_retained": 0,
+        "parent_locked_cells": 13,
+        "mutation": {
+          "cell_mutation_rate": 0.0,
+          "organ_shift_rate": 0.0,
+          "palette_shift_rate": 0.0,
+          "symmetry_break_rate": 0.0
+        },
+        "anchor_changed": true,
+        "generation_trace": {
+          "generator_strategy": "constrained_wfc_style_stabilizer",
+          "proposal_source": "markov_local_adjacency_proposals",
+          "rng_seed": 1,
+          "parent_grid_id": "mg_seed_001",
+          "proposal_attempts": 12,
+          "accepted_proposals": 0,
+          "rejected_proposals": 12,
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "slip_alignment": {
+            "checked": true,
+            "profile_id": "slip_v2_cleanliness",
+            "ok": true,
+            "errors": []
+          },
+          "model": {
+            "strategy": "constrained_wfc_style_stabilizer",
+            "seed_count": 1,
+            "seed_corpus_sha256": "932993cabc618b427c77fc4f9fe8965e6f8aca5e6b523e3a54c0cd27be8420c4"
+          }
+        }
+      },
+      {
+        "seed": 2,
+        "output_sha256": "0fe6c9432aaa0b743cbed2bb38674025aee5a17d078583b22def27b880b0e575",
+        "output_valid": true,
+        "output_aligned": true,
+        "palette_changed": false,
+        "locked_cells_retained": 0,
+        "parent_locked_cells": 13,
+        "mutation": {
+          "cell_mutation_rate": 0.0,
+          "organ_shift_rate": 0.0,
+          "palette_shift_rate": 0.0,
+          "symmetry_break_rate": 0.0
+        },
+        "anchor_changed": true,
+        "generation_trace": {
+          "generator_strategy": "constrained_wfc_style_stabilizer",
+          "proposal_source": "markov_local_adjacency_proposals",
+          "rng_seed": 2,
+          "parent_grid_id": "mg_seed_001",
+          "proposal_attempts": 12,
+          "accepted_proposals": 0,
+          "rejected_proposals": 12,
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "slip_alignment": {
+            "checked": true,
+            "profile_id": "slip_v2_cleanliness",
+            "ok": true,
+            "errors": []
+          },
+          "model": {
+            "strategy": "constrained_wfc_style_stabilizer",
+            "seed_count": 1,
+            "seed_corpus_sha256": "932993cabc618b427c77fc4f9fe8965e6f8aca5e6b523e3a54c0cd27be8420c4"
+          }
+        }
+      },
+      {
+        "seed": 3,
+        "output_sha256": "250270b94c2a1a17790e118a799ee33e14f1840e60050d3edc178aaf48547bf0",
+        "output_valid": true,
+        "output_aligned": true,
+        "palette_changed": true,
+        "locked_cells_retained": 0,
+        "parent_locked_cells": 13,
+        "mutation": {
+          "cell_mutation_rate": 0.0,
+          "organ_shift_rate": 0.0,
+          "palette_shift_rate": 0.0,
+          "symmetry_break_rate": 0.0
+        },
+        "anchor_changed": true,
+        "generation_trace": {
+          "generator_strategy": "constrained_wfc_style_stabilizer",
+          "proposal_source": "markov_local_adjacency_proposals",
+          "rng_seed": 3,
+          "parent_grid_id": "mg_seed_001",
+          "proposal_attempts": 12,
+          "accepted_proposals": 0,
+          "rejected_proposals": 12,
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "slip_alignment": {
+            "checked": true,
+            "profile_id": "slip_v2_cleanliness",
+            "ok": true,
+            "errors": []
+          },
+          "model": {
+            "strategy": "constrained_wfc_style_stabilizer",
+            "seed_count": 1,
+            "seed_corpus_sha256": "932993cabc618b427c77fc4f9fe8965e6f8aca5e6b523e3a54c0cd27be8420c4"
+          }
+        }
+      },
+      {
+        "seed": 4,
+        "output_sha256": "0a8373077eaaf3a8c19d1b2db084035b99f61f7dd81976c73ad9a986eedc16fa",
+        "output_valid": true,
+        "output_aligned": true,
+        "palette_changed": true,
+        "locked_cells_retained": 0,
+        "parent_locked_cells": 13,
+        "mutation": {
+          "cell_mutation_rate": 0.0,
+          "organ_shift_rate": 0.0,
+          "palette_shift_rate": 0.0,
+          "symmetry_break_rate": 0.0
+        },
+        "anchor_changed": true,
+        "generation_trace": {
+          "generator_strategy": "constrained_wfc_style_stabilizer",
+          "proposal_source": "markov_local_adjacency_proposals",
+          "rng_seed": 4,
+          "parent_grid_id": "mg_seed_001",
+          "proposal_attempts": 12,
+          "accepted_proposals": 0,
+          "rejected_proposals": 12,
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "slip_alignment": {
+            "checked": true,
+            "profile_id": "slip_v2_cleanliness",
+            "ok": true,
+            "errors": []
+          },
+          "model": {
+            "strategy": "constrained_wfc_style_stabilizer",
+            "seed_count": 1,
+            "seed_corpus_sha256": "932993cabc618b427c77fc4f9fe8965e6f8aca5e6b523e3a54c0cd27be8420c4"
+          }
+        }
+      },
+      {
+        "seed": 5,
+        "output_sha256": "e68e349070c60fa55c6c57bcf5c0025fa66db423e034deaa4bd0a42a33320647",
+        "output_valid": true,
+        "output_aligned": true,
+        "palette_changed": false,
+        "locked_cells_retained": 0,
+        "parent_locked_cells": 13,
+        "mutation": {
+          "cell_mutation_rate": 0.0,
+          "organ_shift_rate": 0.0,
+          "palette_shift_rate": 0.0,
+          "symmetry_break_rate": 0.0
+        },
+        "anchor_changed": true,
+        "generation_trace": {
+          "generator_strategy": "constrained_wfc_style_stabilizer",
+          "proposal_source": "markov_local_adjacency_proposals",
+          "rng_seed": 5,
+          "parent_grid_id": "mg_seed_001",
+          "proposal_attempts": 12,
+          "accepted_proposals": 0,
+          "rejected_proposals": 12,
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "slip_alignment": {
+            "checked": true,
+            "profile_id": "slip_v2_cleanliness",
+            "ok": true,
+            "errors": []
+          },
+          "model": {
+            "strategy": "constrained_wfc_style_stabilizer",
+            "seed_count": 1,
+            "seed_corpus_sha256": "932993cabc618b427c77fc4f9fe8965e6f8aca5e6b523e3a54c0cd27be8420c4"
+          }
+        }
+      },
+      {
+        "seed": 6,
+        "output_sha256": "2f94b104992f2a7d157765dc3e7c042c8ff855ba50828627e6541afc611cd42d",
+        "output_valid": true,
+        "output_aligned": true,
+        "palette_changed": true,
+        "locked_cells_retained": 0,
+        "parent_locked_cells": 13,
+        "mutation": {
+          "cell_mutation_rate": 0.0,
+          "organ_shift_rate": 0.0,
+          "palette_shift_rate": 0.0,
+          "symmetry_break_rate": 0.0
+        },
+        "anchor_changed": true,
+        "generation_trace": {
+          "generator_strategy": "constrained_wfc_style_stabilizer",
+          "proposal_source": "markov_local_adjacency_proposals",
+          "rng_seed": 6,
+          "parent_grid_id": "mg_seed_001",
+          "proposal_attempts": 12,
+          "accepted_proposals": 0,
+          "rejected_proposals": 12,
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "slip_alignment": {
+            "checked": true,
+            "profile_id": "slip_v2_cleanliness",
+            "ok": true,
+            "errors": []
+          },
+          "model": {
+            "strategy": "constrained_wfc_style_stabilizer",
+            "seed_count": 1,
+            "seed_corpus_sha256": "932993cabc618b427c77fc4f9fe8965e6f8aca5e6b523e3a54c0cd27be8420c4"
+          }
+        }
+      },
+      {
+        "seed": 7,
+        "output_sha256": "89fd882458d19b55aae5d94b3e0b1a63051244528413f5c429bf0b30973c8302",
+        "output_valid": true,
+        "output_aligned": true,
+        "palette_changed": false,
+        "locked_cells_retained": 0,
+        "parent_locked_cells": 13,
+        "mutation": {
+          "cell_mutation_rate": 0.0,
+          "organ_shift_rate": 0.0,
+          "palette_shift_rate": 0.0,
+          "symmetry_break_rate": 0.0
+        },
+        "anchor_changed": true,
+        "generation_trace": {
+          "generator_strategy": "constrained_wfc_style_stabilizer",
+          "proposal_source": "markov_local_adjacency_proposals",
+          "rng_seed": 7,
+          "parent_grid_id": "mg_seed_001",
+          "proposal_attempts": 12,
+          "accepted_proposals": 0,
+          "rejected_proposals": 12,
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "slip_alignment": {
+            "checked": true,
+            "profile_id": "slip_v2_cleanliness",
+            "ok": true,
+            "errors": []
+          },
+          "model": {
+            "strategy": "constrained_wfc_style_stabilizer",
+            "seed_count": 1,
+            "seed_corpus_sha256": "932993cabc618b427c77fc4f9fe8965e6f8aca5e6b523e3a54c0cd27be8420c4"
+          }
+        }
+      },
+      {
+        "seed": 8,
+        "output_sha256": "f5ac2c6e51bc11ac078c02600e6e21ea4cdfcd4b4ea58aa2dfaf150e2621de37",
+        "output_valid": true,
+        "output_aligned": true,
+        "palette_changed": false,
+        "locked_cells_retained": 0,
+        "parent_locked_cells": 13,
+        "mutation": {
+          "cell_mutation_rate": 0.0,
+          "organ_shift_rate": 0.0,
+          "palette_shift_rate": 0.0,
+          "symmetry_break_rate": 0.0
+        },
+        "anchor_changed": false,
+        "generation_trace": {
+          "generator_strategy": "constrained_wfc_style_stabilizer",
+          "proposal_source": "markov_local_adjacency_proposals",
+          "rng_seed": 8,
+          "parent_grid_id": "mg_seed_001",
+          "proposal_attempts": 12,
+          "accepted_proposals": 0,
+          "rejected_proposals": 12,
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "slip_alignment": {
+            "checked": true,
+            "profile_id": "slip_v2_cleanliness",
+            "ok": true,
+            "errors": []
+          },
+          "model": {
+            "strategy": "constrained_wfc_style_stabilizer",
+            "seed_count": 1,
+            "seed_corpus_sha256": "932993cabc618b427c77fc4f9fe8965e6f8aca5e6b523e3a54c0cd27be8420c4"
+          }
+        }
+      },
+      {
+        "seed": 9,
+        "output_sha256": "7b03e8e9a8eb107db85d44a6f99a245d2ad30b3c42aa399e1a13c99cc75d2ae4",
+        "output_valid": true,
+        "output_aligned": true,
+        "palette_changed": false,
+        "locked_cells_retained": 0,
+        "parent_locked_cells": 13,
+        "mutation": {
+          "cell_mutation_rate": 0.0,
+          "organ_shift_rate": 0.0,
+          "palette_shift_rate": 0.0,
+          "symmetry_break_rate": 0.0
+        },
+        "anchor_changed": true,
+        "generation_trace": {
+          "generator_strategy": "constrained_wfc_style_stabilizer",
+          "proposal_source": "markov_local_adjacency_proposals",
+          "rng_seed": 9,
+          "parent_grid_id": "mg_seed_001",
+          "proposal_attempts": 12,
+          "accepted_proposals": 0,
+          "rejected_proposals": 12,
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "slip_alignment": {
+            "checked": true,
+            "profile_id": "slip_v2_cleanliness",
+            "ok": true,
+            "errors": []
+          },
+          "model": {
+            "strategy": "constrained_wfc_style_stabilizer",
+            "seed_count": 1,
+            "seed_corpus_sha256": "932993cabc618b427c77fc4f9fe8965e6f8aca5e6b523e3a54c0cd27be8420c4"
+          }
+        }
+      }
+    ]
+  },
+  "care_to_succession": {
+    "results": [
+      {
+        "treatment": "neglect",
+        "parent_outcome": {
+          "age": 11,
+          "death_cause": "starvation",
+          "action_counts": {
+            "feed": 0,
+            "play": 0,
+            "sleep": 0,
+            "idle": 11,
+            "mutate": 0
+          },
+          "lineage": [
+            {
+              "grid_id": "mg_seed_001",
+              "parent_grid_id": null,
+              "lineage": {
+                "generation": 0,
+                "ancestor_ids": [],
+                "mutation_events": []
+              },
+              "born_session_tick": 0,
+              "origin": "founder",
+              "died_age_ticks": 11,
+              "died_session_tick": 11,
+              "death_cause": "starvation"
+            }
+          ]
+        },
+        "child_sha256": "d20a464415476b48dde00f458348212100bfbb5a55316c0c7c360adcc59488d4",
+        "child_id": "gen_1c961aba1007534f"
+      },
+      {
+        "treatment": "feed_first_15",
+        "parent_outcome": {
+          "age": 25,
+          "death_cause": "energy_collapse",
+          "action_counts": {
+            "feed": 15,
+            "play": 0,
+            "sleep": 0,
+            "idle": 10,
+            "mutate": 0
+          },
+          "lineage": [
+            {
+              "grid_id": "mg_seed_001",
+              "parent_grid_id": null,
+              "lineage": {
+                "generation": 0,
+                "ancestor_ids": [],
+                "mutation_events": []
+              },
+              "born_session_tick": 0,
+              "origin": "founder",
+              "died_age_ticks": 25,
+              "died_session_tick": 25,
+              "death_cause": "energy_collapse"
+            }
+          ]
+        },
+        "child_sha256": "d20a464415476b48dde00f458348212100bfbb5a55316c0c7c360adcc59488d4",
+        "child_id": "gen_1c961aba1007534f"
+      }
+    ],
+    "identical_child": true
+  },
+  "ctm_trace_vs_footer": {
+    "profile": {
+      "slip_version": "0.2.0",
+      "profile_id": "slip_v2_cleanliness",
+      "name": "LCD Companion with Cleanliness",
+      "grid": {
+        "allowed_palettes": [
+          "lcd_green"
+        ],
+        "body_mass_min": 4,
+        "body_mass_max": 24,
+        "required_organ_roles": [
+          "sensor",
+          "expression"
+        ]
+      },
+      "mutation": {
+        "cell_mutation_rate_max": 0.15,
+        "organ_shift_rate_max": 0.05,
+        "palette_shift_rate_max": 0.05,
+        "symmetry_break_rate_max": 0.05
+      },
+      "behavior": {
+        "curiosity": 0.6,
+        "neediness": 0.4,
+        "sleepiness": 0.5
+      },
+      "survival_weights": {
+        "stability": 0.5,
+        "novelty": 0.25,
+        "bond": 0.25
+      },
+      "mechanics": {
+        "cleanliness": true
+      },
+      "deliberation": {
+        "max_ticks": 4,
+        "confidence_threshold": 0.95
+      }
+    },
+    "records": [
+      {
+        "tick": 1,
+        "thought": {
+          "tick_count": 4,
+          "max_ticks": 4,
+          "confidence_threshold": 0.95
+        },
+        "footer": [
+          "health 0.41 (hungry)   mood curious   age 1   gen 1",
+          "F feed  P play  S sleep",
+          "stress 0.15   bond 0.69",
+          "felt curious (0.16)",
+          "Policy: incumbent",
+          "cleanliness 0.99   G clean"
+        ],
+        "ui_hints": {
+          "show_hunger_icon": false,
+          "show_sleep_icon": false,
+          "show_attention_ping": false
+        }
+      },
+      {
+        "tick": 2,
+        "thought": {
+          "tick_count": 4,
+          "max_ticks": 4,
+          "confidence_threshold": 0.95
+        },
+        "footer": [
+          "health 0.31 (hungry)   mood curious   age 2   gen 1",
+          "F feed  P play  S sleep",
+          "stress 0.12   bond 0.76",
+          "felt curious (0.39)   hunger\u21920.52",
+          "Policy: incumbent",
+          "cleanliness 0.98   G clean"
+        ],
+        "ui_hints": {
+          "show_hunger_icon": false,
+          "show_sleep_icon": false,
+          "show_attention_ping": false
+        }
+      },
+      {
+        "tick": 3,
+        "thought": {
+          "tick_count": 4,
+          "max_ticks": 4,
+          "confidence_threshold": 0.95
+        },
+        "footer": [
+          "health 0.18 (tired)   mood curious   age 3   gen 1",
+          "F feed  P play  S sleep",
+          "stress 0.09   bond 0.83",
+          "felt curious (0.59)   hunger\u21920.59   begs soon",
+          "Policy: incumbent",
+          "cleanliness 0.96   G clean"
+        ],
+        "ui_hints": {
+          "show_hunger_icon": false,
+          "show_sleep_icon": false,
+          "show_attention_ping": false
+        }
+      },
+      {
+        "tick": 4,
+        "thought": {
+          "tick_count": 3,
+          "max_ticks": 4,
+          "confidence_threshold": 0.95
+        },
+        "footer": [
+          "health 0.05 (tired)   mood hungry   age 4   gen 1",
+          "F feed  P play  S sleep",
+          "stress 0.06   bond 0.90",
+          "felt curious (0.77)   hunger\u21920.66   begs soon",
+          "Policy: incumbent",
+          "cleanliness 0.95   G clean"
+        ],
+        "ui_hints": {
+          "show_hunger_icon": true,
+          "show_sleep_icon": false,
+          "show_attention_ping": true
+        }
+      },
+      {
+        "tick": 6,
+        "thought": {
+          "tick_count": 3,
+          "max_ticks": 4,
+          "confidence_threshold": 0.95
+        },
+        "footer": [
+          "health 0.00 (tired)   mood tired   age 6   gen 1",
+          "F feed  P play  S sleep",
+          "stress 0.01   bond 0.98",
+          "felt curious (0.96)   hunger\u21920.46",
+          "Policy: incumbent",
+          "cleanliness 0.93   G clean"
+        ],
+        "ui_hints": {
+          "show_hunger_icon": false,
+          "show_sleep_icon": true,
+          "show_attention_ping": false
+        }
+      },
+      {
+        "tick": 8,
+        "thought": {
+          "tick_count": 4,
+          "max_ticks": 4,
+          "confidence_threshold": 0.95
+        },
+        "footer": [
+          "health 0.18 (tired)   mood curious   age 8   gen 1",
+          "F feed  P play  S sleep",
+          "stress 0.00   bond 1.00",
+          "felt curious (0.96)   hunger\u21920.60   begs soon",
+          "Policy: incumbent",
+          "cleanliness 0.90   G clean"
+        ],
+        "ui_hints": {
+          "show_hunger_icon": false,
+          "show_sleep_icon": false,
+          "show_attention_ping": false
+        }
+      },
+      {
+        "tick": 9,
+        "thought": {
+          "tick_count": 4,
+          "max_ticks": 4,
+          "confidence_threshold": 0.95
+        },
+        "footer": [
+          "health 0.05 (tired)   mood hungry   age 9   gen 1",
+          "F feed  P play  S sleep",
+          "stress 0.00   bond 1.00",
+          "felt curious (0.95)   hunger\u21920.67   begs soon",
+          "Policy: incumbent",
+          "cleanliness 0.89   G clean"
+        ],
+        "ui_hints": {
+          "show_hunger_icon": true,
+          "show_sleep_icon": false,
+          "show_attention_ping": true
+        }
+      },
+      {
+        "tick": 11,
+        "thought": {
+          "tick_count": 4,
+          "max_ticks": 4,
+          "confidence_threshold": 0.95
+        },
+        "footer": [
+          "health 0.00 (tired)   mood tired   age 11   gen 1",
+          "F feed  P play  S sleep",
+          "stress 0.00   bond 1.00",
+          "felt curious (0.95)   hunger\u21920.46",
+          "Policy: incumbent",
+          "cleanliness 0.86   G clean"
+        ],
+        "ui_hints": {
+          "show_hunger_icon": false,
+          "show_sleep_icon": true,
+          "show_attention_ping": false
+        }
+      },
+      {
+        "tick": 13,
+        "thought": {
+          "tick_count": 4,
+          "max_ticks": 4,
+          "confidence_threshold": 0.95
+        },
+        "footer": [
+          "health 0.18 (tired)   mood curious   age 13   gen 1",
+          "F feed  P play  S sleep",
+          "stress 0.00   bond 1.00",
+          "felt curious (0.96)   hunger\u21920.60   begs soon",
+          "Policy: incumbent",
+          "cleanliness 0.84   G clean"
+        ],
+        "ui_hints": {
+          "show_hunger_icon": false,
+          "show_sleep_icon": false,
+          "show_attention_ping": false
+        }
+      },
+      {
+        "tick": 14,
+        "thought": {
+          "tick_count": 4,
+          "max_ticks": 4,
+          "confidence_threshold": 0.95
+        },
+        "footer": [
+          "health 0.05 (tired)   mood hungry   age 14   gen 1",
+          "F feed  P play  S sleep",
+          "stress 0.00   bond 1.00",
+          "felt curious (0.95)   hunger\u21920.68   begs soon",
+          "Policy: incumbent",
+          "cleanliness 0.83   G clean"
+        ],
+        "ui_hints": {
+          "show_hunger_icon": true,
+          "show_sleep_icon": false,
+          "show_attention_ping": true
+        }
+      },
+      {
+        "tick": 16,
+        "thought": {
+          "tick_count": 4,
+          "max_ticks": 4,
+          "confidence_threshold": 0.95
+        },
+        "footer": [
+          "health 0.00 (tired)   mood tired   age 16   gen 1",
+          "F feed  P play  S sleep",
+          "stress 0.00   bond 1.00",
+          "felt curious (0.95)   hunger\u21920.47",
+          "Policy: incumbent",
+          "cleanliness 0.80   G clean"
+        ],
+        "ui_hints": {
+          "show_hunger_icon": false,
+          "show_sleep_icon": true,
+          "show_attention_ping": false
+        }
+      },
+      {
+        "tick": 18,
+        "thought": {
+          "tick_count": 4,
+          "max_ticks": 4,
+          "confidence_threshold": 0.95
+        },
+        "footer": [
+          "health 0.18 (tired)   mood curious   age 18   gen 1",
+          "F feed  P play  S sleep",
+          "stress 0.00   bond 1.00",
+          "felt curious (0.96)   hunger\u21920.61   begs soon",
+          "Policy: incumbent",
+          "cleanliness 0.78   G clean"
+        ],
+        "ui_hints": {
+          "show_hunger_icon": false,
+          "show_sleep_icon": false,
+          "show_attention_ping": false
+        }
+      },
+      {
+        "tick": 19,
+        "thought": {
+          "tick_count": 4,
+          "max_ticks": 4,
+          "confidence_threshold": 0.95
+        },
+        "footer": [
+          "health 0.05 (tired)   mood hungry   age 19   gen 1",
+          "F feed  P play  S sleep",
+          "stress 0.00   bond 1.00",
+          "felt curious (0.94)   hunger\u21920.40",
+          "Policy: incumbent",
+          "cleanliness 0.76   G clean"
+        ],
+        "ui_hints": {
+          "show_hunger_icon": true,
+          "show_sleep_icon": false,
+          "show_attention_ping": true
+        }
+      }
+    ]
+  }
+}

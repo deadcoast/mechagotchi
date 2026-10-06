@@ -45,7 +45,7 @@ class AsepriteUserDataError(ValueError):
         self.message = message
 
 
-def export_aseprite_user_data_project(grid: dict, slip_profile: dict) -> dict:
+def export_aseprite_user_data_project(grid: dict, slip_profile: dict, *, authoring_document: dict | None = None) -> dict:
     canonical_project = _encode_aseprite_project(grid, metadata=None)
     canonical_hash = _hash_bytes(canonical_project)
     visual_hash = _cel_visual_hash_from_grid(grid)
@@ -75,6 +75,12 @@ def export_aseprite_user_data_project(grid: dict, slip_profile: dict) -> dict:
         "Live external editor rewrite validation is not verified by this lab.",
         "Full editor-native tags, timelines, tilemaps, linked cels, and arbitrary chunk coverage remain separate; palette/slice semantics are covered by a later Stage 0 lab.",
     ]
+    # X2 additive arm: retain the complete authoring input; legacy default
+    # output remains byte-identical. Workshop verifies overlay agreement.
+    if authoring_document is not None:
+        from external_metadata_sidecar import authoring_document_digest
+        sidecar['authoring_document'] = deepcopy(authoring_document)
+        sidecar['authoring_document_digest'] = authoring_document_digest(authoring_document)
     metadata = _build_user_data_metadata(canonical_hash, visual_hash, sidecar)
     project_bytes = _encode_aseprite_project(grid, metadata=metadata)
     decoded = decode_aseprite_user_data_project(project_bytes)

@@ -43,12 +43,13 @@
   .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 2px; border: 1px solid rgba(0,0,0,0.25); vertical-align: baseline; margin-right: 6px; }
   .notice { font-size: 0.82rem; color: var(--ink-soft); }
 </style>
+<link rel="stylesheet" href="/shared/authoring.css">
 </head>
 <body>
 <div class="shell">
   <header class="top">
     <h1>mecha_workshop <span class="dim">/ inspector</span>
-      <nav style="display:inline"><a href="/">grid editor →</a><a href="/slip">slip creator →</a><a href="/preview">preview →</a></nav>
+      <nav style="display:inline"><a href="/">grid editor →</a><a href="/slip">slip creator →</a><a href="/preview">preview →</a><a href="/packs">packs →</a></nav>
     </h1>
   </header>
 
@@ -59,7 +60,7 @@
   </div>
 
   <div class="panel">
-    <h2>identity &amp; lineage</h2>
+    <h2>stored identity &amp; genetic declarations</h2>
     <div id="identity" class="notice">…</div>
   </div>
 
@@ -74,90 +75,52 @@
   </div>
 
   <div class="panel">
-    <h2>lineage browser — released creatures &amp; evolution runs</h2>
+    <h2>recorded campaigns &amp; Keeper lives</h2>
     <div id="lineage-body" class="notice">…</div>
   </div>
 </div>
 
+<script src="/shared/authoring.js"></script>
 <script>
-const $ = (id) => document.getElementById(id);
-
-async function inspect() {
-  const [source, name] = $("creature-select").value.split("::");
-  const payload = await (await fetch(`/api/inspect?source=${source}&name=${name}`)).json();
-  if (!payload.ok) return;
-  $("verdict").innerHTML = payload.validation.ok
-    ? '<span class="ok-text">engine: valid</span>'
-    : '<span class="bad-text">engine: ' + payload.validation.errors.length + " problems</span>";
-  const lineage = payload.lineage || {};
-  const stats = payload.stats || {};
-  $("identity").innerHTML =
-    `<span class="chip">${payload.grid_id}</span>` +
-    `<span class="chip">gen ${lineage.generation ?? 0}</span>` +
-    `<span class="chip">${payload.palette?.palette_id || ""}</span>` +
-    `<span class="chip">mass ${stats.body_mass}</span>` +
-    `<span class="chip">load ${stats.stress_load}</span>` +
-    `<br><span class="notice">ancestors: ${(lineage.ancestor_ids || []).join(" → ") || "none (founder)"}</span>` +
-    `<br><span class="notice">events: ${(lineage.mutation_events || []).join(", ") || "—"}</span>` +
-    `<br><span class="notice">source: ${payload.metadata?.source || "corpus"}</span>`;
-  const organsBody = $("organs-table").querySelector("tbody");
-  organsBody.innerHTML = "";
-  for (const [organId, organ] of Object.entries(payload.organs)) {
-    organsBody.insertAdjacentHTML("beforeend",
-      `<tr><td class="mono">${organId}</td><td>${organ.role}</td><td>${organ.cell_count}</td><td>${organ.required ? "yes" : ""}</td></tr>`);
-  }
-  const cellsBody = $("cells-table").querySelector("tbody");
-  cellsBody.innerHTML = "";
-  for (const cell of payload.cells) {
-    cellsBody.insertAdjacentHTML("beforeend",
-      `<tr><td class="mono">${cell.x},${cell.y}</td><td>${cell.role}</td><td class="mono">${cell.organ}</td><td>${cell.material}</td><td class="mono">${cell.mutation_weight}</td>` +
-      `<td class="mono"><span class="swatch" style="background:${cell.visual}"></span>${cell.visual}</td><td>${cell.animation_anchor ? "★" : ""}</td></tr>`);
-  }
-}
-
-async function loadLineage() {
-  const payload = await (await fetch("/api/lineage")).json();
-  let html = "";
-  if (payload.released.length) {
-    html += "<strong>released into the ecosystem:</strong><br>";
-    for (const entry of payload.released) {
-      html += `<span class="chip">${entry.grid_id}</span> gen ${entry.lineage?.generation ?? 0} · events: ${(entry.lineage?.mutation_events || []).join(", ")}<br>`;
+const A=WorkshopAuthoring,$=id=>document.getElementById(id),selectedContext=new A.Context().mount(),gate=new A.RequestGate();
+let entries=[],revision=0;
+function facts(host,record){const pre=A.element("pre",JSON.stringify(record,null,2),"context-facts");host.append(pre);}
+function row(body,values){const tr=A.element("tr");for(const value of values)tr.append(A.element("td",value??"unavailable"));body.append(tr);}
+async function inspect(){
+  const current=gate.begin("inspect",++revision),entry=entries[Number($("creature-select").value)];if(!entry)return;
+  A.notice($("verdict"),"Reading exact saved document…");
+  try{const result=await selectedContext.resolve(entry.ref),document=result.document;const validation=await A.request("/api/validate",{document,draft_revision:current.revision});if(!gate.accept(current,revision,validation.draft_revision))return;
+    const grid=document.grid;
+    let inspection={validation:{ok:validation.valid,errors:validation.errors},stats:validation.stats};
+    if(selectedContext.data.kind==="browser_lab"){
+      const source=entry.ref.source,name=entry.ref.name||entry.ref.grid_id;
+      const legacy=await A.request("/api/inspect?"+new URLSearchParams({source,name}));
+      if(!gate.accept(current,revision,current.revision))return;
+      if(!A.equal(legacy.cells,grid.cells))throw new Error("The source changed while reading engine details. Select it again.");
+      inspection={validation:legacy.validation,stats:legacy.stats};
     }
-  } else {
-    html += "no creatures released yet — the grid editor's Release button sends them into evolution<br>";
-  }
-  html += "<br><strong>evolution runs (engine evidence):</strong><br>";
-  for (const run of payload.evolution_runs) {
-    html += `<span class="chip">${run.lab_id}</span> archive ${run.archive?.filled_niches ?? "?"} niches, QD ${run.archive?.qd_score ?? "?"}`;
-    if (run.founder_ids) {
-      html += ` — founders ${run.founder_ids.join(", ")}; workshop creatures by generation [${run.creature_count_by_generation.join(", ")}]; lineage survived beyond founding: ${run.lineage_survived_beyond_founding}`;
-      html += ` (workshop fitness ${run.mean_fitness} vs corpus ${run.corpus_mean_fitness})`;
-    }
-    html += "<br>";
-  }
-  $("lineage-body").innerHTML = html;
+    A.notice($("verdict"),validation.valid?"engine: valid":"engine: "+validation.errors.length+" issues",validation.valid?"ok":"err");
+    $("identity").replaceChildren(A.element("p",`${grid.grid_id} · selected source: ${entry.label||entry.source}`));
+    facts($("identity"),{grid_id:grid.grid_id,parent_grid_id:grid.parent_grid_id??null,lineage:grid.lineage??null,metadata:grid.metadata??null,source_provenance:result.provenance??null});
+    $("identity").append(A.element("h3","Engine validation and morphology"));facts($("identity"),inspection);
+    $("identity").append(A.element("p","These are stored genetic and source declarations. A release or shared Keeper does not establish parentage. Missing ancestry remains unavailable.","notice"));
+    const organs=$("organs-table").querySelector("tbody"),cells=$("cells-table").querySelector("tbody");organs.replaceChildren();cells.replaceChildren();
+    for(const [id,organ] of Object.entries(grid.organs||{}))row(organs,[id,organ.role,organ.cells?.length??organ.cell_count,organ.required?"yes":"no"]);
+    for(const cell of grid.cells)row(cells,[`${cell.x},${cell.y}`,cell.role,cell.organ,cell.material,cell.mutation_weight,cell.visual,cell.animation_anchor?"yes":"no"]);
+  }catch(error){if(gate.accept(current,revision,current.revision))A.notice($("verdict"),error.message+". Select again after refreshing the context.","err");}
 }
-
-(async function boot() {
-  const creatures = (await (await fetch("/api/preview/creatures")).json()).creatures;
-  const released = (await (await fetch("/api/released")).json()).released;
-  const select = $("creature-select");
-  for (const entry of released) {
-    const option = document.createElement("option");
-    option.value = "released::" + entry.name;
-    option.textContent = entry.name + " · released";
-    select.appendChild(option);
-  }
-  for (const entry of creatures) {
-    const option = document.createElement("option");
-    option.value = entry.source + "::" + entry.name;
-    option.textContent = entry.name + " · " + entry.source;
-    select.appendChild(option);
-  }
-  select.addEventListener("change", inspect);
-  inspect();
-  loadLineage();
-})();
+async function loadLineage(){
+  const host=$("lineage-body");host.replaceChildren(A.element("p","Reading recorded campaign facts…"));
+  try{const result=await A.request("/api/context/lineage");host.replaceChildren();host.append(A.element("p",result.notice||"Stored era reports and actual Keeper lives are separate evidence.","notice"));
+    if(!result.available){host.append(A.element("p",result.reason||"Recorded native campaign history is unavailable in this context.","notice"));return;}
+    const lives=A.element("section");lives.append(A.element("h3","Actual Keeper lives"));for(const life of result.lives||[]){const details=A.element("details");details.append(A.element("summary",`${life.life_id||"Recorded life"} · ${life.grid_id||life.outcome||"recorded facts"}`));facts(details,life);lives.append(details);}if(!result.lives?.length)lives.append(A.element("p","Prior cared-life records are unavailable."));host.append(lives);
+    for(const campaign of result.campaigns||[]){const section=A.element("section");section.append(A.element("h3","Campaign "+campaign.campaign_id),A.element("p",`Predecessor: ${campaign.predecessor_campaign_id||"not recorded"} · ${campaign.status||"stored"}`,"notice"));
+      for(const era of campaign.eras||[]){const details=A.element("details");details.append(A.element("summary","Era "+era.era_index+" · recorded founder decisions and elite genomes"));details.append(A.element("h4","Actual engine admission report"));facts(details,era.report?.founders??{unavailable:"This era has no recorded founder admission report."});details.append(A.element("h4","Saved founder coverage"));facts(details,era.founder_provenance??{available:false,reason:"No founder coverage record"});details.append(A.element("h4","Recorded founder documents"));facts(details,era.founder_records||[]);details.append(A.element("h4","Recorded elite genomes and genetic declarations"));facts(details,era.elites||[]);section.append(details);}host.append(section);}
+    if(!result.campaigns?.length)host.append(A.element("p","No saved campaign era reports are available."));
+  }catch(error){host.replaceChildren(A.element("p",error.message+". Refresh selected context to retry.","notice err"));}
+}
+async function boot(){try{await selectedContext.refresh();entries=await selectedContext.inventory();$("creature-select").replaceChildren();entries.forEach((entry,index)=>$("creature-select").add(new Option(entry.label||entry.grid_id,String(index))));if(entries.length)await inspect();else A.notice($("verdict"),"No supported saved creatures in this context.");await loadLineage();}catch(error){A.notice($("verdict"),error.message,"err");}}
+$("creature-select").addEventListener("change",inspect);let starting=true;selectedContext.onChange=()=>{if(!starting){inspect();loadLineage();}};boot().finally(()=>starting=false);
 </script>
 </body>
 </html>
