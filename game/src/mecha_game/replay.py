@@ -14,11 +14,15 @@ the latest packet-bearing frame ≤ i.
 
 from __future__ import annotations
 
+import hashlib
+import json
+
 from mecha_engine.genome import render_packet_from_grid, validate_grid
 from mecha_engine.runtime import live_cycle
 from mecha_game.thought_view import thought_lines
 
 REPLAY_FORMAT = "mechagotchi_replay_v1"
+RECOMPUTED_IDENTITY_FORMAT = "mechagotchi_recomputed_replay_v2"
 
 
 def packet_or_errors(grid: dict) -> tuple[dict | None, list[str]]:
@@ -41,10 +45,27 @@ def build_replay(
     rng_seed: int = 20260707,
     body_response: str = "legacy",
 ) -> dict:
-    """Record one creature's live_cycle as a replay artifact (the
-    lab's frame construction, verbatim)."""
+    """Run a fresh preview, retaining the historical frame schema.
+
+    Only recomputation gets the versioned identity: original evaluation
+    captures continue using replay_from_lived without altered evidence.
+    """
     from mecha_game.body_response import validate_body_response
     validate_body_response(body_response)
+    identity_inputs = {
+        "format": RECOMPUTED_IDENTITY_FORMAT,
+        "grid": grid,
+        "slip_profile": slip_profile,
+        "repair_model": repair_model,
+        "body_response": body_response,
+        "damage_cycles": damage_cycles,
+        "ticks": ticks,
+        "dropout_rate": dropout_rate,
+        "rng_seed": rng_seed,
+    }
+    inputs_sha256 = hashlib.sha256(json.dumps(
+        identity_inputs, sort_keys=True, separators=(",", ":"), allow_nan=False,
+    ).encode("utf-8")).hexdigest()
     lived = live_cycle(
         grid,
         slip_profile,
@@ -57,8 +78,16 @@ def build_replay(
         **({"body_response": body_response} if body_response != "legacy" else {}),
     )
 
-    return replay_from_lived(grid, slip_profile, lived, damage_cycles=damage_cycles,
-                             ticks=ticks, dropout_rate=dropout_rate, rng_seed=rng_seed)
+    replay = replay_from_lived(grid, slip_profile, lived, damage_cycles=damage_cycles,
+                               ticks=ticks, dropout_rate=dropout_rate, rng_seed=rng_seed)
+    replay["replay_id"] = "preview-v2-" + inputs_sha256
+    replay["replay_identity"] = {
+        "format": RECOMPUTED_IDENTITY_FORMAT,
+        "kind": "recomputed_preview",
+        "body_response": body_response,
+        "inputs_sha256": inputs_sha256,
+    }
+    return replay
 
 
 def replay_from_lived(grid, slip_profile, lived, *, damage_cycles, ticks, dropout_rate, rng_seed):
@@ -236,6 +265,24 @@ class ReplayPlayer:
         if frame["phase"] == "episode_tick":
             parts.append(f"tick {frame['tick']}")
         return "  ".join(parts)
+
+    def provenance_lines(self) -> list[str]:
+        """Describe stored model provenance without consulting the current life."""
+        parameters = self.replay.get("parameters", {})
+        model = parameters.get("body_response", "legacy")
+        if model not in ("legacy", "workload-v1"):
+            return ["Unknown recorded body response; frames retained as recorded."]
+        model_line = f"Recorded body response: {model}."
+        identity = self.replay.get("replay_identity")
+        if (isinstance(identity, dict)
+                and identity.get("format") == RECOMPUTED_IDENTITY_FORMAT
+                and identity.get("kind") == "recomputed_preview"):
+            return [model_line, "Recomputed preview: a new simulation, not original Keeper footage."]
+        evaluation = self.replay.get("evaluation")
+        if (isinstance(evaluation, dict)
+                and evaluation.get("kind") == "mechagotchi_original_evaluation_v1"):
+            return [model_line, "Original recorded evaluation; model belongs to the recorded era."]
+        return [model_line, "Saved recording; omitted historical model fields mean legacy."]
 
     def thought_lines(self) -> list[str]:
         """The selected recorded episode's thought, never an earlier frame's."""

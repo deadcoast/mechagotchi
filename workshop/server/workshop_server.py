@@ -197,7 +197,7 @@ from png_embedded_sidecar_writer import (  # noqa: E402
     embed_sidecar_in_png_text_chunk,
 )
 from mecha_engine.runtime import live_cycle  # noqa: E402
-from replay_recorder import build_replay  # noqa: E402
+from mecha_game.replay import build_replay  # noqa: E402
 from companion import (  # noqa: E402
     adopt_companion,
     autonomous_tick,
@@ -530,6 +530,7 @@ class WorkshopServer(ThreadingHTTPServer):
         result = {'context': dict(kind='browser_lab',context_id=identity,context_revision=identity,
             available=True,reason='Browser lab history is separate from native Keeper saves.',
             keeper_dir=None,keeper_id=None,campaign_id=None,covenant=None,budget=None,
+            body_response='legacy',body_response_source='standalone_legacy',
             capabilities=dict(authoring=True,release=True,pack_import=False,lab_session=True)),
             'creatures':[], 'lineage':{'campaigns':[],'lives':[]}}
         for grid in [*self.seed_grids_16,*self.seed_grids]:
@@ -1497,6 +1498,47 @@ class _Handler(SimpleHTTPRequestHandler):
             revision = authoring_docs.disk_revision(target)
         self._json(200, {'ok': True, 'file': target.name, 'backup': backups.get(target.name), 'disk_revision': revision})
 
+    def _preview_context(self, payload, *, require_pins=False):
+        """Fresh read authority for recomputation; request models are assertions."""
+        from mecha_game.body_response import validate_body_response
+        context = self.server.selected_context()['context']
+        pinned = require_pins or 'context_id' in payload or 'expected_context_revision' in payload
+        if pinned and (payload.get('context_id') != context['context_id'] or
+                payload.get('expected_context_revision') != context['context_revision']):
+            self._json(409, dict(ok=False, error='Selected Keeper context changed; refresh before previewing.',
+                error_code='context_changed', context=context, current_context_revision=context['context_revision']))
+            return None
+        if not context['available']:
+            self._json(409, dict(ok=False, error=context['reason'] or 'Selected Keeper context is unavailable.',
+                error_code='context_unavailable', context=context, current_context_revision=context['context_revision']))
+            return None
+        model = validate_body_response(context['body_response'])
+        if 'body_response' in payload and validate_body_response(payload['body_response']) != model:
+            self._json(409, dict(ok=False, error='Body response differs from the selected context; refresh before previewing.',
+                error_code='body_response_changed', context=context, current_context_revision=context['context_revision']))
+            return None
+        self._response_context.update(context_id=context['context_id'], context_revision=context['context_revision'],
+            body_response=model, body_response_source=context['body_response_source'])
+        return context
+
+    def _living_preview_response(self, context, kind, document, profile, repair_model, parameters, result):
+        # Capture effective inputs, never caller-supplied identity/model metadata.
+        inputs = dict(kind=kind, document=document, profile=profile, parameters=parameters,
+            repair_model_sha256=authoring_docs.digest(repair_model))
+        identity = dict(format='mechagotchi_workshop_preview_v1', body_response=context['body_response'],
+            context_id=context['context_id'], context_revision=context['context_revision'],
+            inputs_sha256=authoring_docs.digest(inputs))
+        # A native life may change while simulation or lazy model training runs.
+        # Hold the shared publication lock only for the final read and response;
+        # the engine evaluation itself never blocks a new-life writer.
+        with self.server.mutation_lock():
+            current = self._preview_context(dict(context_id=context['context_id'],
+                expected_context_revision=context['context_revision'], body_response=context['body_response']))
+            if current is None:
+                return
+            self._json(200, dict(ok=True, preview_identity=identity,
+                preview_id=authoring_docs.digest(identity), **result))
+
     def _preview(self, kind: str, payload: dict) -> None:
         doc = None
         if 'document' in payload or payload.get('matrix') is not None:
@@ -1512,6 +1554,14 @@ class _Handler(SimpleHTTPRequestHandler):
             grid = self.server.resolve_creature(str(payload.get('source', '')), str(payload.get('name', '')))
             if grid is None:
                 self._json(404, {'ok': False, 'error': 'no such creature'})
+                return
+
+        context = None
+        if kind in ('live', 'replay') or 'context_id' in payload or 'expected_context_revision' in payload:
+            # Document binding above deliberately precedes response-context pins.
+            context = self._preview_context(payload,
+                require_pins=self.server.keeper_dir is not None and kind in ('live', 'replay'))
+            if context is None:
                 return
 
         if kind == "render":
@@ -1587,47 +1637,26 @@ class _Handler(SimpleHTTPRequestHandler):
             )
             return
 
-        if kind == "live":
+        if kind in ('live', 'replay'):
             cycles = max(1, min(5, int(payload.get("cycles", 3))))
             ticks = max(8, min(96, int(payload.get("ticks", 48))))
-            _, live_repair_model = self.server.models_for(grid)
-            report = live_cycle(
-                grid,
-                profile,
-                live_repair_model,
-                damage_cycles=cycles,
-                ticks=ticks,
-                rng_seed=int(payload.get("rng_seed", 20260512)),
-            )
-            self._json(
-                200,
-                {
-                    "ok": True,
-                    "report": report,
-                    "before": {"packet": render_packet_from_grid(grid)},
-                    "after": {
-                        "packet": render_packet_from_grid(
-                            report["final_grid"]
-                        )
-                    },
-                },
-            )
-            return
-
-        if kind == "replay":
-            # R5 (DR 0023): the player's window — a recorded life.
-            cycles = max(1, min(5, int(payload.get("cycles", 3))))
-            ticks = max(8, min(96, int(payload.get("ticks", 48))))
-            _, replay_repair_model = self.server.models_for(grid)
-            replay = build_replay(
-                grid,
-                profile,
-                replay_repair_model,
-                damage_cycles=cycles,
-                ticks=ticks,
-                rng_seed=int(payload.get("rng_seed", 20260512)),
-            )
-            self._json(200, {"ok": True, "replay": replay})
+            seed = int(payload.get("rng_seed", 20260512))
+            _, repair_model = self.server.models_for(grid)
+            parameters = dict(damage_cycles=cycles, ticks=ticks, dropout_rate=0.2, rng_seed=seed)
+            if kind == 'live':
+                report = live_cycle(grid, profile, repair_model,
+                    **parameters, body_response=context['body_response'])
+                result = dict(report=report,
+                    before=dict(packet=render_packet_from_grid(grid)),
+                    after=dict(packet=render_packet_from_grid(report['final_grid'])))
+            else:
+                # A newly recomputed preview uses current physiology. Stored era
+                # footage remains on its separate read-only route, byte for byte.
+                result = dict(replay=build_replay(grid, profile, repair_model,
+                    **parameters, body_response=context['body_response']))
+            self._living_preview_response(context, kind,
+                doc or dict(format=authoring_docs.FORMAT, grid=grid), profile,
+                repair_model, parameters, result)
             return
 
         if kind == "offspring":

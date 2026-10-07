@@ -81,6 +81,10 @@ def require_campaign_compatibility(state, *, keeper_session=None, state_path=Non
 def require_keeper_writable(directory, *, allow_pending=False):
     """Guard ancillary native/Workshop writes without loading simulation models."""
     root = Path(directory)
+    companion = root / 'companion.json'
+    if companion.exists():
+        from .session import CompanionSession
+        CompanionSession.load(companion)
     state_path = root / 'campaign_state.json'
     if state_path.exists():
         from .campaign import KeeperCampaign

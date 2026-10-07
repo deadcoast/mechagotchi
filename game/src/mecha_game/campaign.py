@@ -891,49 +891,60 @@ class KeeperCampaign:
         keeper_dir: str | Path,
         ledger_path: str | Path,
     ) -> Path:
-        """Persist a review: the artifact stays a FILE, the ledger
-        stores the pointer + sha256 (skipping a duplicate pointer)."""
-        import hashlib
+        """Persist complete footage once; equal retries retain historical bytes.
 
-        from mecha_engine.storage import (
-            load_replay_rows,
-            open_ledger,
-            record_replay,
-        )
+        A recomputed preview cannot replace an era's existing recording. Legacy
+        Windows CRLF artifacts retain their bytes and normalized-text ledger hash.
+        """
+        import hashlib
+        import os
+        import tempfile
+
+        from mecha_engine.storage import load_replay_rows, open_ledger, record_replay
 
         keeper_dir = Path(keeper_dir)
-        # The era index is derivable from the replay's own seed.
         era_index = (
             replay["parameters"]["rng_seed"] - self.campaign["base_seed"]
         ) // ERA_SEED_STRIDE
-        path = (
-            keeper_dir
-            / "replays"
-            / f"{self.campaign['campaign_id']}_era{era_index}.json"
-        )
-        path.parent.mkdir(parents=True, exist_ok=True)
+        directory = (keeper_dir / "replays").resolve()
+        path = directory / f"{self.campaign['campaign_id']}_era{era_index}.json"
+        if not path.resolve().is_relative_to(directory):
+            raise ValueError("Replay recording name leaves its recordings directory.")
         payload = json.dumps(replay, indent=2) + "\n"
-        path.write_text(payload, encoding="utf-8")
         digest = hashlib.sha256(payload.encode("utf-8")).hexdigest()
-        relative = path.name
         conn = open_ledger(Path(ledger_path))
         try:
-            rows = load_replay_rows(
-                conn, self.campaign["campaign_id"]
-            )
-            already = any(
-                row["era_index"] == era_index
-                and row["artifact_path"] == relative
-                for row in rows
-            )
-            if not already:
-                record_replay(
-                    conn,
-                    self.campaign["campaign_id"],
-                    era_index,
-                    relative,
-                    digest,
-                )
+            # Serialize competing writers while checking both halves of the
+            # artifact/pointer pair. A failed pointer write leaves complete bytes
+            # that the identical retry can safely finish.
+            conn.execute("BEGIN IMMEDIATE")
+            rows = [row for row in load_replay_rows(conn, self.campaign["campaign_id"])
+                    if row["era_index"] == era_index]
+            if rows and (len(rows) != 1 or rows[0]["artifact_path"] != path.name
+                         or rows[0]["artifact_sha256"] != digest):
+                raise ValueError("Conflicting replay recording pointer preserved.")
+            if path.exists() and path.read_text(encoding="utf-8") != payload:
+                raise ValueError("Conflicting replay recording file preserved.")
+            if not path.exists():
+                directory.mkdir(parents=True, exist_ok=True)
+                temporary = None
+                try:
+                    with tempfile.NamedTemporaryFile(dir=directory, prefix=".replay-",
+                                                     suffix=".tmp", delete=False) as stream:
+                        temporary = Path(stream.name)
+                        stream.write(payload.encode("utf-8"))
+                        stream.flush()
+                        os.fsync(stream.fileno())
+                    try:
+                        os.link(temporary, path)
+                    except FileExistsError:
+                        if path.read_text(encoding="utf-8") != payload:
+                            raise ValueError("Conflicting replay recording file preserved.")
+                finally:
+                    if temporary is not None:
+                        temporary.unlink(missing_ok=True)
+            if not rows:
+                record_replay(conn, self.campaign["campaign_id"], era_index, path.name, digest)
         finally:
             conn.close()
         return path

@@ -178,14 +178,15 @@
 const A=WorkshopAuthoring,$=id=>document.getElementById(id),selectedContext=new A.Context().mount(),gate=new A.RequestGate();
 const PREVIEW_ROUTES={portrait:"/api/preview/render",live:"/api/preview/live",replay:"/api/preview/replay",kids:"/api/preview/offspring"};
 let entries=[],selectedDocument=null,pickRevision=0,portraitAnimation="idle",replayState=null;
+const runSequence={live:0,replay:0,kids:0};
 function drawPacket(canvas, packet) {
   MechaDraw.drawPacket(canvas, packet, { showDamage: true });
 }
 function deviceWithPacket(packet,tag,size){const node=A.element("div",undefined,"device"),canvas=A.element("canvas");canvas.width=canvas.height=size;drawPacket(canvas,packet);node.append(canvas,A.element("div",tag,"tag"));return node;}
 function stopReplayTimer(){if(replayState?.timer){clearInterval(replayState.timer);replayState.timer=null;replayState.play.textContent="Play";}}
-function clearResults(){stopReplayTimer();for(const id of ["live-body","replay-body","kids-body"])$(id).replaceChildren(A.element("p","Run this selected document to see new results. Preview does not advance the saved Keeper.","notice"));}
+function clearResults(){stopReplayTimer();replayState=null;for(const id of ["live-body","replay-body","kids-body"])$(id).replaceChildren(A.element("p","Run this selected document to see new results. Preview does not advance the saved Keeper.","notice"));}
 function ready(enabled){for(const id of ["live-btn","replay-btn","kids-btn"])$(id).disabled=!enabled;}
-function changed(){pickRevision++;for(const key of ["pick","portrait","live","replay","kids"])gate.cancel(key);clearResults();ready(false);}
+function changed(){pickRevision++;selectedDocument=null;for(const key of ["pick","portrait","live","replay","kids"])gate.cancel(key);clearResults();$("portrait").getContext("2d").clearRect(0,0,$("portrait").width,$("portrait").height);$("portrait-tag").textContent="Select a creature in the current context.";$("state-buttons").replaceChildren();ready(false);}
 async function selectedProfile(document){const id=$("profile-select").value;if(id==="__active__")return A.clone(selectedContext.data.covenant);if(id==="__embedded__")return A.clone(document.profile);if(!id)return null;const result=await A.request("/api/slips/"+encodeURIComponent(id));return result.document?.profile||result.profile;}
 async function chooseCreature(){
   changed();const current=gate.begin("pick",pickRevision);A.notice($("pick-note"),"Loading exact selected document…");
@@ -195,40 +196,59 @@ async function chooseCreature(){
     else result=await selectedContext.resolve(entries[Number(value)].ref);
     const document=A.clone(result.document),profile=await selectedProfile(document);if(profile)document.profile=profile;
     if(!gate.accept(current,pickRevision,current.revision))return;selectedDocument=document;ready(!!document.profile);await refreshPortrait();
-    A.notice($("pick-note"),"Exact selected document · "+(document.profile?.profile_id||"bind a profile for living previews")+" · revision "+pickRevision);
+    if(!gate.accept(current,pickRevision,current.revision))return;
+    A.notice($("pick-note"),"Exact selected document · "+(document.profile?.profile_id||"bind a profile for living previews")+" · body model "+selectedContext.data.body_response+" · revision "+pickRevision);
   }catch(error){if(gate.accept(current,pickRevision,current.revision)){selectedDocument=null;A.notice($("pick-note"),error.message+". Refresh context or select again to retry.","err");}}
 }
 async function preview(kind,params={}){
   if(!selectedDocument)throw new Error("Select a complete creature first.");const current=gate.begin(kind,pickRevision);
-  const result=await A.request(PREVIEW_ROUTES[kind],{document:A.clone(selectedDocument),draft_revision:current.revision,...params},{signal:current.controller.signal,timeoutMs:120000});
-  return gate.accept(current,pickRevision,result.draft_revision)?result:null;
+  try{const result=await selectedContext.preview(PREVIEW_ROUTES[kind],{document:A.clone(selectedDocument),draft_revision:current.revision,...params},{signal:current.controller.signal,timeoutMs:120000,living:kind==="live"||kind==="replay"});
+    return result&&gate.accept(current,pickRevision,result.draft_revision)?result:null;
+  }catch(error){if(!gate.accept(current,pickRevision,current.revision))return null;throw error;}
 }
 async function refreshPortrait(){
+  const revision=pickRevision;
   try{const result=await preview("portrait",{animation:portraitAnimation});if(!result)return;if(!result.ok){renderEngineErrors($("state-buttons"),result);return;}drawPacket($("portrait"),result.packet);$("portrait-tag").textContent=result.packet.grid_id+" · "+result.packet.animation;$("state-buttons").replaceChildren();for(const state of result.packet.animation_vocabulary||["idle"]){const button=A.element("button",state,"action");button.addEventListener("click",()=>{portraitAnimation=state;refreshPortrait();});$("state-buttons").append(button);}}
-  catch(error){A.notice($("pick-note"),error.message+". The selected document is retained.","err");}
+  catch(error){if(revision===pickRevision)A.notice($("pick-note"),error.message+". The selected document is retained.","err");}
 }
 function renderEngineErrors(body,result){body.replaceChildren(A.element("p",result.reason||result.error||"The engine declined this selected document.","notice"));const list=A.element("ul");for(const error of result.errors||[])list.append(A.element("li",error));body.append(list);}
 async function run(kind,buttonId,bodyId,params,render){
-  const revision=pickRevision;$(buttonId).disabled=true;$(bodyId).replaceChildren(A.element("p","The engine is evaluating this selected document. The first living preview can take a minute; changing selection cancels this request.","notice"));
+  const revision=pickRevision,sequence=++runSequence[kind];if(kind==="replay"){stopReplayTimer();replayState=null;}$(buttonId).disabled=true;$(bodyId).replaceChildren(A.element("p","The engine is evaluating this selected document. The first living preview can take a minute; changing selection cancels this request.","notice"));
   try{const result=await preview(kind,params);if(!result)return;if(!result.ok){renderEngineErrors($(bodyId),result);return;}$(bodyId).replaceChildren();render($(bodyId),result);}
-  catch(error){if(revision===pickRevision)$(bodyId).replaceChildren(A.element("p",error.message+". The selected document remains available; use the action again to retry.","notice err"));}
-  finally{if(revision===pickRevision)$(buttonId).disabled=!selectedDocument?.profile;}
+  catch(error){if(revision===pickRevision&&sequence===runSequence[kind])$(bodyId).replaceChildren(A.element("p",error.message+". The selected document remains available; use the action again to retry.","notice err"));}
+  finally{if(revision===pickRevision&&sequence===runSequence[kind])$(buttonId).disabled=!selectedDocument?.profile;}
 }
 $("live-btn").addEventListener("click",()=>run("live","live-btn","live-body",{cycles:Number($("live-cycles").value),ticks:Number($("live-ticks").value)},(body,result)=>{
+  body.append(A.element("p",`New preview · body model ${result.body_response} · selected Keeper snapshot. Saved footage is unchanged.`,"notice"));
   const row=A.element("div",undefined,"stage3");row.append(deviceWithPacket(result.before.packet,"before",160),deviceWithPacket(result.after.packet,"after",160));body.append(row);
   for(const cycle of result.report.cycles){const card=A.element("div",undefined,"cycle-card");card.append(A.element("p",`Cycle ${cycle.cycle}: ${cycle.episode.alive?"survived":"died"} at ${cycle.episode.survival_ticks} ticks${cycle.episode.death_cause?" · "+cycle.episode.death_cause:""}`));card.append(A.element("p",`${cycle.removed_cell_count} cells damaged · ${Math.round(cycle.position_restoration*100)}% sites restored · ${cycle.valid?"valid":"invalid"} · ${cycle.aligned?"aligned":"unaligned"}`));body.append(card);}
 }));
 function drawReplayFrame(){const r=replayState,frame=r.frames[r.index],packet=MechaDraw.bodyPacketAt(r.frames,r.index);if(packet){drawPacket(r.canvas,packet);if(frame.phase==="wound")MechaDraw.woundOverlay(r.canvas,packet,frame.removed_cells);}r.label.textContent=`Frame ${frame.frame} · cycle ${frame.cycle} · ${frame.phase}`;r.slider.value=String(r.index);r.detail.textContent=JSON.stringify(frame,null,2);}
 $("replay-btn").addEventListener("click",()=>run("replay","replay-btn","replay-body",{cycles:Number($("replay-cycles").value),ticks:Number($("replay-ticks").value)},(body,result)=>{
   stopReplayTimer();const replay=result.replay,row=A.element("div",undefined,"stage3"),device=A.element("div",undefined,"device"),canvas=A.element("canvas"),label=A.element("div",undefined,"tag"),controls=A.element("div"),slider=A.element("input"),play=A.element("button","Play","action"),detail=A.element("pre",undefined,"context-facts");canvas.width=canvas.height=224;device.append(canvas,label);slider.type="range";slider.min="0";slider.max=String(replay.frames.length-1);slider.value="0";slider.setAttribute("aria-label","Recorded preview frame");slider.style.width="100%";
-  controls.append(slider,play,A.element("p",`${replay.replay_id} · ${replay.frame_count} recorded preview frames · seed ${replay.parameters.rng_seed}. This is a new preview run, not original Keeper footage.`,"notice"),detail);row.append(device,controls);body.append(row);replayState={frames:replay.frames,index:0,timer:null,canvas,label,slider,play,detail};
+  controls.append(slider,play,A.element("p",`${replay.frame_count} recorded preview frames · body model ${result.body_response} · seed ${replay.parameters.rng_seed}. This is a new preview run, not original Keeper footage. Identity: ${replay.replay_id}.`,"notice"),detail);row.append(device,controls);body.append(row);replayState={frames:replay.frames,index:0,timer:null,canvas,label,slider,play,detail};
   slider.addEventListener("input",()=>{stopReplayTimer();replayState.index=Number(slider.value);drawReplayFrame();});play.addEventListener("click",()=>{if(replayState.timer){stopReplayTimer();return;}play.textContent="Pause";replayState.timer=setInterval(()=>{if(replayState.index>=replayState.frames.length-1){stopReplayTimer();return;}replayState.index++;drawReplayFrame();},125);});drawReplayFrame();
 }));
 $("kids-btn").addEventListener("click",()=>run("kids","kids-btn","kids-body",{count:Number($("kids-count").value)},(body,result)=>{const gallery=A.element("div",undefined,"gallery");for(const child of result.children)gallery.append(deviceWithPacket(child.packet,child.grid_id+" · "+(child.valid&&child.aligned?"valid and aligned":"engine checks failed"),128));body.append(gallery,A.element("p","Generated possibilities are preview results, not recorded descendants of the saved Keeper.","notice"));}));
-async function boot(){ready(false);try{await selectedContext.refresh();entries=await selectedContext.inventory();$("creature-select").replaceChildren();entries.forEach((entry,index)=>$("creature-select").add(new Option(entry.label||entry.grid_id,String(index))));if(new URLSearchParams(location.search).has("draft")){$("creature-select").add(new Option("Current durable editor draft","__draft__"));$("creature-select").value="__draft__";}
-  const profiles=await A.request("/api/slips"),select=$("profile-select");select.replaceChildren();if(selectedContext.data.covenant)select.add(new Option("Selected Keeper active covenant","__active__"));select.add(new Option("Creature's embedded profile","__embedded__"));for(const profile of profiles.slips)select.add(new Option(profile.profile_id+" · "+profile.source,profile.profile_id));if(!selectedContext.data.covenant&&profiles.slips.length)select.value=profiles.slips[0].profile_id;if($("creature-select").options.length)await chooseCreature();else A.notice($("pick-note"),"No supported saved creatures are available in this context.");
-}catch(error){A.notice($("pick-note"),error.message+". Refresh selected context to retry.","err");}}
-$("creature-select").addEventListener("change",chooseCreature);$("profile-select").addEventListener("change",chooseCreature);selectedContext.onChange=()=>{if(entries.length)chooseCreature();};boot();
+let contextLoad=0;
+async function loadContext(){
+  const load=++contextLoad;changed();entries=[];$("creature-select").replaceChildren();$("profile-select").replaceChildren();
+  if(!selectedContext.data?.available){A.notice($("pick-note"),selectedContext.data?.reason||"Refresh selected context to continue.","err");return;}
+  const pins=selectedContext.previewPins();A.notice($("pick-note"),"Loading creatures for the selected context.");
+  try{
+    const inventory=await selectedContext.inventory(),profiles=await A.request("/api/slips");if(load!==contextLoad||!selectedContext.matches(pins))return;
+    entries=inventory;entries.forEach((entry,index)=>$("creature-select").add(new Option(entry.label||entry.grid_id,String(index))));
+    if(new URLSearchParams(location.search).has("draft")){$("creature-select").add(new Option("Current durable editor draft","__draft__"));$("creature-select").value="__draft__";}
+    const select=$("profile-select");if(selectedContext.data.covenant)select.add(new Option("Selected Keeper active covenant","__active__"));select.add(new Option("Creature's embedded profile","__embedded__"));
+    for(const profile of profiles.slips)select.add(new Option(profile.profile_id+" · "+profile.source,profile.profile_id));if(!selectedContext.data.covenant&&profiles.slips.length)select.value=profiles.slips[0].profile_id;
+    if($("creature-select").options.length)await chooseCreature();else A.notice($("pick-note"),"No supported saved creatures are available in this context.");
+  }catch(error){if(load===contextLoad)A.notice($("pick-note"),error.message+". Refresh selected context to retry.","err");}
+}
+async function boot(){try{await selectedContext.refresh();}catch(error){A.notice($("pick-note"),error.message+". Refresh selected context to retry.","err");}}
+$("creature-select").addEventListener("change",chooseCreature);$("profile-select").addEventListener("change",chooseCreature);
+selectedContext.onInvalidate=()=>{contextLoad++;changed();A.notice($("pick-note"),"Refreshing selected context. Prior previews have been cleared.");};selectedContext.onChange=loadContext;
+for(const [kind,id] of [["live","live-cycles"],["live","live-ticks"],["replay","replay-cycles"],["replay","replay-ticks"],["kids","kids-count"]])$(id).addEventListener("input",()=>{runSequence[kind]++;gate.cancel(kind);if(kind==="replay"){stopReplayTimer();replayState=null;}$(kind+"-body").replaceChildren(A.element("p","Preview settings changed. Run again for these settings.","notice"));$(kind+"-btn").disabled=!selectedDocument?.profile;});
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)boot();});boot();
 </script>
 </body>
 </html>

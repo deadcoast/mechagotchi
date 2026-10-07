@@ -25,7 +25,18 @@
     "passed": true
   },
   "independent_source_review": "PASS_SOURCE_READY_FOR_FREEZE",
-  "delivery": {
+  "final_gate": ".development/body-compatibility/closing.json",
+  "preserved_scientific_disposition": {
+    "overall_care": "REFUSE",
+    "pristine_joint_changes": 9,
+    "morphology_structure_changes": 4,
+    "extinction": "OPEN",
+    "new_outcome_trials": 0,
+    "default_body_response": "legacy",
+    "default_care_selection": "off"
+  },
+  "publication": "No commits, sync or push; exact-published-SHA Windows/Ubuntu CI unobserved",
+  "initial_delivery": {
     "build": "game/dist/body-compatibility-01/Mechagotchi/Mechagotchi.exe",
     "report": ".development/body-compatibility/delivery-baseline-01/report.json",
     "passed": true,
@@ -41,15 +52,26 @@
       "frozen_application_files": 102
     }
   },
-  "final_gate": ".development/body-compatibility/closing.json",
-  "preserved_scientific_disposition": {
-    "overall_care": "REFUSE",
-    "pristine_joint_changes": 9,
-    "morphology_structure_changes": 4,
-    "extinction": "OPEN",
-    "new_outcome_trials": 0,
-    "default_body_response": "legacy",
-    "default_care_selection": "off"
+  "delivery": {
+    "build": "game/dist/body-compatibility-02/Mechagotchi/Mechagotchi.exe",
+    "final_result": ".development/body-compatibility/closing.json"
   },
-  "publication": "No commits, sync or push; exact-published-SHA Windows/Ubuntu CI unobserved"
+  "authority_followup": {
+    "red_log": ".development/body-compatibility/companion-only-red.log",
+    "red_tests": 21,
+    "failing_subcases": 1,
+    "green_log": ".development/body-compatibility/fixture-authority-green.log",
+    "green_tests": 43,
+    "passed": true,
+    "new_tests": 3
+  },
+  "external_head_observed": "c15bdff771959a5a45ca470429e7327be979dd01",
+  "first_full": {
+    "run": "20261006T145657-e97d844a",
+    "passed": false,
+    "tests": 3652,
+    "suites": 24,
+    "source_changed": false,
+    "errors": "two success fixtures using invalid canonical saves; corrected under independent review"
+  }
 }

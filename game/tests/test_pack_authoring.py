@@ -96,9 +96,15 @@ class PackAuthoringTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory); first = root/'first'; second = root/'second'
             first.mkdir(); second.mkdir()
-            (first/'companion.json').write_bytes(b'first Keeper own history')
-            (second/'companion.json').write_bytes(b'second Keeper own history')
-            (second/'campaign_state.json').write_bytes(b'second campaign own state')
+            from mecha_game.session import CompanionSession,load_session_inputs
+            from mecha_game.campaign import KeeperCampaign,TINY_ERA_CONFIG
+            from mecha_game.campaign_recovery import initialize_campaign_checkpoint
+            grid,profile,model=load_session_inputs(ROOT/'data/seed_grids_16x16/mg_seed16_001_beetle.json',ROOT/'data/slips/valid/slip_v2_cleanliness.json')
+            for home,identity in ((first,'first_local_campaign'),(second,'second_local_campaign')):
+                pet=CompanionSession(grid,profile,model=model);pet.bind_campaign(identity);pet.save(home/'companion.json')
+                campaign=KeeperCampaign({'slip_profile':profile},campaign_id=identity,era_config=TINY_ERA_CONFIG)
+                initialize_campaign_checkpoint(campaign,home/'campaign_state.json',home/'campaign.sqlite3')
+            first_before=files(first)
             protected = files(root)
             result = packs.import_pack_document(second, pack, expected_pack_digest=packs.pack_digest(pack))
             self.assertTrue(result['all_accepted']); self.assertEqual(2, result['accepted_count'])
@@ -107,13 +113,51 @@ class PackAuthoringTests(unittest.TestCase):
             self.assertEqual(pack['slips'][0], json.loads((second/'covenants'/result['slips'][0]['staged']).read_bytes()))
             self.assertEqual(pack['creatures'][0], json.loads((second/'released'/result['creatures'][0]['staged']).read_bytes()))
             for name, raw in protected.items(): self.assertEqual(raw, (root/name).read_bytes())
-            self.assertEqual({'companion.json': b'first Keeper own history'}, files(first))
+            self.assertEqual(first_before, files(first))
             before = files(root)
             again = packs.import_pack_document(second, pack, expected_pack_digest=packs.pack_digest(pack))
             self.assertTrue(again['receipt']['already_retained'])
             self.assertTrue(again['slips'][0]['already_staged'])
             self.assertTrue(again['creatures'][0]['already_staged'])
             self.assertEqual(before, files(root))
+
+    def test_invalid_receiving_save_refuses_before_receipt_or_assets(self):
+        from mecha_game.session import CompanionSession,load_session_inputs
+        from mecha_game.campaign import KeeperCampaign,TINY_ERA_CONFIG
+        from mecha_game.campaign_recovery import initialize_campaign_checkpoint
+        grid,profile,model=load_session_inputs(ROOT/'data/seed_grids_16x16/mg_seed16_001_beetle.json',ROOT/'data/slips/valid/slip_v2_cleanliness.json')
+        pack=sample()
+        for malformed in ('companion_only','companion','campaign_state'):
+            with self.subTest(malformed=malformed),tempfile.TemporaryDirectory() as directory:
+                root=Path(directory)
+                if malformed!='companion_only':
+                    pet=CompanionSession(grid,profile,model=model);pet.bind_campaign('receiving_local')
+                    pet.save(root/'companion.json')
+                    campaign=KeeperCampaign({'slip_profile':profile},campaign_id='receiving_local',era_config=TINY_ERA_CONFIG)
+                    initialize_campaign_checkpoint(campaign,root/'campaign_state.json',root/'campaign.sqlite3')
+                target='companion' if malformed=='companion_only' else malformed
+                (root/(target+'.json')).write_bytes(b'malformed current save')
+                before=files(root)
+                for _ in range(2):
+                    with self.assertRaises(ValueError):
+                        packs.import_pack_document(root,pack,expected_pack_digest=packs.pack_digest(pack))
+                    self.assertEqual(before,files(root))
+
+    def test_valid_companion_without_campaign_can_import_and_retry_once(self):
+        from mecha_game.session import CompanionSession,load_session_inputs
+        grid,profile,model=load_session_inputs(ROOT/'data/seed_grids_16x16/mg_seed16_001_beetle.json',ROOT/'data/slips/valid/slip_v2_cleanliness.json')
+        pack=sample()
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);pet=CompanionSession(grid,profile,model=model)
+            pet.save(root/'companion.json');protected=files(root)
+            result=packs.import_pack_document(root,pack,expected_pack_digest=packs.pack_digest(pack))
+            self.assertTrue(result['all_accepted']);self.assertFalse(result['receipt']['already_retained'])
+            for name,raw in protected.items():self.assertEqual(raw,(root/name).read_bytes())
+            before=files(root)
+            again=packs.import_pack_document(root,pack,expected_pack_digest=packs.pack_digest(pack))
+            self.assertTrue(again['receipt']['already_retained'])
+            self.assertEqual(before,files(root))
+            self.assertFalse((root/'campaign_state.json').exists())
 
     def test_tampering_after_preview_refuses_every_write(self):
         pack = sample(); digest = packs.pack_digest(pack)

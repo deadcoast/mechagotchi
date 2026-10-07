@@ -26,16 +26,30 @@ class CampaignInitializationTests(unittest.TestCase):
     def test_new_campaign_materializes_verified_zero_era_pair_without_other_writes(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory);state=root/'campaign_state.json';ledger=root/'campaign.sqlite3'
-            unrelated=root/'companion.json';unrelated.write_bytes(b'owner companion bytes')
+            from mecha_game.session import CompanionSession,load_session_inputs
+            grid,profile,model=load_session_inputs(ROOT/'data/seed_grids_16x16/mg_seed16_001_beetle.json',ROOT/'data/slips/valid/slip_v2_cleanliness.json')
+            pet=CompanionSession(grid,profile,model=model);pet.bind_campaign('new_keeper')
+            unrelated=root/'companion.json';pet.save(unrelated);companion_bytes=unrelated.read_bytes()
+            note=root/'owner-note.txt';note.write_bytes(b'owner companion bytes')
             campaign=self.campaign()
             result=recovery.initialize_campaign_checkpoint(campaign,state,ledger)
             self.assertEqual('new_keeper',result['campaign_id'])
             self.assertEqual(campaign.state_payload(),json.loads(state.read_text()))
             self.assertEqual(0,recovery.inspect_campaign_backup(state,ledger)['era_count'])
             self.assertFalse((root/'campaign_restore.json').exists())
-            self.assertEqual(b'owner companion bytes',unrelated.read_bytes())
+            self.assertEqual(companion_bytes,unrelated.read_bytes())
+            self.assertEqual(b'owner companion bytes',note.read_bytes())
             self.assertFalse(list(root.glob('.campaign-init-*')))
             with closing(sqlite3.connect(ledger)) as conn:self.assertEqual(0,conn.execute('SELECT count(*) FROM eras').fetchone()[0])
+
+    def test_invalid_current_companion_refuses_genesis_before_any_write(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);(root/'companion.json').write_bytes(b'owner companion bytes')
+            before=files(root)
+            for _ in range(2):
+                with self.assertRaises(ValueError):
+                    recovery.initialize_campaign_checkpoint(self.campaign(),root/'campaign_state.json',root/'campaign.sqlite3')
+                self.assertEqual(before,files(root))
 
     def test_each_genesis_failure_leaves_primaries_untouched_or_verified_recovery(self):
         for fault in ('prepare_ledger','prepare_state','snapshot','manifest','ledger','state'):

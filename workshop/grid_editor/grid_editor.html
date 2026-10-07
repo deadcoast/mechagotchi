@@ -472,7 +472,7 @@ function drawAnim() {
 async function syncClip(){
   if(!fullDocument||authorHistory.hasRecovery)return;const request=gate.begin("clip",authorHistory.revision),clip=anim.clip;
   $("clip-sync-btn").setAttribute("aria-busy","true");$("clip-frame-tag").textContent="Requesting this draft's projected clip…";
-  try{const result=await A.request("/api/preview/clip",{document:A.clone(fullDocument),draft_revision:request.revision,clip},{signal:request.controller.signal});if(!gate.accept(request,authorHistory.revision,result.draft_revision))return;anim.frames=result.frames;anim.clips=result.clips||[];anim.stale=false;anim.frame=Math.min(anim.frame,anim.frames.length-1);$("clip-select").replaceChildren();for(const name of anim.clips)$("clip-select").add(new Option(name,name));$("clip-select").value=clip;$("clip-scrub").max=String(anim.frames.length-1);$("clip-scrub").value=String(anim.frame);drawAnim();}
+  try{const result=await selectedContext.preview("/api/preview/clip",{document:A.clone(fullDocument),draft_revision:request.revision,clip},{signal:request.controller.signal});if(!result||!gate.accept(request,authorHistory.revision,result.draft_revision))return;anim.frames=result.frames;anim.clips=result.clips||[];anim.stale=false;anim.frame=Math.min(anim.frame,anim.frames.length-1);$("clip-select").replaceChildren();for(const name of anim.clips)$("clip-select").add(new Option(name,name));$("clip-select").value=clip;$("clip-scrub").max=String(anim.frames.length-1);$("clip-scrub").value=String(anim.frame);drawAnim();}
   catch(error){if(gate.accept(request,authorHistory.revision,request.revision)){$("clip-frame-tag").textContent=error.message+". Draft retained; Sync retries.";anim.stale=true;}}
   finally{if(gate.accept(request,authorHistory.revision,request.revision))$("clip-sync-btn").removeAttribute("aria-busy");}
 }
@@ -551,6 +551,7 @@ async function boot(){
   }catch(error){A.notice($("save-notice"),"Connection unavailable: "+error.message+". Retry connection; browser recovery and draft files remain available.","err");updateActions();}
   finally{booting=false;}
 }
+selectedContext.onInvalidate=()=>{gate.cancel("clip");$("clip-sync-btn").removeAttribute("aria-busy");anim.frames=[];anim.stale=true;$("anim-canvas").getContext("2d").clearRect(0,0,$("anim-canvas").width,$("anim-canvas").height);$("clip-frame-tag").textContent="Selected context changed. Sync to preview this draft again.";};
 selectedContext.onChange=()=>{if(!booting&&(!authorHistory||serverDraft?.error))boot();};
 document.querySelector(".stage").inert=true;
 renderTools();renderLayers();refreshSizeUi();draw();boot();

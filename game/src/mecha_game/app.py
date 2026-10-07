@@ -2548,6 +2548,7 @@ def _run_selected(args, parser, receipt):
                 footer = [
                     f"REVIEW ERA {review_context.current['era_index']}  {review.replay['creature']['grid_id']}",
                     review.caption(),
+                    *review.provenance_lines(),
                     *review.thought_lines(),
                     "Care paused. SPACE play/pause  . step  , back",
                     "V/Escape back   T selected report   F1 controls",

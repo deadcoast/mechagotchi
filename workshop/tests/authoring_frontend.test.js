@@ -131,3 +131,51 @@ test("old browser-lab recovery is explicitly offered without overwriting its sou
   const storage=memory(),old=new A.History("legacy",{document:doc(),name:"old"},storage);old.record({...old.current,name:"interrupted"});const original=storage.getItem("legacy");
   const scoped=new A.History("context",{document:doc(),name:"blank"},storage);scoped.offerLegacy("legacy");assert.equal(scoped.hasRecovery,true);assert.equal(storage.getItem("context"),null);assert.equal(scoped.restore().name,"interrupted");assert.equal(storage.getItem("legacy"),original);
 });
+
+
+// Cycle 38: authoritative preview context and late-result regressions.
+const contextValue=(revision="one",model="legacy")=>({available:true,kind:"native_keeper",context_id:"keeper",context_revision:revision,body_response:model});
+const previewValue=(context)=>({ok:true,body_response:context.body_response,context_id:context.context_id,context_revision:context.context_revision,preview_identity:{format:"mechagotchi_workshop_preview_v1",body_response:context.body_response,context_id:context.context_id,context_revision:context.context_revision,inputs_sha256:"a".repeat(64)}});
+test("context refresh invalidates immediately and latest response wins",async()=>{
+  const pending=[],ctx=new A.Context(()=>new Promise(resolve=>pending.push(resolve))),changes=[],invalidations=[];
+  ctx.data=contextValue();ctx.onChange=data=>changes.push(data.context_revision);ctx.onInvalidate=()=>invalidations.push(true);
+  const first=ctx.refresh(),second=ctx.refresh();assert.equal(invalidations.length,2);assert.throws(()=>ctx.pins());
+  pending[1](contextValue("new","workload-v1"));await second;
+  pending[0](contextValue("old"));await first;
+  assert.equal(ctx.data.context_revision,"new");assert.deepEqual(changes,["new"]);
+});
+test("failed context refresh removes current authority until successful retry",async()=>{
+  let fail=true;const ctx=new A.Context(async()=>{if(fail)throw new Error("offline");return contextValue("retry");});ctx.data=contextValue();
+  await assert.rejects(ctx.refresh(),/offline/);assert.equal(ctx.data,null);assert.throws(()=>ctx.previewPins());
+  fail=false;await ctx.refresh();assert.equal(ctx.previewPins().expected_context_revision,"retry");
+});
+test("preview pins assert validated model and cannot be replaced by payload",async()=>{
+  const context=contextValue("one","workload-v1"),sent=[],ctx=new A.Context(async(url,payload)=>{sent.push({url,payload});return payload?previewValue(context):context;});ctx.data=context;
+  const result=await ctx.preview("/api/preview/live",{body_response:"legacy",context_id:"forged"},{living:true});
+  assert.equal(sent[0].payload.body_response,"workload-v1");assert.equal(sent[0].payload.context_id,"keeper");assert.equal(result.body_response,"workload-v1");
+  ctx.data=contextValue("bad",{});assert.throws(()=>ctx.previewPins(),/model/i);
+});
+test("living result from another model or missing identity is refused",async()=>{
+  const context=contextValue("one","workload-v1"),ctx=new A.Context(async()=>({...previewValue(context),body_response:"legacy"}));ctx.data=context;
+  await assert.rejects(ctx.preview("/api/preview/live",{},{living:true}),/identity|model/i);
+  ctx.transport=async()=>({ok:true,...context});await assert.rejects(ctx.preview("/api/preview/live",{},{living:true}),/identity|model/i);
+});
+test("real response delayed past external model change is discarded after fresh read",async()=>{
+  const old=contextValue(),next=contextValue("two","workload-v1"),ctx=new A.Context(async(url,payload)=>payload?previewValue(old):next),invalidations=[];ctx.data=old;ctx.onInvalidate=()=>invalidations.push(true);
+  assert.equal(await ctx.preview("/api/preview/replay",{},{living:true}),null);assert.equal(ctx.data.body_response,"workload-v1");assert.equal(invalidations.length,1);
+});
+test("context change during request suppresses late result and late error",async()=>{
+  for(const rejectLate of [false,true]){let finish;const ctx=new A.Context(()=>new Promise((resolve,reject)=>{finish=rejectLate?reject:resolve;}));ctx.data=contextValue();
+    const running=ctx.preview("/api/preview/live",{},{living:true});ctx.data=contextValue("two","workload-v1");finish(rejectLate?new Error("old failure"):previewValue(contextValue()));assert.equal(await running,null);
+  }
+});
+test("context change during final confirmation cannot restore older authority",async()=>{
+  let confirm;const old=contextValue(),ctx=new A.Context(async(url,payload)=>payload?previewValue(old):new Promise(resolve=>{confirm=resolve;}));ctx.data=old;
+  const running=ctx.preview("/api/preview/live",{},{living:true});await new Promise(resolve=>setImmediate(resolve));ctx.data=contextValue("three","workload-v1");confirm(contextValue("two"));assert.equal(await running,null);assert.equal(ctx.data.context_revision,"three");
+});
+
+test("engine preview refusal retains real validation feedback without simulation identity",async()=>{
+  const context=contextValue(),refusal={...context,ok:false,errors:["grid not aligned"],reason:"does not fit selected profile"};
+  const ctx=new A.Context(async(url,payload)=>payload?refusal:context);ctx.data=context;
+  assert.deepEqual(await ctx.preview("/api/preview/live",{},{living:true}),refusal);
+});

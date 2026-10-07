@@ -1,3 +1,20 @@
+## Cycle 38 Workshop preview model consistency (2026-10-06)
+
+The approved `preview-model-consistency` repair is locally qualified. Current
+Keeper model authority reaches real live/recomputed previews; model-sensitive IDs
+and stale-result invalidation preserve historical footage and standalone legacy.
+Full `20261006T161657-fb5c2348` passed 3682 tests / 24 suites with 2 documented
+skips. Read `research/experiment_reports/2026-10-06-preview-model-consistency.md`
+and `.development/preview-consistency/closing.json` / `resume.json` for actual
+browser, native delivery, preservation and independent closing gates. Additive
+player: `game/dist/preview-consistency-01/Mechagotchi/Mechagotchi.exe`.
+All six incoming edits, live saves, studies, recordings and prior builds survive.
+Care REFUSE; extinction OPEN. No equations, food, criteria, studies or defaults
+changed. No additional confirmed approved-TODO software defect was identified;
+unqualified scientific goals do not authorize new studies or a seed/era hunt.
+Owner retains commits/sync/push; exact-published-SHA Windows/Ubuntu CI is unobserved.
+Earlier dated entries remain history rather than a new work queue.
+
 ## Cycle 38 current Keeper compatibility repair (2026-10-06)
 
 The approved integration slice is `body-model-compatibility`, registered in

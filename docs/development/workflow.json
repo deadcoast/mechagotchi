@@ -332,6 +332,17 @@
         "lab:game_loop",
         "package"
       ]
+    },
+    "preview-model-consistency": {
+      "spec": "docs/development/cycle-38-preview-consistency.md",
+      "purpose": "Keep selected Keeper live and recomputed replay previews on authoritative model with stale-result exclusion and preserved historical footage",
+      "suites": [
+        "game",
+        "workshop",
+        "cli",
+        "lab:game_loop",
+        "package"
+      ]
     }
   }
 }

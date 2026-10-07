@@ -1631,3 +1631,12 @@ Current post-study design boundary: [remaining life mechanisms](reports/2026-10-
 ## Cycle38: shared body workload (2026-10-06)
 
 The next X7/X8 mechanism is preregistered in `docs/development/cycle-38-body-workload.md`: one optional shared play energy response to actual semantic body capacity. The mechanism is delivered: pristine care qualifies narrowly at 9/30, morphology 4/30 fails one welfare nonregression, and all three matched production pairs change actions/structures without extinction. Overall care and extinction remain open; earlier refusals remain. See `research/algorithm_cards/body_workload.md`, DR0091 `research/decision_records/0091-shared-body-workload.md`, and `research/experiment_reports/2026-10-06-body-workload.md`. Final evidence and exact continuation belong under `.development/body-workload/`; no default promotion or publication is implied.
+
+
+## Cycle 38 selected Keeper preview model consistency (2026-10-06)
+
+- Report: [preview model consistency](experiment_reports/2026-10-06-preview-model-consistency.md)
+- Card: [preview model consistency](algorithm_cards/preview_model_consistency.md)
+- Decision: [DR0093](decision_records/0093-preview-model-consistency.md)
+- Contract: `docs/development/cycle-38-preview-consistency.md`
+- Metric: `data/game_client/preview_model_consistency_stage0.json` (closing evidence pending)

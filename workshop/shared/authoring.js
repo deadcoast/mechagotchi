@@ -253,9 +253,30 @@
   }
   function element(tag,text,className){const node=document.createElement(tag);if(text!==undefined)node.textContent=String(text);if(className)node.className=className;return node;}
   class Context {
-    constructor(){this.data=null;this.panel=null;this.onChange=null;}
-    pins(){if(!this.data?.available)throw new Error(this.data?.reason||"Selected context is unavailable. Refresh the context before writing.");return {context_id:this.data.context_id,expected_context_revision:this.data.context_revision};}
-    async refresh(){this.data=await request("/api/context");this.render();this.onChange?.(this.data);return this.data;}
+    constructor(transport=request){this.transport=transport;this.data=null;this.panel=null;this.onChange=null;this.onInvalidate=null;this.refreshSequence=0;this.loading=false;this.error="";}
+    pins(){if(this.loading||!this.data?.available)throw new Error(this.data?.reason||"Selected context is unavailable. Refresh the context before continuing.");return {context_id:this.data.context_id,expected_context_revision:this.data.context_revision};}
+    previewPins(){const pins=this.pins(),model=this.data.body_response;if(!["legacy","workload-v1"].includes(model))throw new Error("The selected body model is unavailable. Refresh selected context.");return {...pins,body_response:model};}
+    matches(pins){return !this.loading&&this.data?.available&&this.data.context_id===pins.context_id&&this.data.context_revision===pins.expected_context_revision&&this.data.body_response===pins.body_response;}
+    async refresh(){
+      const sequence=++this.refreshSequence;this.loading=true;this.error="";this.data=null;this.onInvalidate?.();this.render();
+      try{const data=await this.transport("/api/context");if(sequence!==this.refreshSequence)return this.data;this.data=data;this.loading=false;this.render();this.onChange?.(data);return data;}
+      catch(error){if(sequence!==this.refreshSequence)return this.data;this.loading=false;this.data=null;this.error=error.message+". Refresh selected context to retry.";this.render();throw error;}
+    }
+    async preview(url,payload,options={}){
+      const pins=this.previewPins();
+      try{
+        const result=await this.transport(url,{...payload,...pins},options);if(!this.matches(pins))return null;
+        if(result.context_id!==pins.context_id||result.context_revision!==pins.expected_context_revision)throw new Error("Preview context identity did not match the selected Keeper. Refresh selected context.");
+        if(options.living&&result.body_response!==pins.body_response)throw new Error("Preview model did not match the selected Keeper.");
+        if(options.living&&result.ok){const identity=result.preview_identity;if(result.body_response!==pins.body_response||identity?.format!=="mechagotchi_workshop_preview_v1"||identity.body_response!==pins.body_response||identity.context_id!==pins.context_id||identity.context_revision!==pins.expected_context_revision||typeof identity.inputs_sha256!=="string"||!/^[a-f0-9]{64}$/.test(identity.inputs_sha256))throw new Error("Preview model identity did not match the selected Keeper. Refresh selected context.");}
+        // Check again after response delivery: the Keeper can change while a
+        // completed response waits in the browser/network. This is a snapshot,
+        // never a claim that saved footage changes with the current body model.
+        const fresh=await this.transport("/api/context",undefined,{signal:options.signal});if(!this.matches(pins))return null;
+        if(!fresh.available||fresh.context_id!==pins.context_id||fresh.context_revision!==pins.expected_context_revision||fresh.body_response!==pins.body_response){this.refreshSequence++;this.data=fresh;this.onInvalidate?.();this.render();this.onChange?.(fresh);return null;}
+        return result;
+      }catch(error){if(!this.matches(pins))return null;throw error;}
+    }
     async inventory(){const result=await request("/api/context/creatures");return result.creatures||[];}
     async resolve(ref){return request("/api/context/document",{...this.pins(),ref});}
     mount(){
@@ -268,7 +289,8 @@
       const status=element("p",data?(data.available?`${data.keeper_id||data.context_id} · campaign ${data.campaign_id||"not available"}`:data.reason||"Selected context unavailable") : "Reading the selected context…","notice");status.id="context-status";status.setAttribute("role","status");this.panel.append(status);
       if(data?.available&&data.reason)this.panel.append(element("p",data.reason,"notice"));
       if(data?.keeper_dir)this.panel.append(element("p",data.keeper_dir,"notice context-path"));
-      const refresh=element("button","Refresh selected context","action");refresh.id="context-refresh";refresh.type="button";refresh.addEventListener("click",async()=>{refresh.disabled=true;try{await this.refresh();}catch(error){notice(status,error.message,"err");}finally{refresh.disabled=false;}});this.panel.append(refresh);
+      if(data?.body_response){const model=element("p",`Preview body model: ${data.body_response} · ${data.kind==="native_keeper"?"selected Keeper snapshot":"standalone Workshop default"}. Saved footage keeps its recorded model.`,"notice");model.id="context-body-model";this.panel.append(model);}
+      const refresh=element("button","Refresh selected context","action");refresh.id="context-refresh";refresh.type="button";refresh.disabled=this.loading;refresh.addEventListener("click",async()=>{refresh.disabled=true;try{await this.refresh();}catch(error){notice(this.panel.querySelector("#context-status"),this.error||error.message,"err");}finally{refresh.disabled=false;}});this.panel.append(refresh);
       if(data){const detail=element("details");detail.append(element("summary","Active covenant and earned budget"));detail.append(element("pre",JSON.stringify({covenant:data.covenant??null,budget:data.budget??null},null,2),"context-facts"));this.panel.append(detail);
         for(const link of document.querySelectorAll('a[href="/companion"],a[href="/session"]'))if(data.kind!=="browser_lab"){link.removeAttribute("href");link.setAttribute("aria-disabled","true");link.textContent+=" (browser lab only)";}
       }

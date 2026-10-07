@@ -30,6 +30,7 @@ def read_keeper(directory):
     context = dict(kind='native_keeper',context_id=context_id(root),context_revision=None,
         available=False,reason=None,keeper_dir=str(root),keeper_id=None,campaign_id=None,
         identity_origin=None,covenant=None,budget=None,
+        body_response=None,body_response_source='current_keeper',
         capabilities=dict(authoring=False,release=False,pack_import=False,lab_session=False))
     result = dict(context=context,creatures=[],lineage={'campaigns':[],'lives':[],
         'notice':'Genetic parent identifiers are recorded facts; missing source snapshots remain unavailable.'})
@@ -48,7 +49,8 @@ def read_keeper(directory):
             if preparation['pending'] is not None:
                 raise ValueError('An actual completed era is pending persistence. Finish or recover it in the native Keeper before authoring writes.')
         pet = CompanionSession._from_payload(json.loads(raw['companion.json']))
-        context.update(keeper_id=pet.keeper_id,identity_origin=pet.chronicle['identity_origin'])
+        context.update(keeper_id=pet.keeper_id,identity_origin=pet.chronicle['identity_origin'],
+            body_response=pet.body_response)
         state = json.loads(raw['campaign_state.json'])
         write_reason = None
         try:

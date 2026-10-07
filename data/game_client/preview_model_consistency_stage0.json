@@ -1,0 +1,46 @@
+{
+  "artifact_id": "preview_model_consistency_stage0",
+  "date": "2026-10-06",
+  "status": "software_regressions_passed",
+  "purpose": "Correct selected Keeper Workshop preview model dispatch and identity while preserving historical recordings",
+  "source_artifacts": [
+    "docs/development/cycle-38-preview-consistency.md",
+    "research/decision_records/0093-preview-model-consistency.md",
+    ".development/body-compatibility/next-preview-boundary.json"
+  ],
+  "metrics": {
+    "backend_http_tests": 11,
+    "replay_dedicated_tests": 16,
+    "replay_affected_tests": 55,
+    "frontend_node_tests": 26,
+    "preregistration_before_red": true
+  },
+  "closed_states": [
+    "Authoritative model dispatch and actual engine parity in fixed deterministic HTTP fixture",
+    "Versioned recomputed replay identity binds full inputs and model",
+    "Historical recording formatter unchanged; conflicting saves preserve footage",
+    "Latest context refresh wins and delayed browser result checks fresh authority"
+  ],
+  "blocked_states": [
+    "Local closure is governed by final_gate with full aggregate, browser, additive delivery and independent review; this focused metric does not assert those gates.",
+    "Exact published SHA Windows/Ubuntu CI unobserved",
+    "Overall care REFUSE; extinction OPEN"
+  ],
+  "final_gate": ".development/preview-consistency/closing.json",
+  "evidence_directory": ".development/preview-consistency",
+  "decision": "Adopt software repair only after registered closing gates; no scientific or default promotion",
+  "scientific_disposition": {
+    "care": "REFUSE",
+    "pristine_changes": "9/30 narrowly qualified",
+    "morphology_changes": "4/30 with pair28 welfare failure",
+    "extinction": "OPEN",
+    "body_default": "legacy",
+    "care_selection_default": "off",
+    "new_outcome_trials": 0,
+    "new_production_eras": 0,
+    "equation_changes": false,
+    "food_changes": false,
+    "criterion_changes": false
+  },
+  "next_research_step": "None authorized by this software repair. Assess only actionable existing approved TODO integrations from source; unqualified scientific goals remain separately bounded."
+}

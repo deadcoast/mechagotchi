@@ -42,6 +42,33 @@ boundary tests and 11 existing continuity tests). Workshop `workshop-green-verif
 passed 10 new HTTP tests; 16 existing context tests and one frontend contract also passed.
 Independent Windows two-process locking and source review are separately retained.
 
+## Aggregate feedback and final freeze
+The first complete sweep `20261006T145657-e97d844a` ran 3,652 tests across 24 suites,
+with two errors in game fixtures that placed opaque placeholder bytes in canonical
+companion/campaign saves. All other suites and 2,322 JSON artifacts passed, and source
+bytes stayed unchanged during the run. Its failed result remains retained.
+Independent review approved replacing those success fixtures with valid, independent
+Keepers while retaining every receipt, provenance, preservation and retry assertion.
+Separate malformed-save cases verify refusal and whole-tree byte preservation.
+
+The review also reproduced a companion-only malformed home accepting a direct pack
+import. `companion-only-red.log` ran 21 tests with that one failing subcase. The shared
+ancillary guard now validates any present companion even before a campaign exists;
+missing-companion standalone folders and valid pre-campaign imports remain supported.
+`fixture-authority-green.log` passed all 43 affected tests. Exact command:
+`PYTHONPATH=game/tests;game/src;packages/mecha_engine/src .venv/Scripts/python.exe -B -m unittest test_campaign_initialization test_pack_authoring test_body_compatibility -v`
+(PowerShell sets PYTHONPATH separately.) Final source review and aggregate repeat are
+recorded separately; the failed aggregate is never relabeled as successful.
+
+An external commit advanced HEAD from `d4b4337d0dacbdfa816d990297c03a5da2d0cdca` to
+`c15bdff771959a5a45ca470429e7327be979dd01` while the first sweep ran. It changed no
+frozen runtime bytes. This task performed no Git mutation and preserved that commit.
+The first additive artifact, both retained instrumentation failures, 45 baseline checks
+and 58 native/Workshop boundary checks remain intact. That artifact remains bound to
+its original recorded HEAD. The final four-line runtime follow-up requires a fresh
+`game/dist/body-compatibility-02/Mechagotchi/Mechagotchi.exe` and repeated delivery,
+whose actual status and identities are recorded in the closing evidence.
+
 ## Scientific disposition and preservation
 No engine equation, survival criterion, food access, repair, episode reset, automatic
 feeding, death threshold, sampling policy, seed or scientific outcome trial changed.
@@ -56,15 +83,41 @@ environment replacement or unattended work was performed. Exact-published-SHA Wi
 and Ubuntu CI remains unobserved.
 
 ## Closing evidence and next boundary
-The additive Windows artifact, exact runtime identities, detached native/Workshop
-checks, full sweep and final preservation audit will be summarized by `closing.json`
-and the additive metric `data/game_client/body_compatibility_stage0.json`.
+The final full run `20261006T152001-a6afeffb` passed 3,655 tests across
+24 suites, with 2 documented DR0034 zlib skips,
+2322 JSON artifacts valid, and zero source mutations during verification.
+Command: `.venv/Scripts/python.exe -B tools/ci/run_sweep.py --log-dir
+.development/runs/20261006T152001-a6afeffb` through the actual `development.verify(root, 'full', repo_python)` runner.
+Final independent source review is `PASS_FINAL_SOURCE`; its 18-file union manifest
+and separate 43-test repeat are in `independent-final-source-review.json`.
+
+The final player is `game/dist/body-compatibility-02/Mechagotchi/Mechagotchi.exe`.
+This exact artifact passed all 45 baseline checks and all 58 compatibility checks;
+the original workload era reproduced `MATCHED`. Native model switches, repeated
+preparation/era refusals, compatible exactly-once finishes and real Workshop HTTP
+inspection/write-refusal routes were exercised. All owned process trees closed.
+No OS keyboard, human usability or remote CI result is inferred from these checks.
+EXE SHA-256: `da4a4bb2cd9b7d605c986579abeb24f3b77eb9e2d313ef2ae824bcc52b8774cd`.
+Runtime content identity: `1de8bbacf47972749396e70dc5ad6162503dfd1d9baf4a53156b466a071acb14`.
+The build binds current HEAD `c15bdff771959a5a45ca470429e7327be979dd01` plus its exact uncommitted runtime hashes.
+It does not claim that HEAD alone contains the uncommitted repair or passed cloud CI.
+
+The original artifact and failed instrumentation attempts remain intact. The
+instrument correction selected paused review mode for repeated finish checks;
+ordinary care/preparation mode advances live ticks and cannot support a whole-tree
+no-change assertion. No acceptance criterion was relaxed. All final evidence,
+13,872-file preservation audit, source backups, runner status and next action are
+indexed by `.development/body-compatibility/closing.json` and `resume.json`.
 
 The remaining approved TODO was reviewed independently. X6 product exposure remains
 blocked by its measured runtime refusal; X7 broad care and X8 genuine extinction need
 qualified evidence, not extra trials or fabricated empty populations. A concrete next
-bounded source review is selected-Keeper Workshop live/replay previews: current calls
-to `live_cycle`/`build_replay` omit the selected body response. Reproduce whether a
-compatible workload Keeper is shown legacy physiology and establish the intended
-preview contract before a separate preregistered repair. No preview or scientific
-scope was added to this mutation-boundary slice.
+bounded integration repair is selected-Keeper Workshop live/replay previews.
+`next-preview-boundary.json` records actual HTTP dispatch from a valid compatible
+workload Keeper: both routes returned 200 and called their engine function once,
+omitting `body_response`; both engine defaults are `legacy`. The context also omits
+the model. Engine results were substituted to inspect dispatch without simulating
+any outcome; the whole Keeper remained byte-identical. This establishes a dispatch
+gap, not a measured physiology difference. Preregister model-consistent selected
+Keeper previews, honest model metadata and preserved standalone/inspection behavior
+before the next RED/repair. No preview or scientific scope was added to this slice.
