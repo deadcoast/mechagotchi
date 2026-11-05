@@ -32,12 +32,12 @@ into `sunsetted/` by the owner, 2026-08-08). This is what each one is for:
 
 | file | what it is | read it when |
 | --- | --- | --- |
-| [`ONBOARDING.md`](ONBOARDING.md) | **the entry point** — the frame, the owner rulings that are LAW, the state snapshot, honesty norms, first moves | starting a fresh session |
+| [`ONBOARDING.md`](docs/ONBOARDING.md) | **the entry point** — the frame, the owner rulings that are LAW, the state snapshot, honesty norms, first moves | starting a fresh session |
 | [`README.md`](README.md) | what the project **is**, and the anti-drift identity constraint | you need the identity or the pitch |
 | [`CLAUDE.md`](CLAUDE.md) | the agent operating brief — commands, architecture, conventions, the completion checklist | you are about to change code |
 | [`CHANGELOG.md`](sunsetted/complete/CHANGELOG/01/CHANGELOG.md) | cycle-by-cycle summary of what shipped, derived from the gate reports | you need the shape of the history fast |
 | [`_MOC_.md`](_MOC_.md) | **this file** — the map of contents | you don't know where something lives |
-| [`TOOLS.md`](TOOLS.md) | tooling notes | setting up the environment |
+| [`TOOLS.md`](docs/TOOLS.md) | tooling notes | setting up the environment |
 
 **Authority order when documents conflict:** the research plan →
 decision records → package specs/gates → the ledger → executed `data/`
@@ -288,7 +288,7 @@ personal archive — ignore unless explicitly linked.**
 > *NUMERIC MEANING/CATEGORY IN THE INDEX*
 
 * [0] = "Orientation and onboarding"
-  * [ONBOARDING](ONBOARDING.md) ← **the entry point**
+  * [ONBOARDING](docs/ONBOARDING.md) ← **the entry point**
   * [AGENT-BRIEF](CLAUDE.md)
   * [AGENT-ONBOARDING](docs/agent-standards.md) *(older, superseded)*
 * [1] = "Unformatted notes or rough ideas"
