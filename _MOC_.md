@@ -276,7 +276,7 @@ a `build_*_report()` returning the report dict, a
 ### Not evidence
 
 `keeper/` and `game/dist/` are live play state and builds — **gitignored,
-never evidence**. [`.depreciated/`](.depreciated/) is the **owner's
+never evidence**. [`.depreciated/`](sunsetted/.depreciated) is the **owner's
 personal archive — ignore unless explicitly linked.**
 
 ---
