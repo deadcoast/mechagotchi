@@ -1,4 +1,4 @@
-## Cycle 38 current Keeper compatibility repair (2026-10-06)
+# Cycle 38 current Keeper compatibility repair (2026-10-06)
 
 The approved integration slice is `body-model-compatibility`, registered in
 `docs/development/cycle-38-body-compatibility.md`. Current-model validation now precedes
@@ -139,7 +139,9 @@ its own reviewed contract. Commits, sync and push remain the owner's; published
 Windows/Ubuntu exact-SHA CI is unobserved. Earlier dated snapshots below remain
 historical and do not override this current scientific disposition.
 
-# CLAUDE.md
+---
+
+## CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 

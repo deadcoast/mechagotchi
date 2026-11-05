@@ -1,4 +1,4 @@
-## Cycle 38 Workshop preview model consistency (2026-10-06)
+# Cycle 38 Workshop preview model consistency (2026-10-06)
 
 The approved `preview-model-consistency` repair is locally qualified. Current
 Keeper model authority reaches real live/recomputed previews; model-sensitive IDs
@@ -156,7 +156,9 @@ its own reviewed contract. Commits, sync and push remain the owner's; published
 Windows/Ubuntu exact-SHA CI is unobserved. Earlier dated snapshots below remain
 historical and do not override this current scientific disposition.
 
-# Mechagotchi development entry point
+---
+
+## Mechagotchi development entry point
 
 This is the new DR 0062 operating entry point, not the owner's archived
 `.depreciated/AGENTS.md`. Read `ONBOARDING.md` and `CLAUDE.md` for the durable
