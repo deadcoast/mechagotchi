@@ -46,7 +46,6 @@ Native select and range inputs retain platform-owned popup and keyboard behavior
 no custom popup geometry is claimed. Shared authoring.css owns global scrollbar
 colors/states with forced-color fallback.
 
-
 X3 extends these canonical owners without changing the LCD palette or typography.
 Shared authoring.js owns the explicit native_keeper/browser_lab context ribbon,
 selected-context request pins, bounded complete server draft history, browser
@@ -74,7 +73,6 @@ Retry never assumes an interrupted write succeeded; conflicts retain existing
 files and expose explicit outcomes. Native selects/file inputs retain platform
 behavior. These source/browser journeys do not claim detached X4 packaging,
 native OS keyboard validation, signing, registry publication or human usability.
-
 
 X4 native entry and navigation keep the same pygame LCD casing: ground
 (16,18,16), green-white text (200,230,200), muted green borders and amber keyboard
@@ -109,7 +107,6 @@ Source-injected pygame events, rendered screenshots, native process launch and
 actual OS keyboard observation remain separate evidence categories. Helper tests
 alone do not establish the connected application journey or detached delivery.
 
-
 The integrated native app routes each selected button through the existing key
 handler. It reconciles contextual controls before every retrieved event: a raw
 shortcut changing modes disarms the old drawn buttons until the new controls are
@@ -120,7 +117,6 @@ parent navigation guard. Resize changes only integer raster size/placement and
 resets ghost pixels only when their raster dimensions change. Diagnostic receipts
 record the actual SDL driver, window size and resizable flag separately from any
 claim of operating-system input observation.
-
 
 X5 preserves the same report/archive layout and first-page outcome metrics.
 execution_readout.py owns compact immutable-input availability, ordered release

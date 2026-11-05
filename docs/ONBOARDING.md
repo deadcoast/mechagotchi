@@ -1,4 +1,4 @@
-## Cycle 38 current Keeper compatibility repair (2026-10-06)
+# Cycle 38 current Keeper compatibility repair (2026-10-06)
 
 The approved integration slice is `body-model-compatibility`, registered in
 `docs/development/cycle-38-body-compatibility.md`. Current-model validation now precedes
@@ -180,7 +180,7 @@ No Git publication, registered remote executor, OS keyboard or human usability
 result is implied. Earlier dated checkpoints below remain historical evidence.
 Earlier dated science and owner rulings are retained; latest direct session
 instructions govern authorized Git actions. -->
-# ONBOARDING.md — start here, next session
+## ONBOARDING.md — start here, next session
 
 ## Cycle 38 X6 measured refusal (2026-10-06 UTC)
 
@@ -221,7 +221,6 @@ all 144 incoming dirty identities and both live saves are preserved. Existing TO
 is next; review/preregister in fresh context before RED. No repeated X4/X5 sweep,
 Git mutation, remote executor or exact-published-SHA CI result is implied.
 
-
 ## Local closure (2026-10-06 UTC)
 
 Full 20261006T015224-25e2b473 passed **2,919 tests / 24 suites**, 2 documented DR0034 zlib skips, 2306 JSON artifacts valid, with zero source mutations.
@@ -241,7 +240,6 @@ The complete folder contains 353 files / 61826456 bytes, including the 96496-byt
 artifact-manifest.json. The metric artifact_files/artifact_bytes values describe
 the 352 manifest-covered payload files and exclude that self-describing manifest.
 X5 reproducible inputs is the next approved milestone; Git actions remain the owner's.
-
 
 ## Current Cycle 38 X3 closure (2026-10-06 UTC)
 
@@ -299,7 +297,6 @@ Release candidate: `game/dist/w5-integrated-finish-release/Mechagotchi/Mechagotc
 with adjacent `_internal`. Read `.development/w5-live-handoff.json` and actual
 runner state for closure. Native keyboard/remote/published-SHA CI remain unobserved.
 Earlier dated evidence below is retained; this is the current application entry.
-
 
 Written **2026-07-21** by the outgoing session, completed
 **2026-07-26** at the owner's direction, and its §3/§4 state sections
@@ -1302,7 +1299,6 @@ Every cycle-23 slice ran this loop; copy it:
   (cycle 26's P1–P5)
 - `tools/ci/run_sweep.py`
 
-
 ## 2026-10-04: Local development cycle (DR 0062)
 
 A new root `AGENTS.md` is the operating entry point for the local cycle; it
@@ -1544,7 +1540,6 @@ boundary before a further contract: F8 constrained traces are distinct from
 WFC's missing trace seam. Native keyboard/maximum scale and published-SHA CI
 remain unverified. No remote executor; Git actions remain the user's.
 
-
 ## Cycle 35 W3 - constrained hatch preview (2026-10-05)
 
 W3 implements paused H preview, explicit Enter adoption and O saved-origin
@@ -1555,7 +1550,6 @@ and `.development/w3-live-handoff.json` for actual closure and exact restart.
 Active contract: `docs/development/cycle-35-hatch-preview.md`. No Git mutations;
 native keyboard, remote executor and published-SHA CI remain unclaimed.
 
-
 W3 locally closed: Full `20261005T130951-59a1cc56` passed **2,679 tests / 24 suites**, 2 documented DR0034 zlib skips; **2298 JSON artifacts valid**. No source mutations; local completion only.
 48 application checks / 10 source flows / 208 rendered frames / four native
 load/resume launches passed. Current candidate:
@@ -1563,7 +1557,6 @@ load/resume launches passed. Current candidate:
 Exact restart: `.development/w3-live-handoff.json`. WFC collapse/restart tracing
 is a separate unregistered seam; native keyboard, remote executor and
 published-SHA CI remain unclaimed. Do not repeat unchanged verification.
-
 
 ## Cycle 36 W4 - distinct WFC inspection (2026-10-05)
 
@@ -1583,7 +1576,6 @@ as dated evidence, not current authority. No generator decisions or defaults
 changed in W4. Read `research/experiment_reports/2026-10-05-wfc-trace.md`, DR0079,
 the W4 metric/baseline artifacts and `.development/w4-live-handoff.json` for
 measured closure and exact restart. No Git mutations or remote executor claim.
-
 
 W4 locally closed: Full `20261005T135504-94a410b6` passed **2,694 tests / 24 suites**, 2 documented DR0034 zlib skips and **2300 JSON artifacts valid**, with no source mutations.
 The 68 pre-edit RNG/output/error cases and exact lab/package traces pass;
